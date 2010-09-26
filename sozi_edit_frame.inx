@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <_name>Edit frame</_name>
+  <id>sozi.edit_frame</id>
+  <dependency type="executable" location="extensions">inkex.py</dependency>
+  <dependency type="executable" location="extensions">sozi_edit_frame.py</dependency>
+  <effect>
+    <object-type>rect</object-type>
+      <effects-menu>
+        <submenu _name="Sozi"/>
+      </effects-menu>
+  </effect>
+  <script>
+    <command reldir="extensions" interpreter="python">sozi_edit_frame.py</command>
+  </script>
+</inkscape-extension>
+
+
