@@ -25,7 +25,7 @@ class SoziEditFrame(inkex.Effect):
 
    def __init__(self):
       inkex.Effect.__init__(self)
-      inkex.NSS[u"sozi"] = u"http://sozi.org"
+      inkex.NSS[u"sozi"] = u"http://sozi.baierouge.fr"
 
       self.rect = None
       self.fields = {}

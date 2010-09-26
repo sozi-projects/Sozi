@@ -9,7 +9,7 @@ sozi.Player = function() {
    this.waiting = false;
 };
 
-sozi.Player.prototype.soziNs = "http://sozi.org";
+sozi.Player.prototype.soziNs = "http://sozi.baierouge.fr";
 
 sozi.Player.prototype.dragButton = 1; // Middle button
 

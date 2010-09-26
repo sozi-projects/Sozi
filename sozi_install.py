@@ -17,7 +17,7 @@ import inkex
 class SoziInstall(inkex.Effect):
 	def __init__(self):
 		inkex.Effect.__init__(self)
-		inkex.NSS[u"sozi"] = u"http://sozi.org"
+		inkex.NSS[u"sozi"] = u"http://sozi.baierouge.fr"
 
 	def effect(self):
 		# Find and delete old script node
