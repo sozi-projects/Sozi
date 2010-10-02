@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:ns1="http://sozi.baierouge.fr"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.0 r9654"
+   sodipodi:docname="this-is-not-a-slideshow.svg">
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="364.40859"
+     inkscape:cy="653.26442"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1274"
+     inkscape:window-height="951"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       id="grid3763"
+       type="xygrid" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Calque 1">
+    <text
+       sodipodi:linespacing="125%"
+       id="text2985"
+       y="323.79074"
+       x="104.28571"
+       style="font-size:45px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona;font-stretch:normal;font-variant:normal"
+       xml:space="preserve"><tspan
+         y="323.79074"
+         x="104.28571"
+         id="tspan2987"
+         sodipodi:role="line">This is n<tspan
+   style="fill:#ff6600"
+   id="tspan3011">o</tspan>t a slidesh<tspan
+   style="fill:#ff6600"
+   id="tspan3009">o<tspan
+   style="fill:#008080"
+   id="tspan3019">w</tspan></tspan></tspan></text>
+    <rect
+       ry="0"
+       rx="0"
+       y="272.36218"
+       x="95"
+       height="65"
+       width="100"
+       id="rect2993"
+       style="fill:none;stroke:#008080;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 2, 1, 2;stroke-dashoffset:0"
+       class="sozi-frame"
+       ns1:title="This"
+       ns1:sequence="1"
+       ns1:hide="true"
+       ns1:timeout-enable="true"
+       ns1:timeout-ms="1500"
+       ns1:transition-duration-ms="1000"
+       ns1:transition-profile="accelerate-decelerate" />
+    <rect
+       ns1:transition-profile="linear"
+       ns1:transition-duration-ms="0"
+       ns1:timeout-ms="1500"
+       ns1:timeout-enable="true"
+       ns1:hide="true"
+       ns1:sequence="2"
+       ns1:title="is"
+       class="sozi-frame"
+       style="fill:none;stroke:#008080;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 2, 1, 2;stroke-dashoffset:0"
+       id="rect3765"
+       width="40"
+       height="65"
+       x="195"
+       y="272.36218"
+       rx="0"
+       ry="0" />
+    <rect
+       ns1:transition-profile="linear"
+       ns1:transition-duration-ms="0"
+       ns1:timeout-ms="1500"
+       ns1:timeout-enable="true"
+       ns1:hide="true"
+       ns1:sequence="3"
+       ns1:title="not"
+       class="sozi-frame"
+       ry="0"
+       rx="0"
+       y="272.36218"
+       x="235"
+       height="65"
+       width="85"
+       id="rect3767"
+       style="fill:none;stroke:#008080;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 2, 1, 2;stroke-dashoffset:0" />
+    <rect
+       style="fill:none;stroke:#008080;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 2, 1, 2;stroke-dashoffset:0"
+       id="rect3769"
+       width="35"
+       height="65"
+       x="315"
+       y="272.36218"
+       rx="0"
+       ry="0"
+       class="sozi-frame"
+       ns1:title="a"
+       ns1:sequence="4"
+       ns1:hide="true"
+       ns1:timeout-enable="true"
+       ns1:timeout-ms="1500"
+       ns1:transition-duration-ms="0"
+       ns1:transition-profile="linear" />
+    <rect
+       ns1:transition-profile="linear"
+       ns1:transition-duration-ms="0"
+       ns1:timeout-ms="2000"
+       ns1:timeout-enable="true"
+       ns1:hide="true"
+       ns1:sequence="5"
+       ns1:title="slideshow"
+       class="sozi-frame"
+       ry="0"
+       rx="0"
+       y="272.36218"
+       x="350"
+       height="65"
+       width="205"
+       id="rect3771"
+       style="fill:none;stroke:#008080;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 2, 1, 2;stroke-dashoffset:0" />
+    <text
+       transform="matrix(0,1,-1,0,0,0)"
+       xml:space="preserve"
+       style="font-size:45px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona"
+       x="337.36218"
+       y="-525"
+       id="text2989"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2991"
+         x="337.36218"
+         y="-525">This is</tspan></text>
+    <rect
+       ns1:transition-profile="accelerate-decelerate"
+       ns1:transition-duration-ms="1000"
+       ns1:timeout-ms="1500"
+       ns1:timeout-enable="true"
+       ns1:hide="true"
+       ns1:sequence="7"
+       ns1:title="This"
+       class="sozi-frame"
+       transform="matrix(0,1,-1,0,0,0)"
+       style="fill:none;stroke:#008080;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 2, 1, 2;stroke-dashoffset:0"
+       id="rect3773"
+       width="120"
+       height="70"
+       x="312.36218"
+       y="-575"
+       rx="0"
+       ry="0" />
+    <rect
+       transform="matrix(0,1,-1,0,0,0)"
+       ry="0"
+       rx="0"
+       y="-575"
+       x="427.36218"
+       height="65"
+       width="45"
+       id="rect3775"
+       style="fill:none;stroke:#008080;stroke-width:1.06066012;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.24264069, 2.12132034, 1.06066017, 2.12132034;stroke-dashoffset:0"
+       class="sozi-frame"
+       ns1:title="is"
+       ns1:sequence="8"
+       ns1:hide="true"
+       ns1:timeout-enable="true"
+       ns1:timeout-ms="1500"
+       ns1:transition-duration-ms="1000"
+       ns1:transition-profile="accelerate-decelerate" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3777"
+       y="477.36218"
+       x="130"
+       style="font-size:184.37896729px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona"
+       xml:space="preserve"><tspan
+         y="477.36218"
+         x="130"
+         id="tspan3779"
+         sodipodi:role="line">S<tspan
+   style="fill:#ff6600"
+   id="tspan3013">o</tspan>zi</tspan></text>
+    <rect
+       ns1:transition-profile="accelerate-decelerate"
+       ns1:transition-duration-ms="1000"
+       ns1:timeout-ms="5000"
+       ns1:timeout-enable="true"
+       ns1:hide="true"
+       ns1:sequence="9"
+       ns1:title="Sozi"
+       class="sozi-frame"
+       style="fill:none;stroke:#008080;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 2, 1, 2;stroke-dashoffset:0"
+       id="rect3787"
+       width="480.00006"
+       height="214.99998"
+       x="95"
+       y="272.36218"
+       rx="0"
+       ry="0" />
+    <rect
+       style="fill:none;stroke:#008080;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4, 2, 1, 2;stroke-dashoffset:0"
+       id="rect4308"
+       width="460"
+       height="65"
+       x="95"
+       y="272.36218"
+       rx="0"
+       ry="0"
+       class="sozi-frame"
+       ns1:title="This is not a slideshow"
+       ns1:sequence="6"
+       ns1:hide="true"
+       ns1:timeout-enable="true"
+       ns1:timeout-ms="1000"
+       ns1:transition-duration-ms="1000"
+       ns1:transition-profile="accelerate-decelerate" />
+  </g>
+  <script
+     ns1:version="1.0"
+     id="sozi-script">Function.prototype.bind=function(c){var a=Array.prototype.slice.call(arguments,1);var b=this;return function(){b.apply(c,a.concat(Array.prototype.slice.call(arguments)))}};var sozi=sozi||{};sozi.Display=function(a){this.controller=a;this.aspectWidth=4;this.aspectHeight=3;this.translateX=0;this.translateY=0;this.scale=1;this.rotate=0};sozi.Display.prototype.scaleFactor=1.05;sozi.Display.prototype.onLoad=function(){this.svgRoot=document.documentElement;this.svgNs=this.svgRoot.getAttribute(&quot;xmlns:svg&quot;);this.wrapper=document.createElementNS(this.svgNs,&quot;g&quot;);this.wrapper.setAttribute(&quot;id&quot;,&quot;sozi-wrapper&quot;);while(true){var b=this.svgRoot.firstChild;if(!b){break}this.svgRoot.removeChild(b);this.wrapper.appendChild(b)}this.svgRoot.appendChild(this.wrapper);this.clipRect=document.createElementNS(this.svgNs,&quot;rect&quot;);this.clipRect.setAttribute(&quot;id&quot;,&quot;sozi-clip-rect&quot;);var a=document.createElementNS(this.svgNs,&quot;clipPath&quot;);a.setAttribute(&quot;id&quot;,&quot;sozi-clip-path&quot;);a.appendChild(this.clipRect);this.svgRoot.appendChild(a);this.svgRoot.setAttribute(&quot;clip-path&quot;,&quot;url(#sozi-clip-path)&quot;);this.svgRoot.setAttribute(&quot;width&quot;,window.innerWidth);this.svgRoot.setAttribute(&quot;height&quot;,window.innerHeight);window.addEventListener(&quot;resize&quot;,this.resize.bind(this),false)};sozi.Display.prototype.resize=function(){this.svgRoot.setAttribute(&quot;width&quot;,window.innerWidth);this.svgRoot.setAttribute(&quot;height&quot;,window.innerHeight);this.update()};sozi.Display.prototype.getFrameGeometry=function(){var a={};a.width=window.innerWidth;a.height=window.innerHeight;if(a.width*this.aspectHeight&gt;a.height*this.aspectWidth){a.width=a.height*this.aspectWidth/this.aspectHeight}else{a.height=a.width*this.aspectHeight/this.aspectWidth}a.x=(window.innerWidth-a.width)/2;a.y=(window.innerHeight-a.height)/2;a.scale=a.width/this.aspectWidth;return a};sozi.Display.prototype.getRectangleGeometry=function(b){var a=b.getCTM().inverse();return{aspectWidth:b.width.baseVal.value,aspectHeight:b.height.baseVal.value,translateX:a.e-b.x.baseVal.value,translateY:a.f-b.y.baseVal.value,scale:Math.sqrt(a.a*a.a+a.b*a.b),rotate:Math.atan2(a.b,a.a)*180/Math.PI}};sozi.Display.prototype.getCurrentGeometry=function(){return{aspectWidth:this.aspectWidth,aspectHeight:this.aspectHeight,translateX:this.translateX,translateY:this.translateY,scale:this.scale,rotate:this.rotate}};sozi.Display.prototype.zoom=function(a){if(a&gt;0){this.scale*=this.scaleFactor}else{this.scale/=this.scaleFactor}if(this.tableOfContentsIsVisible()){this.hideTableOfContents()}this.update(true)};sozi.Display.prototype.drag=function(b,a){var c=this.getFrameGeometry();this.translateX+=b/c.scale;this.translateY+=a/c.scale;if(this.tableOfContentsIsVisible()){this.hideTableOfContents()}this.update(true)};sozi.Display.prototype.update=function(a){var b=this.getFrameGeometry();this.clipRect.setAttribute(&quot;x&quot;,a?0:b.x);this.clipRect.setAttribute(&quot;y&quot;,a?0:b.y);this.clipRect.setAttribute(&quot;width&quot;,a?window.innerWidth:b.width);this.clipRect.setAttribute(&quot;height&quot;,a?window.innerHeight:b.height);var e=this.translateX*b.scale+b.x;var c=this.translateY*b.scale+b.y;var d=b.scale*this.scale;this.wrapper.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+e+&quot;,&quot;+c+&quot;)scale(&quot;+d+&quot;)rotate(&quot;+this.rotate+&quot;)&quot;)};sozi.Display.prototype.showFrame=function(a){for(attr in a.geometry){this[attr]=a.geometry[attr]}this.update()};sozi.Display.prototype.installTableOfContents=function(){this.tocGroup=document.createElementNS(this.svgNs,&quot;g&quot;);this.tocGroup.setAttribute(&quot;visibility&quot;,&quot;hidden&quot;);this.svgRoot.appendChild(this.tocGroup);var c=Math.floor(window.innerHeight/Math.max((this.controller.frames.length+1),40));var b=document.createElementNS(this.svgNs,&quot;rect&quot;);this.tocGroup.appendChild(b);b.setAttribute(&quot;fill&quot;,&quot;#eee&quot;);b.setAttribute(&quot;stroke&quot;,&quot;#888&quot;);b.setAttribute(&quot;x&quot;,&quot;0&quot;);b.setAttribute(&quot;y&quot;,&quot;0&quot;);b.setAttribute(&quot;height&quot;,(this.controller.frames.length+1)*c);var d=0;for(var a=0;a&lt;this.controller.frames.length;a++){var g=this.controller.frames[a];var f=document.createElementNS(this.svgNs,&quot;text&quot;);f.appendChild(document.createTextNode(g.title));f.setAttribute(&quot;x&quot;,c/2);f.setAttribute(&quot;y&quot;,c*(a+1.3));f.setAttribute(&quot;fill&quot;,&quot;black&quot;);f.setAttribute(&quot;style&quot;,&quot;font-size: &quot;+(c*0.9)+&quot;px;font-family: Verdana, sans-serif&quot;);f.addEventListener(&quot;click&quot;,function(i,h){this.hideTableOfContents();this.controller.moveToFrame(i);h.stopPropagation()}.bind(this,a),false);f.addEventListener(&quot;mouseover&quot;,function(){this.setAttribute(&quot;fill&quot;,&quot;#08c&quot;)},false);f.addEventListener(&quot;mouseout&quot;,function(){this.setAttribute(&quot;fill&quot;,&quot;black&quot;)},false);this.tocGroup.appendChild(f);var e=f.getBBox().width;if(e&gt;d){d=e}}b.setAttribute(&quot;width&quot;,d+c)};sozi.Display.prototype.showTableOfContents=function(){this.clipRect.setAttribute(&quot;x&quot;,0);this.clipRect.setAttribute(&quot;y&quot;,0);this.clipRect.setAttribute(&quot;width&quot;,window.innerWidth);this.clipRect.setAttribute(&quot;height&quot;,window.innerHeight);this.tocGroup.setAttribute(&quot;visibility&quot;,&quot;visible&quot;)};sozi.Display.prototype.hideTableOfContents=function(){this.tocGroup.setAttribute(&quot;visibility&quot;,&quot;hidden&quot;);var a=this.getFrameGeometry();this.clipRect.setAttribute(&quot;x&quot;,a.x);this.clipRect.setAttribute(&quot;y&quot;,a.y);this.clipRect.setAttribute(&quot;width&quot;,a.width);this.clipRect.setAttribute(&quot;height&quot;,a.height)};sozi.Display.prototype.tableOfContentsIsVisible=function(){return this.tocGroup.getAttribute(&quot;visibility&quot;)==&quot;visible&quot;};var sozi=sozi||{};sozi.Animator=function(b,c,a,d){this.timeStepMs=b||40;this.target=c;this.onStep=a;this.onDone=d;this.durationMs=0;this.initialState={};this.finalState={};this.initialTime=0;this.started=false;this.timer=0};sozi.Animator.prototype.start=function(b,e,c,d){this.durationMs=c;this.initialState=b;this.finalState=e;this.profile=this.profiles[d]||this.profiles.linear;this.initialTime=Date.now();for(var a in this.initialState){this.target[a]=this.initialState[a]}this.onStep();if(!this.started){this.started=true;this.timer=window.setInterval(this.step.bind(this),this.timeStepMs)}};sozi.Animator.prototype.stop=function(){if(this.started){window.clearInterval(this.timer);this.started=false}};sozi.Animator.prototype.step=function(){var c=Date.now()-this.initialTime;if(c&gt;=this.durationMs){for(var b in this.finalState){this.target[b]=this.finalState[b]}this.stop();this.onStep();this.onDone()}else{var d=this.profile(c/this.durationMs);var e=1-d;for(var b in this.initialState){var a=this.initialState[b];var f=this.finalState[b]||0;this.target[b]=f*d+a*e}this.onStep()}};sozi.Animator.prototype.power=function(a,d){var c=1;for(var b=0;b&lt;d;b++){c*=a}return c};sozi.Animator.prototype.profiles={linear:function(a){return a},accelerate:function(a){return this.power(a,3)},&quot;strong-accelerate&quot;:function(a){return this.power(a,5)},decelerate:function(a){return 1-this.power(1-a,3)},&quot;strong-decelerate&quot;:function(a){return 1-this.power(1-a,5)},&quot;accelerate-decelerate&quot;:function(a){return(1-Math.cos(a*Math.PI))/2}};var sozi=sozi||{};sozi.Player=function(){this.display=new sozi.Display(this,false);this.animator=new sozi.Animator(40,this.display,this.display.update.bind(this.display),this.waitTimeout.bind(this));this.frames=[];this.playing=false;this.waiting=false};sozi.Player.prototype.soziNs=&quot;http://sozi.baierouge.fr&quot;;sozi.Player.prototype.dragButton=1;sozi.Player.prototype.defaults={title:&quot;Untitled&quot;,sequence:&quot;0&quot;,hide:&quot;true&quot;,&quot;timeout-enable&quot;:&quot;false&quot;,&quot;timeout-ms&quot;:&quot;5000&quot;,&quot;transition-duration-ms&quot;:&quot;1000&quot;,&quot;transition-profile&quot;:&quot;linear&quot;};sozi.Player.prototype.onLoad=function(){this.display.onLoad();this.readFrames();this.display.installTableOfContents();this.startFromIndex(0);this.display.svgRoot.addEventListener(&quot;click&quot;,this.onClick.bind(this),false);this.display.svgRoot.addEventListener(&quot;mousedown&quot;,this.onMouseDown.bind(this),false);this.display.svgRoot.addEventListener(&quot;mouseup&quot;,this.onMouseUp.bind(this),false);this.display.svgRoot.addEventListener(&quot;mousemove&quot;,this.onMouseMove.bind(this),false);this.display.svgRoot.addEventListener(&quot;keypress&quot;,this.onKeyPress.bind(this),false);var a=this.onWheel.bind(this);this.display.svgRoot.addEventListener(&quot;DOMMouseScroll&quot;,a,false);window.onmousewheel=a;this.dragging=false};sozi.Player.prototype.readAttribute=function(b,a){var c=b.getAttributeNS(this.soziNs,a);return c===&quot;&quot;?this.defaults[a]:c};sozi.Player.prototype.readFrames=function(){var b=document.getElementsByClassName(&quot;sozi-frame&quot;);for(var a=0;a&lt;b.length;a++){var c={rect:b[a],geometry:this.display.getRectangleGeometry(b[a]),title:this.readAttribute(b[a],&quot;title&quot;),sequence:this.readAttribute(b[a],&quot;sequence&quot;),hide:this.readAttribute(b[a],&quot;hide&quot;)==&quot;true&quot;,timeoutEnable:this.readAttribute(b[a],&quot;timeout-enable&quot;)==&quot;true&quot;,timeoutMs:this.readAttribute(b[a],&quot;timeout-ms&quot;),transitionDurationMs:this.readAttribute(b[a],&quot;transition-duration-ms&quot;),transitionProfile:this.readAttribute(b[a],&quot;transition-profile&quot;)};if(c.hide){b[a].setAttribute(&quot;visibility&quot;,&quot;hidden&quot;)}this.frames.push(c)}this.frames.sort(function(e,d){return e.sequence-d.sequence})};sozi.Player.prototype.onClick=function(a){if(!this.dragged){if(this.display.tableOfContentsIsVisible()){this.display.hideTableOfContents()}this.moveToNext()}};sozi.Player.prototype.onMouseDown=function(a){if(a.button===0){this.dragging=true;this.dragged=false;this.dragClientX=a.clientX;this.dragClientY=a.clientY;this.dragTranslateX=this.display.translateX;this.dragTranslateY=this.display.translateY}else{if(a.button===1){if(this.display.tableOfContentsIsVisible()){this.display.hideTableOfContents()}else{this.stop();this.display.showTableOfContents()}}}};sozi.Player.prototype.onMouseUp=function(a){if(a.button===0){this.dragging=false}};sozi.Player.prototype.onMouseMove=function(a){if(this.dragging){this.stop();this.dragged=true;this.display.drag(a.clientX-this.dragClientX,a.clientY-this.dragClientY);this.dragClientX=a.clientX;this.dragClientY=a.clientY;this.dragTranslateX=this.display.translateX;this.dragTranslateY=this.display.translateY}};sozi.Player.prototype.onWheel=function(a){var b=0;if(!a){a=window.event}if(a.wheelDelta){b=a.wheelDelta;if(window.opera){b=-b}}else{if(a.detail){b=-a.detail}}if(b!==0){this.stop();this.display.zoom(b)}};sozi.Player.prototype.onKeyPress=function(a){if(this.display.tableOfContentsIsVisible()){this.display.hideTableOfContents()}switch(a.keyCode){case 36:this.moveToFirst();break;case 35:this.moveToLast();break;case 33:case 37:case 38:this.moveToPrevious();break;case 34:case 39:case 40:case 13:this.moveToNext();break;case 0:switch(a.charCode){case 32:this.moveToNext();break}break}};sozi.Player.prototype.startFromIndex=function(a){this.playing=true;this.waiting=false;this.currentFrameIndex=a;this.display.showFrame(this.frames[this.currentFrameIndex]);this.waitTimeout()};sozi.Player.prototype.stop=function(){this.animator.stop();if(this.waiting){window.clearTimeout(this.nextFrameTimeout);this.waiting=false}this.playing=false};sozi.Player.prototype.waitTimeout=function(){if(this.frames[this.currentFrameIndex].timeoutEnable){this.waiting=true;var a=this.currentFrameIndex+1;if(a==this.frames.length){a=0}this.nextFrameTimeout=window.setTimeout(this.moveToFrame.bind(this,a),this.frames[this.currentFrameIndex].timeoutMs)}};sozi.Player.prototype.moveToFrame=function(a){if(this.waiting){window.clearTimeout(this.nextFrameTimeout);this.waiting=false}this.currentFrameIndex=a;this.animator.start(this.display.getCurrentGeometry(),this.frames[this.currentFrameIndex].geometry,this.frames[this.currentFrameIndex].transitionDurationMs,this.frames[this.currentFrameIndex].transitionProfile)};sozi.Player.prototype.moveToFirst=function(){this.moveToFrame(0)};sozi.Player.prototype.moveToPrevious=function(){var a=this.currentFrameIndex;for(a--;a&gt;=0;a--){var b=this.frames[a];if(!b.timeoutEnable||b.timeoutMs!==0){this.moveToFrame(a);break}}};sozi.Player.prototype.moveToNext=function(){if(this.currentFrameIndex&lt;this.frames.length-1){this.moveToFrame(this.currentFrameIndex+1)}};sozi.Player.prototype.moveToLast=function(){this.moveToFrame(this.frames.length-1)};window.addEventListener(&quot;load&quot;,sozi.Player.prototype.onLoad.bind(new sozi.Player()),false);</script>
+</svg>
