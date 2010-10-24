@@ -31,6 +31,9 @@ sozi.Player.prototype.soziNs = "http://sozi.baierouge.fr";
 
 sozi.Player.prototype.dragButton = 1; // Middle button
 
+sozi.Player.prototype.defaultDurationMs = 500;
+sozi.Player.prototype.defaultProfile = "accelerate-decelerate";
+
 sozi.Player.prototype.defaults = {
    "title": "Untitled",
    "sequence": "0",
@@ -108,6 +111,7 @@ sozi.Player.prototype.onClick = function(evt) {
       }
       this.moveToNext();
    }
+   evt.stopPropagation();
 };
 
 sozi.Player.prototype.onMouseDown = function(evt) {
@@ -128,12 +132,14 @@ sozi.Player.prototype.onMouseDown = function(evt) {
          this.display.showTableOfContents();
       }
    }
+   evt.stopPropagation();
 };
 
 sozi.Player.prototype.onMouseUp = function(evt) {
    if(evt.button === 0) {
       this.dragging = false;
    }
+   evt.stopPropagation();
 };
 
 sozi.Player.prototype.onMouseMove = function(evt) {
@@ -146,6 +152,7 @@ sozi.Player.prototype.onMouseMove = function(evt) {
       this.dragTranslateX = this.display.translateX;
       this.dragTranslateY = this.display.translateY;
    }
+   evt.stopPropagation();
 };
 
 // TODO test this with Webkit, Opera, IE
@@ -169,6 +176,7 @@ sozi.Player.prototype.onWheel = function(evt) {
       this.stop();
       this.display.zoom(delta);
    }
+   evt.stopPropagation();
 };
 
 sozi.Player.prototype.onKeyPress = function(evt) {
@@ -195,12 +203,24 @@ sozi.Player.prototype.onKeyPress = function(evt) {
          break;
       case 0:
          switch(evt.charCode) {
-            case 32 : // Space
+            case 32: // Space
                this.moveToNext();
+               break;
+            case 43: // +
+               this.stop();
+               this.display.zoom(1);
+               break;
+            case 45: // -
+               this.stop();
+               this.display.zoom(-1);
+               break;
+            case 61: // =
+               this.moveToCurrent();
                break;
          }
          break;
    }
+   evt.stopPropagation();
 };
 
 /*
@@ -226,10 +246,7 @@ sozi.Player.prototype.stop = function() {
 sozi.Player.prototype.waitTimeout = function() {
    if(this.frames[this.currentFrameIndex].timeoutEnable) {
       this.waiting = true;
-      var index = this.currentFrameIndex + 1;
-      if(index == this.frames.length) {
-         index = 0;
-      }
+      var index = (this.currentFrameIndex + 1) % this.frames.length;
       this.nextFrameTimeout = window.setTimeout(
          this.moveToFrame.bind(this, index),
          this.frames[this.currentFrameIndex].timeoutMs
@@ -243,12 +260,17 @@ sozi.Player.prototype.moveToFrame = function(index) {
       this.waiting = false;
    }
 
+   var durationMs = this.defaultDurationMs;
+   var profile = this.defaultProfile;
+   if(index === (this.currentFrameIndex + 1) % this.frames.length) {
+      durationMs = this.frames[index].transitionDurationMs;
+      profile = this.frames[index].transitionProfile;
+   }
+
    this.currentFrameIndex = index;
    this.animator.start(
-      this.display.getCurrentGeometry(),
-      this.frames[this.currentFrameIndex].geometry,
-      this.frames[this.currentFrameIndex].transitionDurationMs,
-      this.frames[this.currentFrameIndex].transitionProfile
+      this.display.getCurrentGeometry(), this.frames[this.currentFrameIndex].geometry,
+      durationMs, profile
    );
 };
 
@@ -268,13 +290,17 @@ sozi.Player.prototype.moveToPrevious = function() {
 };
 
 sozi.Player.prototype.moveToNext = function() {
-   if(this.currentFrameIndex < this.frames.length - 1) {
-      this.moveToFrame(this.currentFrameIndex + 1);
+   if(this.currentFrameIndex < this.frames.length - 1 || this.frames[this.currentFrameIndex].timeoutEnable) {
+      this.moveToFrame((this.currentFrameIndex + 1) % this.frames.length);
    }
 };
 
 sozi.Player.prototype.moveToLast = function() {
    this.moveToFrame(this.frames.length - 1);
+};
+
+sozi.Player.prototype.moveToCurrent = function() {
+   this.moveToFrame(this.currentFrameIndex);
 };
 
 window.addEventListener("load", sozi.Player.prototype.onLoad.bind(new sozi.Player()), false);
