@@ -50,7 +50,7 @@ sozi.Display.prototype.scaleFactor = 1.05;
  */
 sozi.Display.prototype.onLoad = function() {
    this.svgRoot = document.documentElement; // TODO check SVG tag
-   this.svgNs = this.svgRoot.getAttribute("xmlns:svg");
+   this.svgNs = "http://www.w3.org/2000/svg";
 
    // Create a new wrapper group element and move all the image to the group
    this.wrapper = document.createElementNS(this.svgNs, "g");
