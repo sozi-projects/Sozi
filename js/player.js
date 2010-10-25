@@ -177,6 +177,7 @@ sozi.Player.prototype.onWheel = function(evt) {
       this.display.zoom(delta);
    }
    evt.stopPropagation();
+   evt.preventDefault();
 };
 
 sozi.Player.prototype.onKeyPress = function(evt) {
