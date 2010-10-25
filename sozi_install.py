@@ -46,7 +46,7 @@ class SoziInstall(inkex.Effect):
 		scriptElm = inkex.etree.Element(inkex.addNS("script", "svg"))
 		scriptElm.text = open(os.path.join(os.path.dirname(__file__),	"sozi.js")).read()
 		scriptElm.set("id","sozi-script")
-		scriptElm.set("{" + inkex.NSS["sozi"] + "}version", "1.0")
+		scriptElm.set("{" + inkex.NSS["sozi"] + "}version", "10.11")
 		self.document.getroot().append(scriptElm)
 
 # Create effect instance
