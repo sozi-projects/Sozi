@@ -52,6 +52,9 @@ sozi.Display.prototype.onLoad = function() {
    this.svgRoot = document.documentElement; // TODO check SVG tag
    this.svgNs = "http://www.w3.org/2000/svg";
 
+   // Remove viewbox if needed
+   this.svgRoot.removeAttribute("viewBox");
+
    // Create a new wrapper group element and move all the image to the group
    this.wrapper = document.createElementNS(this.svgNs, "g");
    this.wrapper.setAttribute("id", "sozi-wrapper");
