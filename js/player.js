@@ -58,6 +58,7 @@ sozi.Player.prototype.onLoad = function() {
    this.display.svgRoot.addEventListener("mouseup", this.onMouseUp.bind(this), false);
    this.display.svgRoot.addEventListener("mousemove", this.onMouseMove.bind(this), false);
    this.display.svgRoot.addEventListener("keypress", this.onKeyPress.bind(this), false);
+   this.display.svgRoot.addEventListener("keydown", this.onKeyDown.bind(this), false);
 
    var wheelHandler = this.onWheel.bind(this);
    this.display.svgRoot.addEventListener("DOMMouseScroll", wheelHandler, false); // Mozilla
@@ -184,6 +185,26 @@ sozi.Player.prototype.onKeyPress = function(evt) {
    if(this.display.tableOfContentsIsVisible()) {
       this.display.hideTableOfContents();
    }
+   switch(evt.charCode) {
+      case 43: // +
+         this.stop();
+         this.display.zoom(1);
+         break;
+      case 45: // -
+         this.stop();
+         this.display.zoom(-1);
+         break;
+      case 61: // =
+         this.moveToCurrent();
+         break;
+   }
+   evt.stopPropagation();
+};
+
+sozi.Player.prototype.onKeyDown = function(evt) {
+   if(this.display.tableOfContentsIsVisible()) {
+      this.display.hideTableOfContents();
+   }
    switch (evt.keyCode) {
       case 36: // Home
          this.moveToFirst();
@@ -202,23 +223,8 @@ sozi.Player.prototype.onKeyPress = function(evt) {
       case 13: // Enter
          this.moveToNext();
          break;
-      case 0:
-         switch(evt.charCode) {
-            case 32: // Space
-               this.moveToNext();
-               break;
-            case 43: // +
-               this.stop();
-               this.display.zoom(1);
-               break;
-            case 45: // -
-               this.stop();
-               this.display.zoom(-1);
-               break;
-            case 61: // =
-               this.moveToCurrent();
-               break;
-         }
+      case 32: // Space
+         this.moveToNext();
          break;
    }
    evt.stopPropagation();
