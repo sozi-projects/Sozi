@@ -21,7 +21,7 @@ var sozi = sozi || {};
 
 sozi.Player = function() {
    this.display = new sozi.Display(this, false);
-   this.animator = new sozi.Animator(40, this.display, this.display.update.bind(this.display), this.waitTimeout.bind(this));
+   this.animator = new sozi.Animator(40, this.display, this.display.update.bind(this.display), this.animationDone.bind(this));
    this.frames = [];
    this.playing = false;
    this.waiting = false;
@@ -33,6 +33,8 @@ sozi.Player.prototype.dragButton = 1; // Middle button
 
 sozi.Player.prototype.defaultDurationMs = 500;
 sozi.Player.prototype.defaultProfile = "accelerate-decelerate";
+sozi.Player.prototype.scaleFactor = 1.05;
+
 
 sozi.Player.prototype.defaults = {
    "title": "Untitled",
@@ -174,8 +176,7 @@ sozi.Player.prototype.onWheel = function(evt) {
    }
 
    if(delta !== 0) {
-      this.stop();
-      this.display.zoom(delta);
+      this.zoom(delta);
    }
    evt.stopPropagation();
    evt.preventDefault();
@@ -187,15 +188,17 @@ sozi.Player.prototype.onKeyPress = function(evt) {
    }
    switch(evt.charCode) {
       case 43: // +
-         this.stop();
-         this.display.zoom(1);
+         this.zoom(1);
          break;
       case 45: // -
-         this.stop();
-         this.display.zoom(-1);
+         this.zoom(-1);
          break;
       case 61: // =
          this.moveToCurrent();
+         break;
+      case 70: // F
+      case 102: // f
+         this.showAll();
          break;
    }
    evt.stopPropagation();
@@ -250,6 +253,12 @@ sozi.Player.prototype.stop = function() {
    this.playing = false;
 };
 
+sozi.Player.prototype.animationDone = function() {
+   if(this.playing) {
+      this.waitTimeout();
+   }
+};
+
 sozi.Player.prototype.waitTimeout = function() {
    if(this.frames[this.currentFrameIndex].timeoutEnable) {
       this.waiting = true;
@@ -274,6 +283,7 @@ sozi.Player.prototype.moveToFrame = function(index) {
       profile = this.frames[index].transitionProfile;
    }
 
+   this.playing = true;
    this.currentFrameIndex = index;
    this.animator.start(
       this.display.getCurrentGeometry(), this.frames[this.currentFrameIndex].geometry,
@@ -308,6 +318,33 @@ sozi.Player.prototype.moveToLast = function() {
 
 sozi.Player.prototype.moveToCurrent = function() {
    this.moveToFrame(this.currentFrameIndex);
+};
+
+/*
+ * Show all the document in the browser window.
+ */
+sozi.Player.prototype.showAll = function() {
+   this.stop();
+   this.animator.start(
+      this.display.getCurrentGeometry(), this.display.getDocumentGeometry(),
+      this.defaultDurationMs, this.defaultProfile
+   );
+};
+
+sozi.Player.prototype.zoom = function(delta) {
+   this.stop();
+   if(delta > 0) {
+      this.display.scale *= this.scaleFactor;
+      this.display.translateX *= this.scaleFactor;
+      this.display.translateY *= this.scaleFactor;
+   }
+   else {
+      this.display.scale /= this.scaleFactor;
+      this.display.translateX /= this.scaleFactor;
+      this.display.translateY /= this.scaleFactor;
+   }
+   
+   this.display.update(true);
 };
 
 window.addEventListener("load", sozi.Player.prototype.onLoad.bind(new sozi.Player()), false);

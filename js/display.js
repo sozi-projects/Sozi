@@ -37,8 +37,6 @@ sozi.Display = function(controller) {
    this.rotate = 0;
 };
 
-sozi.Display.prototype.scaleFactor = 1.05;
-
 /*
  * Initialize the current Display.
  *
@@ -54,6 +52,8 @@ sozi.Display.prototype.onLoad = function() {
 
    // Remove viewbox if needed
    this.svgRoot.removeAttribute("viewBox");
+
+   this.initialBBox = this.svgRoot.getBBox();
 
    // Create a new wrapper group element and move all the image to the group
    this.wrapper = document.createElementNS(this.svgNs, "g");
@@ -146,6 +146,23 @@ sozi.Display.prototype.getRectangleGeometry = function(rect) {
 };
 
 /*
+ * Returns the geometrical properties of the SVG document
+ *
+ * Returns:
+ *    - The default aspect ratio, translation, scale and rotation for the document's bounding box
+ */
+sozi.Display.prototype.getDocumentGeometry = function() {
+   return {
+      aspectWidth: this.initialBBox.width,
+      aspectHeight: this.initialBBox.height,
+      translateX: - this.initialBBox.x,
+      translateY: - this.initialBBox.y,
+      scale: 1,
+      rotate: 0
+   };
+};
+
+/*
  * Returns the geometrical properties of the Display.
  *
  * Returns:
@@ -160,19 +177,6 @@ sozi.Display.prototype.getCurrentGeometry = function() {
       scale: this.scale,
       rotate: this.rotate
    };
-};
-
-sozi.Display.prototype.zoom = function(delta) {
-   if(delta > 0) {
-      this.scale *= this.scaleFactor;
-   }
-   else {
-      this.scale /= this.scaleFactor;
-   }
-   if(this.tableOfContentsIsVisible()) {
-      this.hideTableOfContents();
-   }
-   this.update(true);
 };
 
 /*
