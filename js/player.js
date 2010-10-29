@@ -79,7 +79,7 @@ sozi.Player.prototype.readFrames = function() {
    for(var i=0; i<frameRects.length; i++) {
       var newFrame = {
          rect: frameRects[i],
-         geometry: this.display.getRectangleGeometry(frameRects[i]),
+         geometry: this.display.getElementGeometry(frameRects[i]),
          title: this.readAttribute(frameRects[i], "title"),
          sequence: this.readAttribute(frameRects[i], "sequence"),
          hide: this.readAttribute(frameRects[i], "hide") == "true",

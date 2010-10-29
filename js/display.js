@@ -124,22 +124,34 @@ sozi.Display.prototype.getFrameGeometry = function() {
 };
 
 /*
- * Returns the geometrical properties of the given rectangle element.
+ * Returns the geometrical properties of the given element.
  *
  * Parameters:
- *    - rect: a rectangle element from the SVG DOM
+ *    - elem: an element from the SVG DOM
  *
  * Returns:
  *    - The default aspect ratio, translation, scale and rotation for this rectangle
  */
-sozi.Display.prototype.getRectangleGeometry = function(rect) {
-   var matrix = rect.getCTM().inverse();
+sozi.Display.prototype.getElementGeometry = function(elem) {
+   if (elem.nodeName === "rect") {
+      var x = elem.x.baseVal.value;
+      var y = elem.y.baseVal.value;
+      var width = elem.width.baseVal.value;
+      var height = elem.height.baseVal.value;
+   } else {
+      var b = elem.getBBox();
+      var x = b.x;
+      var y = b.y;
+      var width = b.width;
+      var height = b.height;
+   }
+   var matrix = elem.getCTM().inverse();
 
    return {
-      aspectWidth: rect.width.baseVal.value,
-      aspectHeight: rect.height.baseVal.value,
-		translateX: matrix.e - rect.x.baseVal.value,
-		translateY: matrix.f - rect.y.baseVal.value,
+      aspectWidth: width,
+      aspectHeight: height,
+		translateX: matrix.e - x,
+		translateY: matrix.f - y,
       scale: Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b),
       rotate: Math.atan2(matrix.b, matrix.a) * 180 / Math.PI
    };
