@@ -75,21 +75,21 @@ sozi.Player.prototype.readAttribute = function(rect, attr) {
 };
 
 sozi.Player.prototype.readFrames = function() {
-   var frameRects = document.getElementsByClassName("sozi-frame");
-   for(var i=0; i<frameRects.length; i++) {
+   var frameElements = document.getElementsByClassName("sozi-frame");
+   for(var i=0; i<frameElements.length; i++) {
       var newFrame = {
-         rect: frameRects[i],
-         geometry: this.display.getElementGeometry(frameRects[i]),
-         title: this.readAttribute(frameRects[i], "title"),
-         sequence: this.readAttribute(frameRects[i], "sequence"),
-         hide: this.readAttribute(frameRects[i], "hide") == "true",
-         timeoutEnable: this.readAttribute(frameRects[i], "timeout-enable") == "true",
-         timeoutMs: this.readAttribute(frameRects[i], "timeout-ms"),
-         transitionDurationMs: this.readAttribute(frameRects[i], "transition-duration-ms"),
-         transitionProfile: this.readAttribute(frameRects[i], "transition-profile")
+         rect: frameElements[i],
+         geometry: this.display.getElementGeometry(frameElements[i]),
+         title: this.readAttribute(frameElements[i], "title"),
+         sequence: this.readAttribute(frameElements[i], "sequence"),
+         hide: this.readAttribute(frameElements[i], "hide") == "true",
+         timeoutEnable: this.readAttribute(frameElements[i], "timeout-enable") == "true",
+         timeoutMs: this.readAttribute(frameElements[i], "timeout-ms"),
+         transitionDurationMs: this.readAttribute(frameElements[i], "transition-duration-ms"),
+         transitionProfile: this.readAttribute(frameElements[i], "transition-profile")
       };
       if(newFrame.hide) {
-         frameRects[i].setAttribute("visibility", "hidden");
+         frameElements[i].setAttribute("visibility", "hidden");
       }
       this.frames.push(newFrame);
    }

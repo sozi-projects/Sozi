@@ -23,7 +23,7 @@
    <dependency type="executable" location="extensions">inkex.py</dependency>
    <dependency type="executable" location="extensions">sozi_edit_frame.py</dependency>
    <effect>
-      <object-type>rect</object-type>
+      <object-type>all</object-type>
          <effects-menu>
             <submenu _name="Sozi"/>
          </effects-menu>

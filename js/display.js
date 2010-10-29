@@ -124,13 +124,19 @@ sozi.Display.prototype.getFrameGeometry = function() {
 };
 
 /*
- * Returns the geometrical properties of the given element.
+ * Returns the geometrical properties of the frame that can be
+ * created from a given element.
+ *
+ * If the element is a rectangle, the properties of the frames are based
+ * on the geometrical properties of the rectangle.
+ * Otherwise, the properties of the frame are based on the bounding box
+ * of the given element.
  *
  * Parameters:
  *    - elem: an element from the SVG DOM
  *
  * Returns:
- *    - The default aspect ratio, translation, scale and rotation for this rectangle
+ *    - The default aspect ratio, translation, scale and rotation for the given element 
  */
 sozi.Display.prototype.getElementGeometry = function(elem) {
    if (elem.nodeName === "rect") {
@@ -145,6 +151,7 @@ sozi.Display.prototype.getElementGeometry = function(elem) {
       var width = b.width;
       var height = b.height;
    }
+
    var matrix = elem.getCTM().inverse();
 
    return {

@@ -45,28 +45,28 @@ class SoziEditFrame(inkex.Effect):
       inkex.Effect.__init__(self)
       inkex.NSS[u"sozi"] = u"http://sozi.baierouge.fr"
 
-      self.rect = None
+      self.element = None
       self.fields = {}
 
 
    def effect(self):
       for id, node in self.selected.items():
-         if self.rect == None:
-            self.rect = node
+         if self.element == None:
+            self.element = node
          else:
-            sys.stderr.write("More than one rectangle selected. Please select only one rectangle.\n")
+            sys.stderr.write("More than one element selected. Please select only one element.\n")
             exit()
 
-      if self.rect == None:
-         sys.stderr.write("No rectangle selected.\n")
+      if self.element == None:
+         sys.stderr.write("No element selected.\n")
          exit()
 
       self.show_form()
 
 
    def create_text_field(self, attr, label, value):
-      if self.rect.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + attr):
-         value = self.rect.attrib["{" + inkex.NSS["sozi"] + "}" + attr]
+      if self.element.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + attr):
+         value = self.element.attrib["{" + inkex.NSS["sozi"] + "}" + attr]
 
       lbl = gtk.Label(label)
 
@@ -82,8 +82,8 @@ class SoziEditFrame(inkex.Effect):
 
       
    def create_combo_field(self, attr, label, items, index):
-      if self.rect.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + attr):
-         text = self.rect.attrib["{" + inkex.NSS["sozi"] + "}" + attr]
+      if self.element.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + attr):
+         text = self.element.attrib["{" + inkex.NSS["sozi"] + "}" + attr]
          if items.count(text) > 0:
             index = items.index(text)
 
@@ -103,10 +103,10 @@ class SoziEditFrame(inkex.Effect):
 
       
    def create_checked_spinbutton_field(self, enable_attr, value_attr, label, enable, value):
-      if self.rect.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + enable_attr):
-         enable = self.rect.attrib["{" + inkex.NSS["sozi"] + "}" + enable_attr]
-      if self.rect.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + value_attr):
-         value = int(self.rect.attrib["{" + inkex.NSS["sozi"] + "}" + value_attr])
+      if self.element.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + enable_attr):
+         enable = self.element.attrib["{" + inkex.NSS["sozi"] + "}" + enable_attr]
+      if self.element.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + value_attr):
+         value = int(self.element.attrib["{" + inkex.NSS["sozi"] + "}" + value_attr])
 
       button = gtk.CheckButton(label)
       button.set_active(enable == "true")
@@ -127,8 +127,8 @@ class SoziEditFrame(inkex.Effect):
 
 
    def create_checkbox_field(self, attr, label, value):
-      if self.rect.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + attr):
-         value = self.rect.attrib["{" + inkex.NSS["sozi"] + "}" + attr]
+      if self.element.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + attr):
+         value = self.element.attrib["{" + inkex.NSS["sozi"] + "}" + attr]
 
       button = gtk.CheckButton(label)
       button.set_active(value == "true")
@@ -138,8 +138,8 @@ class SoziEditFrame(inkex.Effect):
 
 
    def create_spinbutton_field(self, attr, label, value):
-      if self.rect.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + attr):
-         value = int(self.rect.attrib["{" + inkex.NSS["sozi"] + "}" + attr])
+      if self.element.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + attr):
+         value = int(self.element.attrib["{" + inkex.NSS["sozi"] + "}" + attr])
       
       lbl = gtk.Label(label)
 
@@ -161,15 +161,22 @@ class SoziEditFrame(inkex.Effect):
       window = gtk.Window(gtk.WINDOW_TOPLEVEL)
       window.connect("destroy", self.destroy)
 
-      # Create form for the selected rectangle
+      # Rectangles are configured to be hidden by default.
+      # Other elements are configured to be visible.
+      if self.element.tag == "rect":
+         default_hide = "true"
+      else:
+         default_hide = "false"
+
+      # Create form for the selected element
       # TODO click in frame list to change sequence
       # TODO change frame list when title field is changed
       title_field = self.create_text_field("title", "Title:", "New frame")
       sequence_field = self.create_spinbutton_field("sequence", "Sequence:", 1)
-      hide_field = self.create_checkbox_field("hide", "Hide rectangle", "true")
+      hide_field = self.create_checkbox_field("hide", "Hide", default_hide)
       timeout_field = self.create_checked_spinbutton_field("timeout-enable", "timeout-ms", "Timeout (ms):", "false", 5000)
       transition_duration_field = self.create_spinbutton_field("transition-duration-ms", "Duration (ms):", 1000)
-      transition_profile_field = self.create_combo_field("transition-profile", "Profile:", self.PROFILES, 0);
+      transition_profile_field = self.create_combo_field("transition-profile", "Profile:", self.PROFILES, 0)
 
       # Create "Done" and "Cancel" buttons
       done_button = gtk.Button("Done")
@@ -184,14 +191,14 @@ class SoziEditFrame(inkex.Effect):
       buttons_box.pack_start(cancel_button)
 
       # Create frame list
-      self.frame_nodes = self.document.xpath("//svg:rect[@class='sozi-frame']", namespaces=inkex.NSS)
+      self.frame_nodes = self.document.xpath("//svg:*[@class='sozi-frame']", namespaces=inkex.NSS)
       self.frame_nodes = sorted(self.frame_nodes, key=lambda node:
          int(node.attrib["{" + inkex.NSS["sozi"] + "}sequence"]) if node.attrib.has_key("{" + inkex.NSS["sozi"] + "}sequence") else len(self.frame_nodes))
 
       frame_index = len(self.frame_nodes)
       list_store = gtk.ListStore(str)
       for index, node in enumerate(self.frame_nodes):
-         if node == self.rect:
+         if node == self.element:
             frame_index = index
 
          if node.attrib.has_key("{" + inkex.NSS["sozi"] + "}title"):
@@ -256,32 +263,32 @@ class SoziEditFrame(inkex.Effect):
 
    def done(self, widget):
       # If needed, add "sozi-frame" to the "class" attribute of the selected rectangle
-      if self.rect.attrib.has_key("class"):
-         cls = self.rect.attrib["class"]
+      if self.element.attrib.has_key("class"):
+         cls = self.element.attrib["class"]
       else:
          cls = ""
 
       if re.match(r"\bsozi-frame\b", cls) == None:
          if len(cls) > 0 and not cls.endswith(","):
             cls += ","
-         self.rect.set("class", cls + "sozi-frame")
+         self.element.set("class", cls + "sozi-frame")
 
       # Update rectangle attributes using form data
-      self.rect.set("{" + inkex.NSS["sozi"] + "}title", unicode(self.fields["title"].get_text()))
-      self.rect.set("{" + inkex.NSS["sozi"] + "}sequence", unicode(self.fields["sequence"].get_value_as_int()))
-      self.rect.set("{" + inkex.NSS["sozi"] + "}hide", unicode("true" if self.fields["hide"].get_active() else "false"))
-      self.rect.set("{" + inkex.NSS["sozi"] + "}timeout-enable", unicode("true" if self.fields["timeout-enable"].get_active() else "false"))
-      self.rect.set("{" + inkex.NSS["sozi"] + "}timeout-ms", unicode(self.fields["timeout-ms"].get_value_as_int()))
-      self.rect.set("{" + inkex.NSS["sozi"] + "}transition-duration-ms", unicode(self.fields["transition-duration-ms"].get_value_as_int()))
-      self.rect.set("{" + inkex.NSS["sozi"] + "}transition-profile", unicode(self.PROFILES[self.fields["transition-profile"].get_active()]))
+      self.element.set("{" + inkex.NSS["sozi"] + "}title", unicode(self.fields["title"].get_text()))
+      self.element.set("{" + inkex.NSS["sozi"] + "}sequence", unicode(self.fields["sequence"].get_value_as_int()))
+      self.element.set("{" + inkex.NSS["sozi"] + "}hide", unicode("true" if self.fields["hide"].get_active() else "false"))
+      self.element.set("{" + inkex.NSS["sozi"] + "}timeout-enable", unicode("true" if self.fields["timeout-enable"].get_active() else "false"))
+      self.element.set("{" + inkex.NSS["sozi"] + "}timeout-ms", unicode(self.fields["timeout-ms"].get_value_as_int()))
+      self.element.set("{" + inkex.NSS["sozi"] + "}transition-duration-ms", unicode(self.fields["transition-duration-ms"].get_value_as_int()))
+      self.element.set("{" + inkex.NSS["sozi"] + "}transition-profile", unicode(self.PROFILES[self.fields["transition-profile"].get_active()]))
 
       # Renumber frames
-      sequence = int(self.rect.attrib["{" + inkex.NSS["sozi"] + "}sequence"])
+      sequence = int(self.element.attrib["{" + inkex.NSS["sozi"] + "}sequence"])
       index = 1
       for node in self.frame_nodes:
          if index == sequence:
             index += 1
-         if node != self.rect:
+         if node != self.element:
             node.set("{" + inkex.NSS["sozi"] + "}sequence", str(index))
             index += 1
 
