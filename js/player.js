@@ -52,7 +52,7 @@ sozi.Player.prototype.onLoad = function() {
    this.readFrames();
    this.display.installTableOfContents();
 
-   this.startFromIndex(0);
+   this.startFromIndex(this.getFrameIndexFromURL());
 
    // TODO also use shift-click as an alternative for middle-click
    this.display.svgRoot.addEventListener("click", this.onClick.bind(this), false);
@@ -61,12 +61,26 @@ sozi.Player.prototype.onLoad = function() {
    this.display.svgRoot.addEventListener("mousemove", this.onMouseMove.bind(this), false);
    this.display.svgRoot.addEventListener("keypress", this.onKeyPress.bind(this), false);
    this.display.svgRoot.addEventListener("keydown", this.onKeyDown.bind(this), false);
+   window.addEventListener("hashchange", this.onHashChange.bind(this), false);
 
    var wheelHandler = this.onWheel.bind(this);
    this.display.svgRoot.addEventListener("DOMMouseScroll", wheelHandler, false); // Mozilla
    window.onmousewheel = wheelHandler;
 
    this.dragging = false;
+};
+
+sozi.Player.prototype.getFrameIndexFromURL = function() {
+   var index = window.location.hash ? parseInt(window.location.hash.slice(1)) : 0;
+   if(isNaN(index) || index < 0) {
+      return 0;
+   }
+   else if(index >= this.frames.length) {
+      return this.frames.length - 1;
+   }
+   else {
+      return index;
+   }
 };
 
 sozi.Player.prototype.readAttribute = function(rect, attr) {
@@ -234,6 +248,18 @@ sozi.Player.prototype.onKeyDown = function(evt) {
 };
 
 /*
+ * The hashchange event can be triggered externally, by the user modifying the URL,
+ * or internally, by the script modifying window.location.hash.
+ * If the hash is different from the current frame index, we move to the given index.
+ */
+sozi.Player.prototype.onHashChange = function() {
+   var index = this.getFrameIndexFromURL();
+   if(index != this.currentFrameIndex) {
+      this.moveToFrame(index);
+   }
+};
+
+/*
 * pre: 0 <= index < this.frames.length
 */
 sozi.Player.prototype.startFromIndex = function(index) {
@@ -289,6 +315,9 @@ sozi.Player.prototype.moveToFrame = function(index) {
       this.display.getCurrentGeometry(), this.frames[this.currentFrameIndex].geometry,
       durationMs, profile
    );
+
+   // Update URL hash with the current frame index
+   window.location.hash = "#" + index;
 };
 
 sozi.Player.prototype.moveToFirst = function() {
