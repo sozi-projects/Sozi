@@ -71,7 +71,7 @@ sozi.Player.prototype.onLoad = function() {
 };
 
 sozi.Player.prototype.getFrameIndexFromURL = function() {
-   var index = window.location.hash ? parseInt(window.location.hash.slice(1)) : 0;
+   var index = window.location.hash ? parseInt(window.location.hash.slice(1)) - 1 : 0;
    if(isNaN(index) || index < 0) {
       return 0;
    }
@@ -123,9 +123,6 @@ sozi.Player.prototype.readFrames = function() {
  */
 sozi.Player.prototype.onClick = function(evt) {
    if(!this.dragged) {
-      if(this.display.tableOfContentsIsVisible()) {
-         this.display.hideTableOfContents();
-      }
       this.moveToNext();
    }
    evt.stopPropagation();
@@ -197,9 +194,6 @@ sozi.Player.prototype.onWheel = function(evt) {
 };
 
 sozi.Player.prototype.onKeyPress = function(evt) {
-   if(this.display.tableOfContentsIsVisible()) {
-      this.display.hideTableOfContents();
-   }
    switch(evt.charCode) {
       case 43: // +
          this.zoom(1);
@@ -219,9 +213,6 @@ sozi.Player.prototype.onKeyPress = function(evt) {
 };
 
 sozi.Player.prototype.onKeyDown = function(evt) {
-   if(this.display.tableOfContentsIsVisible()) {
-      this.display.hideTableOfContents();
-   }
    switch (evt.keyCode) {
       case 36: // Home
          this.moveToFirst();
@@ -309,6 +300,10 @@ sozi.Player.prototype.moveToFrame = function(index) {
       profile = this.frames[index].transitionProfile;
    }
 
+   if(this.display.tableOfContentsIsVisible()) {
+      this.display.hideTableOfContents();
+   }
+
    this.playing = true;
    this.currentFrameIndex = index;
    this.animator.start(
@@ -317,7 +312,7 @@ sozi.Player.prototype.moveToFrame = function(index) {
    );
 
    // Update URL hash with the current frame index
-   window.location.hash = "#" + index;
+   window.location.hash = "#" + (index + 1);
 };
 
 sozi.Player.prototype.moveToFirst = function() {
@@ -354,6 +349,9 @@ sozi.Player.prototype.moveToCurrent = function() {
  */
 sozi.Player.prototype.showAll = function() {
    this.stop();
+   if(this.display.tableOfContentsIsVisible()) {
+      this.display.hideTableOfContents();
+   }
    this.animator.start(
       this.display.getCurrentGeometry(), this.display.getDocumentGeometry(),
       this.defaultDurationMs, this.defaultProfile
@@ -362,6 +360,9 @@ sozi.Player.prototype.showAll = function() {
 
 sozi.Player.prototype.zoom = function(delta) {
    this.stop();
+   if(this.display.tableOfContentsIsVisible()) {
+      this.display.hideTableOfContents();
+   }
    if(delta > 0) {
       this.display.scale *= this.scaleFactor;
       this.display.translateX *= this.scaleFactor;
