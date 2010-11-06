@@ -35,6 +35,7 @@ sozi.Display = function(controller) {
    this.translateY = 0;
    this.scale = 1;
    this.rotate = 0;
+   this.clip = true;
 };
 
 /*
@@ -177,7 +178,8 @@ sozi.Display.prototype.getDocumentGeometry = function() {
       translateX: - this.initialBBox.x,
       translateY: - this.initialBBox.y,
       scale: 1,
-      rotate: 0
+      rotate: 0,
+      clip: false
    };
 };
 
@@ -194,7 +196,8 @@ sozi.Display.prototype.getCurrentGeometry = function() {
       translateX: this.translateX,
       translateY: this.translateY,
       scale: this.scale,
-      rotate: this.rotate
+      rotate: this.rotate,
+      clip: this.clip
    };
 };
 
@@ -209,10 +212,11 @@ sozi.Display.prototype.drag = function(deltaX, deltaY) {
    var g = this.getFrameGeometry();
    this.translateX += deltaX / g.scale;
    this.translateY += deltaY / g.scale;
+   this.clip = false;
    if(this.tableOfContentsIsVisible()) {
       this.hideTableOfContents();
    }
-   this.update(true);
+   this.update();
 };
 
 /*
@@ -220,18 +224,15 @@ sozi.Display.prototype.drag = function(deltaX, deltaY) {
  * geometrical attributes of this Display.
  *
  * This method is called automatically when the window is resized.
- *
- * Parameters:
- *    - unclip: do not clip to the desired aspect ratio
  */
-sozi.Display.prototype.update = function(unclip) {
+sozi.Display.prototype.update = function() {
    var g = this.getFrameGeometry();
 
    // Adjust the location and size of the clipping rectangle and the frame rectangle
-   this.clipRect.setAttribute("x", unclip ? 0 : g.x);
-   this.clipRect.setAttribute("y", unclip ? 0 : g.y);
-   this.clipRect.setAttribute("width", unclip ? window.innerWidth : g.width);
-   this.clipRect.setAttribute("height", unclip ? window.innerHeight : g.height);
+   this.clipRect.setAttribute("x", this.clip ? g.x : 0);
+   this.clipRect.setAttribute("y", this.clip ? g.y : 0);
+   this.clipRect.setAttribute("width", this.clip ? g.width : window.innerWidth);
+   this.clipRect.setAttribute("height", this.clip ? g.height : window.innerHeight);
 
    // Compute and apply the geometrical transformation to the wrapper group
    var translateX = this.translateX * g.scale + g.x;

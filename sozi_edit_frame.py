@@ -174,6 +174,7 @@ class SoziEditFrame(inkex.Effect):
       title_field = self.create_text_field("title", "Title:", "New frame")
       sequence_field = self.create_spinbutton_field("sequence", "Sequence:", 1)
       hide_field = self.create_checkbox_field("hide", "Hide", default_hide)
+      clip_field = self.create_checkbox_field("clip", "Clip", "true")
       timeout_field = self.create_checked_spinbutton_field("timeout-enable", "timeout-ms", "Timeout (ms):", "false", 5000)
       transition_duration_field = self.create_spinbutton_field("transition-duration-ms", "Duration (ms):", 1000)
       transition_profile_field = self.create_combo_field("transition-profile", "Profile:", self.PROFILES, 0)
@@ -240,6 +241,7 @@ class SoziEditFrame(inkex.Effect):
       frame_box.pack_start(title_field, expand=False)
       frame_box.pack_start(sequence_field, expand=False)
       frame_box.pack_start(hide_field, expand=False)
+      frame_box.pack_start(clip_field, expand=False)
       frame_box.pack_start(timeout_field, expand=False)
 
       frame_group = gtk.Frame("Frame")
@@ -277,6 +279,7 @@ class SoziEditFrame(inkex.Effect):
       self.element.set("{" + inkex.NSS["sozi"] + "}title", unicode(self.fields["title"].get_text()))
       self.element.set("{" + inkex.NSS["sozi"] + "}sequence", unicode(self.fields["sequence"].get_value_as_int()))
       self.element.set("{" + inkex.NSS["sozi"] + "}hide", unicode("true" if self.fields["hide"].get_active() else "false"))
+      self.element.set("{" + inkex.NSS["sozi"] + "}clip", unicode("true" if self.fields["clip"].get_active() else "false"))
       self.element.set("{" + inkex.NSS["sozi"] + "}timeout-enable", unicode("true" if self.fields["timeout-enable"].get_active() else "false"))
       self.element.set("{" + inkex.NSS["sozi"] + "}timeout-ms", unicode(self.fields["timeout-ms"].get_value_as_int()))
       self.element.set("{" + inkex.NSS["sozi"] + "}transition-duration-ms", unicode(self.fields["transition-duration-ms"].get_value_as_int()))

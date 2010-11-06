@@ -75,8 +75,13 @@ sozi.Animator.prototype.step = function() {
       var remaining = 1 - progress;
       for(var attr in this.initialState) {
          var initialValue = this.initialState[attr];
-         var finalValue = this.finalState[attr] || 0;
-         this.target[attr] = finalValue * progress + initialValue * remaining;
+         var finalValue = this.finalState[attr];
+         if(typeof initialValue === "number") {
+            this.target[attr] = (finalValue || 0) * progress + initialValue * remaining;
+         }
+         else if(typeof finalValue !== "undefined") {
+            this.target[attr] = finalValue;
+         }
       }
       this.onStep();
    }

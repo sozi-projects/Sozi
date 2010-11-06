@@ -40,6 +40,7 @@ sozi.Player.prototype.defaults = {
    "title": "Untitled",
    "sequence": "0",
    "hide": "true",
+   "clip": "true",
    "timeout-enable": "false",
    "timeout-ms": "5000",
    "transition-duration-ms": "1000",
@@ -105,6 +106,7 @@ sozi.Player.prototype.readFrames = function() {
       if(newFrame.hide) {
          frameElements[i].setAttribute("visibility", "hidden");
       }
+      newFrame.geometry.clip = this.readAttribute(frameElements[i], "clip") == "true";
       this.frames.push(newFrame);
    }
    this.frames.sort(
@@ -373,8 +375,9 @@ sozi.Player.prototype.zoom = function(delta) {
       this.display.translateX /= this.scaleFactor;
       this.display.translateY /= this.scaleFactor;
    }
+   this.display.clip = false;
    
-   this.display.update(true);
+   this.display.update();
 };
 
 window.addEventListener("load", sozi.Player.prototype.onLoad.bind(new sozi.Player()), false);
