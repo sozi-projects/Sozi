@@ -17,11 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-Function.prototype.bind = function(obj) {
-   var args = Array.prototype.slice.call(arguments, 1);
-   var f = this;
-   return function() {
+/*jslint plusplus: false, indent: 3, browser: true */
+/*global window: true */
+
+Function.prototype.bind = function (obj) {
+   var args = Array.prototype.slice.call(arguments, 1),
+       f = this;
+   return function () {
       f.apply(obj, args.concat(Array.prototype.slice.call(arguments)));
    };
 };
+
+// vim: sw=3
 

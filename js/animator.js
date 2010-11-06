@@ -17,9 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*jslint plusplus: false, indent: 3, browser: true */
+/*global window: true */
+
 var sozi = sozi || {};
 
-sozi.Animator = function(timeStepMs, target, onStep, onDone) {
+sozi.Animator = function (timeStepMs, target, onStep, onDone) {
    this.timeStepMs = timeStepMs || 40;
    this.target = target;
    this.onStep = onStep;
@@ -33,7 +36,9 @@ sozi.Animator = function(timeStepMs, target, onStep, onDone) {
    this.timer = 0;
 };
 
-sozi.Animator.prototype.start = function(initialState, finalState, durationMs, profileName) {
+sozi.Animator.prototype.start = function (initialState, finalState, durationMs, profileName) {
+   var attr;
+
    this.durationMs = durationMs;
    this.initialState = initialState;
    this.finalState = finalState;
@@ -41,83 +46,94 @@ sozi.Animator.prototype.start = function(initialState, finalState, durationMs, p
 
    this.initialTime = Date.now();
 
-   for(var attr in this.initialState) {
-      this.target[attr] = this.initialState[attr];
+   for (attr in this.initialState) {
+      if (this.initialState.hasOwnProperty(attr)) {
+         this.target[attr] = this.initialState[attr];
+      }
    }
    this.onStep();
 
-   if(!this.started) {
+   if (!this.started) {
       this.started = true;
       this.timer = window.setInterval(this.step.bind(this), this.timeStepMs);
    }
 };
 
-sozi.Animator.prototype.stop = function() {
-   if(this.started) {
+sozi.Animator.prototype.stop = function () {
+   if (this.started) {
       window.clearInterval(this.timer);
       this.started = false;
    }
 };
 
-sozi.Animator.prototype.step = function() {
-   var elapsedTime = Date.now() - this.initialTime;
+sozi.Animator.prototype.step = function () {
+   var elapsedTime = Date.now() - this.initialTime,
+       attr,
+       progress, remaining,
+       initialValue, finalValue;
 
-   if(elapsedTime >= this.durationMs) {
-      for(var attr in this.finalState) {
-         this.target[attr] = this.finalState[attr];
+   if (elapsedTime >= this.durationMs) {
+      for (attr in this.finalState) {
+         if (this.finalState.hasOwnProperty(attr)) {
+            this.target[attr] = this.finalState[attr];
+         }
       }
       this.stop();
       this.onStep();
       this.onDone();
    }
    else {
-      var progress = this.profile(elapsedTime / this.durationMs);
-      var remaining = 1 - progress;
-      for(var attr in this.initialState) {
-         var initialValue = this.initialState[attr];
-         var finalValue = this.finalState[attr];
-         if(typeof initialValue === "number") {
-            this.target[attr] = (finalValue || 0) * progress + initialValue * remaining;
-         }
-         else if(typeof finalValue !== "undefined") {
-            this.target[attr] = finalValue;
+      progress = this.profile(elapsedTime / this.durationMs);
+      remaining = 1 - progress;
+      for (attr in this.initialState) {
+         if (this.initialState.hasOwnProperty(attr)) {
+            initialValue = this.initialState[attr];
+            finalValue = this.finalState[attr];
+            if (typeof initialValue === "number") {
+               this.target[attr] = (finalValue || 0) * progress + initialValue * remaining;
+            }
+            else if (typeof finalValue !== "undefined") {
+               this.target[attr] = finalValue;
+            }
          }
       }
       this.onStep();
    }
 };
 
-sozi.Animator.prototype.power = function(x, p) {
-   var r = 1;
-   for(var i = 0; i < p; i++) {
+sozi.Animator.prototype.power = function (x, p) {
+   var r = 1, i;
+   for (i = 0; i < p; i ++) {
       r *= x;
    }
    return r;
 };
 
 sozi.Animator.prototype.profiles = {
-   "linear": function(x) {
+   "linear": function (x) {
       return x;
    },
 
-   "accelerate": function(x) {
+   "accelerate": function (x) {
       return this.power(x, 3);
    },
 
-   "strong-accelerate": function(x) {
+   "strong-accelerate": function (x) {
       return this.power(x, 5);
    },
 
-   "decelerate": function(x) {
+   "decelerate": function (x) {
       return 1 - this.power(1 - x, 3);
    },
 
-   "strong-decelerate": function(x) {
+   "strong-decelerate": function (x) {
       return 1 - this.power(1 - x, 5);
    },
 
-   "accelerate-decelerate": function(x) {
+   "accelerate-decelerate": function (x) {
       return (1 - Math.cos(x * Math.PI)) / 2;
    }
 };
+
+// vim: sw=3
 

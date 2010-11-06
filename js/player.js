@@ -17,9 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*jslint plusplus: false, indent: 3, browser: true */
+/*global window: true */
+
 var sozi = sozi || {};
 
-sozi.Player = function() {
+sozi.Player = function () {
    this.display = new sozi.Display(this, false);
    this.animator = new sozi.Animator(40, this.display, this.display.update.bind(this.display), this.animationDone.bind(this));
    this.frames = [];
@@ -47,7 +50,9 @@ sozi.Player.prototype.defaults = {
    "transition-profile": "linear"
 };
 
-sozi.Player.prototype.onLoad = function() {
+sozi.Player.prototype.onLoad = function () {
+   var wheelHandler = this.onWheel.bind(this);
+
    this.display.onLoad();
 
    this.readFrames();
@@ -64,19 +69,18 @@ sozi.Player.prototype.onLoad = function() {
    this.display.svgRoot.addEventListener("keydown", this.onKeyDown.bind(this), false);
    window.addEventListener("hashchange", this.onHashChange.bind(this), false);
 
-   var wheelHandler = this.onWheel.bind(this);
    this.display.svgRoot.addEventListener("DOMMouseScroll", wheelHandler, false); // Mozilla
    window.onmousewheel = wheelHandler;
 
    this.dragging = false;
 };
 
-sozi.Player.prototype.getFrameIndexFromURL = function() {
-   var index = window.location.hash ? parseInt(window.location.hash.slice(1)) - 1 : 0;
-   if(isNaN(index) || index < 0) {
+sozi.Player.prototype.getFrameIndexFromURL = function () {
+   var index = window.location.hash ? parseInt(window.location.hash.slice(1), 10) - 1 : 0;
+   if (isNaN(index) || index < 0) {
       return 0;
    }
-   else if(index >= this.frames.length) {
+   else if (index >= this.frames.length) {
       return this.frames.length - 1;
    }
    else {
@@ -84,33 +88,35 @@ sozi.Player.prototype.getFrameIndexFromURL = function() {
    }
 };
 
-sozi.Player.prototype.readAttribute = function(rect, attr) {
-   var value = rect.getAttributeNS(this.soziNs, attr)
+sozi.Player.prototype.readAttribute = function (rect, attr) {
+   var value = rect.getAttributeNS(this.soziNs, attr);
    return value === "" ? this.defaults[attr] : value;
 };
 
-sozi.Player.prototype.readFrames = function() {
-   var frameElements = document.getElementsByClassName("sozi-frame");
-   for(var i=0; i<frameElements.length; i++) {
-      var newFrame = {
+sozi.Player.prototype.readFrames = function () {
+   var frameElements = document.getElementsByClassName("sozi-frame"),
+       i, newFrame;
+
+   for (i = 0; i < frameElements.length; i ++) {
+      newFrame = {
          rect: frameElements[i],
          geometry: this.display.getElementGeometry(frameElements[i]),
          title: this.readAttribute(frameElements[i], "title"),
          sequence: this.readAttribute(frameElements[i], "sequence"),
-         hide: this.readAttribute(frameElements[i], "hide") == "true",
-         timeoutEnable: this.readAttribute(frameElements[i], "timeout-enable") == "true",
+         hide: this.readAttribute(frameElements[i], "hide") === "true",
+         timeoutEnable: this.readAttribute(frameElements[i], "timeout-enable") === "true",
          timeoutMs: this.readAttribute(frameElements[i], "timeout-ms"),
          transitionDurationMs: this.readAttribute(frameElements[i], "transition-duration-ms"),
          transitionProfile: this.readAttribute(frameElements[i], "transition-profile")
       };
-      if(newFrame.hide) {
+      if (newFrame.hide) {
          frameElements[i].setAttribute("visibility", "hidden");
       }
-      newFrame.geometry.clip = this.readAttribute(frameElements[i], "clip") == "true";
+      newFrame.geometry.clip = this.readAttribute(frameElements[i], "clip") === "true";
       this.frames.push(newFrame);
    }
    this.frames.sort(
-      function(a, b) {
+      function (a, b) {
          return a.sequence - b.sequence;
       }
    );
@@ -123,15 +129,15 @@ sozi.Player.prototype.readFrames = function() {
  * No "click" event is generated for the middle button.
  * See "onMouseDown" for middle click handling.
  */
-sozi.Player.prototype.onClick = function(evt) {
-   if(!this.dragged) {
+sozi.Player.prototype.onClick = function (evt) {
+   if (!this.dragged) {
       this.moveToNext();
    }
    evt.stopPropagation();
 };
 
-sozi.Player.prototype.onMouseDown = function(evt) {
-   if(evt.button === 0) {
+sozi.Player.prototype.onMouseDown = function (evt) {
+   if (evt.button === 0) {
       this.dragging = true;
       this.dragged = false;
       this.dragClientX = evt.clientX;
@@ -139,8 +145,8 @@ sozi.Player.prototype.onMouseDown = function(evt) {
       this.dragTranslateX = this.display.translateX;
       this.dragTranslateY = this.display.translateY;
    }
-   else if(evt.button === 1) {
-      if(this.display.tableOfContentsIsVisible()) {
+   else if (evt.button === 1) {
+      if (this.display.tableOfContentsIsVisible()) {
          this.display.hideTableOfContents();
       }
       else {
@@ -151,15 +157,15 @@ sozi.Player.prototype.onMouseDown = function(evt) {
    evt.stopPropagation();
 };
 
-sozi.Player.prototype.onMouseUp = function(evt) {
-   if(evt.button === 0) {
+sozi.Player.prototype.onMouseUp = function (evt) {
+   if (evt.button === 0) {
       this.dragging = false;
    }
    evt.stopPropagation();
 };
 
-sozi.Player.prototype.onMouseMove = function(evt) {
-   if(this.dragging) {
+sozi.Player.prototype.onMouseMove = function (evt) {
+   if (this.dragging) {
       this.stop();
       this.dragged = true;
       this.display.drag(evt.clientX - this.dragClientX, evt.clientY - this.dragClientY);
@@ -173,69 +179,69 @@ sozi.Player.prototype.onMouseMove = function(evt) {
 
 // TODO test this with Webkit, Opera, IE
 // FIXME scale should be centered on mouse pointer location
-sozi.Player.prototype.onWheel = function(evt) {
+sozi.Player.prototype.onWheel = function (evt) {
    var delta = 0;
-   if(!evt) {
+   if (!evt) {
       evt = window.event;
    }
-   if(evt.wheelDelta) { // IE and Opera
+   if (evt.wheelDelta) { // IE and Opera
       delta = evt.wheelDelta; 
       if (window.opera) { // Opera
          delta = - delta;
       }
    }
-   else if(evt.detail) { // Mozilla
+   else if (evt.detail) { // Mozilla
       delta = - evt.detail;
    }
 
-   if(delta !== 0) {
+   if (delta !== 0) {
       this.zoom(delta);
    }
    evt.stopPropagation();
    evt.preventDefault();
 };
 
-sozi.Player.prototype.onKeyPress = function(evt) {
-   switch(evt.charCode) {
-      case 43: // +
-         this.zoom(1);
-         break;
-      case 45: // -
-         this.zoom(-1);
-         break;
-      case 61: // =
-         this.moveToCurrent();
-         break;
-      case 70: // F
-      case 102: // f
-         this.showAll();
-         break;
+sozi.Player.prototype.onKeyPress = function (evt) {
+   switch (evt.charCode) {
+   case 43: // +
+      this.zoom(1);
+      break;
+   case 45: // -
+      this.zoom(-1);
+      break;
+   case 61: // =
+      this.moveToCurrent();
+      break;
+   case 70: // F
+   case 102: // f
+      this.showAll();
+      break;
    }
    evt.stopPropagation();
 };
 
-sozi.Player.prototype.onKeyDown = function(evt) {
+sozi.Player.prototype.onKeyDown = function (evt) {
    switch (evt.keyCode) {
-      case 36: // Home
-         this.moveToFirst();
-         break;
-      case 35: // End
-         this.moveToLast();
-         break;
-      case 33: // Page up
-      case 37: // Arrow left
-      case 38: // Arrow up
-         this.moveToPrevious();
-         break;
-      case 34: // Page down
-      case 39: // Arrow right
-      case 40: // Arrow down
-      case 13: // Enter
-         this.moveToNext();
-         break;
-      case 32: // Space
-         this.moveToNext();
-         break;
+   case 36: // Home
+      this.moveToFirst();
+      break;
+   case 35: // End
+      this.moveToLast();
+      break;
+   case 33: // Page up
+   case 37: // Arrow left
+   case 38: // Arrow up
+      this.moveToPrevious();
+      break;
+   case 34: // Page down
+   case 39: // Arrow right
+   case 40: // Arrow down
+   case 13: // Enter
+      this.moveToNext();
+      break;
+   case 32: // Space
+      this.moveToNext();
+      break;
    }
    evt.stopPropagation();
 };
@@ -245,9 +251,9 @@ sozi.Player.prototype.onKeyDown = function(evt) {
  * or internally, by the script modifying window.location.hash.
  * If the hash is different from the current frame index, we move to the given index.
  */
-sozi.Player.prototype.onHashChange = function() {
+sozi.Player.prototype.onHashChange = function () {
    var index = this.getFrameIndexFromURL();
-   if(index != this.currentFrameIndex) {
+   if (index !== this.currentFrameIndex) {
       this.moveToFrame(index);
    }
 };
@@ -255,7 +261,7 @@ sozi.Player.prototype.onHashChange = function() {
 /*
 * pre: 0 <= index < this.frames.length
 */
-sozi.Player.prototype.startFromIndex = function(index) {
+sozi.Player.prototype.startFromIndex = function (index) {
    this.playing = true;
    this.waiting = false;
    this.currentFrameIndex = index;
@@ -263,25 +269,27 @@ sozi.Player.prototype.startFromIndex = function(index) {
    this.waitTimeout();
 };
 
-sozi.Player.prototype.stop = function() {
+sozi.Player.prototype.stop = function () {
    this.animator.stop();
-   if(this.waiting) {
+   if (this.waiting) {
       window.clearTimeout(this.nextFrameTimeout);
       this.waiting = false;
    }
    this.playing = false;
 };
 
-sozi.Player.prototype.animationDone = function() {
-   if(this.playing) {
+sozi.Player.prototype.animationDone = function () {
+   if (this.playing) {
       this.waitTimeout();
    }
 };
 
-sozi.Player.prototype.waitTimeout = function() {
-   if(this.frames[this.currentFrameIndex].timeoutEnable) {
+sozi.Player.prototype.waitTimeout = function () {
+   var index;
+
+   if (this.frames[this.currentFrameIndex].timeoutEnable) {
       this.waiting = true;
-      var index = (this.currentFrameIndex + 1) % this.frames.length;
+      index = (this.currentFrameIndex + 1) % this.frames.length;
       this.nextFrameTimeout = window.setTimeout(
          this.moveToFrame.bind(this, index),
          this.frames[this.currentFrameIndex].timeoutMs
@@ -289,20 +297,21 @@ sozi.Player.prototype.waitTimeout = function() {
    }
 };
 
-sozi.Player.prototype.moveToFrame = function(index) {
-   if(this.waiting) {
+sozi.Player.prototype.moveToFrame = function (index) {
+   var durationMs = this.defaultDurationMs,
+       profile = this.defaultProfile;
+
+   if (this.waiting) {
       window.clearTimeout(this.nextFrameTimeout);
       this.waiting = false;
    }
 
-   var durationMs = this.defaultDurationMs;
-   var profile = this.defaultProfile;
-   if(index === (this.currentFrameIndex + 1) % this.frames.length) {
+   if (index === (this.currentFrameIndex + 1) % this.frames.length) {
       durationMs = this.frames[index].transitionDurationMs;
       profile = this.frames[index].transitionProfile;
    }
 
-   if(this.display.tableOfContentsIsVisible()) {
+   if (this.display.tableOfContentsIsVisible()) {
       this.display.hideTableOfContents();
    }
 
@@ -317,41 +326,43 @@ sozi.Player.prototype.moveToFrame = function(index) {
    window.location.hash = "#" + (index + 1);
 };
 
-sozi.Player.prototype.moveToFirst = function() {
+sozi.Player.prototype.moveToFirst = function () {
    this.moveToFrame(0);
 };
 
-sozi.Player.prototype.moveToPrevious = function() {
-   var index = this.currentFrameIndex;
-   for(index--; index >= 0; index--) {
-      var frame = this.frames[index];
-      if(!frame.timeoutEnable || frame.timeoutMs !== 0) {
+sozi.Player.prototype.moveToPrevious = function () {
+   var index = this.currentFrameIndex,
+       frame;
+
+   for (index --; index >= 0; index --) {
+      frame = this.frames[index];
+      if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
          this.moveToFrame(index);
          break;
       }
    }
 };
 
-sozi.Player.prototype.moveToNext = function() {
-   if(this.currentFrameIndex < this.frames.length - 1 || this.frames[this.currentFrameIndex].timeoutEnable) {
+sozi.Player.prototype.moveToNext = function () {
+   if (this.currentFrameIndex < this.frames.length - 1 || this.frames[this.currentFrameIndex].timeoutEnable) {
       this.moveToFrame((this.currentFrameIndex + 1) % this.frames.length);
    }
 };
 
-sozi.Player.prototype.moveToLast = function() {
+sozi.Player.prototype.moveToLast = function () {
    this.moveToFrame(this.frames.length - 1);
 };
 
-sozi.Player.prototype.moveToCurrent = function() {
+sozi.Player.prototype.moveToCurrent = function () {
    this.moveToFrame(this.currentFrameIndex);
 };
 
 /*
  * Show all the document in the browser window.
  */
-sozi.Player.prototype.showAll = function() {
+sozi.Player.prototype.showAll = function () {
    this.stop();
-   if(this.display.tableOfContentsIsVisible()) {
+   if (this.display.tableOfContentsIsVisible()) {
       this.display.hideTableOfContents();
    }
    this.animator.start(
@@ -360,12 +371,12 @@ sozi.Player.prototype.showAll = function() {
    );
 };
 
-sozi.Player.prototype.zoom = function(delta) {
+sozi.Player.prototype.zoom = function (delta) {
    this.stop();
-   if(this.display.tableOfContentsIsVisible()) {
+   if (this.display.tableOfContentsIsVisible()) {
       this.display.hideTableOfContents();
    }
-   if(delta > 0) {
+   if (delta > 0) {
       this.display.scale *= this.scaleFactor;
       this.display.translateX *= this.scaleFactor;
       this.display.translateY *= this.scaleFactor;
@@ -381,4 +392,6 @@ sozi.Player.prototype.zoom = function(delta) {
 };
 
 window.addEventListener("load", sozi.Player.prototype.onLoad.bind(new sozi.Player()), false);
+
+// vim: sw=3
 

@@ -17,6 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*jslint plusplus: false, indent: 3, browser: true */
+/*global window: true */
+
 var sozi = sozi || {};
 
 /*
@@ -25,7 +28,7 @@ var sozi = sozi || {};
  * Parameters:
  *    - controller: the object that holds the frame list (attribute "frames")
  */
-sozi.Display = function(controller) {
+sozi.Display = function (controller) {
    this.controller = controller;
 
    // Initial display properties
@@ -47,7 +50,10 @@ sozi.Display = function(controller) {
  *
  * This method must be called when the document is ready to be manipulated.
  */
-sozi.Display.prototype.onLoad = function() {
+sozi.Display.prototype.onLoad = function () {
+   var n,
+       clipPath = document.createElementNS(this.svgNs, "clipPath");
+
    this.svgRoot = document.documentElement; // TODO check SVG tag
    this.svgNs = "http://www.w3.org/2000/svg";
 
@@ -60,9 +66,9 @@ sozi.Display.prototype.onLoad = function() {
    this.wrapper = document.createElementNS(this.svgNs, "g");
    this.wrapper.setAttribute("id", "sozi-wrapper");
 
-   while(true) {
-      var n = this.svgRoot.firstChild;
-      if(!n) {
+   while (true) {
+      n = this.svgRoot.firstChild;
+      if (!n) {
          break;
       }
       this.svgRoot.removeChild(n);
@@ -74,7 +80,6 @@ sozi.Display.prototype.onLoad = function() {
    this.clipRect = document.createElementNS(this.svgNs, "rect");
    this.clipRect.setAttribute("id", "sozi-clip-rect");
 
-   var clipPath = document.createElementNS(this.svgNs, "clipPath");
    clipPath.setAttribute("id", "sozi-clip-path");
    clipPath.appendChild(this.clipRect);
    this.svgRoot.appendChild(clipPath);
@@ -89,7 +94,7 @@ sozi.Display.prototype.onLoad = function() {
 /*
  * Resize the SVG document to fit the browser window.
  */
-sozi.Display.prototype.resize = function() {
+sozi.Display.prototype.resize = function () {
    this.svgRoot.setAttribute("width", window.innerWidth);
    this.svgRoot.setAttribute("height", window.innerHeight);
    this.update();
@@ -103,14 +108,14 @@ sozi.Display.prototype.resize = function() {
  *    - width, height: the size of the visible area, in pixels
  *    - scale: the scale factor to apply to the SVG document so that is fits the visible area
  */
-sozi.Display.prototype.getFrameGeometry = function() {
+sozi.Display.prototype.getFrameGeometry = function () {
    var result = {};
 
    // Get the current frame location, size and scale
    result.width = window.innerWidth;
    result.height = window.innerHeight;
 
-   if(result.width * this.aspectHeight > result.height * this.aspectWidth) {
+   if (result.width * this.aspectHeight > result.height * this.aspectWidth) {
       result.width = result.height * this.aspectWidth / this.aspectHeight;
    }
    else {
@@ -139,27 +144,29 @@ sozi.Display.prototype.getFrameGeometry = function() {
  * Returns:
  *    - The default aspect ratio, translation, scale and rotation for the given element 
  */
-sozi.Display.prototype.getElementGeometry = function(elem) {
-   if (elem.nodeName === "rect") {
-      var x = elem.x.baseVal.value;
-      var y = elem.y.baseVal.value;
-      var width = elem.width.baseVal.value;
-      var height = elem.height.baseVal.value;
-   } else {
-      var b = elem.getBBox();
-      var x = b.x;
-      var y = b.y;
-      var width = b.width;
-      var height = b.height;
-   }
+sozi.Display.prototype.getElementGeometry = function (elem) {
+   var x, y, width, height, b,
+       matrix = elem.getCTM().inverse();
 
-   var matrix = elem.getCTM().inverse();
+   if (elem.nodeName === "rect") {
+      x = elem.x.baseVal.value;
+      y = elem.y.baseVal.value;
+      width = elem.width.baseVal.value;
+      height = elem.height.baseVal.value;
+   }
+   else {
+      b = elem.getBBox();
+      x = b.x;
+      y = b.y;
+      width = b.width;
+      height = b.height;
+   }
 
    return {
       aspectWidth: width,
       aspectHeight: height,
-		translateX: matrix.e - x,
-		translateY: matrix.f - y,
+      translateX: matrix.e - x,
+      translateY: matrix.f - y,
       scale: Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b),
       rotate: Math.atan2(matrix.b, matrix.a) * 180 / Math.PI
    };
@@ -171,7 +178,7 @@ sozi.Display.prototype.getElementGeometry = function(elem) {
  * Returns:
  *    - The default aspect ratio, translation, scale and rotation for the document's bounding box
  */
-sozi.Display.prototype.getDocumentGeometry = function() {
+sozi.Display.prototype.getDocumentGeometry = function () {
    return {
       aspectWidth: this.initialBBox.width,
       aspectHeight: this.initialBBox.height,
@@ -189,7 +196,7 @@ sozi.Display.prototype.getDocumentGeometry = function() {
  * Returns:
  *    - An object with the current aspect ratio, translation, rotation and scale
  */
-sozi.Display.prototype.getCurrentGeometry = function() {
+sozi.Display.prototype.getCurrentGeometry = function () {
    return {
       aspectWidth: this.aspectWidth,
       aspectHeight: this.aspectHeight,
@@ -208,12 +215,12 @@ sozi.Display.prototype.getCurrentGeometry = function() {
  *    - deltaX: the horizontal displacement, in pixels
  *    - deltaY: the vertical displacement, in pixels
  */
-sozi.Display.prototype.drag = function(deltaX, deltaY) {
+sozi.Display.prototype.drag = function (deltaX, deltaY) {
    var g = this.getFrameGeometry();
    this.translateX += deltaX / g.scale;
    this.translateY += deltaY / g.scale;
    this.clip = false;
-   if(this.tableOfContentsIsVisible()) {
+   if (this.tableOfContentsIsVisible()) {
       this.hideTableOfContents();
    }
    this.update();
@@ -225,25 +232,24 @@ sozi.Display.prototype.drag = function(deltaX, deltaY) {
  *
  * This method is called automatically when the window is resized.
  */
-sozi.Display.prototype.update = function() {
-   var g = this.getFrameGeometry();
+sozi.Display.prototype.update = function () {
+   var g = this.getFrameGeometry(),
+       translateX = this.translateX * g.scale + g.x,
+       translateY = this.translateY * g.scale + g.y,
+       scale = g.scale * this.scale;
+
+   // Compute and apply the geometrical transformation to the wrapper group
+   this.wrapper.setAttribute("transform",
+      "translate(" + translateX + "," + translateY + ")" +
+      "scale(" + scale + ")" +
+      "rotate(" + this.rotate + ")"
+   );
 
    // Adjust the location and size of the clipping rectangle and the frame rectangle
    this.clipRect.setAttribute("x", this.clip ? g.x : 0);
    this.clipRect.setAttribute("y", this.clip ? g.y : 0);
    this.clipRect.setAttribute("width", this.clip ? g.width : window.innerWidth);
    this.clipRect.setAttribute("height", this.clip ? g.height : window.innerHeight);
-
-   // Compute and apply the geometrical transformation to the wrapper group
-   var translateX = this.translateX * g.scale + g.x;
-   var translateY = this.translateY * g.scale + g.y;
-   var scale = g.scale * this.scale;
-
-   this.wrapper.setAttribute("transform",
-      "translate(" + translateX + "," + translateY + ")" +
-      "scale(" + scale + ")" +
-      "rotate(" + this.rotate + ")"
-   );
 };
 
 /*
@@ -252,25 +258,27 @@ sozi.Display.prototype.update = function() {
  * Parameters:
  *    - frame: the frame to show
  */
-sozi.Display.prototype.showFrame = function(frame) {
-   for(attr in frame.geometry) {
-      this[attr] = frame.geometry[attr];
+sozi.Display.prototype.showFrame = function (frame) {
+   var attr;
+   for (attr in frame.geometry) {
+      if (frame.geometry.hasOwnProperty(attr)) {
+         this[attr] = frame.geometry[attr];
+      }
    }
    this.update();
 };
 
 // FIXME text size and coordinates
-sozi.Display.prototype.installTableOfContents = function() {
+sozi.Display.prototype.installTableOfContents = function () {
+   var textSize = Math.floor(window.innerHeight / Math.max((this.controller.frames.length + 1), 40)),
+       tocBackground = document.createElementNS(this.svgNs, "rect"),
+       tocWidth = 0,
+       i, frame, text, textWidth;
+
    this.tocGroup = document.createElementNS(this.svgNs, "g");
    this.tocGroup.setAttribute("visibility", "hidden");
-   this.svgRoot.appendChild(this.tocGroup);
-
-   var textSize = Math.floor(window.innerHeight /
-      Math.max((this.controller.frames.length + 1), 40)
-   );
-
-   var tocBackground = document.createElementNS(this.svgNs, "rect");
    this.tocGroup.appendChild(tocBackground);
+   this.svgRoot.appendChild(this.tocGroup);
 
    tocBackground.setAttribute("fill", "#eee");
    tocBackground.setAttribute("stroke", "#888");
@@ -278,22 +286,22 @@ sozi.Display.prototype.installTableOfContents = function() {
    tocBackground.setAttribute("y", "0");
    tocBackground.setAttribute("height", (this.controller.frames.length + 1) * textSize);
 
-   var tocWidth = 0;
 
-   for(var i=0; i<this.controller.frames.length; i++) {
-      var frame = this.controller.frames[i];
-      var text = document.createElementNS(this.svgNs, "text");
+   for (i = 0; i < this.controller.frames.length; i ++) {
+      frame = this.controller.frames[i];
+      text = document.createElementNS(this.svgNs, "text");
       text.appendChild(document.createTextNode(frame.title));
       text.setAttribute("x", textSize / 2);
-      text.setAttribute("y", textSize * (i+1.3));
+      text.setAttribute("y", textSize * (i + 1.3));
       text.setAttribute("fill", "black");
       text.setAttribute("style",
          "font-size: " + (textSize * 0.9) + "px;" +
          "font-family: Verdana, sans-serif"
       );
 
+      // FIXME: does not pass JSLint
       text.addEventListener("click",
-         function(index, evt) {
+         function (index, evt) {
             this.hideTableOfContents();
             this.controller.moveToFrame(index);
             evt.stopPropagation();
@@ -302,20 +310,21 @@ sozi.Display.prototype.installTableOfContents = function() {
 
       // FIXME: use CSS
       text.addEventListener("mouseover",
-         function() {
+         function () {
             this.setAttribute("fill", "#08c");
          }, false
       );
 
+      // FIXME: use CSS
       text.addEventListener("mouseout",
-         function() {
+         function () {
             this.setAttribute("fill", "black");
          }, false
       );
 
       this.tocGroup.appendChild(text);
-      var textWidth = text.getBBox().width;
-      if(textWidth > tocWidth) {
+      textWidth = text.getBBox().width;
+      if (textWidth > tocWidth) {
          tocWidth = textWidth;
       }
    }
@@ -323,7 +332,7 @@ sozi.Display.prototype.installTableOfContents = function() {
    tocBackground.setAttribute("width", tocWidth + textSize);
 };
 
-sozi.Display.prototype.showTableOfContents = function() {
+sozi.Display.prototype.showTableOfContents = function () {
    // Expand the clip path to the whole window
    this.clipRect.setAttribute("x", 0);
    this.clipRect.setAttribute("y", 0);
@@ -334,19 +343,22 @@ sozi.Display.prototype.showTableOfContents = function() {
    this.tocGroup.setAttribute("visibility", "visible");
 };
 
-sozi.Display.prototype.hideTableOfContents = function() {
+sozi.Display.prototype.hideTableOfContents = function () {
+   var g = this.getFrameGeometry();
+
    // Hide table of contents
    this.tocGroup.setAttribute("visibility", "hidden");
 
    // Adjust the location and size of the clipping rectangle and the frame rectangle
-   var g = this.getFrameGeometry();
    this.clipRect.setAttribute("x", g.x);
    this.clipRect.setAttribute("y", g.y);
    this.clipRect.setAttribute("width", g.width);
    this.clipRect.setAttribute("height", g.height);
 };
 
-sozi.Display.prototype.tableOfContentsIsVisible = function() {
-   return this.tocGroup.getAttribute("visibility") == "visible";
+sozi.Display.prototype.tableOfContentsIsVisible = function () {
+   return this.tocGroup.getAttribute("visibility") === "visible";
 };
+
+// vim: sw=3
 
