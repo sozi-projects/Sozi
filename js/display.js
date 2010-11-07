@@ -41,6 +41,8 @@ sozi.Display = function (controller) {
    this.clip = true;
 };
 
+sozi.Display.prototype.svgNs = "http://www.w3.org/2000/svg";
+
 /*
  * Initialize the current Display.
  *
@@ -55,7 +57,6 @@ sozi.Display.prototype.onLoad = function () {
        clipPath = document.createElementNS(this.svgNs, "clipPath");
 
    this.svgRoot = document.documentElement; // TODO check SVG tag
-   this.svgNs = "http://www.w3.org/2000/svg";
 
    // Remove viewbox if needed
    this.svgRoot.removeAttribute("viewBox");
