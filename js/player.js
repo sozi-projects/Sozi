@@ -24,7 +24,7 @@ var sozi = sozi || {};
 
 sozi.Player = function () {
    this.display = new sozi.Display(this, false);
-   this.animator = new sozi.Animator(40, this.display, this.display.update.bind(this.display), this.animationDone.bind(this));
+   this.animator = new sozi.Animator(40, this.onAnimationStep.bind(this), this.onAnimationDone.bind(this));
    this.frames = [];
    this.playing = false;
    this.waiting = false;
@@ -35,7 +35,8 @@ sozi.Player.prototype.soziNs = "http://sozi.baierouge.fr";
 sozi.Player.prototype.dragButton = 1; // Middle button
 
 sozi.Player.prototype.defaultDurationMs = 500;
-sozi.Player.prototype.defaultProfile = "accelerate-decelerate";
+sozi.Player.prototype.defaultProfile = "linear";
+sozi.Player.prototype.defaultZoomPercent = 100;
 sozi.Player.prototype.scaleFactor = 1.05;
 
 
@@ -47,6 +48,7 @@ sozi.Player.prototype.defaults = {
    "timeout-enable": "false",
    "timeout-ms": "5000",
    "transition-duration-ms": "1000",
+   "transition-zoom-percent": "100",
    "transition-profile": "linear"
 };
 
@@ -102,11 +104,12 @@ sozi.Player.prototype.readFrames = function () {
          rect: frameElements[i],
          geometry: this.display.getElementGeometry(frameElements[i]),
          title: this.readAttribute(frameElements[i], "title"),
-         sequence: this.readAttribute(frameElements[i], "sequence"),
+         sequence: parseInt(this.readAttribute(frameElements[i], "sequence"), 10),
          hide: this.readAttribute(frameElements[i], "hide") === "true",
          timeoutEnable: this.readAttribute(frameElements[i], "timeout-enable") === "true",
-         timeoutMs: this.readAttribute(frameElements[i], "timeout-ms"),
-         transitionDurationMs: this.readAttribute(frameElements[i], "transition-duration-ms"),
+         timeoutMs: parseInt(this.readAttribute(frameElements[i], "timeout-ms"), 10),
+         transitionDurationMs: parseInt(this.readAttribute(frameElements[i], "transition-duration-ms"), 10),
+         transitionZoomPercent: parseInt(this.readAttribute(frameElements[i], "transition-zoom-percent"), 10),
          transitionProfile: this.readAttribute(frameElements[i], "transition-profile")
       };
       if (newFrame.hide) {
@@ -278,7 +281,30 @@ sozi.Player.prototype.stop = function () {
    this.playing = false;
 };
 
-sozi.Player.prototype.animationDone = function () {
+sozi.Player.prototype.onAnimationStep = function (progress, data) {
+   var remaining = 1 - progress,
+       scaleFactor = 1 + (data.zoomPercent - 100) * (1 - 2 * Math.abs(progress - 0.5)) / 100,
+       attr;
+
+   for (attr in data.initialState) {
+      if (data.initialState.hasOwnProperty(attr)) {
+         if (typeof data.initialState[attr] === "number" &&
+             typeof data.finalState[attr] === "number") {
+            this.display[attr] = data.finalState[attr] * progress + data.initialState[attr] * remaining;
+         }
+      }
+   }
+
+   this.display.scale *= scaleFactor;
+   this.display.translateX *= scaleFactor;
+   this.display.translateY *= scaleFactor;
+
+   this.display.clip = data.finalState.clip;
+
+   this.display.update();
+};
+
+sozi.Player.prototype.onAnimationDone = function () {
    if (this.playing) {
       this.waitTimeout();
    }
@@ -286,7 +312,6 @@ sozi.Player.prototype.animationDone = function () {
 
 sozi.Player.prototype.waitTimeout = function () {
    var index;
-
    if (this.frames[this.currentFrameIndex].timeoutEnable) {
       this.waiting = true;
       index = (this.currentFrameIndex + 1) % this.frames.length;
@@ -299,6 +324,7 @@ sozi.Player.prototype.waitTimeout = function () {
 
 sozi.Player.prototype.moveToFrame = function (index) {
    var durationMs = this.defaultDurationMs,
+       zoomPercent = this.defaultZoomPercent,
        profile = this.defaultProfile;
 
    if (this.waiting) {
@@ -308,6 +334,7 @@ sozi.Player.prototype.moveToFrame = function (index) {
 
    if (index === (this.currentFrameIndex + 1) % this.frames.length) {
       durationMs = this.frames[index].transitionDurationMs;
+      zoomPercent = this.frames[index].transitionZoomPercent;
       profile = this.frames[index].transitionProfile;
    }
 
@@ -318,8 +345,12 @@ sozi.Player.prototype.moveToFrame = function (index) {
    this.playing = true;
    this.currentFrameIndex = index;
    this.animator.start(
-      this.display.getCurrentGeometry(), this.frames[this.currentFrameIndex].geometry,
-      durationMs, profile
+      durationMs, profile,
+      {
+         initialState: this.display.getCurrentGeometry(),
+         finalState: this.frames[this.currentFrameIndex].geometry,
+         zoomPercent: zoomPercent
+      }
    );
 
    // Update URL hash with the current frame index
@@ -366,8 +397,12 @@ sozi.Player.prototype.showAll = function () {
       this.display.hideTableOfContents();
    }
    this.animator.start(
-      this.display.getCurrentGeometry(), this.display.getDocumentGeometry(),
-      this.defaultDurationMs, this.defaultProfile
+      this.defaultDurationMs, this.defaultProfile,
+      {
+         initialState: this.display.getCurrentGeometry(),
+         finalState: this.display.getDocumentGeometry(),
+         zoomPercent: 100
+      }
    );
 };
 

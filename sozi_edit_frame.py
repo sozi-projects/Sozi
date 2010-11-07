@@ -181,6 +181,7 @@ class SoziEditFrame(inkex.Effect):
       clip_field = self.create_checkbox_field("clip", "Clip", "true")
       timeout_field = self.create_checked_spinbutton_field("timeout-enable", "timeout-ms", "Timeout (ms):", "false", 5000)
       transition_duration_field = self.create_spinbutton_field("transition-duration-ms", "Duration (ms):", 1000)
+      transition_zoom_field = self.create_spinbutton_field("transition-zoom-percent", "Zoom (%):", 100)
       transition_profile_field = self.create_combo_field("transition-profile", "Profile:", self.PROFILES, 0)
 
       # Create "Done" and "Cancel" buttons
@@ -235,6 +236,7 @@ class SoziEditFrame(inkex.Effect):
       # Transition properties
       transition_box = gtk.VBox()
       transition_box.pack_start(transition_duration_field, expand=False)
+      transition_box.pack_start(transition_zoom_field, expand=False)
       transition_box.pack_start(transition_profile_field, expand=False)
 
       transition_group = gtk.Frame("Transition")
@@ -287,6 +289,7 @@ class SoziEditFrame(inkex.Effect):
       self.element.set("{" + inkex.NSS["sozi"] + "}timeout-enable", unicode("true" if self.fields["timeout-enable"].get_active() else "false"))
       self.element.set("{" + inkex.NSS["sozi"] + "}timeout-ms", unicode(self.fields["timeout-ms"].get_value_as_int()))
       self.element.set("{" + inkex.NSS["sozi"] + "}transition-duration-ms", unicode(self.fields["transition-duration-ms"].get_value_as_int()))
+      self.element.set("{" + inkex.NSS["sozi"] + "}transition-zoom-percent", unicode(self.fields["transition-zoom-percent"].get_value_as_int()))
       self.element.set("{" + inkex.NSS["sozi"] + "}transition-profile", unicode(self.PROFILES[self.fields["transition-profile"].get_active()]))
 
       # Renumber frames

@@ -22,36 +22,25 @@
 
 var sozi = sozi || {};
 
-sozi.Animator = function (timeStepMs, target, onStep, onDone) {
+sozi.Animator = function (timeStepMs, onStep, onDone) {
    this.timeStepMs = timeStepMs || 40;
-   this.target = target;
    this.onStep = onStep;
    this.onDone = onDone;
 
    this.durationMs = 0;
-   this.initialState = {};
-   this.finalState = {};
+   this.data = {};
    this.initialTime = 0;
    this.started = false;
    this.timer = 0;
 };
 
-sozi.Animator.prototype.start = function (initialState, finalState, durationMs, profileName) {
-   var attr;
-
+sozi.Animator.prototype.start = function (durationMs, profileName, data) {
    this.durationMs = durationMs;
-   this.initialState = initialState;
-   this.finalState = finalState;
    this.profile = this.profiles[profileName] || this.profiles.linear;
+   this.data = data;
 
    this.initialTime = Date.now();
-
-   for (attr in this.initialState) {
-      if (this.initialState.hasOwnProperty(attr)) {
-         this.target[attr] = this.initialState[attr];
-      }
-   }
-   this.onStep();
+   this.onStep(0, this.data);
 
    if (!this.started) {
       this.started = true;
@@ -67,37 +56,14 @@ sozi.Animator.prototype.stop = function () {
 };
 
 sozi.Animator.prototype.step = function () {
-   var elapsedTime = Date.now() - this.initialTime,
-       attr,
-       progress, remaining,
-       initialValue, finalValue;
-
+   var elapsedTime = Date.now() - this.initialTime;
    if (elapsedTime >= this.durationMs) {
-      for (attr in this.finalState) {
-         if (this.finalState.hasOwnProperty(attr)) {
-            this.target[attr] = this.finalState[attr];
-         }
-      }
       this.stop();
-      this.onStep();
+      this.onStep(1, this.data);
       this.onDone();
    }
    else {
-      progress = this.profile(elapsedTime / this.durationMs);
-      remaining = 1 - progress;
-      for (attr in this.initialState) {
-         if (this.initialState.hasOwnProperty(attr)) {
-            initialValue = this.initialState[attr];
-            finalValue = this.finalState[attr];
-            if (typeof initialValue === "number") {
-               this.target[attr] = (finalValue || 0) * progress + initialValue * remaining;
-            }
-            else if (typeof finalValue !== "undefined") {
-               this.target[attr] = finalValue;
-            }
-         }
-      }
-      this.onStep();
+      this.onStep(this.profile(elapsedTime / this.durationMs), this.data);
    }
 };
 
