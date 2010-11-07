@@ -39,7 +39,11 @@ import gtk
 import re
 
 class SoziEditFrame(inkex.Effect):
-   PROFILES = ["linear", "accelerate", "decelerate", "accelerate-decelerate"]
+   PROFILES = ["linear",
+               "accelerate", "strong-accelerate",
+               "decelerate", "strong-decelerate",
+               "accelerate-decelerate", "strong-accelerate-decelerate",
+               "decelerate-accelerate", "strong-decelerate-accelerate"]
 
    def __init__(self):
       inkex.Effect.__init__(self)

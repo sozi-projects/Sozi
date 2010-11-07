@@ -131,7 +131,27 @@ sozi.Animator.prototype.profiles = {
    },
 
    "accelerate-decelerate": function (x) {
-      return (1 - Math.cos(x * Math.PI)) / 2;
+      var xs = x <= 0.5 ? x : 1 - x,
+          y = this.power(2 * xs, 3) / 2;
+      return x <= 0.5 ? y : 1 - y;
+   },
+
+   "strong-accelerate-decelerate": function (x) {
+      var xs = x <= 0.5 ? x : 1 - x,
+          y = this.power(2 * xs, 5) / 2;
+      return x <= 0.5 ? y : 1 - y;
+   },
+
+   "decelerate-accelerate": function (x) {
+      var xs = x <= 0.5 ? x : 1 - x,
+          y = (1 - this.power(1 - 2 * xs, 2)) / 2;
+      return x <= 0.5 ? y : 1 - y;
+   },
+
+   "strong-decelerate-accelerate": function (x) {
+      var xs = x <= 0.5 ? x : 1 - x,
+          y = (1 - this.power(1 - 2 * xs, 3)) / 2;
+      return x <= 0.5 ? y : 1 - y;
    }
 };
 
