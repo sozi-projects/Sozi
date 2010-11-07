@@ -39,7 +39,6 @@ sozi.Player.prototype.defaultProfile = "linear";
 sozi.Player.prototype.defaultZoomPercent = 100;
 sozi.Player.prototype.scaleFactor = 1.05;
 
-
 sozi.Player.prototype.defaults = {
    "title": "Untitled",
    "sequence": "0",
@@ -181,7 +180,6 @@ sozi.Player.prototype.onMouseMove = function (evt) {
 };
 
 // TODO test this with Webkit, Opera, IE
-// FIXME scale should be centered on mouse pointer location
 sozi.Player.prototype.onWheel = function (evt) {
    var delta = 0;
    if (!evt) {
@@ -281,6 +279,7 @@ sozi.Player.prototype.stop = function () {
    this.playing = false;
 };
 
+// FIXME: zooming effect should be quadratic when progress is linear
 sozi.Player.prototype.onAnimationStep = function (progress, data) {
    var remaining = 1 - progress,
        scaleFactor = 1 + (data.zoomPercent - 100) * (1 - 2 * Math.abs(progress - 0.5)) / 100,
@@ -295,10 +294,7 @@ sozi.Player.prototype.onAnimationStep = function (progress, data) {
       }
    }
 
-   this.display.scale *= scaleFactor;
-   this.display.translateX *= scaleFactor;
-   this.display.translateY *= scaleFactor;
-
+   this.display.applyZoomFactor(scaleFactor);
    this.display.clip = data.finalState.clip;
 
    this.display.update();
@@ -411,18 +407,9 @@ sozi.Player.prototype.zoom = function (delta) {
    if (this.display.tableOfContentsIsVisible()) {
       this.display.hideTableOfContents();
    }
-   if (delta > 0) {
-      this.display.scale *= this.scaleFactor;
-      this.display.translateX *= this.scaleFactor;
-      this.display.translateY *= this.scaleFactor;
-   }
-   else {
-      this.display.scale /= this.scaleFactor;
-      this.display.translateX /= this.scaleFactor;
-      this.display.translateY /= this.scaleFactor;
-   }
+
+   this.display.applyZoomFactor(delta > 0 ? this.scaleFactor : 1 / this.scaleFactor);
    this.display.clip = false;
-   
    this.display.update();
 };
 

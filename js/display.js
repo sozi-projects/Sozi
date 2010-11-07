@@ -269,6 +269,15 @@ sozi.Display.prototype.showFrame = function (frame) {
    this.update();
 };
 
+// FIXME: centering not accurate
+sozi.Display.prototype.applyZoomFactor = function (factor) {
+   var g = this.getFrameGeometry(),
+       deltaFactor = (factor - 1) / g.scale / 2;
+   this.scale *= factor;
+   this.translateX = this.translateX * factor - g.width * deltaFactor;
+   this.translateY = this.translateY * factor - g.height * deltaFactor;
+};
+
 // FIXME text size and coordinates
 sozi.Display.prototype.installTableOfContents = function () {
    var textSize = Math.floor(window.innerHeight / Math.max((this.controller.frames.length + 1), 40)),
