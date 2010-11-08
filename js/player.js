@@ -35,7 +35,6 @@ sozi.Player.prototype.soziNs = "http://sozi.baierouge.fr";
 sozi.Player.prototype.dragButton = 1; // Middle button
 
 sozi.Player.prototype.defaultDurationMs = 500;
-sozi.Player.prototype.defaultProfile = "linear";
 sozi.Player.prototype.defaultZoomPercent = 100;
 sozi.Player.prototype.scaleFactor = 1.05;
 
@@ -109,7 +108,7 @@ sozi.Player.prototype.readFrames = function () {
          timeoutMs: parseInt(this.readAttribute(frameElements[i], "timeout-ms"), 10),
          transitionDurationMs: parseInt(this.readAttribute(frameElements[i], "transition-duration-ms"), 10),
          transitionZoomPercent: parseInt(this.readAttribute(frameElements[i], "transition-zoom-percent"), 10),
-         transitionProfile: this.readAttribute(frameElements[i], "transition-profile")
+         transitionProfile: this.profiles[this.readAttribute(frameElements[i], "transition-profile") || "linear"]
       };
       if (newFrame.hide) {
          frameElements[i].setAttribute("visibility", "hidden");
@@ -281,6 +280,7 @@ sozi.Player.prototype.stop = function () {
 
 // FIXME: zooming effect should be quadratic when progress is linear
 sozi.Player.prototype.onAnimationStep = function (progress, data) {
+   progress = data.profile(progress);
    var remaining = 1 - progress,
        scaleFactor = 1 + (data.zoomPercent - 100) * (1 - 2 * Math.abs(progress - 0.5)) / 100,
        attr;
@@ -340,11 +340,11 @@ sozi.Player.prototype.moveToFrame = function (index) {
 
    this.playing = true;
    this.currentFrameIndex = index;
-   this.animator.start(
-      durationMs, profile,
+   this.animator.start(durationMs,
       {
          initialState: this.display.getCurrentGeometry(),
          finalState: this.frames[this.currentFrameIndex].geometry,
+         profile: profile,
          zoomPercent: zoomPercent
       }
    );
@@ -392,11 +392,11 @@ sozi.Player.prototype.showAll = function () {
    if (this.display.tableOfContentsIsVisible()) {
       this.display.hideTableOfContents();
    }
-   this.animator.start(
-      this.defaultDurationMs, this.defaultProfile,
+   this.animator.start(this.defaultDurationMs,
       {
          initialState: this.display.getCurrentGeometry(),
          finalState: this.display.getDocumentGeometry(),
+         profile: this.defaultProfile,
          zoomPercent: 100
       }
    );
@@ -412,6 +412,54 @@ sozi.Player.prototype.zoom = function (delta) {
    this.display.clip = false;
    this.display.update();
 };
+
+sozi.Player.prototype.profiles = {
+   "linear": function (x) {
+      return x;
+   },
+
+   "accelerate": function (x) {
+      return Math.pow(x, 3);
+   },
+
+   "strong-accelerate": function (x) {
+      return Math.pow(x, 5);
+   },
+
+   "decelerate": function (x) {
+      return 1 - Math.pow(1 - x, 3);
+   },
+
+   "strong-decelerate": function (x) {
+      return 1 - Math.pow(1 - x, 5);
+   },
+
+   "accelerate-decelerate": function (x) {
+      var xs = x <= 0.5 ? x : 1 - x,
+          y = Math.pow(2 * xs, 3) / 2;
+      return x <= 0.5 ? y : 1 - y;
+   },
+
+   "strong-accelerate-decelerate": function (x) {
+      var xs = x <= 0.5 ? x : 1 - x,
+          y = Math.pow(2 * xs, 5) / 2;
+      return x <= 0.5 ? y : 1 - y;
+   },
+
+   "decelerate-accelerate": function (x) {
+      var xs = x <= 0.5 ? x : 1 - x,
+          y = (1 - Math.pow(1 - 2 * xs, 2)) / 2;
+      return x <= 0.5 ? y : 1 - y;
+   },
+
+   "strong-decelerate-accelerate": function (x) {
+      var xs = x <= 0.5 ? x : 1 - x,
+          y = (1 - Math.pow(1 - 2 * xs, 3)) / 2;
+      return x <= 0.5 ? y : 1 - y;
+   }
+};
+
+sozi.Player.prototype.defaultProfile = sozi.Player.prototype.profiles.linear;
 
 window.addEventListener("load", sozi.Player.prototype.onLoad.bind(new sozi.Player()), false);
 
