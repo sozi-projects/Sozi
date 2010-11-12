@@ -278,23 +278,27 @@ sozi.Player.prototype.stop = function () {
    this.playing = false;
 };
 
-// FIXME: zooming effect should be quadratic when progress is linear
+// FIXME: zooming effect should be a quadratic function of raw progress
 sozi.Player.prototype.onAnimationStep = function (progress, data) {
-   progress = data.profile(progress);
    var remaining = 1 - progress,
-       scaleFactor = 1 + (data.zoomPercent - 100) * (1 - 2 * Math.abs(progress - 0.5)) / 100,
-       attr;
+       profileProgress = data.profile(progress),
+       profileRemaining = 1 - profileProgress,
+       attr, scale;
 
    for (attr in data.initialState) {
       if (data.initialState.hasOwnProperty(attr)) {
          if (typeof data.initialState[attr] === "number" &&
              typeof data.finalState[attr] === "number") {
-            this.display[attr] = data.finalState[attr] * progress + data.initialState[attr] * remaining;
+            this.display[attr] = data.finalState[attr] * profileProgress + data.initialState[attr] * profileRemaining;
          }
       }
    }
 
-   this.display.applyZoomFactor(scaleFactor);
+   if (data.k !== 0) {
+      scale = data.k * (progress - data.ts) * (progress - data.ts) + data.ss;
+      this.display.applyZoomFactor(scale / this.display.scale);
+   }
+
    this.display.clip = data.finalState.clip;
 
    this.display.update();
@@ -321,7 +325,8 @@ sozi.Player.prototype.waitTimeout = function () {
 sozi.Player.prototype.moveToFrame = function (index) {
    var durationMs = this.defaultDurationMs,
        zoomPercent = this.defaultZoomPercent,
-       profile = this.defaultProfile;
+       profile = this.defaultProfile,
+       s0, s1, ss, a, b, c, d, u, v, ts, k = 0;
 
    if (this.waiting) {
       window.clearTimeout(this.nextFrameTimeout);
@@ -338,6 +343,29 @@ sozi.Player.prototype.moveToFrame = function (index) {
       this.display.hideTableOfContents();
    }
 
+   if (zoomPercent !== 100) {
+      s0 = this.frames[this.currentFrameIndex].geometry.scale;
+      s1 = this.frames[index].geometry.scale;
+      ss = ((zoomPercent > 100) ? Math.max(s0, s1) : Math.min(s0, s1)) * zoomPercent / 100;
+
+      a = s0 - s1;
+      b = s0 - ss;
+      c = s1 - ss;
+
+      if (a === 0) {
+         ts = 0.5;
+      }
+      else {
+         d = Math.sqrt(b * c);
+
+         u = (b - d) / a;
+         v = (b + d) / a;
+
+         ts = (u > 0 && u <= 1) ? u : v;
+      }
+      k = b / ts / ts;
+   }
+
    this.playing = true;
    this.currentFrameIndex = index;
    this.animator.start(durationMs,
@@ -345,7 +373,9 @@ sozi.Player.prototype.moveToFrame = function (index) {
          initialState: this.display.getCurrentGeometry(),
          finalState: this.frames[this.currentFrameIndex].geometry,
          profile: profile,
-         zoomPercent: zoomPercent
+         ts: ts,
+         ss: ss,
+         k: k
       }
    );
 
@@ -397,7 +427,7 @@ sozi.Player.prototype.showAll = function () {
          initialState: this.display.getCurrentGeometry(),
          finalState: this.display.getDocumentGeometry(),
          profile: this.defaultProfile,
-         zoomPercent: 100
+         k: 0
       }
    );
 };

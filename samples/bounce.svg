@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:ns1="http://sozi.baierouge.fr"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg6749"
+   version="1.1"
+   inkscape:version="0.48.0 r9654"
+   sodipodi:docname="bounce.svg">
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2"
+     inkscape:cx="373.71569"
+     inkscape:cy="788.98585"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1274"
+     inkscape:window-height="951"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:snap-grids="true">
+    <inkscape:grid
+       spacingy="1mm"
+       spacingx="1mm"
+       units="mm"
+       snapvisiblegridlinesonly="true"
+       enabled="true"
+       visible="true"
+       empspacing="5"
+       id="grid3751"
+       type="xygrid" />
+  </sodipodi:namedview>
+  <defs
+     id="defs6751" />
+  <metadata
+     id="metadata6754">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g6777"
+       transform="matrix(0.63838195,0,0,0.63838195,99.69054,39.059695)">
+      <rect
+         y="88.676651"
+         x="236.3757"
+         height="97.984795"
+         width="112.12693"
+         id="rect6763"
+         style="fill:#f2f2f2;fill-opacity:1;stroke:none"
+         class="sozi-frame"
+         ns1:title="green"
+         ns1:sequence="1"
+         ns1:hide="false"
+         ns1:clip="false"
+         ns1:timeout-enable="true"
+         ns1:timeout-ms="5000"
+         ns1:transition-duration-ms="1000"
+         ns1:transition-zoom-percent="130"
+         ns1:transition-profile="linear" />
+      <rect
+         y="106.8594"
+         x="258.09399"
+         height="61.619305"
+         width="68.690376"
+         id="rect6757"
+         style="fill:#008000;fill-opacity:1;stroke:none" />
+    </g>
+    <g
+       id="g6773"
+       transform="translate(1.7874653,15.540048)">
+      <rect
+         ns1:transition-profile="linear"
+         ns1:transition-zoom-percent="70"
+         ns1:transition-duration-ms="1000"
+         ns1:timeout-ms="5000"
+         ns1:timeout-enable="true"
+         ns1:clip="false"
+         ns1:hide="false"
+         ns1:sequence="2"
+         ns1:title="red"
+         class="sozi-frame"
+         style="fill:#f2f2f2;fill-opacity:1;stroke:none"
+         id="rect6765"
+         width="112.12693"
+         height="97.984795"
+         x="352.54324"
+         y="62.412685" />
+      <rect
+         style="fill:#ff0000;fill-opacity:1;stroke:none"
+         id="rect6759"
+         width="68.690376"
+         height="61.619305"
+         x="374.26154"
+         y="80.595428" />
+    </g>
+    <g
+       id="g6769"
+       transform="matrix(0.56881542,0,0,0.56881542,203.82895,123.23783)">
+      <rect
+         y="175.54977"
+         x="307.08636"
+         height="97.984795"
+         width="112.12693"
+         id="rect6767"
+         style="fill:#f2f2f2;fill-opacity:1;stroke:none"
+         class="sozi-frame"
+         ns1:title="blue"
+         ns1:sequence="3"
+         ns1:hide="false"
+         ns1:clip="false"
+         ns1:timeout-enable="true"
+         ns1:timeout-ms="5000"
+         ns1:transition-duration-ms="1000"
+         ns1:transition-zoom-percent="70"
+         ns1:transition-profile="linear" />
+      <rect
+         y="193.73251"
+         x="328.80463"
+         height="61.619305"
+         width="68.690376"
+         id="rect6761"
+         style="fill:#0000ff;fill-opacity:1;stroke:none" />
+    </g>
+    <g
+       id="g6800"
+       transform="translate(-76.771404,26.418708)">
+      <rect
+         ns1:transition-profile="linear"
+         ns1:transition-zoom-percent="130"
+         ns1:transition-duration-ms="1000"
+         ns1:timeout-ms="5000"
+         ns1:timeout-enable="true"
+         ns1:clip="false"
+         ns1:hide="false"
+         ns1:sequence="4"
+         ns1:title="yellow"
+         class="sozi-frame"
+         style="fill:#f2f2f2;fill-opacity:1;stroke:none"
+         id="rect6802"
+         width="112.12693"
+         height="97.984795"
+         x="307.08636"
+         y="175.54977" />
+      <rect
+         style="fill:#ffcc00;fill-opacity:1;stroke:none"
+         id="rect6804"
+         width="68.690376"
+         height="61.619305"
+         x="328.80463"
+         y="193.73251" />
+    </g>
+  </g>
+  <script
+     id="sozi-script"
+     ns1:version="10.11">Function.prototype.bind=function(c){var a=Array.prototype.slice.call(arguments,1),b=this;return function(){b.apply(c,a.concat(Array.prototype.slice.call(arguments)))}};var sozi=sozi||{};sozi.Display=function(a){this.controller=a;this.aspectWidth=4;this.aspectHeight=3;this.translateX=0;this.translateY=0;this.scale=1;this.rotate=0;this.clip=true};sozi.Display.prototype.svgNs=&quot;http://www.w3.org/2000/svg&quot;;sozi.Display.prototype.onLoad=function(){var b,a=document.createElementNS(this.svgNs,&quot;clipPath&quot;);this.svgRoot=document.documentElement;this.svgRoot.removeAttribute(&quot;viewBox&quot;);this.initialBBox=this.svgRoot.getBBox();this.wrapper=document.createElementNS(this.svgNs,&quot;g&quot;);this.wrapper.setAttribute(&quot;id&quot;,&quot;sozi-wrapper&quot;);while(true){b=this.svgRoot.firstChild;if(!b){break}this.svgRoot.removeChild(b);this.wrapper.appendChild(b)}this.svgRoot.appendChild(this.wrapper);this.clipRect=document.createElementNS(this.svgNs,&quot;rect&quot;);this.clipRect.setAttribute(&quot;id&quot;,&quot;sozi-clip-rect&quot;);a.setAttribute(&quot;id&quot;,&quot;sozi-clip-path&quot;);a.appendChild(this.clipRect);this.svgRoot.appendChild(a);this.svgRoot.setAttribute(&quot;clip-path&quot;,&quot;url(#sozi-clip-path)&quot;);this.svgRoot.setAttribute(&quot;width&quot;,window.innerWidth);this.svgRoot.setAttribute(&quot;height&quot;,window.innerHeight);window.addEventListener(&quot;resize&quot;,this.resize.bind(this),false)};sozi.Display.prototype.resize=function(){this.svgRoot.setAttribute(&quot;width&quot;,window.innerWidth);this.svgRoot.setAttribute(&quot;height&quot;,window.innerHeight);this.update()};sozi.Display.prototype.getFrameGeometry=function(){var a={};a.width=window.innerWidth;a.height=window.innerHeight;if(a.width*this.aspectHeight&gt;a.height*this.aspectWidth){a.width=a.height*this.aspectWidth/this.aspectHeight}else{a.height=a.width*this.aspectHeight/this.aspectWidth}a.x=(window.innerWidth-a.width)/2;a.y=(window.innerHeight-a.height)/2;a.scale=a.width/this.aspectWidth;return a};sozi.Display.prototype.getElementGeometry=function(g){var d,h,f,c,a,e=g.getCTM().inverse();if(g.nodeName===&quot;rect&quot;){d=g.x.baseVal.value;h=g.y.baseVal.value;f=g.width.baseVal.value;c=g.height.baseVal.value}else{a=g.getBBox();d=a.x;h=a.y;f=a.width;c=a.height}return{aspectWidth:f,aspectHeight:c,translateX:e.e-d,translateY:e.f-h,scale:Math.sqrt(e.a*e.a+e.b*e.b),rotate:Math.atan2(e.b,e.a)*180/Math.PI}};sozi.Display.prototype.getDocumentGeometry=function(){return{aspectWidth:this.initialBBox.width,aspectHeight:this.initialBBox.height,translateX:-this.initialBBox.x,translateY:-this.initialBBox.y,scale:1,rotate:0,clip:false}};sozi.Display.prototype.getCurrentGeometry=function(){return{aspectWidth:this.aspectWidth,aspectHeight:this.aspectHeight,translateX:this.translateX,translateY:this.translateY,scale:this.scale,rotate:this.rotate,clip:this.clip}};sozi.Display.prototype.drag=function(b,a){var c=this.getFrameGeometry();this.translateX+=b/c.scale;this.translateY+=a/c.scale;this.clip=false;if(this.tableOfContentsIsVisible()){this.hideTableOfContents()}this.update()};sozi.Display.prototype.update=function(){var a=this.getFrameGeometry(),d=this.translateX*a.scale+a.x,b=this.translateY*a.scale+a.y,c=a.scale*this.scale;this.wrapper.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+d+&quot;,&quot;+b+&quot;)scale(&quot;+c+&quot;)rotate(&quot;+this.rotate+&quot;)&quot;);this.clipRect.setAttribute(&quot;x&quot;,this.clip?a.x:0);this.clipRect.setAttribute(&quot;y&quot;,this.clip?a.y:0);this.clipRect.setAttribute(&quot;width&quot;,this.clip?a.width:window.innerWidth);this.clipRect.setAttribute(&quot;height&quot;,this.clip?a.height:window.innerHeight)};sozi.Display.prototype.showFrame=function(b){var a;for(a in b.geometry){if(b.geometry.hasOwnProperty(a)){this[a]=b.geometry[a]}}this.update()};sozi.Display.prototype.applyZoomFactor=function(b){var c=this.getFrameGeometry(),a=(b-1)/c.scale/2;this.scale*=b;this.translateX=this.translateX*b-c.width*a;this.translateY=this.translateY*b-c.height*a};sozi.Display.prototype.installTableOfContents=function(){var c=Math.floor(window.innerHeight/Math.max((this.controller.frames.length+1),40)),b=document.createElementNS(this.svgNs,&quot;rect&quot;),d=0,a,g,f,e;this.tocGroup=document.createElementNS(this.svgNs,&quot;g&quot;);this.tocGroup.setAttribute(&quot;visibility&quot;,&quot;hidden&quot;);this.tocGroup.appendChild(b);this.svgRoot.appendChild(this.tocGroup);b.setAttribute(&quot;fill&quot;,&quot;#eee&quot;);b.setAttribute(&quot;stroke&quot;,&quot;#888&quot;);b.setAttribute(&quot;x&quot;,&quot;0&quot;);b.setAttribute(&quot;y&quot;,&quot;0&quot;);b.setAttribute(&quot;height&quot;,(this.controller.frames.length+1)*c);for(a=0;a&lt;this.controller.frames.length;a++){g=this.controller.frames[a];f=document.createElementNS(this.svgNs,&quot;text&quot;);f.appendChild(document.createTextNode(g.title));f.setAttribute(&quot;x&quot;,c/2);f.setAttribute(&quot;y&quot;,c*(a+1.3));f.setAttribute(&quot;fill&quot;,&quot;black&quot;);f.setAttribute(&quot;style&quot;,&quot;font-size: &quot;+(c*0.9)+&quot;px;font-family: Verdana, sans-serif&quot;);f.addEventListener(&quot;click&quot;,function(i,h){this.hideTableOfContents();this.controller.moveToFrame(i);h.stopPropagation()}.bind(this,a),false);f.addEventListener(&quot;mouseover&quot;,function(){this.setAttribute(&quot;fill&quot;,&quot;#08c&quot;)},false);f.addEventListener(&quot;mouseout&quot;,function(){this.setAttribute(&quot;fill&quot;,&quot;black&quot;)},false);this.tocGroup.appendChild(f);e=f.getBBox().width;if(e&gt;d){d=e}}b.setAttribute(&quot;width&quot;,d+c)};sozi.Display.prototype.showTableOfContents=function(){this.clipRect.setAttribute(&quot;x&quot;,0);this.clipRect.setAttribute(&quot;y&quot;,0);this.clipRect.setAttribute(&quot;width&quot;,window.innerWidth);this.clipRect.setAttribute(&quot;height&quot;,window.innerHeight);this.tocGroup.setAttribute(&quot;visibility&quot;,&quot;visible&quot;)};sozi.Display.prototype.hideTableOfContents=function(){var a=this.getFrameGeometry();this.tocGroup.setAttribute(&quot;visibility&quot;,&quot;hidden&quot;);this.clipRect.setAttribute(&quot;x&quot;,a.x);this.clipRect.setAttribute(&quot;y&quot;,a.y);this.clipRect.setAttribute(&quot;width&quot;,a.width);this.clipRect.setAttribute(&quot;height&quot;,a.height)};sozi.Display.prototype.tableOfContentsIsVisible=function(){return this.tocGroup.getAttribute(&quot;visibility&quot;)===&quot;visible&quot;};var sozi=sozi||{};sozi.Animator=function(b,a,c){this.timeStepMs=b||40;this.onStep=a;this.onDone=c;this.durationMs=0;this.data={};this.initialTime=0;this.started=false;this.timer=0};sozi.Animator.prototype.start=function(a,b){this.durationMs=a;this.data=b;this.initialTime=Date.now();this.onStep(0,this.data);if(!this.started){this.started=true;this.timer=window.setInterval(this.step.bind(this),this.timeStepMs)}};sozi.Animator.prototype.stop=function(){if(this.started){window.clearInterval(this.timer);this.started=false}};sozi.Animator.prototype.step=function(){var a=Date.now()-this.initialTime;if(a&gt;=this.durationMs){this.stop();this.onStep(1,this.data);this.onDone()}else{this.onStep(a/this.durationMs,this.data)}};var sozi=sozi||{};sozi.Player=function(){this.display=new sozi.Display(this,false);this.animator=new sozi.Animator(40,this.onAnimationStep.bind(this),this.onAnimationDone.bind(this));this.frames=[];this.playing=false;this.waiting=false};sozi.Player.prototype.soziNs=&quot;http://sozi.baierouge.fr&quot;;sozi.Player.prototype.dragButton=1;sozi.Player.prototype.defaultDurationMs=500;sozi.Player.prototype.defaultZoomPercent=100;sozi.Player.prototype.scaleFactor=1.05;sozi.Player.prototype.defaults={title:&quot;Untitled&quot;,sequence:&quot;0&quot;,hide:&quot;true&quot;,clip:&quot;true&quot;,&quot;timeout-enable&quot;:&quot;false&quot;,&quot;timeout-ms&quot;:&quot;5000&quot;,&quot;transition-duration-ms&quot;:&quot;1000&quot;,&quot;transition-zoom-percent&quot;:&quot;100&quot;,&quot;transition-profile&quot;:&quot;linear&quot;};sozi.Player.prototype.onLoad=function(){var a=this.onWheel.bind(this);this.display.onLoad();this.readFrames();this.display.installTableOfContents();this.startFromIndex(this.getFrameIndexFromURL());this.display.svgRoot.addEventListener(&quot;click&quot;,this.onClick.bind(this),false);this.display.svgRoot.addEventListener(&quot;mousedown&quot;,this.onMouseDown.bind(this),false);this.display.svgRoot.addEventListener(&quot;mouseup&quot;,this.onMouseUp.bind(this),false);this.display.svgRoot.addEventListener(&quot;mousemove&quot;,this.onMouseMove.bind(this),false);this.display.svgRoot.addEventListener(&quot;keypress&quot;,this.onKeyPress.bind(this),false);this.display.svgRoot.addEventListener(&quot;keydown&quot;,this.onKeyDown.bind(this),false);window.addEventListener(&quot;hashchange&quot;,this.onHashChange.bind(this),false);this.display.svgRoot.addEventListener(&quot;DOMMouseScroll&quot;,a,false);window.onmousewheel=a;this.dragging=false};sozi.Player.prototype.getFrameIndexFromURL=function(){var a=window.location.hash?parseInt(window.location.hash.slice(1),10)-1:0;if(isNaN(a)||a&lt;0){return 0}else{if(a&gt;=this.frames.length){return this.frames.length-1}else{return a}}};sozi.Player.prototype.readAttribute=function(b,a){var c=b.getAttributeNS(this.soziNs,a);return c===&quot;&quot;?this.defaults[a]:c};sozi.Player.prototype.readFrames=function(){var a=document.getElementsByClassName(&quot;sozi-frame&quot;),b,c;for(b=0;b&lt;a.length;b++){c={rect:a[b],geometry:this.display.getElementGeometry(a[b]),title:this.readAttribute(a[b],&quot;title&quot;),sequence:parseInt(this.readAttribute(a[b],&quot;sequence&quot;),10),hide:this.readAttribute(a[b],&quot;hide&quot;)===&quot;true&quot;,timeoutEnable:this.readAttribute(a[b],&quot;timeout-enable&quot;)===&quot;true&quot;,timeoutMs:parseInt(this.readAttribute(a[b],&quot;timeout-ms&quot;),10),transitionDurationMs:parseInt(this.readAttribute(a[b],&quot;transition-duration-ms&quot;),10),transitionZoomPercent:parseInt(this.readAttribute(a[b],&quot;transition-zoom-percent&quot;),10),transitionProfile:this.profiles[this.readAttribute(a[b],&quot;transition-profile&quot;)||&quot;linear&quot;]};if(c.hide){a[b].setAttribute(&quot;visibility&quot;,&quot;hidden&quot;)}c.geometry.clip=this.readAttribute(a[b],&quot;clip&quot;)===&quot;true&quot;;this.frames.push(c)}this.frames.sort(function(e,d){return e.sequence-d.sequence})};sozi.Player.prototype.onClick=function(a){if(!this.dragged){this.moveToNext()}a.stopPropagation()};sozi.Player.prototype.onMouseDown=function(a){if(a.button===0){this.dragging=true;this.dragged=false;this.dragClientX=a.clientX;this.dragClientY=a.clientY;this.dragTranslateX=this.display.translateX;this.dragTranslateY=this.display.translateY}else{if(a.button===1){if(this.display.tableOfContentsIsVisible()){this.display.hideTableOfContents()}else{this.stop();this.display.showTableOfContents()}}}a.stopPropagation()};sozi.Player.prototype.onMouseUp=function(a){if(a.button===0){this.dragging=false}a.stopPropagation()};sozi.Player.prototype.onMouseMove=function(a){if(this.dragging){this.stop();this.dragged=true;this.display.drag(a.clientX-this.dragClientX,a.clientY-this.dragClientY);this.dragClientX=a.clientX;this.dragClientY=a.clientY;this.dragTranslateX=this.display.translateX;this.dragTranslateY=this.display.translateY}a.stopPropagation()};sozi.Player.prototype.onWheel=function(a){var b=0;if(!a){a=window.event}if(a.wheelDelta){b=a.wheelDelta;if(window.opera){b=-b}}else{if(a.detail){b=-a.detail}}if(b!==0){this.zoom(b)}a.stopPropagation();a.preventDefault()};sozi.Player.prototype.onKeyPress=function(a){switch(a.charCode){case 43:this.zoom(1);break;case 45:this.zoom(-1);break;case 61:this.moveToCurrent();break;case 70:case 102:this.showAll();break}a.stopPropagation()};sozi.Player.prototype.onKeyDown=function(a){switch(a.keyCode){case 36:this.moveToFirst();break;case 35:this.moveToLast();break;case 33:case 37:case 38:this.moveToPrevious();break;case 34:case 39:case 40:case 13:this.moveToNext();break;case 32:this.moveToNext();break}a.stopPropagation()};sozi.Player.prototype.onHashChange=function(){var a=this.getFrameIndexFromURL();if(a!==this.currentFrameIndex){this.moveToFrame(a)}};sozi.Player.prototype.startFromIndex=function(a){this.playing=true;this.waiting=false;this.currentFrameIndex=a;this.display.showFrame(this.frames[this.currentFrameIndex]);this.waitTimeout()};sozi.Player.prototype.stop=function(){this.animator.stop();if(this.waiting){window.clearTimeout(this.nextFrameTimeout);this.waiting=false}this.playing=false};sozi.Player.prototype.onAnimationStep=function(c,f){var e=1-c,d=f.profile(c),b=1-d,a,g;for(a in f.initialState){if(f.initialState.hasOwnProperty(a)){if(typeof f.initialState[a]===&quot;number&quot;&amp;&amp;typeof f.finalState[a]===&quot;number&quot;){this.display[a]=f.finalState[a]*d+f.initialState[a]*b}}}if(f.k!==0){g=f.k*(c-f.ts)*(c-f.ts)+f.ss;this.display.applyZoomFactor(g/this.display.scale)}this.display.clip=f.finalState.clip;this.display.update()};sozi.Player.prototype.onAnimationDone=function(){if(this.playing){this.waitTimeout()}};sozi.Player.prototype.waitTimeout=function(){var a;if(this.frames[this.currentFrameIndex].timeoutEnable){this.waiting=true;a=(this.currentFrameIndex+1)%this.frames.length;this.nextFrameTimeout=window.setTimeout(this.moveToFrame.bind(this,a),this.frames[this.currentFrameIndex].timeoutMs)}};sozi.Player.prototype.moveToFrame=function(i){var h=this.defaultDurationMs,g=this.defaultZoomPercent,e=this.defaultProfile,s,q,t,o,n,m,l,r,p,j,f=0;if(this.waiting){window.clearTimeout(this.nextFrameTimeout);this.waiting=false}if(i===(this.currentFrameIndex+1)%this.frames.length){h=this.frames[i].transitionDurationMs;g=this.frames[i].transitionZoomPercent;e=this.frames[i].transitionProfile}if(this.display.tableOfContentsIsVisible()){this.display.hideTableOfContents()}if(g!==100){s=this.frames[this.currentFrameIndex].geometry.scale;q=this.frames[i].geometry.scale;t=((g&gt;100)?Math.max(s,q):Math.min(s,q))*g/100;o=s-q;n=s-t;m=q-t;if(o===0){j=0.5}else{l=Math.sqrt(n*m);r=(n-l)/o;p=(n+l)/o;j=(r&gt;0&amp;&amp;r&lt;=1)?r:p}f=n/j/j}this.playing=true;this.currentFrameIndex=i;this.animator.start(h,{initialState:this.display.getCurrentGeometry(),finalState:this.frames[this.currentFrameIndex].geometry,profile:e,ts:j,ss:t,k:f});window.location.hash=&quot;#&quot;+(i+1)};sozi.Player.prototype.moveToFirst=function(){this.moveToFrame(0)};sozi.Player.prototype.moveToPrevious=function(){var a=this.currentFrameIndex,b;for(a--;a&gt;=0;a--){b=this.frames[a];if(!b.timeoutEnable||b.timeoutMs!==0){this.moveToFrame(a);break}}};sozi.Player.prototype.moveToNext=function(){if(this.currentFrameIndex&lt;this.frames.length-1||this.frames[this.currentFrameIndex].timeoutEnable){this.moveToFrame((this.currentFrameIndex+1)%this.frames.length)}};sozi.Player.prototype.moveToLast=function(){this.moveToFrame(this.frames.length-1)};sozi.Player.prototype.moveToCurrent=function(){this.moveToFrame(this.currentFrameIndex)};sozi.Player.prototype.showAll=function(){this.stop();if(this.display.tableOfContentsIsVisible()){this.display.hideTableOfContents()}this.animator.start(this.defaultDurationMs,{initialState:this.display.getCurrentGeometry(),finalState:this.display.getDocumentGeometry(),profile:this.defaultProfile,k:0})};sozi.Player.prototype.zoom=function(a){this.stop();if(this.display.tableOfContentsIsVisible()){this.display.hideTableOfContents()}this.display.applyZoomFactor(a&gt;0?this.scaleFactor:1/this.scaleFactor);this.display.clip=false;this.display.update()};sozi.Player.prototype.profiles={linear:function(a){return a},accelerate:function(a){return Math.pow(a,3)},&quot;strong-accelerate&quot;:function(a){return Math.pow(a,5)},decelerate:function(a){return 1-Math.pow(1-a,3)},&quot;strong-decelerate&quot;:function(a){return 1-Math.pow(1-a,5)},&quot;accelerate-decelerate&quot;:function(a){var b=a&lt;=0.5?a:1-a,c=Math.pow(2*b,3)/2;return a&lt;=0.5?c:1-c},&quot;strong-accelerate-decelerate&quot;:function(a){var b=a&lt;=0.5?a:1-a,c=Math.pow(2*b,5)/2;return a&lt;=0.5?c:1-c},&quot;decelerate-accelerate&quot;:function(a){var b=a&lt;=0.5?a:1-a,c=(1-Math.pow(1-2*b,2))/2;return a&lt;=0.5?c:1-c},&quot;strong-decelerate-accelerate&quot;:function(a){var b=a&lt;=0.5?a:1-a,c=(1-Math.pow(1-2*b,3))/2;return a&lt;=0.5?c:1-c}};sozi.Player.prototype.defaultProfile=sozi.Player.prototype.profiles.linear;window.addEventListener(&quot;load&quot;,sozi.Player.prototype.onLoad.bind(new sozi.Player()),false);</script>
+</svg>
