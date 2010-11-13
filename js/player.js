@@ -534,7 +534,7 @@ sozi.Player.prototype.moveToFrame = function (index) {
    }
 
    if (zoomPercent !== 0) {
-      s0 = this.frames[this.currentFrameIndex].geometry.scale;
+      s0 = this.display.scale;
       s1 = this.frames[index].geometry.scale;
       ss = ((zoomPercent > 0) ? Math.max(s0, s1) : Math.min(s0, s1)) * (100 + zoomPercent) / 100;
 
