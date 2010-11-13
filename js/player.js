@@ -35,7 +35,7 @@ sozi.Player.prototype.soziNs = "http://sozi.baierouge.fr";
 sozi.Player.prototype.dragButton = 1; // Middle button
 
 sozi.Player.prototype.defaultDurationMs = 500;
-sozi.Player.prototype.defaultZoomPercent = 100;
+sozi.Player.prototype.defaultZoomPercent = -10;
 sozi.Player.prototype.scaleFactor = 1.05;
 
 sozi.Player.prototype.defaults = {
@@ -343,10 +343,10 @@ sozi.Player.prototype.moveToFrame = function (index) {
       this.display.hideTableOfContents();
    }
 
-   if (zoomPercent !== 100) {
+   if (zoomPercent !== 0) {
       s0 = this.frames[this.currentFrameIndex].geometry.scale;
       s1 = this.frames[index].geometry.scale;
-      ss = ((zoomPercent > 100) ? Math.max(s0, s1) : Math.min(s0, s1)) * zoomPercent / 100;
+      ss = ((zoomPercent > 0) ? Math.max(s0, s1) : Math.min(s0, s1)) * (100 + zoomPercent) / 100;
 
       a = s0 - s1;
       b = s0 - ss;
