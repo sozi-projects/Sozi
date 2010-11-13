@@ -30,12 +30,60 @@ sozi.Player = function () {
    this.waiting = false;
 };
 
+sozi.Player.prototype.profiles = {
+   "linear": function (x) {
+      return x;
+   },
+
+   "accelerate": function (x) {
+      return Math.pow(x, 3);
+   },
+
+   "strong-accelerate": function (x) {
+      return Math.pow(x, 5);
+   },
+
+   "decelerate": function (x) {
+      return 1 - Math.pow(1 - x, 3);
+   },
+
+   "strong-decelerate": function (x) {
+      return 1 - Math.pow(1 - x, 5);
+   },
+
+   "accelerate-decelerate": function (x) {
+      var xs = x <= 0.5 ? x : 1 - x,
+          y = Math.pow(2 * xs, 3) / 2;
+      return x <= 0.5 ? y : 1 - y;
+   },
+
+   "strong-accelerate-decelerate": function (x) {
+      var xs = x <= 0.5 ? x : 1 - x,
+          y = Math.pow(2 * xs, 5) / 2;
+      return x <= 0.5 ? y : 1 - y;
+   },
+
+   "decelerate-accelerate": function (x) {
+      var xs = x <= 0.5 ? x : 1 - x,
+          y = (1 - Math.pow(1 - 2 * xs, 2)) / 2;
+      return x <= 0.5 ? y : 1 - y;
+   },
+
+   "strong-decelerate-accelerate": function (x) {
+      var xs = x <= 0.5 ? x : 1 - x,
+          y = (1 - Math.pow(1 - 2 * xs, 3)) / 2;
+      return x <= 0.5 ? y : 1 - y;
+   }
+};
+
 sozi.Player.prototype.soziNs = "http://sozi.baierouge.fr";
 
 sozi.Player.prototype.dragButton = 1; // Middle button
 
 sozi.Player.prototype.defaultDurationMs = 500;
 sozi.Player.prototype.defaultZoomPercent = -10;
+sozi.Player.prototype.defaultProfile = sozi.Player.prototype.profiles.linear;
+
 sozi.Player.prototype.scaleFactor = 1.05;
 
 sozi.Player.prototype.defaults = {
@@ -50,6 +98,13 @@ sozi.Player.prototype.defaults = {
    "transition-profile": "linear"
 };
 
+/*
+ * Event handler: document load.
+ *
+ * This method initializes the display object, reads the frames, and registers all other
+ * event handlers for the current document.
+ * The first frame, or the frame which number is given in the URL, is shown.
+ */
 sozi.Player.prototype.onLoad = function () {
    var wheelHandler = this.onWheel.bind(this);
 
@@ -68,78 +123,26 @@ sozi.Player.prototype.onLoad = function () {
    this.display.svgRoot.addEventListener("keypress", this.onKeyPress.bind(this), false);
    this.display.svgRoot.addEventListener("keydown", this.onKeyDown.bind(this), false);
    window.addEventListener("hashchange", this.onHashChange.bind(this), false);
+   window.addEventListener("resize", this.display.resize.bind(this.display), false);
 
    this.display.svgRoot.addEventListener("DOMMouseScroll", wheelHandler, false); // Mozilla
    window.onmousewheel = wheelHandler;
 
-   this.dragging = false;
-};
-
-sozi.Player.prototype.getFrameIndexFromURL = function () {
-   var index = window.location.hash ? parseInt(window.location.hash.slice(1), 10) - 1 : 0;
-   if (isNaN(index) || index < 0) {
-      return 0;
-   }
-   else if (index >= this.frames.length) {
-      return this.frames.length - 1;
-   }
-   else {
-      return index;
-   }
-};
-
-sozi.Player.prototype.readAttribute = function (rect, attr) {
-   var value = rect.getAttributeNS(this.soziNs, attr);
-   return value === "" ? this.defaults[attr] : value;
-};
-
-sozi.Player.prototype.readFrames = function () {
-   var frameElements = document.getElementsByClassName("sozi-frame"),
-       i, newFrame;
-
-   for (i = 0; i < frameElements.length; i ++) {
-      newFrame = {
-         rect: frameElements[i],
-         geometry: this.display.getElementGeometry(frameElements[i]),
-         title: this.readAttribute(frameElements[i], "title"),
-         sequence: parseInt(this.readAttribute(frameElements[i], "sequence"), 10),
-         hide: this.readAttribute(frameElements[i], "hide") === "true",
-         timeoutEnable: this.readAttribute(frameElements[i], "timeout-enable") === "true",
-         timeoutMs: parseInt(this.readAttribute(frameElements[i], "timeout-ms"), 10),
-         transitionDurationMs: parseInt(this.readAttribute(frameElements[i], "transition-duration-ms"), 10),
-         transitionZoomPercent: parseInt(this.readAttribute(frameElements[i], "transition-zoom-percent"), 10),
-         transitionProfile: this.profiles[this.readAttribute(frameElements[i], "transition-profile") || "linear"]
-      };
-      if (newFrame.hide) {
-         frameElements[i].setAttribute("visibility", "hidden");
-      }
-      newFrame.geometry.clip = this.readAttribute(frameElements[i], "clip") === "true";
-      this.frames.push(newFrame);
-   }
-   this.frames.sort(
-      function (a, b) {
-         return a.sequence - b.sequence;
-      }
-   );
+   this.dragButtonIsDown = false;
 };
 
 /*
- * Dragging the mouse produces a "click" event in Firefox.
- * Attribute "dragged" is set by "onMouseMove" when the left button is down.
+ * Event handler: mouse down.
  *
- * No "click" event is generated for the middle button.
- * See "onMouseDown" for middle click handling.
+ * When the left button is pressed, we register the current coordinates
+ * in case the mouse will be dragged. Flag "dragButtonIsDown" is set until
+ * the button is released (onMouseUp). This flag is used by onMouseMove.
+ *
+ * When the middle button is pressed, the table of contents is shown or hidden.
  */
-sozi.Player.prototype.onClick = function (evt) {
-   if (!this.dragged) {
-      this.moveToNext();
-   }
-   evt.stopPropagation();
-};
-
 sozi.Player.prototype.onMouseDown = function (evt) {
    if (evt.button === 0) {
-      this.dragging = true;
+      this.dragButtonIsDown = true;
       this.dragged = false;
       this.dragClientX = evt.clientX;
       this.dragClientY = evt.clientY;
@@ -158,15 +161,15 @@ sozi.Player.prototype.onMouseDown = function (evt) {
    evt.stopPropagation();
 };
 
-sozi.Player.prototype.onMouseUp = function (evt) {
-   if (evt.button === 0) {
-      this.dragging = false;
-   }
-   evt.stopPropagation();
-};
-
+/*
+ * Event handler: mouse move.
+ *
+ * If the left mouse button is down, then the mouse move is a drag action.
+ * This method computes the displacement since the button was pressed or
+ * since the last move, and updates the reference coordinates for the next move.
+ */
 sozi.Player.prototype.onMouseMove = function (evt) {
-   if (this.dragging) {
+   if (this.dragButtonIsDown) {
       this.stop();
       this.dragged = true;
       this.display.drag(evt.clientX - this.dragClientX, evt.clientY - this.dragClientY);
@@ -178,7 +181,42 @@ sozi.Player.prototype.onMouseMove = function (evt) {
    evt.stopPropagation();
 };
 
-// TODO test this with Webkit, Opera, IE
+/*
+ * Event handler: mouse up.
+ *
+ * Releasing the left button resets the "dragButtonIsDown" flag.
+ */
+sozi.Player.prototype.onMouseUp = function (evt) {
+   if (evt.button === 0) {
+      this.dragButtonIsDown = false;
+   }
+   evt.stopPropagation();
+};
+
+/*
+ * Event handler: mouse click.
+ *
+ * Left-click moves the presentation to the next frame.
+ *
+ * No "click" event is generated for the middle button.
+ * See "onMouseDown" for middle click handling.
+ *
+ * Dragging the mouse produces a "click" event when the button is released.
+ * If flag "dragged" was set by "onMouseMove", then the click event is the result
+ * of a drag action.
+ */
+sozi.Player.prototype.onClick = function (evt) {
+   if (!this.dragged) {
+      this.moveToNext();
+   }
+   evt.stopPropagation();
+};
+
+/*
+ * Event handler: mouse wheel.
+ *
+ * Rolling the mouse wheel stops the presentation and zooms the current display.
+ */
 sozi.Player.prototype.onWheel = function (evt) {
    var delta = 0;
    if (!evt) {
@@ -201,6 +239,14 @@ sozi.Player.prototype.onWheel = function (evt) {
    evt.preventDefault();
 };
 
+/*
+ * Event handler: key press.
+ *
+ * Keyboard handling is split into two methods: onKeyPress and onKeyDown
+ * in order to get the same behavior in Mozilla and Webkit.
+ *
+ * This method handles character keys "+", "-", "=", and "F".
+ */
 sozi.Player.prototype.onKeyPress = function (evt) {
    switch (evt.charCode) {
    case 43: // +
@@ -220,6 +266,15 @@ sozi.Player.prototype.onKeyPress = function (evt) {
    evt.stopPropagation();
 };
 
+/*
+ * Event handler: key down.
+ *
+ * Keyboard handling is split into two methods: onKeyPress and onKeyDown
+ * in order to get the same behavior in Mozilla and Webkit.
+ *
+ * This method handles navigation keys (arrows, page up/down, home, end)
+ * and the space and enter keys.
+ */
 sozi.Player.prototype.onKeyDown = function (evt) {
    switch (evt.keyCode) {
    case 36: // Home
@@ -247,9 +302,15 @@ sozi.Player.prototype.onKeyDown = function (evt) {
 };
 
 /*
+ * Event handler: hash change.
+ *
+ * This method is called when the URL hash is changed.
+ * If the hash was changed manually in the address bar, and if it corresponds to
+ * a valid frame number, then the presentation moves to that frame.
+ *
  * The hashchange event can be triggered externally, by the user modifying the URL,
  * or internally, by the script modifying window.location.hash.
- * If the hash is different from the current frame index, we move to the given index.
+ * We move to the given index only if the hash is different from the current frame index. 
  */
 sozi.Player.prototype.onHashChange = function () {
    var index = this.getFrameIndexFromURL();
@@ -259,26 +320,21 @@ sozi.Player.prototype.onHashChange = function () {
 };
 
 /*
-* pre: 0 <= index < this.frames.length
-*/
-sozi.Player.prototype.startFromIndex = function (index) {
-   this.playing = true;
-   this.waiting = false;
-   this.currentFrameIndex = index;
-   this.display.showFrame(this.frames[this.currentFrameIndex]);
-   this.waitTimeout();
-};
-
-sozi.Player.prototype.stop = function () {
-   this.animator.stop();
-   if (this.waiting) {
-      window.clearTimeout(this.nextFrameTimeout);
-      this.waiting = false;
-   }
-   this.playing = false;
-};
-
-// FIXME: zooming effect should be a quadratic function of raw progress
+ * Event handler: animation step.
+ *
+ * This method is called periodically by this.animator after the animation
+ * has been started, and until the animation time is elapsed.
+ *
+ * Parameter data provides the following information:
+ *    - initialState and finalState contain the geometrical properties of the display
+ *      at the start and end of the animation.
+ *    - profile is a reference to the speed profile function to use.
+ *    - k, ts and ss are the parameters of the zooming polynomial if the current
+ *      animation has a non-zero zooming effect.
+ *
+ * Parameter progress is a float number between 0 (start of the animation)
+ * and 1 (end of the animation).
+ */
 sozi.Player.prototype.onAnimationStep = function (progress, data) {
    var remaining = 1 - progress,
        profileProgress = data.profile(progress),
@@ -304,12 +360,134 @@ sozi.Player.prototype.onAnimationStep = function (progress, data) {
    this.display.update();
 };
 
+/*
+ * Event handler: animation done.
+ *
+ * This method is called by this.animator when the current animation is finished.
+ *
+ * If the animation was a transition in the normal course of the presentation,
+ * then we call the waitTimeout method to process the timeout property of the current frame.
+ */
 sozi.Player.prototype.onAnimationDone = function () {
    if (this.playing) {
       this.waitTimeout();
    }
 };
 
+/*
+ * Returns the frame index given in the URL hash.
+ *
+ * In the URL, the frame index starts a 1.
+ * This method converts it into a 0-based index.
+ *
+ * If the URL hash is not a positive integer, then 0 is returned.
+ * It the URL hash is an integer greater than the last frame index, then
+ * the last frame index is returned.
+ */
+sozi.Player.prototype.getFrameIndexFromURL = function () {
+   var index = window.location.hash ? parseInt(window.location.hash.slice(1), 10) - 1 : 0;
+   if (isNaN(index) || index < 0) {
+      return 0;
+   }
+   else if (index >= this.frames.length) {
+      return this.frames.length - 1;
+   }
+   else {
+      return index;
+   }
+};
+
+/*
+ * Returns the value of an attribute of a given SVG element.
+ *
+ * If the attribute is not set, then a default value is returned.
+ * See this.defaults.
+ */
+sozi.Player.prototype.readAttribute = function (elt, attr) {
+   var value = elt.getAttributeNS(this.soziNs, attr);
+   return value === "" ? this.defaults[attr] : value;
+};
+
+/*
+ * Builds the list of frames from the current document.
+ *
+ * This method collects all elements with class "sozi-frame" and
+ * retrieves their geometrical and animation attributes.
+ * SVG elements that should be hidden during the presentation are hidden.
+ *
+ * The resulting list is available in this.frames, sorted by frame indices.
+ */
+sozi.Player.prototype.readFrames = function () {
+   var frameElements = document.getElementsByClassName("sozi-frame"),
+       i, newFrame;
+
+   for (i = 0; i < frameElements.length; i ++) {
+      newFrame = {
+         element: frameElements[i],
+         geometry: this.display.getElementGeometry(frameElements[i]),
+         title: this.readAttribute(frameElements[i], "title"),
+         sequence: parseInt(this.readAttribute(frameElements[i], "sequence"), 10),
+         hide: this.readAttribute(frameElements[i], "hide") === "true",
+         timeoutEnable: this.readAttribute(frameElements[i], "timeout-enable") === "true",
+         timeoutMs: parseInt(this.readAttribute(frameElements[i], "timeout-ms"), 10),
+         transitionDurationMs: parseInt(this.readAttribute(frameElements[i], "transition-duration-ms"), 10),
+         transitionZoomPercent: parseInt(this.readAttribute(frameElements[i], "transition-zoom-percent"), 10),
+         transitionProfile: this.profiles[this.readAttribute(frameElements[i], "transition-profile") || "linear"]
+      };
+      if (newFrame.hide) {
+         frameElements[i].setAttribute("visibility", "hidden");
+      }
+      newFrame.geometry.clip = this.readAttribute(frameElements[i], "clip") === "true";
+      this.frames.push(newFrame);
+   }
+   this.frames.sort(
+      function (a, b) {
+         return a.sequence - b.sequence;
+      }
+   );
+};
+
+/*
+ * Starts the presentation from the given frame index (0-based).
+ *
+ * This method sets the "playing" flag, shows the desired frame
+ * and calls waitTimeout.
+ */
+sozi.Player.prototype.startFromIndex = function (index) {
+   this.playing = true;
+   this.waiting = false;
+   this.currentFrameIndex = index;
+   this.display.showFrame(this.frames[this.currentFrameIndex]);
+   this.waitTimeout();
+};
+
+/*
+ * Stops the presentation.
+ *
+ * This method clears the "playing".
+ * If the presentation was in "waiting" mode due to a timeout
+ * in the current frame, then it stops waiting.
+ * The current animation is stopped in its current state.
+ */
+sozi.Player.prototype.stop = function () {
+   this.animator.stop();
+   if (this.waiting) {
+      window.clearTimeout(this.nextFrameTimeout);
+      this.waiting = false;
+   }
+   this.playing = false;
+};
+
+/*
+ * Starts waiting before moving to the next frame.
+ *
+ * It the current frame has a timeout set, this method
+ * will register a timer to move to the next frame automatically
+ * after the specified time.
+ *
+ * If the current frame is the last, the presentation will
+ * move to the first frame.
+ */
 sozi.Player.prototype.waitTimeout = function () {
    var index;
    if (this.frames[this.currentFrameIndex].timeoutEnable) {
@@ -322,6 +500,18 @@ sozi.Player.prototype.waitTimeout = function () {
    }
 };
 
+/*
+ * Moves to a frame with the given index (0-based).
+ *
+ * This method animates the transition from the current
+ * state of the display to the desired frame.
+ *
+ * If the given frame index corresponds to the next frame in the list,
+ * the transition properties of the next frame are used.
+ * Otherwise, default transition properties are used.
+ *
+ * The URL hash is set to the given frame index (1-based).
+ */
 sozi.Player.prototype.moveToFrame = function (index) {
    var durationMs = this.defaultDurationMs,
        zoomPercent = this.defaultZoomPercent,
@@ -383,10 +573,16 @@ sozi.Player.prototype.moveToFrame = function (index) {
    window.location.hash = "#" + (index + 1);
 };
 
+/*
+ * Moves to the first frame of the presentation.
+ */
 sozi.Player.prototype.moveToFirst = function () {
    this.moveToFrame(0);
 };
 
+/*
+ * Moves to the previous frame.
+ */
 sozi.Player.prototype.moveToPrevious = function () {
    var index = this.currentFrameIndex,
        frame;
@@ -400,22 +596,34 @@ sozi.Player.prototype.moveToPrevious = function () {
    }
 };
 
+/*
+ * Moves to the next frame.
+ */
 sozi.Player.prototype.moveToNext = function () {
    if (this.currentFrameIndex < this.frames.length - 1 || this.frames[this.currentFrameIndex].timeoutEnable) {
       this.moveToFrame((this.currentFrameIndex + 1) % this.frames.length);
    }
 };
 
+/*
+ * Moves to the last frame of the presentation.
+ */
 sozi.Player.prototype.moveToLast = function () {
    this.moveToFrame(this.frames.length - 1);
 };
 
+/*
+ * Restores the current frame.
+ *
+ * This method restores the display to fit the current frame,
+ * e.g. after the display has been zoomed or dragged.
+ */
 sozi.Player.prototype.moveToCurrent = function () {
    this.moveToFrame(this.currentFrameIndex);
 };
 
 /*
- * Show all the document in the browser window.
+ * Shows all the document in the browser window.
  */
 sozi.Player.prototype.showAll = function () {
    this.stop();
@@ -432,64 +640,23 @@ sozi.Player.prototype.showAll = function () {
    );
 };
 
-sozi.Player.prototype.zoom = function (delta) {
+/*
+ * Zooms the display in the given direction.
+ *
+ * Only the sign of direction is used:
+ *    - zoom in when direction > 0
+ *    - zoom out when direction < 0
+ */
+sozi.Player.prototype.zoom = function (direction) {
    this.stop();
    if (this.display.tableOfContentsIsVisible()) {
       this.display.hideTableOfContents();
    }
 
-   this.display.applyZoomFactor(delta > 0 ? this.scaleFactor : 1 / this.scaleFactor);
+   this.display.applyZoomFactor(direction > 0 ? this.scaleFactor : 1 / this.scaleFactor);
    this.display.clip = false;
    this.display.update();
 };
-
-sozi.Player.prototype.profiles = {
-   "linear": function (x) {
-      return x;
-   },
-
-   "accelerate": function (x) {
-      return Math.pow(x, 3);
-   },
-
-   "strong-accelerate": function (x) {
-      return Math.pow(x, 5);
-   },
-
-   "decelerate": function (x) {
-      return 1 - Math.pow(1 - x, 3);
-   },
-
-   "strong-decelerate": function (x) {
-      return 1 - Math.pow(1 - x, 5);
-   },
-
-   "accelerate-decelerate": function (x) {
-      var xs = x <= 0.5 ? x : 1 - x,
-          y = Math.pow(2 * xs, 3) / 2;
-      return x <= 0.5 ? y : 1 - y;
-   },
-
-   "strong-accelerate-decelerate": function (x) {
-      var xs = x <= 0.5 ? x : 1 - x,
-          y = Math.pow(2 * xs, 5) / 2;
-      return x <= 0.5 ? y : 1 - y;
-   },
-
-   "decelerate-accelerate": function (x) {
-      var xs = x <= 0.5 ? x : 1 - x,
-          y = (1 - Math.pow(1 - 2 * xs, 2)) / 2;
-      return x <= 0.5 ? y : 1 - y;
-   },
-
-   "strong-decelerate-accelerate": function (x) {
-      var xs = x <= 0.5 ? x : 1 - x,
-          y = (1 - Math.pow(1 - 2 * xs, 3)) / 2;
-      return x <= 0.5 ? y : 1 - y;
-   }
-};
-
-sozi.Player.prototype.defaultProfile = sozi.Player.prototype.profiles.linear;
 
 window.addEventListener("load", sozi.Player.prototype.onLoad.bind(new sozi.Player()), false);
 

@@ -23,7 +23,7 @@
 var sozi = sozi || {};
 
 /*
- * Create a new Display with default settings.
+ * Creates a new Display with default settings.
  *
  * Parameters:
  *    - controller: the object that holds the frame list (attribute "frames")
@@ -44,7 +44,7 @@ sozi.Display = function (controller) {
 sozi.Display.prototype.svgNs = "http://www.w3.org/2000/svg";
 
 /*
- * Initialize the current Display.
+ * Initializes the current Display.
  *
  * This method prepares the DOM representation of the current SVG document.
  * All the image is embedded into a global "g" element on which transformations will be applied.
@@ -88,12 +88,10 @@ sozi.Display.prototype.onLoad = function () {
 
    this.svgRoot.setAttribute("width", window.innerWidth);
    this.svgRoot.setAttribute("height", window.innerHeight);
-
-   window.addEventListener("resize", this.resize.bind(this), false);
 };
 
 /*
- * Resize the SVG document to fit the browser window.
+ * Resizes the SVG document to fit the browser window.
  */
 sozi.Display.prototype.resize = function () {
    this.svgRoot.setAttribute("width", window.innerWidth);
@@ -269,7 +267,18 @@ sozi.Display.prototype.showFrame = function (frame) {
    this.update();
 };
 
-// FIXME: centering not accurate
+/*
+ * Zooms the display with the given factor.
+ *
+ * The display geometry is scaled and a transition is applied so that
+ * the center is preserved.
+ *
+ * This method computes the new geometry of the display, but
+ * does not update the document. Method update must be called after
+ * calling this method.
+ *
+ * FIXME: centering not accurate
+ */
 sozi.Display.prototype.applyZoomFactor = function (factor) {
    var g = this.getFrameGeometry(),
        deltaFactor = (factor - 1) / g.scale / 2;
@@ -278,7 +287,16 @@ sozi.Display.prototype.applyZoomFactor = function (factor) {
    this.translateY = this.translateY * factor - g.height * deltaFactor;
 };
 
-// FIXME text size and coordinates
+/*
+ * Adds a table of contents to the document.
+ *
+ * The table of contents is a rectangular region with the list of frame titles.
+ * Clicking on a title moves the presentation to the corresponding frame.
+ *
+ * The table of contents is hidden by default.
+ *
+ * FIXME text size and coordinates
+ */
 sozi.Display.prototype.installTableOfContents = function () {
    var textSize = Math.floor(window.innerHeight / Math.max((this.controller.frames.length + 1), 40)),
        tocBackground = document.createElementNS(this.svgNs, "rect"),
@@ -342,6 +360,9 @@ sozi.Display.prototype.installTableOfContents = function () {
    tocBackground.setAttribute("width", tocWidth + textSize);
 };
 
+/*
+ * Makes the table of contents visible.
+ */
 sozi.Display.prototype.showTableOfContents = function () {
    // Expand the clip path to the whole window
    this.clipRect.setAttribute("x", 0);
@@ -353,6 +374,9 @@ sozi.Display.prototype.showTableOfContents = function () {
    this.tocGroup.setAttribute("visibility", "visible");
 };
 
+/*
+ * Makes the table of contents invisible.
+ */
 sozi.Display.prototype.hideTableOfContents = function () {
    var g = this.getFrameGeometry();
 
@@ -366,6 +390,9 @@ sozi.Display.prototype.hideTableOfContents = function () {
    this.clipRect.setAttribute("height", g.height);
 };
 
+/*
+ * Returns true if the table of contents is visible, false otherwise.
+ */
 sozi.Display.prototype.tableOfContentsIsVisible = function () {
    return this.tocGroup.getAttribute("visibility") === "visible";
 };

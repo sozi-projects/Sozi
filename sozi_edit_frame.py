@@ -141,14 +141,14 @@ class SoziEditFrame(inkex.Effect):
       return button
 
 
-   def create_spinbutton_field(self, attr, label, value):
+   def create_spinbutton_field(self, attr, label, value, minValue = 0, maxValue = 1000000):
       if self.element.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + attr):
          value = int(self.element.attrib["{" + inkex.NSS["sozi"] + "}" + attr])
       
       lbl = gtk.Label(label)
 
       spin = gtk.SpinButton(digits=0)
-      spin.set_range(0, 1000000)
+      spin.set_range(minValue, maxValue)
       spin.set_increments(1, 1)
       spin.set_numeric(True)
       spin.set_value(value)
@@ -181,7 +181,7 @@ class SoziEditFrame(inkex.Effect):
       clip_field = self.create_checkbox_field("clip", "Clip", "true")
       timeout_field = self.create_checked_spinbutton_field("timeout-enable", "timeout-ms", "Timeout (ms):", "false", 5000)
       transition_duration_field = self.create_spinbutton_field("transition-duration-ms", "Duration (ms):", 1000)
-      transition_zoom_field = self.create_spinbutton_field("transition-zoom-percent", "Zoom (%):", 100)
+      transition_zoom_field = self.create_spinbutton_field("transition-zoom-percent", "Zoom (%):", 0, -100, 100)
       transition_profile_field = self.create_combo_field("transition-profile", "Profile:", self.PROFILES, 0)
 
       # Create "Done" and "Cancel" buttons
