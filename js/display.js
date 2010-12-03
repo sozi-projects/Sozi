@@ -32,10 +32,10 @@ sozi.Display = function (controller) {
    this.controller = controller;
 
    // Initial display properties
-   this.width = 4;
-   this.height = 3;
-   this.translateX = 0;
-   this.translateY = 0;
+   this.cx = 0;
+   this.cy = 0;
+   this.width = 1;
+   this.height = 1;
    this.rotate = 0;
    this.clip = true;
 };
@@ -137,8 +137,8 @@ sozi.Display.prototype.getFrameGeometry = function () {
  *    - The default size, translation and rotation for the given element 
  */
 sozi.Display.prototype.getElementGeometry = function (elem) {
-   var x, y, width, height, b,
-       matrix = elem.getCTM().inverse(),
+   var x, y, width, height, b, c,
+       matrix = elem.getCTM(),
        scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
 
    if (elem.nodeName === "rect") {
@@ -155,11 +155,16 @@ sozi.Display.prototype.getElementGeometry = function (elem) {
       height = b.height;
    }
 
+   c = document.documentElement.createSVGPoint();
+   c.x = x + width / 2;
+   c.y = y + height / 2;
+   c = c.matrixTransform(matrix);
+
    return {
-      width: width / scale,
-      height: height / scale,
-      translateX: (matrix.e - x) / scale,
-      translateY: (matrix.f - y) / scale,
+      cx: c.x,
+      cy: c.y,
+      width: width * scale,
+      height: height * scale,
       rotate: Math.atan2(matrix.b, matrix.a) * 180 / Math.PI
    };
 };
@@ -172,10 +177,10 @@ sozi.Display.prototype.getElementGeometry = function (elem) {
  */
 sozi.Display.prototype.getDocumentGeometry = function () {
    return {
+      cx: this.initialBBox.x + this.initialBBox.width / 2,
+      cy: this.initialBBox.y + this.initialBBox.height / 2,
       width: this.initialBBox.width,
       height: this.initialBBox.height,
-      translateX: - this.initialBBox.x,
-      translateY: - this.initialBBox.y,
       rotate: 0,
       clip: false
    };
@@ -189,10 +194,10 @@ sozi.Display.prototype.getDocumentGeometry = function () {
  */
 sozi.Display.prototype.getCurrentGeometry = function () {
    return {
+      cx: this.cx,
+      cy: this.cy,
       width: this.width,
       height: this.height,
-      translateX: this.translateX,
-      translateY: this.translateY,
       rotate: this.rotate,
       clip: this.clip
    };
@@ -206,9 +211,10 @@ sozi.Display.prototype.getCurrentGeometry = function () {
  *    - deltaY: the vertical displacement, in pixels
  */
 sozi.Display.prototype.drag = function (deltaX, deltaY) {
-   var g = this.getFrameGeometry();
-   this.translateX += deltaX / g.scale;
-   this.translateY += deltaY / g.scale;
+   var g = this.getFrameGeometry(),
+       angleRad = this.rotate * Math.PI / 180;
+   this.cx -= ( deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / g.scale;
+   this.cy -= ( deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / g.scale;
    this.clip = false;
    if (this.tableOfContentsIsVisible()) {
       this.hideTableOfContents();
@@ -224,14 +230,14 @@ sozi.Display.prototype.drag = function (deltaX, deltaY) {
  */
 sozi.Display.prototype.update = function () {
    var g = this.getFrameGeometry(),
-       translateX = this.translateX * g.scale + g.x,
-       translateY = this.translateY * g.scale + g.y;
+       translateX = - this.cx + this.width / 2 + g.x / g.scale,
+       translateY = - this.cy + this.height / 2 + g.y / g.scale;
 
    // Compute and apply the geometrical transformation to the wrapper group
    this.wrapper.setAttribute("transform",
-      "translate(" + translateX + "," + translateY + ")" +
       "scale(" + g.scale + ")" +
-      "rotate(" + this.rotate + ")"
+      "translate(" + translateX + "," + translateY + ")" +
+      "rotate(" + (- this.rotate) + ',' + this.cx + "," + this.cy + ")"
    );
 
    // Adjust the location and size of the clipping rectangle and the frame rectangle
@@ -266,16 +272,10 @@ sozi.Display.prototype.showFrame = function (frame) {
  * This method computes the new geometry of the display, but
  * does not update the document. Method update must be called after
  * calling this method.
- *
- * FIXME: centering not accurate
  */
 sozi.Display.prototype.applyZoomFactor = function (factor) {
-   var g = this.getFrameGeometry(),
-       deltaFactor = (factor - 1) / g.scale / 2;
    this.width /= factor;
    this.height /= factor;
-   this.translateX = this.translateX * factor - g.width * deltaFactor;
-   this.translateY = this.translateY * factor - g.height * deltaFactor;
 };
 
 /*

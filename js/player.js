@@ -146,8 +146,6 @@ sozi.Player.prototype.onMouseDown = function (evt) {
       this.dragged = false;
       this.dragClientX = evt.clientX;
       this.dragClientY = evt.clientY;
-      this.dragTranslateX = this.display.translateX;
-      this.dragTranslateY = this.display.translateY;
    }
    else if (evt.button === 1) {
       if (this.display.tableOfContentsIsVisible()) {
@@ -175,8 +173,6 @@ sozi.Player.prototype.onMouseMove = function (evt) {
       this.display.drag(evt.clientX - this.dragClientX, evt.clientY - this.dragClientY);
       this.dragClientX = evt.clientX;
       this.dragClientY = evt.clientY;
-      this.dragTranslateX = this.display.translateX;
-      this.dragTranslateY = this.display.translateY;
    }
    evt.stopPropagation();
 };
