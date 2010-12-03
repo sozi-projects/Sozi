@@ -503,7 +503,7 @@ sozi.Player.prototype.waitTimeout = function () {
    }
 };
 
-sozi.Player.prototype.getZoomData = function(zoomPercent, s0, s1) {
+sozi.Player.prototype.getZoomData = function (zoomPercent, s0, s1) {
    var result = {
       ss: ((zoomPercent < 0) ? Math.max(s0, s1) : Math.min(s0, s1)) * (100 - zoomPercent) / 100,
       ts: 0.5,
@@ -511,7 +511,7 @@ sozi.Player.prototype.getZoomData = function(zoomPercent, s0, s1) {
    },
    a, b, c, d, u, v;
 
-   if(zoomPercent !== 0) {
+   if (zoomPercent !== 0) {
       a = s0 - s1;
       b = s0 - result.ss;
       c = s1 - result.ss;
@@ -646,7 +646,7 @@ sozi.Player.prototype.showAll = function () {
       {
          initialState: this.display.getCurrentGeometry(),
          finalState: this.display.getDocumentGeometry(),
-         profile: this.defaultProfile,
+         profile: this.defaultProfile
       }
    );
 };

@@ -213,8 +213,8 @@ sozi.Display.prototype.getCurrentGeometry = function () {
 sozi.Display.prototype.drag = function (deltaX, deltaY) {
    var g = this.getFrameGeometry(),
        angleRad = this.rotate * Math.PI / 180;
-   this.cx -= ( deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / g.scale;
-   this.cy -= ( deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / g.scale;
+   this.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / g.scale;
+   this.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / g.scale;
    this.clip = false;
    if (this.tableOfContentsIsVisible()) {
       this.hideTableOfContents();
