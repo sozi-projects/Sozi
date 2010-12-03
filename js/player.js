@@ -349,12 +349,12 @@ sozi.Player.prototype.onAnimationStep = function (progress, data) {
          }
       }
    }
-
+/* FIXME
    if (data.k !== 0) {
       scale = data.k * (progress - data.ts) * (progress - data.ts) + data.ss;
       this.display.applyZoomFactor(scale / this.display.scale);
    }
-
+*/
    this.display.clip = data.finalState.clip;
 
    this.display.update();
@@ -516,7 +516,7 @@ sozi.Player.prototype.moveToFrame = function (index) {
    var durationMs = this.defaultDurationMs,
        zoomPercent = this.defaultZoomPercent,
        profile = this.defaultProfile,
-       s0, s1, ss, a, b, c, d, u, v, ts, k = 0;
+       w, h, s0, s1, ss, a, b, c, d, u, v, ts, k = 0;
 
    if (this.waiting) {
       window.clearTimeout(this.nextFrameTimeout);
@@ -534,8 +534,14 @@ sozi.Player.prototype.moveToFrame = function (index) {
    }
 
    if (zoomPercent !== 0) {
-      s0 = this.display.scale;
-      s1 = this.frames[index].geometry.scale;
+      w = this.display.width;
+      h = this.display.height;
+      s0 = Math.sqrt(w*w + h*h);
+
+      w = this.frames[index].geometry.width;
+      w = this.frames[index].geometry.height;
+      s1 = Math.sqrt(w*w + h*h);
+
       ss = ((zoomPercent > 0) ? Math.max(s0, s1) : Math.min(s0, s1)) * (100 + zoomPercent) / 100;
 
       a = s0 - s1;
