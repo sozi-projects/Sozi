@@ -167,7 +167,7 @@ class SoziEditFrame(inkex.Effect):
 
       # Rectangles are configured to be hidden by default.
       # Other elements are configured to be visible.
-      if self.element.tag == "rect":
+      if self.element.tag == "rect" or self.element.tag == "{" + inkex.NSS["svg"] + "}rect":
          default_hide = "true"
       else:
          default_hide = "false"
@@ -175,7 +175,7 @@ class SoziEditFrame(inkex.Effect):
       # Create form for the selected element
       # TODO click in frame list to change sequence
       # TODO change frame list when title field is changed
-      title_field = self.create_text_field("title", "Title:", "New frame")
+      title_field = self.create_text_field("title", "Title:", "New frame"+self.element.tag)
       sequence_field = self.create_spinbutton_field("sequence", "Sequence:", 1)
       hide_field = self.create_checkbox_field("hide", "Hide", default_hide)
       clip_field = self.create_checkbox_field("clip", "Clip", "true")
