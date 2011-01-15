@@ -33,21 +33,47 @@ sys.path.append('C:\Program Files\Inkscape\share\extensions')
 import inkex
 
 class SoziInstall(inkex.Effect):
-	def __init__(self):
-		inkex.Effect.__init__(self)
-		inkex.NSS[u"sozi"] = u"http://sozi.baierouge.fr"
+   VERSION = "{{SOZI_VERSION}}"
 
-	def effect(self):
-		# Find and delete old script node
-		for node in self.document.xpath("//svg:script[@id='sozi-script']", namespaces=inkex.NSS):
-			node.getparent().remove(node)
+   def __init__(self):
+      inkex.Effect.__init__(self)
+      inkex.NSS[u"sozi"] = u"http://sozi.baierouge.fr"
+
+   def effect(self):
+      # Find and delete old script node
+      for elt in self.document.xpath("//svg:script[@id='sozi-script']", namespaces=inkex.NSS):
+         elt.getparent().remove(elt)
 	
-		# Create new script node
-		scriptElm = inkex.etree.Element(inkex.addNS("script", "svg"))
-		scriptElm.text = open(os.path.join(os.path.dirname(__file__),	"sozi.js")).read()
-		scriptElm.set("id","sozi-script")
-		scriptElm.set("{" + inkex.NSS["sozi"] + "}version", "10.11")
-		self.document.getroot().append(scriptElm)
+      # Create new script node
+      script_elt = inkex.etree.Element(inkex.addNS("script", "svg"))
+      script_elt.text = open(os.path.join(os.path.dirname(__file__), "sozi.js")).read()
+      script_elt.set("id","sozi-script")
+      script_elt.set("{" + inkex.NSS["sozi"] + "}version", SoziInstall.VERSION)
+      self.document.getroot().append(script_elt)
+
+      # Upgrade document if needed
+      self.upgrade()
+
+   def upgrade(self):
+      # Upgrade from 10.x
+
+      # FIXME allow multiple classes in element
+      for elt in self.document.xpath("//svg:*[@class='sozi-frame']", namespaces=inkex.NSS):
+         del elt.attrib["class"];
+
+         # Create a new frame element
+         frame_elt = inkex.etree.Element(inkex.addNS("frame", "sozi"))
+         frame_elt.set("{" + inkex.NSS["sozi"] + "}refid", elt.get("id")) # TODO check namespace for id?
+         self.document.getroot().append(frame_elt)
+
+         # Move all Sozi-specific attributes from the original element to the frame element
+         for attr in ["title", "sequence", "hide", "clip", "timeout-enable", "timeout-ms",
+                      "transition-duration-ms", "transition-zoom-percent", "transition-profile"]:
+            ns_attr = "{" + inkex.NSS["sozi"] + "}" + attr
+            if elt.attrib.has_key(ns_attr):
+               frame_elt.set(ns_attr, elt.get(ns_attr))
+               del elt.attrib[ns_attr]
+      
 
 # Create effect instance
 effect = SoziInstall()

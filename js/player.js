@@ -414,34 +414,36 @@ sozi.Player.prototype.readAttribute = function (elt, attr) {
 /*
  * Builds the list of frames from the current document.
  *
- * This method collects all elements with class "sozi-frame" and
+ * This method collects all elements with tag "sozi:frame" and
  * retrieves their geometrical and animation attributes.
  * SVG elements that should be hidden during the presentation are hidden.
  *
  * The resulting list is available in this.frames, sorted by frame indices.
  */
 sozi.Player.prototype.readFrames = function () {
-   var frameElements = document.getElementsByClassName("sozi-frame"),
-       i, newFrame;
+   var frameElements = document.getElementsByTagNameNS(this.soziNs, "frame"),
+       svgElement, i, newFrame;
 
    for (i = 0; i < frameElements.length; i ++) {
-      newFrame = {
-         element: frameElements[i],
-         geometry: this.display.getElementGeometry(frameElements[i]),
-         title: this.readAttribute(frameElements[i], "title"),
-         sequence: parseInt(this.readAttribute(frameElements[i], "sequence"), 10),
-         hide: this.readAttribute(frameElements[i], "hide") === "true",
-         timeoutEnable: this.readAttribute(frameElements[i], "timeout-enable") === "true",
-         timeoutMs: parseInt(this.readAttribute(frameElements[i], "timeout-ms"), 10),
-         transitionDurationMs: parseInt(this.readAttribute(frameElements[i], "transition-duration-ms"), 10),
-         transitionZoomPercent: parseInt(this.readAttribute(frameElements[i], "transition-zoom-percent"), 10),
-         transitionProfile: this.profiles[this.readAttribute(frameElements[i], "transition-profile") || "linear"]
-      };
-      if (newFrame.hide) {
-         frameElements[i].setAttribute("visibility", "hidden");
+      svgElement = document.getElementById(frameElements[i].getAttributeNS(this.soziNs, "refid"));
+      if (svgElement) {
+         newFrame = {
+            geometry: this.display.getElementGeometry(svgElement),
+            title: this.readAttribute(frameElements[i], "title"),
+            sequence: parseInt(this.readAttribute(frameElements[i], "sequence"), 10),
+            hide: this.readAttribute(frameElements[i], "hide") === "true",
+            timeoutEnable: this.readAttribute(frameElements[i], "timeout-enable") === "true",
+            timeoutMs: parseInt(this.readAttribute(frameElements[i], "timeout-ms"), 10),
+            transitionDurationMs: parseInt(this.readAttribute(frameElements[i], "transition-duration-ms"), 10),
+            transitionZoomPercent: parseInt(this.readAttribute(frameElements[i], "transition-zoom-percent"), 10),
+            transitionProfile: this.profiles[this.readAttribute(frameElements[i], "transition-profile") || "linear"]
+         };
+         if (newFrame.hide) {
+            svgElement.setAttribute("visibility", "hidden");
+         }
+         newFrame.geometry.clip = this.readAttribute(frameElements[i], "clip") === "true";
+         this.frames.push(newFrame);
       }
-      newFrame.geometry.clip = this.readAttribute(frameElements[i], "clip") === "true";
-      this.frames.push(newFrame);
    }
    this.frames.sort(
       function (a, b) {
