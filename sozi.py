@@ -47,10 +47,17 @@ class Sozi(inkex.Effect):
                "accelerate-decelerate", "strong-accelerate-decelerate",
                "decelerate-accelerate", "strong-decelerate-accelerate"]
 
+   ATTR = ["title", "sequence", "hide", "clip", "timeout-enable", "timeout-ms",
+           "transition-duration-ms", "transition-zoom-percent", "transition-profile"]
+
+   NS_URI = u"http://sozi.baierouge.fr"
+
+   NS = "{" + NS_URI + "}"
+
 
    def __init__(self):
       inkex.Effect.__init__(self)
-      inkex.NSS[u"sozi"] = u"http://sozi.baierouge.fr"
+      inkex.NSS[u"sozi"] = Sozi.NS_URI
 
       self.element = None
       self.all_frame_elements = []
@@ -68,7 +75,7 @@ class Sozi(inkex.Effect):
       # Check script version and remove older versions of the script
       latest_version_found = False
       for elt in self.document.xpath("//svg:script[@id='sozi-script']", namespaces=inkex.NSS):
-         version = elt.get("{" + inkex.NSS["sozi"] + "}version")
+         version = elt.attrib[Sozi.NS+"version"]
          if version == Sozi.VERSION:
             latest_version_found = True
          elif version < Sozi.VERSION:
@@ -77,12 +84,12 @@ class Sozi(inkex.Effect):
             sys.stderr.write("Document has been created using a higher version of Sozi. Please upgrade the Inkscape plugin.\n")
             exit()
       
-      # Create new script node if needed
+      # Create new script element if needed
       if not latest_version_found:
          elt = inkex.etree.Element(inkex.addNS("script", "svg"))
          elt.text = open(os.path.join(os.path.dirname(__file__), "sozi.js")).read()
          elt.set("id","sozi-script")
-         elt.set("{" + inkex.NSS["sozi"] + "}version", Sozi.VERSION)
+         elt.set(Sozi.NS+"version", Sozi.VERSION)
          self.document.getroot().append(elt)
 
 
@@ -95,15 +102,14 @@ class Sozi(inkex.Effect):
 
          # Create a new frame element
          frame_elt = inkex.etree.Element(inkex.addNS("frame", "sozi"))
-         frame_elt.set("{" + inkex.NSS["sozi"] + "}refid", elt.get("id")) # TODO check namespace for id?
+         frame_elt.set(Sozi.NS+"refid", elt.attrib["id"]) # TODO check namespace for id?
          self.document.getroot().append(frame_elt)
 
          # Move all Sozi-specific attributes from the original element to the frame element
-         for attr in ["title", "sequence", "hide", "clip", "timeout-enable", "timeout-ms",
-                      "transition-duration-ms", "transition-zoom-percent", "transition-profile"]:
-            ns_attr = "{" + inkex.NSS["sozi"] + "}" + attr
-            if elt.attrib.has_key(ns_attr):
-               frame_elt.set(ns_attr, elt.get(ns_attr))
+         for attr in Sozi.ATTR:
+            ns_attr = Sozi.NS+attr
+            if ns_attr in elt.attrib:
+               frame_elt.set(ns_attr, elt.attrib[ns_attr])
                del elt.attrib[ns_attr]
       
 
@@ -115,31 +121,33 @@ class Sozi(inkex.Effect):
             break
 
       # Get a sorted list of all frame elements 
+      sequence_attr = Sozi.NS+"sequence"
       self.all_frame_elements = self.document.xpath("//sozi:frame", namespaces=inkex.NSS)
       self.all_frame_elements = sorted(self.all_frame_elements, key=lambda elt:
-         int(elt.attrib["{" + inkex.NSS["sozi"] + "}sequence"]) if elt.attrib.has_key("{" + inkex.NSS["sozi"] + "}sequence") else len(self.all_frame_elements))
+         int(elt.attrib[sequence_attr]) if sequence_attr in elt.attrib else len(self.all_frame_elements))
 
       # TODO remove orphan frames
 
       if self.element is not None:
          # Find frame element for the selected element
          for elt in self.all_frame_elements:
-            if elt.attrib["{" + inkex.NSS["sozi"] + "}refid"] == self.element.attrib["id"]: # TODO check namespace?
+            if elt.attrib[Sozi.NS+"refid"] == self.element.attrib["id"]: # TODO check namespace?
                self.frame_element = elt
                break
 
          # If no frame element exists, create a new one
          if self.frame_element is None:
             self.frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
-            self.frame_element.set("{" + inkex.NSS["sozi"] + "}refid", self.element.attrib["id"]) # TODO check namespace?
+            self.frame_element.set(Sozi.NS+"refid", self.element.attrib["id"]) # TODO check namespace?
             self.document.getroot().append(self.frame_element)
 
          self.show_form()
 
 
    def create_text_field(self, attr, label, value):
-      if self.frame_element.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + attr):
-         value = self.frame_element.attrib["{" + inkex.NSS["sozi"] + "}" + attr]
+      ns_attr = Sozi.NS+attr
+      if ns_attr in self.frame_element.attrib:
+         value = self.frame_element.attrib[ns_attr]
 
       lbl = gtk.Label(label)
 
@@ -155,8 +163,9 @@ class Sozi(inkex.Effect):
 
       
    def create_combo_field(self, attr, label, items, index):
-      if self.frame_element.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + attr):
-         text = self.frame_element.attrib["{" + inkex.NSS["sozi"] + "}" + attr]
+      ns_attr = Sozi.NS+attr
+      if ns_attr in self.frame_element.attrib:
+         text = self.frame_element.attrib[ns_attr]
          if items.count(text) > 0:
             index = items.index(text)
 
@@ -176,10 +185,13 @@ class Sozi(inkex.Effect):
 
       
    def create_checked_spinbutton_field(self, enable_attr, value_attr, label, enable, value):
-      if self.frame_element.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + enable_attr):
-         enable = self.frame_element.attrib["{" + inkex.NSS["sozi"] + "}" + enable_attr]
-      if self.frame_element.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + value_attr):
-         value = int(self.frame_element.attrib["{" + inkex.NSS["sozi"] + "}" + value_attr])
+      ns_enable_attr = Sozi.NS+enable_attr
+      if ns_enable_attr in self.frame_element.attrib:
+         enable = self.frame_element.attrib[ns_enable_attr]
+
+      ns_value_attr = Sozi.NS+value_attr
+      if ns_value_attr in self.frame_element.attrib:
+         value = int(self.frame_element.attrib[ns_value_attr])
 
       button = gtk.CheckButton(label)
       button.set_active(enable == "true")
@@ -200,8 +212,9 @@ class Sozi(inkex.Effect):
 
 
    def create_checkbox_field(self, attr, label, value):
-      if self.frame_element.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + attr):
-         value = self.frame_element.attrib["{" + inkex.NSS["sozi"] + "}" + attr]
+      ns_attr = Sozi.NS+attr
+      if ns_attr in self.frame_element.attrib:
+         value = self.frame_element.attrib[ns_attr]
 
       button = gtk.CheckButton(label)
       button.set_active(value == "true")
@@ -211,8 +224,9 @@ class Sozi(inkex.Effect):
 
 
    def create_spinbutton_field(self, attr, label, value, minValue = 0, maxValue = 1000000):
-      if self.frame_element.attrib.has_key("{" + inkex.NSS["sozi"] + "}" + attr):
-         value = int(self.frame_element.attrib["{" + inkex.NSS["sozi"] + "}" + attr])
+      ns_attr = Sozi.NS+attr
+      if ns_attr in self.frame_element.attrib:
+         value = int(self.frame_element.attrib[ns_attr])
       
       lbl = gtk.Label(label)
 
@@ -273,8 +287,9 @@ class Sozi(inkex.Effect):
          if elt == self.frame_element:
             frame_index = index
 
-         if elt.attrib.has_key("{" + inkex.NSS["sozi"] + "}title"):
-            title = elt.attrib["{" + inkex.NSS["sozi"] + "}title"]
+         title_attr = Sozi.NS+"title"
+         if title_attr in elt.attrib:
+            title = elt.attrib[title_attr]
          else:
             title = "Untitled"
 
@@ -337,24 +352,24 @@ class Sozi(inkex.Effect):
 
    def done(self, widget):
       # Update frame attributes using form data
-      self.frame_element.set("{" + inkex.NSS["sozi"] + "}title", unicode(self.fields["title"].get_text()))
-      self.frame_element.set("{" + inkex.NSS["sozi"] + "}sequence", unicode(self.fields["sequence"].get_value_as_int()))
-      self.frame_element.set("{" + inkex.NSS["sozi"] + "}hide", unicode("true" if self.fields["hide"].get_active() else "false"))
-      self.frame_element.set("{" + inkex.NSS["sozi"] + "}clip", unicode("true" if self.fields["clip"].get_active() else "false"))
-      self.frame_element.set("{" + inkex.NSS["sozi"] + "}timeout-enable", unicode("true" if self.fields["timeout-enable"].get_active() else "false"))
-      self.frame_element.set("{" + inkex.NSS["sozi"] + "}timeout-ms", unicode(self.fields["timeout-ms"].get_value_as_int()))
-      self.frame_element.set("{" + inkex.NSS["sozi"] + "}transition-duration-ms", unicode(self.fields["transition-duration-ms"].get_value_as_int()))
-      self.frame_element.set("{" + inkex.NSS["sozi"] + "}transition-zoom-percent", unicode(self.fields["transition-zoom-percent"].get_value_as_int()))
-      self.frame_element.set("{" + inkex.NSS["sozi"] + "}transition-profile", unicode(Sozi.PROFILES[self.fields["transition-profile"].get_active()]))
+      self.frame_element.set(Sozi.NS+"title", unicode(self.fields["title"].get_text()))
+      self.frame_element.set(Sozi.NS+"sequence", unicode(self.fields["sequence"].get_value_as_int()))
+      self.frame_element.set(Sozi.NS+"hide", unicode("true" if self.fields["hide"].get_active() else "false"))
+      self.frame_element.set(Sozi.NS+"clip", unicode("true" if self.fields["clip"].get_active() else "false"))
+      self.frame_element.set(Sozi.NS+"timeout-enable", unicode("true" if self.fields["timeout-enable"].get_active() else "false"))
+      self.frame_element.set(Sozi.NS+"timeout-ms", unicode(self.fields["timeout-ms"].get_value_as_int()))
+      self.frame_element.set(Sozi.NS+"transition-duration-ms", unicode(self.fields["transition-duration-ms"].get_value_as_int()))
+      self.frame_element.set(Sozi.NS+"transition-zoom-percent", unicode(self.fields["transition-zoom-percent"].get_value_as_int()))
+      self.frame_element.set(Sozi.NS+"transition-profile", unicode(Sozi.PROFILES[self.fields["transition-profile"].get_active()]))
 
       # Renumber frames
-      sequence = int(self.frame_element.attrib["{" + inkex.NSS["sozi"] + "}sequence"])
+      sequence = int(self.frame_element.attrib[Sozi.NS+"sequence"])
       index = 1
       for elt in self.all_frame_elements:
          if index == sequence:
             index += 1
          if elt != self.frame_element:
-            elt.set("{" + inkex.NSS["sozi"] + "}sequence", str(index))
+            elt.set(Sozi.NS+"sequence", str(index))
             index += 1
 
 
