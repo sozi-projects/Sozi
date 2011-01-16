@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VERSION=`cat VERSION`
-SOURCE='README doc/INSTALL doc/LICENSE sozi_edit_frame.inx  sozi_edit_frame.py  sozi_install.inx  sozi_install.py'
+SOURCE='README doc/INSTALL doc/LICENSE sozi.inx sozi.py'
 TARGET=sozi-release-$VERSION.zip
 
 rm -rf out
@@ -14,7 +14,7 @@ done
 
 cd out
 
-sed -i "s/{{SOZI_VERSION}}/$VERSION/g" *.py
+sed -i "s/{{SOZI_VERSION}}/$VERSION/g" sozi.py
 
 zip $TARGET *
 

@@ -36,9 +36,9 @@ import pygtk
 pygtk.require("2.0")
 import gtk
 
-import re
 
-class SoziEditFrame(inkex.Effect):
+class Sozi(inkex.Effect):
+
    VERSION = "{{SOZI_VERSION}}"
 
    PROFILES = ["linear",
@@ -46,6 +46,7 @@ class SoziEditFrame(inkex.Effect):
                "decelerate", "strong-decelerate",
                "accelerate-decelerate", "strong-accelerate-decelerate",
                "decelerate-accelerate", "strong-decelerate-accelerate"]
+
 
    def __init__(self):
       inkex.Effect.__init__(self)
@@ -58,49 +59,82 @@ class SoziEditFrame(inkex.Effect):
 
 
    def effect(self):
-      # Check script version
-      version = None
+      self.upgrade_or_install_script()
+      self.upgrade_document()
+      self.create_or_edit_frame()
+
+
+   def upgrade_or_install_script(self):
+      # Check script version and remove older versions of the script
+      latest_version_found = False
       for elt in self.document.xpath("//svg:script[@id='sozi-script']", namespaces=inkex.NSS):
          version = elt.get("{" + inkex.NSS["sozi"] + "}version")
-      
-      if version == None:
-         sys.stderr.write("The presentation script is not installed in this document.\n")
-         exit()
-
-      if version < SoziEditFrame.VERSION:
-         sys.stderr.write("Please upgrade the presentation script installed in this document.\n")
-         exit()
-
-      # Get selected element
-      for id, elt in self.selected.items():
-         if self.element == None:
-            self.element = elt
+         if version == Sozi.VERSION:
+            latest_version_found = True
+         elif version < Sozi.VERSION:
+            elt.getparent().remove(elt)
          else:
-            sys.stderr.write("More than one element selected. Please select only one element.\n")
+            sys.stderr.write("Document has been created using a higher version of Sozi. Please upgrade the Inkscape plugin.\n")
             exit()
+      
+      # Create new script node if needed
+      if not latest_version_found:
+         elt = inkex.etree.Element(inkex.addNS("script", "svg"))
+         elt.text = open(os.path.join(os.path.dirname(__file__), "sozi.js")).read()
+         elt.set("id","sozi-script")
+         elt.set("{" + inkex.NSS["sozi"] + "}version", Sozi.VERSION)
+         self.document.getroot().append(elt)
 
-      if self.element == None:
-         sys.stderr.write("No element selected.\n")
-         exit()
+
+   def upgrade_document(self):
+      # Upgrade from 10.x
+
+      # FIXME allow multiple classes in element
+      for elt in self.document.xpath("//svg:*[@class='sozi-frame']", namespaces=inkex.NSS):
+         del elt.attrib["class"];
+
+         # Create a new frame element
+         frame_elt = inkex.etree.Element(inkex.addNS("frame", "sozi"))
+         frame_elt.set("{" + inkex.NSS["sozi"] + "}refid", elt.get("id")) # TODO check namespace for id?
+         self.document.getroot().append(frame_elt)
+
+         # Move all Sozi-specific attributes from the original element to the frame element
+         for attr in ["title", "sequence", "hide", "clip", "timeout-enable", "timeout-ms",
+                      "transition-duration-ms", "transition-zoom-percent", "transition-profile"]:
+            ns_attr = "{" + inkex.NSS["sozi"] + "}" + attr
+            if elt.attrib.has_key(ns_attr):
+               frame_elt.set(ns_attr, elt.get(ns_attr))
+               del elt.attrib[ns_attr]
+      
+
+   def create_or_edit_frame(self):
+      # Get the first selected element
+      for id, elt in self.selected.items():
+         if self.element is None:
+            self.element = elt
+            break
 
       # Get a sorted list of all frame elements 
       self.all_frame_elements = self.document.xpath("//sozi:frame", namespaces=inkex.NSS)
       self.all_frame_elements = sorted(self.all_frame_elements, key=lambda elt:
          int(elt.attrib["{" + inkex.NSS["sozi"] + "}sequence"]) if elt.attrib.has_key("{" + inkex.NSS["sozi"] + "}sequence") else len(self.all_frame_elements))
 
-      # Find frame element for the selected element
-      for elt in self.all_frame_elements:
-         if elt.attrib["{" + inkex.NSS["sozi"] + "}refid"] == self.element.attrib["id"]: # TODO check namespace?
-            self.frame_element = elt
-            break
+      # TODO remove orphan frames
 
-      # If no frame element exists, create a new one
-      if self.frame_element == None:
-         self.frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
-         self.frame_element.set("{" + inkex.NSS["sozi"] + "}refid", self.element.attrib["id"]) # TODO check namespace?
-         self.document.getroot().append(self.frame_element)
+      if self.element is not None:
+         # Find frame element for the selected element
+         for elt in self.all_frame_elements:
+            if elt.attrib["{" + inkex.NSS["sozi"] + "}refid"] == self.element.attrib["id"]: # TODO check namespace?
+               self.frame_element = elt
+               break
 
-      self.show_form()
+         # If no frame element exists, create a new one
+         if self.frame_element is None:
+            self.frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
+            self.frame_element.set("{" + inkex.NSS["sozi"] + "}refid", self.element.attrib["id"]) # TODO check namespace?
+            self.document.getroot().append(self.frame_element)
+
+         self.show_form()
 
 
    def create_text_field(self, attr, label, value):
@@ -202,7 +236,7 @@ class SoziEditFrame(inkex.Effect):
 
       # Rectangles are configured to be hidden by default.
       # Other elements are configured to be visible.
-      if self.element.tag == "rect" or self.element.tag == "{" + inkex.NSS["svg"] + "}rect":
+      if self.element is not None and (self.element.tag == "rect" or self.element.tag == "{" + inkex.NSS["svg"] + "}rect"):
          default_hide = "true"
       else:
          default_hide = "false"
@@ -217,7 +251,7 @@ class SoziEditFrame(inkex.Effect):
       timeout_field = self.create_checked_spinbutton_field("timeout-enable", "timeout-ms", "Timeout (ms):", "false", 5000)
       transition_duration_field = self.create_spinbutton_field("transition-duration-ms", "Duration (ms):", 1000)
       transition_zoom_field = self.create_spinbutton_field("transition-zoom-percent", "Zoom (%):", 0, -100, 100)
-      transition_profile_field = self.create_combo_field("transition-profile", "Profile:", SoziEditFrame.PROFILES, 0)
+      transition_profile_field = self.create_combo_field("transition-profile", "Profile:", Sozi.PROFILES, 0)
 
       # Create "Done" and "Cancel" buttons
       done_button = gtk.Button("Done")
@@ -311,9 +345,7 @@ class SoziEditFrame(inkex.Effect):
       self.frame_element.set("{" + inkex.NSS["sozi"] + "}timeout-ms", unicode(self.fields["timeout-ms"].get_value_as_int()))
       self.frame_element.set("{" + inkex.NSS["sozi"] + "}transition-duration-ms", unicode(self.fields["transition-duration-ms"].get_value_as_int()))
       self.frame_element.set("{" + inkex.NSS["sozi"] + "}transition-zoom-percent", unicode(self.fields["transition-zoom-percent"].get_value_as_int()))
-      self.frame_element.set("{" + inkex.NSS["sozi"] + "}transition-profile", unicode(SoziEditFrame.PROFILES[self.fields["transition-profile"].get_active()]))
-
-      # TODO remove frames with non-existent ref element
+      self.frame_element.set("{" + inkex.NSS["sozi"] + "}transition-profile", unicode(Sozi.PROFILES[self.fields["transition-profile"].get_active()]))
 
       # Renumber frames
       sequence = int(self.frame_element.attrib["{" + inkex.NSS["sozi"] + "}sequence"])
@@ -331,6 +363,6 @@ class SoziEditFrame(inkex.Effect):
 
 
 # Create effect instance
-effect = SoziEditFrame()
+effect = Sozi()
 effect.affect()
 

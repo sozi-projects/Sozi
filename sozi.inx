@@ -18,18 +18,17 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
-   <_name>Edit frame</_name>
-   <id>sozi.edit_frame</id>
-   <dependency type="executable" location="extensions">inkex.py</dependency>
-   <dependency type="executable" location="extensions">sozi_edit_frame.py</dependency>
-   <effect>
-      <object-type>all</object-type>
-         <effects-menu>
-            <submenu _name="Sozi"/>
-         </effects-menu>
-   </effect>
-   <script>
-      <command reldir="extensions" interpreter="python">sozi_edit_frame.py</command>
-   </script>
+  <_name>Sozi</_name>
+  <id>sozi</id>
+  <dependency type="executable" location="extensions">inkex.py</dependency>
+  <dependency type="executable" location="extensions">sozi.py</dependency>
+  <dependency type="executable" location="extensions">sozi.js</dependency>
+  <effect>
+    <object-type>all</object-type>
+  </effect>
+  <script>
+    <command reldir="extensions" interpreter="python">sozi.py</command>
+  </script>
 </inkscape-extension>
+
 
