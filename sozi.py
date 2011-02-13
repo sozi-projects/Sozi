@@ -120,13 +120,19 @@ class Sozi(inkex.Effect):
             self.element = elt
             break
 
-      # Get a sorted list of all frame elements 
+      # Get list of valid frame elements and remove orphan frames
+      self.all_frame_elements = []
+      for elt in self.document.xpath("//sozi:frame", namespaces=inkex.NSS):
+         svg_elt = self.document.xpath("//svg:*[@id='" + elt.attrib[Sozi.NS+"refid"] + "']", namespaces=inkex.NSS)
+         if len(svg_elt) == 0:
+            self.document.getroot().remove(elt)
+         else:
+            self.all_frame_elements.append(elt)
+
+      # Sort frames by sequence attribute 
       sequence_attr = Sozi.NS+"sequence"
-      self.all_frame_elements = self.document.xpath("//sozi:frame", namespaces=inkex.NSS)
       self.all_frame_elements = sorted(self.all_frame_elements, key=lambda elt:
          int(elt.attrib[sequence_attr]) if sequence_attr in elt.attrib else len(self.all_frame_elements))
-
-      # TODO remove orphan frames
 
       if self.element is not None:
          # Find frame element for the selected element
