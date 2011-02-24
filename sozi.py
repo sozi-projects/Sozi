@@ -327,6 +327,7 @@ class Sozi(inkex.Effect):
 
       if frame_index < len(self.frames):
          list_view.get_selection().select_path(frame_index)
+         list_view.scroll_to_cell(frame_index)
 
       list_scroll = gtk.ScrolledWindow()
       list_scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)	
