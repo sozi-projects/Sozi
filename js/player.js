@@ -279,14 +279,18 @@ sozi.Player.prototype.onKeyDown = function (evt) {
    case 35: // End
       this.moveToLast();
       break;
+   case 38: // Arrow up
+      this.jumpToPrevious();
+      break;
    case 33: // Page up
    case 37: // Arrow left
-   case 38: // Arrow up
       this.moveToPrevious();
+      break;
+   case 40: // Arrow down
+      this.jumpToNext();
       break;
    case 34: // Page down
    case 39: // Arrow right
-   case 40: // Arrow down
    case 13: // Enter
       this.moveToNext();
       break;
@@ -534,6 +538,31 @@ sozi.Player.prototype.getZoomData = function (zoomPercent, s0, s1) {
 };
 
 /*
+ * Jump to a frame with the given index (0-based).
+ *
+ * This method does not animate the transition from the current
+ * state of the display to the desired frame.
+ *
+ * The presentation is stopped: if a timeout has been set for the
+ * target frame, it will be ignored.
+ *
+ * The URL hash is set to the given frame index (1-based).
+ */
+sozi.Player.prototype.jumpToFrame = function (index) {
+   this.stop();
+
+   if (this.display.tableOfContentsIsVisible()) {
+      this.display.hideTableOfContents();
+   }
+
+   this.currentFrameIndex = index;
+   this.display.showFrame(this.frames[this.currentFrameIndex]);
+
+   // Update URL hash with the current frame index
+   window.location.hash = "#" + (index + 1);
+};
+
+/*
  * Moves to a frame with the given index (0-based).
  *
  * This method animates the transition from the current
@@ -595,6 +624,15 @@ sozi.Player.prototype.moveToFirst = function () {
 };
 
 /*
+ * Jumps to the previous frame
+ */
+sozi.Player.prototype.jumpToPrevious = function () {
+   if (this.currentFrameIndex > 0) {
+      this.jumpToFrame(this.currentFrameIndex - 1);
+   }
+};
+
+/*
  * Moves to the previous frame.
  */
 sozi.Player.prototype.moveToPrevious = function () {
@@ -607,6 +645,19 @@ sozi.Player.prototype.moveToPrevious = function () {
          this.moveToFrame(index);
          break;
       }
+   }
+};
+
+/*
+ * Jumps to the next frame
+ */
+sozi.Player.prototype.jumpToNext = function () {
+   var index = this.currentFrameIndex;
+   if (!this.animator.started) {
+      index += 1;
+   }
+   if (index < this.frames.length) {
+      this.jumpToFrame(index);
    }
 };
 
