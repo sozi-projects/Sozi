@@ -28,6 +28,8 @@ sozi.Player = function () {
    this.frames = [];
    this.playing = false;
    this.waiting = false;
+   this.sourceFrameIndex = 0;
+   this.currentFrameIndex = 0;
 };
 
 sozi.Player.prototype.profiles = {
@@ -376,6 +378,7 @@ sozi.Player.prototype.onAnimationStep = function (progress, data) {
  * then we call the waitTimeout method to process the timeout property of the current frame.
  */
 sozi.Player.prototype.onAnimationDone = function () {
+   this.sourceFrameIndex = this.currentFrameIndex;
    if (this.playing) {
       this.waitTimeout();
    }
@@ -465,8 +468,9 @@ sozi.Player.prototype.readFrames = function () {
 sozi.Player.prototype.startFromIndex = function (index) {
    this.playing = true;
    this.waiting = false;
+   this.sourceFrameIndex = index;
    this.currentFrameIndex = index;
-   this.display.showFrame(this.frames[this.currentFrameIndex]);
+   this.display.showFrame(this.frames[index]);
    this.waitTimeout();
 };
 
@@ -485,6 +489,7 @@ sozi.Player.prototype.stop = function () {
       this.waiting = false;
    }
    this.playing = false;
+   this.sourceFrameIndex = this.currentFrameIndex;
 };
 
 /*
@@ -555,8 +560,9 @@ sozi.Player.prototype.jumpToFrame = function (index) {
       this.display.hideTableOfContents();
    }
 
+   this.sourceFrameIndex = index;
    this.currentFrameIndex = index;
-   this.display.showFrame(this.frames[this.currentFrameIndex]);
+   this.display.showFrame(this.frames[index]);
 
    // Update URL hash with the current frame index
    window.location.hash = "#" + (index + 1);
@@ -627,8 +633,12 @@ sozi.Player.prototype.moveToFirst = function () {
  * Jumps to the previous frame
  */
 sozi.Player.prototype.jumpToPrevious = function () {
-   if (this.currentFrameIndex > 0) {
-      this.jumpToFrame(this.currentFrameIndex - 1);
+   var index = this.currentFrameIndex;
+   if (!this.animator.started || this.sourceFrameIndex <= this.currentFrameIndex) {
+      index -= 1;
+   }
+   if (index >= 0) {
+      this.jumpToFrame(index);
    }
 };
 
@@ -653,7 +663,7 @@ sozi.Player.prototype.moveToPrevious = function () {
  */
 sozi.Player.prototype.jumpToNext = function () {
    var index = this.currentFrameIndex;
-   if (!this.animator.started) {
+   if (!this.animator.started || this.sourceFrameIndex >= this.currentFrameIndex) {
       index += 1;
    }
    if (index < this.frames.length) {
