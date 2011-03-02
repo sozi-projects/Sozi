@@ -266,11 +266,9 @@ class Sozi(inkex.Effect):
       # Create save buttons
       self.save_button = gtk.Button("Save frame")
       self.save_button.connect("clicked", self.save_frame)
-      self.save_button.connect_object("clicked", gtk.Widget.destroy, window)
 
       self.save_as_new_frame_button = gtk.Button("Save as new frame")
       self.save_as_new_frame_button.connect("clicked", self.save_as_new_frame)
-      self.save_as_new_frame_button.connect_object("clicked", gtk.Widget.destroy, window)
 
       buttons_box = gtk.HBox()
       buttons_box.pack_start(self.save_button)
@@ -386,6 +384,7 @@ class Sozi(inkex.Effect):
 
 
    def save_frame(self, widget):
+      # TODO update frame list
       # Update frame attributes using form data
       self.current_frame["frame_element"].set(Sozi.NS+"title", unicode(self.fields["title"].get_text()))
       self.current_frame["frame_element"].set(Sozi.NS+"sequence", unicode(self.fields["sequence"].get_value_as_int()))
@@ -409,6 +408,7 @@ class Sozi(inkex.Effect):
 
 
    def save_as_new_frame(self, widget):
+      # TODO update frame list
       if self.current_frame is not None:
          svg_element = self.current_frame["svg_element"]
       else:
