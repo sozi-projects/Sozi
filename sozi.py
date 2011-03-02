@@ -136,27 +136,24 @@ class Sozi(inkex.Effect):
 
       # Get the selected frame elements
       self.selected_frames = []
+      self.current_frame = None
       if len(self.selected) > 0:
          for svg_id, svg_elt in self.selected.items():
             self.selected_element = svg_elt
             for f in self.frames:
                if f["svg_element"].attrib["id"] == svg_id:
                   self.selected_frames.append(f)
-         self.show_form()
+         if len(self.selected_frames) > 0:
+            self.current_frame = self.selected_frames[0]
+         self.create_form()
       elif len(self.frames) > 0:
-         self.selected_frames = [self.frames[0]]
-         self.show_form()
+         self.current_frame = self.frames[0]
+         self.create_form()
 
 
-   def create_text_field(self, attr, label, value):
-      ns_attr = Sozi.NS+attr
-      if self.current_frame is not None and ns_attr in self.current_frame["frame_element"].attrib:
-         value = self.current_frame["frame_element"].attrib[ns_attr]
-
+   def create_text_field(self, attr, label):
       lbl = gtk.Label(label)
-
       entry = gtk.Entry()
-      entry.set_text(value)
 
       hbox = gtk.HBox()
       hbox.add(lbl)
@@ -165,20 +162,20 @@ class Sozi(inkex.Effect):
       self.fields[attr] = entry
       return hbox
 
-      
-   def create_combo_field(self, attr, label, items, index):
+
+   def fill_text_field(self, attr, value):
       ns_attr = Sozi.NS+attr
       if self.current_frame is not None and ns_attr in self.current_frame["frame_element"].attrib:
-         text = self.current_frame["frame_element"].attrib[ns_attr]
-         if items.count(text) > 0:
-            index = items.index(text)
+         value = self.current_frame["frame_element"].attrib[ns_attr]
+      self.fields[attr].set_text(value)
 
+      
+   def create_combo_field(self, attr, label, items):
       lbl = gtk.Label(label)
 
       combo = gtk.combo_box_new_text()
       for text in items:
          combo.append_text(text)
-      combo.set_active(index)
 
       hbox = gtk.HBox()
       hbox.add(lbl)
@@ -188,23 +185,58 @@ class Sozi(inkex.Effect):
       return hbox
 
       
-   def create_checked_spinbutton_field(self, enable_attr, value_attr, label, enable, value):
-      ns_enable_attr = Sozi.NS+enable_attr
-      ns_value_attr = Sozi.NS+value_attr
-      if self.current_frame is not None:
-         if ns_enable_attr in self.current_frame["frame_element"].attrib:
-            enable = self.current_frame["frame_element"].attrib[ns_enable_attr]
-         if ns_value_attr in self.current_frame["frame_element"].attrib:
-            value = int(self.current_frame["frame_element"].attrib[ns_value_attr])
+   def fill_combo_field(self, attr, items, index):
+      ns_attr = Sozi.NS+attr
+      if self.current_frame is not None and ns_attr in self.current_frame["frame_element"].attrib:
+         text = self.current_frame["frame_element"].attrib[ns_attr]
+         if items.count(text) > 0:
+            index = items.index(text)
+      self.fields[attr].set_active(index)
 
+
+   def create_checkbox_field(self, attr, label):
       button = gtk.CheckButton(label)
-      button.set_active(enable == "true")
+      self.fields[attr] = button
+      return button
+
+
+   def fill_checkbox_field(self, attr, value):
+      ns_attr = Sozi.NS+attr
+      if self.current_frame is not None and ns_attr in self.current_frame["frame_element"].attrib:
+         value = self.current_frame["frame_element"].attrib[ns_attr]
+      self.fields[attr].set_active(value == "true")
+
+
+   def create_spinbutton_field(self, attr, label, minValue = 0, maxValue = 1000000):
+      lbl = gtk.Label(label)
+
+      spin = gtk.SpinButton(digits=0)
+      spin.set_range(minValue, maxValue)
+      spin.set_increments(1, 1)
+      spin.set_numeric(True)
+
+      hbox = gtk.HBox()
+      hbox.pack_start(lbl)
+      hbox.pack_start(spin)
+
+      self.fields[attr] = spin
+      return hbox
+
+
+   def fill_spinbutton_field(self, attr, value):
+      ns_attr = Sozi.NS+attr
+      if self.current_frame is not None and ns_attr in self.current_frame["frame_element"].attrib:
+         value = int(self.current_frame["frame_element"].attrib[ns_attr])
+      self.fields[attr].set_value(value)
+
+
+   def create_checked_spinbutton_field(self, enable_attr, value_attr, label):
+      button = gtk.CheckButton(label)
 
       spin = gtk.SpinButton(digits=0)
       spin.set_range(0, 1000000)
       spin.set_increments(1, 1)
       spin.set_numeric(True)
-      spin.set_value(value)
 
       hbox = gtk.HBox()
       hbox.pack_start(button)
@@ -215,68 +247,23 @@ class Sozi(inkex.Effect):
       return hbox
 
 
-   def create_checkbox_field(self, attr, label, value):
-      ns_attr = Sozi.NS+attr
-      if self.current_frame is not None and ns_attr in self.current_frame["frame_element"].attrib:
-         value = self.current_frame["frame_element"].attrib[ns_attr]
-
-      button = gtk.CheckButton(label)
-      button.set_active(value == "true")
-
-      self.fields[attr] = button
-      return button
-
-
-   def create_spinbutton_field(self, attr, label, value, minValue = 0, maxValue = 1000000):
-      ns_attr = Sozi.NS+attr
-      if self.current_frame is not None and ns_attr in self.current_frame["frame_element"].attrib:
-         value = int(self.current_frame["frame_element"].attrib[ns_attr])
-      
-      lbl = gtk.Label(label)
-
-      spin = gtk.SpinButton(digits=0)
-      spin.set_range(minValue, maxValue)
-      spin.set_increments(1, 1)
-      spin.set_numeric(True)
-      spin.set_value(value)
-
-      hbox = gtk.HBox()
-      hbox.pack_start(lbl)
-      hbox.pack_start(spin)
-
-      self.fields[attr] = spin
-      return hbox
-
-
-   def show_form(self):
+   def create_form(self):
       window = gtk.Window(gtk.WINDOW_TOPLEVEL)
       window.connect("destroy", self.destroy)
-
-      if len(self.selected_frames) > 0:
-         self.current_frame = self.selected_frames[0]
-         tag = self.current_frame["svg_element"].tag
-      else:
-         self.current_frame = None
-         tag = self.selected_element.tag
-
-      # Rectangles are configured to be hidden by default.
-      # Other elements are configured to be visible.
-      if tag == "rect" or tag == "{" + inkex.NSS["svg"] + "}rect":
-         default_hide = "true"
-      else:
-         default_hide = "false"
 
       # Create form for the selected element
       # TODO click in frame list to change sequence
       # TODO change frame list when title field is changed
-      title_field = self.create_text_field("title", "Title:", "New frame")
-      sequence_field = self.create_spinbutton_field("sequence", "Sequence:", 1)
-      hide_field = self.create_checkbox_field("hide", "Hide", default_hide)
-      clip_field = self.create_checkbox_field("clip", "Clip", "true")
-      timeout_field = self.create_checked_spinbutton_field("timeout-enable", "timeout-ms", "Timeout (ms):", "false", 5000)
-      transition_duration_field = self.create_spinbutton_field("transition-duration-ms", "Duration (ms):", 1000)
-      transition_zoom_field = self.create_spinbutton_field("transition-zoom-percent", "Zoom (%):", 0, -100, 100)
-      transition_profile_field = self.create_combo_field("transition-profile", "Profile:", Sozi.PROFILES, 0)
+      title_field = self.create_text_field("title", "Title:")
+      sequence_field = self.create_spinbutton_field("sequence", "Sequence:")
+      hide_field = self.create_checkbox_field("hide", "Hide")
+      clip_field = self.create_checkbox_field("clip", "Clip")
+      timeout_field = self.create_checked_spinbutton_field("timeout-enable", "timeout-ms", "Timeout (ms):")
+      transition_duration_field = self.create_spinbutton_field("transition-duration-ms", "Duration (ms):")
+      transition_zoom_field = self.create_spinbutton_field("transition-zoom-percent", "Zoom (%):", -100, 100)
+      transition_profile_field = self.create_combo_field("transition-profile", "Profile:", Sozi.PROFILES)
+
+      self.fill_form()
 
       # Create save buttons
       save_button = gtk.Button("Save frame")
@@ -367,6 +354,30 @@ class Sozi(inkex.Effect):
       window.show_all()
 
       gtk.main()
+
+
+   def fill_form(self):
+      # Rectangles are configured to be hidden by default.
+      # Other elements are configured to be visible.
+      if self.current_frame is None:
+         tag = self.selected_element.tag
+      else:
+         tag = self.current_frame["svg_element"].tag
+
+      if tag == "rect" or tag == "{" + inkex.NSS["svg"] + "}rect":
+         default_hide = "true"
+      else:
+         default_hide = "false"
+
+      self.fill_text_field("title", "New frame")
+      self.fill_spinbutton_field("sequence", 1)
+      self.fill_checkbox_field("hide", default_hide)
+      self.fill_checkbox_field("clip", "true")
+      self.fill_checkbox_field("timeout-enable", "false")
+      self.fill_spinbutton_field("timeout-ms", 5000)
+      self.fill_spinbutton_field("transition-duration-ms", 1000)
+      self.fill_spinbutton_field("transition-zoom-percent", 0)
+      self.fill_combo_field("transition-profile", Sozi.PROFILES, 0)
 
 
    def save_frame(self, widget):
