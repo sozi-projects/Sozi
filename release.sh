@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=`cat VERSION`
+VERSION=`date +%y.%m-%d%H%M%S`
 SOURCE='README doc/INSTALL doc/LICENSE sozi.inx sozi.py'
 TARGET=sozi-release-$VERSION.zip
 
