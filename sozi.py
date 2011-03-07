@@ -134,6 +134,10 @@ class Sozi(inkex.Effect):
       self.frames = sorted(self.frames, key=lambda f:
          int(f["frame_element"].attrib[sequence_attr]) if sequence_attr in f["frame_element"].attrib else len(self.frames))
 
+      # Renumber frames
+      for i, f in enumerate(self.frames):
+         f["frame_element"].set(Sozi.NS+"sequence", str(i+1))
+
       # Get the selected frame elements
       self.selected_frames = []
       self.current_frame = None
@@ -274,49 +278,18 @@ class Sozi(inkex.Effect):
       buttons_box.pack_start(self.save_button)
       buttons_box.pack_start(self.save_as_new_frame_button)
 
-      self.fill_form()
-
       # Create frame list
-      frame_index = len(self.frames)
-      list_store = gtk.ListStore(str, str)
-      for i, f in enumerate(self.frames):
-         if f == self.current_frame:
-            frame_index = i
-
-         title_attr = Sozi.NS+"title"
-         if title_attr in f["frame_element"].attrib:
-            title = f["frame_element"].attrib[title_attr]
-         else:
-            title = "Untitled"
-
-         if f in self.selected_frames:
-            color = "#ff0000";
-         else:
-            color = "#000000";
-
-         list_store.append([str(i+1) + ". " + title, color])
-
-      self.fields["sequence"].set_range(1, len(self.frames) + 1)
-      self.fields["sequence"].set_value(frame_index + 1)
-
       list_renderer = gtk.CellRendererText()
       list_renderer.set_property("background", "white")
       list_column = gtk.TreeViewColumn("Sequence", list_renderer, text = 0, foreground = 1)
 
-      list_view = gtk.TreeView(list_store)
-      list_view.append_column(list_column)
-
-      selection = list_view.get_selection()
-      if frame_index < len(self.frames):
-         selection.select_path(frame_index)
-         list_view.scroll_to_cell(frame_index)
-
-      selection.set_mode(gtk.SELECTION_SINGLE) # TODO multiple selection
-      selection.connect("changed", self.on_selection_changed)
+      self.list_store = gtk.ListStore(str, str)
+      self.list_view = gtk.TreeView(self.list_store)
+      self.list_view.append_column(list_column)
 
       list_scroll = gtk.ScrolledWindow()
       list_scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)	
-      list_scroll.add(list_view)
+      list_scroll.add(self.list_view)
 
       # Transition properties
       transition_box = gtk.VBox()
@@ -351,6 +324,13 @@ class Sozi(inkex.Effect):
       window.add(hbox)
       window.show_all()
 
+      self.fill_frame_list()
+      self.fill_form()
+
+      selection = self.list_view.get_selection()
+      selection.set_mode(gtk.SELECTION_SINGLE) # TODO multiple selection
+      selection.set_select_function(self.on_selection_changed)
+
       gtk.main()
 
 
@@ -379,12 +359,39 @@ class Sozi(inkex.Effect):
       self.fill_spinbutton_field("transition-zoom-percent", 0)
       self.fill_combo_field("transition-profile", Sozi.PROFILES, 0)
 
+      self.fields["sequence"].set_range(1, len(self.frames) + 1)
+
       self.save_button.set_sensitive(self.current_frame is not None)
       self.save_as_new_frame_button.set_sensitive(self.current_frame is not None or self.selected_element is not None)
 
 
+   def fill_frame_list(self):
+      self.list_store.clear()
+
+      frame_index = len(self.frames)
+      for i, f in enumerate(self.frames):
+         if f is self.current_frame:
+            frame_index = i
+
+         title_attr = Sozi.NS+"title"
+         if title_attr in f["frame_element"].attrib:
+            title = f["frame_element"].attrib[title_attr]
+         else:
+            title = "Untitled"
+
+         if f in self.selected_frames:
+            color = "#ff0000";
+         else:
+            color = "#000000";
+
+         self.list_store.append([str(i+1) + ". " + title, color])
+
+      if frame_index < len(self.frames):
+         self.list_view.get_selection().select_path((frame_index,))
+         self.list_view.scroll_to_cell(frame_index)
+
+
    def save_frame(self, widget):
-      # TODO update frame list
       # Update frame attributes using form data
       self.current_frame["frame_element"].set(Sozi.NS+"title", unicode(self.fields["title"].get_text()))
       self.current_frame["frame_element"].set(Sozi.NS+"sequence", unicode(self.fields["sequence"].get_value_as_int()))
@@ -396,19 +403,10 @@ class Sozi(inkex.Effect):
       self.current_frame["frame_element"].set(Sozi.NS+"transition-zoom-percent", unicode(self.fields["transition-zoom-percent"].get_value_as_int()))
       self.current_frame["frame_element"].set(Sozi.NS+"transition-profile", unicode(Sozi.PROFILES[self.fields["transition-profile"].get_active()]))
 
-      # Renumber frames
-      sequence = int(self.current_frame["frame_element"].attrib[Sozi.NS+"sequence"])
-      index = 1
-      for f in self.frames:
-         if index == sequence:
-            index += 1
-         if f is not self.current_frame:
-            f["frame_element"].set(Sozi.NS+"sequence", str(index))
-            index += 1
+      self.fill_frame_list()
 
 
    def save_as_new_frame(self, widget):
-      # TODO update frame list
       if self.current_frame is not None:
          svg_element = self.current_frame["svg_element"]
       else:
@@ -422,17 +420,21 @@ class Sozi(inkex.Effect):
          "frame_element": frame_element,
          "svg_element": svg_element
       }
+
       self.frames.append(self.current_frame)
+      if self.selected_element is svg_element:
+         self.selected_frames.append(self.current_frame)
+
       self.save_frame(widget)
 
 
-   def on_selection_changed(self, selection):
-      model, rows = selection.get_selected_rows()
-      if len(rows) > 0:
-         self.current_frame = self.frames[rows[0][0]]
+   def on_selection_changed(self, info):
+      if len(info) > 0:
+         self.current_frame = self.frames[info[0]]
       else:
          self.current_frame = None
       self.fill_form()
+      return True
 
 
    def destroy(self, widget, data=None):
