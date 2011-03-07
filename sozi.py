@@ -256,8 +256,6 @@ class Sozi(inkex.Effect):
       window.connect("destroy", self.destroy)
 
       # Create form for the selected element
-      # TODO click in frame list to change sequence
-      # TODO change frame list when title field is changed
       title_field = self.create_text_field("title", "Title:")
       sequence_field = self.create_spinbutton_field("sequence", "Sequence:")
       hide_field = self.create_checkbox_field("hide", "Hide")
@@ -428,11 +426,11 @@ class Sozi(inkex.Effect):
       self.save_frame(widget)
 
 
-   def on_selection_changed(self, info):
-      if len(info) > 0:
-         self.current_frame = self.frames[info[0]]
-      else:
+   def on_selection_changed(self, path):
+      if self.list_view.get_selection().path_is_selected(path):
          self.current_frame = None
+      else:
+         self.current_frame = self.frames[path[0]]
       self.fill_form()
       return True
 
