@@ -60,9 +60,6 @@ class Sozi(inkex.Effect):
       inkex.NSS[u"sozi"] = Sozi.NS_URI
 
       self.frames = []
-      self.selected_frames = []
-      self.selected_element = None
-      self.current_frame = None
       self.fields = {}
 
 
@@ -102,30 +99,30 @@ class Sozi(inkex.Effect):
          del elt.attrib["class"];
 
          # Create a new frame element
-         frame_elt = inkex.etree.Element(inkex.addNS("frame", "sozi"))
-         frame_elt.set(Sozi.NS+"refid", elt.attrib["id"]) # TODO check namespace for id?
-         self.document.getroot().append(frame_elt)
+         f = inkex.etree.Element(inkex.addNS("frame", "sozi"))
+         f.set(Sozi.NS+"refid", elt.attrib["id"]) # TODO check namespace for id?
+         self.document.getroot().append(f)
 
          # Move all Sozi-specific attributes from the original element to the frame element
          for attr in Sozi.ATTR:
             ns_attr = Sozi.NS+attr
             if ns_attr in elt.attrib:
-               frame_elt.set(ns_attr, elt.attrib[ns_attr])
+               f.set(ns_attr, elt.attrib[ns_attr])
                del elt.attrib[ns_attr]
       
 
    def create_or_edit_frame(self):
       # Get list of valid frame elements and remove orphan frames
       self.frames = []
-      for frame_elt in self.document.xpath("//sozi:frame", namespaces=inkex.NSS):
-         svg_elt = self.document.xpath("//svg:*[@id='" + frame_elt.attrib[Sozi.NS+"refid"] + "']", namespaces=inkex.NSS)
-         if len(svg_elt) == 0:
-            self.document.getroot().remove(frame_elt)
+      for f in self.document.xpath("//sozi:frame", namespaces=inkex.NSS):
+         e = self.document.xpath("//svg:*[@id='" + f.attrib[Sozi.NS+"refid"] + "']", namespaces=inkex.NSS)
+         if len(e) == 0:
+            self.document.getroot().remove(f)
          else:
             self.frames.append(
                {
-                  "frame_element": frame_elt,
-                  "svg_element": svg_elt[0]
+                  "frame_element": f,
+                  "svg_element": e[0]
                }
             )
 
@@ -139,20 +136,15 @@ class Sozi(inkex.Effect):
          f["frame_element"].set(Sozi.NS+"sequence", str(i+1))
 
       # Get the selected frame elements
-      self.selected_frames = []
-      self.current_frame = None
       if len(self.selected) > 0:
-         for svg_id, svg_elt in self.selected.items():
-            self.selected_element = svg_elt
-            for f in self.frames:
-               if f["svg_element"].attrib["id"] == svg_id:
-                  self.selected_frames.append(f)
-         if len(self.selected_frames) > 0:
-            self.current_frame = self.selected_frames[0]
-         self.create_form()
+         for f in self.frames:
+            if f["svg_element"].attrib["id"] in self.selected:
+               self.create_form(f)
+               break
+         else:
+            self.create_form(None)
       elif len(self.frames) > 0:
-         self.current_frame = self.frames[0]
-         self.create_form()
+         self.create_form(self.frames[0])
 
 
    def create_text_field(self, attr, label):
@@ -167,11 +159,16 @@ class Sozi(inkex.Effect):
       return hbox
 
 
-   def fill_text_field(self, attr, value):
+   def get_field_value(self, frame, attr, value):
       ns_attr = Sozi.NS+attr
-      if self.current_frame is not None and ns_attr in self.current_frame["frame_element"].attrib:
-         value = self.current_frame["frame_element"].attrib[ns_attr]
-      self.fields[attr].set_text(value)
+      if frame is not None and ns_attr in frame["frame_element"].attrib:
+         return frame["frame_element"].attrib[ns_attr]
+      else:
+         return value
+      
+      
+   def fill_text_field(self, frame, attr, value):
+      self.fields[attr].set_text(self.get_field_value(frame, attr, value))
 
       
    def create_combo_field(self, attr, label, items):
@@ -189,12 +186,10 @@ class Sozi(inkex.Effect):
       return hbox
 
       
-   def fill_combo_field(self, attr, items, index):
-      ns_attr = Sozi.NS+attr
-      if self.current_frame is not None and ns_attr in self.current_frame["frame_element"].attrib:
-         text = self.current_frame["frame_element"].attrib[ns_attr]
-         if items.count(text) > 0:
-            index = items.index(text)
+   def fill_combo_field(self, frame, attr, items, index):
+      text = self.get_field_value(frame, attr, items[index])
+      if items.count(text) > 0:
+         index = items.index(text)
       self.fields[attr].set_active(index)
 
 
@@ -204,11 +199,8 @@ class Sozi(inkex.Effect):
       return button
 
 
-   def fill_checkbox_field(self, attr, value):
-      ns_attr = Sozi.NS+attr
-      if self.current_frame is not None and ns_attr in self.current_frame["frame_element"].attrib:
-         value = self.current_frame["frame_element"].attrib[ns_attr]
-      self.fields[attr].set_active(value == "true")
+   def fill_checkbox_field(self, frame, attr, value):
+      self.fields[attr].set_active(self.get_field_value(frame, attr, value) == "true")
 
 
    def create_spinbutton_field(self, attr, label, minValue = 0, maxValue = 1000000):
@@ -227,11 +219,8 @@ class Sozi(inkex.Effect):
       return hbox
 
 
-   def fill_spinbutton_field(self, attr, value):
-      ns_attr = Sozi.NS+attr
-      if self.current_frame is not None and ns_attr in self.current_frame["frame_element"].attrib:
-         value = int(self.current_frame["frame_element"].attrib[ns_attr])
-      self.fields[attr].set_value(value)
+   def fill_spinbutton_field(self, frame, attr, value):
+      self.fields[attr].set_value(int(self.get_field_value(frame, attr, value)))
 
 
    def create_checked_spinbutton_field(self, enable_attr, value_attr, label):
@@ -251,13 +240,12 @@ class Sozi(inkex.Effect):
       return hbox
 
 
-   def create_form(self):
+   def create_form(self, frame):
       window = gtk.Window(gtk.WINDOW_TOPLEVEL)
       window.connect("destroy", self.destroy)
 
       # Create form for the selected element
       title_field = self.create_text_field("title", "Title:")
-      sequence_field = self.create_spinbutton_field("sequence", "Sequence:")
       hide_field = self.create_checkbox_field("hide", "Hide")
       clip_field = self.create_checkbox_field("clip", "Clip")
       timeout_field = self.create_checked_spinbutton_field("timeout-enable", "timeout-ms", "Timeout (ms):")
@@ -267,10 +255,10 @@ class Sozi(inkex.Effect):
 
       # Create save buttons
       self.save_button = gtk.Button("Save frame")
-      self.save_button.connect("clicked", self.save_frame)
+      self.save_button.connect("clicked", self.on_save_frame)
 
       self.save_as_new_frame_button = gtk.Button("Save as new frame")
-      self.save_as_new_frame_button.connect("clicked", self.save_as_new_frame)
+      self.save_as_new_frame_button.connect("clicked", self.on_save_as_new_frame)
 
       buttons_box = gtk.HBox()
       buttons_box.pack_start(self.save_button)
@@ -279,15 +267,26 @@ class Sozi(inkex.Effect):
       # Create frame list
       list_renderer = gtk.CellRendererText()
       list_renderer.set_property("background", "white")
-      list_column = gtk.TreeViewColumn("Sequence", list_renderer, text = 0, foreground = 1)
+      sequence_column = gtk.TreeViewColumn("Seq.", list_renderer, text = 0, foreground = 2)
+      title_column = gtk.TreeViewColumn("Title", list_renderer, text = 1, foreground = 2)
 
-      self.list_store = gtk.ListStore(str, str)
-      self.list_view = gtk.TreeView(self.list_store)
-      self.list_view.append_column(list_column)
+      self.list_view = gtk.TreeView(gtk.ListStore(int, str, str))
+      self.list_view.append_column(sequence_column)
+      self.list_view.append_column(title_column)
 
       list_scroll = gtk.ScrolledWindow()
       list_scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)	
       list_scroll.add(self.list_view)
+
+      # Create up/down buttons
+      settings = gtk.settings_get_default()
+      settings.props.gtk_button_images = True
+
+      self.up_button = gtk.Button(stock=gtk.STOCK_GO_UP)
+      self.up_button.connect("clicked", self.on_move_frame_up)
+
+      self.down_button = gtk.Button(stock=gtk.STOCK_GO_DOWN)
+      self.down_button.connect("clicked", self.on_move_frame_down)
 
       # Transition properties
       transition_box = gtk.VBox()
@@ -301,7 +300,6 @@ class Sozi(inkex.Effect):
       # Frame properties
       frame_box = gtk.VBox()
       frame_box.pack_start(title_field, expand=False)
-      frame_box.pack_start(sequence_field, expand=False)
       frame_box.pack_start(hide_field, expand=False)
       frame_box.pack_start(clip_field, expand=False)
       frame_box.pack_start(timeout_field, expand=False)
@@ -315,15 +313,21 @@ class Sozi(inkex.Effect):
       left_pane.pack_start(frame_group, expand=False)
       left_pane.pack_start(buttons_box, expand=False)
 
+      # Fill right pane
+      right_pane = gtk.VBox()
+      right_pane.pack_start(list_scroll, expand=True, fill=True)
+      right_pane.pack_start(self.up_button, expand=False)
+      right_pane.pack_start(self.down_button, expand=False)
+
       hbox = gtk.HBox()
       hbox.pack_start(left_pane)
-      hbox.pack_start(list_scroll)
+      hbox.pack_start(right_pane)
 
       window.add(hbox)
       window.show_all()
 
-      self.fill_frame_list()
-      self.fill_form()
+      self.fill_form(frame)
+      self.fill_frame_list(frame)
 
       selection = self.list_view.get_selection()
       selection.set_mode(gtk.SELECTION_SINGLE) # TODO multiple selection
@@ -332,13 +336,13 @@ class Sozi(inkex.Effect):
       gtk.main()
 
 
-   def fill_form(self):
+   def fill_form(self, frame):
       # Rectangles are configured to be hidden by default.
       # Other elements are configured to be visible.
-      if self.current_frame is not None:
-         tag = self.current_frame["svg_element"].tag
-      elif self.selected_element is not None:
-         tag = self.selected_element.tag
+      if frame is not None:
+         tag = frame["svg_element"].tag
+      elif len(self.selected) > 0:
+         tag = self.selected.values()[0].tag
       else:
          tag = None
 
@@ -347,29 +351,27 @@ class Sozi(inkex.Effect):
       else:
          default_hide = "false"
 
-      self.fill_text_field("title", "New frame")
-      self.fill_spinbutton_field("sequence", len(self.frames) + 1)
-      self.fill_checkbox_field("hide", default_hide)
-      self.fill_checkbox_field("clip", "true")
-      self.fill_checkbox_field("timeout-enable", "false")
-      self.fill_spinbutton_field("timeout-ms", 5000)
-      self.fill_spinbutton_field("transition-duration-ms", 1000)
-      self.fill_spinbutton_field("transition-zoom-percent", 0)
-      self.fill_combo_field("transition-profile", Sozi.PROFILES, 0)
+      self.fill_text_field(frame, "title", "New frame")
+      self.fill_checkbox_field(frame, "hide", default_hide)
+      self.fill_checkbox_field(frame, "clip", "true")
+      self.fill_checkbox_field(frame, "timeout-enable", "false")
+      self.fill_spinbutton_field(frame, "timeout-ms", 5000)
+      self.fill_spinbutton_field(frame, "transition-duration-ms", 1000)
+      self.fill_spinbutton_field(frame, "transition-zoom-percent", 0)
+      self.fill_combo_field(frame, "transition-profile", Sozi.PROFILES, 0)
 
-      self.fields["sequence"].set_range(1, len(self.frames) + 1)
-
-      self.save_button.set_sensitive(self.current_frame is not None)
-      self.save_as_new_frame_button.set_sensitive(self.current_frame is not None or self.selected_element is not None)
+      self.save_button.set_sensitive(frame is not None)
+      self.save_as_new_frame_button.set_sensitive(frame is not None or len(self.selected) > 0)
 
 
-   def fill_frame_list(self):
-      self.list_store.clear()
+   def fill_frame_list(self, frame):
+      store = self.list_view.get_model()
+      store.clear()
 
-      frame_index = len(self.frames)
+      index = len(self.frames)
       for i, f in enumerate(self.frames):
-         if f is self.current_frame:
-            frame_index = i
+         if f is frame:
+            index = i
 
          title_attr = Sozi.NS+"title"
          if title_attr in f["frame_element"].attrib:
@@ -377,61 +379,102 @@ class Sozi(inkex.Effect):
          else:
             title = "Untitled"
 
-         if f in self.selected_frames:
+         if f["svg_element"] in self.selected.values():
             color = "#ff0000";
          else:
             color = "#000000";
 
-         self.list_store.append([str(i+1) + ". " + title, color])
+         store.append([i+1, title, color])
 
-      if frame_index < len(self.frames):
-         self.list_view.get_selection().select_path((frame_index,))
-         self.list_view.scroll_to_cell(frame_index)
-
-
-   def save_frame(self, widget):
-      # Update frame attributes using form data
-      self.current_frame["frame_element"].set(Sozi.NS+"title", unicode(self.fields["title"].get_text()))
-      self.current_frame["frame_element"].set(Sozi.NS+"sequence", unicode(self.fields["sequence"].get_value_as_int()))
-      self.current_frame["frame_element"].set(Sozi.NS+"hide", unicode("true" if self.fields["hide"].get_active() else "false"))
-      self.current_frame["frame_element"].set(Sozi.NS+"clip", unicode("true" if self.fields["clip"].get_active() else "false"))
-      self.current_frame["frame_element"].set(Sozi.NS+"timeout-enable", unicode("true" if self.fields["timeout-enable"].get_active() else "false"))
-      self.current_frame["frame_element"].set(Sozi.NS+"timeout-ms", unicode(self.fields["timeout-ms"].get_value_as_int()))
-      self.current_frame["frame_element"].set(Sozi.NS+"transition-duration-ms", unicode(self.fields["transition-duration-ms"].get_value_as_int()))
-      self.current_frame["frame_element"].set(Sozi.NS+"transition-zoom-percent", unicode(self.fields["transition-zoom-percent"].get_value_as_int()))
-      self.current_frame["frame_element"].set(Sozi.NS+"transition-profile", unicode(Sozi.PROFILES[self.fields["transition-profile"].get_active()]))
-
-      self.fill_frame_list()
+      if index < len(self.frames):
+         self.list_view.get_selection().select_path((index,))
+         self.list_view.scroll_to_cell(index)
 
 
-   def save_as_new_frame(self, widget):
-      if self.current_frame is not None:
-         svg_element = self.current_frame["svg_element"]
+   def get_current_frame(self):
+      model, iter = self.list_view.get_selection().get_selected()
+      if iter:
+         return self.frames[model.get_path(iter)[0]]
       else:
-         svg_element = self.selected_element
+         return None
 
+
+   def create_new_frame(self, frame):
+      if frame is None:
+         svg_element = self.selected.values()[0]
+      else:
+         svg_element = frame["svg_element"]
       frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
       frame_element.set(Sozi.NS+"refid", svg_element.attrib["id"]) # TODO check namespace?
       self.document.getroot().append(frame_element)
 
-      self.current_frame = {
+      f = {
          "frame_element": frame_element,
          "svg_element": svg_element
       }
 
-      self.frames.append(self.current_frame)
-      if self.selected_element is svg_element:
-         self.selected_frames.append(self.current_frame)
+      self.frames.append(f)
+      return f
 
-      self.save_frame(widget)
+
+   def save_frame(self, frame):
+      e = frame["frame_element"]
+      e.set(Sozi.NS+"title", unicode(self.fields["title"].get_text()))
+      e.set(Sozi.NS+"hide", unicode("true" if self.fields["hide"].get_active() else "false"))
+      e.set(Sozi.NS+"clip", unicode("true" if self.fields["clip"].get_active() else "false"))
+      e.set(Sozi.NS+"timeout-enable", unicode("true" if self.fields["timeout-enable"].get_active() else "false"))
+      e.set(Sozi.NS+"timeout-ms", unicode(self.fields["timeout-ms"].get_value_as_int()))
+      e.set(Sozi.NS+"transition-duration-ms", unicode(self.fields["transition-duration-ms"].get_value_as_int()))
+      e.set(Sozi.NS+"transition-zoom-percent", unicode(self.fields["transition-zoom-percent"].get_value_as_int()))
+      e.set(Sozi.NS+"transition-profile", unicode(Sozi.PROFILES[self.fields["transition-profile"].get_active()]))
+      self.fill_frame_list(frame) # FIXME simpler list update mechanism
+
+
+   def swap_frames(self, model, first, second):
+      self.frames[first]["frame_element"].set(Sozi.NS+"sequence", unicode(second + 1))
+      self.frames[second]["frame_element"].set(Sozi.NS+"sequence", unicode(first + 1))
+      self.frames[first], self.frames[second] = self.frames[second], self.frames[first]
+      model.set(model.get_iter(first), 0, second + 1)
+      model.set(model.get_iter(second), 0, first + 1)
+
+
+   def on_save_frame(self, widget):
+      self.save_frame(self.get_current_frame())
+
+
+   def on_save_as_new_frame(self, widget):
+      self.save_frame(self.create_new_frame(self.get_current_frame()))
+
+
+   def on_move_frame_up(self, widget):
+      model, iter = self.list_view.get_selection().get_selected()
+      index = model.get_path(iter)[0]
+      self.swap_frames(model, index, index - 1)
+      model.move_before(iter, model.get_iter(index-1))
+      self.up_button.set_sensitive(index > 1)
+      self.down_button.set_sensitive(True)
+
+
+   def on_move_frame_down(self, widget):
+      model, iter = self.list_view.get_selection().get_selected()
+      index = model.get_path(iter)[0]
+      self.swap_frames(model, index, index + 1)
+      model.move_after(iter, model.iter_next(iter))
+      self.up_button.set_sensitive(True)
+      self.down_button.set_sensitive(index < len(self.frames) - 2)
 
 
    def on_selection_changed(self, path):
       if self.list_view.get_selection().path_is_selected(path):
-         self.current_frame = None
+         f = None
+         self.up_button.set_sensitive(False)
+         self.down_button.set_sensitive(False)
       else:
-         self.current_frame = self.frames[path[0]]
-      self.fill_form()
+         index = path[0]
+         f = self.frames[index]
+         self.up_button.set_sensitive(index > 0)
+         self.down_button.set_sensitive(index < len(self.frames) - 1)
+      self.fill_form(f)
       return True
 
 
