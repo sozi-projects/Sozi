@@ -133,7 +133,7 @@ class Sozi(inkex.Effect):
 
       # Renumber frames
       for i, f in enumerate(self.frames):
-         f["frame_element"].set(Sozi.NS+"sequence", str(i+1))
+         f["frame_element"].set(Sozi.NS+"sequence", unicode(i+1))
 
       # Get the selected frame elements
       if len(self.selected) > 0:
@@ -370,6 +370,23 @@ class Sozi(inkex.Effect):
       self.delete_button.set_sensitive(frame is not None)
 
 
+   def append_frame(self, store, index):
+      frame = self.frames[index]
+
+      title_attr = Sozi.NS+"title"
+      if title_attr in frame["frame_element"].attrib:
+         title = frame["frame_element"].attrib[title_attr]
+      else:
+         title = "Untitled"
+
+      if frame["svg_element"] in self.selected.values():
+         color = "#ff0000"
+      else:
+         color = "#000000"
+
+      store.append([index+1, title, color])
+
+
    def fill_frame_list(self, frame):
       store = self.list_view.get_model()
       store.clear()
@@ -378,19 +395,7 @@ class Sozi(inkex.Effect):
       for i, f in enumerate(self.frames):
          if f is frame:
             index = i
-
-         title_attr = Sozi.NS+"title"
-         if title_attr in f["frame_element"].attrib:
-            title = f["frame_element"].attrib[title_attr]
-         else:
-            title = "Untitled"
-
-         if f["svg_element"] in self.selected.values():
-            color = "#ff0000"
-         else:
-            color = "#000000"
-
-         store.append([i+1, title, color])
+         self.append_frame(store, i)
 
       if index < len(self.frames):
          self.list_view.get_selection().select_path((index,))
@@ -403,38 +408,6 @@ class Sozi(inkex.Effect):
          return self.frames[model.get_path(iter)[0]]
       else:
          return None
-
-
-   def create_new_frame(self, frame):
-      if frame is None:
-         svg_element = self.selected.values()[0]
-      else:
-         svg_element = frame["svg_element"]
-      frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
-      frame_element.set(Sozi.NS+"refid", svg_element.attrib["id"]) # TODO check namespace?
-      self.document.getroot().append(frame_element)
-
-      f = {
-         "frame_element": frame_element,
-         "svg_element": svg_element
-      }
-
-      self.frames.append(f)
-      return f
-
-
-   def save_frame(self, frame):
-      # Update frame in SVG document
-      e = frame["frame_element"]
-      e.set(Sozi.NS+"title", unicode(self.fields["title"].get_text()))
-      e.set(Sozi.NS+"hide", unicode("true" if self.fields["hide"].get_active() else "false"))
-      e.set(Sozi.NS+"clip", unicode("true" if self.fields["clip"].get_active() else "false"))
-      e.set(Sozi.NS+"timeout-enable", unicode("true" if self.fields["timeout-enable"].get_active() else "false"))
-      e.set(Sozi.NS+"timeout-ms", unicode(self.fields["timeout-ms"].get_value_as_int()))
-      e.set(Sozi.NS+"transition-duration-ms", unicode(self.fields["transition-duration-ms"].get_value_as_int()))
-      e.set(Sozi.NS+"transition-zoom-percent", unicode(self.fields["transition-zoom-percent"].get_value_as_int()))
-      e.set(Sozi.NS+"transition-profile", unicode(Sozi.PROFILES[self.fields["transition-profile"].get_active()]))
-      self.fill_frame_list(frame) # FIXME simpler list update mechanism
 
 
    def swap_frames(self, model, first, second):
@@ -450,12 +423,55 @@ class Sozi(inkex.Effect):
       model.set(model.get_iter(second), 0, first + 1)
 
 
+   def save_frame(self, frame_element):
+      frame_element.set(Sozi.NS+"title", unicode(self.fields["title"].get_text()))
+      frame_element.set(Sozi.NS+"hide", unicode("true" if self.fields["hide"].get_active() else "false"))
+      frame_element.set(Sozi.NS+"clip", unicode("true" if self.fields["clip"].get_active() else "false"))
+      frame_element.set(Sozi.NS+"timeout-enable", unicode("true" if self.fields["timeout-enable"].get_active() else "false"))
+      frame_element.set(Sozi.NS+"timeout-ms", unicode(self.fields["timeout-ms"].get_value_as_int()))
+      frame_element.set(Sozi.NS+"transition-duration-ms", unicode(self.fields["transition-duration-ms"].get_value_as_int()))
+      frame_element.set(Sozi.NS+"transition-zoom-percent", unicode(self.fields["transition-zoom-percent"].get_value_as_int()))
+      frame_element.set(Sozi.NS+"transition-profile", unicode(Sozi.PROFILES[self.fields["transition-profile"].get_active()]))
+
+
    def on_save_frame(self, widget):
-      self.save_frame(self.get_current_frame())
+      model, iter = self.list_view.get_selection().get_selected()
+
+      # Update frame in SVG document
+      index = model.get_path(iter)[0]
+      self.save_frame(self.frames[index]["frame_element"])
+
+      # Update frame title in list view
+      model.set(iter, 1, self.fields["title"].get_text())
 
 
    def on_save_as_new_frame(self, widget):
-      self.save_frame(self.create_new_frame(self.get_current_frame()))
+      selection = self.list_view.get_selection()
+      model, iter = selection.get_selected()
+      if iter:
+         index = model.get_path(iter)[0]
+         svg_element = self.frames[index]["svg_element"]
+      else:
+         svg_element = self.selected.values()[0]
+
+      # Create frame in SVG document
+      frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
+      frame_element.set(Sozi.NS+"refid", svg_element.attrib["id"]) # TODO check namespace?
+      frame_element.set(Sozi.NS+"sequence", unicode(len(self.frames)+1)) # TODO check namespace?
+      self.document.getroot().append(frame_element)
+      self.save_frame(frame_element)
+
+      # Create frame in frame list
+      self.frames.append({
+         "frame_element": frame_element,
+         "svg_element": svg_element
+      })
+
+      # Create row in list view
+      i = len(self.frames) - 1
+      self.append_frame(model, i)
+      selection.select_path((i,))
+      self.list_view.scroll_to_cell(i)
 
 
    def on_delete_frame(self, widget):
@@ -472,6 +488,10 @@ class Sozi(inkex.Effect):
       # Delete frame from list view
       if model.remove(iter):
          selection.select_iter(iter)
+         # Renumber frames
+         for i in range(index, len(self.frames)):
+            model.set(model.get_iter(i), 0, i + 1)
+            self.frames[i]["frame_element"].set(Sozi.NS+"sequence", unicode(i+1))
       else:
          self.fill_form(None)
 
@@ -510,7 +530,7 @@ class Sozi(inkex.Effect):
       return True
 
 
-   def destroy(self, widget, data=None):
+   def destroy(self, widget):
       gtk.main_quit()
 
 
