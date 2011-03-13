@@ -96,7 +96,7 @@ class Sozi(inkex.Effect):
 
       # FIXME allow multiple classes in element
       for elt in self.document.xpath("//svg:*[@class='sozi-frame']", namespaces=inkex.NSS):
-         del elt.attrib["class"];
+         del elt.attrib["class"]
 
          # Create a new frame element
          f = inkex.etree.Element(inkex.addNS("frame", "sozi"))
@@ -244,6 +244,10 @@ class Sozi(inkex.Effect):
       window = gtk.Window(gtk.WINDOW_TOPLEVEL)
       window.connect("destroy", self.destroy)
 
+      # Enable icons on stock buttons
+      settings = gtk.settings_get_default()
+      settings.props.gtk_button_images = True
+
       # Create form for the selected element
       title_field = self.create_text_field("title", "Title:")
       hide_field = self.create_checkbox_field("hide", "Hide")
@@ -254,15 +258,19 @@ class Sozi(inkex.Effect):
       transition_profile_field = self.create_combo_field("transition-profile", "Profile:", Sozi.PROFILES)
 
       # Create save buttons
-      self.save_button = gtk.Button("Save frame")
+      self.save_button = gtk.Button(stock=gtk.STOCK_SAVE)
       self.save_button.connect("clicked", self.on_save_frame)
 
-      self.save_as_new_frame_button = gtk.Button("Save as new frame")
+      self.save_as_new_frame_button = gtk.Button(stock=gtk.STOCK_NEW)
       self.save_as_new_frame_button.connect("clicked", self.on_save_as_new_frame)
+
+      self.delete_button = gtk.Button(stock=gtk.STOCK_DELETE)
+      self.delete_button.connect("clicked", self.on_delete_frame)
 
       buttons_box = gtk.HBox()
       buttons_box.pack_start(self.save_button)
       buttons_box.pack_start(self.save_as_new_frame_button)
+      buttons_box.pack_start(self.delete_button)
 
       # Create frame list
       list_renderer = gtk.CellRendererText()
@@ -279,9 +287,6 @@ class Sozi(inkex.Effect):
       list_scroll.add(self.list_view)
 
       # Create up/down buttons
-      settings = gtk.settings_get_default()
-      settings.props.gtk_button_images = True
-
       self.up_button = gtk.Button(stock=gtk.STOCK_GO_UP)
       self.up_button.connect("clicked", self.on_move_frame_up)
 
@@ -362,6 +367,7 @@ class Sozi(inkex.Effect):
 
       self.save_button.set_sensitive(frame is not None)
       self.save_as_new_frame_button.set_sensitive(frame is not None or len(self.selected) > 0)
+      self.delete_button.set_sensitive(frame is not None)
 
 
    def fill_frame_list(self, frame):
@@ -380,9 +386,9 @@ class Sozi(inkex.Effect):
             title = "Untitled"
 
          if f["svg_element"] in self.selected.values():
-            color = "#ff0000";
+            color = "#ff0000"
          else:
-            color = "#000000";
+            color = "#000000"
 
          store.append([i+1, title, color])
 
@@ -418,6 +424,7 @@ class Sozi(inkex.Effect):
 
 
    def save_frame(self, frame):
+      # Update frame in SVG document
       e = frame["frame_element"]
       e.set(Sozi.NS+"title", unicode(self.fields["title"].get_text()))
       e.set(Sozi.NS+"hide", unicode("true" if self.fields["hide"].get_active() else "false"))
@@ -431,9 +438,14 @@ class Sozi(inkex.Effect):
 
 
    def swap_frames(self, model, first, second):
+      # Swap frames in SVG document
       self.frames[first]["frame_element"].set(Sozi.NS+"sequence", unicode(second + 1))
       self.frames[second]["frame_element"].set(Sozi.NS+"sequence", unicode(first + 1))
+
+      # Swap frames in frame list
       self.frames[first], self.frames[second] = self.frames[second], self.frames[first]
+
+      # Swap frames in list view
       model.set(model.get_iter(first), 0, second + 1)
       model.set(model.get_iter(second), 0, first + 1)
 
@@ -444,6 +456,24 @@ class Sozi(inkex.Effect):
 
    def on_save_as_new_frame(self, widget):
       self.save_frame(self.create_new_frame(self.get_current_frame()))
+
+
+   def on_delete_frame(self, widget):
+      selection = self.list_view.get_selection()
+      model, iter = selection.get_selected()
+      index = model.get_path(iter)[0]
+
+      # Delete frame from SVG document
+      self.document.getroot().remove(self.frames[index]["frame_element"])
+
+      # Delete frame from frame list
+      del self.frames[index]
+
+      # Delete frame from list view
+      if model.remove(iter):
+         selection.select_iter(iter)
+      else:
+         self.fill_form(None)
 
 
    def on_move_frame_up(self, widget):
@@ -469,11 +499,13 @@ class Sozi(inkex.Effect):
          f = None
          self.up_button.set_sensitive(False)
          self.down_button.set_sensitive(False)
+         self.delete_button.set_sensitive(False)
       else:
          index = path[0]
          f = self.frames[index]
          self.up_button.set_sensitive(index > 0)
          self.down_button.set_sensitive(index < len(self.frames) - 1)
+         self.delete_button.set_sensitive(True)
       self.fill_form(f)
       return True
 
