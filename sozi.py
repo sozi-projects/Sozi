@@ -402,14 +402,6 @@ class Sozi(inkex.Effect):
          self.list_view.scroll_to_cell(index)
 
 
-   def get_current_frame(self):
-      model, iter = self.list_view.get_selection().get_selected()
-      if iter:
-         return self.frames[model.get_path(iter)[0]]
-      else:
-         return None
-
-
    def swap_frames(self, model, first, second):
       # Swap frames in SVG document
       self.frames[first]["frame_element"].set(Sozi.NS+"sequence", unicode(second + 1))
