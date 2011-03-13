@@ -278,13 +278,18 @@ class Sozi(inkex.Effect):
       sequence_column = gtk.TreeViewColumn("Seq.", list_renderer, text = 0, foreground = 2)
       title_column = gtk.TreeViewColumn("Title", list_renderer, text = 1, foreground = 2)
 
-      self.list_view = gtk.TreeView(gtk.ListStore(int, str, str))
+      store = gtk.ListStore(int, str, str)
+      self.list_view = gtk.TreeView(store)
       self.list_view.append_column(sequence_column)
       self.list_view.append_column(title_column)
 
       list_scroll = gtk.ScrolledWindow()
       list_scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)	
       list_scroll.add(self.list_view)
+
+      selection = self.list_view.get_selection()
+      selection.set_mode(gtk.SELECTION_SINGLE) # TODO multiple selection
+      selection.set_select_function(self.on_selection_changed)
 
       # Create up/down buttons
       self.up_button = gtk.Button(stock=gtk.STOCK_GO_UP)
@@ -331,12 +336,17 @@ class Sozi(inkex.Effect):
       window.add(hbox)
       window.show_all()
 
-      self.fill_form(frame)
-      self.fill_frame_list(frame)
+      # Fill frame list
+      store = self.list_view.get_model()
+      for i in range(len(self.frames)):
+         self.append_frame(store, i)
 
-      selection = self.list_view.get_selection()
-      selection.set_mode(gtk.SELECTION_SINGLE) # TODO multiple selection
-      selection.set_select_function(self.on_selection_changed)
+      if frame is not None:
+         index = self.frames.index(frame)
+         self.list_view.get_selection().select_path((index,))
+         self.list_view.scroll_to_cell(index)
+      else:
+         self.fill_form(None)
 
       gtk.main()
 
@@ -387,21 +397,6 @@ class Sozi(inkex.Effect):
       store.append([index+1, title, color])
 
 
-   def fill_frame_list(self, frame):
-      store = self.list_view.get_model()
-      store.clear()
-
-      index = len(self.frames)
-      for i, f in enumerate(self.frames):
-         if f is frame:
-            index = i
-         self.append_frame(store, i)
-
-      if index < len(self.frames):
-         self.list_view.get_selection().select_path((index,))
-         self.list_view.scroll_to_cell(index)
-
-
    def swap_frames(self, model, first, second):
       # Swap frames in SVG document
       self.frames[first]["frame_element"].set(Sozi.NS+"sequence", unicode(second + 1))
@@ -449,7 +444,7 @@ class Sozi(inkex.Effect):
       # Create frame in SVG document
       frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
       frame_element.set(Sozi.NS+"refid", svg_element.attrib["id"]) # TODO check namespace?
-      frame_element.set(Sozi.NS+"sequence", unicode(len(self.frames)+1)) # TODO check namespace?
+      frame_element.set(Sozi.NS+"sequence", unicode(len(self.frames)+1))
       self.document.getroot().append(frame_element)
       self.save_frame(frame_element)
 
