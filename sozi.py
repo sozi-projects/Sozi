@@ -245,8 +245,7 @@ class Sozi(inkex.Effect):
       window.connect("destroy", self.destroy)
 
       # Enable icons on stock buttons
-      settings = gtk.settings_get_default()
-      settings.props.gtk_button_images = True
+      gtk.settings_get_default().set_long_property("gtk-button-images", True, "Sozi")
 
       # Create form for the selected element
       title_field = self.create_text_field("title", "Title:")
