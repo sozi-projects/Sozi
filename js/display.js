@@ -266,16 +266,18 @@ sozi.Display.prototype.showFrame = function (frame) {
 /*
  * Zooms the display with the given factor.
  *
- * The display geometry is scaled and a transition is applied so that
- * the center is preserved.
+ * The zoom is centered around (x, y) with respect to the center of the display area.
  *
  * This method computes the new geometry of the display, but
  * does not update the document. Method update must be called after
  * calling this method.
  */
-sozi.Display.prototype.applyZoomFactor = function (factor) {
+sozi.Display.prototype.applyZoomFactor = function (factor, x, y) {
+   var deltaX = (1 - factor) * (x - window.innerWidth / 2),
+       deltaY = (1 - factor) * (y - window.innerHeight / 2);
    this.width /= factor;
    this.height /= factor;
+   this.drag(deltaX, deltaY);
 };
 
 /*

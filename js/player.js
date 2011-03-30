@@ -225,7 +225,7 @@ sozi.Player.prototype.onWheel = function (evt) {
    }
 
    if (delta !== 0) {
-      this.zoom(delta);
+      this.zoom(delta, evt.clientX, evt.clientY);
    }
    evt.stopPropagation();
    evt.preventDefault();
@@ -242,10 +242,10 @@ sozi.Player.prototype.onWheel = function (evt) {
 sozi.Player.prototype.onKeyPress = function (evt) {
    switch (evt.charCode) {
    case 43: // +
-      this.zoom(1);
+      this.zoom(1, window.innerWidth / 2, window.innerHeight / 2);
       break;
    case 45: // -
-      this.zoom(-1);
+      this.zoom(-1, window.innerWidth / 2, window.innerHeight / 2);
       break;
    case 61: // =
       this.moveToCurrent();
@@ -717,16 +717,12 @@ sozi.Player.prototype.showAll = function () {
  * Only the sign of direction is used:
  *    - zoom in when direction > 0
  *    - zoom out when direction < 0
+ *
+ * The scaling is centered around point (x, y).
  */
-sozi.Player.prototype.zoom = function (direction) {
+sozi.Player.prototype.zoom = function (direction, x, y) {
    this.stop();
-   if (this.display.tableOfContentsIsVisible()) {
-      this.display.hideTableOfContents();
-   }
-
-   this.display.applyZoomFactor(direction > 0 ? this.scaleFactor : 1 / this.scaleFactor);
-   this.display.clip = false;
-   this.display.update();
+   this.display.applyZoomFactor(direction > 0 ? this.scaleFactor : 1 / this.scaleFactor, x, y);
 };
 
 sozi.Player.prototype.toggleTableOfContents = function() {
