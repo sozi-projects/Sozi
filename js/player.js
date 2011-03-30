@@ -150,13 +150,7 @@ sozi.Player.prototype.onMouseDown = function (evt) {
       this.dragClientY = evt.clientY;
    }
    else if (evt.button === 1) {
-      if (this.display.tableOfContentsIsVisible()) {
-         this.display.hideTableOfContents();
-      }
-      else {
-         this.stop();
-         this.display.showTableOfContents();
-      }
+      this.toggleTableOfContents();
    }
    evt.stopPropagation();
 };
@@ -243,7 +237,7 @@ sozi.Player.prototype.onWheel = function (evt) {
  * Keyboard handling is split into two methods: onKeyPress and onKeyDown
  * in order to get the same behavior in Mozilla and Webkit.
  *
- * This method handles character keys "+", "-", "=", and "F".
+ * This method handles character keys "+", "-", "=", "F" and "T".
  */
 sozi.Player.prototype.onKeyPress = function (evt) {
    switch (evt.charCode) {
@@ -260,6 +254,9 @@ sozi.Player.prototype.onKeyPress = function (evt) {
    case 102: // f
       this.showAll();
       break;
+   case 84: // T
+   case 116: // t
+      this.toggleTableOfContents();
    }
    evt.stopPropagation();
 };
@@ -730,6 +727,16 @@ sozi.Player.prototype.zoom = function (direction) {
    this.display.applyZoomFactor(direction > 0 ? this.scaleFactor : 1 / this.scaleFactor);
    this.display.clip = false;
    this.display.update();
+};
+
+sozi.Player.prototype.toggleTableOfContents = function() {
+   if (this.display.tableOfContentsIsVisible()) {
+      this.display.hideTableOfContents();
+   }
+   else {
+      this.stop();
+      this.display.showTableOfContents();
+   }
 };
 
 window.addEventListener("load", sozi.Player.prototype.onLoad.bind(new sozi.Player()), false);
