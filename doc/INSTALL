@@ -6,9 +6,7 @@ Two install locations are possible:
 
 Close all running instances of Inkscape and copy the following files to the location you have chosen:
 
-   sozi_install.inx
-   sozi_install.py
-   sozi_edit_frame.inx
-   sozi_edit_frame.py
+   sozi.inx
+   sozi.py
    sozi.js
 
