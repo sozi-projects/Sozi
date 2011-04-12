@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VERSION=`date +%y.%m-%d%H%M%S`
-SOURCE='README doc/INSTALL doc/LICENSE sozi.inx sozi.py'
+SOURCE='README doc/INSTALL doc/LICENSE sozi.inx sozi.py sozi.css'
 TARGET=sozi-release-$VERSION.zip
 
 rm -rf out

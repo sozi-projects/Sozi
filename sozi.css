@@ -1,0 +1,22 @@
+
+#sozi-toc {
+   x: 5px;
+   y: 5px;
+}
+
+#sozi-toc text {
+   fill: #eff;
+   font-family: Verdana, sans-serif;
+   font-size: 12pt;
+}
+
+#sozi-toc text:hover {
+   fill: #8cf;
+   cursor: pointer;
+}
+
+#sozi-toc rect {
+   fill: #222;
+   fill-opacity: 0.7;
+}
+

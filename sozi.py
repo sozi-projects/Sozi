@@ -64,15 +64,16 @@ class Sozi(inkex.Effect):
 
 
    def effect(self):
-      self.upgrade_or_install_script()
+      self.upgrade_or_install("script", "js")
+      self.upgrade_or_install("style", "css")
       self.upgrade_document()
       self.create_or_edit_frame()
 
 
-   def upgrade_or_install_script(self):
-      # Check script version and remove older versions of the script
+   def upgrade_or_install(self, tag, ext):
+      # Check version and remove older versions
       latest_version_found = False
-      for elt in self.document.xpath("//svg:script[@id='sozi-script']", namespaces=inkex.NSS):
+      for elt in self.document.xpath("//svg:" + tag + "[@id='sozi-" + tag + "']", namespaces=inkex.NSS):
          version = elt.attrib[Sozi.NS+"version"]
          if version == Sozi.VERSION:
             latest_version_found = True
@@ -82,11 +83,11 @@ class Sozi(inkex.Effect):
             sys.stderr.write("Document has been created using a higher version of Sozi. Please upgrade the Inkscape plugin.\n")
             exit()
       
-      # Create new script element if needed
+      # Create new element if needed
       if not latest_version_found:
-         elt = inkex.etree.Element(inkex.addNS("script", "svg"))
-         elt.text = open(os.path.join(os.path.dirname(__file__), "sozi.js")).read()
-         elt.set("id","sozi-script")
+         elt = inkex.etree.Element(inkex.addNS(tag, "svg"))
+         elt.text = open(os.path.join(os.path.dirname(__file__), "sozi." + ext)).read()
+         elt.set("id","sozi-" + tag)
          elt.set(Sozi.NS+"version", Sozi.VERSION)
          self.document.getroot().append(elt)
 

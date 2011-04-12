@@ -291,66 +291,62 @@ sozi.Display.prototype.applyZoomFactor = function (factor, x, y) {
  * FIXME text size and coordinates
  */
 sozi.Display.prototype.installTableOfContents = function () {
-   var textSize = Math.floor(window.innerHeight / Math.max((this.controller.frames.length + 1), 40)),
-       tocBackground = document.createElementNS(this.svgNs, "rect"),
-       tocWidth = 0,
-       i, frame, text, textWidth;
+   var tocBackground = document.createElementNS(this.svgNs, "rect"),
+       tocWidth = 0, textY = 0, textWidth,
+       i, links = [];
 
    this.tocGroup = document.createElementNS(this.svgNs, "g");
+   this.tocGroup.setAttribute("id", "sozi-toc");
    this.tocGroup.setAttribute("visibility", "hidden");
+   this.tocGroup.setAttribute("transform", "translate(5,5)");
    this.tocGroup.appendChild(tocBackground);
    this.svgRoot.appendChild(this.tocGroup);
 
-   tocBackground.setAttribute("fill", "#eee");
-   tocBackground.setAttribute("stroke", "#888");
    tocBackground.setAttribute("x", "0");
    tocBackground.setAttribute("y", "0");
-   tocBackground.setAttribute("height", (this.controller.frames.length + 1) * textSize);
-
+   tocBackground.setAttribute("rx", "5");
+   tocBackground.setAttribute("ry", "5");
 
    for (i = 0; i < this.controller.frames.length; i ++) {
-      frame = this.controller.frames[i];
-      text = document.createElementNS(this.svgNs, "text");
-      text.appendChild(document.createTextNode(frame.title));
-      text.setAttribute("x", textSize / 2);
-      text.setAttribute("y", textSize * (i + 1.3));
-      text.setAttribute("fill", "black");
-      text.setAttribute("style",
-         "font-size: " + (textSize * 0.9) + "px;" +
-         "font-family: Verdana, sans-serif"
-      );
+      links[i] = {};
 
-      // FIXME: does not pass JSLint
-      text.addEventListener("click",
-         function (index, evt) {
-            this.hideTableOfContents();
-            this.controller.moveToFrame(index);
-            evt.stopPropagation();
-         }.bind(this, i), false
-      );
+      links[i].text = document.createElementNS(this.svgNs, "text");
+      links[i].text.appendChild(document.createTextNode(this.controller.frames[i].title));
 
-      // FIXME: use CSS
-      text.addEventListener("mouseover",
-         function () {
-            this.setAttribute("fill", "#08c");
-         }, false
-      );
-
-      // FIXME: use CSS
-      text.addEventListener("mouseout",
-         function () {
-            this.setAttribute("fill", "black");
-         }, false
-      );
-
-      this.tocGroup.appendChild(text);
-      textWidth = text.getBBox().width;
+      this.tocGroup.appendChild(links[i].text);
+      textWidth = links[i].text.getBBox().width;
+      textY += links[i].text.getBBox().height;
       if (textWidth > tocWidth) {
          tocWidth = textWidth;
       }
+
+      links[i].text.setAttribute("x", 5);
+      links[i].text.setAttribute("y", textY);
+
+      links[i].onclick = function (index, evt) {
+            links[index].text.removeEventListener("mouseout", links[index].onmouseout, false);
+            this.controller.moveToFrame(index);
+            evt.stopPropagation();
+         }.bind(this, i);
+
+      links[i].onmouseover = function (index, evt) {
+            links[index].savedFrameIndex = this.controller.currentFrameIndex;
+            this.controller.previewFrame(index);
+            evt.stopPropagation();
+         }.bind(this, i);
+
+      links[i].onmouseout = function (index, evt) {
+            this.controller.previewFrame(links[index].savedFrameIndex);
+            evt.stopPropagation();
+         }.bind(this, i);
+
+      links[i].text.addEventListener("click", links[i].onclick, false);
+      links[i].text.addEventListener("mouseover", links[i].onmouseover, false);
+      links[i].text.addEventListener("mouseout", links[i].onmouseout, false);
    }
 
-   tocBackground.setAttribute("width", tocWidth + textSize);
+   tocBackground.setAttribute("width", tocWidth + 10);
+   tocBackground.setAttribute("height", textY + 10);
 };
 
 /*

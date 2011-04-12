@@ -565,6 +565,27 @@ sozi.Player.prototype.jumpToFrame = function (index) {
    window.location.hash = "#" + (index + 1);
 };
 
+sozi.Player.prototype.previewFrame = function (index) {
+   var finalState = this.frames[index].geometry,
+       zw, zh;
+   finalState.clip = false;
+
+   if (this.defaultZoomPercent !== 0) {
+      zw = this.getZoomData(this.defaultZoomPercent, this.display.width, finalState.width);
+      zh = this.getZoomData(this.defaultZoomPercent, this.display.height, finalState.height);
+   }
+
+   this.animator.start(this.defaultDurationMs,
+      {
+         initialState: this.display.getCurrentGeometry(),
+         finalState: finalState,
+         profile: this.defaultProfile,
+         zoomWidth: zw,
+         zoomHeight: zh
+      }
+   );
+};
+
 /*
  * Moves to a frame with the given index (0-based).
  *
