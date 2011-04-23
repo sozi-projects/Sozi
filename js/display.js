@@ -292,61 +292,57 @@ sozi.Display.prototype.applyZoomFactor = function (factor, x, y) {
  */
 sozi.Display.prototype.installTableOfContents = function () {
    var tocBackground = document.createElementNS(this.svgNs, "rect"),
-       tocWidth = 0, textY = 0, textWidth,
-       i, links = [];
+       tocMargin = 5, tocWidth = 0, textY = 0, textWidth,
+       i, text;
 
    this.tocGroup = document.createElementNS(this.svgNs, "g");
    this.tocGroup.setAttribute("id", "sozi-toc");
    this.tocGroup.setAttribute("visibility", "hidden");
-   this.tocGroup.setAttribute("transform", "translate(5,5)");
    this.tocGroup.appendChild(tocBackground);
    this.svgRoot.appendChild(this.tocGroup);
 
-   tocBackground.setAttribute("x", "0");
-   tocBackground.setAttribute("y", "0");
-   tocBackground.setAttribute("rx", "5");
-   tocBackground.setAttribute("ry", "5");
+   tocBackground.setAttribute("id", "sozi-toc-background");
+   tocBackground.setAttribute("x", tocMargin);
+   tocBackground.setAttribute("y", tocMargin);
+   tocBackground.setAttribute("rx", tocMargin);
+   tocBackground.setAttribute("ry", tocMargin);
+
+   tocBackground.addEventListener("mouseout", function(evt) {
+         var rel = evt.relatedTarget;
+         while (rel != this.tocGroup && rel != this.svgRoot) {
+            rel = rel.parentNode;
+         }
+         if (rel == this.svgRoot) {
+            this.hideTableOfContents();
+            this.controller.restart();
+            evt.stopPropagation();
+         }
+      }.bind(this), false
+   );
 
    for (i = 0; i < this.controller.frames.length; i ++) {
-      links[i] = {};
+      text = document.createElementNS(this.svgNs, "text");
+      text.appendChild(document.createTextNode(this.controller.frames[i].title));
 
-      links[i].text = document.createElementNS(this.svgNs, "text");
-      links[i].text.appendChild(document.createTextNode(this.controller.frames[i].title));
-
-      this.tocGroup.appendChild(links[i].text);
-      textWidth = links[i].text.getBBox().width;
-      textY += links[i].text.getBBox().height;
+      this.tocGroup.appendChild(text);
+      textWidth = text.getBBox().width;
+      textY += text.getBBox().height;
       if (textWidth > tocWidth) {
          tocWidth = textWidth;
       }
 
-      links[i].text.setAttribute("x", 5);
-      links[i].text.setAttribute("y", textY);
+      text.setAttribute("x", 2 * tocMargin);
+      text.setAttribute("y", textY + tocMargin);
 
-      links[i].onclick = function (index, evt) {
-            links[index].text.removeEventListener("mouseout", links[index].onmouseout, false);
-            this.controller.moveToFrame(index);
-            evt.stopPropagation();
-         }.bind(this, i);
-
-      links[i].onmouseover = function (index, evt) {
-            links[index].savedFrameIndex = this.controller.currentFrameIndex;
+      text.addEventListener("click", function (index, evt) {
             this.controller.previewFrame(index);
             evt.stopPropagation();
-         }.bind(this, i);
-
-      links[i].onmouseout = function (index, evt) {
-            this.controller.previewFrame(links[index].savedFrameIndex);
-            evt.stopPropagation();
-         }.bind(this, i);
-
-      links[i].text.addEventListener("click", links[i].onclick, false);
-      links[i].text.addEventListener("mouseover", links[i].onmouseover, false);
-      links[i].text.addEventListener("mouseout", links[i].onmouseout, false);
+         }.bind(this, i), false
+      );
    }
 
-   tocBackground.setAttribute("width", tocWidth + 10);
-   tocBackground.setAttribute("height", textY + 10);
+   tocBackground.setAttribute("width", tocWidth + 2 * tocMargin);
+   tocBackground.setAttribute("height", textY + 2 * tocMargin);
 };
 
 /*

@@ -471,6 +471,10 @@ sozi.Player.prototype.startFromIndex = function (index) {
    this.waitTimeout();
 };
 
+sozi.Player.prototype.restart = function() {
+   this.startFromIndex(this.currentFrameIndex);
+}
+
 /*
  * Stops the presentation.
  *
@@ -575,6 +579,7 @@ sozi.Player.prototype.previewFrame = function (index) {
       zh = this.getZoomData(this.defaultZoomPercent, this.display.height, finalState.height);
    }
 
+   this.currentFrameIndex = index;
    this.animator.start(this.defaultDurationMs,
       {
          initialState: this.display.getCurrentGeometry(),
@@ -584,6 +589,9 @@ sozi.Player.prototype.previewFrame = function (index) {
          zoomHeight: zh
       }
    );
+
+   // Update URL hash with the current frame index
+   window.location.hash = "#" + (index + 1);
 };
 
 /*
@@ -749,6 +757,7 @@ sozi.Player.prototype.zoom = function (direction, x, y) {
 sozi.Player.prototype.toggleTableOfContents = function() {
    if (this.display.tableOfContentsIsVisible()) {
       this.display.hideTableOfContents();
+      this.restart();
    }
    else {
       this.stop();
