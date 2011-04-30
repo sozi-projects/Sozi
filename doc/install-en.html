@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" dir="ltr" lang="fr"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>en:install</title>
+</head>
+<body>
+<div class="dokuwiki export">
+<h1 class="sectionedit1"><a name="installing_sozi" id="installing_sozi">Installing Sozi</a></h1>
+<!-- TOC START -->
+<div class="toc">
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#downloading_the_latest_version" class="toc">Downloading the latest version</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#installation_on_gnu_linux" class="toc">Installation on GNU/Linux</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#distributions_shipping_sozi" class="toc">Distributions shipping Sozi</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#manual_installation" class="toc">Manual installation</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#installation_on_windows" class="toc">Installation on Windows</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#installation_on_macos_x" class="toc">Installation on MacOS X</a></span></div></li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+<div class="level1">
+
+</div>
+<!-- EDIT1 SECTION "Installing Sozi" [1-31] -->
+<h2 class="sectionedit2"><a name="downloading_the_latest_version" id="downloading_the_latest_version">Downloading the latest version</a></h2>
+<div class="level2">
+
+<p>
+
+The most recent version is 11.03 (march 2011).
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="https://github.com/downloads/senshu/Sozi/sozi-release-11.03-14194331.zip" class="urlextern" title="https://github.com/downloads/senshu/Sozi/sozi-release-11.03-14194331.zip" rel="nofollow">Download</a>.</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://sozi.baierouge.fr/wiki/en:changelog#version_1103_current" class="wikilink1" title="en:changelog">See the last changes</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT2 SECTION "Downloading the latest version" [32-278] -->
+<h2 class="sectionedit3"><a name="installation_on_gnu_linux" id="installation_on_gnu_linux">Installation on GNU/Linux</a></h2>
+<div class="level2">
+
+</div>
+<!-- EDIT3 SECTION "Installation on GNU/Linux" [279-317] -->
+<h3 class="sectionedit4"><a name="distributions_shipping_sozi" id="distributions_shipping_sozi">Distributions shipping Sozi</a></h3>
+<div class="level3">
+
+<p>
+
+Sozi is available in the repositories of the following distributions :
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="http://aur.archlinux.org/packages.php?ID=42270" class="urlextern" title="http://aur.archlinux.org/packages.php?ID=42270" rel="nofollow">Archlinux (AUR)</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT4 SECTION "Distributions shipping Sozi" [318-499] -->
+<h3 class="sectionedit5"><a name="manual_installation" id="manual_installation">Manual installation</a></h3>
+<div class="level3">
+
+<p>
+
+First install <a href="http://inkscape.org/" class="urlextern" title="http://inkscape.org" rel="nofollow">Inkscape</a> and <a href="http://www.pygtk.org/" class="urlextern" title="http://www.pygtk.org/" rel="nofollow">PyGTK</a> using the package manager of your distribution.
+</p>
+
+<p>
+<a href="http://inkscape.org/" class="urlextern" title="http://inkscape.org" rel="nofollow">Inkscape</a> extensions can be installed in two different locations:
+</p>
+<ul>
+<li class="level1"><div class="li"> in the extensions folder for all users (/usr/share/inkscape/extensions/)</div>
+</li>
+<li class="level1"><div class="li"> in your home folder (~/.config/inkscape/extensions)</div>
+</li>
+</ul>
+
+<p>
+
+Unzip the archive sozi-release-x.y.zip and copy the following files into your chosen location:
+</p>
+<ul>
+<li class="level1"><div class="li"> sozi.inx</div>
+</li>
+<li class="level1"><div class="li"> sozi.py</div>
+</li>
+<li class="level1"><div class="li"> sozi.js</div>
+</li>
+</ul>
+
+<p>
+
+<em>If you are updating from version 10.x, you should also remove files 
+sozi_install.inx, sozi_install.py, sozi_edit_frame.inx and 
+sozi_edit_frame.py from the installation folder.</em>
+</p>
+
+<p>
+Start or relaunch Inkscape.
+You should now see a submenu “Sozi” in the “Extensions” menu.
+</p>
+
+<p>
+You can now <a href="http://sozi.baierouge.fr/wiki/en:tutorial" class="wikilink1" title="en:tutorial">create your first presentation</a>.
+</p>
+
+</div>
+<!-- EDIT5 SECTION "Manual installation" [500-1355] -->
+<h2 class="sectionedit6"><a name="installation_on_windows" id="installation_on_windows">Installation on Windows</a></h2>
+<div class="level2">
+
+<p>
+
+These instructions have been tested with Inkscape 0.48, Python 2.6.6 and PyGTK 2.22.
+
+</p>
+<ol>
+<li class="level1"><div class="li"> <a href="http://inkscape.org/download/" class="urlextern" title="http://inkscape.org/download/" rel="nofollow">Download and install Inkscape</a>. The default installation location is C:\Program Files\Inkscape.</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://www.python.org/download/releases/2.6.6/" class="urlextern" title="http://www.python.org/download/releases/2.6.6/" rel="nofollow">Download and install Python</a>. The default installation location is C:\Python26.</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.22/" class="urlextern" title="http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.22/" rel="nofollow">Download and install PyGTK (choose the "all-in-one" installer for Python 2.6)</a>. PyGTK is added to the Python installation tree.</div>
+</li>
+<li class="level1"><div class="li"> Copy all files from C:\Python26 to C:\Program Files\Inkscape\python.</div>
+</li>
+<li class="level1"><div class="li"> Unzip the archive sozi-release-x.y.zip and copy the following files to C:\Program Files\Inkscape\share\extensions:</div>
+<ul>
+<li class="level2"><div class="li"> sozi.inx</div>
+</li>
+<li class="level2"><div class="li"> sozi.py</div>
+</li>
+<li class="level2"><div class="li"> sozi.js</div>
+</li>
+</ul>
+</li>
+</ol>
+
+<p>
+
+<em>If you are updating from version 10.x, you should also remove files 
+sozi_install.inx, sozi_install.py, sozi_edit_frame.inx and 
+sozi_edit_frame.py from the installation folder.</em>
+</p>
+
+<p>
+Start or relaunch Inkscape.
+You should now see a submenu “Sozi” in the “Extensions” menu.
+</p>
+
+<p>
+You can now <a href="http://sozi.baierouge.fr/wiki/en:tutorial" class="wikilink1" title="en:tutorial">create your first presentation</a>.
+</p>
+
+</div>
+<!-- EDIT6 SECTION "Installation on Windows" [1356-2511] -->
+<h2 class="sectionedit7"><a name="installation_on_macos_x" id="installation_on_macos_x">Installation on MacOS X</a></h2>
+<div class="level2">
+
+<p>
+
+Currently, the most straightforward way to install <a href="http://inkscape.org/" class="urlextern" title="http://inkscape.org" rel="nofollow">Inkscape</a> and Sozi on MacOS X consists in using the <a href="http://www.finkproject.org/" class="urlextern" title="http://www.finkproject.org" rel="nofollow">Fink</a> distribution. However, the complete installation process can take several hours.
+
+</p>
+<ol>
+<li class="level1"><div class="li"> Install <a href="http://www.finkproject.org/" class="urlextern" title="http://www.finkproject.org" rel="nofollow">Fink</a>. During the setup process, enable the “unstable” tree.</div>
+</li>
+<li class="level1"><div class="li"> Install Inkscape, lxml and PyGTK by typing the following command in a terminal window:<pre class="code">  fink install inkscape python lxml-py27 pygtk2-gtk-py27</pre>
+</div>
+</li>
+<li class="level1"><div class="li"> Unzip the archive sozi-release-x.y.zip and copy the following files to /sw/share/inkscape/extensions :</div>
+<ul>
+<li class="level2"><div class="li"> sozi.inx</div>
+</li>
+<li class="level2"><div class="li"> sozi.py</div>
+</li>
+<li class="level2"><div class="li"> sozi.js</div>
+</li>
+</ul>
+</li>
+</ol>
+
+<p>
+
+<em>If you are updating from version 10.x, you should also remove files 
+sozi_install.inx, sozi_install.py, sozi_edit_frame.inx and 
+sozi_edit_frame.py from the installation folder.</em>
+</p>
+
+<p>
+Start or relaunch Inkscape (using the command line).
+You should now see a submenu “Sozi” in the “Extensions” menu.
+</p>
+
+<p>
+You can now <a href="http://sozi.baierouge.fr/wiki/en:tutorial" class="wikilink1" title="en:tutorial">create your first presentation</a>.
+
+</p>
+
+</div>
+<!-- EDIT7 SECTION "Installation on MacOS X" [2512-] --></div>
+
+
+</body></html>
