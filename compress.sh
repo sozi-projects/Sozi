@@ -4,25 +4,30 @@ JSMIN=`which jsmin`
 YUI1=`which yui-compressor`
 YUI2=`which yuicompressor`
 
-FILES='js/common.js js/display.js js/animator.js js/player.js'
-OUT='out/sozi.js'
+PLAYER_JS='player/common.js player/display.js player/animator.js player/player.js'
+PLAYER_CSS='player/sozi.css'
 
 if [ -n "$YUI1" ]; then
-   CMD="$YUI1 --type js"
+   echo "Using YUI compressor for Javascript and CSS"
+   COMPRESS_JS="$YUI1 --type js"
+   COMPRESS_CSS="$YUI1 --type css"
 elif [ -n "$YUI2" ]; then
-   CMD="$YUI2 --type js"
+   echo "Using YUI compressor for Javascript and CSS"
+   COMPRESS_JS="$YUI2 --type js"
+   COMPRESS_CSS="$YUI2 --type css"
 elif [ -n "$JSMIN" ]; then
-   CMD=$JSMIN
-fi
-
-mkdir -p out
-
-if [ -n "$CMD" ]; then
-   echo "Using $CMD"
-
-   cat $FILES | $CMD > $OUT
+   echo "Using JSMin for Javascript and cat for CSS"
+   COMPRESS_JS=$JSMIN
+   COMPRESS_CSS=cat
 else
-   echo "Warning: did not find JSmin or YUI compressor, using plain cat"
-   cat $FILES > $OUT
+   echo "Using cat for Javascript and CSS"
+   COMPRESS_JS=cat
+   COMPRESS_CSS=cat
 fi
+
+mkdir -p release
+
+cat $PLAYER_JS | $COMPRESS_JS > release/sozi.js
+cat $PLAYER_CSS | $COMPRESS_CSS > release/sozi.css
+
 

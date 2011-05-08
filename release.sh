@@ -1,18 +1,18 @@
 #!/bin/bash
 
 VERSION=`date +%y.%m-%d%H%M%S`
-SOURCE='README doc/INSTALL doc/LICENSE sozi.inx sozi.py sozi.css'
+SOURCE='README doc/install*.html doc/LICENSE editor/sozi.inx editor/sozi.py'
 TARGET=sozi-release-$VERSION.zip
 
-rm -rf out
+rm -rf release
 
 ./compress.sh
 
 for f in $SOURCE; do
-   cp $f out
+   cp $f release
 done
 
-cd out
+cd release
 
 sed -i "s/{{SOZI_VERSION}}/$VERSION/g" sozi.py
 
