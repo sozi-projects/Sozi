@@ -26,7 +26,7 @@ window.addEventListener("load", function() {
 			// Create HTML video element
 			htmlVideo = document.createElementNS(xhtmlNs, "video");
 			// htmlVideo.setAttribute("poster", "__dummy__.png");
-			htmlVideo.setAttribute("controls", "controls");
+			// htmlVideo.setAttribute("controls", "controls");
 			htmlVideo.setAttribute("width", rect.getAttribute("width"));
 			htmlVideo.setAttribute("height", rect.getAttribute("height"));
 		
