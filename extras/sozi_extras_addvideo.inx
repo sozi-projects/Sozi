@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Sozi - A presentation tool using the SVG standard
+
+   Copyright (C) 2010 Guillaume Savaton
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <_name>Add video</_name>
+  <id>sozi.extras.addvideo</id>
+  <dependency type="executable" location="extensions">inkex.py</dependency>
+  <dependency type="executable" location="extensions">sozi_extras_addvideo.py</dependency>
+  <dependency type="executable" location="extensions">sozi_extras_addvideo.js</dependency>
+  <param name="width" type="int" min="1" max="10000" _gui-text="Width">640</param>
+  <param name="height" type="int" min="1" max="10000" _gui-text="Height">480</param>
+  <param name="type" type="string" _gui-text="MIME type">video/ogg</param>
+  <param name="src" type="string" _gui-text="File name or URL">filename.ogv</param>
+  <effect>
+    <object-type>all</object-type>
+    <effects-menu>
+      <submenu _name="Sozi extras"/>
+    </effects-menu>
+  </effect>
+  <script>
+    <command reldir="extensions" interpreter="python">sozi_extras_addvideo.py</command>
+  </script>
+</inkscape-extension>
+
+

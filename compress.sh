@@ -30,4 +30,7 @@ mkdir -p release
 cat $PLAYER_JS | $COMPRESS_JS > release/sozi.js
 cat $PLAYER_CSS | $COMPRESS_CSS > release/sozi.css
 
-
+cd extras
+for f in `ls *.js`; do
+	cat $f | $COMPRESS_JS > ../release/$f
+done
