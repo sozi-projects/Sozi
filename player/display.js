@@ -291,14 +291,17 @@ sozi.Display.prototype.applyZoomFactor = function (factor, x, y) {
  * FIXME text size and coordinates
  */
 sozi.Display.prototype.installTableOfContents = function () {
-   var tocBackground = document.createElementNS(this.svgNs, "rect"),
+   var linksBox = document.createElementNS(this.svgNs, "g"),
+       tocBackground = document.createElementNS(this.svgNs, "rect"),
+       tocUp = document.createElementNS(this.svgNs, "path"),
+       tocDown = document.createElementNS(this.svgNs, "path"),
        tocMargin = 5, tocWidth = 0, textY = 0, textWidth,
        i, text;
 
    this.tocGroup = document.createElementNS(this.svgNs, "g");
    this.tocGroup.setAttribute("id", "sozi-toc");
    this.tocGroup.setAttribute("visibility", "hidden");
-   this.tocGroup.appendChild(tocBackground);
+   this.tocGroup.appendChild(linksBox);
    this.svgRoot.appendChild(this.tocGroup);
 
    tocBackground.setAttribute("id", "sozi-toc-background");
@@ -306,7 +309,16 @@ sozi.Display.prototype.installTableOfContents = function () {
    tocBackground.setAttribute("y", tocMargin);
    tocBackground.setAttribute("rx", tocMargin);
    tocBackground.setAttribute("ry", tocMargin);
+   linksBox.appendChild(tocBackground);
 
+   tocBackground.addEventListener("click", function(evt) {
+      evt.stopPropagation();
+   }, false);
+      
+   tocBackground.addEventListener("mousedown", function(evt) {
+      evt.stopPropagation();
+   }, false);
+      
    tocBackground.addEventListener("mouseout", function(evt) {
          var rel = evt.relatedTarget;
          while (rel != this.tocGroup && rel != this.svgRoot) {
@@ -324,7 +336,7 @@ sozi.Display.prototype.installTableOfContents = function () {
       text = document.createElementNS(this.svgNs, "text");
       text.appendChild(document.createTextNode(this.controller.frames[i].title));
 
-      this.tocGroup.appendChild(text);
+      linksBox.appendChild(text);
       textWidth = text.getBBox().width;
       textY += text.getBBox().height;
       if (textWidth > tocWidth) {
@@ -339,9 +351,60 @@ sozi.Display.prototype.installTableOfContents = function () {
             evt.stopPropagation();
          }.bind(this, i), false
       );
+
+      text.addEventListener("mousedown", function(evt) {
+         evt.stopPropagation();
+      }, false);
    }
 
-   tocBackground.setAttribute("width", tocWidth + 2 * tocMargin);
+   tocUp.setAttribute("class", "sozi-toc-arrow");
+   tocUp.setAttribute("d", "M" + (tocWidth+3*tocMargin) + "," + (5*tocMargin) + 
+                          " l" + (4*tocMargin) + ",0" +
+                          " l-" + (2*tocMargin) + ",-" + (3*tocMargin) +
+                          " z");
+   
+   tocDown.setAttribute("class", "sozi-toc-arrow");
+   tocDown.setAttribute("d", "M" + (tocWidth+3*tocMargin) + "," + (7*tocMargin) + 
+                            " l" + (4*tocMargin) + ",0" +
+                            " l-" + (2*tocMargin) + "," + (3*tocMargin) +
+                            " z");
+
+   tocUp.addEventListener("click", function(evt) {
+      var ty = linksBox.getCTM().f;
+      if(ty <= -window.innerHeight / 2) {
+         ty += window.innerHeight / 2;
+      }
+      else if(ty < 0) {
+         ty = 0;
+      }
+      linksBox.setAttribute("transform", "translate(0," + ty + ")");
+      evt.stopPropagation();
+   }.bind(this), false);
+
+   tocUp.addEventListener("mousedown", function(evt) {
+      evt.stopPropagation();
+   }, false);
+      
+   tocDown.addEventListener("click", function(evt) {
+      var ty = linksBox.getCTM().f;
+      if(ty + textY >= window.innerHeight * 3 / 2) {
+         ty -= window.innerHeight / 2;
+      }
+      else if(ty + textY + 2 * tocMargin > window.innerHeight + 4 * tocMargin) {
+         ty = window.innerHeight - textY - 4 * tocMargin;
+      }
+      linksBox.setAttribute("transform", "translate(0," + ty + ")");
+      evt.stopPropagation();
+   }.bind(this), false);
+
+   tocDown.addEventListener("mousedown", function(evt) {
+      evt.stopPropagation();
+   }, false);
+   
+   this.tocGroup.appendChild(tocUp);
+   this.tocGroup.appendChild(tocDown);
+
+   tocBackground.setAttribute("width", tocWidth + 7 * tocMargin);
    tocBackground.setAttribute("height", textY + 2 * tocMargin);
 };
 

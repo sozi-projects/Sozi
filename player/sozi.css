@@ -18,3 +18,12 @@
    fill-opacity: 0.75;
 }
 
+.sozi-toc-arrow {
+   fill: #eff;
+   fill-opacity: 0.75;
+   stroke: none;
+}
+
+.sozi-toc-arrow:hover {
+   fill: #0cf;
+}
