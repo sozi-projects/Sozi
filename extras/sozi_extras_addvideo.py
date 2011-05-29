@@ -29,85 +29,85 @@ import inkex
 
 class SoziExtrasAddVideo(inkex.Effect):
 
-   VERSION = "{{SOZI_VERSION}}"
+    VERSION = "{{SOZI_VERSION}}"
 
-   NS_URI = u"http://sozi.baierouge.fr"
-
-
-   def __init__(self):
-      inkex.Effect.__init__(self)
-      self.OptionParser.add_option('-W', '--width', action = 'store',
-          type = 'int', dest = 'width', default = 640,
-          help = 'Video width')
-      self.OptionParser.add_option('-H', '--height', action = 'store',
-          type = 'int', dest = 'height', default = 480,
-          help = 'Video height')
-      self.OptionParser.add_option('-T', '--type', action = 'store',
-          type = 'string', dest = 'type', default = 'video/ogg',
-          help = 'Video MIME type')
-      self.OptionParser.add_option('-S', '--src', action = 'store',
-          type = 'string', dest = 'src', default = '',
-          help = 'Video file name')
-      inkex.NSS[u"sozi"] = SoziExtrasAddVideo.NS_URI
+    NS_URI = u"http://sozi.baierouge.fr"
 
 
-   def effect(self):
-      self.upgrade_or_install("script", "js")
-      self.upgrade_document()
-      self.add_video()
+    def __init__(self):
+        inkex.Effect.__init__(self)
+        self.OptionParser.add_option('-W', '--width', action = 'store',
+            type = 'int', dest = 'width', default = 640,
+            help = 'Video width')
+        self.OptionParser.add_option('-H', '--height', action = 'store',
+            type = 'int', dest = 'height', default = 480,
+            help = 'Video height')
+        self.OptionParser.add_option('-T', '--type', action = 'store',
+            type = 'string', dest = 'type', default = 'video/ogg',
+            help = 'Video MIME type')
+        self.OptionParser.add_option('-S', '--src', action = 'store',
+            type = 'string', dest = 'src', default = '',
+            help = 'Video file name')
+        inkex.NSS[u"sozi"] = SoziExtrasAddVideo.NS_URI
 
 
-   def upgrade_or_install(self, tag, ext):
-      # Check version and remove older versions
-      latest_version_found = False
-      for elt in self.document.xpath("//svg:" + tag + "[@id='sozi-extras-addvideo-" + tag + "']", namespaces=inkex.NSS):
-         version = elt.attrib[inkex.addNS("version", "sozi")]
-         if version == SoziExtrasAddVideo.VERSION:
-            latest_version_found = True
-         elif version < SoziExtrasAddVideo.VERSION:
-            elt.getparent().remove(elt)
-         else:
-            sys.stderr.write("Document has been created using a higher version of Sozi. Please upgrade the Inkscape plugin.\n")
-            exit()
+    def effect(self):
+        self.upgrade_or_install("script", "js")
+        self.upgrade_document()
+        self.add_video()
+
+
+    def upgrade_or_install(self, tag, ext):
+        # Check version and remove older versions
+        latest_version_found = False
+        for elt in self.document.xpath("//svg:" + tag + "[@id='sozi-extras-addvideo-" + tag + "']", namespaces=inkex.NSS):
+            version = elt.attrib[inkex.addNS("version", "sozi")]
+            if version == SoziExtrasAddVideo.VERSION:
+                latest_version_found = True
+            elif version < SoziExtrasAddVideo.VERSION:
+                elt.getparent().remove(elt)
+            else:
+                sys.stderr.write("Document has been created using a higher version of Sozi. Please upgrade the Inkscape plugin.\n")
+                exit()
       
-      # Create new element if needed
-      if not latest_version_found:
-         elt = inkex.etree.Element(inkex.addNS(tag, "svg"))
-         elt.text = open(os.path.join(os.path.dirname(__file__), "sozi_extras_addvideo." + ext)).read()
-         elt.set("id","sozi-extras-addvideo-" + tag)
-         elt.set(inkex.addNS("version", "sozi"), SoziExtrasAddVideo.VERSION)
-         self.document.getroot().append(elt)
+        # Create new element if needed
+        if not latest_version_found:
+            elt = inkex.etree.Element(inkex.addNS(tag, "svg"))
+            elt.text = open(os.path.join(os.path.dirname(__file__), "sozi_extras_addvideo." + ext)).read()
+            elt.set("id","sozi-extras-addvideo-" + tag)
+            elt.set(inkex.addNS("version", "sozi"), SoziExtrasAddVideo.VERSION)
+            self.document.getroot().append(elt)
 
 
-   def upgrade_document(self):
-		pass      
-	
+    def upgrade_document(self):
+        pass      
+    
 
-   def add_video(self):
-		rect = None
-		if len(self.selected) != 0:
-			elt = self.selected.values()[0]
-			if elt.tag == inkex.addNS("g", "svg") and len(elt) > 0 and elt[0].tag == inkex.addNS("rect", "svg") and len(elt[0]) > 0 and elt[0][0].tag == inkex.addNS("video", "sozi"):
-				rect = elt[0]
-				
-		if rect == None:
-			rect = inkex.etree.Element("rect")
-			rect.set("x", "0")
-			rect.set("y", "0")
-			rect.set("width", unicode(self.options.width))
-			rect.set("height", unicode(self.options.height))
-			rect.set("stroke", "none")
-			rect.set("fill", "#aaa")
-			
-			g = inkex.etree.Element("g")
-			g.append(rect)
-			
-			self.document.getroot().append(g)
+    def add_video(self):
+        rect = None
+        if len(self.selected) != 0:
+            elt = self.selected.values()[0]
+            if elt.tag == inkex.addNS("g", "svg") and len(elt) > 0 and elt[0].tag == inkex.addNS("rect", "svg") and len(elt[0]) > 0 and elt[0][0].tag == inkex.addNS("video", "sozi"):
+                rect = elt[0]
 
-		v = inkex.etree.Element(inkex.addNS("video", "sozi"))
-		v.set("type", unicode(self.options.type))
-		v.set("src", unicode(self.options.src))
-		rect.append(v)
+        if rect == None:
+            rect = inkex.etree.Element("rect")
+            rect.set("x", "0")
+            rect.set("y", "0")
+            rect.set("width", unicode(self.options.width))
+            rect.set("height", unicode(self.options.height))
+            rect.set("stroke", "none")
+            rect.set("fill", "#aaa")
+
+            g = inkex.etree.Element("g")
+            g.append(rect)
+
+            self.document.getroot().append(g)
+
+        v = inkex.etree.Element(inkex.addNS("video", "sozi"))
+        v.set("type", unicode(self.options.type))
+        v.set("src", unicode(self.options.src))
+        rect.append(v)
 
 
 # Create effect instance
