@@ -46,8 +46,6 @@ class Sozi(inkex.Effect):
 
     NS_URI = u"http://sozi.baierouge.fr"
 
-    NS = "{" + NS_URI + "}"
-
 
     def __init__(self):
         inkex.Effect.__init__(self)
@@ -68,7 +66,7 @@ class Sozi(inkex.Effect):
         # Check version and remove older versions
         latest_version_found = False
         for elt in self.document.xpath("//svg:" + tag + "[@id='sozi-" + tag + "']", namespaces=inkex.NSS):
-            version = elt.attrib[Sozi.NS+"version"]
+            version = elt.attrib[inkex.addNS("version", "sozi")]
             if version == Sozi.VERSION:
                 latest_version_found = True
             elif version < Sozi.VERSION:
@@ -82,7 +80,7 @@ class Sozi(inkex.Effect):
             elt = inkex.etree.Element(inkex.addNS(tag, "svg"))
             elt.text = open(os.path.join(os.path.dirname(__file__), "sozi." + ext)).read()
             elt.set("id","sozi-" + tag)
-            elt.set(Sozi.NS+"version", Sozi.VERSION)
+            elt.set(inkex.addNS("version", "sozi"), Sozi.VERSION)
             self.document.getroot().append(elt)
 
 
@@ -95,12 +93,12 @@ class Sozi(inkex.Effect):
 
             # Create a new frame element
             f = inkex.etree.Element(inkex.addNS("frame", "sozi"))
-            f.set(Sozi.NS+"refid", elt.attrib["id"]) # TODO check namespace for id?
+            f.set(inkex.addNS("refid", "sozi"), elt.attrib["id"]) # TODO check namespace for id?
             self.document.getroot().append(f)
 
             # Move all Sozi-specific attributes from the original element to the frame element
             for attr in Sozi.ATTR:
-                ns_attr = Sozi.NS+attr
+                ns_attr = inkex.addNS(attr, "sozi")
                 if ns_attr in elt.attrib:
                     f.set(ns_attr, elt.attrib[ns_attr])
                     del elt.attrib[ns_attr]
@@ -110,7 +108,7 @@ class Sozi(inkex.Effect):
         # Get list of valid frame elements and remove orphan frames
         self.frames = []
         for f in self.document.xpath("//sozi:frame", namespaces=inkex.NSS):
-            e = self.document.xpath("//svg:*[@id='" + f.attrib[Sozi.NS+"refid"] + "']", namespaces=inkex.NSS)
+            e = self.document.xpath("//svg:*[@id='" + f.attrib[inkex.addNS("refid", "sozi")] + "']", namespaces=inkex.NSS)
             if len(e) == 0:
                 self.document.getroot().remove(f)
             else:
@@ -122,13 +120,13 @@ class Sozi(inkex.Effect):
                 )
 
         # Sort frames by sequence attribute 
-        sequence_attr = Sozi.NS+"sequence"
+        sequence_attr = inkex.addNS("sequence", "sozi")
         self.frames = sorted(self.frames, key=lambda f:
             int(f["frame_element"].attrib[sequence_attr]) if sequence_attr in f["frame_element"].attrib else len(self.frames))
 
         # Renumber frames
         for i, f in enumerate(self.frames):
-            f["frame_element"].set(Sozi.NS+"sequence", unicode(i+1))
+            f["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i+1))
 
         # Get the selected frame elements
         if len(self.selected) > 0:
@@ -155,7 +153,7 @@ class Sozi(inkex.Effect):
 
 
     def get_field_value(self, frame, attr, value):
-        ns_attr = Sozi.NS+attr
+        ns_attr = inkex.addNS(attr, "sozi")
         if frame is not None and ns_attr in frame["frame_element"].attrib:
             return frame["frame_element"].attrib[ns_attr]
         else:
@@ -377,7 +375,7 @@ class Sozi(inkex.Effect):
     def append_frame(self, store, index):
         frame = self.frames[index]
 
-        title_attr = Sozi.NS+"title"
+        title_attr = inkex.addNS("title", "sozi")
         if title_attr in frame["frame_element"].attrib:
             title = frame["frame_element"].attrib[title_attr]
         else:
@@ -393,8 +391,9 @@ class Sozi(inkex.Effect):
 
     def swap_frames(self, model, first, second):
         # Swap frames in SVG document
-        self.frames[first]["frame_element"].set(Sozi.NS+"sequence", unicode(second + 1))
-        self.frames[second]["frame_element"].set(Sozi.NS+"sequence", unicode(first + 1))
+        sequence_attr = inkex.addNS("sequence", "sozi")
+        self.frames[first]["frame_element"].set(sequence_attr, unicode(second + 1))
+        self.frames[second]["frame_element"].set(sequence_attr, unicode(first + 1))
 
         # Swap frames in frame list
         self.frames[first], self.frames[second] = self.frames[second], self.frames[first]
@@ -405,14 +404,14 @@ class Sozi(inkex.Effect):
 
 
     def save_frame(self, frame_element):
-        frame_element.set(Sozi.NS+"title", unicode(self.fields["title"].get_text()))
-        frame_element.set(Sozi.NS+"hide", unicode("true" if self.fields["hide"].get_active() else "false"))
-        frame_element.set(Sozi.NS+"clip", unicode("true" if self.fields["clip"].get_active() else "false"))
-        frame_element.set(Sozi.NS+"timeout-enable", unicode("true" if self.fields["timeout-enable"].get_active() else "false"))
-        frame_element.set(Sozi.NS+"timeout-ms", unicode(self.fields["timeout-ms"].get_value_as_int()))
-        frame_element.set(Sozi.NS+"transition-duration-ms", unicode(self.fields["transition-duration-ms"].get_value_as_int()))
-        frame_element.set(Sozi.NS+"transition-zoom-percent", unicode(self.fields["transition-zoom-percent"].get_value_as_int()))
-        frame_element.set(Sozi.NS+"transition-profile", unicode(Sozi.PROFILES[self.fields["transition-profile"].get_active()]))
+        frame_element.set(inkex.addNS("title", "sozi"), unicode(self.fields["title"].get_text()))
+        frame_element.set(inkex.addNS("hide", "sozi"), unicode("true" if self.fields["hide"].get_active() else "false"))
+        frame_element.set(inkex.addNS("clip", "sozi"), unicode("true" if self.fields["clip"].get_active() else "false"))
+        frame_element.set(inkex.addNS("timeout-enable", "sozi"), unicode("true" if self.fields["timeout-enable"].get_active() else "false"))
+        frame_element.set(inkex.addNS("timeout-ms", "sozi"), unicode(self.fields["timeout-ms"].get_value_as_int()))
+        frame_element.set(inkex.addNS("transition-duration-ms", "sozi"), unicode(self.fields["transition-duration-ms"].get_value_as_int()))
+        frame_element.set(inkex.addNS("transition-zoom-percent", "sozi"), unicode(self.fields["transition-zoom-percent"].get_value_as_int()))
+        frame_element.set(inkex.addNS("transition-profile", "sozi"), unicode(Sozi.PROFILES[self.fields["transition-profile"].get_active()]))
 
 
     def on_save_frame(self, widget):
@@ -437,8 +436,8 @@ class Sozi(inkex.Effect):
 
         # Create frame in SVG document
         frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
-        frame_element.set(Sozi.NS+"refid", svg_element.attrib["id"]) # TODO check namespace?
-        frame_element.set(Sozi.NS+"sequence", unicode(len(self.frames)+1))
+        frame_element.set(inkex.addNS("refid", "sozi"), svg_element.attrib["id"]) # TODO check namespace?
+        frame_element.set(inkex.addNS("sequence", "sozi"), unicode(len(self.frames)+1))
         self.document.getroot().append(frame_element)
         self.save_frame(frame_element)
 
@@ -472,7 +471,7 @@ class Sozi(inkex.Effect):
             # Renumber frames
             for i in range(index, len(self.frames)):
                 model.set(model.get_iter(i), 0, i + 1)
-                self.frames[i]["frame_element"].set(Sozi.NS+"sequence", unicode(i+1))
+                self.frames[i]["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i+1))
         else:
             self.fill_form(None)
 
