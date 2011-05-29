@@ -290,6 +290,7 @@ sozi.Display.prototype.installTableOfContents = function () {
        tocUp = document.createElementNS(this.svgNs, "path"),
        tocDown = document.createElementNS(this.svgNs, "path"),
        tocMargin = 5, tocWidth = 0, textY = 0, textWidth,
+       frameCount = this.controller.frames.length,
        i, text;
 
    this.tocGroup = document.createElementNS(this.svgNs, "g");
@@ -326,7 +327,7 @@ sozi.Display.prototype.installTableOfContents = function () {
       }.bind(this), false
    );
 
-   for (i = 0; i < this.controller.frames.length; i ++) {
+   for (i = 0; i < frameCount; i ++) {
       text = document.createElementNS(this.svgNs, "text");
       text.appendChild(document.createTextNode(this.controller.frames[i].title));
 

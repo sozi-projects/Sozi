@@ -420,9 +420,10 @@ sozi.Player.prototype.readAttribute = function (elt, attr) {
  */
 sozi.Player.prototype.readFrames = function () {
    var frameElements = document.getElementsByTagNameNS(this.soziNs, "frame"),
+       frameCount = frameElements.length,
        svgElement, i, newFrame;
 
-   for (i = 0; i < frameElements.length; i ++) {
+   for (i = 0; i < frameCount; i ++) {
       svgElement = document.getElementById(frameElements[i].getAttributeNS(this.soziNs, "refid"));
       if (svgElement) {
          newFrame = {
