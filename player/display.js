@@ -11,434 +11,433 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
-/*jslint plusplus: false, indent: 3, browser: true */
-/*global window: true */
+/*jslint plusplus: false, indent: 4, browser: true */
 
 var sozi = sozi || {};
 
-/*
- * Creates a new Display with default settings.
- *
- * Parameters:
- *    - controller: the object that holds the frame list (attribute "frames")
- */
-sozi.Display = function (controller) {
-   this.controller = controller;
+sozi.display = function () {
+    var exports = {},
+        player,
+        tocGroup,
+        clipRect,
+        wrapper,
+        SVG_NS = "http://www.w3.org/2000/svg";
+        
+    exports.geometry = {
+        cx: 0,
+        cy: 0,
+        width: 1,
+        height: 1,
+        rotate: 0
+    };
+       
+    exports.clip = true;
 
-   // Initial display properties
-   this.cx = 0;
-   this.cy = 0;
-   this.width = 1;
-   this.height = 1;
-   this.rotate = 0;
-   this.clip = true;
-};
+    /*
+     * Initializes the current Display.
+     *
+     * This method prepares the DOM representation of the current SVG document.
+     * All the image is embedded into a global "g" element on which transformations will be applied.
+     * A clipping rectangle is added.
+     *
+     * This method must be called when the document is ready to be manipulated.
+     */
+    exports.onLoad = function () {
+        var n,
+            clipPath = document.createElementNS(SVG_NS, "clipPath");
 
-sozi.Display.prototype.svgNs = "http://www.w3.org/2000/svg";
-
-/*
- * Initializes the current Display.
- *
- * This method prepares the DOM representation of the current SVG document.
- * All the image is embedded into a global "g" element on which transformations will be applied.
- * A clipping rectangle is added.
- *
- * This method must be called when the document is ready to be manipulated.
- */
-sozi.Display.prototype.onLoad = function () {
-   var n,
-       clipPath = document.createElementNS(this.svgNs, "clipPath");
-
-   this.svgRoot = document.documentElement; // TODO check SVG tag
-
-   // Remove viewbox if needed
-   this.svgRoot.removeAttribute("viewBox");
-
-   this.initialBBox = this.svgRoot.getBBox();
-
-   // Create a new wrapper group element and move all the image to the group
-   this.wrapper = document.createElementNS(this.svgNs, "g");
-   this.wrapper.setAttribute("id", "sozi-wrapper");
-
-   while (true) {
-      n = this.svgRoot.firstChild;
-      if (!n) {
-         break;
-      }
-      this.svgRoot.removeChild(n);
-      this.wrapper.appendChild(n);
-   }
-   this.svgRoot.appendChild(this.wrapper);
-
-   // Add a clipping path
-   this.clipRect = document.createElementNS(this.svgNs, "rect");
-   this.clipRect.setAttribute("id", "sozi-clip-rect");
-
-   clipPath.setAttribute("id", "sozi-clip-path");
-   clipPath.appendChild(this.clipRect);
-   this.svgRoot.appendChild(clipPath);
-   this.svgRoot.setAttribute("clip-path", "url(#sozi-clip-path)");
-
-   this.svgRoot.setAttribute("width", window.innerWidth);
-   this.svgRoot.setAttribute("height", window.innerHeight);
-};
-
-/*
- * Resizes the SVG document to fit the browser window.
- */
-sozi.Display.prototype.resize = function () {
-   this.svgRoot.setAttribute("width", window.innerWidth);
-   this.svgRoot.setAttribute("height", window.innerHeight);
-   this.update();
-};
-
-/*
- * Returns an object with the geometrical properties of the current display.
- *
- * Attributes of the returned object :
- *    - x, y: the location of the top-left corner, in pixels
- *    - width, height: the size of the visible area, in pixels
- *    - scale: the scale factor to apply to the SVG document so that is fits the visible area
- */
-sozi.Display.prototype.getFrameGeometry = function () {
-   var result = {};
-
-   result.scale = Math.min(window.innerWidth / this.width,
-                           window.innerHeight / this.height);
-
-   result.width = this.width * result.scale;
-   result.height = this.height * result.scale;
-
-   result.x = (window.innerWidth - result.width) / 2;
-   result.y = (window.innerHeight - result.height) / 2;
-
-   return result;
-};
-
-/*
- * Returns the geometrical properties of the frame that can be
- * created from a given element.
- *
- * If the element is a rectangle, the properties of the frames are based
- * on the geometrical properties of the rectangle.
- * Otherwise, the properties of the frame are based on the bounding box
- * of the given element.
- *
- * Parameters:
- *    - elem: an element from the SVG DOM
- *
- * Returns:
- *    - The default size, translation and rotation for the given element 
- */
-sozi.Display.prototype.getElementGeometry = function (elem) {
-   var x, y, width, height, b, c,
-       matrix = elem.getCTM(),
-       scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
-
-   if (elem.nodeName === "rect") {
-      x = elem.x.baseVal.value;
-      y = elem.y.baseVal.value;
-      width = elem.width.baseVal.value;
-      height = elem.height.baseVal.value;
-   }
-   else {
-      b = elem.getBBox();
-      x = b.x;
-      y = b.y;
-      width = b.width;
-      height = b.height;
-   }
-
-   c = document.documentElement.createSVGPoint();
-   c.x = x + width / 2;
-   c.y = y + height / 2;
-   c = c.matrixTransform(matrix);
-
-   return {
-      cx: c.x,
-      cy: c.y,
-      width: width * scale,
-      height: height * scale,
-      rotate: Math.atan2(matrix.b, matrix.a) * 180 / Math.PI
-   };
-};
-
-/*
- * Returns the geometrical properties of the SVG document
- *
- * Returns:
- *    - The default size, translation and rotation for the document's bounding box
- */
-sozi.Display.prototype.getDocumentGeometry = function () {
-   return {
-      cx: this.initialBBox.x + this.initialBBox.width / 2,
-      cy: this.initialBBox.y + this.initialBBox.height / 2,
-      width: this.initialBBox.width,
-      height: this.initialBBox.height,
-      rotate: 0,
-      clip: false
-   };
-};
-
-/*
- * Returns the geometrical properties of the Display.
- *
- * Returns:
- *    - An object with the current size, translation and rotation
- */
-sozi.Display.prototype.getCurrentGeometry = function () {
-   return {
-      cx: this.cx,
-      cy: this.cy,
-      width: this.width,
-      height: this.height,
-      rotate: this.rotate,
-      clip: this.clip
-   };
-};
-
-/*
- * Apply an additional translation to the SVG document based on onscreen coordinates.
- *
- * Parameters:
- *    - deltaX: the horizontal displacement, in pixels
- *    - deltaY: the vertical displacement, in pixels
- */
-sozi.Display.prototype.drag = function (deltaX, deltaY) {
-   var g = this.getFrameGeometry(),
-       angleRad = this.rotate * Math.PI / 180;
-   this.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / g.scale;
-   this.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / g.scale;
-   this.clip = false;
-   if (this.tableOfContentsIsVisible()) {
-      this.hideTableOfContents();
-   }
-   this.update();
-};
-
-/*
- * Apply geometrical transformations to the image according to the current
- * geometrical attributes of this Display.
- *
- * This method is called automatically when the window is resized.
- */
-sozi.Display.prototype.update = function () {
-   var g = this.getFrameGeometry(),
-       translateX = - this.cx + this.width / 2 + g.x / g.scale,
-       translateY = - this.cy + this.height / 2 + g.y / g.scale;
-
-   // Compute and apply the geometrical transformation to the wrapper group
-   this.wrapper.setAttribute("transform",
-      "scale(" + g.scale + ")" +
-      "translate(" + translateX + "," + translateY + ")" +
-      "rotate(" + (- this.rotate) + ',' + this.cx + "," + this.cy + ")"
-   );
-
-   // Adjust the location and size of the clipping rectangle and the frame rectangle
-   this.clipRect.setAttribute("x", this.clip ? g.x : 0);
-   this.clipRect.setAttribute("y", this.clip ? g.y : 0);
-   this.clipRect.setAttribute("width", this.clip ? g.width : window.innerWidth);
-   this.clipRect.setAttribute("height", this.clip ? g.height : window.innerHeight);
-};
-
-/*
- * Transform the SVG document to show the given frame.
- *
- * Parameters:
- *    - frame: the frame to show
- */
-sozi.Display.prototype.showFrame = function (frame) {
-   var attr;
-   for (attr in frame.geometry) {
-      if (frame.geometry.hasOwnProperty(attr)) {
-         this[attr] = frame.geometry[attr];
-      }
-   }
-   this.update();
-};
-
-/*
- * Zooms the display with the given factor.
- *
- * The zoom is centered around (x, y) with respect to the center of the display area.
- *
- * This method computes the new geometry of the display, but
- * does not update the document. Method update must be called after
- * calling this method.
- */
-sozi.Display.prototype.applyZoomFactor = function (factor, x, y) {
-   var deltaX = (1 - factor) * (x - window.innerWidth / 2),
-       deltaY = (1 - factor) * (y - window.innerHeight / 2);
-   this.width /= factor;
-   this.height /= factor;
-   this.drag(deltaX, deltaY);
-};
-
-/*
- * Adds a table of contents to the document.
- *
- * The table of contents is a rectangular region with the list of frame titles.
- * Clicking on a title moves the presentation to the corresponding frame.
- *
- * The table of contents is hidden by default.
- *
- * FIXME text size and coordinates
- */
-sozi.Display.prototype.installTableOfContents = function () {
-   var linksBox = document.createElementNS(this.svgNs, "g"),
-       tocBackground = document.createElementNS(this.svgNs, "rect"),
-       tocUp = document.createElementNS(this.svgNs, "path"),
-       tocDown = document.createElementNS(this.svgNs, "path"),
-       tocMargin = 5, tocWidth = 0, textY = 0, textWidth,
-       frameCount = this.controller.frames.length,
-       i, text;
-
-   this.tocGroup = document.createElementNS(this.svgNs, "g");
-   this.tocGroup.setAttribute("id", "sozi-toc");
-   this.tocGroup.setAttribute("visibility", "hidden");
-   this.tocGroup.appendChild(linksBox);
-   this.svgRoot.appendChild(this.tocGroup);
-
-   tocBackground.setAttribute("id", "sozi-toc-background");
-   tocBackground.setAttribute("x", tocMargin);
-   tocBackground.setAttribute("y", tocMargin);
-   tocBackground.setAttribute("rx", tocMargin);
-   tocBackground.setAttribute("ry", tocMargin);
-   linksBox.appendChild(tocBackground);
-
-   tocBackground.addEventListener("click", function(evt) {
-      evt.stopPropagation();
-   }, false);
+        player = sozi.player;
       
-   tocBackground.addEventListener("mousedown", function(evt) {
-      evt.stopPropagation();
-   }, false);
-      
-   tocBackground.addEventListener("mouseout", function(evt) {
-         var rel = evt.relatedTarget;
-         while (rel != this.tocGroup && rel != this.svgRoot) {
-            rel = rel.parentNode;
-         }
-         if (rel == this.svgRoot) {
-            this.hideTableOfContents();
-            this.controller.restart();
+        exports.svgRoot = document.documentElement; // TODO check SVG tag
+
+        // Remove viewbox if needed
+        exports.svgRoot.removeAttribute("viewBox");
+
+        initialBBox = exports.svgRoot.getBBox();
+
+        // Create a new wrapper group element and move all the image to the group
+        wrapper = document.createElementNS(SVG_NS, "g");
+        wrapper.setAttribute("id", "sozi-wrapper");
+
+        while (true) {
+            n = exports.svgRoot.firstChild;
+            if (!n) {
+                break;
+            }
+            exports.svgRoot.removeChild(n);
+            wrapper.appendChild(n);
+        }
+        exports.svgRoot.appendChild(wrapper);
+
+        // Add a clipping path
+        clipRect = document.createElementNS(SVG_NS, "rect");
+        clipRect.setAttribute("id", "sozi-clip-rect");
+
+        clipPath.setAttribute("id", "sozi-clip-path");
+        clipPath.appendChild(clipRect);
+        exports.svgRoot.appendChild(clipPath);
+        exports.svgRoot.setAttribute("clip-path", "url(#sozi-clip-path)");
+
+        exports.svgRoot.setAttribute("width", window.innerWidth);
+        exports.svgRoot.setAttribute("height", window.innerHeight);
+    };
+
+    /*
+     * Resizes the SVG document to fit the browser window.
+     */
+    exports.resize = function () {
+        exports.svgRoot.setAttribute("width", window.innerWidth);
+        exports.svgRoot.setAttribute("height", window.innerHeight);
+        exports.update();
+    };
+
+    /*
+     * Returns an object with the geometrical properties of the current display.
+     *
+     * Attributes of the returned object :
+     *    - x, y: the location of the top-left corner, in pixels
+     *    - width, height: the size of the visible area, in pixels
+     *    - scale: the scale factor to apply to the SVG document so that is fits the visible area
+     */
+    getFrameGeometry = function () {
+        var result = {};
+        result.scale = Math.min(window.innerWidth / exports.geometry.width, window.innerHeight / exports.geometry.height);
+        result.width = exports.geometry.width * result.scale;
+        result.height = exports.geometry.height * result.scale;
+        result.x = (window.innerWidth - result.width) / 2;
+        result.y = (window.innerHeight - result.height) / 2;
+        return result;
+    };
+
+    /*
+     * Returns the geometrical properties of the frame that can be
+     * created from a given element.
+     *
+     * If the element is a rectangle, the properties of the frames are based
+     * on the geometrical properties of the rectangle.
+     * Otherwise, the properties of the frame are based on the bounding box
+     * of the given element.
+     *
+     * Parameters:
+     *    - elem: an element from the SVG DOM
+     *
+     * Returns:
+     *    - The default size, translation and rotation for the given element 
+     */
+    exports.getElementGeometry = function (elem) {
+        var x, y, w, h, b, c,
+            matrix = elem.getCTM(),
+            scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
+
+        if (elem.nodeName === "rect") {
+            x = elem.x.baseVal.value;
+            y = elem.y.baseVal.value;
+            w = elem.width.baseVal.value;
+            h = elem.height.baseVal.value;
+        } else {
+            b = elem.getBBox();
+            x = b.x;
+            y = b.y;
+            w = b.width;
+            h = b.height;
+        }
+
+        c = document.documentElement.createSVGPoint();
+        c.x = x + w / 2;
+        c.y = y + h / 2;
+        c = c.matrixTransform(matrix);
+
+        return {
+            cx: c.x,
+            cy: c.y,
+            width: w * scale,
+            height: h * scale,
+            rotate: Math.atan2(matrix.b, matrix.a) * 180 / Math.PI
+        };
+    };
+
+    /*
+     * Returns the geometrical properties of the SVG document
+     *
+     * Returns:
+     *    - The default size, translation and rotation for the document's bounding box
+     */
+    exports.getDocumentGeometry = function () {
+        return {
+            cx: initialBBox.x + initialBBox.width / 2,
+            cy: initialBBox.y + initialBBox.height / 2,
+            width: initialBBox.width,
+            height: initialBBox.height,
+            rotate: 0,
+            clip: false
+        };
+    };
+
+    /*
+     * Returns the geometrical properties of the Display.
+     *
+     * Returns:
+     *    - An object with the current size, translation and rotation
+     */
+    exports.getCurrentGeometry = function () {
+        return {
+            cx: exports.geometry.cx,
+            cy: exports.geometry.cy,
+            width: exports.geometry.width,
+            height: exports.geometry.height,
+            rotate: exports.geometry.rotate,
+            clip: exports.clip
+        };
+    };
+
+    /*
+     * Apply an additional translation to the SVG document based on onscreen coordinates.
+     *
+     * Parameters:
+     *    - deltaX: the horizontal displacement, in pixels
+     *    - deltaY: the vertical displacement, in pixels
+     */
+    exports.drag = function (deltaX, deltaY) {
+        var g = getFrameGeometry(),
+            angleRad = exports.geometry.rotate * Math.PI / 180;
+        exports.geometry.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / g.scale;
+        exports.geometry.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / g.scale;
+        exports.clip = false;
+        if (exports.tableOfContentsIsVisible()) {
+            exports.hideTableOfContents();
+        }
+        exports.update();
+    };
+
+    /*
+     * Apply geometrical transformations to the image according to the current
+     * geometrical attributes of this Display.
+     *
+     * This method is called automatically when the window is resized.
+     */
+    exports.update = function () {
+        var g = getFrameGeometry(),
+            translateX = -exports.geometry.cx + exports.geometry.width / 2  + g.x / g.scale,
+            translateY = -exports.geometry.cy + exports.geometry.height / 2 + g.y / g.scale;
+
+        // Compute and apply the geometrical transformation to the wrapper group
+        wrapper.setAttribute("transform",
+            "scale(" + g.scale + ")" +
+            "translate(" + translateX + "," + translateY + ")" +
+            "rotate(" + (-exports.geometry.rotate) + ',' + exports.geometry.cx + "," + exports.geometry.cy + ")"
+        );
+
+        // Adjust the location and size of the clipping rectangle and the frame rectangle
+        clipRect.setAttribute("x", exports.clip ? g.x : 0);
+        clipRect.setAttribute("y", exports.clip ? g.y : 0);
+        clipRect.setAttribute("width", exports.clip ? g.width : window.innerWidth);
+        clipRect.setAttribute("height", exports.clip ? g.height : window.innerHeight);
+    };
+
+    /*
+     * Transform the SVG document to show the given frame.
+     *
+     * Parameters:
+     *    - frame: the frame to show
+     */
+    exports.showFrame = function (frame) {
+        var attr;
+        for (attr in frame.geometry) {
+            if (frame.geometry.hasOwnProperty(attr)) {
+                exports.geometry[attr] = frame.geometry[attr];
+            }
+        }
+        exports.update();
+    };
+
+    /*
+     * Zooms the display with the given factor.
+     *
+     * The zoom is centered around (x, y) with respect to the center of the display area.
+     *
+     * This method computes the new geometry of the display, but
+     * does not update the document. Method update must be called after
+     * calling this method.
+     */
+    exports.applyZoomFactor = function (factor, x, y) {
+        var deltaX = (1 - factor) * (x - window.innerWidth / 2),
+            deltaY = (1 - factor) * (y - window.innerHeight / 2);
+        exports.geometry.width /= factor;
+        exports.geometry.height /= factor;
+        exports.drag(deltaX, deltaY);
+    };
+
+    makeTocClickHandler = function (index) {
+        return function (evt) {
+            player.previewFrame(index);
             evt.stopPropagation();
-         }
-      }.bind(this), false
-   );
+        };
+    };
+   
+    /*
+     * Adds a table of contents to the document.
+     *
+     * The table of contents is a rectangular region with the list of frame titles.
+     * Clicking on a title moves the presentation to the corresponding frame.
+     *
+     * The table of contents is hidden by default.
+     *
+     * FIXME text size and coordinates
+     */
+    exports.installTableOfContents = function () {
+        var linksBox = document.createElementNS(SVG_NS, "g"),
+            tocBackground = document.createElementNS(SVG_NS, "rect"),
+            tocUp = document.createElementNS(SVG_NS, "path"),
+            tocDown = document.createElementNS(SVG_NS, "path"),
+            tocMargin = 5,
+            tocWidth = 0,
+            textY = 0,
+            textWidth,
+            frameCount = player.frames.length,
+            i,
+            text;
 
-   for (i = 0; i < frameCount; i ++) {
-      text = document.createElementNS(this.svgNs, "text");
-      text.appendChild(document.createTextNode(this.controller.frames[i].title));
+        tocGroup = document.createElementNS(SVG_NS, "g");
+        tocGroup.setAttribute("id", "sozi-toc");
+        tocGroup.setAttribute("visibility", "hidden");
+        tocGroup.appendChild(linksBox);
+        exports.svgRoot.appendChild(tocGroup);
 
-      linksBox.appendChild(text);
-      textWidth = text.getBBox().width;
-      textY += text.getBBox().height;
-      if (textWidth > tocWidth) {
-         tocWidth = textWidth;
-      }
+        tocBackground.setAttribute("id", "sozi-toc-background");
+        tocBackground.setAttribute("x", tocMargin);
+        tocBackground.setAttribute("y", tocMargin);
+        tocBackground.setAttribute("rx", tocMargin);
+        tocBackground.setAttribute("ry", tocMargin);
+        linksBox.appendChild(tocBackground);
 
-      text.setAttribute("x", 2 * tocMargin);
-      text.setAttribute("y", textY + tocMargin);
-
-      text.addEventListener("click", function (index, evt) {
-            this.controller.previewFrame(index);
+        tocBackground.addEventListener("click", function (evt) {
             evt.stopPropagation();
-         }.bind(this, i), false
-      );
+        }, false);
+         
+        tocBackground.addEventListener("mousedown", function (evt) {
+            evt.stopPropagation();
+        }, false);
+         
+        tocBackground.addEventListener("mouseout", function (evt) {
+            var rel = evt.relatedTarget;
+            while (rel !== tocGroup && rel !== exports.svgRoot) {
+                rel = rel.parentNode;
+            }
+            if (rel === exports.svgRoot) {
+                exports.hideTableOfContents();
+                player.restart();
+                evt.stopPropagation();
+            }
+        }, false);
 
-      text.addEventListener("mousedown", function(evt) {
-         evt.stopPropagation();
-      }, false);
-   }
+        function tocMouseDownHandler(evt) {
+            evt.stopPropagation();
+        }
+        
+        for (i = 0; i < frameCount; i++) {
+            text = document.createElementNS(SVG_NS, "text");
+            text.appendChild(document.createTextNode(player.frames[i].title));
 
-   tocUp.setAttribute("class", "sozi-toc-arrow");
-   tocUp.setAttribute("d", "M" + (tocWidth+3*tocMargin) + "," + (5*tocMargin) + 
-                          " l" + (4*tocMargin) + ",0" +
-                          " l-" + (2*tocMargin) + ",-" + (3*tocMargin) +
-                          " z");
-   
-   tocDown.setAttribute("class", "sozi-toc-arrow");
-   tocDown.setAttribute("d", "M" + (tocWidth+3*tocMargin) + "," + (7*tocMargin) + 
-                            " l" + (4*tocMargin) + ",0" +
-                            " l-" + (2*tocMargin) + "," + (3*tocMargin) +
-                            " z");
+            linksBox.appendChild(text);
+            textWidth = text.getBBox().width;
+            textY += text.getBBox().height;
+            if (textWidth > tocWidth) {
+                tocWidth = textWidth;
+            }
 
-   tocUp.addEventListener("click", function(evt) {
-      var ty = linksBox.getCTM().f;
-      if(ty <= -window.innerHeight / 2) {
-         ty += window.innerHeight / 2;
-      }
-      else if(ty < 0) {
-         ty = 0;
-      }
-      linksBox.setAttribute("transform", "translate(0," + ty + ")");
-      evt.stopPropagation();
-   }.bind(this), false);
+            text.setAttribute("x", 2 * tocMargin);
+            text.setAttribute("y", textY + tocMargin);
 
-   tocUp.addEventListener("mousedown", function(evt) {
-      evt.stopPropagation();
-   }, false);
+            text.addEventListener("click", makeTocClickHandler(i), false);
+
+            text.addEventListener("mousedown", tocMouseDownHandler, false);
+        }
+
+        tocUp.setAttribute("class", "sozi-toc-arrow");
+        tocUp.setAttribute("d", "M" + (tocWidth + 3 * tocMargin) + "," + (5 * tocMargin) + 
+                           " l" + (4 * tocMargin) + ",0" +
+                           " l-" + (2 * tocMargin) + ",-" + (3 * tocMargin) +
+                           " z");
       
-   tocDown.addEventListener("click", function(evt) {
-      var ty = linksBox.getCTM().f;
-      if(ty + textY >= window.innerHeight * 3 / 2) {
-         ty -= window.innerHeight / 2;
-      }
-      else if(ty + textY + 2 * tocMargin > window.innerHeight + 4 * tocMargin) {
-         ty = window.innerHeight - textY - 4 * tocMargin;
-      }
-      linksBox.setAttribute("transform", "translate(0," + ty + ")");
-      evt.stopPropagation();
-   }.bind(this), false);
+        tocDown.setAttribute("class", "sozi-toc-arrow");
+        tocDown.setAttribute("d", "M" + (tocWidth + 3 * tocMargin) + "," + (7 * tocMargin) + 
+                             " l" + (4 * tocMargin) + ",0" +
+                             " l-" + (2 * tocMargin) + "," + (3 * tocMargin) +
+                             " z");
 
-   tocDown.addEventListener("mousedown", function(evt) {
-      evt.stopPropagation();
-   }, false);
-   
-   this.tocGroup.appendChild(tocUp);
-   this.tocGroup.appendChild(tocDown);
+        tocUp.addEventListener("click", function (evt) {
+            var ty = linksBox.getCTM().f;
+            if (ty <= -window.innerHeight / 2) {
+                ty += window.innerHeight / 2;
+            } else if (ty < 0) {
+                ty = 0;
+            }
+            linksBox.setAttribute("transform", "translate(0," + ty + ")");
+            evt.stopPropagation();
+        }, false);
 
-   tocBackground.setAttribute("width", tocWidth + 7 * tocMargin);
-   tocBackground.setAttribute("height", textY + 2 * tocMargin);
-};
+        tocUp.addEventListener("mousedown", function (evt) {
+            evt.stopPropagation();
+        }, false);
+         
+        tocDown.addEventListener("click", function (evt) {
+            var ty = linksBox.getCTM().f;
+            if (ty + textY >= window.innerHeight * 3 / 2) {
+                ty -= window.innerHeight / 2;
+            } else if (ty + textY + 2 * tocMargin > window.innerHeight + 4 * tocMargin) {
+                ty = window.innerHeight - textY - 4 * tocMargin;
+            }
+            linksBox.setAttribute("transform", "translate(0," + ty + ")");
+            evt.stopPropagation();
+        }, false);
 
-/*
- * Makes the table of contents visible.
- */
-sozi.Display.prototype.showTableOfContents = function () {
-   // Expand the clip path to the whole window
-   this.clipRect.setAttribute("x", 0);
-   this.clipRect.setAttribute("y", 0);
-   this.clipRect.setAttribute("width", window.innerWidth);
-   this.clipRect.setAttribute("height", window.innerHeight);
+        tocDown.addEventListener("mousedown", function (evt) {
+            evt.stopPropagation();
+        }, false);
+      
+        tocGroup.appendChild(tocUp);
+        tocGroup.appendChild(tocDown);
 
-   // Show table of contents
-   this.tocGroup.setAttribute("visibility", "visible");
-};
+        tocBackground.setAttribute("width", tocWidth + 7 * tocMargin);
+        tocBackground.setAttribute("height", textY + 2 * tocMargin);
+    };
 
-/*
- * Makes the table of contents invisible.
- */
-sozi.Display.prototype.hideTableOfContents = function () {
-   var g = this.getFrameGeometry();
+    /*
+     * Makes the table of contents visible.
+     */
+    exports.showTableOfContents = function () {
+        // Expand the clip path to the whole window
+        clipRect.setAttribute("x", 0);
+        clipRect.setAttribute("y", 0);
+        clipRect.setAttribute("width", window.innerWidth);
+        clipRect.setAttribute("height", window.innerHeight);
 
-   // Hide table of contents
-   this.tocGroup.setAttribute("visibility", "hidden");
+        // Show table of contents
+        tocGroup.setAttribute("visibility", "visible");
+    };
 
-   // Adjust the location and size of the clipping rectangle and the frame rectangle
-   this.clipRect.setAttribute("x", g.x);
-   this.clipRect.setAttribute("y", g.y);
-   this.clipRect.setAttribute("width", g.width);
-   this.clipRect.setAttribute("height", g.height);
-};
+    /*
+     * Makes the table of contents invisible.
+     */
+    exports.hideTableOfContents = function () {
+        var g = getFrameGeometry();
 
-/*
- * Returns true if the table of contents is visible, false otherwise.
- */
-sozi.Display.prototype.tableOfContentsIsVisible = function () {
-   return this.tocGroup.getAttribute("visibility") === "visible";
-};
+        // Hide table of contents
+        tocGroup.setAttribute("visibility", "hidden");
 
-// vim: sw=3
+        // Adjust the location and size of the clipping rectangle and the frame rectangle
+        clipRect.setAttribute("x", g.x);
+        clipRect.setAttribute("y", g.y);
+        clipRect.setAttribute("width", g.width);
+        clipRect.setAttribute("height", g.height);
+    };
 
+    /*
+     * Returns true if the table of contents is visible, false otherwise.
+     */
+    exports.tableOfContentsIsVisible = function () {
+        return tocGroup.getAttribute("visibility") === "visible";
+    };
+    
+    return exports;
+}();
