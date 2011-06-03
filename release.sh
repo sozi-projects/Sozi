@@ -12,7 +12,7 @@
 # See http://sozi.baierouge.fr/wiki/en:license for details.
 
 VERSION=`date +%y.%m-%d%H%M%S`
-SOURCE='README doc/install*.html doc/LICENSE editor/sozi.inx editor/sozi.py extras/sozi_extras_addvideo.inx extras/sozi_extras_addvideo.py'
+SOURCE='README doc/install*.html doc/*license.txt editor/sozi.inx editor/sozi.py extras/sozi_extras_addvideo.inx extras/sozi_extras_addvideo.py'
 TARGET=sozi-release-$VERSION.zip
 
 rm -rf release
