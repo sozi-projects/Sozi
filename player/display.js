@@ -11,11 +11,9 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
-/*jslint plusplus: false, indent: 4, browser: true */
-
 var sozi = sozi || {};
 
-sozi.display = function () {
+sozi.display = (function () {
     var exports = {},
         player,
         tocGroup,
@@ -440,4 +438,4 @@ sozi.display = function () {
     };
     
     return exports;
-}();
+}());

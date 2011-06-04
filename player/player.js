@@ -11,11 +11,9 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
-/*jslint plusplus: false, indent: 4, browser: true */
-
 var sozi = sozi || {};
 
-sozi.player = function () {
+sozi.player = (function () {
     var exports = {},
         display,
         animator,
@@ -102,12 +100,12 @@ sozi.player = function () {
      * or internally, by the script modifying window.location.hash.
      * We move to the given index only if the hash is different from the current frame index. 
      */
-    onHashChange = function () {
+    function onHashChange() {
         var index = getFrameIndexFromURL();
         if (index !== currentFrameIndex) {
             exports.moveToFrame(index);
         }
-    };
+    }
 
     /*
      * Event handler: animation step.
@@ -125,7 +123,7 @@ sozi.player = function () {
      * Parameter progress is a float number between 0 (start of the animation)
      * and 1 (end of the animation).
      */
-    onAnimationStep = function (progress, data) {
+    function onAnimationStep(progress, data) {
         var remaining = 1 - progress,
             profileProgress = data.profile(progress),
             profileRemaining = 1 - profileProgress,
@@ -153,7 +151,7 @@ sozi.player = function () {
         display.clip = data.finalState.clip;
 
         display.update();
-    };
+    }
 
     /*
      * Event handler: animation done.
@@ -163,12 +161,12 @@ sozi.player = function () {
      * If the animation was a transition in the normal course of the presentation,
      * then we call the waitTimeout method to process the timeout property of the current frame.
      */
-    onAnimationDone = function () {
+    function onAnimationDone() {
         sourceFrameIndex = currentFrameIndex;
         if (playing) {
             waitTimeout();
         }
-    };
+    }
 
     /*
      * Event handler: document load.
@@ -177,7 +175,7 @@ sozi.player = function () {
      * event handlers for the current document.
      * The first frame, or the frame which number is given in the URL, is shown.
      */
-    onLoad = function () {
+    function onLoad() {
         display = sozi.display;
         display.onLoad();
 
@@ -187,7 +185,7 @@ sozi.player = function () {
         display.installTableOfContents();
 
         exports.startFromIndex(getFrameIndexFromURL());
-    };
+    }
 
     /*
      * Returns the frame index given in the URL hash.
@@ -199,7 +197,7 @@ sozi.player = function () {
      * It the URL hash is an integer greater than the last frame index, then
      * the last frame index is returned.
      */
-    getFrameIndexFromURL = function () {
+    function getFrameIndexFromURL() {
         var index = window.location.hash ? parseInt(window.location.hash.slice(1), 10) - 1 : 0;
         if (isNaN(index) || index < 0) {
             return 0;
@@ -208,7 +206,7 @@ sozi.player = function () {
         } else {
             return index;
         }
-    };
+    }
 
     /*
      * Returns the value of an attribute of a given SVG element.
@@ -216,10 +214,10 @@ sozi.player = function () {
      * If the attribute is not set, then a default value is returned.
      * See DEFAULTS.
      */
-    readAttribute = function (elt, attr) {
+    function readAttribute(elt, attr) {
         var value = elt.getAttributeNS(SOZI_NS, attr);
         return value === "" ? DEFAULTS[attr] : value;
-    };
+    }
 
     /*
      * Builds the list of frames from the current document.
@@ -230,7 +228,7 @@ sozi.player = function () {
      *
      * The resulting list is available in frames, sorted by frame indices.
      */
-    readFrames = function () {
+    function readFrames() {
         var frameElements = document.getElementsByTagNameNS(SOZI_NS, "frame"),
             frameCount = frameElements.length,
             svgElement,
@@ -263,7 +261,7 @@ sozi.player = function () {
                 return a.sequence - b.sequence;
             }
         );
-    };
+    }
 
     /*
      * Starts the presentation from the given frame index (0-based).
@@ -312,7 +310,7 @@ sozi.player = function () {
      * If the current frame is the last, the presentation will
      * move to the first frame.
      */
-    waitTimeout = function () {
+    function waitTimeout() {
         var index;
         if (exports.frames[currentFrameIndex].timeoutEnable) {
             waiting = true;
@@ -322,9 +320,9 @@ sozi.player = function () {
                 exports.frames[currentFrameIndex].timeoutMs
             );
         }
-    };
+    }
 
-    getZoomData = function (zoomPercent, s0, s1) {
+    function getZoomData(zoomPercent, s0, s1) {
         var result = {
                 ss: ((zoomPercent < 0) ? Math.max(s0, s1) : Math.min(s0, s1)) * (100 - zoomPercent) / 100,
                 ts: 0.5,
@@ -355,7 +353,7 @@ sozi.player = function () {
         }
 
         return result;
-    };
+    }
 
     /*
      * Jump to a frame with the given index (0-based).
@@ -578,4 +576,4 @@ sozi.player = function () {
     window.addEventListener("load", onLoad, false);
 
     return exports;
-}();
+}());
