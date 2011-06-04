@@ -15,7 +15,7 @@ JSMIN=`which jsmin`
 YUI1=`which yui-compressor`
 YUI2=`which yuicompressor`
 
-PLAYER_JS='player/common.js player/display.js player/animator.js player/player.js'
+PLAYER_JS='player/*.js'
 PLAYER_CSS='player/sozi.css'
 
 if [ -n "$YUI1" ]; then

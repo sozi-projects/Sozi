@@ -22,18 +22,12 @@ sozi.player = function () {
         profiles,
         DEFAULTS,
         SOZI_NS = "http://sozi.baierouge.fr",
-        DRAG_BUTTON = 0, // Left button
-        TOC_BUTTON = 1, // Middle button
         DEFAULT_DURATION_MS = 500,
         DEFAULT_ZOOM_PERCENT = -10,
         DEFAULT_PROFILE = "linear",
         SCALE_FACTOR = 1.05,
         sourceFrameIndex = 0,
         currentFrameIndex = 0,
-        dragButtonIsDown,
-        dragged,
-        dragClientX,
-        dragClientY,
         playing = false,
         waiting = false;
 
@@ -95,170 +89,6 @@ sozi.player = function () {
         "transition-duration-ms": "1000",
         "transition-zoom-percent": "0",
         "transition-profile": "linear"
-    };
-
-    /*
-     * Event handler: mouse down.
-     *
-     * When the left button is pressed, we register the current coordinates
-     * in case the mouse will be dragged. Flag "dragButtonIsDown" is set until
-     * the button is released (onMouseUp). This flag is used by onMouseMove.
-     *
-     * When the middle button is pressed, the table of contents is shown or hidden.
-     */
-    onMouseDown = function (evt) {
-        if (evt.button === DRAG_BUTTON) {
-            dragButtonIsDown = true;
-            dragged = false;
-            dragClientX = evt.clientX;
-            dragClientY = evt.clientY;
-        } else if (evt.button === TOC_BUTTON) {
-            exports.toggleTableOfContents();
-        }
-        evt.stopPropagation();
-    };
-
-    /*
-     * Event handler: mouse move.
-     *
-     * If the left mouse button is down, then the mouse move is a drag action.
-     * This method computes the displacement since the button was pressed or
-     * since the last move, and updates the reference coordinates for the next move.
-     */
-    onMouseMove = function (evt) {
-        if (dragButtonIsDown) {
-            exports.stop();
-            dragged = true;
-            display.drag(evt.clientX - dragClientX, evt.clientY - dragClientY);
-            dragClientX = evt.clientX;
-            dragClientY = evt.clientY;
-        }
-        evt.stopPropagation();
-    };
-
-    /*
-     * Event handler: mouse up.
-     *
-     * Releasing the left button resets the "dragButtonIsDown" flag.
-     */
-    onMouseUp = function (evt) {
-        if (evt.button === DRAG_BUTTON) {
-            dragButtonIsDown = false;
-        }
-        evt.stopPropagation();
-    };
-
-    /*
-     * Event handler: mouse click.
-     *
-     * Left-click moves the presentation to the next frame.
-     *
-     * No "click" event is generated for the middle button.
-     * See "onMouseDown" for middle click handling.
-     *
-     * Dragging the mouse produces a "click" event when the button is released.
-     * If flag "dragged" was set by "onMouseMove", then the click event is the result
-     * of a drag action.
-     */
-    onClick = function (evt) {
-        if (!dragged) {
-            exports.moveToNext();
-        }
-        evt.stopPropagation();
-    };
-
-    /*
-     * Event handler: mouse wheel.
-     *
-     * Rolling the mouse wheel stops the presentation and zooms the current display.
-     */
-    onWheel = function (evt) {
-        var delta = 0;
-        if (!evt) {
-            evt = window.event;
-        }
-        if (evt.wheelDelta) { // IE and Opera
-            delta = evt.wheelDelta; 
-            if (window.opera) { // Opera
-                delta = -delta;
-            }
-        } else if (evt.detail) { // Mozilla
-            delta = -evt.detail;
-        }
-
-        if (delta !== 0) {
-            exports.zoom(delta, evt.clientX, evt.clientY);
-        }
-        evt.stopPropagation();
-        evt.preventDefault();
-    };
-
-    /*
-     * Event handler: key press.
-     *
-     * Keyboard handling is split into two methods: onKeyPress and onKeyDown
-     * in order to get the same behavior in Mozilla and Webkit.
-     *
-     * This method handles character keys "+", "-", "=", "F" and "T".
-     */
-    onKeyPress = function (evt) {
-        switch (evt.charCode) {
-        case 43: // +
-            exports.zoom(1, window.innerWidth / 2, window.innerHeight / 2);
-            break;
-        case 45: // -
-            exports.zoom(-1, window.innerWidth / 2, window.innerHeight / 2);
-            break;
-        case 61: // =
-            exports.moveToCurrent();
-            break;
-        case 70: // F
-        case 102: // f
-            exports.showAll();
-            break;
-        case 84: // T
-        case 116: // t
-            exports.toggleTableOfContents();
-            break;
-        }
-        evt.stopPropagation();
-    };
-
-    /*
-     * Event handler: key down.
-     *
-     * Keyboard handling is split into two methods: onKeyPress and onKeyDown
-     * in order to get the same behavior in Mozilla and Webkit.
-     *
-     * This method handles navigation keys (arrows, page up/down, home, end)
-     * and the space and enter keys.
-     */
-    onKeyDown = function (evt) {
-        switch (evt.keyCode) {
-        case 36: // Home
-            exports.moveToFirst();
-            break;
-        case 35: // End
-            exports.moveToLast();
-            break;
-        case 38: // Arrow up
-            exports.jumpToPrevious();
-            break;
-        case 33: // Page up
-        case 37: // Arrow left
-            exports.moveToPrevious();
-            break;
-        case 40: // Arrow down
-            exports.jumpToNext();
-            break;
-        case 34: // Page down
-        case 39: // Arrow right
-        case 13: // Enter
-        case 32: // Space
-            exports.moveToNext();
-            break;
-        }
-        evt.stopPropagation();
     };
 
     /*
@@ -357,21 +187,6 @@ sozi.player = function () {
         display.installTableOfContents();
 
         exports.startFromIndex(getFrameIndexFromURL());
-
-        // TODO also use shift-click as an alternative for middle-click
-        display.svgRoot.addEventListener("click", onClick, false);
-        display.svgRoot.addEventListener("mousedown", onMouseDown, false);
-        display.svgRoot.addEventListener("mouseup", onMouseUp, false);
-        display.svgRoot.addEventListener("mousemove", onMouseMove, false);
-        display.svgRoot.addEventListener("keypress", onKeyPress, false);
-        display.svgRoot.addEventListener("keydown", onKeyDown, false);
-        window.addEventListener("hashchange", onHashChange, false);
-        window.addEventListener("resize", display.resize, false);
-
-        display.svgRoot.addEventListener("DOMMouseScroll", onWheel, false); // Mozilla
-        window.onmousewheel = onWheel;
-
-        dragButtonIsDown = false;
     };
 
     /*
@@ -617,7 +432,7 @@ sozi.player = function () {
             waiting = false;
         }
 
-        if (index === (exports.currentFrameIndex + 1) % exports.frames.length) {
+        if (index === (currentFrameIndex + 1) % exports.frames.length) {
             durationMs = exports.frames[index].transitionDurationMs;
             zoomPercent = exports.frames[index].transitionZoomPercent;
             profile = exports.frames[index].transitionProfile;
@@ -718,7 +533,7 @@ sozi.player = function () {
      * e.g. after the display has been zoomed or dragged.
      */
     exports.moveToCurrent = function () {
-        exports.moveToFrame(exports.currentFrameIndex);
+        exports.moveToFrame(currentFrameIndex);
     };
 
     /*
