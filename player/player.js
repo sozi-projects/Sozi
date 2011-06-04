@@ -184,6 +184,8 @@ sozi.player = (function () {
         readFrames();
         display.installTableOfContents();
 
+        window.addEventListener("hashchange", onHashChange, false);
+
         exports.startFromIndex(getFrameIndexFromURL());
     }
 
