@@ -30,7 +30,7 @@
      *
      * When the middle button is pressed, the table of contents is shown or hidden.
      */
-     function onMouseDown(evt) {
+    function onMouseDown(evt) {
         if (evt.button === DRAG_BUTTON) {
             dragButtonIsDown = true;
             dragged = false;
@@ -40,7 +40,7 @@
             player.toggleTableOfContents();
         }
         evt.stopPropagation();
-    };
+    }
 
     /*
      * Event handler: mouse move.
@@ -49,7 +49,7 @@
      * This method computes the displacement since the button was pressed or
      * since the last move, and updates the reference coordinates for the next move.
      */
-     function onMouseMove(evt) {
+    function onMouseMove(evt) {
         if (dragButtonIsDown) {
             player.stop();
             dragged = true;
@@ -58,19 +58,19 @@
             dragClientY = evt.clientY;
         }
         evt.stopPropagation();
-    };
+    }
 
     /*
      * Event handler: mouse up.
      *
      * Releasing the left button resets the "dragButtonIsDown" flag.
      */
-    onMouseUp = function (evt) {
+    function onMouseUp(evt) {
         if (evt.button === DRAG_BUTTON) {
             dragButtonIsDown = false;
         }
         evt.stopPropagation();
-    };
+    }
 
     /*
      * Event handler: mouse click.
@@ -84,19 +84,19 @@
      * If flag "dragged" was set by "onMouseMove", then the click event is the result
      * of a drag action.
      */
-    onClick = function (evt) {
+    function onClick(evt) {
         if (!dragged) {
             player.moveToNext();
         }
         evt.stopPropagation();
-    };
+    }
 
     /*
      * Event handler: mouse wheel.
      *
      * Rolling the mouse wheel stops the presentation and zooms the current display.
      */
-    onWheel = function (evt) {
+    function onWheel(evt) {
         var delta = 0;
         if (!evt) {
             evt = window.event;
@@ -115,7 +115,7 @@
         }
         evt.stopPropagation();
         evt.preventDefault();
-    };
+    }
 
     /*
      * Event handler: key press.
@@ -125,7 +125,7 @@
      *
      * This method handles character keys "+", "-", "=", "F" and "T".
      */
-    onKeyPress = function (evt) {
+    function onKeyPress(evt) {
         switch (evt.charCode) {
         case 43: // +
             player.zoom(1, window.innerWidth / 2, window.innerHeight / 2);
@@ -146,7 +146,7 @@
             break;
         }
         evt.stopPropagation();
-    };
+    }
 
     /*
      * Event handler: key down.
@@ -157,7 +157,7 @@
      * This method handles navigation keys (arrows, page up/down, home, end)
      * and the space and enter keys.
      */
-    onKeyDown = function (evt) {
+    function onKeyDown(evt) {
         switch (evt.keyCode) {
         case 36: // Home
             player.moveToFirst();
@@ -183,7 +183,7 @@
             break;
         }
         evt.stopPropagation();
-    };
+    }
 
     function onLoad() {
         var svgRoot = document.documentElement;
@@ -206,4 +206,4 @@
     }
 
     window.addEventListener("load", onLoad, false);
-})();
+}());
