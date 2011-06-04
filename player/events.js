@@ -198,8 +198,6 @@
         svgRoot.addEventListener("mousemove", onMouseMove, false);
         svgRoot.addEventListener("keypress", onKeyPress, false);
         svgRoot.addEventListener("keydown", onKeyDown, false);
-        window.addEventListener("resize", display.resize, false);
-
         svgRoot.addEventListener("DOMMouseScroll", onWheel, false); // Mozilla
         window.onmousewheel = onWheel;
     }

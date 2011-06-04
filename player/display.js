@@ -78,16 +78,18 @@ sozi.display = (function () {
 
         exports.svgRoot.setAttribute("width", window.innerWidth);
         exports.svgRoot.setAttribute("height", window.innerHeight);
+        
+        window.addEventListener("resize", resize, false);
     };
 
     /*
      * Resizes the SVG document to fit the browser window.
      */
-    exports.resize = function () {
+    function resize() {
         exports.svgRoot.setAttribute("width", window.innerWidth);
         exports.svgRoot.setAttribute("height", window.innerHeight);
         exports.update();
-    };
+    }
 
     /*
      * Returns an object with the geometrical properties of the current display.
@@ -97,7 +99,7 @@ sozi.display = (function () {
      *    - width, height: the size of the visible area, in pixels
      *    - scale: the scale factor to apply to the SVG document so that is fits the visible area
      */
-    getFrameGeometry = function () {
+    function getFrameGeometry() {
         var result = {};
         result.scale = Math.min(window.innerWidth / exports.geometry.width, window.innerHeight / exports.geometry.height);
         result.width = exports.geometry.width * result.scale;
@@ -105,7 +107,7 @@ sozi.display = (function () {
         result.x = (window.innerWidth - result.width) / 2;
         result.y = (window.innerHeight - result.height) / 2;
         return result;
-    };
+    }
 
     /*
      * Returns the geometrical properties of the frame that can be
@@ -265,12 +267,12 @@ sozi.display = (function () {
         exports.drag(deltaX, deltaY);
     };
 
-    makeTocClickHandler = function (index) {
+    function makeTocClickHandler(index) {
         return function (evt) {
             player.previewFrame(index);
             evt.stopPropagation();
         };
-    };
+    }
    
     /*
      * Adds a table of contents to the document.
