@@ -11,16 +11,12 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
-/*jslint plusplus: false, indent: 3, browser: true */
-/*global window: true */
-
 Function.prototype.bind = function (obj) {
-   var args = Array.prototype.slice.call(arguments, 1),
-       f = this;
-   return function () {
-      f.apply(obj, args.concat(Array.prototype.slice.call(arguments)));
-   };
+    var args = Array.prototype.slice.call(arguments, 1),
+        f = this;
+    return function () {
+        f.apply(obj, args.concat(Array.prototype.slice.call(arguments)));
+    };
 };
 
-// vim: sw=3
 

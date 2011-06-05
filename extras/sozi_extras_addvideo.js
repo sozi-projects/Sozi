@@ -11,16 +11,16 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
 	var	svgNs = "http://www.w3.org/2000/svg",
-		soziNs = "http://sozi.baierouge.fr",
+	    soziNs = "http://sozi.baierouge.fr",
 		xhtmlNs = "http://www.w3.org/1999/xhtml",
 		videoSources = document.getElementsByTagNameNS(soziNs, "video"),
 		videos, i, j, rect, foreignObject,
 		html, htmlVideo, htmlSource;
 
 	videos = [];
-	for(i=0; i<videoSources.length; i++) {
+	for (i=0; i<videoSources.length; i++) {
 		rect = videoSources[i].parentNode;
 	
 		// Create HTML video source element
@@ -28,13 +28,13 @@ window.addEventListener("load", function() {
 		htmlSource.setAttribute("type", videoSources[i].getAttribute("type"));
 		htmlSource.setAttribute("src", videoSources[i].getAttribute("src"));
 
-		for(j=0; j<videos.length; j++) {
-			if(videos[j].rect == rect) {
+		for (j = 0; j < videos.length; j++) {
+			if(videos[j].rect === rect) {
 				break;
 			}
 		}
 	
-		if(j == videos.length) {
+		if (j === videos.length) {
 			// Create HTML video element
 			htmlVideo = document.createElementNS(xhtmlNs, "video");
 			// htmlVideo.setAttribute("poster", "__dummy__.png");
@@ -52,14 +52,14 @@ window.addEventListener("load", function() {
 			foreignObject.setAttribute("y", rect.getAttribute("y"));
 			foreignObject.setAttribute("width", rect.getAttribute("width"));
 			foreignObject.setAttribute("height", rect.getAttribute("height"));
-			foreignObject.appendChild(html)
+			foreignObject.appendChild(html);
 				
 			rect.parentNode.insertBefore(foreignObject, rect.nextSibling);
 				
 			videos.push({
 				rect: videoSources[i].parentNode,
 				htmlVideo: htmlVideo
-			})
+			});
 		}
 	
 		// Append HTML source element to current HTML video element
