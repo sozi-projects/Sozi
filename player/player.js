@@ -270,8 +270,9 @@ sozi.player = (function () {
         if (exports.frames[currentFrameIndex].timeoutEnable) {
             waiting = true;
             index = (currentFrameIndex + 1) % exports.frames.length;
-            nextFrameTimeout = window.setTimeout(
-                exports.moveToFrame.bind(this, index),
+            nextFrameTimeout = window.setTimeout(function () {
+                    exports.moveToFrame(index);
+                },
                 exports.frames[currentFrameIndex].timeoutMs
             );
         }
