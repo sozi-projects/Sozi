@@ -17,7 +17,6 @@ sozi.player = (function () {
     var exports = {},
         display,
         animator,
-        profiles,
         DEFAULTS,
         SOZI_NS = "http://sozi.baierouge.fr",
         DEFAULT_DURATION_MS = 500,
@@ -30,52 +29,6 @@ sozi.player = (function () {
         waiting = false;
 
     exports.frames = [];
-
-    profiles = {
-        "linear": function (x) {
-            return x;
-        },
-
-        "accelerate": function (x) {
-            return Math.pow(x, 3);
-        },
-
-        "strong-accelerate": function (x) {
-            return Math.pow(x, 5);
-        },
-
-        "decelerate": function (x) {
-            return 1 - Math.pow(1 - x, 3);
-        },
-
-        "strong-decelerate": function (x) {
-            return 1 - Math.pow(1 - x, 5);
-        },
-
-        "accelerate-decelerate": function (x) {
-            var xs = x <= 0.5 ? x : 1 - x,
-                y = Math.pow(2 * xs, 3) / 2;
-            return x <= 0.5 ? y : 1 - y;
-        },
-
-        "strong-accelerate-decelerate": function (x) {
-            var xs = x <= 0.5 ? x : 1 - x,
-                y = Math.pow(2 * xs, 5) / 2;
-            return x <= 0.5 ? y : 1 - y;
-        },
-
-        "decelerate-accelerate": function (x) {
-            var xs = x <= 0.5 ? x : 1 - x,
-                y = (1 - Math.pow(1 - 2 * xs, 2)) / 2;
-            return x <= 0.5 ? y : 1 - y;
-        },
-
-        "strong-decelerate-accelerate": function (x) {
-            var xs = x <= 0.5 ? x : 1 - x,
-                y = (1 - Math.pow(1 - 2 * xs, 3)) / 2;
-            return x <= 0.5 ? y : 1 - y;
-        }
-    };
 
     DEFAULTS = {
         "title": "Untitled",
@@ -179,7 +132,7 @@ sozi.player = (function () {
         display = sozi.display;
         display.onLoad();
 
-        animator = new sozi.Animator(40, onAnimationStep, onAnimationDone);
+        animator = new sozi.animation.Animator(40, onAnimationStep, onAnimationDone);
 
         readFrames();
         display.installTableOfContents();
@@ -249,7 +202,7 @@ sozi.player = (function () {
                     timeoutMs: parseInt(readAttribute(frameElements[i], "timeout-ms"), 10),
                     transitionDurationMs: parseInt(readAttribute(frameElements[i], "transition-duration-ms"), 10),
                     transitionZoomPercent: parseInt(readAttribute(frameElements[i], "transition-zoom-percent"), 10),
-                    transitionProfile: profiles[readAttribute(frameElements[i], "transition-profile") || "linear"]
+                    transitionProfile: sozi.animation.profiles[readAttribute(frameElements[i], "transition-profile") || "linear"]
                 };
                 if (newFrame.hide) {
                     svgElement.setAttribute("visibility", "hidden");
@@ -399,7 +352,7 @@ sozi.player = (function () {
         animator.start(DEFAULT_DURATION_MS,  {
             initialState: display.getCurrentGeometry(),
             finalState: finalState,
-            profile: profiles[DEFAULT_PROFILE],
+            profile: sozi.animation.profiles[DEFAULT_PROFILE],
             zoomWidth: zw,
             zoomHeight: zh
         });
@@ -423,7 +376,7 @@ sozi.player = (function () {
     exports.moveToFrame = function (index) {
         var durationMs = DEFAULT_DURATION_MS,
             zoomPercent = DEFAULT_ZOOM_PERCENT,
-            profile = profiles[DEFAULT_PROFILE],
+            profile = sozi.animation.profiles[DEFAULT_PROFILE],
             zw,
             zh;
 
@@ -547,7 +500,7 @@ sozi.player = (function () {
         animator.start(DEFAULT_DURATION_MS, {
             initialState: display.getCurrentGeometry(),
             finalState: display.getDocumentGeometry(),
-            profile: profiles[DEFAULT_PROFILE]
+            profile: sozi.animation.profiles[DEFAULT_PROFILE]
         });
     };
 
