@@ -15,6 +15,7 @@ var sozi = sozi || {};
 
 sozi.player = (function () {
     var exports = {},
+        listeners = {},
         display,
         animator,
         DEFAULTS,
@@ -43,23 +44,40 @@ sozi.player = (function () {
     };
 
     /*
-     * Event handler: hash change.
+     * Adds a listener for a given event type.
      *
-     * This method is called when the URL hash is changed.
-     * If the hash was changed manually in the address bar, and if it corresponds to
-     * a valid frame number, then the presentation moves to that frame.
-     *
-     * The hashchange event can be triggered externally, by the user modifying the URL,
-     * or internally, by the script modifying window.location.hash.
-     * We move to the given index only if the hash is different from the current frame index. 
+     * The event type is provided as a string by the key parameter.
+     * The function to be executed is provided by the handler parameter.
      */
-    function onHashChange() {
-        var index = getFrameIndexFromURL();
-        if (index !== currentFrameIndex) {
-            exports.moveToFrame(index);
+    exports.addListener = function (key, handler) {
+        var listenersForKey = listeners[key];
+        if (!listenersForKey) {
+            listenersForKey = listeners[key] = [];
+        }
+        listenersForKey.push(handler);
+    };
+    
+    /*
+     * Fire an event of the given type.
+     *
+     * All event handlers added for the given event type are
+     * executed.
+     * Additional arguments provided to this function are passed
+     * to the event handlers.
+     */
+    function fireEvent (key) {
+        var listenersForKey = listeners[key],
+            len,
+            i,
+            args = Array.prototype.slice.call(arguments, 1);
+        if (listenersForKey) {
+            len = listenersForKey.length;
+            for (i = 0; i < len; i++) {
+                listenersForKey[i].apply(null, args);
+            }
         }
     }
-
+    
     /*
      * Event handler: animation step.
      *
@@ -124,8 +142,7 @@ sozi.player = (function () {
     /*
      * Event handler: document load.
      *
-     * This method initializes the display object, reads the frames, and registers all other
-     * event handlers for the current document.
+     * This function initializes the animator, reads the frames.
      * The first frame, or the frame which number is given in the URL, is shown.
      */
     function onLoad() {
@@ -137,30 +154,7 @@ sozi.player = (function () {
         readFrames();
         display.installTableOfContents();
 
-        window.addEventListener("hashchange", onHashChange, false);
-
-        exports.startFromIndex(getFrameIndexFromURL());
-    }
-
-    /*
-     * Returns the frame index given in the URL hash.
-     *
-     * In the URL, the frame index starts a 1.
-     * This method converts it into a 0-based index.
-     *
-     * If the URL hash is not a positive integer, then 0 is returned.
-     * It the URL hash is an integer greater than the last frame index, then
-     * the last frame index is returned.
-     */
-    function getFrameIndexFromURL() {
-        var index = window.location.hash ? parseInt(window.location.hash.slice(1), 10) - 1 : 0;
-        if (isNaN(index) || index < 0) {
-            return 0;
-        } else if (index >= exports.frames.length) {
-            return exports.frames.length - 1;
-        } else {
-            return index;
-        }
+        exports.startFromIndex(sozi.location.getFrameIndex());
     }
 
     /*
@@ -333,8 +327,7 @@ sozi.player = (function () {
         currentFrameIndex = index;
         display.showFrame(exports.frames[index]);
 
-        // Update URL hash with the current frame index
-        window.location.hash = "#" + (index + 1);
+        fireEvent("framechange", index);
     };
 
     exports.previewFrame = function (index) {
@@ -358,8 +351,7 @@ sozi.player = (function () {
             zoomHeight: zh
         });
 
-        // Update URL hash with the current frame index
-        window.location.hash = "#" + (index + 1);
+        fireEvent("framechange", index);
     };
 
     /*
@@ -411,8 +403,7 @@ sozi.player = (function () {
             zoomHeight: zh
         });
 
-        // Update URL hash with the current frame index
-        window.location.hash = "#" + (index + 1);
+        fireEvent("framechange", index);
     };
 
     /*
