@@ -15,7 +15,6 @@ var sozi = sozi || {};
 
 sozi.location = (function () {
     var exports = {},
-        player,
         changedFromWithin = false;
     
     /*
@@ -33,8 +32,8 @@ sozi.location = (function () {
             parseInt(window.location.hash.slice(1), 10) - 1 : 0;
         if (isNaN(index) || index < 0) {
             return 0;
-        } else if (index >= player.frames.length) {
-            return player.frames.length - 1;
+        } else if (index >= sozi.document.frames.length) {
+            return sozi.document.frames.length - 1;
         } else {
             return index;
         }
@@ -53,7 +52,7 @@ sozi.location = (function () {
     function onHashChange() {
         var index = exports.getFrameIndex();
         if (!changedFromWithin) {
-            player.moveToFrame(index);
+            sozi.player.moveToFrame(index);
         }
         changedFromWithin = false;
     }
@@ -70,20 +69,12 @@ sozi.location = (function () {
         window.location.hash = "#" + (index + 1);
     }
 
-    /*
-     * Event handler: document load.
-     *
-     * This function registers all other event handlers
-     * for the current module.
-     */
     function onLoad() {
-        player = sozi.player;
-        
-        player.addListener("framechange", onFrameChange);
-        window.addEventListener("hashchange", onHashChange, false);        
+        sozi.player.addListener("framechange", onFrameChange);        
     }
     
-    window.addEventListener("load", onLoad, false);
+    window.addEventListener("hashchange", onHashChange, false);        
+    window.addEventListener("load", onLoad, false);        
 
     return exports;
 }());

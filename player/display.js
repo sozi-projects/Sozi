@@ -15,7 +15,6 @@ var sozi = sozi || {};
 
 sozi.display = (function () {
     var exports = {},
-        player,
         tocGroup,
         clipRect,
         wrapper,
@@ -44,8 +43,6 @@ sozi.display = (function () {
         var n,
             clipPath = document.createElementNS(SVG_NS, "clipPath");
 
-        player = sozi.player;
-      
         exports.svgRoot = document.documentElement; // TODO check SVG tag
 
         // Remove viewbox if needed
@@ -269,7 +266,7 @@ sozi.display = (function () {
 
     function makeTocClickHandler(index) {
         return function (evt) {
-            player.previewFrame(index);
+            sozi.player.previewFrame(index);
             evt.stopPropagation();
         };
     }
@@ -293,7 +290,7 @@ sozi.display = (function () {
             tocWidth = 0,
             textY = 0,
             textWidth,
-            frameCount = player.frames.length,
+            frameCount = sozi.document.frames.length,
             i,
             text;
 
@@ -325,7 +322,7 @@ sozi.display = (function () {
             }
             if (rel === exports.svgRoot) {
                 exports.hideTableOfContents();
-                player.restart();
+                sozi.player.restart();
                 evt.stopPropagation();
             }
         }, false);
@@ -336,7 +333,7 @@ sozi.display = (function () {
         
         for (i = 0; i < frameCount; i++) {
             text = document.createElementNS(SVG_NS, "text");
-            text.appendChild(document.createTextNode(player.frames[i].title));
+            text.appendChild(document.createTextNode(sozi.document.frames[i].title));
 
             linksBox.appendChild(text);
             textWidth = text.getBBox().width;

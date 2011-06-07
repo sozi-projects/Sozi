@@ -18,8 +18,6 @@ sozi.player = (function () {
         listeners = {},
         display,
         animator,
-        DEFAULTS,
-        SOZI_NS = "http://sozi.baierouge.fr",
         DEFAULT_DURATION_MS = 500,
         DEFAULT_ZOOM_PERCENT = -10,
         DEFAULT_PROFILE = "linear",
@@ -29,19 +27,6 @@ sozi.player = (function () {
         playing = false,
         waiting = false;
 
-    exports.frames = [];
-
-    DEFAULTS = {
-        "title": "Untitled",
-        "sequence": "0",
-        "hide": "true",
-        "clip": "true",
-        "timeout-enable": "false",
-        "timeout-ms": "5000",
-        "transition-duration-ms": "1000",
-        "transition-zoom-percent": "0",
-        "transition-profile": "linear"
-    };
 
     /*
      * Adds a listener for a given event type.
@@ -142,75 +127,17 @@ sozi.player = (function () {
     /*
      * Event handler: document load.
      *
-     * This function initializes the animator, reads the frames.
+     * This function initializes the animator.
      * The first frame, or the frame which number is given in the URL, is shown.
      */
-    function onLoad() {
+    // TODO on frames read by module document
+    exports.onLoad = function () {
         display = sozi.display;
-        display.onLoad();
 
         animator = new sozi.animation.Animator(40, onAnimationStep, onAnimationDone);
 
-        readFrames();
-        display.installTableOfContents();
-
         exports.startFromIndex(sozi.location.getFrameIndex());
-    }
-
-    /*
-     * Returns the value of an attribute of a given SVG element.
-     *
-     * If the attribute is not set, then a default value is returned.
-     * See DEFAULTS.
-     */
-    function readAttribute(elt, attr) {
-        var value = elt.getAttributeNS(SOZI_NS, attr);
-        return value === "" ? DEFAULTS[attr] : value;
-    }
-
-    /*
-     * Builds the list of frames from the current document.
-     *
-     * This method collects all elements with tag "sozi:frame" and
-     * retrieves their geometrical and animation attributes.
-     * SVG elements that should be hidden during the presentation are hidden.
-     *
-     * The resulting list is available in frames, sorted by frame indices.
-     */
-    function readFrames() {
-        var frameElements = document.getElementsByTagNameNS(SOZI_NS, "frame"),
-            frameCount = frameElements.length,
-            svgElement,
-            i,
-            newFrame;
-
-        for (i = 0; i < frameCount; i++) {
-            svgElement = document.getElementById(frameElements[i].getAttributeNS(SOZI_NS, "refid"));
-            if (svgElement) {
-                newFrame = {
-                    geometry: display.getElementGeometry(svgElement),
-                    title: readAttribute(frameElements[i], "title"),
-                    sequence: parseInt(readAttribute(frameElements[i], "sequence"), 10),
-                    hide: readAttribute(frameElements[i], "hide") === "true",
-                    timeoutEnable: readAttribute(frameElements[i], "timeout-enable") === "true",
-                    timeoutMs: parseInt(readAttribute(frameElements[i], "timeout-ms"), 10),
-                    transitionDurationMs: parseInt(readAttribute(frameElements[i], "transition-duration-ms"), 10),
-                    transitionZoomPercent: parseInt(readAttribute(frameElements[i], "transition-zoom-percent"), 10),
-                    transitionProfile: sozi.animation.profiles[readAttribute(frameElements[i], "transition-profile") || "linear"]
-                };
-                if (newFrame.hide) {
-                    svgElement.setAttribute("visibility", "hidden");
-                }
-                newFrame.geometry.clip = readAttribute(frameElements[i], "clip") === "true";
-                exports.frames.push(newFrame);
-            }
-        }
-        exports.frames.sort(
-            function (a, b) {
-                return a.sequence - b.sequence;
-            }
-        );
-    }
+    };
 
     /*
      * Starts the presentation from the given frame index (0-based).
@@ -223,7 +150,7 @@ sozi.player = (function () {
         waiting = false;
         sourceFrameIndex = index;
         currentFrameIndex = index;
-        display.showFrame(exports.frames[index]);
+        display.showFrame(sozi.document.frames[index]);
         waitTimeout();
     };
 
@@ -261,13 +188,13 @@ sozi.player = (function () {
      */
     function waitTimeout() {
         var index;
-        if (exports.frames[currentFrameIndex].timeoutEnable) {
+        if (sozi.document.frames[currentFrameIndex].timeoutEnable) {
             waiting = true;
-            index = (currentFrameIndex + 1) % exports.frames.length;
+            index = (currentFrameIndex + 1) % sozi.document.frames.length;
             nextFrameTimeout = window.setTimeout(function () {
                     exports.moveToFrame(index);
                 },
-                exports.frames[currentFrameIndex].timeoutMs
+                sozi.document.frames[currentFrameIndex].timeoutMs
             );
         }
     }
@@ -325,13 +252,13 @@ sozi.player = (function () {
 
         sourceFrameIndex = index;
         currentFrameIndex = index;
-        display.showFrame(exports.frames[index]);
+        display.showFrame(sozi.document.frames[index]);
 
         fireEvent("framechange", index);
     };
 
     exports.previewFrame = function (index) {
-        var finalState = exports.frames[index].geometry,
+        var finalState = sozi.document.frames[index].geometry,
             zw,
             zh;
 
@@ -378,10 +305,10 @@ sozi.player = (function () {
             waiting = false;
         }
 
-        if (index === (currentFrameIndex + 1) % exports.frames.length) {
-            durationMs = exports.frames[index].transitionDurationMs;
-            zoomPercent = exports.frames[index].transitionZoomPercent;
-            profile = exports.frames[index].transitionProfile;
+        if (index === (currentFrameIndex + 1) % sozi.document.frames.length) {
+            durationMs = sozi.document.frames[index].transitionDurationMs;
+            zoomPercent = sozi.document.frames[index].transitionZoomPercent;
+            profile = sozi.document.frames[index].transitionProfile;
         }
 
         if (display.tableOfContentsIsVisible()) {
@@ -389,15 +316,15 @@ sozi.player = (function () {
         }
 
         if (zoomPercent !== 0) {
-            zw = getZoomData(zoomPercent, display.geometry.width, exports.frames[index].geometry.width);
-            zh = getZoomData(zoomPercent, display.geometry.height, exports.frames[index].geometry.height);
+            zw = getZoomData(zoomPercent, display.geometry.width, sozi.document.frames[index].geometry.width);
+            zh = getZoomData(zoomPercent, display.geometry.height, sozi.document.frames[index].geometry.height);
         }
 
         playing = true;
         currentFrameIndex = index;
         animator.start(durationMs, {
             initialState: display.getCurrentGeometry(),
-            finalState: exports.frames[currentFrameIndex].geometry,
+            finalState: sozi.document.frames[currentFrameIndex].geometry,
             profile: profile,
             zoomWidth: zw,
             zoomHeight: zh
@@ -434,7 +361,7 @@ sozi.player = (function () {
             frame;
 
         for (index--; index >= 0; index--) {
-            frame = exports.frames[index];
+            frame = sozi.document.frames[index];
             if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
                 exports.moveToFrame(index);
                 break;
@@ -450,7 +377,7 @@ sozi.player = (function () {
         if (!animator.started || sourceFrameIndex >= currentFrameIndex) {
             index += 1;
         }
-        if (index < exports.frames.length) {
+        if (index < sozi.document.frames.length) {
             exports.jumpToFrame(index);
         }
     };
@@ -459,8 +386,8 @@ sozi.player = (function () {
      * Moves to the next frame.
      */
     exports.moveToNext = function () {
-        if (currentFrameIndex < exports.frames.length - 1 || exports.frames[currentFrameIndex].timeoutEnable) {
-            exports.moveToFrame((currentFrameIndex + 1) % exports.frames.length);
+        if (currentFrameIndex < sozi.document.frames.length - 1 || sozi.document.frames[currentFrameIndex].timeoutEnable) {
+            exports.moveToFrame((currentFrameIndex + 1) % sozi.document.frames.length);
         }
     };
 
@@ -468,7 +395,7 @@ sozi.player = (function () {
      * Moves to the last frame of the presentation.
      */
     exports.moveToLast = function () {
-        exports.moveToFrame(exports.frames.length - 1);
+        exports.moveToFrame(sozi.document.frames.length - 1);
     };
 
     /*
@@ -519,8 +446,6 @@ sozi.player = (function () {
             display.showTableOfContents();
         }
     };
-
-    window.addEventListener("load", onLoad, false);
 
     return exports;
 }());
