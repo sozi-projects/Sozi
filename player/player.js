@@ -21,12 +21,10 @@ sozi.player = (function () {
         DEFAULT_DURATION_MS = 500,
         DEFAULT_ZOOM_PERCENT = -10,
         DEFAULT_PROFILE = "linear",
-        SCALE_FACTOR = 1.05,
         sourceFrameIndex = 0,
         currentFrameIndex = 0,
         playing = false,
         waiting = false;
-
 
     /*
      * Adds a listener for a given event type.
@@ -421,20 +419,6 @@ sozi.player = (function () {
             finalState: display.getDocumentGeometry(),
             profile: sozi.animation.profiles[DEFAULT_PROFILE]
         });
-    };
-
-    /*
-     * Zooms the display in the given direction.
-     *
-     * Only the sign of direction is used:
-     *    - zoom in when direction > 0
-     *    - zoom out when direction < 0
-     *
-     * The scaling is centered around point (x, y).
-     */
-    exports.zoom = function (direction, x, y) {
-        exports.stop();
-        display.applyZoomFactor(direction > 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
     };
 
     exports.toggleTableOfContents = function () {

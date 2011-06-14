@@ -256,7 +256,7 @@ sozi.display = (function () {
      * does not update the document. Method update must be called after
      * calling this method.
      */
-    exports.applyZoomFactor = function (factor, x, y) {
+    exports.zoom = function (factor, x, y) {
         var deltaX = (1 - factor) * (x - window.innerWidth / 2),
             deltaY = (1 - factor) * (y - window.innerHeight / 2);
         exports.geometry.width /= factor;

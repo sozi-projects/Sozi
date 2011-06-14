@@ -16,10 +16,25 @@
         display,
         DRAG_BUTTON = 0, // Left button
         TOC_BUTTON = 1, // Middle button
+        SCALE_FACTOR = 1.05,
         dragButtonIsDown = false,
         dragged = false,
         dragClientX = 0,
         dragClientY = 0;
+    
+    /*
+     * Zooms the display in the given direction.
+     *
+     * Only the sign of direction is used:
+     *    - zoom in when direction > 0
+     *    - zoom out when direction < 0
+     *
+     * The scaling is centered around point (x, y).
+     */
+    function zoom(direction, x, y) {
+        player.stop();
+        display.zoom(direction > 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
+    }
     
     /*
      * Event handler: mouse down.
@@ -111,7 +126,7 @@
         }
 
         if (delta !== 0) {
-            player.zoom(delta, evt.clientX, evt.clientY);
+            zoom(delta, evt.clientX, evt.clientY);
         }
         evt.stopPropagation();
         evt.preventDefault();
@@ -128,10 +143,10 @@
     function onKeyPress(evt) {
         switch (evt.charCode) {
         case 43: // +
-            player.zoom(1, window.innerWidth / 2, window.innerHeight / 2);
+            zoom(1, window.innerWidth / 2, window.innerHeight / 2);
             break;
         case 45: // -
-            player.zoom(-1, window.innerWidth / 2, window.innerHeight / 2);
+            zoom(-1, window.innerWidth / 2, window.innerHeight / 2);
             break;
         case 61: // =
             player.moveToCurrent();
