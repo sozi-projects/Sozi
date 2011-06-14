@@ -188,25 +188,6 @@ sozi.display = (function () {
     };
 
     /*
-     * Apply an additional translation to the SVG document based on onscreen coordinates.
-     *
-     * Parameters:
-     *    - deltaX: the horizontal displacement, in pixels
-     *    - deltaY: the vertical displacement, in pixels
-     */
-    exports.drag = function (deltaX, deltaY) {
-        var g = getFrameGeometry(),
-            angleRad = exports.geometry.rotate * Math.PI / 180;
-        exports.geometry.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / g.scale;
-        exports.geometry.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / g.scale;
-        exports.clip = false;
-        if (exports.tableOfContentsIsVisible()) {
-            exports.hideTableOfContents();
-        }
-        exports.update();
-    };
-
-    /*
      * Apply geometrical transformations to the image according to the current
      * geometrical attributes of this Display.
      *
@@ -248,13 +229,28 @@ sozi.display = (function () {
     };
 
     /*
+     * Apply an additional translation to the SVG document based on onscreen coordinates.
+     *
+     * Parameters:
+     *    - deltaX: the horizontal displacement, in pixels
+     *    - deltaY: the vertical displacement, in pixels
+     */
+    exports.drag = function (deltaX, deltaY) {
+        var g = getFrameGeometry(),
+            angleRad = exports.geometry.rotate * Math.PI / 180;
+        exports.geometry.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / g.scale;
+        exports.geometry.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / g.scale;
+        exports.clip = false;
+        if (exports.tableOfContentsIsVisible()) {
+            exports.hideTableOfContents();
+        }
+        exports.update();
+    };
+
+    /*
      * Zooms the display with the given factor.
      *
      * The zoom is centered around (x, y) with respect to the center of the display area.
-     *
-     * This method computes the new geometry of the display, but
-     * does not update the document. Method update must be called after
-     * calling this method.
      */
     exports.zoom = function (factor, x, y) {
         var deltaX = (1 - factor) * (x - window.innerWidth / 2),
@@ -264,6 +260,17 @@ sozi.display = (function () {
         exports.drag(deltaX, deltaY);
     };
 
+    /*
+     * Rotate the display with the given angle.
+     *
+     * The rotation is centered around the center of the display area.
+     */
+    exports.rotate = function (angle) {
+        exports.geometry.rotate += angle;
+        exports.geometry.rotate %= 360;
+        exports.update();
+    };
+    
     function makeTocClickHandler(index) {
         return function (evt) {
             sozi.player.previewFrame(index);

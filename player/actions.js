@@ -17,6 +17,7 @@
         DRAG_BUTTON = 0, // Left button
         TOC_BUTTON = 1, // Middle button
         SCALE_FACTOR = 1.05,
+        ROTATE_STEP = 5,
         dragButtonIsDown = false,
         dragged = false,
         dragClientX = 0,
@@ -27,13 +28,25 @@
      *
      * Only the sign of direction is used:
      *    - zoom in when direction > 0
-     *    - zoom out when direction < 0
+     *    - zoom out when direction <= 0
      *
      * The scaling is centered around point (x, y).
      */
     function zoom(direction, x, y) {
         player.stop();
         display.zoom(direction > 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
+    }
+    
+    /*
+     * Rotate the display in the given direction.
+     *
+     * Only the sign of direction is used:
+     *    - rotate anticlockwise when direction > 0
+     *    - rotate clockwise when direction <= 0
+     */
+    function rotate(direction) {
+        player.stop();
+        display.rotate(direction > 0 ? ROTATE_STEP : -ROTATE_STEP);
     }
     
     /*
@@ -126,7 +139,11 @@
         }
 
         if (delta !== 0) {
-            zoom(delta, evt.clientX, evt.clientY);
+            if (evt.shiftKey) {
+                rotate(delta);
+            } else {
+                zoom(delta, evt.clientX, evt.clientY);
+            }
         }
         evt.stopPropagation();
         evt.preventDefault();
@@ -158,6 +175,12 @@
         case 84: // T
         case 116: // t
             player.toggleTableOfContents();
+            break;
+        case 82: // R
+            rotate(-1);
+            break;
+        case 114: // r
+            rotate(1);
             break;
         }
         evt.stopPropagation();
