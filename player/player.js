@@ -15,7 +15,6 @@ var sozi = sozi || {};
 
 sozi.player = (function () {
     var exports = {},
-        listeners = {},
         display,
         animator,
         DEFAULT_DURATION_MS = 500,
@@ -26,41 +25,6 @@ sozi.player = (function () {
         playing = false,
         waiting = false;
 
-    /*
-     * Adds a listener for a given event type.
-     *
-     * The event type is provided as a string by the key parameter.
-     * The function to be executed is provided by the handler parameter.
-     */
-    exports.addListener = function (key, handler) {
-        var listenersForKey = listeners[key];
-        if (!listenersForKey) {
-            listenersForKey = listeners[key] = [];
-        }
-        listenersForKey.push(handler);
-    };
-    
-    /*
-     * Fire an event of the given type.
-     *
-     * All event handlers added for the given event type are
-     * executed.
-     * Additional arguments provided to this function are passed
-     * to the event handlers.
-     */
-    function fireEvent (key) {
-        var listenersForKey = listeners[key],
-            len,
-            i,
-            args = Array.prototype.slice.call(arguments, 1);
-        if (listenersForKey) {
-            len = listenersForKey.length;
-            for (i = 0; i < len; i++) {
-                listenersForKey[i].apply(null, args);
-            }
-        }
-    }
-    
     /*
      * Event handler: animation step.
      *
@@ -252,7 +216,7 @@ sozi.player = (function () {
         currentFrameIndex = index;
         display.showFrame(sozi.document.frames[index]);
 
-        fireEvent("framechange", index);
+        sozi.events.fire("framechange", index);
     };
 
     exports.previewFrame = function (index) {
@@ -276,7 +240,7 @@ sozi.player = (function () {
             zoomHeight: zh
         });
 
-        fireEvent("framechange", index);
+        sozi.events.fire("framechange", index);
     };
 
     /*
@@ -328,7 +292,7 @@ sozi.player = (function () {
             zoomHeight: zh
         });
 
-        fireEvent("framechange", index);
+        sozi.events.fire("framechange", index);
     };
 
     /*

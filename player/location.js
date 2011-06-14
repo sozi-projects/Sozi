@@ -70,7 +70,7 @@ sozi.location = (function () {
     }
 
     function onLoad() {
-        sozi.player.addListener("framechange", onFrameChange);        
+        sozi.events.listen("framechange", onFrameChange);        
     }
     
     window.addEventListener("hashchange", onHashChange, false);        
