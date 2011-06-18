@@ -20,7 +20,7 @@ TARGET := $(addprefix release/, $(notdir $(SRC)))
 
 INSTALL_DIR := $(HOME)/.config/inkscape/extensions
 
-TIMESTAMP := sozi-timestamp-$(VERSION)
+TIMESTAMP := release/sozi-timestamp-$(VERSION)
 
 .PHONY: jslint verify minify zip install timestamp clean
 
