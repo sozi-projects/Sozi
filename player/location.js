@@ -9,9 +9,9 @@
  * official release of Sozi.
  * 
  * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend events.js
  */
-
-//@depend events.js
 
 var sozi = sozi || {};
 

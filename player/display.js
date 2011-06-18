@@ -9,9 +9,9 @@
  * official release of Sozi.
  * 
  * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend events.js
  */
-
-//@depend events.js
 
 var sozi = sozi || {};
 
@@ -24,7 +24,7 @@ var sozi = sozi || {};
         initialBBox,
         wrapper,
         SVG_NS = "http://www.w3.org/2000/svg";
-        
+
     exports.geometry = {
         cx: 0,
         cy: 0,
@@ -80,6 +80,8 @@ var sozi = sozi || {};
 
         exports.svgRoot.setAttribute("width", window.innerWidth);
         exports.svgRoot.setAttribute("height", window.innerHeight);
+        
+        sozi.events.fire("displayready");
     }
 
     /*

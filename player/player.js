@@ -9,12 +9,10 @@
  * official release of Sozi.
  * 
  * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend events.js
+ * @depend animation.js
  */
-
-/*
-    @depend events.js
-    @depend animation.js
-*/
 
 var sozi = sozi || {};
 
@@ -388,13 +386,13 @@ var sozi = sozi || {};
     };
 
     /*
-     * Event handler: document ready.
+     * Event handler: display ready.
      */
-    function onDocumentReady() {
+    function onDisplayReady() {
         exports.startFromIndex(sozi.location.getFrameIndex());
     }    
 
     animator = new sozi.animation.Animator(40, onAnimationStep, onAnimationDone);
 
-    sozi.events.listen("documentready", onDocumentReady);
+    sozi.events.listen("displayready", onDisplayReady);
 }());
