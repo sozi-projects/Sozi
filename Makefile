@@ -22,7 +22,7 @@ INSTALL_DIR := $(HOME)/.config/inkscape/extensions
 
 TIMESTAMP := release/sozi-timestamp-$(VERSION)
 
-.PHONY: jslint verify minify zip install timestamp clean
+.PHONY: zip verify minify install timestamp clean
 
 zip: release/sozi-release-$(VERSION).zip
 
