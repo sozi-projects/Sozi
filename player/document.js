@@ -11,12 +11,14 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
+//@depend events.js
+
 var sozi = sozi || {};
 
-sozi.document = (function () {
-    var exports = {
-            frames: []
-        },
+(function () {
+    var exports = sozi.document = sozi.document || {},
+        window = this,
+        document = window.document,
         SOZI_NS = "http://sozi.baierouge.fr",
         DEFAULTS = {
             "title": "Untitled",
@@ -30,6 +32,8 @@ sozi.document = (function () {
             "transition-profile": "linear"
         };
 
+    exports.frames = [];
+    
     /*
      * Returns the value of an attribute of a given SVG element.
      *
@@ -57,7 +61,7 @@ sozi.document = (function () {
             i,
             newFrame;
 
-        for (i = 0; i < frameCount; i++) {
+        for (i = 0; i < frameCount; i += 1) {
             svgElement = document.getElementById(frameElements[i].getAttributeNS(SOZI_NS, "refid"));
             if (svgElement) {
                 newFrame = {
@@ -92,13 +96,10 @@ sozi.document = (function () {
      */
     function onLoad() {
         readFrames();
-        // TODO create event handlers
-        sozi.display.onLoad();
+        sozi.events.fire("documentready");
+        // TODO create toc module
         sozi.display.installTableOfContents();
-        sozi.player.onLoad();
     }
 
     window.addEventListener("load", onLoad, false);
-
-    return exports;
 }());

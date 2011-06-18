@@ -13,8 +13,9 @@
 
 var sozi = sozi || {};
 
-sozi.animation = (function () {
-    var exports = {};
+(function () {
+    var exports = sozi.animation = sozi.animation || {},
+        window = this;
     
     exports.Animator = function (timeStepMs, onStep, onDone) {
         this.timeStepMs = timeStepMs || 40;
@@ -29,6 +30,8 @@ sozi.animation = (function () {
     };
 
     exports.Animator.prototype.start = function (durationMs, data) {
+        var that = this;
+        
         this.durationMs = durationMs;
         this.data = data;
 
@@ -37,7 +40,9 @@ sozi.animation = (function () {
 
         if (!this.started) {
             this.started = true;
-            this.timer = window.setInterval(this.step.bind(this), this.timeStepMs);
+            this.timer = window.setInterval(function () {
+                that.step();
+            }, this.timeStepMs);
         }
     };
 
@@ -104,7 +109,5 @@ sozi.animation = (function () {
             return x <= 0.5 ? y : 1 - y;
         }
     };
-
-    return exports;
 }());
 

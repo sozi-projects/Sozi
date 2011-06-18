@@ -11,12 +11,19 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
+/*
+    @depend events.js
+    @depend animation.js
+*/
+
 var sozi = sozi || {};
 
-sozi.player = (function () {
-    var exports = {},
-        display,
+(function () {
+    var exports = sozi.player = sozi.player || {},
+        display = sozi.display = sozi.display || {},
+        window = this,
         animator,
+        nextFrameTimeout,
         DEFAULT_DURATION_MS = 500,
         DEFAULT_ZOOM_PERCENT = -10,
         DEFAULT_PROFILE = "linear",
@@ -72,6 +79,29 @@ sozi.player = (function () {
     }
 
     /*
+     * Starts waiting before moving to the next frame.
+     *
+     * It the current frame has a timeout set, this method
+     * will register a timer to move to the next frame automatically
+     * after the specified time.
+     *
+     * If the current frame is the last, the presentation will
+     * move to the first frame.
+     */
+    function waitTimeout() {
+        var index;
+        if (sozi.document.frames[currentFrameIndex].timeoutEnable) {
+            waiting = true;
+            index = (currentFrameIndex + 1) % sozi.document.frames.length;
+            nextFrameTimeout = window.setTimeout(function () {
+                    exports.moveToFrame(index);
+                },
+                sozi.document.frames[currentFrameIndex].timeoutMs
+            );
+        }
+    }
+
+    /*
      * Event handler: animation done.
      *
      * This method is called by animator when the current animation is finished.
@@ -85,21 +115,6 @@ sozi.player = (function () {
             waitTimeout();
         }
     }
-
-    /*
-     * Event handler: document load.
-     *
-     * This function initializes the animator.
-     * The first frame, or the frame which number is given in the URL, is shown.
-     */
-    // TODO on frames read by module document
-    exports.onLoad = function () {
-        display = sozi.display;
-
-        animator = new sozi.animation.Animator(40, onAnimationStep, onAnimationDone);
-
-        exports.startFromIndex(sozi.location.getFrameIndex());
-    };
 
     /*
      * Starts the presentation from the given frame index (0-based).
@@ -137,29 +152,6 @@ sozi.player = (function () {
         playing = false;
         sourceFrameIndex = currentFrameIndex;
     };
-
-    /*
-     * Starts waiting before moving to the next frame.
-     *
-     * It the current frame has a timeout set, this method
-     * will register a timer to move to the next frame automatically
-     * after the specified time.
-     *
-     * If the current frame is the last, the presentation will
-     * move to the first frame.
-     */
-    function waitTimeout() {
-        var index;
-        if (sozi.document.frames[currentFrameIndex].timeoutEnable) {
-            waiting = true;
-            index = (currentFrameIndex + 1) % sozi.document.frames.length;
-            nextFrameTimeout = window.setTimeout(function () {
-                    exports.moveToFrame(index);
-                },
-                sozi.document.frames[currentFrameIndex].timeoutMs
-            );
-        }
-    }
 
     function getZoomData(zoomPercent, s0, s1) {
         var result = {
@@ -322,7 +314,7 @@ sozi.player = (function () {
         var index = currentFrameIndex,
             frame;
 
-        for (index--; index >= 0; index--) {
+        for (index -= 1; index >= 0; index -= 1) {
             frame = sozi.document.frames[index];
             if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
                 exports.moveToFrame(index);
@@ -395,5 +387,14 @@ sozi.player = (function () {
         }
     };
 
-    return exports;
+    /*
+     * Event handler: document ready.
+     */
+    function onDocumentReady() {
+        exports.startFromIndex(sozi.location.getFrameIndex());
+    }    
+
+    animator = new sozi.animation.Animator(40, onAnimationStep, onAnimationDone);
+
+    sozi.events.listen("documentready", onDocumentReady);
 }());

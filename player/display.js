@@ -11,12 +11,17 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
+//@depend events.js
+
 var sozi = sozi || {};
 
-sozi.display = (function () {
-    var exports = {},
+(function () {
+    var exports = sozi.display = sozi.display || {},
+        window = this,
+        document = window.document,
         tocGroup,
         clipRect,
+        initialBBox,
         wrapper,
         SVG_NS = "http://www.w3.org/2000/svg";
         
@@ -39,7 +44,7 @@ sozi.display = (function () {
      *
      * This method must be called when the document is ready to be manipulated.
      */
-    exports.onLoad = function () {
+    function onDocumentReady() {
         var n,
             clipPath = document.createElementNS(SVG_NS, "clipPath");
 
@@ -75,9 +80,7 @@ sozi.display = (function () {
 
         exports.svgRoot.setAttribute("width", window.innerWidth);
         exports.svgRoot.setAttribute("height", window.innerHeight);
-        
-        window.addEventListener("resize", resize, false);
-    };
+    }
 
     /*
      * Resizes the SVG document to fit the browser window.
@@ -338,7 +341,7 @@ sozi.display = (function () {
             evt.stopPropagation();
         }
         
-        for (i = 0; i < frameCount; i++) {
+        for (i = 0; i < frameCount; i += 1) {
             text = document.createElementNS(SVG_NS, "text");
             text.appendChild(document.createTextNode(sozi.document.frames[i].title));
 
@@ -443,5 +446,6 @@ sozi.display = (function () {
         return tocGroup.getAttribute("visibility") === "visible";
     };
     
-    return exports;
+    sozi.events.listen("documentready", onDocumentReady);
+    window.addEventListener("resize", resize, false);
 }());
