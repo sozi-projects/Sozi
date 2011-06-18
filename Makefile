@@ -4,6 +4,10 @@ VERSION := $(shell date +%y.%m-%d%H%M%S)
 PLAYER_JS := $(wildcard player/*.js)
 EXTRAS_JS := $(wildcard extras/*.js)
 
+#MINIFY_OPT += --nomunge
+
+MINIFY := juicer merge --skip-verification --arguments "$(MINIFY_OPT)" --force
+
 SRC := $(wildcard */*.py) \
 	$(wildcard */*.inx) \
 	$(wildcard doc/install*.html) \
@@ -16,37 +20,44 @@ TARGET := $(addprefix release/, $(notdir $(SRC)))
 
 INSTALL_DIR := $(HOME)/.config/inkscape/extensions
 
-.PHONY: jslint verify minify zip install clean
+TIMESTAMP := sozi-timestamp-$(VERSION)
+
+.PHONY: jslint verify minify zip install timestamp clean
+
+zip: release/sozi-release-$(VERSION).zip
 
 verify: $(PLAYER_JS) $(EXTRAS_JS)
 	juicer verify $^
 
 minify: release/sozi.js release/sozi.css
 
-zip: release/sozi-release-$(VERSION).zip
-
 install: $(TARGET)
 	cp release/*.inx $(INSTALL_DIR)
 	cp release/*.py $(INSTALL_DIR)
 	cp release/*.js $(INSTALL_DIR)
 	cp release/*.css $(INSTALL_DIR)
+
+timestamp: release/sozi-timestamp-$(VERSION)
+
+$(TIMESTAMP):
+	touch $@
 	
 release/sozi-release-$(VERSION).zip: $(TARGET)
 	zip $@ $(TARGET)
 
 release/sozi.js: $(PLAYER_JS)
-	juicer merge --force --output $@ player/sozi.js
+	$(MINIFY) --output $@ player/sozi.js
 
 release/%.css: player/%.css
-	juicer merge --force --output $@ $<
+	$(MINIFY) --output $@ $<
 
 release/%.js: extras/%.js
-	juicer merge --force --output $@ $<
+	$(MINIFY) --output $@ $<
 
-release/%.py: editor/%.py
+release/%.py: editor/%.py $(TIMESTAMP)
 	sed "s/{{SOZI_VERSION}}/$(VERSION)/g" $< > $@
 
-release/%.py: extras/%.py
+release/%.py: extras/%.py $(TIMESTAMP)
 	sed "s/{{SOZI_VERSION}}/$(VERSION)/g" $< > $@
 
 release/%: doc/%
@@ -59,4 +70,4 @@ release/%.inx: extras/%.inx
 	cp $< $@
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGET) release/sozi-timestamp-*
