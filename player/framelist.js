@@ -106,6 +106,7 @@ var sozi = sozi || {};
             tocWidth = 0,
             textWidth,
             frameCount = sozi.document.frames.length,
+            frameIndex = sozi.location.getFrameIndex(),
             i,
             text;
 
@@ -132,7 +133,11 @@ var sozi = sozi || {};
             text = document.createElementNS(SVG_NS, "text");
             text.appendChild(document.createTextNode(sozi.document.frames[i].title));
             linksBox.appendChild(text);
-            
+
+            if (i === frameIndex) {
+                text.setAttribute("class", "sozi-toc-current");
+            }
+                     
             textWidth = text.getBBox().width;
             tocHeight += text.getBBox().height;
             if (textWidth > tocWidth) {
@@ -174,11 +179,20 @@ var sozi = sozi || {};
         animator = new sozi.animation.Animator(ANIMATION_STEP_MS, onAnimationStep, onAnimationDone);
     }
 
+    function onFrameChange(index) {
+        var current = linksBox.getElementsByClassName("sozi-toc-current"),
+            textElements = linksBox.getElementsByTagName("text"),
+            i;
+        for (i = 0; i < current.length; i += 1) {
+            current[i].removeAttribute("class");
+        }
+        textElements[index].setAttribute("class", "sozi-toc-current");
+    }
+    
     /*
      * Makes the table of contents visible.
      */
     exports.show = function () {
-        previousClip = sozi.display.clip;
         sozi.display.clip = false;
         sozi.display.update();
         translateXStart = translateX;
@@ -204,4 +218,5 @@ var sozi = sozi || {};
 
 	sozi.events.listen("displayready", onDisplayReady);
 	sozi.events.listen("cleanup", exports.hide);
+	sozi.events.listen("framechange", onFrameChange);
 }());
