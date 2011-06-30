@@ -23,8 +23,16 @@ var sozi = sozi || {};
         tocGroup,
         linksBox,
         tocHeight = 0,
-        tocMargin = 5,
-        previousClip,
+        MARGIN = 5,
+        translateXHidden,
+        translateXVisible,
+        translateXStart,
+        translateXEnd,
+        translateX,
+        animator,
+        ANIMATION_TIME_MS = 300,
+        ANIMATION_STEP_MS = 30,
+        ANIMATION_PROFILE = "strong-decelerate",
         SVG_NS = "http://www.w3.org/2000/svg";
 
     function makeClickHandler(index) {
@@ -65,13 +73,24 @@ var sozi = sozi || {};
         var ty = linksBox.getCTM().f;
         if (ty + tocHeight >= window.innerHeight * 3 / 2) {
             ty -= window.innerHeight / 2;
-        } else if (ty + tocHeight > window.innerHeight + 2 * tocMargin) {
-            ty = window.innerHeight - tocHeight - 4 * tocMargin;
+        } else if (ty + tocHeight > window.innerHeight + 2 * MARGIN) {
+            ty = window.innerHeight - tocHeight - 4 * MARGIN;
         }
         linksBox.setAttribute("transform", "translate(0," + ty + ")");
         evt.stopPropagation();
     }	
 
+    function onAnimationStep(progress) {
+        var profileProgress = sozi.animation.profiles[ANIMATION_PROFILE](progress),
+            remaining = 1 - progress;
+        translateX = translateXEnd * progress + translateXStart * remaining;
+        tocGroup.setAttribute("transform", "translate(" + translateX + ",0)");
+    }
+    
+    function onAnimationDone() {
+        // Empty
+    }
+    
     /*
      * Adds a table of contents to the document.
      *
@@ -79,8 +98,6 @@ var sozi = sozi || {};
      * Clicking on a title moves the presentation to the corresponding frame.
      *
      * The table of contents is hidden by default.
-     *
-     * FIXME text size and coordinates
      */
     function onDisplayReady() {
         var tocBackground = document.createElementNS(SVG_NS, "rect"),
@@ -96,17 +113,16 @@ var sozi = sozi || {};
 
         tocGroup = document.createElementNS(SVG_NS, "g");
         tocGroup.setAttribute("id", "sozi-toc");
-        tocGroup.setAttribute("visibility", "hidden");
         svgRoot.appendChild(tocGroup);
 
         linksBox = document.createElementNS(SVG_NS, "g");
         tocGroup.appendChild(linksBox);
     
         tocBackground.setAttribute("id", "sozi-toc-background");
-        tocBackground.setAttribute("x", tocMargin);
-        tocBackground.setAttribute("y", tocMargin);
-        tocBackground.setAttribute("rx", tocMargin);
-        tocBackground.setAttribute("ry", tocMargin);
+        tocBackground.setAttribute("x", MARGIN);
+        tocBackground.setAttribute("y", MARGIN);
+        tocBackground.setAttribute("rx", MARGIN);
+        tocBackground.setAttribute("ry", MARGIN);
         tocBackground.addEventListener("click", defaultEventHandler, false);
         tocBackground.addEventListener("mousedown", defaultEventHandler, false);
         tocBackground.addEventListener("mouseout", onMouseOut, false);
@@ -123,32 +139,39 @@ var sozi = sozi || {};
                 tocWidth = textWidth;
             }
 
-            text.setAttribute("x", 2 * tocMargin);
-            text.setAttribute("y", tocHeight + tocMargin);
+            text.setAttribute("x", 2 * MARGIN);
+            text.setAttribute("y", tocHeight + MARGIN);
             text.addEventListener("click", makeClickHandler(i), false);
             text.addEventListener("mousedown", defaultEventHandler, false);
         }
 
         tocUp.setAttribute("class", "sozi-toc-arrow");
-        tocUp.setAttribute("d", "M" + (tocWidth + 3 * tocMargin) + "," + (5 * tocMargin) + 
-                           " l" + (4 * tocMargin) + ",0" +
-                           " l-" + (2 * tocMargin) + ",-" + (3 * tocMargin) +
+        tocUp.setAttribute("d", "M" + (tocWidth + 3 * MARGIN) + "," + (5 * MARGIN) + 
+                           " l" + (4 * MARGIN) + ",0" +
+                           " l-" + (2 * MARGIN) + ",-" + (3 * MARGIN) +
                            " z");
         tocUp.addEventListener("click", onClickArrowUp, false);
         tocUp.addEventListener("mousedown", defaultEventHandler, false);
         tocGroup.appendChild(tocUp);
       
         tocDown.setAttribute("class", "sozi-toc-arrow");
-        tocDown.setAttribute("d", "M" + (tocWidth + 3 * tocMargin) + "," + (7 * tocMargin) + 
-                             " l" + (4 * tocMargin) + ",0" +
-                             " l-" + (2 * tocMargin) + "," + (3 * tocMargin) +
+        tocDown.setAttribute("d", "M" + (tocWidth + 3 * MARGIN) + "," + (7 * MARGIN) + 
+                             " l" + (4 * MARGIN) + ",0" +
+                             " l-" + (2 * MARGIN) + "," + (3 * MARGIN) +
                              " z");
         tocDown.addEventListener("click", onClickArrowDown, false);
         tocDown.addEventListener("mousedown", defaultEventHandler, false);      
         tocGroup.appendChild(tocDown);
 
-        tocBackground.setAttribute("width", tocWidth + 7 * tocMargin);
-        tocBackground.setAttribute("height", tocHeight + 2 * tocMargin);
+        tocBackground.setAttribute("width", tocWidth + 7 * MARGIN);
+        tocBackground.setAttribute("height", tocHeight + 2 * MARGIN);
+        
+        translateXHidden = -tocWidth - 9 * MARGIN;
+        translateXVisible = 0;
+        translateX = translateXEnd = translateXHidden;
+        
+        tocGroup.setAttribute("transform", "translate(" + translateXHidden + ",0)");
+        animator = new sozi.animation.Animator(ANIMATION_STEP_MS, onAnimationStep, onAnimationDone);
     }
 
     /*
@@ -158,21 +181,25 @@ var sozi = sozi || {};
         previousClip = sozi.display.clip;
         sozi.display.clip = false;
         sozi.display.update();
-        tocGroup.setAttribute("visibility", "visible");
+        translateXStart = translateX;
+        translateXEnd = translateXVisible;
+        animator.start(ANIMATION_TIME_MS); // FIXME depends on current elapsed time
     };
 
     /*
      * Makes the table of contents invisible.
      */
     exports.hide = function () {
-        tocGroup.setAttribute("visibility", "hidden");
+        translateXStart = translateX;
+        translateXEnd = translateXHidden;
+        animator.start(ANIMATION_TIME_MS); // FIXME depends on current elapsed time
     };
 
     /*
      * Returns true if the table of contents is visible, false otherwise.
      */
     exports.isVisible = function () {
-        return tocGroup.getAttribute("visibility") === "visible";
+        return translateXEnd === translateXVisible;
     };
 
 	sozi.events.listen("displayready", onDisplayReady);
