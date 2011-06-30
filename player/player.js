@@ -197,10 +197,7 @@ var sozi = sozi || {};
      */
     exports.jumpToFrame = function (index) {
         exports.stop();
-
-        if (display.tableOfContentsIsVisible()) {
-            display.hideTableOfContents();
-        }
+        sozi.events.fire("cleanup");
 
         sourceFrameIndex = index;
         currentFrameIndex = index;
@@ -263,9 +260,7 @@ var sozi = sozi || {};
             profile = sozi.document.frames[index].transitionProfile;
         }
 
-        if (display.tableOfContentsIsVisible()) {
-            display.hideTableOfContents();
-        }
+        sozi.events.fire("cleanup");
 
         if (zoomPercent !== 0) {
             zw = getZoomData(zoomPercent, display.geometry.width, sozi.document.frames[index].geometry.width);
@@ -365,24 +360,12 @@ var sozi = sozi || {};
      */
     exports.showAll = function () {
         exports.stop();
-        if (display.tableOfContentsIsVisible()) {
-            display.hideTableOfContents();
-        }
+        sozi.events.fire("cleanup");
         animator.start(DEFAULT_DURATION_MS, {
             initialState: display.getCurrentGeometry(),
             finalState: display.getDocumentGeometry(),
             profile: sozi.animation.profiles[DEFAULT_PROFILE]
         });
-    };
-
-    exports.toggleTableOfContents = function () {
-        if (display.tableOfContentsIsVisible()) {
-            display.hideTableOfContents();
-            exports.restart();
-        } else {
-            exports.stop();
-            display.showTableOfContents();
-        }
     };
 
     /*

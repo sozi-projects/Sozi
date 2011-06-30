@@ -53,6 +53,16 @@ var sozi = sozi || {};
         display.rotate(direction > 0 ? ROTATE_STEP : -ROTATE_STEP);
     }
     
+    function toggleFrameList() {
+        if (sozi.framelist.isVisible()) {
+            sozi.framelist.hide();
+            player.restart();
+        } else {
+            player.stop();
+            sozi.framelist.show();
+        }
+    }
+
     /*
      * Event handler: mouse down.
      *
@@ -69,7 +79,7 @@ var sozi = sozi || {};
             dragClientX = evt.clientX;
             dragClientY = evt.clientY;
         } else if (evt.button === TOC_BUTTON) {
-            player.toggleTableOfContents();
+            toggleFrameList();
         }
         evt.stopPropagation();
     }
@@ -85,6 +95,7 @@ var sozi = sozi || {};
         if (dragButtonIsDown) {
             player.stop();
             dragged = true;
+            sozi.events.fire("cleanup");
             display.drag(evt.clientX - dragClientX, evt.clientY - dragClientY);
             dragClientX = evt.clientX;
             dragClientY = evt.clientY;
@@ -178,7 +189,7 @@ var sozi = sozi || {};
             break;
         case 84: // T
         case 116: // t
-            player.toggleTableOfContents();
+            toggleFrameList();
             break;
         case 82: // R
             rotate(-1);
