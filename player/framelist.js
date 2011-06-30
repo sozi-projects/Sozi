@@ -32,7 +32,7 @@ var sozi = sozi || {};
         animator,
         ANIMATION_TIME_MS = 300,
         ANIMATION_STEP_MS = 30,
-        ANIMATION_PROFILE = "strong-decelerate",
+        ANIMATION_PROFILE = "decelerate",
         SVG_NS = "http://www.w3.org/2000/svg";
 
     function makeClickHandler(index) {
@@ -82,8 +82,8 @@ var sozi = sozi || {};
 
     function onAnimationStep(progress) {
         var profileProgress = sozi.animation.profiles[ANIMATION_PROFILE](progress),
-            remaining = 1 - progress;
-        translateX = translateXEnd * progress + translateXStart * remaining;
+            remaining = 1 - profileProgress;
+        translateX = translateXEnd * profileProgress + translateXStart * remaining;
         tocGroup.setAttribute("transform", "translate(" + translateX + ",0)");
     }
     
