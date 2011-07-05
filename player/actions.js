@@ -120,7 +120,7 @@ var sozi = sozi || {};
      *
      * Left-click moves the presentation to the next frame.
      *
-     * No "click" event is generated for the middle button.
+     * No "click" event is generated for the middle button in Firefox.
      * See "onMouseDown" for middle click handling.
      *
      * Dragging the mouse produces a "click" event when the button is released.
@@ -128,7 +128,7 @@ var sozi = sozi || {};
      * of a drag action.
      */
     function onClick(evt) {
-        if (!dragged) {
+        if (!dragged && evt.button !== TOC_BUTTON) {
             player.moveToNext();
         }
         evt.stopPropagation();
