@@ -193,8 +193,6 @@ var sozi = sozi || {};
      * Makes the table of contents visible.
      */
     exports.show = function () {
-        sozi.display.clip = false;
-        sozi.display.update();
         translateXStart = translateX;
         translateXEnd = translateXVisible;
         animator.start(ANIMATION_TIME_MS); // FIXME depends on current elapsed time

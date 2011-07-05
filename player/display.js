@@ -46,6 +46,7 @@ var sozi = sozi || {};
      */
     function onDocumentReady() {
         var n,
+            clippedArea = document.createElementNS(SVG_NS, "g"),
             clipPath = document.createElementNS(SVG_NS, "clipPath");
 
         svgRoot = document.documentElement; // TODO check SVG tag
@@ -57,8 +58,6 @@ var sozi = sozi || {};
 
         // Create a new wrapper group element and move all the image to the group
         wrapper = document.createElementNS(SVG_NS, "g");
-        wrapper.setAttribute("id", "sozi-wrapper");
-
         while (true) {
             n = svgRoot.firstChild;
             if (!n) {
@@ -67,7 +66,6 @@ var sozi = sozi || {};
             svgRoot.removeChild(n);
             wrapper.appendChild(n);
         }
-        svgRoot.appendChild(wrapper);
 
         // Add a clipping path
         clipRect = document.createElementNS(SVG_NS, "rect");
@@ -76,7 +74,10 @@ var sozi = sozi || {};
         clipPath.setAttribute("id", "sozi-clip-path");
         clipPath.appendChild(clipRect);
         svgRoot.appendChild(clipPath);
-        svgRoot.setAttribute("clip-path", "url(#sozi-clip-path)");
+
+        clippedArea.setAttribute("clip-path", "url(#sozi-clip-path)");
+        clippedArea.appendChild(wrapper);
+        svgRoot.appendChild(clippedArea);
 
         svgRoot.setAttribute("width", window.innerWidth);
         svgRoot.setAttribute("height", window.innerHeight);
@@ -235,8 +236,6 @@ var sozi = sozi || {};
 
     /*
      * Apply an additional translation to the SVG document based on onscreen coordinates.
-     *
-     * TODO rename as "translate"
      *
      * Parameters:
      *    - deltaX: the horizontal displacement, in pixels

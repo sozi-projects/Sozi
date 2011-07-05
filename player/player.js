@@ -211,8 +211,6 @@ var sozi = sozi || {};
             zw,
             zh;
 
-        finalState.clip = false;
-
         if (DEFAULT_ZOOM_PERCENT !== 0) {
             zw = getZoomData(DEFAULT_ZOOM_PERCENT, display.geometry.width, finalState.width);
             zh = getZoomData(DEFAULT_ZOOM_PERCENT, display.geometry.height, finalState.height);
