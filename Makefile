@@ -43,7 +43,7 @@ $(TIMESTAMP):
 	touch $@
 	
 release/sozi-release-$(VERSION).zip: $(TARGET)
-	zip $@ $(TARGET)
+	cd release ; zip $(notdir $@) $(notdir $^)
 
 release/sozi.js: $(PLAYER_JS)
 	$(MINIFY) --output $@ player/sozi.js
