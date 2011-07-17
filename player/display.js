@@ -19,7 +19,7 @@ var sozi = sozi || {};
     var exports = sozi.display = sozi.display || {},
         window = this,
         document = window.document,
-        tocGroup,
+        svgRoot,
         clipRect,
         initialBBox,
         wrapper,
@@ -46,28 +46,26 @@ var sozi = sozi || {};
      */
     function onDocumentReady() {
         var n,
+            clippedArea = document.createElementNS(SVG_NS, "g"),
             clipPath = document.createElementNS(SVG_NS, "clipPath");
 
-        exports.svgRoot = document.documentElement; // TODO check SVG tag
+        svgRoot = document.documentElement; // TODO check SVG tag
 
         // Remove viewbox if needed
-        exports.svgRoot.removeAttribute("viewBox");
+        svgRoot.removeAttribute("viewBox");
 
-        initialBBox = exports.svgRoot.getBBox();
+        initialBBox = svgRoot.getBBox();
 
         // Create a new wrapper group element and move all the image to the group
         wrapper = document.createElementNS(SVG_NS, "g");
-        wrapper.setAttribute("id", "sozi-wrapper");
-
         while (true) {
-            n = exports.svgRoot.firstChild;
+            n = svgRoot.firstChild;
             if (!n) {
                 break;
             }
-            exports.svgRoot.removeChild(n);
+            svgRoot.removeChild(n);
             wrapper.appendChild(n);
         }
-        exports.svgRoot.appendChild(wrapper);
 
         // Add a clipping path
         clipRect = document.createElementNS(SVG_NS, "rect");
@@ -75,11 +73,14 @@ var sozi = sozi || {};
 
         clipPath.setAttribute("id", "sozi-clip-path");
         clipPath.appendChild(clipRect);
-        exports.svgRoot.appendChild(clipPath);
-        exports.svgRoot.setAttribute("clip-path", "url(#sozi-clip-path)");
+        svgRoot.appendChild(clipPath);
 
-        exports.svgRoot.setAttribute("width", window.innerWidth);
-        exports.svgRoot.setAttribute("height", window.innerHeight);
+        clippedArea.setAttribute("clip-path", "url(#sozi-clip-path)");
+        clippedArea.appendChild(wrapper);
+        svgRoot.appendChild(clippedArea);
+
+        svgRoot.setAttribute("width", window.innerWidth);
+        svgRoot.setAttribute("height", window.innerHeight);
         
         sozi.events.fire("displayready");
     }
@@ -88,8 +89,8 @@ var sozi = sozi || {};
      * Resizes the SVG document to fit the browser window.
      */
     function resize() {
-        exports.svgRoot.setAttribute("width", window.innerWidth);
-        exports.svgRoot.setAttribute("height", window.innerHeight);
+        svgRoot.setAttribute("width", window.innerWidth);
+        svgRoot.setAttribute("height", window.innerHeight);
         exports.update();
     }
 
@@ -246,9 +247,6 @@ var sozi = sozi || {};
         exports.geometry.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / g.scale;
         exports.geometry.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / g.scale;
         exports.clip = false;
-        if (exports.tableOfContentsIsVisible()) {
-            exports.hideTableOfContents();
-        }
         exports.update();
     };
 
@@ -274,178 +272,6 @@ var sozi = sozi || {};
         exports.geometry.rotate += angle;
         exports.geometry.rotate %= 360;
         exports.update();
-    };
-    
-    function makeTocClickHandler(index) {
-        return function (evt) {
-            sozi.player.previewFrame(index);
-            evt.stopPropagation();
-        };
-    }
-   
-    /*
-     * Adds a table of contents to the document.
-     *
-     * The table of contents is a rectangular region with the list of frame titles.
-     * Clicking on a title moves the presentation to the corresponding frame.
-     *
-     * The table of contents is hidden by default.
-     *
-     * FIXME text size and coordinates
-     */
-    exports.installTableOfContents = function () {
-        var linksBox = document.createElementNS(SVG_NS, "g"),
-            tocBackground = document.createElementNS(SVG_NS, "rect"),
-            tocUp = document.createElementNS(SVG_NS, "path"),
-            tocDown = document.createElementNS(SVG_NS, "path"),
-            tocMargin = 5,
-            tocWidth = 0,
-            textY = 0,
-            textWidth,
-            frameCount = sozi.document.frames.length,
-            i,
-            text;
-
-        tocGroup = document.createElementNS(SVG_NS, "g");
-        tocGroup.setAttribute("id", "sozi-toc");
-        tocGroup.setAttribute("visibility", "hidden");
-        tocGroup.appendChild(linksBox);
-        exports.svgRoot.appendChild(tocGroup);
-
-        tocBackground.setAttribute("id", "sozi-toc-background");
-        tocBackground.setAttribute("x", tocMargin);
-        tocBackground.setAttribute("y", tocMargin);
-        tocBackground.setAttribute("rx", tocMargin);
-        tocBackground.setAttribute("ry", tocMargin);
-        linksBox.appendChild(tocBackground);
-
-        tocBackground.addEventListener("click", function (evt) {
-            evt.stopPropagation();
-        }, false);
-         
-        tocBackground.addEventListener("mousedown", function (evt) {
-            evt.stopPropagation();
-        }, false);
-         
-        tocBackground.addEventListener("mouseout", function (evt) {
-            var rel = evt.relatedTarget;
-            while (rel !== tocGroup && rel !== exports.svgRoot) {
-                rel = rel.parentNode;
-            }
-            if (rel === exports.svgRoot) {
-                exports.hideTableOfContents();
-                sozi.player.restart();
-                evt.stopPropagation();
-            }
-        }, false);
-
-        function tocMouseDownHandler(evt) {
-            evt.stopPropagation();
-        }
-        
-        for (i = 0; i < frameCount; i += 1) {
-            text = document.createElementNS(SVG_NS, "text");
-            text.appendChild(document.createTextNode(sozi.document.frames[i].title));
-
-            linksBox.appendChild(text);
-            textWidth = text.getBBox().width;
-            textY += text.getBBox().height;
-            if (textWidth > tocWidth) {
-                tocWidth = textWidth;
-            }
-
-            text.setAttribute("x", 2 * tocMargin);
-            text.setAttribute("y", textY + tocMargin);
-
-            text.addEventListener("click", makeTocClickHandler(i), false);
-
-            text.addEventListener("mousedown", tocMouseDownHandler, false);
-        }
-
-        tocUp.setAttribute("class", "sozi-toc-arrow");
-        tocUp.setAttribute("d", "M" + (tocWidth + 3 * tocMargin) + "," + (5 * tocMargin) + 
-                           " l" + (4 * tocMargin) + ",0" +
-                           " l-" + (2 * tocMargin) + ",-" + (3 * tocMargin) +
-                           " z");
-      
-        tocDown.setAttribute("class", "sozi-toc-arrow");
-        tocDown.setAttribute("d", "M" + (tocWidth + 3 * tocMargin) + "," + (7 * tocMargin) + 
-                             " l" + (4 * tocMargin) + ",0" +
-                             " l-" + (2 * tocMargin) + "," + (3 * tocMargin) +
-                             " z");
-
-        tocUp.addEventListener("click", function (evt) {
-            var ty = linksBox.getCTM().f;
-            if (ty <= -window.innerHeight / 2) {
-                ty += window.innerHeight / 2;
-            } else if (ty < 0) {
-                ty = 0;
-            }
-            linksBox.setAttribute("transform", "translate(0," + ty + ")");
-            evt.stopPropagation();
-        }, false);
-
-        tocUp.addEventListener("mousedown", function (evt) {
-            evt.stopPropagation();
-        }, false);
-         
-        tocDown.addEventListener("click", function (evt) {
-            var ty = linksBox.getCTM().f;
-            if (ty + textY >= window.innerHeight * 3 / 2) {
-                ty -= window.innerHeight / 2;
-            } else if (ty + textY + 2 * tocMargin > window.innerHeight + 4 * tocMargin) {
-                ty = window.innerHeight - textY - 4 * tocMargin;
-            }
-            linksBox.setAttribute("transform", "translate(0," + ty + ")");
-            evt.stopPropagation();
-        }, false);
-
-        tocDown.addEventListener("mousedown", function (evt) {
-            evt.stopPropagation();
-        }, false);
-      
-        tocGroup.appendChild(tocUp);
-        tocGroup.appendChild(tocDown);
-
-        tocBackground.setAttribute("width", tocWidth + 7 * tocMargin);
-        tocBackground.setAttribute("height", textY + 2 * tocMargin);
-    };
-
-    /*
-     * Makes the table of contents visible.
-     */
-    exports.showTableOfContents = function () {
-        // Expand the clip path to the whole window
-        clipRect.setAttribute("x", 0);
-        clipRect.setAttribute("y", 0);
-        clipRect.setAttribute("width", window.innerWidth);
-        clipRect.setAttribute("height", window.innerHeight);
-
-        // Show table of contents
-        tocGroup.setAttribute("visibility", "visible");
-    };
-
-    /*
-     * Makes the table of contents invisible.
-     */
-    exports.hideTableOfContents = function () {
-        var g = getFrameGeometry();
-
-        // Hide table of contents
-        tocGroup.setAttribute("visibility", "hidden");
-
-        // Adjust the location and size of the clipping rectangle and the frame rectangle
-        clipRect.setAttribute("x", g.x);
-        clipRect.setAttribute("y", g.y);
-        clipRect.setAttribute("width", g.width);
-        clipRect.setAttribute("height", g.height);
-    };
-
-    /*
-     * Returns true if the table of contents is visible, false otherwise.
-     */
-    exports.tableOfContentsIsVisible = function () {
-        return tocGroup.getAttribute("visibility") === "visible";
     };
     
     sozi.events.listen("documentready", onDocumentReady);

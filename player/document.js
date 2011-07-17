@@ -97,8 +97,6 @@ var sozi = sozi || {};
     function onLoad() {
         readFrames();
         sozi.events.fire("documentready");
-        // TODO create toc module
-        sozi.display.installTableOfContents();
     }
 
     window.addEventListener("load", onLoad, false);
