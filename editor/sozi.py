@@ -241,7 +241,7 @@ class Sozi(inkex.Effect):
         # Enable icons on stock buttons
         gtk.settings_get_default().set_long_property("gtk-button-images", True, "Sozi")
 
-        # Create form for the selected element
+        # Create fields for frame information
         title_field = self.create_text_field("title", "Title:")
         hide_field = self.create_checkbox_field("hide", "Hide")
         clip_field = self.create_checkbox_field("clip", "Clip")
@@ -250,7 +250,26 @@ class Sozi(inkex.Effect):
         transition_zoom_field = self.create_spinbutton_field("transition-zoom-percent", "Zoom (%):", -100, 100)
         transition_profile_field = self.create_combo_field("transition-profile", "Profile:", Sozi.PROFILES)
 
-        # Create save buttons
+        # Transition properties
+        transition_box = gtk.VBox()
+        transition_box.pack_start(transition_duration_field, expand=False)
+        transition_box.pack_start(transition_zoom_field, expand=False)
+        transition_box.pack_start(transition_profile_field, expand=False)
+
+        transition_group = gtk.Frame("Transition")
+        transition_group.add(transition_box)
+
+        # Frame properties
+        frame_box = gtk.VBox()
+        frame_box.pack_start(title_field, expand=False)
+        frame_box.pack_start(hide_field, expand=False)
+        frame_box.pack_start(clip_field, expand=False)
+        frame_box.pack_start(timeout_field, expand=False)
+
+        frame_group = gtk.Frame("Frame")
+        frame_group.add(frame_box)
+
+        # Create buttons
         self.save_button = gtk.Button(stock=gtk.STOCK_SAVE)
         self.save_button.connect("clicked", self.on_save_frame)
 
@@ -264,6 +283,12 @@ class Sozi(inkex.Effect):
         buttons_box.pack_start(self.save_button)
         buttons_box.pack_start(self.save_as_new_frame_button)
         buttons_box.pack_start(self.delete_button)
+
+        # Fill left pane
+        left_pane = gtk.VBox()
+        left_pane.pack_start(transition_group, expand=False)
+        left_pane.pack_start(frame_group, expand=False)
+        left_pane.pack_start(buttons_box, expand=False)
 
         # Create frame list
         list_renderer = gtk.CellRendererText()
@@ -291,31 +316,6 @@ class Sozi(inkex.Effect):
         self.down_button = gtk.Button(stock=gtk.STOCK_GO_DOWN)
         self.down_button.connect("clicked", self.on_move_frame_down)
 
-        # Transition properties
-        transition_box = gtk.VBox()
-        transition_box.pack_start(transition_duration_field, expand=False)
-        transition_box.pack_start(transition_zoom_field, expand=False)
-        transition_box.pack_start(transition_profile_field, expand=False)
-
-        transition_group = gtk.Frame("Transition")
-        transition_group.add(transition_box)
-
-        # Frame properties
-        frame_box = gtk.VBox()
-        frame_box.pack_start(title_field, expand=False)
-        frame_box.pack_start(hide_field, expand=False)
-        frame_box.pack_start(clip_field, expand=False)
-        frame_box.pack_start(timeout_field, expand=False)
-
-        frame_group = gtk.Frame("Frame")
-        frame_group.add(frame_box)
-
-        # Fill left pane
-        left_pane = gtk.VBox()
-        left_pane.pack_start(transition_group, expand=False)
-        left_pane.pack_start(frame_group, expand=False)
-        left_pane.pack_start(buttons_box, expand=False)
-
         # Fill right pane
         right_pane = gtk.VBox()
         right_pane.pack_start(list_scroll, expand=True, fill=True)
@@ -326,7 +326,16 @@ class Sozi(inkex.Effect):
         hbox.pack_start(left_pane)
         hbox.pack_start(right_pane)
 
-        window.add(hbox)
+        # Message field
+        message_field = gtk.Entry()
+        message_field.set_text("Sozi started")
+        message_field.set_editable(False)
+        
+        vbox = gtk.VBox()
+        vbox.pack_start(message_field)
+        vbox.pack_start(hbox)
+        
+        window.add(vbox)
         window.show_all()
 
         # Fill frame list
