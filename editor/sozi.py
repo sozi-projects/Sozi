@@ -236,7 +236,8 @@ class Sozi(inkex.Effect):
     def create_form(self, frame):
         window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         window.connect("destroy", self.destroy)
-
+        window.set_title("Sozi")
+        
         # Enable icons on stock buttons
         gtk.settings_get_default().set_long_property("gtk-button-images", True, "Sozi")
 
