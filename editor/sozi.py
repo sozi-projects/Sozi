@@ -33,13 +33,18 @@ import gtk
 
 class SoziField:
     
-    def __init__(self, parent, attr, label, container, widget, default):
+    def __init__(self, parent, attr, label, container, widget, default, focus_events=True):
         self.parent = parent
         self.ns_attr = inkex.addNS(attr, "sozi")
         self.label = label
         self.default_value = default
         self.container = container
         self.widget = widget
+        if focus_events:
+            self.widget.connect("focus-in-event", self.on_focus_in)
+            self.widget.connect("focus-out-event", self.on_focus_out)
+        else:
+            self.widget.connect("changed", self.on_changed)
 
 
     def set_value(self, value):
@@ -62,14 +67,24 @@ class SoziField:
         self.set_value(value)
 
 
+    def on_focus_in(self, widget, event):
+        self.parent.message_field.set_text("Focus in " + self.label)
+        
+        
+    def on_focus_out(self, widget, event):
+        self.parent.message_field.set_text("Focus out " + self.label)
+
+
+    def on_changed(self, widget):
+        self.parent.message_field.set_text("Changed " + self.label)
+
+
 class SoziTextField(SoziField):
     
     def __init__(self, parent, attr, label, default):
         SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.Entry(), default)
         self.container.add(gtk.Label(label))
         self.container.add(self.widget)
-        self.widget.connect("focus-in-event", self.on_focus_in)
-        self.widget.connect("focus-out-event", self.on_focus_out)
 
 
     def set_value(self, value):
@@ -80,18 +95,10 @@ class SoziTextField(SoziField):
         return unicode(self.widget.get_text())
 
 
-    def on_focus_in(self, widget, event):
-        self.parent.message_field.set_text("Focus in " + self.label)
-        
-        
-    def on_focus_out(self, widget, event):
-        self.parent.message_field.set_text("Focus out " + self.label)
-
-
 class SoziComboField(SoziField):
     
     def __init__(self, parent, attr, label, items, default):
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.combo_box_new_text(), default)
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.combo_box_new_text(), default, False)
         self.items = items  
         for text in items:
             self.widget.append_text(text)
@@ -105,8 +112,8 @@ class SoziComboField(SoziField):
     
     def get_value(self):
         return unicode(Sozi.PROFILES[self.widget.get_active()])
-
-
+        
+        
 class SoziCheckButtonField(SoziField):
     
     def __init__(self, parent, attr, label, default):
