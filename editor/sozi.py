@@ -33,8 +33,10 @@ import gtk
 
 class SoziField:
     
-    def __init__(self, attr, container, widget, default):
+    def __init__(self, parent, attr, label, container, widget, default):
+        self.parent = parent
         self.ns_attr = inkex.addNS(attr, "sozi")
+        self.label = label
         self.default_value = default
         self.container = container
         self.widget = widget
@@ -62,10 +64,12 @@ class SoziField:
 
 class SoziTextField(SoziField):
     
-    def __init__(self, attr, label, default):
-        SoziField.__init__(self, attr, gtk.HBox(), gtk.Entry(), default)
+    def __init__(self, parent, attr, label, default):
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.Entry(), default)
         self.container.add(gtk.Label(label))
         self.container.add(self.widget)
+        self.widget.connect("focus-in-event", self.on_focus_in)
+        self.widget.connect("focus-out-event", self.on_focus_out)
 
 
     def set_value(self, value):
@@ -76,18 +80,18 @@ class SoziTextField(SoziField):
         return unicode(self.widget.get_text())
 
 
-    def on_focus_in(self, widget, event, attr):
-        self.message_field.set_text("Focus in " + attr)
+    def on_focus_in(self, widget, event):
+        self.parent.message_field.set_text("Focus in " + self.label)
         
         
-    def on_focus_out(self, widget, event, attr):
-        self.message_field.set_text("Focus out " + attr)
+    def on_focus_out(self, widget, event):
+        self.parent.message_field.set_text("Focus out " + self.label)
 
 
 class SoziComboField(SoziField):
     
-    def __init__(self, attr, label, items, default):
-        SoziField.__init__(self, attr, gtk.HBox(), gtk.combo_box_new_text(), default)
+    def __init__(self, parent, attr, label, items, default):
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.combo_box_new_text(), default)
         self.items = items  
         for text in items:
             self.widget.append_text(text)
@@ -105,9 +109,9 @@ class SoziComboField(SoziField):
 
 class SoziCheckButtonField(SoziField):
     
-    def __init__(self, attr, label, default):
+    def __init__(self, parent, attr, label, default):
         button = gtk.CheckButton(label)
-        SoziField.__init__(self, attr, button, button, default)
+        SoziField.__init__(self, parent, attr, label, button, button, default)
 
 
     def set_value(self, value):
@@ -120,8 +124,8 @@ class SoziCheckButtonField(SoziField):
     
 class SoziSpinButtonField(SoziField):
     
-    def __init__(self, attr, label, min, max, default):
-        SoziField.__init__(self, attr, gtk.HBox(), gtk.SpinButton(digits=0), default)
+    def __init__(self, parent, attr, label, min, max, default):
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.SpinButton(digits=0), default)
         self.widget.set_range(min, max)
         self.widget.set_increments(1, 1)
         self.widget.set_numeric(True)
@@ -255,14 +259,14 @@ class Sozi(inkex.Effect):
         gtk.settings_get_default().set_long_property("gtk-button-images", True, "Sozi")
 
         # Create fields for frame information
-        self.fields["title"] = SoziTextField("title", "Title:", "New frame")
-        self.fields["hide"] = SoziCheckButtonField("hide", "Hide", "true")
-        self.fields["clip"] = SoziCheckButtonField("clip", "Clip", "true")
-        self.fields["timeout-enable"] = SoziCheckButtonField("timeout-enable", "Timeout enable", "false")
-        self.fields["timeout-ms"] = SoziSpinButtonField("timeout-ms", "Timeout (ms):", 0, 3600000, 5000)
-        self.fields["transition-duration-ms"] = SoziSpinButtonField("transition-duration-ms", "Duration (ms):", 0, 3600000, 1000)
-        self.fields["transition-zoom-percent"] = SoziSpinButtonField("transition-zoom-percent", "Zoom (%):", -100, 100, 0)
-        self.fields["transition-profile"] = SoziComboField("transition-profile", "Profile:", Sozi.PROFILES, Sozi.PROFILES[0])
+        self.fields["title"] = SoziTextField(self, "title", "Title", "New frame")
+        self.fields["hide"] = SoziCheckButtonField(self, "hide", "Hide", "true")
+        self.fields["clip"] = SoziCheckButtonField(self, "clip", "Clip", "true")
+        self.fields["timeout-enable"] = SoziCheckButtonField(self, "timeout-enable", "Timeout enable", "false")
+        self.fields["timeout-ms"] = SoziSpinButtonField(self, "timeout-ms", "Timeout (ms)", 0, 3600000, 5000)
+        self.fields["transition-duration-ms"] = SoziSpinButtonField(self, "transition-duration-ms", "Duration (ms)", 0, 3600000, 1000)
+        self.fields["transition-zoom-percent"] = SoziSpinButtonField(self, "transition-zoom-percent", "Zoom (%)", -100, 100, 0)
+        self.fields["transition-profile"] = SoziComboField(self, "transition-profile", "Profile", Sozi.PROFILES, Sozi.PROFILES[0])
 
         # Transition properties
         transition_box = gtk.VBox()
