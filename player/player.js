@@ -9,75 +9,27 @@
  * official release of Sozi.
  * 
  * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend events.js
+ * @depend animation.js
  */
 
 var sozi = sozi || {};
 
-sozi.player = (function () {
-    var exports = {},
-        listeners = {},
-        display,
+(function () {
+    var exports = sozi.player = sozi.player || {},
+        display = sozi.display = sozi.display || {},
+        window = this,
         animator,
-        DEFAULTS,
-        SOZI_NS = "http://sozi.baierouge.fr",
+        nextFrameTimeout,
         DEFAULT_DURATION_MS = 500,
         DEFAULT_ZOOM_PERCENT = -10,
         DEFAULT_PROFILE = "linear",
-        SCALE_FACTOR = 1.05,
         sourceFrameIndex = 0,
         currentFrameIndex = 0,
         playing = false,
         waiting = false;
 
-    exports.frames = [];
-
-    DEFAULTS = {
-        "title": "Untitled",
-        "sequence": "0",
-        "hide": "true",
-        "clip": "true",
-        "timeout-enable": "false",
-        "timeout-ms": "5000",
-        "transition-duration-ms": "1000",
-        "transition-zoom-percent": "0",
-        "transition-profile": "linear"
-    };
-
-    /*
-     * Adds a listener for a given event type.
-     *
-     * The event type is provided as a string by the key parameter.
-     * The function to be executed is provided by the handler parameter.
-     */
-    exports.addListener = function (key, handler) {
-        var listenersForKey = listeners[key];
-        if (!listenersForKey) {
-            listenersForKey = listeners[key] = [];
-        }
-        listenersForKey.push(handler);
-    };
-    
-    /*
-     * Fire an event of the given type.
-     *
-     * All event handlers added for the given event type are
-     * executed.
-     * Additional arguments provided to this function are passed
-     * to the event handlers.
-     */
-    function fireEvent (key) {
-        var listenersForKey = listeners[key],
-            len,
-            i,
-            args = Array.prototype.slice.call(arguments, 1);
-        if (listenersForKey) {
-            len = listenersForKey.length;
-            for (i = 0; i < len; i++) {
-                listenersForKey[i].apply(null, args);
-            }
-        }
-    }
-    
     /*
      * Event handler: animation step.
      *
@@ -125,6 +77,29 @@ sozi.player = (function () {
     }
 
     /*
+     * Starts waiting before moving to the next frame.
+     *
+     * It the current frame has a timeout set, this method
+     * will register a timer to move to the next frame automatically
+     * after the specified time.
+     *
+     * If the current frame is the last, the presentation will
+     * move to the first frame.
+     */
+    function waitTimeout() {
+        var index;
+        if (sozi.document.frames[currentFrameIndex].timeoutEnable) {
+            waiting = true;
+            index = (currentFrameIndex + 1) % sozi.document.frames.length;
+            nextFrameTimeout = window.setTimeout(function () {
+                    exports.moveToFrame(index);
+                },
+                sozi.document.frames[currentFrameIndex].timeoutMs
+            );
+        }
+    }
+
+    /*
      * Event handler: animation done.
      *
      * This method is called by animator when the current animation is finished.
@@ -140,79 +115,6 @@ sozi.player = (function () {
     }
 
     /*
-     * Event handler: document load.
-     *
-     * This function initializes the animator, reads the frames.
-     * The first frame, or the frame which number is given in the URL, is shown.
-     */
-    function onLoad() {
-        display = sozi.display;
-        display.onLoad();
-
-        animator = new sozi.animation.Animator(40, onAnimationStep, onAnimationDone);
-
-        readFrames();
-        display.installTableOfContents();
-
-        exports.startFromIndex(sozi.location.getFrameIndex());
-    }
-
-    /*
-     * Returns the value of an attribute of a given SVG element.
-     *
-     * If the attribute is not set, then a default value is returned.
-     * See DEFAULTS.
-     */
-    function readAttribute(elt, attr) {
-        var value = elt.getAttributeNS(SOZI_NS, attr);
-        return value === "" ? DEFAULTS[attr] : value;
-    }
-
-    /*
-     * Builds the list of frames from the current document.
-     *
-     * This method collects all elements with tag "sozi:frame" and
-     * retrieves their geometrical and animation attributes.
-     * SVG elements that should be hidden during the presentation are hidden.
-     *
-     * The resulting list is available in frames, sorted by frame indices.
-     */
-    function readFrames() {
-        var frameElements = document.getElementsByTagNameNS(SOZI_NS, "frame"),
-            frameCount = frameElements.length,
-            svgElement,
-            i,
-            newFrame;
-
-        for (i = 0; i < frameCount; i++) {
-            svgElement = document.getElementById(frameElements[i].getAttributeNS(SOZI_NS, "refid"));
-            if (svgElement) {
-                newFrame = {
-                    geometry: display.getElementGeometry(svgElement),
-                    title: readAttribute(frameElements[i], "title"),
-                    sequence: parseInt(readAttribute(frameElements[i], "sequence"), 10),
-                    hide: readAttribute(frameElements[i], "hide") === "true",
-                    timeoutEnable: readAttribute(frameElements[i], "timeout-enable") === "true",
-                    timeoutMs: parseInt(readAttribute(frameElements[i], "timeout-ms"), 10),
-                    transitionDurationMs: parseInt(readAttribute(frameElements[i], "transition-duration-ms"), 10),
-                    transitionZoomPercent: parseInt(readAttribute(frameElements[i], "transition-zoom-percent"), 10),
-                    transitionProfile: sozi.animation.profiles[readAttribute(frameElements[i], "transition-profile") || "linear"]
-                };
-                if (newFrame.hide) {
-                    svgElement.setAttribute("visibility", "hidden");
-                }
-                newFrame.geometry.clip = readAttribute(frameElements[i], "clip") === "true";
-                exports.frames.push(newFrame);
-            }
-        }
-        exports.frames.sort(
-            function (a, b) {
-                return a.sequence - b.sequence;
-            }
-        );
-    }
-
-    /*
      * Starts the presentation from the given frame index (0-based).
      *
      * This method sets the "playing" flag, shows the desired frame
@@ -223,7 +125,7 @@ sozi.player = (function () {
         waiting = false;
         sourceFrameIndex = index;
         currentFrameIndex = index;
-        display.showFrame(exports.frames[index]);
+        display.showFrame(sozi.document.frames[index]);
         waitTimeout();
     };
 
@@ -248,29 +150,6 @@ sozi.player = (function () {
         playing = false;
         sourceFrameIndex = currentFrameIndex;
     };
-
-    /*
-     * Starts waiting before moving to the next frame.
-     *
-     * It the current frame has a timeout set, this method
-     * will register a timer to move to the next frame automatically
-     * after the specified time.
-     *
-     * If the current frame is the last, the presentation will
-     * move to the first frame.
-     */
-    function waitTimeout() {
-        var index;
-        if (exports.frames[currentFrameIndex].timeoutEnable) {
-            waiting = true;
-            index = (currentFrameIndex + 1) % exports.frames.length;
-            nextFrameTimeout = window.setTimeout(function () {
-                    exports.moveToFrame(index);
-                },
-                exports.frames[currentFrameIndex].timeoutMs
-            );
-        }
-    }
 
     function getZoomData(zoomPercent, s0, s1) {
         var result = {
@@ -318,24 +197,19 @@ sozi.player = (function () {
      */
     exports.jumpToFrame = function (index) {
         exports.stop();
-
-        if (display.tableOfContentsIsVisible()) {
-            display.hideTableOfContents();
-        }
+        sozi.events.fire("cleanup");
 
         sourceFrameIndex = index;
         currentFrameIndex = index;
-        display.showFrame(exports.frames[index]);
+        display.showFrame(sozi.document.frames[index]);
 
-        fireEvent("framechange", index);
+        sozi.events.fire("framechange", index);
     };
 
     exports.previewFrame = function (index) {
-        var finalState = exports.frames[index].geometry,
+        var finalState = sozi.document.frames[index].geometry,
             zw,
             zh;
-
-        finalState.clip = false;
 
         if (DEFAULT_ZOOM_PERCENT !== 0) {
             zw = getZoomData(DEFAULT_ZOOM_PERCENT, display.geometry.width, finalState.width);
@@ -351,7 +225,7 @@ sozi.player = (function () {
             zoomHeight: zh
         });
 
-        fireEvent("framechange", index);
+        sozi.events.fire("framechange", index);
     };
 
     /*
@@ -378,32 +252,30 @@ sozi.player = (function () {
             waiting = false;
         }
 
-        if (index === (currentFrameIndex + 1) % exports.frames.length) {
-            durationMs = exports.frames[index].transitionDurationMs;
-            zoomPercent = exports.frames[index].transitionZoomPercent;
-            profile = exports.frames[index].transitionProfile;
+        if (index === (currentFrameIndex + 1) % sozi.document.frames.length) {
+            durationMs = sozi.document.frames[index].transitionDurationMs;
+            zoomPercent = sozi.document.frames[index].transitionZoomPercent;
+            profile = sozi.document.frames[index].transitionProfile;
         }
 
-        if (display.tableOfContentsIsVisible()) {
-            display.hideTableOfContents();
-        }
+        sozi.events.fire("cleanup");
 
         if (zoomPercent !== 0) {
-            zw = getZoomData(zoomPercent, display.geometry.width, exports.frames[index].geometry.width);
-            zh = getZoomData(zoomPercent, display.geometry.height, exports.frames[index].geometry.height);
+            zw = getZoomData(zoomPercent, display.geometry.width, sozi.document.frames[index].geometry.width);
+            zh = getZoomData(zoomPercent, display.geometry.height, sozi.document.frames[index].geometry.height);
         }
 
         playing = true;
         currentFrameIndex = index;
         animator.start(durationMs, {
             initialState: display.getCurrentGeometry(),
-            finalState: exports.frames[currentFrameIndex].geometry,
+            finalState: sozi.document.frames[currentFrameIndex].geometry,
             profile: profile,
             zoomWidth: zw,
             zoomHeight: zh
         });
 
-        fireEvent("framechange", index);
+        sozi.events.fire("framechange", index);
     };
 
     /*
@@ -433,8 +305,8 @@ sozi.player = (function () {
         var index = currentFrameIndex,
             frame;
 
-        for (index--; index >= 0; index--) {
-            frame = exports.frames[index];
+        for (index -= 1; index >= 0; index -= 1) {
+            frame = sozi.document.frames[index];
             if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
                 exports.moveToFrame(index);
                 break;
@@ -450,7 +322,7 @@ sozi.player = (function () {
         if (!animator.started || sourceFrameIndex >= currentFrameIndex) {
             index += 1;
         }
-        if (index < exports.frames.length) {
+        if (index < sozi.document.frames.length) {
             exports.jumpToFrame(index);
         }
     };
@@ -459,8 +331,8 @@ sozi.player = (function () {
      * Moves to the next frame.
      */
     exports.moveToNext = function () {
-        if (currentFrameIndex < exports.frames.length - 1 || exports.frames[currentFrameIndex].timeoutEnable) {
-            exports.moveToFrame((currentFrameIndex + 1) % exports.frames.length);
+        if (currentFrameIndex < sozi.document.frames.length - 1 || sozi.document.frames[currentFrameIndex].timeoutEnable) {
+            exports.moveToFrame((currentFrameIndex + 1) % sozi.document.frames.length);
         }
     };
 
@@ -468,7 +340,7 @@ sozi.player = (function () {
      * Moves to the last frame of the presentation.
      */
     exports.moveToLast = function () {
-        exports.moveToFrame(exports.frames.length - 1);
+        exports.moveToFrame(sozi.document.frames.length - 1);
     };
 
     /*
@@ -486,9 +358,7 @@ sozi.player = (function () {
      */
     exports.showAll = function () {
         exports.stop();
-        if (display.tableOfContentsIsVisible()) {
-            display.hideTableOfContents();
-        }
+        sozi.events.fire("cleanup");
         animator.start(DEFAULT_DURATION_MS, {
             initialState: display.getCurrentGeometry(),
             finalState: display.getDocumentGeometry(),
@@ -497,30 +367,13 @@ sozi.player = (function () {
     };
 
     /*
-     * Zooms the display in the given direction.
-     *
-     * Only the sign of direction is used:
-     *    - zoom in when direction > 0
-     *    - zoom out when direction < 0
-     *
-     * The scaling is centered around point (x, y).
+     * Event handler: display ready.
      */
-    exports.zoom = function (direction, x, y) {
-        exports.stop();
-        display.applyZoomFactor(direction > 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
-    };
+    function onDisplayReady() {
+        exports.startFromIndex(sozi.location.getFrameIndex());
+    }    
 
-    exports.toggleTableOfContents = function () {
-        if (display.tableOfContentsIsVisible()) {
-            display.hideTableOfContents();
-            exports.restart();
-        } else {
-            exports.stop();
-            display.showTableOfContents();
-        }
-    };
+    animator = new sozi.animation.Animator(40, onAnimationStep, onAnimationDone);
 
-    window.addEventListener("load", onLoad, false);
-
-    return exports;
+    sozi.events.listen("displayready", onDisplayReady);
 }());
