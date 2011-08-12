@@ -38,6 +38,9 @@ class SoziField:
         self.ns_attr = inkex.addNS(attr, "sozi")
         self.label = label
         self.default_value = default
+        self.last_value = None
+        self.current_frame = None
+        self.current_frame_index = -1
         self.container = container
         self.widget = widget
         if focus_events:
@@ -55,28 +58,38 @@ class SoziField:
         pass
 
 
-    def write_to_frame(self, frame):    
-        frame["frame_element"].set(self.ns_attr, self.get_value())
+    def write_to_frame(self):    
+        self.current_frame["frame_element"].set(self.ns_attr, self.get_value())
 
 
-    def fill_for_frame(self, frame):
+    def write_if_needed(self):
+        if self.current_frame is not None and self.last_value != self.get_value():
+            self.parent.message_field.set_text("Changed " + self.label + " in frame " + str(self.current_frame_index + 1))
+            self.write_to_frame()
+            self.last_value = self.get_value()
+
+            
+    def fill_for_frame(self, frame, index):
+        self.write_if_needed()
+        self.current_frame = frame
+        self.current_frame_index = index
         if frame is not None and self.ns_attr in frame["frame_element"].attrib:
-            value = frame["frame_element"].attrib[self.ns_attr]
+            self.last_value = frame["frame_element"].attrib[self.ns_attr]
         else:
-            value = self.default_value
-        self.set_value(value)
+            self.last_value = self.default_value
+        self.set_value(self.last_value)
 
 
     def on_focus_in(self, widget, event):
-        self.parent.message_field.set_text("Focus in " + self.label)
+        self.last_value = self.get_value()
         
         
     def on_focus_out(self, widget, event):
-        self.parent.message_field.set_text("Focus out " + self.label)
+        self.write_if_needed()
 
 
     def on_changed(self, widget):
-        self.parent.message_field.set_text("Changed " + self.label)
+        self.write_if_needed()
 
 
 class SoziTextField(SoziField):
@@ -200,18 +213,14 @@ class SoziUI:
         frame_group.add(frame_box)
 
         # Create buttons
-        self.save_button = gtk.Button(stock=gtk.STOCK_SAVE)
-        self.save_button.connect("clicked", self.on_save_frame)
-
-        self.save_as_new_frame_button = gtk.Button(stock=gtk.STOCK_NEW)
-        self.save_as_new_frame_button.connect("clicked", self.on_save_as_new_frame)
+        self.create_new_frame_button = gtk.Button(stock=gtk.STOCK_NEW)
+        self.create_new_frame_button.connect("clicked", self.on_create_new_frame)
 
         self.delete_button = gtk.Button(stock=gtk.STOCK_DELETE)
         self.delete_button.connect("clicked", self.on_delete_frame)
 
         buttons_box = gtk.HBox()
-        buttons_box.pack_start(self.save_button)
-        buttons_box.pack_start(self.save_as_new_frame_button)
+        buttons_box.pack_start(self.create_new_frame_button)
         buttons_box.pack_start(self.delete_button)
 
         # Fill left pane
@@ -310,12 +319,11 @@ class SoziUI:
         store.append([index+1, title, color])
 
 
-    def fill_form(self, frame):
+    def fill_form(self, frame=None, index=-1):
         for field in self.fields.itervalues():
-            field.fill_for_frame(frame)
+            field.fill_for_frame(frame, index)
 
-        self.save_button.set_sensitive(frame is not None)
-        self.save_as_new_frame_button.set_sensitive(frame is not None or len(self.effect.selected) > 0)
+        self.create_new_frame_button.set_sensitive(frame is not None or len(self.effect.selected) > 0)
         self.delete_button.set_sensitive(frame is not None)
 
 
@@ -324,24 +332,13 @@ class SoziUI:
         model.set(model.get_iter(first), 0, second + 1)
         model.set(model.get_iter(second), 0, first + 1)
 
-
-    def save_frame(self, frame):
-        for field in self.fields.itervalues():
-            field.write_to_frame(frame)
-
-
-    def on_save_frame(self, widget):
-        model, iter = self.list_view.get_selection().get_selected()
-
-        # Update frame in SVG document
-        index = model.get_path(iter)[0]
-        self.save_frame(self.effect.frames[index])
-
-        # Update frame title in list view
-        model.set(iter, 1, self.fields["title"].get_value())
+    # TODO
+#    def update_frame_title(self):
+#        model, iter = self.list_view.get_selection().get_selected()
+#        model.set(iter, 1, self.fields["title"].get_value())
 
 
-    def on_save_as_new_frame(self, widget):
+    def on_create_new_frame(self, widget):
         selection = self.list_view.get_selection()
         model, iter = selection.get_selected()
         if iter:
@@ -350,8 +347,9 @@ class SoziUI:
             index = -1
 
         frame = self.effect.create_new_frame(index)
-        self.save_frame(frame)
-
+        for field in self.fields.itervalues():
+            frame["frame_element"].set(field.ns_attr, field.get_value())
+            
         # Create row in list view
         i = len(self.effect.frames) - 1
         self.append_frame(model, i)
@@ -373,7 +371,7 @@ class SoziUI:
             for i in range(index, len(self.effect.frames)):
                 model.set(model.get_iter(i), 0, i + 1)
         else:
-            self.fill_form(None)
+            self.fill_form()
 
 
     def on_move_frame_up(self, widget):
@@ -396,17 +394,17 @@ class SoziUI:
 
     def on_selection_changed(self, path):
         if self.list_view.get_selection().path_is_selected(path):
-            f = None
             self.up_button.set_sensitive(False)
             self.down_button.set_sensitive(False)
             self.delete_button.set_sensitive(False)
+            self.fill_form()
         else:
             index = path[0]
-            f = self.effect.frames[index]
+            frame = self.effect.frames[index]
             self.up_button.set_sensitive(index > 0)
             self.down_button.set_sensitive(index < len(self.effect.frames) - 1)
             self.delete_button.set_sensitive(True)
-        self.fill_form(f)
+            self.fill_form(frame, index)
         return True
 
 
