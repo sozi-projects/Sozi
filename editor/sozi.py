@@ -40,7 +40,6 @@ class SoziField:
         self.default_value = default
         self.last_value = None
         self.current_frame = None
-        self.current_frame_index = -1
         self.container = container
         self.widget = widget
         if focus_events:
@@ -64,10 +63,9 @@ class SoziField:
             self.last_value = self.get_value()
 
             
-    def fill_for_frame(self, frame, index):
+    def fill_for_frame(self, frame):
         self.write_if_needed()
         self.current_frame = frame
-        self.current_frame_index = index
         if frame is not None and self.ns_attr in frame["frame_element"].attrib:
             self.last_value = frame["frame_element"].attrib[self.ns_attr]
         else:
@@ -284,7 +282,7 @@ class SoziUI:
             self.list_view.get_selection().select_path((index,))
             self.list_view.scroll_to_cell(index)
         else:
-            self.fill_form()
+            self.fill_form(None)
         
         gtk.main()
         
@@ -306,9 +304,9 @@ class SoziUI:
         store.append([index+1, title, color])
 
 
-    def fill_form(self, frame=None, index=-1):
+    def fill_form(self, frame):
         for field in self.fields.itervalues():
-            field.fill_for_frame(frame, index)
+            field.fill_for_frame(frame)
 
         self.create_new_frame_button.set_sensitive(frame is not None or len(self.effect.selected) > 0)
         self.delete_button.set_sensitive(frame is not None)
@@ -353,7 +351,7 @@ class SoziUI:
             for i in range(index, len(self.effect.frames)):
                 model.set(model.get_iter(i), 0, i + 1)
         else:
-            self.fill_form()
+            self.fill_form(None)
 
 
     def on_move_frame_up(self, widget):
@@ -376,25 +374,26 @@ class SoziUI:
 
     def on_selection_changed(self, path):
         if self.list_view.get_selection().path_is_selected(path):
+            frame = None
             self.up_button.set_sensitive(False)
             self.down_button.set_sensitive(False)
             self.delete_button.set_sensitive(False)
-            self.fill_form()
         else:
             index = path[0]
             frame = self.effect.frames[index]
             self.up_button.set_sensitive(index > 0)
             self.down_button.set_sensitive(index < len(self.effect.frames) - 1)
             self.delete_button.set_sensitive(True)
-            self.fill_form(frame, index)
+        self.fill_form(frame)
         return True
 
 
     def on_field_changed(self, field):
-        self.message_field.set_text("Changed " + field.label + " in frame " + str(field.current_frame_index + 1))
+        index = self.effect.frames.index(field.current_frame)
+        self.message_field.set_text("Changed " + field.label + " in frame " + str(index + 1))
         if field is self.fields["title"]:
             model = self.list_view.get_model()
-            model.set(model.get_iter(field.current_frame_index), 1, field.get_value())
+            model.set(model.get_iter(index), 1, field.get_value())
             
 
     def destroy(self, widget):
