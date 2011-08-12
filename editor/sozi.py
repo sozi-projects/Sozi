@@ -59,8 +59,8 @@ class SoziField:
 
     def write_if_needed(self):
         if self.current_frame is not None and self.last_value != self.get_value():
-            self.parent.message_field.set_text("Changed " + self.label + " in frame " + str(self.current_frame_index + 1))
             self.current_frame["frame_element"].set(self.ns_attr, self.get_value())
+            self.parent.on_field_changed(self)
             self.last_value = self.get_value()
 
             
@@ -284,7 +284,7 @@ class SoziUI:
             self.list_view.get_selection().select_path((index,))
             self.list_view.scroll_to_cell(index)
         else:
-            self.fill_form(None)
+            self.fill_form()
         
         gtk.main()
         
@@ -318,11 +318,6 @@ class SoziUI:
         self.effect.swap_frames(first, second)
         model.set(model.get_iter(first), 0, second + 1)
         model.set(model.get_iter(second), 0, first + 1)
-
-    # TODO
-#    def update_frame_title(self):
-#        model, iter = self.list_view.get_selection().get_selected()
-#        model.set(iter, 1, self.fields["title"].get_value())
 
 
     def on_create_new_frame(self, widget):
@@ -394,6 +389,13 @@ class SoziUI:
             self.fill_form(frame, index)
         return True
 
+
+    def on_field_changed(self, field):
+        self.message_field.set_text("Changed " + field.label + " in frame " + str(field.current_frame_index + 1))
+        if field is self.fields["title"]:
+            model = self.list_view.get_model()
+            model.set(model.get_iter(field.current_frame_index), 1, field.get_value())
+            
 
     def destroy(self, widget):
         gtk.main_quit()
