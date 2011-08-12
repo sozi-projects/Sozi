@@ -44,10 +44,9 @@ class SoziField:
         self.container = container
         self.widget = widget
         if focus_events:
-            self.widget.connect("focus-in-event", self.on_focus_in)
             self.widget.connect("focus-out-event", self.on_focus_out)
         else:
-            self.widget.connect("changed", self.on_changed)
+            self.widget.connect("changed", self.on_focus_out)
 
 
     def set_value(self, value):
@@ -58,14 +57,10 @@ class SoziField:
         pass
 
 
-    def write_to_frame(self):    
-        self.current_frame["frame_element"].set(self.ns_attr, self.get_value())
-
-
     def write_if_needed(self):
         if self.current_frame is not None and self.last_value != self.get_value():
             self.parent.message_field.set_text("Changed " + self.label + " in frame " + str(self.current_frame_index + 1))
-            self.write_to_frame()
+            self.current_frame["frame_element"].set(self.ns_attr, self.get_value())
             self.last_value = self.get_value()
 
             
@@ -80,15 +75,7 @@ class SoziField:
         self.set_value(self.last_value)
 
 
-    def on_focus_in(self, widget, event):
-        self.last_value = self.get_value()
-        
-        
-    def on_focus_out(self, widget, event):
-        self.write_if_needed()
-
-
-    def on_changed(self, widget):
+    def on_focus_out(self, widget, event=None):
         self.write_if_needed()
 
 
