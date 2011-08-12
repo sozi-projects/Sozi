@@ -37,7 +37,7 @@ class SoziField:
         self.parent = parent
         self.ns_attr = inkex.addNS(attr, "sozi")
         self.label = label
-        self.default_value = default
+        self.default_value = unicode(default)
         self.last_value = None
         self.current_frame = None
         self.container = container
