@@ -15,9 +15,45 @@ var sozi = sozi || {};
 
 (function () {
     var exports = sozi.animation = sozi.animation || {},
-        window = this;
-    
+        window = this,
+        animationFrameImpl = ["moz", "webkit", "ms"],
+        i, impl,
+
+		getAnimationStartTime = function () {
+			return Date.now();
+		},
+	
+		requestFirstAnimationFrame = function (callback, timeStepMs) {
+			return window.setInterval(function () {
+				callback(Date.now());
+			}, timeStepMs);
+		},
+	
+		requestNextAnimationFrame = function (callback) {},
+	
+		clearAnimationFrame = function (af) {
+			window.clearInterval(af);
+		};
+	
+	function lookupAnimationHandlers(impl) {
+		if (typeof window[impl + "AnimationStartTime"] === "number") {
+			getAnimationStartTime = function () {
+				return window[impl + "AnimationStartTime"];
+			};
+		}
+		if (typeof window[impl + "RequestAnimationFrame"] === "function") {
+			requestFirstAnimationFrame = requestNextAnimationFrame = window[impl + "RequestAnimationFrame"];
+			clearAnimationFrame = function (af) {};
+		}
+	}
+	
+	for (i = 0; i < animationFrameImpl.length; i += 1) {
+		lookupAnimationHandlers(animationFrameImpl[i]);
+	}
+	
     exports.Animator = function (timeStepMs, onStep, onDone) {
+        var that = this;
+        
         this.timeStepMs = timeStepMs || 40;
         this.onStep = onStep;
         this.onDone = onDone;
@@ -26,41 +62,42 @@ var sozi = sozi || {};
         this.data = {};
         this.initialTime = 0;
         this.started = false;
-        this.timer = 0;
+        this.browserAnimationFrame = 0;
+        
+        this.callback = function (timestamp) {
+            that.step(timestamp);
+        };
     };
 
     exports.Animator.prototype.start = function (durationMs, data) {
-        var that = this;
-        
         this.durationMs = durationMs;
         this.data = data;
 
-        this.initialTime = Date.now();
+        this.initialTime = getAnimationStartTime();
         this.onStep(0, this.data);
 
         if (!this.started) {
             this.started = true;
-            this.timer = window.setInterval(function () {
-                that.step();
-            }, this.timeStepMs);
+            this.browserAnimationFrame = requestFirstAnimationFrame(this.callback, this.timeStepMs);
         }
     };
 
     exports.Animator.prototype.stop = function () {
         if (this.started) {
-            window.clearInterval(this.timer);
+            clearAnimationFrame(this.browserAnimationFrame);
             this.started = false;
         }
     };
 
-    exports.Animator.prototype.step = function () {
-        var elapsedTime = Date.now() - this.initialTime;
+    exports.Animator.prototype.step = function (timestamp) {
+        var elapsedTime = timestamp - this.initialTime;
         if (elapsedTime >= this.durationMs) {
             this.stop();
             this.onStep(1, this.data);
             this.onDone();
         } else {
             this.onStep(elapsedTime / this.durationMs, this.data);
+            requestNextAnimationFrame(this.callback);
         }
     };
 
