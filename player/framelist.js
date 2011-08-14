@@ -31,7 +31,6 @@ var sozi = sozi || {};
         translateX,
         animator,
         ANIMATION_TIME_MS = 300,
-        ANIMATION_STEP_MS = 30,
         ANIMATION_PROFILE = "decelerate",
         SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -176,7 +175,7 @@ var sozi = sozi || {};
         translateX = translateXEnd = translateXHidden;
         
         tocGroup.setAttribute("transform", "translate(" + translateXHidden + ",0)");
-        animator = new sozi.animation.Animator(ANIMATION_STEP_MS, onAnimationStep, onAnimationDone);
+        animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);
     }
 
     function onFrameChange(index) {

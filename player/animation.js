@@ -63,8 +63,7 @@ var sozi = sozi || {};
         animators.splice(animators.indexOf(animator), 1);
     }
     
-    exports.Animator = function (timeStepMs, onStep, onDone) {
-        this.timeStepMs = timeStepMs || 40; // FIXME deprecated
+    exports.Animator = function (onStep, onDone) {
         this.onStep = onStep;
         this.onDone = onDone;
 
