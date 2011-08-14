@@ -58,8 +58,7 @@ class SoziField:
 
     def write_if_needed(self):
         if self.current_frame is not None and self.last_value != self.get_value():
-            self.current_frame["frame_element"].set(self.ns_attr, self.get_value())
-            self.parent.on_field_changed(self)
+            self.parent.do_action(SoziFieldAction(self))
             self.last_value = self.get_value()
 
             
@@ -146,6 +145,47 @@ class SoziSpinButtonField(SoziField):
         return unicode(self.widget.get_value_as_int())
 
 
+class SoziAction:
+    
+    def __init__(self):
+        pass
+
+
+    def do(self):
+        pass
+
+
+    def undo(self):
+        pass
+
+
+    def get_description(self):
+        return "An action"
+
+
+class SoziFieldAction(SoziAction):
+    
+    def __init__(self, field):
+        SoziAction.__init__(self)
+        self.field = field
+        self.frame = field.current_frame
+        self.last_value = field.last_value
+        self.value = field.get_value()
+
+
+    def do(self):
+        self.frame["frame_element"].set(self.field.ns_attr, self.value)
+
+
+    def undo(self):
+        self.frame["frame_element"].set(self.field.ns_attr, self.last_value)
+     
+    
+    def get_description(self):
+        index = self.field.parent.effect.frames.index(self.frame)
+        return "Changed " + self.field.label + " in frame " + str(index + 1)
+
+
 class SoziUI:
 
     PROFILES = ["linear",
@@ -157,6 +197,7 @@ class SoziUI:
 
     def __init__(self, effect):
         self.effect = effect
+        self.action_stack = []
         
         window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         window.connect("destroy", self.destroy)
@@ -388,13 +429,15 @@ class SoziUI:
         return True
 
 
-    def on_field_changed(self, field):
-        index = self.effect.frames.index(field.current_frame)
-        self.message_field.set_text("Changed " + field.label + " in frame " + str(index + 1))
-        if field is self.fields["title"]:
+    def do_action(self, action):
+        self.action_stack.append(action)
+        action.do()
+        self.message_field.set_text(action.get_description())
+        if isinstance(action, SoziFieldAction) and action.field is self.fields["title"]:
+            index = self.effect.frames.index(action.frame)
             model = self.list_view.get_model()
-            model.set(model.get_iter(index), 1, field.get_value())
-            
+            model.set(model.get_iter(index), 1, action.value)
+
 
     def destroy(self, widget):
         gtk.main_quit()
