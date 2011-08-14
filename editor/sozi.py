@@ -147,8 +147,9 @@ class SoziSpinButtonField(SoziField):
 
 class SoziAction:
     
-    def __init__(self):
-        pass
+    def __init__(self, undo_description, redo_description):
+        self.undo_description = undo_description
+        self.redo_description = redo_description
 
 
     def do(self):
@@ -159,14 +160,20 @@ class SoziAction:
         pass
 
 
-    def get_description(self):
-        return "An action"
-
+    def redo(self):
+        self.do()
+        
 
 class SoziFieldAction(SoziAction):
     
     def __init__(self, field):
-        SoziAction.__init__(self)
+        index = field.parent.effect.frames.index(field.current_frame)
+
+        SoziAction.__init__(self,
+            "Restore " + field.label + " in frame " + str(index + 1),
+            "Change " + field.label + " in frame " + str(index + 1)
+        )
+
         self.field = field
         self.frame = field.current_frame
         self.last_value = field.last_value
@@ -179,11 +186,14 @@ class SoziFieldAction(SoziAction):
 
     def undo(self):
         self.frame["frame_element"].set(self.field.ns_attr, self.last_value)
-     
-    
-    def get_description(self):
-        index = self.field.parent.effect.frames.index(self.frame)
-        return "Changed " + self.field.label + " in frame " + str(index + 1)
+        if self.field.current_frame is self.frame:
+            self.field.set_value(self.last_value)
+
+
+    def redo(self):
+        self.do()
+        if self.field.current_frame is self.frame:
+            self.field.set_value(self.value)
 
 
 class SoziUI:
@@ -197,7 +207,8 @@ class SoziUI:
 
     def __init__(self, effect):
         self.effect = effect
-        self.action_stack = []
+        self.undo_stack = []
+        self.redo_stack = []
         
         window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         window.connect("destroy", self.destroy)
@@ -291,14 +302,22 @@ class SoziUI:
         hbox.pack_start(left_pane)
         hbox.pack_start(right_pane)
 
-        # Message field
-        self.message_field = gtk.Entry()
-        self.message_field.set_text("Sozi started")
-        self.message_field.set_editable(False)
+        # Undo/redo widgets
+        self.undo_button = gtk.Button(stock=gtk.STOCK_UNDO)
+        self.undo_button.set_sensitive(False)
+        self.undo_button.connect("clicked", self.on_undo)
+
+        self.redo_button = gtk.Button(stock=gtk.STOCK_REDO)
+        self.redo_button.set_sensitive(False)
+        self.redo_button.connect("clicked", self.on_redo)
+        
+        undo_redo_box = gtk.HBox()
+        undo_redo_box.pack_start(self.undo_button)
+        undo_redo_box.pack_start(self.redo_button)
         
         vbox = gtk.VBox()
-        vbox.pack_start(self.message_field)
         vbox.pack_start(hbox)
+        vbox.pack_start(undo_redo_box)
         
         window.add(vbox)
         window.show_all()
@@ -430,15 +449,48 @@ class SoziUI:
 
 
     def do_action(self, action):
-        self.action_stack.append(action)
         action.do()
-        self.message_field.set_text(action.get_description())
+        self.undo_stack.append(action)
+        self.redo_stack = []
+        self.complete_action(action)
+
+
+    def on_undo(self, widget):
+        if self.undo_stack:
+            action = self.undo_stack.pop()
+            self.redo_stack.append(action)
+            action.undo()
+            self.complete_action(action)
+
+
+    def on_redo(self, widget):
+        if self.redo_stack:
+            action = self.redo_stack.pop()
+            self.undo_stack.append(action)
+            action.redo()
+            self.complete_action(action)
+
+
+    def complete_action(self, action):
         if isinstance(action, SoziFieldAction) and action.field is self.fields["title"]:
             index = self.effect.frames.index(action.frame)
             model = self.list_view.get_model()
-            model.set(model.get_iter(index), 1, action.value)
+            model.set(model.get_iter(index), 1, action.frame["frame_element"].get(action.field.ns_attr))
+            
+        if self.undo_stack:
+            self.undo_button.set_tooltip_text(self.undo_stack[-1].undo_description)
+        else:
+            self.undo_button.set_tooltip_text("")
+            
+        if self.redo_stack:
+            self.redo_button.set_tooltip_text(self.redo_stack[-1].redo_description)
+        else:
+            self.redo_button.set_tooltip_text("")
+            
+        self.undo_button.set_sensitive(bool(self.undo_stack))
+        self.redo_button.set_sensitive(bool(self.redo_stack))
 
-
+   
     def destroy(self, widget):
         gtk.main_quit()
 
