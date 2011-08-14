@@ -16,45 +16,55 @@ var sozi = sozi || {};
 (function () {
     var exports = sozi.animation = sozi.animation || {},
         window = this,
-        animationFrameImpl = ["moz", "webkit", "ms"],
-        i, impl,
+        TIME_STEP_MS = 40,
+        animators = [],
+        timer,
+        requestAnimationFrame = window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            window.oRequestAnimationFrame;
 
-		getAnimationStartTime = function () {
-			return Date.now();
-		},
-	
-		requestFirstAnimationFrame = function (callback, timeStepMs) {
-			return window.setInterval(function () {
-				callback(Date.now());
-			}, timeStepMs);
-		},
-	
-		requestNextAnimationFrame = function (callback) {},
-	
-		clearAnimationFrame = function (af) {
-			window.clearInterval(af);
-		};
-	
-	function lookupAnimationHandlers(impl) {
-		if (typeof window[impl + "AnimationStartTime"] === "number") {
-			getAnimationStartTime = function () {
-				return window[impl + "AnimationStartTime"];
-			};
-		}
-		if (typeof window[impl + "RequestAnimationFrame"] === "function") {
-			requestFirstAnimationFrame = requestNextAnimationFrame = window[impl + "RequestAnimationFrame"];
-			clearAnimationFrame = function (af) {};
-		}
-	}
-	
-	for (i = 0; i < animationFrameImpl.length; i += 1) {
-		lookupAnimationHandlers(animationFrameImpl[i]);
-	}
-	
+    function start() {
+        if (requestAnimationFrame) {
+            requestAnimationFrame(loop);
+        }
+        else {
+            timer = window.setInterval(function() {
+                loop(Date.now());
+            }, TIME_STEP_MS);
+        }
+    }
+    
+    function loop(timestamp) {
+        var i;
+        if (animators.length > 0) {
+            if (requestAnimationFrame) {
+                requestAnimationFrame(loop);
+            }
+            for (i = 0; i < animators.length; i += 1) {
+                animators[i].step(timestamp)
+            }
+        }
+        else {
+            if (!requestAnimationFrame) {
+                window.clearInterval(timer);
+            }
+        }
+    }
+    
+    function addAnimator(animator) {
+        animators.push(animator);
+        if (animators.length === 1) {
+            start();
+        }
+    }
+    
+    function removeAnimator(animator) {
+        animators.splice(animators.indexOf(animator), 1);
+    }
+    
     exports.Animator = function (timeStepMs, onStep, onDone) {
-        var that = this;
-        
-        this.timeStepMs = timeStepMs || 40;
+        this.timeStepMs = timeStepMs || 40; // FIXME deprecated
         this.onStep = onStep;
         this.onDone = onDone;
 
@@ -62,29 +72,24 @@ var sozi = sozi || {};
         this.data = {};
         this.initialTime = 0;
         this.started = false;
-        this.browserAnimationFrame = 0;
-        
-        this.callback = function (timestamp) {
-            that.step(timestamp);
-        };
     };
 
     exports.Animator.prototype.start = function (durationMs, data) {
         this.durationMs = durationMs;
         this.data = data;
 
-        this.initialTime = getAnimationStartTime();
+        this.initialTime = Date.now();
         this.onStep(0, this.data);
 
         if (!this.started) {
             this.started = true;
-            this.browserAnimationFrame = requestFirstAnimationFrame(this.callback, this.timeStepMs);
+            addAnimator(this);
         }
     };
 
     exports.Animator.prototype.stop = function () {
         if (this.started) {
-            clearAnimationFrame(this.browserAnimationFrame);
+            removeAnimator(this);
             this.started = false;
         }
     };
@@ -97,7 +102,6 @@ var sozi = sozi || {};
             this.onDone();
         } else {
             this.onStep(elapsedTime / this.durationMs, this.data);
-            requestNextAnimationFrame(this.callback);
         }
     };
 
