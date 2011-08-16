@@ -31,15 +31,473 @@ pygtk.require("2.0")
 import gtk
 
 
-class Sozi(inkex.Effect):
+class SoziField:
+    
+    def __init__(self, parent, attr, label, container, widget, default, focus_events=True):
+        self.parent = parent
+        self.ns_attr = inkex.addNS(attr, "sozi")
+        self.label = label
+        self.default_value = unicode(default)
+        self.last_value = None
+        self.current_frame = None
+        self.container = container
+        self.widget = widget
+        if focus_events:
+            self.widget.connect("focus-out-event", self.on_focus_out)
+        else:
+            self.widget.connect("changed", self.on_focus_out)
 
-    VERSION = "{{SOZI_VERSION}}"
+
+    def set_value(self, value):
+        pass
+
+
+    def get_value(self):
+        pass
+
+
+    def write_if_needed(self):
+        if self.current_frame is not None and self.last_value != self.get_value():
+            self.parent.do_action(SoziFieldAction(self))
+            self.last_value = self.get_value()
+
+            
+    def fill_for_frame(self, frame):
+        self.write_if_needed()
+        self.current_frame = frame
+        if frame is not None and self.ns_attr in frame["frame_element"].attrib:
+            self.last_value = frame["frame_element"].attrib[self.ns_attr]
+        else:
+            self.last_value = self.default_value
+        self.set_value(self.last_value)
+
+
+    def on_focus_out(self, widget, event=None):
+        self.write_if_needed()
+
+
+class SoziTextField(SoziField):
+    
+    def __init__(self, parent, attr, label, default):
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.Entry(), default)
+        self.container.add(gtk.Label(label))
+        self.container.add(self.widget)
+
+
+    def set_value(self, value):
+        self.widget.set_text(value)
+
+
+    def get_value(self):
+        return unicode(self.widget.get_text())
+
+
+class SoziComboField(SoziField):
+    
+    def __init__(self, parent, attr, label, items, default):
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.combo_box_new_text(), default, False)
+        self.items = items  
+        for text in items:
+            self.widget.append_text(text)
+        self.container.add(gtk.Label(label))
+        self.container.add(self.widget)
+
+      
+    def set_value(self, value):
+        self.widget.set_active(self.items.index(value))
+
+    
+    def get_value(self):
+        return unicode(self.items[self.widget.get_active()])
+        
+        
+class SoziCheckButtonField(SoziField):
+    
+    def __init__(self, parent, attr, label, default):
+        button = gtk.CheckButton(label)
+        SoziField.__init__(self, parent, attr, label, button, button, default)
+
+
+    def set_value(self, value):
+        self.widget.set_active(value == "true")
+
+
+    def get_value(self):
+        return unicode("true" if self.widget.get_active() else "false")
+    
+    
+class SoziSpinButtonField(SoziField):
+    
+    def __init__(self, parent, attr, label, min, max, default):
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.SpinButton(digits=0), default)
+        self.widget.set_range(min, max)
+        self.widget.set_increments(1, 1)
+        self.widget.set_numeric(True)
+        self.container.pack_start(gtk.Label(label))
+        self.container.pack_start(self.widget)
+
+
+    def set_value(self, value):
+        self.widget.set_value(int(value))
+
+
+    def get_value(self):
+        return unicode(self.widget.get_value_as_int())
+
+
+class SoziAction:
+    
+    def __init__(self, undo_description, redo_description):
+        self.undo_description = undo_description
+        self.redo_description = redo_description
+
+
+    def do(self):
+        pass
+
+
+    def undo(self):
+        pass
+
+
+    def redo(self):
+        self.do()
+        
+
+class SoziFieldAction(SoziAction):
+    
+    def __init__(self, field):
+        index = field.parent.effect.frames.index(field.current_frame)
+
+        SoziAction.__init__(self,
+            "Restore " + field.label + " in frame " + str(index + 1),
+            "Change " + field.label + " in frame " + str(index + 1)
+        )
+
+        self.field = field
+        self.frame = field.current_frame
+        self.last_value = field.last_value
+        self.value = field.get_value()
+
+
+    def do(self):
+        self.frame["frame_element"].set(self.field.ns_attr, self.value)
+
+
+    def undo(self):
+        self.frame["frame_element"].set(self.field.ns_attr, self.last_value)
+        if self.field.current_frame is self.frame:
+            self.field.set_value(self.last_value)
+
+
+    def redo(self):
+        self.do()
+        if self.field.current_frame is self.frame:
+            self.field.set_value(self.value)
+
+
+class SoziUI:
 
     PROFILES = ["linear",
                 "accelerate", "strong-accelerate",
                 "decelerate", "strong-decelerate",
                 "accelerate-decelerate", "strong-accelerate-decelerate",
                 "decelerate-accelerate", "strong-decelerate-accelerate"]
+
+
+    def __init__(self, effect):
+        self.effect = effect
+        self.undo_stack = []
+        self.redo_stack = []
+        
+        window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        window.connect("destroy", self.destroy)
+        window.set_title("Sozi")
+        
+        # Enable icons on stock buttons
+        gtk.settings_get_default().set_long_property("gtk-button-images", True, "Sozi")
+
+        # Create fields for frame information
+        self.fields = {
+            "title": SoziTextField(self, "title", "Title", "New frame"),
+            "hide": SoziCheckButtonField(self, "hide", "Hide", "true"),
+            "clip": SoziCheckButtonField(self, "clip", "Clip", "true"),
+            "timeout-enable": SoziCheckButtonField(self, "timeout-enable", "Timeout enable", "false"),
+            "timeout-ms": SoziSpinButtonField(self, "timeout-ms", "Timeout (ms)", 0, 3600000, 5000),
+            "transition-duration-ms": SoziSpinButtonField(self, "transition-duration-ms", "Duration (ms)", 0, 3600000, 1000),
+            "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", "Zoom (%)", -100, 100, 0),
+            "transition-profile": SoziComboField(self, "transition-profile", "Profile", SoziUI.PROFILES, SoziUI.PROFILES[0])
+        }
+
+        # Transition properties
+        transition_box = gtk.VBox()
+        transition_box.pack_start(self.fields["transition-duration-ms"].container, expand=False)
+        transition_box.pack_start(self.fields["transition-zoom-percent"].container, expand=False)
+        transition_box.pack_start(self.fields["transition-profile"].container, expand=False)
+
+        transition_group = gtk.Frame("Transition")
+        transition_group.add(transition_box)
+
+        # Frame properties
+        frame_box = gtk.VBox()
+        frame_box.pack_start(self.fields["title"].container, expand=False)
+        frame_box.pack_start(self.fields["hide"].container, expand=False)
+        frame_box.pack_start(self.fields["clip"].container, expand=False)
+        frame_box.pack_start(self.fields["timeout-enable"].container, expand=False)
+        frame_box.pack_start(self.fields["timeout-ms"].container, expand=False)
+
+        frame_group = gtk.Frame("Frame")
+        frame_group.add(frame_box)
+
+        # Create buttons
+        self.create_new_frame_button = gtk.Button(stock=gtk.STOCK_NEW)
+        self.create_new_frame_button.connect("clicked", self.on_create_new_frame)
+
+        self.delete_button = gtk.Button(stock=gtk.STOCK_DELETE)
+        self.delete_button.connect("clicked", self.on_delete_frame)
+
+        buttons_box = gtk.HBox()
+        buttons_box.pack_start(self.create_new_frame_button)
+        buttons_box.pack_start(self.delete_button)
+
+        # Fill left pane
+        left_pane = gtk.VBox()
+        left_pane.pack_start(transition_group, expand=False)
+        left_pane.pack_start(frame_group, expand=False)
+        left_pane.pack_start(buttons_box, expand=False)
+
+        # Create frame list
+        list_renderer = gtk.CellRendererText()
+        list_renderer.set_property("background", "white")
+        sequence_column = gtk.TreeViewColumn("Seq.", list_renderer, text = 0, foreground = 2)
+        title_column = gtk.TreeViewColumn("Title", list_renderer, text = 1, foreground = 2)
+
+        store = gtk.ListStore(int, str, str)
+        self.list_view = gtk.TreeView(store)
+        self.list_view.append_column(sequence_column)
+        self.list_view.append_column(title_column)
+
+        list_scroll = gtk.ScrolledWindow()
+        list_scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)	
+        list_scroll.add(self.list_view)
+
+        selection = self.list_view.get_selection()
+        selection.set_mode(gtk.SELECTION_SINGLE) # TODO multiple selection
+        selection.set_select_function(self.on_selection_changed)
+
+        # Create up/down buttons
+        self.up_button = gtk.Button(stock=gtk.STOCK_GO_UP)
+        self.up_button.connect("clicked", self.on_move_frame_up)
+
+        self.down_button = gtk.Button(stock=gtk.STOCK_GO_DOWN)
+        self.down_button.connect("clicked", self.on_move_frame_down)
+
+        # Fill right pane
+        right_pane = gtk.VBox()
+        right_pane.pack_start(list_scroll, expand=True, fill=True)
+        right_pane.pack_start(self.up_button, expand=False)
+        right_pane.pack_start(self.down_button, expand=False)
+
+        hbox = gtk.HBox()
+        hbox.pack_start(left_pane)
+        hbox.pack_start(right_pane)
+
+        # Undo/redo widgets
+        self.undo_button = gtk.Button(stock=gtk.STOCK_UNDO)
+        self.undo_button.set_sensitive(False)
+        self.undo_button.connect("clicked", self.on_undo)
+
+        self.redo_button = gtk.Button(stock=gtk.STOCK_REDO)
+        self.redo_button.set_sensitive(False)
+        self.redo_button.connect("clicked", self.on_redo)
+        
+        undo_redo_box = gtk.HBox()
+        undo_redo_box.pack_start(self.undo_button)
+        undo_redo_box.pack_start(self.redo_button)
+        
+        vbox = gtk.VBox()
+        vbox.pack_start(hbox)
+        vbox.pack_start(undo_redo_box)
+        
+        window.add(vbox)
+        window.show_all()
+
+        # Get selected frame
+        selected_frame = None
+        if len(effect.selected) > 0:
+            for f in effect.frames:
+                if f["svg_element"].attrib["id"] in effect.selected:
+                    selected_frame = f
+                    break
+        elif len(effect.frames) > 0:
+            selected_frame = effect.frames[0]
+
+        # Fill frame list
+        store = self.list_view.get_model()
+        for i in range(len(effect.frames)):
+            self.append_frame(store, i)
+
+        if selected_frame is not None:
+            index = effect.frames.index(selected_frame)
+            self.list_view.get_selection().select_path((index,))
+            self.list_view.scroll_to_cell(index)
+        else:
+            self.fill_form(None)
+        
+        gtk.main()
+        
+
+    def append_frame(self, store, index):
+        frame = self.effect.frames[index]
+
+        title_attr = inkex.addNS("title", "sozi")
+        if title_attr in frame["frame_element"].attrib:
+            title = frame["frame_element"].attrib[title_attr]
+        else:
+            title = "Untitled"
+
+        if frame["svg_element"] in self.effect.selected.values():
+            color = "#ff0000"
+        else:
+            color = "#000000"
+
+        store.append([index+1, title, color])
+
+
+    def fill_form(self, frame):
+        for field in self.fields.itervalues():
+            field.fill_for_frame(frame)
+
+        self.create_new_frame_button.set_sensitive(frame is not None or len(self.effect.selected) > 0)
+        self.delete_button.set_sensitive(frame is not None)
+
+
+    def swap_frames(self, model, first, second):
+        self.effect.swap_frames(first, second)
+        model.set(model.get_iter(first), 0, second + 1)
+        model.set(model.get_iter(second), 0, first + 1)
+
+
+    def on_create_new_frame(self, widget):
+        selection = self.list_view.get_selection()
+        model, iter = selection.get_selected()
+        if iter:
+            index = model.get_path(iter)[0]
+        else:
+            index = -1
+
+        frame = self.effect.create_new_frame(index)
+        for field in self.fields.itervalues():
+            frame["frame_element"].set(field.ns_attr, field.get_value())
+            
+        # Create row in list view
+        i = len(self.effect.frames) - 1
+        self.append_frame(model, i)
+        selection.select_path((i,))
+        self.list_view.scroll_to_cell(i)
+
+
+    def on_delete_frame(self, widget):
+        selection = self.list_view.get_selection()
+        model, iter = selection.get_selected()
+        index = model.get_path(iter)[0]
+
+        self.effect.delete_frame(index)
+
+        # Delete frame from list view
+        if model.remove(iter):
+            selection.select_iter(iter)
+            # Renumber frames
+            for i in range(index, len(self.effect.frames)):
+                model.set(model.get_iter(i), 0, i + 1)
+        else:
+            self.fill_form(None)
+
+
+    def on_move_frame_up(self, widget):
+        model, iter = self.list_view.get_selection().get_selected()
+        index = model.get_path(iter)[0]
+        self.swap_frames(model, index, index - 1)
+        model.move_before(iter, model.get_iter(index-1))
+        self.up_button.set_sensitive(index > 1)
+        self.down_button.set_sensitive(True)
+
+
+    def on_move_frame_down(self, widget):
+        model, iter = self.list_view.get_selection().get_selected()
+        index = model.get_path(iter)[0]
+        self.swap_frames(model, index, index + 1)
+        model.move_after(iter, model.iter_next(iter))
+        self.up_button.set_sensitive(True)
+        self.down_button.set_sensitive(index < len(self.effect.frames) - 2)
+
+
+    def on_selection_changed(self, path):
+        if self.list_view.get_selection().path_is_selected(path):
+            frame = None
+            self.up_button.set_sensitive(False)
+            self.down_button.set_sensitive(False)
+            self.delete_button.set_sensitive(False)
+        else:
+            index = path[0]
+            frame = self.effect.frames[index]
+            self.up_button.set_sensitive(index > 0)
+            self.down_button.set_sensitive(index < len(self.effect.frames) - 1)
+            self.delete_button.set_sensitive(True)
+        self.fill_form(frame)
+        return True
+
+
+    def do_action(self, action):
+        action.do()
+        self.undo_stack.append(action)
+        self.redo_stack = []
+        self.complete_action(action)
+
+
+    def on_undo(self, widget):
+        if self.undo_stack:
+            action = self.undo_stack.pop()
+            self.redo_stack.append(action)
+            action.undo()
+            self.complete_action(action)
+
+
+    def on_redo(self, widget):
+        if self.redo_stack:
+            action = self.redo_stack.pop()
+            self.undo_stack.append(action)
+            action.redo()
+            self.complete_action(action)
+
+
+    def complete_action(self, action):
+        if isinstance(action, SoziFieldAction) and action.field is self.fields["title"]:
+            index = self.effect.frames.index(action.frame)
+            model = self.list_view.get_model()
+            model.set(model.get_iter(index), 1, action.frame["frame_element"].get(action.field.ns_attr))
+            
+        if self.undo_stack:
+            self.undo_button.set_tooltip_text(self.undo_stack[-1].undo_description)
+        else:
+            self.undo_button.set_tooltip_text("")
+            
+        if self.redo_stack:
+            self.redo_button.set_tooltip_text(self.redo_stack[-1].redo_description)
+        else:
+            self.redo_button.set_tooltip_text("")
+            
+        self.undo_button.set_sensitive(bool(self.undo_stack))
+        self.redo_button.set_sensitive(bool(self.redo_stack))
+
+   
+    def destroy(self, widget):
+        gtk.main_quit()
+
+
+class Sozi(inkex.Effect):
+
+    VERSION = "{{SOZI_VERSION}}"
 
     ATTR = ["title", "sequence", "hide", "clip", "timeout-enable", "timeout-ms",
             "transition-duration-ms", "transition-zoom-percent", "transition-profile"]
@@ -52,7 +510,6 @@ class Sozi(inkex.Effect):
         inkex.NSS[u"sozi"] = Sozi.NS_URI
 
         self.frames = []
-        self.fields = {}
 
 
     def effect(self):
@@ -128,268 +585,11 @@ class Sozi(inkex.Effect):
         for i, f in enumerate(self.frames):
             f["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i+1))
 
-        # Get the selected frame elements
-        if len(self.selected) > 0:
-            for f in self.frames:
-                if f["svg_element"].attrib["id"] in self.selected:
-                    self.create_form(f)
-                    break
-            else:
-                self.create_form(None)
-        elif len(self.frames) > 0:
-            self.create_form(self.frames[0])
+        # Initialize the user interface
+        self.ui = SoziUI(self)
 
 
-    def create_text_field(self, attr, label):
-        lbl = gtk.Label(label)
-        entry = gtk.Entry()
-
-        hbox = gtk.HBox()
-        hbox.add(lbl)
-        hbox.add(entry)
-
-        self.fields[attr] = entry
-        return hbox
-
-
-    def get_field_value(self, frame, attr, value):
-        ns_attr = inkex.addNS(attr, "sozi")
-        if frame is not None and ns_attr in frame["frame_element"].attrib:
-            return frame["frame_element"].attrib[ns_attr]
-        else:
-            return value
-      
-      
-    def fill_text_field(self, frame, attr, value):
-        self.fields[attr].set_text(self.get_field_value(frame, attr, value))
-
-      
-    def create_combo_field(self, attr, label, items):
-        lbl = gtk.Label(label)
-
-        combo = gtk.combo_box_new_text()
-        for text in items:
-            combo.append_text(text)
-
-        hbox = gtk.HBox()
-        hbox.add(lbl)
-        hbox.add(combo)
-
-        self.fields[attr] = combo 
-        return hbox
-
-      
-    def fill_combo_field(self, frame, attr, items, index):
-        text = self.get_field_value(frame, attr, items[index])
-        if items.count(text) > 0:
-            index = items.index(text)
-        self.fields[attr].set_active(index)
-
-
-    def create_checkbox_field(self, attr, label):
-        button = gtk.CheckButton(label)
-        self.fields[attr] = button
-        return button
-
-
-    def fill_checkbox_field(self, frame, attr, value):
-        self.fields[attr].set_active(self.get_field_value(frame, attr, value) == "true")
-
-
-    def create_spinbutton_field(self, attr, label, minValue = 0, maxValue = 1000000):
-        lbl = gtk.Label(label)
-
-        spin = gtk.SpinButton(digits=0)
-        spin.set_range(minValue, maxValue)
-        spin.set_increments(1, 1)
-        spin.set_numeric(True)
-
-        hbox = gtk.HBox()
-        hbox.pack_start(lbl)
-        hbox.pack_start(spin)
-
-        self.fields[attr] = spin
-        return hbox
-
-
-    def fill_spinbutton_field(self, frame, attr, value):
-        self.fields[attr].set_value(int(self.get_field_value(frame, attr, value)))
-
-
-    def create_checked_spinbutton_field(self, enable_attr, value_attr, label):
-        button = gtk.CheckButton(label)
-
-        spin = gtk.SpinButton(digits=0)
-        spin.set_range(0, 1000000)
-        spin.set_increments(1, 1)
-        spin.set_numeric(True)
-
-        hbox = gtk.HBox()
-        hbox.pack_start(button)
-        hbox.pack_start(spin)
-
-        self.fields[enable_attr] = button
-        self.fields[value_attr] = spin
-        return hbox
-
-
-    def create_form(self, frame):
-        window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        window.connect("destroy", self.destroy)
-
-        # Enable icons on stock buttons
-        gtk.settings_get_default().set_long_property("gtk-button-images", True, "Sozi")
-
-        # Create form for the selected element
-        title_field = self.create_text_field("title", "Title:")
-        hide_field = self.create_checkbox_field("hide", "Hide")
-        clip_field = self.create_checkbox_field("clip", "Clip")
-        timeout_field = self.create_checked_spinbutton_field("timeout-enable", "timeout-ms", "Timeout (ms):")
-        transition_duration_field = self.create_spinbutton_field("transition-duration-ms", "Duration (ms):")
-        transition_zoom_field = self.create_spinbutton_field("transition-zoom-percent", "Zoom (%):", -100, 100)
-        transition_profile_field = self.create_combo_field("transition-profile", "Profile:", Sozi.PROFILES)
-
-        # Create save buttons
-        self.save_button = gtk.Button(stock=gtk.STOCK_SAVE)
-        self.save_button.connect("clicked", self.on_save_frame)
-
-        self.save_as_new_frame_button = gtk.Button(stock=gtk.STOCK_NEW)
-        self.save_as_new_frame_button.connect("clicked", self.on_save_as_new_frame)
-
-        self.delete_button = gtk.Button(stock=gtk.STOCK_DELETE)
-        self.delete_button.connect("clicked", self.on_delete_frame)
-
-        buttons_box = gtk.HBox()
-        buttons_box.pack_start(self.save_button)
-        buttons_box.pack_start(self.save_as_new_frame_button)
-        buttons_box.pack_start(self.delete_button)
-
-        # Create frame list
-        list_renderer = gtk.CellRendererText()
-        list_renderer.set_property("background", "white")
-        sequence_column = gtk.TreeViewColumn("Seq.", list_renderer, text = 0, foreground = 2)
-        title_column = gtk.TreeViewColumn("Title", list_renderer, text = 1, foreground = 2)
-
-        store = gtk.ListStore(int, str, str)
-        self.list_view = gtk.TreeView(store)
-        self.list_view.append_column(sequence_column)
-        self.list_view.append_column(title_column)
-
-        list_scroll = gtk.ScrolledWindow()
-        list_scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)	
-        list_scroll.add(self.list_view)
-
-        selection = self.list_view.get_selection()
-        selection.set_mode(gtk.SELECTION_SINGLE) # TODO multiple selection
-        selection.set_select_function(self.on_selection_changed)
-
-        # Create up/down buttons
-        self.up_button = gtk.Button(stock=gtk.STOCK_GO_UP)
-        self.up_button.connect("clicked", self.on_move_frame_up)
-
-        self.down_button = gtk.Button(stock=gtk.STOCK_GO_DOWN)
-        self.down_button.connect("clicked", self.on_move_frame_down)
-
-        # Transition properties
-        transition_box = gtk.VBox()
-        transition_box.pack_start(transition_duration_field, expand=False)
-        transition_box.pack_start(transition_zoom_field, expand=False)
-        transition_box.pack_start(transition_profile_field, expand=False)
-
-        transition_group = gtk.Frame("Transition")
-        transition_group.add(transition_box)
-
-        # Frame properties
-        frame_box = gtk.VBox()
-        frame_box.pack_start(title_field, expand=False)
-        frame_box.pack_start(hide_field, expand=False)
-        frame_box.pack_start(clip_field, expand=False)
-        frame_box.pack_start(timeout_field, expand=False)
-
-        frame_group = gtk.Frame("Frame")
-        frame_group.add(frame_box)
-
-        # Fill left pane
-        left_pane = gtk.VBox()
-        left_pane.pack_start(transition_group, expand=False)
-        left_pane.pack_start(frame_group, expand=False)
-        left_pane.pack_start(buttons_box, expand=False)
-
-        # Fill right pane
-        right_pane = gtk.VBox()
-        right_pane.pack_start(list_scroll, expand=True, fill=True)
-        right_pane.pack_start(self.up_button, expand=False)
-        right_pane.pack_start(self.down_button, expand=False)
-
-        hbox = gtk.HBox()
-        hbox.pack_start(left_pane)
-        hbox.pack_start(right_pane)
-
-        window.add(hbox)
-        window.show_all()
-
-        # Fill frame list
-        store = self.list_view.get_model()
-        for i in range(len(self.frames)):
-            self.append_frame(store, i)
-
-        if frame is not None:
-            index = self.frames.index(frame)
-            self.list_view.get_selection().select_path((index,))
-            self.list_view.scroll_to_cell(index)
-        else:
-            self.fill_form(None)
-
-        gtk.main()
-
-
-    def fill_form(self, frame):
-        # Rectangles are configured to be hidden by default.
-        # Other elements are configured to be visible.
-        if frame is not None:
-            tag = frame["svg_element"].tag
-        elif len(self.selected) > 0:
-            tag = self.selected.values()[0].tag
-        else:
-            tag = None
-
-        if tag == "rect" or tag == "{" + inkex.NSS["svg"] + "}rect":
-            default_hide = "true"
-        else:
-            default_hide = "false"
-
-        self.fill_text_field(frame, "title", "New frame")
-        self.fill_checkbox_field(frame, "hide", default_hide)
-        self.fill_checkbox_field(frame, "clip", "true")
-        self.fill_checkbox_field(frame, "timeout-enable", "false")
-        self.fill_spinbutton_field(frame, "timeout-ms", 5000)
-        self.fill_spinbutton_field(frame, "transition-duration-ms", 1000)
-        self.fill_spinbutton_field(frame, "transition-zoom-percent", 0)
-        self.fill_combo_field(frame, "transition-profile", Sozi.PROFILES, 0)
-
-        self.save_button.set_sensitive(frame is not None)
-        self.save_as_new_frame_button.set_sensitive(frame is not None or len(self.selected) > 0)
-        self.delete_button.set_sensitive(frame is not None)
-
-
-    def append_frame(self, store, index):
-        frame = self.frames[index]
-
-        title_attr = inkex.addNS("title", "sozi")
-        if title_attr in frame["frame_element"].attrib:
-            title = frame["frame_element"].attrib[title_attr]
-        else:
-            title = "Untitled"
-
-        if frame["svg_element"] in self.selected.values():
-            color = "#ff0000"
-        else:
-            color = "#000000"
-
-        store.append([index+1, title, color])
-
-
-    def swap_frames(self, model, first, second):
+    def swap_frames(self, first, second):
         # Swap frames in SVG document
         sequence_attr = inkex.addNS("sequence", "sozi")
         self.frames[first]["frame_element"].set(sequence_attr, unicode(second + 1))
@@ -398,120 +598,39 @@ class Sozi(inkex.Effect):
         # Swap frames in frame list
         self.frames[first], self.frames[second] = self.frames[second], self.frames[first]
 
-        # Swap frames in list view
-        model.set(model.get_iter(first), 0, second + 1)
-        model.set(model.get_iter(second), 0, first + 1)
 
-
-    def save_frame(self, frame_element):
-        frame_element.set(inkex.addNS("title", "sozi"), unicode(self.fields["title"].get_text()))
-        frame_element.set(inkex.addNS("hide", "sozi"), unicode("true" if self.fields["hide"].get_active() else "false"))
-        frame_element.set(inkex.addNS("clip", "sozi"), unicode("true" if self.fields["clip"].get_active() else "false"))
-        frame_element.set(inkex.addNS("timeout-enable", "sozi"), unicode("true" if self.fields["timeout-enable"].get_active() else "false"))
-        frame_element.set(inkex.addNS("timeout-ms", "sozi"), unicode(self.fields["timeout-ms"].get_value_as_int()))
-        frame_element.set(inkex.addNS("transition-duration-ms", "sozi"), unicode(self.fields["transition-duration-ms"].get_value_as_int()))
-        frame_element.set(inkex.addNS("transition-zoom-percent", "sozi"), unicode(self.fields["transition-zoom-percent"].get_value_as_int()))
-        frame_element.set(inkex.addNS("transition-profile", "sozi"), unicode(Sozi.PROFILES[self.fields["transition-profile"].get_active()]))
-
-
-    def on_save_frame(self, widget):
-        model, iter = self.list_view.get_selection().get_selected()
-
-        # Update frame in SVG document
-        index = model.get_path(iter)[0]
-        self.save_frame(self.frames[index]["frame_element"])
-
-        # Update frame title in list view
-        model.set(iter, 1, self.fields["title"].get_text())
-
-
-    def on_save_as_new_frame(self, widget):
-        selection = self.list_view.get_selection()
-        model, iter = selection.get_selected()
-        if iter:
-            index = model.get_path(iter)[0]
+    def create_new_frame(self, index):
+        if index >= 0:
             svg_element = self.frames[index]["svg_element"]
-        else:
+        else:            
             svg_element = self.selected.values()[0]
-
+            
         # Create frame in SVG document
         frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
         frame_element.set(inkex.addNS("refid", "sozi"), svg_element.attrib["id"]) # TODO check namespace?
         frame_element.set(inkex.addNS("sequence", "sozi"), unicode(len(self.frames)+1))
         self.document.getroot().append(frame_element)
-        self.save_frame(frame_element)
-
+        
         # Create frame in frame list
-        self.frames.append({
+        frame = {
             "frame_element": frame_element,
             "svg_element": svg_element
-        })
-
-        # Create row in list view
-        i = len(self.frames) - 1
-        self.append_frame(model, i)
-        selection.select_path((i,))
-        self.list_view.scroll_to_cell(i)
+        }
+        
+        self.frames.append(frame)
+        return frame
 
 
-    def on_delete_frame(self, widget):
-        selection = self.list_view.get_selection()
-        model, iter = selection.get_selected()
-        index = model.get_path(iter)[0]
-
+    def delete_frame(self, index):
         # Delete frame from SVG document
         self.document.getroot().remove(self.frames[index]["frame_element"])
 
         # Delete frame from frame list
         del self.frames[index]
 
-        # Delete frame from list view
-        if model.remove(iter):
-            selection.select_iter(iter)
-            # Renumber frames
-            for i in range(index, len(self.frames)):
-                model.set(model.get_iter(i), 0, i + 1)
-                self.frames[i]["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i+1))
-        else:
-            self.fill_form(None)
-
-
-    def on_move_frame_up(self, widget):
-        model, iter = self.list_view.get_selection().get_selected()
-        index = model.get_path(iter)[0]
-        self.swap_frames(model, index, index - 1)
-        model.move_before(iter, model.get_iter(index-1))
-        self.up_button.set_sensitive(index > 1)
-        self.down_button.set_sensitive(True)
-
-
-    def on_move_frame_down(self, widget):
-        model, iter = self.list_view.get_selection().get_selected()
-        index = model.get_path(iter)[0]
-        self.swap_frames(model, index, index + 1)
-        model.move_after(iter, model.iter_next(iter))
-        self.up_button.set_sensitive(True)
-        self.down_button.set_sensitive(index < len(self.frames) - 2)
-
-
-    def on_selection_changed(self, path):
-        if self.list_view.get_selection().path_is_selected(path):
-            f = None
-            self.up_button.set_sensitive(False)
-            self.down_button.set_sensitive(False)
-            self.delete_button.set_sensitive(False)
-        else:
-            index = path[0]
-            f = self.frames[index]
-            self.up_button.set_sensitive(index > 0)
-            self.down_button.set_sensitive(index < len(self.frames) - 1)
-            self.delete_button.set_sensitive(True)
-        self.fill_form(f)
-        return True
-
-
-    def destroy(self, widget):
-        gtk.main_quit()
+        # Renumber frames
+        for i in range(index, len(self.frames)):
+            self.frames[i]["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i+1))
 
 
 # Create effect instance

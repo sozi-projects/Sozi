@@ -22,12 +22,16 @@
    cursor: pointer;
 }
 
+#sozi-toc text.sozi-toc-current {
+   fill: #fa4;
+}
+
 #sozi-toc-background {
    stroke: #222;
    stroke-opacity: 0.1;
    stroke-width: 10;
    fill: #222;
-   fill-opacity: 0.75;
+   fill-opacity: 0.9;
 }
 
 .sozi-toc-arrow {

@@ -13,11 +13,57 @@
 
 var sozi = sozi || {};
 
-sozi.animation = (function () {
-    var exports = {};
+(function () {
+    var exports = sozi.animation = sozi.animation || {},
+        window = this,
+        TIME_STEP_MS = 40,
+        animators = [],
+        timer,
+        requestAnimationFrame = window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            window.oRequestAnimationFrame;
+
+    function start() {
+        if (requestAnimationFrame) {
+            requestAnimationFrame(loop);
+        }
+        else {
+            timer = window.setInterval(function() {
+                loop(Date.now());
+            }, TIME_STEP_MS);
+        }
+    }
     
-    exports.Animator = function (timeStepMs, onStep, onDone) {
-        this.timeStepMs = timeStepMs || 40;
+    function loop(timestamp) {
+        var i;
+        if (animators.length > 0) {
+            if (requestAnimationFrame) {
+                requestAnimationFrame(loop);
+            }
+            for (i = 0; i < animators.length; i += 1) {
+                animators[i].step(timestamp)
+            }
+        }
+        else {
+            if (!requestAnimationFrame) {
+                window.clearInterval(timer);
+            }
+        }
+    }
+    
+    function addAnimator(animator) {
+        animators.push(animator);
+        if (animators.length === 1) {
+            start();
+        }
+    }
+    
+    function removeAnimator(animator) {
+        animators.splice(animators.indexOf(animator), 1);
+    }
+    
+    exports.Animator = function (onStep, onDone) {
         this.onStep = onStep;
         this.onDone = onDone;
 
@@ -25,7 +71,6 @@ sozi.animation = (function () {
         this.data = {};
         this.initialTime = 0;
         this.started = false;
-        this.timer = 0;
     };
 
     exports.Animator.prototype.start = function (durationMs, data) {
@@ -37,19 +82,19 @@ sozi.animation = (function () {
 
         if (!this.started) {
             this.started = true;
-            this.timer = window.setInterval(this.step.bind(this), this.timeStepMs);
+            addAnimator(this);
         }
     };
 
     exports.Animator.prototype.stop = function () {
         if (this.started) {
-            window.clearInterval(this.timer);
+            removeAnimator(this);
             this.started = false;
         }
     };
 
-    exports.Animator.prototype.step = function () {
-        var elapsedTime = Date.now() - this.initialTime;
+    exports.Animator.prototype.step = function (timestamp) {
+        var elapsedTime = timestamp - this.initialTime;
         if (elapsedTime >= this.durationMs) {
             this.stop();
             this.onStep(1, this.data);
@@ -104,7 +149,5 @@ sozi.animation = (function () {
             return x <= 0.5 ? y : 1 - y;
         }
     };
-
-    return exports;
 }());
 
