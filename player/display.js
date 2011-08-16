@@ -145,9 +145,8 @@ var sozi = sozi || {};
             seg0 = segments.getItem(0);
             seg1 = segments.getItem(1);
             seg2 = segments.getItem(2);
-            console.log(seg0,seg1,seg2);
-            mmatrix = svg.createSVGMatrix();
-            //matrix = m.translate(seg0.x,seg0.y);
+            matrix = svg.createSVGMatrix();
+            // matrix = m.translate(seg0.x,seg0.y);
             // we're going to assume segments are always drawn counter-clockwise by Sketch.
             matrix = matrix.rotateFromVector(seg2.x - seg1.x, seg2.y - seg1.y);
             scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
