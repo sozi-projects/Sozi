@@ -221,21 +221,44 @@ class SoziSpinButtonField(SoziField):
 
 
 class SoziAction:
+    """
+    An wrapper for UI actions.
+    Action objects can be executed, undone and redone.
+    They can be stored in undo and redo stacks.
+    """
     
     def __init__(self, undo_description, redo_description):
+        """
+        Initialize a new action.
+            - undo_description: a human-readable text that describes the undo action
+            - redo_description: a human-readable text that describes the redo action
+        """
         self.undo_description = undo_description
         self.redo_description = redo_description
 
 
     def do(self):
+        """
+        Execute the current action.
+        Implemented by subclasses.
+        """
         pass
 
 
     def undo(self):
+        """
+        Undo the current action.
+        Implemented by subclasses.
+        """
         pass
 
 
     def redo(self):
+        """
+        Redo the current action.
+        The default implementation simply calls the do() method on the current action.
+        Override this method to provide a specific implementation.
+        """
         self.do()
         
 
