@@ -32,37 +32,78 @@ import gtk
 
 
 class SoziField:
+    """
+    A field is a wrapper for a GTK input control mapped to a Sozi frame attribute.
+    Provide a subclass of SoziField for each type of GTK control.
+    """
     
-    def __init__(self, parent, attr, label, container, widget, default, focus_events=True):
+    def __init__(self, parent, attr, label, container_widget, input_widget, default_value, focus_events=True):
+        """
+        Initialize a new field.
+            - parent: the UI object that contains the current field
+            - attr: the frame attribute that corresponds to the current field
+            - label: the human-readable text that describes the current field
+            - container_widget: the GTK widget that will contain the current field
+            - input_widget: the GTK input control for the current field
+            - default_value: the default value of the current field
+            - focus_events: True if the GTK input control handles focus events, False otherwise
+        """
         self.parent = parent
         self.ns_attr = inkex.addNS(attr, "sozi")
         self.label = label
-        self.default_value = unicode(default)
+        self.container_widget = container_widget
+        self.input_widget = input_widget
+        self.default_value = unicode(default_value)
+
+        if focus_events:
+            self.input_widget.connect("focus-out-event", self.on_focus_out)
+        else:
+            self.input_widget.connect("changed", self.on_focus_out)
+
         self.last_value = None
         self.current_frame = None
-        self.container = container
-        self.widget = widget
-        if focus_events:
-            self.widget.connect("focus-out-event", self.on_focus_out)
-        else:
-            self.widget.connect("changed", self.on_focus_out)
 
 
     def set_value(self, value):
+        """
+        Fill the GTK control for the current field with the given value.
+        The value must be provided as a string.
+        
+        Implemented by subclasses.
+        """
         pass
 
 
     def get_value(self):
+        """
+        Return the value of the GTK control for the current field.
+        The value is returned as a string.
+        
+        Implemented by subclasses.
+        """
         pass
 
 
     def write_if_needed(self):
+        """
+        Write the value of the current field to the SVG document.
+        This operation is performed if all these conditions are met:
+            - the current field shows a property of an existing frame
+            - this frame has not been removed from the document
+            - the value of the current field has changed since it was last written
+        The write operation is delegated to a SoziFieldAction object.
+        """
         if self.current_frame is not None and self.current_frame in self.parent.effect.frames and self.last_value != self.get_value():
             self.parent.do_action(SoziFieldAction(self))
             self.last_value = self.get_value()
 
             
-    def fill_for_frame(self, frame):
+    def set_with_frame(self, frame):
+        """
+        Set the value of the current field with the corresponding attribute of the given frame.
+        If frame is None, the field is filled with its default value.
+        The previous value of the field is written to the document if needed.
+        """
         self.write_if_needed()
         self.current_frame = frame
         if frame is not None and self.ns_attr in frame["frame_element"].attrib:
@@ -73,76 +114,79 @@ class SoziField:
 
 
     def on_focus_out(self, widget, event=None):
+        """
+        Event handler, called each time the current field loses focus.
+        """
         self.write_if_needed()
 
 
 class SoziTextField(SoziField):
     
-    def __init__(self, parent, attr, label, default):
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.Entry(), default)
-        self.container.add(gtk.Label(label))
-        self.container.add(self.widget)
+    def __init__(self, parent, attr, label, default_value):
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.Entry(), default_value)
+        self.container_widget.add(gtk.Label(label))
+        self.container_widget.add(self.input_widget)
 
 
     def set_value(self, value):
-        self.widget.set_text(value)
+        self.input_widget.set_text(value)
 
 
     def get_value(self):
-        return unicode(self.widget.get_text())
+        return unicode(self.input_widget.get_text())
 
 
 class SoziComboField(SoziField):
     
-    def __init__(self, parent, attr, label, items, default):
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.combo_box_new_text(), default, False)
+    def __init__(self, parent, attr, label, items, default_value):
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.combo_box_new_text(), default_value, False)
         self.items = items  
         for text in items:
-            self.widget.append_text(text)
-        self.container.add(gtk.Label(label))
-        self.container.add(self.widget)
+            self.input_widget.append_text(text)
+        self.container_widget.add(gtk.Label(label))
+        self.container_widget.add(self.input_widget)
 
       
     def set_value(self, value):
-        self.widget.set_active(self.items.index(value))
+        self.input_widget.set_active(self.items.index(value))
 
     
     def get_value(self):
-        return unicode(self.items[self.widget.get_active()])
+        return unicode(self.items[self.input_widget.get_active()])
         
         
 class SoziCheckButtonField(SoziField):
     
-    def __init__(self, parent, attr, label, default):
+    def __init__(self, parent, attr, label, default_value):
         button = gtk.CheckButton(label)
-        SoziField.__init__(self, parent, attr, label, button, button, default)
+        SoziField.__init__(self, parent, attr, label, button, button, default_value)
 
 
     def set_value(self, value):
-        self.widget.set_active(value == "true")
+        self.input_widget.set_active(value == "true")
 
 
     def get_value(self):
-        return unicode("true" if self.widget.get_active() else "false")
+        return unicode("true" if self.input_widget.get_active() else "false")
     
     
 class SoziSpinButtonField(SoziField):
     
-    def __init__(self, parent, attr, label, min, max, default):
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.SpinButton(digits=0), default)
-        self.widget.set_range(min, max)
-        self.widget.set_increments(1, 1)
-        self.widget.set_numeric(True)
-        self.container.pack_start(gtk.Label(label))
-        self.container.pack_start(self.widget)
+    def __init__(self, parent, attr, label, min, max, default_value):
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.SpinButton(digits=0), default_value)
+        self.input_widget.set_range(min, max)
+        self.input_widget.set_increments(1, 1)
+        self.input_widget.set_numeric(True)
+        self.container_widget.pack_start(gtk.Label(label))
+        self.container_widget.pack_start(self.input_widget)
 
 
     def set_value(self, value):
-        self.widget.set_value(int(value))
+        self.input_widget.set_value(int(value))
 
 
     def get_value(self):
-        return unicode(self.widget.get_value_as_int())
+        return unicode(self.input_widget.get_value_as_int())
 
 
 class SoziAction:
@@ -264,20 +308,20 @@ class SoziUI:
 
         # Transition properties
         transition_box = gtk.VBox()
-        transition_box.pack_start(self.fields["transition-duration-ms"].container, expand=False)
-        transition_box.pack_start(self.fields["transition-zoom-percent"].container, expand=False)
-        transition_box.pack_start(self.fields["transition-profile"].container, expand=False)
+        transition_box.pack_start(self.fields["transition-duration-ms"].container_widget, expand=False)
+        transition_box.pack_start(self.fields["transition-zoom-percent"].container_widget, expand=False)
+        transition_box.pack_start(self.fields["transition-profile"].container_widget, expand=False)
 
         transition_group = gtk.Frame("Transition")
         transition_group.add(transition_box)
 
         # Frame properties
         frame_box = gtk.VBox()
-        frame_box.pack_start(self.fields["title"].container, expand=False)
-        frame_box.pack_start(self.fields["hide"].container, expand=False)
-        frame_box.pack_start(self.fields["clip"].container, expand=False)
-        frame_box.pack_start(self.fields["timeout-enable"].container, expand=False)
-        frame_box.pack_start(self.fields["timeout-ms"].container, expand=False)
+        frame_box.pack_start(self.fields["title"].container_widget, expand=False)
+        frame_box.pack_start(self.fields["hide"].container_widget, expand=False)
+        frame_box.pack_start(self.fields["clip"].container_widget, expand=False)
+        frame_box.pack_start(self.fields["timeout-enable"].container_widget, expand=False)
+        frame_box.pack_start(self.fields["timeout-ms"].container_widget, expand=False)
 
         frame_group = gtk.Frame("Frame")
         frame_group.add(frame_box)
@@ -407,7 +451,7 @@ class SoziUI:
      
     def fill_form(self, frame):
         for field in self.fields.itervalues():
-            field.fill_for_frame(frame)
+            field.set_with_frame(frame)
 
         self.create_new_frame_button.set_sensitive(frame is not None or len(self.effect.selected) > 0)
         self.delete_button.set_sensitive(frame is not None)
