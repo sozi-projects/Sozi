@@ -222,7 +222,7 @@ class SoziSpinButtonField(SoziField):
 
 class SoziAction:
     """
-    An wrapper for UI actions.
+    A wrapper for UI actions.
     Action objects can be executed, undone and redone.
     They can be stored in undo and redo stacks.
     """
@@ -263,8 +263,16 @@ class SoziAction:
         
 
 class SoziFieldAction(SoziAction):
+    """
+    A wrapper for a field modification action.
+    Executing a field action will write the field value to the SVG document.
+    """
     
     def __init__(self, field):
+        """
+        Initialize a new field action for the given field.
+        The action object saves a copy of the previous and current values of the field.
+        """
         index = field.parent.effect.frames.index(field.current_frame)
 
         SoziAction.__init__(self,
@@ -279,10 +287,17 @@ class SoziFieldAction(SoziAction):
 
 
     def do(self):
+        """
+        Write the new value of the field to the current frame.
+        """
         self.frame["frame_element"].set(self.field.ns_attr, self.value)
 
 
     def undo(self):
+        """
+        Restore the previous value of the field in the frame and in the UI.
+        If needed, select the frame that was active when the field was modified.
+        """
         self.frame["frame_element"].set(self.field.ns_attr, self.last_value)
         if self.field.current_frame is self.frame:
             self.field.set_value(self.last_value)
@@ -291,6 +306,10 @@ class SoziFieldAction(SoziAction):
 
 
     def redo(self):
+        """
+        Write the new value of the field to the frame and to the UI.
+        If needed, select the frame that was active when the field was modified.
+        """
         self.do()
         if self.field.current_frame is self.frame:
             self.field.set_value(self.value)
