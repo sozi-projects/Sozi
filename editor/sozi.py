@@ -57,7 +57,7 @@ class SoziField:
 
 
     def write_if_needed(self):
-        if self.current_frame is not None and self.last_value != self.get_value():
+        if self.current_frame is not None and self.current_frame in self.parent.effect.frames and self.last_value != self.get_value():
             self.parent.do_action(SoziFieldAction(self))
             self.last_value = self.get_value()
 
@@ -188,12 +188,45 @@ class SoziFieldAction(SoziAction):
         self.frame["frame_element"].set(self.field.ns_attr, self.last_value)
         if self.field.current_frame is self.frame:
             self.field.set_value(self.last_value)
+        else:
+            self.field.parent.select_frame(self.frame)
 
 
     def redo(self):
         self.do()
         if self.field.current_frame is self.frame:
             self.field.set_value(self.value)
+        else:
+            self.field.parent.select_frame(self.frame)
+
+
+class SoziCreateAction(SoziAction):
+    
+    def __init__(self, ui):
+        new_frame_number = str(len(ui.effect.frames) + 1)
+
+        SoziAction.__init__(self,
+            "Remove frame " + new_frame_number,
+            "Recreate frame " + new_frame_number)
+            
+        self.ui = ui
+        self.index = ui.get_selected_index()
+    
+        self.frame = ui.effect.create_new_frame(self.index)
+        for field in ui.fields.itervalues():
+            self.frame["frame_element"].set(field.ns_attr, field.get_value())
+                    
+
+    def do(self):
+        self.ui.effect.add_frame(self.frame)
+        self.ui.register_last_frame()
+        self.ui.select_index(-1)
+
+
+    def undo(self):        
+        self.ui.unregister_last_frame()
+        self.ui.effect.delete_frame(-1)
+        self.ui.select_index(self.index)
 
 
 class SoziUI:
@@ -333,9 +366,8 @@ class SoziUI:
             selected_frame = effect.frames[0]
 
         # Fill frame list
-        store = self.list_view.get_model()
         for i in range(len(effect.frames)):
-            self.append_frame(store, i)
+            self.append_frame_title(i)
 
         if selected_frame is not None:
             index = effect.frames.index(selected_frame)
@@ -347,7 +379,7 @@ class SoziUI:
         gtk.main()
         
 
-    def append_frame(self, store, index):
+    def append_frame_title(self, index):
         frame = self.effect.frames[index]
 
         title_attr = inkex.addNS("title", "sozi")
@@ -361,9 +393,19 @@ class SoziUI:
         else:
             color = "#000000"
 
-        store.append([index+1, title, color])
+        self.list_view.get_model().append([index+1, title, color])
 
 
+    def register_last_frame(self):
+        index = len(self.effect.frames) - 1
+        self.append_frame_title(index)
+
+
+    def unregister_last_frame(self):
+        model = self.list_view.get_model()
+        model.remove(model.get_iter(len(self.effect.frames) - 1))
+
+     
     def fill_form(self, frame):
         for field in self.fields.itervalues():
             field.fill_for_frame(frame)
@@ -372,6 +414,26 @@ class SoziUI:
         self.delete_button.set_sensitive(frame is not None)
 
 
+    def get_selected_index(self):
+        selection = self.list_view.get_selection()
+        model, iter = selection.get_selected()
+        if iter:
+            return model.get_path(iter)[0]
+        else:
+            return -1
+
+
+    def select_index(self, index):
+        if (index < 0):
+            index += len(self.effect.frames)
+        self.list_view.get_selection().select_path((index,))
+        self.list_view.scroll_to_cell(index)
+
+    
+    def select_frame(self, frame):
+        self.select_index(self.effect.frames.index(frame))
+        
+        
     def swap_frames(self, model, first, second):
         self.effect.swap_frames(first, second)
         model.set(model.get_iter(first), 0, second + 1)
@@ -379,22 +441,7 @@ class SoziUI:
 
 
     def on_create_new_frame(self, widget):
-        selection = self.list_view.get_selection()
-        model, iter = selection.get_selected()
-        if iter:
-            index = model.get_path(iter)[0]
-        else:
-            index = -1
-
-        frame = self.effect.create_new_frame(index)
-        for field in self.fields.itervalues():
-            frame["frame_element"].set(field.ns_attr, field.get_value())
-            
-        # Create row in list view
-        i = len(self.effect.frames) - 1
-        self.append_frame(model, i)
-        selection.select_path((i,))
-        self.list_view.scroll_to_cell(i)
+        self.do_action(SoziCreateAction(self))
 
 
     def on_delete_frame(self, widget):
@@ -605,22 +652,23 @@ class Sozi(inkex.Effect):
         else:            
             svg_element = self.selected.values()[0]
             
-        # Create frame in SVG document
         frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
         frame_element.set(inkex.addNS("refid", "sozi"), svg_element.attrib["id"]) # TODO check namespace?
         frame_element.set(inkex.addNS("sequence", "sozi"), unicode(len(self.frames)+1))
-        self.document.getroot().append(frame_element)
         
-        # Create frame in frame list
         frame = {
             "frame_element": frame_element,
             "svg_element": svg_element
         }
         
-        self.frames.append(frame)
         return frame
 
 
+    def add_frame(self, frame):
+        self.document.getroot().append(frame["frame_element"])
+        self.frames.append(frame)
+
+        
     def delete_frame(self, index):
         # Delete frame from SVG document
         self.document.getroot().remove(self.frames[index]["frame_element"])
@@ -629,8 +677,9 @@ class Sozi(inkex.Effect):
         del self.frames[index]
 
         # Renumber frames
-        for i in range(index, len(self.frames)):
-            self.frames[i]["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i+1))
+        if index >= 0:
+            for i in range(index, len(self.frames)):
+                self.frames[i]["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i+1))
 
 
 # Create effect instance
