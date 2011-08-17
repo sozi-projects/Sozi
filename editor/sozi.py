@@ -121,8 +121,15 @@ class SoziField:
 
 
 class SoziTextField(SoziField):
+    """
+    A wrapper for a GTK Entry mapped to a Sozi frame attribute.
+    """
     
     def __init__(self, parent, attr, label, default_value):
+        """
+        Initialize a new text field.
+        See class SoziField for initializer arguments.
+        """
         SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.Entry(), default_value)
         self.container_widget.add(gtk.Label(label))
         self.container_widget.add(self.input_widget)
@@ -137,8 +144,16 @@ class SoziTextField(SoziField):
 
 
 class SoziComboField(SoziField):
+    """
+    A wrapper for a GTK ComboBox with text items mapped to a Sozi frame attribute.
+    """
     
     def __init__(self, parent, attr, label, items, default_value):
+        """
+        Initialize a new combo field.
+            - items: the list of items in the combo box
+        See class SoziField for other initializer arguments.
+        """
         SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.combo_box_new_text(), default_value, False)
         self.items = items  
         for text in items:
@@ -156,8 +171,15 @@ class SoziComboField(SoziField):
         
         
 class SoziCheckButtonField(SoziField):
+    """
+    A wrapper for a GTK CheckButton mapped to a Sozi frame attribute.
+    """
     
     def __init__(self, parent, attr, label, default_value):
+        """
+        Initialize a new check button field.
+        See class SoziField for initializer arguments.
+        """
         button = gtk.CheckButton(label)
         SoziField.__init__(self, parent, attr, label, button, button, default_value)
 
@@ -171,10 +193,19 @@ class SoziCheckButtonField(SoziField):
     
     
 class SoziSpinButtonField(SoziField):
+    """
+    A wrapper for a GTK SpinButton mapped to a Sozi frame attribute.
+    """
     
-    def __init__(self, parent, attr, label, min, max, default_value):
+    def __init__(self, parent, attr, label, min_value, max_value, default_value):
+        """
+        Initialize a new spin button field.
+            - min_value: the minimum integer value for the current field
+            - max_value: the maximum integer value for the current field
+        See class SoziField for other initializer arguments.
+        """
         SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.SpinButton(digits=0), default_value)
-        self.input_widget.set_range(min, max)
+        self.input_widget.set_range(min_value, max_value)
         self.input_widget.set_increments(1, 1)
         self.input_widget.set_numeric(True)
         self.container_widget.pack_start(gtk.Label(label))
