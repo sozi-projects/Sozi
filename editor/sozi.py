@@ -397,8 +397,7 @@ class SoziUI:
 
 
     def register_last_frame(self):
-        index = len(self.effect.frames) - 1
-        self.append_frame_title(index)
+        self.append_frame_title(len(self.effect.frames) - 1)
 
 
     def unregister_last_frame(self):
