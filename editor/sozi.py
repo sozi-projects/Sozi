@@ -348,7 +348,7 @@ class SoziCreateAction(SoziAction):
         Create a new frame and select it in the frame list.
         """
         self.ui.effect.add_frame(self.frame)
-        self.ui.register_last_frame()
+        self.ui.append_frame_title(-1)
         self.ui.select_index(-1)
 
 
@@ -356,13 +356,17 @@ class SoziCreateAction(SoziAction):
         """
         Remove the created frame and select the previously selected frame.
         """
-        self.ui.unregister_last_frame()
+        self.ui.remove_last_frame_title()
         self.ui.effect.delete_frame(-1)
-        self.ui.select_index(self.index)
+        if self.index is not None:
+            self.ui.select_index(self.index)
 
 
 class SoziUI:
-
+    """
+    The user interface of Sozi.
+    """
+    
     PROFILES = ["linear",
                 "accelerate", "strong-accelerate",
                 "decelerate", "strong-decelerate",
@@ -371,12 +375,17 @@ class SoziUI:
 
 
     def __init__(self, effect):
+        """
+        Create a new window with the frame edition form.
+            - effect: the effect instance given by Inkscape
+        """
+        
         self.effect = effect
         self.undo_stack = []
         self.redo_stack = []
         
         window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        window.connect("destroy", self.destroy)
+        window.connect("destroy", self.on_destroy)
         window.set_title("Sozi")
         
         # Enable icons on stock buttons
@@ -512,14 +521,28 @@ class SoziUI:
         
 
     def append_frame_title(self, index):
+        """
+        Append the title of the frame at the given index to the frame list view.
+        This method is used when filling the list view initially or when creating
+        a new frame.
+        """
+        # A negative index is counted back from the end of the frame list.
+        # This is not needed for Python arrays, but we need to show the corect
+        # frame number in the list view.
+        if (index < 0):
+            index += len(self.effect.frames)
+
         frame = self.effect.frames[index]
 
+        # Get the title of the frame
         title_attr = inkex.addNS("title", "sozi")
         if title_attr in frame["frame_element"].attrib:
             title = frame["frame_element"].attrib[title_attr]
         else:
             title = "Untitled"
 
+        # The text color will show whether the current frame
+        # corresponds to the selected object in Inkscape
         if frame["svg_element"] in self.effect.selected.values():
             color = "#ff0000"
         else:
@@ -528,16 +551,19 @@ class SoziUI:
         self.list_view.get_model().append([index+1, title, color])
 
 
-    def register_last_frame(self):
-        self.append_frame_title(len(self.effect.frames) - 1)
-
-
-    def unregister_last_frame(self):
+    def remove_last_frame_title(self):
+        """
+        Remove the title of the last frame in the list view.
+        This method is used when undoing the creation of a new frame.
+        """
         model = self.list_view.get_model()
         model.remove(model.get_iter(len(self.effect.frames) - 1))
 
      
     def fill_form(self, frame):
+        """
+        Fill all fields with the values of the attributes of the given frame.
+        """
         for field in self.fields.itervalues():
             field.set_with_frame(frame)
 
@@ -546,15 +572,23 @@ class SoziUI:
 
 
     def get_selected_index(self):
+        """
+        Return the index of the currently selected frame.
+        None is returned if no frame is selected.
+        """
         selection = self.list_view.get_selection()
         model, iter = selection.get_selected()
         if iter:
             return model.get_path(iter)[0]
         else:
-            return -1
+            return None
 
 
     def select_index(self, index):
+        """
+        Select the frame at the given index.
+        A negative index is counted back from the end of the frame list.
+        """
         if (index < 0):
             index += len(self.effect.frames)
         self.list_view.get_selection().select_path((index,))
@@ -562,24 +596,28 @@ class SoziUI:
 
     
     def select_frame(self, frame):
+        """
+        Select the given frame in the frame list.
+        """
         self.select_index(self.effect.frames.index(frame))
         
         
-    def swap_frames(self, model, first, second):
-        self.effect.swap_frames(first, second)
-        model.set(model.get_iter(first), 0, second + 1)
-        model.set(model.get_iter(second), 0, first + 1)
-
-
     def on_create_new_frame(self, widget):
+        """
+        Event handler: click on button "create new frame".
+        """
         self.do_action(SoziCreateAction(self))
 
 
     def on_delete_frame(self, widget):
+        """
+        Event handler: click on button "Delete frame".
+        """
         selection = self.list_view.get_selection()
         model, iter = selection.get_selected()
         index = model.get_path(iter)[0]
 
+        # Delete frame from document
         self.effect.delete_frame(index)
 
         # Delete frame from list view
@@ -593,83 +631,145 @@ class SoziUI:
 
 
     def on_move_frame_up(self, widget):
+        """
+        Event handler: click on button "Move frame up".
+        """
         model, iter = self.list_view.get_selection().get_selected()
         index = model.get_path(iter)[0]
-        self.swap_frames(model, index, index - 1)
-        model.move_before(iter, model.get_iter(index-1))
+        
+        # Swap current and previous frames in the document
+        self.effect.swap_frames(index, index - 1)
+        
+        # Swap frame numbers in current and previous rows
+        model.set(model.get_iter(index), 0, index)
+        model.set(model.get_iter(index - 1), 0, index + 1)
+
+        # Move selected row up
+        model.move_before(iter, model.get_iter(index - 1))
+        self.list_view.scroll_to_cell(index - 1)
+        
+        # Update up/down button sensitivity
         self.up_button.set_sensitive(index > 1)
         self.down_button.set_sensitive(True)
 
 
     def on_move_frame_down(self, widget):
+        """
+        Event handler: click on button "Move frame down".
+        """
         model, iter = self.list_view.get_selection().get_selected()
         index = model.get_path(iter)[0]
-        self.swap_frames(model, index, index + 1)
+
+        # Swap current and next frames in the document
+        self.effect.swap_frames(index, index + 1)
+
+        # Swap frame numbers in current and next rows
+        model.set(model.get_iter(index), 0, index + 2)
+        model.set(model.get_iter(index + 1), 0, index + 1)
+
+        # Move selected row down
         model.move_after(iter, model.iter_next(iter))
+        self.list_view.scroll_to_cell(index + 1)
+        
+        # Update up/down button sensitivity
         self.up_button.set_sensitive(True)
         self.down_button.set_sensitive(index < len(self.effect.frames) - 2)
 
 
     def on_selection_changed(self, path):
+        """
+        Event handler: selection changed in frame list view.
+        This event can be triggered either due to a user action
+        or due to a programmatic selection change.
+        """
         if self.list_view.get_selection().path_is_selected(path):
+            # If the selection change happens on a selected row
+            # then the action is a deselection
             frame = None
             self.up_button.set_sensitive(False)
             self.down_button.set_sensitive(False)
             self.delete_button.set_sensitive(False)
         else:
+            # If the selection change happens on a non-selected row
+            # then the action is a selection
             index = path[0]
             frame = self.effect.frames[index]
             self.up_button.set_sensitive(index > 0)
             self.down_button.set_sensitive(index < len(self.effect.frames) - 1)
             self.delete_button.set_sensitive(True)
+        
+        # Show the properties of the selected frame,
+        # or default values if no frame is selected.
         self.fill_form(frame)
+        
+        # Success: highlight or clear the affected row in the frame list
         return True
 
 
     def do_action(self, action):
+        """
+        Execute the given action and push it to the undo stack.
+        The redo stack is emptied.
+        """
         action.do()
         self.undo_stack.append(action)
         self.redo_stack = []
-        self.complete_action(action)
+        self.finalize_action(action)
 
 
     def on_undo(self, widget):
+        """
+        Event handler: click on button "Undo".
+        Undo the action at the top of the undo stack and push it to the redo stack.
+        """
         if self.undo_stack:
             action = self.undo_stack.pop()
             self.redo_stack.append(action)
             action.undo()
-            self.complete_action(action)
+            self.finalize_action(action)
 
 
     def on_redo(self, widget):
+        """
+        Event handler: click on button "Redo".
+        Execute the action at the top of the redo stack and push it to the undo stack.
+        """
         if self.redo_stack:
             action = self.redo_stack.pop()
             self.undo_stack.append(action)
             action.redo()
-            self.complete_action(action)
+            self.finalize_action(action)
 
 
-    def complete_action(self, action):
+    def finalize_action(self, action):
+        """
+        Update the UI after an action has been executed or undone.
+        """
+        # Update the frame list view if the "title" field of a frame has changed.
         if isinstance(action, SoziFieldAction) and action.field is self.fields["title"]:
             index = self.effect.frames.index(action.frame)
             model = self.list_view.get_model()
             model.set(model.get_iter(index), 1, action.frame["frame_element"].get(action.field.ns_attr))
-            
+        
+        # Update the status of the "Undo" button 
         if self.undo_stack:
             self.undo_button.set_tooltip_text(self.undo_stack[-1].undo_description)
         else:
             self.undo_button.set_tooltip_text("")
+        self.undo_button.set_sensitive(bool(self.undo_stack))
             
+        # Update the status of the "Redo" button 
         if self.redo_stack:
             self.redo_button.set_tooltip_text(self.redo_stack[-1].redo_description)
         else:
             self.redo_button.set_tooltip_text("")
-            
-        self.undo_button.set_sensitive(bool(self.undo_stack))
         self.redo_button.set_sensitive(bool(self.redo_stack))
 
    
-    def destroy(self, widget):
+    def on_destroy(self, widget):
+        """
+        Event handler: close the Sozi window.
+        """
         gtk.main_quit()
 
 
@@ -778,7 +878,7 @@ class Sozi(inkex.Effect):
 
 
     def create_new_frame(self, index):
-        if index >= 0:
+        if index is not None:
             svg_element = self.frames[index]["svg_element"]
         else:            
             svg_element = self.selected.values()[0]
