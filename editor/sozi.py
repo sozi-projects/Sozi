@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 # Sozi - A presentation tool using the SVG standard
 #
