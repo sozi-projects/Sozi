@@ -318,29 +318,44 @@ class SoziFieldAction(SoziAction):
 
 
 class SoziCreateAction(SoziAction):
+    """
+    A wrapper for a frame creation action.
+    """
     
     def __init__(self, ui):
+        """
+        Initialize a new frame creation action.
+            - ui: an instance of SoziUI
+        """
+        # The new frame will be added at the end of the presentation
         new_frame_number = str(len(ui.effect.frames) + 1)
 
         SoziAction.__init__(self,
             "Remove frame " + new_frame_number,
             "Recreate frame " + new_frame_number)
-            
+        
         self.ui = ui
+        
+        # The new frame is a copy of the currently selected frame
         self.index = ui.get_selected_index()
-    
         self.frame = ui.effect.create_new_frame(self.index)
         for field in ui.fields.itervalues():
             self.frame["frame_element"].set(field.ns_attr, field.get_value())
                     
 
     def do(self):
+        """
+        Create a new frame and select it in the frame list.
+        """
         self.ui.effect.add_frame(self.frame)
         self.ui.register_last_frame()
         self.ui.select_index(-1)
 
 
     def undo(self):        
+        """
+        Remove the created frame and select the previously selected frame.
+        """
         self.ui.unregister_last_frame()
         self.ui.effect.delete_frame(-1)
         self.ui.select_index(self.index)
