@@ -775,6 +775,7 @@ class SoziUI:
 
 class Sozi(inkex.Effect):
 
+    # Replaced automatically by the version number during the build process
     VERSION = "{{SOZI_VERSION}}"
 
     ATTR = ["title", "sequence", "hide", "clip", "timeout-enable", "timeout-ms",
@@ -791,13 +792,19 @@ class Sozi(inkex.Effect):
 
 
     def effect(self):
-        self.upgrade_or_install("script", "js")
-        self.upgrade_or_install("style", "css")
+        self.upgrade_or_install("script")
+        self.upgrade_or_install("style")
         self.upgrade_document()
         self.create_or_edit_frame()
 
 
-    def upgrade_or_install(self, tag, ext):
+    def upgrade_or_install(self, tag):
+        """
+        Upgrade or install a script or a style sheet into the document.
+            - tag: "script" or "style"
+        Depending on the argument, the content of file "sozi.js" or "sozi.css"
+        will be copied to the script or style element.
+        """
         # Check version and remove older versions
         latest_version_found = False
         for elt in self.document.xpath("//svg:" + tag + "[@id='sozi-" + tag + "']", namespaces=inkex.NSS):
@@ -812,6 +819,7 @@ class Sozi(inkex.Effect):
       
         # Create new element if needed
         if not latest_version_found:
+            ext = "js" if tag == "script" else "css"
             elt = inkex.etree.Element(inkex.addNS(tag, "svg"))
             elt.text = open(os.path.join(os.path.dirname(__file__), "sozi." + ext)).read()
             elt.set("id","sozi-" + tag)
