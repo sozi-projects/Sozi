@@ -795,7 +795,8 @@ class Sozi(inkex.Effect):
         self.upgrade_or_install("script")
         self.upgrade_or_install("style")
         self.upgrade_document()
-        self.create_or_edit_frame()
+        self.analyze_document()
+        self.ui = SoziUI(self)
 
 
     def upgrade_or_install(self, tag):
@@ -828,6 +829,9 @@ class Sozi(inkex.Effect):
 
 
     def upgrade_document(self):
+        """
+        Upgrade the Sozi-specific elements of the document to follow the evolutions of the document format.
+        """
         # Upgrade from 10.x
 
         # FIXME allow multiple classes in element
@@ -847,7 +851,12 @@ class Sozi(inkex.Effect):
                     del elt.attrib[ns_attr]
       
 
-    def create_or_edit_frame(self):
+    def analyze_document(self):
+        """
+        Analyze the document and collect information about the presentation.
+        Frames with no corresponding SVG element are removed.
+        Frames numbers are updated if needed.
+        """
         # Get list of valid frame elements and remove orphan frames
         self.frames = []
         for f in self.document.xpath("//sozi:frame", namespaces=inkex.NSS):
@@ -871,11 +880,11 @@ class Sozi(inkex.Effect):
         for i, f in enumerate(self.frames):
             f["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i+1))
 
-        # Initialize the user interface
-        self.ui = SoziUI(self)
-
 
     def swap_frames(self, first, second):
+        """
+        Swap frames with the given indices.
+        """
         # Swap frames in SVG document
         sequence_attr = inkex.addNS("sequence", "sozi")
         self.frames[first]["frame_element"].set(sequence_attr, unicode(second + 1))
@@ -886,6 +895,10 @@ class Sozi(inkex.Effect):
 
 
     def create_new_frame(self, index):
+        """
+        Create a new frame using the SVG element of the frame at the given index.
+        The new frame is not added to the document.
+        """
         if index is not None:
             svg_element = self.frames[index]["svg_element"]
         else:            
@@ -904,11 +917,17 @@ class Sozi(inkex.Effect):
 
 
     def add_frame(self, frame):
+        """
+        Add the given frame to the document.
+        """
         self.document.getroot().append(frame["frame_element"])
         self.frames.append(frame)
 
         
     def delete_frame(self, index):
+        """
+        Remove the frame at the given index from the document.
+        """
         # Delete frame from SVG document
         self.document.getroot().remove(self.frames[index]["frame_element"])
 
