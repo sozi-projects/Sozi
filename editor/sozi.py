@@ -362,6 +362,46 @@ class SoziCreateAction(SoziAction):
             self.ui.select_index(self.index)
 
 
+class SoziDeleteAction(SoziAction):
+    """
+    A wrapper for a frame delete action.
+    """
+    
+    def __init__(self, ui):
+        """
+        Initialize a new frame delete action.
+            - ui: an instance of SoziUI
+        """
+        index = ui.get_selected_index()
+
+        SoziAction.__init__(self,
+            "Restore frame " + str(index + 1),
+            "Remove frame " + str(index + 1))
+        
+        self.ui = ui
+        self.index = index
+        self.frame = ui.effect.frames[index]
+        
+        model = self.ui.list_view.get_model()
+        self.row = model.get(model.get_iter(index), 0, 1, 2)
+
+
+    def do(self):
+        """
+        Remove the current frame and select the next one in the frame list.
+        """
+        self.ui.effect.delete_frame(self.index)
+        self.ui.remove_frame_title(self.index)
+
+
+    def undo(self):        
+        """
+        Add the removed frame and select it.
+        """
+        self.ui.effect.insert_frame(self.index, self.frame)
+        self.ui.insert_row(self.index, self.row)
+
+
 class SoziUI:
     """
     The user interface of Sozi.
@@ -551,6 +591,22 @@ class SoziUI:
         self.list_view.get_model().append([index+1, title, color])
 
 
+    def insert_row(self, index, row):
+        """
+        Insert a row in the frame list view.
+        This method is used when undoing a frame deletion.
+        """
+        model = self.list_view.get_model()
+        model.insert(index, row)
+
+        # Renumber frames in list view
+        for i in range(index + 1, len(self.effect.frames)):
+            model.set(model.get_iter(i), 0, i + 1)
+
+        # Select the inserted frame
+        self.select_index(index)
+
+
     def remove_last_frame_title(self):
         """
         Remove the title of the last frame in the list view.
@@ -560,6 +616,22 @@ class SoziUI:
         model.remove(model.get_iter(len(self.effect.frames) - 1))
 
      
+    def remove_frame_title(self, index):
+        """
+        Remove the title of the frame at the given index from the list view.
+        This method is used when deleting a frame.
+        """
+        model = self.list_view.get_model()
+        iter = model.get_iter(index)
+        if model.remove(iter):
+            self.list_view.get_selection().select_iter(iter)
+            # Renumber frames
+            for i in range(index, len(self.effect.frames)):
+                model.set(model.get_iter(i), 0, i + 1)
+        else:
+            self.fill_form(None)
+
+
     def fill_form(self, frame):
         """
         Fill all fields with the values of the attributes of the given frame.
@@ -626,21 +698,7 @@ class SoziUI:
         """
         Event handler: click on button "Delete frame".
         """
-        selection = self.list_view.get_selection()
-        model, iter = selection.get_selected()
-        index = model.get_path(iter)[0]
-
-        # Delete frame from document
-        self.effect.delete_frame(index)
-
-        # Delete frame from list view
-        if model.remove(iter):
-            selection.select_iter(iter)
-            # Renumber frames
-            for i in range(index, len(self.effect.frames)):
-                model.set(model.get_iter(i), 0, i + 1)
-        else:
-            self.fill_form(None)
+        self.do_action(SoziDeleteAction(self))
 
 
     def on_move_frame_up(self, widget):
@@ -936,23 +994,31 @@ class Sozi(inkex.Effect):
         self.document.getroot().append(frame["frame_element"])
         self.frames.append(frame)
 
-        
+    
+    def insert_frame(self, index, frame):
+        """
+        Insert the given frame at the given index.
+        """
+        self.document.getroot().append(frame["frame_element"])
+        self.frames.insert(index, frame)
+        self.renumber_from_index(index)
+
+
     def delete_frame(self, index):
         """
         Remove the frame at the given index from the document.
         """
-        # Delete frame from SVG document
         self.document.getroot().remove(self.frames[index]["frame_element"])
-
-        # Delete frame from frame list
         del self.frames[index]
+        self.renumber_from_index(index)
 
-        # Renumber frames
+
+    def renumber_from_index(self, index):
         if index >= 0:
             for i in range(index, len(self.frames)):
                 self.frames[i]["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i+1))
 
-
+        
 # Create effect instance
 effect = Sozi()
 effect.affect()
