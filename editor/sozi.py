@@ -567,7 +567,20 @@ class SoziUI:
         for field in self.fields.itervalues():
             field.set_with_frame(frame)
 
+        if frame is not None:
+            create_tooltip = "Duplicate the current frame"
+            delete_tooltip = "Delete the current frame"
+        else:
+            if len(self.effect.selected) > 0:
+                create_tooltip = "Create a new frame using the selected element"
+            else:
+                create_tooltip = "No element or frame selected"
+            delete_tooltip = "No frame selected"
+            
+        self.create_new_frame_button.set_tooltip_text(create_tooltip)
         self.create_new_frame_button.set_sensitive(frame is not None or len(self.effect.selected) > 0)
+        
+        self.delete_button.set_tooltip_text(delete_tooltip)
         self.delete_button.set_sensitive(frame is not None)
 
 
