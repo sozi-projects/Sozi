@@ -84,6 +84,10 @@ class SoziField:
         pass
 
 
+    def reset_last_value(self):
+        self.last_value = self.get_value()
+
+        
     def write_if_needed(self):
         """
         Write the value of the current field to the SVG document.
@@ -95,8 +99,8 @@ class SoziField:
         """
         if self.current_frame is not None and self.current_frame in self.parent.effect.frames and self.last_value != self.get_value():
             self.parent.do_action(SoziFieldAction(self))
-            self.last_value = self.get_value()
-
+            self.reset_last_value()
+            
             
     def set_with_frame(self, frame):
         """
@@ -301,6 +305,7 @@ class SoziFieldAction(SoziAction):
         self.frame["frame_element"].set(self.field.ns_attr, self.last_value)
         if self.field.current_frame is self.frame:
             self.field.set_value(self.last_value)
+            self.field.reset_last_value()
         else:
             self.field.parent.select_frame(self.frame)
 
@@ -313,6 +318,7 @@ class SoziFieldAction(SoziAction):
         self.do()
         if self.field.current_frame is self.frame:
             self.field.set_value(self.value)
+            self.field.reset_last_value()
         else:
             self.field.parent.select_frame(self.frame)
 
