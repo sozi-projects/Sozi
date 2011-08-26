@@ -373,7 +373,7 @@ var sozi = sozi || {};
         exports.startFromIndex(sozi.location.getFrameIndex());
     }    
 
-    animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);
+    animator = new sozi.animation.Animator(40, onAnimationStep, onAnimationDone);
 
     sozi.events.listen("displayready", onDisplayReady);
 }());

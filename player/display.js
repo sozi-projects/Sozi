@@ -137,6 +137,26 @@ var sozi = sozi || {};
             y = elem.y.baseVal.value;
             w = elem.width.baseVal.value;
             h = elem.height.baseVal.value;
+        } else if (elem.nodeName === 'path') {
+            // we're going to assume that a path used for a frame is actually
+            // a rectangle, and handle only three points.
+            var segments = rect.pathSegList;
+            console.log(segments);
+            seg0 = segments.getItem(0);
+            seg1 = segments.getItem(1);
+            seg2 = segments.getItem(2);
+            matrix = svg.createSVGMatrix();
+            // matrix = m.translate(seg0.x,seg0.y);
+            // we're going to assume segments are always drawn counter-clockwise by Sketch.
+            matrix = matrix.rotateFromVector(seg2.x - seg1.x, seg2.y - seg1.y);
+            scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
+            xd1 = seg1.x - seg0.x;
+            yd1 = seg1.y - seg0.y;
+            xd2 = seg2.x - seg1.x;
+            yd2 = seg2.y - seg1.y;
+            h = Math.sqrt(xd1*xd1+yd1*yd1);
+            w = Math.sqrt(xd2*xd2+yd2*yd2);
+            console.log(m, w, h);
         } else {
             b = elem.getBBox();
             x = b.x;
