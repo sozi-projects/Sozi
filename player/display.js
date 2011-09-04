@@ -30,10 +30,9 @@ var sozi = sozi || {};
         cy: 0,
         width: 1,
         height: 1,
-        rotate: 0
+        rotate: 0,
+        clip: true
     };
-       
-    exports.clip = true;
 
     /*
      * Initializes the current Display.
@@ -189,7 +188,7 @@ var sozi = sozi || {};
             width: exports.geometry.width,
             height: exports.geometry.height,
             rotate: exports.geometry.rotate,
-            clip: exports.clip
+            clip: exports.geometry.clip
         };
     };
 
@@ -212,10 +211,10 @@ var sozi = sozi || {};
         );
 
         // Adjust the location and size of the clipping rectangle and the frame rectangle
-        clipRect.setAttribute("x", exports.clip ? g.x : 0);
-        clipRect.setAttribute("y", exports.clip ? g.y : 0);
-        clipRect.setAttribute("width", exports.clip ? g.width : window.innerWidth);
-        clipRect.setAttribute("height", exports.clip ? g.height : window.innerHeight);
+        clipRect.setAttribute("x", exports.geometry.clip ? g.x : 0);
+        clipRect.setAttribute("y", exports.geometry.clip ? g.y : 0);
+        clipRect.setAttribute("width", exports.geometry.clip ? g.width : window.innerWidth);
+        clipRect.setAttribute("height", exports.geometry.clip ? g.height : window.innerHeight);
     };
 
     /*
@@ -246,7 +245,7 @@ var sozi = sozi || {};
             angleRad = exports.geometry.rotate * Math.PI / 180;
         exports.geometry.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / g.scale;
         exports.geometry.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / g.scale;
-        exports.clip = false;
+        exports.geometry.clip = false;
         exports.update();
     };
 
