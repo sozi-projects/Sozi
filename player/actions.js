@@ -116,6 +116,20 @@ var sozi = sozi || {};
     }
 
     /*
+     * Event handler: context menu (i.e. right click).
+     *
+     * Right click goes one frame back.
+     *
+     * There is no "click" for the right mouse button and the menu can't
+     * be prevented in "onMouseDown".
+     */
+    function onContextMenu(evt) {
+        player.moveToPrevious();
+        evt.stopPropagation();
+        evt.preventDefault();
+    }
+
+    /*
      * Event handler: mouse click.
      *
      * Left-click moves the presentation to the next frame.
@@ -248,6 +262,7 @@ var sozi = sozi || {};
         svgRoot.addEventListener("mousemove", onMouseMove, false);
         svgRoot.addEventListener("keypress", onKeyPress, false);
         svgRoot.addEventListener("keydown", onKeyDown, false);
+        svgRoot.addEventListener("contextmenu", onContextMenu, false);
         svgRoot.addEventListener("DOMMouseScroll", onWheel, false); // Mozilla
         window.onmousewheel = onWheel;
     }
