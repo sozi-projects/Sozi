@@ -179,7 +179,7 @@ var sozi = sozi || {};
     }
 
     function onFrameChange(index) {
-        var current = linksBox.getElementsByClassName("sozi-toc-current"),
+        var current = document.getElementsByClassName("sozi-toc-current"),
             textElements = linksBox.getElementsByTagName("text"),
             i;
         for (i = 0; i < current.length; i += 1) {
