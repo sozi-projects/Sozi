@@ -419,17 +419,18 @@ class SoziReorderAction(SoziAction):
             - ui: an instance of SoziUI
         """
         index = ui.get_selected_index()
+        if down:
+            index_other = index + 1
+        else:
+            index_other = index - 1
 
         SoziAction.__init__(self,
-            "Move frame " + str(index + 1) + (" down" if down else " up"),
-            "Move frame " + str(index + 1) + (" up" if down else " down"))
+            "Move frame " + str(index_other + 1) + (" up" if down else " down"),
+            "Move frame " + str(index + 1) + (" down" if down else " up"))
         
         self.ui = ui
         self.index = index
-        if down:
-            self.index_other = index + 1
-        else:
-            self.index_other = index - 1
+        self.index_other = index_other
 
 
     def move(self, first, second):
