@@ -408,6 +408,78 @@ class SoziDeleteAction(SoziAction):
         self.ui.insert_row(self.index, self.row)
 
 
+class SoziReorderAction(SoziAction):
+    """
+    A wrapper for a frame reordering action.
+    """
+    
+    def __init__(self, ui, down):
+        """
+        Initialize a new frame reorder action.
+            - ui: an instance of SoziUI
+        """
+        index = ui.get_selected_index()
+
+        SoziAction.__init__(self,
+            "Move frame " + str(index + 1) + (" down" if down else " up"),
+            "Move frame " + str(index + 1) + (" up" if down else " down"))
+        
+        self.ui = ui
+        self.index = index
+        if down:
+            self.index_other = index + 1
+        else:
+            self.index_other = index - 1
+
+
+    def move(self, first, second):
+        # Swap frames in the document
+        self.ui.effect.swap_frames(first, second)
+        
+        # Swap frame numbers in current and other rows
+        model = self.ui.list_view.get_model()
+        iter_first = model.get_iter(first)
+        iter_second = model.get_iter(second)
+        
+        model.set(iter_first, 0, second + 1)
+        model.set(iter_second, 0, first + 1)
+
+        # Move selected row
+        if first < second:
+            model.move_after(iter_first, iter_second)
+        else:
+            model.move_before(iter_first, iter_second)
+        
+        self.ui.list_view.scroll_to_cell(second)
+        
+        # Update up/down button sensitivity
+        self.ui.up_button.set_sensitive(second > 0)
+        self.ui.down_button.set_sensitive(second < len(self.ui.effect.frames) - 1)
+
+        
+    def do(self):
+        """
+        Swap current frame and next/previous frame.
+        """
+        self.move(self.index, self.index_other)
+
+
+    def undo(self):        
+        """
+        Swap frames back.
+        """
+        self.move(self.index_other, self.index)
+        self.ui.select_index(self.index)
+
+
+    def redo(self):        
+        """
+        Swap frames again.
+        """
+        self.do()
+        self.ui.select_index(self.index_other)
+
+
 class SoziUI:
     """
     The user interface of Sozi.
@@ -711,46 +783,14 @@ class SoziUI:
         """
         Event handler: click on button "Move frame up".
         """
-        model, iter = self.list_view.get_selection().get_selected()
-        index = model.get_path(iter)[0]
+        self.do_action(SoziReorderAction(self, False))
         
-        # Swap current and previous frames in the document
-        self.effect.swap_frames(index, index - 1)
-        
-        # Swap frame numbers in current and previous rows
-        model.set(model.get_iter(index), 0, index)
-        model.set(model.get_iter(index - 1), 0, index + 1)
-
-        # Move selected row up
-        model.move_before(iter, model.get_iter(index - 1))
-        self.list_view.scroll_to_cell(index - 1)
-        
-        # Update up/down button sensitivity
-        self.up_button.set_sensitive(index > 1)
-        self.down_button.set_sensitive(True)
-
 
     def on_move_frame_down(self, widget):
         """
         Event handler: click on button "Move frame down".
         """
-        model, iter = self.list_view.get_selection().get_selected()
-        index = model.get_path(iter)[0]
-
-        # Swap current and next frames in the document
-        self.effect.swap_frames(index, index + 1)
-
-        # Swap frame numbers in current and next rows
-        model.set(model.get_iter(index), 0, index + 2)
-        model.set(model.get_iter(index + 1), 0, index + 1)
-
-        # Move selected row down
-        model.move_after(iter, model.iter_next(iter))
-        self.list_view.scroll_to_cell(index + 1)
-        
-        # Update up/down button sensitivity
-        self.up_button.set_sensitive(True)
-        self.down_button.set_sensitive(index < len(self.effect.frames) - 2)
+        self.do_action(SoziReorderAction(self, True))
 
 
     def on_selection_changed(self, path):
