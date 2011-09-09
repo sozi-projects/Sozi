@@ -21,6 +21,10 @@ this.addEventListener("load", function () {
 		videos, i, j, rect, foreignObject,
 		html, htmlVideo, htmlSource;
 
+    function clickHandler(evt) {
+        evt.stopPropagation();
+    }
+    
 	videos = [];
 	for (i = 0; i < videoSources.length; i += 1) {
 		rect = videoSources[i].parentNode;
@@ -40,10 +44,12 @@ this.addEventListener("load", function () {
 			// Create HTML video element
 			htmlVideo = document.createElementNS(xhtmlNs, "video");
 			// htmlVideo.setAttribute("poster", "__dummy__.png");
-			// htmlVideo.setAttribute("controls", "controls");
+			htmlVideo.setAttribute("controls", "controls");
 			htmlVideo.setAttribute("width", rect.getAttribute("width"));
 			htmlVideo.setAttribute("height", rect.getAttribute("height"));
-		
+		    htmlVideo.addEventListener("click", clickHandler, false);
+		    htmlVideo.addEventListener("contextmenu", clickHandler, false);
+		    
 			// Create HTML root element
 			html = document.createElementNS(xhtmlNs, "html");
 			html.appendChild(htmlVideo);
