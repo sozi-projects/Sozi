@@ -25,6 +25,14 @@ this.addEventListener("load", function () {
         evt.stopPropagation();
     }
     
+    function registerFrameChangeHandler(htmlVideo, frame) {
+        sozi.events.listen("framechange", function(index) {
+		    if (index + 1 === frame) {
+		        htmlVideo.play();
+			}
+		});
+    }
+    
 	videos = [];
 	for (i = 0; i < videoSources.length; i += 1) {
 		rect = videoSources[i].parentNode;
@@ -63,7 +71,11 @@ this.addEventListener("load", function () {
 			foreignObject.appendChild(html);
 				
 			rect.parentNode.insertBefore(foreignObject, rect.nextSibling);
-				
+			
+			if (videoSources[i].getAttribute("auto") === "true") {
+			    registerFrameChangeHandler(htmlVideo, parseInt(videoSources[i].getAttribute("frame")));
+			}
+			
 			videos.push({
 				rect: videoSources[i].parentNode,
 				htmlVideo: htmlVideo

@@ -48,6 +48,12 @@ class SoziExtrasAddVideo(inkex.Effect):
         self.OptionParser.add_option('-S', '--src', action = 'store',
             type = 'string', dest = 'src', default = '',
             help = 'Video file name')
+        self.OptionParser.add_option('-A', '--auto', action = 'store',
+            type = 'string', dest = 'auto', default = 'false',
+            help = 'Play automatically in Sozi frame')
+        self.OptionParser.add_option('-F', '--frame', action = 'store',
+            type = 'int', dest = 'frame', default = '1',
+            help = 'Frame number')
         inkex.NSS[u"sozi"] = SoziExtrasAddVideo.NS_URI
 
 
@@ -107,6 +113,8 @@ class SoziExtrasAddVideo(inkex.Effect):
         v = inkex.etree.Element(inkex.addNS("video", "sozi"))
         v.set("type", unicode(self.options.type))
         v.set("src", unicode(self.options.src))
+        v.set("auto", unicode(self.options.auto))
+        v.set("frame", unicode(self.options.frame))
         rect.append(v)
 
 
