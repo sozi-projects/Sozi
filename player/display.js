@@ -50,9 +50,6 @@ var sozi = sozi || {};
 
         svgRoot = document.documentElement; // TODO check SVG tag
 
-        // Remove viewbox if needed
-        svgRoot.removeAttribute("viewBox");
-
         initialBBox = svgRoot.getBBox();
 
         // Create a new wrapper group element and move all the image to the group

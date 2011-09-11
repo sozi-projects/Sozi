@@ -95,6 +95,7 @@ var sozi = sozi || {};
      * This function reads the frames from the document.
      */
     function onLoad() {
+        document.documentElement.removeAttribute("viewBox");
         readFrames();
         sozi.events.fire("documentready");
     }
