@@ -224,6 +224,11 @@ class SoziSpinButtonField(SoziField):
         return unicode(self.input_widget.get_value_as_int())
 
 
+    def on_focus_out(self, widget, event=None):
+        self.input_widget.update()
+        SoziField.on_focus_out(self, widget, event)
+
+
 class SoziAction:
     """
     A wrapper for UI actions.
