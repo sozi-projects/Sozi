@@ -1,0 +1,27 @@
+#!/bin/sh
+
+header_file=$1
+header_name=`basename $1 | sed -e 's/\./_/g'`
+shift
+
+echo "#ifndef __${header_name}__" >  ${header_file}
+echo "#define __${header_name}__" >> ${header_file}
+echo "" >> ${header_file}
+
+while [ "$1" ]; do
+
+  var_name=`basename $1 | sed -e 's/\./_/g'`
+
+  echo "static const char ${var_name}[] =" >> ${header_file} 
+
+  # FIXME : certainly can be improved (try sed -e 's/.\{76\}/&"\n"/g' ?)
+  cat $1 | tr -d '\n' | fold | sed -e 's/"/\\"/g' -e 's/^/\"/g;s/$/\"/g' >> ${header_file}
+
+  echo ";" >> ${header_file}
+  echo "" >> ${header_file}
+
+  shift
+
+done
+
+echo "#endif /* __sozi_h__ */" >> ${header_file}
