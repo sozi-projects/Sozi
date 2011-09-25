@@ -977,8 +977,11 @@ class Sozi(inkex.Effect):
         """
         # Get list of valid frame elements and remove orphan frames
         self.frames = []
+        usedRefIds = set()
+        refid_attr = inkex.addNS("refid", "sozi")
         for f in self.document.xpath("//sozi:frame", namespaces=inkex.NSS):
-            e = self.document.xpath("//svg:*[@id='" + f.attrib[inkex.addNS("refid", "sozi")] + "']", namespaces=inkex.NSS)
+            thisRefId = f.attrib[refid_attr]
+            e = self.document.xpath("//svg:*[@id='" + thisRefId + "']", namespaces=inkex.NSS)
             if len(e) == 0:
                 self.document.getroot().remove(f)
             else:
@@ -988,6 +991,7 @@ class Sozi(inkex.Effect):
                         "svg_element": e[0]
                     }
                 )
+                usedRefIds.add(thisRefId)
 
         # Sort frames by sequence attribute 
         sequence_attr = inkex.addNS("sequence", "sozi")
@@ -998,6 +1002,11 @@ class Sozi(inkex.Effect):
         for i, f in enumerate(self.frames):
             f["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i+1))
 
+        # Automatically create frames for every element with the description 'sozi' that does not yet have a referencing frame
+        for e in self.document.xpath("//svg:desc[substring(text(), 1, 4)='sozi']/..", namespaces=inkex.NSS):
+          if not e.attrib["id"] in usedRefIds:
+            self.auto_create_frame(e)
+        
 
     def swap_frames(self, first, second):
         """
@@ -1032,6 +1041,38 @@ class Sozi(inkex.Effect):
         }
         
         return frame
+
+
+    def auto_create_frame(self, svg_element):
+        """
+        Create a new frame from the given SVG element.
+        This is used when analyzing the document. User can have the frames created automatically by tagging elements with
+        a description 'sozi'. Newly created frames are added to the document.
+        """
+        frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
+        frame_element.set(inkex.addNS("refid", "sozi"), svg_element.attrib["id"]) # TODO check namespace?
+        frame_element.set(inkex.addNS("sequence", "sozi"), unicode(len(self.frames)+1))
+        frame_element.set(inkex.addNS("clip", "sozi"), "false")
+        frame_element.set(inkex.addNS("hide", "sozi"), "true" if svg_element.tag == inkex.addNS("rect", "svg") else "false")        
+        text = None
+        for x in svg_element.iterfind("svg:desc", namespaces=inkex.NSS):
+          if x.text.startswith("sozi:"):
+            text = x.text[5:]
+        if (not text or len(text) == 0) and svg_element.tag == inkex.addNS("text", "svg"):
+          text = "".join([x.text for x in svg_element.iterfind("svg:tspan", namespaces=inkex.NSS)]) [:20]
+        frame_element.set(inkex.addNS("title", "sozi"), text.strip())
+        frame_element.set(inkex.addNS("timeout-enable", "sozi"), "false")                 # TODO use correct defaults defined elsewhere
+        frame_element.set(inkex.addNS("timeout-ms", "sozi"), "5000")                      # TODO use correct defaults defined elsewhere
+        frame_element.set(inkex.addNS("transition-duration-ms", "sozi"), "1000")          # TODO use correct defaults defined elsewhere
+        frame_element.set(inkex.addNS("transition-zoom-percent", "sozi"), "0")            # TODO use correct defaults defined elsewhere
+        frame_element.set(inkex.addNS("transition-profile", "sozi"), "accelerate-decelerate") # TODO use correct defaults defined elsewhere
+        
+        frame = {
+            "frame_element": frame_element,
+            "svg_element": svg_element
+        }
+        self.document.getroot().append(frame["frame_element"])
+        self.frames.append(frame)
 
 
     def add_frame(self, frame):
