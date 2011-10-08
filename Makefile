@@ -10,9 +10,9 @@ MINIFY := juicer merge --skip-verification --arguments "$(MINIFY_OPT)" --force
 
 SRC := \
 	$(wildcard editors/inkscape/*.py) \
-	$(wildcard editors/inkscape/extrax*.py) \
+	$(wildcard editors/inkscape/extras/*.py) \
 	$(wildcard editors/inkscape/*.inx) \
-	$(wildcard editors/inkscape/extrax*.inx) \
+	$(wildcard editors/inkscape/extras/*.inx) \
 	$(wildcard doc/install*.html) \
 	$(wildcard doc/*license.txt) \
 	$(wildcard player/js/extras/*.js) \
