@@ -17,12 +17,12 @@ ADD_CUSTOM_COMMAND(
 
 ADD_CUSTOM_COMMAND(
    OUTPUT    sozi_extras_addvideo.py
-   COMMAND   sed -e 's/{{SOZI_VERSION}}/$(VERSION)/g' ${CMAKE_CURRENT_SOURCE_DIR}/sozi_extras_addvideo.py > sozi_extras_addvideo.py
+   COMMAND   sed -e 's/{{SOZI_VERSION}}/$(VERSION)/g' ${CMAKE_CURRENT_SOURCE_DIR}/extras/sozi_extras_addvideo.py > sozi_extras_addvideo.py
 )
 
 SET(sozi_inkscape_files ${CMAKE_CURRENT_SOURCE_DIR}/sozi.inx
                         ${CMAKE_CURRENT_BINARY_DIR}/sozi.py 
-                        ${CMAKE_CURRENT_SOURCE_DIR}/sozi_extras_addvideo.inx
+                        ${CMAKE_CURRENT_SOURCE_DIR}/extras/sozi_extras_addvideo.inx
                         ${CMAKE_CURRENT_BINARY_DIR}/sozi_extras_addvideo.py)
 
 ################################################################################

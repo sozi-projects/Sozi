@@ -85,7 +85,7 @@ LIST(APPEND sozi_player_files ${CMAKE_CURRENT_BINARY_DIR}/sozi.css)
 ### The sozi_extras_addvideo.js output file contain code for inserting video
 ################################################################################
 
-SET(sozi_extras_addvideo_js ${CMAKE_CURRENT_SOURCE_DIR}/js/sozi_extras_addvideo.js) 
+SET(sozi_extras_addvideo_js ${CMAKE_CURRENT_SOURCE_DIR}/js/extras/sozi_extras_addvideo.js) 
 
 ADD_CUSTOM_COMMAND(
   OUTPUT    sozi_extras_addvideo.js
@@ -103,7 +103,7 @@ ADD_CUSTOM_TARGET(sozi_player ALL DEPENDS ${sozi_player_files})
 INSTALL(FILES ${sozi_player_files}
               DESTINATION share/sozi)
 
-### Hugly hack because cmake don't keep PARENT_SCOPE with LIST(APPEND...
+### Ugly hack because cmake don't keep PARENT_SCOPE with LIST(APPEND...
 SET(sozi_player_files ${sozi_player_files} PARENT_SCOPE)
 
 ################################################################################
@@ -139,7 +139,7 @@ ADD_CUSTOM_TARGET(sozi_header ALL DEPENDS ${sozi_header_files})
 INSTALL(FILES ${sozi_header_files}
               DESTINATION include)
 
-### Hugly hack because cmake don't keep PARENT_SCOPE with LIST(APPEND...
+### Ugly hack because cmake don't keep PARENT_SCOPE with LIST(APPEND...
 SET(sozi_header_files ${sozi_header_files} PARENT_SCOPE)
 
 
