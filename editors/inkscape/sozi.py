@@ -508,9 +508,10 @@ class SoziUI:
         self.undo_stack = []
         self.redo_stack = []
         
-        window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        window.connect("destroy", self.on_destroy)
-        window.set_title("Sozi")
+        self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        self.window.connect("destroy", self.on_destroy)
+        self.window.connect("key-press-event", self.on_key_press)
+        self.window.set_title("Sozi")
         
         # Enable icons on stock buttons
         gtk.settings_get_default().set_long_property("gtk-button-images", True, "Sozi")
@@ -617,8 +618,8 @@ class SoziUI:
         vbox.pack_start(hbox)
         vbox.pack_start(undo_redo_box)
         
-        window.add(vbox)
-        window.show_all()
+        self.window.add(vbox)
+        self.window.show_all()
 
         # Get selected frame
         selected_frame = None
@@ -829,6 +830,15 @@ class SoziUI:
         return True
 
 
+    def on_key_press(self, widget, event):
+        if event.state & gtk.gdk.CONTROL_MASK:
+            if event.keyval == gtk.keysyms.z:
+                self.window.set_focus(None)
+                self.on_undo()
+            elif event.keyval == gtk.keysyms.y:
+                self.on_redo()
+
+
     def do_action(self, action):
         """
         Execute the given action and push it to the undo stack.
@@ -840,7 +850,7 @@ class SoziUI:
         self.finalize_action(action)
 
 
-    def on_undo(self, widget):
+    def on_undo(self, widget=None):
         """
         Event handler: click on button "Undo".
         Undo the action at the top of the undo stack and push it to the redo stack.
@@ -852,7 +862,7 @@ class SoziUI:
             self.finalize_action(action)
 
 
-    def on_redo(self, widget):
+    def on_redo(self, widget=None):
         """
         Event handler: click on button "Redo".
         Execute the action at the top of the redo stack and push it to the undo stack.
