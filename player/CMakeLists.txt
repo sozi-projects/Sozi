@@ -41,7 +41,7 @@ SET(sozi_player_files "" PARENT_SCOPE)
 
 ADD_CUSTOM_COMMAND(
   OUTPUT    sozi.version
-  COMMAND   ${CMAKE_CURRENT_SOURCE_DIR}/tools/version sozi.version
+  COMMAND   echo ${SOZI_VERSION} > sozi.version
 )
 
 LIST(APPEND sozi_player_files ${CMAKE_CURRENT_BINARY_DIR}/sozi.version)
@@ -101,7 +101,8 @@ LIST(APPEND sozi_player_files ${CMAKE_CURRENT_BINARY_DIR}/sozi_extras_addvideo.j
 ADD_CUSTOM_TARGET(sozi_player ALL DEPENDS ${sozi_player_files})
 
 INSTALL(FILES ${sozi_player_files}
-              DESTINATION share/sozi)
+        DESTINATION share/sozi
+        COMPONENT player)
 
 ### Ugly hack because cmake don't keep PARENT_SCOPE with LIST(APPEND...
 SET(sozi_player_files ${sozi_player_files} PARENT_SCOPE)
@@ -137,7 +138,8 @@ LIST(APPEND sozi_header_files ${CMAKE_CURRENT_BINARY_DIR}/sozi.h)
 ADD_CUSTOM_TARGET(sozi_header ALL DEPENDS ${sozi_header_files})
 
 INSTALL(FILES ${sozi_header_files}
-              DESTINATION include)
+        DESTINATION include
+        COMPONENT player)
 
 ### Ugly hack because cmake don't keep PARENT_SCOPE with LIST(APPEND...
 SET(sozi_header_files ${sozi_header_files} PARENT_SCOPE)
