@@ -983,6 +983,12 @@ class Sozi(inkex.Effect):
                     f.set(ns_attr, elt.attrib[ns_attr])
                     del elt.attrib[ns_attr]
       
+        # Upgrade from 11.10
+        sequence_attr = inkex.addNS("sequence", "sozi")
+        for elt in self.document.xpath("//sozi:frame", namespaces=inkex.NSS):
+            if "id" not in elt.attrib:
+                elt.set("id", self.uniqueId("frame" + elt.attrib[sequence_attr]))
+
 
     def analyze_document(self):
         """
@@ -1040,6 +1046,7 @@ class Sozi(inkex.Effect):
         frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
         frame_element.set(inkex.addNS("refid", "sozi"), svg_element.attrib["id"]) # TODO check namespace?
         frame_element.set(inkex.addNS("sequence", "sozi"), unicode(len(self.frames)+1))
+        frame_element.set("id", self.uniqueId("frame" + unicode(len(self.frames)+1)))
         
         frame = {
             "frame_element": frame_element,
