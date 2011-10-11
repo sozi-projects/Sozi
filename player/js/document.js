@@ -65,6 +65,7 @@ var sozi = sozi || {};
             svgElement = document.getElementById(frameElements[i].getAttributeNS(SOZI_NS, "refid"));
             if (svgElement) {
                 newFrame = {
+                    id: frameElements[i].getAttribute("id"),
                     geometry: sozi.display.getElementGeometry(svgElement),
                     title: readAttribute(frameElements[i], "title"),
                     sequence: parseInt(readAttribute(frameElements[i], "sequence"), 10),

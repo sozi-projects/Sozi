@@ -51,9 +51,12 @@ class SoziExtrasAddVideo(inkex.Effect):
         self.OptionParser.add_option('-A', '--auto', action = 'store',
             type = 'string', dest = 'auto', default = 'false',
             help = 'Play automatically in Sozi frame')
-        self.OptionParser.add_option('-F', '--frame', action = 'store',
-            type = 'int', dest = 'frame', default = '1',
-            help = 'Frame number')
+        self.OptionParser.add_option('-F', '--start-frame', action = 'store',
+            type = 'int', dest = 'start_frame', default = '1',
+            help = 'Start video when entering frame number')
+        self.OptionParser.add_option('-G', '--stop-frame', action = 'store',
+            type = 'int', dest = 'stop_frame', default = '1',
+            help = 'Stop video when entering frame number')
         inkex.NSS[u"sozi"] = SoziExtrasAddVideo.NS_URI
 
 
@@ -113,8 +116,23 @@ class SoziExtrasAddVideo(inkex.Effect):
         v = inkex.etree.Element(inkex.addNS("video", "sozi"))
         v.set("type", unicode(self.options.type))
         v.set("src", unicode(self.options.src))
-        v.set("auto", unicode(self.options.auto))
-        v.set("frame", unicode(self.options.frame))
+
+        if self.options.auto == "true":
+            start_frame = self.document.xpath("//sozi:frame[@sozi:sequence='" + unicode(self.options.start_frame) + "']", namespaces=inkex.NSS)
+            stop_frame = self.document.xpath("//sozi:frame[@sozi:sequence='" + unicode(self.options.stop_frame) + "']", namespaces=inkex.NSS)
+            if len(start_frame) == 0:
+                sys.stderr.write("The start frame does not exist in this Sozi presentation.\n")
+                exit()
+            elif len(stop_frame) == 0:
+                sys.stderr.write("The stop frame does not exist in this Sozi presentation.\n")
+                exit()
+            elif "id" in start_frame[0].attrib and "id" in stop_frame[0].attrib:
+                v.set("start-frame", unicode(start_frame[0].attrib["id"]))
+                v.set("stop-frame", unicode(stop_frame[0].attrib["id"]))
+            else:
+                sys.stderr.write("The chosen frames are not compatible with this version of Sozi. Please run Sozi to upgrade your document.\n")
+                exit()
+                
         rect.append(v)
 
 
