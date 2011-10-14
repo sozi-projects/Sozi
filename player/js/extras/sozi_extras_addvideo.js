@@ -43,8 +43,8 @@ this.addEventListener("load", function () {
 	
 		// Create HTML video source element
 		htmlSource = document.createElementNS(xhtmlNs, "source");
-		htmlSource.setAttribute("type", videoSources[i].getAttribute("type"));
-		htmlSource.setAttribute("src", videoSources[i].getAttribute("src"));
+		htmlSource.setAttribute("type", videoSources[i].getAttributeNS(soziNs, "type"));
+		htmlSource.setAttribute("src", videoSources[i].getAttributeNS(soziNs, "src"));
 
 		for (j = 0; j < videos.length; j += 1) {
 			if (videos[j].rect === rect) {
@@ -76,10 +76,10 @@ this.addEventListener("load", function () {
 				
 			rect.parentNode.insertBefore(foreignObject, rect.nextSibling);
 			
-			if (videoSources[i].hasAttribute("start-frame")) {
+			if (videoSources[i].hasAttributeNS(soziNs, "start-frame")) {
 			    registerFrameChangeHandler(htmlVideo,
-			        videoSources[i].getAttribute("start-frame"),
-			        videoSources[i].getAttribute("stop-frame")
+			        videoSources[i].getAttributeNS(soziNs, "start-frame"),
+			        videoSources[i].getAttributeNS(soziNs, "stop-frame")
 			     );
 			}
 			

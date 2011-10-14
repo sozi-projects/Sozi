@@ -61,12 +61,16 @@ class SoziExtrasAddVideo(inkex.Effect):
 
 
     def effect(self):
-        self.upgrade_or_install("script", "js")
-        self.upgrade_document()
+        self.upgrade_or_install()
         self.add_video()
 
 
-    def upgrade_or_install(self, tag, ext):
+    def upgrade_or_install(self):
+        self.upgrade_or_install_element("script", "js")
+        self.upgrade_document()
+        
+
+    def upgrade_or_install_element(self, tag, ext):
         # Check version and remove older versions
         latest_version_found = False
         for elt in self.document.xpath("//svg:" + tag + "[@id='sozi-extras-addvideo-" + tag + "']", namespaces=inkex.NSS):
@@ -89,8 +93,51 @@ class SoziExtrasAddVideo(inkex.Effect):
 
 
     def upgrade_document(self):
-        pass      
+        # Upgrade from 11.10
+        auto_attr = inkex.addNS("auto", "sozi")
+        frame_attr = inkex.addNS("frame", "sozi")
+        start_frame_attr = inkex.addNS("start-frame", "sozi")
+        stop_frame_attr = inkex.addNS("stop-frame", "sozi")
+        frame_count = len(self.document.xpath("//sozi:frame", namespaces=inkex.NSS))
+        
+        # For each video element in the document
+        for velt in self.document.xpath("//sozi:video", namespaces=inkex.NSS):
+            # Get the Sozi frame index for the current video if it is set
+            frame_index = None
+            if frame_attr in velt.attrib:
+                frame_index = velt.attrib[frame_attr]
+                del velt.attrib[frame_attr]
+            
+            # If the video was set to start automatically and has a frame index set
+            if auto_attr in velt.attrib:
+                del velt.attrib[auto_attr]                
+                if frame_index is not None:
+                    # Get the frame element at the given index
+                    felt = self.document.xpath("//sozi:frame[@sozi:sequence='" + frame_index + "']", namespaces=inkex.NSS)
+                    if len(felt) > 0:
+                        # Use the ID of that frame to start the video
+                        velt.set(start_frame_attr, felt[0].attrib["id"])
+                        
+                        # Get the next frame element
+                        # We assume that the frames are correctly numbered                        
+                        if int(frame_index) >= frame_count:
+                            frame_index = "1"
+                        else:
+                            frame_index = unicode(int(frame_index) + 1)
+                        felt = self.document.xpath("//sozi:frame[@sozi:sequence='" + frame_index + "']", namespaces=inkex.NSS)
+                        if len(felt) > 0:
+                            # Use the ID of that frame to stop the video
+                            velt.set(stop_frame_attr, felt[0].attrib["id"])
     
+            # If the video has attributes "type" and "src" with no namespace, add Sozi namespace
+            if "type" in velt.attrib:
+                velt.set(inkex.addNS("type", "sozi"), velt.attrib["type"])
+                del velt.attrib["type"]
+                
+            if "src" in velt.attrib:
+                velt.set(inkex.addNS("src", "sozi"), velt.attrib["src"])
+                del velt.attrib["src"]
+
 
     def add_video(self):
         rect = None
@@ -114,8 +161,8 @@ class SoziExtrasAddVideo(inkex.Effect):
             self.document.getroot().append(g)
 
         v = inkex.etree.Element(inkex.addNS("video", "sozi"))
-        v.set("type", unicode(self.options.type))
-        v.set("src", unicode(self.options.src))
+        v.set(inkex.addNS("type", "sozi"), unicode(self.options.type))
+        v.set(inkex.addNS("src", "sozi"), unicode(self.options.src))
 
         if self.options.auto == "true":
             start_frame = self.document.xpath("//sozi:frame[@sozi:sequence='" + unicode(self.options.start_frame) + "']", namespaces=inkex.NSS)
@@ -127,8 +174,8 @@ class SoziExtrasAddVideo(inkex.Effect):
                 sys.stderr.write("The stop frame does not exist in this Sozi presentation.\n")
                 exit()
             elif "id" in start_frame[0].attrib and "id" in stop_frame[0].attrib:
-                v.set("start-frame", unicode(start_frame[0].attrib["id"]))
-                v.set("stop-frame", unicode(stop_frame[0].attrib["id"]))
+                v.set(inkex.addNS("start-frame", "sozi"), unicode(start_frame[0].attrib["id"]))
+                v.set(inkex.addNS("stop-frame", "sozi"), unicode(stop_frame[0].attrib["id"]))
             else:
                 sys.stderr.write("The chosen frames are not compatible with this version of Sozi. Please run Sozi to upgrade your document.\n")
                 exit()
