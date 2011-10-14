@@ -3,19 +3,23 @@
 ################################################################################
 
 ADD_CUSTOM_COMMAND(
-   OUTPUT    sozi.py
-   COMMAND   sed -e 's/{{SOZI_VERSION}}/${SOZI_VERSION}/g' ${CMAKE_CURRENT_SOURCE_DIR}/sozi.py > sozi.py
+   OUTPUT    sozi_upgrade.py
+   COMMAND   sed -e 's/{{SOZI_VERSION}}/${SOZI_VERSION}/g' ${CMAKE_CURRENT_SOURCE_DIR}/sozi_upgrade.py > sozi_upgrade.py
 )
 
 ADD_CUSTOM_COMMAND(
-   OUTPUT    sozi_extras_addvideo.py
-   COMMAND   sed -e 's/{{SOZI_VERSION}}/${SOZI_VERSION}/g' ${CMAKE_CURRENT_SOURCE_DIR}/extras/sozi_extras_addvideo.py > sozi_extras_addvideo.py
+   OUTPUT    sozi_extras_addvideo_upgrade.py
+   COMMAND   sed -e 's/{{SOZI_VERSION}}/${SOZI_VERSION}/g' ${CMAKE_CURRENT_SOURCE_DIR}/extras/sozi_extras_addvideo_upgrade.py > sozi_extras_addvideo_upgrade.py
 )
 
 SET(sozi_inkscape_files ${CMAKE_CURRENT_SOURCE_DIR}/sozi.inx
-                        ${CMAKE_CURRENT_BINARY_DIR}/sozi.py 
+                        ${CMAKE_CURRENT_SOURCE_DIR}/sozi.py 
                         ${CMAKE_CURRENT_SOURCE_DIR}/extras/sozi_extras_addvideo.inx
-                        ${CMAKE_CURRENT_BINARY_DIR}/sozi_extras_addvideo.py)
+                        ${CMAKE_CURRENT_SOURCE_DIR}/extras/sozi_extras_addvideo.py
+                        ${CMAKE_CURRENT_SOURCE_DIR}/extras/sozi_extras_upgrade.inx
+                        ${CMAKE_CURRENT_SOURCE_DIR}/extras/sozi_extras_upgrade.py
+                        ${CMAKE_CURRENT_BINARY_DIR}/sozi_upgrade.py
+                        ${CMAKE_CURRENT_BINARY_DIR}/sozi_extras_addvideo_upgrade.py)
 
 ################################################################################
 ### The inkscape integration files target

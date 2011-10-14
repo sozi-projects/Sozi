@@ -11,8 +11,6 @@
 # 
 # See http://sozi.baierouge.fr/wiki/en:license for details.
    
-import os
-
 # These lines are only needed if you don't put the script directly into
 # the installation directory
 import sys
@@ -29,6 +27,8 @@ import inkex
 import pygtk
 pygtk.require("2.0")
 import gtk
+
+import sozi_upgrade
 
 
 class SoziField:
@@ -908,12 +908,6 @@ class SoziUI:
 
 class Sozi(inkex.Effect):
 
-    # Replaced automatically by the version number during the build process
-    VERSION = "{{SOZI_VERSION}}"
-
-    ATTR = ["title", "sequence", "hide", "clip", "timeout-enable", "timeout-ms",
-            "transition-duration-ms", "transition-zoom-percent", "transition-profile"]
-
     NS_URI = u"http://sozi.baierouge.fr"
 
 
@@ -925,69 +919,9 @@ class Sozi(inkex.Effect):
 
 
     def effect(self):
-        self.upgrade_or_install("script")
-        self.upgrade_or_install("style")
-        self.upgrade_document()
+        sozi_upgrade.upgrade_or_install(self)
         self.analyze_document()
         self.ui = SoziUI(self)
-
-
-    def upgrade_or_install(self, tag):
-        """
-        Upgrade or install a script or a style sheet into the document.
-            - tag: "script" or "style"
-        Depending on the argument, the content of file "sozi.js" or "sozi.css"
-        will be copied to the script or style element.
-        """
-        # Check version and remove older versions
-        latest_version_found = False
-        for elt in self.document.xpath("//svg:" + tag + "[@id='sozi-" + tag + "']", namespaces=inkex.NSS):
-            version = elt.attrib[inkex.addNS("version", "sozi")]
-            if version == Sozi.VERSION:
-                latest_version_found = True
-            elif version < Sozi.VERSION:
-                elt.getparent().remove(elt)
-            else:
-                sys.stderr.write("Document has been created using a higher version of Sozi. Please upgrade the Inkscape plugin.\n")
-                exit()
-      
-        # Create new element if needed
-        if not latest_version_found:
-            ext = "js" if tag == "script" else "css"
-            elt = inkex.etree.Element(inkex.addNS(tag, "svg"))
-            elt.text = open(os.path.join(os.path.dirname(__file__), "sozi." + ext)).read()
-            elt.set("id","sozi-" + tag)
-            elt.set(inkex.addNS("version", "sozi"), Sozi.VERSION)
-            self.document.getroot().append(elt)
-
-
-    def upgrade_document(self):
-        """
-        Upgrade the Sozi-specific elements of the document to follow the evolutions of the document format.
-        """
-        # Upgrade from 10.x
-
-        # FIXME allow multiple classes in element
-        for elt in self.document.xpath("//svg:*[@class='sozi-frame']", namespaces=inkex.NSS):
-            del elt.attrib["class"]
-
-            # Create a new frame element
-            f = inkex.etree.Element(inkex.addNS("frame", "sozi"))
-            f.set(inkex.addNS("refid", "sozi"), elt.attrib["id"]) # TODO check namespace for id?
-            self.document.getroot().append(f)
-
-            # Move all Sozi-specific attributes from the original element to the frame element
-            for attr in Sozi.ATTR:
-                ns_attr = inkex.addNS(attr, "sozi")
-                if ns_attr in elt.attrib:
-                    f.set(ns_attr, elt.attrib[ns_attr])
-                    del elt.attrib[ns_attr]
-      
-        # Upgrade from 11.10
-        sequence_attr = inkex.addNS("sequence", "sozi")
-        for elt in self.document.xpath("//sozi:frame", namespaces=inkex.NSS):
-            if "id" not in elt.attrib:
-                elt.set("id", self.uniqueId("frame" + elt.attrib[sequence_attr]))
 
 
     def analyze_document(self):
@@ -1087,7 +1021,7 @@ class Sozi(inkex.Effect):
             for i in range(index, len(self.frames)):
                 self.frames[i]["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i+1))
 
-        
+
 # Create effect instance
 effect = Sozi()
 effect.affect()

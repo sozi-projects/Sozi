@@ -11,8 +11,6 @@
 # 
 # See http://sozi.baierouge.fr/wiki/en:license for details.
 
-import os
-
 # These lines are only needed if you don't put the script directly into
 # the installation directory
 import sys
@@ -26,10 +24,10 @@ sys.path.append('C:\Program Files\Inkscape\share\extensions')
 # We will use the inkex module with the predefined Effect base class.
 import inkex
 
+import sozi_extras_addvideo_upgrade
+
 
 class SoziExtrasAddVideo(inkex.Effect):
-
-    VERSION = "{{SOZI_VERSION}}"
 
     NS_URI = u"http://sozi.baierouge.fr"
 
@@ -61,82 +59,8 @@ class SoziExtrasAddVideo(inkex.Effect):
 
 
     def effect(self):
-        self.upgrade_or_install()
+        sozi_extras_addvideo_upgrade.upgrade_or_install(self)
         self.add_video()
-
-
-    def upgrade_or_install(self):
-        self.upgrade_or_install_element("script", "js")
-        self.upgrade_document()
-        
-
-    def upgrade_or_install_element(self, tag, ext):
-        # Check version and remove older versions
-        latest_version_found = False
-        for elt in self.document.xpath("//svg:" + tag + "[@id='sozi-extras-addvideo-" + tag + "']", namespaces=inkex.NSS):
-            version = elt.attrib[inkex.addNS("version", "sozi")]
-            if version == SoziExtrasAddVideo.VERSION:
-                latest_version_found = True
-            elif version < SoziExtrasAddVideo.VERSION:
-                elt.getparent().remove(elt)
-            else:
-                sys.stderr.write("Document has been created using a higher version of Sozi. Please upgrade the Inkscape plugin.\n")
-                exit()
-      
-        # Create new element if needed
-        if not latest_version_found:
-            elt = inkex.etree.Element(inkex.addNS(tag, "svg"))
-            elt.text = open(os.path.join(os.path.dirname(__file__), "sozi_extras_addvideo." + ext)).read()
-            elt.set("id","sozi-extras-addvideo-" + tag)
-            elt.set(inkex.addNS("version", "sozi"), SoziExtrasAddVideo.VERSION)
-            self.document.getroot().append(elt)
-
-
-    def upgrade_document(self):
-        # Upgrade from 11.10
-        auto_attr = inkex.addNS("auto", "sozi")
-        frame_attr = inkex.addNS("frame", "sozi")
-        start_frame_attr = inkex.addNS("start-frame", "sozi")
-        stop_frame_attr = inkex.addNS("stop-frame", "sozi")
-        frame_count = len(self.document.xpath("//sozi:frame", namespaces=inkex.NSS))
-        
-        # For each video element in the document
-        for velt in self.document.xpath("//sozi:video", namespaces=inkex.NSS):
-            # Get the Sozi frame index for the current video if it is set
-            frame_index = None
-            if frame_attr in velt.attrib:
-                frame_index = velt.attrib[frame_attr]
-                del velt.attrib[frame_attr]
-            
-            # If the video was set to start automatically and has a frame index set
-            if auto_attr in velt.attrib:
-                del velt.attrib[auto_attr]                
-                if frame_index is not None:
-                    # Get the frame element at the given index
-                    felt = self.document.xpath("//sozi:frame[@sozi:sequence='" + frame_index + "']", namespaces=inkex.NSS)
-                    if len(felt) > 0:
-                        # Use the ID of that frame to start the video
-                        velt.set(start_frame_attr, felt[0].attrib["id"])
-                        
-                        # Get the next frame element
-                        # We assume that the frames are correctly numbered                        
-                        if int(frame_index) >= frame_count:
-                            frame_index = "1"
-                        else:
-                            frame_index = unicode(int(frame_index) + 1)
-                        felt = self.document.xpath("//sozi:frame[@sozi:sequence='" + frame_index + "']", namespaces=inkex.NSS)
-                        if len(felt) > 0:
-                            # Use the ID of that frame to stop the video
-                            velt.set(stop_frame_attr, felt[0].attrib["id"])
-    
-            # If the video has attributes "type" and "src" with no namespace, add Sozi namespace
-            if "type" in velt.attrib:
-                velt.set(inkex.addNS("type", "sozi"), velt.attrib["type"])
-                del velt.attrib["type"]
-                
-            if "src" in velt.attrib:
-                velt.set(inkex.addNS("src", "sozi"), velt.attrib["src"])
-                del velt.attrib["src"]
 
 
     def add_video(self):
