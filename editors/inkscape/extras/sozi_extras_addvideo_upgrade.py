@@ -36,28 +36,24 @@ def upgrade_or_install_element(context, tag, ext):
 
 def upgrade_document(context):
     # Upgrade from 11.10
-    auto_attr = inkex.addNS("auto", "sozi")
-    frame_attr = inkex.addNS("frame", "sozi")
-    start_frame_attr = inkex.addNS("start-frame", "sozi")
-    stop_frame_attr = inkex.addNS("stop-frame", "sozi")
     frame_count = len(context.document.xpath("//sozi:frame", namespaces=inkex.NSS))
     
     # For each video element in the document
     for velt in context.document.xpath("//sozi:video", namespaces=inkex.NSS):
         # Get the Sozi frame index for the current video if it is set
         frame_index = None
-        if frame_attr in velt.attrib:
-            frame_index = velt.attrib[frame_attr]
-            del velt.attrib[frame_attr]
+        if "frame" in velt.attrib:
+            frame_index = velt.attrib["frame"]
+            del velt.attrib["frame"]
         
         # If the video was set to start automatically and has a frame index set
-        if auto_attr in velt.attrib:
-            if velt.attrib[auto_attr] == "true" and frame_index is not None:
+        if "auto" in velt.attrib:
+            if velt.attrib["auto"] == "true" and frame_index is not None:
                 # Get the frame element at the given index
                 felt = context.document.xpath("//sozi:frame[@sozi:sequence='" + frame_index + "']", namespaces=inkex.NSS)
                 if len(felt) > 0:
                     # Use the ID of that frame to start the video
-                    velt.set(start_frame_attr, felt[0].attrib["id"])
+                    velt.set(inkex.addNS("start-frame", "sozi"), felt[0].attrib["id"])
                     
                     # Get the next frame element
                     # We assume that the frames are correctly numbered                        
@@ -68,8 +64,8 @@ def upgrade_document(context):
                     felt = context.document.xpath("//sozi:frame[@sozi:sequence='" + frame_index + "']", namespaces=inkex.NSS)
                     if len(felt) > 0:
                         # Use the ID of that frame to stop the video
-                        velt.set(stop_frame_attr, felt[0].attrib["id"])
-            del velt.attrib[auto_attr]                
+                        velt.set(inkex.addNS("stop-frame", "sozi"), felt[0].attrib["id"])
+            del velt.attrib["auto"]                
 
         # If the video has attributes "type" and "src" with no namespace, add Sozi namespace
         if "type" in velt.attrib:
