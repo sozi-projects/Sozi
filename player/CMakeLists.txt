@@ -63,6 +63,7 @@ SET(sozi_js ${CMAKE_CURRENT_SOURCE_DIR}/js/events.js
 
 ADD_CUSTOM_COMMAND(
   OUTPUT    sozi.js
+  DEPENDS   ${sozi_js}
   COMMAND   ${CMAKE_CURRENT_SOURCE_DIR}/tools/minifier ${minifier} sozi.js ${sozi_js}
 )
 
@@ -76,6 +77,7 @@ SET(sozi_css ${CMAKE_CURRENT_SOURCE_DIR}/css/sozi.css)
 
 ADD_CUSTOM_COMMAND(
   OUTPUT    sozi.css
+  DEPENDS   ${sozi_css}
   COMMAND   ${CMAKE_CURRENT_SOURCE_DIR}/tools/minifier ${minifier} sozi.css ${sozi_css}
 )
 
@@ -89,6 +91,7 @@ SET(sozi_extras_addvideo_js ${CMAKE_CURRENT_SOURCE_DIR}/js/extras/sozi_extras_ad
 
 ADD_CUSTOM_COMMAND(
   OUTPUT    sozi_extras_addvideo.js
+  DEPENDS   ${sozi_extras_addvideo_js}
   COMMAND   ${CMAKE_CURRENT_SOURCE_DIR}/tools/minifier ${minifier} sozi_extras_addvideo.js ${sozi_extras_addvideo_js}
 )
 

@@ -4,11 +4,13 @@
 
 ADD_CUSTOM_COMMAND(
    OUTPUT    sozi_upgrade.py
+   DEPENDS   ${CMAKE_CURRENT_SOURCE_DIR}/sozi_upgrade.py
    COMMAND   sed -e 's/{{SOZI_VERSION}}/${SOZI_VERSION}/g' ${CMAKE_CURRENT_SOURCE_DIR}/sozi_upgrade.py > sozi_upgrade.py
 )
 
 ADD_CUSTOM_COMMAND(
    OUTPUT    sozi_extras_addvideo_upgrade.py
+   DEPENDS   ${CMAKE_CURRENT_SOURCE_DIR}/extras/sozi_extras_addvideo_upgrade.py
    COMMAND   sed -e 's/{{SOZI_VERSION}}/${SOZI_VERSION}/g' ${CMAKE_CURRENT_SOURCE_DIR}/extras/sozi_extras_addvideo_upgrade.py > sozi_extras_addvideo_upgrade.py
 )
 
