@@ -24,17 +24,6 @@ var sozi = sozi || {};
             window.msRequestAnimationFrame ||
             window.oRequestAnimationFrame;
 
-    function start() {
-        if (requestAnimationFrame) {
-            requestAnimationFrame(loop);
-        }
-        else {
-            timer = window.setInterval(function() {
-                loop(Date.now());
-            }, TIME_STEP_MS);
-        }
-    }
-    
     function loop(timestamp) {
         var i;
         if (animators.length > 0) {
@@ -42,13 +31,24 @@ var sozi = sozi || {};
                 requestAnimationFrame(loop);
             }
             for (i = 0; i < animators.length; i += 1) {
-                animators[i].step(timestamp)
+                animators[i].step(timestamp);
             }
         }
         else {
             if (!requestAnimationFrame) {
                 window.clearInterval(timer);
             }
+        }
+    }
+    
+    function start() {
+        if (requestAnimationFrame) {
+            requestAnimationFrame(loop);
+        }
+        else {
+            timer = window.setInterval(function () {
+                loop(Date.now());
+            }, TIME_STEP_MS);
         }
     }
     
