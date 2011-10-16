@@ -27,6 +27,8 @@ TIMESTAMP := release/sozi-timestamp-$(VERSION)
 
 .PHONY: zip verify minify install timestamp clean
 
+all: zip
+
 zip: release/sozi-release-$(VERSION).zip
 
 verify: $(PLAYER_JS) $(EXTRAS_JS)
