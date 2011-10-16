@@ -71,7 +71,7 @@ var sozi = sozi || {};
             display.geometry.height = data.zoomHeight.k * ps * ps + data.zoomHeight.ss;
         }
 
-        display.clip = data.finalState.clip;
+        display.geometry.clip = data.finalState.clip;
 
         display.update();
     }
