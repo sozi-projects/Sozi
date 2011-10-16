@@ -69,7 +69,9 @@ def upgrade_document(context):
   
     # Upgrade from 11.10
     sequence_attr = inkex.addNS("sequence", "sozi")
-    for elt in context.document.xpath("//sozi:frame", namespaces=inkex.NSS):
+    for i, elt in enumerate(context.document.xpath("//sozi:frame", namespaces=inkex.NSS)):
+        if sequence_attr not in elt.attrib:
+            elt.set(sequence_attr, unicode(i + 1))
         if "id" not in elt.attrib:
             elt.set("id", context.uniqueId("frame" + elt.attrib[sequence_attr]))
 
