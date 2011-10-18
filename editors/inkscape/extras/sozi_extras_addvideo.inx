@@ -12,11 +12,15 @@
    See http://sozi.baierouge.fr/wiki/en:license for details.
 -->
 <inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
-  <_name>Add video</_name>
+  <_name>Add video or audio</_name>
   <id>sozi.extras.addvideo</id>
   <dependency type="executable" location="extensions">inkex.py</dependency>
   <dependency type="executable" location="extensions">sozi_extras_addvideo.py</dependency>
   <dependency type="executable" location="extensions">sozi_extras_addvideo.js</dependency>
+  <param name="element" type="enum" _gui-text="Media element">
+  	<item value="video">video</item>
+  	<item value="audio">audio</item>
+  </param>
   <param name="width" type="int" min="1" max="10000" _gui-text="Width">640</param>
   <param name="height" type="int" min="1" max="10000" _gui-text="Height">480</param>
   <param name="type" type="string" _gui-text="MIME type">video/ogg</param>

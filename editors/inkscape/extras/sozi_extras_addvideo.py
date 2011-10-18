@@ -34,40 +34,43 @@ class SoziExtrasAddVideo(inkex.Effect):
 
     def __init__(self):
         inkex.Effect.__init__(self)
+        self.OptionParser.add_option('-E', '--element', action = 'store',
+            type = 'string', dest = 'element', default = 'video',
+            help = 'Media element (video | audio)')
         self.OptionParser.add_option('-W', '--width', action = 'store',
             type = 'int', dest = 'width', default = 640,
-            help = 'Video width')
+            help = 'Media region width')
         self.OptionParser.add_option('-H', '--height', action = 'store',
             type = 'int', dest = 'height', default = 480,
-            help = 'Video height')
+            help = 'Media region height')
         self.OptionParser.add_option('-T', '--type', action = 'store',
             type = 'string', dest = 'type', default = 'video/ogg',
-            help = 'Video MIME type')
+            help = 'Media MIME type')
         self.OptionParser.add_option('-S', '--src', action = 'store',
             type = 'string', dest = 'src', default = '',
-            help = 'Video file name')
+            help = 'Media file name')
         self.OptionParser.add_option('-A', '--auto', action = 'store',
             type = 'string', dest = 'auto', default = 'false',
             help = 'Play automatically in Sozi frame')
         self.OptionParser.add_option('-F', '--start-frame', action = 'store',
             type = 'int', dest = 'start_frame', default = '1',
-            help = 'Start video when entering frame number')
+            help = 'Start playing when entering frame number')
         self.OptionParser.add_option('-G', '--stop-frame', action = 'store',
             type = 'int', dest = 'stop_frame', default = '1',
-            help = 'Stop video when entering frame number')
+            help = 'Stop playing when entering frame number')
         inkex.NSS[u"sozi"] = SoziExtrasAddVideo.NS_URI
 
 
     def effect(self):
         sozi_extras_addvideo_upgrade.upgrade_or_install(self)
-        self.add_video()
+        self.add_media()
 
 
-    def add_video(self):
+    def add_media(self):
         rect = None
         if len(self.selected) != 0:
             elt = self.selected.values()[0]
-            if elt.tag == inkex.addNS("g", "svg") and len(elt) > 0 and elt[0].tag == inkex.addNS("rect", "svg") and len(elt[0]) > 0 and elt[0][0].tag == inkex.addNS("video", "sozi"):
+            if elt.tag == inkex.addNS("g", "svg") and len(elt) > 0 and elt[0].tag == inkex.addNS("rect", "svg") and len(elt[0]) > 0 and elt[0][0].tag == inkex.addNS(self.options.element, "sozi"):
                 rect = elt[0]
 
         if rect == None:
@@ -84,7 +87,7 @@ class SoziExtrasAddVideo(inkex.Effect):
 
             self.document.getroot().append(g)
 
-        v = inkex.etree.Element(inkex.addNS("video", "sozi"))
+        v = inkex.etree.Element(inkex.addNS(self.options.element, "sozi"))
         v.set(inkex.addNS("type", "sozi"), unicode(self.options.type))
         v.set(inkex.addNS("src", "sozi"), unicode(self.options.src))
 

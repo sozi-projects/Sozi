@@ -17,81 +17,88 @@ this.addEventListener("load", function () {
 		xhtmlNs = "http://www.w3.org/1999/xhtml",
 		window = this,
 		document = window.document,
-		videoSources = document.getElementsByTagNameNS(soziNs, "video"),
-		videos, i, j, rect, foreignObject,
-		html, htmlVideo, htmlSource;
-
+		mediaSources = [],
+		mediaList, i, j, k, rect, foreignObject,
+		html, htmlMedia, htmlSource;
+	
     function clickHandler(evt) {
         evt.stopPropagation();
     }
     
-    function registerFrameChangeHandler(htmlVideo, startFrame, stopFrame) {
+    function registerFrameChangeHandler(htmlMedia, startFrame, stopFrame) {
         sozi.events.listen("framechange", function(index) {
             var frameId = sozi.document.frames[index].id;
 		    if (frameId === startFrame) {
-		        htmlVideo.play();
+		        htmlMedia.play();
 			}
             else if (frameId === stopFrame) {
-                htmlVideo.pause();
+                htmlMedia.pause();
             }
 		});
     }
     
-	videos = [];
-	for (i = 0; i < videoSources.length; i += 1) {
-		rect = videoSources[i].parentNode;
-	
-		// Create HTML video source element
-		htmlSource = document.createElementNS(xhtmlNs, "source");
-		htmlSource.setAttribute("type", videoSources[i].getAttributeNS(soziNs, "type"));
-		htmlSource.setAttribute("src", videoSources[i].getAttributeNS(soziNs, "src"));
+	mediaSources.push(document.getElementsByTagNameNS(soziNs, "video"));
+	mediaSources.push(document.getElementsByTagNameNS(soziNs, "audio"));
 
-		for (j = 0; j < videos.length; j += 1) {
-			if (videos[j].rect === rect) {
-				break;
-			}
-		}
+	mediaList = [];
+	for (k = 0; k < mediaSources.length; k += 1) {
+	    for (i = 0; i < mediaSources[k].length; i += 1) {
+		    rect = mediaSources[k][i].parentNode;
 	
-		if (j === videos.length) {
-		    rect.setAttribute("visibility", "hidden");
-		    
-			// Create HTML video element
-			htmlVideo = document.createElementNS(xhtmlNs, "video");
-			// htmlVideo.setAttribute("poster", "__dummy__.png");
-			htmlVideo.setAttribute("controls", "controls");
-			htmlVideo.setAttribute("width", rect.getAttribute("width"));
-			htmlVideo.setAttribute("height", rect.getAttribute("height"));
-		    htmlVideo.addEventListener("click", clickHandler, false);
-		    htmlVideo.addEventListener("contextmenu", clickHandler, false);
-		    
-			// Create HTML root element
-			html = document.createElementNS(xhtmlNs, "html");
-			html.appendChild(htmlVideo);
+		    // Create HTML media source element
+		    htmlSource = document.createElementNS(xhtmlNs, "source");
+		    htmlSource.setAttribute("type", mediaSources[k][i].getAttributeNS(soziNs, "type"));
+		    htmlSource.setAttribute("src", mediaSources[k][i].getAttributeNS(soziNs, "src"));
+
+		    for (j = 0; j < mediaList.length; j += 1) {
+			    if (mediaList[j].rect === rect) {
+				    break;
+			    }
+		    }
+	
+		    if (j === mediaList.length) {
+		        rect.setAttribute("visibility", "hidden");
+		        
+			    // Create HTML media element
+			    htmlMedia = document.createElementNS(xhtmlNs, mediaSources[k][i].tagName);
+			    // htmlMedia.setAttribute("poster", "__dummy__.png");
+			    htmlMedia.setAttribute("controls", "controls");
+			    if (mediaSources[k][i].tagName === "video") {
+			        htmlMedia.setAttribute("width", rect.getAttribute("width"));
+			        htmlMedia.setAttribute("height", rect.getAttribute("height"));
+			    }
+		        htmlMedia.addEventListener("click", clickHandler, false);
+		        htmlMedia.addEventListener("contextmenu", clickHandler, false);
+		        
+			    // Create HTML root element
+			    html = document.createElementNS(xhtmlNs, "html");
+			    html.appendChild(htmlMedia);
 		
-			// Create SVG foreign object
-			foreignObject = document.createElementNS(svgNs, "foreignObject");
-			foreignObject.setAttribute("x", rect.getAttribute("x"));
-			foreignObject.setAttribute("y", rect.getAttribute("y"));
-			foreignObject.setAttribute("width", rect.getAttribute("width"));
-			foreignObject.setAttribute("height", rect.getAttribute("height"));
-			foreignObject.appendChild(html);
+			    // Create SVG foreign object
+			    foreignObject = document.createElementNS(svgNs, "foreignObject");
+			    foreignObject.setAttribute("x", rect.getAttribute("x"));
+			    foreignObject.setAttribute("y", rect.getAttribute("y"));
+			    foreignObject.setAttribute("width", rect.getAttribute("width"));
+			    foreignObject.setAttribute("height", rect.getAttribute("height"));
+			    foreignObject.appendChild(html);
 				
-			rect.parentNode.insertBefore(foreignObject, rect.nextSibling);
+			    rect.parentNode.insertBefore(foreignObject, rect.nextSibling);
 			
-			if (videoSources[i].hasAttributeNS(soziNs, "start-frame")) {
-			    registerFrameChangeHandler(htmlVideo,
-			        videoSources[i].getAttributeNS(soziNs, "start-frame"),
-			        videoSources[i].getAttributeNS(soziNs, "stop-frame")
-			     );
-			}
+			    if (mediaSources[k][i].hasAttributeNS(soziNs, "start-frame")) {
+			        registerFrameChangeHandler(htmlMedia,
+			            mediaSources[k][i].getAttributeNS(soziNs, "start-frame"),
+			            mediaSources[k][i].getAttributeNS(soziNs, "stop-frame")
+			         );
+			    }
 			
-			videos.push({
-				rect: videoSources[i].parentNode,
-				htmlVideo: htmlVideo
-			});
-		}
-	
-		// Append HTML source element to current HTML video element
-		videos[j].htmlVideo.appendChild(htmlSource);
+			    mediaList.push({
+				    rect: mediaSources[k][i].parentNode,
+				    htmlMedia: htmlMedia
+			    });
+		    }
+	    }
+	    
+		// Append HTML source element to current HTML media element
+		mediaList[j].htmlMedia.appendChild(htmlSource);
 	}				
 }, false);
