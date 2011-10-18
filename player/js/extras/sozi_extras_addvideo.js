@@ -53,6 +53,8 @@ this.addEventListener("load", function () {
 		}
 	
 		if (j === videos.length) {
+		    rect.setAttribute("visibility", "hidden");
+		    
 			// Create HTML video element
 			htmlVideo = document.createElementNS(xhtmlNs, "video");
 			// htmlVideo.setAttribute("poster", "__dummy__.png");
