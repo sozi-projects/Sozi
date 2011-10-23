@@ -173,23 +173,6 @@ var sozi = sozi || {};
     };
 
     /*
-     * Returns the geometrical properties of the Display.
-     *
-     * Returns:
-     *    - An object with the current size, translation and rotation
-     */
-    exports.getCurrentGeometry = function () {
-        return {
-            cx: exports.geometry.cx,
-            cy: exports.geometry.cy,
-            width: exports.geometry.width,
-            height: exports.geometry.height,
-            rotate: exports.geometry.rotate,
-            clip: exports.geometry.clip
-        };
-    };
-
-    /*
      * Apply geometrical transformations to the image according to the current
      * geometrical attributes of this Display.
      *

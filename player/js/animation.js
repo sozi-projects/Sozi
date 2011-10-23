@@ -74,8 +74,15 @@ var sozi = sozi || {};
     };
 
     exports.Animator.prototype.start = function (durationMs, data) {
+        var key;
+        
         this.durationMs = durationMs;
-        this.data = data;
+        this.data = {};
+        for (key in data) {
+            if (data.hasOwnProperty(key)) {
+                this.data[key] = data[key];
+            }
+        }
 
         this.initialTime = Date.now();
         this.onStep(0, this.data);
