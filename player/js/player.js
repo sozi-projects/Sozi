@@ -206,25 +206,46 @@ var sozi = sozi || {};
         sozi.events.fire("framechange", index);
     };
 
-    exports.previewFrame = function (index) {
-        var finalState = sozi.document.frames[index].geometry,
-            zw,
-            zh;
-
-        if (DEFAULT_ZOOM_PERCENT !== 0) {
-            zw = getZoomData(DEFAULT_ZOOM_PERCENT, display.geometry.width, finalState.width);
-            zh = getZoomData(DEFAULT_ZOOM_PERCENT, display.geometry.height, finalState.height);
+    function getAnimationData(initialState, finalState, zoomPercent, profile) {
+        var key,
+            data = {
+                initialState: {},
+                finalState: {},
+                profile: profile
+            };
+            
+        // Copy all properties of given final state
+        for (key in initialState) {
+            if (initialState.hasOwnProperty(key)) {
+                data.initialState[key] = initialState[key];
+                data.finalState[key] = finalState[key];
+            }
+        }
+        
+        // Keep the smallest angle difference between initial state and final state
+        data.initialState.rotate = (data.initialState.rotate - 180) % 360 + 180;
+        data.finalState.rotate = (data.finalState.rotate - 180) % 360 + 180;
+        
+        if (data.finalState.rotate - data.initialState.rotate > 180) {
+            data.finalState.rotate -= 360;
+        }
+        else if (data.finalState.rotate - data.initialState.rotate < -180) {
+            data.initialState.rotate -= 360;
         }
 
-        currentFrameIndex = index;
-        animator.start(DEFAULT_DURATION_MS,  {
-            initialState: display.geometry,
-            finalState: finalState,
-            profile: sozi.animation.profiles[DEFAULT_PROFILE],
-            zoomWidth: zw,
-            zoomHeight: zh
-        });
+        if (zoomPercent !== 0) {
+            data.zoomWidth = getZoomData(DEFAULT_ZOOM_PERCENT, initialState.width, finalState.width);
+            data.zoomHeight = getZoomData(DEFAULT_ZOOM_PERCENT, initialState.height, finalState.height);
+        }
 
+        return data;
+    }
+    
+    exports.previewFrame = function (index) {
+        currentFrameIndex = index;
+        animator.start(DEFAULT_DURATION_MS, 
+            getAnimationData(display.geometry, sozi.document.frames[index].geometry,
+                DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]));
         sozi.events.fire("framechange", index);
     };
 
@@ -243,10 +264,7 @@ var sozi = sozi || {};
     exports.moveToFrame = function (index) {
         var durationMs = DEFAULT_DURATION_MS,
             zoomPercent = DEFAULT_ZOOM_PERCENT,
-            profile = sozi.animation.profiles[DEFAULT_PROFILE],
-            finalState = sozi.document.frames[index].geometry,
-            zw,
-            zh;
+            profile = sozi.animation.profiles[DEFAULT_PROFILE];
 
         if (waiting) {
             window.clearTimeout(nextFrameTimeout);
@@ -261,20 +279,9 @@ var sozi = sozi || {};
 
         sozi.events.fire("cleanup");
 
-        if (zoomPercent !== 0) {
-            zw = getZoomData(zoomPercent, display.geometry.width, finalState.width);
-            zh = getZoomData(zoomPercent, display.geometry.height, finalState.height);
-        }
-
         playing = true;
         currentFrameIndex = index;
-        animator.start(durationMs, {
-            initialState: display.geometry,
-            finalState: finalState,
-            profile: profile,
-            zoomWidth: zw,
-            zoomHeight: zh
-        });
+        animator.start(durationMs, getAnimationData(display.geometry, sozi.document.frames[index].geometry, zoomPercent, profile));
 
         sozi.events.fire("framechange", index);
     };
