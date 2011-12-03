@@ -33,6 +33,7 @@ var sozi = sozi || {};
         };
 
     exports.frames = [];
+    exports.layers = [];
     
     /*
      * Returns the value of an attribute of a given SVG element.
@@ -45,6 +46,28 @@ var sozi = sozi || {};
         return value === "" ? DEFAULTS[attr] : value;
     }
 
+    function readLayerProperties(frame, groupId, element) {
+        var layer,
+            svgElement = document.getElementById(element.getAttributeNS(SOZI_NS, "refid"));
+        if (svgElement) {
+            layer = {
+                group: groupId,
+                geometry: sozi.display.getElementGeometry(svgElement),
+                hide: readAttribute(element, "hide") === "true",
+                transitionZoomPercent: parseInt(readAttribute(element, "transition-zoom-percent"), 10),
+                transitionProfile: sozi.animation.profiles[readAttribute(element, "transition-profile") || "linear"]
+            };
+
+            layer.geometry.clip = readAttribute(element, "clip") === "true";
+            
+            if (layer.hide) {
+                svgElement.setAttribute("visibility", "hidden");
+            }
+            
+            frame.layers[layer.group] = layer;
+        }
+    }
+    
     /*
      * Builds the list of frames from the current document.
      *
@@ -57,32 +80,89 @@ var sozi = sozi || {};
     function readFrames() {
         var frameElements = document.getElementsByTagNameNS(SOZI_NS, "frame"),
             frameCount = frameElements.length,
-            svgElement,
-            i,
-            newFrame;
+            layerElements, groupId,
+            svgElement, wrapper,
+            svgRoot = document.documentElement,
+            f, l, n,
+            newFrame, newLayer,
+            SVG_NS = "http://www.w3.org/2000/svg";
 
-        for (i = 0; i < frameCount; i += 1) {
-            svgElement = document.getElementById(frameElements[i].getAttributeNS(SOZI_NS, "refid"));
-            if (svgElement) {
-                newFrame = {
-                    id: frameElements[i].getAttribute("id"),
-                    geometry: sozi.display.getElementGeometry(svgElement),
-                    title: readAttribute(frameElements[i], "title"),
-                    sequence: parseInt(readAttribute(frameElements[i], "sequence"), 10),
-                    hide: readAttribute(frameElements[i], "hide") === "true",
-                    timeoutEnable: readAttribute(frameElements[i], "timeout-enable") === "true",
-                    timeoutMs: parseInt(readAttribute(frameElements[i], "timeout-ms"), 10),
-                    transitionDurationMs: parseInt(readAttribute(frameElements[i], "transition-duration-ms"), 10),
-                    transitionZoomPercent: parseInt(readAttribute(frameElements[i], "transition-zoom-percent"), 10),
-                    transitionProfile: sozi.animation.profiles[readAttribute(frameElements[i], "transition-profile") || "linear"]
-                };
-                if (newFrame.hide) {
-                    svgElement.setAttribute("visibility", "hidden");
+        layerElements = document.getElementsByTagNameNS(SOZI_NS, "layer");
+        if (layerElements.length === 0) {
+            // Create a default layer if the document has none
+            // and move all the document into the new layer
+            wrapper = document.createElementNS(SVG_NS, "g");
+            wrapper.setAttribute("id", "sozi-wrapper");
+            
+            while (true) {
+                n = svgRoot.firstChild;
+                if (!n) {
+                    break;
                 }
-                newFrame.geometry.clip = readAttribute(frameElements[i], "clip") === "true";
-                exports.frames.push(newFrame);
+                svgRoot.removeChild(n);
+                wrapper.appendChild(n);
+            }
+
+            svgRoot.appendChild(wrapper);
+            
+            exports.layers.push("sozi-wrapper");            
+        }
+        else {
+            // Collect all layer ids
+            for (l = 0; l < layerElements.length; l += 1) {
+                groupId = layerElements[l].getAttributeNS(SOZI_NS, "group");
+                if (groupId && exports.layers.indexOf(groupId) === -1 && document.getElementById(groupId)) {
+                    exports.layers.push(groupId);
+                }
+            }
+            
+            if (exports.layers.length === 0) {
+                alert("Invalid layer information");
             }
         }
+        
+        // Analyze <frame> elements
+        for (f = 0; f < frameCount; f += 1) {
+            // Create a new frame object with layer-independent properties
+            newFrame = {
+                id: frameElements[f].getAttribute("id"),
+                title: readAttribute(frameElements[f], "title"),
+                sequence: parseInt(readAttribute(frameElements[f], "sequence"), 10),
+                timeoutEnable: readAttribute(frameElements[f], "timeout-enable") === "true",
+                timeoutMs: parseInt(readAttribute(frameElements[f], "timeout-ms"), 10),
+                transitionDurationMs: parseInt(readAttribute(frameElements[f], "transition-duration-ms"), 10),
+                layers: {}
+            };
+
+            // Collect and analyze <layer> elements in the current <frame> element
+            layerElements = frameElements[f].getElementsByTagNameNS(SOZI_NS, "layer");
+
+            if (layerElements.length === 0) {
+                // If no <layer> element exists, the <frame> element defines
+                // properties for all layers
+                for (l = 0; l < exports.layers.length; l += 1) {
+                    readLayerProperties(newFrame, exports.layers[l], frameElements[f]);
+                }
+            }
+            else {
+                for (l = 0; l < layerElements.length; l += 1) {
+                    groupId = layerElements[l].getAttributeNS(SOZI_NS, "group");
+                    if (groupId && exports.layers.indexOf(groupId) !== -1) {
+                        readLayerProperties(newFrame, groupId, layerElements[l]);
+                    }
+                }
+            }
+            
+            // If the <frame> element has at least one valid layer,
+            // add it to the frame list
+            for (l in newFrame.layers) {
+                if (newFrame.layers.hasOwnProperty(l)) {
+                    exports.frames.push(newFrame);
+                    break;
+                }
+            }
+        }
+        
         exports.frames.sort(
             function (a, b) {
                 return a.sequence - b.sequence;

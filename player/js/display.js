@@ -20,19 +20,11 @@ var sozi = sozi || {};
         window = this,
         document = window.document,
         svgRoot,
-        clipRect,
         initialBBox,
         wrapper,
         SVG_NS = "http://www.w3.org/2000/svg";
 
-    exports.geometry = {
-        cx: 0,
-        cy: 0,
-        width: 1,
-        height: 1,
-        rotate: 0,
-        clip: true
-    };
+    exports.layers = {};
 
     /*
      * Initializes the current Display.
@@ -44,40 +36,45 @@ var sozi = sozi || {};
      * This method must be called when the document is ready to be manipulated.
      */
     function onDocumentReady() {
-        var n,
-            clippedArea = document.createElementNS(SVG_NS, "g"),
-            clipPath = document.createElementNS(SVG_NS, "clipPath");
+        var l, clippedArea, clipPath;
 
         svgRoot = document.documentElement; // TODO check SVG tag
-
         initialBBox = svgRoot.getBBox();
-
-        // Create a new wrapper group element and move all the image to the group
-        wrapper = document.createElementNS(SVG_NS, "g");
-        while (true) {
-            n = svgRoot.firstChild;
-            if (!n) {
-                break;
-            }
-            svgRoot.removeChild(n);
-            wrapper.appendChild(n);
-        }
-
-        // Add a clipping path
-        clipRect = document.createElementNS(SVG_NS, "rect");
-        clipRect.setAttribute("id", "sozi-clip-rect");
-
-        clipPath.setAttribute("id", "sozi-clip-path");
-        clipPath.appendChild(clipRect);
-        svgRoot.appendChild(clipPath);
-
-        clippedArea.setAttribute("clip-path", "url(#sozi-clip-path)");
-        clippedArea.appendChild(wrapper);
-        svgRoot.appendChild(clippedArea);
-
         svgRoot.setAttribute("width", window.innerWidth);
         svgRoot.setAttribute("height", window.innerHeight);
         
+        // Initialize display geometry for all layers
+        for (l = 0; l < sozi.document.layers.length; l +=1) {
+            groupId = sozi.document.layers[l];
+            exports.layers[groupId] = {
+                geometry: {
+                    cx: 0,
+                    cy: 0,
+                    width: 1,
+                    height: 1,
+                    rotate: 0,
+                    clip: true
+                },
+                clipRect: document.createElementNS(SVG_NS, "rect"),
+                group: document.getElementById(groupId)
+            };
+
+            // Add a clipping path
+            clipPath = document.createElementNS(SVG_NS, "clipPath");
+            clipPath.setAttribute("id", "sozi-clip-path-" + groupId);
+            clipPath.appendChild(exports.layers[groupId].clipRect);
+            svgRoot.appendChild(clipPath);
+
+            // Create a group that will support the clipping operation
+            // and move the layer group into that new group
+            clippedArea = document.createElementNS(SVG_NS, "g");
+            clippedArea.setAttribute("clip-path", "url(#sozi-clip-path-" + groupId + ")");
+            
+            // Adding the layer group to the clipped group must preserve layer ordering
+            svgRoot.insertBefore(clippedArea, exports.layers[groupId].group);
+            clippedArea.appendChild(exports.layers[groupId].group);
+        }
+
         sozi.events.fire("displayready");
     }
 
@@ -98,11 +95,12 @@ var sozi = sozi || {};
      *    - width, height: the size of the visible area, in pixels
      *    - scale: the scale factor to apply to the SVG document so that is fits the visible area
      */
-    function getFrameGeometry() {
-        var result = {};
-        result.scale = Math.min(window.innerWidth / exports.geometry.width, window.innerHeight / exports.geometry.height);
-        result.width = exports.geometry.width * result.scale;
-        result.height = exports.geometry.height * result.scale;
+    function getFrameGeometry(layer) {
+        var g = exports.layers[layer].geometry,
+            result = {};
+        result.scale = Math.min(window.innerWidth / g.width, window.innerHeight / g.height);
+        result.width = g.width * result.scale;
+        result.height = g.height * result.scale;
         result.x = (window.innerWidth - result.width) / 2;
         result.y = (window.innerHeight - result.height) / 2;
         return result;
@@ -162,14 +160,24 @@ var sozi = sozi || {};
      *    - The default size, translation and rotation for the document's bounding box
      */
     exports.getDocumentGeometry = function () {
-        return {
-            cx: initialBBox.x + initialBBox.width / 2,
-            cy: initialBBox.y + initialBBox.height / 2,
-            width: initialBBox.width,
-            height: initialBBox.height,
-            rotate: 0,
-            clip: false
-        };
+        var l,
+            result = { layers: {} },
+            value = {
+                geometry: {
+                    cx: initialBBox.x + initialBBox.width / 2,
+                    cy: initialBBox.y + initialBBox.height / 2,
+                    width: initialBBox.width,
+                    height: initialBBox.height,
+                    rotate: 0,
+                    clip: false
+                }
+            };
+        for (l in exports.layers) {
+            if (exports.layers.hasOwnProperty(l)) {
+                result.layers[l] = value;
+            }
+        }
+        return result;
     };
 
     /*
@@ -179,22 +187,33 @@ var sozi = sozi || {};
      * This method is called automatically when the window is resized.
      */
     exports.update = function () {
-        var g = getFrameGeometry(),
-            translateX = -exports.geometry.cx + exports.geometry.width / 2  + g.x / g.scale,
-            translateY = -exports.geometry.cy + exports.geometry.height / 2 + g.y / g.scale;
+        var l, fg, lg, cr,
+            translateX, translateY;
 
-        // Compute and apply the geometrical transformation to the wrapper group
-        wrapper.setAttribute("transform",
-            "scale(" + g.scale + ")" +
-            "translate(" + translateX + "," + translateY + ")" +
-            "rotate(" + (-exports.geometry.rotate) + ',' + exports.geometry.cx + "," + exports.geometry.cy + ")"
-        );
+        for (l in exports.layers) {
+            if (exports.layers.hasOwnProperty(l)) {
+                lg = exports.layers[l].geometry;
+                fg = getFrameGeometry(l);
+                
+                translateX = -lg.cx + lg.width / 2  + fg.x / fg.scale;
+                translateY = -lg.cy + lg.height / 2 + fg.y / fg.scale;
 
-        // Adjust the location and size of the clipping rectangle and the frame rectangle
-        clipRect.setAttribute("x", exports.geometry.clip ? g.x : 0);
-        clipRect.setAttribute("y", exports.geometry.clip ? g.y : 0);
-        clipRect.setAttribute("width", exports.geometry.clip ? g.width : window.innerWidth);
-        clipRect.setAttribute("height", exports.geometry.clip ? g.height : window.innerHeight);
+                // Compute and apply the geometrical transformation to the layer group
+                exports.layers[l].group.setAttribute("transform",
+                    "scale(" + fg.scale + ")" +
+                    "translate(" + translateX + "," + translateY + ")" +
+                    "rotate(" + (-lg.rotate) + ',' + lg.cx + "," + lg.cy + ")"
+                );
+
+                // Adjust the location and size of the clipping rectangle and the frame rectangle
+                cr = exports.layers[l].clipRect;
+                cr.setAttribute("x", lg.clip ? fg.x : 0);
+                cr.setAttribute("y", lg.clip ? fg.y : 0);
+                cr.setAttribute("width", lg.clip ? fg.width : window.innerWidth);
+                cr.setAttribute("height", lg.clip ? fg.height : window.innerHeight);
+            }
+        }
+
     };
 
     /*
@@ -204,10 +223,16 @@ var sozi = sozi || {};
      *    - frame: the frame to show
      */
     exports.showFrame = function (frame) {
-        var attr;
-        for (attr in frame.geometry) {
-            if (frame.geometry.hasOwnProperty(attr)) {
-                exports.geometry[attr] = frame.geometry[attr];
+        var l, lg, fg, attr;
+        for (l in frame.layers) {
+            if (frame.layers.hasOwnProperty(l)) {
+                fg = frame.layers[l].geometry;
+                lg = exports.layers[l].geometry;
+                for (attr in fg) {
+                    if (fg.hasOwnProperty(attr)) {
+                        lg[attr] = fg[attr];
+                    }
+                }
             }
         }
         exports.update();
@@ -221,11 +246,19 @@ var sozi = sozi || {};
      *    - deltaY: the vertical displacement, in pixels
      */
     exports.drag = function (deltaX, deltaY) {
-        var g = getFrameGeometry(),
-            angleRad = exports.geometry.rotate * Math.PI / 180;
-        exports.geometry.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / g.scale;
-        exports.geometry.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / g.scale;
-        exports.geometry.clip = false;
+        var l, lg, fg,
+            angleRad;
+        
+        for (l in exports.layers) {
+            if (exports.layers.hasOwnProperty(l)) {
+                lg = exports.layers[l].geometry;
+                fg = getFrameGeometry(l);
+                angleRad = lg.rotate * Math.PI / 180;
+                lg.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / fg.scale;
+                lg.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / fg.scale;
+                lg.clip = false;
+            }
+        }
         exports.update();
     };
 
@@ -235,10 +268,17 @@ var sozi = sozi || {};
      * The zoom is centered around (x, y) with respect to the center of the display area.
      */
     exports.zoom = function (factor, x, y) {
-        var deltaX = (1 - factor) * (x - window.innerWidth / 2),
+        var l,
+            deltaX = (1 - factor) * (x - window.innerWidth / 2),
             deltaY = (1 - factor) * (y - window.innerHeight / 2);
-        exports.geometry.width /= factor;
-        exports.geometry.height /= factor;
+            
+        for (l in exports.layers) {
+            if (exports.layers.hasOwnProperty(l)) {
+                exports.layers[l].geometry.width /= factor;
+                exports.layers[l].geometry.height /= factor;
+            }
+        }
+        
         exports.drag(deltaX, deltaY);
     };
 
@@ -248,8 +288,13 @@ var sozi = sozi || {};
      * The rotation is centered around the center of the display area.
      */
     exports.rotate = function (angle) {
-        exports.geometry.rotate += angle;
-        exports.geometry.rotate %= 360;
+        var l;
+        for (l in exports.layers) {
+            if (exports.layers.hasOwnProperty(l)) {
+                exports.layers[l].geometry.rotate += angle;
+                exports.layers[l].geometry.rotate %= 360;
+            }
+        }
         exports.update();
     };
     
