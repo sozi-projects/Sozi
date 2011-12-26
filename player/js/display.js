@@ -36,7 +36,7 @@ var sozi = sozi || {};
      * This method must be called when the document is ready to be manipulated.
      */
     function onDocumentReady() {
-        var l, clippedArea, clipPath;
+        var l, clippedArea, clipPath, groupId;
 
         svgRoot = document.documentElement; // TODO check SVG tag
         initialBBox = svgRoot.getBBox();
@@ -44,7 +44,7 @@ var sozi = sozi || {};
         svgRoot.setAttribute("height", window.innerHeight);
         
         // Initialize display geometry for all layers
-        for (l = 0; l < sozi.document.layers.length; l +=1) {
+        for (l = 0; l < sozi.document.layers.length; l += 1) {
             groupId = sozi.document.layers[l];
             exports.layers[groupId] = {
                 geometry: {
