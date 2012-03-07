@@ -201,16 +201,23 @@ class SoziSpinButtonField(SoziField):
     A wrapper for a GTK SpinButton mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, min_value, max_value, default_value):
+    def __init__(self, parent, attr, label, min_value, max_value, default_value, digits=0, increments=1):
         """
         Initialize a new spin button field.
+            - label: label for the field
             - min_value: the minimum integer value for the current field
             - max_value: the maximum integer value for the current field
+            - default_value: the default_value
+            - decimals: number of decimals to display, eg: 2=> 1.00 or 0=> 1
+            - increments: step between 2 number when clic left on a arrow.
         See class SoziField for other initializer arguments.
         """
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.SpinButton(digits=0), default_value)
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.SpinButton(digits=digits), default_value)
         self.input_widget.set_range(min_value, max_value)
-        self.input_widget.set_increments(1, 1)
+        # def set_increments(step, page)
+        # step :    increment applied for each left mousebutton press.
+        # page :     increment applied for each middle mousebutton press.
+        self.input_widget.set_increments(increments, increments * 2)
         self.input_widget.set_numeric(True)
         self.container_widget.pack_start(gtk.Label(label))
         self.container_widget.pack_start(self.input_widget)
@@ -512,6 +519,7 @@ class SoziUI:
         self.window.connect("destroy", self.on_destroy)
         self.window.connect("key-press-event", self.on_key_press)
         self.window.set_title("Sozi")
+        self.window.set_icon_from_file(__file__+".svg")
         
         # Enable icons on stock buttons
         gtk.settings_get_default().set_long_property("gtk-button-images", True, "Sozi")
@@ -522,20 +530,27 @@ class SoziUI:
             "hide": SoziCheckButtonField(self, "hide", "Hide", "true"),
             "clip": SoziCheckButtonField(self, "clip", "Clip", "true"),
             "timeout-enable": SoziCheckButtonField(self, "timeout-enable", "Timeout enable", "false"),
-            "timeout-ms": SoziSpinButtonField(self, "timeout-ms", "Timeout (ms)", 0, 3600000, 5000),
-            "transition-duration-ms": SoziSpinButtonField(self, "transition-duration-ms", "Duration (ms)", 0, 3600000, 1000),
-            "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", "Zoom (%)", -100, 100, 0),
+            "timeout-ms": SoziSpinButtonField(self, "timeout-ms", "Timeout (s)", 0, 3600, 5, digits=2, increments=0.5),
+            "transition-duration-ms": SoziSpinButtonField(self, "transition-duration-ms", "Duration (s)", 0, 3600, 1, digits=2, increments=0.5),
+            "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", "Zoom (%)", -100, 100, 0, digits=0, increments=5),
             "transition-profile": SoziComboField(self, "transition-profile", "Profile", SoziUI.PROFILES, SoziUI.PROFILES[0])
         }
 
-        # Transition properties
-        transition_box = gtk.VBox()
-        transition_box.pack_start(self.fields["transition-duration-ms"].container_widget, expand=False)
-        transition_box.pack_start(self.fields["transition-zoom-percent"].container_widget, expand=False)
-        transition_box.pack_start(self.fields["transition-profile"].container_widget, expand=False)
 
-        transition_group = gtk.Frame("Transition")
-        transition_group.add(transition_box)
+        # Undo/redo widgets
+        self.undo_button = gtk.Button(stock=gtk.STOCK_UNDO)
+        self.undo_button.set_sensitive(False)
+        self.undo_button.connect("clicked", self.on_undo)
+
+        self.redo_button = gtk.Button(stock=gtk.STOCK_REDO)
+        self.redo_button.set_sensitive(False)
+        self.redo_button.connect("clicked", self.on_redo)
+        
+        toolBar = gtk.Toolbar()
+        toolBar.set_style(gtk.TOOLBAR_BOTH_HORIZ)
+        toolBar.add(self.undo_button)
+        toolBar.add(self.redo_button)
+       
 
         # Frame properties
         frame_box = gtk.VBox()
@@ -547,29 +562,27 @@ class SoziUI:
 
         frame_group = gtk.Frame("Frame")
         frame_group.add(frame_box)
+        
+        # Transition properties
+        transition_box = gtk.VBox()
+        transition_box.pack_start(self.fields["transition-duration-ms"].container_widget, expand=False)
+        transition_box.pack_start(self.fields["transition-zoom-percent"].container_widget, expand=False)
+        transition_box.pack_start(self.fields["transition-profile"].container_widget, expand=False)
 
-        # Create buttons
-        self.create_new_frame_button = gtk.Button(stock=gtk.STOCK_NEW)
-        self.create_new_frame_button.connect("clicked", self.on_create_new_frame)
+        transition_group = gtk.Frame("Transition")
+        transition_group.add(transition_box)
 
-        self.delete_button = gtk.Button(stock=gtk.STOCK_DELETE)
-        self.delete_button.connect("clicked", self.on_delete_frame)
 
-        buttons_box = gtk.HBox()
-        buttons_box.pack_start(self.create_new_frame_button)
-        buttons_box.pack_start(self.delete_button)
-
-        # Fill left pane
-        left_pane = gtk.VBox()
-        left_pane.pack_start(transition_group, expand=False)
-        left_pane.pack_start(frame_group, expand=False)
-        left_pane.pack_start(buttons_box, expand=False)
+        # Fill right pane
+        right_pane = gtk.VBox()
+        right_pane.pack_start(frame_group, expand=False)
+        right_pane.pack_start(transition_group, expand=False)
 
         # Create frame list
         list_renderer = gtk.CellRendererText()
         list_renderer.set_property("background", "white")
-        sequence_column = gtk.TreeViewColumn("Seq.", list_renderer, text = 0, foreground = 2)
-        title_column = gtk.TreeViewColumn("Title", list_renderer, text = 1, foreground = 2)
+        sequence_column = gtk.TreeViewColumn("Seq.", list_renderer, text=0, foreground=2)
+        title_column = gtk.TreeViewColumn("Title", list_renderer, text=1, foreground=2)
 
         store = gtk.ListStore(int, str, str)
         self.list_view = gtk.TreeView(store)
@@ -584,39 +597,65 @@ class SoziUI:
         selection.set_mode(gtk.SELECTION_SINGLE) # TODO multiple selection
         selection.set_select_function(self.on_selection_changed)
 
+        # Create new/delete buttons
+        self.new_button = gtk.ToolButton()#stock=gtk.STOCK_NEW)
+        self.new_button.set_stock_id(gtk.STOCK_ADD)        
+        self.new_button.connect("clicked", self.on_create_new_frame)
+
+        self.delete_button = gtk.ToolButton()#stock=gtk.STOCK_DELETE)
+        self.delete_button.set_stock_id(gtk.STOCK_REMOVE)
+        self.delete_button.connect("clicked", self.on_delete_frame)
+        
         # Create up/down buttons
-        self.up_button = gtk.Button(stock=gtk.STOCK_GO_UP)
+        self.up_button = gtk.ToolButton()#stock=gtk.STOCK_GO_UP)
+        self.up_button.set_stock_id(gtk.STOCK_GO_UP)
         self.up_button.connect("clicked", self.on_move_frame_up)
 
-        self.down_button = gtk.Button(stock=gtk.STOCK_GO_DOWN)
+        self.down_button = gtk.ToolButton()#stock=gtk.STOCK_GO_DOWN)
+        self.down_button.set_stock_id(gtk.STOCK_GO_DOWN)
         self.down_button.connect("clicked", self.on_move_frame_down)
 
-        # Fill right pane
-        right_pane = gtk.VBox()
-        right_pane.pack_start(list_scroll, expand=True, fill=True)
-        right_pane.pack_start(self.up_button, expand=False)
-        right_pane.pack_start(self.down_button, expand=False)
+        listToolBar = gtk.Toolbar()
+        listToolBar.set_icon_size(1)
+        listToolBar.add(self.new_button)
+        listToolBar.add(self.delete_button)
+        listToolBar.add(self.up_button)
+        listToolBar.add(self.down_button)
+
+        # Fill left pane
+        left_pane_content = gtk.VBox()
+        left_pane_content.pack_start(list_scroll, expand=True, fill=True)
+        left_pane_content.pack_end(listToolBar, expand=False)
+
+        list_group = gtk.Frame("List of frames     ")# fixme, width of list..
+        list_group.add(left_pane_content)
+        
+        left_pane = list_group
 
         hbox = gtk.HBox()
         hbox.pack_start(left_pane)
         hbox.pack_start(right_pane)
-
-        # Undo/redo widgets
-        self.undo_button = gtk.Button(stock=gtk.STOCK_UNDO)
-        self.undo_button.set_sensitive(False)
-        self.undo_button.connect("clicked", self.on_undo)
-
-        self.redo_button = gtk.Button(stock=gtk.STOCK_REDO)
-        self.redo_button.set_sensitive(False)
-        self.redo_button.connect("clicked", self.on_redo)
         
-        undo_redo_box = gtk.HBox()
-        undo_redo_box.pack_start(self.undo_button)
-        undo_redo_box.pack_start(self.redo_button)
+        
+        # button Bar
+        cancel_button = gtk.Button(stock=gtk.STOCK_CANCEL)
+        cancel_button.connect("clicked", self.on_full_undo)
+        ok_button = gtk.Button(stock=gtk.STOCK_OK)#or Apply
+        ok_button.connect("clicked",gtk.main_quit)
+        
+        buttonBar = gtk.HButtonBox()
+        buttonBar.add(cancel_button)
+        buttonBar.add(ok_button)
+
+        statusBar = gtk.Statusbar()
+        statusBar.add(gtk.Label("ee"))
+        statusBar.set_tooltip_text("eeee")
         
         vbox = gtk.VBox()
-        vbox.pack_start(hbox)
-        vbox.pack_start(undo_redo_box)
+        vbox.pack_start(toolBar)
+        vbox.add(hbox)
+        vbox.add(buttonBar)
+        vbox.pack_end(statusBar)
         
         self.window.add(vbox)
         self.window.show_all()
@@ -673,7 +712,7 @@ class SoziUI:
         else:
             color = "#000000"
 
-        self.list_view.get_model().append([index+1, title, color])
+        self.list_view.get_model().append([index + 1, title, color])
 
 
     def insert_row(self, index, row):
@@ -734,8 +773,8 @@ class SoziUI:
                 create_tooltip = "No element or frame selected"
             delete_tooltip = "No frame selected"
             
-        self.create_new_frame_button.set_tooltip_text(create_tooltip)
-        self.create_new_frame_button.set_sensitive(frame is not None or len(self.effect.selected) > 0)
+        self.new_button.set_tooltip_text(create_tooltip)
+        self.new_button.set_sensitive(frame is not None or len(self.effect.selected) > 0)
         
         self.delete_button.set_tooltip_text(delete_tooltip)
         self.delete_button.set_sensitive(frame is not None)
@@ -861,6 +900,14 @@ class SoziUI:
             action.undo()
             self.finalize_action(action)
 
+    def on_full_undo(self, widget=None):
+        """
+        Event handler: click on button "Cancel".
+        Undo all actions.
+        """
+        while self.undo_stack:
+            self.on_undo()
+        gtk.main_quit()
 
     def on_redo(self, widget=None):
         """
@@ -951,7 +998,7 @@ class Sozi(inkex.Effect):
 
         # Renumber frames
         for i, f in enumerate(self.frames):
-            f["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i+1))
+            f["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i + 1))
 
 
     def swap_frames(self, first, second):
@@ -979,8 +1026,8 @@ class Sozi(inkex.Effect):
             
         frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
         frame_element.set(inkex.addNS("refid", "sozi"), svg_element.attrib["id"]) # TODO check namespace?
-        frame_element.set(inkex.addNS("sequence", "sozi"), unicode(len(self.frames)+1))
-        frame_element.set("id", self.uniqueId("frame" + unicode(len(self.frames)+1)))
+        frame_element.set(inkex.addNS("sequence", "sozi"), unicode(len(self.frames) + 1))
+        frame_element.set("id", self.uniqueId("frame" + unicode(len(self.frames) + 1)))
         
         frame = {
             "frame_element": frame_element,
@@ -1019,10 +1066,9 @@ class Sozi(inkex.Effect):
     def renumber_from_index(self, index):
         if index >= 0:
             for i in range(index, len(self.frames)):
-                self.frames[i]["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i+1))
+                self.frames[i]["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i + 1))
 
 
 # Create effect instance
 effect = Sozi()
 effect.affect()
-
