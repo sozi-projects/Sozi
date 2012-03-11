@@ -387,7 +387,6 @@ class SoziCreateAction(SoziAction):
         self.ui.effect.delete_frame(-1)
        
 
-
 class SoziDeleteAction(SoziAction):
     """
     A wrapper for a frame delete action.
@@ -426,7 +425,6 @@ class SoziDeleteAction(SoziAction):
         """
         self.ui.effect.insert_frame(self.index, self.frame)
         self.ui.insert_row(self.index, self.row)
-
 
 
 class SoziDuplicateAction(SoziAction):
@@ -472,7 +470,8 @@ class SoziDuplicateAction(SoziAction):
         self.ui.effect.delete_frame(-1)
         if self.index is not None:
             self.ui.select_index(self.index)
-    
+
+
 class SoziReorderAction(SoziAction):
     """
     A wrapper for a frame reordering action.
@@ -660,29 +659,29 @@ class SoziUI:
         selection.set_select_function(self.on_selection_changed)
 
         # Create new/delete buttons
-        self.new_button = gtk.ToolButton()#stock=gtk.STOCK_NEW)
+        self.new_button = gtk.ToolButton()
         self.new_button.set_tooltip_text("Create a new frame using the selected element")
         self.new_button.set_stock_id(gtk.STOCK_ADD)        
         self.new_button.connect("clicked", self.on_create_new_frame)
 
-        self.delete_button = gtk.ToolButton()#stock=gtk.STOCK_DELETE)
+        self.delete_button = gtk.ToolButton()
         self.delete_button.set_tooltip_text("Delete the current frame")
         self.delete_button.set_stock_id(gtk.STOCK_REMOVE)
         self.delete_button.connect("clicked", self.on_delete_frame)
         
-        self.duplicate_button = gtk.ToolButton()#stock=gtk.STOCK_DELETE)
+        self.duplicate_button = gtk.ToolButton()
         self.duplicate_button.set_tooltip_text("Duplicate the current frame")
         self.duplicate_button.set_stock_id(gtk.STOCK_COPY)
         self.duplicate_button.connect("clicked", self.on_duplicate_frame)
 
         # Create up/down buttons
-        self.up_button = gtk.ToolButton()#stock=gtk.STOCK_GO_UP)
-        self.up_button.set_tooltip_text("Move up the current frame")
+        self.up_button = gtk.ToolButton()
+        self.up_button.set_tooltip_text("Move the current frame up")
         self.up_button.set_stock_id(gtk.STOCK_GO_UP)
         self.up_button.connect("clicked", self.on_move_frame_up)
 
-        self.down_button = gtk.ToolButton()#stock=gtk.STOCK_GO_DOWN)
-        self.up_button.set_tooltip_text("Move down the current frame")
+        self.down_button = gtk.ToolButton()
+        self.down_button.set_tooltip_text("Move the current frame down")
         self.down_button.set_stock_id(gtk.STOCK_GO_DOWN)
         self.down_button.connect("clicked", self.on_move_frame_down)
 
@@ -701,7 +700,7 @@ class SoziUI:
 
         list_group = gtk.Frame()
         # fixme, spaces are here for set width of list..
-        list_frame_label=gtk.Label("<b>List of frames</b>              ")
+        list_frame_label=gtk.Label("<b>Frame list</b>              ")
         list_frame_label.set_use_markup(True) # enable bold with <b>
         list_group.set_label_widget(list_frame_label)
         list_group.add(left_pane_content)
@@ -716,10 +715,13 @@ class SoziUI:
         
         # button Bar
         cancel_button = gtk.Button(stock=gtk.STOCK_CANCEL)
+        cancel_button.set_tooltip_text("Cancel all changes and go back to Inkscape")
         cancel_button.connect("clicked", self.on_full_undo)
-        ok_button = gtk.Button(stock=gtk.STOCK_OK)#or Apply
-        ok_button.connect("clicked", gtk.main_quit)
         
+        ok_button = gtk.Button(stock=gtk.STOCK_OK)#or Apply
+        ok_button.set_tooltip_text("Apply changes and go back to Inkscape")
+        ok_button.connect("clicked", gtk.main_quit)
+       
         buttonBar = gtk.HBox(spacing=10)
         buttonBar.pack_end(ok_button, False, False)
         buttonBar.pack_end(cancel_button, False, False)
