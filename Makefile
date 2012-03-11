@@ -12,6 +12,7 @@ SRC := \
 	$(wildcard editors/inkscape/*.py) \
 	$(wildcard editors/inkscape/extras/*.py) \
 	$(wildcard editors/inkscape/*.inx) \
+	$(wildcard editors/inkscape/*.svg) \
 	$(wildcard editors/inkscape/extras/*.inx) \
 	$(wildcard doc/install*.html) \
 	$(wildcard doc/*license.txt) \
@@ -41,6 +42,7 @@ install: $(TARGET)
 	cp release/*.py $(INSTALL_DIR)
 	cp release/*.js $(INSTALL_DIR)
 	cp release/*.css $(INSTALL_DIR)
+	cp release/*.svg $(INSTALL_DIR)
 
 timestamp: release/sozi-timestamp-$(VERSION)
 
@@ -69,6 +71,9 @@ release/%.inx: editors/inkscape/%.inx
 	cp $< $@
 
 release/%.inx: editors/inkscape/extras/%.inx
+	cp $< $@
+	
+release/%.svg: editors/inkscape/%.svg
 	cp $< $@
 
 release/%: doc/%
