@@ -74,7 +74,7 @@ var sozi = sozi || {};
             svgElement = document.getElementById(element.getAttributeNS(SOZI_NS, "refid"));
             if (svgElement) {
                 if (layer.hide) {
-                    svgElement.style.display = "none";
+                    svgElement.style.visibility = "hidden";
                 }
                 layer.geometry = sozi.display.getElementGeometry(svgElement);
                 layer.geometry.clip = clip;
