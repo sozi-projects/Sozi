@@ -1,7 +1,7 @@
 /*
  * Sozi - A presentation tool using the SVG standard
  *
- * Copyright (C) 2010-2011 Guillaume Savaton
+ * Copyright (C) 2010-2012 Guillaume Savaton
  *
  * This program is dual licensed under the terms of the MIT license
  * or the GNU General Public License (GPL) version 3.
