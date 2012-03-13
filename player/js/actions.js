@@ -53,6 +53,12 @@ var sozi = sozi || {};
         display.rotate(direction > 0 ? ROTATE_STEP : -ROTATE_STEP);
     }
     
+    /*
+     * Show/hide the frame list.
+     *
+     * The presentation stops when the frame list is showed,
+     * and restarts when the frame list is hidden.
+     */
     function toggleFrameList() {
         if (sozi.framelist.isVisible()) {
             sozi.framelist.hide();
@@ -187,6 +193,11 @@ var sozi = sozi || {};
      * This method handles character keys "+", "-", "=", "F" and "T".
      */
     function onKeyPress(evt) {
+        // Keys with modifiers are ignored
+        if (evt.altKey || evt.ctrlKey || evt.metaKey) {
+            return;
+        }
+
         switch (evt.charCode) {
         case 43: // +
             zoom(1, window.innerWidth / 2, window.innerHeight / 2);
@@ -212,6 +223,7 @@ var sozi = sozi || {};
             rotate(1);
             break;
         }
+
         evt.stopPropagation();
     }
 
@@ -225,6 +237,11 @@ var sozi = sozi || {};
      * and the space and enter keys.
      */
     function onKeyDown(evt) {
+        // Keys with modifiers are ignored
+        if (evt.altKey || evt.ctrlKey || evt.metaKey) {
+            return;
+        }
+
         switch (evt.keyCode) {
         case 36: // Home
             player.moveToFirst();
