@@ -60,4 +60,4 @@ var sozi = sozi || {};
     
 	sozi.events.listen("displayready", onDisplayReady);
 	sozi.events.listen("framechange", onFrameChange);
-})();
+}());
