@@ -72,6 +72,11 @@ var sozi = sozi || {};
         window.location.hash = "#" + (index + 1);
     }
 
+	/*
+	 * Event handler: document load.
+	 *
+	 * This function registers the "framechange" handler.
+	 */
     function onLoad() {
         sozi.events.listen("framechange", onFrameChange);        
     }

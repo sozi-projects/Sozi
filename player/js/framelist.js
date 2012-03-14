@@ -34,17 +34,6 @@ var sozi = sozi || {};
         ANIMATION_PROFILE = "decelerate",
         SVG_NS = "http://www.w3.org/2000/svg";
 
-    function makeClickHandler(index) {
-        return function (evt) {
-            sozi.player.previewFrame(index);
-            evt.stopPropagation();
-        };
-    }
-      
-    function defaultEventHandler(evt) {
-	    evt.stopPropagation();
-    }
-    
 	function onMouseOut(evt) {
         var rel = evt.relatedTarget;
         while (rel !== tocGroup && rel !== svgRoot) {
@@ -88,6 +77,24 @@ var sozi = sozi || {};
     
     function onAnimationDone() {
         // Empty
+    }
+    
+    /*
+     * Create a function that responds to clicks on frame list entries.
+     */
+    function makeClickHandler(index) {
+        return function (evt) {
+            sozi.player.previewFrame(index);
+            evt.stopPropagation();
+        };
+    }
+    
+    /*
+     * The default event handler, to prevent event propagation
+     * through the frame list.
+     */
+    function defaultEventHandler(evt) {
+	    evt.stopPropagation();
     }
     
     /*
@@ -178,6 +185,12 @@ var sozi = sozi || {};
         animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);
     }
 
+	/*
+	 * Highlight the current frame title in the frame list.
+	 *
+	 * This handler is called on each frame change,
+	 * even when the frame list is hidden.
+	 */
     function onFrameChange(index) {
         var current = document.getElementsByClassName("sozi-toc-current"),
             textElements = linksBox.getElementsByTagName("text"),
