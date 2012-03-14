@@ -1,6 +1,6 @@
 /*
-    @depend framelist.js
     @depend framenumber.js
+    @depend framelist.js
     @depend actions.js
     @depend player.js
     @depend display.js
