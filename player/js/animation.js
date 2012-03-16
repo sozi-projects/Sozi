@@ -13,6 +13,8 @@
  * @depend module.js
  */
 
+/*global module:true sozi:true */
+
 module("sozi.animation", function (exports) {
     var window = this,
         TIME_STEP_MS = 40,

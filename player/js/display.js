@@ -14,12 +14,13 @@
  * @depend events.js
  */
 
+/*global module:true sozi:true */
+
 module("sozi.display", function (exports) {
     var window = this,
         document = window.document,
         svgRoot,
         initialBBox,
-        wrapper,
         SVG_NS = "http://www.w3.org/2000/svg";
 
     exports.layers = {};

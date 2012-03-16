@@ -14,6 +14,8 @@
 * @depend events.js
 */
 
+/*global module:true sozi:true */
+
 module("sozi.document", function (exports) {
     var window = this,
         document = window.document,

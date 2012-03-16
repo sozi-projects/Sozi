@@ -14,6 +14,8 @@
  * @depend events.js
  */
 
+/*global module:true sozi:true */
+
 module("sozi.framelist", function (exports) {
 	var window = this,
         document = window.document,

@@ -13,6 +13,8 @@
  * @depend module.js
  */
 
+/*global module:true sozi:true */
+
 module("sozi.events", function (exports) {
     var listeners = {};
 

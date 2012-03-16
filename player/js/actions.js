@@ -15,6 +15,8 @@
  * @depend display.js
  */
 
+/*global module:true sozi:true */
+
 module("sozi.actions", function (exports) {
     var player = sozi.player,
         display = sozi.display,

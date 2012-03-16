@@ -14,6 +14,8 @@
  * @depend events.js
  */
 
+/*global module:true sozi:true */
+
 module("sozi.location", function (exports) {
     var window = this,
         changedFromWithin = false;
