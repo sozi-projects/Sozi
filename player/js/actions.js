@@ -9,13 +9,15 @@
  * official release of Sozi.
  * 
  * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend module.js
+ * @depend player.js
+ * @depend display.js
  */
 
-var sozi = sozi || {};
-
-(function () {
-    var player = sozi.player = sozi.player || {},
-        display = sozi.display = sozi.display || {},
+module("sozi.actions", function (exports) {
+    var player = sozi.player,
+        display = sozi.display,
         window = this,
         document = window.document,
         DRAG_BUTTON = 0, // Left button
@@ -285,4 +287,4 @@ var sozi = sozi || {};
     }
 
     window.addEventListener("load", onLoad, false);
-}());
+});

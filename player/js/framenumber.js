@@ -10,14 +10,12 @@
  * 
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
+ * @depend module.js
  * @depend events.js
  */
 
-var sozi = sozi || {};
-
-(function () {
-    var exports = sozi.framenumber = sozi.framenumber || {},
-        window = this,
+module("sozi.framenumber", function (exports) {
+    var window = this,
         document = window.document,
         group, text, circle, textNode,
         SVG_NS = "http://www.w3.org/2000/svg";
@@ -60,4 +58,4 @@ var sozi = sozi || {};
     
 	sozi.events.listen("displayready", onDisplayReady);
 	sozi.events.listen("framechange", onFrameChange);
-}());
+});

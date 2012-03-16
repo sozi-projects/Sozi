@@ -10,15 +10,14 @@
  * 
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
+ * @depend module.js
  * @depend events.js
  * @depend animation.js
+ * @depend display.js
  */
 
-var sozi = sozi || {};
-
-(function () {
-    var exports = sozi.player = sozi.player || {},
-        display = sozi.display = sozi.display || {},
+module("sozi.player", function (exports) {
+    var display = sozi.display,
         window = this,
         animator,
         nextFrameTimeout,
@@ -420,4 +419,4 @@ var sozi = sozi || {};
     animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);
 
     sozi.events.listen("displayready", onDisplayReady);
-}());
+});

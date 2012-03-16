@@ -10,14 +10,12 @@
 * 
 * See http://sozi.baierouge.fr/wiki/en:license for details.
 *
+* @depend module.js
 * @depend events.js
 */
 
-var sozi = sozi || {};
-
-(function () {
-    var exports = sozi.document = sozi.document || {},
-        window = this,
+module("sozi.document", function (exports) {
+    var window = this,
         document = window.document,
         SOZI_NS = "http://sozi.baierouge.fr",
         DEFAULTS = {
@@ -195,4 +193,4 @@ var sozi = sozi || {};
     }
 
     window.addEventListener("load", onLoad, false);
-}());
+});
