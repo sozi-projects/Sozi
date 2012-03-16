@@ -31,22 +31,22 @@ module("sozi.document", function (exports) {
         };
 
     exports.frames = [];
-    exports.layers = [];
+    exports.idLayers = [];
     
     /*
-    * Returns the value of an attribute of a given SVG element.
+    * Returns the value of an attribute of a given Sozi SVG element.
     *
     * If the attribute is not set, then a default value is returned.
     * See DEFAULTS.
     */
-    function readAttribute(elt, attr) {
-        var value = elt.getAttributeNS(SOZI_NS, attr);
+    function readAttribute(soziElement, attr) {
+        var value = soziElement.getAttributeNS(SOZI_NS, attr);
         return value === "" ? DEFAULTS[attr] : value;
     }
 
-    function readLayerProperties(frame, groupId, element) {
-        var layer = frame.layers[groupId] = frame.layers[groupId] || {
-                group: groupId,
+    function readLayerProperties(frame, idLayer, soziElement) {
+        var layer = frame.layers[idLayer] = frame.layers[idLayer] || {
+                group: idLayer,
                 geometry: {
                     clip: DEFAULTS.clip
                 }
@@ -54,22 +54,22 @@ module("sozi.document", function (exports) {
             clip = layer.geometry.clip,
             svgElement;
         
-        if (typeof layer.hide === "undefined" || element.hasAttributeNS(SOZI_NS, "hide")) {
-            layer.hide = readAttribute(element, "hide") === "true";
+        if (typeof layer.hide === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "hide")) {
+            layer.hide = readAttribute(soziElement, "hide") === "true";
         }
 
-        if (typeof layer.transitionZoomPercent === "undefined" || element.hasAttributeNS(SOZI_NS, "transition-zoom-percent")) {
-            layer.transitionZoomPercent = parseInt(readAttribute(element, "transition-zoom-percent"), 10);
+        if (typeof layer.transitionZoomPercent === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-zoom-percent")) {
+            layer.transitionZoomPercent = parseInt(readAttribute(soziElement, "transition-zoom-percent"), 10);
         }
 
-        if (typeof layer.transitionProfile === "undefined" || element.hasAttributeNS(SOZI_NS, "transition-profile")) {
-            layer.transitionProfile = sozi.animation.profiles[readAttribute(element, "transition-profile") || "linear"];
+        if (typeof layer.transitionProfile === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-profile")) {
+            layer.transitionProfile = sozi.animation.profiles[readAttribute(soziElement, "transition-profile") || "linear"];
         }
         
-        if (element.hasAttributeNS(SOZI_NS, "refid")) {
+        if (soziElement.hasAttributeNS(SOZI_NS, "refid")) {
             // The previous value of the "clip" attribute will be preserved
             // when setting the new geometry object.
-            svgElement = document.getElementById(element.getAttributeNS(SOZI_NS, "refid"));
+            svgElement = document.getElementById(soziElement.getAttributeNS(SOZI_NS, "refid"));
             if (svgElement) {
                 if (layer.hide) {
                     svgElement.style.visibility = "hidden";
@@ -79,8 +79,8 @@ module("sozi.document", function (exports) {
             }
         }
             
-        if (element.hasAttributeNS(SOZI_NS, "clip")) {
-            layer.geometry.clip = readAttribute(element, "clip") === "true";
+        if (soziElement.hasAttributeNS(SOZI_NS, "clip")) {
+            layer.geometry.clip = readAttribute(soziElement, "clip") === "true";
         }
     }
     
@@ -94,21 +94,20 @@ module("sozi.document", function (exports) {
     * The resulting list is available in frames, sorted by frame indices.
     */
     function readFrames() {
-        var frameElements = document.getElementsByTagNameNS(SOZI_NS, "frame"),
-            frameCount = frameElements.length,
-            layerElements, groupId,
-            svgElement, wrapper,
+        var soziFrames = document.getElementsByTagNameNS(SOZI_NS, "frame"),
+            soziLayers, idLayer,
+            svgWrapper,
             svgRoot = document.documentElement,
             f, l, n,
-            newFrame, newLayer,
+            newFrame,
             SVG_NS = "http://www.w3.org/2000/svg";
 
-        layerElements = document.getElementsByTagNameNS(SOZI_NS, "layer");
-        if (layerElements.length === 0) {
+        soziLayers = document.getElementsByTagNameNS(SOZI_NS, "layer");
+        if (soziLayers.length === 0) {
             // Create a default layer if the document has none
             // and move all the document into the new layer
-            wrapper = document.createElementNS(SVG_NS, "g");
-            wrapper.setAttribute("id", "sozi-wrapper");
+            svgWrapper = document.createElementNS(SVG_NS, "g");
+            svgWrapper.setAttribute("id", "sozi-wrapper");
             
             while (true) {
                 n = svgRoot.firstChild;
@@ -116,51 +115,51 @@ module("sozi.document", function (exports) {
                     break;
                 }
                 svgRoot.removeChild(n);
-                wrapper.appendChild(n);
+                svgWrapper.appendChild(n);
             }
 
-            svgRoot.appendChild(wrapper);
+            svgRoot.appendChild(svgWrapper);
             
-            exports.layers.push("sozi-wrapper");
+            exports.idLayers.push("sozi-wrapper");
         }
         else {
             // Collect all layer ids
-            for (l = 0; l < layerElements.length; l += 1) {
-                groupId = layerElements[l].getAttributeNS(SOZI_NS, "group");
-                if (groupId && exports.layers.indexOf(groupId) === -1 && document.getElementById(groupId)) {
-                    exports.layers.push(groupId);
+            for (l = 0; l < soziLayers.length; l += 1) {
+                idLayer = soziLayers[l].getAttributeNS(SOZI_NS, "group");
+                if (idLayer && exports.idLayers.indexOf(idLayer) === -1 && document.getElementById(idLayer)) {
+                    exports.idLayers.push(idLayer);
                 }
             }
             
-            if (exports.layers.length === 0) {
+            if (exports.idLayers.length === 0) {
                 window.alert("Invalid layer information");
             }
         }
         
         // Analyze <frame> elements
-        for (f = 0; f < frameCount; f += 1) {
+        for (f = 0; f < soziFrames.length; f += 1) {
             // Create a new frame object with layer-independent properties
             newFrame = {
-                id: frameElements[f].getAttribute("id"),
-                title: readAttribute(frameElements[f], "title"),
-                sequence: parseInt(readAttribute(frameElements[f], "sequence"), 10),
-                timeoutEnable: readAttribute(frameElements[f], "timeout-enable") === "true",
-                timeoutMs: parseInt(readAttribute(frameElements[f], "timeout-ms"), 10),
-                transitionDurationMs: parseInt(readAttribute(frameElements[f], "transition-duration-ms"), 10),
+                id: soziFrames[f].getAttribute("id"),
+                title: readAttribute(soziFrames[f], "title"),
+                sequence: parseInt(readAttribute(soziFrames[f], "sequence"), 10),
+                timeoutEnable: readAttribute(soziFrames[f], "timeout-enable") === "true",
+                timeoutMs: parseInt(readAttribute(soziFrames[f], "timeout-ms"), 10),
+                transitionDurationMs: parseInt(readAttribute(soziFrames[f], "transition-duration-ms"), 10),
                 layers: {}
             };
 
             // The <frame> element defines default properties for all layers
-            for (l = 0; l < exports.layers.length; l += 1) {
-                readLayerProperties(newFrame, exports.layers[l], frameElements[f]);
+            for (l = 0; l < exports.idLayers.length; l += 1) {
+                readLayerProperties(newFrame, exports.idLayers[l], soziFrames[f]);
             }
 
             // Collect and analyze <layer> elements in the current <frame> element
-            layerElements = frameElements[f].getElementsByTagNameNS(SOZI_NS, "layer");
-            for (l = 0; l < layerElements.length; l += 1) {
-                groupId = layerElements[l].getAttributeNS(SOZI_NS, "group");
-                if (groupId && exports.layers.indexOf(groupId) !== -1) {
-                    readLayerProperties(newFrame, groupId, layerElements[l]);
+            soziLayers = soziFrames[f].getElementsByTagNameNS(SOZI_NS, "layer");
+            for (l = 0; l < soziLayers.length; l += 1) {
+                idLayer = soziLayers[l].getAttributeNS(SOZI_NS, "group");
+                if (idLayer && exports.idLayers.indexOf(idLayer) !== -1) {
+                    readLayerProperties(newFrame, idLayer, soziLayers[l]);
                 }
             }
             

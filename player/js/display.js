@@ -42,8 +42,8 @@ module("sozi.display", function (exports) {
         svgRoot.setAttribute("height", window.innerHeight);
         
         // Initialize display geometry for all layers
-        for (l = 0; l < sozi.document.layers.length; l += 1) {
-            groupId = sozi.document.layers[l];
+        for (l = 0; l < sozi.document.idLayers.length; l += 1) {
+            groupId = sozi.document.idLayers[l];
             exports.layers[groupId] = {
                 geometry: {
                     cx: 0,
