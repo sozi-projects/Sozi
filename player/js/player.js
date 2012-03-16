@@ -49,34 +49,34 @@ module("sozi.player", function (exports) {
      */
     function onAnimationStep(progress, data) {
         var profileProgress, profileRemaining,
-            l, lg, attr, ps;
+            idLayer, lg, attr, ps;
 
-        for (l in data) {
-            if (data.hasOwnProperty(l)) {
-                lg = display.layers[l].geometry;
+        for (idLayer in data) {
+            if (data.hasOwnProperty(idLayer)) {
+                lg = display.layers[idLayer].geometry;
                 
-                profileProgress = data[l].profile(progress);
+                profileProgress = data[idLayer].profile(progress);
                 profileRemaining = 1 - profileProgress;
                 
-                for (attr in data[l].initialState) {
-                    if (data[l].initialState.hasOwnProperty(attr)) {
-                        if (typeof data[l].initialState[attr] === "number" && typeof data[l].finalState[attr] === "number") {
-                            lg[attr] = data[l].finalState[attr] * profileProgress + data[l].initialState[attr] * profileRemaining;
+                for (attr in data[idLayer].initialState) {
+                    if (data[idLayer].initialState.hasOwnProperty(attr)) {
+                        if (typeof data[idLayer].initialState[attr] === "number" && typeof data[idLayer].finalState[attr] === "number") {
+                            lg[attr] = data[idLayer].finalState[attr] * profileProgress + data[idLayer].initialState[attr] * profileRemaining;
                         }
                     }
                 }
 
-                if (data[l].zoomWidth && data[l].zoomWidth.k !== 0) {
-                    ps = progress - data[l].zoomWidth.ts;
-                    lg.width = data[l].zoomWidth.k * ps * ps + data[l].zoomWidth.ss;
+                if (data[idLayer].zoomWidth && data[idLayer].zoomWidth.k !== 0) {
+                    ps = progress - data[idLayer].zoomWidth.ts;
+                    lg.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
                 }
 
-                if (data[l].zoomHeight && data[l].zoomHeight.k !== 0) {
-                    ps = progress - data[l].zoomHeight.ts;
-                    lg.height = data[l].zoomHeight.k * ps * ps + data[l].zoomHeight.ss;
+                if (data[idLayer].zoomHeight && data[idLayer].zoomHeight.k !== 0) {
+                    ps = progress - data[idLayer].zoomHeight.ts;
+                    lg.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
                 }
 
-                lg.clip = data[l].finalState.clip;
+                lg.clip = data[idLayer].finalState.clip;
             }
         }
         
@@ -164,12 +164,7 @@ module("sozi.player", function (exports) {
                 ts: 0.5,
                 k: 0
             },
-            a,
-            b,
-            c,
-            d,
-            u,
-            v;
+            a, b, c, d, u, v;
 
         if (zoomPercent !== 0) {
             a = s0 - s1;
@@ -218,53 +213,53 @@ module("sozi.player", function (exports) {
      * and values are objects in the form { initialState: finalState: profile: zoomWidth: zoomHeight:}
      */
     function getAnimationData(initialState, finalState, zoomPercent, profile) {
-        var g, l, zp,
+        var g, idLayer, zp,
             data = {};
         
-        for (l in initialState.layers) {
-            if (initialState.layers.hasOwnProperty(l)) {
-                data[l] = {
+        for (idLayer in initialState.layers) {
+            if (initialState.layers.hasOwnProperty(idLayer)) {
+                data[idLayer] = {
                     initialState: {},
                     finalState: {}
                 };
                 
-                data[l].profile = profile || finalState.layers[l].transitionProfile;
+                data[idLayer].profile = profile || finalState.layers[idLayer].transitionProfile;
 
                 // Copy all properties of given final state
-                for (g in initialState.layers[l].geometry) {
-                    if (initialState.layers[l].geometry.hasOwnProperty(g)) {
-                        data[l].initialState[g] = initialState.layers[l].geometry[g];
+                for (g in initialState.layers[idLayer].geometry) {
+                    if (initialState.layers[idLayer].geometry.hasOwnProperty(g)) {
+                        data[idLayer].initialState[g] = initialState.layers[idLayer].geometry[g];
                         // If the current layer is referenced in final state, copy the final properties
                         // else, copy initial state to final state for the current layer. 
-                        if (finalState.layers.hasOwnProperty(l)) {
-                            data[l].finalState[g] = finalState.layers[l].geometry[g];
+                        if (finalState.layers.hasOwnProperty(idLayer)) {
+                            data[idLayer].finalState[g] = finalState.layers[idLayer].geometry[g];
                         }
                         else {
-                            data[l].finalState[g] = initialState.layers[l].geometry[g];
+                            data[idLayer].finalState[g] = initialState.layers[idLayer].geometry[g];
                         }
                     }
                 }
 
                 // Keep the smallest angle difference between initial state and final state
-                data[l].initialState.rotate = (data[l].initialState.rotate - 180) % 360 + 180;
-                data[l].finalState.rotate = (data[l].finalState.rotate - 180) % 360 + 180;
+                data[idLayer].initialState.rotate = (data[idLayer].initialState.rotate - 180) % 360 + 180;
+                data[idLayer].finalState.rotate = (data[idLayer].finalState.rotate - 180) % 360 + 180;
         
-                if (data[l].finalState.rotate - data[l].initialState.rotate > 180) {
-                    data[l].finalState.rotate -= 360;
+                if (data[idLayer].finalState.rotate - data[idLayer].initialState.rotate > 180) {
+                    data[idLayer].finalState.rotate -= 360;
                 }
-                else if (data[l].finalState.rotate - data[l].initialState.rotate < -180) {
-                    data[l].initialState.rotate -= 360;
+                else if (data[idLayer].finalState.rotate - data[idLayer].initialState.rotate < -180) {
+                    data[idLayer].initialState.rotate -= 360;
                 }
 
-                zp = zoomPercent || finalState.layers[l].transitionZoomPercent;
+                zp = zoomPercent || finalState.layers[idLayer].transitionZoomPercent;
                 
-                if (zp && finalState.layers.hasOwnProperty(l)) {
-                    data[l].zoomWidth = getZoomData(zp,
-                        initialState.layers[l].geometry.width,
-                        finalState.layers[l].geometry.width);
-                    data[l].zoomHeight = getZoomData(zp,
-                        initialState.layers[l].geometry.height,
-                        finalState.layers[l].geometry.height);
+                if (zp && finalState.layers.hasOwnProperty(idLayer)) {
+                    data[idLayer].zoomWidth = getZoomData(zp,
+                        initialState.layers[idLayer].geometry.width,
+                        finalState.layers[idLayer].geometry.width);
+                    data[idLayer].zoomHeight = getZoomData(zp,
+                        initialState.layers[idLayer].geometry.height,
+                        finalState.layers[idLayer].geometry.height);
                 }
             }
         }
@@ -293,9 +288,7 @@ module("sozi.player", function (exports) {
      * The URL hash is set to the given frame index (1-based).
      */
     exports.moveToFrame = function (index) {
-        var durationMs,
-            zoomPercent,
-            profile;
+        var durationMs, zoomPercent, profile;
 
         if (waiting) {
             window.clearTimeout(nextFrameTimeout);

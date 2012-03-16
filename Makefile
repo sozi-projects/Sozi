@@ -6,7 +6,11 @@ EXTRAS_JS := $(wildcard player/extras/*.js)
 
 #MINIFY_OPT += --nomunge
 
-MINIFY := juicer merge --skip-verification --arguments "$(MINIFY_OPT)" --force
+JUICER_OPT += --force
+JUICER_OPT += --skip-verification
+JUICER_OPT += --minifyer none
+
+MINIFY := juicer merge $(JUICER_OPT) --arguments "$(MINIFY_OPT)"
 
 SRC := \
 	$(wildcard editors/inkscape/*.py) \

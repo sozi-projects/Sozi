@@ -48,7 +48,7 @@ module("sozi.document", function (exports) {
 
     function readLayerProperties(frame, idLayer, soziElement) {
         var layer = frame.layers[idLayer] = frame.layers[idLayer] || {
-                group: idLayer,
+                idLayer: idLayer, // FIXME never used
                 geometry: {
                     clip: DEFAULTS.clip
                 }

@@ -1249,12 +1249,2094 @@
        ns1:refid="voiture-arrivee" />
   </ns1:frame>
   <script
-     ns1:version="12.03-16212302"
-     id="sozi-script">function module(e,a){var d=e.split(&quot;.&quot;),b,c=this;for(b=0;b&lt;d.length;b+=1){if(typeof c[d[b]]===&quot;undefined&quot;){c[d[b]]={}}c=c[d[b]]}a(c)}module(&quot;sozi.events&quot;,function(a){var b={};a.listen=function(d,e){var c=b[d];if(!c){c=b[d]=[]}c.push(e)};a.fire=function(g){var d=b[g],c,f,e=Array.prototype.slice.call(arguments,1);if(d){c=d.length;for(f=0;f&lt;c;f+=1){d[f].apply(null,e)}}}});module(&quot;sozi.framenumber&quot;,function(d){var f=this,g=f.document,i,j,b,c,e=&quot;http://www.w3.org/2000/svg&quot;;function h(){var m=j.getBBox(),n=Math.max(m.width,m.height)*0.75,l=n*1.25;b.setAttribute(&quot;r&quot;,n);i.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+l+&quot;,&quot;+l+&quot;)&quot;)}function a(){i=g.createElementNS(e,&quot;g&quot;);j=g.createElementNS(e,&quot;text&quot;);b=g.createElementNS(e,&quot;circle&quot;);i.setAttribute(&quot;id&quot;,&quot;sozi-framenumber&quot;);b.setAttribute(&quot;cx&quot;,0);b.setAttribute(&quot;cy&quot;,0);i.appendChild(b);c=g.createTextNode(sozi.location.getFrameIndex()+1);j.setAttribute(&quot;text-anchor&quot;,&quot;middle&quot;);j.setAttribute(&quot;dominant-baseline&quot;,&quot;central&quot;);j.setAttribute(&quot;x&quot;,0);j.setAttribute(&quot;y&quot;,0);j.appendChild(c);i.appendChild(j);g.documentElement.appendChild(i);h()}function k(l){c.nodeValue=l+1}sozi.events.listen(&quot;displayready&quot;,a);sozi.events.listen(&quot;framechange&quot;,k)});module(&quot;sozi.framelist&quot;,function(w){var k=this,r=k.document,q,m,c,j=0,d=5,i,u,b,y,z,v,f=300,g=&quot;decelerate&quot;,a=&quot;http://www.w3.org/2000/svg&quot;;function p(B){var A=B.relatedTarget;while(A!==m&amp;&amp;A!==q){A=A.parentNode}if(A===q){w.hide();sozi.player.restart();B.stopPropagation()}}function t(B){var A=c.getCTM().f;if(A&lt;=-k.innerHeight/2){A+=k.innerHeight/2}else{if(A&lt;0){A=0}}c.setAttribute(&quot;transform&quot;,&quot;translate(0,&quot;+A+&quot;)&quot;);B.stopPropagation()}function e(B){var A=c.getCTM().f;if(A+j&gt;=k.innerHeight*3/2){A-=k.innerHeight/2}else{if(A+j&gt;k.innerHeight+2*d){A=k.innerHeight-j-4*d}}c.setAttribute(&quot;transform&quot;,&quot;translate(0,&quot;+A+&quot;)&quot;);B.stopPropagation()}function s(A){var C=sozi.animation.profiles[g](A),B=1-C;z=y*C+b*B;m.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+z+&quot;,0)&quot;)}function x(){}function h(A){return function(B){sozi.player.previewFrame(A);B.stopPropagation()}}function l(A){A.stopPropagation()}function o(){var G=r.createElementNS(a,&quot;rect&quot;),A=r.createElementNS(a,&quot;path&quot;),E=r.createElementNS(a,&quot;path&quot;),H=0,F,C=sozi.document.frames.length,B=sozi.location.getFrameIndex(),D,I;q=r.documentElement;m=r.createElementNS(a,&quot;g&quot;);m.setAttribute(&quot;id&quot;,&quot;sozi-toc&quot;);q.appendChild(m);c=r.createElementNS(a,&quot;g&quot;);m.appendChild(c);G.setAttribute(&quot;id&quot;,&quot;sozi-toc-background&quot;);G.setAttribute(&quot;x&quot;,d);G.setAttribute(&quot;y&quot;,d);G.setAttribute(&quot;rx&quot;,d);G.setAttribute(&quot;ry&quot;,d);G.addEventListener(&quot;click&quot;,l,false);G.addEventListener(&quot;mousedown&quot;,l,false);G.addEventListener(&quot;mouseout&quot;,p,false);c.appendChild(G);for(D=0;D&lt;C;D+=1){I=r.createElementNS(a,&quot;text&quot;);I.appendChild(r.createTextNode(sozi.document.frames[D].title));c.appendChild(I);if(D===B){I.setAttribute(&quot;class&quot;,&quot;sozi-toc-current&quot;)}F=I.getBBox().width;j+=I.getBBox().height;if(F&gt;H){H=F}I.setAttribute(&quot;x&quot;,2*d);I.setAttribute(&quot;y&quot;,j+d);I.addEventListener(&quot;click&quot;,h(D),false);I.addEventListener(&quot;mousedown&quot;,l,false)}A.setAttribute(&quot;class&quot;,&quot;sozi-toc-arrow&quot;);A.setAttribute(&quot;d&quot;,&quot;M&quot;+(H+3*d)+&quot;,&quot;+(5*d)+&quot; l&quot;+(4*d)+&quot;,0 l-&quot;+(2*d)+&quot;,-&quot;+(3*d)+&quot; z&quot;);A.addEventListener(&quot;click&quot;,t,false);A.addEventListener(&quot;mousedown&quot;,l,false);m.appendChild(A);E.setAttribute(&quot;class&quot;,&quot;sozi-toc-arrow&quot;);E.setAttribute(&quot;d&quot;,&quot;M&quot;+(H+3*d)+&quot;,&quot;+(7*d)+&quot; l&quot;+(4*d)+&quot;,0 l-&quot;+(2*d)+&quot;,&quot;+(3*d)+&quot; z&quot;);E.addEventListener(&quot;click&quot;,e,false);E.addEventListener(&quot;mousedown&quot;,l,false);m.appendChild(E);G.setAttribute(&quot;width&quot;,H+7*d);G.setAttribute(&quot;height&quot;,j+2*d);i=-H-9*d;u=0;z=y=i;m.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+i+&quot;,0)&quot;);v=new sozi.animation.Animator(s,x)}function n(A){var D=r.getElementsByClassName(&quot;sozi-toc-current&quot;),C=c.getElementsByTagName(&quot;text&quot;),B;for(B=0;B&lt;D.length;B+=1){D[B].removeAttribute(&quot;class&quot;)}C[A].setAttribute(&quot;class&quot;,&quot;sozi-toc-current&quot;)}w.show=function(){b=z;y=u;v.start(f)};w.hide=function(){b=z;y=i;v.start(f)};w.isVisible=function(){return y===u};sozi.events.listen(&quot;displayready&quot;,o);sozi.events.listen(&quot;cleanup&quot;,w.hide);sozi.events.listen(&quot;framechange&quot;,n)});module(&quot;sozi.animation&quot;,function(e){var h=this,j=40,d=[],b,i=h.mozRequestAnimationFrame||h.webkitRequestAnimationFrame||h.msRequestAnimationFrame||h.oRequestAnimationFrame;function f(l){var k;if(d.length&gt;0){if(i){i(f)}for(k=0;k&lt;d.length;k+=1){d[k].step(l)}}else{if(!i){h.clearInterval(b)}}}function c(){if(i){i(f)}else{b=h.setInterval(function(){f(Date.now())},j)}}function a(k){d.push(k);if(d.length===1){c()}}function g(k){d.splice(d.indexOf(k),1)}e.Animator=function(k,l){this.onStep=k;this.onDone=l;this.durationMs=0;this.data={};this.initialTime=0;this.started=false};e.Animator.prototype.start=function(k,l){this.durationMs=k;this.data=l;this.initialTime=Date.now();this.onStep(0,this.data);if(!this.started){this.started=true;a(this)}};e.Animator.prototype.stop=function(){if(this.started){g(this);this.started=false}};e.Animator.prototype.step=function(l){var k=l-this.initialTime;if(k&gt;=this.durationMs){this.stop();this.onStep(1,this.data);this.onDone()}else{this.onStep(k/this.durationMs,this.data)}};e.profiles={linear:function(k){return k},accelerate:function(k){return Math.pow(k,3)},&quot;strong-accelerate&quot;:function(k){return Math.pow(k,5)},decelerate:function(k){return 1-Math.pow(1-k,3)},&quot;strong-decelerate&quot;:function(k){return 1-Math.pow(1-k,5)},&quot;accelerate-decelerate&quot;:function(k){var l=k&lt;=0.5?k:1-k,m=Math.pow(2*l,3)/2;return k&lt;=0.5?m:1-m},&quot;strong-accelerate-decelerate&quot;:function(k){var l=k&lt;=0.5?k:1-k,m=Math.pow(2*l,5)/2;return k&lt;=0.5?m:1-m},&quot;decelerate-accelerate&quot;:function(k){var l=k&lt;=0.5?k:1-k,m=(1-Math.pow(1-2*l,2))/2;return k&lt;=0.5?m:1-m},&quot;strong-decelerate-accelerate&quot;:function(k){var l=k&lt;=0.5?k:1-k,m=(1-Math.pow(1-2*l,3))/2;return k&lt;=0.5?m:1-m}}});module(&quot;sozi.display&quot;,function(c){var g=this,h=g.document,i,j,a,f=&quot;http://www.w3.org/2000/svg&quot;;c.layers={};function e(){var k,m,o,n;i=h.documentElement;j=i.getBBox();i.setAttribute(&quot;width&quot;,g.innerWidth);i.setAttribute(&quot;height&quot;,g.innerHeight);for(k=0;k&lt;sozi.document.idLayers.length;k+=1){n=sozi.document.idLayers[k];c.layers[n]={geometry:{cx:0,cy:0,width:1,height:1,rotate:0,clip:true},clipRect:h.createElementNS(f,&quot;rect&quot;),group:h.getElementById(n)};o=h.createElementNS(f,&quot;clipPath&quot;);o.setAttribute(&quot;id&quot;,&quot;sozi-clip-path-&quot;+n);o.appendChild(c.layers[n].clipRect);i.appendChild(o);m=h.createElementNS(f,&quot;g&quot;);m.setAttribute(&quot;clip-path&quot;,&quot;url(#sozi-clip-path-&quot;+n+&quot;)&quot;);i.insertBefore(m,c.layers[n].group);m.appendChild(c.layers[n].group)}sozi.events.fire(&quot;displayready&quot;)}function b(){i.setAttribute(&quot;width&quot;,g.innerWidth);i.setAttribute(&quot;height&quot;,g.innerHeight);c.update()}function d(l){var m=c.layers[l].geometry,k={};k.scale=Math.min(g.innerWidth/m.width,g.innerHeight/m.height);k.width=m.width*k.scale;k.height=m.height*k.scale;k.x=(g.innerWidth-k.width)/2;k.y=(g.innerHeight-k.height)/2;return k}c.getElementGeometry=function(k){var r,o,s,m,p,n,q=k.getCTM(),l=Math.sqrt(q.a*q.a+q.b*q.b);if(k.nodeName===&quot;rect&quot;){r=k.x.baseVal.value;o=k.y.baseVal.value;s=k.width.baseVal.value;m=k.height.baseVal.value}else{p=k.getBBox();r=p.x;o=p.y;s=p.width;m=p.height}n=h.documentElement.createSVGPoint();n.x=r+s/2;n.y=o+m/2;n=n.matrixTransform(q);return{cx:n.x,cy:n.y,width:s*l,height:m*l,rotate:Math.atan2(q.b,q.a)*180/Math.PI}};c.getDocumentGeometry=function(){var m,k={layers:{}},n={geometry:{cx:j.x+j.width/2,cy:j.y+j.height/2,width:j.width,height:j.height,rotate:0,clip:false}};for(m in c.layers){if(c.layers.hasOwnProperty(m)){k.layers[m]=n}}return k};c.update=function(){var m,k,n,o,q,p;for(m in c.layers){if(c.layers.hasOwnProperty(m)){n=c.layers[m].geometry;k=d(m);q=-n.cx+n.width/2+k.x/k.scale;p=-n.cy+n.height/2+k.y/k.scale;c.layers[m].group.setAttribute(&quot;transform&quot;,&quot;scale(&quot;+k.scale+&quot;)translate(&quot;+q+&quot;,&quot;+p+&quot;)rotate(&quot;+(-n.rotate)+&quot;,&quot;+n.cx+&quot;,&quot;+n.cy+&quot;)&quot;);o=c.layers[m].clipRect;o.setAttribute(&quot;x&quot;,n.clip?k.x:0);o.setAttribute(&quot;y&quot;,n.clip?k.y:0);o.setAttribute(&quot;width&quot;,n.clip?k.width:g.innerWidth);o.setAttribute(&quot;height&quot;,n.clip?k.height:g.innerHeight)}}};c.showFrame=function(p){var n,o,m,k;for(n in p.layers){if(p.layers.hasOwnProperty(n)){m=p.layers[n].geometry;o=c.layers[n].geometry;for(k in m){if(m.hasOwnProperty(k)){o[k]=m[k]}}}}c.update()};c.drag=function(o,k){var n,p,m,q;for(n in c.layers){if(c.layers.hasOwnProperty(n)){p=c.layers[n].geometry;m=d(n);q=p.rotate*Math.PI/180;p.cx-=(o*Math.cos(q)-k*Math.sin(q))/m.scale;p.cy-=(o*Math.sin(q)+k*Math.cos(q))/m.scale;p.clip=false}}c.update()};c.zoom=function(p,m,q){var o,n=(1-p)*(m-g.innerWidth/2),k=(1-p)*(q-g.innerHeight/2);for(o in c.layers){if(c.layers.hasOwnProperty(o)){c.layers[o].geometry.width/=p;c.layers[o].geometry.height/=p}}c.drag(n,k)};c.rotate=function(m){var k;for(k in c.layers){if(c.layers.hasOwnProperty(k)){c.layers[k].geometry.rotate+=m;c.layers[k].geometry.rotate%=360}}c.update()};sozi.events.listen(&quot;documentready&quot;,e);g.addEventListener(&quot;resize&quot;,b,false)});module(&quot;sozi.player&quot;,function(q){var n=sozi.display,g=this,p,j,o=500,c=-10,l=&quot;linear&quot;,h=0,i=0,b=false,a=false;function m(w,y){var x,v,t,u,s,z;for(t in y){if(y.hasOwnProperty(t)){u=n.layers[t].geometry;x=y[t].profile(w);v=1-x;for(s in y[t].initialState){if(y[t].initialState.hasOwnProperty(s)){if(typeof y[t].initialState[s]===&quot;number&quot;&amp;&amp;typeof y[t].finalState[s]===&quot;number&quot;){u[s]=y[t].finalState[s]*x+y[t].initialState[s]*v}}}if(y[t].zoomWidth&amp;&amp;y[t].zoomWidth.k!==0){z=w-y[t].zoomWidth.ts;u.width=y[t].zoomWidth.k*z*z+y[t].zoomWidth.ss}if(y[t].zoomHeight&amp;&amp;y[t].zoomHeight.k!==0){z=w-y[t].zoomHeight.ts;u.height=y[t].zoomHeight.k*z*z+y[t].zoomHeight.ss}u.clip=y[t].finalState.clip}}n.update()}function f(){var s;if(sozi.document.frames[i].timeoutEnable){a=true;s=(i+1)%sozi.document.frames.length;j=g.setTimeout(function(){q.moveToFrame(s)},sozi.document.frames[i].timeoutMs)}}function r(){h=i;if(b){f()}}q.startFromIndex=function(s){b=true;a=false;h=s;i=s;n.showFrame(sozi.document.frames[s]);f()};q.restart=function(){q.startFromIndex(i)};q.stop=function(){p.stop();if(a){g.clearTimeout(j);a=false}b=false;h=i};function e(s,C,A){var D={ss:((s&lt;0)?Math.max(C,A):Math.min(C,A))*(100-s)/100,ts:0.5,k:0},y,x,w,t,B,z;if(s!==0){y=C-A;x=C-D.ss;w=A-D.ss;if(y!==0){t=Math.sqrt(x*w);B=(x-t)/y;z=(x+t)/y;D.ts=(B&gt;0&amp;&amp;B&lt;=1)?B:z}D.k=x/D.ts/D.ts}return D}q.jumpToFrame=function(s){q.stop();sozi.events.fire(&quot;cleanup&quot;);h=s;i=s;n.showFrame(sozi.document.frames[s]);sozi.events.fire(&quot;framechange&quot;,s)};function d(s,x,z,u){var v,t,y,w={};for(t in s.layers){if(s.layers.hasOwnProperty(t)){w[t]={initialState:{},finalState:{}};w[t].profile=u||x.layers[t].transitionProfile;for(v in s.layers[t].geometry){if(s.layers[t].geometry.hasOwnProperty(v)){w[t].initialState[v]=s.layers[t].geometry[v];if(x.layers.hasOwnProperty(t)){w[t].finalState[v]=x.layers[t].geometry[v]}else{w[t].finalState[v]=s.layers[t].geometry[v]}}}w[t].initialState.rotate=(w[t].initialState.rotate-180)%360+180;w[t].finalState.rotate=(w[t].finalState.rotate-180)%360+180;if(w[t].finalState.rotate-w[t].initialState.rotate&gt;180){w[t].finalState.rotate-=360}else{if(w[t].finalState.rotate-w[t].initialState.rotate&lt;-180){w[t].initialState.rotate-=360}}y=z||x.layers[t].transitionZoomPercent;if(y&amp;&amp;x.layers.hasOwnProperty(t)){w[t].zoomWidth=e(y,s.layers[t].geometry.width,x.layers[t].geometry.width);w[t].zoomHeight=e(y,s.layers[t].geometry.height,x.layers[t].geometry.height)}}}return w}q.previewFrame=function(s){i=s;p.start(o,d(n,sozi.document.frames[s],c,sozi.animation.profiles[l]));sozi.events.fire(&quot;framechange&quot;,s)};q.moveToFrame=function(t){var s,v,u;if(a){g.clearTimeout(j);a=false}if(t===(i+1)%sozi.document.frames.length){s=sozi.document.frames[t].transitionDurationMs;v=undefined;u=undefined}else{s=o;v=c;u=sozi.animation.profiles[l]}sozi.events.fire(&quot;cleanup&quot;);b=true;i=t;p.start(s,d(n,sozi.document.frames[t],v,u));sozi.events.fire(&quot;framechange&quot;,t)};q.moveToFirst=function(){q.moveToFrame(0)};q.jumpToPrevious=function(){var s=i;if(!p.started||h&lt;=i){s-=1}if(s&gt;=0){q.jumpToFrame(s)}};q.moveToPrevious=function(){var s=i,t;for(s-=1;s&gt;=0;s-=1){t=sozi.document.frames[s];if(!t.timeoutEnable||t.timeoutMs!==0){q.moveToFrame(s);break}}};q.jumpToNext=function(){var s=i;if(!p.started||h&gt;=i){s+=1}if(s&lt;sozi.document.frames.length){q.jumpToFrame(s)}};q.moveToNext=function(){if(i&lt;sozi.document.frames.length-1||sozi.document.frames[i].timeoutEnable){q.moveToFrame((i+1)%sozi.document.frames.length)}};q.moveToLast=function(){q.moveToFrame(sozi.document.frames.length-1)};q.moveToCurrent=function(){q.moveToFrame(i)};q.showAll=function(){q.stop();sozi.events.fire(&quot;cleanup&quot;);p.start(o,d(n,n.getDocumentGeometry(),c,sozi.animation.profiles[l]))};function k(){q.startFromIndex(sozi.location.getFrameIndex())}p=new sozi.animation.Animator(m,r);sozi.events.listen(&quot;displayready&quot;,k)});module(&quot;sozi.actions&quot;,function(y){var t=sozi.player,u=sozi.display,j=this,o=j.document,p=0,v=1,s=1.05,x=5,c=false,l=false,g=0,e=0;function a(A,z,B){t.stop();u.zoom(A&gt;0?s:1/s,z,B)}function w(z){t.stop();u.rotate(z&gt;0?x:-x)}function r(){if(sozi.framelist.isVisible()){sozi.framelist.hide();t.restart()}else{t.stop();sozi.framelist.show()}}function i(z){if(z.button===p){c=true;l=false;g=z.clientX;e=z.clientY}else{if(z.button===v){r()}}z.stopPropagation()}function m(z){if(c){t.stop();l=true;sozi.events.fire(&quot;cleanup&quot;);u.drag(z.clientX-g,z.clientY-e);g=z.clientX;e=z.clientY}z.stopPropagation()}function f(z){if(z.button===p){c=false}z.stopPropagation()}function q(z){t.moveToPrevious();z.stopPropagation();z.preventDefault()}function h(z){if(!l&amp;&amp;z.button!==v){t.moveToNext()}z.stopPropagation()}function k(z){var A=0;if(!z){z=j.event}if(z.wheelDelta){A=z.wheelDelta;if(j.opera){A=-A}}else{if(z.detail){A=-z.detail}}if(A!==0){if(z.shiftKey){w(A)}else{a(A,z.clientX,z.clientY)}}z.stopPropagation();z.preventDefault()}function n(z){if(z.altKey||z.ctrlKey||z.metaKey){return}switch(z.charCode){case 43:a(1,j.innerWidth/2,j.innerHeight/2);break;case 45:a(-1,j.innerWidth/2,j.innerHeight/2);break;case 61:t.moveToCurrent();break;case 70:case 102:t.showAll();break;case 84:case 116:r();break;case 82:w(-1);break;case 114:w(1);break}z.stopPropagation()}function d(z){if(z.altKey||z.ctrlKey||z.metaKey){return}switch(z.keyCode){case 36:t.moveToFirst();break;case 35:t.moveToLast();break;case 38:t.jumpToPrevious();break;case 33:case 37:t.moveToPrevious();break;case 40:t.jumpToNext();break;case 34:case 39:case 13:case 32:t.moveToNext();break}z.stopPropagation()}function b(){var z=o.documentElement;z.addEventListener(&quot;click&quot;,h,false);z.addEventListener(&quot;mousedown&quot;,i,false);z.addEventListener(&quot;mouseup&quot;,f,false);z.addEventListener(&quot;mousemove&quot;,m,false);z.addEventListener(&quot;keypress&quot;,n,false);z.addEventListener(&quot;keydown&quot;,d,false);z.addEventListener(&quot;contextmenu&quot;,q,false);z.addEventListener(&quot;DOMMouseScroll&quot;,k,false);j.onmousewheel=k}j.addEventListener(&quot;load&quot;,b,false)});module(&quot;sozi.document&quot;,function(c){var e=this,g=e.document,b=&quot;http://sozi.baierouge.fr&quot;,d={title:&quot;Untitled&quot;,sequence:&quot;0&quot;,hide:&quot;true&quot;,clip:&quot;true&quot;,&quot;timeout-enable&quot;:&quot;false&quot;,&quot;timeout-ms&quot;:&quot;5000&quot;,&quot;transition-duration-ms&quot;:&quot;1000&quot;,&quot;transition-zoom-percent&quot;:&quot;0&quot;,&quot;transition-profile&quot;:&quot;linear&quot;};c.frames=[];c.idLayers=[];function i(k,j){var l=k.getAttributeNS(b,j);return l===&quot;&quot;?d[j]:l}function h(n,o,j){var k=n.layers[o]=n.layers[o]||{group:o,geometry:{clip:d.clip}},l=k.geometry.clip,m;if(typeof k.hide===&quot;undefined&quot;||j.hasAttributeNS(b,&quot;hide&quot;)){k.hide=i(j,&quot;hide&quot;)===&quot;true&quot;}if(typeof k.transitionZoomPercent===&quot;undefined&quot;||j.hasAttributeNS(b,&quot;transition-zoom-percent&quot;)){k.transitionZoomPercent=parseInt(i(j,&quot;transition-zoom-percent&quot;),10)}if(typeof k.transitionProfile===&quot;undefined&quot;||j.hasAttributeNS(b,&quot;transition-profile&quot;)){k.transitionProfile=sozi.animation.profiles[i(j,&quot;transition-profile&quot;)||&quot;linear&quot;]}if(j.hasAttributeNS(b,&quot;refid&quot;)){m=g.getElementById(j.getAttributeNS(b,&quot;refid&quot;));if(m){if(k.hide){m.style.visibility=&quot;hidden&quot;}k.geometry=sozi.display.getElementGeometry(m);k.geometry.clip=l}}if(j.hasAttributeNS(b,&quot;clip&quot;)){k.geometry.clip=i(j,&quot;clip&quot;)===&quot;true&quot;}}function a(){var j=g.getElementsByTagNameNS(b,&quot;frame&quot;),u,t,r,s=g.documentElement,q,m,k,p,o=&quot;http://www.w3.org/2000/svg&quot;;u=g.getElementsByTagNameNS(b,&quot;layer&quot;);if(u.length===0){r=g.createElementNS(o,&quot;g&quot;);r.setAttribute(&quot;id&quot;,&quot;sozi-wrapper&quot;);while(true){k=s.firstChild;if(!k){break}s.removeChild(k);r.appendChild(k)}s.appendChild(r);c.idLayers.push(&quot;sozi-wrapper&quot;)}else{for(m=0;m&lt;u.length;m+=1){t=u[m].getAttributeNS(b,&quot;group&quot;);if(t&amp;&amp;c.idLayers.indexOf(t)===-1&amp;&amp;g.getElementById(t)){c.idLayers.push(t)}}if(c.idLayers.length===0){e.alert(&quot;Invalid layer information&quot;)}}for(q=0;q&lt;j.length;q+=1){p={id:j[q].getAttribute(&quot;id&quot;),title:i(j[q],&quot;title&quot;),sequence:parseInt(i(j[q],&quot;sequence&quot;),10),timeoutEnable:i(j[q],&quot;timeout-enable&quot;)===&quot;true&quot;,timeoutMs:parseInt(i(j[q],&quot;timeout-ms&quot;),10),transitionDurationMs:parseInt(i(j[q],&quot;transition-duration-ms&quot;),10),layers:{}};for(m=0;m&lt;c.idLayers.length;m+=1){h(p,c.idLayers[m],j[q])}u=j[q].getElementsByTagNameNS(b,&quot;layer&quot;);for(m=0;m&lt;u.length;m+=1){t=u[m].getAttributeNS(b,&quot;group&quot;);if(t&amp;&amp;c.idLayers.indexOf(t)!==-1){h(p,t,u[m])}}for(m in p.layers){if(p.layers.hasOwnProperty(m)){c.frames.push(p);break}}}c.frames.sort(function(n,l){return n.sequence-l.sequence})}function f(){g.documentElement.removeAttribute(&quot;viewBox&quot;);a();sozi.events.fire(&quot;documentready&quot;)}e.addEventListener(&quot;load&quot;,f,false)});module(&quot;sozi.location&quot;,function(a){var e=this,c=false;a.getFrameIndex=function(){var g=e.location.hash?parseInt(e.location.hash.slice(1),10)-1:0;if(isNaN(g)||g&lt;0){return 0}else{if(g&gt;=sozi.document.frames.length){return sozi.document.frames.length-1}else{return g}}};function f(){var g=a.getFrameIndex();if(!c){sozi.player.moveToFrame(g)}c=false}function d(g){c=true;e.location.hash=&quot;#&quot;+(g+1)}function b(){sozi.events.listen(&quot;framechange&quot;,d)}e.addEventListener(&quot;hashchange&quot;,f,false);e.addEventListener(&quot;load&quot;,b,false)});</script>
+     ns1:version="12.03-16221027"
+     id="sozi-script">
+function module(path, body) {
+	var names = path.split(&quot;.&quot;),
+	    i,
+	    current = this;
+	for (i = 0; i &lt; names.length; i += 1) {
+		if (typeof current[names[i]] === &quot;undefined&quot;) {
+			current[names[i]] = {};
+		}
+		current = current[names[i]];
+	}
+	body(current);
+}
+
+/*
+ * Sozi - A presentation tool using the SVG standard
+ *
+ * Copyright (C) 2010-2012 Guillaume Savaton
+ *
+ * This program is dual licensed under the terms of the MIT license
+ * or the GNU General Public License (GPL) version 3.
+ * A copy of both licenses is provided in the doc/ folder of the
+ * official release of Sozi.
+ * 
+ * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend module.js
+ */
+
+/*global module:true sozi:true */
+
+module(&quot;sozi.events&quot;, function (exports) {
+    var listeners = {};
+
+    /*
+     * Adds a listener for a given event type.
+     *
+     * The event type is provided as a string by the key parameter.
+     * The function to be executed is provided by the handler parameter.
+     */
+    exports.listen = function (key, handler) {
+        var listenersForKey = listeners[key];
+        if (!listenersForKey) {
+            listenersForKey = listeners[key] = [];
+        }
+        listenersForKey.push(handler);
+    };
+    
+    /*
+     * Fire an event of the given type.
+     *
+     * All event handlers added for the given event type are
+     * executed.
+     * Additional arguments provided to this function are passed
+     * to the event handlers.
+     */
+    exports.fire = function (key) {
+        var listenersForKey = listeners[key],
+            len,
+            i,
+            args = Array.prototype.slice.call(arguments, 1);
+        if (listenersForKey) {
+            len = listenersForKey.length;
+            for (i = 0; i &lt; len; i += 1) {
+                listenersForKey[i].apply(null, args);
+            }
+        }
+    };
+});
+
+/*
+ * Sozi - A presentation tool using the SVG standard
+ *
+ * Copyright (C) 2010-2012 Guillaume Savaton
+ *
+ * This program is dual licensed under the terms of the MIT license
+ * or the GNU General Public License (GPL) version 3.
+ * A copy of both licenses is provided in the doc/ folder of the
+ * official release of Sozi.
+ * 
+ * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend module.js
+ * @depend events.js
+ */
+
+/*global module:true sozi:true */
+
+module(&quot;sozi.framenumber&quot;, function (exports) {
+    var window = this,
+        document = window.document,
+        group, text, circle, textNode,
+        SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
+    
+    function adjust() {
+        var textBBox = text.getBBox(),
+            d = Math.max(textBBox.width, textBBox.height) * 0.75,
+            t = d * 1.25;
+        circle.setAttribute(&quot;r&quot;, d);
+        group.setAttribute(&quot;transform&quot;, &quot;translate(&quot; + t + &quot;,&quot; + t + &quot;)&quot;);
+    }
+    
+    function onDisplayReady() {
+        group = document.createElementNS(SVG_NS, &quot;g&quot;);
+        text = document.createElementNS(SVG_NS, &quot;text&quot;);
+        circle = document.createElementNS(SVG_NS, &quot;circle&quot;);
+        
+        group.setAttribute(&quot;id&quot;, &quot;sozi-framenumber&quot;);
+
+        circle.setAttribute(&quot;cx&quot;, 0);
+        circle.setAttribute(&quot;cy&quot;, 0);
+        group.appendChild(circle);
+        
+        textNode = document.createTextNode(sozi.location.getFrameIndex() + 1);
+        text.setAttribute(&quot;text-anchor&quot;, &quot;middle&quot;);
+        text.setAttribute(&quot;dominant-baseline&quot;, &quot;central&quot;);
+        text.setAttribute(&quot;x&quot;, 0);
+        text.setAttribute(&quot;y&quot;, 0);
+        text.appendChild(textNode);
+        group.appendChild(text);
+        
+        document.documentElement.appendChild(group);
+        
+        adjust();
+    }
+
+    function onFrameChange(index) {
+        textNode.nodeValue = index + 1;
+    }
+    
+	sozi.events.listen(&quot;displayready&quot;, onDisplayReady);
+	sozi.events.listen(&quot;framechange&quot;, onFrameChange);
+});
+
+/*
+ * Sozi - A presentation tool using the SVG standard
+ *
+ * Copyright (C) 2010-2012 Guillaume Savaton
+ *
+ * This program is dual licensed under the terms of the MIT license
+ * or the GNU General Public License (GPL) version 3.
+ * A copy of both licenses is provided in the doc/ folder of the
+ * official release of Sozi.
+ * 
+ * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend module.js
+ * @depend events.js
+ */
+
+/*global module:true sozi:true */
+
+module(&quot;sozi.framelist&quot;, function (exports) {
+	var window = this,
+        document = window.document,
+        svgRoot,
+        tocGroup,
+        linksBox,
+        tocHeight = 0,
+        MARGIN = 5,
+        translateXHidden,
+        translateXVisible,
+        translateXStart,
+        translateXEnd,
+        translateX,
+        animator,
+        ANIMATION_TIME_MS = 300,
+        ANIMATION_PROFILE = &quot;decelerate&quot;,
+        SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
+
+	function onMouseOut(evt) {
+        var rel = evt.relatedTarget;
+        while (rel !== tocGroup &amp;&amp; rel !== svgRoot) {
+            rel = rel.parentNode;
+        }
+        if (rel === svgRoot) {
+            exports.hide();
+            sozi.player.restart();
+            evt.stopPropagation();
+        }
+    }
+
+	function onClickArrowUp(evt) {
+        var ty = linksBox.getCTM().f;
+        if (ty &lt;= -window.innerHeight / 2) {
+            ty += window.innerHeight / 2;
+        } else if (ty &lt; 0) {
+            ty = 0;
+        }
+        linksBox.setAttribute(&quot;transform&quot;, &quot;translate(0,&quot; + ty + &quot;)&quot;);
+        evt.stopPropagation();
+	}
+
+	function onClickArrowDown(evt) {
+        var ty = linksBox.getCTM().f;
+        if (ty + tocHeight &gt;= window.innerHeight * 3 / 2) {
+            ty -= window.innerHeight / 2;
+        } else if (ty + tocHeight &gt; window.innerHeight + 2 * MARGIN) {
+            ty = window.innerHeight - tocHeight - 4 * MARGIN;
+        }
+        linksBox.setAttribute(&quot;transform&quot;, &quot;translate(0,&quot; + ty + &quot;)&quot;);
+        evt.stopPropagation();
+    }	
+
+    function onAnimationStep(progress) {
+        var profileProgress = sozi.animation.profiles[ANIMATION_PROFILE](progress),
+            remaining = 1 - profileProgress;
+        translateX = translateXEnd * profileProgress + translateXStart * remaining;
+        tocGroup.setAttribute(&quot;transform&quot;, &quot;translate(&quot; + translateX + &quot;,0)&quot;);
+    }
+    
+    function onAnimationDone() {
+        // Empty
+    }
+    
+    /*
+     * Create a function that responds to clicks on frame list entries.
+     */
+    function makeClickHandler(index) {
+        return function (evt) {
+            sozi.player.previewFrame(index);
+            evt.stopPropagation();
+        };
+    }
+    
+    /*
+     * The default event handler, to prevent event propagation
+     * through the frame list.
+     */
+    function defaultEventHandler(evt) {
+	    evt.stopPropagation();
+    }
+    
+    /*
+     * Adds a table of contents to the document.
+     *
+     * The table of contents is a rectangular region with the list of frame titles.
+     * Clicking on a title moves the presentation to the corresponding frame.
+     *
+     * The table of contents is hidden by default.
+     */
+    function onDisplayReady() {
+        var tocBackground = document.createElementNS(SVG_NS, &quot;rect&quot;),
+            tocUp = document.createElementNS(SVG_NS, &quot;path&quot;),
+            tocDown = document.createElementNS(SVG_NS, &quot;path&quot;),
+            tocWidth = 0,
+            textWidth,
+            frameCount = sozi.document.frames.length,
+            frameIndex = sozi.location.getFrameIndex(),
+            i,
+            text;
+
+		svgRoot = document.documentElement;
+
+        tocGroup = document.createElementNS(SVG_NS, &quot;g&quot;);
+        tocGroup.setAttribute(&quot;id&quot;, &quot;sozi-toc&quot;);
+        svgRoot.appendChild(tocGroup);
+
+        linksBox = document.createElementNS(SVG_NS, &quot;g&quot;);
+        tocGroup.appendChild(linksBox);
+    
+        tocBackground.setAttribute(&quot;id&quot;, &quot;sozi-toc-background&quot;);
+        tocBackground.setAttribute(&quot;x&quot;, MARGIN);
+        tocBackground.setAttribute(&quot;y&quot;, MARGIN);
+        tocBackground.setAttribute(&quot;rx&quot;, MARGIN);
+        tocBackground.setAttribute(&quot;ry&quot;, MARGIN);
+        tocBackground.addEventListener(&quot;click&quot;, defaultEventHandler, false);
+        tocBackground.addEventListener(&quot;mousedown&quot;, defaultEventHandler, false);
+        tocBackground.addEventListener(&quot;mouseout&quot;, onMouseOut, false);
+        linksBox.appendChild(tocBackground);
+
+        for (i = 0; i &lt; frameCount; i += 1) {
+            text = document.createElementNS(SVG_NS, &quot;text&quot;);
+            text.appendChild(document.createTextNode(sozi.document.frames[i].title));
+            linksBox.appendChild(text);
+
+            if (i === frameIndex) {
+                text.setAttribute(&quot;class&quot;, &quot;sozi-toc-current&quot;);
+            }
+                     
+            textWidth = text.getBBox().width;
+            tocHeight += text.getBBox().height;
+            if (textWidth &gt; tocWidth) {
+                tocWidth = textWidth;
+            }
+
+            text.setAttribute(&quot;x&quot;, 2 * MARGIN);
+            text.setAttribute(&quot;y&quot;, tocHeight + MARGIN);
+            text.addEventListener(&quot;click&quot;, makeClickHandler(i), false);
+            text.addEventListener(&quot;mousedown&quot;, defaultEventHandler, false);
+        }
+
+        tocUp.setAttribute(&quot;class&quot;, &quot;sozi-toc-arrow&quot;);
+        tocUp.setAttribute(&quot;d&quot;, &quot;M&quot; + (tocWidth + 3 * MARGIN) + &quot;,&quot; + (5 * MARGIN) + 
+                           &quot; l&quot; + (4 * MARGIN) + &quot;,0&quot; +
+                           &quot; l-&quot; + (2 * MARGIN) + &quot;,-&quot; + (3 * MARGIN) +
+                           &quot; z&quot;);
+        tocUp.addEventListener(&quot;click&quot;, onClickArrowUp, false);
+        tocUp.addEventListener(&quot;mousedown&quot;, defaultEventHandler, false);
+        tocGroup.appendChild(tocUp);
+      
+        tocDown.setAttribute(&quot;class&quot;, &quot;sozi-toc-arrow&quot;);
+        tocDown.setAttribute(&quot;d&quot;, &quot;M&quot; + (tocWidth + 3 * MARGIN) + &quot;,&quot; + (7 * MARGIN) + 
+                             &quot; l&quot; + (4 * MARGIN) + &quot;,0&quot; +
+                             &quot; l-&quot; + (2 * MARGIN) + &quot;,&quot; + (3 * MARGIN) +
+                             &quot; z&quot;);
+        tocDown.addEventListener(&quot;click&quot;, onClickArrowDown, false);
+        tocDown.addEventListener(&quot;mousedown&quot;, defaultEventHandler, false);      
+        tocGroup.appendChild(tocDown);
+
+        tocBackground.setAttribute(&quot;width&quot;, tocWidth + 7 * MARGIN);
+        tocBackground.setAttribute(&quot;height&quot;, tocHeight + 2 * MARGIN);
+        
+        translateXHidden = -tocWidth - 9 * MARGIN;
+        translateXVisible = 0;
+        translateX = translateXEnd = translateXHidden;
+        
+        tocGroup.setAttribute(&quot;transform&quot;, &quot;translate(&quot; + translateXHidden + &quot;,0)&quot;);
+        animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);
+    }
+
+	/*
+	 * Highlight the current frame title in the frame list.
+	 *
+	 * This handler is called on each frame change,
+	 * even when the frame list is hidden.
+	 */
+    function onFrameChange(index) {
+        var current = document.getElementsByClassName(&quot;sozi-toc-current&quot;),
+            textElements = linksBox.getElementsByTagName(&quot;text&quot;),
+            i;
+        for (i = 0; i &lt; current.length; i += 1) {
+            current[i].removeAttribute(&quot;class&quot;);
+        }
+        textElements[index].setAttribute(&quot;class&quot;, &quot;sozi-toc-current&quot;);
+    }
+    
+    /*
+     * Makes the table of contents visible.
+     */
+    exports.show = function () {
+        translateXStart = translateX;
+        translateXEnd = translateXVisible;
+        animator.start(ANIMATION_TIME_MS); // FIXME depends on current elapsed time
+    };
+
+    /*
+     * Makes the table of contents invisible.
+     */
+    exports.hide = function () {
+        translateXStart = translateX;
+        translateXEnd = translateXHidden;
+        animator.start(ANIMATION_TIME_MS); // FIXME depends on current elapsed time
+    };
+
+    /*
+     * Returns true if the table of contents is visible, false otherwise.
+     */
+    exports.isVisible = function () {
+        return translateXEnd === translateXVisible;
+    };
+
+	sozi.events.listen(&quot;displayready&quot;, onDisplayReady);
+	sozi.events.listen(&quot;cleanup&quot;, exports.hide);
+	sozi.events.listen(&quot;framechange&quot;, onFrameChange);
+});
+
+/*
+ * Sozi - A presentation tool using the SVG standard
+ *
+ * Copyright (C) 2010-2012 Guillaume Savaton
+ *
+ * This program is dual licensed under the terms of the MIT license
+ * or the GNU General Public License (GPL) version 3.
+ * A copy of both licenses is provided in the doc/ folder of the
+ * official release of Sozi.
+ * 
+ * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend module.js
+ */
+
+/*global module:true sozi:true */
+
+module(&quot;sozi.animation&quot;, function (exports) {
+    var window = this,
+        TIME_STEP_MS = 40,
+        animators = [],
+        timer,
+        requestAnimationFrame = window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            window.oRequestAnimationFrame;
+
+    /*
+     * This function is called periodically and triggers the
+     * animation steps in all animators managed by this module.
+     *
+     * If all animators are removed from the list of animators
+     * managed by this module, then the periodic calling is disabled.
+     *
+     * This function can be called either through requestAnimationFrame()
+     * if the browser supports it, or through setInterval().
+     */
+    function loop(timestamp) {
+        var i;
+        if (animators.length &gt; 0) {
+            // If there is at least one animator,
+            // and if the browser provides animation frames,
+            // schedule this function to be called again in the next frame.
+            if (requestAnimationFrame) {
+                requestAnimationFrame(loop);
+            }
+
+            // Step all animators
+            for (i = 0; i &lt; animators.length; i += 1) {
+                animators[i].step(timestamp);
+            }
+        }
+        else {
+            // If all animators have been removed,
+            // and if this function is called periodically
+            // through setInterval, disable the periodic calling.
+            if (!requestAnimationFrame) {
+                window.clearInterval(timer);
+            }
+        }
+    }
+    
+    /*
+     * Start the animation loop.
+     *
+     * This function delegates the periodic update of all animators
+     * to the loop() function, either through requestAnimationFrame()
+     * if the browser supports it, or through setInterval().
+     */
+    function start() {
+        if (requestAnimationFrame) {
+            requestAnimationFrame(loop);
+        }
+        else {
+            timer = window.setInterval(function () {
+                loop(Date.now());
+            }, TIME_STEP_MS);
+        }
+    }
+    
+    /*
+     * Add a new animator object to the list of animators managed
+     * by this module.
+     *
+     * If the animator list was empty before calling this function,
+     * then the animation loop is started.
+     */
+    function addAnimator(animator) {
+        animators.push(animator);
+        if (animators.length === 1) {
+            start();
+        }
+    }
+    
+    /*
+     * Remove the given animator from the list of animators
+     * managed by this module.
+     */
+    function removeAnimator(animator) {
+        animators.splice(animators.indexOf(animator), 1);
+    }
+    
+    /*
+     * Construct a new animator.
+     *
+     * Parameters:
+     * - onStep: the function to call on each animation step
+     * - onDone: the function to call when the animation time is elapsed
+     *
+     * The onStep() function is expected to have the following parameters:
+     *  - progress: a number between 0 and 1 (included) corresponding to
+     *    the elapsed fraction of the total duration
+     *  - data: an optional object passed to the application-specific animation code
+     *
+     * The new animator is initialized in the &quot;stopped&quot; state.
+     */
+    exports.Animator = function (onStep, onDone) {
+        this.onStep = onStep;
+        this.onDone = onDone;
+
+        this.durationMs = 0;
+        this.data = {};
+        this.initialTime = 0;
+        this.started = false;
+    };
+
+    /*
+     * Start the current animator.
+     *
+     * Parameters:
+     *  - durationMs: the animation duration, in milliseconds
+     *  - data: an object to pass to the onStep function
+     *
+     * The current animator is added to the list of animators managed
+     * by this module and is put in the &quot;started&quot; state.
+     * It will be removed from the list automatically when the given duration
+     * has elapsed.
+     *
+     * The onStep() function is called once before starting the animation.
+     */
+    exports.Animator.prototype.start = function (durationMs, data) {
+        this.durationMs = durationMs;
+        this.data = data;
+        this.initialTime = Date.now();
+        this.onStep(0, this.data);
+
+        if (!this.started) {
+            this.started = true;
+            addAnimator(this);
+        }
+    };
+
+    /*
+     * Stop the current animator.
+     *
+     * The current animator is removed from the list of animators managed
+     * by this module and is put in the &quot;stopped&quot; state.
+     */
+    exports.Animator.prototype.stop = function () {
+        if (this.started) {
+            removeAnimator(this);
+            this.started = false;
+        }
+    };
+
+    /*
+     * Perform one animation step.
+     *
+     * This function is called automatically by the loop() function.
+     * It calls the onStep() function of this animator.
+     * If the animation duration has elapsed, the onDone() function of
+     * the animator is called.
+     */
+    exports.Animator.prototype.step = function (timestamp) {
+        var elapsedTime = timestamp - this.initialTime;
+        if (elapsedTime &gt;= this.durationMs) {
+            this.stop();
+            this.onStep(1, this.data);
+            this.onDone();
+        } else {
+            this.onStep(elapsedTime / this.durationMs, this.data);
+        }
+    };
+
+    /*
+     * The acceleration profiles.
+     *
+     * Each profile is a function that operates in the interval [0, 1]
+     * and produces a result in the same interval.
+     *
+     * These functions are meant to be called in onStep() functions
+     * to transform the progress indicator according to the desired
+     * acceleration effect.
+     */
+    exports.profiles = {
+        &quot;linear&quot;: function (x) {
+            return x;
+        },
+
+        &quot;accelerate&quot;: function (x) {
+            return Math.pow(x, 3);
+        },
+
+        &quot;strong-accelerate&quot;: function (x) {
+            return Math.pow(x, 5);
+        },
+
+        &quot;decelerate&quot;: function (x) {
+            return 1 - Math.pow(1 - x, 3);
+        },
+
+        &quot;strong-decelerate&quot;: function (x) {
+            return 1 - Math.pow(1 - x, 5);
+        },
+
+        &quot;accelerate-decelerate&quot;: function (x) {
+            var xs = x &lt;= 0.5 ? x : 1 - x,
+                y = Math.pow(2 * xs, 3) / 2;
+            return x &lt;= 0.5 ? y : 1 - y;
+        },
+
+        &quot;strong-accelerate-decelerate&quot;: function (x) {
+            var xs = x &lt;= 0.5 ? x : 1 - x,
+                y = Math.pow(2 * xs, 5) / 2;
+            return x &lt;= 0.5 ? y : 1 - y;
+        },
+
+        &quot;decelerate-accelerate&quot;: function (x) {
+            var xs = x &lt;= 0.5 ? x : 1 - x,
+                y = (1 - Math.pow(1 - 2 * xs, 2)) / 2;
+            return x &lt;= 0.5 ? y : 1 - y;
+        },
+
+        &quot;strong-decelerate-accelerate&quot;: function (x) {
+            var xs = x &lt;= 0.5 ? x : 1 - x,
+                y = (1 - Math.pow(1 - 2 * xs, 3)) / 2;
+            return x &lt;= 0.5 ? y : 1 - y;
+        }
+    };
+});
+
+
+/*
+ * Sozi - A presentation tool using the SVG standard
+ *
+ * Copyright (C) 2010-2012 Guillaume Savaton
+ *
+ * This program is dual licensed under the terms of the MIT license
+ * or the GNU General Public License (GPL) version 3.
+ * A copy of both licenses is provided in the doc/ folder of the
+ * official release of Sozi.
+ * 
+ * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend module.js
+ * @depend events.js
+ */
+
+/*global module:true sozi:true */
+
+module(&quot;sozi.display&quot;, function (exports) {
+    var window = this,
+        document = window.document,
+        initialBBox,
+        SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
+
+    exports.layers = {};
+
+    /*
+     * Initializes the current Display.
+     *
+     * This method prepares the DOM representation of the current SVG document.
+     * All the image is embedded into a global &quot;g&quot; element on which transformations will be applied.
+     * A clipping rectangle is added.
+     *
+     * This method must be called when the document is ready to be manipulated.
+     */
+    function onDocumentReady() {
+        var l, svgClippedGroup, svgClipPath, idLayer,
+            svgRoot = document.documentElement; // TODO check SVG tag
+            
+        initialBBox = svgRoot.getBBox();
+        svgRoot.setAttribute(&quot;width&quot;, window.innerWidth);
+        svgRoot.setAttribute(&quot;height&quot;, window.innerHeight);
+        
+        // Initialize display geometry for all layers
+        for (l = 0; l &lt; sozi.document.idLayers.length; l += 1) {
+            idLayer = sozi.document.idLayers[l];
+            exports.layers[idLayer] = {
+                geometry: {
+                    cx: 0,
+                    cy: 0,
+                    width: 1,
+                    height: 1,
+                    rotate: 0,
+                    clip: true
+                },
+                svgClipRect: document.createElementNS(SVG_NS, &quot;rect&quot;),
+                svgLayer: document.getElementById(idLayer)
+            };
+
+            // Add a clipping path
+            svgClipPath = document.createElementNS(SVG_NS, &quot;clipPath&quot;);
+            svgClipPath.setAttribute(&quot;id&quot;, &quot;sozi-clip-path-&quot; + idLayer);
+            svgClipPath.appendChild(exports.layers[idLayer].svgClipRect);
+            svgRoot.appendChild(svgClipPath);
+
+            // Create a group that will support the clipping operation
+            // and move the layer group into that new group
+            svgClippedGroup = document.createElementNS(SVG_NS, &quot;g&quot;);
+            svgClippedGroup.setAttribute(&quot;clip-path&quot;, &quot;url(#sozi-clip-path-&quot; + idLayer + &quot;)&quot;);
+            
+            // Adding the layer group to the clipped group must preserve layer ordering
+            svgRoot.insertBefore(svgClippedGroup, exports.layers[idLayer].svgLayer);
+            svgClippedGroup.appendChild(exports.layers[idLayer].svgLayer);
+        }
+
+        sozi.events.fire(&quot;displayready&quot;);
+    }
+
+    /*
+     * Resizes the SVG document to fit the browser window.
+     */
+    function resize() {
+        var svgRoot = document.documentElement;
+        svgRoot.setAttribute(&quot;width&quot;, window.innerWidth);
+        svgRoot.setAttribute(&quot;height&quot;, window.innerHeight);
+        exports.update();
+    }
+
+    /*
+     * Returns an object with the geometrical properties of the current display.
+     *
+     * Attributes of the returned object :
+     *    - x, y: the location of the top-left corner, in pixels
+     *    - width, height: the size of the visible area, in pixels
+     *    - scale: the scale factor to apply to the SVG document so that is fits the visible area
+     */
+    function getFrameGeometry(idLayer) {
+        var g = exports.layers[idLayer].geometry,
+            result = {};
+        result.scale = Math.min(window.innerWidth / g.width, window.innerHeight / g.height);
+        result.width = g.width * result.scale;
+        result.height = g.height * result.scale;
+        result.x = (window.innerWidth - result.width) / 2;
+        result.y = (window.innerHeight - result.height) / 2;
+        return result;
+    }
+
+    /*
+     * Returns the geometrical properties of the frame that can be
+     * created from a given element.
+     *
+     * If the element is a rectangle, the properties of the frames are based
+     * on the geometrical properties of the rectangle.
+     * Otherwise, the properties of the frame are based on the bounding box
+     * of the given element.
+     *
+     * Parameters:
+     *    - svgElement: an element from the SVG DOM
+     *
+     * Returns:
+     *    - The default size, translation and rotation for the given element 
+     */
+    exports.getElementGeometry = function (svgElement) {
+        var x, y, w, h, b, c,
+            matrix = svgElement.getCTM(),
+            scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
+
+        if (svgElement.nodeName === &quot;rect&quot;) {
+            x = svgElement.x.baseVal.value;
+            y = svgElement.y.baseVal.value;
+            w = svgElement.width.baseVal.value;
+            h = svgElement.height.baseVal.value;
+        } else {
+            b = svgElement.getBBox();
+            x = b.x;
+            y = b.y;
+            w = b.width;
+            h = b.height;
+        }
+
+        c = document.documentElement.createSVGPoint();
+        c.x = x + w / 2;
+        c.y = y + h / 2;
+        c = c.matrixTransform(matrix);
+
+        return {
+            cx: c.x,
+            cy: c.y,
+            width: w * scale,
+            height: h * scale,
+            rotate: Math.atan2(matrix.b, matrix.a) * 180 / Math.PI
+        };
+    };
+
+    /*
+     * Returns the geometrical properties of the SVG document
+     *
+     * Returns:
+     *    - The default size, translation and rotation for the document's bounding box
+     */
+    exports.getDocumentGeometry = function () {
+        var idLayer,
+            result = { layers: {} },
+            value = {
+                geometry: {
+                    cx: initialBBox.x + initialBBox.width / 2,
+                    cy: initialBBox.y + initialBBox.height / 2,
+                    width: initialBBox.width,
+                    height: initialBBox.height,
+                    rotate: 0,
+                    clip: false
+                }
+            };
+        for (idLayer in exports.layers) {
+            if (exports.layers.hasOwnProperty(idLayer)) {
+                result.layers[idLayer] = value;
+            }
+        }
+        return result;
+    };
+
+    /*
+     * Apply geometrical transformations to the image according to the current
+     * geometrical attributes of this Display.
+     *
+     * This method is called automatically when the window is resized.
+     */
+    exports.update = function () {
+        var idLayer, fg, lg, cr,
+            translateX, translateY;
+
+        for (idLayer in exports.layers) {
+            if (exports.layers.hasOwnProperty(idLayer)) {
+                lg = exports.layers[idLayer].geometry;
+                fg = getFrameGeometry(idLayer);
+                
+                translateX = -lg.cx + lg.width / 2  + fg.x / fg.scale;
+                translateY = -lg.cy + lg.height / 2 + fg.y / fg.scale;
+
+                // Compute and apply the geometrical transformation to the layer group
+                exports.layers[idLayer].svgLayer.setAttribute(&quot;transform&quot;,
+                    &quot;scale(&quot; + fg.scale + &quot;)&quot; +
+                    &quot;translate(&quot; + translateX + &quot;,&quot; + translateY + &quot;)&quot; +
+                    &quot;rotate(&quot; + (-lg.rotate) + ',' + lg.cx + &quot;,&quot; + lg.cy + &quot;)&quot;
+                );
+
+                // Adjust the location and size of the clipping rectangle and the frame rectangle
+                cr = exports.layers[idLayer].svgClipRect;
+                cr.setAttribute(&quot;x&quot;, lg.clip ? fg.x : 0);
+                cr.setAttribute(&quot;y&quot;, lg.clip ? fg.y : 0);
+                cr.setAttribute(&quot;width&quot;, lg.clip ? fg.width : window.innerWidth);
+                cr.setAttribute(&quot;height&quot;, lg.clip ? fg.height : window.innerHeight);
+            }
+        }
+    };
+
+    /*
+     * Transform the SVG document to show the given frame.
+     *
+     * Parameters:
+     *    - frame: the frame to show
+     */
+    exports.showFrame = function (frame) {
+        var idLayer, lg, fg, attr;
+        for (idLayer in frame.layers) {
+            if (frame.layers.hasOwnProperty(idLayer)) {
+                fg = frame.layers[idLayer].geometry;
+                lg = exports.layers[idLayer].geometry;
+                for (attr in fg) {
+                    if (fg.hasOwnProperty(attr)) {
+                        lg[attr] = fg[attr];
+                    }
+                }
+            }
+        }
+        exports.update();
+    };
+
+    /*
+     * Apply an additional translation to the SVG document based on onscreen coordinates.
+     *
+     * Parameters:
+     *    - deltaX: the horizontal displacement, in pixels
+     *    - deltaY: the vertical displacement, in pixels
+     */
+    exports.drag = function (deltaX, deltaY) {
+        var idLayer, lg, fg,
+            angleRad;
+        
+        for (idLayer in exports.layers) {
+            if (exports.layers.hasOwnProperty(idLayer)) {
+                lg = exports.layers[idLayer].geometry;
+                fg = getFrameGeometry(idLayer);
+                angleRad = lg.rotate * Math.PI / 180;
+                lg.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / fg.scale;
+                lg.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / fg.scale;
+                lg.clip = false;
+            }
+        }
+        exports.update();
+    };
+
+    /*
+     * Zooms the display with the given factor.
+     *
+     * The zoom is centered around (x, y) with respect to the center of the display area.
+     */
+    exports.zoom = function (factor, x, y) {
+        var idLayer,
+            deltaX = (1 - factor) * (x - window.innerWidth / 2),
+            deltaY = (1 - factor) * (y - window.innerHeight / 2);
+            
+        for (idLayer in exports.layers) {
+            if (exports.layers.hasOwnProperty(idLayer)) {
+                exports.layers[idLayer].geometry.width /= factor;
+                exports.layers[idLayer].geometry.height /= factor;
+            }
+        }
+        
+        exports.drag(deltaX, deltaY);
+    };
+
+    /*
+     * Rotate the display with the given angle.
+     *
+     * The rotation is centered around the center of the display area.
+     */
+    exports.rotate = function (angle) {
+        var idLayer;
+        for (idLayer in exports.layers) {
+            if (exports.layers.hasOwnProperty(idLayer)) {
+                exports.layers[idLayer].geometry.rotate += angle;
+                exports.layers[idLayer].geometry.rotate %= 360;
+            }
+        }
+        exports.update();
+    };
+    
+    sozi.events.listen(&quot;documentready&quot;, onDocumentReady);
+    window.addEventListener(&quot;resize&quot;, resize, false);
+});
+
+/*
+ * Sozi - A presentation tool using the SVG standard
+ *
+ * Copyright (C) 2010-2012 Guillaume Savaton
+ *
+ * This program is dual licensed under the terms of the MIT license
+ * or the GNU General Public License (GPL) version 3.
+ * A copy of both licenses is provided in the doc/ folder of the
+ * official release of Sozi.
+ * 
+ * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend module.js
+ * @depend events.js
+ * @depend animation.js
+ * @depend display.js
+ */
+
+/*global module:true sozi:true */
+
+module(&quot;sozi.player&quot;, function (exports) {
+    var display = sozi.display,
+        window = this,
+        animator,
+        nextFrameTimeout,
+        DEFAULT_DURATION_MS = 500,
+        DEFAULT_ZOOM_PERCENT = -10,
+        DEFAULT_PROFILE = &quot;linear&quot;,
+        sourceFrameIndex = 0,
+        currentFrameIndex = 0,
+        playing = false,
+        waiting = false;
+
+    /*
+     * Event handler: animation step.
+     *
+     * This method is called periodically by animator after the animation
+     * has been started, and until the animation time is elapsed.
+     *
+     * Parameter data provides the following information:
+     *    - initialState and finalState contain the geometrical properties of the display
+     *      at the start and end of the animation.
+     *    - profile is a reference to the speed profile function to use.
+     *    - zoomWidth and zoomHeight are the parameters of the zooming polynomial if the current
+     *      animation has a non-zero zooming effect.
+     *
+     * Parameter progress is a float number between 0 (start of the animation)
+     * and 1 (end of the animation).
+     */
+    function onAnimationStep(progress, data) {
+        var profileProgress, profileRemaining,
+            idLayer, lg, attr, ps;
+
+        for (idLayer in data) {
+            if (data.hasOwnProperty(idLayer)) {
+                lg = display.layers[idLayer].geometry;
+                
+                profileProgress = data[idLayer].profile(progress);
+                profileRemaining = 1 - profileProgress;
+                
+                for (attr in data[idLayer].initialState) {
+                    if (data[idLayer].initialState.hasOwnProperty(attr)) {
+                        if (typeof data[idLayer].initialState[attr] === &quot;number&quot; &amp;&amp; typeof data[idLayer].finalState[attr] === &quot;number&quot;) {
+                            lg[attr] = data[idLayer].finalState[attr] * profileProgress + data[idLayer].initialState[attr] * profileRemaining;
+                        }
+                    }
+                }
+
+                if (data[idLayer].zoomWidth &amp;&amp; data[idLayer].zoomWidth.k !== 0) {
+                    ps = progress - data[idLayer].zoomWidth.ts;
+                    lg.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
+                }
+
+                if (data[idLayer].zoomHeight &amp;&amp; data[idLayer].zoomHeight.k !== 0) {
+                    ps = progress - data[idLayer].zoomHeight.ts;
+                    lg.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
+                }
+
+                lg.clip = data[idLayer].finalState.clip;
+            }
+        }
+        
+        display.update();
+    }
+
+    /*
+     * Starts waiting before moving to the next frame.
+     *
+     * It the current frame has a timeout set, this method
+     * will register a timer to move to the next frame automatically
+     * after the specified time.
+     *
+     * If the current frame is the last, the presentation will
+     * move to the first frame.
+     */
+    function waitTimeout() {
+        var index;
+        if (sozi.document.frames[currentFrameIndex].timeoutEnable) {
+            waiting = true;
+            index = (currentFrameIndex + 1) % sozi.document.frames.length;
+            nextFrameTimeout = window.setTimeout(function () {
+                    exports.moveToFrame(index);
+                },
+                sozi.document.frames[currentFrameIndex].timeoutMs
+            );
+        }
+    }
+
+    /*
+     * Event handler: animation done.
+     *
+     * This method is called by animator when the current animation is finished.
+     *
+     * If the animation was a transition in the normal course of the presentation,
+     * then we call the waitTimeout method to process the timeout property of the current frame.
+     */
+    function onAnimationDone() {
+        sourceFrameIndex = currentFrameIndex;
+        if (playing) {
+            waitTimeout();
+        }
+    }
+
+    /*
+     * Starts the presentation from the given frame index (0-based).
+     *
+     * This method sets the &quot;playing&quot; flag, shows the desired frame
+     * and calls waitTimeout.
+     */
+    exports.startFromIndex = function (index) {
+        playing = true;
+        waiting = false;
+        sourceFrameIndex = index;
+        currentFrameIndex = index;
+        display.showFrame(sozi.document.frames[index]);
+        waitTimeout();
+    };
+
+    exports.restart = function () {
+        exports.startFromIndex(currentFrameIndex);
+    };
+
+    /*
+     * Stops the presentation.
+     *
+     * This method clears the &quot;playing&quot;.
+     * If the presentation was in &quot;waiting&quot; mode due to a timeout
+     * in the current frame, then it stops waiting.
+     * The current animation is stopped in its current state.
+     */
+    exports.stop = function () {
+        animator.stop();
+        if (waiting) {
+            window.clearTimeout(nextFrameTimeout);
+            waiting = false;
+        }
+        playing = false;
+        sourceFrameIndex = currentFrameIndex;
+    };
+
+    function getZoomData(zoomPercent, s0, s1) {
+        var result = {
+                ss: ((zoomPercent &lt; 0) ? Math.max(s0, s1) : Math.min(s0, s1)) * (100 - zoomPercent) / 100,
+                ts: 0.5,
+                k: 0
+            },
+            a, b, c, d, u, v;
+
+        if (zoomPercent !== 0) {
+            a = s0 - s1;
+            b = s0 - result.ss;
+            c = s1 - result.ss;
+
+            if (a !== 0) {
+                d = Math.sqrt(b * c);
+
+                u = (b - d) / a;
+                v = (b + d) / a;
+
+                result.ts = (u &gt; 0 &amp;&amp; u &lt;= 1) ? u : v;
+            }
+
+            result.k = b / result.ts / result.ts;
+        }
+
+        return result;
+    }
+
+    /*
+     * Jump to a frame with the given index (0-based).
+     *
+     * This method does not animate the transition from the current
+     * state of the display to the desired frame.
+     *
+     * The presentation is stopped: if a timeout has been set for the
+     * target frame, it will be ignored.
+     *
+     * The URL hash is set to the given frame index (1-based).
+     */
+    exports.jumpToFrame = function (index) {
+        exports.stop();
+        sozi.events.fire(&quot;cleanup&quot;);
+
+        sourceFrameIndex = index;
+        currentFrameIndex = index;
+        display.showFrame(sozi.document.frames[index]);
+
+        sozi.events.fire(&quot;framechange&quot;, index);
+    };
+
+    /*
+     * Returns an associative array where keys are layer names
+     * and values are objects in the form { initialState: finalState: profile: zoomWidth: zoomHeight:}
+     */
+    function getAnimationData(initialState, finalState, zoomPercent, profile) {
+        var g, idLayer, zp,
+            data = {};
+        
+        for (idLayer in initialState.layers) {
+            if (initialState.layers.hasOwnProperty(idLayer)) {
+                data[idLayer] = {
+                    initialState: {},
+                    finalState: {}
+                };
+                
+                data[idLayer].profile = profile || finalState.layers[idLayer].transitionProfile;
+
+                // Copy all properties of given final state
+                for (g in initialState.layers[idLayer].geometry) {
+                    if (initialState.layers[idLayer].geometry.hasOwnProperty(g)) {
+                        data[idLayer].initialState[g] = initialState.layers[idLayer].geometry[g];
+                        // If the current layer is referenced in final state, copy the final properties
+                        // else, copy initial state to final state for the current layer. 
+                        if (finalState.layers.hasOwnProperty(idLayer)) {
+                            data[idLayer].finalState[g] = finalState.layers[idLayer].geometry[g];
+                        }
+                        else {
+                            data[idLayer].finalState[g] = initialState.layers[idLayer].geometry[g];
+                        }
+                    }
+                }
+
+                // Keep the smallest angle difference between initial state and final state
+                data[idLayer].initialState.rotate = (data[idLayer].initialState.rotate - 180) % 360 + 180;
+                data[idLayer].finalState.rotate = (data[idLayer].finalState.rotate - 180) % 360 + 180;
+        
+                if (data[idLayer].finalState.rotate - data[idLayer].initialState.rotate &gt; 180) {
+                    data[idLayer].finalState.rotate -= 360;
+                }
+                else if (data[idLayer].finalState.rotate - data[idLayer].initialState.rotate &lt; -180) {
+                    data[idLayer].initialState.rotate -= 360;
+                }
+
+                zp = zoomPercent || finalState.layers[idLayer].transitionZoomPercent;
+                
+                if (zp &amp;&amp; finalState.layers.hasOwnProperty(idLayer)) {
+                    data[idLayer].zoomWidth = getZoomData(zp,
+                        initialState.layers[idLayer].geometry.width,
+                        finalState.layers[idLayer].geometry.width);
+                    data[idLayer].zoomHeight = getZoomData(zp,
+                        initialState.layers[idLayer].geometry.height,
+                        finalState.layers[idLayer].geometry.height);
+                }
+            }
+        }
+        
+        return data;
+    }
+    
+    exports.previewFrame = function (index) {
+        currentFrameIndex = index;
+        animator.start(DEFAULT_DURATION_MS, 
+            getAnimationData(display, sozi.document.frames[index],
+                DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]));
+        sozi.events.fire(&quot;framechange&quot;, index);
+    };
+
+    /*
+     * Moves to a frame with the given index (0-based).
+     *
+     * This method animates the transition from the current
+     * state of the display to the desired frame.
+     *
+     * If the given frame index corresponds to the next frame in the list,
+     * the transition properties of the next frame are used.
+     * Otherwise, default transition properties are used.
+     *
+     * The URL hash is set to the given frame index (1-based).
+     */
+    exports.moveToFrame = function (index) {
+        var durationMs, zoomPercent, profile;
+
+        if (waiting) {
+            window.clearTimeout(nextFrameTimeout);
+            waiting = false;
+        }
+
+        if (index === (currentFrameIndex + 1) % sozi.document.frames.length) {
+            durationMs = sozi.document.frames[index].transitionDurationMs;
+            zoomPercent = undefined; // Set for each layer
+            profile = undefined; // Set for each layer
+        }
+        else {
+            durationMs = DEFAULT_DURATION_MS;
+            zoomPercent = DEFAULT_ZOOM_PERCENT;
+            profile = sozi.animation.profiles[DEFAULT_PROFILE];
+        }
+
+        sozi.events.fire(&quot;cleanup&quot;);
+
+        playing = true;
+        currentFrameIndex = index;
+
+        animator.start(durationMs, getAnimationData(display, sozi.document.frames[index], zoomPercent, profile));
+
+        sozi.events.fire(&quot;framechange&quot;, index);
+    };
+
+    /*
+     * Moves to the first frame of the presentation.
+     */
+    exports.moveToFirst = function () {
+        exports.moveToFrame(0);
+    };
+
+    /*
+     * Jumps to the previous frame
+     */
+    exports.jumpToPrevious = function () {
+        var index = currentFrameIndex;
+        if (!animator.started || sourceFrameIndex &lt;= currentFrameIndex) {
+            index -= 1;
+        }
+        if (index &gt;= 0) {
+            exports.jumpToFrame(index);
+        }
+    };
+
+    /*
+     * Moves to the previous frame.
+     */
+    exports.moveToPrevious = function () {
+        var index = currentFrameIndex,
+            frame;
+
+        for (index -= 1; index &gt;= 0; index -= 1) {
+            frame = sozi.document.frames[index];
+            if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
+                exports.moveToFrame(index);
+                break;
+            }
+        }
+    };
+
+    /*
+     * Jumps to the next frame
+     */
+    exports.jumpToNext = function () {
+        var index = currentFrameIndex;
+        if (!animator.started || sourceFrameIndex &gt;= currentFrameIndex) {
+            index += 1;
+        }
+        if (index &lt; sozi.document.frames.length) {
+            exports.jumpToFrame(index);
+        }
+    };
+
+    /*
+     * Moves to the next frame.
+     */
+    exports.moveToNext = function () {
+        if (currentFrameIndex &lt; sozi.document.frames.length - 1 || sozi.document.frames[currentFrameIndex].timeoutEnable) {
+            exports.moveToFrame((currentFrameIndex + 1) % sozi.document.frames.length);
+        }
+    };
+
+    /*
+     * Moves to the last frame of the presentation.
+     */
+    exports.moveToLast = function () {
+        exports.moveToFrame(sozi.document.frames.length - 1);
+    };
+
+    /*
+     * Restores the current frame.
+     *
+     * This method restores the display to fit the current frame,
+     * e.g. after the display has been zoomed or dragged.
+     */
+    exports.moveToCurrent = function () {
+        exports.moveToFrame(currentFrameIndex);
+    };
+
+    /*
+     * Shows all the document in the browser window.
+     */
+    exports.showAll = function () {
+        exports.stop();
+        sozi.events.fire(&quot;cleanup&quot;);
+        animator.start(DEFAULT_DURATION_MS, 
+            getAnimationData(display, display.getDocumentGeometry(),
+                DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]
+            )
+        );
+    };
+
+    /*
+     * Event handler: display ready.
+     */
+    function onDisplayReady() {
+        exports.startFromIndex(sozi.location.getFrameIndex());
+    }    
+
+    animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);
+
+    sozi.events.listen(&quot;displayready&quot;, onDisplayReady);
+});
+
+/*
+ * Sozi - A presentation tool using the SVG standard
+ *
+ * Copyright (C) 2010-2012 Guillaume Savaton
+ *
+ * This program is dual licensed under the terms of the MIT license
+ * or the GNU General Public License (GPL) version 3.
+ * A copy of both licenses is provided in the doc/ folder of the
+ * official release of Sozi.
+ * 
+ * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend module.js
+ * @depend player.js
+ * @depend display.js
+ */
+
+/*global module:true sozi:true */
+
+module(&quot;sozi.actions&quot;, function (exports) {
+    var player = sozi.player,
+        display = sozi.display,
+        window = this,
+        document = window.document,
+        DRAG_BUTTON = 0, // Left button
+        TOC_BUTTON = 1, // Middle button
+        SCALE_FACTOR = 1.05,
+        ROTATE_STEP = 5,
+        dragButtonIsDown = false,
+        dragged = false,
+        dragClientX = 0,
+        dragClientY = 0;
+    
+    /*
+     * Zooms the display in the given direction.
+     *
+     * Only the sign of direction is used:
+     *    - zoom in when direction &gt; 0
+     *    - zoom out when direction &lt;= 0
+     *
+     * The scaling is centered around point (x, y).
+     */
+    function zoom(direction, x, y) {
+        player.stop();
+        display.zoom(direction &gt; 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
+    }
+    
+    /*
+     * Rotate the display in the given direction.
+     *
+     * Only the sign of direction is used:
+     *    - rotate anticlockwise when direction &gt; 0
+     *    - rotate clockwise when direction &lt;= 0
+     */
+    function rotate(direction) {
+        player.stop();
+        display.rotate(direction &gt; 0 ? ROTATE_STEP : -ROTATE_STEP);
+    }
+    
+    /*
+     * Show/hide the frame list.
+     *
+     * The presentation stops when the frame list is showed,
+     * and restarts when the frame list is hidden.
+     */
+    function toggleFrameList() {
+        if (sozi.framelist.isVisible()) {
+            sozi.framelist.hide();
+            player.restart();
+        } else {
+            player.stop();
+            sozi.framelist.show();
+        }
+    }
+
+    /*
+     * Event handler: mouse down.
+     *
+     * When the left button is pressed, we register the current coordinates
+     * in case the mouse will be dragged. Flag &quot;dragButtonIsDown&quot; is set until
+     * the button is released (onMouseUp). This flag is used by onMouseMove.
+     *
+     * When the middle button is pressed, the table of contents is shown or hidden.
+     */
+    function onMouseDown(evt) {
+        if (evt.button === DRAG_BUTTON) {
+            dragButtonIsDown = true;
+            dragged = false;
+            dragClientX = evt.clientX;
+            dragClientY = evt.clientY;
+        } else if (evt.button === TOC_BUTTON) {
+            toggleFrameList();
+        }
+        evt.stopPropagation();
+    }
+
+    /*
+     * Event handler: mouse move.
+     *
+     * If the left mouse button is down, then the mouse move is a drag action.
+     * This method computes the displacement since the button was pressed or
+     * since the last move, and updates the reference coordinates for the next move.
+     */
+    function onMouseMove(evt) {
+        if (dragButtonIsDown) {
+            player.stop();
+            dragged = true;
+            sozi.events.fire(&quot;cleanup&quot;);
+            display.drag(evt.clientX - dragClientX, evt.clientY - dragClientY);
+            dragClientX = evt.clientX;
+            dragClientY = evt.clientY;
+        }
+        evt.stopPropagation();
+    }
+
+    /*
+     * Event handler: mouse up.
+     *
+     * Releasing the left button resets the &quot;dragButtonIsDown&quot; flag.
+     */
+    function onMouseUp(evt) {
+        if (evt.button === DRAG_BUTTON) {
+            dragButtonIsDown = false;
+        }
+        evt.stopPropagation();
+    }
+
+    /*
+     * Event handler: context menu (i.e. right click).
+     *
+     * Right click goes one frame back.
+     *
+     * There is no &quot;click&quot; for the right mouse button and the menu can't
+     * be prevented in &quot;onMouseDown&quot;.
+     */
+    function onContextMenu(evt) {
+        player.moveToPrevious();
+        evt.stopPropagation();
+        evt.preventDefault();
+    }
+
+    /*
+     * Event handler: mouse click.
+     *
+     * Left-click moves the presentation to the next frame.
+     *
+     * No &quot;click&quot; event is generated for the middle button in Firefox.
+     * See &quot;onMouseDown&quot; for middle click handling.
+     *
+     * Dragging the mouse produces a &quot;click&quot; event when the button is released.
+     * If flag &quot;dragged&quot; was set by &quot;onMouseMove&quot;, then the click event is the result
+     * of a drag action.
+     */
+    function onClick(evt) {
+        if (!dragged &amp;&amp; evt.button !== TOC_BUTTON) {
+            player.moveToNext();
+        }
+        evt.stopPropagation();
+    }
+
+    /*
+     * Event handler: mouse wheel.
+     *
+     * Rolling the mouse wheel stops the presentation and zooms the current display.
+     */
+    function onWheel(evt) {
+        var delta = 0;
+        if (!evt) {
+            evt = window.event;
+        }
+        if (evt.wheelDelta) { // IE and Opera
+            delta = evt.wheelDelta; 
+            if (window.opera) { // Opera
+                delta = -delta;
+            }
+        } else if (evt.detail) { // Mozilla
+            delta = -evt.detail;
+        }
+
+        if (delta !== 0) {
+            if (evt.shiftKey) {
+                rotate(delta);
+            } else {
+                zoom(delta, evt.clientX, evt.clientY);
+            }
+        }
+        evt.stopPropagation();
+        evt.preventDefault();
+    }
+
+    /*
+     * Event handler: key press.
+     *
+     * Keyboard handling is split into two methods: onKeyPress and onKeyDown
+     * in order to get the same behavior in Mozilla and Webkit.
+     *
+     * This method handles character keys &quot;+&quot;, &quot;-&quot;, &quot;=&quot;, &quot;F&quot; and &quot;T&quot;.
+     */
+    function onKeyPress(evt) {
+        // Keys with modifiers are ignored
+        if (evt.altKey || evt.ctrlKey || evt.metaKey) {
+            return;
+        }
+
+        switch (evt.charCode) {
+        case 43: // +
+            zoom(1, window.innerWidth / 2, window.innerHeight / 2);
+            break;
+        case 45: // -
+            zoom(-1, window.innerWidth / 2, window.innerHeight / 2);
+            break;
+        case 61: // =
+            player.moveToCurrent();
+            break;
+        case 70: // F
+        case 102: // f
+            player.showAll();
+            break;
+        case 84: // T
+        case 116: // t
+            toggleFrameList();
+            break;
+        case 82: // R
+            rotate(-1);
+            break;
+        case 114: // r
+            rotate(1);
+            break;
+        }
+
+        evt.stopPropagation();
+    }
+
+    /*
+     * Event handler: key down.
+     *
+     * Keyboard handling is split into two methods: onKeyPress and onKeyDown
+     * in order to get the same behavior in Mozilla and Webkit.
+     *
+     * This method handles navigation keys (arrows, page up/down, home, end)
+     * and the space and enter keys.
+     */
+    function onKeyDown(evt) {
+        // Keys with modifiers are ignored
+        if (evt.altKey || evt.ctrlKey || evt.metaKey) {
+            return;
+        }
+
+        switch (evt.keyCode) {
+        case 36: // Home
+            player.moveToFirst();
+            break;
+        case 35: // End
+            player.moveToLast();
+            break;
+        case 38: // Arrow up
+            player.jumpToPrevious();
+            break;
+        case 33: // Page up
+        case 37: // Arrow left
+            player.moveToPrevious();
+            break;
+        case 40: // Arrow down
+            player.jumpToNext();
+            break;
+        case 34: // Page down
+        case 39: // Arrow right
+        case 13: // Enter
+        case 32: // Space
+            player.moveToNext();
+            break;
+        }
+        evt.stopPropagation();
+    }
+
+    function onLoad() {
+        var svgRoot = document.documentElement;
+
+        // TODO also use shift-click as an alternative for middle-click
+        svgRoot.addEventListener(&quot;click&quot;, onClick, false);
+        svgRoot.addEventListener(&quot;mousedown&quot;, onMouseDown, false);
+        svgRoot.addEventListener(&quot;mouseup&quot;, onMouseUp, false);
+        svgRoot.addEventListener(&quot;mousemove&quot;, onMouseMove, false);
+        svgRoot.addEventListener(&quot;keypress&quot;, onKeyPress, false);
+        svgRoot.addEventListener(&quot;keydown&quot;, onKeyDown, false);
+        svgRoot.addEventListener(&quot;contextmenu&quot;, onContextMenu, false);
+        svgRoot.addEventListener(&quot;DOMMouseScroll&quot;, onWheel, false); // Mozilla
+        window.onmousewheel = onWheel;
+    }
+
+    window.addEventListener(&quot;load&quot;, onLoad, false);
+});
+
+/*
+* Sozi - A presentation tool using the SVG standard
+*
+* Copyright (C) 2010-2012 Guillaume Savaton
+*
+* This program is dual licensed under the terms of the MIT license
+* or the GNU General Public License (GPL) version 3.
+* A copy of both licenses is provided in the doc/ folder of the
+* official release of Sozi.
+* 
+* See http://sozi.baierouge.fr/wiki/en:license for details.
+*
+* @depend module.js
+* @depend events.js
+*/
+
+/*global module:true sozi:true */
+
+module(&quot;sozi.document&quot;, function (exports) {
+    var window = this,
+        document = window.document,
+        SOZI_NS = &quot;http://sozi.baierouge.fr&quot;,
+        DEFAULTS = {
+            &quot;title&quot;: &quot;Untitled&quot;,
+            &quot;sequence&quot;: &quot;0&quot;,
+            &quot;hide&quot;: &quot;true&quot;,
+            &quot;clip&quot;: &quot;true&quot;,
+            &quot;timeout-enable&quot;: &quot;false&quot;,
+            &quot;timeout-ms&quot;: &quot;5000&quot;,
+            &quot;transition-duration-ms&quot;: &quot;1000&quot;,
+            &quot;transition-zoom-percent&quot;: &quot;0&quot;,
+            &quot;transition-profile&quot;: &quot;linear&quot;
+        };
+
+    exports.frames = [];
+    exports.idLayers = [];
+    
+    /*
+    * Returns the value of an attribute of a given Sozi SVG element.
+    *
+    * If the attribute is not set, then a default value is returned.
+    * See DEFAULTS.
+    */
+    function readAttribute(soziElement, attr) {
+        var value = soziElement.getAttributeNS(SOZI_NS, attr);
+        return value === &quot;&quot; ? DEFAULTS[attr] : value;
+    }
+
+    function readLayerProperties(frame, idLayer, soziElement) {
+        var layer = frame.layers[idLayer] = frame.layers[idLayer] || {
+                idLayer: idLayer, // FIXME never used
+                geometry: {
+                    clip: DEFAULTS.clip
+                }
+            },
+            clip = layer.geometry.clip,
+            svgElement;
+        
+        if (typeof layer.hide === &quot;undefined&quot; || soziElement.hasAttributeNS(SOZI_NS, &quot;hide&quot;)) {
+            layer.hide = readAttribute(soziElement, &quot;hide&quot;) === &quot;true&quot;;
+        }
+
+        if (typeof layer.transitionZoomPercent === &quot;undefined&quot; || soziElement.hasAttributeNS(SOZI_NS, &quot;transition-zoom-percent&quot;)) {
+            layer.transitionZoomPercent = parseInt(readAttribute(soziElement, &quot;transition-zoom-percent&quot;), 10);
+        }
+
+        if (typeof layer.transitionProfile === &quot;undefined&quot; || soziElement.hasAttributeNS(SOZI_NS, &quot;transition-profile&quot;)) {
+            layer.transitionProfile = sozi.animation.profiles[readAttribute(soziElement, &quot;transition-profile&quot;) || &quot;linear&quot;];
+        }
+        
+        if (soziElement.hasAttributeNS(SOZI_NS, &quot;refid&quot;)) {
+            // The previous value of the &quot;clip&quot; attribute will be preserved
+            // when setting the new geometry object.
+            svgElement = document.getElementById(soziElement.getAttributeNS(SOZI_NS, &quot;refid&quot;));
+            if (svgElement) {
+                if (layer.hide) {
+                    svgElement.style.visibility = &quot;hidden&quot;;
+                }
+                layer.geometry = sozi.display.getElementGeometry(svgElement);
+                layer.geometry.clip = clip;
+            }
+        }
+            
+        if (soziElement.hasAttributeNS(SOZI_NS, &quot;clip&quot;)) {
+            layer.geometry.clip = readAttribute(soziElement, &quot;clip&quot;) === &quot;true&quot;;
+        }
+    }
+    
+    /*
+    * Builds the list of frames from the current document.
+    *
+    * This method collects all elements with tag &quot;sozi:frame&quot; and
+    * retrieves their geometrical and animation attributes.
+    * SVG elements that should be hidden during the presentation are hidden.
+    *
+    * The resulting list is available in frames, sorted by frame indices.
+    */
+    function readFrames() {
+        var soziFrames = document.getElementsByTagNameNS(SOZI_NS, &quot;frame&quot;),
+            soziLayers, idLayer,
+            svgWrapper,
+            svgRoot = document.documentElement,
+            f, l, n,
+            newFrame,
+            SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
+
+        soziLayers = document.getElementsByTagNameNS(SOZI_NS, &quot;layer&quot;);
+        if (soziLayers.length === 0) {
+            // Create a default layer if the document has none
+            // and move all the document into the new layer
+            svgWrapper = document.createElementNS(SVG_NS, &quot;g&quot;);
+            svgWrapper.setAttribute(&quot;id&quot;, &quot;sozi-wrapper&quot;);
+            
+            while (true) {
+                n = svgRoot.firstChild;
+                if (!n) {
+                    break;
+                }
+                svgRoot.removeChild(n);
+                svgWrapper.appendChild(n);
+            }
+
+            svgRoot.appendChild(svgWrapper);
+            
+            exports.idLayers.push(&quot;sozi-wrapper&quot;);
+        }
+        else {
+            // Collect all layer ids
+            for (l = 0; l &lt; soziLayers.length; l += 1) {
+                idLayer = soziLayers[l].getAttributeNS(SOZI_NS, &quot;group&quot;);
+                if (idLayer &amp;&amp; exports.idLayers.indexOf(idLayer) === -1 &amp;&amp; document.getElementById(idLayer)) {
+                    exports.idLayers.push(idLayer);
+                }
+            }
+            
+            if (exports.idLayers.length === 0) {
+                window.alert(&quot;Invalid layer information&quot;);
+            }
+        }
+        
+        // Analyze &lt;frame&gt; elements
+        for (f = 0; f &lt; soziFrames.length; f += 1) {
+            // Create a new frame object with layer-independent properties
+            newFrame = {
+                id: soziFrames[f].getAttribute(&quot;id&quot;),
+                title: readAttribute(soziFrames[f], &quot;title&quot;),
+                sequence: parseInt(readAttribute(soziFrames[f], &quot;sequence&quot;), 10),
+                timeoutEnable: readAttribute(soziFrames[f], &quot;timeout-enable&quot;) === &quot;true&quot;,
+                timeoutMs: parseInt(readAttribute(soziFrames[f], &quot;timeout-ms&quot;), 10),
+                transitionDurationMs: parseInt(readAttribute(soziFrames[f], &quot;transition-duration-ms&quot;), 10),
+                layers: {}
+            };
+
+            // The &lt;frame&gt; element defines default properties for all layers
+            for (l = 0; l &lt; exports.idLayers.length; l += 1) {
+                readLayerProperties(newFrame, exports.idLayers[l], soziFrames[f]);
+            }
+
+            // Collect and analyze &lt;layer&gt; elements in the current &lt;frame&gt; element
+            soziLayers = soziFrames[f].getElementsByTagNameNS(SOZI_NS, &quot;layer&quot;);
+            for (l = 0; l &lt; soziLayers.length; l += 1) {
+                idLayer = soziLayers[l].getAttributeNS(SOZI_NS, &quot;group&quot;);
+                if (idLayer &amp;&amp; exports.idLayers.indexOf(idLayer) !== -1) {
+                    readLayerProperties(newFrame, idLayer, soziLayers[l]);
+                }
+            }
+            
+            // If the &lt;frame&gt; element has at least one valid layer,
+            // add it to the frame list
+            for (l in newFrame.layers) {
+                if (newFrame.layers.hasOwnProperty(l)) {
+                    exports.frames.push(newFrame);
+                    break;
+                }
+            }
+        }
+        
+        exports.frames.sort(
+            function (a, b) {
+                return a.sequence - b.sequence;
+            }
+        );
+    }
+
+    /*
+    * Event handler: document load.
+    *
+    * This function reads the frames from the document.
+    */
+    function onLoad() {
+        document.documentElement.removeAttribute(&quot;viewBox&quot;);
+        readFrames();
+        sozi.events.fire(&quot;documentready&quot;);
+    }
+
+    window.addEventListener(&quot;load&quot;, onLoad, false);
+});
+
+/*
+ * Sozi - A presentation tool using the SVG standard
+ *
+ * Copyright (C) 2010-2012 Guillaume Savaton
+ *
+ * This program is dual licensed under the terms of the MIT license
+ * or the GNU General Public License (GPL) version 3.
+ * A copy of both licenses is provided in the doc/ folder of the
+ * official release of Sozi.
+ * 
+ * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend module.js
+ * @depend events.js
+ */
+
+/*global module:true sozi:true */
+
+module(&quot;sozi.location&quot;, function (exports) {
+    var window = this,
+        changedFromWithin = false;
+    
+    /*
+     * Returns the frame index given in the URL hash.
+     *
+     * In the URL, the frame index starts a 1.
+     * This method converts it into a 0-based index.
+     *
+     * If the URL hash is not a positive integer, then 0 is returned.
+     * It the URL hash is an integer greater than the last frame index, then
+     * the last frame index is returned.
+     */
+    exports.getFrameIndex = function () {
+        var index = window.location.hash ?
+            parseInt(window.location.hash.slice(1), 10) - 1 : 0;
+        if (isNaN(index) || index &lt; 0) {
+            return 0;
+        } else if (index &gt;= sozi.document.frames.length) {
+            return sozi.document.frames.length - 1;
+        } else {
+            return index;
+        }
+    };
+
+    /*
+     * Event handler: hash change.
+     *
+     * This function is called when the URL hash is changed.
+     * If the hash was changed manually in the address bar, and if it corresponds to
+     * a valid frame number, then the presentation moves to that frame.
+     *
+     * The hashchange event can be triggered externally, by the user modifying the URL,
+     * or internally, by the script modifying window.location.hash.
+     */
+    function onHashChange() {
+        var index = exports.getFrameIndex();
+        if (!changedFromWithin) {
+            sozi.player.moveToFrame(index);
+        }
+        changedFromWithin = false;
+    }
+    
+    /*
+     * Event handler: frame change.
+     *
+     * This function is called when the presentation has reached a
+     * new frame.
+     * The URL hash is changed based on the provided frame index.
+     */
+    function onFrameChange(index) {
+        changedFromWithin = true;
+        window.location.hash = &quot;#&quot; + (index + 1);
+    }
+
+	/*
+	 * Event handler: document load.
+	 *
+	 * This function registers the &quot;framechange&quot; handler.
+	 */
+    function onLoad() {
+        sozi.events.listen(&quot;framechange&quot;, onFrameChange);        
+    }
+    
+    window.addEventListener(&quot;hashchange&quot;, onHashChange, false);        
+    window.addEventListener(&quot;load&quot;, onLoad, false);        
+});
+
+/*
+    @depend framenumber.js
+    @depend framelist.js
+    @depend actions.js
+    @depend player.js
+    @depend display.js
+    @depend document.js
+    @depend location.js
+*/
+
+</script>
   <style
-     ns1:version="12.03-16212302"
-     id="sozi-style">#sozi-toc text{fill:#eff;font-family:Verdana,sans-serif;font-size:12pt}#sozi-toc text:hover{fill:#0cf;cursor:pointer}#sozi-toc text.sozi-toc-current{fill:#fa4}#sozi-toc-background{stroke:#222;stroke-opacity:.1;stroke-width:10;fill:#222;fill-opacity:.9}.sozi-toc-arrow{fill:#eff;fill-opacity:.75;stroke:none}.sozi-toc-arrow:hover{fill:#0cf}#sozi-framenumber circle{stroke:#222;stroke-opacity:.1;stroke-width:4;fill:#222;fill-opacity:.9}#sozi-framenumber text{fill:#eff;font-family:Verdana,sans-serif;font-size:12pt}</style>
+     ns1:version="12.03-16221027"
+     id="sozi-style">/*
+ * Sozi - A presentation tool using the SVG standard
+ *
+ * Copyright (C) 2010-2012 Guillaume Savaton
+ *
+ * This program is dual licensed under the terms of the MIT license
+ * or the GNU General Public License (GPL) version 3.
+ * A copy of both licenses is provided in the doc/ folder of the
+ * official release of Sozi.
+ * 
+ * See http://sozi.baierouge.fr/wiki/en:license for details.
+ */
+
+#sozi-toc text {
+   fill: #eff;
+   font-family: Verdana, sans-serif;
+   font-size: 12pt;
+}
+
+#sozi-toc text:hover {
+   fill: #0cf;
+   cursor: pointer;
+}
+
+#sozi-toc text.sozi-toc-current {
+   fill: #fa4;
+}
+
+#sozi-toc-background {
+   stroke: #222;
+   stroke-opacity: 0.1;
+   stroke-width: 10;
+   fill: #222;
+   fill-opacity: 0.9;
+}
+
+.sozi-toc-arrow {
+   fill: #eff;
+   fill-opacity: 0.75;
+   stroke: none;
+}
+
+.sozi-toc-arrow:hover {
+   fill: #0cf;
+}
+
+#sozi-framenumber circle {
+   stroke: #222;
+   stroke-opacity: 0.1;
+   stroke-width: 4;
+   fill: #222;
+   fill-opacity: 0.9;
+}
+
+#sozi-framenumber text {
+   fill: #eff;
+   font-family: Verdana, sans-serif;
+   font-size: 12pt;
+}
+
+</style>
   <script
-     ns1:version="12.03-16212302"
-     id="sozi-extras-addvideo-script">this.addEventListener(&quot;load&quot;,function(){var h=&quot;http://www.w3.org/2000/svg&quot;,l=&quot;http://sozi.baierouge.fr&quot;,s=&quot;http://www.w3.org/1999/xhtml&quot;,m=this,o=m.document,q=[],r,e,d,c,p,a,g,f,b;function n(i){i.stopPropagation()}function t(i,j,k){sozi.events.listen(&quot;framechange&quot;,function(u){var v=sozi.document.frames[u].id;if(v===j){i.play()}else{if(v===k){i.pause()}}})}q.push(o.getElementsByTagNameNS(l,&quot;video&quot;));q.push(o.getElementsByTagNameNS(l,&quot;audio&quot;));r=[];for(c=0;c&lt;q.length;c+=1){for(e=0;e&lt;q[c].length;e+=1){p=q[c][e].parentNode;b=o.createElementNS(s,&quot;source&quot;);b.setAttribute(&quot;type&quot;,q[c][e].getAttributeNS(l,&quot;type&quot;));b.setAttribute(&quot;src&quot;,q[c][e].getAttributeNS(l,&quot;src&quot;));for(d=0;d&lt;r.length;d+=1){if(r[d].rect===p){break}}if(d===r.length){p.setAttribute(&quot;visibility&quot;,&quot;hidden&quot;);f=o.createElementNS(s,q[c][e].tagName);f.setAttribute(&quot;controls&quot;,&quot;controls&quot;);if(q[c][e].tagName===&quot;video&quot;){f.setAttribute(&quot;width&quot;,p.getAttribute(&quot;width&quot;));f.setAttribute(&quot;height&quot;,p.getAttribute(&quot;height&quot;))}f.addEventListener(&quot;click&quot;,n,false);f.addEventListener(&quot;contextmenu&quot;,n,false);g=o.createElementNS(s,&quot;html&quot;);g.appendChild(f);a=o.createElementNS(h,&quot;foreignObject&quot;);a.setAttribute(&quot;x&quot;,p.getAttribute(&quot;x&quot;));a.setAttribute(&quot;y&quot;,p.getAttribute(&quot;y&quot;));a.setAttribute(&quot;width&quot;,p.getAttribute(&quot;width&quot;));a.setAttribute(&quot;height&quot;,p.getAttribute(&quot;height&quot;));a.appendChild(g);p.parentNode.insertBefore(a,p.nextSibling);if(q[c][e].hasAttributeNS(l,&quot;start-frame&quot;)){t(f,q[c][e].getAttributeNS(l,&quot;start-frame&quot;),q[c][e].getAttributeNS(l,&quot;stop-frame&quot;))}r.push({rect:q[c][e].parentNode,htmlMedia:f})}}r[d].htmlMedia.appendChild(b)}},false);</script>
+     ns1:version="12.03-16221027"
+     id="sozi-extras-addvideo-script">/*
+ * Sozi - A presentation tool using the SVG standard
+ *
+ * Copyright (C) 2010-2012 Guillaume Savaton
+ *
+ * This program is dual licensed under the terms of the MIT license
+ * or the GNU General Public License (GPL) version 3.
+ * A copy of both licenses is provided in the doc/ folder of the
+ * official release of Sozi.
+ * 
+ * See http://sozi.baierouge.fr/wiki/en:license for details.
+ */
+
+this.addEventListener(&quot;load&quot;, function () {
+	var	svgNs = &quot;http://www.w3.org/2000/svg&quot;,
+	    soziNs = &quot;http://sozi.baierouge.fr&quot;,
+		xhtmlNs = &quot;http://www.w3.org/1999/xhtml&quot;,
+		window = this,
+		document = window.document,
+		mediaSources = [],
+		mediaList, i, j, k, rect, foreignObject,
+		html, htmlMedia, htmlSource;
+	
+    function clickHandler(evt) {
+        evt.stopPropagation();
+    }
+    
+    function registerFrameChangeHandler(htmlMedia, startFrame, stopFrame) {
+        sozi.events.listen(&quot;framechange&quot;, function(index) {
+            var frameId = sozi.document.frames[index].id;
+		    if (frameId === startFrame) {
+		        htmlMedia.play();
+			}
+            else if (frameId === stopFrame) {
+                htmlMedia.pause();
+            }
+		});
+    }
+    
+	mediaSources.push(document.getElementsByTagNameNS(soziNs, &quot;video&quot;));
+	mediaSources.push(document.getElementsByTagNameNS(soziNs, &quot;audio&quot;));
+
+	mediaList = [];
+	for (k = 0; k &lt; mediaSources.length; k += 1) {
+	    for (i = 0; i &lt; mediaSources[k].length; i += 1) {
+		    rect = mediaSources[k][i].parentNode;
+	
+		    // Create HTML media source element
+		    htmlSource = document.createElementNS(xhtmlNs, &quot;source&quot;);
+		    htmlSource.setAttribute(&quot;type&quot;, mediaSources[k][i].getAttributeNS(soziNs, &quot;type&quot;));
+		    htmlSource.setAttribute(&quot;src&quot;, mediaSources[k][i].getAttributeNS(soziNs, &quot;src&quot;));
+
+		    for (j = 0; j &lt; mediaList.length; j += 1) {
+			    if (mediaList[j].rect === rect) {
+				    break;
+			    }
+		    }
+	
+		    if (j === mediaList.length) {
+		        rect.setAttribute(&quot;visibility&quot;, &quot;hidden&quot;);
+		        
+			    // Create HTML media element
+			    htmlMedia = document.createElementNS(xhtmlNs, mediaSources[k][i].tagName);
+			    // htmlMedia.setAttribute(&quot;poster&quot;, &quot;__dummy__.png&quot;);
+			    htmlMedia.setAttribute(&quot;controls&quot;, &quot;controls&quot;);
+			    if (mediaSources[k][i].tagName === &quot;video&quot;) {
+			        htmlMedia.setAttribute(&quot;width&quot;, rect.getAttribute(&quot;width&quot;));
+			        htmlMedia.setAttribute(&quot;height&quot;, rect.getAttribute(&quot;height&quot;));
+			    }
+		        htmlMedia.addEventListener(&quot;click&quot;, clickHandler, false);
+		        htmlMedia.addEventListener(&quot;contextmenu&quot;, clickHandler, false);
+		        
+			    // Create HTML root element
+			    html = document.createElementNS(xhtmlNs, &quot;html&quot;);
+			    html.appendChild(htmlMedia);
+		
+			    // Create SVG foreign object
+			    foreignObject = document.createElementNS(svgNs, &quot;foreignObject&quot;);
+			    foreignObject.setAttribute(&quot;x&quot;, rect.getAttribute(&quot;x&quot;));
+			    foreignObject.setAttribute(&quot;y&quot;, rect.getAttribute(&quot;y&quot;));
+			    foreignObject.setAttribute(&quot;width&quot;, rect.getAttribute(&quot;width&quot;));
+			    foreignObject.setAttribute(&quot;height&quot;, rect.getAttribute(&quot;height&quot;));
+			    foreignObject.appendChild(html);
+				
+			    rect.parentNode.insertBefore(foreignObject, rect.nextSibling);
+			
+			    if (mediaSources[k][i].hasAttributeNS(soziNs, &quot;start-frame&quot;)) {
+			        registerFrameChangeHandler(htmlMedia,
+			            mediaSources[k][i].getAttributeNS(soziNs, &quot;start-frame&quot;),
+			            mediaSources[k][i].getAttributeNS(soziNs, &quot;stop-frame&quot;)
+			         );
+			    }
+			
+			    mediaList.push({
+				    rect: mediaSources[k][i].parentNode,
+				    htmlMedia: htmlMedia
+			    });
+		    }
+	    }
+	    
+		// Append HTML source element to current HTML media element
+		mediaList[j].htmlMedia.appendChild(htmlSource);
+	}				
+}, false);
+
+</script>
 </svg>
