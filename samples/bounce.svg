@@ -456,7 +456,7 @@
      ns1:refid="rect6802"
      id="frame4" />
   <script
-     ns1:version="12.03-16221027"
+     ns1:version="12.03-17230153"
      id="sozi-script">
 function module(path, body) {
 	var names = path.split(&quot;.&quot;),
@@ -2177,48 +2177,71 @@ module(&quot;sozi.document&quot;, function (exports) {
     * The resulting list is available in frames, sorted by frame indices.
     */
     function readFrames() {
-        var soziFrames = document.getElementsByTagNameNS(SOZI_NS, &quot;frame&quot;),
+        var soziFrames,
             soziLayers, idLayer,
-            svgWrapper,
+            svgWrapper, indexWrapper,
             svgRoot = document.documentElement,
-            f, l, n,
+            svgRootChilren,
+            n, f, l, svgElement,
             newFrame,
             SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
 
+        // Collect all group ids of &lt;layer&gt; elements
         soziLayers = document.getElementsByTagNameNS(SOZI_NS, &quot;layer&quot;);
-        if (soziLayers.length === 0) {
-            // Create a default layer if the document has none
-            // and move all the document into the new layer
+        for (l = 0; l &lt; soziLayers.length; l += 1) {
+            idLayer = soziLayers[l].getAttributeNS(SOZI_NS, &quot;group&quot;);
+            if (idLayer &amp;&amp; exports.idLayers.indexOf(idLayer) === -1 &amp;&amp; document.getElementById(idLayer)) {
+                exports.idLayers.push(idLayer);
+            }
+        }
+
+        // If at least one &lt;frame&gt; element has a refid attribute,
+        // reorganize the document, grouping objects that do not belong
+        // to a group referenced in &lt;layer&gt; elements
+        soziFrames = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, &quot;frame&quot;));
+        if (soziFrames.filter(function (f) {
+                return f.hasAttributeNS(SOZI_NS, &quot;refid&quot;);
+            }).length &gt; 0)
+        {
+            // Create the first wrapper group
             svgWrapper = document.createElementNS(SVG_NS, &quot;g&quot;);
-            svgWrapper.setAttribute(&quot;id&quot;, &quot;sozi-wrapper&quot;);
-            
-            while (true) {
-                n = svgRoot.firstChild;
-                if (!n) {
-                    break;
+
+            // For each child of the root SVG element
+            svgRootChilren = Array.prototype.slice.call(svgRoot.childNodes);
+            for (n = 0; n &lt; svgRootChilren.length; n += 1) {
+                svgElement = svgRootChilren[n];
+     
+                if (!svgElement.getAttribute) {
+                    // Remove text elements
+                    svgRoot.removeChild(svgElement);
                 }
-                svgRoot.removeChild(n);
-                svgWrapper.appendChild(n);
+                else if (exports.idLayers.indexOf(svgElement.getAttribute(&quot;id&quot;)) === -1) {
+                    // If the current element is not a referenced layer,
+                    // move it to the current wrapper element
+                    svgRoot.removeChild(svgElement);
+                    svgWrapper.appendChild(svgElement);
+                }
+                else if (svgWrapper.firstChild) {
+                    // If the current element is a referenced layer,
+                    // and if there were other non-referenced elements before it,
+                    // insert the wrapper group before the current element
+                    svgWrapper.setAttribute(&quot;id&quot;, &quot;sozi-wrapper-&quot; + n);
+                    exports.idLayers.push(&quot;sozi-wrapper-&quot; + n);
+                    svgRoot.insertBefore(svgWrapper, svgElement);
+                    
+                    // Prepare a new wrapper element                
+                    svgWrapper = document.createElementNS(SVG_NS, &quot;g&quot;);
+                }
             }
 
-            svgRoot.appendChild(svgWrapper);
-            
-            exports.idLayers.push(&quot;sozi-wrapper&quot;);
+            // Append last wrapper if needed
+            if (svgWrapper.firstChild) {
+                svgWrapper.setAttribute(&quot;id&quot;, &quot;sozi-wrapper-&quot; + n);
+                exports.idLayers.push(&quot;sozi-wrapper-&quot; + n);
+                svgRoot.appendChild(svgWrapper);
+            }            
         }
-        else {
-            // Collect all layer ids
-            for (l = 0; l &lt; soziLayers.length; l += 1) {
-                idLayer = soziLayers[l].getAttributeNS(SOZI_NS, &quot;group&quot;);
-                if (idLayer &amp;&amp; exports.idLayers.indexOf(idLayer) === -1 &amp;&amp; document.getElementById(idLayer)) {
-                    exports.idLayers.push(idLayer);
-                }
-            }
-            
-            if (exports.idLayers.length === 0) {
-                window.alert(&quot;Invalid layer information&quot;);
-            }
-        }
-        
+
         // Analyze &lt;frame&gt; elements
         for (f = 0; f &lt; soziFrames.length; f += 1) {
             // Create a new frame object with layer-independent properties
@@ -2376,7 +2399,7 @@ module(&quot;sozi.location&quot;, function (exports) {
 
 </script>
   <style
-     ns1:version="12.03-16221027"
+     ns1:version="12.03-17230153"
      id="sozi-style">/*
  * Sozi - A presentation tool using the SVG standard
  *
@@ -2439,7 +2462,7 @@ module(&quot;sozi.location&quot;, function (exports) {
 
 </style>
   <script
-     ns1:version="12.03-16221027"
+     ns1:version="12.03-17230153"
      id="sozi-extras-addvideo-script">/*
  * Sozi - A presentation tool using the SVG standard
  *
