@@ -36,15 +36,15 @@
      inkscape:window-maximized="1"
      inkscape:snap-grids="true">
     <inkscape:grid
-       spacingy="1mm"
-       spacingx="1mm"
-       units="mm"
-       snapvisiblegridlinesonly="true"
-       enabled="true"
-       visible="true"
-       empspacing="5"
+       type="xygrid"
        id="grid3751"
-       type="xygrid" />
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       units="mm"
+       spacingx="1mm"
+       spacingy="1mm" />
   </sodipodi:namedview>
   <defs
      id="defs6751" />
@@ -61,161 +61,94 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Calque 1"
+     id="layer1"
      inkscape:groupmode="layer"
-     id="layer1">
+     inkscape:label="Calque 1">
     <g
-       transform="translate(-1.7716396,-9.3715398e-6)"
-       id="g7411">
+       id="g7411"
+       transform="translate(-1.7716396,-9.3715398e-6)">
       <rect
-         y="127.55904"
-         x="437.75275"
-         height="63.77953"
-         width="63.470871"
+         style="fill:#f2f2f2;fill-opacity:1;stroke:none"
          id="rect6763"
-         style="fill:#f2f2f2;fill-opacity:1;stroke:none" />
-      <rect
-         y="138.18896"
-         x="448.22833"
-         height="42.519684"
-         width="42.519688"
-         id="rect6757"
-         style="fill:#008000;fill-opacity:1;stroke:none" />
-    </g>
-    <g
-       transform="translate(0,-3.8146973e-5)"
-       id="g7441">
-      <rect
-         style="fill:#f2f2f2;fill-opacity:1;stroke:none"
-         id="rect6765"
-         width="113.38582"
-         height="113.38583"
-         x="524.40942"
-         y="102.75588" />
-      <rect
-         style="fill:#ff0000;fill-opacity:1;stroke:none"
-         id="rect6759"
-         width="85.039337"
-         height="85.03936"
-         x="538.58264"
-         y="116.92912" />
-    </g>
-    <g
-       transform="translate(-9.6118356e-6,1.9631615)"
-       id="g7437">
-      <rect
-         y="239.1732"
-         x="549.21259"
+         width="63.470871"
          height="63.77953"
-         width="63.779526"
-         id="rect6767"
+         x="437.75275"
+         y="127.55904" />
+      <rect
+         style="fill:#008000;fill-opacity:1;stroke:none"
+         id="rect6757"
+         width="42.519688"
+         height="42.519684"
+         x="448.22833"
+         y="138.18896" />
+    </g>
+    <g
+       id="g7441"
+       transform="translate(0,-3.8146973e-5)">
+      <rect
+         y="102.75588"
+         x="524.40942"
+         height="113.38583"
+         width="113.38582"
+         id="rect6765"
          style="fill:#f2f2f2;fill-opacity:1;stroke:none" />
       <rect
-         y="249.99466"
-         x="559.84253"
-         height="42.13662"
-         width="42.519669"
-         id="rect6761"
-         style="fill:#0000ff;fill-opacity:1;stroke:none" />
+         y="116.92912"
+         x="538.58264"
+         height="85.03936"
+         width="85.039337"
+         id="rect6759"
+         style="fill:#ff0000;fill-opacity:1;stroke:none" />
     </g>
     <g
-       transform="translate(0,1.5258789e-5)"
-       id="g7415">
+       id="g7437"
+       transform="translate(-9.6118356e-6,1.9631615)">
       <rect
          style="fill:#f2f2f2;fill-opacity:1;stroke:none"
-         id="rect6802"
-         width="109.84252"
-         height="109.84253"
+         id="rect6767"
+         width="63.779526"
+         height="63.77953"
+         x="549.21259"
+         y="239.1732" />
+      <rect
+         style="fill:#0000ff;fill-opacity:1;stroke:none"
+         id="rect6761"
+         width="42.519669"
+         height="42.13662"
+         x="559.84253"
+         y="249.99466" />
+    </g>
+    <g
+       id="g7415"
+       transform="translate(0,1.5258789e-5)">
+      <rect
+         y="216.14171"
          x="414.56693"
-         y="216.14171" />
+         height="109.84253"
+         width="109.84252"
+         id="rect6802"
+         style="fill:#f2f2f2;fill-opacity:1;stroke:none" />
       <rect
-         style="fill:#ffcc00;fill-opacity:1;stroke:none"
-         id="rect6804"
-         width="81.496078"
-         height="81.496063"
+         y="230.31494"
          x="428.74014"
-         y="230.31494" />
+         height="81.496063"
+         width="81.496078"
+         id="rect6804"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none" />
     </g>
     <g
-       transform="translate(-201.96852,-14.173231)"
-       id="g7399">
+       id="g7399"
+       transform="translate(-201.96852,-14.173231)">
       <rect
-         y="212.5984"
-         x="662.59845"
-         height="10.629923"
-         width="14.173228"
+         style="fill:#dcdcdc;fill-opacity:1;stroke:none"
          id="rect7481-0"
-         style="fill:#dcdcdc;fill-opacity:1;stroke:none" />
-      <rect
-         y="205.5118"
-         x="655.51184"
-         height="7.0866108"
-         width="7.0865846"
-         id="rect7359"
-         style="fill:#ffcc00;fill-opacity:1;stroke:none" />
-      <rect
-         style="fill:#008000;fill-opacity:1;stroke:none"
-         id="rect7389"
-         width="7.0865846"
-         height="7.0866108"
-         x="666.14178"
-         y="209.0551" />
-      <rect
-         y="223.22833"
-         x="655.51184"
-         height="7.0866108"
-         width="7.0865846"
-         id="rect7391"
-         style="fill:#008000;fill-opacity:1;stroke:none" />
-      <rect
-         style="fill:#ffcc00;fill-opacity:1;stroke:none"
-         id="rect7393"
-         width="7.0865846"
-         height="7.0866108"
-         x="666.14178"
-         y="219.68501" />
-      <rect
-         style="fill:#ffcc00;fill-opacity:1;stroke:none"
-         id="rect7395"
-         width="7.0865846"
-         height="7.0866108"
-         x="676.77167"
-         y="205.5118" />
-      <rect
-         style="fill:#008000;fill-opacity:1;stroke:none"
-         id="rect7397"
-         width="7.0865846"
-         height="7.0866108"
-         x="676.77167"
-         y="223.22833" />
-      <rect
-         y="198.42519"
-         x="666.14178"
-         height="7.0866108"
-         width="7.0865846"
-         id="rect7407"
-         style="fill:#ffcc00;fill-opacity:1;stroke:none" />
-      <rect
-         y="230.31494"
-         x="666.14178"
-         height="7.0866108"
-         width="7.0865846"
-         id="rect7409"
-         style="fill:#008000;fill-opacity:1;stroke:none" />
-    </g>
-    <g
-       id="g7419"
-       transform="translate(-88.582713,10.72566)">
-      <rect
-         y="212.50267"
+         width="14.173228"
+         height="10.629923"
          x="662.59845"
-         height="10.629915"
-         width="14.17324"
-         id="rect7481"
-         style="fill:#dcdcdc;fill-opacity:1;stroke:none" />
+         y="212.5984" />
       <rect
-         style="fill:#0000ff;fill-opacity:1;stroke:none"
-         id="rect7421"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none"
+         id="rect7359"
          width="7.0865846"
          height="7.0866108"
          x="655.51184"
@@ -225,11 +158,11 @@
          x="666.14178"
          height="7.0866108"
          width="7.0865846"
-         id="rect7423"
-         style="fill:#ff0000;fill-opacity:1;stroke:none" />
+         id="rect7389"
+         style="fill:#008000;fill-opacity:1;stroke:none" />
       <rect
-         style="fill:#ff0000;fill-opacity:1;stroke:none"
-         id="rect7425"
+         style="fill:#008000;fill-opacity:1;stroke:none"
+         id="rect7391"
          width="7.0865846"
          height="7.0866108"
          x="655.51184"
@@ -239,58 +172,57 @@
          x="666.14178"
          height="7.0866108"
          width="7.0865846"
-         id="rect7427"
-         style="fill:#0000ff;fill-opacity:1;stroke:none" />
+         id="rect7393"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none" />
       <rect
          y="205.5118"
          x="676.77167"
          height="7.0866108"
          width="7.0865846"
-         id="rect7429"
-         style="fill:#0000ff;fill-opacity:1;stroke:none" />
+         id="rect7395"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none" />
       <rect
          y="223.22833"
          x="676.77167"
          height="7.0866108"
          width="7.0865846"
-         id="rect7431"
-         style="fill:#ff0000;fill-opacity:1;stroke:none" />
+         id="rect7397"
+         style="fill:#008000;fill-opacity:1;stroke:none" />
       <rect
-         style="fill:#0000ff;fill-opacity:1;stroke:none"
-         id="rect7433"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none"
+         id="rect7407"
          width="7.0865846"
          height="7.0866108"
          x="666.14178"
          y="198.42519" />
       <rect
-         style="fill:#ff0000;fill-opacity:1;stroke:none"
-         id="rect7435"
+         style="fill:#008000;fill-opacity:1;stroke:none"
+         id="rect7409"
          width="7.0865846"
          height="7.0866108"
          x="666.14178"
          y="230.31494" />
     </g>
     <g
-       transform="matrix(0,-1,-1,0,729.92124,829.13386)"
-       id="g7445">
+       transform="translate(-88.582713,10.72566)"
+       id="g7419">
       <rect
-         transform="matrix(0,-1,-1,0,0,0)"
-         y="-676.77167"
-         x="-223.22833"
-         height="14.173227"
-         width="10.629928"
-         id="rect7481-4"
-         style="fill:#dcdcdc;fill-opacity:1;stroke:none" />
+         style="fill:#dcdcdc;fill-opacity:1;stroke:none"
+         id="rect7481"
+         width="14.17324"
+         height="10.629915"
+         x="662.59845"
+         y="212.50267" />
       <rect
          y="205.5118"
          x="655.51184"
          height="7.0866108"
          width="7.0865846"
-         id="rect7447"
-         style="fill:#008000;fill-opacity:1;stroke:none" />
+         id="rect7421"
+         style="fill:#0000ff;fill-opacity:1;stroke:none" />
       <rect
          style="fill:#ff0000;fill-opacity:1;stroke:none"
-         id="rect7449"
+         id="rect7423"
          width="7.0865846"
          height="7.0866108"
          x="666.14178"
@@ -300,25 +232,25 @@
          x="655.51184"
          height="7.0866108"
          width="7.0865846"
-         id="rect7451"
+         id="rect7425"
          style="fill:#ff0000;fill-opacity:1;stroke:none" />
       <rect
-         style="fill:#008000;fill-opacity:1;stroke:none"
-         id="rect7453"
+         style="fill:#0000ff;fill-opacity:1;stroke:none"
+         id="rect7427"
          width="7.0865846"
          height="7.0866108"
          x="666.14178"
          y="219.68501" />
       <rect
-         style="fill:#008000;fill-opacity:1;stroke:none"
-         id="rect7455"
+         style="fill:#0000ff;fill-opacity:1;stroke:none"
+         id="rect7429"
          width="7.0865846"
          height="7.0866108"
          x="676.77167"
          y="205.5118" />
       <rect
          style="fill:#ff0000;fill-opacity:1;stroke:none"
-         id="rect7457"
+         id="rect7431"
          width="7.0865846"
          height="7.0866108"
          x="676.77167"
@@ -328,30 +260,30 @@
          x="666.14178"
          height="7.0866108"
          width="7.0865846"
-         id="rect7459"
-         style="fill:#008000;fill-opacity:1;stroke:none" />
+         id="rect7433"
+         style="fill:#0000ff;fill-opacity:1;stroke:none" />
       <rect
          y="230.31494"
          x="666.14178"
          height="7.0866108"
          width="7.0865846"
-         id="rect7461"
+         id="rect7435"
          style="fill:#ff0000;fill-opacity:1;stroke:none" />
     </g>
     <g
-       id="g7463"
-       transform="matrix(0,-1,-1,0,754.72439,942.51972)">
+       id="g7445"
+       transform="matrix(0,-1,-1,0,729.92124,829.13386)">
       <rect
-         transform="matrix(0,-1,-1,0,0,0)"
-         y="-676.77173"
+         style="fill:#dcdcdc;fill-opacity:1;stroke:none"
+         id="rect7481-4"
+         width="10.629928"
+         height="14.173227"
          x="-223.22833"
-         height="14.173246"
-         width="10.629921"
-         id="rect7481-6"
-         style="fill:#dcdcdc;fill-opacity:1;stroke:none" />
+         y="-676.77167"
+         transform="matrix(0,-1,-1,0,0,0)" />
       <rect
-         style="fill:#ffcc00;fill-opacity:1;stroke:none"
-         id="rect7465"
+         style="fill:#008000;fill-opacity:1;stroke:none"
+         id="rect7447"
          width="7.0865846"
          height="7.0866108"
          x="655.51184"
@@ -361,11 +293,11 @@
          x="666.14178"
          height="7.0866108"
          width="7.0865846"
-         id="rect7467"
-         style="fill:#0000ff;fill-opacity:1;stroke:none" />
+         id="rect7449"
+         style="fill:#ff0000;fill-opacity:1;stroke:none" />
       <rect
-         style="fill:#0000ff;fill-opacity:1;stroke:none"
-         id="rect7469"
+         style="fill:#ff0000;fill-opacity:1;stroke:none"
+         id="rect7451"
          width="7.0865846"
          height="7.0866108"
          x="655.51184"
@@ -375,88 +307,156 @@
          x="666.14178"
          height="7.0866108"
          width="7.0865846"
-         id="rect7471"
-         style="fill:#ffcc00;fill-opacity:1;stroke:none" />
+         id="rect7453"
+         style="fill:#008000;fill-opacity:1;stroke:none" />
       <rect
          y="205.5118"
          x="676.77167"
          height="7.0866108"
          width="7.0865846"
-         id="rect7473"
-         style="fill:#ffcc00;fill-opacity:1;stroke:none" />
+         id="rect7455"
+         style="fill:#008000;fill-opacity:1;stroke:none" />
       <rect
          y="223.22833"
          x="676.77167"
          height="7.0866108"
          width="7.0865846"
-         id="rect7475"
-         style="fill:#0000ff;fill-opacity:1;stroke:none" />
+         id="rect7457"
+         style="fill:#ff0000;fill-opacity:1;stroke:none" />
       <rect
-         style="fill:#ffcc00;fill-opacity:1;stroke:none"
-         id="rect7477"
+         style="fill:#008000;fill-opacity:1;stroke:none"
+         id="rect7459"
          width="7.0865846"
          height="7.0866108"
          x="666.14178"
          y="198.42519" />
       <rect
-         style="fill:#0000ff;fill-opacity:1;stroke:none"
-         id="rect7479"
+         style="fill:#ff0000;fill-opacity:1;stroke:none"
+         id="rect7461"
          width="7.0865846"
          height="7.0866108"
          x="666.14178"
          y="230.31494" />
+    </g>
+    <g
+       transform="matrix(0,-1,-1,0,754.72439,942.51972)"
+       id="g7463">
+      <rect
+         style="fill:#dcdcdc;fill-opacity:1;stroke:none"
+         id="rect7481-6"
+         width="10.629921"
+         height="14.173246"
+         x="-223.22833"
+         y="-676.77173"
+         transform="matrix(0,-1,-1,0,0,0)" />
+      <rect
+         y="205.5118"
+         x="655.51184"
+         height="7.0866108"
+         width="7.0865846"
+         id="rect7465"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none" />
+      <rect
+         style="fill:#0000ff;fill-opacity:1;stroke:none"
+         id="rect7467"
+         width="7.0865846"
+         height="7.0866108"
+         x="666.14178"
+         y="209.0551" />
+      <rect
+         y="223.22833"
+         x="655.51184"
+         height="7.0866108"
+         width="7.0865846"
+         id="rect7469"
+         style="fill:#0000ff;fill-opacity:1;stroke:none" />
+      <rect
+         style="fill:#ffcc00;fill-opacity:1;stroke:none"
+         id="rect7471"
+         width="7.0865846"
+         height="7.0866108"
+         x="666.14178"
+         y="219.68501" />
+      <rect
+         style="fill:#ffcc00;fill-opacity:1;stroke:none"
+         id="rect7473"
+         width="7.0865846"
+         height="7.0866108"
+         x="676.77167"
+         y="205.5118" />
+      <rect
+         style="fill:#0000ff;fill-opacity:1;stroke:none"
+         id="rect7475"
+         width="7.0865846"
+         height="7.0866108"
+         x="676.77167"
+         y="223.22833" />
+      <rect
+         y="198.42519"
+         x="666.14178"
+         height="7.0866108"
+         width="7.0865846"
+         id="rect7477"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none" />
+      <rect
+         y="230.31494"
+         x="666.14178"
+         height="7.0866108"
+         width="7.0865846"
+         id="rect7479"
+         style="fill:#0000ff;fill-opacity:1;stroke:none" />
     </g>
   </g>
   <ns1:frame
-     ns1:transition-profile="linear"
-     ns1:transition-zoom-percent="30.0"
-     ns1:transition-duration-ms="3000.0"
-     ns1:timeout-ms="5000.0"
-     ns1:timeout-enable="true"
-     ns1:clip="false"
-     ns1:hide="false"
-     ns1:sequence="1"
-     ns1:title="green"
+     id="frame1"
      ns1:refid="rect6763"
-     id="frame1" />
-  <ns1:frame
-     ns1:transition-profile="linear"
-     ns1:transition-zoom-percent="-30.0"
-     ns1:transition-duration-ms="3000.0"
-     ns1:timeout-ms="5000.0"
-     ns1:timeout-enable="true"
-     ns1:clip="false"
+     ns1:title="green"
+     ns1:sequence="1"
      ns1:hide="false"
-     ns1:sequence="2"
-     ns1:title="red"
-     ns1:refid="rect6765"
-     id="frame2" />
-  <ns1:frame
-     ns1:transition-profile="linear"
-     ns1:transition-zoom-percent="-30.0"
-     ns1:transition-duration-ms="3000.0"
-     ns1:timeout-ms="5000.0"
-     ns1:timeout-enable="true"
      ns1:clip="false"
-     ns1:hide="false"
-     ns1:sequence="3"
-     ns1:title="blue"
-     ns1:refid="rect6767"
-     id="frame3" />
-  <ns1:frame
-     ns1:transition-profile="linear"
+     ns1:timeout-enable="true"
+     ns1:timeout-ms="5000.0"
+     ns1:transition-duration-ms="3000.0"
      ns1:transition-zoom-percent="30.0"
-     ns1:transition-duration-ms="3000.0"
-     ns1:timeout-ms="5000.0"
-     ns1:timeout-enable="true"
-     ns1:clip="false"
+     ns1:transition-profile="linear" />
+  <ns1:frame
+     id="frame2"
+     ns1:refid="rect6765"
+     ns1:title="red"
+     ns1:sequence="2"
      ns1:hide="false"
-     ns1:sequence="4"
-     ns1:title="yellow"
+     ns1:clip="false"
+     ns1:timeout-enable="true"
+     ns1:timeout-ms="5000.0"
+     ns1:transition-duration-ms="3000.0"
+     ns1:transition-zoom-percent="-30.0"
+     ns1:transition-profile="linear" />
+  <ns1:frame
+     id="frame3"
+     ns1:refid="rect6767"
+     ns1:title="blue"
+     ns1:sequence="3"
+     ns1:hide="false"
+     ns1:clip="false"
+     ns1:timeout-enable="true"
+     ns1:timeout-ms="5000.0"
+     ns1:transition-duration-ms="3000.0"
+     ns1:transition-zoom-percent="-30.0"
+     ns1:transition-profile="linear" />
+  <ns1:frame
+     id="frame4"
      ns1:refid="rect6802"
-     id="frame4" />
+     ns1:title="yellow"
+     ns1:sequence="4"
+     ns1:hide="false"
+     ns1:clip="false"
+     ns1:timeout-enable="true"
+     ns1:timeout-ms="5000.0"
+     ns1:transition-duration-ms="3000.0"
+     ns1:transition-zoom-percent="30.0"
+     ns1:transition-profile="linear" />
   <script
-     ns1:version="12.03-17230153"
+     ns1:version="12.03-18171759"
      id="sozi-script">
 function module(path, body) {
 	var names = path.split(&quot;.&quot;),
@@ -1110,8 +1110,8 @@ module(&quot;sozi.display&quot;, function (exports) {
         svgRoot.setAttribute(&quot;height&quot;, window.innerHeight);
         
         // Initialize display geometry for all layers
-        for (l = 0; l &lt; sozi.document.idLayers.length; l += 1) {
-            idLayer = sozi.document.idLayers[l];
+        for (l = 0; l &lt; sozi.document.idLayerList.length; l += 1) {
+            idLayer = sozi.document.idLayerList[l];
             exports.layers[idLayer] = {
                 geometry: {
                     cx: 0,
@@ -2114,7 +2114,7 @@ module(&quot;sozi.document&quot;, function (exports) {
         };
 
     exports.frames = [];
-    exports.idLayers = [];
+    exports.idLayerList = [];
     
     /*
     * Returns the value of an attribute of a given Sozi SVG element.
@@ -2177,47 +2177,42 @@ module(&quot;sozi.document&quot;, function (exports) {
     * The resulting list is available in frames, sorted by frame indices.
     */
     function readFrames() {
-        var soziFrames,
-            soziLayers, idLayer,
-            svgWrapper, indexWrapper,
+        var soziFrameList, soziLayerList,
+            svgWrapper, svgElementList,
             svgRoot = document.documentElement,
-            svgRootChilren,
-            n, f, l, svgElement,
-            newFrame,
             SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
 
         // Collect all group ids of &lt;layer&gt; elements
-        soziLayers = document.getElementsByTagNameNS(SOZI_NS, &quot;layer&quot;);
-        for (l = 0; l &lt; soziLayers.length; l += 1) {
-            idLayer = soziLayers[l].getAttributeNS(SOZI_NS, &quot;group&quot;);
-            if (idLayer &amp;&amp; exports.idLayers.indexOf(idLayer) === -1 &amp;&amp; document.getElementById(idLayer)) {
-                exports.idLayers.push(idLayer);
+        soziLayerList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, &quot;layer&quot;));
+        soziLayerList.forEach(function (soziLayer) {
+            var idLayer = soziLayer.getAttributeNS(SOZI_NS, &quot;group&quot;);
+            if (idLayer &amp;&amp; exports.idLayerList.indexOf(idLayer) === -1 &amp;&amp; document.getElementById(idLayer)) {
+                exports.idLayerList.push(idLayer);
             }
-        }
+        });
 
         // If at least one &lt;frame&gt; element has a refid attribute,
         // reorganize the document, grouping objects that do not belong
         // to a group referenced in &lt;layer&gt; elements
-        soziFrames = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, &quot;frame&quot;));
-        if (soziFrames.filter(function (f) {
-                return f.hasAttributeNS(SOZI_NS, &quot;refid&quot;);
-            }).length &gt; 0)
+        soziFrameList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, &quot;frame&quot;));
+        if (soziFrameList.some(function (soziFrame) {
+                return soziFrame.hasAttributeNS(SOZI_NS, &quot;refid&quot;);
+            }))
         {
             // Create the first wrapper group
             svgWrapper = document.createElementNS(SVG_NS, &quot;g&quot;);
 
             // For each child of the root SVG element
-            svgRootChilren = Array.prototype.slice.call(svgRoot.childNodes);
-            for (n = 0; n &lt; svgRootChilren.length; n += 1) {
-                svgElement = svgRootChilren[n];
-     
+            svgElementList = Array.prototype.slice.call(svgRoot.childNodes);
+            svgElementList.forEach(function (svgElement, index) {
                 if (!svgElement.getAttribute) {
                     // Remove text elements
                     svgRoot.removeChild(svgElement);
                 }
-                else if (exports.idLayers.indexOf(svgElement.getAttribute(&quot;id&quot;)) === -1) {
+                else if (exports.idLayerList.indexOf(svgElement.getAttribute(&quot;id&quot;)) === -1) {
                     // If the current element is not a referenced layer,
                     // move it to the current wrapper element
+                    // FIXME move graphic elements only
                     svgRoot.removeChild(svgElement);
                     svgWrapper.appendChild(svgElement);
                 }
@@ -2225,59 +2220,59 @@ module(&quot;sozi.document&quot;, function (exports) {
                     // If the current element is a referenced layer,
                     // and if there were other non-referenced elements before it,
                     // insert the wrapper group before the current element
-                    svgWrapper.setAttribute(&quot;id&quot;, &quot;sozi-wrapper-&quot; + n);
-                    exports.idLayers.push(&quot;sozi-wrapper-&quot; + n);
+                    svgWrapper.setAttribute(&quot;id&quot;, &quot;sozi-wrapper-&quot; + index);
+                    exports.idLayerList.push(&quot;sozi-wrapper-&quot; + index);
                     svgRoot.insertBefore(svgWrapper, svgElement);
                     
                     // Prepare a new wrapper element                
                     svgWrapper = document.createElementNS(SVG_NS, &quot;g&quot;);
                 }
-            }
+            });
 
             // Append last wrapper if needed
             if (svgWrapper.firstChild) {
-                svgWrapper.setAttribute(&quot;id&quot;, &quot;sozi-wrapper-&quot; + n);
-                exports.idLayers.push(&quot;sozi-wrapper-&quot; + n);
+                svgWrapper.setAttribute(&quot;id&quot;, &quot;sozi-wrapper-&quot; + svgElementList.length);
+                exports.idLayerList.push(&quot;sozi-wrapper-&quot; + svgElementList.length);
                 svgRoot.appendChild(svgWrapper);
             }            
         }
 
         // Analyze &lt;frame&gt; elements
-        for (f = 0; f &lt; soziFrames.length; f += 1) {
-            // Create a new frame object with layer-independent properties
-            newFrame = {
-                id: soziFrames[f].getAttribute(&quot;id&quot;),
-                title: readAttribute(soziFrames[f], &quot;title&quot;),
-                sequence: parseInt(readAttribute(soziFrames[f], &quot;sequence&quot;), 10),
-                timeoutEnable: readAttribute(soziFrames[f], &quot;timeout-enable&quot;) === &quot;true&quot;,
-                timeoutMs: parseInt(readAttribute(soziFrames[f], &quot;timeout-ms&quot;), 10),
-                transitionDurationMs: parseInt(readAttribute(soziFrames[f], &quot;transition-duration-ms&quot;), 10),
-                layers: {}
-            };
+        soziFrameList.forEach(function (soziFrame) {
+            var idLayer,
+                newFrame = {
+                    id: soziFrame.getAttribute(&quot;id&quot;),
+                    title: readAttribute(soziFrame, &quot;title&quot;),
+                    sequence: parseInt(readAttribute(soziFrame, &quot;sequence&quot;), 10),
+                    timeoutEnable: readAttribute(soziFrame, &quot;timeout-enable&quot;) === &quot;true&quot;,
+                    timeoutMs: parseInt(readAttribute(soziFrame, &quot;timeout-ms&quot;), 10),
+                    transitionDurationMs: parseInt(readAttribute(soziFrame, &quot;transition-duration-ms&quot;), 10),
+                    layers: {}
+                };
 
             // The &lt;frame&gt; element defines default properties for all layers
-            for (l = 0; l &lt; exports.idLayers.length; l += 1) {
-                readLayerProperties(newFrame, exports.idLayers[l], soziFrames[f]);
-            }
+            exports.idLayerList.forEach(function (idLayer) {
+                readLayerProperties(newFrame, idLayer, soziFrame);
+            });
 
             // Collect and analyze &lt;layer&gt; elements in the current &lt;frame&gt; element
-            soziLayers = soziFrames[f].getElementsByTagNameNS(SOZI_NS, &quot;layer&quot;);
-            for (l = 0; l &lt; soziLayers.length; l += 1) {
-                idLayer = soziLayers[l].getAttributeNS(SOZI_NS, &quot;group&quot;);
-                if (idLayer &amp;&amp; exports.idLayers.indexOf(idLayer) !== -1) {
-                    readLayerProperties(newFrame, idLayer, soziLayers[l]);
+            soziLayerList = Array.prototype.slice.call(soziFrame.getElementsByTagNameNS(SOZI_NS, &quot;layer&quot;));
+            soziLayerList.forEach(function (soziLayer) {
+                var idLayer = soziLayer.getAttributeNS(SOZI_NS, &quot;group&quot;);
+                if (idLayer &amp;&amp; exports.idLayerList.indexOf(idLayer) !== -1) {
+                    readLayerProperties(newFrame, idLayer, soziLayer);
                 }
-            }
+            });
             
             // If the &lt;frame&gt; element has at least one valid layer,
             // add it to the frame list
-            for (l in newFrame.layers) {
-                if (newFrame.layers.hasOwnProperty(l)) {
+            for (idLayer in newFrame.layers) {
+                if (newFrame.layers.hasOwnProperty(idLayer)) {
                     exports.frames.push(newFrame);
                     break;
                 }
             }
-        }
+        });
         
         exports.frames.sort(
             function (a, b) {
@@ -2399,7 +2394,7 @@ module(&quot;sozi.location&quot;, function (exports) {
 
 </script>
   <style
-     ns1:version="12.03-17230153"
+     ns1:version="12.03-18171759"
      id="sozi-style">/*
  * Sozi - A presentation tool using the SVG standard
  *
@@ -2462,7 +2457,7 @@ module(&quot;sozi.location&quot;, function (exports) {
 
 </style>
   <script
-     ns1:version="12.03-17230153"
+     ns1:version="12.03-18171759"
      id="sozi-extras-addvideo-script">/*
  * Sozi - A presentation tool using the SVG standard
  *
