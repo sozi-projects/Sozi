@@ -18,7 +18,7 @@
 module("sozi.animation", function (exports) {
     var window = this,
         TIME_STEP_MS = 40,
-        animators = [],
+        animatorList = [],
         timer,
         requestAnimationFrame = window.mozRequestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -37,7 +37,7 @@ module("sozi.animation", function (exports) {
      */
     function loop(timestamp) {
         var i;
-        if (animators.length > 0) {
+        if (animatorList.length > 0) {
             // If there is at least one animator,
             // and if the browser provides animation frames,
             // schedule this function to be called again in the next frame.
@@ -46,9 +46,9 @@ module("sozi.animation", function (exports) {
             }
 
             // Step all animators
-            for (i = 0; i < animators.length; i += 1) {
-                animators[i].step(timestamp);
-            }
+            animatorList.forEach(function (animator) {
+                animator.step(timestamp);
+            });
         }
         else {
             // If all animators have been removed,
@@ -86,8 +86,8 @@ module("sozi.animation", function (exports) {
      * then the animation loop is started.
      */
     function addAnimator(animator) {
-        animators.push(animator);
-        if (animators.length === 1) {
+        animatorList.push(animator);
+        if (animatorList.length === 1) {
             start();
         }
     }
@@ -97,7 +97,7 @@ module("sozi.animation", function (exports) {
      * managed by this module.
      */
     function removeAnimator(animator) {
-        animators.splice(animators.indexOf(animator), 1);
+        animatorList.splice(animatorList.indexOf(animator), 1);
     }
     
     /*
