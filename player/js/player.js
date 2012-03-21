@@ -340,10 +340,8 @@ module("sozi.player", function (exports) {
      * Moves to the previous frame.
      */
     exports.moveToPrevious = function () {
-        var index = currentFrameIndex,
-            frame;
-
-        for (index -= 1; index >= 0; index -= 1) {
+        var index, frame;
+        for (index = currentFrameIndex - 1; index >= 0; index -= 1) {
             frame = sozi.document.frames[index];
             if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
                 exports.moveToFrame(index);

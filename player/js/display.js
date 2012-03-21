@@ -34,7 +34,7 @@ module("sozi.display", function (exports) {
      * This method must be called when the document is ready to be manipulated.
      */
     function onDocumentReady() {
-        var l, svgClippedGroup, svgClipPath, idLayer,
+        var svgClippedGroup, svgClipPath, idLayer,
             svgRoot = document.documentElement; // TODO check SVG tag
             
         initialBBox = svgRoot.getBBox();
@@ -42,8 +42,7 @@ module("sozi.display", function (exports) {
         svgRoot.setAttribute("height", window.innerHeight);
         
         // Initialize display geometry for all layers
-        for (l = 0; l < sozi.document.idLayerList.length; l += 1) {
-            idLayer = sozi.document.idLayerList[l];
+        sozi.document.idLayerList.forEach(function (idLayer) {
             exports.layers[idLayer] = {
                 geometry: {
                     cx: 0,
@@ -71,7 +70,7 @@ module("sozi.display", function (exports) {
             // Adding the layer group to the clipped group must preserve layer ordering
             svgRoot.insertBefore(svgClippedGroup, exports.layers[idLayer].svgLayer);
             svgClippedGroup.appendChild(exports.layers[idLayer].svgLayer);
-        }
+        });
 
         sozi.events.fire("displayready");
     }

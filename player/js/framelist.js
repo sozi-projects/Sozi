@@ -111,10 +111,7 @@ module("sozi.framelist", function (exports) {
             tocDown = document.createElementNS(SVG_NS, "path"),
             tocWidth = 0,
             textWidth,
-            frameCount = sozi.document.frames.length,
-            frameIndex = sozi.location.getFrameIndex(),
-            i,
-            text;
+            currentFrameIndex = sozi.location.getFrameIndex();
 
 		svgRoot = document.documentElement;
 
@@ -135,12 +132,12 @@ module("sozi.framelist", function (exports) {
         tocBackground.addEventListener("mouseout", onMouseOut, false);
         linksBox.appendChild(tocBackground);
 
-        for (i = 0; i < frameCount; i += 1) {
-            text = document.createElementNS(SVG_NS, "text");
-            text.appendChild(document.createTextNode(sozi.document.frames[i].title));
+        sozi.document.frames.forEach(function (frame, frameIndex) {
+            var text = document.createElementNS(SVG_NS, "text");
+            text.appendChild(document.createTextNode(frame.title));
             linksBox.appendChild(text);
 
-            if (i === frameIndex) {
+            if (frameIndex === currentFrameIndex) {
                 text.setAttribute("class", "sozi-toc-current");
             }
                      
@@ -152,9 +149,9 @@ module("sozi.framelist", function (exports) {
 
             text.setAttribute("x", 2 * MARGIN);
             text.setAttribute("y", tocHeight + MARGIN);
-            text.addEventListener("click", makeClickHandler(i), false);
+            text.addEventListener("click", makeClickHandler(frameIndex), false);
             text.addEventListener("mousedown", defaultEventHandler, false);
-        }
+        });
 
         tocUp.setAttribute("class", "sozi-toc-arrow");
         tocUp.setAttribute("d", "M" + (tocWidth + 3 * MARGIN) + "," + (5 * MARGIN) + 
@@ -192,12 +189,11 @@ module("sozi.framelist", function (exports) {
 	 * even when the frame list is hidden.
 	 */
     function onFrameChange(index) {
-        var current = document.getElementsByClassName("sozi-toc-current"),
-            textElements = linksBox.getElementsByTagName("text"),
-            i;
-        for (i = 0; i < current.length; i += 1) {
-            current[i].removeAttribute("class");
-        }
+        var currentElementList = Array.prototype.slice.call(document.getElementsByClassName("sozi-toc-current")),
+            textElements = linksBox.getElementsByTagName("text");
+        currentElementList.forEach(function (svgElement) {
+            svgElement.removeAttribute("class");
+        });
         textElements[index].setAttribute("class", "sozi-toc-current");
     }
     

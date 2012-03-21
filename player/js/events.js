@@ -16,7 +16,7 @@
 /*global module:true sozi:true */
 
 module("sozi.events", function (exports) {
-    var listeners = {};
+    var listenerRegistry = {};
 
     /*
      * Adds a listener for a given event type.
@@ -25,11 +25,10 @@ module("sozi.events", function (exports) {
      * The function to be executed is provided by the handler parameter.
      */
     exports.listen = function (key, handler) {
-        var listenersForKey = listeners[key];
-        if (!listenersForKey) {
-            listenersForKey = listeners[key] = [];
+        if (!listenerRegistry.hasOwnProperty(key)) {
+            listenerRegistry[key] = [];
         }
-        listenersForKey.push(handler);
+        listenerRegistry[key].push(handler);
     };
     
     /*
@@ -41,15 +40,11 @@ module("sozi.events", function (exports) {
      * to the event handlers.
      */
     exports.fire = function (key) {
-        var listenersForKey = listeners[key],
-            len,
-            i,
-            args = Array.prototype.slice.call(arguments, 1);
-        if (listenersForKey) {
-            len = listenersForKey.length;
-            for (i = 0; i < len; i += 1) {
-                listenersForKey[i].apply(null, args);
-            }
+        var args = Array.prototype.slice.call(arguments, 1);
+        if (listenerRegistry.hasOwnProperty(key)) {
+            listenerRegistry[key].forEach(function (listener) {
+                listener.apply(null, args);
+            });
         }
     };
 });
