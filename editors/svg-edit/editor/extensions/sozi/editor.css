@@ -1,0 +1,161 @@
+div#sidepanels #layerpanel {
+	/*Make so growing layer list doesn't overflow ontop of sozi panel*/
+	height: 200px;
+	left: 20px;
+	/*Make consistent with sozi panel, no horizontal scroll*/
+	overflow-x: hidden;
+}
+
+div#soziframepanel {
+	position: relative;
+	top: 180px;
+	left: 14px;
+	display: inline-block;
+	width: 140px;
+/*	overflow: auto;*/
+	margin: 0px;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	display: none;
+}
+
+#svg_editor #soziframesLabel {
+	width: 100px;
+}
+
+#svg_editor #soziframebuttons {
+	margin: 0px;
+	padding: 0px;
+	padding-left: 2px;
+	padding-right: 2px;
+	width: 125px;
+	height: 20px;
+	border-right: 1px solid #FFFFFF;
+	border-bottom: 1px solid #FFFFFF;
+	border-left: 1px solid #808080;
+	border-top: 1px solid #808080;
+	overflow: hidden;
+}
+
+#svg_editor .soziframe_button {
+	width: 14px;
+	height: 14px;
+	padding: 1px;
+	border-left: 1px solid #FFFFFF;
+	border-top: 1px solid #FFFFFF;
+	border-right: 1px solid #808080;
+	border-bottom: 1px solid #808080;
+	cursor: pointer;
+	float: left;
+	margin-right: 3px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 14px;
+}
+
+#svg_editor .soziframe_button:last-child {
+	margin-right: 0;
+}
+
+#svg_editor .soziframe_buttonpressed {
+	width: 14px;
+	height: 14px;
+	padding: 1px;
+	border-right: 1px solid #FFFFFF;
+	border-bottom: 1px solid #FFFFFF;
+	border-left: 1px solid #808080;
+	border-top: 1px solid #808080;
+	cursor: pointer;
+}
+
+#svg_editor  #soziframebuttons #soziframe_new { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAh0lEQVRIS2NkoDFgJML8GqAaZhzq9gPFD+EzgxgLfgANYMdhSC1QvGXUgtEgYlAApoJ4PCkBlExZcMjvw5NM7wPlFoGSqQMQg9IztcFeoIEuoxbgC9ZhFESgZJpAIJmSU5regyVTQslztKggFEIMo0FEMIh2AVWw4VA1Fyi+mNI6maAL8CkAAMxDMBk0Xy0tAAAAAElFTkSuQmCC); }
+#svg_editor  #soziframebuttons #soziframe_delete { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABJElEQVRIS7WUuw0CQQxEuQ4oggLQCWJEIwS0QEFcAXRAAilEVICogBYYI7zy7fm3AUgOuLXn7ceebvbnX1fpz/H/hDggHo1stVYCKOGMWCHeiG0DxKxlgEzgjWchbi0DblBdK1cSQTRxucGeATt8HRD1m1CyBfHEqe6I2EvBFkhKnCj1jjOQl2gGrdG+O+cF7UoiyBPFvdHCI3HtBFznQazxmIh7AFprgajiESALMcUzAOqWO2Jh3Qu+LxGmrWiPzFpRK8qBMm3FAmTFQ4gGaBV3IZpds6NaQ3TBwqAMKeVPbMWy62hCo2Esb+LZtYRorZiCRHZNEK/PI0ho1+4Q/Y5oQUK7zohb3lVqLbumLimW60yxXOKTjGq1Odig6poUrdMmtR+D+FpZkopkGwAAAABJRU5ErkJggg==); }
+#svg_editor  #soziframebuttons #soziframe_rename { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAB+ElEQVRIS7WVOS9FQRiGL4loaZS2P2Ct7TWC1pJQ2oLSchNKEktLIrRuUHMRrRD8AZQ06JSeV+ZLxnHmxL25d5InZ3Jm5nu/7cwpSaVSFdAAxRgPJVg9gsFiWMdmRgLn0F0kgWySwAOiHy59SmM+I1GgDovPsA7z+VjnTFDgicV6Z7SP50mhBfYwOOHS88LzDcryEAlG0I8x1WASFuAGWgspUImxXph2huPqoAZIw5YTViMo8gHPkdgI7tjQArswDhJrj6nDDO+2XRpl3LrujHmPE4kVWGJxDV6hCpSuU/iCcs87CbfBMZTCO6gxhp2wtsYKdLKg8G/dwQ2eqkP0g4z7hnRW4zIUgQzLsynPCwmpwIuw6kUQnepsE9QmCWRYHAIVuNmzkGbe4R20pX0mV3APqoGGv+9PitQ1Owle+nUYZd+B21vDU43wCCp4MEUKUaHqsD904Brs5r1grgtyBDZBadVIrIFdD37+TSTLRK1na9FOs31yMBiBXQ+h/4O6phH0nSyDWtlPmTnYEUqR5dT6P5Kln/CvQOuHoNZVC8+597M8VWhzQg79KrLyWAvW/1EBS4si7AJ9VKqXDd261aAmsSh+Ccg75U8exA19qfJQHaN/hVKSBt226qAV+AQVXetjkPjDCejk9LroAj8/fQs5J9f+ufn+G+oMi0Fo8CZoAAAAAElFTkSuQmCC); }
+#svg_editor  #soziframebuttons #soziframe_up { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABLUlEQVRIS2NkIA0oAJU/IEULIymKgWpXA/ElIG4mVh8pFtgDDd0HxB+B2IhYn5BiwS2goapQl88F0inE+IJYC/KAhk1EM9AByD9IyBJiLBAAGgJyvSiaYXuBfBdqWNALNKQIh0HxQPFF+Cwh5ANQsrwNxCw4DHkPFFcC4g+4LCFkwW4igqEOX7LFZ4EfUON6IGYiFM5AeUVcyRafBcjJkpAda4EKQrApwmVBLVBxEyFTiUm22CzAlSwJ2XcOqMAYXRE2C+YAFSUTMg2HfD5QfBKyHLoFsPKGmIjFZgdGskW3gJhkSchzfUAFxTBFyBbEAQUXEtJNpDw82cIsAEXsaSBWIdIAQsrg5RShnFyDL5dCbQEl6RZcNo5aAAqZwR1EdkAXOhFIMqCGwCFcagDyfjIZRAUnZgAAAABJRU5ErkJggg==); }
+#svg_editor  #soziframebuttons #soziframe_down { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABUklEQVRIS2NkwA/sgNKOBNQsBMo/wKWGkYDmGqB8MwE1IAccGLUAXygRFUQCQBP0sZgSCxRLJhAHBUD5C1jUHASJIUfyLSBflYBhxErPBSpMQbfAHiiwH81SYg1EVvcByDGEJV30ZLobKOFCjqlIeuqQkza6BQpAyTtAzEymJfeB+oyAGOQLMMCW0WqB4k1kWhAP1LcIWS82C0Ap6jYQi5BoyT6gemd0PbiKijigQlAZQwowACq+SKwFIHWngNiUSBvgyZIUC4hNtqAIVUSOWEJxgCy/GsgJIeALlGRJig9AahWA+CwQC+GwBJQslfA5gFB9ANKLL9k6AOXBZQ4uQIwFoGR7BoiV0QzBmixJDSKYemzJFhSxDwjED9acjEsPcjnVB1RUTMhwkDwxQQQzB5ZsPwIFcCZLcoMIpm8OkHEJiCcR43pSfQBSD4pweElJjCUAqaA0GdFr3SoAAAAASUVORK5CYII=); }
+#svg_editor  #soziframebuttons #soziframe_options { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAB/klEQVRIS51Wyy4EQRSdwQcwWBuvtefeDNZI2DIJtkSwJIgtImy9Yotg7dXWEmKLeHwB/sA5narOnZrqrmqVnPRU3VP33L59b9VkM+7RAUof0Ax0KnqA5zdwCXwlucgmGMdhWwFaHTHcwb4G3Nt4NoFaEE+BAffLlTEOMFsAfuSqKcB03AD1KZ1r+qMKLBKRAoz8BWh0OOfmbeAI+AUegDaxhyI9ei4FrrA46BE5P/Sz4p3gOWbZs6XSldECQ1g4B6ocApuwLyoOf88bfL4dM8HBqvvUAkxNu0f0RXACxdvQUar5IZ7vwLqa7+M5TYE88ArUpBRgqphv+ngCuoElIcA+ydE4A+x4OCdlBGBzycHKY7MxPeZbFSlgLiZpFWC0NhTWbVVYosA14NNUJfCOY9TpfA8YNezLvgJR2SkHdMjUMjVdwDDAqjFHKCA/jC1AVsekMNA5e6Y3KZfKFqYo6SOzOvoBeb7ENZdNL/zIeeANqDYYNufM85RH5KQwqLq4RqOxAOgjgRsmAKbL1e1aP2o0LvCouAC04Cx+74pI0zrn1rKjggvysJMC/znCKw47CrA6eGQ0AGzzOfUGJKe5H27Bj/rKduGQkPP8kCatojDirswz7GR5phlmv4R7XZf+KjgtDpUAdvK8L33TXxMWeIqyKuTflg/M6ZzHRez4A5kGYk2pC0C7AAAAAElFTkSuQmCC); }
+
+#svg_editor #sozioptions {
+	display: none;
+	text-align: right;
+	width: 200px;
+	height: 200px;
+	position: absolute;
+	background: #AAA;
+	border: 2px solid #FFF;
+	border-radius: 5px 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	box-shadow: 5px 5px 5px rgba(150, 150, 150, 0.2);
+	-webkit-box-shadow: 5px 5px rgba(150, 150, 150, 0.2);
+	-moz-box-shadow: 5px 5px rgba(150, 150, 150, 0.2);
+	padding: 4px;
+}
+	#svg_editor #sozioptions fieldset {
+		padding: 4px;
+	}
+		#svg_editor #sozioptions fieldset fieldset {
+			margin-top: 5px;
+		}
+	#svg_editor #sozioptions button {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		padding: 4px;
+		margin: 4px;
+	}
+
+#svg_editor #sozi_apply,
+#svg_editor #sozi_preview {
+	display: inline-block;
+	margin: 6px;
+}
+
+#svg_editor #framelist {
+	margin: 1px;
+	padding: 0px;
+	width: 127px;
+	border-collapse: collapse;
+	border: 1px solid #808080;
+	background-color: #FFFFFF;
+	height: 100px;
+	list-style-position: inside;
+}
+
+#svg_editor #framelist option.soziframename {
+	cursor: pointer;
+}
+
+#svg_editor #soziprofile {
+	margin-top: 2px;
+	text-align: right;
+}
+
+#svg_editor #soziprofile #profilelist {
+	width: 130px;
+}
+
+#svg_editor #sozi_panel {
+	min-width: 400px;
+	max-width: 800px;
+}
+
+#svg_editor #soziprofile #soziduration,
+#svg_editor #soziprofile #sozizoom,
+#svg_editor #sozi_panel #sozitimeout {
+	width: 36px;
+	text-align: right;
+}
+
+#svg_editor #soziframe {
+	width: 130px;
+}
+
+#svg_editor #sozi_panel #sozihide,
+#svg_editor #sozi_panel #soziclip,
+#svg_editor #sozi_panel #sozitimeoutenabled {
+	position: relative;
+	top: 4px;
+	margin-right: 5px;
+}
+
