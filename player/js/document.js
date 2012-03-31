@@ -175,7 +175,7 @@ module("sozi.document", function (exports) {
             // Those properties can later be overriden by <layer> elements
             exports.idLayerList.forEach(function (idLayer) {
                 var attr, currentLayer, previousLayer;
-                if (indexFrame === 0 || idLayer.search("sozi-wrapper-[0-9]+") === -1) {
+                if (indexFrame === 0 || idLayer.search("sozi-wrapper-[0-9]+") !== -1) {
                     // In the first frame, or in wrapper layers,
                     // read layer attributes from the <frame> element
                     readLayerProperties(newFrame, idLayer, soziFrame);
