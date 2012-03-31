@@ -601,7 +601,8 @@ class SoziUI:
         self.redo_button.connect("clicked", self.on_redo)
         
         toolBar = gtk.Toolbar()
-        toolBar.set_style(gtk.TOOLBAR_BOTH)
+        toolBar.set_style(gtk.TOOLBAR_ICONS)
+        toolBar.set_icon_size(gtk.ICON_SIZE_SMALL_TOOLBAR)
         toolBar.add(self.undo_button)
         toolBar.add(self.redo_button)
        
