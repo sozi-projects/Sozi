@@ -16,6 +16,7 @@ ADD_CUSTOM_COMMAND(
 
 SET(sozi_inkscape_files ${CMAKE_CURRENT_SOURCE_DIR}/sozi.inx
                         ${CMAKE_CURRENT_SOURCE_DIR}/sozi.py 
+                        ${CMAKE_CURRENT_SOURCE_DIR}/sozi.py.svg
                         ${CMAKE_CURRENT_SOURCE_DIR}/extras/sozi_extras_addvideo.inx
                         ${CMAKE_CURRENT_SOURCE_DIR}/extras/sozi_extras_addvideo.py
                         ${CMAKE_CURRENT_SOURCE_DIR}/extras/sozi_extras_upgrade.inx
@@ -34,6 +35,6 @@ ADD_CUSTOM_TARGET(sozi_inkscape ALL DEPENDS ${sozi_inkscape_files} ${sozi_player
 INSTALL(FILES ${sozi_inkscape_files}
               ${sozi_player_files}
               ${sozi_doc_files}
-	      DESTINATION share/inkscape/extensions
-              COMPONENT inkscape_integration)
+	    DESTINATION share/inkscape/extensions
+        COMPONENT inkscape_integration)
 
