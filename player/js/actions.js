@@ -92,6 +92,7 @@ module("sozi.actions", function (exports) {
             toggleFrameList();
         }
         evt.stopPropagation();
+        evt.preventDefault();
     }
 
     /*
@@ -156,12 +157,16 @@ module("sozi.actions", function (exports) {
             player.moveToNext();
         }
         evt.stopPropagation();
+        evt.preventDefault();
     }
 
     /*
      * Event handler: mouse wheel.
      *
      * Rolling the mouse wheel stops the presentation and zooms the current display.
+     *
+     * FIXME goes backward in Opera
+     * FIXME shift key does not work in Opera
      */
     function onWheel(evt) {
         var delta = 0;
@@ -202,7 +207,7 @@ module("sozi.actions", function (exports) {
             return;
         }
 
-        switch (evt.charCode) {
+        switch (evt.charCode || evt.keyCode) {
         case 43: // +
             zoom(1, window.innerWidth / 2, window.innerHeight / 2);
             break;
