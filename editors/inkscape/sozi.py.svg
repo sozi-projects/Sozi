@@ -33,9 +33,9 @@
      bordercolor="#666666"
      pagecolor="#000000"
      id="base"
-     inkscape:zoom="0.5"
-     inkscape:cx="-30.408833"
-     inkscape:cy="-345.09847"
+     inkscape:zoom="4"
+     inkscape:cx="118.43548"
+     inkscape:cy="57.135386"
      inkscape:window-x="0"
      inkscape:window-y="26"
      inkscape:current-layer="layer2"
@@ -127,78 +127,6 @@
          result="blur"
          stdDeviation="3"
          in="SourceAlpha" />
-    </filter>
-    <filter
-       height="2.5217314"
-       y="-0.76086572"
-       width="2.4322178"
-       x="-0.71610892"
-       id="filter3969"
-       inkscape:collect="always">
-      <feGaussianBlur
-         id="feGaussianBlur3971"
-         stdDeviation="7.6086572"
-         inkscape:collect="always" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter12543"
-       x="-0.16614186"
-       width="1.3322837"
-       y="-0.071312636"
-       height="1.1426253">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="3.3196624"
-         id="feGaussianBlur12545" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter12547"
-       x="-0.16426912"
-       width="1.3285382"
-       y="-0.10313901"
-       height="1.206278">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="3.3196624"
-         id="feGaussianBlur12549" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter12551"
-       x="-0.30836513"
-       width="1.6167303"
-       y="-0.12352138"
-       height="1.2470428">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="3.3196624"
-         id="feGaussianBlur12553" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter12555"
-       x="-1.1495509"
-       width="3.2991018"
-       y="-1.2910241"
-       height="3.5820482">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="3.3196624"
-         id="feGaussianBlur12557" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter12559"
-       x="-0.11897473"
-       width="1.2379495"
-       y="-0.073362189"
-       height="1.1467244">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="3.3196624"
-         id="feGaussianBlur12561" />
     </filter>
     <filter
        inkscape:collect="always"
@@ -309,10 +237,11 @@
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="ssssssss" />
       <path
-         style="fill:#ddafe9;fill-opacity:1;stroke:#ddafe9;stroke-width:0.30375826px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="m 105.46596,9.888582 c -0.7061,0.05537 -1.40811,0.236412 -2.04429,0.550189 -0.36323,0.191154 -0.77466,0.473879 -0.8033,0.922245 -0.0159,0.626821 0.42162,1.2015 0.99778,1.420459 0.68219,0.268259 1.45827,0.201753 2.13917,-0.03416 1.00361,-0.372958 1.75928,-1.226511 2.21101,-2.176343 0.0543,-0.154653 0.28454,-0.423302 -0.0274,-0.389324 -0.8083,-0.129419 -1.61912,-0.278692 -2.43964,-0.294102 l -0.0351,6.71e-4 z"
+         style="fill:#ddafe9;fill-opacity:1;stroke:none"
+         d="m 102.61837,11.361016 c -0.0159,0.626821 0.42162,1.2015 0.99778,1.420459 0.68219,0.268259 1.45827,0.201753 2.13917,-0.03416 1.00361,-0.372958 1.75928,-1.226511 2.21101,-2.176343 -1.05602,-1.0858825 -4.14866,-0.8693904 -5.34796,0.790044 z"
          id="path3800"
-         inkscape:connector-curvature="0" />
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
       <path
          style="fill:#00ccff;fill-opacity:1;stroke:#00ccff;stroke-width:0.30375826;stroke-opacity:1"
          d="m 80.901515,97.47534 c -7.08448,-2.47786 -10.175055,-6.230052 -9.484607,-9.91038 0.453761,-2.418665 3.801456,-6.331445 9.047331,-10.532988 2.995492,-2.399098 10.887241,-7.969306 12.327891,-8.845522 0.34837,-0.211909 0.0587,0.909838 -0.11505,3.301498 -0.66695,9.184583 -2.02127,15.789661 -4.628152,21.704352 -1.130157,2.56433 -2.58331,5.73867 -2.923402,5.69948 -0.109101,-0.0125 -1.878149,-0.50757 -3.003408,-0.90113 z"
