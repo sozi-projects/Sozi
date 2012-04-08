@@ -19,7 +19,6 @@
 module("sozi.framelist", function (exports) {
 	var window = this,
         document = window.document,
-        svgRoot,
         tocGroup,
         linksBox,
         tocHeight = 0,
@@ -35,7 +34,8 @@ module("sozi.framelist", function (exports) {
         SVG_NS = "http://www.w3.org/2000/svg";
 
 	function onMouseOut(evt) {
-        var rel = evt.relatedTarget;
+        var rel = evt.relatedTarget,
+            svgRoot = document.documentElement;
         while (rel !== tocGroup && rel !== svgRoot) {
             rel = rel.parentNode;
         }
@@ -113,11 +113,9 @@ module("sozi.framelist", function (exports) {
             textWidth,
             currentFrameIndex = sozi.location.getFrameIndex();
 
-		svgRoot = document.documentElement;
-
         tocGroup = document.createElementNS(SVG_NS, "g");
         tocGroup.setAttribute("id", "sozi-toc");
-        svgRoot.appendChild(tocGroup);
+        document.documentElement.appendChild(tocGroup);
 
         linksBox = document.createElementNS(SVG_NS, "g");
         tocGroup.appendChild(linksBox);
