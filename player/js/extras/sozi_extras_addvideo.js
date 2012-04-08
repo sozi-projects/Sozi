@@ -96,9 +96,9 @@ this.addEventListener("load", function () {
 				    htmlMedia: htmlMedia
 			    });
 		    }
-	    }
 	    
-		// Append HTML source element to current HTML media element
-		mediaList[j].htmlMedia.appendChild(htmlSource);
+    		// Append HTML source element to current HTML media element
+    		mediaList[j].htmlMedia.appendChild(htmlSource);
+	    }
 	}				
 }, false);
