@@ -50,13 +50,16 @@ LIST(APPEND sozi_player_files ${CMAKE_CURRENT_BINARY_DIR}/sozi.version)
 ### The sozi.js output file contains the javascript sozi engine
 ################################################################################
 
-# the order is important because of depencies (in case we don't use juicer)
-SET(sozi_js ${CMAKE_CURRENT_SOURCE_DIR}/js/events.js 
+# The order is important because of dependencies (in case we don't use juicer)
+# This list can be obtained by running juicer list player/js/sozi.js
+SET(sozi_js ${CMAKE_CURRENT_SOURCE_DIR}/js/module.js
+			${CMAKE_CURRENT_SOURCE_DIR}/js/events.js 
+            ${CMAKE_CURRENT_SOURCE_DIR}/js/framenumber.js 
             ${CMAKE_CURRENT_SOURCE_DIR}/js/framelist.js 
-            ${CMAKE_CURRENT_SOURCE_DIR}/js/actions.js 
             ${CMAKE_CURRENT_SOURCE_DIR}/js/animation.js 
-            ${CMAKE_CURRENT_SOURCE_DIR}/js/player.js  
             ${CMAKE_CURRENT_SOURCE_DIR}/js/display.js 
+            ${CMAKE_CURRENT_SOURCE_DIR}/js/player.js  
+            ${CMAKE_CURRENT_SOURCE_DIR}/js/actions.js 
             ${CMAKE_CURRENT_SOURCE_DIR}/js/document.js 
             ${CMAKE_CURRENT_SOURCE_DIR}/js/location.js 
             ${CMAKE_CURRENT_SOURCE_DIR}/js/sozi.js)
