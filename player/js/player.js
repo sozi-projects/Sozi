@@ -407,6 +407,10 @@ module("sozi.player", function (exports) {
      */
     function onDisplayReady() {
         exports.startFromIndex(sozi.location.getFrameIndex());
+
+        // Hack to fix the blank screen bug in Chrome/Chromium
+        // See https://github.com/senshu/Sozi/issues/109
+        window.setTimeout(display.update, 1);
     }    
 
     animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);

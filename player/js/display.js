@@ -36,7 +36,7 @@ module("sozi.display", function (exports) {
     function onDocumentReady() {
         var svgClippedGroup, svgClipPath, idLayer,
             svgRoot = document.documentElement; // TODO check SVG tag
-            
+        
         initialBBox = svgRoot.getBBox();
         svgRoot.setAttribute("width", window.innerWidth);
         svgRoot.setAttribute("height", window.innerHeight);
@@ -192,16 +192,6 @@ module("sozi.display", function (exports) {
             if (exports.layers.hasOwnProperty(idLayer)) {
                 lg = exports.layers[idLayer].geometry;
                 fg = getFrameGeometry(idLayer);
-                
-                translateX = -lg.cx + lg.width / 2  + fg.x / fg.scale;
-                translateY = -lg.cy + lg.height / 2 + fg.y / fg.scale;
-
-                // Compute and apply the geometrical transformation to the layer group
-                exports.layers[idLayer].svgLayer.setAttribute("transform",
-                    "scale(" + fg.scale + ")" +
-                    "translate(" + translateX + "," + translateY + ")" +
-                    "rotate(" + (-lg.rotate) + ',' + lg.cx + "," + lg.cy + ")"
-                );
 
                 // Adjust the location and size of the clipping rectangle and the frame rectangle
                 cr = exports.layers[idLayer].svgClipRect;
@@ -209,6 +199,16 @@ module("sozi.display", function (exports) {
                 cr.setAttribute("y", lg.clip ? fg.y : 0);
                 cr.setAttribute("width", lg.clip ? fg.width : window.innerWidth);
                 cr.setAttribute("height", lg.clip ? fg.height : window.innerHeight);
+                
+                // Compute and apply the geometrical transformation to the layer group
+                translateX = -lg.cx + lg.width / 2  + fg.x / fg.scale;
+                translateY = -lg.cy + lg.height / 2 + fg.y / fg.scale;
+
+                exports.layers[idLayer].svgLayer.setAttribute("transform",
+                    "scale(" + fg.scale + ")" +
+                    "translate(" + translateX + "," + translateY + ")" +
+                    "rotate(" + (-lg.rotate) + ',' + lg.cx + "," + lg.cy + ")"
+                );
             }
         }
     };
