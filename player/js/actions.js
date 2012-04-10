@@ -124,6 +124,7 @@ module("sozi.actions", function (exports) {
             dragButtonIsDown = false;
         }
         evt.stopPropagation();
+        evt.preventDefault();
     }
 
     /*
@@ -131,8 +132,8 @@ module("sozi.actions", function (exports) {
      *
      * Right click goes one frame back.
      *
-     * There is no "click" for the right mouse button and the menu can't
-     * be prevented in "onMouseDown".
+     * There is no "click" event for the right mouse button and the menu
+     * can't be disabled in "onMouseDown".
      */
     function onContextMenu(evt) {
         player.moveToPrevious();
@@ -165,7 +166,6 @@ module("sozi.actions", function (exports) {
      *
      * Rolling the mouse wheel stops the presentation and zooms the current display.
      *
-     * FIXME goes backward in Opera
      * FIXME shift key does not work in Opera
      */
     function onWheel(evt) {
@@ -175,13 +175,9 @@ module("sozi.actions", function (exports) {
         }
         if (evt.wheelDelta) { // IE and Opera
             delta = evt.wheelDelta; 
-            if (window.opera) { // Opera
-                delta = -delta;
-            }
         } else if (evt.detail) { // Mozilla
             delta = -evt.detail;
         }
-
         if (delta !== 0) {
             if (evt.shiftKey) {
                 rotate(delta);
@@ -197,7 +193,7 @@ module("sozi.actions", function (exports) {
      * Event handler: key press.
      *
      * Keyboard handling is split into two methods: onKeyPress and onKeyDown
-     * in order to get the same behavior in Mozilla and Webkit.
+     * in order to get the same behavior across browsers.
      *
      * This method handles character keys "+", "-", "=", "F" and "T".
      */
@@ -234,13 +230,14 @@ module("sozi.actions", function (exports) {
         }
 
         evt.stopPropagation();
+        evt.preventDefault();
     }
 
     /*
      * Event handler: key down.
      *
      * Keyboard handling is split into two methods: onKeyPress and onKeyDown
-     * in order to get the same behavior in Mozilla and Webkit.
+     * in order to get the same behavior across browsers.
      *
      * This method handles navigation keys (arrows, page up/down, home, end)
      * and the space and enter keys.
@@ -275,7 +272,10 @@ module("sozi.actions", function (exports) {
             player.moveToNext();
             break;
         }
+        
         evt.stopPropagation();
+        
+        // In Chrome/Chromium, preventDefault() inhibits the "keypress" event
     }
 
     function onLoad() {
