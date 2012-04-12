@@ -28,6 +28,8 @@ import pygtk
 pygtk.require("2.0")
 import gtk
 
+import re
+
 import sozi_upgrade
 
 
@@ -418,6 +420,10 @@ class SoziDeleteAction(SoziAction):
         """
         self.ui.effect.delete_frame(self.index)
         self.ui.remove_frame_title(self.index)
+        # If the removed frame was the last, and if the frame list is not empty,
+        # select the last frame
+        if self.index > 0 and self.index >= len(self.ui.effect.frames):
+            self.ui.select_index(-1)
 
 
     def undo(self):        
@@ -607,7 +613,6 @@ class SoziUI:
         toolBar.add(self.undo_button)
         toolBar.add(self.redo_button)
        
-
         # Frame properties
         frame_box = gtk.VBox(spacing=0)
         frame_box.pack_start(self.fields["title"].container_widget, expand=False)
@@ -660,32 +665,47 @@ class SoziUI:
         selection.set_mode(gtk.SELECTION_SINGLE) # TODO multiple selection
         selection.set_select_function(self.on_selection_changed)
 
-        # Create new/delete buttons
+        # Create "new" button
+        # This button is enabled only if an element is selected in Inkscape
         self.new_button = gtk.ToolButton()
-        self.new_button.set_tooltip_text("Create a new frame using the selected element")
+        if len(effect.selected) > 0:
+            # The tooltip of the "new" button will show the tag of the SVG element
+            # selected in Inkscape, removing the namespace URI if present 
+            self.new_button.set_tooltip_text("Create a new frame using the selected '" +
+                re.sub("{.*}", "", effect.selected.values()[0].tag) + "'")
+        else:
+            self.new_button.set_sensitive(False)
+            
         self.new_button.set_stock_id(gtk.STOCK_ADD)        
         self.new_button.connect("clicked", self.on_create_new_frame)
 
+        # Create "delete" and "duplicate" buttons
+        # These buttons are disabled until a frame is selected
         self.delete_button = gtk.ToolButton()
         self.delete_button.set_tooltip_text("Delete the current frame")
         self.delete_button.set_stock_id(gtk.STOCK_REMOVE)
         self.delete_button.connect("clicked", self.on_delete_frame)
-        
+        self.delete_button.set_sensitive(False)
+
         self.duplicate_button = gtk.ToolButton()
         self.duplicate_button.set_tooltip_text("Duplicate the current frame")
         self.duplicate_button.set_stock_id(gtk.STOCK_COPY)
         self.duplicate_button.connect("clicked", self.on_duplicate_frame)
+        self.duplicate_button.set_sensitive(False)
 
         # Create up/down buttons
+        # These buttons are disabled until a frame is selected
         self.up_button = gtk.ToolButton()
         self.up_button.set_tooltip_text("Move the current frame up")
         self.up_button.set_stock_id(gtk.STOCK_GO_UP)
         self.up_button.connect("clicked", self.on_move_frame_up)
+        self.up_button.set_sensitive(False)
 
         self.down_button = gtk.ToolButton()
         self.down_button.set_tooltip_text("Move the current frame down")
         self.down_button.set_stock_id(gtk.STOCK_GO_DOWN)
         self.down_button.connect("clicked", self.on_move_frame_down)
+        self.down_button.set_sensitive(False)
 
         listToolBar = gtk.Toolbar()
         listToolBar.set_icon_size(1)
@@ -708,12 +728,10 @@ class SoziUI:
         list_group.add(left_pane_content)
         
         left_pane = list_group
-        #left_pane.set_r
 
         hbox = gtk.HBox(spacing=5)
         hbox.pack_start(left_pane)
         hbox.pack_start(right_pane)
-        
         
         # button Bar
         cancel_button = gtk.Button(stock=gtk.STOCK_CANCEL)
@@ -740,38 +758,32 @@ class SoziUI:
         self.window.add(vbox)
         self.window.show_all()
 
-
-        self.select_is_new = False
-         
-        # Get selected frame
-        selected_frame = None
-        # if selection is already in Sozi, select it
+        # If at least one frame exists in the document,
+        # the first one is selected by default
+        if len(effect.frames) > 0:
+            selected_frame = effect.frames[0]
+        else:
+            selected_frame = None
+        
+        # If an element is selected in Inkscape, and if it corresponds to
+        # one or more existing frames, select the first matching frame
         if len(effect.selected) > 0:
             for f in effect.frames:
                 if f["svg_element"].attrib["id"] in effect.selected:
                     selected_frame = f
                     break
         
-        # if selection is not already in Sozi, selection is new
-        if (selected_frame == None) and (len(effect.selected) > 0):
-            self.select_is_new = True
-                
-        if (selected_frame == None) and  len(effect.frames) > 0:
-            selected_frame = effect.frames[0]
-
         # Fill frame list
         for i in range(len(effect.frames)):
             self.append_frame_title(i)
 
+        # Select current frame in frame list and fill form
         if selected_frame is not None:
             index = effect.frames.index(selected_frame)
             self.list_view.get_selection().select_path((index,))
             self.list_view.scroll_to_cell(index)
         else:
             self.fill_form(None)
-        
-        if self.select_is_new==False:
-            self.new_button.set_sensitive(False)
         
         gtk.main()
         
@@ -856,7 +868,6 @@ class SoziUI:
             field.set_with_frame(frame)
 
         self.duplicate_button.set_sensitive(frame is not None )
-        
         self.delete_button.set_sensitive(frame is not None)
 
 
