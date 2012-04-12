@@ -105,7 +105,7 @@ class SoziField:
     def set_with_frame(self, frame):
         """
         Set the value of the current field with the corresponding attribute of the given frame.
-        If frame is None, the field is filled with its default value.
+        If frame is None, the field is filled with its default value and edition is inhibited.
         The previous value of the field is written to the document if needed.
         """
         self.write_if_needed()
@@ -115,6 +115,7 @@ class SoziField:
         else:
             self.last_value = self.default_value
         self.set_value(self.last_value)
+        self.input_widget.set_sensitive(frame is not None)
 
 
     def on_focus_out(self, widget, event=None):
@@ -757,11 +758,11 @@ class SoziUI:
                 
         if (selected_frame == None) and  len(effect.frames) > 0:
             selected_frame = effect.frames[0]
-#
+
         # Fill frame list
         for i in range(len(effect.frames)):
             self.append_frame_title(i)
-#
+
         if selected_frame is not None:
             index = effect.frames.index(selected_frame)
             self.list_view.get_selection().select_path((index,))
