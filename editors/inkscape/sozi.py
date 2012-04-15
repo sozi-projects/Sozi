@@ -1072,18 +1072,31 @@ class Sozi(inkex.Effect):
         Analyze the document and collect information about the presentation.
         Frames with no corresponding SVG element are removed.
         Frames numbers are updated if needed.
+        
+        FIXME this method currently does not support frames with layers
         """
         # Get list of valid frame elements and remove orphan frames
+        refid_attr = inkex.addNS("refid", "sozi")
         self.frames = []
         for f in self.document.xpath("//sozi:frame", namespaces=inkex.NSS):
-            e = self.document.xpath("//svg:*[@id='" + f.attrib[inkex.addNS("refid", "sozi")] + "']", namespaces=inkex.NSS)
-            if len(e) == 0:
-                self.document.getroot().remove(f)
+            if refid_attr in f.attrib:
+                e = self.document.xpath("//svg:*[@id='" + f.attrib[refid_attr] + "']", namespaces=inkex.NSS)
+                if len(e) == 0:
+                    self.document.getroot().remove(f)
+                else:
+                    self.frames.append(
+                        {
+                            "frame_element": f,
+                            "svg_element": e[0]
+                        }
+                    )
             else:
+                # Frame elements with layers do not always contain a "refid" attribute.
+                # FIXME add the frame only if it contains valid layer elements
                 self.frames.append(
                     {
                         "frame_element": f,
-                        "svg_element": e[0]
+                        "svg_element": None
                     }
                 )
 
@@ -1108,6 +1121,7 @@ class Sozi(inkex.Effect):
 
         # Swap frames in frame list
         self.frames[first], self.frames[second] = self.frames[second], self.frames[first]
+
 
     def create_new_frame(self, index):
         """
