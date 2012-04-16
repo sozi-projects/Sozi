@@ -7,18 +7,17 @@
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
  * @depend events.js
  */
 
-/*global module:true sozi:true */
-
-module("sozi.location", function (exports) {
-    var window = this,
-        changedFromWithin = false;
+module(this, "sozi.location", function (exports, window) {
+    "use strict";
+    
+    var changedFromWithin = false;
     
     /*
      * Returns the frame index given in the URL hash.
@@ -78,9 +77,9 @@ module("sozi.location", function (exports) {
 	 * This function registers the "framechange" handler.
 	 */
     function onLoad() {
-        sozi.events.listen("framechange", onFrameChange);        
+        sozi.events.listen("framechange", onFrameChange);
     }
     
-    window.addEventListener("hashchange", onHashChange, false);        
-    window.addEventListener("load", onLoad, false);        
+    window.addEventListener("hashchange", onHashChange, false);
+    window.addEventListener("load", onLoad, false);
 });

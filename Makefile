@@ -12,6 +12,8 @@ JUICER_OPT += --skip-verification
 
 MINIFY := juicer merge $(JUICER_OPT) --arguments "$(MINIFY_OPT)"
 
+AUTOLINT := ./node_modules/autolint/bin/autolint
+
 SRC := \
 	$(wildcard editors/inkscape/*.py) \
 	$(wildcard editors/inkscape/extras/*.py) \
@@ -37,7 +39,7 @@ all: zip
 zip: release/sozi-release-$(VERSION).zip
 
 verify: $(PLAYER_JS) $(EXTRAS_JS)
-	juicer verify $^
+	$(AUTOLINT) --once
 
 minify: release/sozi.js release/sozi.css
 

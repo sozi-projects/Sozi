@@ -7,15 +7,15 @@
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
  */
 
-/*global module:true sozi:true */
-
-module("sozi.events", function (exports) {
+module(this, "sozi.events", function (exports) {
+    "use strict";
+    
     var listenerRegistry = {};
 
     /*

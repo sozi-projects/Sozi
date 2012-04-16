@@ -7,32 +7,39 @@
 * or the GNU General Public License (GPL) version 3.
 * A copy of both licenses is provided in the doc/ folder of the
 * official release of Sozi.
-* 
+*
 * See http://sozi.baierouge.fr/wiki/en:license for details.
 *
 * @depend module.js
 * @depend events.js
 */
 
-/*global module:true sozi:true */
+module(this, "sozi.document", function (exports, window) {
+    "use strict";
+    
+    // An alias to the global document object
+    var document = window.document;
+    
+    // Constant: the Sozi namespace
+    var SOZI_NS = "http://sozi.baierouge.fr";
+    
+    // Constant: the default frame properties, if missing in the SVG document
+    var DEFAULTS = {
+        "title": "Untitled",
+        "sequence": "0",
+        "hide": "true",
+        "clip": "true",
+        "timeout-enable": "false",
+        "timeout-ms": "5000",
+        "transition-duration-ms": "1000",
+        "transition-zoom-percent": "0",
+        "transition-profile": "linear"
+    };
 
-module("sozi.document", function (exports) {
-    var window = this,
-        document = window.document,
-        SOZI_NS = "http://sozi.baierouge.fr",
-        DEFAULTS = {
-            "title": "Untitled",
-            "sequence": "0",
-            "hide": "true",
-            "clip": "true",
-            "timeout-enable": "false",
-            "timeout-ms": "5000",
-            "transition-duration-ms": "1000",
-            "transition-zoom-percent": "0",
-            "transition-profile": "linear"
-        };
-
+    // The definitions of all valid frames in the current document
     exports.frames = [];
+    
+    // The list of layer ids managed by Sozi
     exports.idLayerList = [];
     
     /*
@@ -48,13 +55,11 @@ module("sozi.document", function (exports) {
 
     function readLayerProperties(frame, idLayer, soziElement) {
         var layer = frame.layers[idLayer] = frame.layers[idLayer] || {
-                idLayer: idLayer, // FIXME never used
-                geometry: {
-                    clip: DEFAULTS.clip
-                }
-            },
-            clip = layer.geometry.clip,
-            svgElement;
+            idLayer: idLayer, // FIXME never used
+            geometry: {
+                clip: DEFAULTS.clip
+            }
+        };
         
         if (typeof layer.hide === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "hide")) {
             layer.hide = readAttribute(soziElement, "hide") === "true";
@@ -68,16 +73,17 @@ module("sozi.document", function (exports) {
             layer.transitionProfile = sozi.animation.profiles[readAttribute(soziElement, "transition-profile") || "linear"];
         }
         
+        var actualClip = layer.geometry.clip;
         if (soziElement.hasAttributeNS(SOZI_NS, "refid")) {
             // The previous value of the "clip" attribute will be preserved
             // when setting the new geometry object.
-            svgElement = document.getElementById(soziElement.getAttributeNS(SOZI_NS, "refid"));
+            var svgElement = document.getElementById(soziElement.getAttributeNS(SOZI_NS, "refid"));
             if (svgElement) {
                 if (layer.hide) {
                     svgElement.style.visibility = "hidden";
                 }
                 layer.geometry = sozi.display.getElementGeometry(svgElement);
-                layer.geometry.clip = clip;
+                layer.geometry.clip = actualClip;
             }
         }
             
@@ -96,13 +102,8 @@ module("sozi.document", function (exports) {
     * The resulting list is available in frames, sorted by frame indices.
     */
     function readFrames() {
-        var soziFrameList, soziLayerList,
-            svgWrapper, svgElementList,
-            svgRoot = document.documentElement,
-            SVG_NS = "http://www.w3.org/2000/svg";
-
         // Collect all group ids of <layer> elements
-        soziLayerList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, "layer"));
+        var soziLayerList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, "layer"));
         soziLayerList.forEach(function (soziLayer) {
             var idLayer = soziLayer.getAttributeNS(SOZI_NS, "group");
             if (idLayer && exports.idLayerList.indexOf(idLayer) === -1 && document.getElementById(idLayer)) {
@@ -113,16 +114,19 @@ module("sozi.document", function (exports) {
         // If at least one <frame> element has a refid attribute,
         // reorganize the document, grouping objects that do not belong
         // to a group referenced in <layer> elements
-        soziFrameList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, "frame"));
+        var soziFrameList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, "frame"));
         if (soziFrameList.some(function (soziFrame) {
                 return soziFrame.hasAttributeNS(SOZI_NS, "refid");
             }))
         {
+            var svgRoot = document.documentElement;
+            var SVG_NS = "http://www.w3.org/2000/svg";
+
             // Create the first wrapper group
-            svgWrapper = document.createElementNS(SVG_NS, "g");
+            var svgWrapper = document.createElementNS(SVG_NS, "g");
 
             // For each child of the root SVG element
-            svgElementList = Array.prototype.slice.call(svgRoot.childNodes);
+            var svgElementList = Array.prototype.slice.call(svgRoot.childNodes);
             svgElementList.forEach(function (svgElement, index) {
                 if (!svgElement.getAttribute) {
                     // Remove text elements
@@ -143,7 +147,7 @@ module("sozi.document", function (exports) {
                     exports.idLayerList.push("sozi-wrapper-" + index);
                     svgRoot.insertBefore(svgWrapper, svgElement);
                     
-                    // Prepare a new wrapper element                
+                    // Prepare a new wrapper element
                     svgWrapper = document.createElementNS(SVG_NS, "g");
                 }
             });
@@ -153,28 +157,26 @@ module("sozi.document", function (exports) {
                 svgWrapper.setAttribute("id", "sozi-wrapper-" + svgElementList.length);
                 exports.idLayerList.push("sozi-wrapper-" + svgElementList.length);
                 svgRoot.appendChild(svgWrapper);
-            }            
+            }
         }
 
         // Analyze <frame> elements
         soziFrameList.forEach(function (soziFrame, indexFrame) {
-            var idLayer,
-                newFrame = {
-                    id: soziFrame.getAttribute("id"),
-                    title: readAttribute(soziFrame, "title"),
-                    sequence: parseInt(readAttribute(soziFrame, "sequence"), 10),
-                    timeoutEnable: readAttribute(soziFrame, "timeout-enable") === "true",
-                    timeoutMs: parseInt(readAttribute(soziFrame, "timeout-ms"), 10),
-                    transitionDurationMs: parseInt(readAttribute(soziFrame, "transition-duration-ms"), 10),
-                    layers: {}
-                };
+            var newFrame = {
+                id: soziFrame.getAttribute("id"),
+                title: readAttribute(soziFrame, "title"),
+                sequence: parseInt(readAttribute(soziFrame, "sequence"), 10),
+                timeoutEnable: readAttribute(soziFrame, "timeout-enable") === "true",
+                timeoutMs: parseInt(readAttribute(soziFrame, "timeout-ms"), 10),
+                transitionDurationMs: parseInt(readAttribute(soziFrame, "transition-duration-ms"), 10),
+                layers: {}
+            };
 
             // Get the default properties for all layers, either from
             // the current <frame> element or from the corresponding
             // layer in the previous frame.
             // Those properties can later be overriden by <layer> elements
             exports.idLayerList.forEach(function (idLayer) {
-                var attr, currentLayer, previousLayer;
                 if (indexFrame === 0 || idLayer.search("sozi-wrapper-[0-9]+") !== -1) {
                     // In the first frame, or in wrapper layers,
                     // read layer attributes from the <frame> element
@@ -183,10 +185,12 @@ module("sozi.document", function (exports) {
                 else {
                     // After the first frame, in referenced layers,
                     // copy attributes from the corresponding layer in the previous frame
-                    currentLayer = newFrame.layers[idLayer] = {};
-                    previousLayer = exports.frames[exports.frames.length - 1].layers[idLayer];
-                    for (attr in previousLayer) {
-                        currentLayer[attr] = previousLayer[attr];
+                    var currentLayer = newFrame.layers[idLayer] = {};
+                    var previousLayer = exports.frames[exports.frames.length - 1].layers[idLayer];
+                    for (var attr in previousLayer) {
+                        if (previousLayer.hasOwnProperty(attr)) {
+                            currentLayer[attr] = previousLayer[attr];
+                        }
                     }
                 }
             });
@@ -202,7 +206,7 @@ module("sozi.document", function (exports) {
             
             // If the <frame> element has at least one valid layer,
             // add it to the frame list
-            for (idLayer in newFrame.layers) {
+            for (var idLayer in newFrame.layers) {
                 if (newFrame.layers.hasOwnProperty(idLayer)) {
                     exports.frames.push(newFrame);
                     break;

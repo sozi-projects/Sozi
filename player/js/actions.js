@@ -7,7 +7,7 @@
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
@@ -15,21 +15,29 @@
  * @depend display.js
  */
 
-/*global module:true sozi:true */
-
-module("sozi.actions", function (exports) {
-    var player = sozi.player,
-        display = sozi.display,
-        window = this,
-        document = window.document,
-        DRAG_BUTTON = 0, // Left button
-        TOC_BUTTON = 1, // Middle button
-        SCALE_FACTOR = 1.05,
-        ROTATE_STEP = 5,
-        dragButtonIsDown = false,
-        dragged = false,
-        dragClientX = 0,
-        dragClientY = 0;
+module(this, "sozi.actions", function (exports, window) {
+    "use strict";
+    
+    // Module aliases
+    var player = sozi.player;
+    var display = sozi.display;
+    
+    // The global document object
+    var document = window.document;
+    
+    // Constants: mouse button numbers
+    var DRAG_BUTTON = 0;    // Left button
+    var TOC_BUTTON = 1;     // Middle button
+    
+    // Constants: increments for zooming and rotating
+    var SCALE_FACTOR = 1.05;
+    var ROTATE_STEP = 5;
+    
+    // State variables for the drag action
+    var dragButtonIsDown = false;
+    var dragging = false;
+    var dragClientX = 0;
+    var dragClientY = 0;
     
     /*
      * Zooms the display in the given direction.
@@ -85,7 +93,7 @@ module("sozi.actions", function (exports) {
     function onMouseDown(evt) {
         if (evt.button === DRAG_BUTTON) {
             dragButtonIsDown = true;
-            dragged = false;
+            dragging = false;
             dragClientX = evt.clientX;
             dragClientY = evt.clientY;
         } else if (evt.button === TOC_BUTTON) {
@@ -105,7 +113,7 @@ module("sozi.actions", function (exports) {
     function onMouseMove(evt) {
         if (dragButtonIsDown) {
             player.stop();
-            dragged = true;
+            dragging = true;
             sozi.events.fire("cleanup");
             display.drag(evt.clientX - dragClientX, evt.clientY - dragClientY);
             dragClientX = evt.clientX;
@@ -150,11 +158,11 @@ module("sozi.actions", function (exports) {
      * See "onMouseDown" for middle click handling.
      *
      * Dragging the mouse produces a "click" event when the button is released.
-     * If flag "dragged" was set by "onMouseMove", then the click event is the result
+     * If flag "dragging" was set by "onMouseMove", then the click event is the result
      * of a drag action.
      */
     function onClick(evt) {
-        if (!dragged && evt.button !== TOC_BUTTON) {
+        if (!dragging && evt.button !== TOC_BUTTON) {
             player.moveToNext();
         }
         evt.stopPropagation();
@@ -169,22 +177,27 @@ module("sozi.actions", function (exports) {
      * FIXME shift key does not work in Opera
      */
     function onWheel(evt) {
-        var delta = 0;
         if (!evt) {
             evt = window.event;
         }
+
+        var delta = 0;
         if (evt.wheelDelta) { // IE and Opera
-            delta = evt.wheelDelta; 
-        } else if (evt.detail) { // Mozilla
+            delta = evt.wheelDelta;
+        }
+        else if (evt.detail) { // Mozilla
             delta = -evt.detail;
         }
+        
         if (delta !== 0) {
             if (evt.shiftKey) {
                 rotate(delta);
-            } else {
+            }
+            else {
                 zoom(delta, evt.clientX, evt.clientY);
             }
         }
+        
         evt.stopPropagation();
         evt.preventDefault();
     }

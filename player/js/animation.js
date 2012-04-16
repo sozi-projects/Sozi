@@ -7,24 +7,33 @@
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
  */
 
-/*global module:true sozi:true */
-
-module("sozi.animation", function (exports) {
-    var window = this,
-        TIME_STEP_MS = 40,
-        animatorList = [],
-        timer,
-        requestAnimationFrame = window.mozRequestAnimationFrame ||
+module(this, "sozi.animation", function (exports, window) {
+    "use strict";
+    
+    // The browser-specific function to request an animation frame
+    var requestAnimationFrame =
+            window.mozRequestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             window.msRequestAnimationFrame ||
             window.oRequestAnimationFrame;
 
+    // Constant: the default time step
+    // for browsers that do not support animation frames
+    var TIME_STEP_MS = 40;
+    
+    // The handle provided by setInterval
+    // for browsers that do not support animation frames
+    var timer;
+    
+    // The list of running animators
+    var animatorList = [];
+    
     /*
      * This function is called periodically and triggers the
      * animation steps in all animators managed by this module.
@@ -36,7 +45,6 @@ module("sozi.animation", function (exports) {
      * if the browser supports it, or through setInterval().
      */
     function loop(timestamp) {
-        var i;
         if (animatorList.length > 0) {
             // If there is at least one animator,
             // and if the browser provides animation frames,

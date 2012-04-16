@@ -7,21 +7,27 @@
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
  * @depend events.js
  */
 
-/*global module:true sozi:true */
+module(this, "sozi.display", function (exports, window) {
+    "use strict";
+    
+    // The global document object
+    var document = window.document;
+    
+    // The initial bounding box of the whole document,
+    // assigned in onDocumentReady()
+    var initialBBox;
+    
+    // Constant: the Sozi namespace
+    var SVG_NS = "http://www.w3.org/2000/svg";
 
-module("sozi.display", function (exports) {
-    var window = this,
-        document = window.document,
-        initialBBox,
-        SVG_NS = "http://www.w3.org/2000/svg";
-
+    // The geometry of each layer managed by Sozi
     exports.layers = {};
 
     /*
@@ -34,9 +40,10 @@ module("sozi.display", function (exports) {
      * This method must be called when the document is ready to be manipulated.
      */
     function onDocumentReady() {
-        var svgClippedGroup, svgClipPath, idLayer,
-            svgRoot = document.documentElement; // TODO check SVG tag
+        var svgRoot = document.documentElement; // TODO check SVG tag
         
+        // Save the initial bounding box of the document
+        // and force its dimensions to the browser window
         initialBBox = svgRoot.getBBox();
         svgRoot.setAttribute("width", window.innerWidth);
         svgRoot.setAttribute("height", window.innerHeight);
@@ -57,14 +64,14 @@ module("sozi.display", function (exports) {
             };
 
             // Add a clipping path
-            svgClipPath = document.createElementNS(SVG_NS, "clipPath");
+            var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
             svgClipPath.setAttribute("id", "sozi-clip-path-" + idLayer);
             svgClipPath.appendChild(exports.layers[idLayer].svgClipRect);
             svgRoot.appendChild(svgClipPath);
 
             // Create a group that will support the clipping operation
             // and move the layer group into that new group
-            svgClippedGroup = document.createElementNS(SVG_NS, "g");
+            var svgClippedGroup = document.createElementNS(SVG_NS, "g");
             svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + idLayer + ")");
             
             // Adding the layer group to the clipped group must preserve layer ordering
@@ -94,8 +101,8 @@ module("sozi.display", function (exports) {
      *    - scale: the scale factor to apply to the SVG document so that is fits the visible area
      */
     function getFrameGeometry(idLayer) {
-        var g = exports.layers[idLayer].geometry,
-            result = {};
+        var g = exports.layers[idLayer].geometry;
+        var result = {};
         result.scale = Math.min(window.innerWidth / g.width, window.innerHeight / g.height);
         result.width = g.width * result.scale;
         result.height = g.height * result.scale;
@@ -117,31 +124,40 @@ module("sozi.display", function (exports) {
      *    - svgElement: an element from the SVG DOM
      *
      * Returns:
-     *    - The default size, translation and rotation for the given element 
+     *    - The default size, translation and rotation for the given element
      */
     exports.getElementGeometry = function (svgElement) {
-        var x, y, w, h, b, c,
-            matrix = svgElement.getCTM(),
-            scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
-
+        // Read the raw bounding box of the given SVG element
+        var x, y, w, h;
         if (svgElement.nodeName === "rect") {
             x = svgElement.x.baseVal.value;
             y = svgElement.y.baseVal.value;
             w = svgElement.width.baseVal.value;
             h = svgElement.height.baseVal.value;
         } else {
-            b = svgElement.getBBox();
+            var b = svgElement.getBBox();
             x = b.x;
             y = b.y;
             w = b.width;
             h = b.height;
         }
 
-        c = document.documentElement.createSVGPoint();
+        // Compute the raw coordinates of the center
+        // of the given SVG element
+        var c = document.documentElement.createSVGPoint();
         c.x = x + w / 2;
         c.y = y + h / 2;
+        
+        // Compute the coordinates of the center of the given SVG element
+        // after its current transformation
+        var matrix = svgElement.getCTM();
         c = c.matrixTransform(matrix);
 
+        // Compute the scaling factor applied to the given SVG element
+        var scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
+        
+        // Return the complete bounding box information of the given
+        // SVG element after its current transformation
         return {
             cx: c.x,
             cy: c.y,
@@ -158,19 +174,21 @@ module("sozi.display", function (exports) {
      *    - The default size, translation and rotation for the document's bounding box
      */
     exports.getDocumentGeometry = function () {
-        var idLayer,
-            result = { layers: {} },
-            value = {
-                geometry: {
-                    cx: initialBBox.x + initialBBox.width / 2,
-                    cy: initialBBox.y + initialBBox.height / 2,
-                    width: initialBBox.width,
-                    height: initialBBox.height,
-                    rotate: 0,
-                    clip: false
-                }
-            };
-        for (idLayer in exports.layers) {
+        // This object defines the bounding box of the whole document
+        var value = {
+            geometry: {
+                cx: initialBBox.x + initialBBox.width / 2,
+                cy: initialBBox.y + initialBBox.height / 2,
+                width: initialBBox.width,
+                height: initialBBox.height,
+                rotate: 0,
+                clip: false
+            }
+        };
+        
+        // Copy the document's bounding box to all layers
+        var result = { layers: {} };
+        for (var idLayer in exports.layers) {
             if (exports.layers.hasOwnProperty(idLayer)) {
                 result.layers[idLayer] = value;
             }
@@ -185,24 +203,21 @@ module("sozi.display", function (exports) {
      * This method is called automatically when the window is resized.
      */
     exports.update = function () {
-        var idLayer, fg, lg, cr,
-            translateX, translateY;
-
-        for (idLayer in exports.layers) {
+        for (var idLayer in exports.layers) {
             if (exports.layers.hasOwnProperty(idLayer)) {
-                lg = exports.layers[idLayer].geometry;
-                fg = getFrameGeometry(idLayer);
+                var lg = exports.layers[idLayer].geometry;
+                var fg = getFrameGeometry(idLayer);
 
                 // Adjust the location and size of the clipping rectangle and the frame rectangle
-                cr = exports.layers[idLayer].svgClipRect;
+                var cr = exports.layers[idLayer].svgClipRect;
                 cr.setAttribute("x", lg.clip ? fg.x : 0);
                 cr.setAttribute("y", lg.clip ? fg.y : 0);
                 cr.setAttribute("width", lg.clip ? fg.width : window.innerWidth);
                 cr.setAttribute("height", lg.clip ? fg.height : window.innerHeight);
                 
                 // Compute and apply the geometrical transformation to the layer group
-                translateX = -lg.cx + lg.width / 2  + fg.x / fg.scale;
-                translateY = -lg.cy + lg.height / 2 + fg.y / fg.scale;
+                var translateX = -lg.cx + lg.width / 2  + fg.x / fg.scale;
+                var translateY = -lg.cy + lg.height / 2 + fg.y / fg.scale;
 
                 exports.layers[idLayer].svgLayer.setAttribute("transform",
                     "scale(" + fg.scale + ")" +
@@ -220,12 +235,11 @@ module("sozi.display", function (exports) {
      *    - frame: the frame to show
      */
     exports.showFrame = function (frame) {
-        var idLayer, lg, fg, attr;
-        for (idLayer in frame.layers) {
+        for (var idLayer in frame.layers) {
             if (frame.layers.hasOwnProperty(idLayer)) {
-                fg = frame.layers[idLayer].geometry;
-                lg = exports.layers[idLayer].geometry;
-                for (attr in fg) {
+                var fg = frame.layers[idLayer].geometry;
+                var lg = exports.layers[idLayer].geometry;
+                for (var attr in fg) {
                     if (fg.hasOwnProperty(attr)) {
                         lg[attr] = fg[attr];
                     }
@@ -243,14 +257,11 @@ module("sozi.display", function (exports) {
      *    - deltaY: the vertical displacement, in pixels
      */
     exports.drag = function (deltaX, deltaY) {
-        var idLayer, lg, fg,
-            angleRad;
-        
-        for (idLayer in exports.layers) {
+        for (var idLayer in exports.layers) {
             if (exports.layers.hasOwnProperty(idLayer)) {
-                lg = exports.layers[idLayer].geometry;
-                fg = getFrameGeometry(idLayer);
-                angleRad = lg.rotate * Math.PI / 180;
+                var lg = exports.layers[idLayer].geometry;
+                var fg = getFrameGeometry(idLayer);
+                var angleRad = lg.rotate * Math.PI / 180;
                 lg.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / fg.scale;
                 lg.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / fg.scale;
                 lg.clip = false;
@@ -265,18 +276,17 @@ module("sozi.display", function (exports) {
      * The zoom is centered around (x, y) with respect to the center of the display area.
      */
     exports.zoom = function (factor, x, y) {
-        var idLayer,
-            deltaX = (1 - factor) * (x - window.innerWidth / 2),
-            deltaY = (1 - factor) * (y - window.innerHeight / 2);
-            
-        for (idLayer in exports.layers) {
+        for (var idLayer in exports.layers) {
             if (exports.layers.hasOwnProperty(idLayer)) {
                 exports.layers[idLayer].geometry.width /= factor;
                 exports.layers[idLayer].geometry.height /= factor;
             }
         }
         
-        exports.drag(deltaX, deltaY);
+        exports.drag(
+            (1 - factor) * (x - window.innerWidth / 2),
+            (1 - factor) * (y - window.innerHeight / 2)
+        );
     };
 
     /*
@@ -285,8 +295,7 @@ module("sozi.display", function (exports) {
      * The rotation is centered around the center of the display area.
      */
     exports.rotate = function (angle) {
-        var idLayer;
-        for (idLayer in exports.layers) {
+        for (var idLayer in exports.layers) {
             if (exports.layers.hasOwnProperty(idLayer)) {
                 exports.layers[idLayer].geometry.rotate += angle;
                 exports.layers[idLayer].geometry.rotate %= 360;

@@ -7,39 +7,69 @@
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
  * @depend events.js
  */
 
-/*global module:true sozi:true */
-
-module("sozi.framelist", function (exports) {
-	var window = this,
-        document = window.document,
-        tocGroup,
-        linksBox,
-        tocHeight = 0,
-        MARGIN = 5,
-        translateXHidden,
-        translateXVisible,
-        translateXStart,
-        translateXEnd,
-        translateX,
-        animator,
-        ANIMATION_TIME_MS = 300,
-        ANIMATION_PROFILE = "decelerate",
-        SVG_NS = "http://www.w3.org/2000/svg";
+module(this, "sozi.framelist", function (exports, window) {
+    "use strict";
+    
+    // An alias to the global document object
+	var document = window.document;
+	
+    // Constant: the margin around the text of the frame list
+    var MARGIN = 5;
+    
+	// The SVG group that will contain the frame list
+    var svgTocGroup;
+    
+    // The SVG group that will contain the frame titles
+    var svgTitlesGroup;
+    
+    // The current height of the frame list,
+    // computed during the initialization
+    var tocHeight = 0;
+    
+    // The X coordinate of the frame list in its hidden state
+    var translateXHidden;
+    
+    // The X coordinate of the frame list when it is completely visible
+    var translateXVisible;
+    
+    // The initial X coordinate of the frame list before starting an animation.
+    // This variable is set before showing/hiding the frame list.
+    var translateXStart;
+    
+    // The final X coordinate of the frame list for the starting animation.
+    // This variable is set before showing/hiding the frame list.
+    var translateXEnd;
+    
+    // The current X coordinate of the frame list for the running animation.
+    // This variable is updated on each animation step.
+    var translateX;
+    
+    // The animator object that will manage animations of the frame list
+    var animator;
+    
+    // Constant: the duration of the showing/hiding animation, in milliseconds
+    var ANIMATION_TIME_MS = 300;
+    
+    // Constant: the acceleration profile of the showing/hiding animation
+    var ANIMATION_PROFILE = "decelerate";
+    
+    // Constant: the SVG namespace
+    var SVG_NS = "http://www.w3.org/2000/svg";
 
 	function onMouseOut(evt) {
         var rel = evt.relatedTarget,
             svgRoot = document.documentElement;
-        while (rel !== tocGroup && rel !== svgRoot) {
+        while (rel && rel !== svgTocGroup && rel !== svgRoot) {
             rel = rel.parentNode;
         }
-        if (rel === svgRoot) {
+        if (rel !== svgTocGroup) {
             exports.hide();
             sozi.player.restart();
             evt.stopPropagation();
@@ -47,32 +77,32 @@ module("sozi.framelist", function (exports) {
     }
 
 	function onClickArrowUp(evt) {
-        var ty = linksBox.getCTM().f;
+        var ty = svgTitlesGroup.getCTM().f;
         if (ty <= -window.innerHeight / 2) {
             ty += window.innerHeight / 2;
         } else if (ty < 0) {
             ty = 0;
         }
-        linksBox.setAttribute("transform", "translate(0," + ty + ")");
+        svgTitlesGroup.setAttribute("transform", "translate(0," + ty + ")");
         evt.stopPropagation();
 	}
 
 	function onClickArrowDown(evt) {
-        var ty = linksBox.getCTM().f;
+        var ty = svgTitlesGroup.getCTM().f;
         if (ty + tocHeight >= window.innerHeight * 3 / 2) {
             ty -= window.innerHeight / 2;
         } else if (ty + tocHeight > window.innerHeight + 2 * MARGIN) {
             ty = window.innerHeight - tocHeight - 4 * MARGIN;
         }
-        linksBox.setAttribute("transform", "translate(0," + ty + ")");
+        svgTitlesGroup.setAttribute("transform", "translate(0," + ty + ")");
         evt.stopPropagation();
-    }	
+    }
 
     function onAnimationStep(progress) {
         var profileProgress = sozi.animation.profiles[ANIMATION_PROFILE](progress),
             remaining = 1 - profileProgress;
         translateX = translateXEnd * profileProgress + translateXStart * remaining;
-        tocGroup.setAttribute("transform", "translate(" + translateX + ",0)");
+        svgTocGroup.setAttribute("transform", "translate(" + translateX + ",0)");
     }
     
     function onAnimationDone() {
@@ -106,20 +136,15 @@ module("sozi.framelist", function (exports) {
      * The table of contents is hidden by default.
      */
     function onDisplayReady() {
-        var tocBackground = document.createElementNS(SVG_NS, "rect"),
-            tocUp = document.createElementNS(SVG_NS, "path"),
-            tocDown = document.createElementNS(SVG_NS, "path"),
-            tocWidth = 0,
-            textWidth,
-            currentFrameIndex = sozi.location.getFrameIndex();
+        svgTocGroup = document.createElementNS(SVG_NS, "g");
+        svgTocGroup.setAttribute("id", "sozi-toc");
+        document.documentElement.appendChild(svgTocGroup);
 
-        tocGroup = document.createElementNS(SVG_NS, "g");
-        tocGroup.setAttribute("id", "sozi-toc");
-        document.documentElement.appendChild(tocGroup);
-
-        linksBox = document.createElementNS(SVG_NS, "g");
-        tocGroup.appendChild(linksBox);
+        svgTitlesGroup = document.createElementNS(SVG_NS, "g");
+        svgTocGroup.appendChild(svgTitlesGroup);
     
+        // The background rectangle of the frame list
+        var tocBackground = document.createElementNS(SVG_NS, "rect");
         tocBackground.setAttribute("id", "sozi-toc-background");
         tocBackground.setAttribute("x", MARGIN);
         tocBackground.setAttribute("y", MARGIN);
@@ -128,18 +153,20 @@ module("sozi.framelist", function (exports) {
         tocBackground.addEventListener("click", defaultEventHandler, false);
         tocBackground.addEventListener("mousedown", defaultEventHandler, false);
         tocBackground.addEventListener("mouseout", onMouseOut, false);
-        linksBox.appendChild(tocBackground);
+        svgTitlesGroup.appendChild(tocBackground);
 
+        var tocWidth = 0;
+        var currentFrameIndex = sozi.location.getFrameIndex();
         sozi.document.frames.forEach(function (frame, frameIndex) {
             var text = document.createElementNS(SVG_NS, "text");
             text.appendChild(document.createTextNode(frame.title));
-            linksBox.appendChild(text);
+            svgTitlesGroup.appendChild(text);
 
             if (frameIndex === currentFrameIndex) {
                 text.setAttribute("class", "sozi-toc-current");
             }
                      
-            textWidth = text.getBBox().width;
+            var textWidth = text.getBBox().width;
             tocHeight += text.getBBox().height;
             if (textWidth > tocWidth) {
                 tocWidth = textWidth;
@@ -151,23 +178,27 @@ module("sozi.framelist", function (exports) {
             text.addEventListener("mousedown", defaultEventHandler, false);
         });
 
+        // The "up" button
+        var tocUp = document.createElementNS(SVG_NS, "path");
         tocUp.setAttribute("class", "sozi-toc-arrow");
-        tocUp.setAttribute("d", "M" + (tocWidth + 3 * MARGIN) + "," + (5 * MARGIN) + 
+        tocUp.setAttribute("d", "M" + (tocWidth + 3 * MARGIN) + "," + (5 * MARGIN) +
                            " l" + (4 * MARGIN) + ",0" +
                            " l-" + (2 * MARGIN) + ",-" + (3 * MARGIN) +
                            " z");
         tocUp.addEventListener("click", onClickArrowUp, false);
         tocUp.addEventListener("mousedown", defaultEventHandler, false);
-        tocGroup.appendChild(tocUp);
-      
+        svgTocGroup.appendChild(tocUp);
+
+        // The "down" button
+        var tocDown = document.createElementNS(SVG_NS, "path");
         tocDown.setAttribute("class", "sozi-toc-arrow");
-        tocDown.setAttribute("d", "M" + (tocWidth + 3 * MARGIN) + "," + (7 * MARGIN) + 
+        tocDown.setAttribute("d", "M" + (tocWidth + 3 * MARGIN) + "," + (7 * MARGIN) +
                              " l" + (4 * MARGIN) + ",0" +
                              " l-" + (2 * MARGIN) + "," + (3 * MARGIN) +
                              " z");
         tocDown.addEventListener("click", onClickArrowDown, false);
-        tocDown.addEventListener("mousedown", defaultEventHandler, false);      
-        tocGroup.appendChild(tocDown);
+        tocDown.addEventListener("mousedown", defaultEventHandler, false);
+        svgTocGroup.appendChild(tocDown);
 
         tocBackground.setAttribute("width", tocWidth + 7 * MARGIN);
         tocBackground.setAttribute("height", tocHeight + 2 * MARGIN);
@@ -176,7 +207,7 @@ module("sozi.framelist", function (exports) {
         translateXVisible = 0;
         translateX = translateXEnd = translateXHidden;
         
-        tocGroup.setAttribute("transform", "translate(" + translateXHidden + ",0)");
+        svgTocGroup.setAttribute("transform", "translate(" + translateXHidden + ",0)");
         animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);
     }
 
@@ -187,11 +218,12 @@ module("sozi.framelist", function (exports) {
 	 * even when the frame list is hidden.
 	 */
     function onFrameChange(index) {
-        var currentElementList = Array.prototype.slice.call(document.getElementsByClassName("sozi-toc-current")),
-            textElements = linksBox.getElementsByTagName("text");
+        var currentElementList = Array.prototype.slice.call(document.getElementsByClassName("sozi-toc-current"));
         currentElementList.forEach(function (svgElement) {
             svgElement.removeAttribute("class");
         });
+
+        var textElements = svgTitlesGroup.getElementsByTagName("text");
         textElements[index].setAttribute("class", "sozi-toc-current");
     }
     

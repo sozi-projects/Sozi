@@ -7,7 +7,7 @@
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
@@ -16,20 +16,37 @@
  * @depend display.js
  */
 
-/*global module:true sozi:true */
-
-module("sozi.player", function (exports) {
-    var display = sozi.display,
-        window = this,
-        animator,
-        nextFrameTimeout,
-        DEFAULT_DURATION_MS = 500,
-        DEFAULT_ZOOM_PERCENT = -10,
-        DEFAULT_PROFILE = "linear",
-        sourceFrameIndex = 0,
-        currentFrameIndex = 0,
-        playing = false,
-        waiting = false;
+module(this, "sozi.player", function (exports, window) {
+    "use strict";
+    
+    // An alias to the Sozi display module
+    var display = sozi.display;
+    
+    // The animator object used to animate transitions
+    var animator;
+    
+    // The handle returned by setTimeout() for frame timeout
+    var nextFrameTimeout;
+    
+    // Constants: default animation properties
+    // for out-of-sequence transitions
+    var DEFAULT_DURATION_MS = 500;
+    var DEFAULT_ZOOM_PERCENT = -10;
+    var DEFAULT_PROFILE = "linear";
+    
+    // The source frame index for the current transition
+    var sourceFrameIndex = 0;
+    
+    // The index of the visible frame
+    var currentFrameIndex = 0;
+    
+    // The state of the presentation.
+    // If false, no automatic transition will be fired.
+    var playing = false;
+    
+    // The state of the current frame.
+    // If true, an automatic transition will be fired after the current timeout.
+    var waiting = false;
 
     /*
      * Event handler: animation step.
@@ -48,17 +65,14 @@ module("sozi.player", function (exports) {
      * and 1 (end of the animation).
      */
     function onAnimationStep(progress, data) {
-        var profileProgress, profileRemaining,
-            idLayer, lg, attr, ps;
-
-        for (idLayer in data) {
+        for (var idLayer in data) {
             if (data.hasOwnProperty(idLayer)) {
-                lg = display.layers[idLayer].geometry;
+                var lg = display.layers[idLayer].geometry;
                 
-                profileProgress = data[idLayer].profile(progress);
-                profileRemaining = 1 - profileProgress;
+                var profileProgress = data[idLayer].profile(progress);
+                var profileRemaining = 1 - profileProgress;
                 
-                for (attr in data[idLayer].initialState) {
+                for (var attr in data[idLayer].initialState) {
                     if (data[idLayer].initialState.hasOwnProperty(attr)) {
                         if (typeof data[idLayer].initialState[attr] === "number" && typeof data[idLayer].finalState[attr] === "number") {
                             lg[attr] = data[idLayer].finalState[attr] * profileProgress + data[idLayer].initialState[attr] * profileRemaining;
@@ -66,6 +80,7 @@ module("sozi.player", function (exports) {
                     }
                 }
 
+                var ps;
                 if (data[idLayer].zoomWidth && data[idLayer].zoomWidth.k !== 0) {
                     ps = progress - data[idLayer].zoomWidth.ts;
                     lg.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
@@ -94,10 +109,9 @@ module("sozi.player", function (exports) {
      * move to the first frame.
      */
     function waitTimeout() {
-        var index;
         if (sozi.document.frames[currentFrameIndex].timeoutEnable) {
             waiting = true;
-            index = (currentFrameIndex + 1) % sozi.document.frames.length;
+            var index = (currentFrameIndex + 1) % sozi.document.frames.length;
             nextFrameTimeout = window.setTimeout(function () {
                     exports.moveToFrame(index);
                 },
@@ -160,22 +174,21 @@ module("sozi.player", function (exports) {
 
     function getZoomData(zoomPercent, s0, s1) {
         var result = {
-                ss: ((zoomPercent < 0) ? Math.max(s0, s1) : Math.min(s0, s1)) * (100 - zoomPercent) / 100,
-                ts: 0.5,
-                k: 0
-            },
-            a, b, c, d, u, v;
+            ss: ((zoomPercent < 0) ? Math.max(s0, s1) : Math.min(s0, s1)) * (100 - zoomPercent) / 100,
+            ts: 0.5,
+            k: 0
+        };
 
         if (zoomPercent !== 0) {
-            a = s0 - s1;
-            b = s0 - result.ss;
-            c = s1 - result.ss;
+            var a = s0 - s1;
+            var b = s0 - result.ss;
+            var c = s1 - result.ss;
 
             if (a !== 0) {
-                d = Math.sqrt(b * c);
+                var d = Math.sqrt(b * c);
 
-                u = (b - d) / a;
-                v = (b + d) / a;
+                var u = (b - d) / a;
+                var v = (b + d) / a;
 
                 result.ts = (u > 0 && u <= 1) ? u : v;
             }
@@ -213,10 +226,9 @@ module("sozi.player", function (exports) {
      * and values are objects in the form { initialState: finalState: profile: zoomWidth: zoomHeight:}
      */
     function getAnimationData(initialState, finalState, zoomPercent, profile) {
-        var g, idLayer, zp,
-            data = {};
+        var data = {};
         
-        for (idLayer in initialState.layers) {
+        for (var idLayer in initialState.layers) {
             if (initialState.layers.hasOwnProperty(idLayer)) {
                 data[idLayer] = {
                     initialState: {},
@@ -226,11 +238,11 @@ module("sozi.player", function (exports) {
                 data[idLayer].profile = profile || finalState.layers[idLayer].transitionProfile;
 
                 // Copy all properties of given final state
-                for (g in initialState.layers[idLayer].geometry) {
+                for (var g in initialState.layers[idLayer].geometry) {
                     if (initialState.layers[idLayer].geometry.hasOwnProperty(g)) {
                         data[idLayer].initialState[g] = initialState.layers[idLayer].geometry[g];
                         // If the current layer is referenced in final state, copy the final properties
-                        // else, copy initial state to final state for the current layer. 
+                        // else, copy initial state to final state for the current layer.
                         if (finalState.layers.hasOwnProperty(idLayer)) {
                             data[idLayer].finalState[g] = finalState.layers[idLayer].geometry[g];
                         }
@@ -251,7 +263,7 @@ module("sozi.player", function (exports) {
                     data[idLayer].initialState.rotate -= 360;
                 }
 
-                zp = zoomPercent || finalState.layers[idLayer].transitionZoomPercent;
+                var zp = zoomPercent || finalState.layers[idLayer].transitionZoomPercent;
                 
                 if (zp && finalState.layers.hasOwnProperty(idLayer)) {
                     data[idLayer].zoomWidth = getZoomData(zp,
@@ -269,7 +281,7 @@ module("sozi.player", function (exports) {
     
     exports.previewFrame = function (index) {
         currentFrameIndex = index;
-        animator.start(DEFAULT_DURATION_MS, 
+        animator.start(DEFAULT_DURATION_MS,
             getAnimationData(display, sozi.document.frames[index],
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]));
         sozi.events.fire("framechange", index);
@@ -288,13 +300,12 @@ module("sozi.player", function (exports) {
      * The URL hash is set to the given frame index (1-based).
      */
     exports.moveToFrame = function (index) {
-        var durationMs, zoomPercent, profile;
-
         if (waiting) {
             window.clearTimeout(nextFrameTimeout);
             waiting = false;
         }
 
+        var durationMs, zoomPercent, profile;
         if (index === (currentFrameIndex + 1) % sozi.document.frames.length) {
             durationMs = sozi.document.frames[index].transitionDurationMs;
             zoomPercent = undefined; // Set for each layer
@@ -340,9 +351,8 @@ module("sozi.player", function (exports) {
      * Moves to the previous frame.
      */
     exports.moveToPrevious = function () {
-        var index, frame;
-        for (index = currentFrameIndex - 1; index >= 0; index -= 1) {
-            frame = sozi.document.frames[index];
+        for (var index = currentFrameIndex - 1; index >= 0; index -= 1) {
+            var frame = sozi.document.frames[index];
             if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
                 exports.moveToFrame(index);
                 break;
@@ -395,7 +405,7 @@ module("sozi.player", function (exports) {
     exports.showAll = function () {
         exports.stop();
         sozi.events.fire("cleanup");
-        animator.start(DEFAULT_DURATION_MS, 
+        animator.start(DEFAULT_DURATION_MS,
             getAnimationData(display, display.getDocumentGeometry(),
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]
             )
@@ -411,7 +421,7 @@ module("sozi.player", function (exports) {
         // Hack to fix the blank screen bug in Chrome/Chromium
         // See https://github.com/senshu/Sozi/issues/109
         window.setTimeout(display.update, 1);
-    }    
+    }
 
     animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);
 

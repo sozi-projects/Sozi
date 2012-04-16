@@ -7,55 +7,65 @@
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
  * @depend events.js
  */
 
-/*global module:true sozi:true */
-
-module("sozi.framenumber", function (exports) {
-    var window = this,
-        document = window.document,
-        group, text, circle, textNode,
-        SVG_NS = "http://www.w3.org/2000/svg";
+module(this, "sozi.framenumber", function (exports, window) {
+    "use strict";
+    
+    // An alias to the global document object
+    var document = window.document;
+    
+    // The SVG group containing the frame number
+    var svgGroup;
+    
+    // The SVG text element and its text node containing the frame number
+    var svgText, svgTextNode;
+    
+    // The SVG circle enclosing the frame number
+    var svgCircle;
+    
+    // Constant: the SVG namespace
+    var SVG_NS = "http://www.w3.org/2000/svg";
     
     function adjust() {
-        var textBBox = text.getBBox(),
+        var textBBox = svgText.getBBox(),
             d = Math.max(textBBox.width, textBBox.height) * 0.75,
             t = d * 1.25;
-        circle.setAttribute("r", d);
-        group.setAttribute("transform", "translate(" + t + "," + t + ")");
+        svgCircle.setAttribute("r", d);
+        svgGroup.setAttribute("transform", "translate(" + t + "," + t + ")");
     }
     
     function onDisplayReady() {
-        group = document.createElementNS(SVG_NS, "g");
-        text = document.createElementNS(SVG_NS, "text");
-        circle = document.createElementNS(SVG_NS, "circle");
+        svgGroup = document.createElementNS(SVG_NS, "g");
+        svgText = document.createElementNS(SVG_NS, "text");
+        svgCircle = document.createElementNS(SVG_NS, "circle");
         
-        group.setAttribute("id", "sozi-framenumber");
+        svgGroup.setAttribute("id", "sozi-framenumber");
 
-        circle.setAttribute("cx", 0);
-        circle.setAttribute("cy", 0);
-        group.appendChild(circle);
+        svgCircle.setAttribute("cx", 0);
+        svgCircle.setAttribute("cy", 0);
+        svgGroup.appendChild(svgCircle);
         
-        textNode = document.createTextNode(sozi.location.getFrameIndex() + 1);
-        text.setAttribute("text-anchor", "middle");
-        text.setAttribute("dominant-baseline", "central");
-        text.setAttribute("x", 0);
-        text.setAttribute("y", 0);
-        text.appendChild(textNode);
-        group.appendChild(text);
+        svgTextNode = document.createTextNode(sozi.location.getFrameIndex() + 1);
+        svgText.setAttribute("text-anchor", "middle");
+        svgText.setAttribute("dominant-baseline", "central");
+        svgText.setAttribute("x", 0);
+        svgText.setAttribute("y", 0);
+        svgText.appendChild(svgTextNode);
+        svgGroup.appendChild(svgText);
         
-        document.documentElement.appendChild(group);
+        document.documentElement.appendChild(svgGroup);
         
         adjust();
     }
 
     function onFrameChange(index) {
-        textNode.nodeValue = index + 1;
+        svgTextNode.nodeValue = index + 1;
     }
     
 	sozi.events.listen("displayready", onDisplayReady);
