@@ -758,20 +758,19 @@ class SoziUI:
         self.window.add(vbox)
         self.window.show_all()
 
-        # If at least one frame exists in the document,
-        # the first one is selected by default
-        if len(effect.frames) > 0:
-            selected_frame = effect.frames[0]
-        else:
-            selected_frame = None
-        
         # If an element is selected in Inkscape, and if it corresponds to
-        # one or more existing frames, select the first matching frame
+        # one or more existing frames, select the first matching frame.
+        # If no element is selected in Inkscape, if at least one frame exists
+        # in the document, select the first frame.
+        selected_frame = None
+        
         if len(effect.selected) > 0:
             for f in effect.frames:
                 if f["svg_element"].attrib["id"] in effect.selected:
                     selected_frame = f
                     break
+        elif len(effect.frames) > 0:
+            selected_frame = effect.frames[0]
         
         # Fill frame list
         for i in range(len(effect.frames)):
