@@ -56,9 +56,7 @@ module(this, "sozi.document", function (exports, window) {
     function readLayerProperties(frame, idLayer, soziElement) {
         var layer = frame.layers[idLayer] = frame.layers[idLayer] || {
             idLayer: idLayer, // FIXME never used
-            geometry: {
-                clip: DEFAULTS.clip
-            }
+            geometry: new sozi.display.Camera()
         };
         
         if (typeof layer.hide === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "hide")) {
@@ -73,7 +71,6 @@ module(this, "sozi.document", function (exports, window) {
             layer.transitionProfile = sozi.animation.profiles[readAttribute(soziElement, "transition-profile") || "linear"];
         }
         
-        var actualClip = layer.geometry.clip;
         if (soziElement.hasAttributeNS(SOZI_NS, "refid")) {
             // The previous value of the "clip" attribute will be preserved
             // when setting the new geometry object.
@@ -82,13 +79,12 @@ module(this, "sozi.document", function (exports, window) {
                 if (layer.hide) {
                     svgElement.style.visibility = "hidden";
                 }
-                layer.geometry = sozi.display.getElementGeometry(svgElement);
-                layer.geometry.clip = actualClip;
+                layer.geometry.setAtElement(svgElement);
             }
         }
             
         if (soziElement.hasAttributeNS(SOZI_NS, "clip")) {
-            layer.geometry.clip = readAttribute(soziElement, "clip") === "true";
+            layer.geometry.setClipped(readAttribute(soziElement, "clip") === "true");
         }
     }
     

@@ -91,7 +91,7 @@ module(this, "sozi.player", function (exports, window) {
                     lg.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
                 }
 
-                lg.clip = data[idLayer].finalState.clip;
+                lg.clipped = data[idLayer].finalState.clipped;
             }
         }
         
@@ -253,14 +253,14 @@ module(this, "sozi.player", function (exports, window) {
                 }
 
                 // Keep the smallest angle difference between initial state and final state
-                data[idLayer].initialState.rotate = (data[idLayer].initialState.rotate - 180) % 360 + 180;
-                data[idLayer].finalState.rotate = (data[idLayer].finalState.rotate - 180) % 360 + 180;
+                data[idLayer].initialState.angle = (data[idLayer].initialState.angle - 180) % 360 + 180;
+                data[idLayer].finalState.angle = (data[idLayer].finalState.angle - 180) % 360 + 180;
         
-                if (data[idLayer].finalState.rotate - data[idLayer].initialState.rotate > 180) {
-                    data[idLayer].finalState.rotate -= 360;
+                if (data[idLayer].finalState.angle - data[idLayer].initialState.angle > 180) {
+                    data[idLayer].finalState.angle -= 360;
                 }
-                else if (data[idLayer].finalState.rotate - data[idLayer].initialState.rotate < -180) {
-                    data[idLayer].initialState.rotate -= 360;
+                else if (data[idLayer].finalState.angle - data[idLayer].initialState.angle < -180) {
+                    data[idLayer].initialState.angle -= 360;
                 }
 
                 var zp = zoomPercent || finalState.layers[idLayer].transitionZoomPercent;
