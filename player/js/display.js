@@ -34,7 +34,7 @@ module(this, "sozi.display", function (exports, window) {
     exports.CameraState = new sozi.proto.Object.subtype({
         construct : function () {
             // Center coordinates
-            this.cx = this. cy = 0;
+            this.cx = this.cy = 0;
             
             // Dimensions
             this.width = this.height = 1;
@@ -130,6 +130,10 @@ module(this, "sozi.display", function (exports, window) {
                 .setSize(other.width, other.height)
                 .setAngle(other.angle)
                 .setClipped(other.clipped);
+        },
+        
+        getScale: function () {
+            return Math.min(window.innerWidth / this.width, window.innerHeight / this.height);
         }
     });
     
@@ -197,25 +201,6 @@ module(this, "sozi.display", function (exports, window) {
     }
 
     /*
-     * Returns an object with the geometrical properties of the current display.
-     *
-     * Attributes of the returned object :
-     *    - x, y: the location of the top-left corner, in pixels
-     *    - width, height: the size of the visible area, in pixels
-     *    - scale: the scale factor to apply to the SVG document so that is fits the visible area
-     */
-    function getFrameGeometry(idLayer) {
-        var g = exports.layers[idLayer];
-        var result = {};
-        result.scale = Math.min(window.innerWidth / g.width, window.innerHeight / g.height);
-        result.width = g.width * result.scale;
-        result.height = g.height * result.scale;
-        result.x = (window.innerWidth - result.width) / 2;
-        result.y = (window.innerHeight - result.height) / 2;
-        return result;
-    }
-
-    /*
      * Returns the geometrical properties of the SVG document
      *
      * Returns:
@@ -244,26 +229,35 @@ module(this, "sozi.display", function (exports, window) {
      * geometrical attributes of this Display.
      *
      * This method is called automatically when the window is resized.
+     *
+     * TODO move the loop body to CameraState
      */
     exports.update = function () {
         for (var idLayer in exports.layers) {
             if (exports.layers.hasOwnProperty(idLayer)) {
                 var lg = exports.layers[idLayer];
-                var fg = getFrameGeometry(idLayer);
+
+                var scale = lg.getScale();
+                
+                // Compute the size and location of the frame on the screen
+                var width = lg.width  * scale;
+                var height = lg.height * scale;
+                var x = (window.innerWidth - width) / 2;
+                var y = (window.innerHeight - height) / 2;
 
                 // Adjust the location and size of the clipping rectangle and the frame rectangle
                 var cr = exports.layers[idLayer].svgClipRect;
-                cr.setAttribute("x", lg.clipped ? fg.x : 0);
-                cr.setAttribute("y", lg.clipped ? fg.y : 0);
-                cr.setAttribute("width", lg.clipped ? fg.width : window.innerWidth);
-                cr.setAttribute("height", lg.clipped ? fg.height : window.innerHeight);
+                cr.setAttribute("x", lg.clipped ? x : 0);
+                cr.setAttribute("y", lg.clipped ? y : 0);
+                cr.setAttribute("width",  lg.clipped ? width  : window.innerWidth);
+                cr.setAttribute("height", lg.clipped ? height : window.innerHeight);
                 
                 // Compute and apply the geometrical transformation to the layer group
-                var translateX = -lg.cx + lg.width / 2  + fg.x / fg.scale;
-                var translateY = -lg.cy + lg.height / 2 + fg.y / fg.scale;
+                var translateX = -lg.cx + lg.width / 2  + x / scale;
+                var translateY = -lg.cy + lg.height / 2 + y / scale;
 
                 exports.layers[idLayer].svgLayer.setAttribute("transform",
-                    "scale(" + fg.scale + ")" +
+                    "scale(" + scale + ")" +
                     "translate(" + translateX + "," + translateY + ")" +
                     "rotate(" + (-lg.angle) + ',' + lg.cx + "," + lg.cy + ")"
                 );
@@ -292,15 +286,17 @@ module(this, "sozi.display", function (exports, window) {
      * Parameters:
      *    - deltaX: the horizontal displacement, in pixels
      *    - deltaY: the vertical displacement, in pixels
+     *
+     * TODO move the loop body to CameraState
      */
     exports.drag = function (deltaX, deltaY) {
         for (var idLayer in exports.layers) {
             if (exports.layers.hasOwnProperty(idLayer)) {
                 var lg = exports.layers[idLayer];
-                var fg = getFrameGeometry(idLayer);
+                var scale = lg.getScale();
                 var angleRad = lg.angle * Math.PI / 180;
-                lg.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / fg.scale;
-                lg.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / fg.scale;
+                lg.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / scale;
+                lg.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / scale;
                 lg.clipped = false;
             }
         }
@@ -311,6 +307,8 @@ module(this, "sozi.display", function (exports, window) {
      * Zooms the display with the given factor.
      *
      * The zoom is centered around (x, y) with respect to the center of the display area.
+     *
+     * TODO move the loop body to CameraState
      */
     exports.zoom = function (factor, x, y) {
         for (var idLayer in exports.layers) {
@@ -330,6 +328,8 @@ module(this, "sozi.display", function (exports, window) {
      * Rotate the display with the given angle.
      *
      * The rotation is centered around the center of the display area.
+     *
+     * TODO move the loop body to CameraState
      */
     exports.rotate = function (angle) {
         for (var idLayer in exports.layers) {
