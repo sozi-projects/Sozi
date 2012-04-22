@@ -63,9 +63,18 @@ module(this, "sozi.display", function (exports, window) {
             return this;
         },
         
+        /*
+         * Set the angle of the current camera state.
+         * The angle of the current state is normalized
+         * in the interval [-180 ; 180]
+         */
         setAngle: function (angle) {
-            this.angle = angle;
+            this.angle = (angle + 180) % 360 - 180;
             return this;
+        },
+        
+        setRawAngle: function (angle) {
+            this.angle = angle;
         },
         
         /*

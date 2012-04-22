@@ -63,6 +63,8 @@ module(this, "sozi.player", function (exports, window) {
      *
      * Parameter progress is a float number between 0 (start of the animation)
      * and 1 (end of the animation).
+     *
+     * TODO move the interpolation code to display.js
      */
     function onAnimationStep(progress, data) {
         for (var idLayer in data) {
@@ -248,14 +250,12 @@ module(this, "sozi.player", function (exports, window) {
                 }
 
                 // Keep the smallest angle difference between initial state and final state
-                data[idLayer].initialState.angle = (data[idLayer].initialState.angle - 180) % 360 + 180;
-                data[idLayer].finalState.angle = (data[idLayer].finalState.angle - 180) % 360 + 180;
-        
+                // TODO this should be handled in the interpolation function
                 if (data[idLayer].finalState.angle - data[idLayer].initialState.angle > 180) {
-                    data[idLayer].finalState.angle -= 360;
+                    data[idLayer].finalState.setRawAngle(data[idLayer].finalState.angle - 360);
                 }
                 else if (data[idLayer].finalState.angle - data[idLayer].initialState.angle < -180) {
-                    data[idLayer].initialState.angle -= 360;
+                    data[idLayer].initialState.setRawAngle(data[idLayer].initialState.angle - 360);
                 }
 
                 var zp = zoomPercent || finalState.layers[idLayer].transitionZoomPercent;
