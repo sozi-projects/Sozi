@@ -11,6 +11,7 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
+ * @depend proto.js
  * @depend events.js
  */
 
@@ -30,103 +31,110 @@ module(this, "sozi.display", function (exports, window) {
     // The geometry of each layer managed by Sozi
     exports.layers = {};
 
-    // TODO separate CameraState from Camera
-    exports.Camera = function (idLayer) {
-        // Center coordinates
-        this.cx = this. cy = 0;
+    exports.CameraState = new sozi.proto.Object.subtype({
+        construct : function () {
+            // Center coordinates
+            this.cx = this. cy = 0;
+            
+            // Dimensions
+            this.width = this.height = 1;
+            
+            // Rotation angle, in degrees
+            this.angle = 0;
+            
+            // Clipping
+            this.clipped = true;
+        },
+
+        setCenter: function (cx, cy) {
+            this.cx = cx;
+            this.cy = cy;
+            return this;
+        },
         
-        // Dimensions
-        this.width = this.height = 1;
+        setSize: function (width, height) {
+            this.width = width;
+            this.height = height;
+            return this;
+        },
         
-        // Rotation angle, in degrees
-        this.angle = 0;
+        setClipped: function (clipped) {
+            this.clipped = clipped;
+            return this;
+        },
         
-        // Clipping
-        this.clipped = true;
+        setAngle: function (angle) {
+            this.angle = angle;
+            return this;
+        },
         
-        // Clipping rectangle
-        this.svgClipRect = document.createElementNS(SVG_NS, "rect");
-        
-        // Layer element (typically a "g" element)
-        this.svgLayer = document.getElementById(idLayer);
-    }
-    
-    exports.Camera.prototype.setCenter = function (cx, cy) {
-        this.cx = cx;
-        this.cy = cy;
-        return this;
-    }
-    
-    exports.Camera.prototype.setSize = function (width, height) {
-        this.width = width;
-        this.height = height;
-        return this;
-    }
-    
-    exports.Camera.prototype.setClipped = function (clipped) {
-        this.clipped = clipped;
-        return this;
-    }
-    
-    exports.Camera.prototype.setAngle = function (angle) {
-        this.angle = angle;
-        return this;
-    }
-    
-    /*
-     * Set the current camera's properties to the given SVG element.
-     *
-     * If the element is a rectangle, the properties of the frames are based
-     * on the geometrical properties of the rectangle.
-     * Otherwise, the properties of the frame are based on the bounding box
-     * of the given element.
-     *
-     * Parameters:
-     *    - svgElement: an element from the SVG DOM
-     */
-    exports.Camera.prototype.setAtElement = function (svgElement) {
-        // Read the raw bounding box of the given SVG element
-        var x, y, w, h;
-        if (svgElement.nodeName === "rect") {
-            x = svgElement.x.baseVal.value;
-            y = svgElement.y.baseVal.value;
-            w = svgElement.width.baseVal.value;
-            h = svgElement.height.baseVal.value;
-        } else {
-            var b = svgElement.getBBox();
-            x = b.x;
-            y = b.y;
-            w = b.width;
-            h = b.height;
+        /*
+         * Set the current camera's properties to the given SVG element.
+         *
+         * If the element is a rectangle, the properties of the frames are based
+         * on the geometrical properties of the rectangle.
+         * Otherwise, the properties of the frame are based on the bounding box
+         * of the given element.
+         *
+         * Parameters:
+         *    - svgElement: an element from the SVG DOM
+         */
+        setAtElement: function (svgElement) {
+            // Read the raw bounding box of the given SVG element
+            var x, y, w, h;
+            if (svgElement.nodeName === "rect") {
+                x = svgElement.x.baseVal.value;
+                y = svgElement.y.baseVal.value;
+                w = svgElement.width.baseVal.value;
+                h = svgElement.height.baseVal.value;
+            } else {
+                var b = svgElement.getBBox();
+                x = b.x;
+                y = b.y;
+                w = b.width;
+                h = b.height;
+            }
+
+            // Compute the raw coordinates of the center
+            // of the given SVG element
+            var c = document.documentElement.createSVGPoint();
+            c.x = x + w / 2;
+            c.y = y + h / 2;
+            
+            // Compute the coordinates of the center of the given SVG element
+            // after its current transformation
+            var matrix = svgElement.getCTM();
+            c = c.matrixTransform(matrix);
+
+            // Compute the scaling factor applied to the given SVG element
+            var scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
+            
+            // Update the camera to match the bounding box information of the
+            // given SVG element after its current transformation
+            return this.setCenter(c.x, c.y)
+                .setSize(w * scale, h * scale)
+                .setAngle(Math.atan2(matrix.b, matrix.a) * 180 / Math.PI);
+        },
+
+        setAtState: function (other) {
+            return this.setCenter(other.cx, other.cy)
+                .setSize(other.width, other.height)
+                .setAngle(other.angle)
+                .setClipped(other.clipped);
         }
-
-        // Compute the raw coordinates of the center
-        // of the given SVG element
-        var c = document.documentElement.createSVGPoint();
-        c.x = x + w / 2;
-        c.y = y + h / 2;
+    });
+    
+    exports.Camera = new exports.CameraState.subtype({
+        construct: function (idLayer) {
+            exports.CameraState.construct.call(this);
+            
+            // Clipping rectangle
+            this.svgClipRect = document.createElementNS(SVG_NS, "rect");
         
-        // Compute the coordinates of the center of the given SVG element
-        // after its current transformation
-        var matrix = svgElement.getCTM();
-        c = c.matrixTransform(matrix);
-
-        // Compute the scaling factor applied to the given SVG element
-        var scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
-        
-        // Update the camera to match the bounding box information of the
-        // given SVG element after its current transformation
-        return this.setCenter(c.x, c.y)
-            .setSize(w * scale, h * scale)
-            .setAngle(Math.atan2(matrix.b, matrix.a) * 180 / Math.PI);
-    };
-
-    exports.Camera.prototype.setAtCamera = function (other) {
-        return this.setCenter(other.cx, other.cy)
-            .setSize(other.width, other.height)
-            .setAngle(other.angle)
-            .setClipped(other.clipped);
-    };
+            // Layer element (typically a "g" element)
+            this.svgLayer = document.getElementById(idLayer);
+        }
+    });
     
     /*
      * Initializes the current Display.
@@ -148,14 +156,12 @@ module(this, "sozi.display", function (exports, window) {
         
         // Initialize display geometry for all layers
         sozi.document.idLayerList.forEach(function (idLayer) {
-            exports.layers[idLayer] = {
-                geometry: new exports.Camera(idLayer)
-            };
+            exports.layers[idLayer] = new exports.Camera.instance(idLayer);
 
             // Add a clipping path
             var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
             svgClipPath.setAttribute("id", "sozi-clip-path-" + idLayer);
-            svgClipPath.appendChild(exports.layers[idLayer].geometry.svgClipRect);
+            svgClipPath.appendChild(exports.layers[idLayer].svgClipRect);
             svgRoot.appendChild(svgClipPath);
 
             // Create a group that will support the clipping operation
@@ -164,8 +170,8 @@ module(this, "sozi.display", function (exports, window) {
             svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + idLayer + ")");
             
             // Adding the layer group to the clipped group must preserve layer ordering
-            svgRoot.insertBefore(svgClippedGroup, exports.layers[idLayer].geometry.svgLayer);
-            svgClippedGroup.appendChild(exports.layers[idLayer].geometry.svgLayer);
+            svgRoot.insertBefore(svgClippedGroup, exports.layers[idLayer].svgLayer);
+            svgClippedGroup.appendChild(exports.layers[idLayer].svgLayer);
         });
 
         sozi.events.fire("displayready");
@@ -190,7 +196,7 @@ module(this, "sozi.display", function (exports, window) {
      *    - scale: the scale factor to apply to the SVG document so that is fits the visible area
      */
     function getFrameGeometry(idLayer) {
-        var g = exports.layers[idLayer].geometry;
+        var g = exports.layers[idLayer];
         var result = {};
         result.scale = Math.min(window.innerWidth / g.width, window.innerHeight / g.height);
         result.width = g.width * result.scale;
@@ -208,7 +214,7 @@ module(this, "sozi.display", function (exports, window) {
      */
     exports.getDocumentGeometry = function () {
         // This object defines the bounding box of the whole document
-        var camera = new exports.Camera()
+        var camera = new exports.CameraState.instance()
             .setCenter(initialBBox.x + initialBBox.width / 2,
                        initialBBox.y + initialBBox.height / 2)
             .setSize(initialBBox.width, initialBBox.height)
@@ -233,11 +239,11 @@ module(this, "sozi.display", function (exports, window) {
     exports.update = function () {
         for (var idLayer in exports.layers) {
             if (exports.layers.hasOwnProperty(idLayer)) {
-                var lg = exports.layers[idLayer].geometry;
+                var lg = exports.layers[idLayer];
                 var fg = getFrameGeometry(idLayer);
 
                 // Adjust the location and size of the clipping rectangle and the frame rectangle
-                var cr = exports.layers[idLayer].geometry.svgClipRect;
+                var cr = exports.layers[idLayer].svgClipRect;
                 cr.setAttribute("x", lg.clipped ? fg.x : 0);
                 cr.setAttribute("y", lg.clipped ? fg.y : 0);
                 cr.setAttribute("width", lg.clipped ? fg.width : window.innerWidth);
@@ -247,7 +253,7 @@ module(this, "sozi.display", function (exports, window) {
                 var translateX = -lg.cx + lg.width / 2  + fg.x / fg.scale;
                 var translateY = -lg.cy + lg.height / 2 + fg.y / fg.scale;
 
-                exports.layers[idLayer].geometry.svgLayer.setAttribute("transform",
+                exports.layers[idLayer].svgLayer.setAttribute("transform",
                     "scale(" + fg.scale + ")" +
                     "translate(" + translateX + "," + translateY + ")" +
                     "rotate(" + (-lg.angle) + ',' + lg.cx + "," + lg.cy + ")"
@@ -265,7 +271,7 @@ module(this, "sozi.display", function (exports, window) {
     exports.showFrame = function (frame) {
         for (var idLayer in frame.layers) {
             if (frame.layers.hasOwnProperty(idLayer)) {
-                exports.layers[idLayer].geometry.setAtCamera(frame.layers[idLayer].geometry);
+                exports.layers[idLayer].setAtState(frame.layers[idLayer]);
             }
         }
         exports.update();
@@ -281,7 +287,7 @@ module(this, "sozi.display", function (exports, window) {
     exports.drag = function (deltaX, deltaY) {
         for (var idLayer in exports.layers) {
             if (exports.layers.hasOwnProperty(idLayer)) {
-                var lg = exports.layers[idLayer].geometry;
+                var lg = exports.layers[idLayer];
                 var fg = getFrameGeometry(idLayer);
                 var angleRad = lg.angle * Math.PI / 180;
                 lg.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / fg.scale;
@@ -300,8 +306,8 @@ module(this, "sozi.display", function (exports, window) {
     exports.zoom = function (factor, x, y) {
         for (var idLayer in exports.layers) {
             if (exports.layers.hasOwnProperty(idLayer)) {
-                exports.layers[idLayer].geometry.width /= factor;
-                exports.layers[idLayer].geometry.height /= factor;
+                exports.layers[idLayer].width /= factor;
+                exports.layers[idLayer].height /= factor;
             }
         }
         
@@ -319,8 +325,8 @@ module(this, "sozi.display", function (exports, window) {
     exports.rotate = function (angle) {
         for (var idLayer in exports.layers) {
             if (exports.layers.hasOwnProperty(idLayer)) {
-                exports.layers[idLayer].geometry.angle += angle;
-                exports.layers[idLayer].geometry.angle %= 360;
+                exports.layers[idLayer].angle += angle;
+                exports.layers[idLayer].angle %= 360;
             }
         }
         exports.update();

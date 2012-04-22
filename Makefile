@@ -8,7 +8,7 @@ EXTRAS_JS := $(wildcard player/extras/*.js)
 
 JUICER_OPT += --force
 JUICER_OPT += --skip-verification
-# JUICER_OPT += --minifyer none
+ JUICER_OPT += --minifyer none
 
 MINIFY := juicer merge $(JUICER_OPT) --arguments "$(MINIFY_OPT)"
 

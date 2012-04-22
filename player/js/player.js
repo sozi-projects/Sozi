@@ -67,7 +67,7 @@ module(this, "sozi.player", function (exports, window) {
     function onAnimationStep(progress, data) {
         for (var idLayer in data) {
             if (data.hasOwnProperty(idLayer)) {
-                var lg = display.layers[idLayer].geometry;
+                var lg = display.layers[idLayer];
                 
                 var profileProgress = data[idLayer].profile(progress);
                 var profileRemaining = 1 - profileProgress;
@@ -231,25 +231,20 @@ module(this, "sozi.player", function (exports, window) {
         for (var idLayer in initialState.layers) {
             if (initialState.layers.hasOwnProperty(idLayer)) {
                 data[idLayer] = {
-                    initialState: {},
-                    finalState: {}
+                    initialState: new sozi.display.CameraState.instance(),
+                    finalState: new sozi.display.CameraState.instance()
                 };
                 
                 data[idLayer].profile = profile || finalState.layers[idLayer].transitionProfile;
+                data[idLayer].initialState.setAtState(initialState.layers[idLayer]);
 
-                // Copy all properties of given final state
-                for (var g in initialState.layers[idLayer].geometry) {
-                    if (initialState.layers[idLayer].geometry.hasOwnProperty(g)) {
-                        data[idLayer].initialState[g] = initialState.layers[idLayer].geometry[g];
-                        // If the current layer is referenced in final state, copy the final properties
-                        // else, copy initial state to final state for the current layer.
-                        if (finalState.layers.hasOwnProperty(idLayer)) {
-                            data[idLayer].finalState[g] = finalState.layers[idLayer].geometry[g];
-                        }
-                        else {
-                            data[idLayer].finalState[g] = initialState.layers[idLayer].geometry[g];
-                        }
-                    }
+                // If the current layer is referenced in final state, copy the final properties
+                // else, copy initial state to final state for the current layer.
+                if (finalState.layers.hasOwnProperty(idLayer)) {
+                    data[idLayer].finalState.setAtState(finalState.layers[idLayer]);
+                }
+                else {
+                    data[idLayer].finalState.setAtState(initialState.layers[idLayer]);
                 }
 
                 // Keep the smallest angle difference between initial state and final state
@@ -267,11 +262,11 @@ module(this, "sozi.player", function (exports, window) {
                 
                 if (zp && finalState.layers.hasOwnProperty(idLayer)) {
                     data[idLayer].zoomWidth = getZoomData(zp,
-                        initialState.layers[idLayer].geometry.width,
-                        finalState.layers[idLayer].geometry.width);
+                        initialState.layers[idLayer].width,
+                        finalState.layers[idLayer].width);
                     data[idLayer].zoomHeight = getZoomData(zp,
-                        initialState.layers[idLayer].geometry.height,
-                        finalState.layers[idLayer].geometry.height);
+                        initialState.layers[idLayer].height,
+                        finalState.layers[idLayer].height);
                 }
             }
         }

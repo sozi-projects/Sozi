@@ -54,10 +54,8 @@ module(this, "sozi.document", function (exports, window) {
     }
 
     function readLayerProperties(frame, idLayer, soziElement) {
-        var layer = frame.layers[idLayer] = frame.layers[idLayer] || {
-            idLayer: idLayer, // FIXME never used
-            geometry: new sozi.display.Camera()
-        };
+        var layer = frame.layers[idLayer] =
+            frame.layers[idLayer] || new sozi.display.CameraState.instance();
         
         if (typeof layer.hide === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "hide")) {
             layer.hide = readAttribute(soziElement, "hide") === "true";
@@ -79,12 +77,12 @@ module(this, "sozi.document", function (exports, window) {
                 if (layer.hide) {
                     svgElement.style.visibility = "hidden";
                 }
-                layer.geometry.setAtElement(svgElement);
+                layer.setAtElement(svgElement);
             }
         }
             
         if (soziElement.hasAttributeNS(SOZI_NS, "clip")) {
-            layer.geometry.setClipped(readAttribute(soziElement, "clip") === "true");
+            layer.setClipped(readAttribute(soziElement, "clip") === "true");
         }
     }
     
