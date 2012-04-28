@@ -23,7 +23,11 @@ def upgrade_or_install_element(context, tag):
     # Check version and remove older versions
     latest_version_found = False
     for elt in context.document.xpath("//svg:" + tag + "[@id='sozi-" + tag + "']", namespaces=inkex.NSS):
-        version = elt.attrib[inkex.addNS("version", "sozi")]
+        version_attr = inkex.addNS("version", "sozi")
+        if version_attr in elt.attrib:
+            version = elt.attrib[version_attr]
+        else:
+            version = "0"
         if version == SOZI_VERSION:
             latest_version_found = True
         elif version < SOZI_VERSION:
