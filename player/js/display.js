@@ -75,14 +75,6 @@ module(this, "sozi.display", function (exports, window) {
             return this;
         },
         
-        rotate: function (angle) {
-            return this.setAngle(this.angle + angle);
-        },
-
-        zoom: function (factor) {
-            return this.setSize(this.width / factor, this.height / factor);
-        },
-        
         /*
          * Set the current camera's properties to the given SVG element.
          *
@@ -136,22 +128,73 @@ module(this, "sozi.display", function (exports, window) {
                 .setSize(other.width, other.height)
                 .setAngle(other.angle)
                 .setClipped(other.clipped);
-        },
-        
-        getScale: function () {
-            return Math.min(window.innerWidth / this.width, window.innerHeight / this.height);
         }
     });
     
     exports.Camera = new exports.CameraState.subtype({
-        construct: function (idLayer) {
+        construct: function (viewPort, idLayer) {
             exports.CameraState.construct.call(this);
+            
+            this.viewPort = viewPort;
             
             // Clipping rectangle
             this.svgClipRect = document.createElementNS(SVG_NS, "rect");
         
             // Layer element (typically a "g" element)
             this.svgLayer = document.getElementById(idLayer);
+        },
+        
+        getScale: function () {
+            return Math.min(this.viewPort.width / this.width, this.viewPort.height / this.height);
+        },
+        
+        rotate: function (angle) {
+            return this.setAngle(this.angle + angle);
+        },
+
+        zoom: function (factor, x, y) {
+            return this.setSize(this.width / factor, this.height / factor)
+                       .drag(
+                            (1 - factor) * (x - this.viewPort.width / 2),
+                            (1 - factor) * (y - this.viewPort.height / 2)
+                        );
+        },
+        
+        drag: function (deltaX, deltaY) {
+            var scale = this.getScale();
+            var angleRad = this.angle * Math.PI / 180;
+            var si = Math.sin(angleRad);
+            var co = Math.cos(angleRad);
+            return this.setCenter(
+                    this.cx - (deltaX * co - deltaY * si) / scale,
+                    this.cy - (deltaX * si + deltaY * co) / scale
+                ).setClipped(false);
+        },
+
+        update: function () {
+            var scale = this.getScale();
+                    
+            // Compute the size and location of the frame on the screen
+            var width = this.width  * scale;
+            var height = this.height * scale;
+            var x = (this.viewPort.width - width) / 2;
+            var y = (this.viewPort.height - height) / 2;
+
+            // Adjust the location and size of the clipping rectangle and the frame rectangle
+            this.svgClipRect.setAttribute("x", this.clipped ? x : 0);
+            this.svgClipRect.setAttribute("y", this.clipped ? y : 0);
+            this.svgClipRect.setAttribute("width",  this.clipped ? width  : this.viewPort.width);
+            this.svgClipRect.setAttribute("height", this.clipped ? height : this.viewPort.height);
+                    
+            // Compute and apply the geometrical transformation to the layer group
+            var translateX = -this.cx + this.width / 2  + x / scale;
+            var translateY = -this.cy + this.height / 2 + y / scale;
+
+            this.svgLayer.setAttribute("transform",
+                "scale(" + scale + ")" +
+                "translate(" + translateX + "," + translateY + ")" +
+                "rotate(" + (-this.angle) + ',' + this.cx + "," + this.cy + ")"
+            );
         }
     });
     
@@ -167,7 +210,7 @@ module(this, "sozi.display", function (exports, window) {
                 var idLayer = idLayerList[i];
                 
                 // Create a new camera for the current layer
-                var camera = this.cameras[idLayer] = new exports.Camera.instance(idLayer);
+                var camera = this.cameras[idLayer] = new exports.Camera.instance(this, idLayer);
 
                 // Add a clipping path
                 var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
@@ -225,36 +268,10 @@ module(this, "sozi.display", function (exports, window) {
          * geometrical attributes of this Display.
          *
          * This method is called automatically when the window is resized.
-         *
-         * TODO move the loop body to CameraState
          */
         update: function () {
             for (var idLayer in this.cameras) {
-                var camera = this.cameras[idLayer];
-
-                var scale = camera.getScale();
-                    
-                // Compute the size and location of the frame on the screen
-                var width = camera.width  * scale;
-                var height = camera.height * scale;
-                var x = (this.width - width) / 2;
-                var y = (this.height - height) / 2;
-
-                // Adjust the location and size of the clipping rectangle and the frame rectangle
-                camera.svgClipRect.setAttribute("x", camera.clipped ? x : 0);
-                camera.svgClipRect.setAttribute("y", camera.clipped ? y : 0);
-                camera.svgClipRect.setAttribute("width",  camera.clipped ? width  : this.width);
-                camera.svgClipRect.setAttribute("height", camera.clipped ? height : this.height);
-                    
-                // Compute and apply the geometrical transformation to the layer group
-                var translateX = -camera.cx + camera.width / 2  + x / scale;
-                var translateY = -camera.cy + camera.height / 2 + y / scale;
-
-                camera.svgLayer.setAttribute("transform",
-                    "scale(" + scale + ")" +
-                    "translate(" + translateX + "," + translateY + ")" +
-                    "rotate(" + (-camera.angle) + ',' + camera.cx + "," + camera.cy + ")"
-                );
+                this.cameras[idLayer].update();
             }
         },
 
@@ -277,17 +294,10 @@ module(this, "sozi.display", function (exports, window) {
          * Parameters:
          *    - deltaX: the horizontal displacement, in pixels
          *    - deltaY: the vertical displacement, in pixels
-         *
-         * TODO move the loop body to CameraState
          */
         drag: function (deltaX, deltaY) {
             for (var idLayer in this.cameras) {
-                var camera = this.cameras[idLayer];
-                var scale = camera.getScale();
-                var angleRad = camera.angle * Math.PI / 180;
-                camera.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / scale;
-                camera.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / scale;
-                camera.clipped = false;
+                this.cameras[idLayer].drag(deltaX, deltaY);
             }
             this.update();
         },
@@ -296,18 +306,12 @@ module(this, "sozi.display", function (exports, window) {
          * Zooms the display with the given factor.
          *
          * The zoom is centered around (x, y) with respect to the center of the display area.
-         *
-         * TODO move the drag part to the CameraState zoom method
          */
         zoom: function (factor, x, y) {
             for (var idLayer in this.cameras) {
-                this.cameras[idLayer].zoom(factor);
+                this.cameras[idLayer].zoom(factor, x, y);
             }
-            
-            this.drag(
-                (1 - factor) * (x - this.width / 2),
-                (1 - factor) * (y - this.height / 2)
-            );
+            this.update();
         },
 
         /*
