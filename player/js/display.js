@@ -72,8 +72,14 @@ module(this, "sozi.display", function (exports, window) {
         
         setRawAngle: function (angle) {
             this.angle = angle;
+            return this;
         },
         
+        rotate: function (angle) {
+            this.setAngle(this.angle + angle);
+            return this;
+        },
+
         /*
          * Set the current camera's properties to the given SVG element.
          *
@@ -306,13 +312,10 @@ module(this, "sozi.display", function (exports, window) {
          * Rotate the display with the given angle.
          *
          * The rotation is centered around the center of the display area.
-         *
-         * TODO move the loop body to CameraState
          */
         rotate: function (angle) {
             for (var idLayer in this.cameras) {
-                this.cameras[idLayer].angle += angle;
-                this.cameras[idLayer].angle %= 360;
+                this.cameras[idLayer].rotate(angle);
             }
             this.update();
         }
