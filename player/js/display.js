@@ -144,12 +144,16 @@ module(this, "sozi.display", function (exports, window) {
             this.svgLayer = document.getElementById(idLayer);
         },
         
+        setAtState: function (other) {
+            return exports.CameraState.setAtState.call(this, other).update();
+        },
+        
         getScale: function () {
             return Math.min(this.viewPort.width / this.width, this.viewPort.height / this.height);
         },
         
         rotate: function (angle) {
-            return this.setAngle(this.angle + angle);
+            return this.setAngle(this.angle + angle).update();
         },
 
         zoom: function (factor, x, y) {
@@ -168,7 +172,7 @@ module(this, "sozi.display", function (exports, window) {
             return this.setCenter(
                     this.cx - (deltaX * co - deltaY * si) / scale,
                     this.cy - (deltaX * si + deltaY * co) / scale
-                ).setClipped(false);
+                ).setClipped(false).update();
         },
 
         update: function () {
@@ -195,6 +199,8 @@ module(this, "sozi.display", function (exports, window) {
                 "translate(" + translateX + "," + translateY + ")" +
                 "rotate(" + (-this.angle) + ',' + this.cx + "," + this.cy + ")"
             );
+            
+            return this;
         }
     });
     
@@ -285,7 +291,6 @@ module(this, "sozi.display", function (exports, window) {
             for (var idLayer in frame.states) {
                 this.cameras[idLayer].setAtState(frame.states[idLayer]);
             }
-            this.update();
         },
 
         /*
@@ -299,7 +304,6 @@ module(this, "sozi.display", function (exports, window) {
             for (var idLayer in this.cameras) {
                 this.cameras[idLayer].drag(deltaX, deltaY);
             }
-            this.update();
         },
 
         /*
@@ -311,7 +315,6 @@ module(this, "sozi.display", function (exports, window) {
             for (var idLayer in this.cameras) {
                 this.cameras[idLayer].zoom(factor, x, y);
             }
-            this.update();
         },
 
         /*
@@ -323,7 +326,6 @@ module(this, "sozi.display", function (exports, window) {
             for (var idLayer in this.cameras) {
                 this.cameras[idLayer].rotate(angle);
             }
-            this.update();
         }
     });
     
