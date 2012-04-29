@@ -28,9 +28,6 @@ module(this, "sozi.display", function (exports, window) {
     // Constant: the Sozi namespace
     var SVG_NS = "http://www.w3.org/2000/svg";
 
-    // The geometry of each layer managed by Sozi
-    exports.layers = {};
-
     exports.CameraState = new sozi.proto.Object.subtype({
         construct : function () {
             // Center coordinates
@@ -149,6 +146,178 @@ module(this, "sozi.display", function (exports, window) {
         }
     });
     
+    exports.ViewPort = new sozi.proto.Object.subtype({
+        construct: function (idLayerList) {
+            var svgRoot = document.documentElement;
+            
+            this.setLocation(0, 0).setSize(window.innerWidth, window.innerHeight);
+            
+            this.cameras = {};
+            
+            for (var i = 0; i < idLayerList.length; i += 1) {
+                var idLayer = idLayerList[i];
+                
+                // Create a new camera for the current layer
+                var camera = this.cameras[idLayer] = new exports.Camera.instance(idLayer);
+
+                // Add a clipping path
+                var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
+                svgClipPath.setAttribute("id", "sozi-clip-path-" + idLayer);
+                svgClipPath.appendChild(camera.svgClipRect);
+                svgRoot.appendChild(svgClipPath);
+
+                // Create a group that will support the clipping operation
+                // and move the layer group into that new group
+                var svgClippedGroup = document.createElementNS(SVG_NS, "g");
+                svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + idLayer + ")");
+                
+                // Adding the layer group to the clipped group must preserve layer ordering
+                svgRoot.insertBefore(svgClippedGroup, camera.svgLayer);
+                svgClippedGroup.appendChild(camera.svgLayer);
+            }
+        },
+        
+        setSize: function (width, height) {
+            this.width = width;
+            this.height = height;
+            return this;
+        },
+        
+        setLocation: function (x, y) {
+            this.x = x;
+            this.y = y;
+            return this;
+        },
+
+        /*
+         * Returns the geometrical properties of the SVG document
+         *
+         * Returns:
+         *    - The default size, translation and rotation for the document's bounding box
+         */
+        getDocumentState: function () {
+            // This object defines the bounding box of the whole document
+            var camera = new exports.CameraState.instance()
+                .setCenter(initialBBox.x + initialBBox.width / 2,
+                           initialBBox.y + initialBBox.height / 2)
+                .setSize(initialBBox.width, initialBBox.height)
+                .setClipped(false);
+            
+            // Copy the document's bounding box to all layers
+            var result = {};
+            for (var idLayer in this.cameras) {
+                result[idLayer] = camera;
+            }
+            return result;
+        },
+
+        /*
+         * Apply geometrical transformations to the image according to the current
+         * geometrical attributes of this Display.
+         *
+         * This method is called automatically when the window is resized.
+         *
+         * TODO move the loop body to CameraState
+         */
+        update: function () {
+            for (var idLayer in this.cameras) {
+                var camera = this.cameras[idLayer];
+
+                var scale = camera.getScale();
+                    
+                // Compute the size and location of the frame on the screen
+                var width = camera.width  * scale;
+                var height = camera.height * scale;
+                var x = (this.width - width) / 2;
+                var y = (this.height - height) / 2;
+
+                // Adjust the location and size of the clipping rectangle and the frame rectangle
+                camera.svgClipRect.setAttribute("x", camera.clipped ? x : 0);
+                camera.svgClipRect.setAttribute("y", camera.clipped ? y : 0);
+                camera.svgClipRect.setAttribute("width",  camera.clipped ? width  : this.width);
+                camera.svgClipRect.setAttribute("height", camera.clipped ? height : this.height);
+                    
+                // Compute and apply the geometrical transformation to the layer group
+                var translateX = -camera.cx + camera.width / 2  + x / scale;
+                var translateY = -camera.cy + camera.height / 2 + y / scale;
+
+                camera.svgLayer.setAttribute("transform",
+                    "scale(" + scale + ")" +
+                    "translate(" + translateX + "," + translateY + ")" +
+                    "rotate(" + (-camera.angle) + ',' + camera.cx + "," + camera.cy + ")"
+                );
+            }
+        },
+
+        /*
+         * Transform the SVG document to show the given frame.
+         *
+         * Parameters:
+         *    - frame: the frame to show
+         */
+        showFrame: function (frame) {
+            for (var idLayer in frame.states) {
+                this.cameras[idLayer].setAtState(frame.states[idLayer]);
+            }
+            this.update();
+        },
+
+        /*
+         * Apply an additional translation to the SVG document based on onscreen coordinates.
+         *
+         * Parameters:
+         *    - deltaX: the horizontal displacement, in pixels
+         *    - deltaY: the vertical displacement, in pixels
+         *
+         * TODO move the loop body to CameraState
+         */
+        drag: function (deltaX, deltaY) {
+            for (var idLayer in this.cameras) {
+                var camera = this.cameras[idLayer];
+                var scale = camera.getScale();
+                var angleRad = camera.angle * Math.PI / 180;
+                camera.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / scale;
+                camera.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / scale;
+                camera.clipped = false;
+            }
+            this.update();
+        },
+
+        /*
+         * Zooms the display with the given factor.
+         *
+         * The zoom is centered around (x, y) with respect to the center of the display area.
+         *
+         * TODO move the loop body to CameraState
+         */
+        zoom: function (factor, x, y) {
+            for (var idLayer in this.cameras) {
+                this.cameras[idLayer].width /= factor;
+                this.cameras[idLayer].height /= factor;
+            }
+            
+            this.drag(
+                (1 - factor) * (x - this.width / 2),
+                (1 - factor) * (y - this.height / 2)
+            );
+        },
+
+        /*
+         * Rotate the display with the given angle.
+         *
+         * The rotation is centered around the center of the display area.
+         *
+         * TODO move the loop body to CameraState
+         */
+        rotate: function (angle) {
+            for (var idLayer in this.cameras) {
+                this.cameras[idLayer].angle += angle;
+                this.cameras[idLayer].angle %= 360;
+            }
+            this.update();
+        }
+    });
+    
     /*
      * Initializes the current Display.
      *
@@ -167,26 +336,8 @@ module(this, "sozi.display", function (exports, window) {
         svgRoot.setAttribute("width", window.innerWidth);
         svgRoot.setAttribute("height", window.innerHeight);
         
-        // Initialize display geometry for all layers
-        sozi.document.idLayerList.forEach(function (idLayer) {
-            exports.layers[idLayer] = new exports.Camera.instance(idLayer);
-
-            // Add a clipping path
-            var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
-            svgClipPath.setAttribute("id", "sozi-clip-path-" + idLayer);
-            svgClipPath.appendChild(exports.layers[idLayer].svgClipRect);
-            svgRoot.appendChild(svgClipPath);
-
-            // Create a group that will support the clipping operation
-            // and move the layer group into that new group
-            var svgClippedGroup = document.createElementNS(SVG_NS, "g");
-            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + idLayer + ")");
-            
-            // Adding the layer group to the clipped group must preserve layer ordering
-            svgRoot.insertBefore(svgClippedGroup, exports.layers[idLayer].svgLayer);
-            svgClippedGroup.appendChild(exports.layers[idLayer].svgLayer);
-        });
-
+        exports.viewPort = new exports.ViewPort.instance(sozi.document.idLayerList);
+        
         sozi.events.fire("displayready");
     }
 
@@ -197,149 +348,8 @@ module(this, "sozi.display", function (exports, window) {
         var svgRoot = document.documentElement;
         svgRoot.setAttribute("width", window.innerWidth);
         svgRoot.setAttribute("height", window.innerHeight);
-        exports.update();
+        exports.viewPort.setSize(window.innerWidth, window.innerHeight).update();
     }
-
-    /*
-     * Returns the geometrical properties of the SVG document
-     *
-     * Returns:
-     *    - The default size, translation and rotation for the document's bounding box
-     */
-    exports.getDocumentGeometry = function () {
-        // This object defines the bounding box of the whole document
-        var camera = new exports.CameraState.instance()
-            .setCenter(initialBBox.x + initialBBox.width / 2,
-                       initialBBox.y + initialBBox.height / 2)
-            .setSize(initialBBox.width, initialBBox.height)
-            .setClipped(false);
-        
-        // Copy the document's bounding box to all layers
-        var result = { layers: {} };
-        for (var idLayer in exports.layers) {
-            if (exports.layers.hasOwnProperty(idLayer)) {
-                result.layers[idLayer] = camera;
-            }
-        }
-        return result;
-    };
-
-    /*
-     * Apply geometrical transformations to the image according to the current
-     * geometrical attributes of this Display.
-     *
-     * This method is called automatically when the window is resized.
-     *
-     * TODO move the loop body to CameraState
-     */
-    exports.update = function () {
-        for (var idLayer in exports.layers) {
-            if (exports.layers.hasOwnProperty(idLayer)) {
-                var lg = exports.layers[idLayer];
-
-                var scale = lg.getScale();
-                
-                // Compute the size and location of the frame on the screen
-                var width = lg.width  * scale;
-                var height = lg.height * scale;
-                var x = (window.innerWidth - width) / 2;
-                var y = (window.innerHeight - height) / 2;
-
-                // Adjust the location and size of the clipping rectangle and the frame rectangle
-                var cr = exports.layers[idLayer].svgClipRect;
-                cr.setAttribute("x", lg.clipped ? x : 0);
-                cr.setAttribute("y", lg.clipped ? y : 0);
-                cr.setAttribute("width",  lg.clipped ? width  : window.innerWidth);
-                cr.setAttribute("height", lg.clipped ? height : window.innerHeight);
-                
-                // Compute and apply the geometrical transformation to the layer group
-                var translateX = -lg.cx + lg.width / 2  + x / scale;
-                var translateY = -lg.cy + lg.height / 2 + y / scale;
-
-                exports.layers[idLayer].svgLayer.setAttribute("transform",
-                    "scale(" + scale + ")" +
-                    "translate(" + translateX + "," + translateY + ")" +
-                    "rotate(" + (-lg.angle) + ',' + lg.cx + "," + lg.cy + ")"
-                );
-            }
-        }
-    };
-
-    /*
-     * Transform the SVG document to show the given frame.
-     *
-     * Parameters:
-     *    - frame: the frame to show
-     */
-    exports.showFrame = function (frame) {
-        for (var idLayer in frame.layers) {
-            if (frame.layers.hasOwnProperty(idLayer)) {
-                exports.layers[idLayer].setAtState(frame.layers[idLayer]);
-            }
-        }
-        exports.update();
-    };
-
-    /*
-     * Apply an additional translation to the SVG document based on onscreen coordinates.
-     *
-     * Parameters:
-     *    - deltaX: the horizontal displacement, in pixels
-     *    - deltaY: the vertical displacement, in pixels
-     *
-     * TODO move the loop body to CameraState
-     */
-    exports.drag = function (deltaX, deltaY) {
-        for (var idLayer in exports.layers) {
-            if (exports.layers.hasOwnProperty(idLayer)) {
-                var lg = exports.layers[idLayer];
-                var scale = lg.getScale();
-                var angleRad = lg.angle * Math.PI / 180;
-                lg.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / scale;
-                lg.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / scale;
-                lg.clipped = false;
-            }
-        }
-        exports.update();
-    };
-
-    /*
-     * Zooms the display with the given factor.
-     *
-     * The zoom is centered around (x, y) with respect to the center of the display area.
-     *
-     * TODO move the loop body to CameraState
-     */
-    exports.zoom = function (factor, x, y) {
-        for (var idLayer in exports.layers) {
-            if (exports.layers.hasOwnProperty(idLayer)) {
-                exports.layers[idLayer].width /= factor;
-                exports.layers[idLayer].height /= factor;
-            }
-        }
-        
-        exports.drag(
-            (1 - factor) * (x - window.innerWidth / 2),
-            (1 - factor) * (y - window.innerHeight / 2)
-        );
-    };
-
-    /*
-     * Rotate the display with the given angle.
-     *
-     * The rotation is centered around the center of the display area.
-     *
-     * TODO move the loop body to CameraState
-     */
-    exports.rotate = function (angle) {
-        for (var idLayer in exports.layers) {
-            if (exports.layers.hasOwnProperty(idLayer)) {
-                exports.layers[idLayer].angle += angle;
-                exports.layers[idLayer].angle %= 360;
-            }
-        }
-        exports.update();
-    };
     
     sozi.events.listen("documentready", onDocumentReady);
     window.addEventListener("resize", resize, false);

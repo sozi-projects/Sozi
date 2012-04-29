@@ -55,6 +55,13 @@ module(this, "sozi.proto", function (exports) {
         isSubtypeOf: function (anObject) {
             return this.supertype === anObject
                 || exports.Object.isPrototypeOf(this.supertype) && this.supertype.isSubtypeOf(anObject);
+        },
+        
+        bind: function (aFunction) {
+            var self = this;
+            return function () {
+                return aFunction.apply(self, arguments);
+            }
         }
     };
     

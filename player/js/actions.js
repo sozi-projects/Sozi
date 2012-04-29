@@ -50,7 +50,7 @@ module(this, "sozi.actions", function (exports, window) {
      */
     function zoom(direction, x, y) {
         player.stop();
-        display.zoom(direction > 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
+        display.viewPort.zoom(direction > 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
     }
     
     /*
@@ -62,7 +62,7 @@ module(this, "sozi.actions", function (exports, window) {
      */
     function rotate(direction) {
         player.stop();
-        display.rotate(direction > 0 ? ROTATE_STEP : -ROTATE_STEP);
+        display.viewPort.rotate(direction > 0 ? ROTATE_STEP : -ROTATE_STEP);
     }
     
     /*
@@ -115,7 +115,7 @@ module(this, "sozi.actions", function (exports, window) {
             player.stop();
             dragging = true;
             sozi.events.fire("cleanup");
-            display.drag(evt.clientX - dragClientX, evt.clientY - dragClientY);
+            display.viewPort.drag(evt.clientX - dragClientX, evt.clientY - dragClientY);
             dragClientX = evt.clientX;
             dragClientY = evt.clientY;
         }

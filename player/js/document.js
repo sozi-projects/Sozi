@@ -53,20 +53,20 @@ module(this, "sozi.document", function (exports, window) {
         return value === "" ? DEFAULTS[attr] : value;
     }
 
-    function readLayerProperties(frame, idLayer, soziElement) {
-        var layer = frame.layers[idLayer] =
-            frame.layers[idLayer] || new sozi.display.CameraState.instance();
+    function readStateForLayer(frame, idLayer, soziElement) {
+        var state = frame.states[idLayer] =
+            frame.states[idLayer] || new sozi.display.CameraState.instance();
         
-        if (typeof layer.hide === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "hide")) {
-            layer.hide = readAttribute(soziElement, "hide") === "true";
+        if (typeof state.hide === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "hide")) {
+            state.hide = readAttribute(soziElement, "hide") === "true";
         }
 
-        if (typeof layer.transitionZoomPercent === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-zoom-percent")) {
-            layer.transitionZoomPercent = parseInt(readAttribute(soziElement, "transition-zoom-percent"), 10);
+        if (typeof state.transitionZoomPercent === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-zoom-percent")) {
+            state.transitionZoomPercent = parseInt(readAttribute(soziElement, "transition-zoom-percent"), 10);
         }
 
-        if (typeof layer.transitionProfile === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-profile")) {
-            layer.transitionProfile = sozi.animation.profiles[readAttribute(soziElement, "transition-profile") || "linear"];
+        if (typeof state.transitionProfile === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-profile")) {
+            state.transitionProfile = sozi.animation.profiles[readAttribute(soziElement, "transition-profile") || "linear"];
         }
         
         if (soziElement.hasAttributeNS(SOZI_NS, "refid")) {
@@ -74,15 +74,15 @@ module(this, "sozi.document", function (exports, window) {
             // when setting the new geometry object.
             var svgElement = document.getElementById(soziElement.getAttributeNS(SOZI_NS, "refid"));
             if (svgElement) {
-                if (layer.hide) {
+                if (state.hide) {
                     svgElement.style.visibility = "hidden";
                 }
-                layer.setAtElement(svgElement);
+                state.setAtElement(svgElement);
             }
         }
             
         if (soziElement.hasAttributeNS(SOZI_NS, "clip")) {
-            layer.setClipped(readAttribute(soziElement, "clip") === "true");
+            state.setClipped(readAttribute(soziElement, "clip") === "true");
         }
     }
     
@@ -163,7 +163,7 @@ module(this, "sozi.document", function (exports, window) {
                 timeoutEnable: readAttribute(soziFrame, "timeout-enable") === "true",
                 timeoutMs: parseInt(readAttribute(soziFrame, "timeout-ms"), 10),
                 transitionDurationMs: parseInt(readAttribute(soziFrame, "transition-duration-ms"), 10),
-                layers: {}
+                states: {}
             };
 
             // Get the default properties for all layers, either from
@@ -174,18 +174,14 @@ module(this, "sozi.document", function (exports, window) {
                 if (indexFrame === 0 || idLayer.search("sozi-wrapper-[0-9]+") !== -1) {
                     // In the first frame, or in wrapper layers,
                     // read layer attributes from the <frame> element
-                    readLayerProperties(newFrame, idLayer, soziFrame);
+                    readStateForLayer(newFrame, idLayer, soziFrame);
                 }
                 else {
                     // After the first frame, in referenced layers,
                     // copy attributes from the corresponding layer in the previous frame
-                    var currentLayer = newFrame.layers[idLayer] = {};
-                    var previousLayer = exports.frames[exports.frames.length - 1].layers[idLayer];
-                    for (var attr in previousLayer) {
-                        if (previousLayer.hasOwnProperty(attr)) {
-                            currentLayer[attr] = previousLayer[attr];
-                        }
-                    }
+                    var currentState = newFrame.states[idLayer] = new sozi.display.CameraState.instance();
+                    var previousState = exports.frames[exports.frames.length - 1].states[idLayer];
+                    currentState.setAtState(previousState);
                 }
             });
 
@@ -194,14 +190,14 @@ module(this, "sozi.document", function (exports, window) {
             soziLayerList.forEach(function (soziLayer) {
                 var idLayer = soziLayer.getAttributeNS(SOZI_NS, "group");
                 if (idLayer && exports.idLayerList.indexOf(idLayer) !== -1) {
-                    readLayerProperties(newFrame, idLayer, soziLayer);
+                    readStateForLayer(newFrame, idLayer, soziLayer);
                 }
             });
             
             // If the <frame> element has at least one valid layer,
             // add it to the frame list
-            for (var idLayer in newFrame.layers) {
-                if (newFrame.layers.hasOwnProperty(idLayer)) {
+            for (var idLayer in newFrame.states) {
+                if (newFrame.states.hasOwnProperty(idLayer)) {
                     exports.frames.push(newFrame);
                     break;
                 }

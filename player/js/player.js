@@ -69,7 +69,7 @@ module(this, "sozi.player", function (exports, window) {
     function onAnimationStep(progress, data) {
         for (var idLayer in data) {
             if (data.hasOwnProperty(idLayer)) {
-                var lg = display.layers[idLayer];
+                var camera = display.viewPort.cameras[idLayer];
                 
                 var profileProgress = data[idLayer].profile(progress);
                 var profileRemaining = 1 - profileProgress;
@@ -77,7 +77,7 @@ module(this, "sozi.player", function (exports, window) {
                 for (var attr in data[idLayer].initialState) {
                     if (data[idLayer].initialState.hasOwnProperty(attr)) {
                         if (typeof data[idLayer].initialState[attr] === "number" && typeof data[idLayer].finalState[attr] === "number") {
-                            lg[attr] = data[idLayer].finalState[attr] * profileProgress + data[idLayer].initialState[attr] * profileRemaining;
+                            camera[attr] = data[idLayer].finalState[attr] * profileProgress + data[idLayer].initialState[attr] * profileRemaining;
                         }
                     }
                 }
@@ -85,19 +85,19 @@ module(this, "sozi.player", function (exports, window) {
                 var ps;
                 if (data[idLayer].zoomWidth && data[idLayer].zoomWidth.k !== 0) {
                     ps = progress - data[idLayer].zoomWidth.ts;
-                    lg.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
+                    camera.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
                 }
 
                 if (data[idLayer].zoomHeight && data[idLayer].zoomHeight.k !== 0) {
                     ps = progress - data[idLayer].zoomHeight.ts;
-                    lg.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
+                    camera.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
                 }
 
-                lg.clipped = data[idLayer].finalState.clipped;
+                camera.clipped = data[idLayer].finalState.clipped;
             }
         }
         
-        display.update();
+        display.viewPort.update();
     }
 
     /*
@@ -148,7 +148,7 @@ module(this, "sozi.player", function (exports, window) {
         waiting = false;
         sourceFrameIndex = index;
         currentFrameIndex = index;
-        display.showFrame(sozi.document.frames[index]);
+        display.viewPort.showFrame(sozi.document.frames[index]);
         waitTimeout();
     };
 
@@ -218,7 +218,7 @@ module(this, "sozi.player", function (exports, window) {
 
         sourceFrameIndex = index;
         currentFrameIndex = index;
-        display.showFrame(sozi.document.frames[index]);
+        display.viewPort.showFrame(sozi.document.frames[index]);
 
         sozi.events.fire("framechange", index);
     };
@@ -230,44 +230,42 @@ module(this, "sozi.player", function (exports, window) {
     function getAnimationData(initialState, finalState, zoomPercent, profile) {
         var data = {};
         
-        for (var idLayer in initialState.layers) {
-            if (initialState.layers.hasOwnProperty(idLayer)) {
-                data[idLayer] = {
-                    initialState: new sozi.display.CameraState.instance(),
-                    finalState: new sozi.display.CameraState.instance()
-                };
-                
-                data[idLayer].profile = profile || finalState.layers[idLayer].transitionProfile;
-                data[idLayer].initialState.setAtState(initialState.layers[idLayer]);
+        for (var idLayer in initialState) {
+            data[idLayer] = {
+                initialState: new sozi.display.CameraState.instance(),
+                finalState: new sozi.display.CameraState.instance()
+            };
+            
+            data[idLayer].profile = profile || finalState[idLayer].transitionProfile;
+            data[idLayer].initialState.setAtState(initialState[idLayer]);
 
-                // If the current layer is referenced in final state, copy the final properties
-                // else, copy initial state to final state for the current layer.
-                if (finalState.layers.hasOwnProperty(idLayer)) {
-                    data[idLayer].finalState.setAtState(finalState.layers[idLayer]);
-                }
-                else {
-                    data[idLayer].finalState.setAtState(initialState.layers[idLayer]);
-                }
+            // If the current layer is referenced in final state, copy the final properties
+            // else, copy initial state to final state for the current layer.
+            if (finalState.hasOwnProperty(idLayer)) {
+                data[idLayer].finalState.setAtState(finalState[idLayer]);
+            }
+            else {
+                data[idLayer].finalState.setAtState(initialState[idLayer]);
+            }
 
-                // Keep the smallest angle difference between initial state and final state
-                // TODO this should be handled in the interpolation function
-                if (data[idLayer].finalState.angle - data[idLayer].initialState.angle > 180) {
-                    data[idLayer].finalState.setRawAngle(data[idLayer].finalState.angle - 360);
-                }
-                else if (data[idLayer].finalState.angle - data[idLayer].initialState.angle < -180) {
-                    data[idLayer].initialState.setRawAngle(data[idLayer].initialState.angle - 360);
-                }
+            // Keep the smallest angle difference between initial state and final state
+            // TODO this should be handled in the interpolation function
+            if (data[idLayer].finalState.angle - data[idLayer].initialState.angle > 180) {
+                data[idLayer].finalState.setRawAngle(data[idLayer].finalState.angle - 360);
+            }
+            else if (data[idLayer].finalState.angle - data[idLayer].initialState.angle < -180) {
+                data[idLayer].initialState.setRawAngle(data[idLayer].initialState.angle - 360);
+            }
 
-                var zp = zoomPercent || finalState.layers[idLayer].transitionZoomPercent;
-                
-                if (zp && finalState.layers.hasOwnProperty(idLayer)) {
-                    data[idLayer].zoomWidth = getZoomData(zp,
-                        initialState.layers[idLayer].width,
-                        finalState.layers[idLayer].width);
-                    data[idLayer].zoomHeight = getZoomData(zp,
-                        initialState.layers[idLayer].height,
-                        finalState.layers[idLayer].height);
-                }
+            var zp = zoomPercent || finalState[idLayer].transitionZoomPercent;
+            
+            if (zp && finalState.hasOwnProperty(idLayer)) {
+                data[idLayer].zoomWidth = getZoomData(zp,
+                    initialState[idLayer].width,
+                    finalState[idLayer].width);
+                data[idLayer].zoomHeight = getZoomData(zp,
+                    initialState[idLayer].height,
+                    finalState[idLayer].height);
             }
         }
         
@@ -277,7 +275,7 @@ module(this, "sozi.player", function (exports, window) {
     exports.previewFrame = function (index) {
         currentFrameIndex = index;
         animator.start(DEFAULT_DURATION_MS,
-            getAnimationData(display, sozi.document.frames[index],
+            getAnimationData(display.viewPort.cameras, sozi.document.frames[index].states,
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]));
         sozi.events.fire("framechange", index);
     };
@@ -317,7 +315,7 @@ module(this, "sozi.player", function (exports, window) {
         playing = true;
         currentFrameIndex = index;
 
-        animator.start(durationMs, getAnimationData(display, sozi.document.frames[index], zoomPercent, profile));
+        animator.start(durationMs, getAnimationData(display.viewPort.cameras, sozi.document.frames[index].states, zoomPercent, profile));
 
         sozi.events.fire("framechange", index);
     };
@@ -401,7 +399,7 @@ module(this, "sozi.player", function (exports, window) {
         exports.stop();
         sozi.events.fire("cleanup");
         animator.start(DEFAULT_DURATION_MS,
-            getAnimationData(display, display.getDocumentGeometry(),
+            getAnimationData(display.viewPort.cameras, display.viewPort.getDocumentState(),
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]
             )
         );
@@ -415,7 +413,7 @@ module(this, "sozi.player", function (exports, window) {
 
         // Hack to fix the blank screen bug in Chrome/Chromium
         // See https://github.com/senshu/Sozi/issues/109
-        window.setTimeout(display.update, 1);
+        window.setTimeout(display.viewPort.bind(display.viewPort.update), 1);
     }
 
     animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);
