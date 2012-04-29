@@ -76,10 +76,13 @@ module(this, "sozi.display", function (exports, window) {
         },
         
         rotate: function (angle) {
-            this.setAngle(this.angle + angle);
-            return this;
+            return this.setAngle(this.angle + angle);
         },
 
+        zoom: function (factor) {
+            return this.setSize(this.width / factor, this.height / factor);
+        },
+        
         /*
          * Set the current camera's properties to the given SVG element.
          *
@@ -294,12 +297,11 @@ module(this, "sozi.display", function (exports, window) {
          *
          * The zoom is centered around (x, y) with respect to the center of the display area.
          *
-         * TODO move the loop body to CameraState
+         * TODO move the drag part to the CameraState zoom method
          */
         zoom: function (factor, x, y) {
             for (var idLayer in this.cameras) {
-                this.cameras[idLayer].width /= factor;
-                this.cameras[idLayer].height /= factor;
+                this.cameras[idLayer].zoom(factor);
             }
             
             this.drag(
