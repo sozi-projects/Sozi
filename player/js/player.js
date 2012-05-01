@@ -64,37 +64,30 @@ module(this, "sozi.player", function (exports, window) {
      * Parameter progress is a float number between 0 (start of the animation)
      * and 1 (end of the animation).
      *
-     * TODO move the interpolation code to display.js
+     * TODO move the zoom code to display.js
      */
     function onAnimationStep(progress, data) {
         for (var idLayer in data) {
-            if (data.hasOwnProperty(idLayer)) {
-                var camera = display.viewPort.cameras[idLayer];
-                
-                var profileProgress = data[idLayer].profile(progress);
-                var profileRemaining = 1 - profileProgress;
-                
-                for (var attr in data[idLayer].initialState) {
-                    if (data[idLayer].initialState.hasOwnProperty(attr)) {
-                        if (typeof data[idLayer].initialState[attr] === "number" && typeof data[idLayer].finalState[attr] === "number") {
-                            camera[attr] = data[idLayer].finalState[attr] * profileProgress + data[idLayer].initialState[attr] * profileRemaining;
-                        }
-                    }
-                }
+            var camera = display.viewPort.cameras[idLayer];
+            
+            camera.interpolate(
+                data[idLayer].initialState,
+                data[idLayer].finalState,
+                data[idLayer].profile(progress)
+            );
 
-                var ps;
-                if (data[idLayer].zoomWidth && data[idLayer].zoomWidth.k !== 0) {
-                    ps = progress - data[idLayer].zoomWidth.ts;
-                    camera.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
-                }
-
-                if (data[idLayer].zoomHeight && data[idLayer].zoomHeight.k !== 0) {
-                    ps = progress - data[idLayer].zoomHeight.ts;
-                    camera.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
-                }
-
-                camera.clipped = data[idLayer].finalState.clipped;
+            var ps;
+            if (data[idLayer].zoomWidth && data[idLayer].zoomWidth.k !== 0) {
+                ps = progress - data[idLayer].zoomWidth.ts;
+                camera.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
             }
+
+            if (data[idLayer].zoomHeight && data[idLayer].zoomHeight.k !== 0) {
+                ps = progress - data[idLayer].zoomHeight.ts;
+                camera.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
+            }
+
+            camera.clipped = data[idLayer].finalState.clipped;
         }
         
         display.viewPort.update();

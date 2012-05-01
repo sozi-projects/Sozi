@@ -128,6 +128,16 @@ module(this, "sozi.display", function (exports, window) {
                 .setSize(other.width, other.height)
                 .setAngle(other.angle)
                 .setClipped(other.clipped);
+        },
+        
+        interpolatableAttributes: ["cx", "cy", "width", "height", "angle"],
+        
+        interpolate: function (initialState, finalState, ratio) {
+            var remaining = 1 - ratio;
+            for (var i = 0; i < this.interpolatableAttributes.length; i += 1) {
+                var attr = this.interpolatableAttributes[i];
+                this[attr] = finalState[attr] * ratio + initialState[attr] * remaining;
+            }
         }
     });
     
