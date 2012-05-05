@@ -87,7 +87,7 @@ module(this, "sozi.player", function (exports, window) {
                 camera.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
             }
 
-            camera.clipped = data[idLayer].finalState.clipped;
+            camera.setClipped(data[idLayer].finalState.clipped);
         }
         
         display.viewPort.update();

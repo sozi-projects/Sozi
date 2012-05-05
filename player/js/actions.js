@@ -15,7 +15,13 @@
  * @depend display.js
  */
 
-module(this, "sozi.actions", function (exports, window) {
+/**
+ * @name sozi.actions
+ * @namespace Callback functions for DOM event handlers
+ */
+module(this, "sozi.actions", function (exports, window) { 
+    /** @lends sozi.actions */
+    
     "use strict";
     
     // Module aliases
@@ -33,43 +39,75 @@ module(this, "sozi.actions", function (exports, window) {
     var SCALE_FACTOR = 1.05;
     var ROTATE_STEP = 5;
     
-    // State variables for the drag action
-    var dragButtonIsDown = false;
-    var dragging = false;
-    var dragClientX = 0;
-    var dragClientY = 0;
+    /**
+     * The status of the current drag operation.
+     *
+     * @private
+     * @type Boolean
+     */
+    var mouseDragged = false;
     
-    /*
+    /**
+     * The X coordinate of the mouse on the latest "down" or "drag" event.
+     *
+     * @private
+     * @type Number
+     */
+    var mouseLastX = 0;
+
+    /**
+     * The Y coordinate of the mouse on the latest "down" or "drag" event.
+     *
+     * @private
+     * @type Number
+     */
+    var mouseLastY = 0;
+    
+    /**
      * Zooms the display in the given direction.
      *
-     * Only the sign of direction is used:
-     *    - zoom in when direction > 0
-     *    - zoom out when direction <= 0
+     * <p>Only the sign of <code>direction</code> is used:</p>
+     * <ul>
+     *  <li>zoom in when <code>direction > 0</code></li>
+     *  <li>zoom out when <code>direction <= 0</code></li>
+     * </ul>
      *
-     * The scaling is centered around point (x, y).
+     * <p>The scaling is centered around point (<code>x</code>, <code>y</code>).</p>
+     *
+     * @private
+     * @param {Number} direction The direction of the scaling operation
+     * @param {Number} x The X coordinate of the scaling center
+     * @param {Number} y The Y coordinate of the scaling center
      */
     function zoom(direction, x, y) {
         player.stop();
         display.viewPort.zoom(direction > 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
     }
     
-    /*
+    /**
      * Rotate the display in the given direction.
      *
-     * Only the sign of direction is used:
-     *    - rotate anticlockwise when direction > 0
-     *    - rotate clockwise when direction <= 0
+     * <p>Only the sign of <code>direction</code> is used:</p>
+     * <ul>
+     *  <li>rotate anticlockwise when direction > 0</li>
+     *  <li>rotate clockwise when direction <= 0</li>
+     * </ul>
+     *
+     * @private
+     * @param {Number} direction The direction of the rotation
      */
     function rotate(direction) {
         player.stop();
         display.viewPort.rotate(direction > 0 ? ROTATE_STEP : -ROTATE_STEP);
     }
     
-    /*
+    /**
      * Show/hide the frame list.
      *
-     * The presentation stops when the frame list is showed,
-     * and restarts when the frame list is hidden.
+     * <p>The presentation stops when the frame list is showed,
+     * and restarts when the frame list is hidden.</p>
+     *
+     * @private
      */
     function toggleFrameList() {
         if (sozi.framelist.isVisible()) {
@@ -81,21 +119,24 @@ module(this, "sozi.actions", function (exports, window) {
         }
     }
 
-    /*
+    /**
      * Event handler: mouse down.
      *
-     * When the left button is pressed, we register the current coordinates
-     * in case the mouse will be dragged. Flag "dragButtonIsDown" is set until
-     * the button is released (onMouseUp). This flag is used by onMouseMove.
+     * <p>When the left button is pressed, we register the current coordinates
+     * in case the mouse will be dragged. Handler {@link onMouseDrag} is set until
+     * the button is released ({@link onMouseUp}).</p>
      *
-     * When the middle button is pressed, the table of contents is shown or hidden.
+     * <p>When the middle button is pressed, the table of contents is shown or hidden.</p>
+     *
+     * @private
+     * @param {Event} evt The DOM event object
      */
     function onMouseDown(evt) {
         if (evt.button === DRAG_BUTTON) {
-            dragButtonIsDown = true;
-            dragging = false;
-            dragClientX = evt.clientX;
-            dragClientY = evt.clientY;
+            svgRoot.addEventListener("mousemove", onMouseDrag, false);
+            mouseDragged = false;
+            mouseLastX = evt.clientX;
+            mouseLastY = evt.clientY;
         } else if (evt.button === TOC_BUTTON) {
             toggleFrameList();
         }
@@ -103,45 +144,52 @@ module(this, "sozi.actions", function (exports, window) {
         evt.preventDefault();
     }
 
-    /*
+    /**
      * Event handler: mouse move.
      *
-     * If the left mouse button is down, then the mouse move is a drag action.
+     * <p>If the left mouse button is down, then the mouse move is a drag action.
      * This method computes the displacement since the button was pressed or
-     * since the last move, and updates the reference coordinates for the next move.
+     * since the last move, and updates the reference coordinates for the next move.</p>
+     *
+     * @private
+     * @param {Event} evt The DOM event object
      */
-    function onMouseMove(evt) {
-        if (dragButtonIsDown) {
-            player.stop();
-            dragging = true;
-            sozi.events.fire("cleanup");
-            display.viewPort.drag(evt.clientX - dragClientX, evt.clientY - dragClientY);
-            dragClientX = evt.clientX;
-            dragClientY = evt.clientY;
-        }
+    function onMouseDrag(evt) {
+        player.stop();
+        mouseDragged = true;
+        sozi.events.fire("cleanup");
+        display.viewPort.drag(evt.clientX - mouseLastX, evt.clientY - mouseLastY);
+        mouseLastX = evt.clientX;
+        mouseLastY = evt.clientY;
         evt.stopPropagation();
     }
 
-    /*
+    /**
      * Event handler: mouse up.
      *
-     * Releasing the left button resets the "dragButtonIsDown" flag.
+     * <p>Releasing the left button removes the {@link onMouseDrag} handler.</p>
+     *
+     * @private
+     * @param {Event} evt The DOM event object
      */
     function onMouseUp(evt) {
         if (evt.button === DRAG_BUTTON) {
-            dragButtonIsDown = false;
+            svgRoot.removeEventListener("mousemove", onMouseDrag, false);
         }
         evt.stopPropagation();
         evt.preventDefault();
     }
 
-    /*
-     * Event handler: context menu (i.e. right click).
+    /**
+     * Event handler: context menu (i.e right click).
      *
-     * Right click goes one frame back.
+     * <p>Right click goes one frame back.</p>
      *
-     * There is no "click" event for the right mouse button and the menu
-     * can't be disabled in "onMouseDown".
+     * <p>There is no "click" event for the right mouse button and the menu
+     * can't be disabled in {@link onMouseDown}.</p>
+     *
+     * @private
+     * @param {Event} evt The DOM event object
      */
     function onContextMenu(evt) {
         player.moveToPrevious();
@@ -149,32 +197,38 @@ module(this, "sozi.actions", function (exports, window) {
         evt.preventDefault();
     }
 
-    /*
+    /**
      * Event handler: mouse click.
      *
-     * Left-click moves the presentation to the next frame.
+     * <p>Left-click moves the presentation to the next frame.</p>
      *
-     * No "click" event is generated for the middle button in Firefox.
-     * See "onMouseDown" for middle click handling.
+     * <p>No "click" event is generated for the middle button in Firefox.
+     * See {@link onMouseDown} for middle click handling.</p>
      *
-     * Dragging the mouse produces a "click" event when the button is released.
-     * If flag "dragging" was set by "onMouseMove", then the click event is the result
-     * of a drag action.
+     * <p>Dragging the mouse produces a "click" event when the button is released.
+     * If flag {@link mouseDragged} was set by {@link onMouseDrag},
+     * then the click event is the result of a drag action.</p>
+     *
+     * @private
+     * @param {Event} evt The DOM event object
      */
     function onClick(evt) {
-        if (!dragging && evt.button !== TOC_BUTTON) {
+        if (!mouseDragged && evt.button !== TOC_BUTTON) {
             player.moveToNext();
         }
         evt.stopPropagation();
         evt.preventDefault();
     }
 
-    /*
+    /**
      * Event handler: mouse wheel.
      *
-     * Rolling the mouse wheel stops the presentation and zooms the current display.
+     * <p>Rolling the mouse wheel stops the presentation and zooms the current display.</p>
      *
      * FIXME shift key does not work in Opera
+     *
+     * @private
+     * @param {Event} evt The DOM event object
      */
     function onWheel(evt) {
         if (!evt) {
@@ -202,13 +256,17 @@ module(this, "sozi.actions", function (exports, window) {
         evt.preventDefault();
     }
 
-    /*
+    /**
      * Event handler: key press.
      *
-     * Keyboard handling is split into two methods: onKeyPress and onKeyDown
-     * in order to get the same behavior across browsers.
+     * <p>Keyboard handling is split into two methods:
+     * {@link onKeyPress} and {@link onKeyDown}
+     * in order to get the same behavior across browsers.</p>
      *
-     * This method handles character keys "+", "-", "=", "F" and "T".
+     * <p>This method handles character keys "+", "-", "=", "F" and "T".</p>
+     *
+     * @private
+     * @param {Event} evt The DOM event object
      */
     function onKeyPress(evt) {
         // Keys with modifiers are ignored
@@ -246,14 +304,18 @@ module(this, "sozi.actions", function (exports, window) {
         evt.preventDefault();
     }
 
-    /*
+    /**
      * Event handler: key down.
      *
-     * Keyboard handling is split into two methods: onKeyPress and onKeyDown
-     * in order to get the same behavior across browsers.
+     * <p>Keyboard handling is split into two methods:
+     * {@link onKeyPress} and {@link onKeyDown}
+     * in order to get the same behavior across browsers.</p>
      *
-     * This method handles navigation keys (arrows, page up/down, home, end)
-     * and the space and enter keys.
+     * <p>This method handles navigation keys (arrows, page up/down, home, end)
+     * and the space and enter keys.</p>
+     *
+     * @private
+     * @param {Event} evt The DOM event object
      */
     function onKeyDown(evt) {
         // Keys with modifiers are ignored
@@ -291,6 +353,13 @@ module(this, "sozi.actions", function (exports, window) {
         // In Chrome/Chromium, preventDefault() inhibits the "keypress" event
     }
 
+    /**
+     * Event handler: document load.
+     *
+     * <p>This function sets up all other event handlers for this module.</p>
+     *
+     * @private
+     */
     function onLoad() {
         var svgRoot = document.documentElement;
 
@@ -298,7 +367,6 @@ module(this, "sozi.actions", function (exports, window) {
         svgRoot.addEventListener("click", onClick, false);
         svgRoot.addEventListener("mousedown", onMouseDown, false);
         svgRoot.addEventListener("mouseup", onMouseUp, false);
-        svgRoot.addEventListener("mousemove", onMouseMove, false);
         svgRoot.addEventListener("keypress", onKeyPress, false);
         svgRoot.addEventListener("keydown", onKeyDown, false);
         svgRoot.addEventListener("contextmenu", onContextMenu, false);

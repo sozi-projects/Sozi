@@ -32,7 +32,7 @@ INSTALL_DIR := $(HOME)/.config/inkscape/extensions
 
 TIMESTAMP := release/sozi-timestamp-$(VERSION)
 
-.PHONY: zip verify minify install timestamp clean
+.PHONY: zip verify minify install doc timestamp clean
 
 all: zip
 
@@ -44,13 +44,15 @@ verify: $(PLAYER_JS) $(EXTRAS_JS)
 minify: release/sozi.js release/sozi.css
 
 install: $(TARGET)
-	cp release/*.inx $(INSTALL_DIR)
-	cp release/*.py $(INSTALL_DIR)
-	cp release/*.js $(INSTALL_DIR)
-	cp release/*.css $(INSTALL_DIR)
-	cp release/*.svg $(INSTALL_DIR)
+	cp release/sozi* $(INSTALL_DIR)
 
 timestamp: release/sozi-timestamp-$(VERSION)
+
+doc: $(PLAYER_JS) $(EXTRAS_JS)
+	jsdoc --directory=doc/api --recurse=1 \
+		--allfunctions --private \
+		player/js
+#		--template=jsdoc-codeview \
 
 $(TIMESTAMP):
 	touch $@
