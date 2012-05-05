@@ -42,7 +42,6 @@ module(this, "sozi.actions", function (exports, window) {
     /**
      * The status of the current drag operation.
      *
-     * @private
      * @type Boolean
      */
     var mouseDragged = false;
@@ -50,7 +49,6 @@ module(this, "sozi.actions", function (exports, window) {
     /**
      * The X coordinate of the mouse on the latest "down" or "drag" event.
      *
-     * @private
      * @type Number
      */
     var mouseLastX = 0;
@@ -58,7 +56,6 @@ module(this, "sozi.actions", function (exports, window) {
     /**
      * The Y coordinate of the mouse on the latest "down" or "drag" event.
      *
-     * @private
      * @type Number
      */
     var mouseLastY = 0;
@@ -74,7 +71,6 @@ module(this, "sozi.actions", function (exports, window) {
      *
      * <p>The scaling is centered around point (<code>x</code>, <code>y</code>).</p>
      *
-     * @private
      * @param {Number} direction The direction of the scaling operation
      * @param {Number} x The X coordinate of the scaling center
      * @param {Number} y The Y coordinate of the scaling center
@@ -93,7 +89,6 @@ module(this, "sozi.actions", function (exports, window) {
      *  <li>rotate clockwise when direction <= 0</li>
      * </ul>
      *
-     * @private
      * @param {Number} direction The direction of the rotation
      */
     function rotate(direction) {
@@ -106,8 +101,6 @@ module(this, "sozi.actions", function (exports, window) {
      *
      * <p>The presentation stops when the frame list is showed,
      * and restarts when the frame list is hidden.</p>
-     *
-     * @private
      */
     function toggleFrameList() {
         if (sozi.framelist.isVisible()) {
@@ -128,7 +121,6 @@ module(this, "sozi.actions", function (exports, window) {
      *
      * <p>When the middle button is pressed, the table of contents is shown or hidden.</p>
      *
-     * @private
      * @param {Event} evt The DOM event object
      */
     function onMouseDown(evt) {
@@ -151,7 +143,6 @@ module(this, "sozi.actions", function (exports, window) {
      * This method computes the displacement since the button was pressed or
      * since the last move, and updates the reference coordinates for the next move.</p>
      *
-     * @private
      * @param {Event} evt The DOM event object
      */
     function onMouseDrag(evt) {
@@ -169,7 +160,6 @@ module(this, "sozi.actions", function (exports, window) {
      *
      * <p>Releasing the left button removes the {@link onMouseDrag} handler.</p>
      *
-     * @private
      * @param {Event} evt The DOM event object
      */
     function onMouseUp(evt) {
@@ -188,7 +178,6 @@ module(this, "sozi.actions", function (exports, window) {
      * <p>There is no "click" event for the right mouse button and the menu
      * can't be disabled in {@link onMouseDown}.</p>
      *
-     * @private
      * @param {Event} evt The DOM event object
      */
     function onContextMenu(evt) {
@@ -209,7 +198,6 @@ module(this, "sozi.actions", function (exports, window) {
      * If flag {@link mouseDragged} was set by {@link onMouseDrag},
      * then the click event is the result of a drag action.</p>
      *
-     * @private
      * @param {Event} evt The DOM event object
      */
     function onClick(evt) {
@@ -227,7 +215,6 @@ module(this, "sozi.actions", function (exports, window) {
      *
      * FIXME shift key does not work in Opera
      *
-     * @private
      * @param {Event} evt The DOM event object
      */
     function onWheel(evt) {
@@ -265,7 +252,6 @@ module(this, "sozi.actions", function (exports, window) {
      *
      * <p>This method handles character keys "+", "-", "=", "F" and "T".</p>
      *
-     * @private
      * @param {Event} evt The DOM event object
      */
     function onKeyPress(evt) {
@@ -314,7 +300,6 @@ module(this, "sozi.actions", function (exports, window) {
      * <p>This method handles navigation keys (arrows, page up/down, home, end)
      * and the space and enter keys.</p>
      *
-     * @private
      * @param {Event} evt The DOM event object
      */
     function onKeyDown(evt) {
@@ -357,8 +342,6 @@ module(this, "sozi.actions", function (exports, window) {
      * Event handler: document load.
      *
      * <p>This function sets up all other event handlers for this module.</p>
-     *
-     * @private
      */
     function onLoad() {
         var svgRoot = document.documentElement;

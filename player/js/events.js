@@ -13,16 +13,31 @@
  * @depend module.js
  */
 
+/**
+ * @name sozi.events
+ * @namespace Simple event system for Sozi
+ */
 module(this, "sozi.events", function (exports) {
+    /** @lends sozi.events */
+
     "use strict";
     
+    /**
+     * A registry of callback functions for each event type
+     */
     var listenerRegistry = {};
 
-    /*
+    /**
      * Adds a listener for a given event type.
      *
-     * The event type is provided as a string by the key parameter.
-     * The function to be executed is provided by the handler parameter.
+     * <p>The event type is provided as a string by the key parameter.
+     * The function to be executed is provided by the handler parameter.</p>
+     *
+     * @memberOf sozi.events
+     * @name listen
+     * @function
+     * @param {String} key The identifier of the event type to listen
+     * @param {Function} handler The function to call when a corresponding event is fired
      */
     exports.listen = function (key, handler) {
         if (!listenerRegistry.hasOwnProperty(key)) {
@@ -31,13 +46,19 @@ module(this, "sozi.events", function (exports) {
         listenerRegistry[key].push(handler);
     };
     
-    /*
-     * Fire an event of the given type.
+    /**
+     * Fire an event of a given type.
      *
-     * All event handlers added for the given event type are
-     * executed.
-     * Additional arguments provided to this function are passed
-     * to the event handlers.
+     * <p>All event handlers added for the given event type are
+     * executed.</p>
+     *
+     * <p>Additional arguments provided to this function are passed
+     * to the event handlers.</p>
+     *
+     * @memberOf sozi.events
+     * @name fire
+     * @function
+     * @param {String} key The identifier of the event type to fire
      */
     exports.fire = function (key) {
         var args = Array.prototype.slice.call(arguments, 1);
