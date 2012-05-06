@@ -1,0 +1,180 @@
+
+@import url(TeXGyreSchola/stylesheet.css);
+@import url(Iwona/stylesheet.css);
+
+/*
+ * Colors:
+ *	orange 		= rgb(255, 102, 0)
+ *  blue 		= rgb(34, 102, 170)
+ *	light blue 	= rgb(0, 204, 255)
+ *	yellow 		= rgb(255, 204, 0)
+ *	violet 		= rgb(221, 175, 233)
+ *  light green = rgb(204, 255, 0)
+ */
+
+body {
+	font-family: "TeXGyreScholaRegular", "Times", serif;
+	font-weight: normal;
+	font-size: 12pt;
+	margin: 0;
+	padding: 1em 0 1em 0;
+	
+	background: -moz-repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(204, 255, 0, 0.3) 60px, rgba(204, 255, 0, 0.3) 120px, transparent 120px, transparent 165px),
+		-moz-repeating-linear-gradient(0deg, transparent, transparent 15px, rgba(255, 204, 0, 0.5) 15px, rgba(255, 204, 0, 0.5) 75px, transparent 75px, transparent 115px),
+		-moz-repeating-linear-gradient(0deg, rgba(0, 204, 255, 0.5), rgba(0, 204, 255, 0.5) 30px, transparent 30px, transparent 45px),
+		rgb(255, 255, 240);
+}
+
+body * {
+	font-weight: normal;
+}
+
+h1, h2, h3, h4 {
+	font-family: "IwonaRegular", "Arial", sans-serif;
+}
+
+h1 {
+	margin-top: 1em;
+	margin-bottom: 2em;
+	text-align: center;
+	font-size: 250%;
+}
+
+div.toc h2 {
+	font-size: 130%;
+}
+
+div.module h2 {
+	font-size: 200%;
+	padding-left: 0.5em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+h3 {
+	font-size: 130%;
+	background: rgb(240,240,240);
+	padding: 0.1em 0.5em 0.3em 0.5em;
+	margin-top: 2em;
+	margin-bottom: 1em;
+
+	border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	-ie-border-radius: 0.5em;
+	-o-border-radius: 0.5em;
+}
+
+h4 {
+	font-size: 120%;
+	margin-top: 1em;
+	margin-bottom: 0.5em;	
+}
+
+a {
+	color: rgb(34, 102, 170);
+	text-decoration: none;
+}
+
+a.broken {
+	text-decoration: line-through;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.label {
+	font-size: 75%;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	
+	border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	-ie-border-radius: 0.5em;
+	-o-border-radius: 0.5em;
+}
+
+.label.module {
+	background: rgb(221, 175, 233)
+}
+
+.label.type {
+	background: rgb(255, 204, 0);
+}
+
+.label.variable {
+	color: white;
+	background: rgb(34, 102, 170);
+}
+
+.label.function {
+	color: white;
+	background: rgb(255, 102, 0);
+}
+
+.label.public {
+	background: rgb(204, 255, 0);
+}
+
+.label.private {
+	background: rgb(220, 220, 220);
+}
+
+div.toc, div.module {
+	padding: 1em 1em 2em 1em;
+	margin: 0em 5em 1em 5em;
+}
+
+div.toc {
+	background: rgba(255, 255, 255, 0.7);
+
+	border-radius: 1em;
+	-moz-border-radius: 1em;
+	-webkit-border-radius: 1em;
+	-ie-border-radius: 1em;
+	-o-border-radius: 1em;
+}
+
+div.toc ul {
+	list-style-type: none;
+}
+
+div.module {
+	background: white;
+	-moz-box-shadow: rgb(90, 90, 90) 0px 5px 10px 3px;
+	-webkit-box-shadow: rgb(204, 204, 204) 0px 10px 15px 5px;
+}
+
+.module-prefix,
+.result,
+.separator {
+	color: rgb(128, 128, 128);
+}
+
+.data-type {
+	color: rgb(128, 100, 0);
+}
+
+div.desc {
+	margin-left: 4em;
+	margin-right: 4em;
+}
+
+div.params {
+	margin-left: 2em;
+	margin-right: 4em;
+}
+
+div.params table {
+	margin-left: 2em;
+}
+
+table {
+	border: none;
+}
+
+td {
+	padding-right: 1em;
+}

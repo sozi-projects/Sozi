@@ -1,0 +1,95 @@
+<!doctype html>
+<meta charset="utf-8" />
+
+<title>Sozi API Documentation</title>
+
+<link rel="stylesheet" href="style.css" />
+
+<div class="toc">
+   <h1>Sozi API Documentation</h1>
+
+   <h2>Modules</h2>
+   <ul>
+      <for each="m" in="data.modules">
+	      <li>
+	         <a href="#{+ m.alias +}">
+               <if test="m.name !== '_global_'">
+         	      {+ m.alias +}
+         	   <else />
+         	      (global)
+	            </if>
+	         </a>
+            <if test="m.name !== '_global_'">
+	            &ndash; {+ summarize(m.classDesc) +}
+            </if>
+         </li>
+      </for>
+   </ul>
+</div>
+
+<for each="m" in="data.modules">
+   <div class="module">
+      <h2>
+         <a id="{+ m.alias +}"></a>
+         <span class="label module">module</span>
+         <if test="m.name !== '_global_'">
+   	      {+ m.alias +}
+   	   <else />
+   	      (global)
+         </if>
+      </h2>
+      <div class="desc">{+ resolveLinks(m.classDesc) +}</div>
+      
+      <for each="p" in="m.properties">
+         <div class="variable">
+            <h3>
+               <a id="{+ p.alias +}"></a>
+               {+ publish.visibilityTmpl.process(p) +}
+               <span class="label variable"><if test="p.isConstant">constant<else />variable</if></span>
+               {+ publish.fullNameTmpl.process(p) +}
+               {+ publish.dataTypeTmpl.process(p) +}
+            </h3>
+            <div class="desc">{+ resolveLinks(p.desc) +}</div>
+         </div>
+      </for>
+      <for each="f" in="m.methods">
+         <div class="function">
+            <h3>
+               <a id="{+ f.alias +}"></a>
+               {+ publish.visibilityTmpl.process(f) +}
+               <span class="label function">function</span>
+                  {+ publish.fullNameTmpl.process(f) +}<span class="separator">(</span>
+                  <for each="p" in="f.params">
+                     {+ p.name +}<if test="!$p_last"><span class="separator">,</span></if>
+                  </for>
+                  <span class="separator">)</span>
+            </h3>
+            <div class="desc">{+ resolveLinks(f.desc) +}</div>
+            <div class="params">
+               <if test="f.params.length">
+                  <h4>Parameters</h4>
+                  <table>
+                     <for each="p" in="f.params">
+                        <tr>
+                           <td>{+ p.name +} {+ publish.dataTypeTmpl.process(p) +}</td>
+                           <td><if test="p.desc">{+ resolveLinks(p.desc) +}</if></td>
+                        </tr>
+                     </for>
+                  </table>
+               </if>
+               <if test="f.returns.length">
+                  <h4>Returns</h4>
+                  <table>
+                     <for each="p" in="f.returns">
+                        <tr>
+                           <td><span class="result">(result)</span>{+ publish.dataTypeTmpl.process(p) +}</td>
+                           <td><if test="p.desc">{+ resolveLinks(p.desc) +}</if></td>
+                        </tr>
+                     </for>
+                  </table>
+               </if>
+            </div>
+         </div>
+      </for>
+   </div>
+</for>
