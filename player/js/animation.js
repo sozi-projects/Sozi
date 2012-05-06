@@ -13,36 +13,63 @@
  * @depend module.js
  */
 
+/**
+ * @name sozi.animation
+ * @namespace A general-purpose animation controller.
+ */
 module(this, "sozi.animation", function (exports, window) {
+    /** @lends sozi.animation */
+    
     "use strict";
     
-    // The browser-specific function to request an animation frame
+    /**
+     * The browser-specific function to request an animation frame.
+     *
+     * @function
+     */
     var requestAnimationFrame =
             window.mozRequestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             window.msRequestAnimationFrame ||
             window.oRequestAnimationFrame;
 
-    // Constant: the default time step
-    // for browsers that do not support animation frames
+    /**
+     * The default time step.
+     *
+     * <p>For browsers that do not support animation frames.</p>
+     *
+     * @constant
+     * @type Number
+     */
     var TIME_STEP_MS = 40;
     
-    // The handle provided by setInterval
-    // for browsers that do not support animation frames
+    /**
+     * The handle provided by <code>setInterval()</code>.
+     *
+     * <p>For browsers that do not support animation frames.</p>
+     */
     var timer;
     
-    // The list of running animators
+    /**
+     * The list of running animators.
+     *
+     * @type Array
+     */
     var animatorList = [];
     
-    /*
-     * This function is called periodically and triggers the
-     * animation steps in all animators managed by this module.
+    /**
+     * The main animation loop.
      *
-     * If all animators are removed from the list of animators
-     * managed by this module, then the periodic calling is disabled.
+     * <p>This function is called periodically and triggers the
+     * animation steps in all animators managed by this module.</p>
      *
-     * This function can be called either through requestAnimationFrame()
-     * if the browser supports it, or through setInterval().
+     * <p>If all animators are removed from the list of animators
+     * managed by this module, then the periodic calling is disabled.</p>
+     *
+     * <p>This function can be called either through {@link sozi.animation-requestAnimationFrame}
+     * if the browser supports it, or through <code>setInterval()</code>.</p>
+     *
+     * @param {Number} timestamp The current time. 
      */
     function loop(timestamp) {
         if (animatorList.length > 0) {
@@ -68,12 +95,12 @@ module(this, "sozi.animation", function (exports, window) {
         }
     }
     
-    /*
+    /**
      * Start the animation loop.
      *
-     * This function delegates the periodic update of all animators
-     * to the loop() function, either through requestAnimationFrame()
-     * if the browser supports it, or through setInterval().
+     * <p>This function delegates the periodic update of all animators
+     * to the {@link sozi.animation-loop} function, either through {@link sozi.animation-requestAnimationFrame}
+     * if the browser supports it, or through <code>setInterval()</code>.</p>
      */
     function start() {
         if (requestAnimationFrame) {
@@ -86,12 +113,14 @@ module(this, "sozi.animation", function (exports, window) {
         }
     }
     
-    /*
+    /**
      * Add a new animator object to the list of animators managed
      * by this module.
      *
-     * If the animator list was empty before calling this function,
-     * then the animation loop is started.
+     * <p>If the animator list was empty before calling this function,
+     * then the animation loop is started.</p>
+     *
+     * @param {sozi.animation.Animator} animator The animator object to add. 
      */
     function addAnimator(animator) {
         animatorList.push(animator);
@@ -100,9 +129,11 @@ module(this, "sozi.animation", function (exports, window) {
         }
     }
     
-    /*
+    /**
      * Remove the given animator from the list of animators
      * managed by this module.
+     *
+     * @param {sozi.animation.Animator} animator The animator object to add.
      */
     function removeAnimator(animator) {
         animatorList.splice(animatorList.indexOf(animator), 1);

@@ -51,8 +51,8 @@ timestamp: release/sozi-timestamp-$(VERSION)
 doc: $(PLAYER_JS) $(EXTRAS_JS)
 	jsdoc --directory=doc/api --recurse=1 \
 		--allfunctions --private \
+		--template=jsdoc-templates \
 		player/js
-#		--template=jsdoc-codeview \
 
 $(TIMESTAMP):
 	touch $@

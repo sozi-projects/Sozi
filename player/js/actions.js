@@ -116,8 +116,8 @@ module(this, "sozi.actions", function (exports, window) {
      * Event handler: mouse down.
      *
      * <p>When the left button is pressed, we register the current coordinates
-     * in case the mouse will be dragged. Handler {@link onMouseDrag} is set until
-     * the button is released ({@link onMouseUp}).</p>
+     * in case the mouse will be dragged. Handler {@link sozi.actions-onMouseDrag} is set until
+     * the button is released ({@link sozi.actions-onMouseUp}).</p>
      *
      * <p>When the middle button is pressed, the table of contents is shown or hidden.</p>
      *
@@ -158,7 +158,7 @@ module(this, "sozi.actions", function (exports, window) {
     /**
      * Event handler: mouse up.
      *
-     * <p>Releasing the left button removes the {@link onMouseDrag} handler.</p>
+     * <p>Releasing the left button removes the {@link sozi.actions-onMouseDrag} handler.</p>
      *
      * @param {Event} evt The DOM event object
      */
@@ -176,7 +176,7 @@ module(this, "sozi.actions", function (exports, window) {
      * <p>Right click goes one frame back.</p>
      *
      * <p>There is no "click" event for the right mouse button and the menu
-     * can't be disabled in {@link onMouseDown}.</p>
+     * can't be disabled in {@link sozi.actions-onMouseDown}.</p>
      *
      * @param {Event} evt The DOM event object
      */
@@ -192,10 +192,10 @@ module(this, "sozi.actions", function (exports, window) {
      * <p>Left-click moves the presentation to the next frame.</p>
      *
      * <p>No "click" event is generated for the middle button in Firefox.
-     * See {@link onMouseDown} for middle click handling.</p>
+     * See {@link sozi.actions-onMouseDown} for middle click handling.</p>
      *
      * <p>Dragging the mouse produces a "click" event when the button is released.
-     * If flag {@link mouseDragged} was set by {@link onMouseDrag},
+     * If flag {@link sozi.actions-mouseDragged} was set by {@link sozi.actions-onMouseDrag},
      * then the click event is the result of a drag action.</p>
      *
      * @param {Event} evt The DOM event object
@@ -247,7 +247,7 @@ module(this, "sozi.actions", function (exports, window) {
      * Event handler: key press.
      *
      * <p>Keyboard handling is split into two methods:
-     * {@link onKeyPress} and {@link onKeyDown}
+     * {@link sozi.actions-onKeyPress} and {@link sozi.actions-onKeyDown}
      * in order to get the same behavior across browsers.</p>
      *
      * <p>This method handles character keys "+", "-", "=", "F" and "T".</p>
@@ -294,7 +294,7 @@ module(this, "sozi.actions", function (exports, window) {
      * Event handler: key down.
      *
      * <p>Keyboard handling is split into two methods:
-     * {@link onKeyPress} and {@link onKeyDown}
+     * {@link sozi.actions-onKeyPress} and {@link sozi.actions-onKeyDown}
      * in order to get the same behavior across browsers.</p>
      *
      * <p>This method handles navigation keys (arrows, page up/down, home, end)

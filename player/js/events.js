@@ -15,7 +15,7 @@
 
 /**
  * @name sozi.events
- * @namespace Simple event system for Sozi
+ * @namespace A simple event system for Sozi.
  */
 module(this, "sozi.events", function (exports) {
     /** @lends sozi.events */
@@ -23,15 +23,14 @@ module(this, "sozi.events", function (exports) {
     "use strict";
     
     /**
-     * A registry of callback functions for each event type
+     * A registry of callback functions for each event type.
+     *
+     * <p>Call {@link sozi.events.listen} to add a new listener.</p>
      */
     var listenerRegistry = {};
 
     /**
      * Adds a listener for a given event type.
-     *
-     * <p>The event type is provided as a string by the key parameter.
-     * The function to be executed is provided by the handler parameter.</p>
      *
      * @memberOf sozi.events
      * @name listen
