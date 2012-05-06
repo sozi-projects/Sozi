@@ -19,15 +19,17 @@ body {
 	margin: 0;
 	padding: 1em 0 1em 0;
 	
-	background: -moz-repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(204, 255, 0, 0.3) 60px, rgba(204, 255, 0, 0.3) 120px, transparent 120px, transparent 165px),
-		-moz-repeating-linear-gradient(0deg, transparent, transparent 15px, rgba(255, 204, 0, 0.5) 15px, rgba(255, 204, 0, 0.5) 75px, transparent 75px, transparent 115px),
-		-moz-repeating-linear-gradient(0deg, rgba(0, 204, 255, 0.5), rgba(0, 204, 255, 0.5) 30px, transparent 30px, transparent 45px),
-		rgb(255, 255, 240);
+	background:
+		-moz-repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(255, 102, 0, 0.1) 30px, rgba(255, 102, 0, 0.1) 40px, transparent 40px, transparent 195px),
+		-moz-repeating-linear-gradient(0deg, transparent, transparent 75px, rgba(204, 255, 0, 0.5) 75px, rgba(204, 255, 0, 0.5) 150px, transparent 150px, transparent 165px),
+		-moz-repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(221, 175, 233, 0.5) 10px, rgba(221, 175, 233, 0.5) 65px, transparent 65px, transparent 105px),
+		-moz-repeating-linear-gradient(0deg, rgb(128, 230, 255), rgb(128, 230, 255) 15px, rgb(255, 230, 128) 15px, rgb(255, 230, 128) 45px);
 
-	background: -webkit-repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(204, 255, 0, 0.3) 60px, rgba(204, 255, 0, 0.3) 120px, transparent 120px, transparent 165px),
-		-webkit-repeating-linear-gradient(0deg, transparent, transparent 15px, rgba(255, 204, 0, 0.5) 15px, rgba(255, 204, 0, 0.5) 75px, transparent 75px, transparent 115px),
-		-webkit-repeating-linear-gradient(0deg, rgba(0, 204, 255, 0.5), rgba(0, 204, 255, 0.5) 30px, transparent 30px, transparent 45px),
-		rgb(255, 255, 240);
+	background:
+		-webkit-repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(255, 102, 0, 0.1) 30px, rgba(255, 102, 0, 0.1) 40px, transparent 40px, transparent 195px),
+		-webkit-repeating-linear-gradient(0deg, transparent, transparent 75px, rgba(204, 255, 0, 0.5) 75px, rgba(204, 255, 0, 0.5) 150px, transparent 150px, transparent 165px),
+		-webkit-repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(221, 175, 233, 0.5) 10px, rgba(221, 175, 233, 0.5) 65px, transparent 65px, transparent 105px),
+		-webkit-repeating-linear-gradient(0deg, rgb(128, 230, 255), rgb(128, 230, 255) 15px, rgb(255, 230, 128) 15px, rgb(255, 230, 128) 45px);
 }
 
 body * {
@@ -130,10 +132,13 @@ a:hover {
 div.toc, div.module {
 	padding: 1em 1em 2em 1em;
 	margin: 0em 5em 1em 5em;
+	-moz-box-shadow: rgb(90, 90, 90) 0px 5px 10px 3px;
+	-webkit-box-shadow: rgb(90, 90, 90) 0px 5px 10px 3px;
 }
 
 div.toc {
-	background: rgba(255, 255, 255, 0.7);
+	background:	-moz-linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6) 8em, white 10em);
+	background: -webkit-linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6) 8em, white 10em);
 
 	border-radius: 1em;
 	-moz-border-radius: 1em;
@@ -147,9 +152,8 @@ div.toc ul {
 }
 
 div.module {
-	background: white;
-	-moz-box-shadow: rgb(90, 90, 90) 0px 5px 10px 3px;
-	-webkit-box-shadow: rgb(90, 90, 90) 0px 5px 10px 3px;
+	background: -moz-linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6) 6em, white 7em);
+	background: -webkit-linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6) 6em, white 7em);
 }
 
 .module-prefix,
