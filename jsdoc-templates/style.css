@@ -23,6 +23,11 @@ body {
 		-moz-repeating-linear-gradient(0deg, transparent, transparent 15px, rgba(255, 204, 0, 0.5) 15px, rgba(255, 204, 0, 0.5) 75px, transparent 75px, transparent 115px),
 		-moz-repeating-linear-gradient(0deg, rgba(0, 204, 255, 0.5), rgba(0, 204, 255, 0.5) 30px, transparent 30px, transparent 45px),
 		rgb(255, 255, 240);
+
+	background: -webkit-repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(204, 255, 0, 0.3) 60px, rgba(204, 255, 0, 0.3) 120px, transparent 120px, transparent 165px),
+		-webkit-repeating-linear-gradient(0deg, transparent, transparent 15px, rgba(255, 204, 0, 0.5) 15px, rgba(255, 204, 0, 0.5) 75px, transparent 75px, transparent 115px),
+		-webkit-repeating-linear-gradient(0deg, rgba(0, 204, 255, 0.5), rgba(0, 204, 255, 0.5) 30px, transparent 30px, transparent 45px),
+		rgb(255, 255, 240);
 }
 
 body * {
@@ -144,7 +149,7 @@ div.toc ul {
 div.module {
 	background: white;
 	-moz-box-shadow: rgb(90, 90, 90) 0px 5px 10px 3px;
-	-webkit-box-shadow: rgb(204, 204, 204) 0px 10px 15px 5px;
+	-webkit-box-shadow: rgb(90, 90, 90) 0px 5px 10px 3px;
 }
 
 .module-prefix,
