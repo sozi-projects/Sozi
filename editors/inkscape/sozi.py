@@ -578,7 +578,7 @@ class SoziUI:
         self.window.connect("destroy", self.on_destroy)
         self.window.connect("key-press-event", self.on_key_press)
         self.window.set_title("Sozi")
-        self.window.set_icon_from_file(__file__ + ".svg")
+        self.window.set_icon_from_file(__file__ + ".png")
         self.window.set_border_width(5)
         
         # Enable icons on stock buttons
