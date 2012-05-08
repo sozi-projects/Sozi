@@ -45,6 +45,7 @@ module(this, "sozi.proto", function (exports) {
                     this[attr] = anObject[attr];
                 }
             }
+            return this;
         },
         
         isInstanceOf: function (anObject) {
