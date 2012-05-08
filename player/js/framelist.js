@@ -98,17 +98,6 @@ module(this, "sozi.framelist", function (exports, window) {
         evt.stopPropagation();
     }
 
-    function onAnimationStep(progress) {
-        var profileProgress = sozi.animation.profiles[ANIMATION_PROFILE](progress),
-            remaining = 1 - profileProgress;
-        translateX = translateXEnd * profileProgress + translateXStart * remaining;
-        svgTocGroup.setAttribute("transform", "translate(" + translateX + ",0)");
-    }
-    
-    function onAnimationDone() {
-        // Empty
-    }
-    
     /*
      * Create a function that responds to clicks on frame list entries.
      */
@@ -208,7 +197,14 @@ module(this, "sozi.framelist", function (exports, window) {
         translateX = translateXEnd = translateXHidden;
         
         svgTocGroup.setAttribute("transform", "translate(" + translateXHidden + ",0)");
-        animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);
+        animator = new sozi.animation.Animator.instance().augment({
+            onStep: function (progress) {
+                var profileProgress = sozi.animation.profiles[ANIMATION_PROFILE](progress),
+                    remaining = 1 - profileProgress;
+                translateX = translateXEnd * profileProgress + translateXStart * remaining;
+                svgTocGroup.setAttribute("transform", "translate(" + translateX + ",0)");
+            }
+        });
     }
 
 	/*

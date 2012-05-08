@@ -11,6 +11,7 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
+ * @depend proto.js
  */
 
 /**
@@ -69,7 +70,7 @@ module(this, "sozi.animation", function (exports, window) {
      * <p>This function can be called either through {@link sozi.animation-requestAnimationFrame}
      * if the browser supports it, or through <code>setInterval()</code>.</p>
      *
-     * @param {Number} timestamp The current time. 
+     * @param {Number} timestamp The current time.
      */
     function loop(timestamp) {
         if (animatorList.length > 0) {
@@ -120,7 +121,7 @@ module(this, "sozi.animation", function (exports, window) {
      * <p>If the animator list was empty before calling this function,
      * then the animation loop is started.</p>
      *
-     * @param {sozi.animation.Animator} animator The animator object to add. 
+     * @param {sozi.animation.Animator} animator The animator object to add.
      */
     function addAnimator(animator) {
         animatorList.push(animator);
@@ -139,87 +140,130 @@ module(this, "sozi.animation", function (exports, window) {
         animatorList.splice(animatorList.indexOf(animator), 1);
     }
     
-    /*
-     * Construct a new animator.
+    /**
+     * @class
      *
-     * Parameters:
-     * - onStep: the function to call on each animation step
-     * - onDone: the function to call when the animation time is elapsed
+     * An animator provides the logic for animating other objects.
      *
-     * The onStep() function is expected to have the following parameters:
-     *  - progress: a number between 0 and 1 (included) corresponding to
-     *    the elapsed fraction of the total duration
-     *  - data: an optional object passed to the application-specific animation code
+     * <p>The main purpose of an animator is to schedule the update
+     * operations in the animated objects.</p>
      *
-     * The new animator is initialized in the "stopped" state.
+     * @memberOf sozi.animation
+     * @name Animator
      */
-    exports.Animator = function (onStep, onDone) {
-        this.onStep = onStep;
-        this.onDone = onDone;
-
-        this.durationMs = 0;
-        this.data = {};
-        this.initialTime = 0;
-        this.started = false;
-    };
-
-    /*
-     * Start the current animator.
-     *
-     * Parameters:
-     *  - durationMs: the animation duration, in milliseconds
-     *  - data: an object to pass to the onStep function
-     *
-     * The current animator is added to the list of animators managed
-     * by this module and is put in the "started" state.
-     * It will be removed from the list automatically when the given duration
-     * has elapsed.
-     *
-     * The onStep() function is called once before starting the animation.
-     */
-    exports.Animator.prototype.start = function (durationMs, data) {
-        this.durationMs = durationMs;
-        this.data = data;
-        this.initialTime = Date.now();
-        this.onStep(0, this.data);
-
-        if (!this.started) {
-            this.started = true;
-            addAnimator(this);
-        }
-    };
-
-    /*
-     * Stop the current animator.
-     *
-     * The current animator is removed from the list of animators managed
-     * by this module and is put in the "stopped" state.
-     */
-    exports.Animator.prototype.stop = function () {
-        if (this.started) {
-            removeAnimator(this);
+    exports.Animator = new sozi.proto.Object.subtype({
+        /** @lends sozi.animation.Animator */
+        
+        /**
+         * Construct a new animator.
+         */
+        construct: function () {
+            /**
+             * The animation duration, in milliseconds.
+             * @type Number
+             */
+            this.durationMs = 0;
+            
+            /**
+             * A "payload" object that can be used by {@link sozi.animation.Animator.onStep}
+             * and {@link sozi.animation.Animator.onDone}.
+             */
+            this.data = null;
+            
+            /**
+             * The start time of the animation.
+             * @type Number
+             */
+            this.initialTime = 0;
+            
+            /**
+             * The current state of this animator.
+             * @type Boolean
+             */
             this.started = false;
-        }
-    };
+        },
 
-    /*
-     * Perform one animation step.
-     *
-     * This function is called automatically by the loop() function.
-     * It calls the onStep() function of this animator.
-     * If the animation duration has elapsed, the onDone() function of
-     * the animator is called.
-     */
-    exports.Animator.prototype.step = function (timestamp) {
-        var elapsedTime = timestamp - this.initialTime;
-        if (elapsedTime >= this.durationMs) {
-            this.stop();
-            this.onStep(1, this.data);
-            this.onDone();
-        } else {
-            this.onStep(elapsedTime / this.durationMs, this.data);
+        /**
+         * Start the current animator.
+         *
+         * <p>The current animator is added to the list of animators managed
+         * by this module and is put in the "started" state.
+         * It will be removed from the list automatically when the given duration
+         * has elapsed.</p>
+         *
+         * <p>Method {@link sozi.animation.Animator.onStep} is called once before starting the animation.</p>
+         *
+         * @param {Number} durationMs The animation duration, in milliseconds
+         * @param data Some data that can be used in {@link sozi.animation.Animator.onStep}
+         * and {@link sozi.animation.Animator.onDone}
+         */
+        start: function (durationMs, data) {
+            this.durationMs = durationMs;
+            this.data = data;
+            this.initialTime = Date.now();
+            this.onStep(0);
+
+            if (!this.started) {
+                this.started = true;
+                addAnimator(this);
+            }
+        },
+
+        /**
+         * Stop the current animator.
+         *
+         * <p>The current animator is removed from the list of animators managed
+         * by this module and is put in the "stopped" state.</p>
+         */
+        stop: function () {
+            if (this.started) {
+                removeAnimator(this);
+                this.started = false;
+            }
+        },
+
+        /**
+         * Perform one animation step.
+         *
+         * <p>This function is called automatically by the {@link sozi.animation-loop} function.
+         * It calls {@link sozi.animation.Animator.onStep}.
+         * If the animation duration has elapsed, {@link sozi.animation.Animator.onDone} is called.</p>
+         *
+         * @param {Number} timestamp The current time
+         */
+        step: function (timestamp) {
+            var elapsedTime = timestamp - this.initialTime;
+            if (elapsedTime >= this.durationMs) {
+                this.stop();
+                this.onStep(1);
+                this.onDone();
+            } else {
+                this.onStep(elapsedTime / this.durationMs);
+            }
+        },
+        
+        /**
+         * This method is called automatically on each animation step.
+         *
+         * <p>The default implementation does nothing. Override it in a
+         * subclass or instance to provide your own implementation.<p>
+         *
+         * @param {Number} progress The elapsed fraction of the total duration (comprised between 0 and 1 included).
+         */
+        onStep: function (progress) {
+            // Do nothing
+        },
+        
+        /**
+         * This method is called automatically when the animation ends.
+         *
+         * <p>The default implementation does nothing. Override it in a
+         * subclass or instance to provide your own implementation.<p>
+         */
+        onDone: function () {
+            // Do nothing
         }
-    };
+    });
 
     /*
      * The acceleration profiles.
@@ -227,7 +271,7 @@ module(this, "sozi.animation", function (exports, window) {
      * Each profile is a function that operates in the interval [0, 1]
      * and produces a result in the same interval.
      *
-     * These functions are meant to be called in onStep() functions
+     * These functions are meant to be called in {@link sozi.animation.Animator.onStep}
      * to transform the progress indicator according to the desired
      * acceleration effect.
      */
