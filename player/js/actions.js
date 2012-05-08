@@ -19,7 +19,7 @@
  * @name sozi.actions
  * @namespace Callback functions for DOM event handlers
  */
-module(this, "sozi.actions", function (exports, window) { 
+module(this, "sozi.actions", function (exports, window) {
     /** @lends sozi.actions */
     
     "use strict";
@@ -125,7 +125,7 @@ module(this, "sozi.actions", function (exports, window) {
      */
     function onMouseDown(evt) {
         if (evt.button === DRAG_BUTTON) {
-            svgRoot.addEventListener("mousemove", onMouseDrag, false);
+            document.documentElement.addEventListener("mousemove", onMouseDrag, false);
             mouseDragged = false;
             mouseLastX = evt.clientX;
             mouseLastY = evt.clientY;
@@ -164,7 +164,7 @@ module(this, "sozi.actions", function (exports, window) {
      */
     function onMouseUp(evt) {
         if (evt.button === DRAG_BUTTON) {
-            svgRoot.removeEventListener("mousemove", onMouseDrag, false);
+            document.documentElement.removeEventListener("mousemove", onMouseDrag, false);
         }
         evt.stopPropagation();
         evt.preventDefault();

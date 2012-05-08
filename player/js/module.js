@@ -7,7 +7,7 @@
  * <pre>
  * module(this, "a.b.c", function (exports, globals) {
  *     exports.foo = function (x) {
- *         ...    
+ *         ...
  *     };
  * });
  * </pre>
