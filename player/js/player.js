@@ -165,8 +165,8 @@ module(this, "sozi.player", function (exports, window) {
         
         for (var idLayer in initialState) {
             data[idLayer] = {
-                initialState: new sozi.display.CameraState.instance(),
-                finalState: new sozi.display.CameraState.instance()
+                initialState: sozi.display.CameraState.instance(),
+                finalState: sozi.display.CameraState.instance()
             };
             
             data[idLayer].profile = profile || finalState[idLayer].transitionProfile;
@@ -349,7 +349,7 @@ module(this, "sozi.player", function (exports, window) {
         window.setTimeout(display.viewPort.bind(display.viewPort.update), 1);
     }
 
-    animator = new sozi.animation.Animator.instance().augment({
+    animator = sozi.animation.Animator.instance().augment({
         /*
          * Event handler: animation step.
          *

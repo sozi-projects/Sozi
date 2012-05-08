@@ -55,7 +55,7 @@ module(this, "sozi.document", function (exports, window) {
 
     function readStateForLayer(frame, idLayer, soziElement) {
         var state = frame.states[idLayer] =
-            frame.states[idLayer] || new sozi.display.CameraState.instance();
+            frame.states[idLayer] || sozi.display.CameraState.instance();
         
         if (typeof state.hide === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "hide")) {
             state.hide = readAttribute(soziElement, "hide") === "true";
@@ -179,7 +179,7 @@ module(this, "sozi.document", function (exports, window) {
                 else {
                     // After the first frame, in referenced layers,
                     // copy attributes from the corresponding layer in the previous frame
-                    var currentState = newFrame.states[idLayer] = new sozi.display.CameraState.instance();
+                    var currentState = newFrame.states[idLayer] = sozi.display.CameraState.instance();
                     var previousState = exports.frames[exports.frames.length - 1].states[idLayer];
                     currentState.setAtState(previousState);
                 }

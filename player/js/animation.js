@@ -151,7 +151,7 @@ module(this, "sozi.animation", function (exports, window) {
      * @memberOf sozi.animation
      * @name Animator
      */
-    exports.Animator = new sozi.proto.Object.subtype({
+    exports.Animator = sozi.proto.Object.subtype({
         /** @lends sozi.animation.Animator */
         
         /**

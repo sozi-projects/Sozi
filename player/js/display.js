@@ -28,7 +28,7 @@ module(this, "sozi.display", function (exports, window) {
     // Constant: the Sozi namespace
     var SVG_NS = "http://www.w3.org/2000/svg";
 
-    exports.CameraState = new sozi.proto.Object.subtype({
+    exports.CameraState = sozi.proto.Object.subtype({
         construct : function () {
             // Center coordinates
             this.cx = this.cy = 0;
@@ -141,7 +141,7 @@ module(this, "sozi.display", function (exports, window) {
         }
     });
     
-    exports.Camera = new exports.CameraState.subtype({
+    exports.Camera = exports.CameraState.subtype({
         construct: function (viewPort, idLayer) {
             exports.CameraState.construct.call(this);
             
@@ -214,7 +214,7 @@ module(this, "sozi.display", function (exports, window) {
         }
     });
     
-    exports.ViewPort = new sozi.proto.Object.subtype({
+    exports.ViewPort = sozi.proto.Object.subtype({
         construct: function (idLayerList) {
             var svgRoot = document.documentElement;
             

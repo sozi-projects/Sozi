@@ -197,7 +197,7 @@ module(this, "sozi.framelist", function (exports, window) {
         translateX = translateXEnd = translateXHidden;
         
         svgTocGroup.setAttribute("transform", "translate(" + translateXHidden + ",0)");
-        animator = new sozi.animation.Animator.instance().augment({
+        animator = sozi.animation.Animator.instance().augment({
             onStep: function (progress) {
                 var profileProgress = sozi.animation.profiles[ANIMATION_PROFILE](progress),
                     remaining = 1 - profileProgress;

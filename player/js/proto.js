@@ -18,23 +18,21 @@ module(this, "sozi.proto", function (exports) {
     
     exports.Object = {
         installConstructors: function () {
-            var thisObject = this;
+            function instanceConstructor () {}
+            instanceConstructor.prototype = this;
             
             this.instance = function () {
-                thisObject.construct.apply(this, arguments);
-                this.installConstructors();
-                this.type = thisObject;
-                this.supertype = exports.Object;
+                var result = new instanceConstructor();
+                result.construct.apply(result, arguments);
+                return result;
             };
             
             this.subtype = function (anObject) {
-                this.augment(anObject);
-                this.installConstructors();
-                this.supertype = thisObject;
+                var result = new instanceConstructor();
+                result.augment(anObject);
+                result.installConstructors();
+                return result;
             };
-            
-            this.instance.prototype = this;
-            this.subtype.prototype = this;
         },
         
         construct: function () {},
@@ -46,16 +44,6 @@ module(this, "sozi.proto", function (exports) {
                 }
             }
             return this;
-        },
-        
-        isInstanceOf: function (anObject) {
-            return this.type === anObject
-                || exports.Object.isPrototypeOf(this.type) && this.type.isSubtypeOf(anObject);
-        },
-        
-        isSubtypeOf: function (anObject) {
-            return this.supertype === anObject
-                || exports.Object.isPrototypeOf(this.supertype) && this.supertype.isSubtypeOf(anObject);
         },
         
         bind: function (aFunction) {
