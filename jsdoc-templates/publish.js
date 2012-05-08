@@ -14,10 +14,16 @@ function publish(SymbolSet) {
 	    return sym.isNamespace;
 	});
 	
+	data.classes = allSymbols.filter(function (sym) {
+	    return sym.isa === "CONSTRUCTOR";
+	});
+	
 	publish.symbolSet = SymbolSet;
 	publish.visibilityTmpl = new JSDOC.JsPlate(tmplDir + "visibility.tmpl");
 	publish.fullNameTmpl = new JSDOC.JsPlate(tmplDir + "fullName.tmpl");
 	publish.dataTypeTmpl = new JSDOC.JsPlate(tmplDir + "dataType.tmpl");
+	publish.functionTmpl = new JSDOC.JsPlate(tmplDir + "function.tmpl");
+	publish.variableTmpl = new JSDOC.JsPlate(tmplDir + "variable.tmpl");
 	
 	// Generate home page
     var indexTmpl = new JSDOC.JsPlate(tmplDir + "index.tmpl");

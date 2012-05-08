@@ -107,7 +107,7 @@ a:hover {
 	background: rgb(221, 175, 233)
 }
 
-.label.type {
+.label.class {
 	background: rgb(255, 204, 0);
 }
 
@@ -169,6 +169,10 @@ div.module {
 div.desc {
 	margin-left: 4em;
 	margin-right: 4em;
+}
+
+div.class-content {
+	margin-left: 4em;
 }
 
 div.params {
