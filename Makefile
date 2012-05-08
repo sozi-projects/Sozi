@@ -18,7 +18,7 @@ SRC := \
 	$(wildcard editors/inkscape/*.py) \
 	$(wildcard editors/inkscape/extras/*.py) \
 	$(wildcard editors/inkscape/*.inx) \
-	$(wildcard editors/inkscape/*.svg) \
+	$(wildcard editors/inkscape/*.png) \
 	$(wildcard editors/inkscape/extras/*.inx) \
 	$(wildcard doc/install*.html) \
 	$(wildcard doc/*license.txt) \
@@ -81,7 +81,7 @@ release/%.inx: editors/inkscape/%.inx
 release/%.inx: editors/inkscape/extras/%.inx
 	cp $< $@
 	
-release/%.svg: editors/inkscape/%.svg
+release/%.png: editors/inkscape/%.png
 	cp $< $@
 
 release/%: doc/%

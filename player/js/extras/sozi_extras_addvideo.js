@@ -60,10 +60,9 @@ this.addEventListener("load", function () {
 		        rect.setAttribute("visibility", "hidden");
 		        
 			    // Create HTML media element
-			    htmlMedia = document.createElementNS(xhtmlNs, mediaSources[k][i].tagName);
-			    // htmlMedia.setAttribute("poster", "__dummy__.png");
+			    htmlMedia = document.createElementNS(xhtmlNs, mediaSources[k][i].localName);
 			    htmlMedia.setAttribute("controls", "controls");
-			    if (mediaSources[k][i].tagName === "video") {
+			    if (mediaSources[k][i].localName === "video") {
 			        htmlMedia.setAttribute("width", rect.getAttribute("width"));
 			        htmlMedia.setAttribute("height", rect.getAttribute("height"));
 			    }

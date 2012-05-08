@@ -215,7 +215,8 @@ module(this, "sozi.document", function (exports, window) {
     /*
     * Event handler: document load.
     *
-    * This function reads the frames from the document.
+    * This function reads the frames from the document and fires
+    * the "documentready" event.
     */
     function onLoad() {
         document.documentElement.removeAttribute("viewBox");

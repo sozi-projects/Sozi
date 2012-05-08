@@ -339,14 +339,29 @@ module(this, "sozi.actions", function (exports, window) {
     }
 
     /**
+     * Dummy event handler: stop event propagation.
+     *
+     * @param {Event} evt The DOM event object
+     */
+    function stopEvent(evt) {
+        evt.stopPropagation();
+    }
+
+    /**
      * Event handler: document load.
      *
      * <p>This function sets up all other event handlers for this module.</p>
      */
     function onLoad() {
-        var svgRoot = document.documentElement;
-
+        // Prevent event propagation when clicking on a link
+        var links = document.getElementsByTagName("a");
+        for (var i = 0; i < links.length; i += 1) {
+            links[i].addEventListener("click", stopEvent, false);
+            links[i].addEventListener("contextmenu", stopEvent, false);
+        }
+        
         // TODO also use shift-click as an alternative for middle-click
+        var svgRoot = document.documentElement;
         svgRoot.addEventListener("click", onClick, false);
         svgRoot.addEventListener("mousedown", onMouseDown, false);
         svgRoot.addEventListener("mouseup", onMouseUp, false);
