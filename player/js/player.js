@@ -49,51 +49,6 @@ module(this, "sozi.player", function (exports, window) {
     var waiting = false;
 
     /*
-     * Event handler: animation step.
-     *
-     * This method is called periodically by animator after the animation
-     * has been started, and until the animation time is elapsed.
-     *
-     * Parameter data provides the following information:
-     *    - initialState and finalState contain the geometrical properties of the display
-     *      at the start and end of the animation.
-     *    - profile is a reference to the speed profile function to use.
-     *    - zoomWidth and zoomHeight are the parameters of the zooming polynomial if the current
-     *      animation has a non-zero zooming effect.
-     *
-     * Parameter progress is a float number between 0 (start of the animation)
-     * and 1 (end of the animation).
-     *
-     * TODO move the zoom code to display.js
-     */
-    function onAnimationStep(progress, data) {
-        for (var idLayer in data) {
-            var camera = display.viewPort.cameras[idLayer];
-            
-            camera.interpolate(
-                data[idLayer].initialState,
-                data[idLayer].finalState,
-                data[idLayer].profile(progress)
-            );
-
-            var ps;
-            if (data[idLayer].zoomWidth && data[idLayer].zoomWidth.k !== 0) {
-                ps = progress - data[idLayer].zoomWidth.ts;
-                camera.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
-            }
-
-            if (data[idLayer].zoomHeight && data[idLayer].zoomHeight.k !== 0) {
-                ps = progress - data[idLayer].zoomHeight.ts;
-                camera.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
-            }
-
-            camera.setClipped(data[idLayer].finalState.clipped);
-        }
-        
-        display.viewPort.update();
-    }
-
-    /*
      * Starts waiting before moving to the next frame.
      *
      * It the current frame has a timeout set, this method
@@ -112,21 +67,6 @@ module(this, "sozi.player", function (exports, window) {
                 },
                 sozi.document.frames[currentFrameIndex].timeoutMs
             );
-        }
-    }
-
-    /*
-     * Event handler: animation done.
-     *
-     * This method is called by animator when the current animation is finished.
-     *
-     * If the animation was a transition in the normal course of the presentation,
-     * then we call the waitTimeout method to process the timeout property of the current frame.
-     */
-    function onAnimationDone() {
-        sourceFrameIndex = currentFrameIndex;
-        if (playing) {
-            waitTimeout();
         }
     }
 
@@ -409,7 +349,67 @@ module(this, "sozi.player", function (exports, window) {
         window.setTimeout(display.viewPort.bind(display.viewPort.update), 1);
     }
 
-    animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);
+    animator = new sozi.animation.Animator.instance().augment({
+        /*
+         * Event handler: animation step.
+         *
+         * This method is called periodically by animator after the animation
+         * has been started, and until the animation time is elapsed.
+         *
+         * Parameter data provides the following information:
+         *    - initialState and finalState contain the geometrical properties of the display
+         *      at the start and end of the animation.
+         *    - profile is a reference to the speed profile function to use.
+         *    - zoomWidth and zoomHeight are the parameters of the zooming polynomial if the current
+         *      animation has a non-zero zooming effect.
+         *
+         * Parameter progress is a float number between 0 (start of the animation)
+         * and 1 (end of the animation).
+         *
+         * TODO move the zoom code to display.js
+         */
+        onStep: function (progress) {
+            for (var idLayer in this.data) {
+                var camera = display.viewPort.cameras[idLayer];
+                
+                camera.interpolate(
+                    this.data[idLayer].initialState,
+                    this.data[idLayer].finalState,
+                    this.data[idLayer].profile(progress)
+                );
+
+                var ps;
+                if (this.data[idLayer].zoomWidth && this.data[idLayer].zoomWidth.k !== 0) {
+                    ps = progress - this.data[idLayer].zoomWidth.ts;
+                    camera.width = this.data[idLayer].zoomWidth.k * ps * ps + this.data[idLayer].zoomWidth.ss;
+                }
+
+                if (this.data[idLayer].zoomHeight && this.data[idLayer].zoomHeight.k !== 0) {
+                    ps = progress - this.data[idLayer].zoomHeight.ts;
+                    camera.height = this.data[idLayer].zoomHeight.k * ps * ps + this.data[idLayer].zoomHeight.ss;
+                }
+
+                camera.setClipped(this.data[idLayer].finalState.clipped);
+            }
+            
+            display.viewPort.update();
+        },
+        
+        /*
+         * Event handler: animation done.
+         *
+         * This method is called by animator when the current animation is finished.
+         *
+         * If the animation was a transition in the normal course of the presentation,
+         * then we call the waitTimeout method to process the timeout property of the current frame.
+         */
+        onDone: function () {
+            sourceFrameIndex = currentFrameIndex;
+            if (playing) {
+                waitTimeout();
+            }
+        }
+    });
 
     sozi.events.listen("displayready", onDisplayReady);
 });
