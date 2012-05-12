@@ -18,17 +18,17 @@ module(this, "sozi.proto", function (exports) {
     
     exports.Object = {
         installConstructors: function () {
-            function instanceConstructor () {}
-            instanceConstructor.prototype = this;
+            function InstanceConstructor() {}
+            InstanceConstructor.prototype = this;
             
             this.instance = function () {
-                var result = new instanceConstructor();
+                var result = new InstanceConstructor();
                 result.construct.apply(result, arguments);
                 return result;
             };
             
             this.subtype = function (anObject) {
-                var result = new instanceConstructor();
+                var result = new InstanceConstructor();
                 result.augment(anObject);
                 result.installConstructors();
                 return result;
