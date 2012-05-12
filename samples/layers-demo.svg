@@ -24,28 +24,28 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="434.3364"
+     inkscape:cx="436.35671"
      inkscape:cy="715.19648"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
      showgrid="true"
      units="mm"
      inkscape:window-width="1280"
-     inkscape:window-height="964"
+     inkscape:window-height="963"
      inkscape:window-x="0"
-     inkscape:window-y="26"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:snap-grids="true">
     <inkscape:grid
-       type="xygrid"
-       id="grid2985"
-       empspacing="5"
-       visible="true"
-       enabled="true"
-       snapvisiblegridlinesonly="true"
-       units="mm"
+       spacingy="1mm"
        spacingx="1mm"
-       spacingy="1mm" />
+       units="mm"
+       snapvisiblegridlinesonly="true"
+       enabled="true"
+       visible="true"
+       empspacing="5"
+       id="grid2985"
+       type="xygrid" />
   </sodipodi:namedview>
   <defs
      id="defs4" />
@@ -62,564 +62,547 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:groupmode="layer"
-     id="layer3"
+     style="display:none"
      inkscape:label="Fond"
-     style="display:none">
+     id="layer3"
+     inkscape:groupmode="layer">
     <rect
-       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect3037"
-       width="690.94489"
-       height="637.79529"
+       y="35.43301"
        x="70.866142"
-       y="35.43301" />
+       height="637.79529"
+       width="690.94489"
+       id="rect3037"
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none" />
   </g>
   <g
-     inkscape:label="Ciel"
-     inkscape:groupmode="layer"
-     id="layer1"
+     style="display:inline"
      transform="translate(0,10.629915)"
-     style="display:inline">
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Ciel">
     <rect
-       style="fill:#87cdde;stroke:none"
-       id="ciel"
-       width="141.73228"
-       height="106.29921"
-       x="159.44882"
+       inkscape:label="#rect2987"
        y="42.519665"
-       inkscape:label="#rect2987" />
+       x="159.44882"
+       height="106.29921"
+       width="141.73228"
+       id="ciel"
+       style="fill:#87cdde;stroke:none" />
     <path
-       sodipodi:type="arc"
-       style="fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="path2989"
-       sodipodi:cx="274.60629"
-       sodipodi:cy="69.094467"
-       sodipodi:rx="8.8582678"
-       sodipodi:ry="8.8582678"
+       transform="matrix(0.79999999,0,0,0.79999999,42.519693,19.133854)"
        d="m 283.46456,69.094467 c 0,4.892286 -3.96598,8.858268 -8.85827,8.858268 -4.89228,0 -8.85827,-3.965982 -8.85827,-8.858268 0,-4.892286 3.96599,-8.858268 8.85827,-8.858268 4.89229,0 8.85827,3.965982 8.85827,8.858268 z"
-       transform="matrix(0.79999999,0,0,0.79999999,42.519693,19.133854)" />
+       sodipodi:ry="8.8582678"
+       sodipodi:rx="8.8582678"
+       sodipodi:cy="69.094467"
+       sodipodi:cx="274.60629"
+       id="path2989"
+       style="fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       sodipodi:type="arc" />
   </g>
   <g
-     inkscape:groupmode="layer"
-     id="layer2"
+     style="display:inline"
      inkscape:label="Nuages"
-     style="display:inline">
-    <path
-       style="fill:#ffffff;stroke:none"
-       d="m 343.70079,205.51175 c 0,0 0,-7.08661 10.62992,-7.08661 7.08661,0 10.62992,7.08661 10.62992,7.08661 0,0 3.54331,-3.5433 10.62992,-3.5433 7.08661,0 10.47294,6.64499 10.47294,6.64499 0,0 7.2436,0.44162 7.2436,3.98493 0,7.08661 -10.62993,7.08661 -10.62993,7.08661 0,0 -7.08661,7.08662 -17.71653,7.08662 -21.25984,0 -24.80315,-7.08662 -24.80315,-7.08662 0,0 -7.08661,0 -7.08661,-7.08661 0,-7.08662 10.62992,-7.08662 10.62992,-7.08662 z"
-       id="path2997"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cscscscscsc" />
+     id="layer2"
+     inkscape:groupmode="layer">
     <path
        sodipodi:nodetypes="cscscscscsc"
        inkscape:connector-curvature="0"
-       id="path3003"
-       d="m 187.79527,209.05507 c 0,0 3.54331,-3.5433 7.08662,-3.54331 7.08661,-1e-5 7.08661,3.5433 7.08661,3.5433 0,0 1e-5,-3.5433 7.08662,-3.5433 7.08661,0 7.08661,7.08662 7.08661,7.08662 0,0 5.12792,3.91738 3.54331,7.08661 -3.54331,7.08661 -14.17323,3.54331 -14.17323,3.54331 0,0 0,3.5433 -10.62992,3.5433 -10.62992,0 -10.62992,-7.08661 -10.62992,-7.08661 0,0 -10.62993,0 -7.08662,-7.08661 3.54331,-7.08662 10.62992,-3.54331 10.62992,-3.54331 z"
+       id="path2997"
+       d="m 343.70079,205.51175 c 0,0 0,-7.08661 10.62992,-7.08661 7.08661,0 10.62992,7.08661 10.62992,7.08661 0,0 3.54331,-3.5433 10.62992,-3.5433 7.08661,0 10.47294,6.64499 10.47294,6.64499 0,0 7.2436,0.44162 7.2436,3.98493 0,7.08661 -10.62993,7.08661 -10.62993,7.08661 0,0 -7.08661,7.08662 -17.71653,7.08662 -21.25984,0 -24.80315,-7.08662 -24.80315,-7.08662 0,0 -7.08661,0 -7.08661,-7.08661 0,-7.08662 10.62992,-7.08662 10.62992,-7.08662 z"
        style="fill:#ffffff;stroke:none" />
+    <path
+       style="fill:#ffffff;stroke:none"
+       d="m 187.79527,209.05507 c 0,0 3.54331,-3.5433 7.08662,-3.54331 7.08661,-1e-5 7.08661,3.5433 7.08661,3.5433 0,0 1e-5,-3.5433 7.08662,-3.5433 7.08661,0 7.08661,7.08662 7.08661,7.08662 0,0 5.12792,3.91738 3.54331,7.08661 -3.54331,7.08661 -14.17323,3.54331 -14.17323,3.54331 0,0 0,3.5433 -10.62992,3.5433 -10.62992,0 -10.62992,-7.08661 -10.62992,-7.08661 0,0 -10.62993,0 -7.08662,-7.08661 3.54331,-7.08662 10.62992,-3.54331 10.62992,-3.54331 z"
+       id="path3003"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscscscscsc" />
     <rect
-       transform="translate(0,10.629915)"
-       y="166.53539"
-       x="159.44882"
-       height="106.29921"
-       width="141.73228"
+       inkscape:label="#rect3039"
+       style="fill:none;stroke:#ff6600"
        id="nuages-depart"
-       style="fill:none;stroke:#ff6600"
-       inkscape:label="#rect3039" />
-    <rect
-       transform="translate(0,10.629915)"
-       style="fill:none;stroke:#ff6600"
-       id="nuages-arrivee"
        width="141.73228"
        height="106.29921"
-       x="304.7244"
+       x="159.44882"
        y="166.53539"
-       inkscape:label="#rect3041" />
+       transform="translate(0,10.629915)" />
+    <rect
+       inkscape:label="#rect3041"
+       y="166.53539"
+       x="304.7244"
+       height="106.29921"
+       width="141.73228"
+       id="nuages-arrivee"
+       style="fill:none;stroke:#ff6600"
+       transform="translate(0,10.629915)" />
   </g>
   <g
-     inkscape:groupmode="layer"
-     id="layer4"
+     style="display:inline"
      inkscape:label="Arbres"
-     style="display:inline">
+     id="layer4"
+     inkscape:groupmode="layer">
     <path
-       style="fill:#5fd35f;stroke:none"
-       d="m 159.44882,372.04718 c 0,0 3.54331,-10.62992 14.17323,-10.62992 6.36043,0 10.62992,3.54331 10.62992,3.54331 0,0 3.54331,-10.62992 14.17323,-10.62992 10.62992,0 14.17323,14.17323 14.17323,14.17323 0,0 10.62992,-3.54331 17.71653,0 7.08661,3.5433 10.62992,17.71653 10.62992,17.71653 0,0 3.54331,-10.62992 21.25984,-10.62992 3.54331,-14.17323 10.62992,-21.25986 24.80315,-21.25985 14.17323,10e-6 21.25985,10.62993 21.25985,10.62993 0,0 10.62992,-14.17323 28.34645,-14.17323 10.62992,0 17.71654,3.54331 17.71654,3.54331 0,0 3.54331,-7.08662 17.71653,-7.08662 14.17323,0 17.71654,14.17323 17.71654,14.17323 0,0 7.08661,-3.5433 17.71653,-3.5433 10.62993,0 17.71654,14.17322 17.71654,14.17322 0,0 7.8128,-3.5433 14.17323,-3.5433 14.17323,0 21.25984,17.71653 21.25984,17.71653 0,0 21.25984,0 21.25984,21.25984 l 14.17323,0 c 0,0 3.54331,-17.71653 21.25984,-17.71653 0,-10.62992 14.17323,-14.17323 21.25985,-10.62992 0,0 0,-17.71654 17.71653,-17.71654 10.62992,0 14.17323,7.08662 14.17323,7.08662 0,0 3.54331,-17.71654 21.25984,-17.71654 0,0 0,42.16252 0,56.69291 l -432.28346,0 z"
+       sodipodi:nodetypes="csczczccscscsczcscccccsccccc"
+       inkscape:connector-curvature="0"
        id="path3059"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="csczczccscscsczcscccccsccccc" />
+       d="m 159.44882,372.04718 c 0,0 3.54331,-10.62992 14.17323,-10.62992 6.36043,0 10.62992,3.54331 10.62992,3.54331 0,0 3.54331,-10.62992 14.17323,-10.62992 10.62992,0 14.17323,14.17323 14.17323,14.17323 0,0 10.62992,-3.54331 17.71653,0 7.08661,3.5433 10.62992,17.71653 10.62992,17.71653 0,0 3.54331,-10.62992 21.25984,-10.62992 3.54331,-14.17323 10.62992,-21.25986 24.80315,-21.25985 14.17323,10e-6 21.25985,10.62993 21.25985,10.62993 0,0 10.62992,-14.17323 28.34645,-14.17323 10.62992,0 17.71654,3.54331 17.71654,3.54331 0,0 3.54331,-7.08662 17.71653,-7.08662 14.17323,0 17.71654,14.17323 17.71654,14.17323 0,0 7.08661,-3.5433 17.71653,-3.5433 10.62993,0 17.71654,14.17322 17.71654,14.17322 0,0 7.8128,-3.5433 14.17323,-3.5433 14.17323,0 21.25984,17.71653 21.25984,17.71653 0,0 21.25984,0 21.25984,21.25984 l 14.17323,0 c 0,0 3.54331,-17.71653 21.25984,-17.71653 0,-10.62992 14.17323,-14.17323 21.25985,-10.62992 0,0 0,-17.71654 17.71653,-17.71654 10.62992,0 14.17323,7.08662 14.17323,7.08662 0,0 3.54331,-17.71654 21.25984,-17.71654 0,0 0,42.16252 0,56.69291 l -432.28346,0 z"
+       style="fill:#5fd35f;stroke:none" />
     <rect
-       style="fill:none;stroke:#ff6600;display:inline"
-       id="arbres-depart"
-       width="141.73228"
-       height="106.29921"
+       inkscape:label="#rect3049"
+       y="301.18103"
        x="159.44882"
-       y="301.18103"
-       inkscape:label="#rect3049" />
-    <rect
-       style="fill:none;stroke:#ff6600;display:inline"
-       id="arbres-arrivee"
-       width="141.73228"
        height="106.29921"
-       x="450"
+       width="141.73228"
+       id="arbres-depart"
+       style="fill:none;stroke:#ff6600;display:inline" />
+    <rect
+       inkscape:label="#rect3053"
        y="301.18103"
-       inkscape:label="#rect3053" />
+       x="450"
+       height="106.29921"
+       width="141.73228"
+       id="arbres-arrivee"
+       style="fill:none;stroke:#ff6600;display:inline" />
     <path
-       sodipodi:nodetypes="csczcccccscscsczcscccccsccccc"
-       inkscape:connector-curvature="0"
-       id="path4352"
+       style="fill:#2da52d;fill-opacity:1;stroke:none"
        d="m 510.23622,389.76372 c 0,0 -0.64527,-9.60897 -11.95116,-9.60897 -3.77313,0 -6.30588,2.10196 -6.30588,2.10196 0,0 -2.10196,-6.30588 -8.40785,-6.30588 -6.30588,0 -8.76818,10.26958 -8.76818,10.26958 -3.54331,0 -10.62992,3.54331 -10.62992,10.62992 -7.08662,0 -7.08662,10.62992 -7.08662,10.62992 0,0 -28.34645,0 -35.43307,0 0,-10.62992 -20.92884,-18.91765 -25.58388,-18.91765 -2.10196,-8.40785 -6.30588,-12.61179 -14.71373,-12.61178 -8.40785,10e-6 -12.61178,6.30589 -12.61178,6.30589 0,0 -6.30588,-8.40785 -16.81569,-8.40785 -6.30588,0 -10.50981,2.10197 -10.50981,2.10197 0,0 -2.10196,-4.20393 -10.5098,-4.20393 -8.40785,0 -10.50982,8.40785 -10.50982,8.40785 0,0 -4.20392,-2.10196 -10.5098,-2.10196 -6.30589,0 -10.50981,8.40784 -10.50981,8.40784 0,0 -4.63472,-2.10196 -8.40785,-2.10196 -8.40785,0 -12.61177,10.50981 -12.61177,10.50981 0,0 -12.61177,0 -12.61177,12.61177 l -49.54624,0 c 0,0 -2.10196,-10.50981 -12.61177,-10.50981 0,-6.30588 -8.40785,-8.40784 -12.61178,-6.30588 0,0 0,-10.50981 -10.5098,-10.50981 -6.30589,0 -8.40785,4.20392 -8.40785,4.20392 0,0 -2.10196,-10.50981 -12.61177,-10.50981 0,0 0,25.01167 0,33.63139 l 361.41732,0 c 0,-17.71653 -10.62992,-17.71653 -10.62992,-17.71653 z"
-       style="fill:#2da52d;fill-opacity:1;stroke:none" />
+       id="path4352"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csczcccccscscsczcscccccsccccc" />
   </g>
   <g
-     inkscape:groupmode="layer"
-     id="layer5"
+     style="display:inline"
      inkscape:label="Maisons"
-     style="display:inline">
+     id="layer5"
+     inkscape:groupmode="layer">
     <rect
-       y="425.19681"
-       x="159.44882"
-       height="106.29921"
-       width="141.73228"
+       inkscape:label="#rect3061"
+       style="fill:none;stroke:#ff6600;display:inline"
        id="maisons-depart"
-       style="fill:none;stroke:#ff6600;display:inline"
-       inkscape:label="#rect3061" />
-    <rect
-       style="fill:none;stroke:#ff6600;display:inline"
-       id="maisons-arrivee"
        width="141.73228"
        height="106.29921"
-       x="595.27557"
+       x="159.44882"
+       y="425.19681" />
+    <rect
+       inkscape:label="#rect3069"
        y="425.19678"
-       inkscape:label="#rect3069" />
-    <rect
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect3071"
-       width="35.433071"
-       height="53.149605"
-       x="212.59842"
-       y="478.34641" />
-    <rect
-       y="496.06293"
-       x="251.5748"
-       height="35.433064"
-       width="53.149582"
-       id="rect3073"
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-    <rect
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect3075"
-       width="60.23621"
-       height="42.519672"
-       x="354.33072"
-       y="488.97632" />
+       x="595.27557"
+       height="106.29921"
+       width="141.73228"
+       id="maisons-arrivee"
+       style="fill:none;stroke:#ff6600;display:inline" />
     <rect
        y="478.34641"
-       x="425.19684"
-       height="53.149597"
-       width="53.149612"
-       id="rect3077"
+       x="212.59842"
+       height="53.149605"
+       width="35.433071"
+       id="rect3071"
        style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" />
     <rect
        style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect3079"
-       width="35.433064"
+       id="rect3073"
+       width="53.149582"
+       height="35.433064"
+       x="251.5748"
+       y="496.06293" />
+    <rect
+       y="488.97632"
+       x="354.33072"
+       height="42.519672"
+       width="60.23621"
+       id="rect3075"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect3077"
+       width="53.149612"
        height="53.149597"
-       x="481.88977"
+       x="425.19684"
        y="478.34641" />
     <rect
-       y="496.06293"
-       x="549.21259"
-       height="35.433071"
-       width="35.433083"
-       id="rect3081"
+       y="478.34641"
+       x="481.88977"
+       height="53.149597"
+       width="35.433064"
+       id="rect3079"
        style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" />
     <rect
        style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect3083"
-       width="53.149628"
-       height="38.976376"
-       x="602.36218"
-       y="492.51962" />
+       id="rect3081"
+       width="35.433083"
+       height="35.433071"
+       x="549.21259"
+       y="496.06293" />
     <rect
-       y="474.8031"
-       x="673.22833"
-       height="56.692917"
+       y="492.51962"
+       x="602.36218"
+       height="38.976376"
        width="53.149628"
-       id="rect3085"
+       id="rect3083"
        style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect3085"
+       width="53.149628"
+       height="56.692917"
+       x="673.22833"
+       y="474.8031" />
     <path
-       style="fill:#ff3c00;fill-opacity:1;stroke:none"
-       d="m 212.59843,478.3464 17.71653,-21.25985 17.71654,21.25985 z"
+       inkscape:connector-curvature="0"
        id="path3087"
+       d="m 212.59843,478.3464 17.71653,-21.25985 17.71654,21.25985 z"
+       style="fill:#ff3c00;fill-opacity:1;stroke:none" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       style="fill:#ff3c00;fill-opacity:1;stroke:none"
+       d="m 251.57481,496.06294 14.17322,-17.71654 24.80315,0 14.17323,17.71653 z"
+       id="path3857"
        inkscape:connector-curvature="0" />
     <path
        inkscape:connector-curvature="0"
-       id="path3857"
-       d="m 251.57481,496.06294 14.17322,-17.71654 24.80315,0 14.17323,17.71653 z"
+       id="path3859"
+       d="m 354.33072,488.97632 14.17322,-17.71654 31.88976,0 14.17323,17.71654 z"
        style="fill:#ff3c00;fill-opacity:1;stroke:none"
        sodipodi:nodetypes="ccccc" />
     <path
        sodipodi:nodetypes="ccccc"
        style="fill:#ff3c00;fill-opacity:1;stroke:none"
-       d="m 354.33072,488.97632 14.17322,-17.71654 31.88976,0 14.17323,17.71654 z"
-       id="path3859"
-       inkscape:connector-curvature="0" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path3861"
        d="m 425.19686,478.3464 14.17322,-17.71654 24.80315,0 14.17323,17.71654 z"
-       style="fill:#ff3c00;fill-opacity:1;stroke:none"
-       sodipodi:nodetypes="ccccc" />
-    <path
-       sodipodi:nodetypes="cccc"
-       style="fill:#ff3c00;fill-opacity:1;stroke:none"
-       d="m 481.88977,478.3464 17.71653,-24.80315 17.71653,24.80315 z"
-       id="path3863"
+       id="path3861"
        inkscape:connector-curvature="0" />
     <path
        inkscape:connector-curvature="0"
-       id="path3865"
-       d="m 549.2126,496.06293 17.71653,-24.80315 17.71653,24.80315 z"
+       id="path3863"
+       d="m 481.88977,478.3464 17.71653,-24.80315 17.71653,24.80315 z"
        style="fill:#ff3c00;fill-opacity:1;stroke:none"
        sodipodi:nodetypes="cccc" />
     <path
-       inkscape:connector-curvature="0"
-       id="path3869"
-       d="m 673.22835,474.80309 14.17322,-17.71654 24.80315,0 14.17323,17.71654 z"
+       sodipodi:nodetypes="cccc"
        style="fill:#ff3c00;fill-opacity:1;stroke:none"
-       sodipodi:nodetypes="ccccc" />
+       d="m 549.2126,496.06293 17.71653,-24.80315 17.71653,24.80315 z"
+       id="path3865"
+       inkscape:connector-curvature="0" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       style="fill:#ff3c00;fill-opacity:1;stroke:none"
+       d="m 673.22835,474.80309 14.17322,-17.71654 24.80315,0 14.17323,17.71654 z"
+       id="path3869"
+       inkscape:connector-curvature="0" />
     <rect
-       style="fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect3871"
-       width="3.543303"
-       height="17.716536"
+       y="513.77948"
        x="219.68504"
-       y="513.77948" />
-    <rect
-       y="513.77948"
-       x="283.46457"
        height="17.716536"
-       width="3.5433049"
+       width="3.543303"
+       id="rect3871"
+       style="fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    <rect
+       style="fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="rect3873"
-       style="fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-    <rect
-       style="fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect3875"
-       width="3.5433178"
+       width="3.5433049"
        height="17.716536"
+       x="283.46457"
+       y="513.77948" />
+    <rect
+       y="513.77948"
        x="382.67715"
-       y="513.77948" />
-    <rect
-       y="513.77948"
-       x="435.82678"
        height="17.716536"
-       width="3.5432966"
+       width="3.5433178"
+       id="rect3875"
+       style="fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    <rect
+       style="fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="rect3877"
-       style="fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-    <rect
-       style="fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect3879"
-       width="3.5433135"
+       width="3.5432966"
        height="17.716536"
+       x="435.82678"
+       y="513.77948" />
+    <rect
+       y="513.77948"
        x="499.60629"
-       y="513.77948" />
-    <rect
-       y="513.77948"
-       x="556.29919"
        height="17.716536"
-       width="3.5433254"
-       id="rect3881"
+       width="3.5433135"
+       id="rect3879"
        style="fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none" />
     <rect
        style="fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect3883"
-       width="3.5432947"
+       id="rect3881"
+       width="3.5433254"
        height="17.716536"
-       x="637.79529"
+       x="556.29919"
        y="513.77948" />
     <rect
        y="513.77948"
-       x="683.85828"
+       x="637.79529"
        height="17.716536"
-       width="3.5432985"
-       id="rect3885"
+       width="3.5432947"
+       id="rect3883"
        style="fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    <rect
+       style="fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect3885"
+       width="3.5432985"
+       height="17.716536"
+       x="683.85828"
+       y="513.77948" />
     <g
        id="g4376">
       <rect
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         y="488.97632"
+         x="219.68504"
+         height="10.629909"
+         width="7.0866208"
          id="rect3891"
-         width="7.0866208"
-         height="10.629909"
-         x="219.68504"
-         y="488.97632" />
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
       <path
-         style="fill:#87cdde;fill-opacity:1;stroke:none"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
          id="path4374"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccccc" />
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         style="fill:#87cdde;fill-opacity:1;stroke:none" />
     </g>
     <g
-       transform="translate(42.519681,24.803149)"
-       id="g4392">
+       id="g4392"
+       transform="translate(42.519681,24.803149)">
       <rect
-         y="488.97632"
-         x="219.68504"
-         height="10.629909"
-         width="7.0866208"
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="rect4394"
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+         width="7.0866208"
+         height="10.629909"
+         x="219.68504"
+         y="488.97632" />
       <path
-         sodipodi:nodetypes="cccccc"
-         inkscape:connector-curvature="0"
+         style="fill:#87cdde;fill-opacity:1;stroke:none"
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
          id="path4396"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
-         style="fill:#87cdde;fill-opacity:1;stroke:none" />
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccc" />
     </g>
     <g
-       id="g4433"
-       transform="translate(145.27559,24.803149)">
+       transform="translate(145.27559,24.803149)"
+       id="g4433">
       <rect
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         y="488.97632"
+         x="219.68504"
+         height="10.629909"
+         width="7.0866208"
          id="rect4435"
-         width="7.0866208"
-         height="10.629909"
-         x="219.68504"
-         y="488.97632" />
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
       <path
-         style="fill:#87cdde;fill-opacity:1;stroke:none"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
          id="path4437"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccccc" />
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         style="fill:#87cdde;fill-opacity:1;stroke:none" />
     </g>
     <g
-       transform="translate(180.70866,24.803149)"
-       id="g4439">
+       id="g4439"
+       transform="translate(180.70866,24.803149)">
       <rect
-         y="488.97632"
-         x="219.68504"
-         height="10.629909"
-         width="7.0866208"
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="rect4441"
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+         width="7.0866208"
+         height="10.629909"
+         x="219.68504"
+         y="488.97632" />
       <path
-         sodipodi:nodetypes="cccccc"
-         inkscape:connector-curvature="0"
+         style="fill:#87cdde;fill-opacity:1;stroke:none"
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
          id="path4443"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
-         style="fill:#87cdde;fill-opacity:1;stroke:none" />
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccc" />
     </g>
     <g
-       id="g4445"
-       transform="translate(216.14173,-9.6118356e-7)">
+       transform="translate(216.14173,-9.6118356e-7)"
+       id="g4445">
       <rect
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         y="488.97632"
+         x="219.68504"
+         height="10.629909"
+         width="7.0866208"
          id="rect4447"
-         width="7.0866208"
-         height="10.629909"
-         x="219.68504"
-         y="488.97632" />
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
       <path
-         style="fill:#87cdde;fill-opacity:1;stroke:none"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
          id="path4449"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccccc" />
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         style="fill:#87cdde;fill-opacity:1;stroke:none" />
     </g>
     <g
-       transform="translate(240.94488,-9.6118356e-7)"
-       id="g4451">
+       id="g4451"
+       transform="translate(240.94488,-9.6118356e-7)">
       <rect
-         y="488.97632"
-         x="219.68504"
-         height="10.629909"
-         width="7.0866208"
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="rect4453"
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+         width="7.0866208"
+         height="10.629909"
+         x="219.68504"
+         y="488.97632" />
       <path
-         sodipodi:nodetypes="cccccc"
-         inkscape:connector-curvature="0"
+         style="fill:#87cdde;fill-opacity:1;stroke:none"
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
          id="path4455"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
-         style="fill:#87cdde;fill-opacity:1;stroke:none" />
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccc" />
     </g>
     <g
-       id="g4457"
-       transform="translate(240.94488,24.803149)">
+       transform="translate(240.94488,24.803149)"
+       id="g4457">
       <rect
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         y="488.97632"
+         x="219.68504"
+         height="10.629909"
+         width="7.0866208"
          id="rect4459"
-         width="7.0866208"
-         height="10.629909"
-         x="219.68504"
-         y="488.97632" />
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
       <path
-         style="fill:#87cdde;fill-opacity:1;stroke:none"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
          id="path4461"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccccc" />
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         style="fill:#87cdde;fill-opacity:1;stroke:none" />
     </g>
     <g
-       transform="translate(269.29133,-9.6118356e-7)"
-       id="g4463">
+       id="g4463"
+       transform="translate(269.29133,-9.6118356e-7)">
       <rect
-         y="488.97632"
-         x="219.68504"
-         height="10.629909"
-         width="7.0866208"
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="rect4465"
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+         width="7.0866208"
+         height="10.629909"
+         x="219.68504"
+         y="488.97632" />
       <path
-         sodipodi:nodetypes="cccccc"
-         inkscape:connector-curvature="0"
+         style="fill:#87cdde;fill-opacity:1;stroke:none"
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
          id="path4467"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
-         style="fill:#87cdde;fill-opacity:1;stroke:none" />
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccc" />
     </g>
     <g
-       id="g4469"
-       transform="translate(350.7874,24.803149)">
+       transform="translate(350.7874,24.803149)"
+       id="g4469">
       <rect
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         y="488.97632"
+         x="219.68504"
+         height="10.629909"
+         width="7.0866208"
          id="rect4471"
-         width="7.0866208"
-         height="10.629909"
-         x="219.68504"
-         y="488.97632" />
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
       <path
-         style="fill:#87cdde;fill-opacity:1;stroke:none"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
          id="path4473"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccccc" />
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         style="fill:#87cdde;fill-opacity:1;stroke:none" />
     </g>
     <g
-       transform="translate(393.30708,24.803149)"
-       id="g4475">
+       id="g4475"
+       transform="translate(393.30708,24.803149)">
       <rect
-         y="488.97632"
-         x="219.68504"
-         height="10.629909"
-         width="7.0866208"
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="rect4477"
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+         width="7.0866208"
+         height="10.629909"
+         x="219.68504"
+         y="488.97632" />
       <path
-         sodipodi:nodetypes="cccccc"
-         inkscape:connector-curvature="0"
+         style="fill:#87cdde;fill-opacity:1;stroke:none"
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
          id="path4479"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
-         style="fill:#87cdde;fill-opacity:1;stroke:none" />
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccc" />
     </g>
     <g
-       id="g4481"
-       transform="translate(464.17322,3.5433061)">
+       transform="translate(464.17322,3.5433061)"
+       id="g4481">
       <rect
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         y="488.97632"
+         x="219.68504"
+         height="10.629909"
+         width="7.0866208"
          id="rect4483"
-         width="7.0866208"
-         height="10.629909"
-         x="219.68504"
-         y="488.97632" />
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
       <path
-         style="fill:#87cdde;fill-opacity:1;stroke:none"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
          id="path4485"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccccc" />
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         style="fill:#87cdde;fill-opacity:1;stroke:none" />
     </g>
     <g
-       transform="translate(488.97637,3.5433061)"
-       id="g4487">
+       id="g4487"
+       transform="translate(488.97637,3.5433061)">
       <rect
-         y="488.97632"
-         x="219.68504"
-         height="10.629909"
-         width="7.0866208"
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="rect4489"
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+         width="7.0866208"
+         height="10.629909"
+         x="219.68504"
+         y="488.97632" />
       <path
-         sodipodi:nodetypes="cccccc"
-         inkscape:connector-curvature="0"
+         style="fill:#87cdde;fill-opacity:1;stroke:none"
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
          id="path4491"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
-         style="fill:#87cdde;fill-opacity:1;stroke:none" />
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccc" />
     </g>
     <g
-       id="g4493"
-       transform="translate(488.97637,24.803149)">
+       transform="translate(488.97637,24.803149)"
+       id="g4493">
       <rect
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         y="488.97632"
+         x="219.68504"
+         height="10.629909"
+         width="7.0866208"
          id="rect4495"
-         width="7.0866208"
-         height="10.629909"
-         x="219.68504"
-         y="488.97632" />
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
       <path
-         style="fill:#87cdde;fill-opacity:1;stroke:none"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
          id="path4497"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccccc" />
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         style="fill:#87cdde;fill-opacity:1;stroke:none" />
     </g>
     <g
-       id="g4499"
-       transform="matrix(1,0,0,0.68739202,393.30708,163.48782)">
+       transform="matrix(1,0,0,0.68739202,393.30708,163.48782)"
+       id="g4499">
       <rect
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         y="488.97632"
+         x="219.68504"
+         height="10.629909"
+         width="7.0866208"
          id="rect4501"
-         width="7.0866208"
-         height="10.629909"
-         x="219.68504"
-         y="488.97632" />
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
       <path
-         style="fill:#87cdde;fill-opacity:1;stroke:none"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
          id="path4503"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccccc" />
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         style="fill:#87cdde;fill-opacity:1;stroke:none" />
     </g>
     <g
-       transform="matrix(1,0,0,0.68739202,418.11023,163.48782)"
-       id="g4505">
+       id="g4505"
+       transform="matrix(1,0,0,0.68739202,418.11023,163.48782)">
       <rect
-         y="488.97632"
-         x="219.68504"
-         height="10.629909"
-         width="7.0866208"
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="rect4507"
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+         width="7.0866208"
+         height="10.629909"
+         x="219.68504"
+         y="488.97632" />
       <path
-         sodipodi:nodetypes="cccccc"
-         inkscape:connector-curvature="0"
+         style="fill:#87cdde;fill-opacity:1;stroke:none"
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
          id="path4509"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
-         style="fill:#87cdde;fill-opacity:1;stroke:none" />
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccc" />
     </g>
     <g
-       transform="matrix(1,0,0,0.68739202,148.81889,159.94451)"
-       id="g4511">
+       id="g4511"
+       transform="matrix(1,0,0,0.68739202,148.81889,159.94451)">
       <rect
-         y="488.97632"
-         x="219.68504"
-         height="10.629909"
-         width="7.0866208"
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="rect4513"
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-      <path
-         sodipodi:nodetypes="cccccc"
-         inkscape:connector-curvature="0"
-         id="path4515"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
-         style="fill:#87cdde;fill-opacity:1;stroke:none" />
-    </g>
-    <g
-       id="g4517"
-       transform="matrix(1,0,0,0.68739202,177.16535,159.94451)">
-      <rect
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         id="rect4519"
          width="7.0866208"
          height="10.629909"
          x="219.68504"
@@ -627,82 +610,82 @@
       <path
          style="fill:#87cdde;fill-opacity:1;stroke:none"
          d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
-         id="path4521"
+         id="path4515"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="cccccc" />
     </g>
-    <rect
-       y="513.77948"
-       x="258.66141"
-       height="10.629921"
-       width="3.5433071"
-       id="rect4547"
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.50000000000000000;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" />
-    <rect
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="rect4568"
-       width="3.5433071"
-       height="10.629921"
-       x="269.29135"
-       y="513.77948" />
-    <rect
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="rect4570"
-       width="3.5433071"
-       height="10.629921"
-       x="240.94489"
-       y="513.77948" />
-    <rect
-       y="513.77948"
-       x="230.31496"
-       height="10.629921"
-       width="3.5433071"
-       id="rect4572"
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
-    <rect
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="rect4574"
-       width="3.5433071"
-       height="10.629921"
-       x="240.94489"
-       y="488.97632" />
-    <rect
-       y="488.97632"
-       x="230.31496"
-       height="10.629921"
-       width="3.5433071"
-       id="rect4576"
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
-    <rect
-       y="488.97632"
-       x="223.22835"
-       height="10.629921"
-       width="3.5433071"
-       id="rect4580"
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
     <g
-       transform="translate(14.173224,-9.6118356e-7)"
-       id="g4380">
+       transform="matrix(1,0,0,0.68739202,177.16535,159.94451)"
+       id="g4517">
       <rect
          y="488.97632"
          x="219.68504"
          height="10.629909"
          width="7.0866208"
-         id="rect4382"
+         id="rect4519"
          style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
       <path
          sodipodi:nodetypes="cccccc"
          inkscape:connector-curvature="0"
-         id="path4384"
+         id="path4521"
          d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
          style="fill:#87cdde;fill-opacity:1;stroke:none" />
     </g>
+    <rect
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.50000000000000000;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline"
+       id="rect4547"
+       width="3.5433071"
+       height="10.629921"
+       x="258.66141"
+       y="513.77948" />
+    <rect
+       y="513.77948"
+       x="269.29135"
+       height="10.629921"
+       width="3.5433071"
+       id="rect4568"
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
+    <rect
+       y="513.77948"
+       x="240.94489"
+       height="10.629921"
+       width="3.5433071"
+       id="rect4570"
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
+    <rect
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       id="rect4572"
+       width="3.5433071"
+       height="10.629921"
+       x="230.31496"
+       y="513.77948" />
+    <rect
+       y="488.97632"
+       x="240.94489"
+       height="10.629921"
+       width="3.5433071"
+       id="rect4574"
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
+    <rect
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       id="rect4576"
+       width="3.5433071"
+       height="10.629921"
+       x="230.31496"
+       y="488.97632" />
+    <rect
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       id="rect4580"
+       width="3.5433071"
+       height="10.629921"
+       x="223.22835"
+       y="488.97632" />
     <g
-       id="g4386"
-       transform="translate(14.173224,24.803149)">
+       id="g4380"
+       transform="translate(14.173224,-9.6118356e-7)">
       <rect
          style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         id="rect4388"
+         id="rect4382"
          width="7.0866208"
          height="10.629909"
          x="219.68504"
@@ -710,558 +693,607 @@
       <path
          style="fill:#87cdde;fill-opacity:1;stroke:none"
          d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
-         id="path4390"
+         id="path4384"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="cccccc" />
     </g>
+    <g
+       transform="translate(14.173224,24.803149)"
+       id="g4386">
+      <rect
+         y="488.97632"
+         x="219.68504"
+         height="10.629909"
+         width="7.0866208"
+         id="rect4388"
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4390"
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.98967 c 0,0 -6.44448,-0.16179 -6.46708,3.49866 z"
+         style="fill:#87cdde;fill-opacity:1;stroke:none" />
+    </g>
     <rect
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="rect4578"
-       width="3.5433071"
-       height="10.629921"
+       y="488.97632"
        x="216.14174"
-       y="488.97632" />
-    <rect
-       y="513.77948"
-       x="361.41733"
        height="10.629921"
        width="3.5433071"
+       id="rect4578"
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
+    <rect
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
        id="rect4582"
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
-    <rect
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="rect4584"
        width="3.5433071"
        height="10.629921"
+       x="361.41733"
+       y="513.77948" />
+    <rect
+       y="513.77948"
        x="407.48032"
-       y="513.77948" />
-    <rect
-       y="488.97632"
-       x="432.28348"
        height="10.629921"
        width="3.5433071"
+       id="rect4584"
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
+    <rect
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
        id="rect4586"
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
-    <rect
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="rect4588"
        width="3.5433071"
        height="10.629921"
+       x="432.28348"
+       y="488.97632" />
+    <rect
+       y="488.97632"
        x="442.91339"
-       y="488.97632" />
-    <rect
-       y="488.97632"
-       x="457.08661"
        height="10.629921"
        width="3.5433071"
+       id="rect4588"
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
+    <rect
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
        id="rect4590"
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
-    <rect
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="rect4592"
-       width="3.5433071"
-       height="10.629921"
-       x="467.71652"
-       y="488.97632" />
-    <rect
-       y="513.77948"
-       x="467.71652"
-       height="10.629921"
-       width="3.5433071"
-       id="rect4594"
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
-    <rect
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="rect4596"
        width="3.5433071"
        height="10.629921"
        x="457.08661"
-       y="513.77948" />
+       y="488.97632" />
     <rect
        y="488.97632"
-       x="496.06299"
+       x="467.71652"
        height="10.629921"
        width="3.5433071"
-       id="rect4598"
+       id="rect4592"
        style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
     <rect
        style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="rect4600"
+       id="rect4594"
        width="3.5433071"
        height="10.629921"
-       x="577.55908"
+       x="467.71652"
        y="513.77948" />
     <rect
        y="513.77948"
-       x="609.44879"
+       x="457.08661"
        height="10.629921"
        width="3.5433071"
-       id="rect4602"
+       id="rect4596"
        style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
     <rect
        style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="rect4604"
+       id="rect4598"
        width="3.5433071"
        height="10.629921"
+       x="496.06299"
+       y="488.97632" />
+    <rect
+       y="513.77948"
+       x="577.55908"
+       height="10.629921"
+       width="3.5433071"
+       id="rect4600"
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
+    <rect
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       id="rect4602"
+       width="3.5433071"
+       height="10.629921"
+       x="609.44879"
+       y="513.77948" />
+    <rect
+       y="513.77948"
        x="620.07874"
+       height="10.629921"
+       width="3.5433071"
+       id="rect4604"
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
+    <rect
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       id="rect4606"
+       width="3.5433071"
+       height="10.629921"
+       x="680.31494"
+       y="492.51962" />
+    <rect
+       y="492.51962"
+       x="715.74805"
+       height="10.629921"
+       width="3.5433071"
+       id="rect4608"
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
+    <rect
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       id="rect4610"
+       width="3.5433071"
+       height="10.629921"
+       x="715.74805"
        y="513.77948" />
     <rect
        y="492.51962"
-       x="680.31494"
-       height="10.629921"
-       width="3.5433071"
-       id="rect4606"
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
-    <rect
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="rect4608"
-       width="3.5433071"
-       height="10.629921"
-       x="715.74805"
-       y="492.51962" />
-    <rect
-       y="513.77948"
-       x="715.74805"
-       height="10.629921"
-       width="3.5433071"
-       id="rect4610"
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
-    <rect
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="rect4612"
-       width="3.5433071"
-       height="10.629921"
        x="708.66144"
-       y="492.51962" />
-    <rect
-       y="513.77948"
-       x="705.1181"
        height="10.629921"
        width="3.5433071"
-       id="rect4614"
+       id="rect4612"
        style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
     <rect
        style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="rect4616"
+       id="rect4614"
        width="3.5433071"
        height="10.629921"
-       x="690.94489"
-       y="492.51962" />
+       x="705.1181"
+       y="513.77948" />
     <rect
-       y="488.97632"
-       x="354.33072"
-       height="3.5433071"
-       width="60.236221"
+       y="492.51962"
+       x="690.94489"
+       height="10.629921"
+       width="3.5433071"
+       id="rect4616"
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline" />
+    <rect
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="rect4618"
+       width="60.236221"
+       height="3.5433071"
+       x="354.33072"
+       y="488.97632" />
+    <rect
+       y="478.34641"
+       x="425.19684"
+       height="3.5433071"
+       width="53.149609"
+       id="rect4620"
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none" />
     <rect
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect4620"
-       width="53.149609"
+       id="rect4622"
+       width="35.433064"
        height="3.5433071"
-       x="425.19684"
+       x="481.88977"
        y="478.34641" />
     <rect
-       y="478.34641"
-       x="481.88977"
-       height="3.5433071"
-       width="35.433064"
-       id="rect4622"
-       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-    <rect
-       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect4624"
-       width="35.433064"
-       height="3.5433071"
+       y="496.06293"
        x="549.21259"
-       y="496.06293" />
+       height="3.5433071"
+       width="35.433064"
+       id="rect4624"
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none" />
     <g
-       id="g4523"
-       transform="translate(343.70078,4.4848057e-6)">
+       transform="translate(343.70078,4.4848057e-6)"
+       id="g4523">
       <path
-         sodipodi:nodetypes="cccccc"
-         inkscape:connector-curvature="0"
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         d="m 219.68504,492.51963 3.46,-3.54331 3.62662,3.54331 0,7.0866 -7.08662,0 z"
          id="path4525"
-         d="m 219.68504,492.51963 3.46,-3.54331 3.62662,3.54331 0,7.0866 -7.08662,0 z"
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccc" />
       <path
-         style="fill:#87cdde;fill-opacity:1;stroke:none"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.76611 c 0,0 -6.44448,-0.38535 -6.46708,3.2751 z"
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
          id="path4527"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccccc" />
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.76611 c 0,0 -6.44448,-0.38535 -6.46708,3.2751 z"
+         style="fill:#87cdde;fill-opacity:1;stroke:none" />
       <path
-         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#552200;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline"
+         d="m 219.68505,492.51962 3.5433,-3.5433 3.54331,3.5433 0,0"
          id="path4529"
-         d="m 219.68505,492.51962 3.5433,-3.5433 3.54331,3.5433 0,0"
-         style="fill:none;stroke:#552200;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline" />
+         inkscape:connector-curvature="0" />
     </g>
     <rect
-       y="492.51962"
-       x="602.36218"
-       height="3.5433071"
-       width="53.149628"
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="rect4626"
-       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-    <rect
-       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect4628"
        width="53.149628"
        height="3.5433071"
+       x="602.36218"
+       y="492.51962" />
+    <rect
+       y="474.8031"
        x="673.22833"
-       y="474.8031" />
+       height="3.5433071"
+       width="53.149628"
+       id="rect4628"
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none" />
     <g
-       transform="translate(464.25653,-17.716538)"
-       id="g4531">
+       id="g4531"
+       transform="translate(464.25653,-17.716538)">
       <path
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         d="m 219.68504,492.51963 3.46,-3.54331 3.62662,3.54331 0,7.0866 -7.08662,0 z"
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
          id="path4533"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccccc" />
-      <path
-         sodipodi:nodetypes="cccccc"
-         inkscape:connector-curvature="0"
-         id="path4535"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.76611 c 0,0 -6.44448,-0.38535 -6.46708,3.2751 z"
-         style="fill:#87cdde;fill-opacity:1;stroke:none" />
-      <path
-         style="fill:none;stroke:#552200;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline"
-         d="m 219.68505,492.51962 3.5433,-3.5433 3.54331,3.5433 0,0"
-         id="path4537"
-         inkscape:connector-curvature="0" />
-    </g>
-    <g
-       id="g4539"
-       transform="translate(489.05968,-17.716538)">
-      <path
-         sodipodi:nodetypes="cccccc"
-         inkscape:connector-curvature="0"
-         id="path4541"
          d="m 219.68504,492.51963 3.46,-3.54331 3.62662,3.54331 0,7.0866 -7.08662,0 z"
          style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
       <path
          style="fill:#87cdde;fill-opacity:1;stroke:none"
          d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.76611 c 0,0 -6.44448,-0.38535 -6.46708,3.2751 z"
-         id="path4543"
+         id="path4535"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="cccccc" />
       <path
          inkscape:connector-curvature="0"
+         id="path4537"
+         d="m 219.68505,492.51962 3.5433,-3.5433 3.54331,3.5433 0,0"
+         style="fill:none;stroke:#552200;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline" />
+    </g>
+    <g
+       transform="translate(489.05968,-17.716538)"
+       id="g4539">
+      <path
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         d="m 219.68504,492.51963 3.46,-3.54331 3.62662,3.54331 0,7.0866 -7.08662,0 z"
+         id="path4541"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccc" />
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4543"
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.76611 c 0,0 -6.44448,-0.38535 -6.46708,3.2751 z"
+         style="fill:#87cdde;fill-opacity:1;stroke:none" />
+      <path
+         style="fill:none;stroke:#552200;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline"
+         d="m 219.68505,492.51962 3.5433,-3.5433 3.54331,3.5433 0,0"
          id="path4545"
+         inkscape:connector-curvature="0" />
+    </g>
+    <rect
+       y="496.06293"
+       x="251.5748"
+       height="3.5433071"
+       width="53.149612"
+       id="rect4630"
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    <g
+       transform="translate(46.146299,-9.6118356e-7)"
+       id="g4398">
+      <path
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         d="m 219.68504,492.51963 3.46,-3.54331 3.62662,3.54331 0,7.0866 -7.08662,0 z"
+         id="rect4400"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccc" />
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4402"
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.76611 c 0,0 -6.44448,-0.38535 -6.46708,3.2751 z"
+         style="fill:#87cdde;fill-opacity:1;stroke:none" />
+      <path
+         style="fill:none;stroke:#552200;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline"
+         d="m 219.68505,492.51962 3.5433,-3.5433 3.54331,3.5433 0,0"
+         id="path4405"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       id="g4425"
+       transform="translate(63.862834,-2.6018088e-6)">
+      <path
+         sodipodi:nodetypes="cccccc"
+         inkscape:connector-curvature="0"
+         id="path4427"
+         d="m 219.68504,492.51963 3.46,-3.54331 3.62662,3.54331 0,7.0866 -7.08662,0 z"
+         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+      <path
+         style="fill:#87cdde;fill-opacity:1;stroke:none"
+         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.76611 c 0,0 -6.44448,-0.38535 -6.46708,3.2751 z"
+         id="path4429"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4431"
          d="m 219.68505,492.51962 3.5433,-3.5433 3.54331,3.5433 0,0"
          style="fill:none;stroke:#552200;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline" />
     </g>
     <rect
        style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect4630"
-       width="53.149612"
-       height="3.5433071"
-       x="251.5748"
-       y="496.06293" />
-    <g
-       id="g4398"
-       transform="translate(46.146299,-9.6118356e-7)">
-      <path
-         sodipodi:nodetypes="cccccc"
-         inkscape:connector-curvature="0"
-         id="rect4400"
-         d="m 219.68504,492.51963 3.46,-3.54331 3.62662,3.54331 0,7.0866 -7.08662,0 z"
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-      <path
-         style="fill:#87cdde;fill-opacity:1;stroke:none"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.76611 c 0,0 -6.44448,-0.38535 -6.46708,3.2751 z"
-         id="path4402"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccccc" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path4405"
-         d="m 219.68505,492.51962 3.5433,-3.5433 3.54331,3.5433 0,0"
-         style="fill:none;stroke:#552200;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline" />
-    </g>
-    <g
-       transform="translate(63.862834,-2.6018088e-6)"
-       id="g4425">
-      <path
-         style="fill:#16444f;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         d="m 219.68504,492.51963 3.46,-3.54331 3.62662,3.54331 0,7.0866 -7.08662,0 z"
-         id="path4427"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccccc" />
-      <path
-         sodipodi:nodetypes="cccccc"
-         inkscape:connector-curvature="0"
-         id="path4429"
-         d="m 219.94748,495.79507 -0.0392,3.49867 6.50896,-0.008 -0.003,-6.76611 c 0,0 -6.44448,-0.38535 -6.46708,3.2751 z"
-         style="fill:#87cdde;fill-opacity:1;stroke:none" />
-      <path
-         style="fill:none;stroke:#552200;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline"
-         d="m 219.68505,492.51962 3.5433,-3.5433 3.54331,3.5433 0,0"
-         id="path4431"
-         inkscape:connector-curvature="0" />
-    </g>
-    <rect
-       y="478.34641"
-       x="212.59842"
-       height="3.5433071"
-       width="35.433079"
        id="rect4632"
-       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+       width="35.433079"
+       height="3.5433071"
+       x="212.59842"
+       y="478.34641" />
     <rect
-       style="fill:#722d00;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect4634"
-       width="3.5432985"
-       height="17.716536"
+       y="513.77948"
        x="687.40161"
-       y="513.77948" />
-    <rect
-       y="513.77948"
-       x="641.33856"
        height="17.716536"
        width="3.5432985"
+       id="rect4634"
+       style="fill:#722d00;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    <rect
+       style="fill:#722d00;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="rect4636"
-       style="fill:#722d00;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-    <rect
-       style="fill:#722d00;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect4638"
        width="3.5432985"
        height="17.716536"
+       x="641.33856"
+       y="513.77948" />
+    <rect
+       y="513.77948"
        x="559.84253"
-       y="513.77948" />
-    <rect
-       y="513.77948"
-       x="503.14963"
        height="17.716536"
        width="3.5432985"
+       id="rect4638"
+       style="fill:#722d00;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    <rect
+       style="fill:#722d00;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="rect4640"
-       style="fill:#722d00;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-    <rect
-       style="fill:#722d00;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect4642"
        width="3.5432985"
        height="17.716536"
+       x="503.14963"
+       y="513.77948" />
+    <rect
+       y="513.77948"
        x="439.37009"
-       y="513.77948" />
-    <rect
-       y="513.77948"
-       x="386.22046"
        height="17.716536"
        width="3.5432985"
-       id="rect4644"
+       id="rect4642"
        style="fill:#722d00;fill-opacity:1;fill-rule:nonzero;stroke:none" />
     <rect
        style="fill:#722d00;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="rect4646"
+       id="rect4644"
        width="3.5432985"
        height="17.716536"
-       x="287.00787"
+       x="386.22046"
        y="513.77948" />
     <rect
        y="513.77948"
-       x="223.22835"
+       x="287.00787"
        height="17.716536"
        width="3.5432985"
-       id="rect4648"
+       id="rect4646"
        style="fill:#722d00;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    <rect
+       style="fill:#722d00;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect4648"
+       width="3.5432985"
+       height="17.716536"
+       x="223.22835"
+       y="513.77948" />
     <path
-       sodipodi:nodetypes="cccccc"
-       inkscape:connector-curvature="0"
-       id="rect4650"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
        d="m 527.95276,524.40936 3.5433,-3.54328 3.54331,3.54328 0,7.08661 -7.08661,0 z"
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" />
-    <path
-       sodipodi:nodetypes="ccc"
-       style="fill:none;stroke:#ff3c00;stroke-opacity:1"
-       d="m 527.95276,524.40939 3.5433,-3.54331 3.54331,3.54331"
-       id="path4652"
-       inkscape:connector-curvature="0" />
-    <path
-       sodipodi:nodetypes="ccccc"
+       id="rect4650"
        inkscape:connector-curvature="0"
-       id="path4655"
-       d="m 529.72442,531.496 0,-3.5433 c 0,-3.54331 3.5433,-3.54331 3.5433,0 l 0,3.5433 z"
-       style="fill:#000000;stroke:none" />
-    <rect
-       y="474.8031"
-       x="644.8819"
-       height="14.173228"
-       width="7.0866141"
-       id="rect4657"
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+       sodipodi:nodetypes="cccccc" />
     <path
-       sodipodi:nodetypes="ccccc"
-       style="fill:#ff3c00;fill-opacity:1;stroke:none"
-       d="m 602.36221,492.51963 14.17322,-17.71654 24.80315,0 14.17323,17.71654 z"
-       id="path3867"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       id="path4652"
+       d="m 527.95276,524.40939 3.5433,-3.54331 3.54331,3.54331"
+       style="fill:none;stroke:#ff3c00;stroke-opacity:1"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:#000000;stroke:none"
+       d="m 529.72442,531.496 0,-3.5433 c 0,-3.54331 3.5433,-3.54331 3.5433,0 l 0,3.5433 z"
+       id="path4655"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc" />
     <rect
-       y="474.8031"
-       x="644.8819"
-       height="1.5790213"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect4657"
        width="7.0866141"
+       height="14.173228"
+       x="644.8819"
+       y="474.8031" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3867"
+       d="m 602.36221,492.51963 14.17322,-17.71654 24.80315,0 14.17323,17.71654 z"
+       style="fill:#ff3c00;fill-opacity:1;stroke:none"
+       sodipodi:nodetypes="ccccc" />
+    <rect
+       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="rect4659"
-       style="fill:#ff3c00;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+       width="7.0866141"
+       height="1.5790213"
+       x="644.8819"
+       y="474.8031" />
   </g>
   <g
-     inkscape:groupmode="layer"
+     inkscape:label="Voiture"
      id="layer6"
-     inkscape:label="Voiture">
+     inkscape:groupmode="layer">
     <rect
-       style="display:inline;fill:none;stroke:#ff6600"
-       id="voiture-depart"
-       width="141.73228"
-       height="106.29921"
+       inkscape:label="#rect3939"
+       y="549.21252"
        x="159.44882"
-       y="549.21252"
-       inkscape:label="#rect3939" />
-    <rect
-       y="549.21252"
-       x="88.58268"
        height="106.29921"
        width="141.73228"
-       id="voiture-arrivee"
+       id="voiture-depart"
+       style="display:inline;fill:none;stroke:#ff6600" />
+    <rect
+       inkscape:label="#rect3952"
        style="fill:none;stroke:#ff6600;display:inline"
-       inkscape:label="#rect3952" />
+       id="voiture-arrivee"
+       width="141.73228"
+       height="106.29921"
+       x="88.58268"
+       y="549.21252" />
     <g
-       transform="matrix(0.6800487,0,0,0.6800487,56.684284,209.73184)"
-       id="g4362">
-      <path
-         style="fill:#ff39d6;fill-opacity:1;stroke:none"
-         d="m 177.16535,648.42514 c 3.18898,3.54331 19.13387,3.54329 28.7008,3.5433 3.18897,0 3.18897,-1.87297 3.18897,-3.5433 0,-3.54331 -9.56693,-14.17323 -22.32283,-14.17323 -6.80648,0 -14.37984,8.82556 -9.56694,14.17323 z"
-         id="path4354"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="sssss" />
+       id="g4362"
+       transform="matrix(0.6800487,0,0,0.6800487,56.684284,209.73184)">
       <path
          sodipodi:nodetypes="sssss"
          inkscape:connector-curvature="0"
-         id="path3948"
-         d="m 179.76357,647.16621 c 2.8354,3.15045 17.01244,3.15044 25.51865,3.15044 2.8354,0 3.68361,-0.81709 3.68361,-2.30223 0,-3.15045 -9.57764,-13.8518 -22.12461,-13.71787 -6.05148,0.0646 -11.35693,8.1149 -7.07765,12.86966 z"
-         style="fill:#ff80e5;stroke:none" />
+         id="path4354"
+         d="m 177.16535,648.42514 c 3.18898,3.54331 19.13387,3.54329 28.7008,3.5433 3.18897,0 3.18897,-1.87297 3.18897,-3.5433 0,-3.54331 -9.56693,-14.17323 -22.32283,-14.17323 -6.80648,0 -14.37984,8.82556 -9.56694,14.17323 z"
+         style="fill:#ff39d6;fill-opacity:1;stroke:none" />
       <path
-         transform="translate(-24.803146,0)"
+         style="fill:#ff80e5;stroke:none"
+         d="m 179.76357,647.16621 c 2.8354,3.15045 17.01244,3.15044 25.51865,3.15044 2.8354,0 3.68361,-0.81709 3.68361,-2.30223 0,-3.15045 -9.57764,-13.8518 -22.12461,-13.71787 -6.05148,0.0646 -11.35693,8.1149 -7.07765,12.86966 z"
+         id="path3948"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="sssss" />
+      <path
+         sodipodi:type="arc"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path3942"
+         sodipodi:cx="209.05511"
+         sodipodi:cy="651.96844"
+         sodipodi:rx="3.5433071"
+         sodipodi:ry="3.5433071"
+         d="m 212.59842,651.96844 c 0,1.95692 -1.58639,3.54331 -3.54331,3.54331 -1.95691,0 -3.5433,-1.58639 -3.5433,-3.54331 0,-1.95691 1.58639,-3.5433 3.5433,-3.5433 1.95692,0 3.54331,1.58639 3.54331,3.5433 z"
+         transform="translate(-24.803146,0)" />
+      <path
          d="m 212.59842,651.96844 c 0,1.95692 -1.58639,3.54331 -3.54331,3.54331 -1.95691,0 -3.5433,-1.58639 -3.5433,-3.54331 0,-1.95691 1.58639,-3.5433 3.5433,-3.5433 1.95692,0 3.54331,1.58639 3.54331,3.5433 z"
          sodipodi:ry="3.5433071"
          sodipodi:rx="3.5433071"
          sodipodi:cy="651.96844"
          sodipodi:cx="209.05511"
-         id="path3942"
-         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         sodipodi:type="arc" />
-      <path
-         transform="translate(-7.0866072,0)"
-         sodipodi:type="arc"
-         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="path3944"
-         sodipodi:cx="209.05511"
-         sodipodi:cy="651.96844"
-         sodipodi:rx="3.5433071"
-         sodipodi:ry="3.5433071"
-         d="m 212.59842,651.96844 c 0,1.95692 -1.58639,3.54331 -3.54331,3.54331 -1.95691,0 -3.5433,-1.58639 -3.5433,-3.54331 0,-1.95691 1.58639,-3.5433 3.5433,-3.5433 1.95692,0 3.54331,1.58639 3.54331,3.5433 z" />
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         sodipodi:type="arc"
+         transform="translate(-7.0866072,0)" />
       <path
-         sodipodi:nodetypes="zssz"
-         inkscape:connector-curvature="0"
-         id="path3950"
+         style="fill:#916f6f;stroke:none"
          d="m 195.19756,636.97447 c -2.64102,0 -4.86864,3.45106 -3.48017,5.69765 1.24189,2.00941 9.76685,2.51449 11.95575,1.13642 2.23498,-1.40708 -5.83456,-6.83407 -8.47558,-6.83407 z"
-         style="fill:#916f6f;stroke:none" />
-      <path
-         style="fill:#7b5d5d;fill-opacity:1;stroke:none"
-         d="m 195.51211,637.24233 c -2.40094,0 -4.42605,3.06641 -3.1638,5.06259 1.12899,1.78545 8.87899,2.23423 10.86891,1.00976 2.03181,-1.25025 -5.30417,-6.07235 -7.70511,-6.07235 z"
-         id="path4356"
+         id="path3950"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="zssz" />
       <path
-         sodipodi:type="arc"
-         style="fill:#444444;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         id="path4358"
-         sodipodi:cx="209.05511"
-         sodipodi:cy="651.96844"
-         sodipodi:rx="3.5433071"
-         sodipodi:ry="3.5433071"
-         d="m 212.59842,651.96844 c 0,1.95692 -1.58639,3.54331 -3.54331,3.54331 -1.95691,0 -3.5433,-1.58639 -3.5433,-3.54331 0,-1.95691 1.58639,-3.5433 3.5433,-3.5433 1.95692,0 3.54331,1.58639 3.54331,3.5433 z"
-         transform="matrix(0.52123015,0,0,0.52123015,75.286139,312.14283)" />
+         sodipodi:nodetypes="zssz"
+         inkscape:connector-curvature="0"
+         id="path4356"
+         d="m 195.51211,637.24233 c -2.40094,0 -4.42605,3.06641 -3.1638,5.06259 1.12899,1.78545 8.87899,2.23423 10.86891,1.00976 2.03181,-1.25025 -5.30417,-6.07235 -7.70511,-6.07235 z"
+         style="fill:#7b5d5d;fill-opacity:1;stroke:none" />
       <path
-         transform="matrix(0.52123015,0,0,0.52123015,93.002678,312.14283)"
+         transform="matrix(0.52123015,0,0,0.52123015,75.286139,312.14283)"
          d="m 212.59842,651.96844 c 0,1.95692 -1.58639,3.54331 -3.54331,3.54331 -1.95691,0 -3.5433,-1.58639 -3.5433,-3.54331 0,-1.95691 1.58639,-3.5433 3.5433,-3.5433 1.95692,0 3.54331,1.58639 3.54331,3.5433 z"
          sodipodi:ry="3.5433071"
          sodipodi:rx="3.5433071"
          sodipodi:cy="651.96844"
          sodipodi:cx="209.05511"
-         id="path4360"
+         id="path4358"
          style="fill:#444444;fill-opacity:1;fill-rule:nonzero;stroke:none"
          sodipodi:type="arc" />
+      <path
+         sodipodi:type="arc"
+         style="fill:#444444;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path4360"
+         sodipodi:cx="209.05511"
+         sodipodi:cy="651.96844"
+         sodipodi:rx="3.5433071"
+         sodipodi:ry="3.5433071"
+         d="m 212.59842,651.96844 c 0,1.95692 -1.58639,3.54331 -3.54331,3.54331 -1.95691,0 -3.5433,-1.58639 -3.5433,-3.54331 0,-1.95691 1.58639,-3.5433 3.5433,-3.5433 1.95692,0 3.54331,1.58639 3.54331,3.5433 z"
+         transform="matrix(0.52123015,0,0,0.52123015,93.002678,312.14283)" />
     </g>
   </g>
   <ns1:frame
-     ns1:transition-duration-ms="1000"
-     ns1:timeout-ms="1000"
-     ns1:timeout-enable="true"
-     ns1:title="Départ"
-     ns1:sequence="1"
-     ns1:transition-profile="linear"
-     ns1:transition-zoom-percent="0"
-     ns1:hide="true"
+     id="frame1"
      ns1:clip="true"
-     id="frame1">
+     ns1:hide="true"
+     ns1:transition-zoom-percent="0"
+     ns1:transition-profile="linear"
+     ns1:sequence="1"
+     ns1:title="Départ"
+     ns1:timeout-enable="true"
+     ns1:timeout-ms="1000"
+     ns1:transition-duration-ms="1000">
     <ns1:layer
-       ns1:hide="false"
+       ns1:group="layer1"
        ns1:refid="ciel"
-       ns1:group="layer1" />
+       ns1:hide="false" />
     <ns1:layer
-       ns1:refid="nuages-depart"
-       ns1:group="layer2" />
+       ns1:group="layer2"
+       ns1:refid="nuages-depart" />
     <ns1:layer
-       ns1:refid="arbres-depart"
-       ns1:group="layer4" />
+       ns1:group="layer4"
+       ns1:refid="arbres-depart" />
     <ns1:layer
-       ns1:refid="maisons-depart"
-       ns1:group="layer5" />
+       ns1:group="layer5"
+       ns1:refid="maisons-depart" />
     <ns1:layer
-       ns1:refid="voiture-depart"
-       ns1:group="layer6" />
+       ns1:group="layer6"
+       ns1:refid="voiture-depart" />
   </ns1:frame>
   <ns1:frame
-     ns1:transition-duration-ms="7000"
-     ns1:timeout-ms="1000"
-     ns1:timeout-enable="true"
-     ns1:title="Arrivée"
-     ns1:sequence="2"
-     ns1:transition-profile="linear"
-     ns1:transition-zoom-percent="0"
-     ns1:hide="true"
+     id="frame2"
      ns1:clip="true"
-     id="frame2">
+     ns1:hide="true"
+     ns1:transition-zoom-percent="0"
+     ns1:transition-profile="linear"
+     ns1:sequence="2"
+     ns1:title="Arrivée"
+     ns1:timeout-enable="true"
+     ns1:timeout-ms="1000"
+     ns1:transition-duration-ms="7000">
     <ns1:layer
-       ns1:hide="false"
+       ns1:group="layer1"
        ns1:refid="ciel"
-       ns1:group="layer1" />
+       ns1:hide="false" />
     <ns1:layer
-       ns1:refid="nuages-arrivee"
-       ns1:group="layer2" />
+       ns1:group="layer2"
+       ns1:refid="nuages-arrivee" />
     <ns1:layer
-       ns1:refid="arbres-arrivee"
-       ns1:group="layer4" />
+       ns1:group="layer4"
+       ns1:refid="arbres-arrivee" />
     <ns1:layer
-       ns1:refid="maisons-arrivee"
-       ns1:group="layer5" />
+       ns1:group="layer5"
+       ns1:refid="maisons-arrivee" />
     <ns1:layer
-       ns1:refid="voiture-arrivee"
-       ns1:group="layer6" />
+       ns1:group="layer6"
+       ns1:refid="voiture-arrivee" />
   </ns1:frame>
   <script
-     ns1:version="12.03-18171759"
+     ns1:version="12.05-12194453"
      id="sozi-script">
-function module(path, body) {
-	var names = path.split(&quot;.&quot;),
-	    i,
-	    current = this;
-	for (i = 0; i &lt; names.length; i += 1) {
-		if (typeof current[names[i]] === &quot;undefined&quot;) {
-			current[names[i]] = {};
+/**
+ * Create or augment a module.
+ *
+ * &lt;p&gt;A typical use of this function is:&lt;/p&gt;
+ *
+ * &lt;pre&gt;
+ * module(this, &quot;a.b.c&quot;, function (exports, globals) {
+ *     exports.foo = function (x) {
+ *         ...
+ *     };
+ * });
+ * &lt;/pre&gt;
+ *
+ * &lt;p&gt;where &lt;code&gt;this&lt;/code&gt; is the global object.&lt;/p&gt;
+ *
+ * &lt;p&gt;In this example, function &lt;code&gt;foo&lt;/code&gt; is exported and can be
+ * called as &lt;code&gt;a.b.c.foo(someValue)&lt;/code&gt;.&lt;/p&gt;
+ *
+ * @memberOf _global_
+ * @param globals The global object
+ * @param {String} path The dot-separated path to the module
+ * @param {Function} body A function to execute in the context of the module
+ */
+function module(globals, path, body) {
+    &quot;use strict&quot;;
+    
+    // Start name lookup in the global object
+	var current = globals;
+	
+	// For each name in the given path
+	path.split(&quot;.&quot;).forEach(function (name) {
+	    // If the current path element does not exist
+	    // in the current namespace, create a new sub-namespace
+		if (typeof current[name] === &quot;undefined&quot;) {
+			current[name] = {};
 		}
-		current = current[names[i]];
-	}
-	body(current);
+		
+		// Move to the namespace for the current path element
+		current = current[name];
+	});
+	
+	// Execute the module body in the last namespace
+	body(current, globals);
 }
 
 /*
@@ -1273,49 +1305,64 @@ function module(path, body) {
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
  */
 
-/*global module:true sozi:true */
+/**
+ * @name sozi.events
+ * @namespace A simple event system for Sozi.
+ */
+module(this, &quot;sozi.events&quot;, function (exports) {
+    /** @lends sozi.events */
 
-module(&quot;sozi.events&quot;, function (exports) {
-    var listeners = {};
+    &quot;use strict&quot;;
+    
+    /**
+     * A registry of callback functions for each event type.
+     *
+     * &lt;p&gt;Call {@link sozi.events.listen} to add a new listener.&lt;/p&gt;
+     */
+    var listenerRegistry = {};
 
-    /*
+    /**
      * Adds a listener for a given event type.
      *
-     * The event type is provided as a string by the key parameter.
-     * The function to be executed is provided by the handler parameter.
+     * @memberOf sozi.events
+     * @name listen
+     * @function
+     * @param {String} key The identifier of the event type to listen
+     * @param {Function} handler The function to call when a corresponding event is fired
      */
     exports.listen = function (key, handler) {
-        var listenersForKey = listeners[key];
-        if (!listenersForKey) {
-            listenersForKey = listeners[key] = [];
+        if (!listenerRegistry.hasOwnProperty(key)) {
+            listenerRegistry[key] = [];
         }
-        listenersForKey.push(handler);
+        listenerRegistry[key].push(handler);
     };
     
-    /*
-     * Fire an event of the given type.
+    /**
+     * Fire an event of a given type.
      *
-     * All event handlers added for the given event type are
-     * executed.
-     * Additional arguments provided to this function are passed
-     * to the event handlers.
+     * &lt;p&gt;All event handlers added for the given event type are
+     * executed.&lt;/p&gt;
+     *
+     * &lt;p&gt;Additional arguments provided to this function are passed
+     * to the event handlers.&lt;/p&gt;
+     *
+     * @memberOf sozi.events
+     * @name fire
+     * @function
+     * @param {String} key The identifier of the event type to fire
      */
     exports.fire = function (key) {
-        var listenersForKey = listeners[key],
-            len,
-            i,
-            args = Array.prototype.slice.call(arguments, 1);
-        if (listenersForKey) {
-            len = listenersForKey.length;
-            for (i = 0; i &lt; len; i += 1) {
-                listenersForKey[i].apply(null, args);
-            }
+        var args = Array.prototype.slice.call(arguments, 1);
+        if (listenerRegistry.hasOwnProperty(key)) {
+            listenerRegistry[key].forEach(function (listener) {
+                listener.apply(null, args);
+            });
         }
     };
 });
@@ -1329,55 +1376,65 @@ module(&quot;sozi.events&quot;, function (exports) {
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
  * @depend events.js
  */
 
-/*global module:true sozi:true */
-
-module(&quot;sozi.framenumber&quot;, function (exports) {
-    var window = this,
-        document = window.document,
-        group, text, circle, textNode,
-        SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
+module(this, &quot;sozi.framenumber&quot;, function (exports, window) {
+    &quot;use strict&quot;;
+    
+    // An alias to the global document object
+    var document = window.document;
+    
+    // The SVG group containing the frame number
+    var svgGroup;
+    
+    // The SVG text element and its text node containing the frame number
+    var svgText, svgTextNode;
+    
+    // The SVG circle enclosing the frame number
+    var svgCircle;
+    
+    // Constant: the SVG namespace
+    var SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
     
     function adjust() {
-        var textBBox = text.getBBox(),
+        var textBBox = svgText.getBBox(),
             d = Math.max(textBBox.width, textBBox.height) * 0.75,
             t = d * 1.25;
-        circle.setAttribute(&quot;r&quot;, d);
-        group.setAttribute(&quot;transform&quot;, &quot;translate(&quot; + t + &quot;,&quot; + t + &quot;)&quot;);
+        svgCircle.setAttribute(&quot;r&quot;, d);
+        svgGroup.setAttribute(&quot;transform&quot;, &quot;translate(&quot; + t + &quot;,&quot; + t + &quot;)&quot;);
     }
     
     function onDisplayReady() {
-        group = document.createElementNS(SVG_NS, &quot;g&quot;);
-        text = document.createElementNS(SVG_NS, &quot;text&quot;);
-        circle = document.createElementNS(SVG_NS, &quot;circle&quot;);
+        svgGroup = document.createElementNS(SVG_NS, &quot;g&quot;);
+        svgText = document.createElementNS(SVG_NS, &quot;text&quot;);
+        svgCircle = document.createElementNS(SVG_NS, &quot;circle&quot;);
         
-        group.setAttribute(&quot;id&quot;, &quot;sozi-framenumber&quot;);
+        svgGroup.setAttribute(&quot;id&quot;, &quot;sozi-framenumber&quot;);
 
-        circle.setAttribute(&quot;cx&quot;, 0);
-        circle.setAttribute(&quot;cy&quot;, 0);
-        group.appendChild(circle);
+        svgCircle.setAttribute(&quot;cx&quot;, 0);
+        svgCircle.setAttribute(&quot;cy&quot;, 0);
+        svgGroup.appendChild(svgCircle);
         
-        textNode = document.createTextNode(sozi.location.getFrameIndex() + 1);
-        text.setAttribute(&quot;text-anchor&quot;, &quot;middle&quot;);
-        text.setAttribute(&quot;dominant-baseline&quot;, &quot;central&quot;);
-        text.setAttribute(&quot;x&quot;, 0);
-        text.setAttribute(&quot;y&quot;, 0);
-        text.appendChild(textNode);
-        group.appendChild(text);
+        svgTextNode = document.createTextNode(sozi.location.getFrameIndex() + 1);
+        svgText.setAttribute(&quot;text-anchor&quot;, &quot;middle&quot;);
+        svgText.setAttribute(&quot;dominant-baseline&quot;, &quot;central&quot;);
+        svgText.setAttribute(&quot;x&quot;, 0);
+        svgText.setAttribute(&quot;y&quot;, 0);
+        svgText.appendChild(svgTextNode);
+        svgGroup.appendChild(svgText);
         
-        document.documentElement.appendChild(group);
+        document.documentElement.appendChild(svgGroup);
         
         adjust();
     }
 
     function onFrameChange(index) {
-        textNode.nodeValue = index + 1;
+        svgTextNode.nodeValue = index + 1;
     }
     
 	sozi.events.listen(&quot;displayready&quot;, onDisplayReady);
@@ -1393,39 +1450,69 @@ module(&quot;sozi.framenumber&quot;, function (exports) {
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
  * @depend events.js
  */
 
-/*global module:true sozi:true */
-
-module(&quot;sozi.framelist&quot;, function (exports) {
-	var window = this,
-        document = window.document,
-        svgRoot,
-        tocGroup,
-        linksBox,
-        tocHeight = 0,
-        MARGIN = 5,
-        translateXHidden,
-        translateXVisible,
-        translateXStart,
-        translateXEnd,
-        translateX,
-        animator,
-        ANIMATION_TIME_MS = 300,
-        ANIMATION_PROFILE = &quot;decelerate&quot;,
-        SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
+module(this, &quot;sozi.framelist&quot;, function (exports, window) {
+    &quot;use strict&quot;;
+    
+    // An alias to the global document object
+	var document = window.document;
+	
+    // Constant: the margin around the text of the frame list
+    var MARGIN = 5;
+    
+	// The SVG group that will contain the frame list
+    var svgTocGroup;
+    
+    // The SVG group that will contain the frame titles
+    var svgTitlesGroup;
+    
+    // The current height of the frame list,
+    // computed during the initialization
+    var tocHeight = 0;
+    
+    // The X coordinate of the frame list in its hidden state
+    var translateXHidden;
+    
+    // The X coordinate of the frame list when it is completely visible
+    var translateXVisible;
+    
+    // The initial X coordinate of the frame list before starting an animation.
+    // This variable is set before showing/hiding the frame list.
+    var translateXStart;
+    
+    // The final X coordinate of the frame list for the starting animation.
+    // This variable is set before showing/hiding the frame list.
+    var translateXEnd;
+    
+    // The current X coordinate of the frame list for the running animation.
+    // This variable is updated on each animation step.
+    var translateX;
+    
+    // The animator object that will manage animations of the frame list
+    var animator;
+    
+    // Constant: the duration of the showing/hiding animation, in milliseconds
+    var ANIMATION_TIME_MS = 300;
+    
+    // Constant: the acceleration profile of the showing/hiding animation
+    var ANIMATION_PROFILE = &quot;decelerate&quot;;
+    
+    // Constant: the SVG namespace
+    var SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
 
 	function onMouseOut(evt) {
-        var rel = evt.relatedTarget;
-        while (rel !== tocGroup &amp;&amp; rel !== svgRoot) {
+        var rel = evt.relatedTarget,
+            svgRoot = document.documentElement;
+        while (rel &amp;&amp; rel !== svgTocGroup &amp;&amp; rel !== svgRoot) {
             rel = rel.parentNode;
         }
-        if (rel === svgRoot) {
+        if (rel !== svgTocGroup) {
             exports.hide();
             sozi.player.restart();
             evt.stopPropagation();
@@ -1433,38 +1520,27 @@ module(&quot;sozi.framelist&quot;, function (exports) {
     }
 
 	function onClickArrowUp(evt) {
-        var ty = linksBox.getCTM().f;
+        var ty = svgTitlesGroup.getCTM().f;
         if (ty &lt;= -window.innerHeight / 2) {
             ty += window.innerHeight / 2;
         } else if (ty &lt; 0) {
             ty = 0;
         }
-        linksBox.setAttribute(&quot;transform&quot;, &quot;translate(0,&quot; + ty + &quot;)&quot;);
+        svgTitlesGroup.setAttribute(&quot;transform&quot;, &quot;translate(0,&quot; + ty + &quot;)&quot;);
         evt.stopPropagation();
 	}
 
 	function onClickArrowDown(evt) {
-        var ty = linksBox.getCTM().f;
+        var ty = svgTitlesGroup.getCTM().f;
         if (ty + tocHeight &gt;= window.innerHeight * 3 / 2) {
             ty -= window.innerHeight / 2;
         } else if (ty + tocHeight &gt; window.innerHeight + 2 * MARGIN) {
             ty = window.innerHeight - tocHeight - 4 * MARGIN;
         }
-        linksBox.setAttribute(&quot;transform&quot;, &quot;translate(0,&quot; + ty + &quot;)&quot;);
+        svgTitlesGroup.setAttribute(&quot;transform&quot;, &quot;translate(0,&quot; + ty + &quot;)&quot;);
         evt.stopPropagation();
-    }	
+    }
 
-    function onAnimationStep(progress) {
-        var profileProgress = sozi.animation.profiles[ANIMATION_PROFILE](progress),
-            remaining = 1 - profileProgress;
-        translateX = translateXEnd * profileProgress + translateXStart * remaining;
-        tocGroup.setAttribute(&quot;transform&quot;, &quot;translate(&quot; + translateX + &quot;,0)&quot;);
-    }
-    
-    function onAnimationDone() {
-        // Empty
-    }
-    
     /*
      * Create a function that responds to clicks on frame list entries.
      */
@@ -1492,25 +1568,15 @@ module(&quot;sozi.framelist&quot;, function (exports) {
      * The table of contents is hidden by default.
      */
     function onDisplayReady() {
-        var tocBackground = document.createElementNS(SVG_NS, &quot;rect&quot;),
-            tocUp = document.createElementNS(SVG_NS, &quot;path&quot;),
-            tocDown = document.createElementNS(SVG_NS, &quot;path&quot;),
-            tocWidth = 0,
-            textWidth,
-            frameCount = sozi.document.frames.length,
-            frameIndex = sozi.location.getFrameIndex(),
-            i,
-            text;
+        svgTocGroup = document.createElementNS(SVG_NS, &quot;g&quot;);
+        svgTocGroup.setAttribute(&quot;id&quot;, &quot;sozi-toc&quot;);
+        document.documentElement.appendChild(svgTocGroup);
 
-		svgRoot = document.documentElement;
-
-        tocGroup = document.createElementNS(SVG_NS, &quot;g&quot;);
-        tocGroup.setAttribute(&quot;id&quot;, &quot;sozi-toc&quot;);
-        svgRoot.appendChild(tocGroup);
-
-        linksBox = document.createElementNS(SVG_NS, &quot;g&quot;);
-        tocGroup.appendChild(linksBox);
+        svgTitlesGroup = document.createElementNS(SVG_NS, &quot;g&quot;);
+        svgTocGroup.appendChild(svgTitlesGroup);
     
+        // The background rectangle of the frame list
+        var tocBackground = document.createElementNS(SVG_NS, &quot;rect&quot;);
         tocBackground.setAttribute(&quot;id&quot;, &quot;sozi-toc-background&quot;);
         tocBackground.setAttribute(&quot;x&quot;, MARGIN);
         tocBackground.setAttribute(&quot;y&quot;, MARGIN);
@@ -1519,18 +1585,20 @@ module(&quot;sozi.framelist&quot;, function (exports) {
         tocBackground.addEventListener(&quot;click&quot;, defaultEventHandler, false);
         tocBackground.addEventListener(&quot;mousedown&quot;, defaultEventHandler, false);
         tocBackground.addEventListener(&quot;mouseout&quot;, onMouseOut, false);
-        linksBox.appendChild(tocBackground);
+        svgTitlesGroup.appendChild(tocBackground);
 
-        for (i = 0; i &lt; frameCount; i += 1) {
-            text = document.createElementNS(SVG_NS, &quot;text&quot;);
-            text.appendChild(document.createTextNode(sozi.document.frames[i].title));
-            linksBox.appendChild(text);
+        var tocWidth = 0;
+        var currentFrameIndex = sozi.location.getFrameIndex();
+        sozi.document.frames.forEach(function (frame, frameIndex) {
+            var text = document.createElementNS(SVG_NS, &quot;text&quot;);
+            text.appendChild(document.createTextNode(frame.title));
+            svgTitlesGroup.appendChild(text);
 
-            if (i === frameIndex) {
+            if (frameIndex === currentFrameIndex) {
                 text.setAttribute(&quot;class&quot;, &quot;sozi-toc-current&quot;);
             }
                      
-            textWidth = text.getBBox().width;
+            var textWidth = text.getBBox().width;
             tocHeight += text.getBBox().height;
             if (textWidth &gt; tocWidth) {
                 tocWidth = textWidth;
@@ -1538,27 +1606,31 @@ module(&quot;sozi.framelist&quot;, function (exports) {
 
             text.setAttribute(&quot;x&quot;, 2 * MARGIN);
             text.setAttribute(&quot;y&quot;, tocHeight + MARGIN);
-            text.addEventListener(&quot;click&quot;, makeClickHandler(i), false);
+            text.addEventListener(&quot;click&quot;, makeClickHandler(frameIndex), false);
             text.addEventListener(&quot;mousedown&quot;, defaultEventHandler, false);
-        }
+        });
 
+        // The &quot;up&quot; button
+        var tocUp = document.createElementNS(SVG_NS, &quot;path&quot;);
         tocUp.setAttribute(&quot;class&quot;, &quot;sozi-toc-arrow&quot;);
-        tocUp.setAttribute(&quot;d&quot;, &quot;M&quot; + (tocWidth + 3 * MARGIN) + &quot;,&quot; + (5 * MARGIN) + 
+        tocUp.setAttribute(&quot;d&quot;, &quot;M&quot; + (tocWidth + 3 * MARGIN) + &quot;,&quot; + (5 * MARGIN) +
                            &quot; l&quot; + (4 * MARGIN) + &quot;,0&quot; +
                            &quot; l-&quot; + (2 * MARGIN) + &quot;,-&quot; + (3 * MARGIN) +
                            &quot; z&quot;);
         tocUp.addEventListener(&quot;click&quot;, onClickArrowUp, false);
         tocUp.addEventListener(&quot;mousedown&quot;, defaultEventHandler, false);
-        tocGroup.appendChild(tocUp);
-      
+        svgTocGroup.appendChild(tocUp);
+
+        // The &quot;down&quot; button
+        var tocDown = document.createElementNS(SVG_NS, &quot;path&quot;);
         tocDown.setAttribute(&quot;class&quot;, &quot;sozi-toc-arrow&quot;);
-        tocDown.setAttribute(&quot;d&quot;, &quot;M&quot; + (tocWidth + 3 * MARGIN) + &quot;,&quot; + (7 * MARGIN) + 
+        tocDown.setAttribute(&quot;d&quot;, &quot;M&quot; + (tocWidth + 3 * MARGIN) + &quot;,&quot; + (7 * MARGIN) +
                              &quot; l&quot; + (4 * MARGIN) + &quot;,0&quot; +
                              &quot; l-&quot; + (2 * MARGIN) + &quot;,&quot; + (3 * MARGIN) +
                              &quot; z&quot;);
         tocDown.addEventListener(&quot;click&quot;, onClickArrowDown, false);
-        tocDown.addEventListener(&quot;mousedown&quot;, defaultEventHandler, false);      
-        tocGroup.appendChild(tocDown);
+        tocDown.addEventListener(&quot;mousedown&quot;, defaultEventHandler, false);
+        svgTocGroup.appendChild(tocDown);
 
         tocBackground.setAttribute(&quot;width&quot;, tocWidth + 7 * MARGIN);
         tocBackground.setAttribute(&quot;height&quot;, tocHeight + 2 * MARGIN);
@@ -1567,8 +1639,15 @@ module(&quot;sozi.framelist&quot;, function (exports) {
         translateXVisible = 0;
         translateX = translateXEnd = translateXHidden;
         
-        tocGroup.setAttribute(&quot;transform&quot;, &quot;translate(&quot; + translateXHidden + &quot;,0)&quot;);
-        animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);
+        svgTocGroup.setAttribute(&quot;transform&quot;, &quot;translate(&quot; + translateXHidden + &quot;,0)&quot;);
+        animator = sozi.animation.Animator.instance().augment({
+            onStep: function (progress) {
+                var profileProgress = sozi.animation.profiles[ANIMATION_PROFILE](progress),
+                    remaining = 1 - profileProgress;
+                translateX = translateXEnd * profileProgress + translateXStart * remaining;
+                svgTocGroup.setAttribute(&quot;transform&quot;, &quot;translate(&quot; + translateX + &quot;,0)&quot;);
+            }
+        });
     }
 
 	/*
@@ -1578,12 +1657,12 @@ module(&quot;sozi.framelist&quot;, function (exports) {
 	 * even when the frame list is hidden.
 	 */
     function onFrameChange(index) {
-        var current = document.getElementsByClassName(&quot;sozi-toc-current&quot;),
-            textElements = linksBox.getElementsByTagName(&quot;text&quot;),
-            i;
-        for (i = 0; i &lt; current.length; i += 1) {
-            current[i].removeAttribute(&quot;class&quot;);
-        }
+        var currentElementList = Array.prototype.slice.call(document.getElementsByClassName(&quot;sozi-toc-current&quot;));
+        currentElementList.forEach(function (svgElement) {
+            svgElement.removeAttribute(&quot;class&quot;);
+        });
+
+        var textElements = svgTitlesGroup.getElementsByTagName(&quot;text&quot;);
         textElements[index].setAttribute(&quot;class&quot;, &quot;sozi-toc-current&quot;);
     }
     
@@ -1626,37 +1705,133 @@ module(&quot;sozi.framelist&quot;, function (exports) {
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
  */
 
-/*global module:true sozi:true */
+module(this, &quot;sozi.proto&quot;, function (exports) {
+    &quot;use strict&quot;;
+    
+    exports.Object = {
+        installConstructors: function () {
+            function InstanceConstructor() {}
+            InstanceConstructor.prototype = this;
+            
+            this.instance = function () {
+                var result = new InstanceConstructor();
+                result.construct.apply(result, arguments);
+                return result;
+            };
+            
+            this.subtype = function (anObject) {
+                var result = new InstanceConstructor();
+                result.augment(anObject);
+                result.installConstructors();
+                return result;
+            };
+        },
+        
+        construct: function () {},
+        
+        augment: function (anObject) {
+            for (var attr in anObject) {
+                if (anObject.hasOwnProperty(attr)) {
+                    this[attr] = anObject[attr];
+                }
+            }
+            return this;
+        },
+        
+        bind: function (aFunction) {
+            var self = this;
+            return function () {
+                return aFunction.apply(self, arguments);
+            }
+        }
+    };
+    
+    // Bootstrap the root object
+    exports.Object.installConstructors();
+});
 
-module(&quot;sozi.animation&quot;, function (exports) {
-    var window = this,
-        TIME_STEP_MS = 40,
-        animators = [],
-        timer,
-        requestAnimationFrame = window.mozRequestAnimationFrame ||
+/*
+ * Sozi - A presentation tool using the SVG standard
+ *
+ * Copyright (C) 2010-2012 Guillaume Savaton
+ *
+ * This program is dual licensed under the terms of the MIT license
+ * or the GNU General Public License (GPL) version 3.
+ * A copy of both licenses is provided in the doc/ folder of the
+ * official release of Sozi.
+ *
+ * See http://sozi.baierouge.fr/wiki/en:license for details.
+ *
+ * @depend module.js
+ * @depend proto.js
+ */
+
+/**
+ * @name sozi.animation
+ * @namespace A general-purpose animation controller.
+ */
+module(this, &quot;sozi.animation&quot;, function (exports, window) {
+    /** @lends sozi.animation */
+    
+    &quot;use strict&quot;;
+    
+    /**
+     * The browser-specific function to request an animation frame.
+     *
+     * @function
+     */
+    var requestAnimationFrame =
+            window.mozRequestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             window.msRequestAnimationFrame ||
             window.oRequestAnimationFrame;
 
-    /*
-     * This function is called periodically and triggers the
-     * animation steps in all animators managed by this module.
+    /**
+     * The default time step.
      *
-     * If all animators are removed from the list of animators
-     * managed by this module, then the periodic calling is disabled.
+     * &lt;p&gt;For browsers that do not support animation frames.&lt;/p&gt;
      *
-     * This function can be called either through requestAnimationFrame()
-     * if the browser supports it, or through setInterval().
+     * @constant
+     * @type Number
+     */
+    var TIME_STEP_MS = 40;
+    
+    /**
+     * The handle provided by &lt;code&gt;setInterval()&lt;/code&gt;.
+     *
+     * &lt;p&gt;For browsers that do not support animation frames.&lt;/p&gt;
+     */
+    var timer;
+    
+    /**
+     * The list of running animators.
+     *
+     * @type Array
+     */
+    var animatorList = [];
+    
+    /**
+     * The main animation loop.
+     *
+     * &lt;p&gt;This function is called periodically and triggers the
+     * animation steps in all animators managed by this module.&lt;/p&gt;
+     *
+     * &lt;p&gt;If all animators are removed from the list of animators
+     * managed by this module, then the periodic calling is disabled.&lt;/p&gt;
+     *
+     * &lt;p&gt;This function can be called either through {@link sozi.animation-requestAnimationFrame}
+     * if the browser supports it, or through &lt;code&gt;setInterval()&lt;/code&gt;.&lt;/p&gt;
+     *
+     * @param {Number} timestamp The current time.
      */
     function loop(timestamp) {
-        var i;
-        if (animators.length &gt; 0) {
+        if (animatorList.length &gt; 0) {
             // If there is at least one animator,
             // and if the browser provides animation frames,
             // schedule this function to be called again in the next frame.
@@ -1665,9 +1840,9 @@ module(&quot;sozi.animation&quot;, function (exports) {
             }
 
             // Step all animators
-            for (i = 0; i &lt; animators.length; i += 1) {
-                animators[i].step(timestamp);
-            }
+            animatorList.forEach(function (animator) {
+                animator.step(timestamp);
+            });
         }
         else {
             // If all animators have been removed,
@@ -1679,12 +1854,12 @@ module(&quot;sozi.animation&quot;, function (exports) {
         }
     }
     
-    /*
+    /**
      * Start the animation loop.
      *
-     * This function delegates the periodic update of all animators
-     * to the loop() function, either through requestAnimationFrame()
-     * if the browser supports it, or through setInterval().
+     * &lt;p&gt;This function delegates the periodic update of all animators
+     * to the {@link sozi.animation-loop} function, either through {@link sozi.animation-requestAnimationFrame}
+     * if the browser supports it, or through &lt;code&gt;setInterval()&lt;/code&gt;.&lt;/p&gt;
      */
     function start() {
         if (requestAnimationFrame) {
@@ -1697,109 +1872,156 @@ module(&quot;sozi.animation&quot;, function (exports) {
         }
     }
     
-    /*
+    /**
      * Add a new animator object to the list of animators managed
      * by this module.
      *
-     * If the animator list was empty before calling this function,
-     * then the animation loop is started.
+     * &lt;p&gt;If the animator list was empty before calling this function,
+     * then the animation loop is started.&lt;/p&gt;
+     *
+     * @param {sozi.animation.Animator} animator The animator object to add.
      */
     function addAnimator(animator) {
-        animators.push(animator);
-        if (animators.length === 1) {
+        animatorList.push(animator);
+        if (animatorList.length === 1) {
             start();
         }
     }
     
-    /*
+    /**
      * Remove the given animator from the list of animators
      * managed by this module.
+     *
+     * @param {sozi.animation.Animator} animator The animator object to add.
      */
     function removeAnimator(animator) {
-        animators.splice(animators.indexOf(animator), 1);
+        animatorList.splice(animatorList.indexOf(animator), 1);
     }
     
-    /*
-     * Construct a new animator.
+    /**
+     * @class
      *
-     * Parameters:
-     * - onStep: the function to call on each animation step
-     * - onDone: the function to call when the animation time is elapsed
+     * An animator provides the logic for animating other objects.
      *
-     * The onStep() function is expected to have the following parameters:
-     *  - progress: a number between 0 and 1 (included) corresponding to
-     *    the elapsed fraction of the total duration
-     *  - data: an optional object passed to the application-specific animation code
+     * &lt;p&gt;The main purpose of an animator is to schedule the update
+     * operations in the animated objects.&lt;/p&gt;
      *
-     * The new animator is initialized in the &quot;stopped&quot; state.
+     * @memberOf sozi.animation
+     * @name Animator
      */
-    exports.Animator = function (onStep, onDone) {
-        this.onStep = onStep;
-        this.onDone = onDone;
-
-        this.durationMs = 0;
-        this.data = {};
-        this.initialTime = 0;
-        this.started = false;
-    };
-
-    /*
-     * Start the current animator.
-     *
-     * Parameters:
-     *  - durationMs: the animation duration, in milliseconds
-     *  - data: an object to pass to the onStep function
-     *
-     * The current animator is added to the list of animators managed
-     * by this module and is put in the &quot;started&quot; state.
-     * It will be removed from the list automatically when the given duration
-     * has elapsed.
-     *
-     * The onStep() function is called once before starting the animation.
-     */
-    exports.Animator.prototype.start = function (durationMs, data) {
-        this.durationMs = durationMs;
-        this.data = data;
-        this.initialTime = Date.now();
-        this.onStep(0, this.data);
-
-        if (!this.started) {
-            this.started = true;
-            addAnimator(this);
-        }
-    };
-
-    /*
-     * Stop the current animator.
-     *
-     * The current animator is removed from the list of animators managed
-     * by this module and is put in the &quot;stopped&quot; state.
-     */
-    exports.Animator.prototype.stop = function () {
-        if (this.started) {
-            removeAnimator(this);
+    exports.Animator = sozi.proto.Object.subtype({
+        /** @lends sozi.animation.Animator */
+        
+        /**
+         * Construct a new animator.
+         */
+        construct: function () {
+            /**
+             * The animation duration, in milliseconds.
+             * @type Number
+             */
+            this.durationMs = 0;
+            
+            /**
+             * A &quot;payload&quot; object that can be used by {@link sozi.animation.Animator.onStep}
+             * and {@link sozi.animation.Animator.onDone}.
+             */
+            this.data = null;
+            
+            /**
+             * The start time of the animation.
+             * @type Number
+             */
+            this.initialTime = 0;
+            
+            /**
+             * The current state of this animator.
+             * @type Boolean
+             */
             this.started = false;
-        }
-    };
+        },
 
-    /*
-     * Perform one animation step.
-     *
-     * This function is called automatically by the loop() function.
-     * It calls the onStep() function of this animator.
-     * If the animation duration has elapsed, the onDone() function of
-     * the animator is called.
-     */
-    exports.Animator.prototype.step = function (timestamp) {
-        var elapsedTime = timestamp - this.initialTime;
-        if (elapsedTime &gt;= this.durationMs) {
-            this.stop();
-            this.onStep(1, this.data);
-            this.onDone();
-        } else {
-            this.onStep(elapsedTime / this.durationMs, this.data);
+        /**
+         * Start the current animator.
+         *
+         * &lt;p&gt;The current animator is added to the list of animators managed
+         * by this module and is put in the &quot;started&quot; state.
+         * It will be removed from the list automatically when the given duration
+         * has elapsed.&lt;/p&gt;
+         *
+         * &lt;p&gt;Method {@link sozi.animation.Animator.onStep} is called once before starting the animation.&lt;/p&gt;
+         *
+         * @param {Number} durationMs The animation duration, in milliseconds
+         * @param data Some data that can be used in {@link sozi.animation.Animator.onStep}
+         * and {@link sozi.animation.Animator.onDone}
+         */
+        start: function (durationMs, data) {
+            this.durationMs = durationMs;
+            this.data = data;
+            this.initialTime = Date.now();
+            this.onStep(0);
+
+            if (!this.started) {
+                this.started = true;
+                addAnimator(this);
+            }
+        },
+
+        /**
+         * Stop the current animator.
+         *
+         * &lt;p&gt;The current animator is removed from the list of animators managed
+         * by this module and is put in the &quot;stopped&quot; state.&lt;/p&gt;
+         */
+        stop: function () {
+            if (this.started) {
+                removeAnimator(this);
+                this.started = false;
+            }
+        },
+
+        /**
+         * Perform one animation step.
+         *
+         * &lt;p&gt;This function is called automatically by the {@link sozi.animation-loop} function.
+         * It calls {@link sozi.animation.Animator.onStep}.
+         * If the animation duration has elapsed, {@link sozi.animation.Animator.onDone} is called.&lt;/p&gt;
+         *
+         * @param {Number} timestamp The current time
+         */
+        step: function (timestamp) {
+            var elapsedTime = timestamp - this.initialTime;
+            if (elapsedTime &gt;= this.durationMs) {
+                this.stop();
+                this.onStep(1);
+                this.onDone();
+            } else {
+                this.onStep(elapsedTime / this.durationMs);
+            }
+        },
+        
+        /**
+         * This method is called automatically on each animation step.
+         *
+         * &lt;p&gt;The default implementation does nothing. Override it in a
+         * subclass or instance to provide your own implementation.&lt;p&gt;
+         *
+         * @param {Number} progress The elapsed fraction of the total duration (comprised between 0 and 1 included).
+         */
+        onStep: function (progress) {
+            // Do nothing
+        },
+        
+        /**
+         * This method is called automatically when the animation ends.
+         *
+         * &lt;p&gt;The default implementation does nothing. Override it in a
+         * subclass or instance to provide your own implementation.&lt;p&gt;
+         */
+        onDone: function () {
+            // Do nothing
         }
-    };
+    });
 
     /*
      * The acceleration profiles.
@@ -1807,7 +2029,7 @@ module(&quot;sozi.animation&quot;, function (exports) {
      * Each profile is a function that operates in the interval [0, 1]
      * and produces a result in the same interval.
      *
-     * These functions are meant to be called in onStep() functions
+     * These functions are meant to be called in {@link sozi.animation.Animator.onStep}
      * to transform the progress indicator according to the desired
      * acceleration effect.
      */
@@ -1868,23 +2090,347 @@ module(&quot;sozi.animation&quot;, function (exports) {
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
+ * @depend proto.js
  * @depend events.js
  */
 
-/*global module:true sozi:true */
+module(this, &quot;sozi.display&quot;, function (exports, window) {
+    &quot;use strict&quot;;
+    
+    // The global document object
+    var document = window.document;
+    
+    // The initial bounding box of the whole document,
+    // assigned in onDocumentReady()
+    var initialBBox;
+    
+    // Constant: the Sozi namespace
+    var SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
 
-module(&quot;sozi.display&quot;, function (exports) {
-    var window = this,
-        document = window.document,
-        initialBBox,
-        SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
+    var XLINK_NS = &quot;http://www.w3.org/1999/xlink&quot;;
+    
+    exports.CameraState = sozi.proto.Object.subtype({
+        construct : function () {
+            // Center coordinates
+            this.cx = this.cy = 0;
+            
+            // Dimensions
+            this.width = this.height = 1;
+            
+            // Rotation angle, in degrees
+            this.angle = 0;
+            
+            // Clipping
+            this.clipped = true;
+        },
 
-    exports.layers = {};
+        setCenter: function (cx, cy) {
+            this.cx = cx;
+            this.cy = cy;
+            return this;
+        },
+        
+        setSize: function (width, height) {
+            this.width = width;
+            this.height = height;
+            return this;
+        },
+        
+        setClipped: function (clipped) {
+            this.clipped = clipped;
+            return this;
+        },
+        
+        /*
+         * Set the angle of the current camera state.
+         * The angle of the current state is normalized
+         * in the interval [-180 ; 180]
+         */
+        setAngle: function (angle) {
+            this.angle = (angle + 180) % 360 - 180;
+            return this;
+        },
+        
+        setRawAngle: function (angle) {
+            this.angle = angle;
+            return this;
+        },
+        
+        /*
+         * Set the current camera's properties to the given SVG element.
+         *
+         * If the element is a rectangle, the properties of the frames are based
+         * on the geometrical properties of the rectangle.
+         * Otherwise, the properties of the frame are based on the bounding box
+         * of the given element.
+         *
+         * Parameters:
+         *    - svgElement: an element from the SVG DOM
+         */
+        setAtElement: function (svgElement) {
+            // Read the raw bounding box of the given SVG element
+            var x, y, w, h;
+            if (svgElement.nodeName === &quot;rect&quot;) {
+                x = svgElement.x.baseVal.value;
+                y = svgElement.y.baseVal.value;
+                w = svgElement.width.baseVal.value;
+                h = svgElement.height.baseVal.value;
+            } else {
+                var b = svgElement.getBBox();
+                x = b.x;
+                y = b.y;
+                w = b.width;
+                h = b.height;
+            }
 
+            // Compute the raw coordinates of the center
+            // of the given SVG element
+            var c = document.documentElement.createSVGPoint();
+            c.x = x + w / 2;
+            c.y = y + h / 2;
+            
+            // Compute the coordinates of the center of the given SVG element
+            // after its current transformation
+            var matrix = svgElement.getCTM();
+            c = c.matrixTransform(matrix);
+
+            // Compute the scaling factor applied to the given SVG element
+            var scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
+            
+            // Update the camera to match the bounding box information of the
+            // given SVG element after its current transformation
+            return this.setCenter(c.x, c.y)
+                .setSize(w * scale, h * scale)
+                .setAngle(Math.atan2(matrix.b, matrix.a) * 180 / Math.PI);
+        },
+
+        setAtState: function (other) {
+            return this.setCenter(other.cx, other.cy)
+                .setSize(other.width, other.height)
+                .setAngle(other.angle)
+                .setClipped(other.clipped);
+        },
+        
+        interpolatableAttributes: [&quot;cx&quot;, &quot;cy&quot;, &quot;width&quot;, &quot;height&quot;, &quot;angle&quot;],
+        
+        interpolate: function (initialState, finalState, ratio) {
+            var remaining = 1 - ratio;
+            for (var i = 0; i &lt; this.interpolatableAttributes.length; i += 1) {
+                var attr = this.interpolatableAttributes[i];
+                this[attr] = finalState[attr] * ratio + initialState[attr] * remaining;
+            }
+        }
+    });
+    
+    exports.Camera = exports.CameraState.subtype({
+        construct: function (viewPort, svgLayer) {
+            exports.CameraState.construct.call(this);
+            
+            this.viewPort = viewPort;
+            
+            // Clipping rectangle
+            this.svgClipRect = document.createElementNS(SVG_NS, &quot;rect&quot;);
+        
+            // Layer element (typically a &quot;g&quot; element)
+            this.svgLayer = svgLayer;
+        },
+        
+        setAtState: function (other) {
+            return exports.CameraState.setAtState.call(this, other).update();
+        },
+        
+        getScale: function () {
+            return Math.min(this.viewPort.width / this.width, this.viewPort.height / this.height);
+        },
+        
+        rotate: function (angle) {
+            return this.setAngle(this.angle + angle).update();
+        },
+
+        zoom: function (factor, x, y) {
+            return this.setSize(this.width / factor, this.height / factor)
+                       .drag(
+                            (1 - factor) * (x - this.viewPort.width / 2),
+                            (1 - factor) * (y - this.viewPort.height / 2)
+                        );
+        },
+        
+        drag: function (deltaX, deltaY) {
+            var scale = this.getScale();
+            var angleRad = this.angle * Math.PI / 180;
+            var si = Math.sin(angleRad);
+            var co = Math.cos(angleRad);
+            return this.setCenter(
+                    this.cx - (deltaX * co - deltaY * si) / scale,
+                    this.cy - (deltaX * si + deltaY * co) / scale
+                ).setClipped(false).update();
+        },
+
+        update: function () {
+            var scale = this.getScale();
+                    
+            // Compute the size and location of the frame on the screen
+            var width = this.width  * scale;
+            var height = this.height * scale;
+            var x = (this.viewPort.width - width) / 2;
+            var y = (this.viewPort.height - height) / 2;
+
+            // Adjust the location and size of the clipping rectangle and the frame rectangle
+            this.svgClipRect.setAttribute(&quot;x&quot;, this.clipped ? x : 0);
+            this.svgClipRect.setAttribute(&quot;y&quot;, this.clipped ? y : 0);
+            this.svgClipRect.setAttribute(&quot;width&quot;,  this.clipped ? width  : this.viewPort.width);
+            this.svgClipRect.setAttribute(&quot;height&quot;, this.clipped ? height : this.viewPort.height);
+                    
+            // Compute and apply the geometrical transformation to the layer group
+            var translateX = -this.cx + this.width / 2  + x / scale;
+            var translateY = -this.cy + this.height / 2 + y / scale;
+
+            this.svgLayer.setAttribute(&quot;transform&quot;,
+                &quot;scale(&quot; + scale + &quot;)&quot; +
+                &quot;translate(&quot; + translateX + &quot;,&quot; + translateY + &quot;)&quot; +
+                &quot;rotate(&quot; + (-this.angle) + ',' + this.cx + &quot;,&quot; + this.cy + &quot;)&quot;
+            );
+            
+            return this;
+        }
+    });
+    
+    exports.ViewPort = sozi.proto.Object.subtype({
+        construct: function (idLayerList) {
+            var svgRoot = document.documentElement;
+            
+            this.svgGroup = document.createElementNS(SVG_NS, &quot;g&quot;);
+            svgRoot.appendChild(this.svgGroup);
+
+            this.setLocation(0, 0).setSize(window.innerWidth, window.innerHeight);
+            
+            this.cameras = {};
+            
+            for (var i = 0; i &lt; idLayerList.length; i += 1) {
+                var idLayer = idLayerList[i];
+                
+                // Create a &lt;use&gt; element for the current layer in the current viewport
+                var svgUse = document.createElementNS(SVG_NS, &quot;use&quot;);
+                svgUse.setAttributeNS(XLINK_NS, &quot;href&quot;, &quot;#&quot; + idLayer);
+                
+                // Create a new camera for the current layer
+                var camera = this.cameras[idLayer] = new exports.Camera.instance(this, svgUse);
+
+                // Add a clipping path
+                var svgClipPath = document.createElementNS(SVG_NS, &quot;clipPath&quot;);
+                svgClipPath.setAttribute(&quot;id&quot;, &quot;sozi-clip-path-&quot; + idLayer);
+                svgClipPath.appendChild(camera.svgClipRect);
+                this.svgGroup.appendChild(svgClipPath);
+
+                // Create a group that will support the clipping operation
+                // and move the layer group into that new group
+                var svgClippedGroup = document.createElementNS(SVG_NS, &quot;g&quot;);
+                svgClippedGroup.setAttribute(&quot;clip-path&quot;, &quot;url(#sozi-clip-path-&quot; + idLayer + &quot;)&quot;);
+                
+                // Adding the layer group to the clipped group must preserve layer ordering
+                this.svgGroup.appendChild(svgClippedGroup);
+                svgClippedGroup.appendChild(svgUse);
+            }
+        },
+        
+        setSize: function (width, height) {
+            this.width = width;
+            this.height = height;
+            return this;
+        },
+        
+        setLocation: function (x, y) {
+            this.x = x;
+            this.y = y;
+            return this;
+        },
+
+        /*
+         * Returns the geometrical properties of the SVG document
+         *
+         * Returns:
+         *    - The default size, translation and rotation for the document's bounding box
+         */
+        getDocumentState: function () {
+            // This object defines the bounding box of the whole document
+            var camera = new exports.CameraState.instance()
+                .setCenter(initialBBox.x + initialBBox.width / 2,
+                           initialBBox.y + initialBBox.height / 2)
+                .setSize(initialBBox.width, initialBBox.height)
+                .setClipped(false);
+            
+            // Copy the document's bounding box to all layers
+            var result = {};
+            for (var idLayer in this.cameras) {
+                result[idLayer] = camera;
+            }
+            return result;
+        },
+
+        /*
+         * Apply geometrical transformations to the image according to the current
+         * geometrical attributes of this Display.
+         *
+         * This method is called automatically when the window is resized.
+         */
+        update: function () {
+            for (var idLayer in this.cameras) {
+                this.cameras[idLayer].update();
+            }
+        },
+
+        /*
+         * Transform the SVG document to show the given frame.
+         *
+         * Parameters:
+         *    - frame: the frame to show
+         */
+        showFrame: function (frame) {
+            for (var idLayer in frame.states) {
+                this.cameras[idLayer].setAtState(frame.states[idLayer]);
+            }
+        },
+
+        /*
+         * Apply an additional translation to the SVG document based on onscreen coordinates.
+         *
+         * Parameters:
+         *    - deltaX: the horizontal displacement, in pixels
+         *    - deltaY: the vertical displacement, in pixels
+         */
+        drag: function (deltaX, deltaY) {
+            for (var idLayer in this.cameras) {
+                this.cameras[idLayer].drag(deltaX, deltaY);
+            }
+        },
+
+        /*
+         * Zooms the display with the given factor.
+         *
+         * The zoom is centered around (x, y) with respect to the center of the display area.
+         */
+        zoom: function (factor, x, y) {
+            for (var idLayer in this.cameras) {
+                this.cameras[idLayer].zoom(factor, x, y);
+            }
+        },
+
+        /*
+         * Rotate the display with the given angle.
+         *
+         * The rotation is centered around the center of the display area.
+         */
+        rotate: function (angle) {
+            for (var idLayer in this.cameras) {
+                this.cameras[idLayer].rotate(angle);
+            }
+        }
+    });
+    
     /*
      * Initializes the current Display.
      *
@@ -1895,45 +2441,16 @@ module(&quot;sozi.display&quot;, function (exports) {
      * This method must be called when the document is ready to be manipulated.
      */
     function onDocumentReady() {
-        var l, svgClippedGroup, svgClipPath, idLayer,
-            svgRoot = document.documentElement; // TODO check SVG tag
-            
+        var svgRoot = document.documentElement; // TODO check SVG tag
+        
+        // Save the initial bounding box of the document
+        // and force its dimensions to the browser window
         initialBBox = svgRoot.getBBox();
         svgRoot.setAttribute(&quot;width&quot;, window.innerWidth);
         svgRoot.setAttribute(&quot;height&quot;, window.innerHeight);
         
-        // Initialize display geometry for all layers
-        for (l = 0; l &lt; sozi.document.idLayerList.length; l += 1) {
-            idLayer = sozi.document.idLayerList[l];
-            exports.layers[idLayer] = {
-                geometry: {
-                    cx: 0,
-                    cy: 0,
-                    width: 1,
-                    height: 1,
-                    rotate: 0,
-                    clip: true
-                },
-                svgClipRect: document.createElementNS(SVG_NS, &quot;rect&quot;),
-                svgLayer: document.getElementById(idLayer)
-            };
-
-            // Add a clipping path
-            svgClipPath = document.createElementNS(SVG_NS, &quot;clipPath&quot;);
-            svgClipPath.setAttribute(&quot;id&quot;, &quot;sozi-clip-path-&quot; + idLayer);
-            svgClipPath.appendChild(exports.layers[idLayer].svgClipRect);
-            svgRoot.appendChild(svgClipPath);
-
-            // Create a group that will support the clipping operation
-            // and move the layer group into that new group
-            svgClippedGroup = document.createElementNS(SVG_NS, &quot;g&quot;);
-            svgClippedGroup.setAttribute(&quot;clip-path&quot;, &quot;url(#sozi-clip-path-&quot; + idLayer + &quot;)&quot;);
-            
-            // Adding the layer group to the clipped group must preserve layer ordering
-            svgRoot.insertBefore(svgClippedGroup, exports.layers[idLayer].svgLayer);
-            svgClippedGroup.appendChild(exports.layers[idLayer].svgLayer);
-        }
-
+        exports.viewPort = new exports.ViewPort.instance(sozi.document.idLayerList);
+        
         sozi.events.fire(&quot;displayready&quot;);
     }
 
@@ -1944,218 +2461,8 @@ module(&quot;sozi.display&quot;, function (exports) {
         var svgRoot = document.documentElement;
         svgRoot.setAttribute(&quot;width&quot;, window.innerWidth);
         svgRoot.setAttribute(&quot;height&quot;, window.innerHeight);
-        exports.update();
+        exports.viewPort.setSize(window.innerWidth, window.innerHeight).update();
     }
-
-    /*
-     * Returns an object with the geometrical properties of the current display.
-     *
-     * Attributes of the returned object :
-     *    - x, y: the location of the top-left corner, in pixels
-     *    - width, height: the size of the visible area, in pixels
-     *    - scale: the scale factor to apply to the SVG document so that is fits the visible area
-     */
-    function getFrameGeometry(idLayer) {
-        var g = exports.layers[idLayer].geometry,
-            result = {};
-        result.scale = Math.min(window.innerWidth / g.width, window.innerHeight / g.height);
-        result.width = g.width * result.scale;
-        result.height = g.height * result.scale;
-        result.x = (window.innerWidth - result.width) / 2;
-        result.y = (window.innerHeight - result.height) / 2;
-        return result;
-    }
-
-    /*
-     * Returns the geometrical properties of the frame that can be
-     * created from a given element.
-     *
-     * If the element is a rectangle, the properties of the frames are based
-     * on the geometrical properties of the rectangle.
-     * Otherwise, the properties of the frame are based on the bounding box
-     * of the given element.
-     *
-     * Parameters:
-     *    - svgElement: an element from the SVG DOM
-     *
-     * Returns:
-     *    - The default size, translation and rotation for the given element 
-     */
-    exports.getElementGeometry = function (svgElement) {
-        var x, y, w, h, b, c,
-            matrix = svgElement.getCTM(),
-            scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
-
-        if (svgElement.nodeName === &quot;rect&quot;) {
-            x = svgElement.x.baseVal.value;
-            y = svgElement.y.baseVal.value;
-            w = svgElement.width.baseVal.value;
-            h = svgElement.height.baseVal.value;
-        } else {
-            b = svgElement.getBBox();
-            x = b.x;
-            y = b.y;
-            w = b.width;
-            h = b.height;
-        }
-
-        c = document.documentElement.createSVGPoint();
-        c.x = x + w / 2;
-        c.y = y + h / 2;
-        c = c.matrixTransform(matrix);
-
-        return {
-            cx: c.x,
-            cy: c.y,
-            width: w * scale,
-            height: h * scale,
-            rotate: Math.atan2(matrix.b, matrix.a) * 180 / Math.PI
-        };
-    };
-
-    /*
-     * Returns the geometrical properties of the SVG document
-     *
-     * Returns:
-     *    - The default size, translation and rotation for the document's bounding box
-     */
-    exports.getDocumentGeometry = function () {
-        var idLayer,
-            result = { layers: {} },
-            value = {
-                geometry: {
-                    cx: initialBBox.x + initialBBox.width / 2,
-                    cy: initialBBox.y + initialBBox.height / 2,
-                    width: initialBBox.width,
-                    height: initialBBox.height,
-                    rotate: 0,
-                    clip: false
-                }
-            };
-        for (idLayer in exports.layers) {
-            if (exports.layers.hasOwnProperty(idLayer)) {
-                result.layers[idLayer] = value;
-            }
-        }
-        return result;
-    };
-
-    /*
-     * Apply geometrical transformations to the image according to the current
-     * geometrical attributes of this Display.
-     *
-     * This method is called automatically when the window is resized.
-     */
-    exports.update = function () {
-        var idLayer, fg, lg, cr,
-            translateX, translateY;
-
-        for (idLayer in exports.layers) {
-            if (exports.layers.hasOwnProperty(idLayer)) {
-                lg = exports.layers[idLayer].geometry;
-                fg = getFrameGeometry(idLayer);
-                
-                translateX = -lg.cx + lg.width / 2  + fg.x / fg.scale;
-                translateY = -lg.cy + lg.height / 2 + fg.y / fg.scale;
-
-                // Compute and apply the geometrical transformation to the layer group
-                exports.layers[idLayer].svgLayer.setAttribute(&quot;transform&quot;,
-                    &quot;scale(&quot; + fg.scale + &quot;)&quot; +
-                    &quot;translate(&quot; + translateX + &quot;,&quot; + translateY + &quot;)&quot; +
-                    &quot;rotate(&quot; + (-lg.rotate) + ',' + lg.cx + &quot;,&quot; + lg.cy + &quot;)&quot;
-                );
-
-                // Adjust the location and size of the clipping rectangle and the frame rectangle
-                cr = exports.layers[idLayer].svgClipRect;
-                cr.setAttribute(&quot;x&quot;, lg.clip ? fg.x : 0);
-                cr.setAttribute(&quot;y&quot;, lg.clip ? fg.y : 0);
-                cr.setAttribute(&quot;width&quot;, lg.clip ? fg.width : window.innerWidth);
-                cr.setAttribute(&quot;height&quot;, lg.clip ? fg.height : window.innerHeight);
-            }
-        }
-    };
-
-    /*
-     * Transform the SVG document to show the given frame.
-     *
-     * Parameters:
-     *    - frame: the frame to show
-     */
-    exports.showFrame = function (frame) {
-        var idLayer, lg, fg, attr;
-        for (idLayer in frame.layers) {
-            if (frame.layers.hasOwnProperty(idLayer)) {
-                fg = frame.layers[idLayer].geometry;
-                lg = exports.layers[idLayer].geometry;
-                for (attr in fg) {
-                    if (fg.hasOwnProperty(attr)) {
-                        lg[attr] = fg[attr];
-                    }
-                }
-            }
-        }
-        exports.update();
-    };
-
-    /*
-     * Apply an additional translation to the SVG document based on onscreen coordinates.
-     *
-     * Parameters:
-     *    - deltaX: the horizontal displacement, in pixels
-     *    - deltaY: the vertical displacement, in pixels
-     */
-    exports.drag = function (deltaX, deltaY) {
-        var idLayer, lg, fg,
-            angleRad;
-        
-        for (idLayer in exports.layers) {
-            if (exports.layers.hasOwnProperty(idLayer)) {
-                lg = exports.layers[idLayer].geometry;
-                fg = getFrameGeometry(idLayer);
-                angleRad = lg.rotate * Math.PI / 180;
-                lg.cx -= (deltaX * Math.cos(angleRad) - deltaY * Math.sin(angleRad)) / fg.scale;
-                lg.cy -= (deltaX * Math.sin(angleRad) + deltaY * Math.cos(angleRad)) / fg.scale;
-                lg.clip = false;
-            }
-        }
-        exports.update();
-    };
-
-    /*
-     * Zooms the display with the given factor.
-     *
-     * The zoom is centered around (x, y) with respect to the center of the display area.
-     */
-    exports.zoom = function (factor, x, y) {
-        var idLayer,
-            deltaX = (1 - factor) * (x - window.innerWidth / 2),
-            deltaY = (1 - factor) * (y - window.innerHeight / 2);
-            
-        for (idLayer in exports.layers) {
-            if (exports.layers.hasOwnProperty(idLayer)) {
-                exports.layers[idLayer].geometry.width /= factor;
-                exports.layers[idLayer].geometry.height /= factor;
-            }
-        }
-        
-        exports.drag(deltaX, deltaY);
-    };
-
-    /*
-     * Rotate the display with the given angle.
-     *
-     * The rotation is centered around the center of the display area.
-     */
-    exports.rotate = function (angle) {
-        var idLayer;
-        for (idLayer in exports.layers) {
-            if (exports.layers.hasOwnProperty(idLayer)) {
-                exports.layers[idLayer].geometry.rotate += angle;
-                exports.layers[idLayer].geometry.rotate %= 360;
-            }
-        }
-        exports.update();
-    };
     
     sozi.events.listen(&quot;documentready&quot;, onDocumentReady);
     window.addEventListener(&quot;resize&quot;, resize, false);
@@ -2170,7 +2477,7 @@ module(&quot;sozi.display&quot;, function (exports) {
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
@@ -2179,72 +2486,37 @@ module(&quot;sozi.display&quot;, function (exports) {
  * @depend display.js
  */
 
-/*global module:true sozi:true */
-
-module(&quot;sozi.player&quot;, function (exports) {
-    var display = sozi.display,
-        window = this,
-        animator,
-        nextFrameTimeout,
-        DEFAULT_DURATION_MS = 500,
-        DEFAULT_ZOOM_PERCENT = -10,
-        DEFAULT_PROFILE = &quot;linear&quot;,
-        sourceFrameIndex = 0,
-        currentFrameIndex = 0,
-        playing = false,
-        waiting = false;
-
-    /*
-     * Event handler: animation step.
-     *
-     * This method is called periodically by animator after the animation
-     * has been started, and until the animation time is elapsed.
-     *
-     * Parameter data provides the following information:
-     *    - initialState and finalState contain the geometrical properties of the display
-     *      at the start and end of the animation.
-     *    - profile is a reference to the speed profile function to use.
-     *    - zoomWidth and zoomHeight are the parameters of the zooming polynomial if the current
-     *      animation has a non-zero zooming effect.
-     *
-     * Parameter progress is a float number between 0 (start of the animation)
-     * and 1 (end of the animation).
-     */
-    function onAnimationStep(progress, data) {
-        var profileProgress, profileRemaining,
-            idLayer, lg, attr, ps;
-
-        for (idLayer in data) {
-            if (data.hasOwnProperty(idLayer)) {
-                lg = display.layers[idLayer].geometry;
-                
-                profileProgress = data[idLayer].profile(progress);
-                profileRemaining = 1 - profileProgress;
-                
-                for (attr in data[idLayer].initialState) {
-                    if (data[idLayer].initialState.hasOwnProperty(attr)) {
-                        if (typeof data[idLayer].initialState[attr] === &quot;number&quot; &amp;&amp; typeof data[idLayer].finalState[attr] === &quot;number&quot;) {
-                            lg[attr] = data[idLayer].finalState[attr] * profileProgress + data[idLayer].initialState[attr] * profileRemaining;
-                        }
-                    }
-                }
-
-                if (data[idLayer].zoomWidth &amp;&amp; data[idLayer].zoomWidth.k !== 0) {
-                    ps = progress - data[idLayer].zoomWidth.ts;
-                    lg.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
-                }
-
-                if (data[idLayer].zoomHeight &amp;&amp; data[idLayer].zoomHeight.k !== 0) {
-                    ps = progress - data[idLayer].zoomHeight.ts;
-                    lg.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
-                }
-
-                lg.clip = data[idLayer].finalState.clip;
-            }
-        }
-        
-        display.update();
-    }
+module(this, &quot;sozi.player&quot;, function (exports, window) {
+    &quot;use strict&quot;;
+    
+    // An alias to the Sozi display module
+    var display = sozi.display;
+    
+    // The animator object used to animate transitions
+    var animator;
+    
+    // The handle returned by setTimeout() for frame timeout
+    var nextFrameTimeout;
+    
+    // Constants: default animation properties
+    // for out-of-sequence transitions
+    var DEFAULT_DURATION_MS = 500;
+    var DEFAULT_ZOOM_PERCENT = -10;
+    var DEFAULT_PROFILE = &quot;linear&quot;;
+    
+    // The source frame index for the current transition
+    var sourceFrameIndex = 0;
+    
+    // The index of the visible frame
+    var currentFrameIndex = 0;
+    
+    // The state of the presentation.
+    // If false, no automatic transition will be fired.
+    var playing = false;
+    
+    // The state of the current frame.
+    // If true, an automatic transition will be fired after the current timeout.
+    var waiting = false;
 
     /*
      * Starts waiting before moving to the next frame.
@@ -2257,30 +2529,14 @@ module(&quot;sozi.player&quot;, function (exports) {
      * move to the first frame.
      */
     function waitTimeout() {
-        var index;
         if (sozi.document.frames[currentFrameIndex].timeoutEnable) {
             waiting = true;
-            index = (currentFrameIndex + 1) % sozi.document.frames.length;
+            var index = (currentFrameIndex + 1) % sozi.document.frames.length;
             nextFrameTimeout = window.setTimeout(function () {
                     exports.moveToFrame(index);
                 },
                 sozi.document.frames[currentFrameIndex].timeoutMs
             );
-        }
-    }
-
-    /*
-     * Event handler: animation done.
-     *
-     * This method is called by animator when the current animation is finished.
-     *
-     * If the animation was a transition in the normal course of the presentation,
-     * then we call the waitTimeout method to process the timeout property of the current frame.
-     */
-    function onAnimationDone() {
-        sourceFrameIndex = currentFrameIndex;
-        if (playing) {
-            waitTimeout();
         }
     }
 
@@ -2295,7 +2551,7 @@ module(&quot;sozi.player&quot;, function (exports) {
         waiting = false;
         sourceFrameIndex = index;
         currentFrameIndex = index;
-        display.showFrame(sozi.document.frames[index]);
+        display.viewPort.showFrame(sozi.document.frames[index]);
         waitTimeout();
     };
 
@@ -2323,22 +2579,21 @@ module(&quot;sozi.player&quot;, function (exports) {
 
     function getZoomData(zoomPercent, s0, s1) {
         var result = {
-                ss: ((zoomPercent &lt; 0) ? Math.max(s0, s1) : Math.min(s0, s1)) * (100 - zoomPercent) / 100,
-                ts: 0.5,
-                k: 0
-            },
-            a, b, c, d, u, v;
+            ss: ((zoomPercent &lt; 0) ? Math.max(s0, s1) : Math.min(s0, s1)) * (100 - zoomPercent) / 100,
+            ts: 0.5,
+            k: 0
+        };
 
         if (zoomPercent !== 0) {
-            a = s0 - s1;
-            b = s0 - result.ss;
-            c = s1 - result.ss;
+            var a = s0 - s1;
+            var b = s0 - result.ss;
+            var c = s1 - result.ss;
 
             if (a !== 0) {
-                d = Math.sqrt(b * c);
+                var d = Math.sqrt(b * c);
 
-                u = (b - d) / a;
-                v = (b + d) / a;
+                var u = (b - d) / a;
+                var v = (b + d) / a;
 
                 result.ts = (u &gt; 0 &amp;&amp; u &lt;= 1) ? u : v;
             }
@@ -2366,7 +2621,7 @@ module(&quot;sozi.player&quot;, function (exports) {
 
         sourceFrameIndex = index;
         currentFrameIndex = index;
-        display.showFrame(sozi.document.frames[index]);
+        display.viewPort.showFrame(sozi.document.frames[index]);
 
         sozi.events.fire(&quot;framechange&quot;, index);
     };
@@ -2376,54 +2631,44 @@ module(&quot;sozi.player&quot;, function (exports) {
      * and values are objects in the form { initialState: finalState: profile: zoomWidth: zoomHeight:}
      */
     function getAnimationData(initialState, finalState, zoomPercent, profile) {
-        var g, idLayer, zp,
-            data = {};
+        var data = {};
         
-        for (idLayer in initialState.layers) {
-            if (initialState.layers.hasOwnProperty(idLayer)) {
-                data[idLayer] = {
-                    initialState: {},
-                    finalState: {}
-                };
-                
-                data[idLayer].profile = profile || finalState.layers[idLayer].transitionProfile;
+        for (var idLayer in initialState) {
+            data[idLayer] = {
+                initialState: sozi.display.CameraState.instance(),
+                finalState: sozi.display.CameraState.instance()
+            };
+            
+            data[idLayer].profile = profile || finalState[idLayer].transitionProfile;
+            data[idLayer].initialState.setAtState(initialState[idLayer]);
 
-                // Copy all properties of given final state
-                for (g in initialState.layers[idLayer].geometry) {
-                    if (initialState.layers[idLayer].geometry.hasOwnProperty(g)) {
-                        data[idLayer].initialState[g] = initialState.layers[idLayer].geometry[g];
-                        // If the current layer is referenced in final state, copy the final properties
-                        // else, copy initial state to final state for the current layer. 
-                        if (finalState.layers.hasOwnProperty(idLayer)) {
-                            data[idLayer].finalState[g] = finalState.layers[idLayer].geometry[g];
-                        }
-                        else {
-                            data[idLayer].finalState[g] = initialState.layers[idLayer].geometry[g];
-                        }
-                    }
-                }
+            // If the current layer is referenced in final state, copy the final properties
+            // else, copy initial state to final state for the current layer.
+            if (finalState.hasOwnProperty(idLayer)) {
+                data[idLayer].finalState.setAtState(finalState[idLayer]);
+            }
+            else {
+                data[idLayer].finalState.setAtState(initialState[idLayer]);
+            }
 
-                // Keep the smallest angle difference between initial state and final state
-                data[idLayer].initialState.rotate = (data[idLayer].initialState.rotate - 180) % 360 + 180;
-                data[idLayer].finalState.rotate = (data[idLayer].finalState.rotate - 180) % 360 + 180;
-        
-                if (data[idLayer].finalState.rotate - data[idLayer].initialState.rotate &gt; 180) {
-                    data[idLayer].finalState.rotate -= 360;
-                }
-                else if (data[idLayer].finalState.rotate - data[idLayer].initialState.rotate &lt; -180) {
-                    data[idLayer].initialState.rotate -= 360;
-                }
+            // Keep the smallest angle difference between initial state and final state
+            // TODO this should be handled in the interpolation function
+            if (data[idLayer].finalState.angle - data[idLayer].initialState.angle &gt; 180) {
+                data[idLayer].finalState.setRawAngle(data[idLayer].finalState.angle - 360);
+            }
+            else if (data[idLayer].finalState.angle - data[idLayer].initialState.angle &lt; -180) {
+                data[idLayer].initialState.setRawAngle(data[idLayer].initialState.angle - 360);
+            }
 
-                zp = zoomPercent || finalState.layers[idLayer].transitionZoomPercent;
-                
-                if (zp &amp;&amp; finalState.layers.hasOwnProperty(idLayer)) {
-                    data[idLayer].zoomWidth = getZoomData(zp,
-                        initialState.layers[idLayer].geometry.width,
-                        finalState.layers[idLayer].geometry.width);
-                    data[idLayer].zoomHeight = getZoomData(zp,
-                        initialState.layers[idLayer].geometry.height,
-                        finalState.layers[idLayer].geometry.height);
-                }
+            var zp = zoomPercent || finalState[idLayer].transitionZoomPercent;
+            
+            if (zp &amp;&amp; finalState.hasOwnProperty(idLayer)) {
+                data[idLayer].zoomWidth = getZoomData(zp,
+                    initialState[idLayer].width,
+                    finalState[idLayer].width);
+                data[idLayer].zoomHeight = getZoomData(zp,
+                    initialState[idLayer].height,
+                    finalState[idLayer].height);
             }
         }
         
@@ -2432,8 +2677,8 @@ module(&quot;sozi.player&quot;, function (exports) {
     
     exports.previewFrame = function (index) {
         currentFrameIndex = index;
-        animator.start(DEFAULT_DURATION_MS, 
-            getAnimationData(display, sozi.document.frames[index],
+        animator.start(DEFAULT_DURATION_MS,
+            getAnimationData(display.viewPort.cameras, sozi.document.frames[index].states,
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]));
         sozi.events.fire(&quot;framechange&quot;, index);
     };
@@ -2451,13 +2696,12 @@ module(&quot;sozi.player&quot;, function (exports) {
      * The URL hash is set to the given frame index (1-based).
      */
     exports.moveToFrame = function (index) {
-        var durationMs, zoomPercent, profile;
-
         if (waiting) {
             window.clearTimeout(nextFrameTimeout);
             waiting = false;
         }
 
+        var durationMs, zoomPercent, profile;
         if (index === (currentFrameIndex + 1) % sozi.document.frames.length) {
             durationMs = sozi.document.frames[index].transitionDurationMs;
             zoomPercent = undefined; // Set for each layer
@@ -2474,7 +2718,7 @@ module(&quot;sozi.player&quot;, function (exports) {
         playing = true;
         currentFrameIndex = index;
 
-        animator.start(durationMs, getAnimationData(display, sozi.document.frames[index], zoomPercent, profile));
+        animator.start(durationMs, getAnimationData(display.viewPort.cameras, sozi.document.frames[index].states, zoomPercent, profile));
 
         sozi.events.fire(&quot;framechange&quot;, index);
     };
@@ -2503,11 +2747,8 @@ module(&quot;sozi.player&quot;, function (exports) {
      * Moves to the previous frame.
      */
     exports.moveToPrevious = function () {
-        var index = currentFrameIndex,
-            frame;
-
-        for (index -= 1; index &gt;= 0; index -= 1) {
-            frame = sozi.document.frames[index];
+        for (var index = currentFrameIndex - 1; index &gt;= 0; index -= 1) {
+            var frame = sozi.document.frames[index];
             if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
                 exports.moveToFrame(index);
                 break;
@@ -2560,8 +2801,8 @@ module(&quot;sozi.player&quot;, function (exports) {
     exports.showAll = function () {
         exports.stop();
         sozi.events.fire(&quot;cleanup&quot;);
-        animator.start(DEFAULT_DURATION_MS, 
-            getAnimationData(display, display.getDocumentGeometry(),
+        animator.start(DEFAULT_DURATION_MS,
+            getAnimationData(display.viewPort.cameras, display.viewPort.getDocumentState(),
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]
             )
         );
@@ -2572,9 +2813,73 @@ module(&quot;sozi.player&quot;, function (exports) {
      */
     function onDisplayReady() {
         exports.startFromIndex(sozi.location.getFrameIndex());
-    }    
 
-    animator = new sozi.animation.Animator(onAnimationStep, onAnimationDone);
+        // Hack to fix the blank screen bug in Chrome/Chromium
+        // See https://github.com/senshu/Sozi/issues/109
+        window.setTimeout(display.viewPort.bind(display.viewPort.update), 1);
+    }
+
+    animator = sozi.animation.Animator.instance().augment({
+        /*
+         * Event handler: animation step.
+         *
+         * This method is called periodically by animator after the animation
+         * has been started, and until the animation time is elapsed.
+         *
+         * Parameter data provides the following information:
+         *    - initialState and finalState contain the geometrical properties of the display
+         *      at the start and end of the animation.
+         *    - profile is a reference to the speed profile function to use.
+         *    - zoomWidth and zoomHeight are the parameters of the zooming polynomial if the current
+         *      animation has a non-zero zooming effect.
+         *
+         * Parameter progress is a float number between 0 (start of the animation)
+         * and 1 (end of the animation).
+         *
+         * TODO move the zoom code to display.js
+         */
+        onStep: function (progress) {
+            for (var idLayer in this.data) {
+                var camera = display.viewPort.cameras[idLayer];
+                
+                camera.interpolate(
+                    this.data[idLayer].initialState,
+                    this.data[idLayer].finalState,
+                    this.data[idLayer].profile(progress)
+                );
+
+                var ps;
+                if (this.data[idLayer].zoomWidth &amp;&amp; this.data[idLayer].zoomWidth.k !== 0) {
+                    ps = progress - this.data[idLayer].zoomWidth.ts;
+                    camera.width = this.data[idLayer].zoomWidth.k * ps * ps + this.data[idLayer].zoomWidth.ss;
+                }
+
+                if (this.data[idLayer].zoomHeight &amp;&amp; this.data[idLayer].zoomHeight.k !== 0) {
+                    ps = progress - this.data[idLayer].zoomHeight.ts;
+                    camera.height = this.data[idLayer].zoomHeight.k * ps * ps + this.data[idLayer].zoomHeight.ss;
+                }
+
+                camera.setClipped(this.data[idLayer].finalState.clipped);
+            }
+            
+            display.viewPort.update();
+        },
+        
+        /*
+         * Event handler: animation done.
+         *
+         * This method is called by animator when the current animation is finished.
+         *
+         * If the animation was a transition in the normal course of the presentation,
+         * then we call the waitTimeout method to process the timeout property of the current frame.
+         */
+        onDone: function () {
+            sourceFrameIndex = currentFrameIndex;
+            if (playing) {
+                waitTimeout();
+            }
+        }
+    });
 
     sozi.events.listen(&quot;displayready&quot;, onDisplayReady);
 });
@@ -2588,7 +2893,7 @@ module(&quot;sozi.player&quot;, function (exports) {
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
@@ -2596,53 +2901,92 @@ module(&quot;sozi.player&quot;, function (exports) {
  * @depend display.js
  */
 
-/*global module:true sozi:true */
-
-module(&quot;sozi.actions&quot;, function (exports) {
-    var player = sozi.player,
-        display = sozi.display,
-        window = this,
-        document = window.document,
-        DRAG_BUTTON = 0, // Left button
-        TOC_BUTTON = 1, // Middle button
-        SCALE_FACTOR = 1.05,
-        ROTATE_STEP = 5,
-        dragButtonIsDown = false,
-        dragged = false,
-        dragClientX = 0,
-        dragClientY = 0;
+/**
+ * @name sozi.actions
+ * @namespace Callback functions for DOM event handlers
+ */
+module(this, &quot;sozi.actions&quot;, function (exports, window) {
+    /** @lends sozi.actions */
     
-    /*
+    &quot;use strict&quot;;
+    
+    // Module aliases
+    var player = sozi.player;
+    var display = sozi.display;
+    
+    // The global document object
+    var document = window.document;
+    
+    // Constants: mouse button numbers
+    var DRAG_BUTTON = 0;    // Left button
+    var TOC_BUTTON = 1;     // Middle button
+    
+    // Constants: increments for zooming and rotating
+    var SCALE_FACTOR = 1.05;
+    var ROTATE_STEP = 5;
+    
+    /**
+     * The status of the current drag operation.
+     *
+     * @type Boolean
+     */
+    var mouseDragged = false;
+    
+    /**
+     * The X coordinate of the mouse on the latest &quot;down&quot; or &quot;drag&quot; event.
+     *
+     * @type Number
+     */
+    var mouseLastX = 0;
+
+    /**
+     * The Y coordinate of the mouse on the latest &quot;down&quot; or &quot;drag&quot; event.
+     *
+     * @type Number
+     */
+    var mouseLastY = 0;
+    
+    /**
      * Zooms the display in the given direction.
      *
-     * Only the sign of direction is used:
-     *    - zoom in when direction &gt; 0
-     *    - zoom out when direction &lt;= 0
+     * &lt;p&gt;Only the sign of &lt;code&gt;direction&lt;/code&gt; is used:&lt;/p&gt;
+     * &lt;ul&gt;
+     *  &lt;li&gt;zoom in when &lt;code&gt;direction &gt; 0&lt;/code&gt;&lt;/li&gt;
+     *  &lt;li&gt;zoom out when &lt;code&gt;direction &lt;= 0&lt;/code&gt;&lt;/li&gt;
+     * &lt;/ul&gt;
      *
-     * The scaling is centered around point (x, y).
+     * &lt;p&gt;The scaling is centered around point (&lt;code&gt;x&lt;/code&gt;, &lt;code&gt;y&lt;/code&gt;).&lt;/p&gt;
+     *
+     * @param {Number} direction The direction of the scaling operation
+     * @param {Number} x The X coordinate of the scaling center
+     * @param {Number} y The Y coordinate of the scaling center
      */
     function zoom(direction, x, y) {
         player.stop();
-        display.zoom(direction &gt; 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
+        display.viewPort.zoom(direction &gt; 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
     }
     
-    /*
+    /**
      * Rotate the display in the given direction.
      *
-     * Only the sign of direction is used:
-     *    - rotate anticlockwise when direction &gt; 0
-     *    - rotate clockwise when direction &lt;= 0
+     * &lt;p&gt;Only the sign of &lt;code&gt;direction&lt;/code&gt; is used:&lt;/p&gt;
+     * &lt;ul&gt;
+     *  &lt;li&gt;rotate anticlockwise when direction &gt; 0&lt;/li&gt;
+     *  &lt;li&gt;rotate clockwise when direction &lt;= 0&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * @param {Number} direction The direction of the rotation
      */
     function rotate(direction) {
         player.stop();
-        display.rotate(direction &gt; 0 ? ROTATE_STEP : -ROTATE_STEP);
+        display.viewPort.rotate(direction &gt; 0 ? ROTATE_STEP : -ROTATE_STEP);
     }
     
-    /*
+    /**
      * Show/hide the frame list.
      *
-     * The presentation stops when the frame list is showed,
-     * and restarts when the frame list is hidden.
+     * &lt;p&gt;The presentation stops when the frame list is showed,
+     * and restarts when the frame list is hidden.&lt;/p&gt;
      */
     function toggleFrameList() {
         if (sozi.framelist.isVisible()) {
@@ -2654,65 +2998,73 @@ module(&quot;sozi.actions&quot;, function (exports) {
         }
     }
 
-    /*
+    /**
      * Event handler: mouse down.
      *
-     * When the left button is pressed, we register the current coordinates
-     * in case the mouse will be dragged. Flag &quot;dragButtonIsDown&quot; is set until
-     * the button is released (onMouseUp). This flag is used by onMouseMove.
+     * &lt;p&gt;When the left button is pressed, we register the current coordinates
+     * in case the mouse will be dragged. Handler {@link sozi.actions-onMouseDrag} is set until
+     * the button is released ({@link sozi.actions-onMouseUp}).&lt;/p&gt;
      *
-     * When the middle button is pressed, the table of contents is shown or hidden.
+     * &lt;p&gt;When the middle button is pressed, the table of contents is shown or hidden.&lt;/p&gt;
+     *
+     * @param {Event} evt The DOM event object
      */
     function onMouseDown(evt) {
         if (evt.button === DRAG_BUTTON) {
-            dragButtonIsDown = true;
-            dragged = false;
-            dragClientX = evt.clientX;
-            dragClientY = evt.clientY;
+            document.documentElement.addEventListener(&quot;mousemove&quot;, onMouseDrag, false);
+            mouseDragged = false;
+            mouseLastX = evt.clientX;
+            mouseLastY = evt.clientY;
         } else if (evt.button === TOC_BUTTON) {
             toggleFrameList();
         }
         evt.stopPropagation();
+        evt.preventDefault();
     }
 
-    /*
+    /**
      * Event handler: mouse move.
      *
-     * If the left mouse button is down, then the mouse move is a drag action.
+     * &lt;p&gt;If the left mouse button is down, then the mouse move is a drag action.
      * This method computes the displacement since the button was pressed or
-     * since the last move, and updates the reference coordinates for the next move.
+     * since the last move, and updates the reference coordinates for the next move.&lt;/p&gt;
+     *
+     * @param {Event} evt The DOM event object
      */
-    function onMouseMove(evt) {
-        if (dragButtonIsDown) {
-            player.stop();
-            dragged = true;
-            sozi.events.fire(&quot;cleanup&quot;);
-            display.drag(evt.clientX - dragClientX, evt.clientY - dragClientY);
-            dragClientX = evt.clientX;
-            dragClientY = evt.clientY;
-        }
+    function onMouseDrag(evt) {
+        player.stop();
+        mouseDragged = true;
+        sozi.events.fire(&quot;cleanup&quot;);
+        display.viewPort.drag(evt.clientX - mouseLastX, evt.clientY - mouseLastY);
+        mouseLastX = evt.clientX;
+        mouseLastY = evt.clientY;
         evt.stopPropagation();
     }
 
-    /*
+    /**
      * Event handler: mouse up.
      *
-     * Releasing the left button resets the &quot;dragButtonIsDown&quot; flag.
+     * &lt;p&gt;Releasing the left button removes the {@link sozi.actions-onMouseDrag} handler.&lt;/p&gt;
+     *
+     * @param {Event} evt The DOM event object
      */
     function onMouseUp(evt) {
         if (evt.button === DRAG_BUTTON) {
-            dragButtonIsDown = false;
+            document.documentElement.removeEventListener(&quot;mousemove&quot;, onMouseDrag, false);
         }
         evt.stopPropagation();
+        evt.preventDefault();
     }
 
-    /*
-     * Event handler: context menu (i.e. right click).
+    /**
+     * Event handler: context menu (i.e right click).
      *
-     * Right click goes one frame back.
+     * &lt;p&gt;Right click goes one frame back.&lt;/p&gt;
      *
-     * There is no &quot;click&quot; for the right mouse button and the menu can't
-     * be prevented in &quot;onMouseDown&quot;.
+     * &lt;p&gt;There is no &quot;click&quot; event for the right mouse button and the menu
+     * can't be disabled in {@link sozi.actions-onMouseDown}.&lt;/p&gt;
+     *
+     * @param {Event} evt The DOM event object
      */
     function onContextMenu(evt) {
         player.moveToPrevious();
@@ -2720,62 +3072,73 @@ module(&quot;sozi.actions&quot;, function (exports) {
         evt.preventDefault();
     }
 
-    /*
+    /**
      * Event handler: mouse click.
      *
-     * Left-click moves the presentation to the next frame.
+     * &lt;p&gt;Left-click moves the presentation to the next frame.&lt;/p&gt;
      *
-     * No &quot;click&quot; event is generated for the middle button in Firefox.
-     * See &quot;onMouseDown&quot; for middle click handling.
+     * &lt;p&gt;No &quot;click&quot; event is generated for the middle button in Firefox.
+     * See {@link sozi.actions-onMouseDown} for middle click handling.&lt;/p&gt;
      *
-     * Dragging the mouse produces a &quot;click&quot; event when the button is released.
-     * If flag &quot;dragged&quot; was set by &quot;onMouseMove&quot;, then the click event is the result
-     * of a drag action.
+     * &lt;p&gt;Dragging the mouse produces a &quot;click&quot; event when the button is released.
+     * If flag {@link sozi.actions-mouseDragged} was set by {@link sozi.actions-onMouseDrag},
+     * then the click event is the result of a drag action.&lt;/p&gt;
+     *
+     * @param {Event} evt The DOM event object
      */
     function onClick(evt) {
-        if (!dragged &amp;&amp; evt.button !== TOC_BUTTON) {
+        if (!mouseDragged &amp;&amp; evt.button !== TOC_BUTTON) {
             player.moveToNext();
-        }
-        evt.stopPropagation();
-    }
-
-    /*
-     * Event handler: mouse wheel.
-     *
-     * Rolling the mouse wheel stops the presentation and zooms the current display.
-     */
-    function onWheel(evt) {
-        var delta = 0;
-        if (!evt) {
-            evt = window.event;
-        }
-        if (evt.wheelDelta) { // IE and Opera
-            delta = evt.wheelDelta; 
-            if (window.opera) { // Opera
-                delta = -delta;
-            }
-        } else if (evt.detail) { // Mozilla
-            delta = -evt.detail;
-        }
-
-        if (delta !== 0) {
-            if (evt.shiftKey) {
-                rotate(delta);
-            } else {
-                zoom(delta, evt.clientX, evt.clientY);
-            }
         }
         evt.stopPropagation();
         evt.preventDefault();
     }
 
-    /*
+    /**
+     * Event handler: mouse wheel.
+     *
+     * &lt;p&gt;Rolling the mouse wheel stops the presentation and zooms the current display.&lt;/p&gt;
+     *
+     * FIXME shift key does not work in Opera
+     *
+     * @param {Event} evt The DOM event object
+     */
+    function onWheel(evt) {
+        if (!evt) {
+            evt = window.event;
+        }
+
+        var delta = 0;
+        if (evt.wheelDelta) { // IE and Opera
+            delta = evt.wheelDelta;
+        }
+        else if (evt.detail) { // Mozilla
+            delta = -evt.detail;
+        }
+        
+        if (delta !== 0) {
+            if (evt.shiftKey) {
+                rotate(delta);
+            }
+            else {
+                zoom(delta, evt.clientX, evt.clientY);
+            }
+        }
+        
+        evt.stopPropagation();
+        evt.preventDefault();
+    }
+
+    /**
      * Event handler: key press.
      *
-     * Keyboard handling is split into two methods: onKeyPress and onKeyDown
-     * in order to get the same behavior in Mozilla and Webkit.
+     * &lt;p&gt;Keyboard handling is split into two methods:
+     * {@link sozi.actions-onKeyPress} and {@link sozi.actions-onKeyDown}
+     * in order to get the same behavior across browsers.&lt;/p&gt;
      *
-     * This method handles character keys &quot;+&quot;, &quot;-&quot;, &quot;=&quot;, &quot;F&quot; and &quot;T&quot;.
+     * &lt;p&gt;This method handles character keys &quot;+&quot;, &quot;-&quot;, &quot;=&quot;, &quot;F&quot; and &quot;T&quot;.&lt;/p&gt;
+     *
+     * @param {Event} evt The DOM event object
      */
     function onKeyPress(evt) {
         // Keys with modifiers are ignored
@@ -2783,7 +3146,7 @@ module(&quot;sozi.actions&quot;, function (exports) {
             return;
         }
 
-        switch (evt.charCode) {
+        switch (evt.charCode || evt.keyCode) {
         case 43: // +
             zoom(1, window.innerWidth / 2, window.innerHeight / 2);
             break;
@@ -2810,16 +3173,20 @@ module(&quot;sozi.actions&quot;, function (exports) {
         }
 
         evt.stopPropagation();
+        evt.preventDefault();
     }
 
-    /*
+    /**
      * Event handler: key down.
      *
-     * Keyboard handling is split into two methods: onKeyPress and onKeyDown
-     * in order to get the same behavior in Mozilla and Webkit.
+     * &lt;p&gt;Keyboard handling is split into two methods:
+     * {@link sozi.actions-onKeyPress} and {@link sozi.actions-onKeyDown}
+     * in order to get the same behavior across browsers.&lt;/p&gt;
      *
-     * This method handles navigation keys (arrows, page up/down, home, end)
-     * and the space and enter keys.
+     * &lt;p&gt;This method handles navigation keys (arrows, page up/down, home, end)
+     * and the space and enter keys.&lt;/p&gt;
+     *
+     * @param {Event} evt The DOM event object
      */
     function onKeyDown(evt) {
         // Keys with modifiers are ignored
@@ -2851,17 +3218,39 @@ module(&quot;sozi.actions&quot;, function (exports) {
             player.moveToNext();
             break;
         }
+        
+        evt.stopPropagation();
+        
+        // In Chrome/Chromium, preventDefault() inhibits the &quot;keypress&quot; event
+    }
+
+    /**
+     * Dummy event handler: stop event propagation.
+     *
+     * @param {Event} evt The DOM event object
+     */
+    function stopEvent(evt) {
         evt.stopPropagation();
     }
 
+    /**
+     * Event handler: document load.
+     *
+     * &lt;p&gt;This function sets up all other event handlers for this module.&lt;/p&gt;
+     */
     function onLoad() {
-        var svgRoot = document.documentElement;
-
+        // Prevent event propagation when clicking on a link
+        var links = document.getElementsByTagName(&quot;a&quot;);
+        for (var i = 0; i &lt; links.length; i += 1) {
+            links[i].addEventListener(&quot;click&quot;, stopEvent, false);
+            links[i].addEventListener(&quot;contextmenu&quot;, stopEvent, false);
+        }
+        
         // TODO also use shift-click as an alternative for middle-click
+        var svgRoot = document.documentElement;
         svgRoot.addEventListener(&quot;click&quot;, onClick, false);
         svgRoot.addEventListener(&quot;mousedown&quot;, onMouseDown, false);
         svgRoot.addEventListener(&quot;mouseup&quot;, onMouseUp, false);
-        svgRoot.addEventListener(&quot;mousemove&quot;, onMouseMove, false);
         svgRoot.addEventListener(&quot;keypress&quot;, onKeyPress, false);
         svgRoot.addEventListener(&quot;keydown&quot;, onKeyDown, false);
         svgRoot.addEventListener(&quot;contextmenu&quot;, onContextMenu, false);
@@ -2881,32 +3270,42 @@ module(&quot;sozi.actions&quot;, function (exports) {
 * or the GNU General Public License (GPL) version 3.
 * A copy of both licenses is provided in the doc/ folder of the
 * official release of Sozi.
-* 
+*
 * See http://sozi.baierouge.fr/wiki/en:license for details.
 *
 * @depend module.js
 * @depend events.js
 */
 
-/*global module:true sozi:true */
+module(this, &quot;sozi.document&quot;, function (exports, window) {
+    &quot;use strict&quot;;
+    
+    // An alias to the global document object
+    var document = window.document;
+    
+    // Constant: the Sozi namespace
+    var SOZI_NS = &quot;http://sozi.baierouge.fr&quot;;
+    
+    // Constant: the default frame properties, if missing in the SVG document
+    var DEFAULTS = {
+        &quot;title&quot;: &quot;Untitled&quot;,
+        &quot;sequence&quot;: &quot;0&quot;,
+        &quot;hide&quot;: &quot;true&quot;,
+        &quot;clip&quot;: &quot;true&quot;,
+        &quot;timeout-enable&quot;: &quot;false&quot;,
+        &quot;timeout-ms&quot;: &quot;5000&quot;,
+        &quot;transition-duration-ms&quot;: &quot;1000&quot;,
+        &quot;transition-zoom-percent&quot;: &quot;0&quot;,
+        &quot;transition-profile&quot;: &quot;linear&quot;
+    };
 
-module(&quot;sozi.document&quot;, function (exports) {
-    var window = this,
-        document = window.document,
-        SOZI_NS = &quot;http://sozi.baierouge.fr&quot;,
-        DEFAULTS = {
-            &quot;title&quot;: &quot;Untitled&quot;,
-            &quot;sequence&quot;: &quot;0&quot;,
-            &quot;hide&quot;: &quot;true&quot;,
-            &quot;clip&quot;: &quot;true&quot;,
-            &quot;timeout-enable&quot;: &quot;false&quot;,
-            &quot;timeout-ms&quot;: &quot;5000&quot;,
-            &quot;transition-duration-ms&quot;: &quot;1000&quot;,
-            &quot;transition-zoom-percent&quot;: &quot;0&quot;,
-            &quot;transition-profile&quot;: &quot;linear&quot;
-        };
+    var DRAWABLE_TAGS = [ &quot;g&quot;, &quot;image&quot;, &quot;path&quot;, &quot;rect&quot;, &quot;circle&quot;,
+        &quot;ellipse&quot;, &quot;line&quot;, &quot;polyline&quot;, &quot;polygon&quot;, &quot;text&quot;, &quot;clippath&quot; ];
 
+    // The definitions of all valid frames in the current document
     exports.frames = [];
+    
+    // The list of layer ids managed by Sozi
     exports.idLayerList = [];
     
     /*
@@ -2920,43 +3319,36 @@ module(&quot;sozi.document&quot;, function (exports) {
         return value === &quot;&quot; ? DEFAULTS[attr] : value;
     }
 
-    function readLayerProperties(frame, idLayer, soziElement) {
-        var layer = frame.layers[idLayer] = frame.layers[idLayer] || {
-                idLayer: idLayer, // FIXME never used
-                geometry: {
-                    clip: DEFAULTS.clip
-                }
-            },
-            clip = layer.geometry.clip,
-            svgElement;
+    function readStateForLayer(frame, idLayer, soziElement) {
+        var state = frame.states[idLayer] =
+            frame.states[idLayer] || sozi.display.CameraState.instance();
         
-        if (typeof layer.hide === &quot;undefined&quot; || soziElement.hasAttributeNS(SOZI_NS, &quot;hide&quot;)) {
-            layer.hide = readAttribute(soziElement, &quot;hide&quot;) === &quot;true&quot;;
+        if (typeof state.hide === &quot;undefined&quot; || soziElement.hasAttributeNS(SOZI_NS, &quot;hide&quot;)) {
+            state.hide = readAttribute(soziElement, &quot;hide&quot;) === &quot;true&quot;;
         }
 
-        if (typeof layer.transitionZoomPercent === &quot;undefined&quot; || soziElement.hasAttributeNS(SOZI_NS, &quot;transition-zoom-percent&quot;)) {
-            layer.transitionZoomPercent = parseInt(readAttribute(soziElement, &quot;transition-zoom-percent&quot;), 10);
+        if (typeof state.transitionZoomPercent === &quot;undefined&quot; || soziElement.hasAttributeNS(SOZI_NS, &quot;transition-zoom-percent&quot;)) {
+            state.transitionZoomPercent = parseInt(readAttribute(soziElement, &quot;transition-zoom-percent&quot;), 10);
         }
 
-        if (typeof layer.transitionProfile === &quot;undefined&quot; || soziElement.hasAttributeNS(SOZI_NS, &quot;transition-profile&quot;)) {
-            layer.transitionProfile = sozi.animation.profiles[readAttribute(soziElement, &quot;transition-profile&quot;) || &quot;linear&quot;];
+        if (typeof state.transitionProfile === &quot;undefined&quot; || soziElement.hasAttributeNS(SOZI_NS, &quot;transition-profile&quot;)) {
+            state.transitionProfile = sozi.animation.profiles[readAttribute(soziElement, &quot;transition-profile&quot;) || &quot;linear&quot;];
         }
         
         if (soziElement.hasAttributeNS(SOZI_NS, &quot;refid&quot;)) {
             // The previous value of the &quot;clip&quot; attribute will be preserved
             // when setting the new geometry object.
-            svgElement = document.getElementById(soziElement.getAttributeNS(SOZI_NS, &quot;refid&quot;));
+            var svgElement = document.getElementById(soziElement.getAttributeNS(SOZI_NS, &quot;refid&quot;));
             if (svgElement) {
-                if (layer.hide) {
+                if (state.hide) {
                     svgElement.style.visibility = &quot;hidden&quot;;
                 }
-                layer.geometry = sozi.display.getElementGeometry(svgElement);
-                layer.geometry.clip = clip;
+                state.setAtElement(svgElement);
             }
         }
             
         if (soziElement.hasAttributeNS(SOZI_NS, &quot;clip&quot;)) {
-            layer.geometry.clip = readAttribute(soziElement, &quot;clip&quot;) === &quot;true&quot;;
+            state.setClipped(readAttribute(soziElement, &quot;clip&quot;) === &quot;true&quot;);
         }
     }
     
@@ -2970,13 +3362,8 @@ module(&quot;sozi.document&quot;, function (exports) {
     * The resulting list is available in frames, sorted by frame indices.
     */
     function readFrames() {
-        var soziFrameList, soziLayerList,
-            svgWrapper, svgElementList,
-            svgRoot = document.documentElement,
-            SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
-
         // Collect all group ids of &lt;layer&gt; elements
-        soziLayerList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, &quot;layer&quot;));
+        var soziLayerList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, &quot;layer&quot;));
         soziLayerList.forEach(function (soziLayer) {
             var idLayer = soziLayer.getAttributeNS(SOZI_NS, &quot;group&quot;);
             if (idLayer &amp;&amp; exports.idLayerList.indexOf(idLayer) === -1 &amp;&amp; document.getElementById(idLayer)) {
@@ -2984,89 +3371,110 @@ module(&quot;sozi.document&quot;, function (exports) {
             }
         });
 
-        // If at least one &lt;frame&gt; element has a refid attribute,
-        // reorganize the document, grouping objects that do not belong
+        // Reorganize the document, grouping objects that do not belong
         // to a group referenced in &lt;layer&gt; elements
-        soziFrameList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, &quot;frame&quot;));
-        if (soziFrameList.some(function (soziFrame) {
-                return soziFrame.hasAttributeNS(SOZI_NS, &quot;refid&quot;);
-            }))
-        {
-            // Create the first wrapper group
-            svgWrapper = document.createElementNS(SVG_NS, &quot;g&quot;);
+        var svgRoot = document.documentElement;
+        var SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
 
-            // For each child of the root SVG element
-            svgElementList = Array.prototype.slice.call(svgRoot.childNodes);
-            svgElementList.forEach(function (svgElement, index) {
-                if (!svgElement.getAttribute) {
-                    // Remove text elements
-                    svgRoot.removeChild(svgElement);
-                }
-                else if (exports.idLayerList.indexOf(svgElement.getAttribute(&quot;id&quot;)) === -1) {
-                    // If the current element is not a referenced layer,
-                    // move it to the current wrapper element
-                    // FIXME move graphic elements only
-                    svgRoot.removeChild(svgElement);
-                    svgWrapper.appendChild(svgElement);
-                }
-                else if (svgWrapper.firstChild) {
-                    // If the current element is a referenced layer,
-                    // and if there were other non-referenced elements before it,
-                    // insert the wrapper group before the current element
+        // All drawable elements will be moved to a &lt;defs&gt; element
+        var svgDefs = document.createElementNS(SVG_NS, &quot;defs&quot;);
+
+        // Create the first wrapper group
+        var svgWrapper = document.createElementNS(SVG_NS, &quot;g&quot;);
+
+        // For each child of the root SVG element
+        var svgElementList = Array.prototype.slice.call(svgRoot.childNodes);
+        svgElementList.forEach(function (svgElement, index) {
+            if (!svgElement.getAttribute) {
+                // Remove text elements
+                svgRoot.removeChild(svgElement);
+            }
+            else if (exports.idLayerList.indexOf(svgElement.getAttribute(&quot;id&quot;)) !== -1) {
+                // If the current element is a referenced layer ...
+                if (svgWrapper.firstChild) {
+                    // ... and if there were other non-referenced elements before it,
+                    // append the wrapper group to the &lt;defs&gt; element
                     svgWrapper.setAttribute(&quot;id&quot;, &quot;sozi-wrapper-&quot; + index);
                     exports.idLayerList.push(&quot;sozi-wrapper-&quot; + index);
-                    svgRoot.insertBefore(svgWrapper, svgElement);
+                    svgDefs.appendChild(svgWrapper);
                     
-                    // Prepare a new wrapper element                
+                    // Prepare a new wrapper element
                     svgWrapper = document.createElementNS(SVG_NS, &quot;g&quot;);
                 }
-            });
+                
+                // ... append the current element to the &lt;defs&gt; element
+                svgDefs.appendChild(svgElement);
+            }
+            else if (DRAWABLE_TAGS.indexOf(svgElement.localName) !== -1) {
+                // If the current element is not a referenced layer
+                // and is drawable, move it to the current wrapper element
+                svgRoot.removeChild(svgElement);
+                svgWrapper.appendChild(svgElement);
+            }
+        });
 
-            // Append last wrapper if needed
-            if (svgWrapper.firstChild) {
-                svgWrapper.setAttribute(&quot;id&quot;, &quot;sozi-wrapper-&quot; + svgElementList.length);
-                exports.idLayerList.push(&quot;sozi-wrapper-&quot; + svgElementList.length);
-                svgRoot.appendChild(svgWrapper);
-            }            
+        // Append last wrapper if needed
+        if (svgWrapper.firstChild) {
+            svgWrapper.setAttribute(&quot;id&quot;, &quot;sozi-wrapper-&quot; + svgElementList.length);
+            exports.idLayerList.push(&quot;sozi-wrapper-&quot; + svgElementList.length);
+            svgDefs.appendChild(svgWrapper);
         }
 
+        // Finally, append the &lt;defs&gt; element
+        svgRoot.appendChild(svgDefs);
+        
         // Analyze &lt;frame&gt; elements
-        soziFrameList.forEach(function (soziFrame) {
-            var idLayer,
-                newFrame = {
-                    id: soziFrame.getAttribute(&quot;id&quot;),
-                    title: readAttribute(soziFrame, &quot;title&quot;),
-                    sequence: parseInt(readAttribute(soziFrame, &quot;sequence&quot;), 10),
-                    timeoutEnable: readAttribute(soziFrame, &quot;timeout-enable&quot;) === &quot;true&quot;,
-                    timeoutMs: parseInt(readAttribute(soziFrame, &quot;timeout-ms&quot;), 10),
-                    transitionDurationMs: parseInt(readAttribute(soziFrame, &quot;transition-duration-ms&quot;), 10),
-                    layers: {}
-                };
+        var soziFrameList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, &quot;frame&quot;));
+        soziFrameList.forEach(function (soziFrame, indexFrame) {
+            var newFrame = {
+                id: soziFrame.getAttribute(&quot;id&quot;),
+                title: readAttribute(soziFrame, &quot;title&quot;),
+                sequence: parseInt(readAttribute(soziFrame, &quot;sequence&quot;), 10),
+                timeoutEnable: readAttribute(soziFrame, &quot;timeout-enable&quot;) === &quot;true&quot;,
+                timeoutMs: parseInt(readAttribute(soziFrame, &quot;timeout-ms&quot;), 10),
+                transitionDurationMs: parseInt(readAttribute(soziFrame, &quot;transition-duration-ms&quot;), 10),
+                states: {}
+            };
 
-            // The &lt;frame&gt; element defines default properties for all layers
+            // Get the default properties for all layers, either from
+            // the current &lt;frame&gt; element or from the corresponding
+            // layer in the previous frame.
+            // Those properties can later be overriden by &lt;layer&gt; elements
             exports.idLayerList.forEach(function (idLayer) {
-                readLayerProperties(newFrame, idLayer, soziFrame);
+                if (indexFrame === 0 || idLayer.search(&quot;sozi-wrapper-[0-9]+&quot;) !== -1) {
+                    // In the first frame, or in wrapper layers,
+                    // read layer attributes from the &lt;frame&gt; element
+                    readStateForLayer(newFrame, idLayer, soziFrame);
+                }
+                else {
+                    // After the first frame, in referenced layers,
+                    // copy attributes from the corresponding layer in the previous frame
+                    var currentState = newFrame.states[idLayer] = sozi.display.CameraState.instance();
+                    var previousState = exports.frames[exports.frames.length - 1].states[idLayer];
+                    currentState.setAtState(previousState);
+                }
             });
 
             // Collect and analyze &lt;layer&gt; elements in the current &lt;frame&gt; element
-            soziLayerList = Array.prototype.slice.call(soziFrame.getElementsByTagNameNS(SOZI_NS, &quot;layer&quot;));
+            var soziLayerList = Array.prototype.slice.call(soziFrame.getElementsByTagNameNS(SOZI_NS, &quot;layer&quot;));
             soziLayerList.forEach(function (soziLayer) {
                 var idLayer = soziLayer.getAttributeNS(SOZI_NS, &quot;group&quot;);
                 if (idLayer &amp;&amp; exports.idLayerList.indexOf(idLayer) !== -1) {
-                    readLayerProperties(newFrame, idLayer, soziLayer);
+                    readStateForLayer(newFrame, idLayer, soziLayer);
                 }
             });
             
             // If the &lt;frame&gt; element has at least one valid layer,
             // add it to the frame list
-            for (idLayer in newFrame.layers) {
-                if (newFrame.layers.hasOwnProperty(idLayer)) {
+            for (var idLayer in newFrame.states) {
+                if (newFrame.states.hasOwnProperty(idLayer)) {
                     exports.frames.push(newFrame);
                     break;
                 }
             }
         });
         
+        // Sort frames by sequence index
         exports.frames.sort(
             function (a, b) {
                 return a.sequence - b.sequence;
@@ -3077,7 +3485,8 @@ module(&quot;sozi.document&quot;, function (exports) {
     /*
     * Event handler: document load.
     *
-    * This function reads the frames from the document.
+    * This function reads the frames from the document and fires
+    * the &quot;documentready&quot; event.
     */
     function onLoad() {
         document.documentElement.removeAttribute(&quot;viewBox&quot;);
@@ -3097,18 +3506,17 @@ module(&quot;sozi.document&quot;, function (exports) {
  * or the GNU General Public License (GPL) version 3.
  * A copy of both licenses is provided in the doc/ folder of the
  * official release of Sozi.
- * 
+ *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
  * @depend module.js
  * @depend events.js
  */
 
-/*global module:true sozi:true */
-
-module(&quot;sozi.location&quot;, function (exports) {
-    var window = this,
-        changedFromWithin = false;
+module(this, &quot;sozi.location&quot;, function (exports, window) {
+    &quot;use strict&quot;;
+    
+    var changedFromWithin = false;
     
     /*
      * Returns the frame index given in the URL hash.
@@ -3168,11 +3576,11 @@ module(&quot;sozi.location&quot;, function (exports) {
 	 * This function registers the &quot;framechange&quot; handler.
 	 */
     function onLoad() {
-        sozi.events.listen(&quot;framechange&quot;, onFrameChange);        
+        sozi.events.listen(&quot;framechange&quot;, onFrameChange);
     }
     
-    window.addEventListener(&quot;hashchange&quot;, onHashChange, false);        
-    window.addEventListener(&quot;load&quot;, onLoad, false);        
+    window.addEventListener(&quot;hashchange&quot;, onHashChange, false);
+    window.addEventListener(&quot;load&quot;, onLoad, false);
 });
 
 /*
@@ -3187,70 +3595,10 @@ module(&quot;sozi.location&quot;, function (exports) {
 
 </script>
   <style
-     ns1:version="12.03-18171759"
-     id="sozi-style">/*
- * Sozi - A presentation tool using the SVG standard
- *
- * Copyright (C) 2010-2012 Guillaume Savaton
- *
- * This program is dual licensed under the terms of the MIT license
- * or the GNU General Public License (GPL) version 3.
- * A copy of both licenses is provided in the doc/ folder of the
- * official release of Sozi.
- * 
- * See http://sozi.baierouge.fr/wiki/en:license for details.
- */
-
-#sozi-toc text {
-   fill: #eff;
-   font-family: Verdana, sans-serif;
-   font-size: 12pt;
-}
-
-#sozi-toc text:hover {
-   fill: #0cf;
-   cursor: pointer;
-}
-
-#sozi-toc text.sozi-toc-current {
-   fill: #fa4;
-}
-
-#sozi-toc-background {
-   stroke: #222;
-   stroke-opacity: 0.1;
-   stroke-width: 10;
-   fill: #222;
-   fill-opacity: 0.9;
-}
-
-.sozi-toc-arrow {
-   fill: #eff;
-   fill-opacity: 0.75;
-   stroke: none;
-}
-
-.sozi-toc-arrow:hover {
-   fill: #0cf;
-}
-
-#sozi-framenumber circle {
-   stroke: #222;
-   stroke-opacity: 0.1;
-   stroke-width: 4;
-   fill: #222;
-   fill-opacity: 0.9;
-}
-
-#sozi-framenumber text {
-   fill: #eff;
-   font-family: Verdana, sans-serif;
-   font-size: 12pt;
-}
-
-</style>
+     ns1:version="12.05-12194453"
+     id="sozi-style">#sozi-toc text{fill:#eff;font-family:Verdana,sans-serif;font-size:12pt}#sozi-toc text:hover{fill:#0cf;cursor:pointer}#sozi-toc text.sozi-toc-current{fill:#fa4}#sozi-toc-background{stroke:#222;stroke-opacity:.1;stroke-width:10;fill:#222;fill-opacity:.9}.sozi-toc-arrow{fill:#eff;fill-opacity:.75;stroke:none}.sozi-toc-arrow:hover{fill:#0cf}#sozi-framenumber circle{stroke:#222;stroke-opacity:.1;stroke-width:4;fill:#222;fill-opacity:.9}#sozi-framenumber text{fill:#eff;font-family:Verdana,sans-serif;font-size:12pt}</style>
   <script
-     ns1:version="12.03-18171759"
+     ns1:version="12.05-12194453"
      id="sozi-extras-addvideo-script">/*
  * Sozi - A presentation tool using the SVG standard
  *
@@ -3313,10 +3661,9 @@ this.addEventListener(&quot;load&quot;, function () {
 		        rect.setAttribute(&quot;visibility&quot;, &quot;hidden&quot;);
 		        
 			    // Create HTML media element
-			    htmlMedia = document.createElementNS(xhtmlNs, mediaSources[k][i].tagName);
-			    // htmlMedia.setAttribute(&quot;poster&quot;, &quot;__dummy__.png&quot;);
+			    htmlMedia = document.createElementNS(xhtmlNs, mediaSources[k][i].localName);
 			    htmlMedia.setAttribute(&quot;controls&quot;, &quot;controls&quot;);
-			    if (mediaSources[k][i].tagName === &quot;video&quot;) {
+			    if (mediaSources[k][i].localName === &quot;video&quot;) {
 			        htmlMedia.setAttribute(&quot;width&quot;, rect.getAttribute(&quot;width&quot;));
 			        htmlMedia.setAttribute(&quot;height&quot;, rect.getAttribute(&quot;height&quot;));
 			    }
@@ -3349,10 +3696,10 @@ this.addEventListener(&quot;load&quot;, function () {
 				    htmlMedia: htmlMedia
 			    });
 		    }
-	    }
 	    
-		// Append HTML source element to current HTML media element
-		mediaList[j].htmlMedia.appendChild(htmlSource);
+    		// Append HTML source element to current HTML media element
+    		mediaList[j].htmlMedia.appendChild(htmlSource);
+	    }
 	}				
 }, false);
 

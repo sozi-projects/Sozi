@@ -36,6 +36,9 @@ module(this, "sozi.document", function (exports, window) {
         "transition-profile": "linear"
     };
 
+    var DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
+        "ellipse", "line", "polyline", "polygon", "text", "clippath" ];
+
     // The definitions of all valid frames in the current document
     exports.frames = [];
     
@@ -96,47 +99,36 @@ module(this, "sozi.document", function (exports, window) {
     * The resulting list is available in frames, sorted by frame indices.
     */
     function readFrames() {
-        // Collect all group ids of <layer> elements
-        var soziLayerList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, "layer"));
-        soziLayerList.forEach(function (soziLayer) {
-            var idLayer = soziLayer.getAttributeNS(SOZI_NS, "group");
-            if (idLayer && exports.idLayerList.indexOf(idLayer) === -1 && document.getElementById(idLayer)) {
-                exports.idLayerList.push(idLayer);
+        // Collect all group ids referenced in <layer> elements
+        var idLayerRefList = [];
+        var soziLayerList = document.getElementsByTagNameNS(SOZI_NS, "layer");
+        for (var i = 0; i < soziLayerList.length; i += 1) {
+            var idLayer = soziLayerList[i].getAttributeNS(SOZI_NS, "group");
+            if (idLayer && idLayerRefList.indexOf(idLayer) === -1) {
+                idLayerRefList.push(idLayer);
             }
-        });
+        }
 
-        // If at least one <frame> element has a refid attribute,
-        // reorganize the document, grouping objects that do not belong
+        // Reorganize the document, grouping objects that do not belong
         // to a group referenced in <layer> elements
-        var soziFrameList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, "frame"));
-        if (soziFrameList.some(function (soziFrame) {
-                return soziFrame.hasAttributeNS(SOZI_NS, "refid");
-            }))
-        {
-            var svgRoot = document.documentElement;
-            var SVG_NS = "http://www.w3.org/2000/svg";
+        var svgRoot = document.documentElement;
+        var SVG_NS = "http://www.w3.org/2000/svg";
 
-            // Create the first wrapper group
-            var svgWrapper = document.createElementNS(SVG_NS, "g");
+        // Create the first wrapper group
+        var svgWrapper = document.createElementNS(SVG_NS, "g");
 
-            // For each child of the root SVG element
-            var svgElementList = Array.prototype.slice.call(svgRoot.childNodes);
-            svgElementList.forEach(function (svgElement, index) {
-                if (!svgElement.getAttribute) {
-                    // Remove text elements
-                    svgRoot.removeChild(svgElement);
-                }
-                else if (exports.idLayerList.indexOf(svgElement.getAttribute("id")) === -1) {
-                    // If the current element is not a referenced layer,
-                    // move it to the current wrapper element
-                    // FIXME move graphic elements only
-                    svgRoot.removeChild(svgElement);
-                    svgWrapper.appendChild(svgElement);
-                }
-                else if (svgWrapper.firstChild) {
-                    // If the current element is a referenced layer,
-                    // and if there were other non-referenced elements before it,
-                    // insert the wrapper group before the current element
+        // For each child of the root SVG element
+        var svgElementList = Array.prototype.slice.call(svgRoot.childNodes);
+        svgElementList.forEach(function (svgElement, index) {
+            if (!svgElement.getAttribute) {
+                // Remove text elements
+                svgRoot.removeChild(svgElement);
+            }
+            else if (idLayerRefList.indexOf(svgElement.getAttribute("id")) !== -1) {
+                // If the current element is a referenced layer ...
+                if (svgWrapper.firstChild) {
+                    // ... and if there were other non-referenced elements before it,
+                    // append the wrapper group to the <defs> element
                     svgWrapper.setAttribute("id", "sozi-wrapper-" + index);
                     exports.idLayerList.push("sozi-wrapper-" + index);
                     svgRoot.insertBefore(svgWrapper, svgElement);
@@ -144,17 +136,28 @@ module(this, "sozi.document", function (exports, window) {
                     // Prepare a new wrapper element
                     svgWrapper = document.createElementNS(SVG_NS, "g");
                 }
-            });
-
-            // Append last wrapper if needed
-            if (svgWrapper.firstChild) {
-                svgWrapper.setAttribute("id", "sozi-wrapper-" + svgElementList.length);
-                exports.idLayerList.push("sozi-wrapper-" + svgElementList.length);
-                svgRoot.appendChild(svgWrapper);
+                
+                // ... append the current element to the <defs> element
+                exports.idLayerList.push(svgElement.getAttribute("id"));
             }
+            else if (DRAWABLE_TAGS.indexOf(svgElement.localName.toLowerCase()) !== -1) {
+                // If the current element is not a referenced layer
+                // and is drawable, move it to the current wrapper element
+                svgRoot.removeChild(svgElement);
+                svgWrapper.appendChild(svgElement);
+            }
+        });
+
+        // Append last wrapper if needed
+        if (svgWrapper.firstChild) {
+            svgWrapper.setAttribute("id", "sozi-wrapper-" + svgElementList.length);
+            exports.idLayerList.push("sozi-wrapper-" + svgElementList.length);
+            svgRoot.appendChild(svgWrapper);
         }
 
+        
         // Analyze <frame> elements
+        var soziFrameList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, "frame"));
         soziFrameList.forEach(function (soziFrame, indexFrame) {
             var newFrame = {
                 id: soziFrame.getAttribute("id"),
@@ -186,7 +189,7 @@ module(this, "sozi.document", function (exports, window) {
             });
 
             // Collect and analyze <layer> elements in the current <frame> element
-            soziLayerList = Array.prototype.slice.call(soziFrame.getElementsByTagNameNS(SOZI_NS, "layer"));
+            var soziLayerList = Array.prototype.slice.call(soziFrame.getElementsByTagNameNS(SOZI_NS, "layer"));
             soziLayerList.forEach(function (soziLayer) {
                 var idLayer = soziLayer.getAttributeNS(SOZI_NS, "group");
                 if (idLayer && exports.idLayerList.indexOf(idLayer) !== -1) {
@@ -210,6 +213,13 @@ module(this, "sozi.document", function (exports, window) {
                 return a.sequence - b.sequence;
             }
         );
+        
+        // Move all layer elements to a <defs> element
+        var svgDefs = document.createElementNS(SVG_NS, "defs");
+        exports.idLayerList.forEach(function (idLayer) {
+            svgDefs.appendChild(document.getElementById(idLayer));
+        });
+        svgRoot.appendChild(svgDefs);
     }
 
     /*

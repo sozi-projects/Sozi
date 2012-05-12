@@ -28,6 +28,8 @@ module(this, "sozi.display", function (exports, window) {
     // Constant: the Sozi namespace
     var SVG_NS = "http://www.w3.org/2000/svg";
 
+    var XLINK_NS = "http://www.w3.org/1999/xlink";
+    
     exports.CameraState = sozi.proto.Object.subtype({
         construct : function () {
             // Center coordinates
@@ -150,8 +152,21 @@ module(this, "sozi.display", function (exports, window) {
             // Clipping rectangle
             this.svgClipRect = document.createElementNS(SVG_NS, "rect");
         
-            // Layer element (typically a "g" element)
-            this.svgLayer = document.getElementById(idLayer);
+            // Clipping path
+            var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
+            svgClipPath.setAttribute("id", "sozi-clip-path-" + idLayer);
+            svgClipPath.appendChild(this.svgClipRect);
+            viewPort.svgGroup.appendChild(svgClipPath);
+
+            // The group that will support the clipping operation
+            var svgClippedGroup = document.createElementNS(SVG_NS, "g");
+            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + idLayer + ")");
+            viewPort.svgGroup.appendChild(svgClippedGroup);
+                
+            // A <use> element referencing the target layer
+            this.svgLayer = document.createElementNS(SVG_NS, "use");
+            this.svgLayer.setAttributeNS(XLINK_NS, "href", "#" + idLayer);
+            svgClippedGroup.appendChild(this.svgLayer);
         },
         
         setAtState: function (other) {
@@ -216,33 +231,17 @@ module(this, "sozi.display", function (exports, window) {
     
     exports.ViewPort = sozi.proto.Object.subtype({
         construct: function (idLayerList) {
-            var svgRoot = document.documentElement;
-            
+            this.svgGroup = document.createElementNS(SVG_NS, "g");
+            this.svgGroup.setAttribute("class", "sozi-viewport");
+            document.documentElement.appendChild(this.svgGroup);
+
             this.setLocation(0, 0).setSize(window.innerWidth, window.innerHeight);
             
+            // Create a camera for each layer
             this.cameras = {};
-            
-            for (var i = 0; i < idLayerList.length; i += 1) {
-                var idLayer = idLayerList[i];
-                
-                // Create a new camera for the current layer
-                var camera = this.cameras[idLayer] = new exports.Camera.instance(this, idLayer);
-
-                // Add a clipping path
-                var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
-                svgClipPath.setAttribute("id", "sozi-clip-path-" + idLayer);
-                svgClipPath.appendChild(camera.svgClipRect);
-                svgRoot.appendChild(svgClipPath);
-
-                // Create a group that will support the clipping operation
-                // and move the layer group into that new group
-                var svgClippedGroup = document.createElementNS(SVG_NS, "g");
-                svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + idLayer + ")");
-                
-                // Adding the layer group to the clipped group must preserve layer ordering
-                svgRoot.insertBefore(svgClippedGroup, camera.svgLayer);
-                svgClippedGroup.appendChild(camera.svgLayer);
-            }
+            idLayerList.forEach(function (idLayer) {
+                this.cameras[idLayer] = exports.Camera.instance(this, idLayer);
+            }, this);
         },
         
         setSize: function (width, height) {
@@ -265,7 +264,7 @@ module(this, "sozi.display", function (exports, window) {
          */
         getDocumentState: function () {
             // This object defines the bounding box of the whole document
-            var camera = new exports.CameraState.instance()
+            var camera = exports.CameraState.instance()
                 .setCenter(initialBBox.x + initialBBox.width / 2,
                            initialBBox.y + initialBBox.height / 2)
                 .setSize(initialBBox.width, initialBBox.height)
@@ -357,7 +356,7 @@ module(this, "sozi.display", function (exports, window) {
         svgRoot.setAttribute("width", window.innerWidth);
         svgRoot.setAttribute("height", window.innerHeight);
         
-        exports.viewPort = new exports.ViewPort.instance(sozi.document.idLayerList);
+        exports.viewPort = exports.ViewPort.instance(sozi.document.idLayerList);
         
         sozi.events.fire("displayready");
     }
