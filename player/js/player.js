@@ -345,13 +345,6 @@ module(this, "sozi.player", function (exports, window) {
      */
     function onDisplayReady() {
         viewPort = display.ViewPort.instance("player", sozi.document.idLayerList, true);
-        viewPort.setSize(window.innerWidth / 2, window.innerHeight);
-        
-        var other = display.ViewPort.instance("test", sozi.document.idLayerList);
-        other.setSize(window.innerWidth / 2, window.innerHeight)
-             .setLocation(window.innerWidth / 2, 0)
-             .showFrame(sozi.document.frames[0])
-             .update();
         
         exports.startFromIndex(sozi.location.getFrameIndex());
 
