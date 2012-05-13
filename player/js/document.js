@@ -213,13 +213,6 @@ module(this, "sozi.document", function (exports, window) {
                 return a.sequence - b.sequence;
             }
         );
-        
-        // Move all layer elements to a <defs> element
-        var svgDefs = document.createElementNS(SVG_NS, "defs");
-        exports.idLayerList.forEach(function (idLayer) {
-            svgDefs.appendChild(document.getElementById(idLayer));
-        });
-        svgRoot.appendChild(svgDefs);
     }
 
     /*

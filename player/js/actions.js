@@ -220,7 +220,6 @@ module(this, "sozi.actions", function (exports, window) {
         if (!isPlayerEvent(evt)) {
             return;
         }
-        console.log(evt.target);
         if (!mouseDragged && evt.button !== TOC_BUTTON) {
             player.moveToNext();
         }

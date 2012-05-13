@@ -32,6 +32,8 @@ module(this, "sozi.display", function (exports, window) {
     
     exports.viewPorts = {};
     
+    var primaryViewport;
+    
     exports.CameraState = sozi.proto.Object.subtype({
         construct : function () {
             // Center coordinates
@@ -156,18 +158,27 @@ module(this, "sozi.display", function (exports, window) {
         
             // Clipping path
             var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
-            svgClipPath.setAttribute("id", "sozi-clip-path-" + idLayer);
+            svgClipPath.setAttribute("id", "sozi-clip-path-" + viewPort.id + "-" + idLayer);
             svgClipPath.appendChild(this.svgClipRect);
             viewPort.svgGroup.appendChild(svgClipPath);
 
             // The group that will support the clipping operation
             var svgClippedGroup = document.createElementNS(SVG_NS, "g");
-            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + idLayer + ")");
+            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewPort.id + "-" + idLayer + ")");
             viewPort.svgGroup.appendChild(svgClippedGroup);
-                
-            // A <use> element referencing the target layer
-            this.svgLayer = document.createElementNS(SVG_NS, "use");
-            this.svgLayer.setAttributeNS(XLINK_NS, "href", "#" + idLayer);
+            
+            if (viewPort.isPrimary) {
+                // This group will support transformations
+                // we keep the layer group clean since it can be referenced
+                // from <use> elements
+                this.svgLayer = document.createElementNS(SVG_NS, "g");
+                this.svgLayer.appendChild(document.getElementById(idLayer));
+            }
+            else {
+                // A <use> element referencing the target layer
+                this.svgLayer = document.createElementNS(SVG_NS, "use");
+                this.svgLayer.setAttributeNS(XLINK_NS, "href", "#" + idLayer);
+            }
             svgClippedGroup.appendChild(this.svgLayer);
         },
         
@@ -232,13 +243,27 @@ module(this, "sozi.display", function (exports, window) {
     });
     
     exports.ViewPort = sozi.proto.Object.subtype({
-        construct: function (id, idLayerList) {
+        construct: function (id, idLayerList, primary) {
+            this.id = id;
             exports.viewPorts[id] = this;
             
+            this.isPrimary = !!primary;
+            
+            if (this.isPrimary) {
+                if (primaryViewport) {
+                    throw "Failed to create a primary viewport. A primary viewport already exists.";
+                }
+                else {
+                    primaryViewport = this;
+                }
+            }
+            
+            // TODO add a clip path for the viewport
             this.svgGroup = document.createElementNS(SVG_NS, "g");
             this.svgGroup.setAttribute("class", "sozi-viewport");
+            this.svgGroup.setAttribute("id", "sozi-viewport-" + id);
             document.documentElement.appendChild(this.svgGroup);
-
+            
             this.setLocation(0, 0).setSize(window.innerWidth, window.innerHeight);
             
             // Create a camera for each layer
@@ -294,6 +319,7 @@ module(this, "sozi.display", function (exports, window) {
          * This method is called automatically when the window is resized.
          */
         update: function () {
+            this.svgGroup.setAttribute("transform", "translate(" + this.x + "," + this.y + ")");
             for (var idLayer in this.cameras) {
                 this.cameras[idLayer].update();
             }
