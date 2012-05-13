@@ -77,7 +77,7 @@ module(this, "sozi.actions", function (exports, window) {
      */
     function zoom(direction, x, y) {
         player.stop();
-        display.viewPort.zoom(direction > 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
+        display.viewPorts["player"].zoom(direction > 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
     }
     
     /**
@@ -93,7 +93,7 @@ module(this, "sozi.actions", function (exports, window) {
      */
     function rotate(direction) {
         player.stop();
-        display.viewPort.rotate(direction > 0 ? ROTATE_STEP : -ROTATE_STEP);
+        display.viewPorts["player"].rotate(direction > 0 ? ROTATE_STEP : -ROTATE_STEP);
     }
     
     /**
@@ -112,6 +112,10 @@ module(this, "sozi.actions", function (exports, window) {
         }
     }
 
+    function isPlayerEvent(evt) {
+        return display.viewPorts["player"].contains(evt.clientX, evt.clientY);
+    }
+    
     /**
      * Event handler: mouse down.
      *
@@ -124,6 +128,9 @@ module(this, "sozi.actions", function (exports, window) {
      * @param {Event} evt The DOM event object
      */
     function onMouseDown(evt) {
+        if (!isPlayerEvent(evt)) {
+            return;
+        }
         if (evt.button === DRAG_BUTTON) {
             document.documentElement.addEventListener("mousemove", onMouseDrag, false);
             mouseDragged = false;
@@ -146,10 +153,13 @@ module(this, "sozi.actions", function (exports, window) {
      * @param {Event} evt The DOM event object
      */
     function onMouseDrag(evt) {
+        if (!isPlayerEvent(evt)) {
+            return;
+        }
         player.stop();
         mouseDragged = true;
         sozi.events.fire("cleanup");
-        display.viewPort.drag(evt.clientX - mouseLastX, evt.clientY - mouseLastY);
+        display.viewPorts["player"].drag(evt.clientX - mouseLastX, evt.clientY - mouseLastY);
         mouseLastX = evt.clientX;
         mouseLastY = evt.clientY;
         evt.stopPropagation();
@@ -163,6 +173,9 @@ module(this, "sozi.actions", function (exports, window) {
      * @param {Event} evt The DOM event object
      */
     function onMouseUp(evt) {
+        if (!isPlayerEvent(evt)) {
+            return;
+        }
         if (evt.button === DRAG_BUTTON) {
             document.documentElement.removeEventListener("mousemove", onMouseDrag, false);
         }
@@ -181,6 +194,9 @@ module(this, "sozi.actions", function (exports, window) {
      * @param {Event} evt The DOM event object
      */
     function onContextMenu(evt) {
+        if (!isPlayerEvent(evt)) {
+            return;
+        }
         player.moveToPrevious();
         evt.stopPropagation();
         evt.preventDefault();
@@ -201,6 +217,10 @@ module(this, "sozi.actions", function (exports, window) {
      * @param {Event} evt The DOM event object
      */
     function onClick(evt) {
+        if (!isPlayerEvent(evt)) {
+            return;
+        }
+        console.log(evt.target);
         if (!mouseDragged && evt.button !== TOC_BUTTON) {
             player.moveToNext();
         }
@@ -218,6 +238,10 @@ module(this, "sozi.actions", function (exports, window) {
      * @param {Event} evt The DOM event object
      */
     function onWheel(evt) {
+        if (!isPlayerEvent(evt)) {
+            return;
+        }
+        
         if (!evt) {
             evt = window.event;
         }
@@ -352,25 +376,30 @@ module(this, "sozi.actions", function (exports, window) {
      *
      * <p>This function sets up all other event handlers for this module.</p>
      */
-    function onLoad() {
+    function onDisplayReady() {
         // Prevent event propagation when clicking on a link
+        // FIXME does not work in Firefox when the <a> is referenced through a <use>
         var links = document.getElementsByTagName("a");
         for (var i = 0; i < links.length; i += 1) {
             links[i].addEventListener("click", stopEvent, false);
             links[i].addEventListener("contextmenu", stopEvent, false);
         }
         
+        // Mouse events are constrained to the player viewport
+        // see isPlayerEvent()
         // TODO also use shift-click as an alternative for middle-click
         var svgRoot = document.documentElement;
         svgRoot.addEventListener("click", onClick, false);
         svgRoot.addEventListener("mousedown", onMouseDown, false);
         svgRoot.addEventListener("mouseup", onMouseUp, false);
-        svgRoot.addEventListener("keypress", onKeyPress, false);
-        svgRoot.addEventListener("keydown", onKeyDown, false);
         svgRoot.addEventListener("contextmenu", onContextMenu, false);
         svgRoot.addEventListener("DOMMouseScroll", onWheel, false); // Mozilla
         window.onmousewheel = onWheel;
+
+        // Keyboard events are global to the SVG document
+        svgRoot.addEventListener("keypress", onKeyPress, false);
+        svgRoot.addEventListener("keydown", onKeyDown, false);
     }
 
-    window.addEventListener("load", onLoad, false);
+    sozi.events.listen("displayready", onDisplayReady);
 });

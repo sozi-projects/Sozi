@@ -22,6 +22,8 @@ module(this, "sozi.player", function (exports, window) {
     // An alias to the Sozi display module
     var display = sozi.display;
     
+    var viewPort;
+    
     // The animator object used to animate transitions
     var animator;
     
@@ -81,7 +83,7 @@ module(this, "sozi.player", function (exports, window) {
         waiting = false;
         sourceFrameIndex = index;
         currentFrameIndex = index;
-        display.viewPort.showFrame(sozi.document.frames[index]);
+        viewPort.showFrame(sozi.document.frames[index]);
         waitTimeout();
     };
 
@@ -151,7 +153,7 @@ module(this, "sozi.player", function (exports, window) {
 
         sourceFrameIndex = index;
         currentFrameIndex = index;
-        display.viewPort.showFrame(sozi.document.frames[index]);
+        viewPort.showFrame(sozi.document.frames[index]);
 
         sozi.events.fire("framechange", index);
     };
@@ -208,7 +210,7 @@ module(this, "sozi.player", function (exports, window) {
     exports.previewFrame = function (index) {
         currentFrameIndex = index;
         animator.start(DEFAULT_DURATION_MS,
-            getAnimationData(display.viewPort.cameras, sozi.document.frames[index].states,
+            getAnimationData(viewPort.cameras, sozi.document.frames[index].states,
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]));
         sozi.events.fire("framechange", index);
     };
@@ -248,7 +250,7 @@ module(this, "sozi.player", function (exports, window) {
         playing = true;
         currentFrameIndex = index;
 
-        animator.start(durationMs, getAnimationData(display.viewPort.cameras, sozi.document.frames[index].states, zoomPercent, profile));
+        animator.start(durationMs, getAnimationData(viewPort.cameras, sozi.document.frames[index].states, zoomPercent, profile));
 
         sozi.events.fire("framechange", index);
     };
@@ -332,7 +334,7 @@ module(this, "sozi.player", function (exports, window) {
         exports.stop();
         sozi.events.fire("cleanup");
         animator.start(DEFAULT_DURATION_MS,
-            getAnimationData(display.viewPort.cameras, display.viewPort.getDocumentState(),
+            getAnimationData(viewPort.cameras, viewPort.getDocumentState(),
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]
             )
         );
@@ -342,11 +344,15 @@ module(this, "sozi.player", function (exports, window) {
      * Event handler: display ready.
      */
     function onDisplayReady() {
+        viewPort = display.ViewPort.instance("player", sozi.document.idLayerList);
+        
         exports.startFromIndex(sozi.location.getFrameIndex());
 
         // Hack to fix the blank screen bug in Chrome/Chromium
         // See https://github.com/senshu/Sozi/issues/109
-        window.setTimeout(display.viewPort.bind(display.viewPort.update), 1);
+        window.setTimeout(viewPort.bind(viewPort.update), 1);
+        
+        sozi.events.fire("playerready");
     }
 
     animator = sozi.animation.Animator.instance().augment({
@@ -370,7 +376,7 @@ module(this, "sozi.player", function (exports, window) {
          */
         onStep: function (progress) {
             for (var idLayer in this.data) {
-                var camera = display.viewPort.cameras[idLayer];
+                var camera = viewPort.cameras[idLayer];
                 
                 camera.interpolate(
                     this.data[idLayer].initialState,
@@ -392,7 +398,7 @@ module(this, "sozi.player", function (exports, window) {
                 camera.setClipped(this.data[idLayer].finalState.clipped);
             }
             
-            display.viewPort.update();
+            viewPort.update();
         },
         
         /*

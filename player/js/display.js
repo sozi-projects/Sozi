@@ -18,6 +18,11 @@
 module(this, "sozi.display", function (exports, window) {
     "use strict";
     
+    // Constant: the Sozi namespace
+    var SVG_NS = "http://www.w3.org/2000/svg";
+
+    var XLINK_NS = "http://www.w3.org/1999/xlink";
+    
     // The global document object
     var document = window.document;
     
@@ -25,10 +30,7 @@ module(this, "sozi.display", function (exports, window) {
     // assigned in onDocumentReady()
     var initialBBox;
     
-    // Constant: the Sozi namespace
-    var SVG_NS = "http://www.w3.org/2000/svg";
-
-    var XLINK_NS = "http://www.w3.org/1999/xlink";
+    exports.viewPorts = {};
     
     exports.CameraState = sozi.proto.Object.subtype({
         construct : function () {
@@ -230,7 +232,9 @@ module(this, "sozi.display", function (exports, window) {
     });
     
     exports.ViewPort = sozi.proto.Object.subtype({
-        construct: function (idLayerList) {
+        construct: function (id, idLayerList) {
+            exports.viewPorts[id] = this;
+            
             this.svgGroup = document.createElementNS(SVG_NS, "g");
             this.svgGroup.setAttribute("class", "sozi-viewport");
             document.documentElement.appendChild(this.svgGroup);
@@ -256,6 +260,11 @@ module(this, "sozi.display", function (exports, window) {
             return this;
         },
 
+        contains: function (x, y) {
+            return x >= this.x && x < x + this.width &&
+                   y >= this.y && y < y + this.height;
+        },
+        
         /*
          * Returns the geometrical properties of the SVG document
          *
@@ -288,6 +297,7 @@ module(this, "sozi.display", function (exports, window) {
             for (var idLayer in this.cameras) {
                 this.cameras[idLayer].update();
             }
+            return this;
         },
 
         /*
@@ -300,6 +310,7 @@ module(this, "sozi.display", function (exports, window) {
             for (var idLayer in frame.states) {
                 this.cameras[idLayer].setAtState(frame.states[idLayer]);
             }
+            return this;
         },
 
         /*
@@ -313,6 +324,7 @@ module(this, "sozi.display", function (exports, window) {
             for (var idLayer in this.cameras) {
                 this.cameras[idLayer].drag(deltaX, deltaY);
             }
+            return this;
         },
 
         /*
@@ -324,6 +336,7 @@ module(this, "sozi.display", function (exports, window) {
             for (var idLayer in this.cameras) {
                 this.cameras[idLayer].zoom(factor, x, y);
             }
+            return this;
         },
 
         /*
@@ -335,6 +348,20 @@ module(this, "sozi.display", function (exports, window) {
             for (var idLayer in this.cameras) {
                 this.cameras[idLayer].rotate(angle);
             }
+            return this;
+        },
+        
+        /**
+         * The default handler for window resize events.
+         *
+         * The default behavior is to fit the current viewport to
+         * the given window size.
+         *
+         * @param width The new window width
+         * @param height The new window height
+         */
+        onWindowResize: function (width, height) {
+            this.setSize(width, height).update();
         }
     });
     
@@ -356,19 +383,22 @@ module(this, "sozi.display", function (exports, window) {
         svgRoot.setAttribute("width", window.innerWidth);
         svgRoot.setAttribute("height", window.innerHeight);
         
-        exports.viewPort = exports.ViewPort.instance(sozi.document.idLayerList);
-        
         sozi.events.fire("displayready");
     }
 
     /*
      * Resizes the SVG document to fit the browser window.
+     *
+     * This method calls onWindowResize on all registered viewports.
      */
     function resize() {
         var svgRoot = document.documentElement;
         svgRoot.setAttribute("width", window.innerWidth);
         svgRoot.setAttribute("height", window.innerHeight);
-        exports.viewPort.setSize(window.innerWidth, window.innerHeight).update();
+        
+        for (var vp in exports.viewPorts) {
+            exports.viewPorts[vp].onWindowResize(window.innerWidth, window.innerHeight);
+        }
     }
     
     sozi.events.listen("documentready", onDocumentReady);

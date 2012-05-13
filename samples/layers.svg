@@ -30,9 +30,9 @@
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1280"
-     inkscape:window-height="963"
+     inkscape:window-height="972"
      inkscape:window-x="0"
-     inkscape:window-y="27"
+     inkscape:window-y="0"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -410,7 +410,7 @@
        ns1:group="layer2" />
   </ns1:frame>
   <script
-     ns1:version="12.05-12210035"
+     ns1:version="12.05-13163800"
      id="sozi-script">
 /**
  * Create or augment a module.
@@ -1262,6 +1262,11 @@ module(this, &quot;sozi.animation&quot;, function (exports, window) {
 module(this, &quot;sozi.display&quot;, function (exports, window) {
     &quot;use strict&quot;;
     
+    // Constant: the Sozi namespace
+    var SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
+
+    var XLINK_NS = &quot;http://www.w3.org/1999/xlink&quot;;
+    
     // The global document object
     var document = window.document;
     
@@ -1269,10 +1274,7 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
     // assigned in onDocumentReady()
     var initialBBox;
     
-    // Constant: the Sozi namespace
-    var SVG_NS = &quot;http://www.w3.org/2000/svg&quot;;
-
-    var XLINK_NS = &quot;http://www.w3.org/1999/xlink&quot;;
+    exports.viewPorts = {};
     
     exports.CameraState = sozi.proto.Object.subtype({
         construct : function () {
@@ -1474,7 +1476,9 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
     });
     
     exports.ViewPort = sozi.proto.Object.subtype({
-        construct: function (idLayerList) {
+        construct: function (id, idLayerList) {
+            exports.viewPorts[id] = this;
+            
             this.svgGroup = document.createElementNS(SVG_NS, &quot;g&quot;);
             this.svgGroup.setAttribute(&quot;class&quot;, &quot;sozi-viewport&quot;);
             document.documentElement.appendChild(this.svgGroup);
@@ -1532,6 +1536,7 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
             for (var idLayer in this.cameras) {
                 this.cameras[idLayer].update();
             }
+            return this;
         },
 
         /*
@@ -1544,6 +1549,7 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
             for (var idLayer in frame.states) {
                 this.cameras[idLayer].setAtState(frame.states[idLayer]);
             }
+            return this;
         },
 
         /*
@@ -1557,6 +1563,7 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
             for (var idLayer in this.cameras) {
                 this.cameras[idLayer].drag(deltaX, deltaY);
             }
+            return this;
         },
 
         /*
@@ -1568,6 +1575,7 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
             for (var idLayer in this.cameras) {
                 this.cameras[idLayer].zoom(factor, x, y);
             }
+            return this;
         },
 
         /*
@@ -1579,6 +1587,20 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
             for (var idLayer in this.cameras) {
                 this.cameras[idLayer].rotate(angle);
             }
+            return this;
+        },
+        
+        /**
+         * The default handler for window resize events.
+         *
+         * The default behavior is to fit the current viewport to
+         * the given window size.
+         *
+         * @param width The new window width
+         * @param height The new window height
+         */
+        onWindowResize: function (width, height) {
+            this.setSize(width, height).update();
         }
     });
     
@@ -1600,19 +1622,22 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
         svgRoot.setAttribute(&quot;width&quot;, window.innerWidth);
         svgRoot.setAttribute(&quot;height&quot;, window.innerHeight);
         
-        exports.viewPort = exports.ViewPort.instance(sozi.document.idLayerList);
-        
         sozi.events.fire(&quot;displayready&quot;);
     }
 
     /*
      * Resizes the SVG document to fit the browser window.
+     *
+     * This method calls onWindowResize on all registered viewports.
      */
     function resize() {
         var svgRoot = document.documentElement;
         svgRoot.setAttribute(&quot;width&quot;, window.innerWidth);
         svgRoot.setAttribute(&quot;height&quot;, window.innerHeight);
-        exports.viewPort.setSize(window.innerWidth, window.innerHeight).update();
+        
+        for (var vp in exports.viewPorts) {
+            exports.viewPorts[vp].onWindowResize(window.innerWidth, window.innerHeight);
+        }
     }
     
     sozi.events.listen(&quot;documentready&quot;, onDocumentReady);
@@ -1642,6 +1667,8 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
     
     // An alias to the Sozi display module
     var display = sozi.display;
+    
+    var viewPort;
     
     // The animator object used to animate transitions
     var animator;
@@ -1702,7 +1729,7 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
         waiting = false;
         sourceFrameIndex = index;
         currentFrameIndex = index;
-        display.viewPort.showFrame(sozi.document.frames[index]);
+        viewPort.showFrame(sozi.document.frames[index]);
         waitTimeout();
     };
 
@@ -1772,7 +1799,7 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
 
         sourceFrameIndex = index;
         currentFrameIndex = index;
-        display.viewPort.showFrame(sozi.document.frames[index]);
+        viewPort.showFrame(sozi.document.frames[index]);
 
         sozi.events.fire(&quot;framechange&quot;, index);
     };
@@ -1829,7 +1856,7 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
     exports.previewFrame = function (index) {
         currentFrameIndex = index;
         animator.start(DEFAULT_DURATION_MS,
-            getAnimationData(display.viewPort.cameras, sozi.document.frames[index].states,
+            getAnimationData(viewPort.cameras, sozi.document.frames[index].states,
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]));
         sozi.events.fire(&quot;framechange&quot;, index);
     };
@@ -1869,7 +1896,7 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
         playing = true;
         currentFrameIndex = index;
 
-        animator.start(durationMs, getAnimationData(display.viewPort.cameras, sozi.document.frames[index].states, zoomPercent, profile));
+        animator.start(durationMs, getAnimationData(viewPort.cameras, sozi.document.frames[index].states, zoomPercent, profile));
 
         sozi.events.fire(&quot;framechange&quot;, index);
     };
@@ -1953,7 +1980,7 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
         exports.stop();
         sozi.events.fire(&quot;cleanup&quot;);
         animator.start(DEFAULT_DURATION_MS,
-            getAnimationData(display.viewPort.cameras, display.viewPort.getDocumentState(),
+            getAnimationData(viewPort.cameras, viewPort.getDocumentState(),
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]
             )
         );
@@ -1963,11 +1990,13 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
      * Event handler: display ready.
      */
     function onDisplayReady() {
+        viewPort = display.ViewPort.instance(&quot;player&quot;, sozi.document.idLayerList);
+        
         exports.startFromIndex(sozi.location.getFrameIndex());
 
         // Hack to fix the blank screen bug in Chrome/Chromium
         // See https://github.com/senshu/Sozi/issues/109
-        window.setTimeout(display.viewPort.bind(display.viewPort.update), 1);
+        window.setTimeout(viewPort.bind(viewPort.update), 1);
     }
 
     animator = sozi.animation.Animator.instance().augment({
@@ -1991,7 +2020,7 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
          */
         onStep: function (progress) {
             for (var idLayer in this.data) {
-                var camera = display.viewPort.cameras[idLayer];
+                var camera = viewPort.cameras[idLayer];
                 
                 camera.interpolate(
                     this.data[idLayer].initialState,
@@ -2013,7 +2042,7 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
                 camera.setClipped(this.data[idLayer].finalState.clipped);
             }
             
-            display.viewPort.update();
+            viewPort.update();
         },
         
         /*
@@ -2114,7 +2143,7 @@ module(this, &quot;sozi.actions&quot;, function (exports, window) {
      */
     function zoom(direction, x, y) {
         player.stop();
-        display.viewPort.zoom(direction &gt; 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
+        display.viewPorts[&quot;player&quot;].zoom(direction &gt; 0 ? SCALE_FACTOR : 1 / SCALE_FACTOR, x, y);
     }
     
     /**
@@ -2130,7 +2159,7 @@ module(this, &quot;sozi.actions&quot;, function (exports, window) {
      */
     function rotate(direction) {
         player.stop();
-        display.viewPort.rotate(direction &gt; 0 ? ROTATE_STEP : -ROTATE_STEP);
+        display.viewPorts[&quot;player&quot;].rotate(direction &gt; 0 ? ROTATE_STEP : -ROTATE_STEP);
     }
     
     /**
@@ -2186,7 +2215,7 @@ module(this, &quot;sozi.actions&quot;, function (exports, window) {
         player.stop();
         mouseDragged = true;
         sozi.events.fire(&quot;cleanup&quot;);
-        display.viewPort.drag(evt.clientX - mouseLastX, evt.clientY - mouseLastY);
+        display.viewPorts[&quot;player&quot;].drag(evt.clientX - mouseLastX, evt.clientY - mouseLastY);
         mouseLastX = evt.clientX;
         mouseLastY = evt.clientY;
         evt.stopPropagation();
@@ -2391,12 +2420,14 @@ module(this, &quot;sozi.actions&quot;, function (exports, window) {
      */
     function onLoad() {
         // Prevent event propagation when clicking on a link
+        // TODO check whether this still works in &lt;use&gt; elements
         var links = document.getElementsByTagName(&quot;a&quot;);
         for (var i = 0; i &lt; links.length; i += 1) {
             links[i].addEventListener(&quot;click&quot;, stopEvent, false);
             links[i].addEventListener(&quot;contextmenu&quot;, stopEvent, false);
         }
         
+        // TODO attach mouse events to player viewPort
         // TODO also use shift-click as an alternative for middle-click
         var svgRoot = document.documentElement;
         svgRoot.addEventListener(&quot;click&quot;, onClick, false);
@@ -2749,10 +2780,10 @@ module(this, &quot;sozi.location&quot;, function (exports, window) {
 
 </script>
   <style
-     ns1:version="12.05-12210035"
+     ns1:version="12.05-13163800"
      id="sozi-style">#sozi-toc text{fill:#eff;font-family:Verdana,sans-serif;font-size:12pt}#sozi-toc text:hover{fill:#0cf;cursor:pointer}#sozi-toc text.sozi-toc-current{fill:#fa4}#sozi-toc-background{stroke:#222;stroke-opacity:.1;stroke-width:10;fill:#222;fill-opacity:.9}.sozi-toc-arrow{fill:#eff;fill-opacity:.75;stroke:none}.sozi-toc-arrow:hover{fill:#0cf}#sozi-framenumber circle{stroke:#222;stroke-opacity:.1;stroke-width:4;fill:#222;fill-opacity:.9}#sozi-framenumber text{fill:#eff;font-family:Verdana,sans-serif;font-size:12pt}</style>
   <script
-     ns1:version="12.05-12210035"
+     ns1:version="12.05-13163800"
      id="sozi-extras-addvideo-script">/*
  * Sozi - A presentation tool using the SVG standard
  *
