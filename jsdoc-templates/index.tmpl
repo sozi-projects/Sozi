@@ -41,7 +41,7 @@
       </h2>
       <div class="desc">{+ resolveLinks(m.classDesc) +}</div>
       <div id="{+ m.alias +}-content" class="content">
-         <div class="open-close" onclick="closeContent('{+ m.alias +}-content')">&uarr;&nbsp;Less</div>
+         <div class="open-close" onclick="closeContent('{+ m.alias +}-content')">&#x25b4;&nbsp;Less</div>
          <for each="p" in="m.properties">
             {+ publish.variableTmpl.process(p) +}
          </for>
@@ -60,23 +60,23 @@
                   <div class="desc">{+ resolveLinks(c.classDesc) +}</div>
                   <div class="class-content">
                      <div id="{+ c.alias +}-content" class="content">
-                        <div class="open-close" onclick="closeContent('{+ c.alias +}-content')">&uarr;&nbsp;Less</div>
+                        <div class="open-close" onclick="closeContent('{+ c.alias +}-content')">&#x25b4;&nbsp;Less</div>
                         <for each="p" in="c.properties">
                            {+ publish.variableTmpl.process(p) +}
                         </for>
                         <for each="f" in="c.methods">
                            {+ publish.functionTmpl.process(f) +}
                         </for>
-                        <div class="open-close" onclick="closeContent('{+ c.alias +}-content')">&uarr;&nbsp;Less</div>
+                        <div class="open-close" onclick="closeContent('{+ c.alias +}-content')">&#x25b4;&nbsp;Less</div>
                      </div>
                      <div id="{+ c.alias +}-content-open" class="open-close" onclick="openContent('{+ c.alias +}-content')">&darr;&nbsp;More</div>
                   </div>
                </div>
             </if>
          </for>
-         <div class="open-close" onclick="closeContent('{+ m.alias +}-content')">&uarr;&nbsp;Less</div>
+         <div class="open-close" onclick="closeContent('{+ m.alias +}-content')">&#x25b4;&nbsp;Less</div>
       </div>
-      <div id="{+ m.alias +}-content-open" class="open-close" onclick="openContent('{+ m.alias +}-content')">&darr;&nbsp;More</div>
+      <div id="{+ m.alias +}-content-open" class="open-close" onclick="openContent('{+ m.alias +}-content')">&#x25be;&nbsp;More</div>
    </div>
 </for>
 
