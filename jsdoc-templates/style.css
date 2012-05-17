@@ -79,7 +79,7 @@ h4 {
 	margin-bottom: 0.5em;	
 }
 
-a {
+a, div.open-close {
 	color: rgb(34, 102, 170);
 	text-decoration: none;
 }
@@ -88,7 +88,8 @@ a.broken {
 	text-decoration: line-through;
 }
 
-a:hover {
+a:hover,
+div.open-close:hover {
 	text-decoration: underline;
 }
 
@@ -170,6 +171,18 @@ div.module {
 div.desc {
 	margin-left: 4em;
 	margin-right: 4em;
+}
+
+div.content {
+    display: none;
+}
+
+div.open-close {
+    margin-top: 1em;
+}
+
+div.open-close:hover {
+    cursor: pointer;
 }
 
 div.class-content {

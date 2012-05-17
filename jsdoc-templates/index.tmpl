@@ -40,33 +40,54 @@
          </if>
       </h2>
       <div class="desc">{+ resolveLinks(m.classDesc) +}</div>
-      
-      <for each="p" in="m.properties">
-         {+ publish.variableTmpl.process(p) +}
-      </for>
-      <for each="f" in="m.methods">
-         {+ publish.functionTmpl.process(f) +}
-      </for>
-      <for each="c" in="data.classes">
-         <if test="c.memberOf === m.alias">
-            <div class="class">
-               <h3>
-                  <a id="{+ c.alias +}"></a>
-                  {+ publish.visibilityTmpl.process(c) +}
-                  <span class="label class">class</span>
-                  {+ publish.fullNameTmpl.process(c) +}
-               </h3>
-               <div class="desc">{+ resolveLinks(c.classDesc) +}</div>
-               <div class="class-content">
-                  <for each="p" in="c.properties">
-                     {+ publish.variableTmpl.process(p) +}
-                  </for>
-                  <for each="f" in="c.methods">
-                     {+ publish.functionTmpl.process(f) +}
-                  </for>
+      <div id="{+ m.alias +}-content" class="content">
+         <div class="open-close" onclick="closeContent('{+ m.alias +}-content')">&uarr;&nbsp;Less</div>
+         <for each="p" in="m.properties">
+            {+ publish.variableTmpl.process(p) +}
+         </for>
+         <for each="f" in="m.methods">
+            {+ publish.functionTmpl.process(f) +}
+         </for>
+         <for each="c" in="data.classes">
+            <if test="c.memberOf === m.alias">
+               <div class="class">
+                  <h3>
+                     <a id="{+ c.alias +}"></a>
+                     {+ publish.visibilityTmpl.process(c) +}
+                     <span class="label class">class</span>
+                     {+ publish.fullNameTmpl.process(c) +}
+                  </h3>
+                  <div class="desc">{+ resolveLinks(c.classDesc) +}</div>
+                  <div class="class-content">
+                     <div id="{+ c.alias +}-content" class="content">
+                        <div class="open-close" onclick="closeContent('{+ c.alias +}-content')">&uarr;&nbsp;Less</div>
+                        <for each="p" in="c.properties">
+                           {+ publish.variableTmpl.process(p) +}
+                        </for>
+                        <for each="f" in="c.methods">
+                           {+ publish.functionTmpl.process(f) +}
+                        </for>
+                        <div class="open-close" onclick="closeContent('{+ c.alias +}-content')">&uarr;&nbsp;Less</div>
+                     </div>
+                     <div id="{+ c.alias +}-content-open" class="open-close" onclick="openContent('{+ c.alias +}-content')">&darr;&nbsp;More</div>
+                  </div>
                </div>
-            </div>
-         </if>
-      </for>
+            </if>
+         </for>
+         <div class="open-close" onclick="closeContent('{+ m.alias +}-content')">&uarr;&nbsp;Less</div>
+      </div>
+      <div id="{+ m.alias +}-content-open" class="open-close" onclick="openContent('{+ m.alias +}-content')">&darr;&nbsp;More</div>
    </div>
 </for>
+
+<script type="text/javascript">
+function openContent(id) {
+   document.getElementById(id).style.display = "block";
+   document.getElementById(id + "-open").style.display = "none";
+}
+
+function closeContent(id) {
+   document.getElementById(id).style.display = "none";
+   document.getElementById(id + "-open").style.display = "block";
+}
+</script>

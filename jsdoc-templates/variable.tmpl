@@ -1,0 +1,10 @@
+<div class="variable">
+    <h3>
+       <a id="{+ data.alias +}"></a>
+       {+ publish.visibilityTmpl.process(data) +}
+       <span class="label variable"><if test="data.isConstant">constant<else />variable</if></span>
+       {+ publish.fullNameTmpl.process(data) +}
+       {+ publish.dataTypeTmpl.process(data) +}
+    </h3>
+    <div class="desc">{+ resolveLinks(data.desc) +}</div>
+</div>
