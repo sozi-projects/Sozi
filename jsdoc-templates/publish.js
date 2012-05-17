@@ -30,7 +30,8 @@ function publish(SymbolSet) {
     var indexHtml = indexTmpl.process(data);
     IO.saveFile(outDir, "index.html", indexHtml);
     
-    // Copy style sheet and fonts
+    // Copy style sheets and fonts
+    IO.copyFile(tmplDir + "normalize.css", outDir);
     IO.copyFile(tmplDir + "style.css", outDir);
     
     fonts.forEach(function (fontName) {
