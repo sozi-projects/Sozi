@@ -30,6 +30,9 @@ module(this, "sozi.display", function (exports, window) {
     // assigned in onDocumentReady()
     var initialBBox;
     
+    var lastWindowWidth;
+    var lastWindowHeight;
+    
     exports.viewPorts = {};
     
     var primaryViewport;
@@ -380,14 +383,13 @@ module(this, "sozi.display", function (exports, window) {
         /**
          * The default handler for window resize events.
          *
-         * The default behavior is to fit the current viewport to
-         * the given window size.
-         *
-         * @param width The new window width
-         * @param height The new window height
+         * @param widthRatio The horizontal resize ratio
+         * @param heightRatio The vertical resize ratio
          */
-        onWindowResize: function (width, height) {
-            this.setSize(width, height).update();
+        onWindowResize: function (widthRatio, heightRatio) {
+            this.setLocation(this.x * widthRatio, this.y * heightRatio)
+                .setSize(this.width * widthRatio, this.height * heightRatio)
+                .update();
         }
     });
     
@@ -406,8 +408,10 @@ module(this, "sozi.display", function (exports, window) {
         // Save the initial bounding box of the document
         // and force its dimensions to the browser window
         initialBBox = svgRoot.getBBox();
-        svgRoot.setAttribute("width", window.innerWidth);
-        svgRoot.setAttribute("height", window.innerHeight);
+        lastWindowWidth = window.innerWidth;
+        lastWindowHeight = window.innerHeight;
+        svgRoot.setAttribute("width", lastWindowWidth);
+        svgRoot.setAttribute("height", lastWindowHeight);
         
         sozi.events.fire("displayready");
     }
@@ -423,8 +427,11 @@ module(this, "sozi.display", function (exports, window) {
         svgRoot.setAttribute("height", window.innerHeight);
         
         for (var vp in exports.viewPorts) {
-            exports.viewPorts[vp].onWindowResize(window.innerWidth, window.innerHeight);
+            exports.viewPorts[vp].onWindowResize(window.innerWidth / lastWindowWidth, window.innerHeight / lastWindowHeight);
         }
+
+        lastWindowWidth = window.innerWidth;
+        lastWindowHeight = window.innerHeight;
     }
     
     sozi.events.listen("documentready", onDocumentReady);
