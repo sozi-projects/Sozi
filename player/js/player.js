@@ -10,16 +10,16 @@
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  * @depend events.js
  * @depend animation.js
  * @depend display.js
  */
 
-module(this, "sozi.player", function (exports, window) {
+namespace(this, "sozi.player", function (exports, window) {
     "use strict";
     
-    // An alias to the Sozi display module
+    // An alias to the Sozi display namespace
     var display = sozi.display;
     
     var viewPort;

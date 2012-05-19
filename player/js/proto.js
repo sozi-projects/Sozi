@@ -10,10 +10,10 @@
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  */
 
-module(this, "sozi.proto", function (exports) {
+namespace(this, "sozi.proto", function (exports) {
     "use strict";
     
     exports.Object = {

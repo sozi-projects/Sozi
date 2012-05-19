@@ -10,7 +10,7 @@
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  * @depend proto.js
  */
 
@@ -18,7 +18,7 @@
  * @name sozi.animation
  * @namespace A general-purpose animation controller.
  */
-module(this, "sozi.animation", function (exports, window) {
+namespace(this, "sozi.animation", function (exports, window) {
     /** @lends sozi.animation */
     
     "use strict";
@@ -62,10 +62,10 @@ module(this, "sozi.animation", function (exports, window) {
      * The main animation loop.
      *
      * <p>This function is called periodically and triggers the
-     * animation steps in all animators managed by this module.</p>
+     * animation steps in all running animators.</p>
      *
-     * <p>If all animators are removed from the list of animators
-     * managed by this module, then the periodic calling is disabled.</p>
+     * <p>If all animators are removed from the list of running animators,
+     * then the periodic calling is disabled.</p>
      *
      * <p>This function can be called either through {@link sozi.animation-requestAnimationFrame}
      * if the browser supports it, or through <code>setInterval()</code>.</p>
@@ -115,8 +115,7 @@ module(this, "sozi.animation", function (exports, window) {
     }
     
     /**
-     * Add a new animator object to the list of animators managed
-     * by this module.
+     * Add a new animator object to the list of running animators.
      *
      * <p>If the animator list was empty before calling this function,
      * then the animation loop is started.</p>
@@ -131,8 +130,7 @@ module(this, "sozi.animation", function (exports, window) {
     }
     
     /**
-     * Remove the given animator from the list of animators
-     * managed by this module.
+     * Remove the given animator from the list of running animators.
      *
      * @param {sozi.animation.Animator} animator The animator object to add.
      */
@@ -186,8 +184,8 @@ module(this, "sozi.animation", function (exports, window) {
         /**
          * Start the current animator.
          *
-         * <p>The current animator is added to the list of animators managed
-         * by this module and is put in the "started" state.
+         * <p>The current animator is added to the list of running animators
+         * and is put in the "started" state.
          * It will be removed from the list automatically when the given duration
          * has elapsed.</p>
          *
@@ -212,8 +210,8 @@ module(this, "sozi.animation", function (exports, window) {
         /**
          * Stop the current animator.
          *
-         * <p>The current animator is removed from the list of animators managed
-         * by this module and is put in the "stopped" state.</p>
+         * <p>The current animator is removed from the list of running animators
+         * and is put in the "stopped" state.</p>
          */
         stop: function () {
             if (this.started) {

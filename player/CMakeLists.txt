@@ -52,7 +52,7 @@ LIST(APPEND sozi_player_files ${CMAKE_CURRENT_BINARY_DIR}/sozi.version)
 
 # The order is important because of dependencies (in case we don't use juicer)
 # This list can be obtained by running juicer list player/js/sozi.js
-SET(sozi_js ${CMAKE_CURRENT_SOURCE_DIR}/js/module.js
+SET(sozi_js ${CMAKE_CURRENT_SOURCE_DIR}/js/namespace.js
 			${CMAKE_CURRENT_SOURCE_DIR}/js/events.js 
             ${CMAKE_CURRENT_SOURCE_DIR}/js/framenumber.js 
             ${CMAKE_CURRENT_SOURCE_DIR}/js/framelist.js 

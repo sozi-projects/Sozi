@@ -10,14 +10,14 @@
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  */
 
 /**
  * @name sozi.events
  * @namespace A simple event system for Sozi.
  */
-module(this, "sozi.events", function (exports) {
+namespace(this, "sozi.events", function (exports) {
     /** @lends sozi.events */
 
     "use strict";

@@ -10,11 +10,11 @@
 *
 * See http://sozi.baierouge.fr/wiki/en:license for details.
 *
-* @depend module.js
+* @depend namespace.js
 * @depend events.js
 */
 
-module(this, "sozi.document", function (exports, window) {
+namespace(this, "sozi.document", function (exports, window) {
     "use strict";
     
     // An alias to the global document object

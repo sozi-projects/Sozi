@@ -10,7 +10,7 @@
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  * @depend player.js
  * @depend display.js
  */
@@ -19,7 +19,7 @@
  * @name sozi.actions
  * @namespace Callback functions for DOM event handlers
  */
-module(this, "sozi.actions", function (exports, window) {
+namespace(this, "sozi.actions", function (exports, window) {
     /** @lends sozi.actions */
     
     "use strict";
@@ -373,7 +373,7 @@ module(this, "sozi.actions", function (exports, window) {
     /**
      * Event handler: document load.
      *
-     * <p>This function sets up all other event handlers for this module.</p>
+     * <p>This function sets up all other event handlers for the player.</p>
      */
     function onDisplayReady() {
         // Prevent event propagation when clicking on a link

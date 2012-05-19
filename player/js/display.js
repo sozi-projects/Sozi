@@ -10,12 +10,12 @@
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  * @depend proto.js
  * @depend events.js
  */
 
-module(this, "sozi.display", function (exports, window) {
+namespace(this, "sozi.display", function (exports, window) {
     "use strict";
     
     // Constant: the Sozi namespace

@@ -1,11 +1,11 @@
 
 /**
- * Create or augment a module.
+ * Create or augment a namespace.
  *
  * <p>A typical use of this function is:</p>
  *
  * <pre>
- * module(this, "a.b.c", function (exports, globals) {
+ * namespace(this, "a.b.c", function (exports, globals) {
  *     exports.foo = function (x) {
  *         ...
  *     };
@@ -19,10 +19,10 @@
  *
  * @memberOf _global_
  * @param globals The global object
- * @param {String} path The dot-separated path to the module
- * @param {Function} body A function to execute in the context of the module
+ * @param {String} path The dot-separated path to the namespace
+ * @param {Function} body A function to execute in the context of the namespace
  */
-function module(globals, path, body) {
+function namespace(globals, path, body) {
     "use strict";
     
     // Start name lookup in the global object
@@ -40,6 +40,6 @@ function module(globals, path, body) {
 		current = current[name];
 	});
 	
-	// Execute the module body in the last namespace
+	// Execute the given function in the last namespace
 	body(current, globals);
 }
