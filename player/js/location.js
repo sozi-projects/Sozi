@@ -77,7 +77,7 @@ module(this, "sozi.location", function (exports, window) {
 	 * This function registers the "framechange" handler.
 	 */
     function onLoad() {
-        sozi.events.listen("framechange", onFrameChange);
+        sozi.events.listen("sozi.player.framechange", onFrameChange);
     }
     
     window.addEventListener("hashchange", onHashChange, false);

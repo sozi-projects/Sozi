@@ -158,7 +158,7 @@ module(this, "sozi.actions", function (exports, window) {
         }
         player.stop();
         mouseDragged = true;
-        sozi.events.fire("cleanup");
+        sozi.events.fire("sozi.player.cleanup");
         display.viewPorts["player"].drag(evt.clientX - mouseLastX, evt.clientY - mouseLastY);
         mouseLastX = evt.clientX;
         mouseLastY = evt.clientY;
@@ -400,5 +400,5 @@ module(this, "sozi.actions", function (exports, window) {
         svgRoot.addEventListener("keydown", onKeyDown, false);
     }
 
-    sozi.events.listen("displayready", onDisplayReady);
+    sozi.events.listen("sozi.display.ready", onDisplayReady);
 });

@@ -248,7 +248,7 @@ module(this, "sozi.framelist", function (exports, window) {
         return translateXEnd === translateXVisible;
     };
 
-	sozi.events.listen("displayready", onDisplayReady);
-	sozi.events.listen("cleanup", exports.hide);
-	sozi.events.listen("framechange", onFrameChange);
+	sozi.events.listen("sozi.display.ready", onDisplayReady);
+	sozi.events.listen("sozi.player.cleanup", exports.hide);
+	sozi.events.listen("sozi.player.framechange", onFrameChange);
 });

@@ -149,13 +149,13 @@ module(this, "sozi.player", function (exports, window) {
      */
     exports.jumpToFrame = function (index) {
         exports.stop();
-        sozi.events.fire("cleanup");
+        sozi.events.fire("sozi.player.cleanup");
 
         sourceFrameIndex = index;
         currentFrameIndex = index;
         viewPort.showFrame(sozi.document.frames[index]);
 
-        sozi.events.fire("framechange", index);
+        sozi.events.fire("sozi.player.framechange", index);
     };
 
     /*
@@ -212,7 +212,7 @@ module(this, "sozi.player", function (exports, window) {
         animator.start(DEFAULT_DURATION_MS,
             getAnimationData(viewPort.cameras, sozi.document.frames[index].states,
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]));
-        sozi.events.fire("framechange", index);
+        sozi.events.fire("sozi.player.framechange", index);
     };
 
     /*
@@ -245,14 +245,14 @@ module(this, "sozi.player", function (exports, window) {
             profile = sozi.animation.profiles[DEFAULT_PROFILE];
         }
 
-        sozi.events.fire("cleanup");
+        sozi.events.fire("sozi.player.cleanup");
 
         playing = true;
         currentFrameIndex = index;
 
         animator.start(durationMs, getAnimationData(viewPort.cameras, sozi.document.frames[index].states, zoomPercent, profile));
 
-        sozi.events.fire("framechange", index);
+        sozi.events.fire("sozi.player.framechange", index);
     };
 
     /*
@@ -332,7 +332,7 @@ module(this, "sozi.player", function (exports, window) {
      */
     exports.showAll = function () {
         exports.stop();
-        sozi.events.fire("cleanup");
+        sozi.events.fire("sozi.player.cleanup");
         animator.start(DEFAULT_DURATION_MS,
             getAnimationData(viewPort.cameras, viewPort.getDocumentState(),
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]
@@ -352,7 +352,7 @@ module(this, "sozi.player", function (exports, window) {
         // See https://github.com/senshu/Sozi/issues/109
         window.setTimeout(viewPort.bind(viewPort.update), 1);
         
-        sozi.events.fire("playerready");
+        sozi.events.fire("sozi.player.ready");
     }
 
     animator = sozi.animation.Animator.instance().augment({
@@ -417,5 +417,5 @@ module(this, "sozi.player", function (exports, window) {
         }
     });
 
-    sozi.events.listen("displayready", onDisplayReady);
+    sozi.events.listen("sozi.display.ready", onDisplayReady);
 });

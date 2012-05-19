@@ -68,6 +68,6 @@ module(this, "sozi.framenumber", function (exports, window) {
         svgTextNode.nodeValue = index + 1;
     }
     
-	sozi.events.listen("displayready", onDisplayReady);
-	sozi.events.listen("framechange", onFrameChange);
+	sozi.events.listen("sozi.display.ready", onDisplayReady);
+	sozi.events.listen("sozi.player.framechange", onFrameChange);
 });

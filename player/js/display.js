@@ -413,7 +413,7 @@ module(this, "sozi.display", function (exports, window) {
         svgRoot.setAttribute("width", lastWindowWidth);
         svgRoot.setAttribute("height", lastWindowHeight);
         
-        sozi.events.fire("displayready");
+        sozi.events.fire("sozi.display.ready");
     }
 
     /*
@@ -434,6 +434,6 @@ module(this, "sozi.display", function (exports, window) {
         lastWindowHeight = window.innerHeight;
     }
     
-    sozi.events.listen("documentready", onDocumentReady);
+    sozi.events.listen("sozi.document.ready", onDocumentReady);
     window.addEventListener("resize", resize, false);
 });

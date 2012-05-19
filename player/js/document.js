@@ -224,7 +224,7 @@ module(this, "sozi.document", function (exports, window) {
     function onLoad() {
         document.documentElement.removeAttribute("viewBox");
         readFrames();
-        sozi.events.fire("documentready");
+        sozi.events.fire("sozi.document.ready");
     }
 
     window.addEventListener("load", onLoad, false);
