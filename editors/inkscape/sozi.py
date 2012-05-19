@@ -374,7 +374,7 @@ class SoziCreateAction(SoziAction):
         # The new frame is a copy of the currently selected frame
         
         frame = self.ui.effect.create_new_frame(None)
-        for field in self.ui.fields.itervalues():
+        for field in self.ui.frame_fields.itervalues():
             frame["frame_element"].set(field.ns_attr, field.get_value())
             
         self.ui.effect.add_frame(frame)
@@ -457,7 +457,7 @@ class SoziDuplicateAction(SoziAction):
         
         self.ui = ui
         self.frame = ui.effect.create_new_frame(self.index)
-        for field in ui.fields.itervalues():
+        for field in ui.frame_fields.itervalues():
             self.frame["frame_element"].set(field.ns_attr, field.get_value())
                     
 
@@ -582,11 +582,8 @@ class SoziUI:
         self.window.set_icon_from_file(__file__ + ".png")
         self.window.set_border_width(5)
         
-        # Enable icons on stock buttons
-        #gtk.settings_get_default().set_long_property("gtk-button-images", True, "Sozi")
-
         # Create fields for frame information
-        self.fields = {
+        self.frame_fields = {
             "title": SoziTextField(self, "title", "Title", "New frame"),
             "hide": SoziCheckButtonField(self, "hide", "Hide", "true"),
             "clip": SoziCheckButtonField(self, "clip", "Clip", "true"),
@@ -616,11 +613,11 @@ class SoziUI:
        
         # Frame properties
         frame_box = gtk.VBox(spacing=0)
-        frame_box.pack_start(self.fields["title"].container_widget, expand=False)
-        frame_box.pack_start(self.fields["hide"].container_widget, expand=False)
-        frame_box.pack_start(self.fields["clip"].container_widget, expand=False)
-        frame_box.pack_start(self.fields["timeout-enable"].container_widget, expand=False)
-        frame_box.pack_start(self.fields["timeout-ms"].container_widget, expand=False)
+        frame_box.pack_start(self.frame_fields["title"].container_widget, expand=False)
+        frame_box.pack_start(self.frame_fields["hide"].container_widget, expand=False)
+        frame_box.pack_start(self.frame_fields["clip"].container_widget, expand=False)
+        frame_box.pack_start(self.frame_fields["timeout-enable"].container_widget, expand=False)
+        frame_box.pack_start(self.frame_fields["timeout-ms"].container_widget, expand=False)
 
         frame_group = gtk.Frame()
         # fixme, spaces are here for set width of list..
@@ -631,9 +628,9 @@ class SoziUI:
         
         # Transition properties
         transition_box = gtk.VBox(spacing=5)
-        transition_box.pack_start(self.fields["transition-duration-ms"].container_widget, expand=False)
-        transition_box.pack_start(self.fields["transition-zoom-percent"].container_widget, expand=False)
-        transition_box.pack_start(self.fields["transition-profile"].container_widget, expand=False)
+        transition_box.pack_start(self.frame_fields["transition-duration-ms"].container_widget, expand=False)
+        transition_box.pack_start(self.frame_fields["transition-zoom-percent"].container_widget, expand=False)
+        transition_box.pack_start(self.frame_fields["transition-profile"].container_widget, expand=False)
 
         transition_group = gtk.Frame("Transition")
         transition_label=gtk.Label("<b>Transition</b>              ")
@@ -864,7 +861,7 @@ class SoziUI:
         """
         Fill all fields with the values of the attributes of the given frame.
         """
-        for field in self.fields.itervalues():
+        for field in self.frame_fields.itervalues():
             field.set_with_frame(frame)
 
         self.duplicate_button.set_sensitive(frame is not None )
@@ -1022,7 +1019,7 @@ class SoziUI:
         Update the UI after an action has been executed or undone.
         """
         # Update the frame list view if the "title" field of a frame has changed.
-        if isinstance(action, SoziFieldAction) and action.field is self.fields["title"]:
+        if isinstance(action, SoziFieldAction) and action.field is self.frame_fields["title"]:
             index = self.effect.frames.index(action.frame)
             model = self.list_view.get_model()
             model.set(model.get_iter(index), 1, action.frame["frame_element"].get(action.field.ns_attr))
