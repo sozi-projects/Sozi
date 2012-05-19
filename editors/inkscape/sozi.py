@@ -138,8 +138,8 @@ class SoziTextField(SoziField):
         See class SoziField for initializer arguments.
         """
         SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.Entry(), default_value)
-        self.container_widget.add(gtk.Label(label))
-        self.container_widget.add(self.input_widget)
+        self.container_widget.pack_start(gtk.Label(label), expand=False)
+        self.container_widget.pack_start(self.input_widget)
 
 
     def set_value(self, value):
@@ -165,8 +165,8 @@ class SoziComboField(SoziField):
         self.items = items  
         for text in items:
             self.input_widget.append_text(text)
-        self.container_widget.add(gtk.Label(label))
-        self.container_widget.add(self.input_widget)
+        self.container_widget.pack_start(gtk.Label(label), expand=False)
+        self.container_widget.pack_start(self.input_widget)
 
       
     def set_value(self, value):
@@ -228,7 +228,7 @@ class SoziSpinButtonField(SoziField):
         # page :     increment applied for each middle mousebutton press.
         self.input_widget.set_increments(increments, increments * 2)
         self.input_widget.set_numeric(True)
-        self.container_widget.pack_start(gtk.Label(label))
+        self.container_widget.pack_start(gtk.Label(label), expand=False)
         self.container_widget.pack_start(self.input_widget)
         self.factor = factor
 
@@ -575,6 +575,7 @@ class SoziUI:
         self.undo_stack = []
         self.redo_stack = []
         
+        # window
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         self.window.connect("destroy", self.on_destroy)
         self.window.connect("key-press-event", self.on_key_press)
@@ -582,7 +583,137 @@ class SoziUI:
         self.window.set_icon_from_file(__file__ + ".png")
         self.window.set_border_width(5)
         
-        # Create fields for frame information
+        # window > vbox
+        vbox = gtk.VBox(spacing=5)
+        self.window.add(vbox)
+
+        # window > vbox > tool_bar
+        tool_bar = gtk.Toolbar()
+        vbox.pack_start(tool_bar)
+        tool_bar.set_style(gtk.TOOLBAR_ICONS)
+        tool_bar.set_icon_size(gtk.ICON_SIZE_SMALL_TOOLBAR)
+
+        # window > vbox > tool_bar > undo_button
+        self.undo_button = gtk.ToolButton(gtk.STOCK_UNDO)
+        tool_bar.add(self.undo_button)
+        self.undo_button.set_sensitive(False)
+        self.undo_button.set_label("Annuler")
+        self.undo_button.connect("clicked", self.on_undo)
+
+        # window > vbox > tool_bar > redo_button
+        self.redo_button = gtk.ToolButton(gtk.STOCK_REDO)
+        tool_bar.add(self.redo_button)
+        self.redo_button.set_sensitive(False)
+        self.redo_button.connect("clicked", self.on_redo)
+       
+        # window > vbox > hpaned
+        hpaned = gtk.HPaned()
+        vbox.add(hpaned)
+
+        # window > vbox > hpaned > left_pane
+        left_pane = gtk.Frame()
+        hpaned.pack1(left_pane, resize=True)
+        frame_list_label=gtk.Label("<b>Frame list</b>")
+        frame_list_label.set_use_markup(True) # enable bold with <b>
+        left_pane.set_label_widget(frame_list_label)
+
+        # window > vbox > hpaned > left_pane > left_pane_content
+        left_pane_content = gtk.VBox(spacing=0)
+        left_pane.add(left_pane_content)
+
+        # window > vbox > hpaned > left_pane > left_pane_content > list_scroll
+        list_scroll = gtk.ScrolledWindow()
+        left_pane_content.pack_start(list_scroll, expand=True, fill=True)
+        list_scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)	
+
+        # window > vbox > hpaned > left_pane > left_pane_content > list_scroll > list_view
+        store = gtk.ListStore(int, str, str)
+        self.list_view = gtk.TreeView(store)
+        list_scroll.add(self.list_view)
+
+        selection = self.list_view.get_selection()
+        selection.set_mode(gtk.SELECTION_SINGLE) # TODO multiple selection
+        selection.set_select_function(self.on_selection_changed)
+
+        list_renderer = gtk.CellRendererText()
+        list_renderer.set_property("background", "white")
+
+        # window > vbox > hpaned > left_pane > left_pane_content > list_scroll > list_view > sequence_column
+        sequence_column = gtk.TreeViewColumn("Seq.", list_renderer, text=0, foreground=2)
+        self.list_view.append_column(sequence_column)
+
+        # window > vbox > hpaned > left_pane > left_pane_content > list_scroll > list_view > title_column
+        title_column = gtk.TreeViewColumn("Title", list_renderer, text=1, foreground=2)
+        self.list_view.append_column(title_column)
+
+        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar
+        list_tool_bar = gtk.Toolbar()
+        left_pane_content.pack_end(list_tool_bar, expand=False)
+        list_tool_bar.set_icon_size(1)
+
+        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > new_button
+        self.new_button = gtk.ToolButton()
+        list_tool_bar.add(self.new_button)
+        self.new_button.set_stock_id(gtk.STOCK_ADD)        
+        self.new_button.connect("clicked", self.on_create_new_frame)
+
+        if len(effect.selected) > 0:
+            # The tooltip of the "new" button will show the tag of the SVG element
+            # selected in Inkscape, removing the namespace URI if present 
+            self.new_button.set_tooltip_text("Create a new frame using the selected '" +
+                re.sub("{.*}", "", effect.selected.values()[0].tag) + "'")
+        else:
+            # This button is disabled if no element is selected in Inkscape
+            self.new_button.set_sensitive(False)
+
+        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > delete_button
+        self.delete_button = gtk.ToolButton()
+        list_tool_bar.add(self.delete_button)
+        self.delete_button.set_tooltip_text("Delete the current frame")
+        self.delete_button.set_stock_id(gtk.STOCK_REMOVE)
+        self.delete_button.connect("clicked", self.on_delete_frame)
+        self.delete_button.set_sensitive(False)
+
+        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > duplicate_button
+        self.duplicate_button = gtk.ToolButton()
+        list_tool_bar.add(self.duplicate_button)
+        self.duplicate_button.set_tooltip_text("Duplicate the current frame")
+        self.duplicate_button.set_stock_id(gtk.STOCK_COPY)
+        self.duplicate_button.connect("clicked", self.on_duplicate_frame)
+        self.duplicate_button.set_sensitive(False)
+
+        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > up_button
+        self.up_button = gtk.ToolButton()
+        list_tool_bar.add(self.up_button)
+        self.up_button.set_tooltip_text("Move the current frame up")
+        self.up_button.set_stock_id(gtk.STOCK_GO_UP)
+        self.up_button.connect("clicked", self.on_move_frame_up)
+        self.up_button.set_sensitive(False)
+
+        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > down_button
+        self.down_button = gtk.ToolButton()
+        list_tool_bar.add(self.down_button)
+        self.down_button.set_tooltip_text("Move the current frame down")
+        self.down_button.set_stock_id(gtk.STOCK_GO_DOWN)
+        self.down_button.connect("clicked", self.on_move_frame_down)
+        self.down_button.set_sensitive(False)
+
+        # window > vbox > right_pane
+        right_pane = gtk.VBox(spacing=5)
+        hpaned.pack2(right_pane)
+
+        # window > vbox > right_pane > frame_group
+        frame_group = gtk.Frame()
+        right_pane.pack_start(frame_group, expand=False)
+        frame_label=gtk.Label("<b>Frame properties</b>")
+        frame_label.set_use_markup(True) # enable bold with <b>
+        frame_group.set_label_widget(frame_label)
+
+        # window > vbox > right_pane > frame_group > frame_box
+        frame_box = gtk.VBox(spacing=0)
+        frame_group.add(frame_box)
+
+        # window > vbox > right_pane > frame_group > frame_box > frame_fields
         self.frame_fields = {
             "title": SoziTextField(self, "title", "Title", "New frame"),
             "hide": SoziCheckButtonField(self, "hide", "Hide", "true"),
@@ -594,167 +725,54 @@ class SoziUI:
             "transition-profile": SoziComboField(self, "transition-profile", "Profile", SoziUI.PROFILES, SoziUI.PROFILES[0])
         }
 
-
-        # Undo/redo widgets
-        self.undo_button = gtk.ToolButton(gtk.STOCK_UNDO)
-        self.undo_button.set_sensitive(False)
-        self.undo_button.set_label("Annuler")
-        self.undo_button.connect("clicked", self.on_undo)
-
-        self.redo_button = gtk.ToolButton(gtk.STOCK_REDO)
-        self.redo_button.set_sensitive(False)
-        self.redo_button.connect("clicked", self.on_redo)
-        
-        toolBar = gtk.Toolbar()
-        toolBar.set_style(gtk.TOOLBAR_ICONS)
-        toolBar.set_icon_size(gtk.ICON_SIZE_SMALL_TOOLBAR)
-        toolBar.add(self.undo_button)
-        toolBar.add(self.redo_button)
-       
-        # Frame properties
-        frame_box = gtk.VBox(spacing=0)
         frame_box.pack_start(self.frame_fields["title"].container_widget, expand=False)
         frame_box.pack_start(self.frame_fields["hide"].container_widget, expand=False)
         frame_box.pack_start(self.frame_fields["clip"].container_widget, expand=False)
         frame_box.pack_start(self.frame_fields["timeout-enable"].container_widget, expand=False)
         frame_box.pack_start(self.frame_fields["timeout-ms"].container_widget, expand=False)
-
-        frame_group = gtk.Frame()
-        # fixme, spaces are here for set width of list..
-        frame_label=gtk.Label("<b>Frame properties</b>              ")
-        frame_label.set_use_markup(True) # enable bold with <b>
-        frame_group.set_label_widget(frame_label)
-        frame_group.add(frame_box)
         
-        # Transition properties
+        self.frame_fields["title"].input_widget.set_width_chars(30)
+
+        # window > vbox > right_pane > transition_group
+        transition_group = gtk.Frame("Transition")
+        right_pane.pack_start(transition_group, expand=False)
+        transition_label=gtk.Label("<b>Transition</b>")
+        transition_label.set_use_markup(True) # enable bold with <b>
+        transition_group.set_label_widget(transition_label)
+
+        # window > vbox > right_pane > transition_group > transition_box
         transition_box = gtk.VBox(spacing=5)
+        transition_group.add(transition_box)
         transition_box.pack_start(self.frame_fields["transition-duration-ms"].container_widget, expand=False)
         transition_box.pack_start(self.frame_fields["transition-zoom-percent"].container_widget, expand=False)
         transition_box.pack_start(self.frame_fields["transition-profile"].container_widget, expand=False)
 
-        transition_group = gtk.Frame("Transition")
-        transition_label=gtk.Label("<b>Transition</b>              ")
-        transition_label.set_use_markup(True) # enable bold with <b>
-        transition_group.set_label_widget(transition_label)
-        transition_group.add(transition_box)
-
-
-        # Fill right pane
-        right_pane = gtk.VBox(spacing=5)
-        right_pane.pack_start(frame_group, expand=False)
-        right_pane.pack_start(transition_group, expand=False)
-
-        # Create frame list
-        list_renderer = gtk.CellRendererText()
-        list_renderer.set_property("background", "white")
-        sequence_column = gtk.TreeViewColumn("Seq.", list_renderer, text=0, foreground=2)
-        title_column = gtk.TreeViewColumn("Title", list_renderer, text=1, foreground=2)
-
-        store = gtk.ListStore(int, str, str)
-        self.list_view = gtk.TreeView(store)
-        self.list_view.append_column(sequence_column)
-        self.list_view.append_column(title_column)
-
-        list_scroll = gtk.ScrolledWindow()
-        list_scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)	
-        list_scroll.add(self.list_view)
-
-        selection = self.list_view.get_selection()
-        selection.set_mode(gtk.SELECTION_SINGLE) # TODO multiple selection
-        selection.set_select_function(self.on_selection_changed)
-
-        # Create "new" button
-        # This button is enabled only if an element is selected in Inkscape
-        self.new_button = gtk.ToolButton()
-        if len(effect.selected) > 0:
-            # The tooltip of the "new" button will show the tag of the SVG element
-            # selected in Inkscape, removing the namespace URI if present 
-            self.new_button.set_tooltip_text("Create a new frame using the selected '" +
-                re.sub("{.*}", "", effect.selected.values()[0].tag) + "'")
-        else:
-            self.new_button.set_sensitive(False)
-            
-        self.new_button.set_stock_id(gtk.STOCK_ADD)        
-        self.new_button.connect("clicked", self.on_create_new_frame)
-
-        # Create "delete" and "duplicate" buttons
-        # These buttons are disabled until a frame is selected
-        self.delete_button = gtk.ToolButton()
-        self.delete_button.set_tooltip_text("Delete the current frame")
-        self.delete_button.set_stock_id(gtk.STOCK_REMOVE)
-        self.delete_button.connect("clicked", self.on_delete_frame)
-        self.delete_button.set_sensitive(False)
-
-        self.duplicate_button = gtk.ToolButton()
-        self.duplicate_button.set_tooltip_text("Duplicate the current frame")
-        self.duplicate_button.set_stock_id(gtk.STOCK_COPY)
-        self.duplicate_button.connect("clicked", self.on_duplicate_frame)
-        self.duplicate_button.set_sensitive(False)
-
-        # Create up/down buttons
-        # These buttons are disabled until a frame is selected
-        self.up_button = gtk.ToolButton()
-        self.up_button.set_tooltip_text("Move the current frame up")
-        self.up_button.set_stock_id(gtk.STOCK_GO_UP)
-        self.up_button.connect("clicked", self.on_move_frame_up)
-        self.up_button.set_sensitive(False)
-
-        self.down_button = gtk.ToolButton()
-        self.down_button.set_tooltip_text("Move the current frame down")
-        self.down_button.set_stock_id(gtk.STOCK_GO_DOWN)
-        self.down_button.connect("clicked", self.on_move_frame_down)
-        self.down_button.set_sensitive(False)
-
-        listToolBar = gtk.Toolbar()
-        listToolBar.set_icon_size(1)
-        listToolBar.add(self.new_button)
-        listToolBar.add(self.delete_button)
-        listToolBar.add(self.duplicate_button)
-        listToolBar.add(self.up_button)
-        listToolBar.add(self.down_button)
-
-        # Fill left pane
-        left_pane_content = gtk.VBox(spacing=0)
-        left_pane_content.pack_start(list_scroll, expand=True, fill=True)
-        left_pane_content.pack_end(listToolBar, expand=False)
-
-        list_group = gtk.Frame()
-        # fixme, spaces are here for set width of list..
-        list_frame_label=gtk.Label("<b>Frame list</b>              ")
-        list_frame_label.set_use_markup(True) # enable bold with <b>
-        list_group.set_label_widget(list_frame_label)
-        list_group.add(left_pane_content)
+        # window > vbox > button_bar
+        button_bar = gtk.HBox(spacing=10)
+        vbox.add(button_bar)
         
-        left_pane = list_group
-
-        hbox = gtk.HBox(spacing=5)
-        hbox.pack_start(left_pane)
-        hbox.pack_start(right_pane)
-        
-        # button Bar
-        cancel_button = gtk.Button(stock=gtk.STOCK_CANCEL)
-        cancel_button.set_tooltip_text("Cancel all changes and go back to Inkscape")
-        cancel_button.connect("clicked", self.on_full_undo)
-        
+        # window > vbox > button_bar > ok_button
         ok_button = gtk.Button(stock=gtk.STOCK_OK)#or Apply
+        button_bar.pack_end(ok_button, False, False)
         ok_button.set_tooltip_text("Apply changes and go back to Inkscape")
         ok_button.connect("clicked", gtk.main_quit)
-       
-        buttonBar = gtk.HBox(spacing=10)
-        buttonBar.pack_end(ok_button, False, False)
-        buttonBar.pack_end(cancel_button, False, False)
 
-        statusBar = gtk.Statusbar()
-        #statusBar.push(statusBar.getContexteId("a"),"Etat initial")
+        # window > vbox > button_bar > cancel_button
+        cancel_button = gtk.Button(stock=gtk.STOCK_CANCEL)
+        button_bar.pack_end(cancel_button, False, False)
+        cancel_button.set_tooltip_text("Cancel all changes and go back to Inkscape")
+        cancel_button.connect("clicked", self.on_full_undo)
+
+        # window > vbox > status_bar
+        status_bar = gtk.Statusbar()
+        vbox.pack_end(status_bar)
+        #status_bar.push(status_bar.getContexteId("a"),"Etat initial")
         
-        vbox = gtk.VBox(spacing=5)
-        vbox.pack_start(toolBar)
-        vbox.add(hbox)
-        vbox.add(buttonBar)
-        vbox.pack_end(statusBar)
-        
-        self.window.add(vbox)
         self.window.show_all()
+
+        # This is a hack to force the toolbar at the bottom of the frame list to expand to its full size.
+        # get_allocation() can only be called after the window is visible.
+        title_column.set_min_width(self.new_button.get_allocation().width * len(list_tool_bar.get_children()))
 
         # If an element is selected in Inkscape, and if it corresponds to
         # one or more existing frames, select the first matching frame.
