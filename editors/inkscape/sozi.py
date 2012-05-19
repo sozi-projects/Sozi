@@ -444,17 +444,18 @@ class SoziDuplicateAction(SoziAction):
         Initialize a new frame creation action.
             - ui: an instance of SoziUI
         """
+
+        # The new frame is a copy of the currently selected frame
+        self.index = ui.get_selected_index()
+
         # The new frame will be added at the end of the presentation
         new_frame_number = str(len(ui.effect.frames) + 1)
 
         SoziAction.__init__(self,
             "Remove frame " + new_frame_number,
-            "Recreate frame " + new_frame_number)
+            "Duplicate frame " + str(self.index + 1))
         
         self.ui = ui
-        
-        # The new frame is a copy of the currently selected frame
-        self.index = ui.get_selected_index()
         self.frame = ui.effect.create_new_frame(self.index)
         for field in ui.fields.itervalues():
             self.frame["frame_element"].set(field.ns_attr, field.get_value())
