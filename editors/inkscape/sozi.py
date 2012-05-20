@@ -226,7 +226,7 @@ class SoziSpinButtonField(SoziField):
         # def set_increments(step, page)
         # step :    increment applied for each left mousebutton press.
         # page :     increment applied for each middle mousebutton press.
-        self.input_widget.set_increments(increments, increments * 2)
+        self.input_widget.set_increments(increments, increments * 10)
         self.input_widget.set_numeric(True)
         self.container_widget.pack_start(gtk.Label(label), expand=False)
         self.container_widget.pack_start(self.input_widget)
@@ -613,7 +613,7 @@ class SoziUI:
         # window > vbox > hpaned > left_pane
         left_pane = gtk.Frame()
         hpaned.pack1(left_pane, resize=True)
-        frame_list_label=gtk.Label("<b>Frame list</b>")
+        frame_list_label = gtk.Label("<b>Frame list</b>")
         frame_list_label.set_use_markup(True) # enable bold with <b>
         left_pane.set_label_widget(frame_list_label)
 
@@ -705,7 +705,7 @@ class SoziUI:
         # window > vbox > right_pane > frame_group
         frame_group = gtk.Frame()
         right_pane.pack_start(frame_group, expand=False)
-        frame_label=gtk.Label("<b>Frame properties</b>")
+        frame_label = gtk.Label("<b>Frame properties</b>")
         frame_label.set_use_markup(True) # enable bold with <b>
         frame_group.set_label_widget(frame_label)
 
@@ -736,7 +736,7 @@ class SoziUI:
         # window > vbox > right_pane > transition_group
         transition_group = gtk.Frame("Transition")
         right_pane.pack_start(transition_group, expand=False)
-        transition_label=gtk.Label("<b>Transition</b>")
+        transition_label = gtk.Label("<b>Transition</b>")
         transition_label.set_use_markup(True) # enable bold with <b>
         transition_group.set_label_widget(transition_label)
 
