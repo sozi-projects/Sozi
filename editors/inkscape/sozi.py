@@ -127,6 +127,37 @@ class SoziField:
         self.write_if_needed()
 
 
+class SoziLabelField(SoziField):
+    """
+    A wrapper for a GTK Label mapped to a Sozi frame attribute
+    """
+
+    def __init__(self, parent, attr, label, default_value):
+        """
+        Initialize a new label field.
+        See class SoziField for initializer arguments.
+        """
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.Label(), default_value)
+        self.container_widget.pack_start(gtk.Label(label), expand=False)
+        self.container_widget.pack_start(self.input_widget)
+        self.input_widget.set_justify(gtk.JUSTIFY_LEFT)
+
+
+    def set_value(self, value):
+        if value is None:
+            self.input_widget.set_text("(undefined)")
+        else:
+            self.input_widget.set_text(value)
+
+
+    def get_value(self):
+        value = self.input_widget.get_text()
+        if value == "(undefined)":
+            return None
+        else:
+            return unicode(value)
+
+
 class SoziTextField(SoziField):
     """
     A wrapper for a GTK Entry mapped to a Sozi frame attribute.
@@ -137,7 +168,7 @@ class SoziTextField(SoziField):
         Initialize a new text field.
         See class SoziField for initializer arguments.
         """
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.Entry(), default_value)
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.Entry(), default_value)
         self.container_widget.pack_start(gtk.Label(label), expand=False)
         self.container_widget.pack_start(self.input_widget)
 
@@ -161,7 +192,7 @@ class SoziComboField(SoziField):
             - items: the list of items in the combo box
         See class SoziField for other initializer arguments.
         """
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.combo_box_new_text(), default_value, False)
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.combo_box_new_text(), default_value, False)
         self.items = items  
         for text in items:
             self.input_widget.append_text(text)
@@ -221,7 +252,7 @@ class SoziSpinButtonField(SoziField):
         max_value = max_value * factor
         default_value = default_value * factor
 
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(), gtk.SpinButton(digits=digits), default_value)
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.SpinButton(digits=digits), default_value)
         self.input_widget.set_range(min_value, max_value)
         # def set_increments(step, page)
         # step :    increment applied for each left mousebutton press.
@@ -652,11 +683,12 @@ class SoziUI:
         list_tool_bar.set_icon_size(1)
 
         # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > new_button
-        self.new_button = gtk.ToolButton()
+        self.new_button = gtk.MenuToolButton(gtk.STOCK_ADD)
         list_tool_bar.add(self.new_button)
-        self.new_button.set_stock_id(gtk.STOCK_ADD)        
-        self.new_button.connect("clicked", self.on_create_new_frame)
 
+        # TODO set tooltip and sensitivity for layers
+        self.new_button.set_arrow_tooltip_text("Create a new frame or layer view")
+        self.new_button.connect("clicked", self.on_create_new_frame)
         if len(effect.selected) > 0:
             # The tooltip of the "new" button will show the tag of the SVG element
             # selected in Inkscape, removing the namespace URI if present 
@@ -665,6 +697,15 @@ class SoziUI:
         else:
             # This button is disabled if no element is selected in Inkscape
             self.new_button.set_sensitive(False)
+
+        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > new_button > new_menu
+        new_menu = gtk.Menu()
+        self.new_button.set_menu(new_menu)
+
+        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > new_button > new_menu > items
+        # TODO add other items
+        new_menu.append(gtk.MenuItem("New frame"))
+        new_menu.show_all()
 
         # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > delete_button
         self.delete_button = gtk.ToolButton()
@@ -715,6 +756,7 @@ class SoziUI:
 
         # window > vbox > right_pane > frame_group > frame_box > frame_fields
         self.frame_fields = {
+            "refid": SoziLabelField(self, "refid", "SVG element", None),
             "title": SoziTextField(self, "title", "Title", "New frame"),
             "hide": SoziCheckButtonField(self, "hide", "Hide", "true"),
             "clip": SoziCheckButtonField(self, "clip", "Clip", "true"),
@@ -725,6 +767,7 @@ class SoziUI:
             "transition-profile": SoziComboField(self, "transition-profile", "Profile", SoziUI.PROFILES, SoziUI.PROFILES[0])
         }
 
+        frame_box.pack_start(self.frame_fields["refid"].container_widget, expand=False)
         frame_box.pack_start(self.frame_fields["title"].container_widget, expand=False)
         frame_box.pack_start(self.frame_fields["hide"].container_widget, expand=False)
         frame_box.pack_start(self.frame_fields["clip"].container_widget, expand=False)
