@@ -55,7 +55,7 @@ doc: $(PLAYER_JS) $(EXTRAS_JS)
 		player/js
 
 $(TIMESTAMP):
-	touch $@
+	mkdir -p release ; touch $@
 	
 release/sozi-release-$(VERSION).zip: $(TARGET)
 	cd release ; zip $(notdir $@) $(notdir $^)
