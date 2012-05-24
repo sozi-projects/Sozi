@@ -368,7 +368,10 @@ class SoziFieldAction(SoziAction):
         Restore the previous value of the field in the frame and in the UI.
         If needed, select the frame that was active when the field was modified.
         """
-        self.frame["frame_element"].set(self.field.ns_attr, self.last_value)
+        if self.last_value is None:
+            del self.frame["frame_element"].attrib[self.field.ns_attr]
+        else:
+            self.frame["frame_element"].set(self.field.ns_attr, self.last_value)
         if self.field.current_frame is self.frame:
             self.field.set_value(self.last_value)
             self.field.reset_last_value()
