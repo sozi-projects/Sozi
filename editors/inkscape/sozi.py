@@ -38,8 +38,8 @@ class SoziField:
     A field is a wrapper for a GTK input control mapped to a Sozi frame attribute.
     Provide a subclass of SoziField for each type of GTK control.
     """
-    
-    def __init__(self, parent, attr, label, container_widget, input_widget, default_value, focus_events=True):
+
+    def __init__(self, parent, attr, label, container_widget, input_widget, default_value, optional, focus_events=True):
         """
         Initialize a new field.
             - parent: the UI object that contains the current field
@@ -55,7 +55,12 @@ class SoziField:
         self.label = label
         self.container_widget = container_widget
         self.input_widget = input_widget
-        self.default_value = unicode(default_value)
+        self.optional = optional
+        
+        if default_value is None:
+            self.default_value = None
+        else:
+            self.default_value = unicode(default_value)
 
         if focus_events:
             self.input_widget.connect("focus-out-event", self.on_focus_out)
@@ -69,7 +74,7 @@ class SoziField:
     def set_value(self, value):
         """
         Fill the GTK control for the current field with the given value.
-        The value must be provided as a string.
+        The value must be provided as a string or None.
         
         Implemented by subclasses.
         """
@@ -79,7 +84,7 @@ class SoziField:
     def get_value(self):
         """
         Return the value of the GTK control for the current field.
-        The value is returned as a string.
+        The value is returned as a string or None.
         
         Implemented by subclasses.
         """
@@ -114,6 +119,8 @@ class SoziField:
         self.current_frame = frame
         if frame is not None and self.ns_attr in frame["frame_element"].attrib:
             self.last_value = frame["frame_element"].attrib[self.ns_attr]
+        elif self.optional:
+            self.last_value = None
         else:
             self.last_value = self.default_value
         self.set_value(self.last_value)
@@ -132,12 +139,12 @@ class SoziLabelField(SoziField):
     A wrapper for a GTK Label mapped to a Sozi frame attribute
     """
 
-    def __init__(self, parent, attr, label, default_value):
+    def __init__(self, parent, attr, label, default_value, optional=False):
         """
         Initialize a new label field.
         See class SoziField for initializer arguments.
         """
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.Label(), default_value)
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.Label(), default_value, optional)
         self.container_widget.pack_start(gtk.Label(label), expand=False)
         self.container_widget.pack_start(self.input_widget)
         self.input_widget.set_justify(gtk.JUSTIFY_LEFT)
@@ -163,12 +170,12 @@ class SoziTextField(SoziField):
     A wrapper for a GTK Entry mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, default_value, width=0):
+    def __init__(self, parent, attr, label, default_value, width=0, optional=False):
         """
         Initialize a new text field.
         See class SoziField for initializer arguments.
         """
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.Entry(), default_value)
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.Entry(), default_value, optional)
         self.container_widget.pack_start(gtk.Label(label), expand=False)
         self.container_widget.pack_start(self.input_widget)
 
@@ -189,13 +196,13 @@ class SoziComboField(SoziField):
     A wrapper for a GTK ComboBox with text items mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, items, default_value):
+    def __init__(self, parent, attr, label, items, default_value, optional=False):
         """
         Initialize a new combo field.
             - items: the list of items in the combo box
         See class SoziField for other initializer arguments.
         """
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.combo_box_new_text(), default_value, False)
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.combo_box_new_text(), default_value, optional, focus_events=False)
         self.items = items  
         for text in items:
             self.input_widget.append_text(text)
@@ -216,13 +223,13 @@ class SoziCheckButtonField(SoziField):
     A wrapper for a GTK CheckButton mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, default_value):
+    def __init__(self, parent, attr, label, default_value, optional=False):
         """
         Initialize a new check button field.
         See class SoziField for initializer arguments.
         """
         button = gtk.CheckButton(label)
-        SoziField.__init__(self, parent, attr, label, button, button, default_value)
+        SoziField.__init__(self, parent, attr, label, button, button, default_value, optional)
 
 
     def set_value(self, value):
@@ -238,7 +245,7 @@ class SoziSpinButtonField(SoziField):
     A wrapper for a GTK SpinButton mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, min_value, max_value, default_value, factor=1, digits=0, increments=1):
+    def __init__(self, parent, attr, label, min_value, max_value, default_value, factor=1, digits=0, increments=1, optional=False):
         """
         Initialize a new spin button field.
             - label: label for the field
@@ -255,7 +262,7 @@ class SoziSpinButtonField(SoziField):
         max_value = max_value * factor
         default_value = default_value * factor
 
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.SpinButton(digits=digits), default_value)
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.SpinButton(digits=digits), default_value, optional)
         self.input_widget.set_range(min_value, max_value)
         # def set_increments(step, page)
         # step :    increment applied for each left mousebutton press.
@@ -350,7 +357,10 @@ class SoziFieldAction(SoziAction):
         """
         Write the new value of the field to the current frame.
         """
-        self.frame["frame_element"].set(self.field.ns_attr, self.value)
+        if self.value is None:
+            del self.frame["frame_element"].attrib[self.field.ns_attr]
+        else:
+            self.frame["frame_element"].set(self.field.ns_attr, self.value)
 
 
     def undo(self):
@@ -695,8 +705,8 @@ class SoziUI:
         if effect.selected_element is not None:
             # The tooltip of the "new" button will show the tag of the SVG element
             # selected in Inkscape, removing the namespace URI if present 
-            self.new_button.set_tooltip_text("Create a new frame using the selected '" +
-                re.sub("{.*}", "", effect.selected_element.tag) + "'")
+            selected_tag = re.sub("{.*}", "", effect.selected_element.tag)
+            self.new_button.set_tooltip_text("Create a new frame using the selected '" + selected_tag + "'")
         else:
             # This button is disabled if no element is selected in Inkscape
             self.new_button.set_sensitive(False)
@@ -764,8 +774,8 @@ class SoziUI:
 
         # window > vbox > right_pane > frame_group > frame_box > frame_fields
         self.frame_fields = {
-            "refid": SoziLabelField(self, "refid", "SVG element", selected_id),
-            "title": SoziTextField(self, "title", "Title", "New frame", 30),
+            "refid": SoziLabelField(self, "refid", "SVG element", selected_id, optional=True),
+            "title": SoziTextField(self, "title", "Title", "New frame", width=30),
             "hide": SoziCheckButtonField(self, "hide", "Hide", "true"),
             "clip": SoziCheckButtonField(self, "clip", "Clip", "true"),
             "timeout-enable": SoziCheckButtonField(self, "timeout-enable", "Timeout enable", "false"),
@@ -781,6 +791,21 @@ class SoziUI:
         frame_box.pack_start(self.frame_fields["clip"].container_widget, expand=False)
         frame_box.pack_start(self.frame_fields["timeout-enable"].container_widget, expand=False)
         frame_box.pack_start(self.frame_fields["timeout-ms"].container_widget, expand=False)
+        
+        # window > vbox > right_pane > frame_group > frame_box > frame_fields["refid"] > refid_set_button
+        self.refid_set_button = gtk.Button("Set")
+        self.frame_fields["refid"].container_widget.pack_end(self.refid_set_button);
+        if effect.selected_element is not None:
+            self.refid_set_button.set_tooltip_text("Set the boundaries of this frame to the selected '" + selected_tag + "'")
+        self.refid_set_button.set_sensitive(False)
+        self.refid_set_button.connect("clicked", self.on_set_refid)
+        
+        # window > vbox > right_pane > frame_group > frame_box > frame_fields["refid"] > refid_clear_button
+        self.refid_clear_button = gtk.Button("Clear")
+        self.frame_fields["refid"].container_widget.pack_end(self.refid_clear_button);
+        self.refid_clear_button.set_tooltip_text("Remove the reference to the boundary element for this frame")
+        self.refid_clear_button.set_sensitive(False)
+        self.refid_clear_button.connect("clicked", self.on_clear_refid)
         
         # window > vbox > right_pane > transition_group
         transition_group = gtk.Frame("Transition")
@@ -934,6 +959,15 @@ class SoziUI:
         self.duplicate_button.set_sensitive(frame is not None )
         self.delete_button.set_sensitive(frame is not None)
 
+        refid_attr = inkex.addNS("refid", "sozi")
+        self.refid_set_button.set_sensitive(frame is not None and
+            self.effect.selected_element is not None and
+            "id" in self.effect.selected_element.attrib and
+            (not refid_attr in frame["frame_element"].attrib or
+            self.effect.selected_element.attrib["id"] != frame["frame_element"].attrib[refid_attr]))
+        self.refid_clear_button.set_sensitive(frame is not None and
+            refid_attr in frame["frame_element"].attrib)
+
 
     def get_selected_index(self):
         """
@@ -999,6 +1033,22 @@ class SoziUI:
         self.do_action(SoziReorderAction(self, True))
 
 
+    def on_set_refid(self, widget):
+        """
+        Event handler: click on button "Set".
+        """
+        self.frame_fields["refid"].set_value(self.effect.selected_element.attrib["id"])
+        self.frame_fields["refid"].write_if_needed()
+
+
+    def on_clear_refid(self, widget):
+        """
+        Event handler: click on button "Clear".
+        """
+        self.frame_fields["refid"].set_value(None)
+        self.frame_fields["refid"].write_if_needed()
+
+        
     def on_selection_changed(self, path):
         """
         Event handler: selection changed in frame list view.
@@ -1060,6 +1110,7 @@ class SoziUI:
             action.undo()
             self.finalize_action(action)
 
+
     def on_full_undo(self, widget=None):
         """
         Event handler: click on button "Cancel".
@@ -1068,6 +1119,7 @@ class SoziUI:
         while self.undo_stack:
             self.on_undo()
         gtk.main_quit()
+
 
     def on_redo(self, widget=None):
         """
@@ -1086,10 +1138,18 @@ class SoziUI:
         Update the UI after an action has been executed or undone.
         """
         # Update the frame list view if the "title" field of a frame has changed.
-        if isinstance(action, SoziFieldAction) and action.field is self.frame_fields["title"]:
-            index = self.effect.frames.index(action.frame)
-            model = self.list_view.get_model()
-            model.set(model.get_iter(index), 1, action.frame["frame_element"].get(action.field.ns_attr))
+        if isinstance(action, SoziFieldAction):
+            if action.field is self.frame_fields["title"]:
+                index = self.effect.frames.index(action.frame)
+                model = self.list_view.get_model()
+                model.set(model.get_iter(index), 1, action.frame["frame_element"].get(action.field.ns_attr))
+            elif action.field is self.frame_fields["refid"]:
+                refid_attr = inkex.addNS("refid", "sozi")
+                self.refid_set_button.set_sensitive(self.effect.selected_element is not None and
+                    "id" in self.effect.selected_element.attrib and
+                    (not refid_attr in action.frame["frame_element"].attrib or
+                    self.effect.selected_element.attrib["id"] != action.frame["frame_element"].attrib[refid_attr]))
+                self.refid_clear_button.set_sensitive(refid_attr in action.frame["frame_element"].attrib)
         
         # Update the status of the "Undo" button 
         if self.undo_stack:
@@ -1105,7 +1165,7 @@ class SoziUI:
             self.redo_button.set_tooltip_text("")
         self.redo_button.set_sensitive(bool(self.redo_stack))
 
-   
+
     def on_destroy(self, widget):
         """
         Event handler: close the Sozi window.
