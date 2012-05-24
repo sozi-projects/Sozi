@@ -163,7 +163,7 @@ class SoziTextField(SoziField):
     A wrapper for a GTK Entry mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, default_value):
+    def __init__(self, parent, attr, label, default_value, width=0):
         """
         Initialize a new text field.
         See class SoziField for initializer arguments.
@@ -171,6 +171,9 @@ class SoziTextField(SoziField):
         SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.Entry(), default_value)
         self.container_widget.pack_start(gtk.Label(label), expand=False)
         self.container_widget.pack_start(self.input_widget)
+
+        if width > 0:
+            self.input_widget.set_width_chars(width)
 
 
     def set_value(self, value):
@@ -689,11 +692,11 @@ class SoziUI:
         # TODO set tooltip and sensitivity for layers
         self.new_button.set_arrow_tooltip_text("Create a new frame or layer view")
         self.new_button.connect("clicked", self.on_create_new_frame)
-        if len(effect.selected) > 0:
+        if effect.selected_element is not None:
             # The tooltip of the "new" button will show the tag of the SVG element
             # selected in Inkscape, removing the namespace URI if present 
             self.new_button.set_tooltip_text("Create a new frame using the selected '" +
-                re.sub("{.*}", "", effect.selected.values()[0].tag) + "'")
+                re.sub("{.*}", "", effect.selected_element.tag) + "'")
         else:
             # This button is disabled if no element is selected in Inkscape
             self.new_button.set_sensitive(False)
@@ -754,10 +757,15 @@ class SoziUI:
         frame_box = gtk.VBox(spacing=0)
         frame_group.add(frame_box)
 
+        if effect.selected_element is not None and "id" in effect.selected_element.attrib:
+            selected_id = effect.selected_element.attrib["id"]
+        else:
+            selected_id = None
+
         # window > vbox > right_pane > frame_group > frame_box > frame_fields
         self.frame_fields = {
-            "refid": SoziLabelField(self, "refid", "SVG element", None),
-            "title": SoziTextField(self, "title", "Title", "New frame"),
+            "refid": SoziLabelField(self, "refid", "SVG element", selected_id),
+            "title": SoziTextField(self, "title", "Title", "New frame", 30),
             "hide": SoziCheckButtonField(self, "hide", "Hide", "true"),
             "clip": SoziCheckButtonField(self, "clip", "Clip", "true"),
             "timeout-enable": SoziCheckButtonField(self, "timeout-enable", "Timeout enable", "false"),
@@ -774,8 +782,6 @@ class SoziUI:
         frame_box.pack_start(self.frame_fields["timeout-enable"].container_widget, expand=False)
         frame_box.pack_start(self.frame_fields["timeout-ms"].container_widget, expand=False)
         
-        self.frame_fields["title"].input_widget.set_width_chars(30)
-
         # window > vbox > right_pane > transition_group
         transition_group = gtk.Frame("Transition")
         right_pane.pack_start(transition_group, expand=False)
@@ -823,9 +829,9 @@ class SoziUI:
         # in the document, select the first frame.
         selected_frame = None
         
-        if len(effect.selected) > 0:
+        if effect.selected_element is not None:
             for f in effect.frames:
-                if f["svg_element"].attrib["id"] in effect.selected:
+                if f["svg_element"] is effect.selected_element:
                     selected_frame = f
                     break
         elif len(effect.frames) > 0:
@@ -869,7 +875,7 @@ class SoziUI:
 
         # The text color will show whether the current frame
         # corresponds to the selected object in Inkscape
-        if frame["svg_element"] in self.effect.selected.values():
+        if frame["svg_element"] is self.effect.selected_element:
             color = "#ff0000"
         else:
             color = "#000000"
@@ -1117,10 +1123,15 @@ class Sozi(inkex.Effect):
         inkex.NSS[u"sozi"] = Sozi.NS_URI
 
         self.frames = []
-
+        self.selected_element = None
+        
 
     def effect(self):
         sozi_upgrade.upgrade_or_install(self)
+
+        if len(self.selected) > 0:
+            self.selected_element = self.selected.values()[0]
+
         self.analyze_document()
         self.ui = SoziUI(self)
 
@@ -1189,7 +1200,7 @@ class Sozi(inkex.Effect):
         if index is not None:
             svg_element = self.frames[index]["svg_element"]
         else:
-            svg_element = self.selected.values()[0]
+            svg_element = self.selected_element
             
         frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
         frame_element.set(inkex.addNS("refid", "sozi"), svg_element.attrib["id"]) # TODO check namespace?
