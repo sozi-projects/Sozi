@@ -397,7 +397,7 @@ class SoziCreateAction(SoziAction):
     A wrapper for a frame creation action.
     """
     
-    def __init__(self, ui):
+    def __init__(self, ui, svg_element):
         """
         Initialize a new frame creation action.
             - ui: an instance of SoziUI
@@ -410,6 +410,7 @@ class SoziCreateAction(SoziAction):
             "Recreate frame " + new_frame_number)
         
         self.ui = ui
+        self.svg_element = svg_element
                             
 
     def do(self):
@@ -418,12 +419,13 @@ class SoziCreateAction(SoziAction):
         """
 
         self.ui.fill_form(None)
-        # The new frame is a copy of the currently selected frame
         
-        frame = self.ui.effect.create_new_frame(None)
+        frame = self.ui.effect.create_new_frame(self.svg_element)
         for field in self.ui.frame_fields.itervalues():
-            frame["frame_element"].set(field.ns_attr, field.get_value())
-            
+            value = field.get_value()
+            if value is not None:
+                frame["frame_element"].set(field.ns_attr, value)
+
         self.ui.effect.add_frame(frame)
         self.ui.append_frame_title(-1)
         self.ui.select_index(-1)
@@ -503,9 +505,11 @@ class SoziDuplicateAction(SoziAction):
             "Duplicate frame " + str(self.index + 1))
         
         self.ui = ui
-        self.frame = ui.effect.create_new_frame(self.index)
+        self.frame = ui.effect.create_new_frame(ui.effect.frames[self.index]["svg_element"])
         for field in ui.frame_fields.itervalues():
-            self.frame["frame_element"].set(field.ns_attr, field.get_value())
+            value = field.get_value()
+            if value is not None:
+                self.frame["frame_element"].set(field.ns_attr, value)
                     
 
     def do(self):
@@ -704,23 +708,32 @@ class SoziUI:
 
         # TODO set tooltip and sensitivity for layers
         self.new_button.set_arrow_tooltip_text("Create a new frame or layer view")
-        self.new_button.connect("clicked", self.on_create_new_frame)
         if effect.selected_element is not None:
             # The tooltip of the "new" button will show the tag of the SVG element
             # selected in Inkscape, removing the namespace URI if present 
             selected_tag = re.sub("{.*}", "", effect.selected_element.tag)
             self.new_button.set_tooltip_text("Create a new frame using the selected '" + selected_tag + "'")
+            self.new_button.connect("clicked", self.on_create_new_frame)
         else:
             # This button is disabled if no element is selected in Inkscape
-            self.new_button.set_sensitive(False)
+            self.new_button.set_tooltip_text("Create a new frame with no boundary element")
+            self.new_button.connect("clicked", self.on_create_new_unbounded_frame)
 
         # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > new_button > new_menu
         new_menu = gtk.Menu()
         self.new_button.set_menu(new_menu)
 
         # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > new_button > new_menu > items
-        # TODO add other items
-        new_menu.append(gtk.MenuItem("New frame"))
+        # TODO add items for layers
+        if effect.selected_element is not None:
+            menu_item = gtk.MenuItem("New frame using the selected '" + selected_tag + "'")
+            new_menu.append(menu_item)
+            menu_item.connect("activate", self.on_create_new_frame)
+            
+        menu_item = gtk.MenuItem("New frame with no boundary element")
+        new_menu.append(menu_item)
+        menu_item.connect("activate", self.on_create_new_unbounded_frame)
+        
         new_menu.show_all()
 
         # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > delete_button
@@ -1007,7 +1020,14 @@ class SoziUI:
         """
         Event handler: click on button "create new frame".
         """
-        self.do_action(SoziCreateAction(self))
+        self.do_action(SoziCreateAction(self, self.effect.selected_element))
+
+
+    def on_create_new_unbounded_frame(self, widget):
+        """
+        Event handler: click on button "create new frame".
+        """
+        self.do_action(SoziCreateAction(self, None))
 
 
     def on_delete_frame(self, widget):
@@ -1255,18 +1275,14 @@ class Sozi(inkex.Effect):
         self.frames[first], self.frames[second] = self.frames[second], self.frames[first]
 
 
-    def create_new_frame(self, index):
+    def create_new_frame(self, svg_element):
         """
-        Create a new frame using the SVG element of the frame at the given index.
+        Create a new frame using the given SVG element.
         The new frame is not added to the document.
         """
-        if index is not None:
-            svg_element = self.frames[index]["svg_element"]
-        else:
-            svg_element = self.selected_element
-            
         frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
-        frame_element.set(inkex.addNS("refid", "sozi"), svg_element.attrib["id"]) # TODO check namespace?
+        if svg_element is not None and "id" in svg_element.attrib:
+            frame_element.set(inkex.addNS("refid", "sozi"), svg_element.attrib["id"])
         frame_element.set(inkex.addNS("sequence", "sozi"), unicode(len(self.frames)+1))
         frame_element.set("id", self.uniqueId("frame" + unicode(len(self.frames)+1)))
         
