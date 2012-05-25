@@ -139,12 +139,12 @@ class SoziLabelField(SoziField):
     A wrapper for a GTK Label mapped to a Sozi frame attribute
     """
 
-    def __init__(self, parent, attr, label, default_value, optional=False):
+    def __init__(self, parent, attr, label, default_value):
         """
         Initialize a new label field.
         See class SoziField for initializer arguments.
         """
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.Label(), default_value, optional)
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.Label(), default_value, optional=True)
         self.container_widget.pack_start(gtk.Label(label), expand=False)
         self.container_widget.pack_start(self.input_widget)
         self.input_widget.set_justify(gtk.JUSTIFY_LEFT)
@@ -170,12 +170,12 @@ class SoziTextField(SoziField):
     A wrapper for a GTK Entry mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, default_value, width=0, optional=False):
+    def __init__(self, parent, attr, label, default_value, width=0):
         """
         Initialize a new text field.
         See class SoziField for initializer arguments.
         """
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.Entry(), default_value, optional)
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.Entry(), default_value)
         self.container_widget.pack_start(gtk.Label(label), expand=False)
         self.container_widget.pack_start(self.input_widget)
 
@@ -196,13 +196,13 @@ class SoziComboField(SoziField):
     A wrapper for a GTK ComboBox with text items mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, items, default_value, optional=False):
+    def __init__(self, parent, attr, label, items, default_value):
         """
         Initialize a new combo field.
             - items: the list of items in the combo box
         See class SoziField for other initializer arguments.
         """
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.combo_box_new_text(), default_value, optional, focus_events=False)
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.combo_box_new_text(), default_value, focus_events=False)
         self.items = items  
         for text in items:
             self.input_widget.append_text(text)
@@ -223,13 +223,13 @@ class SoziCheckButtonField(SoziField):
     A wrapper for a GTK CheckButton mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, default_value, optional=False):
+    def __init__(self, parent, attr, label, default_value):
         """
         Initialize a new check button field.
         See class SoziField for initializer arguments.
         """
         button = gtk.CheckButton(label)
-        SoziField.__init__(self, parent, attr, label, button, button, default_value, optional)
+        SoziField.__init__(self, parent, attr, label, button, button, default_value)
 
 
     def set_value(self, value):
@@ -245,7 +245,7 @@ class SoziSpinButtonField(SoziField):
     A wrapper for a GTK SpinButton mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, min_value, max_value, default_value, factor=1, digits=0, increments=1, optional=False):
+    def __init__(self, parent, attr, label, min_value, max_value, default_value, factor=1, digits=0, increments=1):
         """
         Initialize a new spin button field.
             - label: label for the field
@@ -262,7 +262,7 @@ class SoziSpinButtonField(SoziField):
         max_value = max_value * factor
         default_value = default_value * factor
 
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.SpinButton(digits=digits), default_value, optional)
+        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.SpinButton(digits=digits), default_value)
         self.input_widget.set_range(min_value, max_value)
         # def set_increments(step, page)
         # step :    increment applied for each left mousebutton press.
@@ -790,7 +790,7 @@ class SoziUI:
 
         # window > vbox > right_pane > frame_group > frame_box > frame_fields
         self.frame_fields = {
-            "refid": SoziLabelField(self, "refid", "SVG element", selected_id, optional=True),
+            "refid": SoziLabelField(self, "refid", "SVG element", selected_id),
             "title": SoziTextField(self, "title", "Title", "New frame", width=30),
             "hide": SoziCheckButtonField(self, "hide", "Hide", "true"),
             "clip": SoziCheckButtonField(self, "clip", "Clip", "true"),
