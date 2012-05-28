@@ -17,6 +17,7 @@ AUTOLINT := ./node_modules/autolint/bin/autolint
 SRC := \
 	$(wildcard editors/inkscape/*.py) \
 	$(wildcard editors/inkscape/extras/*.py) \
+	$(wildcard editors/inkscape/*.glade) \
 	$(wildcard editors/inkscape/*.inx) \
 	$(wildcard editors/inkscape/*.png) \
 	$(wildcard editors/inkscape/extras/*.inx) \
@@ -82,6 +83,9 @@ release/%.inx: editors/inkscape/extras/%.inx
 	cp $< $@
 	
 release/%.png: editors/inkscape/%.png
+	cp $< $@
+
+release/%.glade: editors/inkscape/%.glade
 	cp $< $@
 
 release/%: doc/%

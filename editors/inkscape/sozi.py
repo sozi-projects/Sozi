@@ -13,7 +13,7 @@
    
 # These lines are only needed if you don't put the script directly into
 # the installation directory
-import sys
+import sys, os
 # Unix
 sys.path.append('/usr/share/inkscape/extensions')
 # OS X
@@ -39,33 +39,31 @@ class SoziField:
     Provide a subclass of SoziField for each type of GTK control.
     """
 
-    def __init__(self, parent, attr, label, container_widget, input_widget, default_value, optional, focus_events=True):
+    def __init__(self, parent, attr, default_value, optional=False):
         """
         Initialize a new field.
             - parent: the UI object that contains the current field
             - attr: the frame attribute that corresponds to the current field
-            - label: the human-readable text that describes the current field
-            - container_widget: the GTK widget that will contain the current field
-            - input_widget: the GTK input control for the current field
             - default_value: the default value of the current field
             - focus_events: True if the GTK input control handles focus events, False otherwise
+            - optional: True if this field tolerates None value
         """
         self.parent = parent
         self.ns_attr = inkex.addNS(attr, "sozi")
-        self.label = label
-        self.container_widget = container_widget
-        self.input_widget = input_widget
+        
+        self.input_widget = parent.builder.get_object(attr + "-field")
+        self.label = parent.builder.get_object(attr + "-label")
+        if self.label is None:
+            self.label = self.input_widget.get_label()
+        else:
+            self.label = self.label.get_text()
+            
         self.optional = optional
         
         if default_value is None:
             self.default_value = None
         else:
             self.default_value = unicode(default_value)
-
-        if focus_events:
-            self.input_widget.connect("focus-out-event", self.on_focus_out)
-        else:
-            self.input_widget.connect("changed", self.on_focus_out)
 
         self.last_value = None
         self.current_frame = None
@@ -127,42 +125,11 @@ class SoziField:
         self.input_widget.set_sensitive(frame is not None)
 
 
-    def on_focus_out(self, widget, event=None):
+    def on_edit_event(self, widget, event=None):
         """
         Event handler, called each time the current field loses focus.
         """
         self.write_if_needed()
-
-
-class SoziLabelField(SoziField):
-    """
-    A wrapper for a GTK Label mapped to a Sozi frame attribute
-    """
-
-    def __init__(self, parent, attr, label, default_value):
-        """
-        Initialize a new label field.
-        See class SoziField for initializer arguments.
-        """
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.Label(), default_value, optional=True)
-        self.container_widget.pack_start(gtk.Label(label), expand=False)
-        self.container_widget.pack_start(self.input_widget)
-        self.input_widget.set_justify(gtk.JUSTIFY_LEFT)
-
-
-    def set_value(self, value):
-        if value is None:
-            self.input_widget.set_text("(undefined)")
-        else:
-            self.input_widget.set_text(value)
-
-
-    def get_value(self):
-        value = self.input_widget.get_text()
-        if value == "(undefined)":
-            return None
-        else:
-            return unicode(value)
 
 
 class SoziTextField(SoziField):
@@ -170,25 +137,28 @@ class SoziTextField(SoziField):
     A wrapper for a GTK Entry mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, default_value, width=0):
+    def __init__(self, parent, attr, default_value, optional=False):
         """
         Initialize a new text field.
         See class SoziField for initializer arguments.
         """
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.Entry(), default_value)
-        self.container_widget.pack_start(gtk.Label(label), expand=False)
-        self.container_widget.pack_start(self.input_widget)
-
-        if width > 0:
-            self.input_widget.set_width_chars(width)
+        SoziField.__init__(self, parent, attr, default_value, optional)
+        self.input_widget.connect("focus-out-event", self.on_edit_event)
 
 
     def set_value(self, value):
-        self.input_widget.set_text(value)
+        if value is not None:
+            self.input_widget.set_text(value)
+        else:
+            self.input_widget.set_text("")
 
 
     def get_value(self):
-        return unicode(self.input_widget.get_text())
+        value = self.input_widget.get_text()
+        if value == "" and self.optional:
+            return None
+        else:
+            return unicode(value)
 
 
 class SoziComboField(SoziField):
@@ -196,81 +166,106 @@ class SoziComboField(SoziField):
     A wrapper for a GTK ComboBox with text items mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, items, default_value):
+    def __init__(self, parent, attr, default_value):
         """
         Initialize a new combo field.
             - items: the list of items in the combo box
         See class SoziField for other initializer arguments.
         """
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.combo_box_new_text(), default_value, focus_events=False)
-        self.items = items  
-        for text in items:
-            self.input_widget.append_text(text)
-        self.container_widget.pack_start(gtk.Label(label), expand=False)
-        self.container_widget.pack_start(self.input_widget)
+        SoziField.__init__(self, parent, attr, default_value)
+        self.changed_handler = self.input_widget.connect("changed", self.on_edit_event)
 
       
     def set_value(self, value):
-        self.input_widget.set_active(self.items.index(value))
+        self.input_widget.handler_block(self.changed_handler)
+        model = self.input_widget.get_model()
+        it = model.get_iter_first()
+        while it is not None:
+            if model.get_value(it, 0) == value:
+                self.input_widget.set_active_iter(it)
+                break
+            else:
+                it = model.iter_next(it)
+        self.input_widget.handler_unblock(self.changed_handler)
 
     
     def get_value(self):
-        return unicode(self.items[self.input_widget.get_active()])
-        
-        
+        it = self.input_widget.get_active_iter()
+        if it is not None:
+            return unicode(self.input_widget.get_model().get_value(it, 0))
+        else:
+            return unicode(self.default_value)
+
+
 class SoziCheckButtonField(SoziField):
     """
     A wrapper for a GTK CheckButton mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, default_value):
+    def __init__(self, parent, attr, default_value):
         """
         Initialize a new check button field.
         See class SoziField for initializer arguments.
         """
-        button = gtk.CheckButton(label)
-        SoziField.__init__(self, parent, attr, label, button, button, default_value)
+        SoziField.__init__(self, parent, attr, default_value)
+        self.toggle_handler = self.input_widget.connect("toggled", self.on_edit_event)
 
 
     def set_value(self, value):
+        self.input_widget.handler_block(self.toggle_handler)
         self.input_widget.set_active(value == "true")
+        self.input_widget.handler_unblock(self.toggle_handler)
 
 
     def get_value(self):
         return unicode("true" if self.input_widget.get_active() else "false")
-    
-    
+
+
+class SoziToggleButtonField(SoziCheckButtonField):
+    """
+    A wrapper for a GTK ToggleButton mapped to a Sozi frame attribute.
+    """
+
+    def __init__(self, parent, attr, on_label, off_label, default_value):
+        SoziCheckButtonField.__init__(self, parent, attr, default_value)
+        self.on_label = on_label
+        self.off_label = off_label
+
+
+    def update_label(self):
+        if self.input_widget.get_active():
+            self.input_widget.set_label(self.on_label)
+        else:
+            self.input_widget.set_label(self.off_label)
+        
+    def set_value(self, value):
+        SoziCheckButtonField.set_value(self, value)
+        self.update_label()
+
+
+    def on_edit_event(self, widget, event=False):
+        SoziCheckButtonField.on_edit_event(self, widget, event)
+        self.update_label()
+
+
 class SoziSpinButtonField(SoziField):
     """
     A wrapper for a GTK SpinButton mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, label, min_value, max_value, default_value, factor=1, digits=0, increments=1):
+    def __init__(self, parent, attr, default_value, factor=1):
         """
         Initialize a new spin button field.
-            - label: label for the field
-            - min_value: the minimum float value for the current field
-            - max_value: the maximum float value for the current field
             - default_value: the default_value
             - factor : eg: factor 1000 -> comboBox=1.3s ; sozi_svg=1300
-            - decimals: number of decimals to display, eg: 2=> 1.00 or 0=> 1
-            - increments: step between 2 number when clic left on a arrow.
         See class SoziField for other initializer arguments.
         """
         factor = float(factor)
-        min_value = min_value * factor
-        max_value = max_value * factor
         default_value = default_value * factor
 
-        SoziField.__init__(self, parent, attr, label, gtk.HBox(spacing=5), gtk.SpinButton(digits=digits), default_value)
-        self.input_widget.set_range(min_value, max_value)
-        # def set_increments(step, page)
-        # step :    increment applied for each left mousebutton press.
-        # page :     increment applied for each middle mousebutton press.
-        self.input_widget.set_increments(increments, increments * 10)
-        self.input_widget.set_numeric(True)
-        self.container_widget.pack_start(gtk.Label(label), expand=False)
-        self.container_widget.pack_start(self.input_widget)
+        SoziField.__init__(self, parent, attr, default_value)
+        self.input_widget.connect("focus-out-event", self.on_edit_event)
+
         self.factor = factor
 
 
@@ -282,9 +277,9 @@ class SoziSpinButtonField(SoziField):
         return unicode(float(self.input_widget.get_value()) * self.factor)
 
 
-    def on_focus_out(self, widget, event=None):
+    def on_edit_event(self, widget, event=None):
         self.input_widget.update()
-        SoziField.on_focus_out(self, widget, event)
+        SoziField.on_edit_event(self, widget, event)
 
 
 class SoziAction:
@@ -459,8 +454,7 @@ class SoziDeleteAction(SoziAction):
         self.index = index
         self.frame = ui.effect.frames[index]
         
-        model = self.ui.list_view.get_model()
-        self.row = model.get(model.get_iter(index), 0, 1, 2)
+        self.row = self.ui.frame_store.get(self.ui.frame_store.get_iter(index), 0, 1)
 
 
     def do(self):
@@ -561,24 +555,23 @@ class SoziReorderAction(SoziAction):
         self.ui.effect.swap_frames(first, second)
         
         # Swap frame numbers in current and other rows
-        model = self.ui.list_view.get_model()
-        iter_first = model.get_iter(first)
-        iter_second = model.get_iter(second)
+        iter_first = self.ui.frame_store.get_iter(first)
+        iter_second = self.ui.frame_store.get_iter(second)
         
-        model.set(iter_first, 0, second + 1)
-        model.set(iter_second, 0, first + 1)
+        self.ui.frame_store.set(iter_first, 0, second + 1)
+        self.ui.frame_store.set(iter_second, 0, first + 1)
 
         # Move selected row
         if first < second:
-            model.move_after(iter_first, iter_second)
+            self.ui.frame_store.move_after(iter_first, iter_second)
         else:
-            model.move_before(iter_first, iter_second)
+            self.ui.frame_store.move_before(iter_first, iter_second)
         
         self.ui.list_view.scroll_to_cell(second)
         
         # Update up/down button sensitivity
-        self.ui.up_button.set_sensitive(second > 0)
-        self.ui.down_button.set_sensitive(second < len(self.ui.effect.frames) - 1)
+        self.ui.set_button_state("up-button", second > 0)
+        self.ui.set_button_state("down-button", second < len(self.ui.effect.frames) - 1)
 
         
     def do(self):
@@ -609,13 +602,6 @@ class SoziUI:
     The user interface of Sozi.
     """
     
-    PROFILES = ["linear",
-                "accelerate", "strong-accelerate",
-                "decelerate", "strong-decelerate",
-                "accelerate-decelerate", "strong-accelerate-decelerate",
-                "decelerate-accelerate", "strong-decelerate-accelerate"]
-
-
     def __init__(self, effect):
         """
         Create a new window with the frame edition form.
@@ -626,243 +612,76 @@ class SoziUI:
         self.undo_stack = []
         self.redo_stack = []
         
-        # window
-        self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        self.window.connect("destroy", self.on_destroy)
-        self.window.connect("key-press-event", self.on_key_press)
-        self.window.set_title("Sozi")
-        self.window.set_icon_from_file(__file__ + ".png")
-        self.window.set_border_width(5)
+        self.builder = gtk.Builder()
+        self.builder.add_from_file("sozi.glade")
         
-        # window > vbox
-        vbox = gtk.VBox(spacing=5)
-        self.window.add(vbox)
-
-        # window > vbox > tool_bar
-        tool_bar = gtk.Toolbar()
-        vbox.pack_start(tool_bar)
-        tool_bar.set_style(gtk.TOOLBAR_ICONS)
-        tool_bar.set_icon_size(gtk.ICON_SIZE_SMALL_TOOLBAR)
-
-        # window > vbox > tool_bar > undo_button
-        self.undo_button = gtk.ToolButton(gtk.STOCK_UNDO)
-        tool_bar.add(self.undo_button)
-        self.undo_button.set_sensitive(False)
-        self.undo_button.set_label("Annuler")
-        self.undo_button.connect("clicked", self.on_undo)
-
-        # window > vbox > tool_bar > redo_button
-        self.redo_button = gtk.ToolButton(gtk.STOCK_REDO)
-        tool_bar.add(self.redo_button)
-        self.redo_button.set_sensitive(False)
-        self.redo_button.connect("clicked", self.on_redo)
-       
-        # window > vbox > hpaned
-        hpaned = gtk.HPaned()
-        vbox.add(hpaned)
-
-        # window > vbox > hpaned > left_pane
-        left_pane = gtk.Frame()
-        hpaned.pack1(left_pane, resize=True)
-        frame_list_label = gtk.Label("<b>Frame list</b>")
-        frame_list_label.set_use_markup(True) # enable bold with <b>
-        left_pane.set_label_widget(frame_list_label)
-
-        # window > vbox > hpaned > left_pane > left_pane_content
-        left_pane_content = gtk.VBox(spacing=0)
-        left_pane.add(left_pane_content)
-
-        # window > vbox > hpaned > left_pane > left_pane_content > list_scroll
-        list_scroll = gtk.ScrolledWindow()
-        left_pane_content.pack_start(list_scroll, expand=True, fill=True)
-        list_scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)	
-
-        # window > vbox > hpaned > left_pane > left_pane_content > list_scroll > list_view
-        store = gtk.ListStore(int, str, str)
-        self.list_view = gtk.TreeView(store)
-        list_scroll.add(self.list_view)
-
+        self.builder.connect_signals({
+            "on_sozi_window_destroy":           self.on_destroy,
+            "on_sozi_window_key_press_event":   self.on_key_press,
+            "on_undo_button_clicked":           self.on_undo,
+            "on_redo_button_clicked":           self.on_redo,
+            "on_duplicate_button_clicked":      self.on_duplicate_frame,
+            "on_new_button_clicked":            self.on_create_new_frame,
+            "on_new_frame_item_activate":       self.on_create_new_frame,
+            "on_new_free_frame_item_activate":  self.on_create_new_free_frame,
+            "on_delete_button_clicked":         self.on_delete_frame,
+            "on_up_button_clicked":             self.on_move_frame_up,
+            "on_down_button_clicked":           self.on_move_frame_down,
+            "on_refid_clear_button_clicked":    self.on_clear_refid,
+            "on_refid_set_button_clicked":      self.on_set_refid,
+            "on_ok_button_clicked":             gtk.main_quit,
+            "on_cancel_button_clicked":         self.on_full_undo
+        })
+        
+        window = self.builder.get_object("sozi-window")
+        
+        self.list_view = self.builder.get_object("frame-tree-view")
+        self.frame_store = self.list_view.get_model()
+        
         selection = self.list_view.get_selection()
-        selection.set_mode(gtk.SELECTION_SINGLE) # TODO multiple selection
+        selection.set_mode(gtk.SELECTION_SINGLE)
         selection.set_select_function(self.on_selection_changed)
 
-        list_renderer = gtk.CellRendererText()
-        list_renderer.set_property("background", "white")
-
-        # window > vbox > hpaned > left_pane > left_pane_content > list_scroll > list_view > sequence_column
-        sequence_column = gtk.TreeViewColumn("Seq.", list_renderer, text=0, foreground=2)
-        self.list_view.append_column(sequence_column)
-
-        # window > vbox > hpaned > left_pane > left_pane_content > list_scroll > list_view > title_column
-        title_column = gtk.TreeViewColumn("Title", list_renderer, text=1, foreground=2)
-        self.list_view.append_column(title_column)
-
-        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar
-        list_tool_bar = gtk.Toolbar()
-        left_pane_content.pack_end(list_tool_bar, expand=False)
-        list_tool_bar.set_icon_size(1)
-
-        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > new_button
-        self.new_button = gtk.MenuToolButton(gtk.STOCK_ADD)
-        list_tool_bar.add(self.new_button)
-
-        # TODO set tooltip and sensitivity for layers
-        self.new_button.set_arrow_tooltip_text("Create a new frame or layer view")
+        new_button = self.builder.get_object("new-button")
+        new_button.set_arrow_tooltip_text("Create a new frame or layer view")
+        
         if effect.selected_element is not None:
             # The tooltip of the "new" button will show the tag of the SVG element
             # selected in Inkscape, removing the namespace URI if present 
             selected_tag = re.sub("{.*}", "", effect.selected_element.tag)
-            self.new_button.set_tooltip_text("Create a new frame using the selected '" + selected_tag + "'")
-            self.new_button.connect("clicked", self.on_create_new_frame)
-        else:
-            # This button is disabled if no element is selected in Inkscape
-            self.new_button.set_tooltip_text("Create a new frame with no boundary element")
-            self.new_button.connect("clicked", self.on_create_new_unbounded_frame)
-
-        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > new_button > new_menu
-        new_menu = gtk.Menu()
-        self.new_button.set_menu(new_menu)
-
-        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > new_button > new_menu > items
-        # TODO add items for layers
-        if effect.selected_element is not None:
-            menu_item = gtk.MenuItem("New frame using the selected '" + selected_tag + "'")
-            new_menu.append(menu_item)
-            menu_item.connect("activate", self.on_create_new_frame)
+            tooltip_text = "Create a new frame using the selected '" + selected_tag + "'"
             
-        menu_item = gtk.MenuItem("New frame with no boundary element")
-        new_menu.append(menu_item)
-        menu_item.connect("activate", self.on_create_new_unbounded_frame)
-        
-        new_menu.show_all()
+            new_button.set_tooltip_text(tooltip_text)
+            
+            new_frame_item = self.builder.get_object("new-frame-item")
+            new_frame_item.set_sensitive(True)
+            new_frame_item.set_tooltip_text(tooltip_text)            
+        else:
+            new_button.set_tooltip_text("Create a new frame with no SVG element")
 
-        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > delete_button
-        self.delete_button = gtk.ToolButton()
-        list_tool_bar.add(self.delete_button)
-        self.delete_button.set_tooltip_text("Delete the current frame")
-        self.delete_button.set_stock_id(gtk.STOCK_REMOVE)
-        self.delete_button.connect("clicked", self.on_delete_frame)
-        self.delete_button.set_sensitive(False)
-
-        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > duplicate_button
-        self.duplicate_button = gtk.ToolButton()
-        list_tool_bar.add(self.duplicate_button)
-        self.duplicate_button.set_tooltip_text("Duplicate the current frame")
-        self.duplicate_button.set_stock_id(gtk.STOCK_COPY)
-        self.duplicate_button.connect("clicked", self.on_duplicate_frame)
-        self.duplicate_button.set_sensitive(False)
-
-        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > up_button
-        self.up_button = gtk.ToolButton()
-        list_tool_bar.add(self.up_button)
-        self.up_button.set_tooltip_text("Move the current frame up")
-        self.up_button.set_stock_id(gtk.STOCK_GO_UP)
-        self.up_button.connect("clicked", self.on_move_frame_up)
-        self.up_button.set_sensitive(False)
-
-        # window > vbox > hpaned > left_pane > left_pane_content > list_tool_bar > down_button
-        self.down_button = gtk.ToolButton()
-        list_tool_bar.add(self.down_button)
-        self.down_button.set_tooltip_text("Move the current frame down")
-        self.down_button.set_stock_id(gtk.STOCK_GO_DOWN)
-        self.down_button.connect("clicked", self.on_move_frame_down)
-        self.down_button.set_sensitive(False)
-
-        # window > vbox > right_pane
-        right_pane = gtk.VBox(spacing=5)
-        hpaned.pack2(right_pane)
-
-        # window > vbox > right_pane > frame_group
-        frame_group = gtk.Frame()
-        right_pane.pack_start(frame_group, expand=False)
-        frame_label = gtk.Label("<b>Frame properties</b>")
-        frame_label.set_use_markup(True) # enable bold with <b>
-        frame_group.set_label_widget(frame_label)
-
-        # window > vbox > right_pane > frame_group > frame_box
-        frame_box = gtk.VBox(spacing=0)
-        frame_group.add(frame_box)
+        if effect.selected_element is not None:
+            self.builder.get_object("refid-set-button").set_tooltip_text("Set the boundaries of this frame to the selected '" + selected_tag + "'")
 
         if effect.selected_element is not None and "id" in effect.selected_element.attrib:
             selected_id = effect.selected_element.attrib["id"]
         else:
             selected_id = None
 
-        # window > vbox > right_pane > frame_group > frame_box > frame_fields
         self.frame_fields = {
-            "refid": SoziLabelField(self, "refid", "SVG element", selected_id),
-            "title": SoziTextField(self, "title", "Title", "New frame", width=30),
-            "hide": SoziCheckButtonField(self, "hide", "Hide", "true"),
-            "clip": SoziCheckButtonField(self, "clip", "Clip", "true"),
-            "timeout-enable": SoziCheckButtonField(self, "timeout-enable", "Timeout enable", "false"),
-            "timeout-ms": SoziSpinButtonField(self, "timeout-ms", "Timeout (s)", 0, 3600, 5, factor=1000, digits=2, increments=0.2),
-            "transition-duration-ms": SoziSpinButtonField(self, "transition-duration-ms", "Duration (s)", 0, 3600, 1, factor=1000, digits=2, increments=0.1),
-            "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", "Zoom (%)", -100, 100, 0, increments=5),
-            "transition-profile": SoziComboField(self, "transition-profile", "Profile", SoziUI.PROFILES, SoziUI.PROFILES[0])
+            "title": SoziTextField(self, "title", "New frame"),
+            "refid": SoziTextField(self, "refid", selected_id, optional=True),
+            "hide": SoziCheckButtonField(self, "hide", "true"),
+            "clip": SoziCheckButtonField(self, "clip", "true"),
+            "timeout-enable": SoziToggleButtonField(self, "timeout-enable", "Enabled", "Disabled", "false"),
+            "timeout-ms": SoziSpinButtonField(self, "timeout-ms", 5, factor=1000),
+            "transition-duration-ms": SoziSpinButtonField(self, "transition-duration-ms", 1, factor=1000),
+            "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", 0),
+            "transition-profile": SoziComboField(self, "transition-profile", "linear")
         }
-
-        frame_box.pack_start(self.frame_fields["refid"].container_widget, expand=False)
-        frame_box.pack_start(self.frame_fields["title"].container_widget, expand=False)
-        frame_box.pack_start(self.frame_fields["hide"].container_widget, expand=False)
-        frame_box.pack_start(self.frame_fields["clip"].container_widget, expand=False)
-        frame_box.pack_start(self.frame_fields["timeout-enable"].container_widget, expand=False)
-        frame_box.pack_start(self.frame_fields["timeout-ms"].container_widget, expand=False)
-        
-        # window > vbox > right_pane > frame_group > frame_box > frame_fields["refid"] > refid_set_button
-        self.refid_set_button = gtk.Button("Set")
-        self.frame_fields["refid"].container_widget.pack_end(self.refid_set_button);
-        if effect.selected_element is not None:
-            self.refid_set_button.set_tooltip_text("Set the boundaries of this frame to the selected '" + selected_tag + "'")
-        self.refid_set_button.set_sensitive(False)
-        self.refid_set_button.connect("clicked", self.on_set_refid)
-        
-        # window > vbox > right_pane > frame_group > frame_box > frame_fields["refid"] > refid_clear_button
-        self.refid_clear_button = gtk.Button("Clear")
-        self.frame_fields["refid"].container_widget.pack_end(self.refid_clear_button);
-        self.refid_clear_button.set_tooltip_text("Remove the reference to the boundary element for this frame")
-        self.refid_clear_button.set_sensitive(False)
-        self.refid_clear_button.connect("clicked", self.on_clear_refid)
-        
-        # window > vbox > right_pane > transition_group
-        transition_group = gtk.Frame("Transition")
-        right_pane.pack_start(transition_group, expand=False)
-        transition_label = gtk.Label("<b>Transition</b>")
-        transition_label.set_use_markup(True) # enable bold with <b>
-        transition_group.set_label_widget(transition_label)
-
-        # window > vbox > right_pane > transition_group > transition_box
-        transition_box = gtk.VBox(spacing=5)
-        transition_group.add(transition_box)
-        transition_box.pack_start(self.frame_fields["transition-duration-ms"].container_widget, expand=False)
-        transition_box.pack_start(self.frame_fields["transition-zoom-percent"].container_widget, expand=False)
-        transition_box.pack_start(self.frame_fields["transition-profile"].container_widget, expand=False)
-
-        # window > vbox > button_bar
-        button_bar = gtk.HBox(spacing=10)
-        vbox.add(button_bar)
-        
-        # window > vbox > button_bar > ok_button
-        ok_button = gtk.Button(stock=gtk.STOCK_OK)#or Apply
-        button_bar.pack_end(ok_button, False, False)
-        ok_button.set_tooltip_text("Apply changes and go back to Inkscape")
-        ok_button.connect("clicked", gtk.main_quit)
-
-        # window > vbox > button_bar > cancel_button
-        cancel_button = gtk.Button(stock=gtk.STOCK_CANCEL)
-        button_bar.pack_end(cancel_button, False, False)
-        cancel_button.set_tooltip_text("Cancel all changes and go back to Inkscape")
-        cancel_button.connect("clicked", self.on_full_undo)
-
-        # window > vbox > status_bar
-        status_bar = gtk.Statusbar()
-        vbox.pack_end(status_bar)
-        #status_bar.push(status_bar.getContexteId("a"),"Etat initial")
-        
-        self.window.show_all()
 
         # This is a hack to force the toolbar at the bottom of the frame list to expand to its full size.
         # get_allocation() can only be called after the window is visible.
-        title_column.set_min_width(self.new_button.get_allocation().width * len(list_tool_bar.get_children()))
+#        title_column.set_min_width(new_button.get_allocation().width * len(list_tool_bar.get_children()))
 
         # If an element is selected in Inkscape, and if it corresponds to
         # one or more existing frames, select the first matching frame.
@@ -914,14 +733,14 @@ class SoziUI:
         else:
             title = "Untitled"
 
-        # The text color will show whether the current frame
-        # corresponds to the selected object in Inkscape
-        if frame["svg_element"] is self.effect.selected_element:
-            color = "#ff0000"
-        else:
-            color = "#000000"
+        # The markup will show whether the current frame has a corresponding SVG element
+        # or corresponds to the selected object in Inkscape
+        if frame["svg_element"] is None:
+            title = "<i>" + title + "</i>"
+        elif frame["svg_element"] is self.effect.selected_element:
+            title = "<b>" + title + "</b>"
 
-        self.list_view.get_model().append([index + 1, title, color])
+        self.frame_store.append([index + 1, title])
 
 
     def insert_row(self, index, row):
@@ -929,12 +748,11 @@ class SoziUI:
         Insert a row in the frame list view.
         This method is used when undoing a frame deletion.
         """
-        model = self.list_view.get_model()
-        model.insert(index, row)
+        self.frame_store.insert(index, row)
 
         # Renumber frames in list view
         for i in range(index + 1, len(self.effect.frames)):
-            model.set(model.get_iter(i), 0, i + 1)
+            self.frame_store.set(self.frame_store.get_iter(i), 0, i + 1)
 
         # Select the inserted frame
         self.select_index(index)
@@ -945,8 +763,7 @@ class SoziUI:
         Remove the title of the last frame in the list view.
         This method is used when undoing the creation of a new frame.
         """
-        model = self.list_view.get_model()
-        model.remove(model.get_iter(len(self.effect.frames) - 1))
+        self.frame_store.remove(self.frame_store.get_iter(len(self.effect.frames) - 1))
 
      
     def remove_frame_title(self, index):
@@ -954,13 +771,12 @@ class SoziUI:
         Remove the title of the frame at the given index from the list view.
         This method is used when deleting a frame.
         """
-        model = self.list_view.get_model()
-        iter = model.get_iter(index)
-        if model.remove(iter):
+        iter = self.frame_store.get_iter(index)
+        if self.frame_store.remove(iter):
             self.list_view.get_selection().select_iter(iter)
             # Renumber frames
             for i in range(index, len(self.effect.frames)):
-                model.set(model.get_iter(i), 0, i + 1)
+                self.frame_store.set(self.frame_store.get_iter(i), 0, i + 1)
         else:
             self.fill_form(None)
 
@@ -972,16 +788,18 @@ class SoziUI:
         for field in self.frame_fields.itervalues():
             field.set_with_frame(frame)
 
-        self.duplicate_button.set_sensitive(frame is not None )
-        self.delete_button.set_sensitive(frame is not None)
+        self.set_button_state("duplicate-button", frame is not None)
+        self.set_button_state("delete-button", frame is not None)
 
         refid_attr = inkex.addNS("refid", "sozi")
-        self.refid_set_button.set_sensitive(frame is not None and
+        self.set_button_state("refid-set-button",
+            frame is not None and
             self.effect.selected_element is not None and
             "id" in self.effect.selected_element.attrib and
             (not refid_attr in frame["frame_element"].attrib or
             self.effect.selected_element.attrib["id"] != frame["frame_element"].attrib[refid_attr]))
-        self.refid_clear_button.set_sensitive(frame is not None and
+        self.set_button_state("refid-clear-button",
+            frame is not None and
             refid_attr in frame["frame_element"].attrib)
 
 
@@ -1023,7 +841,7 @@ class SoziUI:
         self.do_action(SoziCreateAction(self, self.effect.selected_element))
 
 
-    def on_create_new_unbounded_frame(self, widget):
+    def on_create_new_free_frame(self, widget):
         """
         Event handler: click on button "create new frame".
         """
@@ -1036,11 +854,13 @@ class SoziUI:
         """
         self.do_action(SoziDeleteAction(self))
 
+
     def on_duplicate_frame(self, widget):
         """
-        
+        Event handler: click on button "Duplicate frame"
         """
         self.do_action(SoziDuplicateAction(self))
+
 
     def on_move_frame_up(self, widget):
         """
@@ -1082,17 +902,17 @@ class SoziUI:
             # If the selection change happens on a selected row
             # then the action is a deselection
             frame = None
-            self.up_button.set_sensitive(False)
-            self.down_button.set_sensitive(False)
-            self.delete_button.set_sensitive(False)
+            self.set_button_state("up-button", False)
+            self.set_button_state("down-button", False)
+            self.set_button_state("delete-button", False)
         else:
             # If the selection change happens on a non-selected row
             # then the action is a selection
             index = path[0]
             frame = self.effect.frames[index]
-            self.up_button.set_sensitive(index > 0)
-            self.down_button.set_sensitive(index < len(self.effect.frames) - 1)
-            self.delete_button.set_sensitive(True)
+            self.set_button_state("up-button", index > 0)
+            self.set_button_state("down-button", index < len(self.effect.frames) - 1)
+            self.set_button_state("delete-button", True)
         
         # Show the properties of the selected frame,
         # or default values if no frame is selected.
@@ -1164,29 +984,38 @@ class SoziUI:
         if isinstance(action, SoziFieldAction):
             if action.field is self.frame_fields["title"]:
                 index = self.effect.frames.index(action.frame)
-                model = self.list_view.get_model()
-                model.set(model.get_iter(index), 1, action.frame["frame_element"].get(action.field.ns_attr))
+                self.frame_store.set(self.frame_store.get_iter(index), 1, action.frame["frame_element"].get(action.field.ns_attr))
             elif action.field is self.frame_fields["refid"]:
+                # TODO update markup in frame list
                 refid_attr = inkex.addNS("refid", "sozi")
-                self.refid_set_button.set_sensitive(self.effect.selected_element is not None and
+                self.set_button_state("refid-set-button",
+                    self.effect.selected_element is not None and
                     "id" in self.effect.selected_element.attrib and
                     (not refid_attr in action.frame["frame_element"].attrib or
                     self.effect.selected_element.attrib["id"] != action.frame["frame_element"].attrib[refid_attr]))
-                self.refid_clear_button.set_sensitive(refid_attr in action.frame["frame_element"].attrib)
+                self.set_button_state("refid-clear-button", refid_attr in action.frame["frame_element"].attrib)
         
         # Update the status of the "Undo" button 
         if self.undo_stack:
-            self.undo_button.set_tooltip_text(self.undo_stack[-1].undo_description)
+            self.set_button_state("undo-button", True, self.undo_stack[-1].undo_description)
         else:
-            self.undo_button.set_tooltip_text("")
-        self.undo_button.set_sensitive(bool(self.undo_stack))
-            
+            self.set_button_state("undo-button", False, "No action to undo")
+        
         # Update the status of the "Redo" button 
         if self.redo_stack:
-            self.redo_button.set_tooltip_text(self.redo_stack[-1].redo_description)
+            self.set_button_state("redo-button", True, self.redo_stack[-1].redo_description)
         else:
-            self.redo_button.set_tooltip_text("")
-        self.redo_button.set_sensitive(bool(self.redo_stack))
+            self.set_button_state("redo-button", False, "No action to redo")
+
+        # Update the status of the "Apply" button
+        self.set_button_state("ok-button", bool(self.undo_stack))
+
+
+    def set_button_state(self, key, sensitive, tooltip_text=None):
+        button = self.builder.get_object(key)
+        button.set_sensitive(sensitive)
+        if tooltip_text is not None:
+            button.set_tooltip_text(tooltip_text)
 
 
     def on_destroy(self, widget):
@@ -1329,3 +1158,4 @@ class Sozi(inkex.Effect):
 # Create effect instance
 effect = Sozi()
 effect.affect()
+
