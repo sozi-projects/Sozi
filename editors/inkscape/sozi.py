@@ -90,6 +90,9 @@ class SoziField:
 
 
     def reset_last_value(self):
+        """
+        Set the current value of the input widget as the last submitted value.
+        """
         self.last_value = self.get_value()
 
         
@@ -115,8 +118,8 @@ class SoziField:
         """
         self.write_if_needed()
         self.current_frame = frame
-        if frame is not None and self.ns_attr in frame["frame_element"].attrib:
-            self.last_value = frame["frame_element"].attrib[self.ns_attr]
+        if frame is not None and self.ns_attr in frame.attrib:
+            self.last_value = frame.attrib[self.ns_attr]
         elif self.optional:
             self.last_value = None
         else:
@@ -127,7 +130,8 @@ class SoziField:
 
     def on_edit_event(self, widget, event=None):
         """
-        Event handler, called each time the current field loses focus.
+        Default event handler, called each time the current field has been edited.
+        Registering this handler is the responsibility of subclasses.
         """
         self.write_if_needed()
 
@@ -197,9 +201,10 @@ class SoziComboField(SoziField):
             return unicode(self.default_value)
 
 
-class SoziCheckButtonField(SoziField):
+class SoziToggleField(SoziField):
     """
-    A wrapper for a GTK CheckButton mapped to a Sozi frame attribute.
+    A wrapper for a toggle based GTK Widget mapped to a Sozi frame attribute.
+    It can match gtk.CheckButton.
     """
     
     def __init__(self, parent, attr, default_value):
@@ -221,13 +226,13 @@ class SoziCheckButtonField(SoziField):
         return unicode("true" if self.input_widget.get_active() else "false")
 
 
-class SoziToggleButtonField(SoziCheckButtonField):
+class SoziToggleButtonField(SoziToggleField):
     """
     A wrapper for a GTK ToggleButton mapped to a Sozi frame attribute.
     """
 
     def __init__(self, parent, attr, on_label, off_label, default_value):
-        SoziCheckButtonField.__init__(self, parent, attr, default_value)
+        SoziToggleField.__init__(self, parent, attr, default_value)
         self.on_label = on_label
         self.off_label = off_label
 
@@ -237,14 +242,15 @@ class SoziToggleButtonField(SoziCheckButtonField):
             self.input_widget.set_label(self.on_label)
         else:
             self.input_widget.set_label(self.off_label)
-        
+
+
     def set_value(self, value):
-        SoziCheckButtonField.set_value(self, value)
+        SoziToggleField.set_value(self, value)
         self.update_label()
 
 
     def on_edit_event(self, widget, event=False):
-        SoziCheckButtonField.on_edit_event(self, widget, event)
+        SoziToggleField.on_edit_event(self, widget, event)
         self.update_label()
 
 
@@ -353,9 +359,9 @@ class SoziFieldAction(SoziAction):
         Write the new value of the field to the current frame.
         """
         if self.value is None:
-            del self.frame["frame_element"].attrib[self.field.ns_attr]
+            del self.frame.attrib[self.field.ns_attr]
         else:
-            self.frame["frame_element"].set(self.field.ns_attr, self.value)
+            self.frame.set(self.field.ns_attr, self.value)
 
 
     def undo(self):
@@ -364,9 +370,9 @@ class SoziFieldAction(SoziAction):
         If needed, select the frame that was active when the field was modified.
         """
         if self.last_value is None:
-            del self.frame["frame_element"].attrib[self.field.ns_attr]
+            del self.frame.attrib[self.field.ns_attr]
         else:
-            self.frame["frame_element"].set(self.field.ns_attr, self.last_value)
+            self.frame.set(self.field.ns_attr, self.last_value)
         if self.field.current_frame is self.frame:
             self.field.set_value(self.last_value)
             self.field.reset_last_value()
@@ -392,10 +398,11 @@ class SoziCreateAction(SoziAction):
     A wrapper for a frame creation action.
     """
     
-    def __init__(self, ui, svg_element):
+    def __init__(self, ui, free):
         """
         Initialize a new frame creation action.
             - ui: an instance of SoziUI
+            - free: True if the new frame will have no attached SVG element
         """
         # The new frame will be added at the end of the presentation
         new_frame_number = str(len(ui.effect.frames) + 1)
@@ -405,7 +412,7 @@ class SoziCreateAction(SoziAction):
             "Recreate frame " + new_frame_number)
         
         self.ui = ui
-        self.svg_element = svg_element
+        self.free = free
                             
 
     def do(self):
@@ -414,12 +421,15 @@ class SoziCreateAction(SoziAction):
         """
 
         self.ui.fill_form(None)
+
+        if not self.free and self.ui.effect.selected_element is not None:
+            self.ui.frame_fields["refid"].set_value(self.ui.effect.selected_element.attrib["id"])
         
-        frame = self.ui.effect.create_new_frame(self.svg_element)
+        frame = self.ui.effect.create_new_frame()
         for field in self.ui.frame_fields.itervalues():
             value = field.get_value()
             if value is not None:
-                frame["frame_element"].set(field.ns_attr, value)
+                frame.set(field.ns_attr, value)
 
         self.ui.effect.add_frame(frame)
         self.ui.append_frame_title(-1)
@@ -499,11 +509,13 @@ class SoziDuplicateAction(SoziAction):
             "Duplicate frame " + str(self.index + 1))
         
         self.ui = ui
-        self.frame = ui.effect.create_new_frame(ui.effect.frames[self.index]["svg_element"])
+        
+        self.frame = ui.effect.create_new_frame()
+        
         for field in ui.frame_fields.itervalues():
             value = field.get_value()
             if value is not None:
-                self.frame["frame_element"].set(field.ns_attr, value)
+                self.frame.set(field.ns_attr, value)
                     
 
     def do(self):
@@ -670,8 +682,8 @@ class SoziUI:
         self.frame_fields = {
             "title": SoziTextField(self, "title", "New frame"),
             "refid": SoziTextField(self, "refid", selected_id, optional=True),
-            "hide": SoziCheckButtonField(self, "hide", "true"),
-            "clip": SoziCheckButtonField(self, "clip", "true"),
+            "hide": SoziToggleField(self, "hide", "true"),
+            "clip": SoziToggleField(self, "clip", "true"),
             "timeout-enable": SoziToggleButtonField(self, "timeout-enable", "Enabled", "Disabled", "false"),
             "timeout-ms": SoziSpinButtonField(self, "timeout-ms", 5, factor=1000),
             "transition-duration-ms": SoziSpinButtonField(self, "transition-duration-ms", 1, factor=1000),
@@ -690,8 +702,9 @@ class SoziUI:
         selected_frame = None
         
         if effect.selected_element is not None:
+            refid_attr = inkex.addNS("refid", "sozi")
             for f in effect.frames:
-                if f["svg_element"] is effect.selected_element:
+                if refid_attr in f.attrib and f.attrib[refid_attr] == effect.selected_element.attrib["id"]:
                     selected_frame = f
                     break
         elif len(effect.frames) > 0:
@@ -712,6 +725,25 @@ class SoziUI:
         gtk.main()
         
 
+    def get_markup_title(self, frame):
+        # Get the title of the frame
+        title_attr = inkex.addNS("title", "sozi")
+        if title_attr in frame.attrib:
+            title = frame.attrib[title_attr]
+        else:
+            title = ""
+
+        # The markup will show whether the current frame has a corresponding SVG element
+        # or corresponds to the selected object in Inkscape
+        refid_attr = inkex.addNS("refid", "sozi")
+        if refid_attr not in frame.attrib:
+            title = "<i>" + title + "</i>"
+        elif self.effect.selected_element is not None and frame.attrib[refid_attr] == self.effect.selected_element.attrib["id"]:
+            title = "<b>" + title + "</b>"
+
+        return title
+
+
     def append_frame_title(self, index):
         """
         Append the title of the frame at the given index to the frame list view.
@@ -719,28 +751,11 @@ class SoziUI:
         a new frame.
         """
         # A negative index is counted back from the end of the frame list.
-        # This is not needed for Python arrays, but we need to show the corect
+        # This is not needed for Python arrays, but we need to show the correct
         # frame number in the list view.
         if (index < 0):
             index += len(self.effect.frames)
-
-        frame = self.effect.frames[index]
-
-        # Get the title of the frame
-        title_attr = inkex.addNS("title", "sozi")
-        if title_attr in frame["frame_element"].attrib:
-            title = frame["frame_element"].attrib[title_attr]
-        else:
-            title = "Untitled"
-
-        # The markup will show whether the current frame has a corresponding SVG element
-        # or corresponds to the selected object in Inkscape
-        if frame["svg_element"] is None:
-            title = "<i>" + title + "</i>"
-        elif frame["svg_element"] is self.effect.selected_element:
-            title = "<b>" + title + "</b>"
-
-        self.frame_store.append([index + 1, title])
+        self.frame_store.append([index + 1, self.get_markup_title(self.effect.frames[index])])
 
 
     def insert_row(self, index, row):
@@ -796,11 +811,11 @@ class SoziUI:
             frame is not None and
             self.effect.selected_element is not None and
             "id" in self.effect.selected_element.attrib and
-            (not refid_attr in frame["frame_element"].attrib or
-            self.effect.selected_element.attrib["id"] != frame["frame_element"].attrib[refid_attr]))
+            (not refid_attr in frame.attrib or
+            self.effect.selected_element.attrib["id"] != frame.attrib[refid_attr]))
         self.set_button_state("refid-clear-button",
             frame is not None and
-            refid_attr in frame["frame_element"].attrib)
+            refid_attr in frame.attrib)
 
 
     def get_selected_index(self):
@@ -838,14 +853,14 @@ class SoziUI:
         """
         Event handler: click on button "create new frame".
         """
-        self.do_action(SoziCreateAction(self, self.effect.selected_element))
+        self.do_action(SoziCreateAction(self, free=False))
 
 
     def on_create_new_free_frame(self, widget):
         """
         Event handler: click on button "create new frame".
         """
-        self.do_action(SoziCreateAction(self, None))
+        self.do_action(SoziCreateAction(self, free=True))
 
 
     def on_delete_frame(self, widget):
@@ -925,7 +940,7 @@ class SoziUI:
     def on_key_press(self, widget, event):
         if event.state & gtk.gdk.CONTROL_MASK:
             if event.keyval == gtk.keysyms.z:
-                self.window.set_focus(None)
+                self.builder.get_object("sozi-window").set_focus(None)
                 self.on_undo()
             elif event.keyval == gtk.keysyms.y:
                 self.on_redo()
@@ -984,16 +999,20 @@ class SoziUI:
         if isinstance(action, SoziFieldAction):
             if action.field is self.frame_fields["title"]:
                 index = self.effect.frames.index(action.frame)
-                self.frame_store.set(self.frame_store.get_iter(index), 1, action.frame["frame_element"].get(action.field.ns_attr))
+                self.frame_store.set(self.frame_store.get_iter(index), 1, action.frame.get(action.field.ns_attr))
             elif action.field is self.frame_fields["refid"]:
-                # TODO update markup in frame list
+                # Update markup in frame list
+                index = self.effect.frames.index(action.frame)
+                self.frame_store.set(self.frame_store.get_iter(index), 1, self.get_markup_title(action.frame))
+                
+                # Update "set" and "clear" buttons
                 refid_attr = inkex.addNS("refid", "sozi")
                 self.set_button_state("refid-set-button",
                     self.effect.selected_element is not None and
                     "id" in self.effect.selected_element.attrib and
-                    (not refid_attr in action.frame["frame_element"].attrib or
-                    self.effect.selected_element.attrib["id"] != action.frame["frame_element"].attrib[refid_attr]))
-                self.set_button_state("refid-clear-button", refid_attr in action.frame["frame_element"].attrib)
+                    (not refid_attr in action.frame.attrib or
+                    self.effect.selected_element.attrib["id"] != action.frame.attrib[refid_attr]))
+                self.set_button_state("refid-clear-button", refid_attr in action.frame.attrib)
         
         # Update the status of the "Undo" button 
         if self.undo_stack:
@@ -1041,7 +1060,7 @@ class Sozi(inkex.Effect):
     def effect(self):
         sozi_upgrade.upgrade_or_install(self)
 
-        if len(self.selected) > 0:
+        if len(self.selected) > 0 and "id" in self.selected.values()[0].attrib:
             self.selected_element = self.selected.values()[0]
 
         self.analyze_document()
@@ -1051,44 +1070,21 @@ class Sozi(inkex.Effect):
     def analyze_document(self):
         """
         Analyze the document and collect information about the presentation.
-        Frames with no corresponding SVG element are removed.
         Frames numbers are updated if needed.
         
         FIXME this method currently does not support frames with layers
         """
-        # Get list of valid frame elements and remove orphan frames
-        refid_attr = inkex.addNS("refid", "sozi")
-        self.frames = []
-        for f in self.document.xpath("//sozi:frame", namespaces=inkex.NSS):
-            if refid_attr in f.attrib:
-                e = self.document.xpath("//svg:*[@id='" + f.attrib[refid_attr] + "']", namespaces=inkex.NSS)
-                if len(e) == 0:
-                    self.document.getroot().remove(f)
-                else:
-                    self.frames.append(
-                        {
-                            "frame_element": f,
-                            "svg_element": e[0]
-                        }
-                    )
-            else:
-                # Frame elements with layers do not always contain a "refid" attribute.
-                # FIXME add the frame only if it contains valid layer elements
-                self.frames.append(
-                    {
-                        "frame_element": f,
-                        "svg_element": None
-                    }
-                )
+        # Get list of frame elements
+        self.frames = self.document.xpath("//sozi:frame", namespaces=inkex.NSS)
 
         # Sort frames by sequence attribute 
         sequence_attr = inkex.addNS("sequence", "sozi")
         self.frames = sorted(self.frames, key=lambda f:
-            int(f["frame_element"].attrib[sequence_attr]) if sequence_attr in f["frame_element"].attrib else len(self.frames))
+            int(f.attrib[sequence_attr]) if sequence_attr in f.attrib else len(self.frames))
 
         # Renumber frames
         for i, f in enumerate(self.frames):
-            f["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i + 1))
+            f.set(inkex.addNS("sequence", "sozi"), unicode(i + 1))
 
 
     def swap_frames(self, first, second):
@@ -1097,29 +1093,21 @@ class Sozi(inkex.Effect):
         """
         # Swap frames in SVG document
         sequence_attr = inkex.addNS("sequence", "sozi")
-        self.frames[first]["frame_element"].set(sequence_attr, unicode(second + 1))
-        self.frames[second]["frame_element"].set(sequence_attr, unicode(first + 1))
+        self.frames[first].set(sequence_attr, unicode(second + 1))
+        self.frames[second].set(sequence_attr, unicode(first + 1))
 
         # Swap frames in frame list
         self.frames[first], self.frames[second] = self.frames[second], self.frames[first]
 
 
-    def create_new_frame(self, svg_element):
+    def create_new_frame(self):
         """
         Create a new frame using the given SVG element.
         The new frame is not added to the document.
         """
-        frame_element = inkex.etree.Element(inkex.addNS("frame", "sozi"))
-        if svg_element is not None and "id" in svg_element.attrib:
-            frame_element.set(inkex.addNS("refid", "sozi"), svg_element.attrib["id"])
-        frame_element.set(inkex.addNS("sequence", "sozi"), unicode(len(self.frames)+1))
-        frame_element.set("id", self.uniqueId("frame" + unicode(len(self.frames)+1)))
-        
-        frame = {
-            "frame_element": frame_element,
-            "svg_element": svg_element
-        }
-        
+        frame = inkex.etree.Element(inkex.addNS("frame", "sozi"))
+        frame.set(inkex.addNS("sequence", "sozi"), unicode(len(self.frames)+1))
+        frame.set("id", self.uniqueId("frame" + unicode(len(self.frames)+1)))
         return frame
 
 
@@ -1127,7 +1115,7 @@ class Sozi(inkex.Effect):
         """
         Add the given frame to the document.
         """
-        self.document.getroot().append(frame["frame_element"])
+        self.document.getroot().append(frame)
         self.frames.append(frame)
 
     
@@ -1135,7 +1123,7 @@ class Sozi(inkex.Effect):
         """
         Insert the given frame at the given index.
         """
-        self.document.getroot().append(frame["frame_element"])
+        self.document.getroot().append(frame)
         self.frames.insert(index, frame)
         self.renumber_from_index(index)
 
@@ -1144,7 +1132,7 @@ class Sozi(inkex.Effect):
         """
         Remove the frame at the given index from the document.
         """
-        self.document.getroot().remove(self.frames[index]["frame_element"])
+        self.document.getroot().remove(self.frames[index])
         del self.frames[index]
         self.renumber_from_index(index)
 
@@ -1152,7 +1140,7 @@ class Sozi(inkex.Effect):
     def renumber_from_index(self, index):
         if index >= 0:
             for i in range(index, len(self.frames)):
-                self.frames[i]["frame_element"].set(inkex.addNS("sequence", "sozi"), unicode(i + 1))
+                self.frames[i].set(inkex.addNS("sequence", "sozi"), unicode(i + 1))
 
 
 # Create effect instance
