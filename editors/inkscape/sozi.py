@@ -645,8 +645,6 @@ class SoziUI:
             "on_cancel_button_clicked":         self.on_full_undo
         })
         
-        window = self.builder.get_object("sozi-window")
-        
         self.list_view = self.builder.get_object("frame-tree-view")
         self.frame_store = self.list_view.get_model()
         
@@ -691,9 +689,12 @@ class SoziUI:
             "transition-profile": SoziComboField(self, "transition-profile", "linear")
         }
 
-        # This is a hack to force the toolbar at the bottom of the frame list to expand to its full size.
-        # get_allocation() can only be called after the window is visible.
-#        title_column.set_min_width(new_button.get_allocation().width * len(list_tool_bar.get_children()))
+        # Force the size of the tree view so that the tool bar is completely visible.
+        # This statement also attempts to show the entire frame edition form.
+        self.builder.get_object("frame-tree-view").set_size_request(
+            new_button.get_allocation().width * len(self.builder.get_object("frame-list-toolbar").get_children()),
+            self.builder.get_object("frame-form").get_allocation().height
+        )
 
         # If an element is selected in Inkscape, and if it corresponds to
         # one or more existing frames, select the first matching frame.
