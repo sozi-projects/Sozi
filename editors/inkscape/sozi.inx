@@ -16,7 +16,6 @@
   <id>sozi</id>
   <dependency type="executable" location="extensions">inkex.py</dependency>
   <dependency type="executable" location="extensions">sozi.py</dependency>
-  <dependency type="executable" location="extensions">sozi.js</dependency>
   <effect>
     <object-type>all</object-type>
   </effect>

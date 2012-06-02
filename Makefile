@@ -14,20 +14,23 @@ MINIFY := juicer merge $(JUICER_OPT) --arguments "$(MINIFY_OPT)"
 
 AUTOLINT := ./node_modules/autolint/bin/autolint
 
-SRC := \
+EDITOR_SRC := \
 	$(wildcard editors/inkscape/*.py) \
-	$(wildcard editors/inkscape/extras/*.py) \
-	$(wildcard editors/inkscape/*.glade) \
 	$(wildcard editors/inkscape/*.inx) \
-	$(wildcard editors/inkscape/*.png) \
-	$(wildcard editors/inkscape/extras/*.inx) \
-	$(wildcard doc/install*.html) \
-	$(wildcard doc/*license.txt) \
+	$(wildcard editors/inkscape/sozi/*)
+
+PLAYER_SRC := \
 	$(wildcard player/js/extras/*.js) \
 	player/js/sozi.js \
 	player/css/sozi.css
 
-TARGET := $(addprefix release/, $(notdir $(SRC)))
+DOC := \
+	$(wildcard doc/install*.html) \
+	$(wildcard doc/*license.txt)
+
+TARGET := \
+    $(subst editors/inkscape,release,$(EDITOR_SRC)) \
+    $(addprefix release/sozi/,$(notdir $(PLAYER_SRC) $(DOC)))
 
 INSTALL_DIR := $(HOME)/.config/inkscape/extensions
 
@@ -45,7 +48,7 @@ verify: $(PLAYER_JS) $(EXTRAS_JS)
 minify: release/sozi.js release/sozi.css
 
 install: $(TARGET)
-	cp release/sozi* $(INSTALL_DIR)
+	cp -r release/sozi* $(INSTALL_DIR)
 
 timestamp: release/sozi-timestamp-$(VERSION)
 
@@ -61,35 +64,27 @@ $(TIMESTAMP):
 release/sozi-release-$(VERSION).zip: $(TARGET)
 	cd release ; zip $(notdir $@) $(notdir $^)
 
-release/sozi.js: $(PLAYER_JS)
+release/sozi/sozi.js: $(PLAYER_JS)
 	$(MINIFY) --output $@ player/js/sozi.js
 
-release/%.css: player/css/%.css
+release/sozi/%.css: player/css/%.css
 	$(MINIFY) --output $@ $<
 
-release/%.js: player/js/extras/%.js
+release/sozi/%.js: player/js/extras/%.js
 	$(MINIFY) --output $@ $<
 
-release/%.py: editors/inkscape/%.py $(TIMESTAMP)
-	sed "s/{{SOZI_VERSION}}/$(VERSION)/g" $< > $@
+release/sozi/version.py: editors/inkscape/sozi/version.py $(TIMESTAMP)
+	mkdir -p release/sozi ; sed "s/{{SOZI_VERSION}}/$(VERSION)/g" $< > $@
 
-release/%.py: editors/inkscape/extras/%.py $(TIMESTAMP)
-	sed "s/{{SOZI_VERSION}}/$(VERSION)/g" $< > $@
-
-release/%.inx: editors/inkscape/%.inx
+release/%: editors/inkscape/%
 	cp $< $@
 
-release/%.inx: editors/inkscape/extras/%.inx
-	cp $< $@
-	
-release/%.png: editors/inkscape/%.png
-	cp $< $@
+release/sozi/%: editors/inkscape/sozi/%
+	mkdir -p release/sozi ; cp $< $@
 
-release/%.glade: editors/inkscape/%.glade
-	cp $< $@
-
-release/%: doc/%
-	cp $< $@
+release/sozi/%: doc/%
+	mkdir -p release/sozi ; cp $< $@
 
 clean:
 	rm -f $(TARGET) release/sozi-timestamp-*
+

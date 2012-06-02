@@ -3,8 +3,7 @@ import os
 import sys
 import inkex
 
-# Replaced automatically by the version number during the build process
-SOZI_VERSION = "{{SOZI_VERSION}}"
+from version import SOZI_VERSION
 
 
 def upgrade_or_install(context):

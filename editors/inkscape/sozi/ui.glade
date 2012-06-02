@@ -50,11 +50,16 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkAdjustment" id="transition-duration-adjustment">
+    <property name="upper">3600</property>
+    <property name="step_increment">0.10000000000000001</property>
+    <property name="page_increment">1</property>
+  </object>
   <object class="GtkWindow" id="sozi-window">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Sozi</property>
-    <property name="icon">sozi.py.png</property>
+    <property name="icon">icon.png</property>
     <signal name="destroy" handler="on_sozi_window_destroy" swapped="no"/>
     <signal name="key-press-event" handler="on_sozi_window_key_press_event" swapped="no"/>
     <child>
@@ -859,11 +864,6 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkAdjustment" id="transition-duration-adjustment">
-    <property name="upper">3600</property>
-    <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">1</property>
   </object>
   <object class="GtkAdjustment" id="transition-zoom-adjustment">
     <property name="lower">-100</property>

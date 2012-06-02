@@ -16,8 +16,6 @@
   <id>sozi.extras.upgrade</id>
   <dependency type="executable" location="extensions">inkex.py</dependency>
   <dependency type="executable" location="extensions">sozi_extras_upgrade.py</dependency>
-  <dependency type="executable" location="extensions">sozi.py</dependency>
-  <dependency type="executable" location="extensions">sozi_extras_addvideo.py</dependency>
   <effect>
     <object-type>all</object-type>
     <effects-menu>

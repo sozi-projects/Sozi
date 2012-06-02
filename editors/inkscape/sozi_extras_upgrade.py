@@ -24,8 +24,8 @@ sys.path.append('C:\Program Files\Inkscape\share\extensions')
 # We will use the inkex module with the predefined Effect base class.
 import inkex
 
-import sozi_upgrade
-import sozi_extras_addvideo_upgrade
+import sozi.upgrade
+import sozi.media_upgrade
 
 class SoziExtrasUpgrade(inkex.Effect):
 
@@ -38,8 +38,8 @@ class SoziExtrasUpgrade(inkex.Effect):
 
 
     def effect(self):
-        sozi_upgrade.upgrade_or_install(self)
-        sozi_extras_addvideo_upgrade.upgrade_or_install(self)
+        sozi.upgrade.upgrade_or_install(self)
+        sozi.media_upgrade.upgrade_or_install(self)
 
 
 # Create effect instance

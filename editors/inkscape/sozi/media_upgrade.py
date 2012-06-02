@@ -3,8 +3,7 @@ import os
 import sys
 import inkex
 
-
-SOZI_VERSION = "{{SOZI_VERSION}}"
+from version import SOZI_VERSION
 
 
 def upgrade_or_install(context):
@@ -79,3 +78,5 @@ def upgrade_document(context):
         if "src" in velt.attrib:
             velt.set(inkex.addNS("src", "sozi"), velt.attrib["src"])
             del velt.attrib["src"]
+
+
