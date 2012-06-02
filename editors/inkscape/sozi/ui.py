@@ -9,6 +9,11 @@ import gtk
 from fields import *
 from actions import *
 
+import gettext
+gettext.install("sozi", os.path.join(os.path.dirname(__file__), "lang"), unicode=1)
+
+import re
+
 
 class SoziUserInterface:
     """
@@ -54,13 +59,13 @@ class SoziUserInterface:
         selection.set_select_function(self.on_selection_changed)
 
         new_button = self.builder.get_object("new-button")
-        new_button.set_arrow_tooltip_text("Create a new frame or layer view")
+        new_button.set_arrow_tooltip_text(_("Create a new frame or add a layer"))
         
         if effect.selected_element is not None:
             # The tooltip of the "new" button will show the tag of the SVG element
             # selected in Inkscape, removing the namespace URI if present 
             selected_tag = re.sub("{.*}", "", effect.selected_element.tag)
-            tooltip_text = "Create a new frame using the selected '" + selected_tag + "'"
+            tooltip_text = _("Create a new frame using the selected '{0}'").format(selected_tag)
             
             new_button.set_tooltip_text(tooltip_text)
             
@@ -68,22 +73,21 @@ class SoziUserInterface:
             new_frame_item.set_sensitive(True)
             new_frame_item.set_tooltip_text(tooltip_text)            
         else:
-            new_button.set_tooltip_text("Create a new frame with no SVG element")
+            new_button.set_tooltip_text(_("Create a new frame with no SVG element"))
 
         if effect.selected_element is not None:
-            self.builder.get_object("refid-set-button").set_tooltip_text("Set the boundaries of this frame to the selected '" + selected_tag + "'")
+            self.builder.get_object("refid-set-button").set_tooltip_text(_("Set the boundaries of this frame to the selected '{0}'").format(selected_tag))
 
         if effect.selected_element is not None and "id" in effect.selected_element.attrib:
             selected_id = effect.selected_element.attrib["id"]
         else:
             selected_id = None
-
         self.frame_fields = {
-            "title": SoziTextField(self, "title", "New frame"),
+            "title": SoziTextField(self, "title", _("New frame")),
             "refid": SoziTextField(self, "refid", selected_id, optional=True),
             "hide": SoziToggleField(self, "hide", "true"),
             "clip": SoziToggleField(self, "clip", "true"),
-            "timeout-enable": SoziToggleButtonField(self, "timeout-enable", "Enabled", "Disabled", "false"),
+            "timeout-enable": SoziToggleButtonField(self, "timeout-enable", _("Enabled"), _("Disabled"), "false"),
             "timeout-ms": SoziSpinButtonField(self, "timeout-ms", 5, factor=1000),
             "transition-duration-ms": SoziSpinButtonField(self, "transition-duration-ms", 1, factor=1000),
             "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", 0),
