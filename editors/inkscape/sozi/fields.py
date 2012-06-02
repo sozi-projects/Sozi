@@ -1,6 +1,8 @@
 
 import inkex
 
+from actions import SoziFieldAction
+
 
 class SoziField:
     """
