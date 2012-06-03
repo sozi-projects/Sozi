@@ -17,31 +17,31 @@
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">linear</col>
+        <col id="0" translatable="yes">Constant speed</col>
       </row>
       <row>
-        <col id="0" translatable="yes">accelerate</col>
+        <col id="0" translatable="yes">Speed up</col>
       </row>
       <row>
-        <col id="0" translatable="yes">strong-accelerate</col>
+        <col id="0" translatable="yes">Speed up (strong)</col>
       </row>
       <row>
-        <col id="0" translatable="yes">decelerate</col>
+        <col id="0" translatable="yes">Speed down</col>
       </row>
       <row>
-        <col id="0" translatable="yes">strong-decelerate</col>
+        <col id="0" translatable="yes">Speed down (strong)</col>
       </row>
       <row>
-        <col id="0" translatable="yes">accelerate-decelerate</col>
+        <col id="0" translatable="yes">Speed up, then down</col>
       </row>
       <row>
-        <col id="0" translatable="yes">strong-accelerate-decelerate</col>
+        <col id="0" translatable="yes">Speed up, then down (strong)</col>
       </row>
       <row>
-        <col id="0" translatable="yes">decelerate-accelerate</col>
+        <col id="0" translatable="yes">Speed down, then up</col>
       </row>
       <row>
-        <col id="0" translatable="yes">strong-decelerate-accelerate</col>
+        <col id="0" translatable="yes">Speed down, then up (strong)</col>
       </row>
     </data>
   </object>

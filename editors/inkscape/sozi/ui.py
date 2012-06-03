@@ -82,6 +82,10 @@ class SoziUserInterface:
             selected_id = effect.selected_element.attrib["id"]
         else:
             selected_id = None
+        
+        profiles = ["linear", "accelerate", "strong-accelerate", "decelerate", "strong-decelerate",
+            "accelerate-decelerate", "strong-accelerate-decelerate", "decelerate-accelerate", "strong-decelerate-accelerate"]
+            
         self.frame_fields = {
             "title": SoziTextField(self, "title", _("New frame")),
             "refid": SoziTextField(self, "refid", selected_id, optional=True),
@@ -91,7 +95,7 @@ class SoziUserInterface:
             "timeout-ms": SoziSpinButtonField(self, "timeout-ms", 5, factor=1000),
             "transition-duration-ms": SoziSpinButtonField(self, "transition-duration-ms", 1, factor=1000),
             "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", 0),
-            "transition-profile": SoziComboField(self, "transition-profile", "linear")
+            "transition-profile": SoziComboField(self, "transition-profile", profiles, "linear")
         }
 
         # Force the size of the tree view so that the tool bar is completely visible.

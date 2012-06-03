@@ -141,33 +141,29 @@ class SoziComboField(SoziField):
     A wrapper for a GTK ComboBox with text items mapped to a Sozi frame attribute.
     """
     
-    def __init__(self, parent, attr, default_value):
+    def __init__(self, parent, attr, items, default_value):
         """
         Initialize a new combo field.
             - items: the list of items in the combo box
         See class SoziField for other initializer arguments.
         """
         SoziField.__init__(self, parent, attr, default_value)
+        self.items = items
         self.changed_handler = self.input_widget.connect("changed", self.on_edit_event)
 
       
     def set_value(self, value):
         self.input_widget.handler_block(self.changed_handler)
-        model = self.input_widget.get_model()
-        it = model.get_iter_first()
-        while it is not None:
-            if model.get_value(it, 0) == value:
-                self.input_widget.set_active_iter(it)
-                break
-            else:
-                it = model.iter_next(it)
+        index = self.items.index(value)
+        if index >= 0:
+            self.input_widget.set_active(index)
         self.input_widget.handler_unblock(self.changed_handler)
 
     
     def get_value(self):
-        it = self.input_widget.get_active_iter()
-        if it is not None:
-            return unicode(self.input_widget.get_model().get_value(it, 0))
+        index = self.input_widget.get_active()
+        if index >= 0:
+            return unicode(self.items[index])
         else:
             return unicode(self.default_value)
 
