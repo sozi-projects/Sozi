@@ -445,13 +445,13 @@ class SoziUserInterface:
         if self.undo_stack:
             self.set_button_state("undo-button", True, self.undo_stack[-1].undo_description)
         else:
-            self.set_button_state("undo-button", False, "No action to undo")
+            self.set_button_state("undo-button", False, _("No action to undo"))
         
         # Update the status of the "Redo" button 
         if self.redo_stack:
             self.set_button_state("redo-button", True, self.redo_stack[-1].redo_description)
         else:
-            self.set_button_state("redo-button", False, "No action to redo")
+            self.set_button_state("redo-button", False, _("No action to redo"))
 
         # Update the status of the "Apply" button
         self.set_button_state("ok-button", bool(self.undo_stack))

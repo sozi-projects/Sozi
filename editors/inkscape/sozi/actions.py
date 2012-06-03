@@ -56,8 +56,8 @@ class SoziFieldAction(SoziAction):
         index = field.parent.effect.frames.index(field.current_frame)
 
         SoziAction.__init__(self,
-            "Restore " + field.label + " in frame " + str(index + 1),
-            "Change " + field.label + " in frame " + str(index + 1)
+            _("Restore '{0}' in frame {1}").format(field.label, index + 1),
+            _("Change '{0}' in frame {1}").format(field.label, index + 1)
         )
 
         self.field = field
@@ -120,8 +120,9 @@ class SoziCreateAction(SoziAction):
         new_frame_number = str(len(ui.effect.frames) + 1)
 
         SoziAction.__init__(self,
-            "Remove frame " + new_frame_number,
-            "Recreate frame " + new_frame_number)
+            _("Delete the new frame {0}").format(new_frame_number),
+            _("Create a new frame at {0}").format(new_frame_number)
+        )
         
         self.ui = ui
         self.free = free
@@ -169,8 +170,9 @@ class SoziDeleteAction(SoziAction):
         index = ui.get_selected_index()
 
         SoziAction.__init__(self,
-            "Restore frame " + str(index + 1),
-            "Remove frame " + str(index + 1))
+            _("Restore deleted frame {0}").format(index + 1),
+            _("Delete frame {0}").format(index + 1)
+        )
         
         self.ui = ui
         self.index = index
@@ -217,8 +219,9 @@ class SoziDuplicateAction(SoziAction):
         new_frame_number = str(len(ui.effect.frames) + 1)
 
         SoziAction.__init__(self,
-            "Remove frame " + new_frame_number,
-            "Duplicate frame " + str(self.index + 1))
+            _("Delete duplicated frame {0}").format(new_frame_number),
+            _("Duplicate frame {0}").format(self.index + 1)
+        )
         
         self.ui = ui
         
@@ -265,9 +268,16 @@ class SoziReorderAction(SoziAction):
         else:
             index_other = index - 1
 
-        SoziAction.__init__(self,
-            "Move frame " + str(index_other + 1) + (" up" if down else " down"),
-            "Move frame " + str(index + 1) + (" down" if down else " up"))
+        if down:
+            SoziAction.__init__(self,
+                _("Move frame {0} up").format(index_other + 1),
+                _("Move frame {0} down").format(index + 1)
+            )
+        else:
+            SoziAction.__init__(self,
+                _("Move frame {0} down").format(index_other + 1),
+                _("Move frame {0} up").format(index + 1)
+            )
         
         self.ui = ui
         self.index = index
