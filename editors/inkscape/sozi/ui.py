@@ -2,15 +2,18 @@
 import os
 import inkex
 
+import gettext
+gettext.install("sozi", os.path.join(os.path.dirname(__file__), "lang"), unicode=1)
+
 import pygtk
 pygtk.require("2.0")
-import gtk
+import gtk, gtk.glade
+
+gtk.glade.bindtextdomain("sozi", os.path.join(os.path.dirname(__file__), "lang"))
+gtk.glade.textdomain("sozi")
 
 from fields import *
 from actions import *
-
-import gettext
-gettext.install("sozi", os.path.join(os.path.dirname(__file__), "lang"), unicode=1)
 
 import re
 
@@ -31,6 +34,7 @@ class SoziUserInterface:
         self.redo_stack = []
         
         self.builder = gtk.Builder()
+        self.builder.set_translation_domain("sozi")
         self.builder.add_from_file(os.path.join(os.path.dirname(__file__), "ui.glade"))
         
         self.builder.connect_signals({
@@ -97,6 +101,19 @@ class SoziUserInterface:
             "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", 0),
             "transition-profile": SoziComboField(self, "transition-profile", profiles, "linear")
         }
+
+        # When these strings are set inside the Glade UI definition,
+        # xgettext fails to include them in the pot file
+        profile_store = self.builder.get_object("profile-store")
+        profile_store.append([_("Constant speed")])
+        profile_store.append([_("Speed up")])
+        profile_store.append([_("Speed up (strong)")])
+        profile_store.append([_("Speed down")])
+        profile_store.append([_("Speed down (strong)")])
+        profile_store.append([_("Speed up, then down")])
+        profile_store.append([_("Speed up, then down (strong)")])
+        profile_store.append([_("Speed down, then up")])
+        profile_store.append([_("Speed down, then up (strong)")])
 
         # Force the size of the tree view so that the tool bar is completely visible.
         # This statement also attempts to show the entire frame edition form.

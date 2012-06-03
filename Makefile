@@ -25,7 +25,8 @@ EDITOR_PO := $(wildcard editors/inkscape/sozi/lang/*.po)
 
 GETTEXT_SRC := \
 	$(wildcard editors/inkscape/*.py) \
-	$(wildcard editors/inkscape/sozi/*.py)
+	$(wildcard editors/inkscape/sozi/*.py) \
+	editors/inkscape/sozi/ui.glade
 
 PLAYER_SRC := \
 	$(wildcard player/js/extras/*.js) \
