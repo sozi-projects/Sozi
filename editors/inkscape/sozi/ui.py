@@ -37,7 +37,7 @@ class SoziUserInterface:
         self.builder.add_from_file(os.path.join(os.path.dirname(__file__), "ui.glade"))
         
         self.builder.connect_signals({
-            "on_sozi_window_destroy":           gtk.main_quit,
+            "on_sozi_window_destroy":           self.on_save,
             "on_sozi_window_key_press_event":   self.on_key_press,
             "on_undo_button_clicked":           self.on_undo,
             "on_redo_button_clicked":           self.on_redo,
