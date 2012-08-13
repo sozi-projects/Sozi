@@ -2,7 +2,7 @@
 <interface>
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkListStore" id="frame-store">
+  <object class="GtkTreeStore" id="frame-store">
     <columns>
       <!-- column-name sequence_column -->
       <column type="guint"/>
@@ -15,40 +15,6 @@
       <!-- column-name profile -->
       <column type="gchararray"/>
     </columns>
-    <!--data>
-      <row>
-        <col id="0" translatable="yes">Constant speed</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Speed up</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Speed up (strong)</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Speed down</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Speed down (strong)</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Speed up, then down</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Speed up, then down (strong)</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Speed down, then up</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Speed down, then up (strong)</col>
-      </row>
-    </data-->
-  </object>
-  <object class="GtkAdjustment" id="timeout-adjustment">
-    <property name="upper">3600</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
   </object>
   <object class="GtkWindow" id="sozi-window">
     <property name="visible">True</property>
@@ -859,6 +825,11 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkAdjustment" id="timeout-adjustment">
+    <property name="upper">3600</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
   </object>
   <object class="GtkAdjustment" id="transition-duration-adjustment">
     <property name="upper">3600</property>

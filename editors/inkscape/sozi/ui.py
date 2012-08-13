@@ -182,7 +182,7 @@ class SoziUserInterface:
         # frame number in the list view.
         if (index < 0):
             index += len(self.effect.frames)
-        self.frame_store.append([index + 1, self.get_markup_title(self.effect.frames[index])])
+        self.frame_store.append(None, [index + 1, self.get_markup_title(self.effect.frames[index])])
 
 
     def insert_row(self, index, row):
@@ -190,7 +190,7 @@ class SoziUserInterface:
         Insert a row in the frame list view.
         This method is used when undoing a frame deletion.
         """
-        self.frame_store.insert(index, row)
+        self.frame_store.insert(None, index, row)
 
         # Renumber frames in list view
         for i in range(index + 1, len(self.effect.frames)):
