@@ -20,7 +20,7 @@ class SoziField:
             - optional: True if this field tolerates None value
         """
         self.parent = parent
-        self.ns_attr = inkex.addNS(attr, "sozi")
+        self.attr = attr.replace("-", "_")
         
         self.input_widget = parent.builder.get_object(attr + "-field")
         self.label = parent.builder.get_object(attr + "-label")
@@ -34,7 +34,7 @@ class SoziField:
         if default_value is None:
             self.default_value = None
         else:
-            self.default_value = unicode(default_value)
+            self.default_value = default_value
 
         self.last_value = None
         self.current_frame = None
@@ -76,7 +76,7 @@ class SoziField:
             - the value of the current field has changed since it was last written
         The write operation is delegated to a SoziFieldAction object.
         """
-        if self.current_frame is not None and self.current_frame in self.parent.effect.frames and self.last_value != self.get_value():
+        if self.current_frame is not None and self.current_frame in self.parent.effect.model.frames and self.last_value != self.get_value():
             self.parent.do_action(SoziFieldAction(self))
             self.reset_last_value()
             
@@ -89,8 +89,8 @@ class SoziField:
         """
         self.write_if_needed()
         self.current_frame = frame
-        if frame is not None and self.ns_attr in frame.attrib:
-            self.last_value = frame.attrib[self.ns_attr]
+        if frame is not None and getattr(frame, self.attr) is not None:
+            self.last_value = getattr(frame, self.attr)
         elif self.optional:
             self.last_value = None
         else:
@@ -133,7 +133,7 @@ class SoziTextField(SoziField):
         if value == "" and self.optional:
             return None
         else:
-            return unicode(value)
+            return value
 
 
 class SoziComboField(SoziField):
@@ -163,9 +163,9 @@ class SoziComboField(SoziField):
     def get_value(self):
         index = self.input_widget.get_active()
         if index >= 0:
-            return unicode(self.items[index])
+            return self.items[index]
         else:
-            return unicode(self.default_value)
+            return self.default_value
 
 
 class SoziToggleField(SoziField):
@@ -185,12 +185,12 @@ class SoziToggleField(SoziField):
 
     def set_value(self, value):
         self.input_widget.handler_block(self.toggle_handler)
-        self.input_widget.set_active(value == "true")
+        self.input_widget.set_active(value)
         self.input_widget.handler_unblock(self.toggle_handler)
 
 
     def get_value(self):
-        return unicode("true" if self.input_widget.get_active() else "false")
+        return self.input_widget.get_active()
 
 
 class SoziToggleButtonField(SoziToggleField):
@@ -234,7 +234,7 @@ class SoziSpinButtonField(SoziField):
         See class SoziField for other initializer arguments.
         """
         factor = float(factor)
-        default_value = default_value * factor
+        default_value = float(default_value) * factor
 
         SoziField.__init__(self, parent, attr, default_value)
         self.input_widget.connect("focus-out-event", self.on_edit_event)
@@ -247,7 +247,7 @@ class SoziSpinButtonField(SoziField):
 
 
     def get_value(self):
-        return unicode(float(self.input_widget.get_value()) * self.factor)
+        return int(float(self.input_widget.get_value()) * self.factor)
 
 
     def on_edit_event(self, widget, event=None):

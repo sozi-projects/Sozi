@@ -1,4 +1,6 @@
 
+from sozi.document import *
+
 
 class SoziAction:
     """
@@ -53,7 +55,7 @@ class SoziFieldAction(SoziAction):
         Initialize a new field action for the given field.
         The action object saves a copy of the previous and current values of the field.
         """
-        index = field.parent.effect.frames.index(field.current_frame)
+        index = field.parent.effect.model.frames.index(field.current_frame)
 
         SoziAction.__init__(self,
             _("Restore '{0}' in frame {1}").format(field.label, index + 1),
@@ -70,10 +72,7 @@ class SoziFieldAction(SoziAction):
         """
         Write the new value of the field to the current frame.
         """
-        if self.value is None:
-            del self.frame.attrib[self.field.ns_attr]
-        else:
-            self.frame.set(self.field.ns_attr, self.value)
+        setattr(self.frame, self.field.attr, self.value)
 
 
     def undo(self):
@@ -81,10 +80,7 @@ class SoziFieldAction(SoziAction):
         Restore the previous value of the field in the frame and in the UI.
         If needed, select the frame that was active when the field was modified.
         """
-        if self.last_value is None:
-            del self.frame.attrib[self.field.ns_attr]
-        else:
-            self.frame.set(self.field.ns_attr, self.last_value)
+        setattr(self.frame, self.field.attr, self.last_value)
         if self.field.current_frame is self.frame:
             self.field.set_value(self.last_value)
             self.field.reset_last_value()
@@ -117,7 +113,7 @@ class SoziCreateAction(SoziAction):
             - free: True if the new frame will have no attached SVG element
         """
         # The new frame will be added at the end of the presentation
-        new_frame_number = str(len(ui.effect.frames) + 1)
+        new_frame_number = str(len(ui.effect.model.frames) + 1)
 
         SoziAction.__init__(self,
             _("Delete the new frame {0}").format(new_frame_number),
@@ -138,13 +134,13 @@ class SoziCreateAction(SoziAction):
         if not self.free and self.ui.effect.selected_element is not None:
             self.ui.frame_fields["refid"].set_value(self.ui.effect.selected_element.attrib["id"])
         
-        frame = self.ui.effect.create_new_frame()
+        frame = SoziFrame(self.ui.effect.model)
         for field in self.ui.frame_fields.itervalues():
             value = field.get_value()
             if value is not None:
-                frame.set(field.ns_attr, value)
+                setattr(frame, field.attr, value)
 
-        self.ui.effect.add_frame(frame)
+        self.ui.effect.model.add_frame(frame)
         self.ui.append_frame_title(-1)
         self.ui.select_index(-1)
 
@@ -154,7 +150,7 @@ class SoziCreateAction(SoziAction):
         Remove the created frame and select the previously selected frame.
         """
         self.ui.remove_last_frame_title()
-        self.ui.effect.delete_frame(-1)
+        self.ui.effect.model.delete_frame(-1)
        
 
 class SoziDeleteAction(SoziAction):
@@ -176,7 +172,7 @@ class SoziDeleteAction(SoziAction):
         
         self.ui = ui
         self.index = index
-        self.frame = ui.effect.frames[index]
+        self.frame = ui.effect.model.frames[index]
         
         self.row = self.ui.frame_store.get(self.ui.frame_store.get_iter(index), 0, 1)
 
@@ -185,11 +181,11 @@ class SoziDeleteAction(SoziAction):
         """
         Remove the current frame and select the next one in the frame list.
         """
-        self.ui.effect.delete_frame(self.index)
+        self.ui.effect.model.delete_frame(self.index)
         self.ui.remove_frame_title(self.index)
         # If the removed frame was the last, and if the frame list is not empty,
         # select the last frame
-        if self.index > 0 and self.index >= len(self.ui.effect.frames):
+        if self.index > 0 and self.index >= len(self.ui.effect.model.frames):
             self.ui.select_index(-1)
 
 
@@ -197,7 +193,7 @@ class SoziDeleteAction(SoziAction):
         """
         Add the removed frame and select it.
         """
-        self.ui.effect.insert_frame(self.index, self.frame)
+        self.ui.effect.model.insert_frame(self.index, self.frame)
         self.ui.insert_row(self.index, self.row)
 
 
@@ -216,7 +212,7 @@ class SoziDuplicateAction(SoziAction):
         self.index = ui.get_selected_index()
 
         # The new frame will be added at the end of the presentation
-        new_frame_number = str(len(ui.effect.frames) + 1)
+        new_frame_number = str(len(ui.effect.model.frames) + 1)
 
         SoziAction.__init__(self,
             _("Delete duplicated frame {0}").format(new_frame_number),
@@ -225,19 +221,18 @@ class SoziDuplicateAction(SoziAction):
         
         self.ui = ui
         
-        self.frame = ui.effect.create_new_frame()
-        
+        self.frame = SoziFrame(ui.effect.model)
         for field in ui.frame_fields.itervalues():
             value = field.get_value()
             if value is not None:
-                self.frame.set(field.ns_attr, value)
+                setattr(self.frame, field.attr, value)
                     
 
     def do(self):
         """
         Create a new frame and select it in the frame list.
         """
-        self.ui.effect.add_frame(self.frame)
+        self.ui.effect.model.add_frame(self.frame)
         self.ui.append_frame_title(-1)
         self.ui.select_index(-1)
 
@@ -247,7 +242,7 @@ class SoziDuplicateAction(SoziAction):
         Remove the created frame and select the previously selected frame.
         """
         self.ui.remove_last_frame_title()
-        self.ui.effect.delete_frame(-1)
+        self.ui.effect.model.delete_frame(-1)
         if self.index is not None:
             self.ui.select_index(self.index)
 
@@ -286,7 +281,7 @@ class SoziReorderAction(SoziAction):
 
     def move(self, first, second):
         # Swap frames in the document
-        self.ui.effect.swap_frames(first, second)
+        self.ui.effect.model.swap_frames(first, second)
         
         # Swap frame numbers in current and other rows
         iter_first = self.ui.frame_store.get_iter(first)
@@ -305,7 +300,7 @@ class SoziReorderAction(SoziAction):
         
         # Update up/down button sensitivity
         self.ui.set_button_state("up-button", second > 0)
-        self.ui.set_button_state("down-button", second < len(self.ui.effect.frames) - 1)
+        self.ui.set_button_state("down-button", second < len(self.ui.effect.model.frames) - 1)
 
         
     def do(self):

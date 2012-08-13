@@ -1,6 +1,5 @@
 
 import os
-import inkex
 
 import gettext
 gettext.install("sozi", os.path.join(os.path.dirname(__file__), "lang"), unicode=1)
@@ -38,7 +37,7 @@ class SoziUserInterface:
         self.builder.add_from_file(os.path.join(os.path.dirname(__file__), "ui.glade"))
         
         self.builder.connect_signals({
-            "on_sozi_window_destroy":           self.on_destroy,
+            "on_sozi_window_destroy":           gtk.main_quit,
             "on_sozi_window_key_press_event":   self.on_key_press,
             "on_undo_button_clicked":           self.on_undo,
             "on_redo_button_clicked":           self.on_redo,
@@ -51,8 +50,8 @@ class SoziUserInterface:
             "on_down_button_clicked":           self.on_move_frame_down,
             "on_refid_clear_button_clicked":    self.on_clear_refid,
             "on_refid_set_button_clicked":      self.on_set_refid,
-            "on_ok_button_clicked":             gtk.main_quit,
-            "on_cancel_button_clicked":         self.on_full_undo
+            "on_ok_button_clicked":             self.on_save,
+            "on_cancel_button_clicked":         gtk.main_quit
         })
         
         self.list_view = self.builder.get_object("frame-tree-view")
@@ -93,9 +92,9 @@ class SoziUserInterface:
         self.frame_fields = {
             "title": SoziTextField(self, "title", _("New frame")),
             "refid": SoziTextField(self, "refid", selected_id, optional=True),
-            "hide": SoziToggleField(self, "hide", "true"),
-            "clip": SoziToggleField(self, "clip", "true"),
-            "timeout-enable": SoziToggleButtonField(self, "timeout-enable", _("Enabled"), _("Disabled"), "false"),
+            "hide": SoziToggleField(self, "hide", True),
+            "clip": SoziToggleField(self, "clip", True),
+            "timeout-enable": SoziToggleButtonField(self, "timeout-enable", _("Enabled"), _("Disabled"), False),
             "timeout-ms": SoziSpinButtonField(self, "timeout-ms", 5, factor=1000),
             "transition-duration-ms": SoziSpinButtonField(self, "transition-duration-ms", 1, factor=1000),
             "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", 0),
@@ -129,21 +128,20 @@ class SoziUserInterface:
         selected_frame = None
         
         if effect.selected_element is not None:
-            refid_attr = inkex.addNS("refid", "sozi")
-            for f in effect.frames:
-                if refid_attr in f.attrib and f.attrib[refid_attr] == effect.selected_element.attrib["id"]:
+            for f in effect.model.frames:
+                if f.refid == effect.selected_element.attrib["id"]:
                     selected_frame = f
                     break
-        elif len(effect.frames) > 0:
-            selected_frame = effect.frames[0]
+        elif len(effect.model.frames) > 0:
+            selected_frame = effect.model.frames[0]
         
         # Fill frame list
-        for i in range(len(effect.frames)):
+        for i in range(len(effect.model.frames)):
             self.append_frame_title(i)
 
         # Select current frame in frame list and fill form
         if selected_frame is not None:
-            index = effect.frames.index(selected_frame)
+            index = effect.model.frames.index(selected_frame)
             self.list_view.get_selection().select_path((index,))
             self.list_view.scroll_to_cell(index)
         else:
@@ -153,22 +151,14 @@ class SoziUserInterface:
         
 
     def get_markup_title(self, frame):
-        # Get the title of the frame
-        title_attr = inkex.addNS("title", "sozi")
-        if title_attr in frame.attrib:
-            title = frame.attrib[title_attr]
-        else:
-            title = ""
-
         # The markup will show whether the current frame has a corresponding SVG element
         # or corresponds to the selected object in Inkscape
-        refid_attr = inkex.addNS("refid", "sozi")
-        if refid_attr not in frame.attrib:
-            title = "<i>" + title + "</i>"
-        elif self.effect.selected_element is not None and frame.attrib[refid_attr] == self.effect.selected_element.attrib["id"]:
-            title = "<b>" + title + "</b>"
-
-        return title
+        if frame.refid is None:
+            return "<i>" + frame.title + "</i>"
+        elif self.effect.selected_element is not None and frame.refid == self.effect.selected_element.attrib["id"]:
+            return "<b>" + frame.title + "</b>"
+        else:
+            return frame.title
 
 
     def append_frame_title(self, index):
@@ -181,8 +171,8 @@ class SoziUserInterface:
         # This is not needed for Python arrays, but we need to show the correct
         # frame number in the list view.
         if (index < 0):
-            index += len(self.effect.frames)
-        self.frame_store.append(None, [index + 1, self.get_markup_title(self.effect.frames[index])])
+            index += len(self.effect.model.frames)
+        self.frame_store.append(None, [index + 1, self.get_markup_title(self.effect.model.frames[index])])
 
 
     def insert_row(self, index, row):
@@ -193,7 +183,7 @@ class SoziUserInterface:
         self.frame_store.insert(None, index, row)
 
         # Renumber frames in list view
-        for i in range(index + 1, len(self.effect.frames)):
+        for i in range(index + 1, len(self.effect.model.frames)):
             self.frame_store.set(self.frame_store.get_iter(i), 0, i + 1)
 
         # Select the inserted frame
@@ -205,7 +195,7 @@ class SoziUserInterface:
         Remove the title of the last frame in the list view.
         This method is used when undoing the creation of a new frame.
         """
-        self.frame_store.remove(self.frame_store.get_iter(len(self.effect.frames) - 1))
+        self.frame_store.remove(self.frame_store.get_iter(len(self.effect.model.frames) - 1))
 
      
     def remove_frame_title(self, index):
@@ -217,7 +207,7 @@ class SoziUserInterface:
         if self.frame_store.remove(iter):
             self.list_view.get_selection().select_iter(iter)
             # Renumber frames
-            for i in range(index, len(self.effect.frames)):
+            for i in range(index, len(self.effect.model.frames)):
                 self.frame_store.set(self.frame_store.get_iter(i), 0, i + 1)
         else:
             self.fill_form(None)
@@ -233,16 +223,13 @@ class SoziUserInterface:
         self.set_button_state("duplicate-button", frame is not None)
         self.set_button_state("delete-button", frame is not None)
 
-        refid_attr = inkex.addNS("refid", "sozi")
         self.set_button_state("refid-set-button",
             frame is not None and
             self.effect.selected_element is not None and
             "id" in self.effect.selected_element.attrib and
-            (not refid_attr in frame.attrib or
-            self.effect.selected_element.attrib["id"] != frame.attrib[refid_attr]))
+            self.effect.selected_element.attrib["id"] != frame.refid)
         self.set_button_state("refid-clear-button",
-            frame is not None and
-            refid_attr in frame.attrib)
+            frame is not None and frame.refid is not None)
 
 
     def get_selected_index(self):
@@ -264,7 +251,7 @@ class SoziUserInterface:
         A negative index is counted back from the end of the frame list.
         """
         if (index < 0):
-            index += len(self.effect.frames)
+            index += len(self.effect.model.frames)
         self.list_view.get_selection().select_path((index,))
         self.list_view.scroll_to_cell(index)
 
@@ -273,7 +260,7 @@ class SoziUserInterface:
         """
         Select the given frame in the frame list.
         """
-        self.select_index(self.effect.frames.index(frame))
+        self.select_index(self.effect.model.frames.index(frame))
         
         
     def on_create_new_frame(self, widget):
@@ -351,9 +338,9 @@ class SoziUserInterface:
             # If the selection change happens on a non-selected row
             # then the action is a selection
             index = path[0]
-            frame = self.effect.frames[index]
+            frame = self.effect.model.frames[index]
             self.set_button_state("up-button", index > 0)
-            self.set_button_state("down-button", index < len(self.effect.frames) - 1)
+            self.set_button_state("down-button", index < len(self.effect.model.frames) - 1)
             self.set_button_state("delete-button", True)
         
         # Show the properties of the selected frame,
@@ -396,13 +383,12 @@ class SoziUserInterface:
             self.finalize_action(action)
 
 
-    def on_full_undo(self, widget=None):
+    def on_save(self, widget=None):
         """
-        Event handler: click on button "Cancel".
-        Undo all actions.
+        Event handler: click on button "OK".
+        Save document and exit
         """
-        while self.undo_stack:
-            self.on_undo()
+        self.effect.model.write()
         gtk.main_quit()
 
 
@@ -425,21 +411,19 @@ class SoziUserInterface:
         # Update the frame list view if the "title" field of a frame has changed.
         if isinstance(action, SoziFieldAction):
             if action.field is self.frame_fields["title"]:
-                index = self.effect.frames.index(action.frame)
-                self.frame_store.set(self.frame_store.get_iter(index), 1, action.frame.get(action.field.ns_attr))
+                index = self.effect.model.frames.index(action.frame)
+                self.frame_store.set(self.frame_store.get_iter(index), 1, getattr(action.frame, action.field.attr))
             elif action.field is self.frame_fields["refid"]:
                 # Update markup in frame list
-                index = self.effect.frames.index(action.frame)
+                index = self.effect.model.frames.index(action.frame)
                 self.frame_store.set(self.frame_store.get_iter(index), 1, self.get_markup_title(action.frame))
                 
                 # Update "set" and "clear" buttons
-                refid_attr = inkex.addNS("refid", "sozi")
                 self.set_button_state("refid-set-button",
                     self.effect.selected_element is not None and
                     "id" in self.effect.selected_element.attrib and
-                    (not refid_attr in action.frame.attrib or
-                    self.effect.selected_element.attrib["id"] != action.frame.attrib[refid_attr]))
-                self.set_button_state("refid-clear-button", refid_attr in action.frame.attrib)
+                    self.effect.selected_element.attrib["id"] != action.frame.refid)
+                self.set_button_state("refid-clear-button", action.frame.refid is not None)
         
         # Update the status of the "Undo" button 
         if self.undo_stack:
@@ -462,12 +446,5 @@ class SoziUserInterface:
         button.set_sensitive(sensitive)
         if tooltip_text is not None:
             button.set_tooltip_text(tooltip_text)
-
-
-    def on_destroy(self, widget):
-        """
-        Event handler: close the Sozi window.
-        """
-        gtk.main_quit()
 
 
