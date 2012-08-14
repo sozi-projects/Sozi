@@ -2,19 +2,23 @@
 import inkex
 from sets import Set
 
-def read_xml_attr(element, attr, namespace = None, default = None):
+def read_xml_attr(element, attr, namespace, default = None, conversion = None):
     if namespace is None:
         ns_attr = attr
     else:
         ns_attr = inkex.addNS(attr, namespace)
-        
+
     if ns_attr in element.attrib:
-        return element.attrib[ns_attr]
+        value = element.attrib[ns_attr]
+        if conversion is None:
+            return value
+        else:
+            return conversion(value)
     else:
         return default
 
 
-def write_xml_attr(element, attr, namespace = None, value = None):
+def write_xml_attr(element, attr, namespace, value):
     if namespace is None:
         ns_attr = attr
     else:
@@ -24,6 +28,10 @@ def write_xml_attr(element, attr, namespace = None, value = None):
         element.attrib[ns_attr] = value
     elif ns_attr in element.attrib:
         del element.attrib[ns_attr]
+
+
+def to_boolean(value):
+    return value == "true"
 
 
 class SoziFrame:
@@ -44,16 +52,17 @@ class SoziFrame:
             default_seq = len(document.frames) + 1
         else:
             default_seq = 0
-                    
+
+        # TODO get global defaults from the document
         self.refid = read_xml_attr(self.xml, "refid", "sozi")
         self.title = read_xml_attr(self.xml, "title", "sozi", "")
-        self.sequence = int(read_xml_attr(self.xml, "sequence", "sozi", default_seq))
-        self.hide = read_xml_attr(self.xml, "hide", "sozi", "true") == "true"
-        self.clip = read_xml_attr(self.xml, "clip", "sozi", "true") == "true"
-        self.timeout_enable = read_xml_attr(self.xml, "timeout-enable", "sozi", "false") == "true"
-        self.timeout_ms = int(read_xml_attr(self.xml, "timeout-ms", "sozi", 5000))
-        self.transition_duration_ms = int(read_xml_attr(self.xml, "transition-duration-ms", "sozi", 1000))
-        self.transition_zoom_percent = int(read_xml_attr(self.xml, "transition-zoom-percent", "sozi", 0))
+        self.sequence = read_xml_attr(self.xml, "sequence", "sozi", default_seq, int)
+        self.hide = read_xml_attr(self.xml, "hide", "sozi", True, to_boolean)
+        self.clip = read_xml_attr(self.xml, "clip", "sozi", True, to_boolean)
+        self.timeout_enable = read_xml_attr(self.xml, "timeout-enable", "sozi", False, to_boolean)
+        self.timeout_ms = read_xml_attr(self.xml, "timeout-ms", "sozi", 5000, int)
+        self.transition_duration_ms = read_xml_attr(self.xml, "transition-duration-ms", "sozi", 1000, int)
+        self.transition_zoom_percent = read_xml_attr(self.xml, "transition-zoom-percent", "sozi", 0, int)
         self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", "linear")
         self.id = read_xml_attr(self.xml, "id", None, document.effect.uniqueId("frame" + unicode(self.sequence)))
 
@@ -88,7 +97,8 @@ class SoziFrame:
                 # Add element to the SVG document
                 self.document.xml.getroot().append(self.xml)
                 
-            write_xml_attr(self.xml, "refid", "sozi", self.refid)
+            # TODO write only values different from the global defaults
+            write_xml_attr(self.xml, "refid", "sozi", self.refid) # Optional
             write_xml_attr(self.xml, "title", "sozi", self.title)
             write_xml_attr(self.xml, "sequence", "sozi", unicode(self.sequence))
             write_xml_attr(self.xml, "hide", "sozi", "true" if self.hide else "false")
@@ -122,12 +132,15 @@ class SoziLayer:
             self.is_attached = True
             self.is_new = False
 
+        # Mandatory attributes
         self.group = read_xml_attr(self.xml, "group", "sozi")
         self.refid = read_xml_attr(self.xml, "refid", "sozi")
-        self.hide = read_xml_attr(self.xml, "hide", "sozi", "true") == "true"
-        self.clip = read_xml_attr(self.xml, "clip", "sozi", "true") == "true"
-        self.transition_zoom_percent = int(read_xml_attr(self.xml, "transition-zoom-percent", "sozi", 0))
-        self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", "linear")
+
+        # Missing attributes are inherited from the enclosing frame element
+        self.hide = read_xml_attr(self.xml, "hide", "sozi", frame.hide, to_boolean)
+        self.clip = read_xml_attr(self.xml, "clip", "sozi", frame.clip, to_boolean)
+        self.transition_zoom_percent = read_xml_attr(self.xml, "transition-zoom-percent", "sozi", frame.transition_zoom_percent, int)
+        self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", frame.transition_profile)
 
         group_xml = frame.document.xml.xpath("//*[@id='" + self.group + "']")
         label_attr = inkex.addNS("label", "inkscape")
@@ -146,8 +159,9 @@ class SoziLayer:
             if self.is_new:
                 # Add element to the SVG document
                 self.frame.xml.getroot().append(self.xml)
-                
-            write_xml_attr(self.xml, "group", "sozi", self.title)
+
+            # TODO write only the values that are different from the enclosing frame element
+            write_xml_attr(self.xml, "group", "sozi", self.group)
             write_xml_attr(self.xml, "refid", "sozi", self.refid)
             write_xml_attr(self.xml, "hide", "sozi", "true" if self.hide else "false")
             write_xml_attr(self.xml, "clip", "sozi", "true" if self.clip else "false")
