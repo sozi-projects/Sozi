@@ -408,17 +408,14 @@ class SoziUserInterface:
         """
         Update the UI after an action has been executed or undone.
         """
-        # Update the frame list view if the "title" field of a frame has changed.
         if isinstance(action, SoziFieldAction):
-            if action.field is self.frame_fields["title"]:
-                index = self.effect.model.frames.index(action.frame)
-                self.frame_store.set(self.frame_store.get_iter(index), 1, getattr(action.frame, action.field.attr))
-            elif action.field is self.frame_fields["refid"]:
-                # Update markup in frame list
+            # Update the title in the frame list if the "title" or "refid" field of a frame has changed.
+            if action.field is self.frame_fields["title"] or action.field is self.frame_fields["refid"]:
                 index = self.effect.model.frames.index(action.frame)
                 self.frame_store.set(self.frame_store.get_iter(index), 1, self.get_markup_title(action.frame))
-                
-                # Update "set" and "clear" buttons
+
+            # Update "set" and "clear" buttons if the "refid" field of a frame has changed.
+            if action.field is self.frame_fields["refid"]:
                 self.set_button_state("refid-set-button",
                     self.effect.selected_element is not None and
                     "id" in self.effect.selected_element.attrib and
