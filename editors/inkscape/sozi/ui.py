@@ -29,6 +29,8 @@ class SoziUserInterface:
         """
         
         self.effect = effect
+        self.model = effect.model
+        
         self.undo_stack = []
         self.redo_stack = []
         
@@ -128,20 +130,20 @@ class SoziUserInterface:
         selected_frame = None
         
         if effect.selected_element is not None:
-            for f in effect.model.frames:
+            for f in self.model.frames:
                 if f.refid == effect.selected_element.attrib["id"]:
                     selected_frame = f
                     break
-        elif len(effect.model.frames) > 0:
-            selected_frame = effect.model.frames[0]
+        elif len(self.model.frames) > 0:
+            selected_frame = self.model.frames[0]
         
         # Fill frame list
-        for i in range(len(effect.model.frames)):
+        for i in range(len(self.model.frames)):
             self.append_frame_title(i)
 
         # Select current frame in frame list and fill form
         if selected_frame is not None:
-            index = effect.model.frames.index(selected_frame)
+            index = self.model.frames.index(selected_frame)
             self.list_view.get_selection().select_path((index,))
             self.list_view.scroll_to_cell(index)
         else:
@@ -171,8 +173,8 @@ class SoziUserInterface:
         # This is not needed for Python arrays, but we need to show the correct
         # frame number in the list view.
         if (index < 0):
-            index += len(self.effect.model.frames)
-        self.frame_store.append(None, [index + 1, self.get_markup_title(self.effect.model.frames[index])])
+            index += len(self.model.frames)
+        self.frame_store.append(None, [index + 1, self.get_markup_title(self.model.frames[index])])
 
 
     def insert_row(self, index, row):
@@ -183,7 +185,7 @@ class SoziUserInterface:
         self.frame_store.insert(None, index, row)
 
         # Renumber frames in list view
-        for i in range(index + 1, len(self.effect.model.frames)):
+        for i in range(index + 1, len(self.model.frames)):
             self.frame_store.set(self.frame_store.get_iter(i), 0, i + 1)
 
         # Select the inserted frame
@@ -195,7 +197,7 @@ class SoziUserInterface:
         Remove the title of the last frame in the list view.
         This method is used when undoing the creation of a new frame.
         """
-        self.frame_store.remove(self.frame_store.get_iter(len(self.effect.model.frames) - 1))
+        self.frame_store.remove(self.frame_store.get_iter(len(self.model.frames) - 1))
 
      
     def remove_frame_title(self, index):
@@ -207,7 +209,7 @@ class SoziUserInterface:
         if self.frame_store.remove(iter):
             self.list_view.get_selection().select_iter(iter)
             # Renumber frames
-            for i in range(index, len(self.effect.model.frames)):
+            for i in range(index, len(self.model.frames)):
                 self.frame_store.set(self.frame_store.get_iter(i), 0, i + 1)
         else:
             self.fill_form(None)
@@ -251,7 +253,7 @@ class SoziUserInterface:
         A negative index is counted back from the end of the frame list.
         """
         if (index < 0):
-            index += len(self.effect.model.frames)
+            index += len(self.model.frames)
         self.list_view.get_selection().select_path((index,))
         self.list_view.scroll_to_cell(index)
 
@@ -260,7 +262,7 @@ class SoziUserInterface:
         """
         Select the given frame in the frame list.
         """
-        self.select_index(self.effect.model.frames.index(frame))
+        self.select_index(self.model.frames.index(frame))
         
         
     def on_create_new_frame(self, widget):
@@ -338,9 +340,9 @@ class SoziUserInterface:
             # If the selection change happens on a non-selected row
             # then the action is a selection
             index = path[0]
-            frame = self.effect.model.frames[index]
+            frame = self.model.frames[index]
             self.set_button_state("up-button", index > 0)
-            self.set_button_state("down-button", index < len(self.effect.model.frames) - 1)
+            self.set_button_state("down-button", index < len(self.model.frames) - 1)
             self.set_button_state("delete-button", True)
         
         # Show the properties of the selected frame,
@@ -388,7 +390,7 @@ class SoziUserInterface:
         Event handler: click on button "OK".
         Save document and exit
         """
-        self.effect.model.write()
+        self.model.write()
         gtk.main_quit()
 
 
@@ -411,7 +413,7 @@ class SoziUserInterface:
         if isinstance(action, SoziFieldAction):
             # Update the title in the frame list if the "title" or "refid" field of a frame has changed.
             if action.field is self.frame_fields["title"] or action.field is self.frame_fields["refid"]:
-                index = self.effect.model.frames.index(action.frame)
+                index = self.model.frames.index(action.frame)
                 self.frame_store.set(self.frame_store.get_iter(index), 1, self.get_markup_title(action.frame))
 
             # Update "set" and "clear" buttons if the "refid" field of a frame has changed.
