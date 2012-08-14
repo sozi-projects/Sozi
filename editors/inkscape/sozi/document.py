@@ -146,9 +146,9 @@ class SoziLayer:
         label_attr = inkex.addNS("label", "inkscape")
         
         if len(group_xml) > 0 and label_attr in group_xml[0].attrib:
-            self.group_title = group_xml[0].attrib[label_attr]
+            self.label = group_xml[0].attrib[label_attr]
         else:
-            self.group_title = self.group
+            self.label = self.group
 
 
     def write(self):
@@ -178,7 +178,10 @@ class SoziDocument:
     def __init__(self, effect):
         self.effect = effect
         self.xml = effect.document
-        
+
+        label_attr = inkex.addNS("label", "inkscape")
+        self.layer_labels = [ g.attrib[label_attr] for g in self.xml.xpath("svg:g[@inkscape:groupmode='layer']", namespaces=inkex.NSS) if label_attr in g.attrib]
+                
         self.frames = [ SoziFrame(self, f) for f in self.xml.xpath("//sozi:frame", namespaces=inkex.NSS) ]
         self.frames = sorted(self.frames, key=lambda f: f.sequence if f.sequence > 0 else len(self.frames))
 

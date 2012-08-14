@@ -76,7 +76,13 @@ class SoziUserInterface:
             
             new_frame_item = self.builder.get_object("new-frame-item")
             new_frame_item.set_sensitive(True)
-            new_frame_item.set_tooltip_text(tooltip_text)            
+            new_frame_item.set_tooltip_text(tooltip_text)
+            
+            for l in self.model.layer_labels:
+                new_layer_item = gtk.MenuItem(_("Add layer '{0}'").format(l))
+                new_button.get_menu().append(new_layer_item)
+                new_layer_item.show()
+                # TODO add callback
         else:
             new_button.set_tooltip_text(_("Create a new frame with no SVG element"))
 
@@ -190,7 +196,7 @@ class SoziUserInterface:
         tree_iter = self.frame_store.append(None, [index + 1, self.get_markup_title(frame)])
         
         for l in frame.layers:
-            self.frame_store.append(tree_iter, ["", l.group_title])
+            self.frame_store.append(tree_iter, ["", l.label])
 
 
     def insert_row(self, index, row):

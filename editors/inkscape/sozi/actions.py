@@ -64,8 +64,8 @@ class SoziFieldAction(SoziAction):
         else:
             index = field.parent.model.frames.index(field.current_frame.frame)
             SoziAction.__init__(self,
-                _("Restore '{0}' in layer '{1}' of frame {2}").format(field.label, field.current_frame.group_title, index + 1),
-                _("Change '{0}' in layer '{1}' of frame {2}").format(field.label, field.current_frame.group_title, index + 1)
+                _("Restore '{0}' in layer '{1}' of frame {2}").format(field.label, field.current_frame.label, index + 1),
+                _("Change '{0}' in layer '{1}' of frame {2}").format(field.label, field.current_frame.label, index + 1)
             )
 
         self.field = field
