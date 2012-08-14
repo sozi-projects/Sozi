@@ -85,7 +85,15 @@ class SoziLayer:
 
     def __init__(self, frame, xml):
         self.frame = frame
-        self.xml = xml
+
+        if xml is None:
+            self.xml = inkex.etree.Element(inkex.addNS("layer", "sozi"))
+            self.is_attached = False
+            self.is_new = True
+        else:
+            self.xml = xml
+            self.is_attached = True
+            self.is_new = False
 
         self.group = read_xml_attr(self.xml, "group", "sozi")
         self.refid = read_xml_attr(self.xml, "refid", "sozi")
@@ -96,8 +104,19 @@ class SoziLayer:
 
 
     def write(self):
-        # TODO implement this method
-        pass
+        if self.is_attached:
+            if self.is_new:
+                # Add element to the SVG document
+                self.frame.xml.getroot().append(self.xml)
+            write_xml_attr(self.xml, "group", "sozi", self.title)
+            write_xml_attr(self.xml, "refid", "sozi", self.refid)
+            write_xml_attr(self.xml, "hide", "sozi", "true" if self.hide else "false")
+            write_xml_attr(self.xml, "clip", "sozi", "true" if self.clip else "false")
+            write_xml_attr(self.xml, "transition-zoom-percent", "sozi", unicode(self.transition_zoom_percent))
+            write_xml_attr(self.xml, "transition-profile", "sozi", self.transition_profile)
+        elif not self.is_new:
+            # Remove element from the SVG document
+            self.frame.xml.getroot().remove(self.xml)
 
 
 class SoziDocument:
