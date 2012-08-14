@@ -80,6 +80,9 @@ class SoziFrame:
 
 
     def write(self):
+        """
+        Commit all changes in the current frame to the SVG document.
+        """
         if self.is_attached:
             if self.is_new:
                 # Add element to the SVG document
@@ -128,6 +131,9 @@ class SoziLayer:
 
 
     def write(self):
+        """
+        Commit all changes in the current layer to the SVG document.
+        """
         if self.is_attached:
             if self.is_new:
                 # Add element to the SVG document
@@ -200,12 +206,19 @@ class SoziDocument:
 
 
     def renumber_from_index(self, index):
+        """
+        Renumber the frames starting from the one at the given index.
+        Frames will receive the following numbers: index+1, index+2, etc.
+        """
         if index >= 0:
             for i in range(index, len(self.frames)):
                 self.frames[i].sequence = i + 1
 
 
     def write(self):
+        """
+        Commit all changes in the document model to the SVG document.
+        """
         for f in self.all_frames:
             f.write()
 

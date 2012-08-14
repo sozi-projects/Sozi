@@ -153,8 +153,13 @@ class SoziUserInterface:
         
 
     def get_markup_title(self, frame):
-        # The markup will show whether the current frame has a corresponding SVG element
-        # or corresponds to the selected object in Inkscape
+        """
+        Return a markup string with the title of the given frame.
+        
+        If the given frame has no associated SVG element, the title will be displayed in italics.
+        If the given frame is associated to the SVG element selected in Inkscape, the title will
+        be displayed in bold font.
+        """
         if frame.refid is None:
             return "<i>" + frame.title + "</i>"
         elif self.effect.selected_element is not None and frame.refid == self.effect.selected_element.attrib["id"]:
@@ -387,7 +392,7 @@ class SoziUserInterface:
 
     def on_save(self, widget=None):
         """
-        Event handler: click on button "OK".
+        Event handler: click on button "OK" or close window.
         Save document and exit
         """
         self.model.write()
