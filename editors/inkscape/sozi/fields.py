@@ -81,22 +81,36 @@ class SoziField:
             self.reset_last_value()
             
             
-    def set_with_frame(self, frame):
+    def disable(self):
         """
-        Set the value of the current field with the corresponding attribute of the given frame.
-        If frame is None, the field is filled with its default value and edition is inhibited.
+        Set the current field to its default value and disable edition.
+        The previous value of the field is written to the document if needed.
+        """
+        self.write_if_needed()
+        self.current_frame = None
+        if self.optional:
+            self.last_value = None
+        else:
+            self.last_value = self.default_value
+        self.set_value(self.last_value)
+        self.input_widget.set_sensitive(False)
+
+
+    def set_from(self, frame, sensitive = True):
+        """
+        Set the value of the current field with the corresponding attribute of the given frame or layer.
         The previous value of the field is written to the document if needed.
         """
         self.write_if_needed()
         self.current_frame = frame
-        if frame is not None and getattr(frame, self.attr) is not None:
+        if getattr(frame, self.attr) is not None:
             self.last_value = getattr(frame, self.attr)
         elif self.optional:
             self.last_value = None
         else:
             self.last_value = self.default_value
         self.set_value(self.last_value)
-        self.input_widget.set_sensitive(frame is not None)
+        self.input_widget.set_sensitive(sensitive)
 
 
     def on_edit_event(self, widget, event=None):

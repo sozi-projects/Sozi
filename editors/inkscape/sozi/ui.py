@@ -56,10 +56,10 @@ class SoziUserInterface:
             "on_cancel_button_clicked":         gtk.main_quit
         })
         
-        self.list_view = self.builder.get_object("frame-tree-view")
-        self.frame_store = self.list_view.get_model()
+        self.tree_view = self.builder.get_object("frame-tree-view")
+        self.frame_store = self.tree_view.get_model()
         
-        selection = self.list_view.get_selection()
+        selection = self.tree_view.get_selection()
         selection.set_mode(gtk.SELECTION_SINGLE)
         selection.set_select_function(self.on_selection_changed)
 
@@ -93,16 +93,22 @@ class SoziUserInterface:
             
         self.frame_fields = {
             "title": SoziTextField(self, "title", _("New frame")),
+            "timeout-enable": SoziToggleButtonField(self, "timeout-enable", _("Enabled"), _("Disabled"), False),
+            "timeout-ms": SoziSpinButtonField(self, "timeout-ms", 5, factor=1000),
+            "transition-duration-ms": SoziSpinButtonField(self, "transition-duration-ms", 1, factor=1000)
+        }
+
+        self.layer_fields = {
             "refid": SoziTextField(self, "refid", selected_id, optional=True),
             "hide": SoziToggleField(self, "hide", True),
             "clip": SoziToggleField(self, "clip", True),
-            "timeout-enable": SoziToggleButtonField(self, "timeout-enable", _("Enabled"), _("Disabled"), False),
-            "timeout-ms": SoziSpinButtonField(self, "timeout-ms", 5, factor=1000),
-            "transition-duration-ms": SoziSpinButtonField(self, "transition-duration-ms", 1, factor=1000),
             "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", 0),
             "transition-profile": SoziComboField(self, "transition-profile", profiles, "linear")
         }
-
+        
+        self.all_fields = self.frame_fields.copy()
+        self.all_fields.update(self.layer_fields)
+        
         # When these strings are set inside the Glade UI definition,
         # xgettext fails to include them in the pot file
         profile_store = self.builder.get_object("profile-store")
@@ -144,10 +150,10 @@ class SoziUserInterface:
         # Select current frame in frame list and fill form
         if selected_frame is not None:
             index = self.model.frames.index(selected_frame)
-            self.list_view.get_selection().select_path((index,))
-            self.list_view.scroll_to_cell(index)
+            self.tree_view.get_selection().select_path((index,))
+            self.tree_view.scroll_to_cell(index)
         else:
-            self.fill_form(None)
+            self.clear_form()
         
         gtk.main()
         
@@ -217,31 +223,66 @@ class SoziUserInterface:
         """
         iter = self.frame_store.get_iter(index)
         if self.frame_store.remove(iter):
-            self.list_view.get_selection().select_iter(iter)
+            self.tree_view.get_selection().select_iter(iter)
             # Renumber frames
             for i in range(index, len(self.model.frames)):
                 self.frame_store.set(self.frame_store.get_iter(i), 0, i + 1)
         else:
-            self.fill_form(None)
+            self.clear_form()
 
 
-    def fill_form(self, frame):
+    def clear_form(self):
+        """
+        Fill all fields with default values.
+        """
+        for field in self.all_fields.itervalues():
+            field.disable()
+
+        self.set_button_state("duplicate-button", False)
+        self.set_button_state("delete-button", False)
+        self.set_button_state("refid-set-button", False)
+        self.set_button_state("refid-clear-button", False)
+
+
+    def fill_form_with_frame(self, frame):
         """
         Fill all fields with the values of the attributes of the given frame.
+        
+        Precondition: frame is not None
         """
-        for field in self.frame_fields.itervalues():
-            field.set_with_frame(frame)
+        for field in self.all_fields.itervalues():
+            field.set_from(frame)
 
-        self.set_button_state("duplicate-button", frame is not None)
-        self.set_button_state("delete-button", frame is not None)
+        self.set_button_state("duplicate-button", True)
+        self.set_button_state("delete-button", True)
 
         self.set_button_state("refid-set-button",
-            frame is not None and
             self.effect.selected_element is not None and
             "id" in self.effect.selected_element.attrib and
             self.effect.selected_element.attrib["id"] != frame.refid)
-        self.set_button_state("refid-clear-button",
-            frame is not None and frame.refid is not None)
+        self.set_button_state("refid-clear-button", frame.refid is not None)
+
+
+    def fill_form_with_layer(self, layer):
+        """
+        Fill all fields with the values of the attributes of the given layer.
+        
+        Precondition: layer is not None
+        """
+        for field in self.frame_fields.itervalues():
+            field.set_from(layer.frame, sensitive = False)
+
+        for field in self.layer_fields.itervalues():
+            field.set_from(layer)
+
+        self.set_button_state("duplicate-button", False)
+        self.set_button_state("delete-button", True)
+
+        self.set_button_state("refid-set-button",
+            self.effect.selected_element is not None and
+            "id" in self.effect.selected_element.attrib and
+            self.effect.selected_element.attrib["id"] != layer.refid)
+        self.set_button_state("refid-clear-button", False)
 
 
     def get_selected_index(self):
@@ -249,7 +290,7 @@ class SoziUserInterface:
         Return the index of the currently selected frame.
         None is returned if no frame is selected.
         """
-        selection = self.list_view.get_selection()
+        selection = self.tree_view.get_selection()
         model, iter = selection.get_selected()
         if iter:
             return model.get_path(iter)[0]
@@ -264,8 +305,8 @@ class SoziUserInterface:
         """
         if (index < 0):
             index += len(self.model.frames)
-        self.list_view.get_selection().select_path((index,))
-        self.list_view.scroll_to_cell(index)
+        self.tree_view.get_selection().select_path((index,))
+        self.tree_view.scroll_to_cell(index)
 
     
     def select_frame(self, frame):
@@ -321,16 +362,16 @@ class SoziUserInterface:
         """
         Event handler: click on button "Set".
         """
-        self.frame_fields["refid"].set_value(self.effect.selected_element.attrib["id"])
-        self.frame_fields["refid"].write_if_needed()
+        self.all_fields["refid"].set_value(self.effect.selected_element.attrib["id"])
+        self.all_fields["refid"].write_if_needed()
 
 
     def on_clear_refid(self, widget):
         """
         Event handler: click on button "Clear".
         """
-        self.frame_fields["refid"].set_value(None)
-        self.frame_fields["refid"].write_if_needed()
+        self.all_fields["refid"].set_value(None)
+        self.all_fields["refid"].write_if_needed()
 
         
     def on_selection_changed(self, path):
@@ -339,25 +380,25 @@ class SoziUserInterface:
         This event can be triggered either due to a user action
         or due to a programmatic selection change.
         """
-        if self.list_view.get_selection().path_is_selected(path):
+        if self.tree_view.get_selection().path_is_selected(path):
             # If the selection change happens on a selected row
             # then the action is a deselection
-            frame = None
+            self.clear_form()
             self.set_button_state("up-button", False)
             self.set_button_state("down-button", False)
-            self.set_button_state("delete-button", False)
-        else:
-            # If the selection change happens on a non-selected row
-            # then the action is a selection
+        elif len(path) == 1:
+            # If the path contains one index, it references a frame
             index = path[0]
-            frame = self.model.frames[index]
+            self.fill_form_with_frame(self.model.frames[index])
             self.set_button_state("up-button", index > 0)
             self.set_button_state("down-button", index < len(self.model.frames) - 1)
-            self.set_button_state("delete-button", True)
-        
-        # Show the properties of the selected frame,
-        # or default values if no frame is selected.
-        self.fill_form(frame)
+        elif len(path) == 2:
+            # If the path contains two indices, it references a layer
+            frame_index = path[0]
+            layer_index = path[1]
+            self.fill_form_with_layer(self.model.frames[frame_index].layers[layer_index])
+            self.set_button_state("up-button", False)
+            self.set_button_state("down-button", False)
         
         # Success: highlight or clear the affected row in the frame list
         return True
@@ -422,12 +463,12 @@ class SoziUserInterface:
         """
         if isinstance(action, SoziFieldAction):
             # Update the title in the frame list if the "title" or "refid" field of a frame has changed.
-            if action.field is self.frame_fields["title"] or action.field is self.frame_fields["refid"]:
+            if action.field is self.all_fields["title"] or action.field is self.all_fields["refid"]:
                 index = self.model.frames.index(action.frame)
                 self.frame_store.set(self.frame_store.get_iter(index), 1, self.get_markup_title(action.frame))
 
             # Update "set" and "clear" buttons if the "refid" field of a frame has changed.
-            if action.field is self.frame_fields["refid"]:
+            if action.field is self.all_fields["refid"]:
                 self.set_button_state("refid-set-button",
                     self.effect.selected_element is not None and
                     "id" in self.effect.selected_element.attrib and

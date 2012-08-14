@@ -129,13 +129,13 @@ class SoziCreateAction(SoziAction):
         Create a new frame and select it in the frame list.
         """
 
-        self.ui.fill_form(None)
+        self.ui.clear_form()
 
         if not self.free and self.ui.effect.selected_element is not None:
-            self.ui.frame_fields["refid"].set_value(self.ui.effect.selected_element.attrib["id"])
+            self.ui.all_fields["refid"].set_value(self.ui.effect.selected_element.attrib["id"])
         
         frame = SoziFrame(self.ui.model)
-        for field in self.ui.frame_fields.itervalues():
+        for field in self.ui.all_fields.itervalues():
             value = field.get_value()
             if value is not None:
                 setattr(frame, field.attr, value)
@@ -222,7 +222,7 @@ class SoziDuplicateAction(SoziAction):
         self.ui = ui
         
         self.frame = SoziFrame(ui.model)
-        for field in ui.frame_fields.itervalues():
+        for field in ui.all_fields.itervalues():
             value = field.get_value()
             if value is not None:
                 setattr(self.frame, field.attr, value)
@@ -296,7 +296,7 @@ class SoziReorderAction(SoziAction):
         else:
             self.ui.frame_store.move_before(iter_first, iter_second)
         
-        self.ui.list_view.scroll_to_cell(second)
+        self.ui.tree_view.scroll_to_cell(second)
         
         # Update up/down button sensitivity
         self.ui.set_button_state("up-button", second > 0)
