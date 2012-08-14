@@ -141,7 +141,7 @@ class SoziCreateAction(SoziAction):
                 setattr(frame, field.attr, value)
 
         self.ui.model.add_frame(frame)
-        self.ui.append_frame_title(-1)
+        self.ui.append_frame_tree(-1)
         self.ui.select_index(-1)
 
 
@@ -233,7 +233,7 @@ class SoziDuplicateAction(SoziAction):
         Create a new frame and select it in the frame list.
         """
         self.ui.model.add_frame(self.frame)
-        self.ui.append_frame_title(-1)
+        self.ui.append_frame_tree(-1)
         self.ui.select_index(-1)
 
 

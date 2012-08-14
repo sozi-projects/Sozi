@@ -139,7 +139,7 @@ class SoziUserInterface:
         
         # Fill frame list
         for i in range(len(self.model.frames)):
-            self.append_frame_title(i)
+            self.append_frame_tree(i)
 
         # Select current frame in frame list and fill form
         if selected_frame is not None:
@@ -168,18 +168,23 @@ class SoziUserInterface:
             return frame.title
 
 
-    def append_frame_title(self, index):
+    def append_frame_tree(self, index):
         """
-        Append the title of the frame at the given index to the frame list view.
-        This method is used when filling the list view initially or when creating
-        a new frame.
+        Append the title and layers of the frame at the given index to the frame tree view.
+        This method is used when filling the tree view initially or when creating a new frame.
+        
+        A negative index is counted back from the end of the frame list.
         """
-        # A negative index is counted back from the end of the frame list.
-        # This is not needed for Python arrays, but we need to show the correct
-        # frame number in the list view.
+        # Compute the actual index. This is not needed for Python arrays,
+        # but we need to show the correct frame number in the list view.
         if (index < 0):
             index += len(self.model.frames)
-        self.frame_store.append(None, [index + 1, self.get_markup_title(self.model.frames[index])])
+        
+        frame = self.model.frames[index]
+        tree_iter = self.frame_store.append(None, [index + 1, self.get_markup_title(frame)])
+        
+        for l in frame.layers:
+            self.frame_store.append(tree_iter, ["", l.group_title])
 
 
     def insert_row(self, index, row):

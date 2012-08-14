@@ -5,7 +5,7 @@
   <object class="GtkTreeStore" id="frame-store">
     <columns>
       <!-- column-name sequence_column -->
-      <column type="guint"/>
+      <column type="gchararray"/>
       <!-- column-name title_column -->
       <column type="gchararray"/>
     </columns>
@@ -15,6 +15,11 @@
       <!-- column-name profile -->
       <column type="gchararray"/>
     </columns>
+  </object>
+  <object class="GtkAdjustment" id="timeout-adjustment">
+    <property name="upper">3600</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
   </object>
   <object class="GtkWindow" id="sozi-window">
     <property name="visible">True</property>
@@ -101,6 +106,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="model">frame-store</property>
                                 <property name="headers_clickable">False</property>
+                                <property name="expander_column">title-column</property>
                                 <property name="search_column">1</property>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="sequence-column">
@@ -825,11 +831,6 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkAdjustment" id="timeout-adjustment">
-    <property name="upper">3600</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
   </object>
   <object class="GtkAdjustment" id="transition-duration-adjustment">
     <property name="upper">3600</property>

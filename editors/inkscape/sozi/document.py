@@ -129,6 +129,14 @@ class SoziLayer:
         self.transition_zoom_percent = int(read_xml_attr(self.xml, "transition-zoom-percent", "sozi", 0))
         self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", "linear")
 
+        group_xml = frame.document.xml.xpath("//*[@id='" + self.group + "']")
+        label_attr = inkex.addNS("label", "inkscape")
+        
+        if len(group_xml) > 0 and label_attr in group_xml[0].attrib:
+            self.group_title = group_xml[0].attrib[label_attr]
+        else:
+            self.group_title = self.group
+
 
     def write(self):
         """
