@@ -58,6 +58,25 @@ class SoziFrame:
         self.id = read_xml_attr(self.xml, "id", None, document.effect.uniqueId("frame" + unicode(self.sequence)))
 
         self.layers = [ SoziLayer(self, l) for l in self.xml.xpath("sozi:layer", namespaces=inkex.NSS) ]
+        self.all_layers = Set(self.layers)
+
+
+    def add_layer(self, layer):
+        """
+        Add the given layer to the current frame.
+        """
+        self.layers.append(frame)
+        self.all_layers.add(frame)
+        layer.is_attached = True
+
+
+    def delete_layer(self, index):
+        """
+        Remove the layer at the given index from the current frame.
+        """
+        layer = self.layers[index]
+        del self.layers[index]
+        layer.is_attached = False
 
 
     def write(self):
@@ -65,6 +84,7 @@ class SoziFrame:
             if self.is_new:
                 # Add element to the SVG document
                 self.document.xml.getroot().append(self.xml)
+                
             write_xml_attr(self.xml, "refid", "sozi", self.refid)
             write_xml_attr(self.xml, "title", "sozi", self.title)
             write_xml_attr(self.xml, "sequence", "sozi", unicode(self.sequence))
@@ -76,6 +96,10 @@ class SoziFrame:
             write_xml_attr(self.xml, "transition-zoom-percent", "sozi", unicode(self.transition_zoom_percent))
             write_xml_attr(self.xml, "transition-profile", "sozi", self.transition_profile)
             write_xml_attr(self.xml, "id", None, self.id)
+
+            for l in self.all_layers:
+                l.write()
+                
         elif not self.is_new:
             # Remove element from the SVG document
             self.document.xml.getroot().remove(self.xml)
@@ -108,12 +132,14 @@ class SoziLayer:
             if self.is_new:
                 # Add element to the SVG document
                 self.frame.xml.getroot().append(self.xml)
+                
             write_xml_attr(self.xml, "group", "sozi", self.title)
             write_xml_attr(self.xml, "refid", "sozi", self.refid)
             write_xml_attr(self.xml, "hide", "sozi", "true" if self.hide else "false")
             write_xml_attr(self.xml, "clip", "sozi", "true" if self.clip else "false")
             write_xml_attr(self.xml, "transition-zoom-percent", "sozi", unicode(self.transition_zoom_percent))
             write_xml_attr(self.xml, "transition-profile", "sozi", self.transition_profile)
+            
         elif not self.is_new:
             # Remove element from the SVG document
             self.frame.xml.getroot().remove(self.xml)
