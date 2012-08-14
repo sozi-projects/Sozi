@@ -148,7 +148,7 @@ class SoziCreateAction(SoziAction):
 
         self.ui.model.add_frame(frame)
         self.ui.append_frame_tree(-1)
-        self.ui.select_index(-1)
+        self.ui.select_frame_at_index(-1)
 
 
     def undo(self):        
@@ -162,6 +162,8 @@ class SoziCreateAction(SoziAction):
 class SoziDeleteAction(SoziAction):
     """
     A wrapper for a frame delete action.
+    
+    TODO layer delete action
     """
     
     def __init__(self, ui):
@@ -169,7 +171,7 @@ class SoziDeleteAction(SoziAction):
         Initialize a new frame delete action.
             - ui: an instance of SoziUI
         """
-        index = ui.get_selected_index()
+        index = ui.get_selected_frame_index()
 
         SoziAction.__init__(self,
             _("Restore deleted frame {0}").format(index + 1),
@@ -192,7 +194,7 @@ class SoziDeleteAction(SoziAction):
         # If the removed frame was the last, and if the frame list is not empty,
         # select the last frame
         if self.index > 0 and self.index >= len(self.ui.model.frames):
-            self.ui.select_index(-1)
+            self.ui.select_frame_at_index(-1)
 
 
     def undo(self):        
@@ -205,17 +207,17 @@ class SoziDeleteAction(SoziAction):
 
 class SoziDuplicateAction(SoziAction):
     """
-    A wrapper for a frame creation action.
+    A wrapper for a frame duplication action.
     """
     
     def __init__(self, ui):
         """
-        Initialize a new frame creation action.
+        Initialize a new frame duplication action.
             - ui: an instance of SoziUI
         """
 
         # The new frame is a copy of the currently selected frame
-        self.index = ui.get_selected_index()
+        self.index = ui.get_selected_frame_index()
 
         # The new frame will be added at the end of the presentation
         new_frame_number = str(len(ui.model.frames) + 1)
@@ -240,7 +242,7 @@ class SoziDuplicateAction(SoziAction):
         """
         self.ui.model.add_frame(self.frame)
         self.ui.append_frame_tree(-1)
-        self.ui.select_index(-1)
+        self.ui.select_frame_at_index(-1)
 
 
     def undo(self):        
@@ -250,7 +252,7 @@ class SoziDuplicateAction(SoziAction):
         self.ui.remove_last_frame_title()
         self.ui.model.delete_frame(-1)
         if self.index is not None:
-            self.ui.select_index(self.index)
+            self.ui.select_frame_at_index(self.index)
 
 
 class SoziReorderAction(SoziAction):
@@ -263,7 +265,7 @@ class SoziReorderAction(SoziAction):
         Initialize a new frame reorder action.
             - ui: an instance of SoziUI
         """
-        index = ui.get_selected_index()
+        index = ui.get_selected_frame_index()
         if down:
             index_other = index + 1
         else:
@@ -321,7 +323,7 @@ class SoziReorderAction(SoziAction):
         Swap frames back.
         """
         self.move(self.index_other, self.index)
-        self.ui.select_index(self.index)
+        self.ui.select_frame_at_index(self.index)
 
 
     def redo(self):        
@@ -329,6 +331,6 @@ class SoziReorderAction(SoziAction):
         Swap frames again.
         """
         self.do()
-        self.ui.select_index(self.index_other)
+        self.ui.select_frame_at_index(self.index_other)
 
 

@@ -203,6 +203,8 @@ class SoziUserInterface:
         """
         Insert a row in the frame list view.
         This method is used when undoing a frame deletion.
+        
+        TODO add layers
         """
         self.frame_store.insert(None, index, row)
 
@@ -211,13 +213,15 @@ class SoziUserInterface:
             self.frame_store.set(self.frame_store.get_iter(i), 0, i + 1)
 
         # Select the inserted frame
-        self.select_index(index)
+        self.select_frame_at_index(index)
 
 
     def remove_last_frame_title(self):
         """
         Remove the title of the last frame in the list view.
         This method is used when undoing the creation of a new frame.
+        
+        TODO remove layers
         """
         self.frame_store.remove(self.frame_store.get_iter(len(self.model.frames) - 1))
 
@@ -226,6 +230,8 @@ class SoziUserInterface:
         """
         Remove the title of the frame at the given index from the list view.
         This method is used when deleting a frame.
+        
+        TODO remove layers
         """
         iter = self.frame_store.get_iter(index)
         if self.frame_store.remove(iter):
@@ -291,7 +297,7 @@ class SoziUserInterface:
         self.set_button_state("refid-clear-button", False)
 
 
-    def get_selected_index(self):
+    def get_selected_frame_index(self):
         """
         Return the index of the currently selected frame.
         None is returned if no frame is selected.
@@ -304,7 +310,24 @@ class SoziUserInterface:
             return None
 
 
-    def select_index(self, index):
+    def get_selected_layer_index(self):
+        """
+        Return the index of the currently selected layer.
+        None is returned if no layer is selected.
+        """
+        selection = self.tree_view.get_selection()
+        model, iter = selection.get_selected()
+        if iter:
+            path = model.get_path(iter)
+            if len(path) > 1:
+                return path[1]
+            else:
+                return None
+        else:
+            return None
+
+
+    def select_frame_at_index(self, index):
         """
         Select the frame at the given index.
         A negative index is counted back from the end of the frame list.
@@ -319,7 +342,7 @@ class SoziUserInterface:
         """
         Select the given frame in the frame list.
         """
-        self.select_index(self.model.frames.index(frame))
+        self.select_frame_at_index(self.model.frames.index(frame))
         
         
     def on_create_new_frame(self, widget):
