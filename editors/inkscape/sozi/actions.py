@@ -55,12 +55,18 @@ class SoziFieldAction(SoziAction):
         Initialize a new field action for the given field.
         The action object saves a copy of the previous and current values of the field.
         """
-        index = field.parent.model.frames.index(field.current_frame)
-
-        SoziAction.__init__(self,
-            _("Restore '{0}' in frame {1}").format(field.label, index + 1),
-            _("Change '{0}' in frame {1}").format(field.label, index + 1)
-        )
+        if isinstance(field.current_frame, SoziFrame):
+            index = field.parent.model.frames.index(field.current_frame)
+            SoziAction.__init__(self,
+                _("Restore '{0}' in frame {1}").format(field.label, index + 1),
+                _("Change '{0}' in frame {1}").format(field.label, index + 1)
+            )
+        else:
+            index = field.parent.model.frames.index(field.current_frame.frame)
+            SoziAction.__init__(self,
+                _("Restore '{0}' in layer '{1}' of frame {2}").format(field.label, field.current_frame.group_title, index + 1),
+                _("Change '{0}' in layer '{1}' of frame {2}").format(field.label, field.current_frame.group_title, index + 1)
+            )
 
         self.field = field
         self.frame = field.current_frame

@@ -464,8 +464,12 @@ class SoziUserInterface:
         if isinstance(action, SoziFieldAction):
             # Update the title in the frame list if the "title" or "refid" field of a frame has changed.
             if action.field is self.all_fields["title"] or action.field is self.all_fields["refid"]:
-                index = self.model.frames.index(action.frame)
-                self.frame_store.set(self.frame_store.get_iter(index), 1, self.get_markup_title(action.frame))
+                if isinstance(action.frame, SoziFrame):
+                    index = self.model.frames.index(action.frame)
+                    self.frame_store.set(self.frame_store.get_iter(index), 1, self.get_markup_title(action.frame))
+                else:
+                    index = self.model.frames.index(action.frame.frame)
+                    self.frame_store.set(self.frame_store.get_iter(index), 1, self.get_markup_title(action.frame.frame))
 
             # Update "set" and "clear" buttons if the "refid" field of a frame has changed.
             if action.field is self.all_fields["refid"]:

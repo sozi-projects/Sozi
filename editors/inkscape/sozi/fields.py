@@ -76,7 +76,7 @@ class SoziField:
             - the value of the current field has changed since it was last written
         The write operation is delegated to a SoziFieldAction object.
         """
-        if self.current_frame is not None and self.current_frame in self.parent.effect.model.frames and self.last_value != self.get_value():
+        if self.current_frame is not None and self.current_frame.is_attached and self.last_value != self.get_value():
             self.parent.do_action(SoziFieldAction(self))
             self.reset_last_value()
             
