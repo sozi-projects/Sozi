@@ -97,7 +97,7 @@ class SoziFrame:
         """
         Add the given layer to the current frame.
         """
-        self.layers[layer.group] = layer
+        self.layers[layer.group_id] = layer
         self.all_layers.add(layer)
         layer.is_attached = True
 
@@ -150,12 +150,12 @@ class SoziLayer:
             self.xml = inkex.etree.Element(inkex.addNS("layer", "sozi"))
             self.is_attached = False
             self.is_new = True
-            self.group = xml_or_group_id
+            self.group_id = xml_or_group_id
         else:
             self.xml = xml_or_group_id
             self.is_attached = True
             self.is_new = False
-            self.group = read_xml_attr(self.xml, "group", "sozi")
+            self.group_id = read_xml_attr(self.xml, "group", "sozi")
 
         self.refid = read_xml_attr(self.xml, "refid", "sozi")
 
@@ -165,17 +165,17 @@ class SoziLayer:
         self.transition_zoom_percent = read_xml_attr(self.xml, "transition-zoom-percent", "sozi", frame.transition_zoom_percent, int)
         self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", frame.transition_profile)
 
-        group_xml = frame.document.xml.xpath("//*[@id='" + self.group + "']")
+        group_xml = frame.document.xml.xpath("//*[@id='" + self.group_id + "']")
         label_attr = inkex.addNS("label", "inkscape")
         
         if len(group_xml) > 0 and label_attr in group_xml[0].attrib:
             self.label = group_xml[0].attrib[label_attr]
         else:
-            self.label = self.group
+            self.label = self.group_id
 
 
     def copy(self, frame):
-        result = SoziLayer(frame, self.group)
+        result = SoziLayer(frame, self.group_id)
         
         result.refid = self.refid
         result.hide = self.hide
@@ -197,7 +197,7 @@ class SoziLayer:
                 self.frame.xml.append(self.xml)
 
             # TODO write only the values that are different from the enclosing frame element
-            write_xml_attr(self.xml, "group", "sozi", self.group)
+            write_xml_attr(self.xml, "group", "sozi", self.group_id)
             write_xml_attr(self.xml, "refid", "sozi", self.refid)
             write_xml_attr(self.xml, "hide", "sozi", "true" if self.hide else "false")
             write_xml_attr(self.xml, "clip", "sozi", "true" if self.clip else "false")
