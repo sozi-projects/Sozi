@@ -124,7 +124,7 @@ namespace(this, "sozi.framelist", function (exports, window) {
      *
      * The table of contents is hidden by default.
      */
-    function onDisplayReady() {
+    function onPlayerReady() {
         svgTocGroup = document.createElementNS(SVG_NS, "g");
         svgTocGroup.setAttribute("id", "sozi-toc");
         document.documentElement.appendChild(svgTocGroup);
@@ -248,7 +248,7 @@ namespace(this, "sozi.framelist", function (exports, window) {
         return translateXEnd === translateXVisible;
     };
 
-	sozi.events.listen("sozi.display.ready", onDisplayReady);
+	sozi.events.listen("sozi.player.ready", onPlayerReady);
 	sozi.events.listen("sozi.player.cleanup", exports.hide);
 	sozi.events.listen("sozi.player.framechange", onFrameChange);
 });
