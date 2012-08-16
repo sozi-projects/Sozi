@@ -65,11 +65,11 @@ namespace(this, "sozi.document", function (exports, window) {
         }
 
         if (typeof state.transitionZoomPercent === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-zoom-percent")) {
-            state.transitionZoomPercent = parseInt(readAttribute(soziElement, "transition-zoom-percent"), 10);
+            state.setTransitionZoomPercent(parseInt(readAttribute(soziElement, "transition-zoom-percent"), 10));
         }
 
         if (typeof state.transitionProfile === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-profile")) {
-            state.transitionProfile = sozi.animation.profiles[readAttribute(soziElement, "transition-profile") || "linear"];
+            state.setTransitionProfile(sozi.animation.profiles[readAttribute(soziElement, "transition-profile") || "linear"]);
         }
         
         if (soziElement.hasAttributeNS(SOZI_NS, "refid")) {

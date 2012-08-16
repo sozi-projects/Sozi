@@ -50,6 +50,12 @@ namespace(this, "sozi.display", function (exports, window) {
             
             // Clipping
             this.clipped = true;
+            
+            // Transition zoom
+            this.transitionZoomPercent = 0;
+            
+            // Transition profile
+            this.transitionProfile = sozi.animation.profiles.linear;
         },
 
         setCenter: function (cx, cy) {
@@ -81,6 +87,16 @@ namespace(this, "sozi.display", function (exports, window) {
         
         setRawAngle: function (angle) {
             this.angle = angle;
+            return this;
+        },
+        
+        setTransitionZoomPercent: function (zoomPercent) {
+            this.transitionZoomPercent = zoomPercent;
+            return this;
+        },
+        
+        setTransitionProfile: function (profile) {
+            this.transitionProfile = profile;
             return this;
         },
         
@@ -136,7 +152,9 @@ namespace(this, "sozi.display", function (exports, window) {
             return this.setCenter(other.cx, other.cy)
                 .setSize(other.width, other.height)
                 .setAngle(other.angle)
-                .setClipped(other.clipped);
+                .setClipped(other.clipped)
+                .setTransitionZoomPercent(other.transitionZoomPercent)
+                .setTransitionProfile(other.transitionProfile);
         },
         
         interpolatableAttributes: ["cx", "cy", "width", "height", "angle"],
