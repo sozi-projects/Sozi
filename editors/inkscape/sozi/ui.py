@@ -294,6 +294,8 @@ class SoziUserInterface:
         self.set_button_state("duplicate-button", True)
         self.set_button_state("delete-button", True)
 
+        self.builder.get_object("delete-button").set_tooltip_text(_("Delete the selected frame"))
+
         self.set_button_state("refid-set-button",
             self.effect.selected_element is not None and
             "id" in self.effect.selected_element.attrib and
@@ -315,6 +317,8 @@ class SoziUserInterface:
 
         self.set_button_state("duplicate-button", False)
         self.set_button_state("delete-button", True)
+
+        self.builder.get_object("delete-button").set_tooltip_text(_("Remove the selected layer"))
 
         self.set_button_state("refid-set-button",
             self.effect.selected_element is not None and
