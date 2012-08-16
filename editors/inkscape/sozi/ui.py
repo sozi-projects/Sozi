@@ -85,8 +85,8 @@ class SoziUserInterface:
                 new_button.get_menu().append(new_layer_item)
                 new_layer_item.show()
                 new_layer_item.set_sensitive(False)
+                new_layer_item.connect("activate", self.on_add_layer, id)
                 self.new_layer_items[id] = new_layer_item
-                # TODO add callback
         else:
             new_button.set_tooltip_text(_("Create a new frame with no SVG element"))
 
@@ -203,6 +203,19 @@ class SoziUserInterface:
             self.frame_store.append(tree_iter, ["", l.label])
 
 
+    def insert_layer_row(self, frame_index, group_id):
+        """
+        Insert a new row for a layer recently added to an existing frame.
+        """
+        frame = self.model.frames[frame_index]
+        layer = frame.layers[group_id]
+        
+        layer_index = frame.layers.keys().index(group_id)
+        frame_iter = self.frame_store.get_iter(frame_index)
+        
+        self.frame_store.insert(frame_iter, layer_index, ["", layer.label])
+
+
     def insert_row(self, index, row):
         """
         Insert a row in the frame list view.
@@ -314,7 +327,7 @@ class SoziUserInterface:
             return None
 
 
-    def get_selected_layer_index(self):
+    def get_selected_layer_id(self):
         """
         Return the index of the currently selected layer.
         None is returned if no layer is selected.
@@ -324,7 +337,7 @@ class SoziUserInterface:
         if iter:
             path = model.get_path(iter)
             if len(path) > 1:
-                return path[1]
+                return self.model.layer_labels.keys()[path[1]]
             else:
                 return None
         else:
@@ -342,6 +355,17 @@ class SoziUserInterface:
         self.tree_view.scroll_to_cell(index)
 
     
+    def select_layer_with_id(self, frame_index, group_id):
+        """
+        Select the layer with the given id in the current frame.
+        """
+        layer_index = self.model.frames[frame_index].layers.keys().index(group_id)
+        path = (frame_index, layer_index)
+        self.tree_view.expand_to_path(path)
+        self.tree_view.get_selection().select_path(path)
+        self.tree_view.scroll_to_cell(path)
+
+
     def select_frame(self, frame):
         """
         Select the given frame in the frame list.
@@ -361,6 +385,13 @@ class SoziUserInterface:
         Event handler: click on button "create new frame".
         """
         self.do_action(SoziCreateAction(self, free=True))
+
+
+    def on_add_layer(self, widget, id):
+        """
+        Event handler: add a layer to the current frame.
+        """
+        self.do_action(SoziAddLayerAction(self, id))
 
 
     def on_delete_frame(self, widget):

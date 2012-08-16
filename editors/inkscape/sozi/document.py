@@ -72,6 +72,27 @@ class SoziFrame:
         self.all_layers = Set(self.layers.values())
 
 
+    def copy(self):
+        result = SoziFrame(self.document)
+
+        # New values for attributes sequence and id have been provided by the constructor
+        result.refid = self.refid
+        result.title = self.title
+        result.hide = self.hide
+        result.clip = self.clip
+        result.timeout_enable = self.timeout_enable
+        result.timeout_ms = self.timeout_ms
+        result.transition_duration_ms = self.transition_duration_ms
+        result.transition_zoom_percent = self.transition_zoom_percent
+        result.transition_profile = self.transition_profile
+
+        # Fill layers dict with copies of each layer object
+        for l in self.layers.itervalues():
+            result.add_layer(l.copy(result))
+
+        return result
+
+
     def add_layer(self, layer):
         """
         Add the given layer to the current frame.
@@ -122,20 +143,20 @@ class SoziFrame:
 
 class SoziLayer:
 
-    def __init__(self, frame, xml):
+    def __init__(self, frame, xml_or_group_id):
         self.frame = frame
 
-        if xml is None:
+        if isinstance(xml_or_group_id, str):
             self.xml = inkex.etree.Element(inkex.addNS("layer", "sozi"))
             self.is_attached = False
             self.is_new = True
+            self.group = xml_or_group_id
         else:
-            self.xml = xml
+            self.xml = xml_or_group_id
             self.is_attached = True
             self.is_new = False
+            self.group = read_xml_attr(self.xml, "group", "sozi")
 
-        # Mandatory attributes
-        self.group = read_xml_attr(self.xml, "group", "sozi")
         self.refid = read_xml_attr(self.xml, "refid", "sozi")
 
         # Missing attributes are inherited from the enclosing frame element
@@ -153,6 +174,19 @@ class SoziLayer:
             self.label = self.group
 
 
+    def copy(self, frame):
+        result = SoziLayer(frame, self.group)
+        
+        result.refid = self.refid
+        result.hide = self.hide
+        result.clip = self.clip
+        result.transition_zoom_percent = self.transition_zoom_percent
+        result.transition_profile = self.transition_profile
+        result.label = self.label
+
+        return result
+
+
     def write(self):
         """
         Commit all changes in the current layer to the SVG document.
@@ -160,7 +194,7 @@ class SoziLayer:
         if self.is_attached:
             if self.is_new:
                 # Add element to the SVG document
-                self.frame.xml.getroot().append(self.xml)
+                self.frame.xml.append(self.xml)
 
             # TODO write only the values that are different from the enclosing frame element
             write_xml_attr(self.xml, "group", "sozi", self.group)
@@ -172,7 +206,7 @@ class SoziLayer:
             
         elif not self.is_new:
             # Remove element from the SVG document
-            self.frame.xml.getroot().remove(self.xml)
+            self.frame.xml.remove(self.xml)
 
 
 class SoziDocument:

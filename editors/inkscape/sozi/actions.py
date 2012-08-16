@@ -1,4 +1,5 @@
 
+import copy
 from sozi.document import *
 
 
@@ -134,17 +135,11 @@ class SoziCreateAction(SoziAction):
         """
         Create a new frame and select it in the frame list.
         """
-
         self.ui.clear_form()
 
-        if not self.free and self.ui.effect.selected_element is not None:
-            self.ui.all_fields["refid"].set_value(self.ui.effect.selected_element.attrib["id"])
-        
         frame = SoziFrame(self.ui.model)
-        for field in self.ui.all_fields.itervalues():
-            value = field.get_value()
-            if value is not None:
-                setattr(frame, field.attr, value)
+        if not self.free and self.ui.effect.selected_element is not None:
+            frame.refid = self.ui.effect.selected_element.attrib["id"]
 
         self.ui.model.add_frame(frame)
         self.ui.append_frame_tree(-1)
@@ -157,6 +152,52 @@ class SoziCreateAction(SoziAction):
         """
         self.ui.remove_last_frame_title()
         self.ui.model.delete_frame(-1)
+       
+
+class SoziAddLayerAction(SoziAction):
+    """
+    A wrapper for the action that adds a layer to a frame.
+    """
+    
+    def __init__(self, ui, id):
+        """
+        Initialize a new layer creation action.
+            - ui: an instance of SoziUI
+            - id: the ID of the layer group to add
+        """
+        label = ui.model.layer_labels[id]
+        self.index = ui.get_selected_frame_index()
+        
+        SoziAction.__init__(self,
+            _("Remove the layer '{0}' from frame {1}").format(label, self.index + 1),
+            _("Add layer '{0}' to frame {1}").format(label, self.index + 1)
+        )
+        
+        self.ui = ui
+        self.group_id = id
+        self.frame = ui.model.frames[self.index]
+                            
+
+    def do(self):
+        """
+        Add a layer to the selected frame and select it in the frame list.
+        """
+        self.ui.clear_form()
+
+        self.ui.all_fields["refid"].set_value(self.ui.effect.selected_element.attrib["id"])
+        
+        layer = SoziLayer(self.frame, self.group_id)
+        self.frame.add_layer(layer)
+        
+        self.ui.insert_layer_row(self.index, layer.group)
+        self.ui.select_layer_with_id(self.index, layer.group)
+
+
+    def undo(self):        
+        """
+        Remove a layer from the selected frame and select the frame.
+        """
+        pass
        
 
 class SoziDeleteAction(SoziAction):
@@ -229,12 +270,8 @@ class SoziDuplicateAction(SoziAction):
         
         self.ui = ui
         
-        self.frame = SoziFrame(ui.model)
-        for field in ui.all_fields.itervalues():
-            value = field.get_value()
-            if value is not None:
-                setattr(self.frame, field.attr, value)
-                    
+        self.frame = ui.model.frames[self.index].copy()
+
 
     def do(self):
         """
