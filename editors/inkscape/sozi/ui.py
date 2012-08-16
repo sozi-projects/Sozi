@@ -66,6 +66,8 @@ class SoziUserInterface:
         new_button = self.builder.get_object("new-button")
         new_button.set_arrow_tooltip_text(_("Create a new frame or add a layer"))
         
+        self.new_layer_items = {}
+        
         if effect.selected_element is not None:
             # The tooltip of the "new" button will show the tag of the SVG element
             # selected in Inkscape, removing the namespace URI if present 
@@ -78,10 +80,12 @@ class SoziUserInterface:
             new_frame_item.set_sensitive(True)
             new_frame_item.set_tooltip_text(tooltip_text)
             
-            for l in self.model.layer_labels:
+            for id, l in self.model.layer_labels.iteritems():
                 new_layer_item = gtk.MenuItem(_("Add layer '{0}'").format(l))
                 new_button.get_menu().append(new_layer_item)
                 new_layer_item.show()
+                new_layer_item.set_sensitive(False)
+                self.new_layer_items[id] = new_layer_item
                 # TODO add callback
         else:
             new_button.set_tooltip_text(_("Create a new frame with no SVG element"))
@@ -195,7 +199,7 @@ class SoziUserInterface:
         frame = self.model.frames[index]
         tree_iter = self.frame_store.append(None, [index + 1, self.get_markup_title(frame)])
         
-        for l in frame.layers:
+        for l in frame.layers.itervalues():
             self.frame_store.append(tree_iter, ["", l.label])
 
 
@@ -410,24 +414,35 @@ class SoziUserInterface:
         or due to a programmatic selection change.
         """
         if self.tree_view.get_selection().path_is_selected(path):
+            # Disable all "Add layer" menu items
+            for item in self.new_layer_items.itervalues():
+                item.set_sensitive(False)
+
             # If the selection change happens on a selected row
             # then the action is a deselection
             self.clear_form()
             self.set_button_state("up-button", False)
             self.set_button_state("down-button", False)
-        elif len(path) == 1:
-            # If the path contains one index, it references a frame
-            index = path[0]
-            self.fill_form_with_frame(self.model.frames[index])
-            self.set_button_state("up-button", index > 0)
-            self.set_button_state("down-button", index < len(self.model.frames) - 1)
-        elif len(path) == 2:
-            # If the path contains two indices, it references a layer
+        else:
             frame_index = path[0]
-            layer_index = path[1]
-            self.fill_form_with_layer(self.model.frames[frame_index].layers[layer_index])
-            self.set_button_state("up-button", False)
-            self.set_button_state("down-button", False)
+            frame = self.model.frames[frame_index]
+            
+            # Enable "Add layer" menu items for layers not present
+            # in the selected frame
+            for id, item in self.new_layer_items.iteritems():
+                item.set_sensitive(id not in frame.layers)
+
+            if len(path) == 1:
+                # If the path contains one index, it references a frame
+                self.fill_form_with_frame(frame)
+                self.set_button_state("up-button", frame_index > 0)
+                self.set_button_state("down-button", frame_index < len(self.model.frames) - 1)
+            elif len(path) == 2:
+                # If the path contains two indices, it references a layer
+                layer_index = path[1]
+                self.fill_form_with_layer(frame.layers.values()[layer_index])
+                self.set_button_state("up-button", False)
+                self.set_button_state("down-button", False)
         
         # Success: highlight or clear the affected row in the frame list
         return True

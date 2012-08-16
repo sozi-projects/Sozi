@@ -66,25 +66,27 @@ class SoziFrame:
         self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", "linear")
         self.id = read_xml_attr(self.xml, "id", None, document.effect.uniqueId("frame" + unicode(self.sequence)))
 
-        self.layers = [ SoziLayer(self, l) for l in self.xml.xpath("sozi:layer", namespaces=inkex.NSS) ]
-        self.all_layers = Set(self.layers)
+        # self.layers is a dict mapping layer group ids with layer objects
+        group_attr = inkex.addNS("group", "sozi")
+        self.layers = { l.attrib[group_attr] : SoziLayer(self, l) for l in self.xml.xpath("sozi:layer", namespaces=inkex.NSS) if group_attr in l.attrib }
+        self.all_layers = Set(self.layers.values())
 
 
     def add_layer(self, layer):
         """
         Add the given layer to the current frame.
         """
-        self.layers.append(frame)
-        self.all_layers.add(frame)
+        self.layers[layer.group] = layer
+        self.all_layers.add(layer)
         layer.is_attached = True
 
 
-    def delete_layer(self, index):
+    def delete_layer(self, group_id):
         """
-        Remove the layer at the given index from the current frame.
+        Remove the layer with the given group id from the current frame.
         """
-        layer = self.layers[index]
-        del self.layers[index]
+        layer = self.layers[group_id]
+        del self.layers[group_id]
         layer.is_attached = False
 
 
@@ -179,8 +181,9 @@ class SoziDocument:
         self.effect = effect
         self.xml = effect.document
 
+        # self.layer_labels is a dict mapping layer ids with layer labels
         label_attr = inkex.addNS("label", "inkscape")
-        self.layer_labels = [ g.attrib[label_attr] for g in self.xml.xpath("svg:g[@inkscape:groupmode='layer']", namespaces=inkex.NSS) if label_attr in g.attrib]
+        self.layer_labels = { g.attrib["id"] : g.attrib[label_attr] for g in self.xml.xpath("svg:g[@inkscape:groupmode='layer']", namespaces=inkex.NSS) if "id" in g.attrib and label_attr in g.attrib }
                 
         self.frames = [ SoziFrame(self, f) for f in self.xml.xpath("//sozi:frame", namespaces=inkex.NSS) ]
         self.frames = sorted(self.frames, key=lambda f: f.sequence if f.sequence > 0 else len(self.frames))
