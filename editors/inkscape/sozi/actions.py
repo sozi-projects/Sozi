@@ -159,23 +159,23 @@ class SoziAddLayerAction(SoziAction):
     A wrapper for the action that adds a layer to a frame.
     """
     
-    def __init__(self, ui, id):
+    def __init__(self, ui, group_id):
         """
         Initialize a new layer creation action.
             - ui: an instance of SoziUI
             - id: the ID of the layer group to add
         """
-        label = ui.model.layer_labels[id]
-        self.index = ui.get_selected_frame_index()
+        label = ui.model.layer_labels[group_id]
+        self.frame_index = ui.get_selected_frame_index()
         
         SoziAction.__init__(self,
-            _("Remove the layer '{0}' from frame {1}").format(label, self.index + 1),
-            _("Add layer '{0}' to frame {1}").format(label, self.index + 1)
+            _("Remove the layer '{0}' from frame {1}").format(label, self.frame_index + 1),
+            _("Add layer '{0}' to frame {1}").format(label, self.frame_index + 1)
         )
         
         self.ui = ui
-        self.group_id = id
-        self.frame = ui.model.frames[self.index]
+        self.group_id = group_id
+        self.frame = ui.model.frames[self.frame_index]
                             
 
     def do(self):
@@ -189,16 +189,18 @@ class SoziAddLayerAction(SoziAction):
         layer = SoziLayer(self.frame, self.group_id)
         self.frame.add_layer(layer)
         
-        self.ui.insert_layer_row(self.index, layer.group)
-        self.ui.select_layer_with_id(self.index, layer.group)
+        self.ui.insert_layer_tree(self.frame_index, layer.group_id)
+        self.ui.select_layer_with_id(self.frame_index, layer.group_id)
 
 
     def undo(self):        
         """
         Remove a layer from the selected frame and select the frame.
         """
-        pass
-       
+        self.ui.remove_layer_tree(self.frame_index, self.group_id)
+        self.frame.delete_layer(self.group_id)
+        self.ui.select_frame_at_index(self.frame_index)
+
 
 class SoziDeleteFrameAction(SoziAction):
     """
