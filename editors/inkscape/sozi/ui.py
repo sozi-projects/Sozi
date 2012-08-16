@@ -47,7 +47,7 @@ class SoziUserInterface:
             "on_new_button_clicked":            self.on_create_new_frame,
             "on_new_frame_item_activate":       self.on_create_new_frame,
             "on_new_free_frame_item_activate":  self.on_create_new_free_frame,
-            "on_delete_button_clicked":         self.on_delete_frame,
+            "on_delete_button_clicked":         self.on_delete_frame_or_layer,
             "on_up_button_clicked":             self.on_move_frame_up,
             "on_down_button_clicked":           self.on_move_frame_down,
             "on_refid_clear_button_clicked":    self.on_clear_refid,
@@ -203,7 +203,47 @@ class SoziUserInterface:
             self.frame_store.append(tree_iter, ["", l.label])
 
 
-    def insert_layer_row(self, frame_index, group_id):
+    def insert_frame_tree(self, index):
+        """
+        Insert a frame in the frame list view.
+        This method is used when undoing a frame deletion.
+        """
+        frame = self.model.frames[index]
+        tree_iter = self.frame_store.insert(None, index, [index + 1, self.get_markup_title(frame)])
+        
+        for l in frame.layers.itervalues():
+            self.frame_store.append(tree_iter, ["", l.label])
+
+        self.renumber_from_index(index)
+
+
+    def remove_last_frame_tree(self):
+        """
+        Remove the title of the last frame in the list view.
+        This method is used when undoing the creation of a new frame.
+        """
+        self.frame_store.remove(self.frame_store.get_iter(len(self.model.frames) - 1))
+
+     
+    def remove_frame_tree(self, index):
+        """
+        Remove the title of the frame at the given index from the list view.
+        This method is used when deleting a frame.
+        """
+        iter = self.frame_store.get_iter(index)
+        if self.frame_store.remove(iter):
+            self.tree_view.get_selection().select_iter(iter)
+            self.renumber_from_index(index)
+        else:
+            self.clear_form()
+
+
+    def renumber_from_index(self, index):
+        for i in range(index, len(self.model.frames)):
+            self.frame_store.set(self.frame_store.get_iter(i), 0, i + 1)
+
+
+    def insert_layer_tree(self, frame_index, group_id):
         """
         Insert a new row for a layer recently added to an existing frame.
         """
@@ -216,46 +256,15 @@ class SoziUserInterface:
         self.frame_store.insert(frame_iter, layer_index, ["", layer.label])
 
 
-    def insert_row(self, index, row):
+    def remove_layer_tree(self, frame_index, group_id):
         """
-        Insert a row in the frame list view.
-        This method is used when undoing a frame deletion.
-        
-        TODO add layers
-        """
-        self.frame_store.insert(None, index, row)
-
-        # Renumber frames in list view
-        for i in range(index + 1, len(self.model.frames)):
-            self.frame_store.set(self.frame_store.get_iter(i), 0, i + 1)
-
-        # Select the inserted frame
-        self.select_frame_at_index(index)
-
-
-    def remove_last_frame_title(self):
-        """
-        Remove the title of the last frame in the list view.
-        This method is used when undoing the creation of a new frame.
-        
-        TODO remove layers
-        """
-        self.frame_store.remove(self.frame_store.get_iter(len(self.model.frames) - 1))
-
-     
-    def remove_frame_title(self, index):
-        """
-        Remove the title of the frame at the given index from the list view.
+        Remove the title of the layer at the given index from the list view.
         This method is used when deleting a frame.
-        
-        TODO remove layers
         """
-        iter = self.frame_store.get_iter(index)
+        layer_index = self.model.frames[frame_index].layers.keys().index(group_id)
+        iter = self.frame_store.get_iter((frame_index, layer_index))
         if self.frame_store.remove(iter):
             self.tree_view.get_selection().select_iter(iter)
-            # Renumber frames
-            for i in range(index, len(self.model.frames)):
-                self.frame_store.set(self.frame_store.get_iter(i), 0, i + 1)
         else:
             self.clear_form()
 
@@ -372,19 +381,31 @@ class SoziUserInterface:
         """
         self.select_frame_at_index(self.model.frames.index(frame))
         
-        
+
+    def selected_item_is_a_frame(self):
+        selection = self.tree_view.get_selection()
+        model, iter = selection.get_selected()
+        return iter is not None and len(model.get_path(iter)) == 1
+
+
+    def selected_item_is_a_layer(self):
+        selection = self.tree_view.get_selection()
+        model, iter = selection.get_selected()
+        return iter is not None and len(model.get_path(iter)) == 2
+
+
     def on_create_new_frame(self, widget):
         """
         Event handler: click on button "create new frame".
         """
-        self.do_action(SoziCreateAction(self, free=False))
+        self.do_action(SoziCreateFrameAction(self, free=False))
 
 
     def on_create_new_free_frame(self, widget):
         """
         Event handler: click on button "create new frame".
         """
-        self.do_action(SoziCreateAction(self, free=True))
+        self.do_action(SoziCreateFrameAction(self, free=True))
 
 
     def on_add_layer(self, widget, id):
@@ -394,32 +415,35 @@ class SoziUserInterface:
         self.do_action(SoziAddLayerAction(self, id))
 
 
-    def on_delete_frame(self, widget):
+    def on_delete_frame_or_layer(self, widget):
         """
-        Event handler: click on button "Delete frame".
+        Event handler: click on button "Delete frame or layer".
         """
-        self.do_action(SoziDeleteAction(self))
+        if self.selected_item_is_a_frame():
+            self.do_action(SoziDeleteFrameAction(self))
+        elif self.selected_item_is_a_layer():
+            self.do_action(SoziDeleteLayerAction(self))
 
 
     def on_duplicate_frame(self, widget):
         """
         Event handler: click on button "Duplicate frame"
         """
-        self.do_action(SoziDuplicateAction(self))
+        self.do_action(SoziDuplicateFrameAction(self))
 
 
     def on_move_frame_up(self, widget):
         """
         Event handler: click on button "Move frame up".
         """
-        self.do_action(SoziReorderAction(self, False))
+        self.do_action(SoziReorderFramesAction(self, False))
         
 
     def on_move_frame_down(self, widget):
         """
         Event handler: click on button "Move frame down".
         """
-        self.do_action(SoziReorderAction(self, True))
+        self.do_action(SoziReorderFramesAction(self, True))
 
 
     def on_set_refid(self, widget):

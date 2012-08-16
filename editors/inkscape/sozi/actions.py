@@ -108,7 +108,7 @@ class SoziFieldAction(SoziAction):
             self.field.parent.select_frame(self.frame)
 
 
-class SoziCreateAction(SoziAction):
+class SoziCreateFrameAction(SoziAction):
     """
     A wrapper for a frame creation action.
     """
@@ -150,7 +150,7 @@ class SoziCreateAction(SoziAction):
         """
         Remove the created frame and select the previously selected frame.
         """
-        self.ui.remove_last_frame_title()
+        self.ui.remove_last_frame_tree()
         self.ui.model.delete_frame(-1)
        
 
@@ -200,11 +200,9 @@ class SoziAddLayerAction(SoziAction):
         pass
        
 
-class SoziDeleteAction(SoziAction):
+class SoziDeleteFrameAction(SoziAction):
     """
     A wrapper for a frame delete action.
-    
-    TODO layer delete action
     """
     
     def __init__(self, ui):
@@ -222,16 +220,14 @@ class SoziDeleteAction(SoziAction):
         self.ui = ui
         self.index = index
         self.frame = ui.model.frames[index]
-        
-        self.row = self.ui.frame_store.get(self.ui.frame_store.get_iter(index), 0, 1)
 
 
     def do(self):
         """
         Remove the current frame and select the next one in the frame list.
         """
+        self.ui.remove_frame_tree(self.index)
         self.ui.model.delete_frame(self.index)
-        self.ui.remove_frame_title(self.index)
         # If the removed frame was the last, and if the frame list is not empty,
         # select the last frame
         if self.index > 0 and self.index >= len(self.ui.model.frames):
@@ -243,10 +239,53 @@ class SoziDeleteAction(SoziAction):
         Add the removed frame and select it.
         """
         self.ui.model.insert_frame(self.index, self.frame)
-        self.ui.insert_row(self.index, self.row)
+        self.ui.insert_frame_tree(self.index)
 
 
-class SoziDuplicateAction(SoziAction):
+class SoziDeleteLayerAction(SoziAction):
+    """
+    A wrapper for a layer delete action.
+    """
+    
+    def __init__(self, ui):
+        """
+        Initialize a new layer delete action.
+            - ui: an instance of SoziUI
+        """
+        self.frame_index = ui.get_selected_frame_index()
+        self.group_id = ui.get_selected_layer_id()
+        
+        label = ui.model.layer_labels[self.group_id]
+        
+        SoziAction.__init__(self,
+            _("Restore deleted layer '{0}' in frame {1}").format(label, self.frame_index + 1),
+            _("Remove layer '{0}' from frame {1}").format(label, self.frame_index + 1)
+        )
+        
+        self.ui = ui
+        self.frame = ui.model.frames[self.frame_index]
+        self.layer = self.frame.layers[self.group_id]
+
+
+    def do(self):
+        """
+        Remove the current frame and select the next one in the frame list.
+        """
+        self.ui.remove_layer_tree(self.frame_index, self.group_id)
+        self.frame.delete_layer(self.group_id)
+        self.ui.select_frame_at_index(self.frame_index) # FIXME select next layer
+
+
+    def undo(self):        
+        """
+        Add the removed frame and select it.
+        """
+        self.frame.add_layer(self.layer)
+        self.ui.insert_layer_tree(self.frame_index, self.group_id)
+        self.ui.select_layer_with_id(self.frame_index, self.group_id)
+
+
+class SoziDuplicateFrameAction(SoziAction):
     """
     A wrapper for a frame duplication action.
     """
@@ -286,13 +325,13 @@ class SoziDuplicateAction(SoziAction):
         """
         Remove the created frame and select the previously selected frame.
         """
-        self.ui.remove_last_frame_title()
+        self.ui.remove_last_frame_tree()
         self.ui.model.delete_frame(-1)
         if self.index is not None:
             self.ui.select_frame_at_index(self.index)
 
 
-class SoziReorderAction(SoziAction):
+class SoziReorderFramesAction(SoziAction):
     """
     A wrapper for a frame reordering action.
     """
