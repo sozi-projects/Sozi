@@ -1,18 +1,18 @@
 
 VERSION := $(shell date +%y.%m-%d%H%M%S)
 
-PLAYER_JS := $(wildcard player/js/*.js)
-EXTRAS_JS := $(wildcard player/extras/*.js)
+PLAYER_JS := $(wildcard ../player/js/*.js)
+EXTRAS_JS := $(wildcard ../player/extras/*.js)
 
 #MINIFY_OPT += --nomunge
 
 JUICER_OPT += --force
 JUICER_OPT += --skip-verification
- JUICER_OPT += --minifyer none
+#JUICER_OPT += --minifyer none
 
 MINIFY := juicer merge $(JUICER_OPT) --arguments "$(MINIFY_OPT)"
 
-AUTOLINT := ./node_modules/autolint/bin/autolint
+AUTOLINT := ../node_modules/autolint/bin/autolint
 
 MSGFMT := /usr/lib/python2.7/Tools/i18n/msgfmt.py
 
@@ -38,9 +38,11 @@ DOC := \
 	$(wildcard doc/*license.txt)
 
 TARGET := \
-    $(subst editors/inkscape,release,$(EDITOR_SRC)) \
-    $(patsubst editors/inkscape/sozi/lang/%.po,release/sozi/lang/%/LC_MESSAGES/sozi.mo,$(EDITOR_PO)) \
-    $(addprefix release/sozi/,$(notdir $(PLAYER_SRC) $(DOC)))
+    $(subst editors/inkscape/,,$(EDITOR_SRC)) \
+    $(patsubst editors/inkscape/sozi/lang/%.po,sozi/lang/%/LC_MESSAGES/sozi.mo,$(EDITOR_PO)) \
+    $(addprefix sozi/,$(notdir $(PLAYER_SRC) $(DOC)))
+
+TARGET_RELEASE := $(addprefix release/, $(TARGET))
 
 INSTALL_DIR := $(HOME)/.config/inkscape/extensions
 
@@ -57,8 +59,8 @@ verify: $(PLAYER_JS) $(EXTRAS_JS)
 
 minify: release/sozi.js release/sozi.css
 
-install: $(TARGET)
-	cp -r release/sozi* $(INSTALL_DIR)
+install: $(TARGET_RELEASE)
+	cd release ; cp --parents $(TARGET) $(INSTALL_DIR)
 
 timestamp: release/sozi-timestamp-$(VERSION)
 
@@ -74,8 +76,8 @@ pot: $(GETTEXT_SRC)
 $(TIMESTAMP):
 	mkdir -p release ; touch $@
 
-release/sozi-release-$(VERSION).zip: $(TARGET)
-	cd release ; zip $(notdir $@) $(notdir $^)
+release/sozi-release-$(VERSION).zip: $(TARGET_RELEASE)
+	cd release ; zip $(notdir $@) $(TARGET)
 
 release/sozi/sozi.js: $(PLAYER_JS)
 	$(MINIFY) --output $@ player/js/sozi.js
@@ -102,5 +104,5 @@ release/sozi/%: doc/%
 	mkdir -p release/sozi ; cp $< $@
 
 clean:
-	rm -f $(TARGET) release/sozi-timestamp-*
+	rm -f $(TARGET_RELEASE) release/sozi-timestamp-*
 

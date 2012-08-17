@@ -56,6 +56,7 @@ SET(sozi_js ${CMAKE_CURRENT_SOURCE_DIR}/js/namespace.js
 			${CMAKE_CURRENT_SOURCE_DIR}/js/events.js 
             ${CMAKE_CURRENT_SOURCE_DIR}/js/framenumber.js 
             ${CMAKE_CURRENT_SOURCE_DIR}/js/framelist.js 
+            ${CMAKE_CURRENT_SOURCE_DIR}/js/proto.js 
             ${CMAKE_CURRENT_SOURCE_DIR}/js/animation.js 
             ${CMAKE_CURRENT_SOURCE_DIR}/js/display.js 
             ${CMAKE_CURRENT_SOURCE_DIR}/js/player.js  
