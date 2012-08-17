@@ -4,7 +4,7 @@ module.exports = {
     linterOptions: {
         onevar: false,  // Allow multiple "var" statements
         forin: false,   // For-in statements need not filter
-        predef: [ "module", "sozi" ]
+        predef: [ "namespace", "sozi" ]
     },
     excludes: []
 };

@@ -1,8 +1,8 @@
 
 VERSION := $(shell date +%y.%m-%d%H%M%S)
 
-PLAYER_JS := $(wildcard ../player/js/*.js)
-EXTRAS_JS := $(wildcard ../player/extras/*.js)
+PLAYER_JS := $(wildcard player/js/*.js)
+EXTRAS_JS := $(wildcard player/extras/*.js)
 
 #MINIFY_OPT += --nomunge
 
@@ -12,7 +12,7 @@ JUICER_OPT += --skip-verification
 
 MINIFY := juicer merge $(JUICER_OPT) --arguments "$(MINIFY_OPT)"
 
-AUTOLINT := ../node_modules/autolint/bin/autolint
+AUTOLINT := ./node_modules/autolint/bin/autolint
 
 MSGFMT := /usr/lib/python2.7/Tools/i18n/msgfmt.py
 
