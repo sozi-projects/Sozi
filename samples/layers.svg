@@ -35,15 +35,15 @@
      inkscape:window-y="0"
      inkscape:window-maximized="1">
     <inkscape:grid
-       type="xygrid"
-       id="grid2985"
-       empspacing="5"
-       visible="true"
-       enabled="true"
-       snapvisiblegridlinesonly="true"
-       units="mm"
+       spacingy="1mm"
        spacingx="1mm"
-       spacingy="1mm" />
+       units="mm"
+       snapvisiblegridlinesonly="true"
+       enabled="true"
+       visible="true"
+       empspacing="5"
+       id="grid2985"
+       type="xygrid" />
   </sodipodi:namedview>
   <defs
      id="defs4" />
@@ -60,55 +60,45 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:groupmode="layer"
-     id="layer2"
+     style="display:inline"
      inkscape:label="Colors"
-     style="display:inline">
+     id="layer2"
+     inkscape:groupmode="layer">
     <path
-       sodipodi:type="arc"
-       style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       transform="matrix(0.8660254,-0.5,0.5,0.8660254,-42.917081,194.1619)"
+       d="m 318.89763,166.53542 a 17.716536,17.716536 0 1 1 -35.43307,0 17.716536,17.716536 0 1 1 35.43307,0 z"
+       sodipodi:ry="17.716536"
+       sodipodi:rx="17.716536"
+       sodipodi:cy="166.53542"
+       sodipodi:cx="301.18109"
        id="path3023"
-       sodipodi:cx="301.18109"
-       sodipodi:cy="166.53542"
-       sodipodi:rx="17.716536"
-       sodipodi:ry="17.716536"
-       d="m 318.89763,166.53542 a 17.716536,17.716536 0 1 1 -35.43307,0 17.716536,17.716536 0 1 1 35.43307,0 z"
-       transform="matrix(0.8660254,-0.5,0.5,0.8660254,-42.917081,194.1619)" />
+       style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       sodipodi:type="arc" />
     <path
-       d="m 318.89763,166.53542 a 17.716536,17.716536 0 1 1 -35.43307,0 17.716536,17.716536 0 1 1 35.43307,0 z"
-       sodipodi:ry="17.716536"
-       sodipodi:rx="17.716536"
-       sodipodi:cy="166.53542"
-       sodipodi:cx="301.18109"
-       id="path3025"
+       transform="matrix(0.8660254,0.5,-0.5,0.8660254,159.05141,-107.01919)"
+       sodipodi:type="arc"
        style="fill:#ff00ff;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       sodipodi:type="arc"
-       transform="matrix(0.8660254,0.5,-0.5,0.8660254,159.05141,-107.01919)" />
+       id="path3025"
+       sodipodi:cx="301.18109"
+       sodipodi:cy="166.53542"
+       sodipodi:rx="17.716536"
+       sodipodi:ry="17.716536"
+       d="m 318.89763,166.53542 a 17.716536,17.716536 0 1 1 -35.43307,0 17.716536,17.716536 0 1 1 35.43307,0 z" />
     <path
-       transform="matrix(0,1,-1,0,517.32282,-81.496074)"
-       sodipodi:type="arc"
-       style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       d="m 318.89763,166.53542 a 17.716536,17.716536 0 1 1 -35.43307,0 17.716536,17.716536 0 1 1 35.43307,0 z"
+       sodipodi:ry="17.716536"
+       sodipodi:rx="17.716536"
+       sodipodi:cy="166.53542"
+       sodipodi:cx="301.18109"
        id="path3027"
-       sodipodi:cx="301.18109"
-       sodipodi:cy="166.53542"
-       sodipodi:rx="17.716536"
-       sodipodi:ry="17.716536"
-       d="m 318.89763,166.53542 a 17.716536,17.716536 0 1 1 -35.43307,0 17.716536,17.716536 0 1 1 35.43307,0 z" />
+       style="fill:#0000ff;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       sodipodi:type="arc"
+       transform="matrix(0,1,-1,0,517.32282,-81.496074)" />
     <path
-       d="m 318.89763,166.53542 a 17.716536,17.716536 0 1 1 -35.43307,0 17.716536,17.716536 0 1 1 35.43307,0 z"
-       sodipodi:ry="17.716536"
-       sodipodi:rx="17.716536"
-       sodipodi:cy="166.53542"
-       sodipodi:cx="301.18109"
-       id="path3029"
+       transform="matrix(-0.8660254,0.5,-0.5,-0.8660254,680.71236,245.20814)"
+       sodipodi:type="arc"
        style="fill:#00ffff;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       sodipodi:type="arc"
-       transform="matrix(-0.8660254,0.5,-0.5,-0.8660254,680.71236,245.20814)" />
-    <path
-       transform="matrix(-0.8660254,-0.5,0.5,-0.8660254,478.74387,546.38923)"
-       sodipodi:type="arc"
-       style="fill:#00ff00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
-       id="path3031"
+       id="path3029"
        sodipodi:cx="301.18109"
        sodipodi:cy="166.53542"
        sodipodi:rx="17.716536"
@@ -120,305 +110,315 @@
        sodipodi:rx="17.716536"
        sodipodi:cy="166.53542"
        sodipodi:cx="301.18109"
-       id="path3033"
-       style="fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       id="path3031"
+       style="fill:#00ff00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
        sodipodi:type="arc"
-       transform="matrix(0,-1,1,0,120.47246,520.86611)" />
+       transform="matrix(-0.8660254,-0.5,0.5,-0.8660254,478.74387,546.38923)" />
+    <path
+       transform="matrix(0,-1,1,0,120.47246,520.86611)"
+       sodipodi:type="arc"
+       style="fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:none;display:inline"
+       id="path3033"
+       sodipodi:cx="301.18109"
+       sodipodi:cy="166.53542"
+       sodipodi:rx="17.716536"
+       sodipodi:ry="17.716536"
+       d="m 318.89763,166.53542 a 17.716536,17.716536 0 1 1 -35.43307,0 17.716536,17.716536 0 1 1 35.43307,0 z" />
   </g>
   <g
-     inkscape:label="Names"
-     inkscape:groupmode="layer"
+     style="display:inline"
      id="layer1"
-     style="display:inline">
+     inkscape:groupmode="layer"
+     inkscape:label="Names">
     <g
-       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona"
+       transform="translate(0,-0.5979692)"
        id="text2997"
-       transform="translate(0,-0.5979692)">
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona">
       <path
-         d="m 438.35377,148.81888 -5.112,-7.608 c 2.61599,-0.504 4.416,-1.944 4.416,-4.632 0,-3.384 -2.90401,-4.8 -6.672,-4.8 -1.344,0 -2.68801,0.072 -4.008,0.24 l -1.92,0 0,16.8 1.968,0 0,-7.8 c 1.29599,0.24 2.64,0.384 3.96,0.384 l 5.016,7.416 2.352,0 m -3.048,-12.24 c 0,2.184 -2.04001,3.72 -4.32,3.72 -1.32,0 -2.66401,-0.144 -3.96,-0.384 l 0,-6.792 c 1.31999,-0.168 2.64,-0.24 3.96,-0.24 2.27999,0 4.32,1.536 4.32,3.696"
+         inkscape:connector-curvature="0"
          id="path3117"
-         inkscape:connector-curvature="0" />
+         d="m 438.35377,148.81888 -5.112,-7.608 c 2.61599,-0.504 4.416,-1.944 4.416,-4.632 0,-3.384 -2.90401,-4.8 -6.672,-4.8 -1.344,0 -2.68801,0.072 -4.008,0.24 l -1.92,0 0,16.8 1.968,0 0,-7.8 c 1.29599,0.24 2.64,0.384 3.96,0.384 l 5.016,7.416 2.352,0 m -3.048,-12.24 c 0,2.184 -2.04001,3.72 -4.32,3.72 -1.32,0 -2.66401,-0.144 -3.96,-0.384 l 0,-6.792 c 1.31999,-0.168 2.64,-0.24 3.96,-0.24 2.27999,0 4.32,1.536 4.32,3.696" />
       <path
-         d="m 449.20889,143.65888 0,-0.24 c 0,-3.384 -1.848,-5.64 -4.632,-5.64 -2.808,0 -4.656,2.256 -4.656,5.64 0,3.38399 1.848,5.64 4.656,5.64 1.2,0 2.376,-0.384 3.36,-1.08 l 0,-1.008 c -1.128,0.72 -2.04,0.984 -3.36,0.984 -2.04,0 -2.544,-1.944 -2.544,-4.296 l 7.176,0 m -2.112,-1.008 -5.064,0 c 0,-1.92 0.816,-3.864 2.544,-3.864 1.704,0 2.52,1.944 2.52,3.864"
+         inkscape:connector-curvature="0"
          id="path3119"
-         inkscape:connector-curvature="0" />
+         d="m 449.20889,143.65888 0,-0.24 c 0,-3.384 -1.848,-5.64 -4.632,-5.64 -2.808,0 -4.656,2.256 -4.656,5.64 0,3.38399 1.848,5.64 4.656,5.64 1.2,0 2.376,-0.384 3.36,-1.08 l 0,-1.008 c -1.128,0.72 -2.04,0.984 -3.36,0.984 -2.04,0 -2.544,-1.944 -2.544,-4.296 l 7.176,0 m -2.112,-1.008 -5.064,0 c 0,-1.92 0.816,-3.864 2.544,-3.864 1.704,0 2.52,1.944 2.52,3.864" />
       <path
-         d="m 461.02139,148.81888 0,-16.8 -1.872,0 0,6.408 c -0.936,-0.408 -1.944,-0.648 -2.952,-0.648 -3,0 -4.464,2.4 -4.464,5.64 0,3.19199 1.2,5.64 4.104,5.64 1.224,0 2.352,-0.552 3.312,-1.32 l 0,1.08 1.872,0 m -1.872,-2.088 c -0.72,0.72 -1.608,1.32 -2.64,1.32 -2.184,0 -2.664,-2.112 -2.664,-4.632 0,-2.256 0.696,-4.632 2.664,-4.632 0.912,0 1.824,0.24 2.64,0.648 l 0,7.296"
+         inkscape:connector-curvature="0"
          id="path3121"
-         inkscape:connector-curvature="0" />
+         d="m 461.02139,148.81888 0,-16.8 -1.872,0 0,6.408 c -0.936,-0.408 -1.944,-0.648 -2.952,-0.648 -3,0 -4.464,2.4 -4.464,5.64 0,3.19199 1.2,5.64 4.104,5.64 1.224,0 2.352,-0.552 3.312,-1.32 l 0,1.08 1.872,0 m -1.872,-2.088 c -0.72,0.72 -1.608,1.32 -2.64,1.32 -2.184,0 -2.664,-2.112 -2.664,-4.632 0,-2.256 0.696,-4.632 2.664,-4.632 0.912,0 1.824,0.24 2.64,0.648 l 0,7.296" />
     </g>
     <g
-       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona"
+       transform="translate(0,34.826402)"
        id="text3003"
-       transform="translate(0,34.826402)">
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona">
       <path
-         d="m 427.50445,248.03148 0,-7.056 -1.968,0 0,4.632 c -1.248,1.008 -2.784,1.56 -4.392,1.56 -3.81599,0 -5.4,-3.28801 -5.4,-7.536 0,-4.248 1.58401,-7.536 5.4,-7.536 2.256,0 4.39201,0.888 5.976,2.496 l 0,-1.104 c -1.58399,-1.608 -3.72,-2.496 -5.976,-2.496 -4.94399,0 -7.752,3.504 -7.752,8.64 0,5.13599 2.80801,8.64 7.752,8.64 1.608,0 3.144,-0.552 4.392,-1.56 l 0,1.32 1.968,0"
+         inkscape:connector-curvature="0"
          id="path3106"
-         inkscape:connector-curvature="0" />
+         d="m 427.50445,248.03148 0,-7.056 -1.968,0 0,4.632 c -1.248,1.008 -2.784,1.56 -4.392,1.56 -3.81599,0 -5.4,-3.28801 -5.4,-7.536 0,-4.248 1.58401,-7.536 5.4,-7.536 2.256,0 4.39201,0.888 5.976,2.496 l 0,-1.104 c -1.58399,-1.608 -3.72,-2.496 -5.976,-2.496 -4.94399,0 -7.752,3.504 -7.752,8.64 0,5.13599 2.80801,8.64 7.752,8.64 1.608,0 3.144,-0.552 4.392,-1.56 l 0,1.32 1.968,0" />
       <path
-         d="m 437.33283,238.71948 0,-1.488 c -0.264,-0.096 -0.552,-0.168 -0.816,-0.168 -1.344,0 -2.424,0.936 -3.288,1.968 l 0,-1.8 -1.872,0 0,10.8 1.872,0 0,-7.992 c 0.72,-0.84 1.632,-1.56 2.736,-1.56 0.456,0 0.936,0.096 1.368,0.24"
+         inkscape:connector-curvature="0"
          id="path3108"
-         inkscape:connector-curvature="0" />
+         d="m 437.33283,238.71948 0,-1.488 c -0.264,-0.096 -0.552,-0.168 -0.816,-0.168 -1.344,0 -2.424,0.936 -3.288,1.968 l 0,-1.8 -1.872,0 0,10.8 1.872,0 0,-7.992 c 0.72,-0.84 1.632,-1.56 2.736,-1.56 0.456,0 0.936,0.096 1.368,0.24" />
       <path
-         d="m 448.43545,242.87148 0,-0.24 c 0,-3.384 -1.848,-5.64 -4.632,-5.64 -2.80799,0 -4.656,2.256 -4.656,5.64 0,3.384 1.84801,5.64 4.656,5.64 1.2,0 2.376,-0.384 3.36,-1.08 l 0,-1.008 c -1.128,0.72 -2.04,0.984 -3.36,0.984 -2.03999,0 -2.544,-1.944 -2.544,-4.296 l 7.176,0 m -2.112,-1.008 -5.064,0 c 0,-1.92 0.81601,-3.864 2.544,-3.864 1.704,0 2.52,1.944 2.52,3.864"
+         inkscape:connector-curvature="0"
          id="path3110"
-         inkscape:connector-curvature="0" />
+         d="m 448.43545,242.87148 0,-0.24 c 0,-3.384 -1.848,-5.64 -4.632,-5.64 -2.80799,0 -4.656,2.256 -4.656,5.64 0,3.384 1.84801,5.64 4.656,5.64 1.2,0 2.376,-0.384 3.36,-1.08 l 0,-1.008 c -1.128,0.72 -2.04,0.984 -3.36,0.984 -2.03999,0 -2.544,-1.944 -2.544,-4.296 l 7.176,0 m -2.112,-1.008 -5.064,0 c 0,-1.92 0.81601,-3.864 2.544,-3.864 1.704,0 2.52,1.944 2.52,3.864" />
       <path
-         d="m 460.24795,242.87148 0,-0.24 c 0,-3.384 -1.848,-5.64 -4.632,-5.64 -2.80799,0 -4.656,2.256 -4.656,5.64 0,3.384 1.84801,5.64 4.656,5.64 1.2,0 2.376,-0.384 3.36,-1.08 l 0,-1.008 c -1.128,0.72 -2.04,0.984 -3.36,0.984 -2.03999,0 -2.544,-1.944 -2.544,-4.296 l 7.176,0 m -2.112,-1.008 -5.064,0 c 0,-1.92 0.81601,-3.864 2.544,-3.864 1.704,0 2.52,1.944 2.52,3.864"
+         inkscape:connector-curvature="0"
          id="path3112"
-         inkscape:connector-curvature="0" />
+         d="m 460.24795,242.87148 0,-0.24 c 0,-3.384 -1.848,-5.64 -4.632,-5.64 -2.80799,0 -4.656,2.256 -4.656,5.64 0,3.384 1.84801,5.64 4.656,5.64 1.2,0 2.376,-0.384 3.36,-1.08 l 0,-1.008 c -1.128,0.72 -2.04,0.984 -3.36,0.984 -2.03999,0 -2.544,-1.944 -2.544,-4.296 l 7.176,0 m -2.112,-1.008 -5.064,0 c 0,-1.92 0.81601,-3.864 2.544,-3.864 1.704,0 2.52,1.944 2.52,3.864" />
       <path
-         d="m 472.06045,248.03148 0,-7.8 c 0,-1.752 -1.344,-3.24 -3.072,-3.24 -1.43999,0 -2.712,0.816 -3.744,1.824 l 0,-1.584 -1.872,0 0,10.8 1.872,0 0,-8.472 c 0.816,-0.816 1.824,-1.464 2.952,-1.464 1.128,0 1.992,0.984 1.992,2.136 l 0,7.8 1.872,0"
+         inkscape:connector-curvature="0"
          id="path3114"
-         inkscape:connector-curvature="0" />
+         d="m 472.06045,248.03148 0,-7.8 c 0,-1.752 -1.344,-3.24 -3.072,-3.24 -1.43999,0 -2.712,0.816 -3.744,1.824 l 0,-1.584 -1.872,0 0,10.8 1.872,0 0,-8.472 c 0.816,-0.816 1.824,-1.464 2.952,-1.464 1.128,0 1.992,0.984 1.992,2.136 l 0,7.8 1.872,0" />
     </g>
     <g
-       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona"
+       transform="translate(0,20.583312)"
        id="text3007"
-       transform="translate(0,20.583312)">
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona">
       <path
-         d="m 434.12433,193.86517 c 0,-2.64 -1.728,-4.032 -4.248,-4.56 1.848,-0.552 3.072,-1.752 3.072,-3.792 0,-2.928 -2.52,-4.128 -5.76,-4.128 -1.248,0 -2.496,0.072 -3.744,0.24 l -1.92,0 0,16.8 1.92,0 3.744,0.24 c 3.88799,0 6.936,-1.32 6.936,-4.8 m -3.144,-8.352 c 0,2.424 -2.712,3.672 -5.424,3.672 l -2.064,0 0,-6.456 c 1.224,-0.168 2.472,-0.24 3.696,-0.24 1.968,0 3.792,1.2 3.792,3.024 m 0.792,8.352 c 0,2.208 -2.184,3.696 -4.584,3.696 -1.224,0 -2.472,-0.072 -3.696,-0.24 l 0,-7.296 3.096,0 c 2.64,0 5.184,1.416 5.184,3.84"
+         inkscape:connector-curvature="0"
          id="path3097"
-         inkscape:connector-curvature="0" />
+         d="m 434.12433,193.86517 c 0,-2.64 -1.728,-4.032 -4.248,-4.56 1.848,-0.552 3.072,-1.752 3.072,-3.792 0,-2.928 -2.52,-4.128 -5.76,-4.128 -1.248,0 -2.496,0.072 -3.744,0.24 l -1.92,0 0,16.8 1.92,0 3.744,0.24 c 3.88799,0 6.936,-1.32 6.936,-4.8 m -3.144,-8.352 c 0,2.424 -2.712,3.672 -5.424,3.672 l -2.064,0 0,-6.456 c 1.224,-0.168 2.472,-0.24 3.696,-0.24 1.968,0 3.792,1.2 3.792,3.024 m 0.792,8.352 c 0,2.208 -2.184,3.696 -4.584,3.696 -1.224,0 -2.472,-0.072 -3.696,-0.24 l 0,-7.296 3.096,0 c 2.64,0 5.184,1.416 5.184,3.84" />
       <path
-         d="m 442.00945,197.58517 0,-0.72 c -0.456,0.384 -0.984,0.696 -1.584,0.696 -0.888,0 -1.056,-1.104 -1.056,-2.136 l 0,-13.8 -1.872,0 0,13.8 c 0,1.608 0.62401,3.24 2.04,3.24 0.912,0 1.776,-0.456 2.472,-1.08"
+         inkscape:connector-curvature="0"
          id="path3099"
-         inkscape:connector-curvature="0" />
+         d="m 442.00945,197.58517 0,-0.72 c -0.456,0.384 -0.984,0.696 -1.584,0.696 -0.888,0 -1.056,-1.104 -1.056,-2.136 l 0,-13.8 -1.872,0 0,13.8 c 0,1.608 0.62401,3.24 2.04,3.24 0.912,0 1.776,-0.456 2.472,-1.08" />
       <path
-         d="m 452.95608,198.42517 0,-10.8 -1.872,0 0,8.472 c -0.816,0.816 -1.824,1.464 -2.952,1.464 -1.128,0 -1.992,-0.984 -1.992,-2.136 l 0,-7.8 -1.872,0 0,7.8 c 0,1.752 1.344,3.24 3.072,3.24 1.44,0 2.712,-0.816 3.744,-1.824 l 0,1.584 1.872,0"
+         inkscape:connector-curvature="0"
          id="path3101"
-         inkscape:connector-curvature="0" />
+         d="m 452.95608,198.42517 0,-10.8 -1.872,0 0,8.472 c -0.816,0.816 -1.824,1.464 -2.952,1.464 -1.128,0 -1.992,-0.984 -1.992,-2.136 l 0,-7.8 -1.872,0 0,7.8 c 0,1.752 1.344,3.24 3.072,3.24 1.44,0 2.712,-0.816 3.744,-1.824 l 0,1.584 1.872,0" />
       <path
-         d="m 465.49795,193.26517 0,-0.24 c 0,-3.384 -1.848,-5.64 -4.632,-5.64 -2.80799,0 -4.656,2.256 -4.656,5.64 0,3.384 1.84801,5.64 4.656,5.64 1.2,0 2.376,-0.384 3.36,-1.08 l 0,-1.008 c -1.128,0.72 -2.04,0.984 -3.36,0.984 -2.03999,0 -2.544,-1.944 -2.544,-4.296 l 7.176,0 m -2.112,-1.008 -5.064,0 c 0,-1.92 0.81601,-3.864 2.544,-3.864 1.704,0 2.52,1.944 2.52,3.864"
+         inkscape:connector-curvature="0"
          id="path3103"
-         inkscape:connector-curvature="0" />
+         d="m 465.49795,193.26517 0,-0.24 c 0,-3.384 -1.848,-5.64 -4.632,-5.64 -2.80799,0 -4.656,2.256 -4.656,5.64 0,3.384 1.84801,5.64 4.656,5.64 1.2,0 2.376,-0.384 3.36,-1.08 l 0,-1.008 c -1.128,0.72 -2.04,0.984 -3.36,0.984 -2.03999,0 -2.544,-1.944 -2.544,-4.296 l 7.176,0 m -2.112,-1.008 -5.064,0 c 0,-1.92 0.81601,-3.864 2.544,-3.864 1.704,0 2.52,1.944 2.52,3.864" />
     </g>
     <g
-       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona"
+       transform="translate(0,41.827929)"
        id="text3011"
-       transform="translate(0,41.827929)">
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona">
       <path
-         d="m 423.94495,256.03463 -1.296,0 -5.112,8.496 -4.56,-8.496 -2.232,0 5.616,10.08 0,6.72 1.968,0 0,-7.464 5.616,-9.336"
+         inkscape:connector-curvature="0"
          id="path3084"
-         inkscape:connector-curvature="0" />
+         d="m 423.94495,256.03463 -1.296,0 -5.112,8.496 -4.56,-8.496 -2.232,0 5.616,10.08 0,6.72 1.968,0 0,-7.464 5.616,-9.336" />
       <path
-         d="m 432.49795,267.67463 0,-0.24 c 0,-3.384 -1.848,-5.64 -4.632,-5.64 -2.80799,0 -4.656,2.256 -4.656,5.64 0,3.38399 1.84801,5.64 4.656,5.64 1.2,0 2.376,-0.38401 3.36,-1.08 l 0,-1.008 c -1.128,0.71999 -2.04,0.984 -3.36,0.984 -2.03999,0 -2.544,-1.94401 -2.544,-4.296 l 7.176,0 m -2.112,-1.008 -5.064,0 c 0,-1.92 0.81601,-3.864 2.544,-3.864 1.704,0 2.52,1.944 2.52,3.864"
+         inkscape:connector-curvature="0"
          id="path3086"
-         inkscape:connector-curvature="0" />
+         d="m 432.49795,267.67463 0,-0.24 c 0,-3.384 -1.848,-5.64 -4.632,-5.64 -2.80799,0 -4.656,2.256 -4.656,5.64 0,3.38399 1.84801,5.64 4.656,5.64 1.2,0 2.376,-0.38401 3.36,-1.08 l 0,-1.008 c -1.128,0.71999 -2.04,0.984 -3.36,0.984 -2.03999,0 -2.544,-1.94401 -2.544,-4.296 l 7.176,0 m -2.112,-1.008 -5.064,0 c 0,-1.92 0.81601,-3.864 2.544,-3.864 1.704,0 2.52,1.944 2.52,3.864" />
       <path
-         d="m 440.13445,271.99463 0,-0.72 c -0.456,0.38399 -0.984,0.696 -1.584,0.696 -0.888,0 -1.056,-1.10401 -1.056,-2.136 l 0,-13.8 -1.872,0 0,13.8 c 0,1.60799 0.62401,3.24 2.04,3.24 0.912,0 1.776,-0.45601 2.472,-1.08"
+         inkscape:connector-curvature="0"
          id="path3088"
-         inkscape:connector-curvature="0" />
+         d="m 440.13445,271.99463 0,-0.72 c -0.456,0.38399 -0.984,0.696 -1.584,0.696 -0.888,0 -1.056,-1.10401 -1.056,-2.136 l 0,-13.8 -1.872,0 0,13.8 c 0,1.60799 0.62401,3.24 2.04,3.24 0.912,0 1.776,-0.45601 2.472,-1.08" />
       <path
-         d="m 447.02508,271.99463 0,-0.72 c -0.456,0.38399 -0.984,0.696 -1.584,0.696 -0.888,0 -1.056,-1.10401 -1.056,-2.136 l 0,-13.8 -1.872,0 0,13.8 c 0,1.60799 0.624,3.24 2.04,3.24 0.912,0 1.776,-0.45601 2.472,-1.08"
+         inkscape:connector-curvature="0"
          id="path3090"
-         inkscape:connector-curvature="0" />
+         d="m 447.02508,271.99463 0,-0.72 c -0.456,0.38399 -0.984,0.696 -1.584,0.696 -0.888,0 -1.056,-1.10401 -1.056,-2.136 l 0,-13.8 -1.872,0 0,13.8 c 0,1.60799 0.624,3.24 2.04,3.24 0.912,0 1.776,-0.45601 2.472,-1.08" />
       <path
-         d="m 458.0917,267.43463 c 0,-3.672 -1.632,-5.64 -4.632,-5.64 -3.02399,0 -4.656,1.968 -4.656,5.64 0,3.67199 1.63201,5.64 4.656,5.64 3,0 4.632,-1.96801 4.632,-5.64 m -2.112,0 c 0,2.99999 -0.888,4.632 -2.52,4.632 -1.65599,0 -2.544,-1.63201 -2.544,-4.632 0,-3 0.88801,-4.632 2.544,-4.632 1.632,0 2.52,1.632 2.52,4.632"
+         inkscape:connector-curvature="0"
          id="path3092"
-         inkscape:connector-curvature="0" />
+         d="m 458.0917,267.43463 c 0,-3.672 -1.632,-5.64 -4.632,-5.64 -3.02399,0 -4.656,1.968 -4.656,5.64 0,3.67199 1.63201,5.64 4.656,5.64 3,0 4.632,-1.96801 4.632,-5.64 m -2.112,0 c 0,2.99999 -0.888,4.632 -2.52,4.632 -1.65599,0 -2.544,-1.63201 -2.544,-4.632 0,-3 0.88801,-4.632 2.544,-4.632 1.632,0 2.52,1.632 2.52,4.632" />
       <path
-         d="m 475.08595,262.03463 -1.056,0 -2.832,8.76 -2.712,-8.76 -1.296,0 -2.832,8.76 -2.736,-8.76 -1.752,0 3.36,10.8 1.512,0 2.712,-8.4 2.616,8.4 1.512,0 3.504,-10.8"
+         inkscape:connector-curvature="0"
          id="path3094"
-         inkscape:connector-curvature="0" />
+         d="m 475.08595,262.03463 -1.056,0 -2.832,8.76 -2.712,-8.76 -1.296,0 -2.832,8.76 -2.736,-8.76 -1.752,0 3.36,10.8 1.512,0 2.712,-8.4 2.616,8.4 1.512,0 3.504,-10.8" />
     </g>
     <g
-       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona"
+       transform="translate(0,6.1700839)"
        id="text3015"
-       transform="translate(0,6.1700839)">
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona">
       <path
-         d="m 417.69558,173.62202 -0.96,-16.8 -1.584,0 -6.744,14.184 -6.768,-14.184 -1.584,0 -0.96,16.8 1.104,0 0.768,-13.608 6.504,13.608 0.888,0 6.576,-13.776 0.792,13.776 1.968,0"
+         inkscape:connector-curvature="0"
          id="path3069"
-         inkscape:connector-curvature="0" />
+         d="m 417.69558,173.62202 -0.96,-16.8 -1.584,0 -6.744,14.184 -6.768,-14.184 -1.584,0 -0.96,16.8 1.104,0 0.768,-13.608 6.504,13.608 0.888,0 6.576,-13.776 0.792,13.776 1.968,0" />
       <path
-         d="m 429.49233,173.62202 0,-6.72 c 0,-2.25599 -1.392,-4.32 -3.48,-4.32 -1.536,0 -2.976,0.52801 -4.272,1.344 l 0,0.744 c 1.08,-0.59999 2.28,-0.984 3.528,-0.984 1.488,0 2.352,1.58401 2.352,3.216 l 0,0.432 c -0.936,-0.408 -1.944,-0.648 -2.952,-0.648 -2.568,0 -4.464,1.17601 -4.464,3.6 0,2.304 1.68,3.576 4.104,3.576 1.224,0 2.352,-0.552 3.312,-1.32 l 0,1.08 1.872,0 m -1.872,-2.088 c -0.72,0.72 -1.608,1.32 -2.64,1.32 -1.608,0 -2.664,-0.984 -2.664,-2.568 0,-1.46399 1.2,-2.592 2.664,-2.592 0.912,0 1.824,0.24 2.64,0.648 l 0,3.192"
+         inkscape:connector-curvature="0"
          id="path3071"
-         inkscape:connector-curvature="0" />
+         d="m 429.49233,173.62202 0,-6.72 c 0,-2.25599 -1.392,-4.32 -3.48,-4.32 -1.536,0 -2.976,0.52801 -4.272,1.344 l 0,0.744 c 1.08,-0.59999 2.28,-0.984 3.528,-0.984 1.488,0 2.352,1.58401 2.352,3.216 l 0,0.432 c -0.936,-0.408 -1.944,-0.648 -2.952,-0.648 -2.568,0 -4.464,1.17601 -4.464,3.6 0,2.304 1.68,3.576 4.104,3.576 1.224,0 2.352,-0.552 3.312,-1.32 l 0,1.08 1.872,0 m -1.872,-2.088 c -0.72,0.72 -1.608,1.32 -2.64,1.32 -1.608,0 -2.664,-0.984 -2.664,-2.568 0,-1.46399 1.2,-2.592 2.664,-2.592 0.912,0 1.824,0.24 2.64,0.648 l 0,3.192" />
       <path
-         d="m 442.01358,175.06202 0,-12.24 -1.872,0 0,0.408 c -0.936,-0.408 -1.944,-0.648 -2.952,-0.648 -3,0 -4.464,2.40001 -4.464,5.64 0,3.192 1.2,5.64 4.104,5.64 1.224,0 2.352,-0.552 3.312,-1.32 l 0,2.52 c 0,1.656 -0.912,3.216 -2.4,3.216 -1.224,0 -2.448,-0.24 -3.6,-0.648 l 0,0.744 c 1.344,0.624 2.832,1.008 4.32,1.008 2.112,0 3.552,-2.064 3.552,-4.32 m -1.872,-3.528 c -0.72,0.72 -1.608,1.32 -2.64,1.32 -2.184,0 -2.664,-2.112 -2.664,-4.632 0,-2.25599 0.696,-4.632 2.664,-4.632 0.912,0 1.824,0.24 2.64,0.648 l 0,7.296"
+         inkscape:connector-curvature="0"
          id="path3073"
-         inkscape:connector-curvature="0" />
+         d="m 442.01358,175.06202 0,-12.24 -1.872,0 0,0.408 c -0.936,-0.408 -1.944,-0.648 -2.952,-0.648 -3,0 -4.464,2.40001 -4.464,5.64 0,3.192 1.2,5.64 4.104,5.64 1.224,0 2.352,-0.552 3.312,-1.32 l 0,2.52 c 0,1.656 -0.912,3.216 -2.4,3.216 -1.224,0 -2.448,-0.24 -3.6,-0.648 l 0,0.744 c 1.344,0.624 2.832,1.008 4.32,1.008 2.112,0 3.552,-2.064 3.552,-4.32 m -1.872,-3.528 c -0.72,0.72 -1.608,1.32 -2.64,1.32 -2.184,0 -2.664,-2.112 -2.664,-4.632 0,-2.25599 0.696,-4.632 2.664,-4.632 0.912,0 1.824,0.24 2.64,0.648 l 0,7.296" />
       <path
-         d="m 454.5292,168.46202 0,-0.24 c 0,-3.38399 -1.848,-5.64 -4.632,-5.64 -2.80799,0 -4.656,2.25601 -4.656,5.64 0,3.384 1.84801,5.64 4.656,5.64 1.2,0 2.376,-0.384 3.36,-1.08 l 0,-1.008 c -1.128,0.72 -2.04,0.984 -3.36,0.984 -2.03999,0 -2.544,-1.944 -2.544,-4.296 l 7.176,0 m -2.112,-1.008 -5.064,0 c 0,-1.91999 0.81601,-3.864 2.544,-3.864 1.704,0 2.52,1.94401 2.52,3.864"
+         inkscape:connector-curvature="0"
          id="path3075"
-         inkscape:connector-curvature="0" />
+         d="m 454.5292,168.46202 0,-0.24 c 0,-3.38399 -1.848,-5.64 -4.632,-5.64 -2.80799,0 -4.656,2.25601 -4.656,5.64 0,3.384 1.84801,5.64 4.656,5.64 1.2,0 2.376,-0.384 3.36,-1.08 l 0,-1.008 c -1.128,0.72 -2.04,0.984 -3.36,0.984 -2.03999,0 -2.544,-1.944 -2.544,-4.296 l 7.176,0 m -2.112,-1.008 -5.064,0 c 0,-1.91999 0.81601,-3.864 2.544,-3.864 1.704,0 2.52,1.94401 2.52,3.864" />
       <path
-         d="m 466.3417,173.62202 0,-7.8 c 0,-1.75199 -1.344,-3.24 -3.072,-3.24 -1.43999,0 -2.712,0.81601 -3.744,1.824 l 0,-1.584 -1.872,0 0,10.8 1.872,0 0,-8.472 c 0.816,-0.81599 1.824,-1.464 2.952,-1.464 1.128,0 1.992,0.98401 1.992,2.136 l 0,7.8 1.872,0"
+         inkscape:connector-curvature="0"
          id="path3077"
-         inkscape:connector-curvature="0" />
+         d="m 466.3417,173.62202 0,-7.8 c 0,-1.75199 -1.344,-3.24 -3.072,-3.24 -1.43999,0 -2.712,0.81601 -3.744,1.824 l 0,-1.584 -1.872,0 0,10.8 1.872,0 0,-8.472 c 0.816,-0.81599 1.824,-1.464 2.952,-1.464 1.128,0 1.992,0.98401 1.992,2.136 l 0,7.8 1.872,0" />
       <path
-         d="m 475.16358,172.78202 0,-0.72 c -0.384,0.384 -0.84,0.696 -1.392,0.696 -0.864,0 -0.912,-1.128 -0.912,-2.136 l 0,-6.792 2.304,0 0,-1.008 -2.304,0 0,-3.6 -1.128,0 c 0,1.92 -1.104,3.72 -2.856,3.72 l 0,0.888 2.112,0 0,6.792 c 0,1.584 0.504,3.24 1.872,3.24 0.888,0 1.656,-0.48 2.304,-1.08"
+         inkscape:connector-curvature="0"
          id="path3079"
-         inkscape:connector-curvature="0" />
+         d="m 475.16358,172.78202 0,-0.72 c -0.384,0.384 -0.84,0.696 -1.392,0.696 -0.864,0 -0.912,-1.128 -0.912,-2.136 l 0,-6.792 2.304,0 0,-1.008 -2.304,0 0,-3.6 -1.128,0 c 0,1.92 -1.104,3.72 -2.856,3.72 l 0,0.888 2.112,0 0,6.792 c 0,1.584 0.504,3.24 1.872,3.24 0.888,0 1.656,-0.48 2.304,-1.08" />
       <path
-         d="m 486.25795,173.62202 0,-6.72 c 0,-2.25599 -1.392,-4.32 -3.48,-4.32 -1.53599,0 -2.976,0.52801 -4.272,1.344 l 0,0.744 c 1.08,-0.59999 2.28,-0.984 3.528,-0.984 1.488,0 2.352,1.58401 2.352,3.216 l 0,0.432 c -0.936,-0.408 -1.944,-0.648 -2.952,-0.648 -2.56799,0 -4.464,1.17601 -4.464,3.6 0,2.304 1.68001,3.576 4.104,3.576 1.224,0 2.352,-0.552 3.312,-1.32 l 0,1.08 1.872,0 m -1.872,-2.088 c -0.72,0.72 -1.608,1.32 -2.64,1.32 -1.60799,0 -2.664,-0.984 -2.664,-2.568 0,-1.46399 1.20001,-2.592 2.664,-2.592 0.912,0 1.824,0.24 2.64,0.648 l 0,3.192"
+         inkscape:connector-curvature="0"
          id="path3081"
-         inkscape:connector-curvature="0" />
+         d="m 486.25795,173.62202 0,-6.72 c 0,-2.25599 -1.392,-4.32 -3.48,-4.32 -1.53599,0 -2.976,0.52801 -4.272,1.344 l 0,0.744 c 1.08,-0.59999 2.28,-0.984 3.528,-0.984 1.488,0 2.352,1.58401 2.352,3.216 l 0,0.432 c -0.936,-0.408 -1.944,-0.648 -2.952,-0.648 -2.56799,0 -4.464,1.17601 -4.464,3.6 0,2.304 1.68001,3.576 4.104,3.576 1.224,0 2.352,-0.552 3.312,-1.32 l 0,1.08 1.872,0 m -1.872,-2.088 c -0.72,0.72 -1.608,1.32 -2.64,1.32 -1.60799,0 -2.664,-0.984 -2.664,-2.568 0,-1.46399 1.20001,-2.592 2.664,-2.592 0.912,0 1.824,0.24 2.64,0.648 l 0,3.192" />
     </g>
     <g
-       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona"
+       transform="translate(0,24.944841)"
        id="text3019"
-       transform="translate(0,24.944841)">
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Iwona;-inkscape-font-specification:Iwona">
       <path
-         d="m 431.51433,210.46032 0,-1.296 c -1.296,-1.872 -3.432,-2.976 -5.688,-2.976 -4.872,0 -7.512,3.552 -7.512,8.64 0,5.08799 2.64,8.64 7.512,8.64 1.872,0 3.72,-0.552 5.304,-1.584 l 0,-1.104 c -1.584,1.032 -3.432,1.584 -5.304,1.584 -3.768,0 -5.16,-3.33601 -5.16,-7.536 0,-4.2 1.392,-7.536 5.16,-7.536 2.304,0 4.464,1.2 5.688,3.168"
+         inkscape:connector-curvature="0"
          id="path3060"
-         inkscape:connector-curvature="0" />
+         d="m 431.51433,210.46032 0,-1.296 c -1.296,-1.872 -3.432,-2.976 -5.688,-2.976 -4.872,0 -7.512,3.552 -7.512,8.64 0,5.08799 2.64,8.64 7.512,8.64 1.872,0 3.72,-0.552 5.304,-1.584 l 0,-1.104 c -1.584,1.032 -3.432,1.584 -5.304,1.584 -3.768,0 -5.16,-3.33601 -5.16,-7.536 0,-4.2 1.392,-7.536 5.16,-7.536 2.304,0 4.464,1.2 5.688,3.168" />
       <path
-         d="m 442.31545,224.66832 0,-12.24 -1.872,0 0,8.472 c -0.816,0.816 -1.824,1.464 -2.952,1.464 -1.128,0 -1.992,-0.984 -1.992,-2.136 l 0,-7.8 -1.872,0 0,7.8 c 0,1.752 1.34401,3.24 3.072,3.24 1.44,0 2.712,-0.816 3.744,-1.824 l 0,3.024 c 0,1.608 -0.72,3.216 -2.16,3.216 -1.128,0 -2.208,-0.24 -3.24,-0.648 l 0,0.744 c 1.224,0.624 2.59201,1.008 3.984,1.008 2.04,0 3.288,-2.112 3.288,-4.32"
+         inkscape:connector-curvature="0"
          id="path3062"
-         inkscape:connector-curvature="0" />
+         d="m 442.31545,224.66832 0,-12.24 -1.872,0 0,8.472 c -0.816,0.816 -1.824,1.464 -2.952,1.464 -1.128,0 -1.992,-0.984 -1.992,-2.136 l 0,-7.8 -1.872,0 0,7.8 c 0,1.752 1.34401,3.24 3.072,3.24 1.44,0 2.712,-0.816 3.744,-1.824 l 0,3.024 c 0,1.608 -0.72,3.216 -2.16,3.216 -1.128,0 -2.208,-0.24 -3.24,-0.648 l 0,0.744 c 1.224,0.624 2.59201,1.008 3.984,1.008 2.04,0 3.288,-2.112 3.288,-4.32" />
       <path
-         d="m 454.61733,223.22832 0,-6.72 c 0,-2.256 -1.392,-4.32 -3.48,-4.32 -1.536,0 -2.976,0.528 -4.272,1.344 l 0,0.744 c 1.08,-0.6 2.28,-0.984 3.528,-0.984 1.488,0 2.352,1.584 2.352,3.216 l 0,0.432 c -0.936,-0.408 -1.944,-0.648 -2.952,-0.648 -2.568,0 -4.464,1.176 -4.464,3.6 0,2.30399 1.68,3.576 4.104,3.576 1.224,0 2.352,-0.552 3.312,-1.32 l 0,1.08 1.872,0 m -1.872,-2.088 c -0.72,0.72 -1.608,1.32 -2.64,1.32 -1.608,0 -2.664,-0.984 -2.664,-2.568 0,-1.464 1.2,-2.592 2.664,-2.592 0.912,0 1.824,0.24 2.64,0.648 l 0,3.192"
+         inkscape:connector-curvature="0"
          id="path3064"
-         inkscape:connector-curvature="0" />
+         d="m 454.61733,223.22832 0,-6.72 c 0,-2.256 -1.392,-4.32 -3.48,-4.32 -1.536,0 -2.976,0.528 -4.272,1.344 l 0,0.744 c 1.08,-0.6 2.28,-0.984 3.528,-0.984 1.488,0 2.352,1.584 2.352,3.216 l 0,0.432 c -0.936,-0.408 -1.944,-0.648 -2.952,-0.648 -2.568,0 -4.464,1.176 -4.464,3.6 0,2.30399 1.68,3.576 4.104,3.576 1.224,0 2.352,-0.552 3.312,-1.32 l 0,1.08 1.872,0 m -1.872,-2.088 c -0.72,0.72 -1.608,1.32 -2.64,1.32 -1.608,0 -2.664,-0.984 -2.664,-2.568 0,-1.464 1.2,-2.592 2.664,-2.592 0.912,0 1.824,0.24 2.64,0.648 l 0,3.192" />
       <path
-         d="m 467.13858,223.22832 0,-7.8 c 0,-1.752 -1.344,-3.24 -3.072,-3.24 -1.44,0 -2.712,0.816 -3.744,1.824 l 0,-1.584 -1.872,0 0,10.8 1.872,0 0,-8.472 c 0.816,-0.816 1.824,-1.464 2.952,-1.464 1.128,0 1.992,0.984 1.992,2.136 l 0,7.8 1.872,0"
+         inkscape:connector-curvature="0"
          id="path3066"
-         inkscape:connector-curvature="0" />
+         d="m 467.13858,223.22832 0,-7.8 c 0,-1.752 -1.344,-3.24 -3.072,-3.24 -1.44,0 -2.712,0.816 -3.744,1.824 l 0,-1.584 -1.872,0 0,10.8 1.872,0 0,-8.472 c 0.816,-0.816 1.824,-1.464 2.952,-1.464 1.128,0 1.992,0.984 1.992,2.136 l 0,7.8 1.872,0" />
     </g>
   </g>
   <ns1:frame
-     ns1:sequence="2"
-     ns1:transition-duration-ms="1000"
+     id="frame1"
+     ns1:timeout-enable="true"
+     ns1:timeout-ms="1500"
      ns1:title="Magenta"
-     ns1:timeout-ms="1500"
-     ns1:timeout-enable="true"
-     id="frame1">
+     ns1:transition-duration-ms="1000"
+     ns1:sequence="2">
     <ns1:layer
-       ns1:refid="text3015"
-       ns1:hide="false"
-       ns1:clip="false"
-       ns1:transition-zoom-percent="0"
+       ns1:group="layer1"
        ns1:transition-profile="linear"
-       ns1:group="layer1" />
+       ns1:transition-zoom-percent="0"
+       ns1:clip="false"
+       ns1:hide="false"
+       ns1:refid="text3015" />
     <ns1:layer
-       ns1:refid="path3025"
-       ns1:hide="false"
-       ns1:clip="false"
-       ns1:transition-zoom-percent="0"
+       ns1:group="layer2"
        ns1:transition-profile="linear"
-       ns1:group="layer2" />
+       ns1:transition-zoom-percent="0"
+       ns1:clip="false"
+       ns1:hide="false"
+       ns1:refid="path3025" />
   </ns1:frame>
   <ns1:frame
-     ns1:timeout-enable="true"
-     ns1:timeout-ms="1500"
-     ns1:title="Red"
-     ns1:transition-duration-ms="1000"
+     id="frame2"
      ns1:sequence="1"
-     id="frame2">
+     ns1:transition-duration-ms="1000"
+     ns1:title="Red"
+     ns1:timeout-ms="1500"
+     ns1:timeout-enable="true">
     <ns1:layer
-       ns1:refid="text2997"
-       ns1:hide="false"
-       ns1:clip="false"
-       ns1:transition-zoom-percent="0"
-       ns1:transition-profile="linear"
-       ns1:group="layer1" />
-    <ns1:layer
+       ns1:group="layer1"
        ns1:transition-profile="linear"
        ns1:transition-zoom-percent="0"
        ns1:clip="false"
        ns1:hide="false"
+       ns1:refid="text2997" />
+    <ns1:layer
+       ns1:group="layer2"
        ns1:refid="path3023"
-       ns1:group="layer2" />
+       ns1:hide="false"
+       ns1:clip="false"
+       ns1:transition-zoom-percent="0"
+       ns1:transition-profile="linear" />
   </ns1:frame>
   <ns1:frame
-     ns1:sequence="3"
-     ns1:transition-duration-ms="1000"
+     id="frame3"
+     ns1:timeout-enable="true"
+     ns1:timeout-ms="1500"
      ns1:title="Blue"
-     ns1:timeout-ms="1500"
-     ns1:timeout-enable="true"
-     id="frame3">
+     ns1:transition-duration-ms="1000"
+     ns1:sequence="3">
     <ns1:layer
-       ns1:hide="false"
-       ns1:clip="false"
-       ns1:transition-profile="linear"
-       ns1:transition-zoom-percent="0"
+       ns1:group="layer1"
        ns1:refid="text3007"
-       ns1:group="layer1" />
-    <ns1:layer
-       ns1:refid="path3027"
-       ns1:hide="false"
-       ns1:clip="false"
        ns1:transition-zoom-percent="0"
        ns1:transition-profile="linear"
-       ns1:group="layer2" />
+       ns1:clip="false"
+       ns1:hide="false" />
+    <ns1:layer
+       ns1:group="layer2"
+       ns1:transition-profile="linear"
+       ns1:transition-zoom-percent="0"
+       ns1:clip="false"
+       ns1:hide="false"
+       ns1:refid="path3027" />
   </ns1:frame>
   <ns1:frame
-     ns1:timeout-enable="true"
-     ns1:timeout-ms="1500"
-     ns1:title="Cyan"
-     ns1:transition-duration-ms="1000"
+     id="frame4"
      ns1:sequence="4"
-     id="frame4">
+     ns1:transition-duration-ms="1000"
+     ns1:title="Cyan"
+     ns1:timeout-ms="1500"
+     ns1:timeout-enable="true">
     <ns1:layer
-       ns1:clip="false"
-       ns1:hide="false"
-       ns1:transition-zoom-percent="0"
-       ns1:transition-profile="linear"
+       ns1:group="layer1"
        ns1:refid="text3019"
-       ns1:group="layer1" />
-    <ns1:layer
        ns1:transition-profile="linear"
        ns1:transition-zoom-percent="0"
-       ns1:clip="false"
        ns1:hide="false"
+       ns1:clip="false" />
+    <ns1:layer
+       ns1:group="layer2"
        ns1:refid="path3029"
-       ns1:group="layer2" />
+       ns1:hide="false"
+       ns1:clip="false"
+       ns1:transition-zoom-percent="0"
+       ns1:transition-profile="linear" />
   </ns1:frame>
   <ns1:frame
-     ns1:sequence="5"
-     ns1:transition-duration-ms="1000"
+     id="frame5"
+     ns1:timeout-enable="true"
+     ns1:timeout-ms="1500"
      ns1:title="Green"
-     ns1:timeout-ms="1500"
-     ns1:timeout-enable="true"
-     id="frame5">
+     ns1:transition-duration-ms="1000"
+     ns1:sequence="5">
     <ns1:layer
-       ns1:transition-profile="linear"
-       ns1:transition-zoom-percent="0"
-       ns1:hide="false"
-       ns1:clip="false"
+       ns1:group="layer1"
        ns1:refid="text3003"
-       ns1:group="layer1" />
-    <ns1:layer
-       ns1:refid="path3031"
-       ns1:hide="false"
        ns1:clip="false"
+       ns1:hide="false"
        ns1:transition-zoom-percent="0"
+       ns1:transition-profile="linear" />
+    <ns1:layer
+       ns1:group="layer2"
        ns1:transition-profile="linear"
-       ns1:group="layer2" />
+       ns1:transition-zoom-percent="0"
+       ns1:clip="false"
+       ns1:hide="false"
+       ns1:refid="path3031" />
   </ns1:frame>
   <ns1:frame
-     ns1:timeout-enable="true"
-     ns1:timeout-ms="1500"
-     ns1:title="Yellow"
-     ns1:transition-duration-ms="1000"
+     id="frame6"
      ns1:sequence="6"
-     id="frame6">
+     ns1:transition-duration-ms="1000"
+     ns1:title="Yellow"
+     ns1:timeout-ms="1500"
+     ns1:timeout-enable="true">
     <ns1:layer
-       ns1:refid="text3011"
-       ns1:clip="false"
-       ns1:hide="false"
-       ns1:transition-profile="linear"
+       ns1:group="layer1"
        ns1:transition-zoom-percent="0"
-       ns1:group="layer1" />
+       ns1:transition-profile="linear"
+       ns1:hide="false"
+       ns1:clip="false"
+       ns1:refid="text3011" />
     <ns1:layer
-       ns1:transition-profile="linear"
-       ns1:transition-zoom-percent="0"
-       ns1:clip="false"
-       ns1:hide="false"
+       ns1:group="layer2"
        ns1:refid="path3033"
-       ns1:group="layer2" />
+       ns1:hide="false"
+       ns1:clip="false"
+       ns1:transition-zoom-percent="0"
+       ns1:transition-profile="linear" />
   </ns1:frame>
   <script
-     ns1:version="12.05-13163800"
+     ns1:version="12.05-19202105"
      id="sozi-script">
 /**
- * Create or augment a module.
+ * Create or augment a namespace.
  *
  * &lt;p&gt;A typical use of this function is:&lt;/p&gt;
  *
  * &lt;pre&gt;
- * module(this, &quot;a.b.c&quot;, function (exports, globals) {
+ * namespace(this, &quot;a.b.c&quot;, function (exports, globals) {
  *     exports.foo = function (x) {
  *         ...
  *     };
@@ -432,10 +432,10 @@
  *
  * @memberOf _global_
  * @param globals The global object
- * @param {String} path The dot-separated path to the module
- * @param {Function} body A function to execute in the context of the module
+ * @param {String} path The dot-separated path to the namespace
+ * @param {Function} body A function to execute in the context of the namespace
  */
-function module(globals, path, body) {
+function namespace(globals, path, body) {
     &quot;use strict&quot;;
     
     // Start name lookup in the global object
@@ -453,7 +453,7 @@ function module(globals, path, body) {
 		current = current[name];
 	});
 	
-	// Execute the module body in the last namespace
+	// Execute the given function in the last namespace
 	body(current, globals);
 }
 
@@ -469,14 +469,14 @@ function module(globals, path, body) {
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  */
 
 /**
  * @name sozi.events
  * @namespace A simple event system for Sozi.
  */
-module(this, &quot;sozi.events&quot;, function (exports) {
+namespace(this, &quot;sozi.events&quot;, function (exports) {
     /** @lends sozi.events */
 
     &quot;use strict&quot;;
@@ -540,11 +540,11 @@ module(this, &quot;sozi.events&quot;, function (exports) {
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  * @depend events.js
  */
 
-module(this, &quot;sozi.framenumber&quot;, function (exports, window) {
+namespace(this, &quot;sozi.framenumber&quot;, function (exports, window) {
     &quot;use strict&quot;;
     
     // An alias to the global document object
@@ -598,8 +598,8 @@ module(this, &quot;sozi.framenumber&quot;, function (exports, window) {
         svgTextNode.nodeValue = index + 1;
     }
     
-	sozi.events.listen(&quot;displayready&quot;, onDisplayReady);
-	sozi.events.listen(&quot;framechange&quot;, onFrameChange);
+	sozi.events.listen(&quot;sozi.display.ready&quot;, onDisplayReady);
+	sozi.events.listen(&quot;sozi.player.framechange&quot;, onFrameChange);
 });
 
 /*
@@ -614,11 +614,11 @@ module(this, &quot;sozi.framenumber&quot;, function (exports, window) {
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  * @depend events.js
  */
 
-module(this, &quot;sozi.framelist&quot;, function (exports, window) {
+namespace(this, &quot;sozi.framelist&quot;, function (exports, window) {
     &quot;use strict&quot;;
     
     // An alias to the global document object
@@ -852,9 +852,9 @@ module(this, &quot;sozi.framelist&quot;, function (exports, window) {
         return translateXEnd === translateXVisible;
     };
 
-	sozi.events.listen(&quot;displayready&quot;, onDisplayReady);
-	sozi.events.listen(&quot;cleanup&quot;, exports.hide);
-	sozi.events.listen(&quot;framechange&quot;, onFrameChange);
+	sozi.events.listen(&quot;sozi.display.ready&quot;, onDisplayReady);
+	sozi.events.listen(&quot;sozi.player.cleanup&quot;, exports.hide);
+	sozi.events.listen(&quot;sozi.player.framechange&quot;, onFrameChange);
 });
 
 /*
@@ -869,10 +869,10 @@ module(this, &quot;sozi.framelist&quot;, function (exports, window) {
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  */
 
-module(this, &quot;sozi.proto&quot;, function (exports) {
+namespace(this, &quot;sozi.proto&quot;, function (exports) {
     &quot;use strict&quot;;
     
     exports.Object = {
@@ -929,7 +929,7 @@ module(this, &quot;sozi.proto&quot;, function (exports) {
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  * @depend proto.js
  */
 
@@ -937,7 +937,7 @@ module(this, &quot;sozi.proto&quot;, function (exports) {
  * @name sozi.animation
  * @namespace A general-purpose animation controller.
  */
-module(this, &quot;sozi.animation&quot;, function (exports, window) {
+namespace(this, &quot;sozi.animation&quot;, function (exports, window) {
     /** @lends sozi.animation */
     
     &quot;use strict&quot;;
@@ -981,10 +981,10 @@ module(this, &quot;sozi.animation&quot;, function (exports, window) {
      * The main animation loop.
      *
      * &lt;p&gt;This function is called periodically and triggers the
-     * animation steps in all animators managed by this module.&lt;/p&gt;
+     * animation steps in all running animators.&lt;/p&gt;
      *
-     * &lt;p&gt;If all animators are removed from the list of animators
-     * managed by this module, then the periodic calling is disabled.&lt;/p&gt;
+     * &lt;p&gt;If all animators are removed from the list of running animators,
+     * then the periodic calling is disabled.&lt;/p&gt;
      *
      * &lt;p&gt;This function can be called either through {@link sozi.animation-requestAnimationFrame}
      * if the browser supports it, or through &lt;code&gt;setInterval()&lt;/code&gt;.&lt;/p&gt;
@@ -1034,8 +1034,7 @@ module(this, &quot;sozi.animation&quot;, function (exports, window) {
     }
     
     /**
-     * Add a new animator object to the list of animators managed
-     * by this module.
+     * Add a new animator object to the list of running animators.
      *
      * &lt;p&gt;If the animator list was empty before calling this function,
      * then the animation loop is started.&lt;/p&gt;
@@ -1050,8 +1049,7 @@ module(this, &quot;sozi.animation&quot;, function (exports, window) {
     }
     
     /**
-     * Remove the given animator from the list of animators
-     * managed by this module.
+     * Remove the given animator from the list of running animators.
      *
      * @param {sozi.animation.Animator} animator The animator object to add.
      */
@@ -1105,8 +1103,8 @@ module(this, &quot;sozi.animation&quot;, function (exports, window) {
         /**
          * Start the current animator.
          *
-         * &lt;p&gt;The current animator is added to the list of animators managed
-         * by this module and is put in the &quot;started&quot; state.
+         * &lt;p&gt;The current animator is added to the list of running animators
+         * and is put in the &quot;started&quot; state.
          * It will be removed from the list automatically when the given duration
          * has elapsed.&lt;/p&gt;
          *
@@ -1131,8 +1129,8 @@ module(this, &quot;sozi.animation&quot;, function (exports, window) {
         /**
          * Stop the current animator.
          *
-         * &lt;p&gt;The current animator is removed from the list of animators managed
-         * by this module and is put in the &quot;stopped&quot; state.&lt;/p&gt;
+         * &lt;p&gt;The current animator is removed from the list of running animators
+         * and is put in the &quot;stopped&quot; state.&lt;/p&gt;
          */
         stop: function () {
             if (this.started) {
@@ -1254,12 +1252,12 @@ module(this, &quot;sozi.animation&quot;, function (exports, window) {
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  * @depend proto.js
  * @depend events.js
  */
 
-module(this, &quot;sozi.display&quot;, function (exports, window) {
+namespace(this, &quot;sozi.display&quot;, function (exports, window) {
     &quot;use strict&quot;;
     
     // Constant: the Sozi namespace
@@ -1274,7 +1272,12 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
     // assigned in onDocumentReady()
     var initialBBox;
     
+    var lastWindowWidth;
+    var lastWindowHeight;
+    
     exports.viewPorts = {};
+    
+    var primaryViewport;
     
     exports.CameraState = sozi.proto.Object.subtype({
         construct : function () {
@@ -1400,18 +1403,27 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
         
             // Clipping path
             var svgClipPath = document.createElementNS(SVG_NS, &quot;clipPath&quot;);
-            svgClipPath.setAttribute(&quot;id&quot;, &quot;sozi-clip-path-&quot; + idLayer);
+            svgClipPath.setAttribute(&quot;id&quot;, &quot;sozi-clip-path-&quot; + viewPort.id + &quot;-&quot; + idLayer);
             svgClipPath.appendChild(this.svgClipRect);
             viewPort.svgGroup.appendChild(svgClipPath);
 
             // The group that will support the clipping operation
             var svgClippedGroup = document.createElementNS(SVG_NS, &quot;g&quot;);
-            svgClippedGroup.setAttribute(&quot;clip-path&quot;, &quot;url(#sozi-clip-path-&quot; + idLayer + &quot;)&quot;);
+            svgClippedGroup.setAttribute(&quot;clip-path&quot;, &quot;url(#sozi-clip-path-&quot; + viewPort.id + &quot;-&quot; + idLayer + &quot;)&quot;);
             viewPort.svgGroup.appendChild(svgClippedGroup);
-                
-            // A &lt;use&gt; element referencing the target layer
-            this.svgLayer = document.createElementNS(SVG_NS, &quot;use&quot;);
-            this.svgLayer.setAttributeNS(XLINK_NS, &quot;href&quot;, &quot;#&quot; + idLayer);
+            
+            if (viewPort.isPrimary) {
+                // This group will support transformations
+                // we keep the layer group clean since it can be referenced
+                // from &lt;use&gt; elements
+                this.svgLayer = document.createElementNS(SVG_NS, &quot;g&quot;);
+                this.svgLayer.appendChild(document.getElementById(idLayer));
+            }
+            else {
+                // A &lt;use&gt; element referencing the target layer
+                this.svgLayer = document.createElementNS(SVG_NS, &quot;use&quot;);
+                this.svgLayer.setAttributeNS(XLINK_NS, &quot;href&quot;, &quot;#&quot; + idLayer);
+            }
             svgClippedGroup.appendChild(this.svgLayer);
         },
         
@@ -1476,13 +1488,27 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
     });
     
     exports.ViewPort = sozi.proto.Object.subtype({
-        construct: function (id, idLayerList) {
+        construct: function (id, idLayerList, primary) {
+            this.id = id;
             exports.viewPorts[id] = this;
             
+            this.isPrimary = !!primary;
+            
+            if (this.isPrimary) {
+                if (primaryViewport) {
+                    throw &quot;Failed to create a primary viewport. A primary viewport already exists.&quot;;
+                }
+                else {
+                    primaryViewport = this;
+                }
+            }
+            
+            // TODO add a clip path for the viewport
             this.svgGroup = document.createElementNS(SVG_NS, &quot;g&quot;);
             this.svgGroup.setAttribute(&quot;class&quot;, &quot;sozi-viewport&quot;);
+            this.svgGroup.setAttribute(&quot;id&quot;, &quot;sozi-viewport-&quot; + id);
             document.documentElement.appendChild(this.svgGroup);
-
+            
             this.setLocation(0, 0).setSize(window.innerWidth, window.innerHeight);
             
             // Create a camera for each layer
@@ -1504,6 +1530,11 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
             return this;
         },
 
+        contains: function (x, y) {
+            return x &gt;= this.x &amp;&amp; x &lt; this.x + this.width &amp;&amp;
+                   y &gt;= this.y &amp;&amp; y &lt; this.y + this.height;
+        },
+        
         /*
          * Returns the geometrical properties of the SVG document
          *
@@ -1533,6 +1564,7 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
          * This method is called automatically when the window is resized.
          */
         update: function () {
+            this.svgGroup.setAttribute(&quot;transform&quot;, &quot;translate(&quot; + this.x + &quot;,&quot; + this.y + &quot;)&quot;);
             for (var idLayer in this.cameras) {
                 this.cameras[idLayer].update();
             }
@@ -1593,14 +1625,13 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
         /**
          * The default handler for window resize events.
          *
-         * The default behavior is to fit the current viewport to
-         * the given window size.
-         *
-         * @param width The new window width
-         * @param height The new window height
+         * @param widthRatio The horizontal resize ratio
+         * @param heightRatio The vertical resize ratio
          */
-        onWindowResize: function (width, height) {
-            this.setSize(width, height).update();
+        onWindowResize: function (widthRatio, heightRatio) {
+            this.setLocation(this.x * widthRatio, this.y * heightRatio)
+                .setSize(this.width * widthRatio, this.height * heightRatio)
+                .update();
         }
     });
     
@@ -1619,10 +1650,12 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
         // Save the initial bounding box of the document
         // and force its dimensions to the browser window
         initialBBox = svgRoot.getBBox();
-        svgRoot.setAttribute(&quot;width&quot;, window.innerWidth);
-        svgRoot.setAttribute(&quot;height&quot;, window.innerHeight);
+        lastWindowWidth = window.innerWidth;
+        lastWindowHeight = window.innerHeight;
+        svgRoot.setAttribute(&quot;width&quot;, lastWindowWidth);
+        svgRoot.setAttribute(&quot;height&quot;, lastWindowHeight);
         
-        sozi.events.fire(&quot;displayready&quot;);
+        sozi.events.fire(&quot;sozi.display.ready&quot;);
     }
 
     /*
@@ -1636,11 +1669,14 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
         svgRoot.setAttribute(&quot;height&quot;, window.innerHeight);
         
         for (var vp in exports.viewPorts) {
-            exports.viewPorts[vp].onWindowResize(window.innerWidth, window.innerHeight);
+            exports.viewPorts[vp].onWindowResize(window.innerWidth / lastWindowWidth, window.innerHeight / lastWindowHeight);
         }
+
+        lastWindowWidth = window.innerWidth;
+        lastWindowHeight = window.innerHeight;
     }
     
-    sozi.events.listen(&quot;documentready&quot;, onDocumentReady);
+    sozi.events.listen(&quot;sozi.document.ready&quot;, onDocumentReady);
     window.addEventListener(&quot;resize&quot;, resize, false);
 });
 
@@ -1656,16 +1692,16 @@ module(this, &quot;sozi.display&quot;, function (exports, window) {
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  * @depend events.js
  * @depend animation.js
  * @depend display.js
  */
 
-module(this, &quot;sozi.player&quot;, function (exports, window) {
+namespace(this, &quot;sozi.player&quot;, function (exports, window) {
     &quot;use strict&quot;;
     
-    // An alias to the Sozi display module
+    // An alias to the Sozi display namespace
     var display = sozi.display;
     
     var viewPort;
@@ -1795,13 +1831,13 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
      */
     exports.jumpToFrame = function (index) {
         exports.stop();
-        sozi.events.fire(&quot;cleanup&quot;);
+        sozi.events.fire(&quot;sozi.player.cleanup&quot;);
 
         sourceFrameIndex = index;
         currentFrameIndex = index;
         viewPort.showFrame(sozi.document.frames[index]);
 
-        sozi.events.fire(&quot;framechange&quot;, index);
+        sozi.events.fire(&quot;sozi.player.framechange&quot;, index);
     };
 
     /*
@@ -1858,7 +1894,7 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
         animator.start(DEFAULT_DURATION_MS,
             getAnimationData(viewPort.cameras, sozi.document.frames[index].states,
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]));
-        sozi.events.fire(&quot;framechange&quot;, index);
+        sozi.events.fire(&quot;sozi.player.framechange&quot;, index);
     };
 
     /*
@@ -1891,14 +1927,14 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
             profile = sozi.animation.profiles[DEFAULT_PROFILE];
         }
 
-        sozi.events.fire(&quot;cleanup&quot;);
+        sozi.events.fire(&quot;sozi.player.cleanup&quot;);
 
         playing = true;
         currentFrameIndex = index;
 
         animator.start(durationMs, getAnimationData(viewPort.cameras, sozi.document.frames[index].states, zoomPercent, profile));
 
-        sozi.events.fire(&quot;framechange&quot;, index);
+        sozi.events.fire(&quot;sozi.player.framechange&quot;, index);
     };
 
     /*
@@ -1978,7 +2014,7 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
      */
     exports.showAll = function () {
         exports.stop();
-        sozi.events.fire(&quot;cleanup&quot;);
+        sozi.events.fire(&quot;sozi.player.cleanup&quot;);
         animator.start(DEFAULT_DURATION_MS,
             getAnimationData(viewPort.cameras, viewPort.getDocumentState(),
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]
@@ -1990,13 +2026,15 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
      * Event handler: display ready.
      */
     function onDisplayReady() {
-        viewPort = display.ViewPort.instance(&quot;player&quot;, sozi.document.idLayerList);
+        viewPort = display.ViewPort.instance(&quot;player&quot;, sozi.document.idLayerList, true);
         
         exports.startFromIndex(sozi.location.getFrameIndex());
 
         // Hack to fix the blank screen bug in Chrome/Chromium
         // See https://github.com/senshu/Sozi/issues/109
         window.setTimeout(viewPort.bind(viewPort.update), 1);
+        
+        sozi.events.fire(&quot;sozi.player.ready&quot;);
     }
 
     animator = sozi.animation.Animator.instance().augment({
@@ -2061,7 +2099,7 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
         }
     });
 
-    sozi.events.listen(&quot;displayready&quot;, onDisplayReady);
+    sozi.events.listen(&quot;sozi.display.ready&quot;, onDisplayReady);
 });
 
 /*
@@ -2076,7 +2114,7 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  * @depend player.js
  * @depend display.js
  */
@@ -2085,7 +2123,7 @@ module(this, &quot;sozi.player&quot;, function (exports, window) {
  * @name sozi.actions
  * @namespace Callback functions for DOM event handlers
  */
-module(this, &quot;sozi.actions&quot;, function (exports, window) {
+namespace(this, &quot;sozi.actions&quot;, function (exports, window) {
     /** @lends sozi.actions */
     
     &quot;use strict&quot;;
@@ -2178,6 +2216,10 @@ module(this, &quot;sozi.actions&quot;, function (exports, window) {
         }
     }
 
+    function isPlayerEvent(evt) {
+        return display.viewPorts[&quot;player&quot;].contains(evt.clientX, evt.clientY);
+    }
+    
     /**
      * Event handler: mouse down.
      *
@@ -2190,6 +2232,9 @@ module(this, &quot;sozi.actions&quot;, function (exports, window) {
      * @param {Event} evt The DOM event object
      */
     function onMouseDown(evt) {
+        if (!isPlayerEvent(evt)) {
+            return;
+        }
         if (evt.button === DRAG_BUTTON) {
             document.documentElement.addEventListener(&quot;mousemove&quot;, onMouseDrag, false);
             mouseDragged = false;
@@ -2212,9 +2257,12 @@ module(this, &quot;sozi.actions&quot;, function (exports, window) {
      * @param {Event} evt The DOM event object
      */
     function onMouseDrag(evt) {
+        if (!isPlayerEvent(evt)) {
+            return;
+        }
         player.stop();
         mouseDragged = true;
-        sozi.events.fire(&quot;cleanup&quot;);
+        sozi.events.fire(&quot;sozi.player.cleanup&quot;);
         display.viewPorts[&quot;player&quot;].drag(evt.clientX - mouseLastX, evt.clientY - mouseLastY);
         mouseLastX = evt.clientX;
         mouseLastY = evt.clientY;
@@ -2229,6 +2277,9 @@ module(this, &quot;sozi.actions&quot;, function (exports, window) {
      * @param {Event} evt The DOM event object
      */
     function onMouseUp(evt) {
+        if (!isPlayerEvent(evt)) {
+            return;
+        }
         if (evt.button === DRAG_BUTTON) {
             document.documentElement.removeEventListener(&quot;mousemove&quot;, onMouseDrag, false);
         }
@@ -2247,6 +2298,9 @@ module(this, &quot;sozi.actions&quot;, function (exports, window) {
      * @param {Event} evt The DOM event object
      */
     function onContextMenu(evt) {
+        if (!isPlayerEvent(evt)) {
+            return;
+        }
         player.moveToPrevious();
         evt.stopPropagation();
         evt.preventDefault();
@@ -2267,6 +2321,9 @@ module(this, &quot;sozi.actions&quot;, function (exports, window) {
      * @param {Event} evt The DOM event object
      */
     function onClick(evt) {
+        if (!isPlayerEvent(evt)) {
+            return;
+        }
         if (!mouseDragged &amp;&amp; evt.button !== TOC_BUTTON) {
             player.moveToNext();
         }
@@ -2284,6 +2341,10 @@ module(this, &quot;sozi.actions&quot;, function (exports, window) {
      * @param {Event} evt The DOM event object
      */
     function onWheel(evt) {
+        if (!isPlayerEvent(evt)) {
+            return;
+        }
+        
         if (!evt) {
             evt = window.event;
         }
@@ -2416,31 +2477,34 @@ module(this, &quot;sozi.actions&quot;, function (exports, window) {
     /**
      * Event handler: document load.
      *
-     * &lt;p&gt;This function sets up all other event handlers for this module.&lt;/p&gt;
+     * &lt;p&gt;This function sets up all other event handlers for the player.&lt;/p&gt;
      */
-    function onLoad() {
+    function onDisplayReady() {
         // Prevent event propagation when clicking on a link
-        // TODO check whether this still works in &lt;use&gt; elements
+        // FIXME does not work in Firefox when the &lt;a&gt; is referenced through a &lt;use&gt;
         var links = document.getElementsByTagName(&quot;a&quot;);
         for (var i = 0; i &lt; links.length; i += 1) {
             links[i].addEventListener(&quot;click&quot;, stopEvent, false);
             links[i].addEventListener(&quot;contextmenu&quot;, stopEvent, false);
         }
         
-        // TODO attach mouse events to player viewPort
+        // Mouse events are constrained to the player viewport
+        // see isPlayerEvent()
         // TODO also use shift-click as an alternative for middle-click
         var svgRoot = document.documentElement;
         svgRoot.addEventListener(&quot;click&quot;, onClick, false);
         svgRoot.addEventListener(&quot;mousedown&quot;, onMouseDown, false);
         svgRoot.addEventListener(&quot;mouseup&quot;, onMouseUp, false);
-        svgRoot.addEventListener(&quot;keypress&quot;, onKeyPress, false);
-        svgRoot.addEventListener(&quot;keydown&quot;, onKeyDown, false);
         svgRoot.addEventListener(&quot;contextmenu&quot;, onContextMenu, false);
         svgRoot.addEventListener(&quot;DOMMouseScroll&quot;, onWheel, false); // Mozilla
         window.onmousewheel = onWheel;
+
+        // Keyboard events are global to the SVG document
+        svgRoot.addEventListener(&quot;keypress&quot;, onKeyPress, false);
+        svgRoot.addEventListener(&quot;keydown&quot;, onKeyDown, false);
     }
 
-    window.addEventListener(&quot;load&quot;, onLoad, false);
+    sozi.events.listen(&quot;sozi.display.ready&quot;, onDisplayReady);
 });
 
 /*
@@ -2455,11 +2519,11 @@ module(this, &quot;sozi.actions&quot;, function (exports, window) {
 *
 * See http://sozi.baierouge.fr/wiki/en:license for details.
 *
-* @depend module.js
+* @depend namespace.js
 * @depend events.js
 */
 
-module(this, &quot;sozi.document&quot;, function (exports, window) {
+namespace(this, &quot;sozi.document&quot;, function (exports, window) {
     &quot;use strict&quot;;
     
     // An alias to the global document object
@@ -2658,13 +2722,6 @@ module(this, &quot;sozi.document&quot;, function (exports, window) {
                 return a.sequence - b.sequence;
             }
         );
-        
-        // Move all layer elements to a &lt;defs&gt; element
-        var svgDefs = document.createElementNS(SVG_NS, &quot;defs&quot;);
-        exports.idLayerList.forEach(function (idLayer) {
-            svgDefs.appendChild(document.getElementById(idLayer));
-        });
-        svgRoot.appendChild(svgDefs);
     }
 
     /*
@@ -2676,7 +2733,7 @@ module(this, &quot;sozi.document&quot;, function (exports, window) {
     function onLoad() {
         document.documentElement.removeAttribute(&quot;viewBox&quot;);
         readFrames();
-        sozi.events.fire(&quot;documentready&quot;);
+        sozi.events.fire(&quot;sozi.document.ready&quot;);
     }
 
     window.addEventListener(&quot;load&quot;, onLoad, false);
@@ -2694,11 +2751,11 @@ module(this, &quot;sozi.document&quot;, function (exports, window) {
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  *
- * @depend module.js
+ * @depend namespace.js
  * @depend events.js
  */
 
-module(this, &quot;sozi.location&quot;, function (exports, window) {
+namespace(this, &quot;sozi.location&quot;, function (exports, window) {
     &quot;use strict&quot;;
     
     var changedFromWithin = false;
@@ -2761,7 +2818,7 @@ module(this, &quot;sozi.location&quot;, function (exports, window) {
 	 * This function registers the &quot;framechange&quot; handler.
 	 */
     function onLoad() {
-        sozi.events.listen(&quot;framechange&quot;, onFrameChange);
+        sozi.events.listen(&quot;sozi.player.framechange&quot;, onFrameChange);
     }
     
     window.addEventListener(&quot;hashchange&quot;, onHashChange, false);
@@ -2780,10 +2837,10 @@ module(this, &quot;sozi.location&quot;, function (exports, window) {
 
 </script>
   <style
-     ns1:version="12.05-13163800"
+     ns1:version="12.05-19202105"
      id="sozi-style">#sozi-toc text{fill:#eff;font-family:Verdana,sans-serif;font-size:12pt}#sozi-toc text:hover{fill:#0cf;cursor:pointer}#sozi-toc text.sozi-toc-current{fill:#fa4}#sozi-toc-background{stroke:#222;stroke-opacity:.1;stroke-width:10;fill:#222;fill-opacity:.9}.sozi-toc-arrow{fill:#eff;fill-opacity:.75;stroke:none}.sozi-toc-arrow:hover{fill:#0cf}#sozi-framenumber circle{stroke:#222;stroke-opacity:.1;stroke-width:4;fill:#222;fill-opacity:.9}#sozi-framenumber text{fill:#eff;font-family:Verdana,sans-serif;font-size:12pt}</style>
   <script
-     ns1:version="12.05-13163800"
+     ns1:version="12.05-19202105"
      id="sozi-extras-addvideo-script">/*
  * Sozi - A presentation tool using the SVG standard
  *

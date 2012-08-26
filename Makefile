@@ -34,7 +34,6 @@ PLAYER_SRC := \
 	player/css/sozi.css
 
 DOC := \
-	$(wildcard doc/install*.html) \
 	$(wildcard doc/*license.txt)
 
 TARGET := \
