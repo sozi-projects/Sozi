@@ -16,16 +16,6 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkAdjustment" id="timeout-adjustment">
-    <property name="upper">3600</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="transition-duration-adjustment">
-    <property name="upper">3600</property>
-    <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">1</property>
-  </object>
   <object class="GtkWindow" id="sozi-window">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -169,22 +159,10 @@
                                       <object class="GtkMenuItem" id="new-frame-item">
                                         <property name="use_action_appearance">False</property>
                                         <property name="visible">True</property>
-                                        <property name="sensitive">False</property>
                                         <property name="can_focus">False</property>
                                         <property name="label" translatable="yes">New frame</property>
                                         <property name="use_underline">True</property>
                                         <signal name="activate" handler="on_new_frame_item_activate" swapped="no"/>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkMenuItem" id="new-free-frame-item">
-                                        <property name="use_action_appearance">False</property>
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="tooltip_text" translatable="yes">Create a new frame with no SVG element</property>
-                                        <property name="label" translatable="yes">New free frame</property>
-                                        <property name="use_underline">True</property>
-                                        <signal name="activate" handler="on_new_free_frame_item_activate" swapped="no"/>
                                       </object>
                                     </child>
                                   </object>
@@ -835,6 +813,16 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkAdjustment" id="timeout-adjustment">
+    <property name="upper">3600</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="transition-duration-adjustment">
+    <property name="upper">3600</property>
+    <property name="step_increment">0.10000000000000001</property>
+    <property name="page_increment">1</property>
   </object>
   <object class="GtkAdjustment" id="transition-zoom-adjustment">
     <property name="lower">-100</property>
