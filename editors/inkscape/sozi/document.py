@@ -55,7 +55,7 @@ class SoziFrame:
 
         # TODO get global defaults from the document
         self.refid = read_xml_attr(self.xml, "refid", "sozi")
-        self.title = read_xml_attr(self.xml, "title", "sozi", "")
+        self.title = read_xml_attr(self.xml, "title", "sozi", _("Untitled"))
         self.sequence = read_xml_attr(self.xml, "sequence", "sozi", default_seq, int)
         self.hide = read_xml_attr(self.xml, "hide", "sozi", True, to_boolean)
         self.clip = read_xml_attr(self.xml, "clip", "sozi", True, to_boolean)
