@@ -93,6 +93,10 @@ class SoziFrame:
         return result
 
 
+    def is_valid(self):
+        return self.refid is not None or len([ l for l in self.layers.itervalues() if l.is_valid() ]) > 0
+
+
     def add_layer(self, layer):
         """
         Add the given layer to the current frame.
@@ -185,6 +189,10 @@ class SoziLayer:
         result.label = self.label
 
         return result
+
+
+    def is_valid(self):
+        return self.refid is not None
 
 
     def write(self):
