@@ -46,7 +46,6 @@ class SoziUserInterface:
             "on_duplicate_button_clicked":      self.on_duplicate_frame,
             "on_new_button_clicked":            self.on_create_new_frame,
             "on_new_frame_item_activate":       self.on_create_new_frame,
-            "on_new_free_frame_item_activate":  self.on_create_new_free_frame,
             "on_delete_button_clicked":         self.on_delete_frame_or_layer,
             "on_up_button_clicked":             self.on_move_frame_up,
             "on_down_button_clicked":           self.on_move_frame_down,
@@ -65,7 +64,7 @@ class SoziUserInterface:
 
         new_button = self.builder.get_object("new-button")
         new_button.set_arrow_tooltip_text(_("Create a new frame or add a layer"))
-        
+
         self.new_layer_items = {}
         
         if effect.selected_element is not None:
@@ -73,22 +72,19 @@ class SoziUserInterface:
             # selected in Inkscape, removing the namespace URI if present 
             selected_tag = re.sub("{.*}", "", effect.selected_element.tag)
             tooltip_text = _("Create a new frame using the selected '{0}'").format(selected_tag)
-            
-            new_button.set_tooltip_text(tooltip_text)
-            
-            new_frame_item = self.builder.get_object("new-frame-item")
-            new_frame_item.set_sensitive(True)
-            new_frame_item.set_tooltip_text(tooltip_text)
-            
-            for id, l in self.model.layer_labels.iteritems():
-                new_layer_item = gtk.MenuItem(_("Add layer '{0}'").format(l))
-                new_button.get_menu().append(new_layer_item)
-                new_layer_item.show()
-                new_layer_item.set_sensitive(False)
-                new_layer_item.connect("activate", self.on_add_layer, id)
-                self.new_layer_items[id] = new_layer_item
         else:
-            new_button.set_tooltip_text(_("Create a new frame with no SVG element"))
+            tooltip_text = _("Create a new frame with no SVG element")
+
+        new_button.set_tooltip_text(tooltip_text)
+        self.builder.get_object("new-frame-item").set_tooltip_text(tooltip_text)
+
+        for id, l in self.model.layer_labels.iteritems():
+            new_layer_item = gtk.MenuItem(_("Add layer '{0}'").format(l))
+            new_button.get_menu().append(new_layer_item)
+            new_layer_item.show()
+            new_layer_item.set_sensitive(False)
+            new_layer_item.connect("activate", self.on_add_layer, id)
+            self.new_layer_items[id] = new_layer_item
 
         if effect.selected_element is not None:
             self.builder.get_object("refid-set-button").set_tooltip_text(_("Set the boundaries of this frame to the selected '{0}'").format(selected_tag))
@@ -402,14 +398,7 @@ class SoziUserInterface:
         """
         Event handler: click on button "create new frame".
         """
-        self.do_action(SoziCreateFrameAction(self, free=False))
-
-
-    def on_create_new_free_frame(self, widget):
-        """
-        Event handler: click on button "create new frame".
-        """
-        self.do_action(SoziCreateFrameAction(self, free=True))
+        self.do_action(SoziCreateFrameAction(self))
 
 
     def on_add_layer(self, widget, id):

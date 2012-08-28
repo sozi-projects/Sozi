@@ -7,14 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sozi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-16 15:09+0200\n"
-"PO-Revision-Date: 2012-08-16 15:12+0100\n"
+"POT-Creation-Date: 2012-08-28 16:56+0200\n"
+"PO-Revision-Date: 2012-08-28 16:57+0100\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Sozi developers\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: editors/inkscape/sozi/document.py:58
+msgid "Untitled"
+msgstr "Sans titre"
 
 #: editors/inkscape/sozi/actions.py:62
 msgid "Restore '{0}' in frame {1}"
@@ -32,19 +36,19 @@ msgstr "Rétablir '{0}' pour le calque '{1}' associé à la vue {2}"
 msgid "Change '{0}' in layer '{1}' of frame {2}"
 msgstr "Modifier '{0}' pour le calque '{1}' associé à la vue {2}"
 
-#: editors/inkscape/sozi/actions.py:126
+#: editors/inkscape/sozi/actions.py:125
 msgid "Delete the new frame {0}"
 msgstr "Supprimer la nouvelle vue {0}"
 
-#: editors/inkscape/sozi/actions.py:127
+#: editors/inkscape/sozi/actions.py:126
 msgid "Create a new frame at {0}"
 msgstr "Créer une nouvelle vue en {0}"
 
-#: editors/inkscape/sozi/actions.py:172
+#: editors/inkscape/sozi/actions.py:170
 msgid "Remove the layer '{0}' from frame {1}"
 msgstr "Retirer le calque '{0}' de la vue '{1}'"
 
-#: editors/inkscape/sozi/actions.py:173
+#: editors/inkscape/sozi/actions.py:171
 msgid "Add layer '{0}' to frame {1}"
 msgstr "Ajouter le calque '{0}' à la vue {1}"
 
@@ -80,203 +84,199 @@ msgstr "Remonter la vue {0}"
 msgid "Move frame {0} down"
 msgstr "Descendre la vue {0}"
 
-#: editors/inkscape/sozi/ui.py:67
+#: editors/inkscape/sozi/ui.py:66
 msgid "Create a new frame or add a layer"
 msgstr "Créer une nouvelle vue ou ajouter un calque"
 
-#: editors/inkscape/sozi/ui.py:75
+#: editors/inkscape/sozi/ui.py:74
 msgid "Create a new frame using the selected '{0}'"
 msgstr "Créer une nouvelle vue en utilisant l'élément '{0}' sélectionné"
 
-#: editors/inkscape/sozi/ui.py:84
-msgid "Add layer '{0}'"
-msgstr "Ajouter le calque '{0}'"
-
-#: editors/inkscape/sozi/ui.py:91 editors/inkscape/sozi/ui.glade:184
+#: editors/inkscape/sozi/ui.py:76
 msgid "Create a new frame with no SVG element"
 msgstr "Créer une nouvelle vue sans élément SVG"
 
-#: editors/inkscape/sozi/ui.py:94
+#: editors/inkscape/sozi/ui.py:82
+msgid "Add layer '{0}'"
+msgstr "Ajouter le calque '{0}'"
+
+#: editors/inkscape/sozi/ui.py:90
 msgid "Set the boundaries of this frame to the selected '{0}'"
 msgstr ""
 "Définir les limites de cette vue en utilisant l'élément '{0}' sélectionné"
 
-#: editors/inkscape/sozi/ui.py:105 editors/inkscape/sozi/ui.glade:174
+#: editors/inkscape/sozi/ui.py:101 editors/inkscape/sozi/ui.glade:163
 msgid "New frame"
 msgstr "Nouvelle vue"
 
-#: editors/inkscape/sozi/ui.py:106
+#: editors/inkscape/sozi/ui.py:102
 msgid "Enabled"
 msgstr "Activé"
 
-#: editors/inkscape/sozi/ui.py:106
+#: editors/inkscape/sozi/ui.py:102
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: editors/inkscape/sozi/ui.py:125
+#: editors/inkscape/sozi/ui.py:121
 msgid "Constant speed"
 msgstr "Vitesse constante"
 
-#: editors/inkscape/sozi/ui.py:126
+#: editors/inkscape/sozi/ui.py:122
 msgid "Speed up"
 msgstr "Accélérer"
 
-#: editors/inkscape/sozi/ui.py:127
+#: editors/inkscape/sozi/ui.py:123
 msgid "Speed up (strong)"
 msgstr "Accélérer fortement"
 
-#: editors/inkscape/sozi/ui.py:128
+#: editors/inkscape/sozi/ui.py:124
 msgid "Speed down"
 msgstr "Ralentir"
 
-#: editors/inkscape/sozi/ui.py:129
+#: editors/inkscape/sozi/ui.py:125
 msgid "Speed down (strong)"
 msgstr "Ralentir fortement"
 
-#: editors/inkscape/sozi/ui.py:130
+#: editors/inkscape/sozi/ui.py:126
 msgid "Speed up, then down"
 msgstr "Accélérer, puis ralentir"
 
-#: editors/inkscape/sozi/ui.py:131
+#: editors/inkscape/sozi/ui.py:127
 msgid "Speed up, then down (strong)"
 msgstr "Accélérer, puis ralentir fortement"
 
-#: editors/inkscape/sozi/ui.py:132
+#: editors/inkscape/sozi/ui.py:128
 msgid "Speed down, then up"
 msgstr "Ralentir, puis accélérer"
 
-#: editors/inkscape/sozi/ui.py:133
+#: editors/inkscape/sozi/ui.py:129
 msgid "Speed down, then up (strong)"
 msgstr "Ralentir, puis accélérer fortement"
 
-#: editors/inkscape/sozi/ui.py:297
+#: editors/inkscape/sozi/ui.py:293
 msgid "Delete the selected frame"
 msgstr "Supprimer la vue sélectionnée"
 
-#: editors/inkscape/sozi/ui.py:321
+#: editors/inkscape/sozi/ui.py:317
 msgid "Remove the selected layer"
 msgstr "Supprimer le calque sélectionné"
 
-#: editors/inkscape/sozi/ui.py:589
+#: editors/inkscape/sozi/ui.py:578
 msgid "No action to undo"
 msgstr "Aucune action à annuler"
 
-#: editors/inkscape/sozi/ui.py:595
+#: editors/inkscape/sozi/ui.py:584
 msgid "No action to redo"
 msgstr "Aucune action à refaire"
 
-#: editors/inkscape/sozi/ui.glade:61
+#: editors/inkscape/sozi/ui.glade:51
 msgid "Undo"
 msgstr "Annuler"
 
-#: editors/inkscape/sozi/ui.glade:77
+#: editors/inkscape/sozi/ui.glade:67
 msgid "Redo"
 msgstr "Rétablir"
 
-#: editors/inkscape/sozi/ui.glade:119
+#: editors/inkscape/sozi/ui.glade:109
 msgid "Seq."
 msgstr "Séq."
 
-#: editors/inkscape/sozi/ui.glade:131 editors/inkscape/sozi/ui.glade:332
+#: editors/inkscape/sozi/ui.glade:121 editors/inkscape/sozi/ui.glade:310
 msgid "Title"
 msgstr "Titre"
 
-#: editors/inkscape/sozi/ui.glade:160
+#: editors/inkscape/sozi/ui.glade:150
 msgid "New"
 msgstr "Créer"
 
-#: editors/inkscape/sozi/ui.glade:185
-msgid "New free frame"
-msgstr "Nouvelle vue libre"
-
-#: editors/inkscape/sozi/ui.glade:203
+#: editors/inkscape/sozi/ui.glade:181
 msgid "Duplicate the selected frame"
 msgstr "Dupliquer la vue sélectionnée"
 
-#: editors/inkscape/sozi/ui.glade:204
+#: editors/inkscape/sozi/ui.glade:182
 msgid "Duplicate"
 msgstr "Dupliquer"
 
-#: editors/inkscape/sozi/ui.glade:220
+#: editors/inkscape/sozi/ui.glade:198
 msgid "Delete"
 msgstr "Supprimer"
 
-#: editors/inkscape/sozi/ui.glade:236
+#: editors/inkscape/sozi/ui.glade:214
 msgid "Move the selected frame up"
 msgstr "Remonter la vue sélectionnée"
 
-#: editors/inkscape/sozi/ui.glade:237
+#: editors/inkscape/sozi/ui.glade:215
 msgid "Move frame up"
 msgstr "Remonter"
 
-#: editors/inkscape/sozi/ui.glade:253
+#: editors/inkscape/sozi/ui.glade:231
 msgid "Move the selected frame down"
 msgstr "Descendre la vue sélectionnée"
 
-#: editors/inkscape/sozi/ui.glade:254
+#: editors/inkscape/sozi/ui.glade:232
 msgid "Move frame down"
 msgstr "Descendre"
 
-#: editors/inkscape/sozi/ui.glade:317
+#: editors/inkscape/sozi/ui.glade:295
 msgid "SVG element"
 msgstr "Élément SVG"
 
-#: editors/inkscape/sozi/ui.glade:344
+#: editors/inkscape/sozi/ui.glade:322
 msgid "Timeout (seconds)"
 msgstr "Temporisation (secondes)"
 
-#: editors/inkscape/sozi/ui.glade:382
+#: editors/inkscape/sozi/ui.glade:360
 msgid "Remove the reference to the boundary element for this frame"
 msgstr "Supprimer la référence à l'élément qui délimite cette vue"
 
-#: editors/inkscape/sozi/ui.glade:442
+#: editors/inkscape/sozi/ui.glade:420
 msgid "Hide"
 msgstr "Cacher"
 
-#: editors/inkscape/sozi/ui.glade:458
+#: editors/inkscape/sozi/ui.glade:436
 msgid "Clip"
 msgstr "Découper"
 
-#: editors/inkscape/sozi/ui.glade:548
+#: editors/inkscape/sozi/ui.glade:526
 msgid "<b>Frame</b>"
 msgstr "<b>Vue</b>"
 
-#: editors/inkscape/sozi/ui.glade:583
+#: editors/inkscape/sozi/ui.glade:561
 msgid "Duration (seconds)"
 msgstr "Durée (secondes)"
 
-#: editors/inkscape/sozi/ui.glade:595
+#: editors/inkscape/sozi/ui.glade:573
 msgid "Zoom (%)"
 msgstr "Zoom (%)"
 
-#: editors/inkscape/sozi/ui.glade:652
+#: editors/inkscape/sozi/ui.glade:630
 msgid "Profile"
 msgstr "Profil"
 
-#: editors/inkscape/sozi/ui.glade:689
+#: editors/inkscape/sozi/ui.glade:667
 msgid "<b>Transition to this frame</b>"
 msgstr "<b>Transition vers cette vue</b>"
 
-#: editors/inkscape/sozi/ui.glade:729
+#: editors/inkscape/sozi/ui.glade:707
 msgid "Apply changes and go back to Inkscape"
 msgstr "Appliquer les modifications et revenir à Inkscape"
 
-#: editors/inkscape/sozi/ui.glade:747
+#: editors/inkscape/sozi/ui.glade:725
 msgid "Cancel all changes and go back to Inkscape"
 msgstr "Annuler toutes les modifications et revenir à Inkscape"
 
-#: editors/inkscape/sozi/ui.glade:786
+#: editors/inkscape/sozi/ui.glade:764
 msgid "Presentation"
 msgstr "Présentation"
 
-#: editors/inkscape/sozi/ui.glade:800
+#: editors/inkscape/sozi/ui.glade:778
 msgid "Modules list"
 msgstr "Liste des modules"
 
-#: editors/inkscape/sozi/ui.glade:811
+#: editors/inkscape/sozi/ui.glade:789
 msgid "Settings"
 msgstr "Paramètres"
 
-#: editors/inkscape/sozi/ui.glade:827
+#: editors/inkscape/sozi/ui.glade:805
 msgid "Modules"
 msgstr "Modules"

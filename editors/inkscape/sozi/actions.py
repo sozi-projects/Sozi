@@ -113,11 +113,10 @@ class SoziCreateFrameAction(SoziAction):
     A wrapper for a frame creation action.
     """
     
-    def __init__(self, ui, free):
+    def __init__(self, ui):
         """
         Initialize a new frame creation action.
             - ui: an instance of SoziUI
-            - free: True if the new frame will have no attached SVG element
         """
         # The new frame will be added at the end of the presentation
         new_frame_number = str(len(ui.model.frames) + 1)
@@ -128,7 +127,6 @@ class SoziCreateFrameAction(SoziAction):
         )
         
         self.ui = ui
-        self.free = free
                             
 
     def do(self):
@@ -138,7 +136,7 @@ class SoziCreateFrameAction(SoziAction):
         self.ui.clear_form()
 
         frame = SoziFrame(self.ui.model)
-        if not self.free and self.ui.effect.selected_element is not None:
+        if self.ui.effect.selected_element is not None:
             frame.refid = self.ui.effect.selected_element.attrib["id"]
 
         self.ui.model.add_frame(frame)
@@ -184,9 +182,9 @@ class SoziAddLayerAction(SoziAction):
         """
         self.ui.clear_form()
 
-        self.ui.all_fields["refid"].set_value(self.ui.effect.selected_element.attrib["id"])
-        
         layer = SoziLayer(self.frame, self.group_id)
+        if self.ui.effect.selected_element is not None:
+            layer.refid = self.ui.effect.selected_element.attrib["id"]
         self.frame.add_layer(layer)
         
         self.ui.insert_layer_tree(self.frame_index, layer.group_id)

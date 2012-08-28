@@ -55,14 +55,14 @@ class SoziFrame:
 
         # TODO get global defaults from the document
         self.refid = read_xml_attr(self.xml, "refid", "sozi")
-        self.title = read_xml_attr(self.xml, "title", "sozi", "")
+        self.title = read_xml_attr(self.xml, "title", "sozi", _("Untitled"))
         self.sequence = read_xml_attr(self.xml, "sequence", "sozi", default_seq, int)
         self.hide = read_xml_attr(self.xml, "hide", "sozi", True, to_boolean)
         self.clip = read_xml_attr(self.xml, "clip", "sozi", True, to_boolean)
         self.timeout_enable = read_xml_attr(self.xml, "timeout-enable", "sozi", False, to_boolean)
-        self.timeout_ms = read_xml_attr(self.xml, "timeout-ms", "sozi", 5000, int)
-        self.transition_duration_ms = read_xml_attr(self.xml, "transition-duration-ms", "sozi", 1000, int)
-        self.transition_zoom_percent = read_xml_attr(self.xml, "transition-zoom-percent", "sozi", 0, int)
+        self.timeout_ms = read_xml_attr(self.xml, "timeout-ms", "sozi", 5000, float)
+        self.transition_duration_ms = read_xml_attr(self.xml, "transition-duration-ms", "sozi", 1000, float)
+        self.transition_zoom_percent = read_xml_attr(self.xml, "transition-zoom-percent", "sozi", 0, float)
         self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", "linear")
         self.id = read_xml_attr(self.xml, "id", None, document.effect.uniqueId("frame" + unicode(self.sequence)))
 
@@ -91,6 +91,10 @@ class SoziFrame:
             result.add_layer(l.copy(result))
 
         return result
+
+
+    def is_valid(self):
+        return self.refid is not None or len([ l for l in self.layers.itervalues() if l.is_valid() ]) > 0
 
 
     def add_layer(self, layer):
@@ -162,7 +166,7 @@ class SoziLayer:
         # Missing attributes are inherited from the enclosing frame element
         self.hide = read_xml_attr(self.xml, "hide", "sozi", frame.hide, to_boolean)
         self.clip = read_xml_attr(self.xml, "clip", "sozi", frame.clip, to_boolean)
-        self.transition_zoom_percent = read_xml_attr(self.xml, "transition-zoom-percent", "sozi", frame.transition_zoom_percent, int)
+        self.transition_zoom_percent = read_xml_attr(self.xml, "transition-zoom-percent", "sozi", frame.transition_zoom_percent, float)
         self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", frame.transition_profile)
 
         group_xml = frame.document.xml.xpath("//*[@id='" + self.group_id + "']")
@@ -185,6 +189,10 @@ class SoziLayer:
         result.label = self.label
 
         return result
+
+
+    def is_valid(self):
+        return self.refid is not None
 
 
     def write(self):
