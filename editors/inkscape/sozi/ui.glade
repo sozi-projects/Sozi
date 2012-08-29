@@ -16,11 +16,6 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkAdjustment" id="timeout-adjustment">
-    <property name="upper">3600</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
   <object class="GtkWindow" id="sozi-window">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -734,8 +729,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkHPaned" id="hpaned2">
-                <property name="visible">True</property>
+              <object class="GtkHPaned" id="settings-tab">
                 <property name="can_focus">True</property>
                 <child>
                   <object class="GtkLabel" id="label5">
@@ -768,7 +762,7 @@
               <object class="GtkLabel" id="label4">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Modules</property>
+                <property name="label" translatable="yes">Settings</property>
               </object>
               <packing>
                 <property name="position">1</property>
@@ -779,6 +773,11 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkAdjustment" id="timeout-adjustment">
+    <property name="upper">3600</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
   </object>
   <object class="GtkAdjustment" id="transition-duration-adjustment">
     <property name="upper">3600</property>
