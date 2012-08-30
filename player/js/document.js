@@ -156,8 +156,16 @@ namespace(this, "sozi.document", function (exports, window) {
         }
 
         
-        // Analyze <frame> elements
+        // Analyze <frame> elements sorted by sequence number
         var soziFrameList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, "frame"));
+        soziFrameList.sort(
+            function (a, b) {
+                seqA = parseInt(readAttribute(a, "sequence"), 10);
+                seqB = parseInt(readAttribute(b, "sequence"), 10)
+                return seqA - seqB;
+            }
+        );
+        
         soziFrameList.forEach(function (soziFrame, indexFrame) {
             var newFrame = {
                 id: soziFrame.getAttribute("id"),
@@ -206,13 +214,6 @@ namespace(this, "sozi.document", function (exports, window) {
                 }
             }
         });
-        
-        // Sort frames by sequence index
-        exports.frames.sort(
-            function (a, b) {
-                return a.sequence - b.sequence;
-            }
-        );
     }
 
     /*
