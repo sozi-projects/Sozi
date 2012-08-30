@@ -40,14 +40,10 @@ class Sozi(inkex.Effect):
         inkex.NSS[u"sozi"] = Sozi.NS_URI
 
         self.model = None
-        self.selected_element = None
         
 
     def effect(self):
         sozi.upgrade.upgrade_or_install(self)
-
-        if len(self.selected) > 0 and "id" in self.selected.values()[0].attrib:
-            self.selected_element = self.selected.values()[0]
 
         self.model = SoziDocument(self)
         self.ui = SoziUserInterface(self)

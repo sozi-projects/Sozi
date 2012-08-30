@@ -136,8 +136,7 @@ class SoziCreateFrameAction(SoziAction):
         self.ui.clear_form()
 
         frame = SoziFrame(self.ui.model)
-        if self.ui.effect.selected_element is not None:
-            frame.refid = self.ui.effect.selected_element.attrib["id"]
+        frame.refid = self.ui.model.get_selected_id()
 
         self.ui.model.add_frame(frame)
         self.ui.append_frame_tree(-1)
@@ -183,8 +182,7 @@ class SoziAddLayerAction(SoziAction):
         self.ui.clear_form()
 
         layer = SoziLayer(self.frame, self.group_id)
-        if self.ui.effect.selected_element is not None:
-            layer.refid = self.ui.effect.selected_element.attrib["id"]
+        layer.refid = self.ui.model.get_selected_id()
         self.frame.add_layer(layer)
         
         self.ui.insert_layer_tree(self.frame_index, layer.group_id)

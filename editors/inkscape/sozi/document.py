@@ -233,6 +233,31 @@ class SoziDocument:
         self.all_frames = Set(self.frames)
         self.renumber_from_index(0)
 
+        self.selected_index = 0
+        self.selected_ids = effect.options.ids
+
+
+    def get_selected_id(self):
+        if self.selected_ids:
+            result = self.selected_ids[self.selected_index]
+            self.selected_index = (self.selected_index + 1) % len(self.selected_ids)
+        else:
+            result = None
+        return result
+
+
+    def has_selected_id(self):
+        return len(self.selected_ids) > 0
+
+
+    def has_other_selected_id(self, id):
+        if len(self.selected_ids) > 1:
+            return True
+        elif len(self.selected_ids) > 0:
+            return id not in self.selected_ids
+        else:
+            return False
+
 
     def add_frame(self, frame):
         """

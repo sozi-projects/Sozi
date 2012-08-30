@@ -66,17 +66,6 @@ class SoziUserInterface:
 
         self.new_layer_items = {}
         
-        if effect.selected_element is not None:
-            # The tooltip of the "new" button will show the tag of the SVG element
-            # selected in Inkscape, removing the namespace URI if present 
-            selected_tag = re.sub("{.*}", "", effect.selected_element.tag)
-            tooltip_text = _("Create a new frame using the selected '{0}'").format(selected_tag)
-        else:
-            tooltip_text = _("Create a new frame with no SVG element")
-
-        new_button.set_tooltip_text(tooltip_text)
-        self.builder.get_object("new-frame-item").set_tooltip_text(tooltip_text)
-
         for id, l in self.model.layer_labels.iteritems():
             new_layer_item = gtk.MenuItem(_("Add layer '{0}'").format(l))
             new_button.get_menu().append(new_layer_item)
@@ -85,15 +74,6 @@ class SoziUserInterface:
             new_layer_item.connect("activate", self.on_add_layer, id)
             self.new_layer_items[id] = new_layer_item
 
-        if effect.selected_element is not None:
-            self.builder.get_object("refid-field").set_icon_tooltip_text(gtk.ENTRY_ICON_PRIMARY,
-                _("Set the boundaries of this frame to the selected '{0}'").format(selected_tag))
-
-        if effect.selected_element is not None and "id" in effect.selected_element.attrib:
-            selected_id = effect.selected_element.attrib["id"]
-        else:
-            selected_id = None
-        
         profiles = ["linear", "accelerate", "strong-accelerate", "decelerate", "strong-decelerate",
             "accelerate-decelerate", "strong-accelerate-decelerate", "decelerate-accelerate", "strong-decelerate-accelerate"]
             
@@ -105,7 +85,7 @@ class SoziUserInterface:
         }
 
         self.layer_fields = {
-            "refid": SoziTextField(self, "refid", selected_id, optional=True),
+            "refid": SoziTextField(self, "refid", None, optional=True),
             "hide": SoziToggleField(self, "hide", True),
             "clip": SoziToggleField(self, "clip", True),
             "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", 0),
@@ -141,9 +121,9 @@ class SoziUserInterface:
         # in the document, select the first frame.
         selected_frame = None
         
-        if effect.selected_element is not None:
+        if self.model.has_selected_id():
             for f in self.model.frames:
-                if f.refid == effect.selected_element.attrib["id"]:
+                if f.refid in self.model.selected_ids:
                     selected_frame = f
                     break
         elif len(self.model.frames) > 0:
@@ -174,7 +154,7 @@ class SoziUserInterface:
         """
         if frame.refid is None:
             return "<i>" + frame.title + "</i>"
-        elif self.effect.selected_element is not None and frame.refid == self.effect.selected_element.attrib["id"]:
+        elif frame.refid in self.model.selected_ids:
             return "<b>" + frame.title + "</b>"
         else:
             return frame.title
@@ -295,10 +275,7 @@ class SoziUserInterface:
         self.builder.get_object("delete-button").set_tooltip_text(_("Delete the selected frame"))
 
         refid_field = self.builder.get_object("refid-field")
-        refid_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY,
-            self.effect.selected_element is not None and
-            "id" in self.effect.selected_element.attrib and
-            self.effect.selected_element.attrib["id"] != frame.refid)
+        refid_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(frame.refid))
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, frame.refid is not None)
 
 
@@ -320,10 +297,7 @@ class SoziUserInterface:
         self.builder.get_object("delete-button").set_tooltip_text(_("Remove the selected layer"))
 
         refid_field = self.builder.get_object("refid-field")
-        refid_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY,
-            self.effect.selected_element is not None and
-            "id" in self.effect.selected_element.attrib and
-            self.effect.selected_element.attrib["id"] != layer.refid)
+        refid_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(layer.refid))
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, False)
 
 
@@ -448,7 +422,7 @@ class SoziUserInterface:
         Event handler: click on button "Paste" or "Clear" refid.
         """
         if icon_pos == gtk.ENTRY_ICON_PRIMARY:
-            self.all_fields["refid"].set_value(self.effect.selected_element.attrib["id"])
+            self.all_fields["refid"].set_value(self.model.get_selected_id())
             self.all_fields["refid"].write_if_needed()
         elif icon_pos == gtk.ENTRY_ICON_SECONDARY:
             self.all_fields["refid"].set_value(None)
@@ -565,10 +539,7 @@ class SoziUserInterface:
 
             # Update "set" and "clear" buttons if the "refid" field of a frame has changed.
             if action.field is self.all_fields["refid"]:
-                action.field.input_widget.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY,
-                    self.effect.selected_element is not None and
-                    "id" in self.effect.selected_element.attrib and
-                    self.effect.selected_element.attrib["id"] != action.frame.refid)
+                action.field.input_widget.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(action.frame.refid))
                 action.field.input_widget.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, action.frame.refid is not None)
         
         # Update the status of the "Undo" button 
