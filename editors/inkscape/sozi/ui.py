@@ -324,7 +324,7 @@ class SoziUserInterface:
         if iter:
             path = model.get_path(iter)
             if len(path) > 1:
-                return self.model.layer_labels.keys()[path[1]]
+                return self.model.frames[path[0]].layers.keys()[path[1]]
             else:
                 return None
         else:
