@@ -307,6 +307,8 @@ namespace(this, "sozi.actions", function (exports, window) {
         case 114: // r
             rotate(1);
             break;
+        default:
+            return;
         }
 
         evt.stopPropagation();
@@ -354,6 +356,8 @@ namespace(this, "sozi.actions", function (exports, window) {
         case 32: // Space
             player.moveToNext();
             break;
+        default:
+            return;
         }
         
         evt.stopPropagation();
