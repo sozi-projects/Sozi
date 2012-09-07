@@ -215,7 +215,7 @@ class SoziUserInterface:
 
 
     def renumber_from_index(self, index):
-        for i in range(index, len(self.model.frames)):
+        for i in range(index, self.frame_store.iter_n_children(None)):
             self.frame_store.set(self.frame_store.get_iter(i), 0, i + 1)
 
 
