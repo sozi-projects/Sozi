@@ -26,7 +26,7 @@ this.addEventListener("load", function () {
     }
     
     function registerFrameChangeHandler(htmlMedia, startFrame, stopFrame) {
-        sozi.events.listen("framechange", function(index) {
+        sozi.events.listen("sozi.player.framechange", function(index) {
             var frameId = sozi.document.frames[index].id;
 		    if (frameId === startFrame) {
 		        htmlMedia.play();
