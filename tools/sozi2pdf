@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+#
+# Sozi - A presentation tool using the SVG standard
+#
+# Copyright (C) 2010-2012 Guillaume Savaton
+#
+# This program is dual licensed under the terms of the MIT license
+# or the GNU General Public License (GPL) version 3.
+# A copy of both licenses is provided in the doc/ folder of the
+# official release of Sozi.
+#
+# See http://sozi.baierouge.fr/wiki/en:license for details.
+#
+
+# Usage:
+# sozi2pdf src.svg dest.pdf [width [height [resolution]]]
+
+CUR_DIR=$PWD
+TMP_DIR=`mktemp -d`
+
+phantomjs sozi2pdf.js $1 $TMP_DIR $3 $4 $5
+pdfjoin --outfile $2 $TMP_DIR/*.pdf
+
