@@ -1,6 +1,15 @@
 
-Sozi is a presentation tool using the SVG standard.
+Sozi is a presentation tool for SVG documents.
 
-Sozi is delivered as an extension for the SVG editor Inkscape.
+More details can be found on the official web site: http://sozi.baierouge.fr
 
-Installation and licensing details are provided in the doc/ folder.
+This repository is organized in three main branches:
+
+- master contains the latest stable version. It is updated when a new release is available or when an issue requires a hot fix.
+
+- preview contains the current release candidate of Sozi. It is a feature-frozen version that is still undergoing test and debug.
+
+- dev is the main development branch. Experimental features are added here.
+
+Official installable bundles of Sozi can be found here https://github.com/senshu/Sozi/downloads
+
