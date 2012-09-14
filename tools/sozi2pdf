@@ -17,8 +17,9 @@
 # sozi2pdf src.svg dest.pdf [width [height [resolution]]]
 
 CUR_DIR=$PWD
+SCRIPT_DIR=`dirname $0`
 TMP_DIR=`mktemp -d`
 
-phantomjs sozi2pdf.js $1 $TMP_DIR $3 $4 $5
+phantomjs $SCRIPT_DIR/sozi2pdf.js $1 $TMP_DIR $3 $4 $5
 pdfjoin --outfile $2 $TMP_DIR/*.pdf
 
