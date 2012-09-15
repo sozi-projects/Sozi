@@ -25,7 +25,7 @@ def write_xml_attr(element, attr, namespace, value):
         ns_attr = inkex.addNS(attr, namespace)
         
     if value is not None:
-        element.attrib[ns_attr] = value
+        element.attrib[ns_attr] = unicode(value)
     elif ns_attr in element.attrib:
         del element.attrib[ns_attr]
 
