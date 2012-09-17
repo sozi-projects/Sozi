@@ -39,10 +39,17 @@ page.onAlert = function (msg) {
  * Sandboxed function: render all frames
  */
 function renderFrames() {
-    for (var i = 0; i < sozi.document.frames.length; i ++) {
-        console.log("Exporting frame: " + i);
+    var frameCount = sozi.document.frames.length;
+    var digits = frameCount.toString().length;
+    var fileName = "";
+    for (var i = 0; i < frameCount; i ++) {
+        console.log("Exporting frame: " + (i + 1));
         sozi.player.jumpToFrame(i);
-        alert(i);
+        fileName = (i + 1).toString();
+        while(fileName.length < digits) {
+            fileName = "0" + fileName;
+        }
+        alert(fileName);
     }
 }
 
