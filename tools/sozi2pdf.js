@@ -12,19 +12,14 @@
  */
 
 var page = require('webpage').create(),
-    url, dir, width, height, resolution,
-    
-    // These settings provide an accurate A4 landscape page format
-    DEFAULT_RESOLUTION = 7.2, // Dots per millimeter
-    DEFAULT_WIDTH = 297,    // Millimeters
-    DEFAULT_HEIGHT = 210;   // Millimeters
+    url, dir;
 
 /*
  * Custom implementation of console.log()
  * for sandboxed Javascript.
  */
 page.onConsoleMessage = function (msg) {
-    console.log("sozi2pdf> " + msg);
+    console.log("sozi2pdf.js> " + msg);
 };
 
 /*
@@ -53,40 +48,14 @@ function renderFrames() {
     }
 }
 
-function getFloatArg(index, defaultValue) {
-    var result;
-    if (phantom.args.length > index) {
-        result = parseFloat(phantom.args[index]);
-        if (isNaN(result)) {
-            console.log("Invalid numeric value: " + phantom.args[index]);
-            phantom.exit();
-        }
-    }
-    else {
-        result = defaultValue;
-    }
-    return result;
-}
-
-if (phantom.args.length < 1) {
-    console.log("Usage: sozi2pdf.js url.svg [dir [width [height [resolution]]]]");
+if (phantom.args.length < 4) {
+    console.log("Usage: sozi2pdf.js url.svg dir width_px height_px");
     phantom.exit();
 }
 else {
-    url = phantom.args[0];
-    
-    dir = "";
-    if (phantom.args.length > 1) {
-        dir = phantom.args[1] + "/";
-    }
-
-    width = getFloatArg(2, DEFAULT_WIDTH);
-    height = getFloatArg(3, width * DEFAULT_HEIGHT / DEFAULT_WIDTH);
-    resolution = getFloatArg(4, DEFAULT_RESOLUTION);
-    
     page.viewportSize = {
-        width: width * resolution,
-        height: height * resolution
+        width: parseFloat(phantom.args[2]),
+        height: parseFloat(phantom.args[3])
     };
 
     page.onInitialized = function () {
@@ -97,9 +66,12 @@ else {
         }, renderFrames);
     }
     
+    url = phantom.args[0];    
+    dir = phantom.args[1] + "/";
+    
     page.open(url,function (status) {
         if (status !== "success") {
-            console.log("Unable to load the document " + url);
+            console.log("sozi2pdf.js> Unable to load the document: " + url);
         }
         phantom.exit();
     });
