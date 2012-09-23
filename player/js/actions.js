@@ -283,7 +283,7 @@ namespace(this, "sozi.actions", function (exports, window) {
             return;
         }
 
-        switch (evt.charCode || evt.keyCode) {
+        switch (evt.charCode || evt.which) {
         case 43: // +
             zoom(1, window.innerWidth / 2, window.innerHeight / 2);
             break;
