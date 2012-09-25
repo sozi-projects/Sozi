@@ -171,23 +171,23 @@
      ns1:version="12.09-17093222"
      id="sozi-extras-addvideo-script">this.addEventListener(&quot;load&quot;,function(){var h=&quot;http://www.w3.org/2000/svg&quot;,l=&quot;http://sozi.baierouge.fr&quot;,s=&quot;http://www.w3.org/1999/xhtml&quot;,m=this,o=m.document,q=[],r,e,d,c,p,a,g,f,b;function n(i){i.stopPropagation()}function t(i,j,k){sozi.events.listen(&quot;sozi.player.framechange&quot;,function(u){var v=sozi.document.frames[u].id;if(v===j){i.play()}else{if(v===k){i.pause()}}})}q.push(o.getElementsByTagNameNS(l,&quot;video&quot;));q.push(o.getElementsByTagNameNS(l,&quot;audio&quot;));r=[];for(c=0;c&lt;q.length;c+=1){for(e=0;e&lt;q[c].length;e+=1){p=q[c][e].parentNode;b=o.createElementNS(s,&quot;source&quot;);b.setAttribute(&quot;type&quot;,q[c][e].getAttributeNS(l,&quot;type&quot;));b.setAttribute(&quot;src&quot;,q[c][e].getAttributeNS(l,&quot;src&quot;));for(d=0;d&lt;r.length;d+=1){if(r[d].rect===p){break}}if(d===r.length){p.setAttribute(&quot;visibility&quot;,&quot;hidden&quot;);f=o.createElementNS(s,q[c][e].localName);f.setAttribute(&quot;controls&quot;,&quot;controls&quot;);if(q[c][e].localName===&quot;video&quot;){f.setAttribute(&quot;width&quot;,p.getAttribute(&quot;width&quot;));f.setAttribute(&quot;height&quot;,p.getAttribute(&quot;height&quot;))}f.addEventListener(&quot;click&quot;,n,false);f.addEventListener(&quot;contextmenu&quot;,n,false);g=o.createElementNS(s,&quot;html&quot;);g.appendChild(f);a=o.createElementNS(h,&quot;foreignObject&quot;);a.setAttribute(&quot;x&quot;,p.getAttribute(&quot;x&quot;));a.setAttribute(&quot;y&quot;,p.getAttribute(&quot;y&quot;));a.setAttribute(&quot;width&quot;,p.getAttribute(&quot;width&quot;));a.setAttribute(&quot;height&quot;,p.getAttribute(&quot;height&quot;));a.appendChild(g);p.parentNode.insertBefore(a,p.nextSibling);if(q[c][e].hasAttributeNS(l,&quot;start-frame&quot;)){t(f,q[c][e].getAttributeNS(l,&quot;start-frame&quot;),q[c][e].getAttributeNS(l,&quot;stop-frame&quot;))}r.push({rect:q[c][e].parentNode,htmlMedia:f})}r[d].htmlMedia.appendChild(b)}}},false);</script>
   <script><![CDATA[
-	var objList = [
-		{id: "path3095", frame: 0},
-		{id: "path3097", frame: 1},
-		{id: "path3099", frame: 2}
-	];
+    var objList = [
+        {id: "path3095", frame: 0},
+        {id: "path3097", frame: 1},
+        {id: "path3099", frame: 2}
+    ];
 	
-	function onDisplayReady() {
-	    onFrameChange(sozi.location.getFrameIndex());
-	}
+    function onDisplayReady() {
+        onFrameChange(sozi.location.getFrameIndex());
+    }
 	
-	function onFrameChange(index) {
-     	for (var i = 0; i < objList.length; i ++) {
-   			document.getElementById(objList[i].id).style.visibility =
-     			objList[i].frame === index ? "visible" : "hidden";
-     	}
-	}
-	
+    function onFrameChange(index) {
+        for (var i = 0; i < objList.length; i ++) {
+            document.getElementById(objList[i].id).style.visibility =
+                objList[i].frame === index ? "visible" : "hidden";
+        }
+    }
+
     sozi.events.listen("sozi.display.ready", onDisplayReady);
     sozi.events.listen("sozi.player.framechange", onFrameChange);
   ]]></script>
