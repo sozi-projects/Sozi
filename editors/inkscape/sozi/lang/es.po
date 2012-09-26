@@ -1,4 +1,4 @@
-# Dutch translation for sozi
+# Spanish translation for Sozi
 # Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
 # This file is distributed under the same license as the sozi package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.

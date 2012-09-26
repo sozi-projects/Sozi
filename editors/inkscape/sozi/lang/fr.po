@@ -1,4 +1,4 @@
-# Sozi
+# French translation for Sozi
 # Copyright (C) 2012 Guillaume Savaton
 # This file is distributed under the same license as the Sozi package.
 # Guillaume Savaton <senshuapash@gmail.com>, 2012.
