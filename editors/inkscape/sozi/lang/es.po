@@ -1,0 +1,279 @@
+# Spanish translation for Sozi
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the sozi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sozi\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-09-13 19:59+0400\n"
+"PO-Revision-Date: 2012-09-13 19:59-0400\n"
+"Last-Translator: Hector Mantellini <xombra.com@gmail.com> Eduardo Echeverria <echevemaster@gmail.com>\n"
+"Language-Team: Vaslibre <info@vaslibre.org.ve>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.4.6\n"
+
+#: editors/inkscape/sozi/document.py:58
+msgid "Untitled"
+msgstr "Sin título"
+
+#: editors/inkscape/sozi/actions.py:62
+msgid "Restore '{0}' in frame {1}"
+msgstr "Restaurar '{0}' en fotograma {1}"
+
+#: editors/inkscape/sozi/actions.py:63
+msgid "Change '{0}' in frame {1}"
+msgstr "Cambio '{0}' en fotograma {1}"
+
+#: editors/inkscape/sozi/actions.py:68
+msgid "Restore '{0}' in layer '{1}' of frame {2}"
+msgstr "Reestablecer '{0}' en capa'{1}' de fotograma {2}"
+
+#: editors/inkscape/sozi/actions.py:69
+msgid "Change '{0}' in layer '{1}' of frame {2}"
+msgstr "Cambiar '{0}' en capa '{1}' del fotograma {2}"
+
+#: editors/inkscape/sozi/actions.py:125
+msgid "Delete the new frame {0}"
+msgstr "Borrar el nuevo fotograma {0}"
+
+#: editors/inkscape/sozi/actions.py:126
+msgid "Create a new frame at {0}"
+msgstr "Crear un nuevo fotograma {0}"
+
+#: editors/inkscape/sozi/actions.py:169
+msgid "Remove the layer '{0}' from frame {1}"
+msgstr "Eliminar la capa '{0}' del fotograma  {1}"
+
+#: editors/inkscape/sozi/actions.py:170
+msgid "Add layer '{0}' to frame {1}"
+msgstr "Añadir capa '{0}' al fotograma {1}"
+
+#: editors/inkscape/sozi/actions.py:214
+msgid "Restore deleted frame {0}"
+msgstr "Restaurar fotograma eliminado {0}"
+
+#: editors/inkscape/sozi/actions.py:215
+msgid "Delete frame {0}"
+msgstr "Borrar fotograma {0}"
+
+#: editors/inkscape/sozi/actions.py:259
+msgid "Restore deleted layer '{0}' in frame {1}"
+msgstr "Restaurar capa eliminada '{0}' en el fotograma {1}"
+
+#: editors/inkscape/sozi/actions.py:260
+msgid "Remove layer '{0}' from frame {1}"
+msgstr "Eliminar capa '{0}' del fotograma {1}"
+
+#: editors/inkscape/sozi/actions.py:304
+msgid "Delete duplicated frame {0}"
+msgstr "Borrar fotograma duplicado"
+
+#: editors/inkscape/sozi/actions.py:305
+msgid "Duplicate frame {0}"
+msgstr "Fotograma duplicado {0}"
+
+#: editors/inkscape/sozi/actions.py:350
+#: editors/inkscape/sozi/actions.py:356
+msgid "Move frame {0} up"
+msgstr "Mover fotograma {0} hacia arriba"
+
+#: editors/inkscape/sozi/actions.py:351
+#: editors/inkscape/sozi/actions.py:355
+msgid "Move frame {0} down"
+msgstr "Mover fotograma {0} hacia abajo"
+
+#: editors/inkscape/sozi/ui.py:65
+msgid "Create a new frame or add a layer"
+msgstr "Crear nuevo fotograma o añadir una capa"
+
+#: editors/inkscape/sozi/ui.py:70
+msgid "Add layer '{0}'"
+msgstr "Añadir capa '{0}' "
+
+#: editors/inkscape/sozi/ui.py:81
+#: editors/inkscape/sozi/ui.glade:171
+msgid "New frame"
+msgstr "Nuevo fotograma"
+
+#: editors/inkscape/sozi/ui.py:82
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: editors/inkscape/sozi/ui.py:82
+msgid "Disabled"
+msgstr "Deshabilitado"
+
+#: editors/inkscape/sozi/ui.py:101
+msgid "Constant speed"
+msgstr "Velocidad constante"
+
+#: editors/inkscape/sozi/ui.py:102
+msgid "Speed up"
+msgstr "Acelerar"
+
+#: editors/inkscape/sozi/ui.py:103
+msgid "Speed up (strong)"
+msgstr "Acelerar (fuerte)"
+
+#: editors/inkscape/sozi/ui.py:104
+msgid "Speed down"
+msgstr "Desacelerar"
+
+#: editors/inkscape/sozi/ui.py:105
+msgid "Speed down (strong)"
+msgstr "Desacelerar (fuerte)"
+
+#: editors/inkscape/sozi/ui.py:106
+msgid "Speed up, then down"
+msgstr "Acelerar, luego hacia abajo"
+
+#: editors/inkscape/sozi/ui.py:107
+msgid "Speed up, then down (strong)"
+msgstr "Acelerar, luego hacia abajo (fuerte)"
+
+#: editors/inkscape/sozi/ui.py:108
+msgid "Speed down, then up"
+msgstr "Desacelerar, luego hacia arriba"
+
+#: editors/inkscape/sozi/ui.py:109
+msgid "Speed down, then up (strong)"
+msgstr "Desacelerar, luego hacia arriba (fuerte)"
+
+#: editors/inkscape/sozi/ui.py:275
+msgid "Delete the selected frame"
+msgstr "Borrar el fotograma seleccionado"
+
+#: editors/inkscape/sozi/ui.py:297
+msgid "Remove the selected layer"
+msgstr "Eliminar la capa seleccionada"
+
+#: editors/inkscape/sozi/ui.py:549
+msgid "No action to undo"
+msgstr "Ninguna acción para deshacer"
+
+#: editors/inkscape/sozi/ui.py:555
+msgid "No action to redo"
+msgstr "Ninguna acción para restaurar"
+
+#: editors/inkscape/sozi/ui.glade:56
+msgid "Undo"
+msgstr "Deshacer"
+
+#: editors/inkscape/sozi/ui.glade:72
+msgid "Redo"
+msgstr "Restaurar"
+
+#: editors/inkscape/sozi/ui.glade:114
+msgid "Seq."
+msgstr "Sec."
+
+#: editors/inkscape/sozi/ui.glade:127
+#: editors/inkscape/sozi/ui.glade:318
+msgid "Title"
+msgstr "Título"
+
+#: editors/inkscape/sozi/ui.glade:157
+msgid "Create a new frame"
+msgstr "Crear un nuevo fotograma"
+
+#: editors/inkscape/sozi/ui.glade:158
+msgid "New"
+msgstr "Nuevo"
+
+#: editors/inkscape/sozi/ui.glade:189
+msgid "Duplicate the selected frame"
+msgstr "Duplicar el fotograma seleccionado"
+
+#: editors/inkscape/sozi/ui.glade:190
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: editors/inkscape/sozi/ui.glade:206
+msgid "Delete"
+msgstr "Borrar"
+
+#: editors/inkscape/sozi/ui.glade:222
+msgid "Move the selected frame up"
+msgstr "Mover el fotograma seleccionado hacia arriba"
+
+#: editors/inkscape/sozi/ui.glade:223
+msgid "Move frame up"
+msgstr "Mover fotograma hacia arriba"
+
+#: editors/inkscape/sozi/ui.glade:239
+msgid "Move the selected frame down"
+msgstr "Mover el fotograma seleccionado hacia abajo"
+
+#: editors/inkscape/sozi/ui.glade:240
+msgid "Move frame down"
+msgstr "Mover el fotograma hacia abajo"
+
+#: editors/inkscape/sozi/ui.glade:303
+msgid "SVG element"
+msgstr "Elemeto SVG"
+
+#: editors/inkscape/sozi/ui.glade:330
+msgid "Timeout (seconds)"
+msgstr "Intervalo de espera (segundos)"
+
+#: editors/inkscape/sozi/ui.glade:362
+msgid "Hide"
+msgstr "Ocultar"
+
+#: editors/inkscape/sozi/ui.glade:378
+msgid "Clip"
+msgstr "Clip"
+
+#: editors/inkscape/sozi/ui.glade:471
+msgid "Set the reference to a selected SVG element"
+msgstr "Ajuste la referencia al elemento SVG seleccionado"
+
+#: editors/inkscape/sozi/ui.glade:472
+msgid "Remove the reference to this SVG element"
+msgstr "Eliminar la referencia al elemento SVG seleccionado"
+
+#: editors/inkscape/sozi/ui.glade:491
+msgid "<b>Frame properties</b>"
+msgstr "<b>Propiedades del fotograma</b>"
+
+#: editors/inkscape/sozi/ui.glade:526
+msgid "Duration (seconds)"
+msgstr "Duración (segundos)"
+
+#: editors/inkscape/sozi/ui.glade:538
+msgid "Zoom (%)"
+msgstr "Zoom (%)"
+
+#: editors/inkscape/sozi/ui.glade:595
+msgid "Profile"
+msgstr "Perfil"
+
+#: editors/inkscape/sozi/ui.glade:633
+msgid "<b>Transition to this frame</b>"
+msgstr "<b>Transición a este fotograma</b>"
+
+#: editors/inkscape/sozi/ui.glade:677
+msgid "Apply changes and go back to Inkscape"
+msgstr "Aplicar los cambios y volver a Inkscape"
+
+#: editors/inkscape/sozi/ui.glade:695
+msgid "Cancel all changes and go back to Inkscape"
+msgstr "Cancelar todos los cambios y volver a Inkscape"
+
+#: editors/inkscape/sozi/ui.glade:731
+msgid "Presentation"
+msgstr "Presentación"
+
+#: editors/inkscape/sozi/ui.glade:744
+msgid "Modules list"
+msgstr "Lista de módulos"
+
+#: editors/inkscape/sozi/ui.glade:755
+#: editors/inkscape/sozi/ui.glade:771
+msgid "Settings"
+msgstr "Ajustes"
+
