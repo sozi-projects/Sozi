@@ -11,8 +11,8 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
-var page = require('webpage').create(),
-    url, dir;
+var page = require("webpage").create(),
+    url, tmpDir;
 
 /*
  * Custom implementation of console.log()
@@ -27,29 +27,91 @@ page.onConsoleMessage = function (msg) {
  * Render the current browser window to a PDF file
  */
 page.onAlert = function (msg) {
-    page.render(dir + msg + ".pdf");
+    page.render(tmpDir + msg + ".pdf");
 };
 
 /*
- * Sandboxed function: render all frames
+ * Sandboxed function
  */
-function renderFrames() {
-    var frameCount = sozi.document.frames.length;
-    var digits = frameCount.toString().length;
-    var fileName = "";
-    for (var i = 0; i < frameCount; i ++) {
-        console.log("Exporting frame: " + (i + 1));
-        sozi.player.jumpToFrame(i);
-        fileName = (i + 1).toString();
-        while(fileName.length < digits) {
-            fileName = "0" + fileName;
+function main(options) {
+    function markInterval(list, first, last, step, value) {
+        if (step > 0) {
+            for (var i = first; i <= last; i += step) {
+                if (i >= 0 && i < list.length) {
+                    list[i] = value;
+                }
+            }
         }
-        alert(fileName);
     }
+
+    /*
+     * Parse an expression and mark the corresponding frames with the given value.
+     *
+     * expr ::= interval ("," interval)*
+     *
+     * interval ::=
+     *      INT                     // frame number
+     *    | INT? ":" INT?           // first:last
+     *    | INT? ":" INT? ":" INT?  // first:second:last
+     *
+     * If first is omitted, it is set to 1.
+     * If second is omitted, it is set to first + 1.
+     * If last is omitted, it is set to list.length.
+     */
+    function markFrames(list, expr, value) {
+        switch (expr) {
+            case "all":
+                markInterval(list, 0, list.length - 1, 1, value);
+                break;
+            case "none":
+                break;
+            default:
+                var intervalList = expr.split(",");
+                for (var i = 0; i < intervalList.length; i ++) {
+                    var interval = intervalList[i].split(":").map(function (s) { return s.trim(); });
+                    if (interval.length > 0) {
+                        var first = interval[0] !== "" ? parseInt(interval[0]) - 1 : 0;
+                        var last = interval[interval.length - 1] !== "" ? parseInt(interval[interval.length - 1]) - 1 : list.length - 1;
+                        var second = interval.length > 2 && interval[1] !== "" ? parseInt(interval[1]) - 1 : first + 1;
+                        if (!isNaN(first) && !isNaN(second) && !isNaN(last)) {
+                            markInterval(list, first, last, second - first, value);
+                        }
+                    }
+                }
+        }
+    }
+
+    function renderFrames(includeExpr, excludeExpr) {
+        var frameCount = sozi.document.frames.length;
+
+        var frameSelection = new Array(frameCount);
+        markInterval(frameSelection, 0, frameCount - 1, 1, false);
+        markFrames(frameSelection, options.include, true);
+        markFrames(frameSelection, options.exclude, false);
+        
+        var digits = frameCount.toString().length;
+        var fileName = "";
+
+        for (var i = 0; i < frameCount; i ++) {
+            if (frameSelection[i]) {
+                console.log("Exporting frame: " + (i + 1));
+                sozi.player.jumpToFrame(i);
+                fileName = (i + 1).toString();
+                while(fileName.length < digits) {
+                    fileName = "0" + fileName;
+                }
+                alert(fileName);
+            }
+        }
+    }
+
+    window.addEventListener("load", function () {
+        sozi.events.listen("sozi.player.ready", renderFrames);
+    }, false);
 }
 
-if (phantom.args.length < 4) {
-    console.log("Usage: sozi2pdf.js url.svg dir width_px height_px");
+if (phantom.args.length < 6) {
+    console.log("Usage: sozi2pdf.js url.svg dir width_px height_px inc_list excl_list");
     phantom.exit();
 }
 else {
@@ -59,15 +121,13 @@ else {
     };
 
     page.onInitialized = function () {
-        page.evaluate(function (onPlayerReady) {
-            window.addEventListener("load", function () {
-                sozi.events.listen("sozi.player.ready", onPlayerReady);
-            }, false);
-        }, renderFrames);
-    }
+        page.evaluate(function (main, options) {
+            main(options);
+        }, main, {include: phantom.args[4], exclude: phantom.args[5]});
+    };
     
     url = phantom.args[0];    
-    dir = phantom.args[1] + "/";
+    tmpDir = phantom.args[1] + "/";
     
     page.open(url,function (status) {
         if (status !== "success") {

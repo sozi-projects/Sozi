@@ -95,7 +95,7 @@ if __name__ == '__main__':
     # Export Sozi frames to individual PDF files
     # TODO pass include/exclude lists
     js = os.path.join(os.path.dirname(__file__), "sozi2pdf.js") 
-    subprocess.call(["phantomjs", js, input_file_name, tmp_dir, str(width_px), str(height_px)])
+    subprocess.call(["phantomjs", js, input_file_name, tmp_dir, str(width_px), str(height_px), options.include, options.exclude])
     
     # Merge all frames to a single PDF file
     # TODO use PyPDF
