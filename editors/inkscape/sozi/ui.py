@@ -85,7 +85,8 @@ class SoziUserInterface:
             self.new_layer_items[id] = new_layer_item
 
         profiles = ["linear", "accelerate", "strong-accelerate", "decelerate", "strong-decelerate",
-            "accelerate-decelerate", "strong-accelerate-decelerate", "decelerate-accelerate", "strong-decelerate-accelerate"]
+            "accelerate-decelerate", "strong-accelerate-decelerate", "decelerate-accelerate", "strong-decelerate-accelerate",
+            "immediate-beginning", "immediate-end", "immediate-middle"]
             
         self.frame_fields = {
             "title": SoziTextField(self, "title", _("New frame")),
@@ -117,6 +118,9 @@ class SoziUserInterface:
         profile_store.append([_("Speed up, then down (strong)")])
         profile_store.append([_("Speed down, then up")])
         profile_store.append([_("Speed down, then up (strong)")])
+        profile_store.append([_("Immediate (beginning)")])
+        profile_store.append([_("Immediate (end)")])
+        profile_store.append([_("Immediate (middle)")])
 
         # Force the size of the tree view so that the tool bar is completely visible.
         # This statement also attempts to show the entire frame edition form.

@@ -316,6 +316,18 @@ namespace(this, "sozi.animation", function (exports, window) {
             var xs = x <= 0.5 ? x : 1 - x,
                 y = (1 - Math.pow(1 - 2 * xs, 3)) / 2;
             return x <= 0.5 ? y : 1 - y;
+        },
+        
+        "immediate-beginning": function (x) {
+            return 1;
+        },
+        
+        "immediate-end": function (x) {
+            return x === 1 ? 1 : 0;
+        },
+        
+        "immediate-middle": function (x) {
+            return x >= 0.5 ? 1 : 0;
         }
     };
 });
