@@ -12,7 +12,7 @@
    See http://sozi.baierouge.fr/wiki/en:license for details.
 -->
 <inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
-  <_name>Create link</_name>
+  <_name>Create or modify link</_name>
   <id>sozi.extras.link</id>
   <dependency type="executable" location="extensions">inkex.py</dependency>
   <dependency type="executable" location="extensions">sozi_extras_link.py</dependency>

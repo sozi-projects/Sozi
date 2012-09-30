@@ -45,12 +45,23 @@ class SoziExtrasCreateLink(inkex.Effect):
             exit()
 
         elt = self.selected.values()[0]
-
-        a = inkex.etree.Element("a")
+        
+        # Search for an existing "a" element containing the selected element
+        a = elt
+        a_tag = inkex.addNS("a", "svg")
+        while a is not None and a.tag != a_tag:
+            a = a.getparent()
+        
+        # If no containing "a" element was found, create a new one
+        # and insert it as the parent of the selected element
+        if a is None:            
+            a = inkex.etree.Element("a")
+            elt.getparent().replace(elt, a)
+            a.append(elt)
+        
+        # Assign the given URL to the "a" element
         a.set(inkex.addNS("href", "xlink"), unicode(self.options.url))
 
-        elt.getparent().replace(elt, a)
-        a.append(elt)
 
 
 # Create effect instance
