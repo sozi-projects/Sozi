@@ -48,12 +48,11 @@ namespace(this, "sozi.document", function (exports, window) {
     /*
     * Returns the value of an attribute of a given Sozi SVG element.
     *
-    * If the attribute is not set, then a default value is returned.
-    * See DEFAULTS.
+    * If the attribute is empty or does not exist,
+    * then a default value is returned (See DEFAULTS).
     */
     function readAttribute(soziElement, attr) {
-        var value = soziElement.getAttributeNS(SOZI_NS, attr);
-        return value === "" ? DEFAULTS[attr] : value;
+        return soziElement.getAttributeNS(SOZI_NS, attr) || DEFAULTS[attr];
     }
 
     function readStateForLayer(frame, idLayer, soziElement) {
@@ -69,7 +68,7 @@ namespace(this, "sozi.document", function (exports, window) {
         }
 
         if (typeof state.transitionProfile === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-profile")) {
-            state.setTransitionProfile(sozi.animation.profiles[readAttribute(soziElement, "transition-profile") || "linear"]);
+            state.setTransitionProfile(sozi.animation.profiles[readAttribute(soziElement, "transition-profile")]);
         }
         
         if (soziElement.hasAttributeNS(SOZI_NS, "refid")) {
