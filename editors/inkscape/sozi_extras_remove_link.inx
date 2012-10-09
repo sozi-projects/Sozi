@@ -12,11 +12,10 @@
    See http://sozi.baierouge.fr/wiki/en:license for details.
 -->
 <inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
-  <_name>Create or modify link</_name>
-  <id>sozi.extras.link</id>
+  <_name>Remove link</_name>
+  <id>sozi.extras.remove_link</id>
   <dependency type="executable" location="extensions">inkex.py</dependency>
-  <dependency type="executable" location="extensions">sozi_extras_link.py</dependency>
-  <param name="url" type="string" _gui-text="URL"></param>
+  <dependency type="executable" location="extensions">sozi_extras_remove_link.py</dependency>
   <effect>
     <object-type>all</object-type>
     <effects-menu>
@@ -24,7 +23,7 @@
     </effects-menu>
   </effect>
   <script>
-    <command reldir="extensions" interpreter="python">sozi_extras_link.py</command>
+    <command reldir="extensions" interpreter="python">sozi_extras_remove_link.py</command>
   </script>
 </inkscape-extension>
 

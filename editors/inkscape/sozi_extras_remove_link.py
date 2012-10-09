@@ -25,18 +25,9 @@ sys.path.append('C:\Program Files\Inkscape\share\extensions')
 import inkex
 
 
-class SoziExtrasCreateLink(inkex.Effect):
-    XLINK_NS_URI = u"http://www.w3.org/1999/xlink"
-    
+class SoziExtrasRemoveLink(inkex.Effect):
     def __init__(self):
         inkex.Effect.__init__(self)
-
-        if "xlink" not in inkex.NSS:
-            inkex.NSS["xlink"] = SoziExtrasCreateLink.XLINK_NS_URI
-        
-        self.OptionParser.add_option('-U', '--url', action = 'store',
-            type = 'string', dest = 'url', default = '',
-            help = 'URL')
 
 
     def effect(self):
@@ -52,20 +43,16 @@ class SoziExtrasCreateLink(inkex.Effect):
         while a is not None and a.tag != a_tag:
             a = a.getparent()
         
-        # If no containing "a" element was found, create a new one
-        # and insert it as the parent of the selected element
-        if a is None:            
-            a = inkex.etree.Element("a")
-            elt.getparent().replace(elt, a)
-            a.append(elt)
-        
-        # Assign the given URL to the "a" element
-        a.set(inkex.addNS("href", "xlink"), unicode(self.options.url))
-
+        # If a containing "a" element was found, move its content
+        # to the upper level, and remove it.
+        if a is not None:
+            for c in a.getchildren():
+                a.addprevious(c)
+            a.getparent().remove(a)
 
 
 # Create effect instance
-effect = SoziExtrasCreateLink()
+effect = SoziExtrasRemoveLink()
 effect.affect()
 
 
