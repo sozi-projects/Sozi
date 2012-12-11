@@ -159,8 +159,8 @@ namespace(this, "sozi.document", function (exports, window) {
         var soziFrameList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, "frame"));
         soziFrameList.sort(
             function (a, b) {
-                seqA = parseInt(readAttribute(a, "sequence"), 10);
-                seqB = parseInt(readAttribute(b, "sequence"), 10)
+                var seqA = parseInt(readAttribute(a, "sequence"), 10);
+                var seqB = parseInt(readAttribute(b, "sequence"), 10)
                 return seqA - seqB;
             }
         );
