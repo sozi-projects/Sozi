@@ -2,13 +2,7 @@
 ### The sozi.py output file contains the sozi inkscape integration
 ################################################################################
 
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/sozi)
-
-ADD_CUSTOM_COMMAND(
-   OUTPUT    sozi/version.py
-   DEPENDS   ${CMAKE_CURRENT_SOURCE_DIR}/sozi/version.py
-   COMMAND   sed -e 's/{{SOZI_VERSION}}/${SOZI_VERSION}/g' ${CMAKE_CURRENT_SOURCE_DIR}/sozi/version.py > sozi/version.py
-)
+configure_file(sozi/version.py sozi/version.py)
 
 SET(sozi_inkscape_files ${CMAKE_CURRENT_SOURCE_DIR}/sozi.inx
                         ${CMAKE_CURRENT_SOURCE_DIR}/sozi.py

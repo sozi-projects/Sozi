@@ -91,7 +91,7 @@ release/sozi/lang/%/LC_MESSAGES/sozi.mo: editors/inkscape/sozi/lang/%.po
 	mkdir -p $(dir $@) ; $(MSGFMT) -o $@ $<
 
 release/sozi/version.py: editors/inkscape/sozi/version.py $(TIMESTAMP)
-	mkdir -p release/sozi ; sed "s/{{SOZI_VERSION}}/$(VERSION)/g" $< > $@
+	mkdir -p release/sozi ; sed "s/@SOZI_VERSION@/$(VERSION)/g" $< > $@
 
 release/%: editors/inkscape/%
 	cp $< $@

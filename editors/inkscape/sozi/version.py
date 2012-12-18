@@ -10,5 +10,5 @@
 # See http://sozi.baierouge.fr/wiki/en:license for details.
 
 # Replaced automatically by the version number during the build process
-SOZI_VERSION = "{{SOZI_VERSION}}"
+SOZI_VERSION = "@SOZI_VERSION@"
 
