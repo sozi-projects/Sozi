@@ -1,8 +1,52 @@
 
+# The version number is obtained from the current date and time
 VERSION := $(shell date +%y.%m-%d%H%M%S)
 
+# All source files of the Inkscape extensions
+EDITOR_SRC := \
+	$(wildcard editors/inkscape/*.py) \
+	$(wildcard editors/inkscape/*.inx) \
+	$(wildcard editors/inkscape/sozi/*.*)
+
+# The translation files for the Inkscape extensions
+EDITOR_PO := $(wildcard editors/inkscape/sozi/lang/*.po)
+
+# The translatable source files of the Inkscape extensions
+GETTEXT_SRC := \
+	$(wildcard editors/inkscape/*.py) \
+	$(wildcard editors/inkscape/sozi/*.py) \
+	editors/inkscape/sozi/ui.glade
+
+# The list of Javascript source files in the player and Sozi extras
 PLAYER_JS := $(wildcard player/js/*.js)
-EXTRAS_JS := $(wildcard player/extras/*.js)
+EXTRAS_JS := $(wildcard player/js/extras/*.js)
+
+# Filesof the player to be compiled
+PLAYER_SRC := \
+	player/js/sozi.js \
+	player/css/sozi.css \
+	$(EXTRAS_JS)
+
+# The documentation files
+DOC := \
+	$(wildcard doc/*license.txt)
+
+# The list of files in the installation tree
+TARGET := \
+    $(subst editors/inkscape/,,$(EDITOR_SRC)) \
+    $(patsubst editors/inkscape/sozi/lang/%.po,sozi/lang/%/LC_MESSAGES/sozi.mo,$(EDITOR_PO)) \
+    $(addprefix sozi/,$(notdir $(PLAYER_SRC) $(DOC)))
+
+# The list of files in the release tree
+TARGET_RELEASE := $(addprefix release/, $(TARGET))
+
+# The path of the installation folder for the current user
+INSTALL_DIR := $(HOME)/.config/inkscape/extensions
+
+# The release bundle
+ZIP := release/sozi-release-$(VERSION).zip
+
+# The minifier command line and options
 
 #MINIFY_OPT += --nomunge
 
@@ -12,96 +56,70 @@ JUICER_OPT += --skip-verification
 
 MINIFY := juicer merge $(JUICER_OPT) --arguments "$(MINIFY_OPT)"
 
-AUTOLINT := ./node_modules/autolint/bin/autolint
+# The Javascript linter command
+LINT := ./node_modules/autolint/bin/autolint
 
+# The message compiler command
 MSGFMT := /usr/lib/python2.7/Tools/i18n/msgfmt.py
 
-EDITOR_SRC := \
-	$(wildcard editors/inkscape/*.py) \
-	$(wildcard editors/inkscape/*.inx) \
-	$(wildcard editors/inkscape/sozi/*.*)
 
-EDITOR_PO := $(wildcard editors/inkscape/sozi/lang/*.po)
+.PHONY: all verify install doc clean
 
-GETTEXT_SRC := \
-	$(wildcard editors/inkscape/*.py) \
-	$(wildcard editors/inkscape/sozi/*.py) \
-	editors/inkscape/sozi/ui.glade
+# Default rule: create a zip archive for installation
+all: $(ZIP)
 
-PLAYER_SRC := \
-	$(wildcard player/js/extras/*.js) \
-	player/js/sozi.js \
-	player/css/sozi.css
-
-DOC := \
-	$(wildcard doc/*license.txt)
-
-TARGET := \
-    $(subst editors/inkscape/,,$(EDITOR_SRC)) \
-    $(patsubst editors/inkscape/sozi/lang/%.po,sozi/lang/%/LC_MESSAGES/sozi.mo,$(EDITOR_PO)) \
-    $(addprefix sozi/,$(notdir $(PLAYER_SRC) $(DOC)))
-
-TARGET_RELEASE := $(addprefix release/, $(TARGET))
-
-INSTALL_DIR := $(HOME)/.config/inkscape/extensions
-
-TIMESTAMP := release/sozi-timestamp-$(VERSION)
-
-.PHONY: zip verify minify install doc timestamp clean
-
-all: zip
-
-zip: release/sozi-release-$(VERSION).zip
-
+# Verify Javascript source files of the player
 verify: $(PLAYER_JS) $(EXTRAS_JS)
-	$(AUTOLINT) --once
+	$(LINT) --once
 
-minify: release/sozi.js release/sozi.css
-
+# Install Sozi
 install: $(TARGET_RELEASE)
 	cd release ; cp --parents $(TARGET) $(INSTALL_DIR)
 
-timestamp: release/sozi-timestamp-$(VERSION)
-
+# Generate API documentation
 doc: $(PLAYER_JS) $(EXTRAS_JS)
 	jsdoc --directory=web/api --recurse=1 \
 		--allfunctions --private \
 		--template=jsdoc-templates \
 		player/js
 
+# Generate a template file for translation
 pot: $(GETTEXT_SRC)
 	xgettext --package-name=Sozi --package-version=$(VERSION) --output=editors/inkscape/sozi/lang/sozi.pot $^
 
-$(TIMESTAMP):
-	mkdir -p release ; touch $@
-
-release/sozi-release-$(VERSION).zip: $(TARGET_RELEASE)
+# Create a zip archive for installation
+$(ZIP): $(TARGET_RELEASE)
 	cd release ; zip $(notdir $@) $(TARGET)
 
+# Concatenate and minify the Javascript source files of the player
 release/sozi/sozi.js: $(PLAYER_JS)
 	$(MINIFY) --output $@ player/js/sozi.js
 
+# Minify a CSS stylesheet of the player
 release/sozi/%.css: player/css/%.css
 	$(MINIFY) --output $@ $<
 
+# Minify a Javascript source file from Sozi-extras
 release/sozi/%.js: player/js/extras/%.js
 	$(MINIFY) --output $@ $<
 
+# Compile a translation file for a given language
 release/sozi/lang/%/LC_MESSAGES/sozi.mo: editors/inkscape/sozi/lang/%.po
 	mkdir -p $(dir $@) ; $(MSGFMT) -o $@ $<
 
-release/sozi/version.py: editors/inkscape/sozi/version.py $(TIMESTAMP)
-	mkdir -p release/sozi ; sed "s/@SOZI_VERSION@/$(VERSION)/g" $< > $@
+# Fill the version number in the Inkscape extensions
+release/sozi/version.py:
+	mkdir -p $(dir $@) ; sed "s/@SOZI_VERSION@/$(VERSION)/g" editors/inkscape/sozi/version.py > $@
 
+# Copy a file from the Inkscape extensions
 release/%: editors/inkscape/%
-	cp $< $@
+	mkdir -p $(dir $@) ; cp $< $@
 
-release/sozi/%: editors/inkscape/sozi/%
-	mkdir -p release/sozi ; cp $< $@
-
+# Copy a file from the documents folder
 release/sozi/%: doc/%
-	mkdir -p release/sozi ; cp $< $@
+	mkdir -p $(dir $@) ; cp $< $@
 
+# Remove all temporary files from the release folder
 clean:
-	rm -f $(TARGET_RELEASE) release/sozi-timestamp-*
+	rm -f $(TARGET_RELEASE)
 
