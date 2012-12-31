@@ -2,6 +2,8 @@
 # The version number is obtained from the current date and time
 VERSION := $(shell date +%y.%m-%d%H%M%S)
 
+TIMESTAMP := release/timestamp-$(VERSION)
+
 # All source files of the Inkscape extensions
 EDITOR_SRC := \
 	$(wildcard editors/inkscape/*.py) \
@@ -111,8 +113,11 @@ release/sozi/lang/%/LC_MESSAGES/sozi.mo: editors/inkscape/sozi/lang/%.po
 	mkdir -p $(dir $@) ; $(MSGFMT) -o $@ $<
 
 # Fill the version number in the Inkscape extensions
-release/sozi/version.py:
+release/sozi/version.py: $(TIMESTAMP)
 	mkdir -p $(dir $@) ; sed "s/@SOZI_VERSION@/$(VERSION)/g" editors/inkscape/sozi/version.py > $@
+
+$(TIMESTAMP):
+	touch $@
 
 # Copy a file from the Inkscape extensions
 release/%: editors/inkscape/%
