@@ -9,14 +9,12 @@
  * official release of Sozi.
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
- *
- * @depend namespace.js
- * @depend proto.js
  */
 
 /**
  * @name sozi.animation
  * @namespace A general-purpose animation controller.
+ * @depend namespace.js
  */
 namespace(this, "sozi.animation", function (exports, window) {
     /** @lends sozi.animation */
@@ -148,6 +146,7 @@ namespace(this, "sozi.animation", function (exports, window) {
      *
      * @memberOf sozi.animation
      * @name Animator
+     * @depend proto.js
      */
     exports.Animator = sozi.proto.Object.subtype({
         /** @lends sozi.animation.Animator */

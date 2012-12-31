@@ -9,15 +9,12 @@
  * official release of Sozi.
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
- *
- * @depend namespace.js
- * @depend player.js
- * @depend display.js
  */
 
 /**
  * @name sozi.actions
  * @namespace Callback functions for DOM event handlers
+ * @depend namespace.js
  */
 namespace(this, "sozi.actions", function (exports, window) {
     /** @lends sozi.actions */
@@ -25,8 +22,8 @@ namespace(this, "sozi.actions", function (exports, window) {
     "use strict";
     
     // Module aliases
-    var player = sozi.player;
-    var display = sozi.display;
+    var player = namespace(window, "sozi.player");
+    var display = namespace(window, "sozi.display");
     
     // The global document object
     var document = window.document;
@@ -404,5 +401,5 @@ namespace(this, "sozi.actions", function (exports, window) {
         svgRoot.addEventListener("keydown", onKeyDown, false);
     }
 
-    sozi.events.listen("sozi.display.ready", onDisplayReady);
+    sozi.events.listen("sozi.display.ready", onDisplayReady); // @depend events.js
 });

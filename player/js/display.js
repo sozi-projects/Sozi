@@ -9,12 +9,13 @@
  * official release of Sozi.
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
- *
- * @depend namespace.js
- * @depend proto.js
- * @depend events.js
  */
 
+/**
+ * @name sozi.display
+ * @namespace Display management.
+ * @depend namespace.js
+ */
 namespace(this, "sozi.display", function (exports, window) {
     "use strict";
     
@@ -36,7 +37,10 @@ namespace(this, "sozi.display", function (exports, window) {
     exports.viewPorts = {};
     
     var primaryViewport;
-    
+
+    /**    
+     * @depend proto.js
+     */
     exports.CameraState = sozi.proto.Object.subtype({
         construct : function () {
             // Center coordinates
@@ -263,6 +267,9 @@ namespace(this, "sozi.display", function (exports, window) {
         }
     });
     
+    /**    
+     * @depend proto.js
+     */
     exports.ViewPort = sozi.proto.Object.subtype({
         construct: function (id, idLayerList, primary) {
             this.id = id;
@@ -452,6 +459,6 @@ namespace(this, "sozi.display", function (exports, window) {
         lastWindowHeight = window.innerHeight;
     }
     
-    sozi.events.listen("sozi.document.ready", onDocumentReady);
+    sozi.events.listen("sozi.document.ready", onDocumentReady); // @depend events.js
     window.addEventListener("resize", resize, false);
 });

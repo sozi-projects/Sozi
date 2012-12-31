@@ -9,11 +9,13 @@
  * official release of Sozi.
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
- *
- * @depend namespace.js
- * @depend events.js
  */
 
+/**
+ * @name sozi.location
+ * @namespace Manage the URL in the address bar of the browser window.
+ * @depend namespace.js
+ */
 namespace(this, "sozi.location", function (exports, window) {
     "use strict";
     
@@ -75,6 +77,8 @@ namespace(this, "sozi.location", function (exports, window) {
 	 * Event handler: document load.
 	 *
 	 * This function registers the "framechange" handler.
+     *
+     * @depend events.js
 	 */
     function onLoad() {
         sozi.events.listen("sozi.player.framechange", onFrameChange);

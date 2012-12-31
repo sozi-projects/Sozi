@@ -9,11 +9,13 @@
  * official release of Sozi.
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
- *
- * @depend namespace.js
- * @depend events.js
  */
 
+/**
+ * @name sozi.framenumber
+ * @namespace Show the frame number.
+ * @depend namespace.js
+ */
 namespace(this, "sozi.framenumber", function (exports, window) {
     "use strict";
     
@@ -68,6 +70,7 @@ namespace(this, "sozi.framenumber", function (exports, window) {
         svgTextNode.nodeValue = index + 1;
     }
     
+    // @depend events.js
 	sozi.events.listen("sozi.display.ready", onDisplayReady);
 	sozi.events.listen("sozi.player.framechange", onFrameChange);
 });

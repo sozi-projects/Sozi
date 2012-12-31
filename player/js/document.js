@@ -9,11 +9,13 @@
 * official release of Sozi.
 *
 * See http://sozi.baierouge.fr/wiki/en:license for details.
-*
-* @depend namespace.js
-* @depend events.js
 */
 
+/**
+ * @name sozi.document
+ * @namespace Document analysis.
+ * @depend namespace.js
+ */
 namespace(this, "sozi.document", function (exports, window) {
     "use strict";
     
@@ -216,11 +218,13 @@ namespace(this, "sozi.document", function (exports, window) {
     }
 
     /*
-    * Event handler: document load.
-    *
-    * This function reads the frames from the document and fires
-    * the "documentready" event.
-    */
+     * Event handler: document load.
+     *
+     * This function reads the frames from the document and fires
+     * the "documentready" event.
+     *
+     * @depend events.js
+     */
     function onLoad() {
         document.documentElement.removeAttribute("viewBox");
         readFrames();

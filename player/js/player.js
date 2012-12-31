@@ -9,18 +9,15 @@
  * official release of Sozi.
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
- *
- * @depend namespace.js
- * @depend events.js
- * @depend animation.js
- * @depend display.js
  */
 
+/**
+ * @name sozi.player
+ * @namespace Presentation player.
+ * @depend namespace.js
+ */
 namespace(this, "sozi.player", function (exports, window) {
     "use strict";
-    
-    // An alias to the Sozi display namespace
-    var display = sozi.display;
     
     var viewPort;
     
@@ -344,7 +341,7 @@ namespace(this, "sozi.player", function (exports, window) {
      * Event handler: display ready.
      */
     function onDisplayReady() {
-        viewPort = display.ViewPort.instance("player", sozi.document.idLayerList, true);
+        viewPort = sozi.display.ViewPort.instance("player", sozi.document.idLayerList, true);
         
         exports.startFromIndex(sozi.location.getFrameIndex());
 
@@ -355,6 +352,9 @@ namespace(this, "sozi.player", function (exports, window) {
         sozi.events.fire("sozi.player.ready");
     }
 
+    /**
+     * @depend animation.js
+     */
     animator = sozi.animation.Animator.instance().augment({
         /*
          * Event handler: animation step.
@@ -417,5 +417,5 @@ namespace(this, "sozi.player", function (exports, window) {
         }
     });
 
-    sozi.events.listen("sozi.display.ready", onDisplayReady);
+    sozi.events.listen("sozi.display.ready", onDisplayReady); // @depend events.js
 });
