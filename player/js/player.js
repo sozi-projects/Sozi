@@ -236,6 +236,11 @@ namespace(this, "sozi.player", function (exports, window) {
             zoomPercent = undefined; // Set for each layer
             profile = undefined; // Set for each layer
         }
+        else if (index === (currentFrameIndex - 1) % sozi.document.frames.length) {
+            durationMs = sozi.document.frames[currentFrameIndex].transitionDurationMs;
+            zoomPercent = undefined; // Set for each layer
+            profile = undefined; // Set for each layer
+        }
         else {
             durationMs = DEFAULT_DURATION_MS;
             zoomPercent = DEFAULT_ZOOM_PERCENT;
