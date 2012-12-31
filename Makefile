@@ -21,20 +21,14 @@ GETTEXT_SRC := \
 PLAYER_JS := $(shell ./tools/utilities/depend.py player/js/sozi.js)
 EXTRAS_JS := $(wildcard player/js/extras/*.js)
 
-# Files of the player to be compiled
-PLAYER_SRC := \
-	player/js/sozi.js \
-	player/css/sozi.css \
-	$(EXTRAS_JS)
-
 # The license files
-DOC := $(wildcard doc/*license.txt)
+LICENSES := $(wildcard doc/*license.txt)
 
 # The list of files in the installation tree
 TARGET := \
     $(subst editors/inkscape/,,$(EDITOR_SRC)) \
     $(patsubst editors/inkscape/sozi/lang/%.po,sozi/lang/%/LC_MESSAGES/sozi.mo,$(EDITOR_PO)) \
-    $(addprefix sozi/,$(notdir $(PLAYER_SRC) $(DOC)))
+    $(addprefix sozi/,sozi.js sozi.css $(notdir $(EXTRAS_JS) $(LICENSES)))
 
 # The list of files in the release tree
 TARGET_RELEASE := $(addprefix release/, $(TARGET))
