@@ -38,7 +38,7 @@ namespace(this, "sozi.display", function (exports, window) {
     
     var primaryViewport;
 
-    /**    
+    /**
      * @depend proto.js
      */
     exports.CameraState = sozi.proto.Object.subtype({
@@ -267,7 +267,7 @@ namespace(this, "sozi.display", function (exports, window) {
         }
     });
     
-    /**    
+    /**
      * @depend proto.js
      */
     exports.ViewPort = sozi.proto.Object.subtype({
