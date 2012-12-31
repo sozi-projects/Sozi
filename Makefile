@@ -129,5 +129,5 @@ release/sozi/%: doc/%
 
 # Remove all temporary files from the release folder
 clean:
-	rm -f $(TARGET_RELEASE)
+	rm -f $(TARGET_RELEASE) release/timestamp-*
 
