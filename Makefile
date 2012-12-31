@@ -27,9 +27,8 @@ PLAYER_SRC := \
 	player/css/sozi.css \
 	$(EXTRAS_JS)
 
-# The documentation files
-DOC := \
-	$(wildcard doc/*license.txt)
+# The license files
+DOC := $(wildcard doc/*license.txt)
 
 # The list of files in the installation tree
 TARGET := \
@@ -47,7 +46,6 @@ INSTALL_DIR := $(HOME)/.config/inkscape/extensions
 ZIP := release/sozi-release-$(VERSION).zip
 
 # The minifier commands for Javascript and CSS
-
 MINIFY_OPT += --compress
 MINIFY_OPT += --mangle
 
@@ -61,6 +59,14 @@ LINT := ./node_modules/autolint/bin/autolint
 
 # The message compiler command
 MSGFMT := /usr/lib/python2.7/Tools/i18n/msgfmt.py
+
+# The documentation generator command and options
+JSDOC_OPT += --private
+JSDOC_OPT += --recurse
+# JSDOC_OPT += --template jsdoc-templates
+JSDOC_OPT += --destination web/api
+
+JSDOC := ./node_modules/jsdoc/jsdoc
 
 
 .PHONY: all verify install tools doc clean
@@ -80,13 +86,11 @@ install: $(TARGET_RELEASE)
 tools:
 	npm install uglify-js
 	npm install autolint
+	npm install git://github.com/jsdoc3/jsdoc.git
 
 # Generate API documentation
 doc: $(PLAYER_JS) $(EXTRAS_JS)
-	jsdoc --directory=web/api --recurse=1 \
-		--allfunctions --private \
-		--template=jsdoc-templates \
-		player/js
+	$(JSDOC) $(JSDOC_OPT) player/js
 
 # Generate a template file for translation
 pot: $(GETTEXT_SRC)
