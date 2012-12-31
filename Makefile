@@ -18,7 +18,7 @@ GETTEXT_SRC := \
 	editors/inkscape/sozi/ui.glade
 
 # The list of Javascript source files in the player and Sozi extras
-PLAYER_JS := $(wildcard player/js/*.js)
+PLAYER_JS := $(shell ./tools/utilities/depend.py player/js/sozi.js)
 EXTRAS_JS := $(wildcard player/js/extras/*.js)
 
 # Files of the player to be compiled
@@ -46,15 +46,15 @@ INSTALL_DIR := $(HOME)/.config/inkscape/extensions
 # The release bundle
 ZIP := release/sozi-release-$(VERSION).zip
 
-# The minifier command line and options
+# The minifier commands for Javascript and CSS
 
-#MINIFY_OPT += --nomunge
+MINIFY_OPT += --compress
+MINIFY_OPT += --mangle
 
-JUICER_OPT += --force
-JUICER_OPT += --skip-verification
-#JUICER_OPT += --minifyer none
+#MINIFY_JS := cat
+MINIFY_JS := ./node_modules/uglify-js/bin/uglifyjs
 
-MINIFY := juicer merge $(JUICER_OPT) --arguments "$(MINIFY_OPT)"
+MINIFY_CSS := cat
 
 # The Javascript linter command
 LINT := ./node_modules/autolint/bin/autolint
@@ -63,7 +63,7 @@ LINT := ./node_modules/autolint/bin/autolint
 MSGFMT := /usr/lib/python2.7/Tools/i18n/msgfmt.py
 
 
-.PHONY: all verify install doc clean
+.PHONY: all verify install tools doc clean
 
 # Default rule: create a zip archive for installation
 all: $(ZIP)
@@ -75,6 +75,11 @@ verify: $(PLAYER_JS) $(EXTRAS_JS)
 # Install Sozi
 install: $(TARGET_RELEASE)
 	cd release ; cp --parents $(TARGET) $(INSTALL_DIR)
+
+# Install the tools needed to build Sozi
+tools:
+	npm install uglify-js
+	npm install autolint
 
 # Generate API documentation
 doc: $(PLAYER_JS) $(EXTRAS_JS)
@@ -93,15 +98,15 @@ $(ZIP): $(TARGET_RELEASE)
 
 # Concatenate and minify the Javascript source files of the player
 release/sozi/sozi.js: $(PLAYER_JS)
-	$(MINIFY) --output $@ player/js/sozi.js
+	$(MINIFY_JS) $^ $(MINIFY_OPT) > $@ 
 
 # Minify a CSS stylesheet of the player
 release/sozi/%.css: player/css/%.css
-	$(MINIFY) --output $@ $<
+	$(MINIFY_CSS) $^ > $@ 
 
 # Minify a Javascript source file from Sozi-extras
 release/sozi/%.js: player/js/extras/%.js
-	$(MINIFY) --output $@ $<
+	$(MINIFY_JS) $^ $(MINIFY_OPT) > $@ 
 
 # Compile a translation file for a given language
 release/sozi/lang/%/LC_MESSAGES/sozi.mo: editors/inkscape/sozi/lang/%.po
