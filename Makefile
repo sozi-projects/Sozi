@@ -21,7 +21,7 @@ GETTEXT_SRC := \
 PLAYER_JS := $(wildcard player/js/*.js)
 EXTRAS_JS := $(wildcard player/js/extras/*.js)
 
-# Filesof the player to be compiled
+# Files of the player to be compiled
 PLAYER_SRC := \
 	player/js/sozi.js \
 	player/css/sozi.css \
