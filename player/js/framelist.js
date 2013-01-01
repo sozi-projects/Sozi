@@ -147,13 +147,12 @@ namespace(this, "sozi.framelist", function (exports, window) {
         svgTitlesGroup.appendChild(tocBackground);
 
         var tocWidth = 0;
-        var currentFrameIndex = sozi.location.getFrameIndex();
         sozi.document.frames.forEach(function (frame, frameIndex) {
             var text = document.createElementNS(SVG_NS, "text");
             text.appendChild(document.createTextNode(frame.title));
             svgTitlesGroup.appendChild(text);
 
-            if (frameIndex === currentFrameIndex) {
+            if (frameIndex === sozi.player.currentFrameIndex) {
                 text.setAttribute("class", "sozi-toc-current");
             }
                      

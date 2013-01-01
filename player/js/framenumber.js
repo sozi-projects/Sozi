@@ -42,7 +42,7 @@ namespace(this, "sozi.framenumber", function (exports, window) {
         svgGroup.setAttribute("transform", "translate(" + t + "," + t + ")");
     }
     
-    function onDisplayReady() {
+    function onPlayerReady() {
         svgGroup = document.createElementNS(SVG_NS, "g");
         svgText = document.createElementNS(SVG_NS, "text");
         svgCircle = document.createElementNS(SVG_NS, "circle");
@@ -53,7 +53,7 @@ namespace(this, "sozi.framenumber", function (exports, window) {
         svgCircle.setAttribute("cy", 0);
         svgGroup.appendChild(svgCircle);
         
-        svgTextNode = document.createTextNode(sozi.location.getFrameIndex() + 1);
+        svgTextNode = document.createTextNode(sozi.player.currentFrameIndex + 1);
         svgText.setAttribute("text-anchor", "middle");
         svgText.setAttribute("dominant-baseline", "central");
         svgText.setAttribute("x", 0);
@@ -71,6 +71,6 @@ namespace(this, "sozi.framenumber", function (exports, window) {
     }
     
     // @depend events.js
-	sozi.events.listen("sozi.display.ready", onDisplayReady);
+	sozi.events.listen("sozi.player.ready", onPlayerReady);
 	sozi.events.listen("sozi.player.framechange", onFrameChange);
 });

@@ -37,7 +37,7 @@ namespace(this, "sozi.player", function (exports, window) {
     var sourceFrameIndex = 0;
     
     // The index of the visible frame
-    var currentFrameIndex = 0;
+    exports.currentFrameIndex = 0;
     
     // The state of the presentation.
     // If false, no automatic transition will be fired.
@@ -58,13 +58,13 @@ namespace(this, "sozi.player", function (exports, window) {
      * move to the first frame.
      */
     function waitTimeout() {
-        if (sozi.document.frames[currentFrameIndex].timeoutEnable) {
+        if (sozi.document.frames[exports.currentFrameIndex].timeoutEnable) {
             waiting = true;
-            var index = (currentFrameIndex + 1) % sozi.document.frames.length;
+            var index = (exports.currentFrameIndex + 1) % sozi.document.frames.length;
             nextFrameTimeout = window.setTimeout(function () {
                     exports.moveToFrame(index);
                 },
-                sozi.document.frames[currentFrameIndex].timeoutMs
+                sozi.document.frames[exports.currentFrameIndex].timeoutMs
             );
         }
     }
@@ -79,13 +79,13 @@ namespace(this, "sozi.player", function (exports, window) {
         playing = true;
         waiting = false;
         sourceFrameIndex = index;
-        currentFrameIndex = index;
+        exports.currentFrameIndex = index;
         viewPort.showFrame(sozi.document.frames[index]);
         waitTimeout();
     };
 
     exports.restart = function () {
-        exports.startFromIndex(currentFrameIndex);
+        exports.startFromIndex(exports.currentFrameIndex);
     };
 
     /*
@@ -103,7 +103,7 @@ namespace(this, "sozi.player", function (exports, window) {
             waiting = false;
         }
         playing = false;
-        sourceFrameIndex = currentFrameIndex;
+        sourceFrameIndex = exports.currentFrameIndex;
     };
 
     function getZoomData(zoomPercent, s0, s1) {
@@ -149,7 +149,7 @@ namespace(this, "sozi.player", function (exports, window) {
         sozi.events.fire("sozi.player.cleanup");
 
         sourceFrameIndex = index;
-        currentFrameIndex = index;
+        exports.currentFrameIndex = index;
         viewPort.showFrame(sozi.document.frames[index]);
 
         sozi.events.fire("sozi.player.framechange", index);
@@ -205,7 +205,7 @@ namespace(this, "sozi.player", function (exports, window) {
     }
     
     exports.previewFrame = function (index) {
-        currentFrameIndex = index;
+        exports.currentFrameIndex = index;
         animator.start(DEFAULT_DURATION_MS,
             getAnimationData(viewPort.cameras, sozi.document.frames[index].states,
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]));
@@ -229,13 +229,13 @@ namespace(this, "sozi.player", function (exports, window) {
         }
 
         var durationMs, zoomPercent, profile;
-        if (index === (currentFrameIndex + 1) % sozi.document.frames.length) {
+        if (index === (exports.currentFrameIndex + 1) % sozi.document.frames.length) {
             durationMs = sozi.document.frames[index].transitionDurationMs;
             zoomPercent = undefined; // Set for each layer
             profile = undefined; // Set for each layer
         }
-        else if (index === (currentFrameIndex - 1) % sozi.document.frames.length) {
-            durationMs = sozi.document.frames[currentFrameIndex].transitionDurationMs;
+        else if (index === (exports.currentFrameIndex - 1) % sozi.document.frames.length) {
+            durationMs = sozi.document.frames[exports.currentFrameIndex].transitionDurationMs;
             zoomPercent = undefined; // Set for each layer
             profile = undefined; // Set for each layer
         }
@@ -248,7 +248,7 @@ namespace(this, "sozi.player", function (exports, window) {
         sozi.events.fire("sozi.player.cleanup");
 
         playing = true;
-        currentFrameIndex = index;
+        exports.currentFrameIndex = index;
 
         animator.start(durationMs, getAnimationData(viewPort.cameras, sozi.document.frames[index].states, zoomPercent, profile));
 
@@ -266,8 +266,8 @@ namespace(this, "sozi.player", function (exports, window) {
      * Jumps to the previous frame
      */
     exports.jumpToPrevious = function () {
-        var index = currentFrameIndex;
-        if (!animator.started || sourceFrameIndex <= currentFrameIndex) {
+        var index = exports.currentFrameIndex;
+        if (!animator.started || sourceFrameIndex <= exports.currentFrameIndex) {
             index -= 1;
         }
         if (index >= 0) {
@@ -279,7 +279,7 @@ namespace(this, "sozi.player", function (exports, window) {
      * Moves to the previous frame.
      */
     exports.moveToPrevious = function () {
-        for (var index = currentFrameIndex - 1; index >= 0; index -= 1) {
+        for (var index = exports.currentFrameIndex - 1; index >= 0; index -= 1) {
             var frame = sozi.document.frames[index];
             if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
                 exports.moveToFrame(index);
@@ -292,8 +292,8 @@ namespace(this, "sozi.player", function (exports, window) {
      * Jumps to the next frame
      */
     exports.jumpToNext = function () {
-        var index = currentFrameIndex;
-        if (!animator.started || sourceFrameIndex >= currentFrameIndex) {
+        var index = exports.currentFrameIndex;
+        if (!animator.started || sourceFrameIndex >= exports.currentFrameIndex) {
             index += 1;
         }
         if (index < sozi.document.frames.length) {
@@ -305,8 +305,8 @@ namespace(this, "sozi.player", function (exports, window) {
      * Moves to the next frame.
      */
     exports.moveToNext = function () {
-        if (currentFrameIndex < sozi.document.frames.length - 1 || sozi.document.frames[currentFrameIndex].timeoutEnable) {
-            exports.moveToFrame((currentFrameIndex + 1) % sozi.document.frames.length);
+        if (exports.currentFrameIndex < sozi.document.frames.length - 1 || sozi.document.frames[exports.currentFrameIndex].timeoutEnable) {
+            exports.moveToFrame((exports.currentFrameIndex + 1) % sozi.document.frames.length);
         }
     };
 
@@ -324,7 +324,7 @@ namespace(this, "sozi.player", function (exports, window) {
      * e.g. after the display has been zoomed or dragged.
      */
     exports.moveToCurrent = function () {
-        exports.moveToFrame(currentFrameIndex);
+        exports.moveToFrame(exports.currentFrameIndex);
     };
 
     /*
@@ -413,7 +413,7 @@ namespace(this, "sozi.player", function (exports, window) {
          * then we call the waitTimeout method to process the timeout property of the current frame.
          */
         onDone: function () {
-            sourceFrameIndex = currentFrameIndex;
+            sourceFrameIndex = exports.currentFrameIndex;
             if (playing) {
                 waitTimeout();
             }
