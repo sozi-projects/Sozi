@@ -221,8 +221,6 @@ namespace(this, "sozi.player", function (exports, window) {
      * If the given frame index corresponds to the next frame in the list,
      * the transition properties of the next frame are used.
      * Otherwise, default transition properties are used.
-     *
-     * The URL hash is set to the given frame index (1-based).
      */
     exports.moveToFrame = function (index) {
         if (waiting) {

@@ -217,6 +217,20 @@ namespace(this, "sozi.document", function (exports, window) {
         });
     }
 
+    /**
+     * Return the frame with the given id.
+     *
+     * @return The index of the frame with the given id. -1 if not found.
+     */
+    exports.getFrameIndexForId = function (idFrame) {
+        for (var indexFrame = 0; indexFrame < exports.frames.length; indexFrame ++) {
+            if (exports.frames[indexFrame].id === idFrame) {
+                return indexFrame;
+            }
+        }
+        return - 1;
+    };
+    
     /*
      * Event handler: document load.
      *
