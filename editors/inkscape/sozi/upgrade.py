@@ -11,6 +11,7 @@
 
 import os
 import sys
+import re
 import inkex
 
 from version import SOZI_VERSION
@@ -88,4 +89,19 @@ def upgrade_document(context):
         if "id" not in elt.attrib:
             elt.set("id", context.uniqueId("frame" + elt.attrib[sequence_attr]))
 
-  
+    # Upgrade from 12.x
+    href_attr = inkex.addNS("href", "xlink")
+    sequence_re = re.compile("#([0-9]+)$")
+    for a_elt in context.document.xpath("//svg:a", namespaces=inkex.NSS):
+        if href_attr in a_elt.attrib:
+            # Read the index of the target frame
+            sequence_match = sequence_re.search(a_elt.attrib[href_attr])
+            if sequence_match is not None:
+                target_sequence = int(sequence_match.group(1))
+                # Find the corresponding frame
+                for frame_elt in context.document.xpath("//sozi:frame", namespaces=inkex.NSS):
+                    if int(frame_elt.attrib[sequence_attr]) == target_sequence:
+                        # In the link element, replace the frame index with a frame id
+                        a_elt.set(href_attr, "#" + frame_elt.attrib["id"])
+                        break
+

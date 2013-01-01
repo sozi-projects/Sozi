@@ -29,12 +29,15 @@ import sozi.media_upgrade
 
 class SoziExtrasUpgrade(inkex.Effect):
 
-    NS_URI = u"http://sozi.baierouge.fr"
+    XLINK_NS_URI = u"http://www.w3.org/1999/xlink"
+    SOZI_NS_URI = u"http://sozi.baierouge.fr"
     
     
     def __init__(self):
         inkex.Effect.__init__(self)
-        inkex.NSS[u"sozi"] = SoziExtrasUpgrade.NS_URI
+        inkex.NSS[u"sozi"] = SoziExtrasUpgrade.SOZI_NS_URI
+        if "xlink" not in inkex.NSS:
+            inkex.NSS["xlink"] = SoziExtrasUpgrade.XLINK_NS_URI
 
 
     def effect(self):

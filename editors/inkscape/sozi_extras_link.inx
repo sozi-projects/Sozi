@@ -12,11 +12,11 @@
    See http://sozi.baierouge.fr/wiki/en:license for details.
 -->
 <inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
-  <_name>Create or modify link</_name>
+  <_name>Create/modify a link to a frame</_name>
   <id>sozi.extras.link</id>
   <dependency type="executable" location="extensions">inkex.py</dependency>
   <dependency type="executable" location="extensions">sozi_extras_link.py</dependency>
-  <param name="url" type="string" _gui-text="URL"></param>
+  <param name="frame" type="string" _gui-text="Frame number or ID"></param>
   <effect>
     <object-type>all</object-type>
     <effects-menu>
