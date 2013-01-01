@@ -34,10 +34,14 @@ namespace(this, "sozi.location", function (exports, window) {
      */
     exports.getFrameIndex = function () {
         var indexOrId = window.location.hash ? window.location.hash.slice(1) : "1";
-        var index = parseInt(indexOrId, 10) - 1;
-        if (isNaN(index)) {
+        var index;
+        if (/^[0-9]+$/.test(indexOrId)) {
+            index = parseInt(indexOrId, 10) - 1;
+        }
+        else {
             index = sozi.document.getFrameIndexForId(indexOrId);
         }
+        
         if(index < 0) {
             return 0;
         }
