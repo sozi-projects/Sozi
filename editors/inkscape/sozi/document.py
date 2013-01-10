@@ -247,7 +247,7 @@ class SoziDocument:
         self.selected_ids = effect.options.ids
 
 
-    def get_selected_id(self):
+    def get_next_selected_id(self):
         if self.selected_ids:
             result = self.selected_ids[self.selected_index]
             self.selected_index = (self.selected_index + 1) % len(self.selected_ids)
