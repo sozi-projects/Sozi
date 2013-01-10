@@ -71,6 +71,13 @@ class SoziUserInterface:
         selection.set_mode(gtk.SELECTION_SINGLE)
         selection.set_select_function(self.on_selection_changed)
 
+        selected_ids_menu = self.builder.get_object("selection-menu")
+        for id in self.model.selected_ids:
+            selected_ids_menu_item = gtk.MenuItem(id)
+            selected_ids_menu_item.connect("activate", self.on_activate_ids_menu_item)
+            selected_ids_menu_item.show()
+            selected_ids_menu.append(selected_ids_menu_item)
+        
         new_button = self.builder.get_object("new-button")
         new_button.set_arrow_tooltip_text(_("Create a new frame or add a layer"))
 
@@ -431,17 +438,25 @@ class SoziUserInterface:
         self.do_action(SoziReorderFramesAction(self, True))
 
 
+    def show_selected_id_menu(self, event):
+        self.builder.get_object("selection-menu").popup(None, None, None, event.button, event.time)
+
+
     def on_set_clear_refid(self, widget, icon_pos, event):
         """
         Event handler: click on button "Paste" or "Clear" refid.
         """
         if icon_pos == gtk.ENTRY_ICON_PRIMARY:
-            self.all_fields["refid"].set_value(self.model.get_selected_id())
-            self.all_fields["refid"].write_if_needed()
+            self.show_selected_id_menu(event) # TODO pass context if this menu can be used for other fields
         elif icon_pos == gtk.ENTRY_ICON_SECONDARY:
             self.all_fields["refid"].set_value(None)
             self.all_fields["refid"].write_if_needed()
             
+
+    def on_activate_ids_menu_item(self, item):
+        self.all_fields["refid"].set_value(item.get_label())
+        self.all_fields["refid"].write_if_needed()
+
 
     def on_selection_changed(self, path):
         """
