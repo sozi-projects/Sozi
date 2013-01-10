@@ -9,11 +9,13 @@
  * official release of Sozi.
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
- *
- * @depend namespace.js
- * @depend events.js
  */
 
+/**
+ * @name sozi.framelist
+ * @namespace Show the frame list.
+ * @depend namespace.js
+ */
 namespace(this, "sozi.framelist", function (exports, window) {
     "use strict";
     
@@ -145,13 +147,12 @@ namespace(this, "sozi.framelist", function (exports, window) {
         svgTitlesGroup.appendChild(tocBackground);
 
         var tocWidth = 0;
-        var currentFrameIndex = sozi.location.getFrameIndex();
         sozi.document.frames.forEach(function (frame, frameIndex) {
             var text = document.createElementNS(SVG_NS, "text");
             text.appendChild(document.createTextNode(frame.title));
             svgTitlesGroup.appendChild(text);
 
-            if (frameIndex === currentFrameIndex) {
+            if (frameIndex === sozi.player.currentFrameIndex) {
                 text.setAttribute("class", "sozi-toc-current");
             }
                      
@@ -248,6 +249,7 @@ namespace(this, "sozi.framelist", function (exports, window) {
         return translateXEnd === translateXVisible;
     };
 
+    // @depend events.js
 	sozi.events.listen("sozi.player.ready", onPlayerReady);
 	sozi.events.listen("sozi.player.cleanup", exports.hide);
 	sozi.events.listen("sozi.player.framechange", onFrameChange);

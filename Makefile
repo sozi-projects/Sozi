@@ -2,6 +2,8 @@
 # The version number is obtained from the current date and time
 VERSION := $(shell date +%y.%m-%d%H%M%S)
 
+TIMESTAMP := release/timestamp-$(VERSION)
+
 # All source files of the Inkscape extensions
 EDITOR_SRC := \
 	$(wildcard editors/inkscape/*.py) \
@@ -18,24 +20,17 @@ GETTEXT_SRC := \
 	editors/inkscape/sozi/ui.glade
 
 # The list of Javascript source files in the player and Sozi extras
-PLAYER_JS := $(wildcard player/js/*.js)
+PLAYER_JS := $(shell ./tools/utilities/depend.py player/js/sozi.js)
 EXTRAS_JS := $(wildcard player/js/extras/*.js)
 
-# Filesof the player to be compiled
-PLAYER_SRC := \
-	player/js/sozi.js \
-	player/css/sozi.css \
-	$(EXTRAS_JS)
-
-# The documentation files
-DOC := \
-	$(wildcard doc/*license.txt)
+# The license files
+LICENSES := $(wildcard doc/*license.txt)
 
 # The list of files in the installation tree
 TARGET := \
     $(subst editors/inkscape/,,$(EDITOR_SRC)) \
     $(patsubst editors/inkscape/sozi/lang/%.po,sozi/lang/%/LC_MESSAGES/sozi.mo,$(EDITOR_PO)) \
-    $(addprefix sozi/,$(notdir $(PLAYER_SRC) $(DOC)))
+    $(addprefix sozi/,sozi.js sozi.css $(notdir $(EXTRAS_JS) $(LICENSES)))
 
 # The list of files in the release tree
 TARGET_RELEASE := $(addprefix release/, $(TARGET))
@@ -46,15 +41,14 @@ INSTALL_DIR := $(HOME)/.config/inkscape/extensions
 # The release bundle
 ZIP := release/sozi-release-$(VERSION).zip
 
-# The minifier command line and options
+# The minifier commands for Javascript and CSS
+MINIFY_OPT += --compress
+MINIFY_OPT += --mangle
 
-#MINIFY_OPT += --nomunge
+#MINIFY_JS := cat
+MINIFY_JS := ./node_modules/uglify-js/bin/uglifyjs
 
-JUICER_OPT += --force
-JUICER_OPT += --skip-verification
-#JUICER_OPT += --minifyer none
-
-MINIFY := juicer merge $(JUICER_OPT) --arguments "$(MINIFY_OPT)"
+MINIFY_CSS := cat
 
 # The Javascript linter command
 LINT := ./node_modules/autolint/bin/autolint
@@ -62,8 +56,16 @@ LINT := ./node_modules/autolint/bin/autolint
 # The message compiler command
 MSGFMT := /usr/lib/python2.7/Tools/i18n/msgfmt.py
 
+# The documentation generator command and options
+JSDOC_OPT += --private
+JSDOC_OPT += --recurse
+# JSDOC_OPT += --template jsdoc-templates
+JSDOC_OPT += --destination web/api
 
-.PHONY: all verify install doc clean
+JSDOC := ./node_modules/jsdoc/jsdoc
+
+
+.PHONY: all verify install tools doc clean
 
 # Default rule: create a zip archive for installation
 all: $(ZIP)
@@ -76,12 +78,15 @@ verify: $(PLAYER_JS) $(EXTRAS_JS)
 install: $(TARGET_RELEASE)
 	cd release ; cp --parents $(TARGET) $(INSTALL_DIR)
 
+# Install the tools needed to build Sozi
+tools:
+	npm install uglify-js
+	npm install autolint
+	npm install git://github.com/jsdoc3/jsdoc.git
+
 # Generate API documentation
 doc: $(PLAYER_JS) $(EXTRAS_JS)
-	jsdoc --directory=web/api --recurse=1 \
-		--allfunctions --private \
-		--template=jsdoc-templates \
-		player/js
+	$(JSDOC) $(JSDOC_OPT) player/js
 
 # Generate a template file for translation
 pot: $(GETTEXT_SRC)
@@ -93,23 +98,26 @@ $(ZIP): $(TARGET_RELEASE)
 
 # Concatenate and minify the Javascript source files of the player
 release/sozi/sozi.js: $(PLAYER_JS)
-	$(MINIFY) --output $@ player/js/sozi.js
+	$(MINIFY_JS) $^ $(MINIFY_OPT) > $@ 
 
 # Minify a CSS stylesheet of the player
 release/sozi/%.css: player/css/%.css
-	$(MINIFY) --output $@ $<
+	$(MINIFY_CSS) $^ > $@ 
 
 # Minify a Javascript source file from Sozi-extras
 release/sozi/%.js: player/js/extras/%.js
-	$(MINIFY) --output $@ $<
+	$(MINIFY_JS) $^ $(MINIFY_OPT) > $@ 
 
 # Compile a translation file for a given language
 release/sozi/lang/%/LC_MESSAGES/sozi.mo: editors/inkscape/sozi/lang/%.po
 	mkdir -p $(dir $@) ; $(MSGFMT) -o $@ $<
 
 # Fill the version number in the Inkscape extensions
-release/sozi/version.py:
+release/sozi/version.py: $(TIMESTAMP)
 	mkdir -p $(dir $@) ; sed "s/@SOZI_VERSION@/$(VERSION)/g" editors/inkscape/sozi/version.py > $@
+
+$(TIMESTAMP):
+	touch $@
 
 # Copy a file from the Inkscape extensions
 release/%: editors/inkscape/%
@@ -121,5 +129,5 @@ release/sozi/%: doc/%
 
 # Remove all temporary files from the release folder
 clean:
-	rm -f $(TARGET_RELEASE)
+	rm -f $(TARGET_RELEASE) release/timestamp-*
 

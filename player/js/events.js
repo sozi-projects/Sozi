@@ -9,13 +9,12 @@
  * official release of Sozi.
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
- *
- * @depend namespace.js
  */
 
 /**
  * @name sozi.events
  * @namespace A simple event system for Sozi.
+ * @depend namespace.js
  */
 namespace(this, "sozi.events", function (exports) {
     /** @lends sozi.events */

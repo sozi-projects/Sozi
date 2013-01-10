@@ -9,10 +9,13 @@
  * official release of Sozi.
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
- *
- * @depend namespace.js
  */
 
+/**
+ * @name sozi.proto
+ * @namespace Helpers for prototype inheritance.
+ * @depend namespace.js
+ */
 namespace(this, "sozi.proto", function (exports) {
     "use strict";
     

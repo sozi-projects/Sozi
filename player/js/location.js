@@ -9,19 +9,22 @@
  * official release of Sozi.
  *
  * See http://sozi.baierouge.fr/wiki/en:license for details.
- *
- * @depend namespace.js
- * @depend events.js
  */
 
+/**
+ * @name sozi.location
+ * @namespace Manage the URL in the address bar of the browser window.
+ * @depend namespace.js
+ */
 namespace(this, "sozi.location", function (exports, window) {
     "use strict";
     
     var changedFromWithin = false;
     
     /*
-     * Returns the frame index given in the URL hash.
+     * Returns the frame index corresponding to the URL hash.
      *
+     * The URL hash can be either a frame index or a frame id.
      * In the URL, the frame index starts a 1.
      * This method converts it into a 0-based index.
      *
@@ -30,13 +33,22 @@ namespace(this, "sozi.location", function (exports, window) {
      * the last frame index is returned.
      */
     exports.getFrameIndex = function () {
-        var index = window.location.hash ?
-            parseInt(window.location.hash.slice(1), 10) - 1 : 0;
-        if (isNaN(index) || index < 0) {
+        var indexOrId = window.location.hash ? window.location.hash.slice(1) : "1";
+        var index;
+        if (/^[0-9]+$/.test(indexOrId)) {
+            index = parseInt(indexOrId, 10) - 1;
+        }
+        else {
+            index = sozi.document.getFrameIndexForId(indexOrId);
+        }
+        
+        if(index < 0) {
             return 0;
-        } else if (index >= sozi.document.frames.length) {
+        }
+        else if (index >= sozi.document.frames.length) {
             return sozi.document.frames.length - 1;
-        } else {
+        }
+        else {
             return index;
         }
     };
@@ -62,19 +74,20 @@ namespace(this, "sozi.location", function (exports, window) {
     /*
      * Event handler: frame change.
      *
-     * This function is called when the presentation has reached a
-     * new frame.
-     * The URL hash is changed based on the provided frame index.
+     * This function is called when the presentation has reached a new frame.
+     * The URL hash is set to the current frame id.
      */
     function onFrameChange(index) {
         changedFromWithin = true;
-        window.location.hash = "#" + (index + 1);
+        window.location.hash = "#" + sozi.document.frames[index].id;
     }
 
 	/*
 	 * Event handler: document load.
 	 *
 	 * This function registers the "framechange" handler.
+     *
+     * @depend events.js
 	 */
     function onLoad() {
         sozi.events.listen("sozi.player.framechange", onFrameChange);
