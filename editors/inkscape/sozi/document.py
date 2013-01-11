@@ -74,6 +74,7 @@ class SoziFrame:
         self.transition_duration_ms = read_xml_attr(self.xml, "transition-duration-ms", "sozi", 1000, float)
         self.transition_zoom_percent = read_xml_attr(self.xml, "transition-zoom-percent", "sozi", 0, float)
         self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", "linear")
+        self.transition_path = read_xml_attr(self.xml, "transition-path", "sozi")
         self.id = read_xml_attr(self.xml, "id", None, document.effect.uniqueId("frame" + unicode(self.sequence)))
 
         # self.layers is a dict mapping layer group ids with layer objects
@@ -95,6 +96,7 @@ class SoziFrame:
         result.transition_duration_ms = self.transition_duration_ms
         result.transition_zoom_percent = self.transition_zoom_percent
         result.transition_profile = self.transition_profile
+        result.transition_path = self.transition_path
 
         # Fill layers dict with copies of each layer object
         for l in self.layers.itervalues():
@@ -145,6 +147,7 @@ class SoziFrame:
             write_xml_attr(self.xml, "transition-duration-ms", "sozi", unicode(self.transition_duration_ms))
             write_xml_attr(self.xml, "transition-zoom-percent", "sozi", unicode(self.transition_zoom_percent))
             write_xml_attr(self.xml, "transition-profile", "sozi", self.transition_profile)
+            write_xml_attr(self.xml, "transition-path", "sozi", self.transition_path) # Optional
             write_xml_attr(self.xml, "id", None, self.id)
 
             for l in self.all_layers:
@@ -178,6 +181,7 @@ class SoziLayer:
         self.clip = read_xml_attr(self.xml, "clip", "sozi", frame.clip, to_boolean)
         self.transition_zoom_percent = read_xml_attr(self.xml, "transition-zoom-percent", "sozi", frame.transition_zoom_percent, float)
         self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", frame.transition_profile)
+        self.transition_path = read_xml_attr(self.xml, "transition-path", "sozi", frame.transition_path)
 
         group_xml = frame.document.xml.xpath("//*[@id='" + self.group_id + "']")
         label_attr = inkex.addNS("label", "inkscape")
@@ -196,6 +200,7 @@ class SoziLayer:
         result.clip = self.clip
         result.transition_zoom_percent = self.transition_zoom_percent
         result.transition_profile = self.transition_profile
+        result.transition_path = self.transition_path
         result.label = self.label
 
         return result
@@ -221,6 +226,7 @@ class SoziLayer:
             write_xml_attr(self.xml, "clip", "sozi", "true" if self.clip else "false")
             write_xml_attr(self.xml, "transition-zoom-percent", "sozi", unicode(self.transition_zoom_percent))
             write_xml_attr(self.xml, "transition-profile", "sozi", self.transition_profile)
+            write_xml_attr(self.xml, "transition-path", "sozi", self.transition_path)
             
         elif not self.is_new:
             # Remove element from the SVG document

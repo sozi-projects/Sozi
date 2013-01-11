@@ -60,6 +60,7 @@ class SoziUserInterface:
             "on_up_button_clicked":             self.on_move_frame_up,
             "on_down_button_clicked":           self.on_move_frame_down,
             "on_refid_icon_clicked":            self.on_set_clear_refid,
+            "on_transition_path_icon_clicked":  self.on_set_clear_transition_path,
             "on_ok_button_clicked":             self.on_save,
             "on_cancel_button_clicked":         gtk.main_quit
         })
@@ -107,7 +108,8 @@ class SoziUserInterface:
             "hide": SoziToggleField(self, "hide", True),
             "clip": SoziToggleField(self, "clip", True),
             "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", 0),
-            "transition-profile": SoziComboField(self, "transition-profile", profiles, "linear")
+            "transition-profile": SoziComboField(self, "transition-profile", profiles, "linear"),
+            "transition-path": SoziTextField(self, "transition-path", None, optional=True)
         }
         
         self.all_fields = self.frame_fields.copy()
@@ -280,6 +282,10 @@ class SoziUserInterface:
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, False)
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, False)
 
+        transition_path_field = self.builder.get_object("transition-path-field")
+        transition_path_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, False)
+        transition_path_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, False)
+
 
     def fill_form_with_frame(self, frame):
         """
@@ -299,6 +305,9 @@ class SoziUserInterface:
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(frame.refid))
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, frame.refid is not None)
 
+        transition_path_field = self.builder.get_object("transition-path-field")
+        transition_path_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(frame.transition_path))
+        transition_path_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, frame.transition_path is not None)
 
     def fill_form_with_layer(self, layer):
         """
@@ -320,6 +329,10 @@ class SoziUserInterface:
         refid_field = self.builder.get_object("refid-field")
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(layer.refid))
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, False)
+
+        transition_path_field = self.builder.get_object("transition-path-field")
+        transition_path_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(layer.transition_path))
+        transition_path_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, False)
 
 
     def get_selected_frame_index(self):
@@ -438,7 +451,8 @@ class SoziUserInterface:
         self.do_action(SoziReorderFramesAction(self, True))
 
 
-    def show_selected_id_menu(self, event):
+    def show_selected_ids_menu(self, event, field_name):
+        self.selected_ids_menu_target = field_name
         self.builder.get_object("selection-menu").popup(None, None, None, event.button, event.time)
 
 
@@ -447,15 +461,27 @@ class SoziUserInterface:
         Event handler: click on button "Paste" or "Clear" refid.
         """
         if icon_pos == gtk.ENTRY_ICON_PRIMARY:
-            self.show_selected_id_menu(event) # TODO pass context if this menu can be used for other fields
+            self.show_selected_ids_menu(event, "refid")
         elif icon_pos == gtk.ENTRY_ICON_SECONDARY:
             self.all_fields["refid"].set_value(None)
             self.all_fields["refid"].write_if_needed()
             
 
+    def on_set_clear_transition_path(self, widget, icon_pos, event):
+        """
+        Event handler: click on button "Paste" or "Clear" transition path.
+        """
+        if icon_pos == gtk.ENTRY_ICON_PRIMARY:
+            self.show_selected_ids_menu(event, "transition-path")
+        elif icon_pos == gtk.ENTRY_ICON_SECONDARY:
+            self.all_fields["transition-path"].set_value(None)
+            self.all_fields["transition-path"].write_if_needed()
+            
+
     def on_activate_ids_menu_item(self, item):
-        self.all_fields["refid"].set_value(item.get_label())
-        self.all_fields["refid"].write_if_needed()
+        field_name = self.selected_ids_menu_target
+        self.all_fields[field_name].set_value(item.get_label())
+        self.all_fields[field_name].write_if_needed()
 
 
     def on_selection_changed(self, path):
@@ -570,6 +596,11 @@ class SoziUserInterface:
             if action.field is self.all_fields["refid"]:
                 action.field.input_widget.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(action.frame.refid))
                 action.field.input_widget.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, action.frame.refid is not None)
+
+            # Update "set" and "clear" buttons if the "transition-path" field of a frame has changed.
+            if action.field is self.all_fields["transition-path"]:
+                action.field.input_widget.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(action.frame.transition_path))
+                action.field.input_widget.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, action.frame.transition_path is not None)
         
         # Update the status of the "Undo" button 
         if self.undo_stack:
