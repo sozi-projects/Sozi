@@ -180,7 +180,6 @@ namespace(this, "sozi.display", function (exports, window) {
             }
 
             var svgPath = reverseTransitionPath ? initialState.transitionPath : finalState.transitionPath;
-  console.log(useTransitionPath + " " + reverseTransitionPath + " " + svgPath);
             if (useTransitionPath && svgPath) {
                 var pathLength = svgPath.getTotalLength();
                 

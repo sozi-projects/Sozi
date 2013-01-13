@@ -427,7 +427,6 @@ namespace(this, "sozi.player", function (exports, window) {
          * then we call the waitTimeout method to process the timeout property of the current frame.
          */
         onDone: function () {
-            console.log("Done");
             for (var idLayer in this.data) {
                 viewPort.cameras[idLayer].setAtState(this.data[idLayer].finalState);
             }
