@@ -159,13 +159,15 @@ namespace(this, "sozi.player", function (exports, window) {
      * Returns an associative array where keys are layer names
      * and values are objects in the form { initialState: finalState: profile: zoomWidth: zoomHeight:}
      */
-    function getAnimationData(initialState, finalState, zoomPercent, profile) {
+    function getAnimationData(initialState, finalState, zoomPercent, profile, useTransitionPath, reverseTransitionPath) {
         var data = {};
         
         for (var idLayer in initialState) {
             data[idLayer] = {
                 initialState: sozi.display.CameraState.instance(),
-                finalState: sozi.display.CameraState.instance()
+                finalState: sozi.display.CameraState.instance(),
+                useTransitionPath: useTransitionPath,
+                reverseTransitionPath: reverseTransitionPath
             };
             
             data[idLayer].profile = profile || finalState[idLayer].transitionProfile;
@@ -200,7 +202,6 @@ namespace(this, "sozi.player", function (exports, window) {
                     finalState[idLayer].height);
             }
         }
-        
         return data;
     }
     
@@ -208,7 +209,8 @@ namespace(this, "sozi.player", function (exports, window) {
         exports.currentFrameIndex = index;
         animator.start(DEFAULT_DURATION_MS,
             getAnimationData(viewPort.cameras, sozi.document.frames[index].states,
-                DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]));
+                DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]),
+                false, false);
         sozi.events.fire("sozi.player.framechange", index);
     };
 
@@ -228,21 +230,27 @@ namespace(this, "sozi.player", function (exports, window) {
             waiting = false;
         }
 
-        var durationMs, zoomPercent, profile;
+        var durationMs, zoomPercent, profile, useTransitionPath, reverseTransitionPath;
         if (index === (exports.currentFrameIndex + 1) % sozi.document.frames.length) {
             durationMs = sozi.document.frames[index].transitionDurationMs;
             zoomPercent = undefined; // Set for each layer
             profile = undefined; // Set for each layer
+            useTransitionPath = true;
+            reverseTransitionPath = false;
         }
         else if (index === (exports.currentFrameIndex - 1) % sozi.document.frames.length) {
             durationMs = sozi.document.frames[exports.currentFrameIndex].transitionDurationMs;
             zoomPercent = undefined; // Set for each layer
             profile = undefined; // Set for each layer
+            useTransitionPath = true;
+            reverseTransitionPath = true;
         }
         else {
             durationMs = DEFAULT_DURATION_MS;
             zoomPercent = DEFAULT_ZOOM_PERCENT;
             profile = sozi.animation.profiles[DEFAULT_PROFILE];
+            useTransitionPath = false;
+            reverseTransitionPath = false;
         }
 
         sozi.events.fire("sozi.player.cleanup");
@@ -250,7 +258,10 @@ namespace(this, "sozi.player", function (exports, window) {
         playing = true;
         exports.currentFrameIndex = index;
 
-        animator.start(durationMs, getAnimationData(viewPort.cameras, sozi.document.frames[index].states, zoomPercent, profile));
+        animator.start(durationMs, getAnimationData(
+            viewPort.cameras, sozi.document.frames[index].states,
+            zoomPercent, profile,
+            useTransitionPath, reverseTransitionPath));
 
         sozi.events.fire("sozi.player.framechange", index);
     };
@@ -335,7 +346,8 @@ namespace(this, "sozi.player", function (exports, window) {
         sozi.events.fire("sozi.player.cleanup");
         animator.start(DEFAULT_DURATION_MS,
             getAnimationData(viewPort.cameras, viewPort.getDocumentState(),
-                DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]
+                DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE],
+                false, false
             )
         );
     };
@@ -384,7 +396,9 @@ namespace(this, "sozi.player", function (exports, window) {
                 camera.interpolate(
                     this.data[idLayer].initialState,
                     this.data[idLayer].finalState,
-                    this.data[idLayer].profile(progress)
+                    this.data[idLayer].profile(progress),
+                    this.data[idLayer].useTransitionPath,
+                    this.data[idLayer].reverseTransitionPath
                 );
 
                 var ps;
@@ -400,7 +414,7 @@ namespace(this, "sozi.player", function (exports, window) {
 
                 camera.setClipped(this.data[idLayer].finalState.clipped);
             }
-            
+
             viewPort.update();
         },
         
@@ -413,7 +427,14 @@ namespace(this, "sozi.player", function (exports, window) {
          * then we call the waitTimeout method to process the timeout property of the current frame.
          */
         onDone: function () {
+            for (var idLayer in this.data) {
+                viewPort.cameras[idLayer].setAtState(this.data[idLayer].finalState);
+            }
+
+            viewPort.update();
+
             sourceFrameIndex = exports.currentFrameIndex;
+
             if (playing) {
                 waitTimeout();
             }

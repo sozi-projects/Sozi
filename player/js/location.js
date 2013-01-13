@@ -42,7 +42,7 @@ namespace(this, "sozi.location", function (exports, window) {
             index = sozi.document.getFrameIndexForId(indexOrId);
         }
         
-        if(index < 0) {
+        if (index < 0) {
             return 0;
         }
         else if (index >= sozi.document.frames.length) {

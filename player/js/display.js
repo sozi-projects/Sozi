@@ -60,6 +60,9 @@ namespace(this, "sozi.display", function (exports, window) {
             
             // Transition profile
             this.transitionProfile = sozi.animation.profiles.linear;
+            
+            // Transition path
+            this.transitionPath = null;
         },
 
         setCenter: function (cx, cy) {
@@ -101,6 +104,11 @@ namespace(this, "sozi.display", function (exports, window) {
         
         setTransitionProfile: function (profile) {
             this.transitionProfile = profile;
+            return this;
+        },
+        
+        setTransitionPath: function (svgPath) {
+            this.transitionPath = svgPath;
             return this;
         },
         
@@ -158,16 +166,45 @@ namespace(this, "sozi.display", function (exports, window) {
                 .setAngle(other.angle)
                 .setClipped(other.clipped)
                 .setTransitionZoomPercent(other.transitionZoomPercent)
-                .setTransitionProfile(other.transitionProfile);
+                .setTransitionProfile(other.transitionProfile)
+                .setTransitionPath(other.transitionPath);
         },
         
-        interpolatableAttributes: ["cx", "cy", "width", "height", "angle"],
+        interpolatableAttributes: ["width", "height", "angle"],
         
-        interpolate: function (initialState, finalState, ratio) {
+        interpolate: function (initialState, finalState, ratio, useTransitionPath, reverseTransitionPath) {
             var remaining = 1 - ratio;
             for (var i = 0; i < this.interpolatableAttributes.length; i += 1) {
                 var attr = this.interpolatableAttributes[i];
                 this[attr] = finalState[attr] * ratio + initialState[attr] * remaining;
+            }
+
+            var svgPath = reverseTransitionPath ? initialState.transitionPath : finalState.transitionPath;
+console.log(useTransitionPath + " " + reverseTransitionPath + " " + svgPath);            
+            
+            if (useTransitionPath && svgPath) {
+                var pathLength = svgPath.getTotalLength();
+                
+                if (reverseTransitionPath) {
+                    var startPoint = svgPath.getPointAtLength(pathLength);
+                    var endPoint = svgPath.getPointAtLength(0);
+                    var currentPoint = svgPath.getPointAtLength(pathLength * remaining);
+                }
+                else {
+                    var startPoint = svgPath.getPointAtLength(0);
+                    var endPoint = svgPath.getPointAtLength(pathLength);
+                    var currentPoint = svgPath.getPointAtLength(pathLength * ratio);
+                }
+ 
+                var scaleX = (finalState.cx - initialState.cx) / ((endPoint.x - startPoint.x) || 1);
+                var scaleY = (finalState.cy - initialState.cy) / ((endPoint.y - startPoint.y) || 1);
+                    
+                this.cx = initialState.cx + scaleX * (currentPoint.x - startPoint.x);
+                this.cy = initialState.cy + scaleY * (currentPoint.y - startPoint.y);
+            }
+            else {
+                this.cx = finalState.cx * ratio + initialState.cx * remaining;
+                this.cy = finalState.cy * ratio + initialState.cy * remaining;
             }
         }
     });

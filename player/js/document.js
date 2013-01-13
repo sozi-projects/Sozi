@@ -73,9 +73,14 @@ namespace(this, "sozi.document", function (exports, window) {
             state.setTransitionProfile(sozi.animation.profiles[readAttribute(soziElement, "transition-profile")]);
         }
         
+        if (typeof state.transitionPath === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-path")) {
+            var svgPath = document.getElementById(soziElement.getAttributeNS(SOZI_NS, "transition-path"));
+            if (svgPath && svgPath.nodeName === "path") {
+                state.setTransitionPath(svgPath);
+            }
+        }
+        
         if (soziElement.hasAttributeNS(SOZI_NS, "refid")) {
-            // The previous value of the "clip" attribute will be preserved
-            // when setting the new geometry object.
             var svgElement = document.getElementById(soziElement.getAttributeNS(SOZI_NS, "refid"));
             if (svgElement) {
                 if (state.hide) {
@@ -223,7 +228,7 @@ namespace(this, "sozi.document", function (exports, window) {
      * @return The index of the frame with the given id. -1 if not found.
      */
     exports.getFrameIndexForId = function (idFrame) {
-        for (var indexFrame = 0; indexFrame < exports.frames.length; indexFrame ++) {
+        for (var indexFrame = 0; indexFrame < exports.frames.length; indexFrame += 1) {
             if (exports.frames[indexFrame].id === idFrame) {
                 return indexFrame;
             }
