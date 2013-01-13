@@ -231,19 +231,19 @@ namespace(this, "sozi.player", function (exports, window) {
         }
 
         var durationMs, zoomPercent, profile, useTransitionPath, reverseTransitionPath;
-        if (index === (exports.currentFrameIndex + 1) % sozi.document.frames.length) {
-            durationMs = sozi.document.frames[index].transitionDurationMs;
-            zoomPercent = undefined; // Set for each layer
-            profile = undefined; // Set for each layer
-            useTransitionPath = true;
-            reverseTransitionPath = false;
-        }
-        else if (index === (exports.currentFrameIndex - 1) % sozi.document.frames.length) {
+        if (index === (exports.currentFrameIndex - 1) % sozi.document.frames.length) {
             durationMs = sozi.document.frames[exports.currentFrameIndex].transitionDurationMs;
             zoomPercent = undefined; // Set for each layer
             profile = undefined; // Set for each layer
             useTransitionPath = true;
             reverseTransitionPath = true;
+        }
+        else if (index === (exports.currentFrameIndex + 1) % sozi.document.frames.length) {
+            durationMs = sozi.document.frames[index].transitionDurationMs;
+            zoomPercent = undefined; // Set for each layer
+            profile = undefined; // Set for each layer
+            useTransitionPath = true;
+            reverseTransitionPath = false;
         }
         else {
             durationMs = DEFAULT_DURATION_MS;
@@ -427,6 +427,7 @@ namespace(this, "sozi.player", function (exports, window) {
          * then we call the waitTimeout method to process the timeout property of the current frame.
          */
         onDone: function () {
+            console.log("Done");
             for (var idLayer in this.data) {
                 viewPort.cameras[idLayer].setAtState(this.data[idLayer].finalState);
             }

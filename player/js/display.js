@@ -180,8 +180,7 @@ namespace(this, "sozi.display", function (exports, window) {
             }
 
             var svgPath = reverseTransitionPath ? initialState.transitionPath : finalState.transitionPath;
-console.log(useTransitionPath + " " + reverseTransitionPath + " " + svgPath);            
-            
+  console.log(useTransitionPath + " " + reverseTransitionPath + " " + svgPath);
             if (useTransitionPath && svgPath) {
                 var pathLength = svgPath.getTotalLength();
                 
@@ -196,11 +195,8 @@ console.log(useTransitionPath + " " + reverseTransitionPath + " " + svgPath);
                     var currentPoint = svgPath.getPointAtLength(pathLength * ratio);
                 }
  
-                var scaleX = (finalState.cx - initialState.cx) / ((endPoint.x - startPoint.x) || 1);
-                var scaleY = (finalState.cy - initialState.cy) / ((endPoint.y - startPoint.y) || 1);
-                    
-                this.cx = initialState.cx + scaleX * (currentPoint.x - startPoint.x);
-                this.cy = initialState.cy + scaleY * (currentPoint.y - startPoint.y);
+                this.cx = currentPoint.x + (finalState.cx - endPoint.x) * ratio + (initialState.cx - startPoint.x) * remaining;
+                this.cy = currentPoint.y + (finalState.cy - endPoint.y) * ratio + (initialState.cy - startPoint.y) * remaining;
             }
             else {
                 this.cx = finalState.cx * ratio + initialState.cx * remaining;
