@@ -109,7 +109,8 @@ class SoziUserInterface:
             "clip": SoziToggleField(self, "clip", True),
             "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", 0),
             "transition-profile": SoziComboField(self, "transition-profile", profiles, "linear"),
-            "transition-path": SoziTextField(self, "transition-path", None, optional=True)
+            "transition-path": SoziTextField(self, "transition-path", None, optional=True),
+            "transition-path-hide": SoziToggleField(self, "transition-path-hide", True)
         }
         
         self.all_fields = self.frame_fields.copy()
