@@ -32,9 +32,11 @@ namespace(this, "sozi.actions", function (exports, window) {
     var DRAG_BUTTON = 0;    // Left button
     var TOC_BUTTON = 1;     // Middle button
     
-    // Constants: increments for zooming and rotating
+    // Constants: increments for zooming and rotating,
+    // threshold for dragging
     var SCALE_FACTOR = 1.05;
     var ROTATE_STEP = 5;
+    var DRAG_THRESHOLD_PX = 5;
     
     /**
      * The status of the current drag operation.
@@ -154,11 +156,21 @@ namespace(this, "sozi.actions", function (exports, window) {
             return;
         }
         player.stop();
-        mouseDragged = true;
-        sozi.events.fire("sozi.player.cleanup");
-        display.viewPorts["player"].drag(evt.clientX - mouseLastX, evt.clientY - mouseLastY);
-        mouseLastX = evt.clientX;
-        mouseLastY = evt.clientY;
+        
+        // The drag action is confirmed when one of the mouse coordinates
+        // has moved past the threshold
+        if (!mouseDragged && (Math.abs(evt.clientX - mouseLastX) > DRAG_THRESHOLD_PX ||
+                              Math.abs(evt.clientY - mouseLastY) > DRAG_THRESHOLD_PX)) {
+            mouseDragged = true;
+        }
+        
+        if (mouseDragged) {
+            sozi.events.fire("sozi.player.cleanup");
+            display.viewPorts["player"].drag(evt.clientX - mouseLastX, evt.clientY - mouseLastY);
+            mouseLastX = evt.clientX;
+            mouseLastY = evt.clientY;
+        }
+        
         evt.stopPropagation();
     }
 
