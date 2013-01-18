@@ -228,6 +228,9 @@ namespace(this, "sozi.framelist", function (exports, window) {
      * Makes the table of contents visible.
      */
     exports.show = function () {
+        // Bring frame list to front
+        document.documentElement.appendChild(svgTocGroup);
+        
         translateXStart = translateX;
         translateXEnd = translateXVisible;
         animator.start(ANIMATION_TIME_MS); // FIXME depends on current elapsed time
