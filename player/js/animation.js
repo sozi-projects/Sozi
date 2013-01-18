@@ -32,6 +32,12 @@ namespace(this, "sozi.animation", function (exports, window) {
             window.msRequestAnimationFrame ||
             window.oRequestAnimationFrame;
 
+    function getCurrentTime() {
+        return window.performance.now ?
+            window.performance.now() :
+            Date.now();
+    }
+
     /**
      * The default time step.
      *
@@ -67,10 +73,8 @@ namespace(this, "sozi.animation", function (exports, window) {
      *
      * <p>This function can be called either through {@link sozi.animation-requestAnimationFrame}
      * if the browser supports it, or through <code>setInterval()</code>.</p>
-     *
-     * @param {Number} timestamp The current time.
      */
-    function loop(timestamp) {
+    function loop() {
         if (animatorList.length > 0) {
             // If there is at least one animator,
             // and if the browser provides animation frames,
@@ -81,7 +85,10 @@ namespace(this, "sozi.animation", function (exports, window) {
 
             // Step all animators
             animatorList.forEach(function (animator) {
-                animator.step(timestamp);
+                // TODO use timestamp argument:
+                // browser compatibility issue with Date.now()
+                // and performance.now() timestamps.
+                animator.step(getCurrentTime());
             });
         }
         else {
@@ -107,7 +114,7 @@ namespace(this, "sozi.animation", function (exports, window) {
         }
         else {
             timer = window.setInterval(function () {
-                loop(Date.now());
+                loop(getCurrentTime());
             }, TIME_STEP_MS);
         }
     }
@@ -197,9 +204,8 @@ namespace(this, "sozi.animation", function (exports, window) {
         start: function (durationMs, data) {
             this.durationMs = durationMs;
             this.data = data;
-            this.initialTime = Date.now();
+            this.initialTime = getCurrentTime();
             this.onStep(0);
-
             if (!this.started) {
                 this.started = true;
                 addAnimator(this);
@@ -226,10 +232,10 @@ namespace(this, "sozi.animation", function (exports, window) {
          * It calls {@link sozi.animation.Animator.onStep}.
          * If the animation duration has elapsed, {@link sozi.animation.Animator.onDone} is called.</p>
          *
-         * @param {Number} timestamp The current time
+         * @param {Number} currentTime The current time
          */
-        step: function (timestamp) {
-            var elapsedTime = timestamp - this.initialTime;
+        step: function (currentTime) {
+            var elapsedTime = currentTime - this.initialTime;
             if (elapsedTime >= this.durationMs) {
                 this.stop();
                 this.onStep(1);
