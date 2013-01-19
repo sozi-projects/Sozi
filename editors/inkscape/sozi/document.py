@@ -77,7 +77,7 @@ class SoziFrame:
         self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", "linear")
         self.transition_path = read_xml_attr(self.xml, "transition-path", "sozi")
         self.transition_path_hide = read_xml_attr(self.xml, "transition-path-hide", "sozi", True, to_boolean)
-        self.id = read_xml_attr(self.xml, "id", None, document.effect.uniqueId("frame" + unicode(int(time.time() + default_seq) % 10000)))
+        self.id = read_xml_attr(self.xml, "id", None, document.effect.uniqueId("frame%04d" % (int(time.time() + default_seq) % 10000)))
 
         # self.layers is a dict mapping layer group ids with layer objects
         group_attr = inkex.addNS("group", "sozi")
