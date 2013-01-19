@@ -13,6 +13,7 @@ import os
 import sys
 import re
 import inkex
+import time
 
 from version import SOZI_VERSION
 
@@ -87,7 +88,7 @@ def upgrade_document(context):
         if sequence_attr not in elt.attrib:
             elt.set(sequence_attr, unicode(i + 1))
         if "id" not in elt.attrib:
-            elt.set("id", context.uniqueId("frame" + elt.attrib[sequence_attr]))
+            elt.set("id", context.uniqueId("frame" +  unicode(int(time.time() + i) % 10000)))
 
     # Upgrade from 12.x
     href_attr = inkex.addNS("href", "xlink")
