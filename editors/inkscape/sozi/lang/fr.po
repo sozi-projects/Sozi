@@ -8,13 +8,15 @@ msgstr ""
 "Project-Id-Version: Sozi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-13 12:35+0100\n"
-"PO-Revision-Date: 2013-01-13 12:44+0100\n"
+"PO-Revision-Date: 2013-01-13 11:48+0000\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Sozi developers\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-01-19 09:16+0000\n"
+"X-Generator: Launchpad (build 16430)\n"
+"Language: fr\n"
 
 #: editors/inkscape/sozi/document.py:68
 msgid "Untitled"
@@ -295,16 +297,3 @@ msgstr "Liste des modules"
 #: editors/inkscape/sozi/ui.glade:826 editors/inkscape/sozi/ui.glade:842
 msgid "Settings"
 msgstr "Paramètres"
-
-#~ msgid "Create a new frame using the selected '{0}'"
-#~ msgstr "Créer une nouvelle vue en utilisant l'élément '{0}' sélectionné"
-
-#~ msgid "Create a new frame with no SVG element"
-#~ msgstr "Créer une nouvelle vue sans élément SVG"
-
-#~ msgid "Set the boundaries of this frame to the selected '{0}'"
-#~ msgstr ""
-#~ "Définir les limites de cette vue en utilisant l'élément '{0}' sélectionné"
-
-#~ msgid "Modules"
-#~ msgstr "Modules"

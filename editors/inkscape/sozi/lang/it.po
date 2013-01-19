@@ -1,16 +1,16 @@
-# Dutch translation for sozi
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Italian translation for sozi
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the sozi package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-01-13 12:35+0100\n"
-"PO-Revision-Date: 2012-09-24 15:39+0000\n"
-"Last-Translator: Hector A. Mantellini <Unknown>\n"
-"Language-Team: Vaslibre <info@vaslibre.org.ve>\n"
+"PO-Revision-Date: 2013-01-13 17:20+0000\n"
+"Last-Translator: Angelo Raffaele Liso <angeloliso85@gmail.com>\n"
+"Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,127 +19,127 @@ msgstr ""
 
 #: editors/inkscape/sozi/document.py:68
 msgid "Untitled"
-msgstr "Sin título"
+msgstr "Senza titolo"
 
 #: editors/inkscape/sozi/actions.py:72
 msgid "Restore '{0}' in frame {1}"
-msgstr "Restaurar '{0}' en fotograma {1}"
+msgstr "Ripristina '{0}' nel frame {1}"
 
 #: editors/inkscape/sozi/actions.py:73
 msgid "Change '{0}' in frame {1}"
-msgstr "Cambio '{0}' en fotograma {1}"
+msgstr "Cambia '{0}' nel frame {1}"
 
 #: editors/inkscape/sozi/actions.py:78
 msgid "Restore '{0}' in layer '{1}' of frame {2}"
-msgstr "Reestablecer '{0}' en capa'{1}' de fotograma {2}"
+msgstr "Ripristina '{0}' nel livello '{1}' del frame {2}"
 
 #: editors/inkscape/sozi/actions.py:79
 msgid "Change '{0}' in layer '{1}' of frame {2}"
-msgstr "Cambiar '{0}' en capa '{1}' del fotograma {2}"
+msgstr "Cambia '{0}' nel livello '{1}' del frame {2}"
 
 #: editors/inkscape/sozi/actions.py:135
 msgid "Delete the new frame {0}"
-msgstr "Borrar el nuevo fotograma {0}"
+msgstr "Canella il nuovo frame {0}"
 
 #: editors/inkscape/sozi/actions.py:136
 msgid "Create a new frame at {0}"
-msgstr "Crear un nuevo fotograma {0}"
+msgstr "Crea un nuovo frame a {0}"
 
 #: editors/inkscape/sozi/actions.py:179
 msgid "Remove the layer '{0}' from frame {1}"
-msgstr "Eliminar la capa '{0}' del fotograma  {1}"
+msgstr "Cancella il livello '{0}' dal frame {1}"
 
 #: editors/inkscape/sozi/actions.py:180
 msgid "Add layer '{0}' to frame {1}"
-msgstr "Añadir capa '{0}' al fotograma {1}"
+msgstr "Aggiungi livello '{0}' al frame {1}"
 
 #: editors/inkscape/sozi/actions.py:224
 msgid "Restore deleted frame {0}"
-msgstr "Restaurar fotograma eliminado {0}"
+msgstr "Ripristina il frame cancellato {0}"
 
 #: editors/inkscape/sozi/actions.py:225
 msgid "Delete frame {0}"
-msgstr "Borrar fotograma {0}"
+msgstr "Cancella frame {0}"
 
 #: editors/inkscape/sozi/actions.py:269
 msgid "Restore deleted layer '{0}' in frame {1}"
-msgstr "Restaurar capa eliminada '{0}' en el fotograma {1}"
+msgstr "Ripristina il livello cancellato '{0}' nel frame {1}"
 
 #: editors/inkscape/sozi/actions.py:270
 msgid "Remove layer '{0}' from frame {1}"
-msgstr "Eliminar capa '{0}' del fotograma {1}"
+msgstr "Cancella il livello '{0}' dal frame frame {1}"
 
 #: editors/inkscape/sozi/actions.py:314
 msgid "Delete duplicated frame {0}"
-msgstr "Borrar fotograma duplicado"
+msgstr "Cancella il frame duplicato {0}"
 
 #: editors/inkscape/sozi/actions.py:315
 msgid "Duplicate frame {0}"
-msgstr "Fotograma duplicado {0}"
+msgstr "Clona il frame {0}"
 
 #: editors/inkscape/sozi/actions.py:360 editors/inkscape/sozi/actions.py:366
 msgid "Move frame {0} up"
-msgstr "Mover fotograma {0} hacia arriba"
+msgstr "Sposta il frame {0} in alto"
 
 #: editors/inkscape/sozi/actions.py:361 editors/inkscape/sozi/actions.py:365
 msgid "Move frame {0} down"
-msgstr "Mover fotograma {0} hacia abajo"
+msgstr "Sposta il frame {0} giù"
 
 #: editors/inkscape/sozi/ui.py:83
 msgid "Create a new frame or add a layer"
-msgstr "Crear nuevo fotograma o añadir una capa"
+msgstr "Crea un nuovo frame o aggiungi un livello"
 
 #: editors/inkscape/sozi/ui.py:88
 msgid "Add layer '{0}'"
-msgstr "Añadir capa '{0}'"
+msgstr "Aggiungi livello"
 
 #: editors/inkscape/sozi/ui.py:100 editors/inkscape/sozi/ui.glade:180
 msgid "New frame"
-msgstr "Nuevo fotograma"
+msgstr "Nuovo frame"
 
 #: editors/inkscape/sozi/ui.py:101
 msgid "Enabled"
-msgstr "Habilitado"
+msgstr "Attivato"
 
 #: editors/inkscape/sozi/ui.py:101
 msgid "Disabled"
-msgstr "Deshabilitado"
+msgstr "Disabilitato"
 
 #: editors/inkscape/sozi/ui.py:122
 msgid "Constant speed"
-msgstr "Velocidad constante"
+msgstr "Velocità costante"
 
 #: editors/inkscape/sozi/ui.py:123
 msgid "Speed up"
-msgstr "Acelerar"
+msgstr "Accelera in alto"
 
 #: editors/inkscape/sozi/ui.py:124
 msgid "Speed up (strong)"
-msgstr "Acelerar (fuerte)"
+msgstr "Accelera in alto (più veloce)"
 
 #: editors/inkscape/sozi/ui.py:125
 msgid "Speed down"
-msgstr "Desacelerar"
+msgstr "Accelera verso il basso"
 
 #: editors/inkscape/sozi/ui.py:126
 msgid "Speed down (strong)"
-msgstr "Desacelerar (fuerte)"
+msgstr "Rallenta (di molto)"
 
 #: editors/inkscape/sozi/ui.py:127
 msgid "Speed up, then down"
-msgstr "Acelerar, luego hacia abajo"
+msgstr "Accelera in alto, poi in basso"
 
 #: editors/inkscape/sozi/ui.py:128
 msgid "Speed up, then down (strong)"
-msgstr "Acelerar, luego hacia abajo (fuerte)"
+msgstr "Accelera in alto, poi in basso (più veloce)"
 
 #: editors/inkscape/sozi/ui.py:129
 msgid "Speed down, then up"
-msgstr "Desacelerar, luego hacia arriba"
+msgstr "Accelera in basso, poi in alto"
 
 #: editors/inkscape/sozi/ui.py:130
 msgid "Speed down, then up (strong)"
-msgstr "Desacelerar, luego hacia arriba (fuerte)"
+msgstr "Accelera in basso, poi in alto (più veloce)"
 
 #: editors/inkscape/sozi/ui.py:131
 msgid "Immediate (beginning)"
@@ -155,83 +155,83 @@ msgstr ""
 
 #: editors/inkscape/sozi/ui.py:303
 msgid "Delete the selected frame"
-msgstr "Borrar el fotograma seleccionado"
+msgstr "Cancella il frame selezionato"
 
 #: editors/inkscape/sozi/ui.py:328
 msgid "Remove the selected layer"
-msgstr "Eliminar la capa seleccionada"
+msgstr "Rimuovi il livello selezionato"
 
 #: editors/inkscape/sozi/ui.py:610
 msgid "No action to undo"
-msgstr "Ninguna acción para deshacer"
+msgstr "Nessuna azione per annullare"
 
 #: editors/inkscape/sozi/ui.py:616
 msgid "No action to redo"
-msgstr "Ninguna acción para restaurar"
+msgstr "Nessuna azione da ripristinare"
 
 #: editors/inkscape/sozi/ui.glade:65
 msgid "Undo"
-msgstr "Deshacer"
+msgstr "Annulla"
 
 #: editors/inkscape/sozi/ui.glade:81
 msgid "Redo"
-msgstr "Restaurar"
+msgstr "Ripeti"
 
 #: editors/inkscape/sozi/ui.glade:123
 msgid "Seq."
-msgstr "Sec."
+msgstr "Seq."
 
 #: editors/inkscape/sozi/ui.glade:136 editors/inkscape/sozi/ui.glade:327
 msgid "Title"
-msgstr "Título"
+msgstr "Titolo"
 
 #: editors/inkscape/sozi/ui.glade:166
 msgid "Create a new frame"
-msgstr "Crear un nuevo fotograma"
+msgstr "Crea un nuovo frame"
 
 #: editors/inkscape/sozi/ui.glade:167
 msgid "New"
-msgstr "Nuevo"
+msgstr "Nuovo"
 
 #: editors/inkscape/sozi/ui.glade:198
 msgid "Duplicate the selected frame"
-msgstr "Duplicar el fotograma seleccionado"
+msgstr "Duplica il frame selezionato"
 
 #: editors/inkscape/sozi/ui.glade:199
 msgid "Duplicate"
-msgstr "Duplicar"
+msgstr "Duplica"
 
 #: editors/inkscape/sozi/ui.glade:215
 msgid "Delete"
-msgstr "Borrar"
+msgstr "Cancella"
 
 #: editors/inkscape/sozi/ui.glade:231
 msgid "Move the selected frame up"
-msgstr "Mover el fotograma seleccionado hacia arriba"
+msgstr "Muovi la selezione del frame in alto"
 
 #: editors/inkscape/sozi/ui.glade:232
 msgid "Move frame up"
-msgstr "Mover fotograma hacia arriba"
+msgstr "Muovi il frame in alto"
 
 #: editors/inkscape/sozi/ui.glade:248
 msgid "Move the selected frame down"
-msgstr "Mover el fotograma seleccionado hacia abajo"
+msgstr "Muovi il frame selezionato in basso"
 
 #: editors/inkscape/sozi/ui.glade:249
 msgid "Move frame down"
-msgstr "Mover el fotograma hacia abajo"
+msgstr "Muovi il frame in basso"
 
 #: editors/inkscape/sozi/ui.glade:312
 msgid "SVG element"
-msgstr "Elemeto SVG"
+msgstr "Elemento SVG"
 
 #: editors/inkscape/sozi/ui.glade:339
 msgid "Timeout (seconds)"
-msgstr "Intervalo de espera (segundos)"
+msgstr "Timeout (secondi)"
 
 #: editors/inkscape/sozi/ui.glade:371 editors/inkscape/sozi/ui.glade:681
 msgid "Hide"
-msgstr "Ocultar"
+msgstr "Nascondi"
 
 #: editors/inkscape/sozi/ui.glade:387
 msgid "Clip"
@@ -239,19 +239,19 @@ msgstr "Clip"
 
 #: editors/inkscape/sozi/ui.glade:480
 msgid "Set the reference to a selected SVG element"
-msgstr "Ajuste la referencia al elemento SVG seleccionado"
+msgstr "Impostare il collegamento ad un elemento SVG selezionato"
 
 #: editors/inkscape/sozi/ui.glade:481
 msgid "Remove the reference to this SVG element"
-msgstr "Eliminar la referencia al elemento SVG seleccionado"
+msgstr "Cancellare il collegamento ad un elemento SVG selezionato"
 
 #: editors/inkscape/sozi/ui.glade:500
 msgid "<b>Frame properties</b>"
-msgstr "<b>Propiedades del fotograma</b>"
+msgstr "Proprietà del frame"
 
 #: editors/inkscape/sozi/ui.glade:535
 msgid "Duration (seconds)"
-msgstr "Duración (segundos)"
+msgstr "Durata (secondi)"
 
 #: editors/inkscape/sozi/ui.glade:547
 msgid "Zoom (%)"
@@ -259,40 +259,40 @@ msgstr "Zoom (%)"
 
 #: editors/inkscape/sozi/ui.glade:604
 msgid "Profile"
-msgstr "Perfil"
+msgstr "Profilo"
 
 #: editors/inkscape/sozi/ui.glade:638
 msgid "Path"
-msgstr ""
+msgstr "Percorso"
 
 #: editors/inkscape/sozi/ui.glade:657
 msgid "Set the reference to a selected SVG path"
-msgstr ""
+msgstr "Imposta il collegamento di un tracciato SVG selezionato"
 
 #: editors/inkscape/sozi/ui.glade:658
 msgid "Remove the reference to this SVG path"
-msgstr ""
+msgstr "Rimuovi il collegamento di un tracciato SVG selezionato"
 
 #: editors/inkscape/sozi/ui.glade:704
 msgid "<b>Transition to this frame</b>"
-msgstr "<b>Transición a este fotograma</b>"
+msgstr "Transizione a questo frame"
 
 #: editors/inkscape/sozi/ui.glade:745
 msgid "Apply changes and go back to Inkscape"
-msgstr "Aplicar los cambios y volver a Inkscape"
+msgstr "Applica i cambiamenti e torna a Inkscape"
 
 #: editors/inkscape/sozi/ui.glade:763
 msgid "Cancel all changes and go back to Inkscape"
-msgstr "Cancelar todos los cambios y volver a Inkscape"
+msgstr "Cancella tutti i cambiamenti e torna ad Inkscape"
 
 #: editors/inkscape/sozi/ui.glade:802
 msgid "Presentation"
-msgstr "Presentación"
+msgstr "Presentazione"
 
 #: editors/inkscape/sozi/ui.glade:815
 msgid "Modules list"
-msgstr "Lista de módulos"
+msgstr "Elenco moduli"
 
 #: editors/inkscape/sozi/ui.glade:826 editors/inkscape/sozi/ui.glade:842
 msgid "Settings"
-msgstr "Ajustes"
+msgstr "Impostazioni"
