@@ -97,6 +97,7 @@ class SoziUserInterface:
             "immediate-beginning", "immediate-end", "immediate-middle"]
             
         self.frame_fields = {
+            "id": SoziTextField(self, "id", ""),
             "title": SoziTextField(self, "title", _("New frame")),
             "timeout-enable": SoziToggleButtonField(self, "timeout-enable", _("Enabled"), _("Disabled"), False),
             "timeout-ms": SoziSpinButtonField(self, "timeout-ms", 5, factor=1000),
