@@ -33,7 +33,7 @@ namespace(this, "sozi.animation", function (exports, window) {
             window.oRequestAnimationFrame;
 
     function getCurrentTime() {
-        return window.performance.now ?
+        return window.performance && window.performance.now ?
             window.performance.now() :
             Date.now();
     }
