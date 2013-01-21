@@ -41,6 +41,8 @@ def collect(deps, stack, filename):
                     deps[filename].update(deps[depFilename])
                     
         sys.stderr.write("Collected dependencies for file: " + filename + "\n")
+        for d in deps[filename]:
+            sys.stderr.write("  " + d + "\n")
 
         # Remove the current file name from the list of files being processed and close it
         stack.pop()
