@@ -1,4 +1,4 @@
-# German translation for sozi
+# Swedish translation for sozi
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the sozi package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-01-13 12:35+0100\n"
-"PO-Revision-Date: 2013-01-20 17:17+0000\n"
-"Last-Translator: Hachmann <Unknown>\n"
-"Language-Team: German <de@li.org>\n"
+"PO-Revision-Date: 2013-01-19 17:06+0000\n"
+"Last-Translator: jean paldanius <human@jumpz.org>\n"
+"Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,167 +19,167 @@ msgstr ""
 
 #: editors/inkscape/sozi/document.py:68
 msgid "Untitled"
-msgstr "Unbenannt"
+msgstr "Namnlös"
 
 #: editors/inkscape/sozi/actions.py:72
 msgid "Restore '{0}' in frame {1}"
-msgstr "'{0}' in Frame {1} wiederherstellen"
+msgstr "Återställ '{0}' i ram {1}"
 
 #: editors/inkscape/sozi/actions.py:73
 msgid "Change '{0}' in frame {1}"
-msgstr "'{0}' in Frame {1} ändern"
+msgstr "Ändra '{0}' i ram {1}"
 
 #: editors/inkscape/sozi/actions.py:78
 msgid "Restore '{0}' in layer '{1}' of frame {2}"
-msgstr "'{0}' in Ebene '{1}' von Frame {2} wiederherstellen"
+msgstr "Återställ '{0}' i lager '{1}' av ram {2}"
 
 #: editors/inkscape/sozi/actions.py:79
 msgid "Change '{0}' in layer '{1}' of frame {2}"
-msgstr "'{0}' in Ebene '{1}' von Frame {2} ändern"
+msgstr "Ändra '{0}' i lager '{1}' av ram {2}"
 
 #: editors/inkscape/sozi/actions.py:135
 msgid "Delete the new frame {0}"
-msgstr "Den neuen Frame {0} löschen"
+msgstr "Radera den nya ramen {0}"
 
 #: editors/inkscape/sozi/actions.py:136
 msgid "Create a new frame at {0}"
-msgstr "Einen neuen Frame bei {0} erstellen"
+msgstr "Skapa en ny ram på {0}"
 
 #: editors/inkscape/sozi/actions.py:179
 msgid "Remove the layer '{0}' from frame {1}"
-msgstr "Die Ebene '{0}' aus Frame {1} löschen"
+msgstr "Ta bort lagret '{0}' ur ramen {1}"
 
 #: editors/inkscape/sozi/actions.py:180
 msgid "Add layer '{0}' to frame {1}"
-msgstr "Ebene '{0}' zu Frame {1} hinzufügen"
+msgstr "Lägg till lager '{0}' till ramen {1}"
 
 #: editors/inkscape/sozi/actions.py:224
 msgid "Restore deleted frame {0}"
-msgstr "Gelöschten Frame {0} wiederherstellen"
+msgstr "Återställ raderad ram {0}"
 
 #: editors/inkscape/sozi/actions.py:225
 msgid "Delete frame {0}"
-msgstr "Frame {0} löschen"
+msgstr "Radera ram {0}"
 
 #: editors/inkscape/sozi/actions.py:269
 msgid "Restore deleted layer '{0}' in frame {1}"
-msgstr "Gelöschte Ebene '{0}' in Frame {1} wiederherstellen"
+msgstr "Återställ raderat lager '{0}' i ram {1}"
 
 #: editors/inkscape/sozi/actions.py:270
 msgid "Remove layer '{0}' from frame {1}"
-msgstr "Ebene '{0}' aus Frame {1} entfernen"
+msgstr "Ta bort lager '{0}' ur ram {1}"
 
 #: editors/inkscape/sozi/actions.py:314
 msgid "Delete duplicated frame {0}"
-msgstr "Duplizierten Frame {0} löschen"
+msgstr "Ta bort duplicerad ram {0}"
 
 #: editors/inkscape/sozi/actions.py:315
 msgid "Duplicate frame {0}"
-msgstr "Frame {0} duplizieren"
+msgstr "Duplicera ram {0}"
 
 #: editors/inkscape/sozi/actions.py:360 editors/inkscape/sozi/actions.py:366
 msgid "Move frame {0} up"
-msgstr "Frame {0} nach oben verschieben"
+msgstr "Flytta upp ram {0}"
 
 #: editors/inkscape/sozi/actions.py:361 editors/inkscape/sozi/actions.py:365
 msgid "Move frame {0} down"
-msgstr "Frame {0} nach unten verschieben"
+msgstr "Flytta ner ram {0}"
 
 #: editors/inkscape/sozi/ui.py:83
 msgid "Create a new frame or add a layer"
-msgstr "Einen neuen Frame erstellen oder eine Ebene hinzufügen"
+msgstr "Skapa en ny ram eller lägg till ett lager"
 
 #: editors/inkscape/sozi/ui.py:88
 msgid "Add layer '{0}'"
-msgstr "Ebene '{0}' hinzufügen"
+msgstr "Lägg till lager '{0}'"
 
 #: editors/inkscape/sozi/ui.py:100 editors/inkscape/sozi/ui.glade:180
 msgid "New frame"
-msgstr "Neuer Frame"
+msgstr "Ny ram"
 
 #: editors/inkscape/sozi/ui.py:101
 msgid "Enabled"
-msgstr "Aktiviert"
+msgstr "Aktiverad"
 
 #: editors/inkscape/sozi/ui.py:101
 msgid "Disabled"
-msgstr "Deaktiviert"
+msgstr "Inaktiverad"
 
 #: editors/inkscape/sozi/ui.py:122
 msgid "Constant speed"
-msgstr "Gleichbleibende Geschwindigkeit"
+msgstr "Konstant hastighet"
 
 #: editors/inkscape/sozi/ui.py:123
 msgid "Speed up"
-msgstr "Beschleunigen"
+msgstr "Öka fart"
 
 #: editors/inkscape/sozi/ui.py:124
 msgid "Speed up (strong)"
-msgstr "Beschleunigen (stark)"
+msgstr "Öka fart (mycket)"
 
 #: editors/inkscape/sozi/ui.py:125
 msgid "Speed down"
-msgstr "Abbremsen"
+msgstr "Sänk fart"
 
 #: editors/inkscape/sozi/ui.py:126
 msgid "Speed down (strong)"
-msgstr "Abbremsen (stark)"
+msgstr "Sänk fart (mycket)"
 
 #: editors/inkscape/sozi/ui.py:127
 msgid "Speed up, then down"
-msgstr "Erst beschleunigen, dann abbremsen"
+msgstr "Öka fart, sedan sänk"
 
 #: editors/inkscape/sozi/ui.py:128
 msgid "Speed up, then down (strong)"
-msgstr "Erst beschleunigen, dann abbremsen (stark)"
+msgstr "Öka fart, sedan sänk (mycket)"
 
 #: editors/inkscape/sozi/ui.py:129
 msgid "Speed down, then up"
-msgstr "Erst abbremsen, dann beschleunigen"
+msgstr "Sänk fart, sedan öka"
 
 #: editors/inkscape/sozi/ui.py:130
 msgid "Speed down, then up (strong)"
-msgstr "Erst abbremsen, dann beschleunigen (stark)"
+msgstr "Sänk fart, sedan öka (mycket)"
 
 #: editors/inkscape/sozi/ui.py:131
 msgid "Immediate (beginning)"
-msgstr "Sofort (Anfang)"
+msgstr "Omedelbart (början)"
 
 #: editors/inkscape/sozi/ui.py:132
 msgid "Immediate (end)"
-msgstr "Sofort (Ende)"
+msgstr "Omedelbart (slutet)"
 
 #: editors/inkscape/sozi/ui.py:133
 msgid "Immediate (middle)"
-msgstr "Sofort (Mitte)"
+msgstr "Omedelbart (mitten)"
 
 #: editors/inkscape/sozi/ui.py:303
 msgid "Delete the selected frame"
-msgstr "Den ausgewählten Frame löschen"
+msgstr "Radera den valda ramen"
 
 #: editors/inkscape/sozi/ui.py:328
 msgid "Remove the selected layer"
-msgstr "Die ausgewählte Ebene löschen"
+msgstr "Ta bort det valda lagret"
 
 #: editors/inkscape/sozi/ui.py:610
 msgid "No action to undo"
-msgstr "Keine Aktion vorhanden, die rückgängig gemacht werden könnte"
+msgstr "\"Ångra\" ej tillgängligt"
 
 #: editors/inkscape/sozi/ui.py:616
 msgid "No action to redo"
-msgstr "Keine Aktion vorhanden, die wiederholt werden könnte"
+msgstr "\"Upprepa\" ej tillgängligt"
 
 #: editors/inkscape/sozi/ui.glade:65
 msgid "Undo"
-msgstr "Rückgängig"
+msgstr "Ångra"
 
 #: editors/inkscape/sozi/ui.glade:81
 msgid "Redo"
-msgstr "Wiederholen"
+msgstr "Upprepa"
 
 #: editors/inkscape/sozi/ui.glade:123
 msgid "Seq."
-msgstr "Seq."
+msgstr "Sek."
 
 #: editors/inkscape/sozi/ui.glade:136 editors/inkscape/sozi/ui.glade:327
 msgid "Title"
@@ -187,71 +187,71 @@ msgstr "Titel"
 
 #: editors/inkscape/sozi/ui.glade:166
 msgid "Create a new frame"
-msgstr "Neuen Frame erstellen"
+msgstr "Skapa en ny ram"
 
 #: editors/inkscape/sozi/ui.glade:167
 msgid "New"
-msgstr "Neu"
+msgstr "Skapa"
 
 #: editors/inkscape/sozi/ui.glade:198
 msgid "Duplicate the selected frame"
-msgstr "Den ausgewählten Frame duplizieren"
+msgstr "Duplicera den valda ramen"
 
 #: editors/inkscape/sozi/ui.glade:199
 msgid "Duplicate"
-msgstr "Duplizieren"
+msgstr "Duplicera"
 
 #: editors/inkscape/sozi/ui.glade:215
 msgid "Delete"
-msgstr "Löschen"
+msgstr "Radera"
 
 #: editors/inkscape/sozi/ui.glade:231
 msgid "Move the selected frame up"
-msgstr "Den ausgwählten Frame nach oben anheben"
+msgstr "Flytta upp den valda ramen"
 
 #: editors/inkscape/sozi/ui.glade:232
 msgid "Move frame up"
-msgstr "Frame nach oben anheben"
+msgstr "Flytta upp ram"
 
 #: editors/inkscape/sozi/ui.glade:248
 msgid "Move the selected frame down"
-msgstr "Den ausgewählten Frame nach unten absenken"
+msgstr "Flytta ner den valda ramen"
 
 #: editors/inkscape/sozi/ui.glade:249
 msgid "Move frame down"
-msgstr "Frame nach unten absenken"
+msgstr "Flytta ner ramen"
 
 #: editors/inkscape/sozi/ui.glade:312
 msgid "SVG element"
-msgstr "SVG-Element"
+msgstr "SVG element"
 
 #: editors/inkscape/sozi/ui.glade:339
 msgid "Timeout (seconds)"
-msgstr "Dauer (Sekunden)"
+msgstr "Timeout (sekunder)"
 
 #: editors/inkscape/sozi/ui.glade:371 editors/inkscape/sozi/ui.glade:681
 msgid "Hide"
-msgstr "Verbergen"
+msgstr "Dölj"
 
 #: editors/inkscape/sozi/ui.glade:387
 msgid "Clip"
-msgstr "Beschneiden"
+msgstr "Beskär"
 
 #: editors/inkscape/sozi/ui.glade:480
 msgid "Set the reference to a selected SVG element"
-msgstr "Referenz auf ein ausgewähltes SVG-Element setzen"
+msgstr "Skapa en referens till ett valt SVG element"
 
 #: editors/inkscape/sozi/ui.glade:481
 msgid "Remove the reference to this SVG element"
-msgstr "Die Referenz zu diesem SVG-Element entfernen"
+msgstr "Ta bort referensen till detta SVG element"
 
 #: editors/inkscape/sozi/ui.glade:500
 msgid "<b>Frame properties</b>"
-msgstr "<b>Frame-Eigenschaften</b>"
+msgstr "<b>Ram-egenskaper</b>"
 
 #: editors/inkscape/sozi/ui.glade:535
 msgid "Duration (seconds)"
-msgstr "Dauer (Sekunden)"
+msgstr "Löptid (sekunder)"
 
 #: editors/inkscape/sozi/ui.glade:547
 msgid "Zoom (%)"
@@ -263,36 +263,36 @@ msgstr "Profil"
 
 #: editors/inkscape/sozi/ui.glade:638
 msgid "Path"
-msgstr "Pfad"
+msgstr "Sökväg"
 
 #: editors/inkscape/sozi/ui.glade:657
 msgid "Set the reference to a selected SVG path"
-msgstr "Referenz auf einen ausgewählten SVG-Pfad setzen"
+msgstr "Skapa referens till en vald SVG sökväg"
 
 #: editors/inkscape/sozi/ui.glade:658
 msgid "Remove the reference to this SVG path"
-msgstr "Die Referenz zu diesem SVG-Pfad entfernen"
+msgstr "Ta bort referensen till denna SVG sökväg"
 
 #: editors/inkscape/sozi/ui.glade:704
 msgid "<b>Transition to this frame</b>"
-msgstr "Übergang auf diesen Frame"
+msgstr "<b>Övergång till denna ram</b>"
 
 #: editors/inkscape/sozi/ui.glade:745
 msgid "Apply changes and go back to Inkscape"
-msgstr "Änderungen anwenden und zu Inkscape zurückkehren"
+msgstr "Genomför ändringarna och gå tillbaka till Inkscape"
 
 #: editors/inkscape/sozi/ui.glade:763
 msgid "Cancel all changes and go back to Inkscape"
-msgstr "Alle Änderungen verwerfen und zu Inkscape zurückkehren"
+msgstr "Avbryt och återgå till Inkscape utan att spara ändringar"
 
 #: editors/inkscape/sozi/ui.glade:802
 msgid "Presentation"
-msgstr "Präsentation"
+msgstr "Presentation"
 
 #: editors/inkscape/sozi/ui.glade:815
 msgid "Modules list"
-msgstr "Modulliste"
+msgstr "Modul-lista"
 
 #: editors/inkscape/sozi/ui.glade:826 editors/inkscape/sozi/ui.glade:842
 msgid "Settings"
-msgstr "Einstellungen"
+msgstr "Inställningar"
