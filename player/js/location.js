@@ -20,9 +20,18 @@ namespace(this, "sozi.location", function (exports, window) {
     "use strict";
     
     var changedFromWithin = false;
-    
+
     /*
      * Returns the frame index corresponding to the URL hash.
+     *
+     * This is a shortcut for sozi.location.getFrameIndexForHash(window.location.hash)
+     */
+    exports.getFrameIndex = function () {
+        return exports.getFrameIndexForHash(window.location.hash);
+    };
+    
+    /*
+     * Returns the frame index corresponding to the given URL hash.
      *
      * The URL hash can be either a frame index or a frame id.
      * In the URL, the frame index starts a 1.
@@ -32,8 +41,8 @@ namespace(this, "sozi.location", function (exports, window) {
      * It the URL hash is an integer greater than the last frame index, then
      * the last frame index is returned.
      */
-    exports.getFrameIndex = function () {
-        var indexOrId = window.location.hash ? window.location.hash.slice(1) : "1";
+    exports.getFrameIndexForHash = function (hash) {
+        var indexOrId = hash ? hash.slice(1) : "1";
         var index;
         if (/^[0-9]+$/.test(indexOrId)) {
             index = parseInt(indexOrId, 10) - 1;

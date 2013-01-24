@@ -6,4 +6,5 @@
     @depend display.js
     @depend document.js
     @depend location.js
+    @depend links.js
 */
