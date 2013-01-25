@@ -10,7 +10,7 @@ def usage():
 
 DEP_RE = re.compile("@depend\s*([a-zA-Z0-9./_-]+)")
 
-def collect(deps, stack, filename):
+def collect(scores, stack, filename):
     try:
         # Open the current file and add it to the list of files being processed
         file = open(filename, "r")
@@ -20,9 +20,9 @@ def collect(deps, stack, filename):
         # This path will be used to compute the full paths of file names in @depend directives.
         dirname = os.path.dirname(filename)
         
-        # Initialize the dependencies of the current file as an empty set
-        deps[filename] = set()
-                
+        # Initialize the score of the current file as if it had no dependency
+        scores[filename] = 0
+
         # Read the current file line by line
         for line in file:
             # Process all @depend directives on the current line
@@ -34,11 +34,10 @@ def collect(deps, stack, filename):
                     sys.stderr.write("Circular dependency on files: " + filename + " " + depFilename)
                 else:
                     # If needed, collect the dependencies of the target file
-                    if depFilename not in deps:
-                        collect(deps, stack, depFilename)
-                    # Add the target file and its dependencies to the dependencies of the current file
-                    deps[filename].add(depFilename)
-                    deps[filename].update(deps[depFilename])
+                    if depFilename not in scores:
+                        collect(scores, stack, depFilename)
+                    if scores[depFilename] >= scores[filename]:
+                        scores[filename] = scores[depFilename] + 1;
                     
         sys.stderr.write("Collected dependencies for file: " + filename + "\n")
 
@@ -49,36 +48,22 @@ def collect(deps, stack, filename):
         sys.stderr.write("I/O error on file: " + filename + "\n")            
     
 
-# This function is used for sorting two file names according to their dependencies.
-#   - If f depends from g, g will come first.
-#   - If g depends from f, f will come first.
-#   - If f and g have no dependency relationship, no ordering will be specified.    
-def depends(deps, f, g):
-    if g in deps[f]:
-        return 1
-    elif f in deps[g]:
-        return -1
-    else:
-        return 0
-
-
 # Collect all dependencies from a root file and print the resulting
 # file list ordered according to their dependencies.
 def run(rootFilename):
-    # A dictionary where keys are file names and values are sets
-    # of file names.
-    deps = {}
-    
+    # A dictionary where keys are file names and values
+    # are the depth of each file in the dependency tree
+    scores = {}
+
     # A stack of file names indicating which files are being processed
     stack = []
     
     # Collect dependencies from the given root file
-    collect(deps, stack, rootFilename)
+    collect(scores, stack, rootFilename)
 
     # Print the file list, sorted according to their dependencies
-    fileList = sorted(deps.keys(), lambda f,g: depends(deps, f, g))
-    for f in fileList:
-        print(f)
+    for filename, score in sorted(scores.iteritems(), key=lambda (k, v): (v, k)):
+        print(filename)
 
 
 if __name__ == "__main__":
