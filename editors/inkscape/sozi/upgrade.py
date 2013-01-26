@@ -88,7 +88,10 @@ def upgrade_document(context):
         if sequence_attr not in elt.attrib:
             elt.set(sequence_attr, unicode(i + 1))
         if "id" not in elt.attrib:
-            elt.set("id", context.uniqueId("frame%04d" % (int(time.time() + i) % 10000)))
+            id_suffix = (int(time.time()) + i) % 10000
+            if id_suffix < 1000:
+                id_suffix += 1000
+            elt.set("id", context.uniqueId("frame%04d" % id_suffix))
 
     # Upgrade from 12.x
     href_attr = inkex.addNS("href", "xlink")
