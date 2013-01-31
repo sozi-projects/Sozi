@@ -1,0 +1,96 @@
+#!/bin/bash
+# This tools wrap the minifier call
+# Usage :
+#  ./minifier.sh minifier_path output_file input_file 
+# Arguments
+#  minifier path is the path to the minifier to use
+#  output_file is the resulting file
+#  input_file is the input file
+
+if [ $# -ne 3 ]
+then
+  echo "Usage: $0 minifier_path output_file input_file"
+  exit 65 # E_BADARGS=65
+fi
+
+# minifier
+minifier=$1
+# output filename
+output=$2
+# input filenames
+input=$3
+
+# the input filetype
+input_ext=${input##*.}
+
+# This piece of code manage js dependencies
+check_deps()
+{
+  dirname=`dirname $1`
+  for file in `grep '@depend' $1 | sed -e 's/^.*@depend \(.*\)$/\1/g'`
+  do
+    if [[ "$inputs" != *"$file"* ]]
+    then
+        inputs="$inputs $dirname/$file"
+        check_deps $dirname/$file
+    fi
+  done
+}
+inputs=${input}
+check_deps ${inputs}
+inputs_cat="inputs_cat.${input_ext}"
+cat ${inputs} > ${inputs_cat}
+
+# This code delegate the minifing process
+#echo -n "Will minify (${inputs}) into ${output} with " 
+
+case $minifier in
+
+  *yuicompressor*)
+
+    #echo "yuicompressor (${minifier})"
+    ${minifier} -o ${output} ${inputs_cat}
+    ;;
+
+  *juicer*)
+
+    #echo "juicer (${minifier})"
+    ${minifier} merge --skip-verification --force --output ${output} ${input}
+    ;;
+
+  *uglifyjs*)
+
+    #echo "uglifyjs (${minifier})" 
+    ${minifier} --compress --mangle ${inputs_cat} > ${output}
+    ;;
+
+  sed) 
+
+    #echo "sed" 
+    sed \
+    -e "s|/\*\(\\\\\)\?\*/|/~\1~/|g" \
+    -e "s|/\*[^*]*\*\+\([^/][^*]*\*\+\)*/||g" \
+    -e "s|\([^:/]\)//.*$|\1|" \
+    -e "s|^//.*$||" \
+    ${inputs_cat} \
+    | \
+    tr '\n' ' ' \
+    | \
+    sed \
+    -e "s|/\*[^*]*\*\+\([^/][^*]*\*\+\)*/||g" \
+    -e "s|/\~\(\\\\\)\?\~/|/*\1*/|g" \
+    -e "s|\s\+| |g" \
+    -e "s| \([{;:,]\)|\1|g" \
+    -e "s|\([{;:,]\) |\1|g" \
+    > ${output}
+    ;;
+
+  *)
+
+    #echo "cat" 
+    cat ${inputs_cat} > ${output}
+    ;;
+
+esac
+
+rm ${inputs_cat}
