@@ -18,7 +18,7 @@ else()
     set(SOZI_VERSION 000000)
 endif()
 
-#message(STATUS "SOZI_VERSION=${SOZI_VERSION}")
+message(STATUS "SOZI_VERSION=${SOZI_VERSION}")
 
 ################################################################################
 ### Recurse to subfolders
