@@ -300,7 +300,7 @@
                                           <object class="GtkTable" id="table1">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="n_rows">5</property>
+                                            <property name="n_rows">6</property>
                                             <property name="n_columns">2</property>
                                             <property name="column_spacing">12</property>
                                             <property name="row_spacing">3</property>
@@ -309,7 +309,7 @@
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <property name="xalign">1</property>
-                                                <property name="label" translatable="yes">SVG element</property>
+                                                <property name="label" translatable="yes">Boundary</property>
                                                 <property name="justify">right</property>
                                               </object>
                                               <packing>
@@ -340,8 +340,8 @@
                                                 <property name="justify">right</property>
                                               </object>
                                               <packing>
-                                                <property name="top_attach">4</property>
-                                                <property name="bottom_attach">5</property>
+                                                <property name="top_attach">5</property>
+                                                <property name="bottom_attach">6</property>
                                                 <property name="x_options">GTK_FILL</property>
                                               </packing>
                                             </child>
@@ -368,7 +368,7 @@
                                                 <property name="spacing">10</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="hide-field">
-                                                    <property name="label" translatable="yes">Hide</property>
+                                                    <property name="label" translatable="yes">Hide boundary element</property>
                                                     <property name="use_action_appearance">False</property>
                                                     <property name="visible">True</property>
                                                     <property name="sensitive">False</property>
@@ -384,7 +384,7 @@
                                                 </child>
                                                 <child>
                                                   <object class="GtkCheckButton" id="clip-field">
-                                                    <property name="label" translatable="yes">Clip</property>
+                                                    <property name="label" translatable="yes">Clip this frame</property>
                                                     <property name="use_action_appearance">False</property>
                                                     <property name="visible">True</property>
                                                     <property name="sensitive">False</property>
@@ -451,8 +451,8 @@
                                               <packing>
                                                 <property name="left_attach">1</property>
                                                 <property name="right_attach">2</property>
-                                                <property name="top_attach">4</property>
-                                                <property name="bottom_attach">5</property>
+                                                <property name="top_attach">5</property>
+                                                <property name="bottom_attach">6</property>
                                               </packing>
                                             </child>
                                             <child>
@@ -477,7 +477,7 @@
                                                 <property name="secondary_icon_activatable">True</property>
                                                 <property name="primary_icon_sensitive">False</property>
                                                 <property name="secondary_icon_sensitive">False</property>
-                                                <property name="primary_icon_tooltip_text" translatable="yes">Set the reference to a selected SVG element</property>
+                                                <property name="primary_icon_tooltip_text" translatable="yes">Use a selected SVG element to set the boundary of this frame</property>
                                                 <property name="secondary_icon_tooltip_text" translatable="yes">Remove the reference to this SVG element</property>
                                                 <signal name="icon-press" handler="on_refid_icon_clicked" swapped="no"/>
                                               </object>
@@ -516,6 +516,40 @@
                                                 <property name="top_attach">1</property>
                                                 <property name="bottom_attach">2</property>
                                                 <property name="x_options">GTK_FILL</property>
+                                              </packing>
+                                            </child>
+                                            <child>
+                                              <object class="GtkLabel" id="clip-path-label">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="xalign">1</property>
+                                                <property name="label" translatable="yes">Custom clip path</property>
+                                              </object>
+                                              <packing>
+                                                <property name="top_attach">4</property>
+                                                <property name="bottom_attach">5</property>
+                                                <property name="x_options">GTK_FILL</property>
+                                              </packing>
+                                            </child>
+                                            <child>
+                                              <object class="GtkEntry" id="clip-path-field">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">True</property>
+                                                <property name="invisible_char">●</property>
+                                                <property name="primary_icon_stock">gtk-paste</property>
+                                                <property name="secondary_icon_stock">gtk-clear</property>
+                                                <property name="primary_icon_activatable">True</property>
+                                                <property name="secondary_icon_activatable">True</property>
+                                                <property name="primary_icon_sensitive">False</property>
+                                                <property name="secondary_icon_sensitive">False</property>
+                                                <property name="primary_icon_tooltip_text" translatable="yes">Use a selected SVG element as a clip path for this frame</property>
+                                                <property name="secondary_icon_tooltip_text" translatable="yes">Remove the reference to this SVG element</property>
+                                              </object>
+                                              <packing>
+                                                <property name="left_attach">1</property>
+                                                <property name="right_attach">2</property>
+                                                <property name="top_attach">4</property>
+                                                <property name="bottom_attach">5</property>
                                               </packing>
                                             </child>
                                           </object>
@@ -684,8 +718,8 @@
                                                 <property name="secondary_icon_activatable">True</property>
                                                 <property name="primary_icon_sensitive">False</property>
                                                 <property name="secondary_icon_sensitive">False</property>
-                                                <property name="primary_icon_tooltip_text" translatable="yes">Set the reference to a selected SVG path</property>
-                                                <property name="secondary_icon_tooltip_text" translatable="yes">Remove the reference to this SVG path</property>
+                                                <property name="primary_icon_tooltip_text" translatable="yes">Use a selected SVG element as a transition path to this frame</property>
+                                                <property name="secondary_icon_tooltip_text" translatable="yes">Remove the reference to this SVG element</property>
                                                 <signal name="icon-press" handler="on_transition_path_icon_clicked" swapped="no"/>
                                               </object>
                                               <packing>
@@ -708,7 +742,7 @@
                                             </child>
                                             <child>
                                               <object class="GtkCheckButton" id="transition-path-hide-field">
-                                                <property name="label" translatable="yes">Hide</property>
+                                                <property name="label" translatable="yes">Hide transition path</property>
                                                 <property name="use_action_appearance">False</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">True</property>
