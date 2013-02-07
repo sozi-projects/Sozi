@@ -544,6 +544,7 @@
                                                 <property name="secondary_icon_sensitive">False</property>
                                                 <property name="primary_icon_tooltip_text" translatable="yes">Use a selected SVG element as a clip path for this frame</property>
                                                 <property name="secondary_icon_tooltip_text" translatable="yes">Remove the reference to this SVG element</property>
+                                                <signal name="icon-press" handler="on_clip_path_icon_clicked" swapped="no"/>
                                               </object>
                                               <packing>
                                                 <property name="left_attach">1</property>

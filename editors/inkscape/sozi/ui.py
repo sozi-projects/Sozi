@@ -60,6 +60,7 @@ class SoziUserInterface:
             "on_up_button_clicked":             self.on_move_frame_up,
             "on_down_button_clicked":           self.on_move_frame_down,
             "on_refid_icon_clicked":            self.on_set_clear_refid,
+            "on_clip_path_icon_clicked":        self.on_set_clear_clip_path,
             "on_transition_path_icon_clicked":  self.on_set_clear_transition_path,
             "on_ok_button_clicked":             self.on_save,
             "on_cancel_button_clicked":         gtk.main_quit
@@ -108,6 +109,7 @@ class SoziUserInterface:
             "refid": SoziTextField(self, "refid", None, optional=True),
             "hide": SoziToggleField(self, "hide", True),
             "clip": SoziToggleField(self, "clip", True),
+            "clip-path": SoziTextField(self, "clip-path", None, optional=True),
             "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", 0),
             "transition-profile": SoziComboField(self, "transition-profile", profiles, "linear"),
             "transition-path": SoziTextField(self, "transition-path", None, optional=True),
@@ -284,6 +286,10 @@ class SoziUserInterface:
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, False)
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, False)
 
+        clip_path_field = self.builder.get_object("clip-path-field")
+        clip_path_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, False)
+        clip_path_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, False)
+
         transition_path_field = self.builder.get_object("transition-path-field")
         transition_path_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, False)
         transition_path_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, False)
@@ -306,6 +312,10 @@ class SoziUserInterface:
         refid_field = self.builder.get_object("refid-field")
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(frame.refid))
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, frame.refid is not None)
+
+        clip_path_field = self.builder.get_object("clip-path-field")
+        clip_path_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(frame.clip_path))
+        clip_path_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, frame.clip_path is not None)
 
         transition_path_field = self.builder.get_object("transition-path-field")
         transition_path_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(frame.transition_path))
@@ -331,6 +341,10 @@ class SoziUserInterface:
         refid_field = self.builder.get_object("refid-field")
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(layer.refid))
         refid_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, False)
+
+        clip_path_field = self.builder.get_object("clip-path-field")
+        clip_path_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(layer.clip_path))
+        clip_path_field.set_icon_sensitive(gtk.ENTRY_ICON_SECONDARY, False)
 
         transition_path_field = self.builder.get_object("transition-path-field")
         transition_path_field.set_icon_sensitive(gtk.ENTRY_ICON_PRIMARY, self.model.has_other_selected_id(layer.transition_path))
@@ -467,6 +481,17 @@ class SoziUserInterface:
         elif icon_pos == gtk.ENTRY_ICON_SECONDARY:
             self.all_fields["refid"].set_value(None)
             self.all_fields["refid"].write_if_needed()
+            
+
+    def on_set_clear_clip_path(self, widget, icon_pos, event):
+        """
+        Event handler: click on button "Paste" or "Clear" refid.
+        """
+        if icon_pos == gtk.ENTRY_ICON_PRIMARY:
+            self.show_selected_ids_menu(event, "clip-path")
+        elif icon_pos == gtk.ENTRY_ICON_SECONDARY:
+            self.all_fields["clip-path"].set_value(None)
+            self.all_fields["clip-path"].write_if_needed()
             
 
     def on_set_clear_transition_path(self, widget, icon_pos, event):

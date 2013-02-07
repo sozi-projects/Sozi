@@ -70,6 +70,7 @@ class SoziFrame:
         self.sequence = read_xml_attr(self.xml, "sequence", "sozi", default_seq, int)
         self.hide = read_xml_attr(self.xml, "hide", "sozi", True, to_boolean)
         self.clip = read_xml_attr(self.xml, "clip", "sozi", True, to_boolean)
+        self.clip_path = read_xml_attr(self.xml, "clip-path", "sozi")
         self.timeout_enable = read_xml_attr(self.xml, "timeout-enable", "sozi", False, to_boolean)
         self.timeout_ms = read_xml_attr(self.xml, "timeout-ms", "sozi", 5000, float)
         self.transition_duration_ms = read_xml_attr(self.xml, "transition-duration-ms", "sozi", 1000, float)
@@ -98,6 +99,7 @@ class SoziFrame:
         result.title = self.title
         result.hide = self.hide
         result.clip = self.clip
+        result.clip_path = self.clip_path
         result.timeout_enable = self.timeout_enable
         result.timeout_ms = self.timeout_ms
         result.transition_duration_ms = self.transition_duration_ms
@@ -150,6 +152,7 @@ class SoziFrame:
             write_xml_attr(self.xml, "sequence", "sozi", unicode(self.sequence))
             write_xml_attr(self.xml, "hide", "sozi", "true" if self.hide else "false")
             write_xml_attr(self.xml, "clip", "sozi", "true" if self.clip else "false")
+            write_xml_attr(self.xml, "clip-path", "sozi", self.clip_path) # Optional
             write_xml_attr(self.xml, "timeout-enable", "sozi", "true" if self.timeout_enable else "false")
             write_xml_attr(self.xml, "timeout-ms", "sozi", unicode(self.timeout_ms))
             write_xml_attr(self.xml, "transition-duration-ms", "sozi", unicode(self.transition_duration_ms))
@@ -188,6 +191,7 @@ class SoziLayer:
         # Missing attributes are inherited from the enclosing frame element
         self.hide = read_xml_attr(self.xml, "hide", "sozi", frame.hide, to_boolean)
         self.clip = read_xml_attr(self.xml, "clip", "sozi", frame.clip, to_boolean)
+        self.clip_path = read_xml_attr(self.xml, "clip-path", "sozi", frame.clip_path)
         self.transition_zoom_percent = read_xml_attr(self.xml, "transition-zoom-percent", "sozi", frame.transition_zoom_percent, float)
         self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", frame.transition_profile)
         self.transition_path = read_xml_attr(self.xml, "transition-path", "sozi", frame.transition_path)
@@ -208,6 +212,7 @@ class SoziLayer:
         result.refid = self.refid
         result.hide = self.hide
         result.clip = self.clip
+        result.clip_path = self.clip_path
         result.transition_zoom_percent = self.transition_zoom_percent
         result.transition_profile = self.transition_profile
         result.transition_path = self.transition_path
@@ -235,6 +240,7 @@ class SoziLayer:
             write_xml_attr(self.xml, "refid", "sozi", self.refid)
             write_xml_attr(self.xml, "hide", "sozi", "true" if self.hide else "false")
             write_xml_attr(self.xml, "clip", "sozi", "true" if self.clip else "false")
+            write_xml_attr(self.xml, "clip-path", "sozi", self.clip_path)
             write_xml_attr(self.xml, "transition-zoom-percent", "sozi", unicode(self.transition_zoom_percent))
             write_xml_attr(self.xml, "transition-profile", "sozi", self.transition_profile)
             write_xml_attr(self.xml, "transition-path", "sozi", self.transition_path)
