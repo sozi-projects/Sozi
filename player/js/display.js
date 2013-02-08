@@ -55,6 +55,9 @@ namespace(this, "sozi.display", function (exports, window) {
             // Clipping
             this.clipped = true;
             
+            // Clip path
+            this.clipPath = null;
+
             // Transition zoom
             this.transitionZoomPercent = 0;
             
@@ -79,6 +82,11 @@ namespace(this, "sozi.display", function (exports, window) {
         
         setClipped: function (clipped) {
             this.clipped = clipped;
+            return this;
+        },
+        
+        setClipPath: function (svgPath) {
+            this.clipPath = svgPath;
             return this;
         },
         
@@ -165,6 +173,7 @@ namespace(this, "sozi.display", function (exports, window) {
                 .setSize(other.width, other.height)
                 .setAngle(other.angle)
                 .setClipped(other.clipped)
+                .setClipPath(other.clipPath)
                 .setTransitionZoomPercent(other.transitionZoomPercent)
                 .setTransitionProfile(other.transitionProfile)
                 .setTransitionPath(other.transitionPath);
@@ -211,13 +220,20 @@ namespace(this, "sozi.display", function (exports, window) {
             this.viewPort = viewPort;
             
             // Clipping rectangle
+            var svgDefs = document.createElementNS(SVG_NS, "defs");
+            viewPort.svgGroup.appendChild(svgDefs);
+            
             this.svgClipRect = document.createElementNS(SVG_NS, "rect");
+            this.svgClipRect.setAttribute("id", "sozi-clip-rect-" + viewPort.id + "-" + idLayer);
+            svgDefs.appendChild(this.svgClipRect);
         
-            // Clipping path
             var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
             svgClipPath.setAttribute("id", "sozi-clip-path-" + viewPort.id + "-" + idLayer);
-            svgClipPath.appendChild(this.svgClipRect);
-            viewPort.svgGroup.appendChild(svgClipPath);
+            svgDefs.appendChild(svgClipPath);
+            
+            this.svgUseClipPath = document.createElementNS(SVG_NS, "use");
+            this.svgUseClipPath.setAttributeNS(XLINK_NS, "href", "#sozi-clip-rect-" + viewPort.id + "-" + idLayer);
+            svgClipPath.appendChild(this.svgUseClipPath);
 
             // The group that will support the clipping operation
             var svgClippedGroup = document.createElementNS(SVG_NS, "g");
@@ -280,10 +296,17 @@ namespace(this, "sozi.display", function (exports, window) {
             var y = (this.viewPort.height - height) / 2;
 
             // Adjust the location and size of the clipping rectangle and the frame rectangle
-            this.svgClipRect.setAttribute("x", this.clipped ? x : 0);
-            this.svgClipRect.setAttribute("y", this.clipped ? y : 0);
-            this.svgClipRect.setAttribute("width",  this.clipped ? width  : this.viewPort.width);
-            this.svgClipRect.setAttribute("height", this.clipped ? height : this.viewPort.height);
+            if (!this.clipPath) {
+                this.svgUseClipPath.setAttributeNS(XLINK_NS, "href", "#" + this.svgClipRect.getAttribute("id"));
+                this.svgClipRect.setAttribute("x", this.clipped ? x : 0);
+                this.svgClipRect.setAttribute("y", this.clipped ? y : 0);
+                this.svgClipRect.setAttribute("width",  this.clipped ? width  : this.viewPort.width);
+                this.svgClipRect.setAttribute("height", this.clipped ? height : this.viewPort.height);
+            }
+            else {
+                this.svgUseClipPath.setAttributeNS(XLINK_NS, "href", "#" + this.clipPath.getAttribute("id"));
+                // FIXME move the clip path object to a defs element outside of the current group
+            }
                     
             // Compute and apply the geometrical transformation to the layer group
             var translateX = -this.cx + this.width / 2  + x / scale;

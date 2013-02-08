@@ -70,6 +70,14 @@ namespace(this, "sozi.document", function (exports, window) {
             state.setTransitionProfile(sozi.animation.profiles[readAttribute(soziElement, "transition-profile")]);
         }
         
+        if (typeof state.clipPath === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "clip-path")) {
+            var svgPath = document.getElementById(soziElement.getAttributeNS(SOZI_NS, "clip-path"));
+            if (svgPath && svgPath.nodeName === "path") {
+                state.setClipPath(svgPath);
+                svgPath.style.visibility = "hidden";
+            }
+        }
+        
         if (typeof state.transitionPath === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-path")) {
             var svgPath = document.getElementById(soziElement.getAttributeNS(SOZI_NS, "transition-path"));
             if (svgPath && svgPath.nodeName === "path") {
