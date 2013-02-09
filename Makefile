@@ -11,7 +11,7 @@ EDITOR_SRC := \
 	$(wildcard editors/inkscape/sozi/*.*)
 
 # The translation files for the Inkscape extensions
-EDITOR_PO := $(wildcard editors/inkscape/sozi/lang/*.po)
+EDITOR_PO := $(wildcard editors/inkscape/sozi/lang/*/sozi.po)
 
 # The translatable source files of the Inkscape extensions
 GETTEXT_SRC := \
@@ -29,7 +29,7 @@ LICENSES := $(wildcard doc/*license.txt)
 # The list of files in the installation tree
 TARGET := \
     $(subst editors/inkscape/,,$(EDITOR_SRC)) \
-    $(patsubst editors/inkscape/sozi/lang/%.po,sozi/lang/%/LC_MESSAGES/sozi.mo,$(EDITOR_PO)) \
+    $(patsubst editors/inkscape/sozi/lang/%/sozi.po,sozi/lang/%/LC_MESSAGES/sozi.mo,$(EDITOR_PO)) \
     $(addprefix sozi/,sozi.js sozi.css $(notdir $(EXTRAS_JS) $(LICENSES)))
 
 # The list of files in the release tree
@@ -109,7 +109,7 @@ release/sozi/%.js: player/js/extras/%.js
 	$(MINIFY_JS) $^ $(MINIFY_OPT) > $@ 
 
 # Compile a translation file for a given language
-release/sozi/lang/%/LC_MESSAGES/sozi.mo: editors/inkscape/sozi/lang/%.po
+release/sozi/lang/%/LC_MESSAGES/sozi.mo: editors/inkscape/sozi/lang/%/sozi.po
 	mkdir -p $(dir $@) ; $(MSGFMT) -o $@ $<
 
 # Fill the version number in the Inkscape extensions

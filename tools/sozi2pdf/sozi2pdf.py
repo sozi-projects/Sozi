@@ -93,15 +93,15 @@ if __name__ == '__main__':
     tmp_dir = tempfile.mkdtemp()
     
     # Export Sozi frames to individual PDF files
-    # TODO pass include/exclude lists
     js = os.path.join(os.path.dirname(__file__), "sozi2pdf.js") 
     subprocess.call(["phantomjs", js, input_file_name, tmp_dir, str(width_px), str(height_px), options.include, options.exclude])
     
     # Merge all frames to a single PDF file
-    # TODO use PyPDF
-    sys.stdout.write("Writing PDF to: {0}\n".format(output_file_name))
+    # TODO support other pdf merge tools
     frame_pdfs = [os.path.join(tmp_dir, file_name) for file_name in sorted(os.listdir(tmp_dir))]
-    subprocess.call(["pdfjoin", "--outfile", output_file_name] + frame_pdfs)
+    if len(frame_pdfs):
+        sys.stdout.write("Writing PDF to: {0}\n".format(output_file_name))
+        subprocess.call(["pdfjoin", "--outfile", output_file_name] + frame_pdfs)
 
     # Remove the temporary directory and its content
     shutil.rmtree(tmp_dir, ignore_errors=True)

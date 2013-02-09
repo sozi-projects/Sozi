@@ -32,11 +32,16 @@ namespace(this, "sozi.animation", function (exports, window) {
             window.msRequestAnimationFrame ||
             window.oRequestAnimationFrame;
 
-    function getCurrentTime() {
+    var getCurrentTime = function () {
         return window.performance && window.performance.now ?
             window.performance.now() :
             Date.now();
-    }
+    };
+
+    exports.setAnimationFrameHandlers = function (requestAnimationFrameFunction, getCurrentTimeFunction) {
+        requestAnimationFrame = requestAnimationFrameFunction;
+        getCurrentTime = getCurrentTimeFunction;
+    };
 
     /**
      * The default time step.

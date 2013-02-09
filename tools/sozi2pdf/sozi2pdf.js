@@ -15,25 +15,28 @@ var page = require("webpage").create(),
     url, tmpDir;
 
 /*
- * Custom implementation of console.log()
- * for sandboxed Javascript.
+ * Custom implementation of console.log().
+ * Called from sandboxed Javascript.
  */
 page.onConsoleMessage = function (msg) {
     console.log("sozi2pdf.js> " + msg);
 };
 
 /*
- * Hacked alert() callback
- * Render the current browser window to a PDF file
+ * Render the current page into a PDF file.
+ * Called from sandboxed Javascript.
  */
-page.onAlert = function (msg) {
-    page.render(tmpDir + msg + ".pdf");
+page.onCallback = function (fileName) {
+    page.render(tmpDir + fileName + ".pdf");
 };
 
 /*
  * Sandboxed function
  */
 function main(options) {
+    var SOZI_VERSION_MIN = "12.09";
+    var SOZI_NS = "http://sozi.baierouge.fr";
+
     function markInterval(list, first, last, step, value) {
         if (step > 0) {
             for (var i = first; i <= last; i += step) {
@@ -81,7 +84,15 @@ function main(options) {
         }
     }
 
-    function renderFrames(includeExpr, excludeExpr) {
+    function zeroPadded(value, digits) {
+        var result = value.toString();
+        while(result.length < digits) {
+            result = "0" + result;
+        }
+        return result;
+    }
+
+    function renderFrames() {
         var frameCount = sozi.document.frames.length;
 
         var frameSelection = new Array(frameCount);
@@ -90,23 +101,24 @@ function main(options) {
         markFrames(frameSelection, options.exclude, false);
         
         var digits = frameCount.toString().length;
-        var fileName = "";
 
         for (var i = 0; i < frameCount; i ++) {
             if (frameSelection[i]) {
                 console.log("Exporting frame: " + (i + 1));
                 sozi.player.jumpToFrame(i);
-                fileName = (i + 1).toString();
-                while(fileName.length < digits) {
-                    fileName = "0" + fileName;
-                }
-                alert(fileName);
+                window.callPhantom(zeroPadded((i + 1).toString(), digits));
             }
         }
     }
 
     window.addEventListener("load", function () {
-        sozi.events.listen("sozi.player.ready", renderFrames);
+        var script = document.getElementById("sozi-script");
+        if (!script || script.getAttributeNS(SOZI_NS, "version") < SOZI_VERSION_MIN) {
+            console.log("Your document must include Sozi version " + SOZI_VERSION_MIN + " or above.")
+        }
+        else {
+            sozi.events.listen("sozi.player.ready", renderFrames);
+        }
     }, false);
 }
 
@@ -129,7 +141,7 @@ else {
     url = phantom.args[0];    
     tmpDir = phantom.args[1] + "/";
     
-    page.open(url,function (status) {
+    page.open(url, function (status) {
         if (status !== "success") {
             console.log("sozi2pdf.js> Unable to load the document: " + url);
         }

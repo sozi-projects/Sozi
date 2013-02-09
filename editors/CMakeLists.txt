@@ -1,2 +1,2 @@
-ADD_SUBDIRECTORY(inkscape)
+add_subdirectory(inkscape)
 
