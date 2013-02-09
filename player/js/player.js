@@ -159,7 +159,7 @@ namespace(this, "sozi.player", function (exports, window) {
      * Returns an associative array where keys are layer names
      * and values are objects in the form { initialState: finalState: profile: zoomWidth: zoomHeight:}
      */
-    function getAnimationData(initialState, finalState, zoomPercent, profile, useTransitionPath, reverseTransitionPath) {
+    exports.getAnimationData = function (initialState, finalState, zoomPercent, profile, useTransitionPath, reverseTransitionPath) {
         var data = {};
         
         for (var idLayer in initialState) {
@@ -203,12 +203,12 @@ namespace(this, "sozi.player", function (exports, window) {
             }
         }
         return data;
-    }
+    };
     
     exports.previewFrame = function (index) {
         exports.currentFrameIndex = index;
         animator.start(DEFAULT_DURATION_MS,
-            getAnimationData(viewPort.cameras, sozi.document.frames[index].states,
+            exports.getAnimationData(viewPort.cameras, sozi.document.frames[index].states,
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]),
                 false, false);
         sozi.events.fire("sozi.player.framechange", index);
@@ -258,7 +258,7 @@ namespace(this, "sozi.player", function (exports, window) {
         playing = true;
         exports.currentFrameIndex = index;
 
-        animator.start(durationMs, getAnimationData(
+        animator.start(durationMs, exports.getAnimationData(
             viewPort.cameras, sozi.document.frames[index].states,
             zoomPercent, profile,
             useTransitionPath, reverseTransitionPath));
@@ -345,7 +345,7 @@ namespace(this, "sozi.player", function (exports, window) {
         exports.stop();
         sozi.events.fire("sozi.player.cleanup");
         animator.start(DEFAULT_DURATION_MS,
-            getAnimationData(viewPort.cameras, viewPort.getDocumentState(),
+            exports.getAnimationData(viewPort.cameras, viewPort.getDocumentState(),
                 DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE],
                 false, false
             )
@@ -367,6 +367,36 @@ namespace(this, "sozi.player", function (exports, window) {
         sozi.events.fire("sozi.player.ready");
     }
 
+    // TODO move the zoom code to display.js
+    exports.onAnimationStep = function (progress, data) {
+        for (var idLayer in data) {
+            var camera = viewPort.cameras[idLayer];
+            
+            camera.interpolate(
+                data[idLayer].initialState,
+                data[idLayer].finalState,
+                data[idLayer].profile(progress),
+                data[idLayer].useTransitionPath,
+                data[idLayer].reverseTransitionPath
+            );
+
+            var ps;
+            if (data[idLayer].zoomWidth && data[idLayer].zoomWidth.k !== 0) {
+                ps = progress - data[idLayer].zoomWidth.ts;
+                camera.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
+            }
+
+            if (data[idLayer].zoomHeight && data[idLayer].zoomHeight.k !== 0) {
+                ps = progress - data[idLayer].zoomHeight.ts;
+                camera.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
+            }
+
+            camera.setClipped(data[idLayer].finalState.clipped);
+        }
+
+        viewPort.update();
+    };
+    
     /**
      * @depend animation.js
      */
@@ -386,36 +416,9 @@ namespace(this, "sozi.player", function (exports, window) {
          *
          * Parameter progress is a float number between 0 (start of the animation)
          * and 1 (end of the animation).
-         *
-         * TODO move the zoom code to display.js
          */
         onStep: function (progress) {
-            for (var idLayer in this.data) {
-                var camera = viewPort.cameras[idLayer];
-                
-                camera.interpolate(
-                    this.data[idLayer].initialState,
-                    this.data[idLayer].finalState,
-                    this.data[idLayer].profile(progress),
-                    this.data[idLayer].useTransitionPath,
-                    this.data[idLayer].reverseTransitionPath
-                );
-
-                var ps;
-                if (this.data[idLayer].zoomWidth && this.data[idLayer].zoomWidth.k !== 0) {
-                    ps = progress - this.data[idLayer].zoomWidth.ts;
-                    camera.width = this.data[idLayer].zoomWidth.k * ps * ps + this.data[idLayer].zoomWidth.ss;
-                }
-
-                if (this.data[idLayer].zoomHeight && this.data[idLayer].zoomHeight.k !== 0) {
-                    ps = progress - this.data[idLayer].zoomHeight.ts;
-                    camera.height = this.data[idLayer].zoomHeight.k * ps * ps + this.data[idLayer].zoomHeight.ss;
-                }
-
-                camera.setClipped(this.data[idLayer].finalState.clipped);
-            }
-
-            viewPort.update();
+            exports.onAnimationStep(progress, this.data);
         },
         
         /*
