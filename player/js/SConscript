@@ -1,0 +1,5 @@
+
+env = Environment(tools = ["default", CONCATENATE_JS, UGLIFY_JS])
+env.ConcatenateJS("sozi.cat.js", "sozi.js")
+env.UglifyJS("sozi.min.js", "sozi.cat.js")
+
