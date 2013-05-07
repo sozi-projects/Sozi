@@ -24,6 +24,8 @@ message(STATUS "SOZI_VERSION=${SOZI_VERSION}")
 ### Recurse to subfolders
 ################################################################################
 
+set(sozi_doc_files ${PROJECT_SOURCE_DIR}/README)
+
 add_subdirectory(doc)
 add_subdirectory(player)
 add_subdirectory(editors)
@@ -32,13 +34,13 @@ add_subdirectory(editors)
 ### Packaging
 ################################################################################
 
-set(CPACK_PACKAGE_NAME                "sozi")
+set(CPACK_PACKAGE_NAME                  "sozi")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Sozi is a zooming presentation program")
-set(CPACK_PACKAGE_VERSION             "${SOZI_VERSION}")
+set(CPACK_PACKAGE_VERSION               "${SOZI_VERSION}")
 
-set(CPACK_GENERATOR                   "TGZ")
+set(CPACK_GENERATOR                     "TGZ")
 set(CPACK_ARCHIVE_COMPONENT_INSTALL   "ON")
-set(CPACK_COMPONENTS_GROUPING         "IGNORE")
+set(CPACK_COMPONENTS_GROUPING           "IGNORE")
 
 include(CPack)
 

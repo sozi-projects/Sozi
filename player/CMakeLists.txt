@@ -9,7 +9,7 @@ string(TOUPPER ${MINIFIER_JS} MINIFIER_JS_U)
 
 find_program(${MINIFIER_JS_U} ${MINIFIER_JS})
 if(${MINIFIER_JS_U}-NOTFOUND)
-  message(FATAL_ERROR "${MINIFIER_JS} not found on your system.") 
+    message(FATAL_ERROR "${MINIFIER_JS} not found on your system.") 
 endif()
 
 set(MINIFIER_CSS "cat" CACHE FILEPATH "Wich minifier to use for css: yuicompressor, juicer, sed, cat")
@@ -17,8 +17,9 @@ string(TOUPPER ${MINIFIER_CSS} MINIFIER_CSS_U)
 
 find_program(${MINIFIER_CSS_U} ${MINIFIER_CSS})
 if(${MINIFIER_CSS_U}-NOTFOUND)
-  message(FATAL_ERROR "${MINIFIER_CSS} not found on your system.") 
+    message(FATAL_ERROR "${MINIFIER_CSS} not found on your system.") 
 endif()
+
 
 ################################################################################
 #
