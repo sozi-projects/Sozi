@@ -15,6 +15,9 @@ This repository is organized in three main branches:
 Building and installing Sozi from sources
 =========================================
 
+Tool versions:
+    SCons 2.3
+
 Install the build tools:
 
     sudo apt-get install scons node-uglify
@@ -26,4 +29,8 @@ Clone the repository:
 Build:
 
     scons
+
+Create translation template file:
+
+    scons pot-update
 

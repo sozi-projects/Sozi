@@ -1,7 +1,21 @@
 
-env = Environment()
+env = Environment(tools = ["default", "gettext"])
+
+#
+# Insert Sozi version in sozi/version.py
+#
 
 Import("sozi_version")
-
 env.Command("sozi/version.py", "sozi/version.tpl.py", "sed s/@SOZI_VERSION@/{0}/ $SOURCE > $TARGET".format(sozi_version))
+
+#
+# Compile translation files
+#
+
+src_files = Glob("*.py") + Glob("sozi/*.py") + ["sozi/ui.glade"]
+
+env.POTUpdate("sozi", src_files)
+
+po_files = Glob("sozi/lang/*.po")
+mo_files = env.MOFiles(po_files)
 
