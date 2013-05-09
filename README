@@ -11,5 +11,19 @@ This repository is organized in three main branches:
 
 - dev is the main development branch. Experimental features are added here.
 
-Official installable bundles of Sozi can be found here https://github.com/senshu/Sozi/downloads
+
+Building and installing Sozi from sources
+=========================================
+
+Install the build tools:
+
+    sudo apt-get install scons node-uglify
+
+Clone the repository:
+
+    git clone git://github.com/senshu/Sozi.git
+
+Build:
+
+    scons
 
