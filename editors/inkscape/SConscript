@@ -1,4 +1,6 @@
 
+import os
+
 env = Environment(tools = ["default", "gettext"])
 
 #
@@ -19,3 +21,6 @@ env.POTUpdate("sozi", src_files)
 po_files = Glob("sozi/lang/*.po")
 mo_files = env.MOFiles(po_files)
 
+for mo_file in mo_files:
+    lang = os.path.splitext(mo_file.name)[0]
+    InstallAs("sozi/lang/{0}/LC_MESSAGES/sozi.mo".format(lang), mo_file)
