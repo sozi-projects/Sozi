@@ -27,7 +27,7 @@ import inkex
 import sozi.media_upgrade
 
 
-class SoziExtrasAddVideo(inkex.Effect):
+class SoziExtrasMedia(inkex.Effect):
 
     NS_URI = u"http://sozi.baierouge.fr"
 
@@ -58,7 +58,7 @@ class SoziExtrasAddVideo(inkex.Effect):
         self.OptionParser.add_option('-G', '--stop-frame', action = 'store',
             type = 'int', dest = 'stop_frame', default = '1',
             help = 'Stop playing when entering frame number')
-        inkex.NSS[u"sozi"] = SoziExtrasAddVideo.NS_URI
+        inkex.NSS[u"sozi"] = SoziExtrasMedia.NS_URI
 
 
     def effect(self):
@@ -111,7 +111,7 @@ class SoziExtrasAddVideo(inkex.Effect):
 
 
 # Create effect instance
-effect = SoziExtrasAddVideo()
+effect = SoziExtrasMedia()
 effect.affect()
 
 

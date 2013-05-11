@@ -24,7 +24,11 @@ def upgrade_or_install(context):
 def upgrade_or_install_element(context, tag, ext):
     # Check version and remove older versions
     latest_version_found = False
+    
     for elt in context.document.xpath("//svg:" + tag + "[@id='sozi-extras-addvideo-" + tag + "']", namespaces=inkex.NSS):
+        elt.getparent().remove(elt)
+        
+    for elt in context.document.xpath("//svg:" + tag + "[@id='sozi-extras-media-" + tag + "']", namespaces=inkex.NSS):
         version_attr = inkex.addNS("version", "sozi")
         if version_attr in elt.attrib:
             version = elt.attrib[version_attr]
@@ -41,8 +45,8 @@ def upgrade_or_install_element(context, tag, ext):
     # Create new element if needed
     if not latest_version_found:
         elt = inkex.etree.Element(inkex.addNS(tag, "svg"))
-        elt.text = open(os.path.join(os.path.dirname(__file__), "sozi_extras_addvideo." + ext)).read()
-        elt.set("id","sozi-extras-addvideo-" + tag)
+        elt.text = open(os.path.join(os.path.dirname(__file__), "sozi_extras_media.min." + ext)).read()
+        elt.set("id","sozi-extras-media-" + tag)
         elt.set(inkex.addNS("version", "sozi"), SOZI_VERSION)
         context.document.getroot().append(elt)
 
@@ -88,5 +92,4 @@ def upgrade_document(context):
         if "src" in velt.attrib:
             velt.set(inkex.addNS("src", "sozi"), velt.attrib["src"])
             del velt.attrib["src"]
-
 

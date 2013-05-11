@@ -51,7 +51,7 @@ def upgrade_or_install_element(context, tag):
     if not latest_version_found:
         ext = "js" if tag == "script" else "css"
         elt = inkex.etree.Element(inkex.addNS(tag, "svg"))
-        elt.text = open(os.path.join(os.path.dirname(__file__), "sozi." + ext)).read()
+        elt.text = open(os.path.join(os.path.dirname(__file__), "sozi.min." + ext)).read()
         elt.set("id","sozi-" + tag)
         elt.set(inkex.addNS("version", "sozi"), SOZI_VERSION)
         context.document.getroot().append(elt)

@@ -1,0 +1,3 @@
+
+Command("sozi.min.css", "sozi.css", Copy("$TARGET", "$SOURCE"))
+
