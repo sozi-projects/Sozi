@@ -20,16 +20,30 @@ Tool versions:
 
 Install the build tools:
 
-    sudo apt-get install scons node-uglify
+    sudo apt-get install git scons node-uglify
 
 Clone the repository:
 
     git clone git://github.com/senshu/Sozi.git
 
-Build:
+If needed, switch to the branch that you want to build:
+
+    git checkout preview
+ or
+    git checkout dev
+
+Build a release bundle (build/editors/inkscape/sozi-release-<version>.zip):
 
     scons
 
+Install Inkscape extension for the current user:
+
+    scons install-editor-inkscape
+    
+Install Inkscape extension for all users:
+
+    scons --inkscape-extensions-dir=/usr/share/inkscape/extensions install-editor-inkscape
+    
 Create translation template file:
 
     scons pot-update

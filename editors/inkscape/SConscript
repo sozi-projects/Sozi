@@ -1,7 +1,16 @@
 
 import os
 
-env = Environment(tools = ["default", "gettext"])
+AddOption("--inkscape-extensions-dir",
+          dest="inkscape-extensions-dir",
+          type="string",
+          nargs=1,
+          action="store",
+          metavar="DIR",
+          default=os.environ["HOME"] + "/.config/inkscape/extensions",
+          help="Path to the Inkscape extensions directory")
+
+env = Environment(tools = ["default", "gettext", ZIP_BETTER])
 
 #
 # Lists of source files
@@ -18,24 +27,11 @@ Import("player_files")
 Import("license_files")
 
 #
-# Set target directory for installation
-#
-
-inkscape_extensions_dir = os.environ["HOME"] + "/.config/inkscape/extensions"
-inkscape_extensions_sozi_dir = inkscape_extensions_dir + "/sozi"
-
-Alias("install-editor-inkscape", inkscape_extensions_dir)
-
-Install(inkscape_extensions_dir, inx_files + py_files)
-Install(inkscape_extensions_sozi_dir, py_module_files + glade_files + icon_files + player_files + license_files)
-
-#
 # Insert Sozi version in sozi/version.py
 #
 
 Import("sozi_version")
 py_version_file = Command("sozi/version.py", "sozi/version.py.tpl", "sed s/@SOZI_VERSION@/{0}/ $SOURCE > $TARGET".format(sozi_version))
-Install(inkscape_extensions_sozi_dir, py_version_file)
 
 #
 # Compile translation files
@@ -45,7 +41,26 @@ env.POTUpdate("sozi", py_files + py_module_files + glade_files)
 
 mo_files = env.MOFiles(po_files)
 
-for mo_file in mo_files:
-    lang = os.path.splitext(mo_file.name)[0]
-    InstallAs("{0}/lang/{1}/LC_MESSAGES/sozi.mo".format(inkscape_extensions_sozi_dir, lang), mo_file)
+#
+# Set target directories for installation and release bundle
+#
+
+def install_to(dir):
+    sozi_dir = dir + "/sozi"
+
+    Install(dir, inx_files + py_files)
+    Install(sozi_dir, py_module_files + glade_files + icon_files + player_files + license_files)
+    Install(sozi_dir, py_version_file)
+
+    for mo_file in mo_files:
+        lang = os.path.splitext(mo_file.name)[0]
+        InstallAs("{0}/lang/{1}/LC_MESSAGES/sozi.mo".format(sozi_dir, lang), mo_file)
+
+inkscape_extensions_dir = GetOption("inkscape-extensions-dir")
+Alias("install-editor-inkscape", inkscape_extensions_dir)
+install_to(inkscape_extensions_dir)
+
+release_dir = "sozi-release-" + sozi_version;
+install_to(release_dir)
+env.ZipBetter(release_dir + ".zip", release_dir)
 
