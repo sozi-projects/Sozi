@@ -9,6 +9,8 @@ Export("sozi_version")
 license_files = Glob("doc/*-license.txt")
 Export("license_files")
 
-SConscript("player/SConscript", variant_dir="build/player")
+player_files = SConscript("player/SConscript", variant_dir="build/player")
+Export("player_files")
+
 SConscript("editors/SConscript", variant_dir="build/editors")
 

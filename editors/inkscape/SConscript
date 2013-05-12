@@ -14,17 +14,19 @@ glade_files = Glob("sozi/*.glade")
 po_files = Glob("sozi/lang/*.po")
 icon_files = Glob("sozi/*.png")
 
+Import("player_files")
+
 #
 # Set target directory for installation
 #
 
-inkscape_extensions_dir = os.environ["HOME"] + "/tmp/config/inkscape/extensions"
+inkscape_extensions_dir = os.environ["HOME"] + "/.config/inkscape/extensions"
 inkscape_extensions_sozi_dir = inkscape_extensions_dir + "/sozi"
 
 Alias("install-editor-inkscape", inkscape_extensions_dir)
 
 Install(inkscape_extensions_dir, inx_files + py_files)
-Install(inkscape_extensions_sozi_dir, py_module_files + glade_files + icon_files)
+Install(inkscape_extensions_sozi_dir, py_module_files + glade_files + icon_files + player_files)
 
 #
 # Insert Sozi version in sozi/version.py
@@ -45,10 +47,6 @@ mo_files = env.MOFiles(po_files)
 for mo_file in mo_files:
     lang = os.path.splitext(mo_file.name)[0]
     InstallAs("{0}/lang/{1}/LC_MESSAGES/sozi.mo".format(inkscape_extensions_sozi_dir, lang), mo_file)
-
-#
-# TODO install player files
-#
 
 #
 # Install license files

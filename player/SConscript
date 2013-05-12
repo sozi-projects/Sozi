@@ -1,3 +1,6 @@
 
-SConscript("js/SConscript")
-SConscript("css/SConscript")
+player_files = SConscript("js/SConscript")
+player_files += SConscript("css/SConscript")
+
+Return("player_files")
+

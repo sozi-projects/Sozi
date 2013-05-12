@@ -1,3 +1,5 @@
 
-Command("sozi.min.css", "sozi.css", Copy("$TARGET", "$SOURCE"))
+css_files = Command("sozi.min.css", "sozi.css", Copy("$TARGET", "$SOURCE"))
+
+Return("css_files")
 
