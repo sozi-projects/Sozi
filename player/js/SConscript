@@ -1,11 +1,11 @@
 
-env = Environment(tools = ["default", CONCATENATE_JS, UGLIFY_JS, FILTERED_GLOB])
+env = Environment(tools = ["default", "concatjs", "uglifyjs", "filtered_glob"])
 
 #
 # Compress Javascript source files
 #
 
-env.ConcatenateJS("sozi.cat.js", "sozi.js")
+env.ConcatJS("sozi")
 js_files = env.UglifyJS("sozi.min.js", "sozi.cat.js")
 
 js_files += env.UglifyJS("extras/sozi_extras_media.min.js", "extras/sozi_extras_media.js")

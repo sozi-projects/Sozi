@@ -10,7 +10,7 @@ AddOption("--inkscape-extensions-dir",
           default=os.environ["HOME"] + "/.config/inkscape/extensions",
           help="Path to the Inkscape extensions directory")
 
-env = Environment(tools = ["default", "gettext", ZIP_BETTER])
+env = Environment(tools = ["default", "gettext", "zip_relative"])
 
 #
 # Lists of source files
@@ -62,5 +62,5 @@ install_to(inkscape_extensions_dir)
 
 release_dir = "sozi-release-" + sozi_version;
 install_to(release_dir)
-env.ZipBetter(release_dir + ".zip", release_dir)
+env.ZipRelative(release_dir + ".zip", release_dir)
 
