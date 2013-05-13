@@ -15,7 +15,9 @@ js_files += env.UglifyJS("extras/sozi_extras_media.min.js", "extras/sozi_extras_
 # TODO use custom template and stylesheet
 #
 
-Command("api", env.FilteredGlob("*.js", ["sozi.min.js", "sozi.cat.js"]), "jsdoc --private --directory=$TARGET $SOURCES")
+if env.WhereIs("jsdoc"):
+    Command("api", env.FilteredGlob("*.js", ["sozi.min.js", "sozi.cat.js"]), "jsdoc --private --directory=$TARGET $SOURCES")
+
 
 Return("js_files")
 
