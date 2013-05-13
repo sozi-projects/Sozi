@@ -53,8 +53,16 @@ Install Inkscape extension for the current user:
     
 Install Inkscape extension for all users:
 
-    scons --inkscape-extensions-dir=/usr/share/inkscape/extensions install-editor-inkscape
-    
+    sudo scons --inkscape-extensions-dir=/usr/share/inkscape/extensions install-editor-inkscape
+
+Install player files to /usr/share/sozi and /usr/include:
+
+    sudo scons install-player
+
+Install player files to /usr/local/share and /usr/local/include:
+
+    sudo scons --player-prefix=/usr/local install-player
+
 Create translation template file:
 
     scons pot-update
