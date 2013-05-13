@@ -1,9 +1,11 @@
 
 from datetime import datetime
 
-env = Environment()
+env = Environment(tools = ["default", "textfile"])
 
 sozi_version = datetime.utcnow().strftime("%y.%m-%d%H%M%S")
+env.Textfile("build/sozi.version", sozi_version, variant_dir="build")
+
 Export("sozi_version")
 
 license_files = Glob("doc/*-license.txt")
