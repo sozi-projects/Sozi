@@ -2,5 +2,12 @@
 player_files = SConscript("js/SConscript")
 player_files += SConscript("css/SConscript")
 
+#
+# Generate header for C-based tools
+#
+
+Import("sozi_version_file")
+Command("sozi.h", player_files + sozi_version_file, "site_scons/site_tools/gen_header $TARGET $SOURCES")
+
 Return("player_files")
 
