@@ -1,7 +1,7 @@
 
 import os
 
-env = Environment(tools = ["default", "gettext", "zip_relative"])
+env = Environment(tools = ["default", "gettext", "zip_relative", "textfile"])
 
 Import("prefix user_prefix common_install")
 
@@ -24,7 +24,7 @@ Import("player_files license_files")
 #
 
 Import("sozi_version")
-py_version_file = Command("sozi/version.py", "sozi/version.py.tpl", "sed s/@SOZI_VERSION@/{0}/ $SOURCE > $TARGET".format(sozi_version))
+py_version_file = env.Substfile("sozi/version.py.in", SUBST_DICT = {"@SOZI_VERSION@" : sozi_version})
 
 
 #
