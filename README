@@ -22,6 +22,13 @@ Install the build tools:
 
     sudo apt-get install git scons node-uglify
 
+Optionally, install the API documentation generator and Javascript checker:
+
+    sudo apt-get install jsdoc-toolkit
+    
+    sudo apt-get install npm
+    sudo npm install autolint -g
+
 Clone the repository:
 
     git clone git://github.com/senshu/Sozi.git
@@ -31,6 +38,10 @@ If needed, switch to the branch that you want to build:
     git checkout preview
  or
     git checkout dev
+
+Check the Javascript sources:
+
+    autolint --once
 
 Build a release bundle (build/editors/inkscape/sozi-release-<version>.zip):
 
