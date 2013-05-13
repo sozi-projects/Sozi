@@ -105,3 +105,19 @@ def ZIP_BETTER(env):
     # Add the builder to the environment
     env.Append(BUILDERS = {'ZipBetter' : zipbetter_bld})
 
+#
+# Glob with exclusion lists
+# http://stackoverflow.com/questions/12518715/how-do-i-filter-an-scons-glob-result
+#
+
+import os.path
+
+def filtered_glob(env, pattern, omit=[],
+  ondisk=True, source=False, strings=False):
+    return filter(
+      lambda f: os.path.basename(f.path) not in omit,
+      env.Glob(pattern))
+
+def FILTERED_GLOB(env):
+    env.AddMethod(filtered_glob, "FilteredGlob");
+

@@ -67,67 +67,16 @@ JSDOC := ./node_modules/jsdoc/jsdoc
 
 .PHONY: all verify install tools doc clean
 
-# Default rule: create a zip archive for installation
-all: $(ZIP)
-
 # Verify Javascript source files of the player
 verify: $(PLAYER_JS) $(EXTRAS_JS)
 	$(LINT) --once
 
-# Install Sozi
-install: $(TARGET_RELEASE)
-	cd release ; cp --parents $(TARGET) $(INSTALL_DIR)
-
 # Install the tools needed to build Sozi
 tools:
-	npm install uglify-js
 	npm install autolint
 	npm install git://github.com/jsdoc3/jsdoc.git
 
 # Generate API documentation
 doc: $(PLAYER_JS) $(EXTRAS_JS)
 	$(JSDOC) $(JSDOC_OPT) player/js
-
-# Generate a template file for translation
-pot: $(GETTEXT_SRC)
-	xgettext --package-name=Sozi --package-version=$(VERSION) --output=editors/inkscape/sozi/lang/sozi.pot $^
-
-# Create a zip archive for installation
-$(ZIP): $(TARGET_RELEASE)
-	cd release ; zip $(notdir $@) $(TARGET)
-
-# Concatenate and minify the Javascript source files of the player
-release/sozi/sozi.js: $(PLAYER_JS)
-	$(MINIFY_JS) $^ $(MINIFY_OPT) > $@ 
-
-# Minify a CSS stylesheet of the player
-release/sozi/%.css: player/css/%.css
-	$(MINIFY_CSS) $^ > $@ 
-
-# Minify a Javascript source file from Sozi-extras
-release/sozi/%.js: player/js/extras/%.js
-	$(MINIFY_JS) $^ $(MINIFY_OPT) > $@ 
-
-# Compile a translation file for a given language
-release/sozi/lang/%/LC_MESSAGES/sozi.mo: editors/inkscape/sozi/lang/%/sozi.po
-	mkdir -p $(dir $@) ; $(MSGFMT) -o $@ $<
-
-# Fill the version number in the Inkscape extensions
-release/sozi/version.py: $(TIMESTAMP)
-	mkdir -p $(dir $@) ; sed "s/@SOZI_VERSION@/$(VERSION)/g" editors/inkscape/sozi/version.py > $@
-
-$(TIMESTAMP):
-	touch $@
-
-# Copy a file from the Inkscape extensions
-release/%: editors/inkscape/%
-	mkdir -p $(dir $@) ; cp $< $@
-
-# Copy a file from the documents folder
-release/sozi/%: doc/%
-	mkdir -p $(dir $@) ; cp $< $@
-
-# Remove all temporary files from the release folder
-clean:
-	rm -f $(TARGET_RELEASE) release/timestamp-*
 

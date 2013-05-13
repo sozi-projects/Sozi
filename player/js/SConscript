@@ -1,10 +1,21 @@
 
-env = Environment(tools = ["default", CONCATENATE_JS, UGLIFY_JS])
+env = Environment(tools = ["default", CONCATENATE_JS, UGLIFY_JS, FILTERED_GLOB])
+
+#
+# Compress Javascript source files
+#
 
 env.ConcatenateJS("sozi.cat.js", "sozi.js")
 js_files = env.UglifyJS("sozi.min.js", "sozi.cat.js")
 
 js_files += env.UglifyJS("extras/sozi_extras_media.min.js", "extras/sozi_extras_media.js")
+
+#
+# Generate API documentation
+# TODO use custom template and stylesheet
+#
+
+Command("api", env.FilteredGlob("*.js", ["sozi.min.js", "sozi.cat.js"]), "jsdoc --private --directory=$TARGET $SOURCES")
 
 Return("js_files")
 
