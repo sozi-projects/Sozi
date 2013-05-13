@@ -6,6 +6,7 @@ import re
 from SCons.Builder import Builder
 from SCons.Scanner import Scanner
 
+
 DEP_RE = re.compile("@depend\s*([a-zA-Z0-9./_-]+)")
 
 
@@ -54,8 +55,10 @@ def scan_dependencies(node, env, path):
     return [ env.File(filename) for filename, score in sorted(scores.iteritems(), key=lambda (k, v): (v, k)) ]
 
 
-def emit_dependencies(target, source, env):
-    return target, scan_dependencies(source[0], env, source[0].path)
+def ConcatJS(env, target, source):
+    deps = scan_dependencies(env.File(source), env, source)
+    env.Tool("textfile")
+    return env.Substfile(target, deps)
 
 
 def exists(env):
@@ -63,12 +66,8 @@ def exists(env):
 
 
 def generate(env):
-    bld = Builder(
-        action = "cat $SOURCES > $TARGET",
-        suffix = ".cat.js",
-        src_suffix=".js",
-        emitter = emit_dependencies)
     scan = Scanner(function = scan_dependencies, skeys = ".js")
-    env.Append(BUILDERS = { "ConcatJS": bld }, SCANNERS = scan)
+    env.Append(SCANNERS = scan)
+    env.AddMethod(ConcatJS)
 
 
