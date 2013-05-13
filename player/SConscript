@@ -1,15 +1,5 @@
 
-AddOption("--player-prefix",
-          dest="player-prefix",
-          type="string",
-          nargs=1,
-          action="store",
-          metavar="DIR",
-          default="/usr",
-          help="Prefix directory for standalone player installation")
-
-player_prefix_dir = GetOption("player-prefix")
-Alias("install-player", player_prefix_dir)
+Import("prefix common_install")
 
 #
 # Build player files
@@ -18,7 +8,8 @@ Alias("install-player", player_prefix_dir)
 player_files = SConscript("js/SConscript")
 player_files += SConscript("css/SConscript")
 
-Install(player_prefix_dir + "/share/sozi", player_files)
+player_install = Install(prefix + "/share/sozi", player_files)
+
 
 #
 # Generate header for C-based tools
@@ -27,7 +18,10 @@ Install(player_prefix_dir + "/share/sozi", player_files)
 
 Import("sozi_version_file")
 header_file = Command("sozi.h", player_files + sozi_version_file, "site_scons/site_tools/gen_header $TARGET $SOURCES")
-Install(player_prefix_dir + "/include", header_file)
+
+player_install += Install(prefix + "/include", header_file)
+
+Alias("install-player", [player_install, common_install])
 
 Return("player_files")
 

@@ -1,6 +1,8 @@
 
 env = Environment(tools = ["default", "concatjs", "uglifyjs", "filtered_glob"])
 
+Import("prefix common_install")
+
 #
 # Compress Javascript source files
 #
@@ -17,6 +19,7 @@ js_files += env.UglifyJS("extras/sozi_extras_media.min.js", "extras/sozi_extras_
 
 if env.WhereIs("jsdoc"):
     Command("api", env.FilteredGlob("*.js", ["sozi.min.js", "sozi.cat.js"]), "jsdoc --private --directory=$TARGET $SOURCES")
+    Install(prefix + "/share/doc/sozi", "api")
 
 
 Return("js_files")
