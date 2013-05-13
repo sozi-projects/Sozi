@@ -63,7 +63,7 @@ Install all documentation files, including API reference (to /usr/share/doc/sozi
 
     sudo scons --prefix=/usr install-docs
 
-Create translation template file:
+Create translation template file (build/editors/inkscape/sozi.pot):
 
     scons pot-update
 
