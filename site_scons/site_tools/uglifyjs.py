@@ -7,6 +7,6 @@ def exists(env):
 
 
 def generate(env):
-    bld = Builder(action = "uglifyjs --no-copyright --output $TARGET $SOURCE", suffix = ".js")
+    bld = Builder(action = "uglifyjs --no-copyright --output $TARGET $SOURCE", suffix = ".min.js", src_suffix = ".js")
     env.Append(BUILDERS = { "UglifyJS": bld })
 
