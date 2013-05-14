@@ -62,7 +62,7 @@ def ConcatJS(env, target, source):
 
 
 def exists(env):
-    return env.WhereIs("cat")
+    return True
 
 
 def generate(env):
