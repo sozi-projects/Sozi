@@ -15,19 +15,32 @@ This repository is organized in three main branches:
 Building and installing Sozi from sources
 =========================================
 
-Tool versions:
-    SCons 2.3
-
 Install the build tools:
+------------------------
 
-    sudo apt-get install git scons node-uglify
+SCons 2.3 or higher is required.
 
-Optionally, install the API documentation generator and Javascript checker:
+    sudo apt-get install git scons
+
+Optionally, install Javascript and CSS compressors:
+- For Javascript: UglifyJS (default if installed), YUI-Compressor or none
+- For CSS: YUI-Compressor (default if installed) or none
+
+    sudo apt-get install node-uglify
+    sudo apt-get install yui-compressor
+
+For developers, install the API documentation generator:
 
     sudo apt-get install jsdoc-toolkit
     
+For developers, install the Javascript checker:
+
     sudo apt-get install npm
     sudo npm install autolint -g
+
+
+Get the source files:
+---------------------
 
 Clone the repository:
 
@@ -39,23 +52,35 @@ If needed, switch to the branch that you want to build:
  or
     git checkout dev
 
-Check the Javascript sources:
 
-    autolint --once
+Build:
+------
 
 Build a release bundle (build/editors/inkscape/sozi-release-<version>.zip):
 
     scons
 
-Install Inkscape extension for the current user (in $HOME/.config/inkscape/extensions):
+For translators, create a translation template file (build/editors/inkscape/sozi.pot):
+
+    scons pot-update
+
+For developers, check the Javascript sources:
+
+    autolint --once
+
+
+Install:
+--------
+
+Install the Inkscape extension for the current user (in $HOME/.config/inkscape/extensions):
 
     scons install-editor-inkscape
     
-Install Inkscape extension for all users (in /usr/share/inkscape/extensions):
+Install the Inkscape extension for all users (in /usr/share/inkscape/extensions):
 
     sudo scons --prefix=/usr install-editor-inkscape
 
-Install player files only (to /usr/share/sozi, /usr/share/doc/sozi and /usr/include):
+Install the player files only (to /usr/share/sozi, /usr/share/doc/sozi and /usr/include):
 
     sudo scons --prefix=/usr install-player
 
@@ -63,7 +88,4 @@ Install all documentation files, including API reference (to /usr/share/doc/sozi
 
     sudo scons --prefix=/usr install-docs
 
-Create translation template file (build/editors/inkscape/sozi.pot):
-
-    scons pot-update
 
