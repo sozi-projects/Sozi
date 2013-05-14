@@ -1,5 +1,5 @@
 
-env = Environment(tools = ["default", "concatjs", "uglifyjs", "filtered_glob"])
+env = Environment(tools = ["default", "concatjs", "minifyjs", "filtered_glob"])
 
 Import("prefix common_install")
 
@@ -8,9 +8,9 @@ Import("prefix common_install")
 #
 
 env.ConcatJS("sozi.cat.js", "sozi.js")
-js_files = env.UglifyJS("sozi.min.js", "sozi.cat.js")
+js_files = env.MinifyJS("sozi.min.js", "sozi.cat.js")
 
-js_files += env.UglifyJS("extras/sozi_extras_media")
+js_files += env.MinifyJS("extras/sozi_extras_media")
 
 #
 # Generate API documentation
