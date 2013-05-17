@@ -19,7 +19,7 @@ var page = require("webpage").create(),
  * Called from sandboxed Javascript.
  */
 page.onConsoleMessage = function (msg) {
-    console.log("sozi2pdf.js> " + msg);
+    console.log("sozi2video.js> " + msg);
 };
 
 /*
@@ -34,21 +34,13 @@ page.onCallback = function (fileName) {
  * Sandboxed function
  */
 function main(options) {
-    function zeroPadded(value, digits) {
-        var result = value.toString();
-        while(result.length < digits) {
-            result = "0" + result;
-        }
-        return result;
-    }
-
     var TIME_STEP_MS = 20;
     var SOZI_VERSION_MIN = "13.02";
     var SOZI_NS = "http://sozi.baierouge.fr";
 
     function renderFrames() {
         var frameCount = sozi.document.frames.length;
-        var frameIndexDigits = frameCount.toString().length;
+        var imageIndex = 0;
 
         for(currentFrameIndex = 0; currentFrameIndex < frameCount; currentFrameIndex +=1) {
             console.log("Exporting frame: " + (currentFrameIndex + 1));
@@ -57,11 +49,8 @@ function main(options) {
             var currentFrame = sozi.document.frames[currentFrameIndex];
                 
             // Generate images for the duration of the current frame
-            var timeMsDigits = currentFrame.timeoutMs.toString().length;
-                
-            for (var timeMs = 0; timeMs < currentFrame.timeoutMs; timeMs += TIME_STEP_MS) {
-                window.callPhantom("frame-" + zeroPadded(currentFrameIndex + 1, frameIndexDigits) +
-                                   "-s-" + zeroPadded(timeMs, timeMsDigits) + "ms");
+            for (var timeMs = 0; timeMs < currentFrame.timeoutMs; timeMs += TIME_STEP_MS, imageIndex += 1) {
+                window.callPhantom("frame-" + imageIndex);
             }
             
             // Generate images for the transition to the next frame.
@@ -69,17 +58,14 @@ function main(options) {
             if (currentFrameIndex < frameCount - 1 || currentFrame.timeoutEnable) {
                 var nextFrame = sozi.document.frames[(currentFrameIndex + 1) % frameCount];
                 
-                timeMsDigits = nextFrame.transitionDurationMs.toString().length;
-                
                 var animationData = sozi.player.getAnimationData(
                     currentFrame.states, nextFrame.states,
                     undefined, undefined, true, false
                 );
 
-                for (timeMs = 0; timeMs < nextFrame.transitionDurationMs; timeMs += TIME_STEP_MS) {
+                for (timeMs = 0; timeMs < nextFrame.transitionDurationMs; timeMs += TIME_STEP_MS, imageIndex += 1) {
                     sozi.player.onAnimationStep(timeMs / nextFrame.transitionDurationMs, animationData);
-                    window.callPhantom("frame-" + zeroPadded(currentFrameIndex + 1, frameIndexDigits) +
-                                       "-t-" + zeroPadded(timeMs, timeMsDigits) + "ms");
+                    window.callPhantom("frame-" + imageIndex);
                 }
             }
         }
@@ -88,7 +74,7 @@ function main(options) {
     window.addEventListener("load", function () {
         var script = document.getElementById("sozi-script");
         if (!script || script.getAttributeNS(SOZI_NS, "version") < SOZI_VERSION_MIN) {
-            console.log("Your document must include Sozi version " + SOZI_VERSION_MIN + " or above.")
+            console.log("Your document must include Sozi version " + SOZI_VERSION_MIN + " or above, found " + script.getAttributeNS(SOZI_NS, "version") + ".")
         }
         else {
             sozi.events.listen("sozi.player.ready", renderFrames);

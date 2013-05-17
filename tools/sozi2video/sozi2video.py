@@ -26,9 +26,12 @@ if __name__ == '__main__':
     option_parser.add_option("-H", "--height", type="int", dest="height_px", default=768,
         help="Page height, in pixels (default is 768)")
 
+    option_parser.add_option("-b", "--bit-rate", type="string", dest="bit_rate", default="2M",
+        help="The target video bit rate (default is 2M)")
+        
     option_parser.add_option("-o", "--output", type="string", dest="output",
         help="The target video file name")
-        
+
     options, args = option_parser.parse_args()
 
     if len(args) == 0:
@@ -54,9 +57,9 @@ if __name__ == '__main__':
     # Merge all frames to a single video file
     if len(os.listdir(tmp_dir)):
         sys.stdout.write("Writing video to: {0}\n".format(output_file_name))
-        frame_pngs = os.path.join(tmp_dir, "*.png")
-        subprocess.call(["ffmpeg", "-r", "50", "-f", "image2", "-pattern_type", "glob",
-            "-i", frame_pngs, "-q:v", "1", output_file_name])
+        frame_pngs = os.path.join(tmp_dir, "frame-%d.png")
+        subprocess.call(["ffmpeg", "-r", "50", "-f", "image2",
+            "-i", frame_pngs, "-b", options.bit_rate, output_file_name])
 
     # Remove the temporary directory and its content
     shutil.rmtree(tmp_dir, ignore_errors=True)
