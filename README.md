@@ -55,8 +55,8 @@ or
     git checkout dev
 
 
-Builda
-------
+Build
+-----
 
 Build a release bundle (`build/editors/inkscape/sozi-release-{version}.zip`):
 
