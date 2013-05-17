@@ -1,14 +1,12 @@
 
 Sozi is a presentation tool for SVG documents.
 
-More details can be found on the official web site: http://sozi.baierouge.fr
+More details can be found on the official web site: <http://sozi.baierouge.fr>
 
 This repository is organized in three main branches:
 
 - master contains the latest stable version. It is updated when a new release is available or when an issue requires a hot fix.
-
 - preview contains the current release candidate of Sozi. It is a feature-frozen version that is still undergoing test and debug.
-
 - dev is the main development branch. Experimental features are added here.
 
 
@@ -49,18 +47,20 @@ Clone the repository:
 If needed, switch to the branch that you want to build:
 
     git checkout preview
- or
+    
+or
+
     git checkout dev
 
 
 Build:
 ------
 
-Build a release bundle (build/editors/inkscape/sozi-release-<version>.zip):
+Build a release bundle (`build/editors/inkscape/sozi-release-{version}.zip`):
 
     scons
 
-For translators, create a translation template file (build/editors/inkscape/sozi.pot):
+For translators, create a translation template file (`build/editors/inkscape/sozi.pot`):
 
     scons pot-update
 
@@ -72,19 +72,19 @@ For developers, check the Javascript sources:
 Install:
 --------
 
-Install the Inkscape extension for the current user (in $HOME/.config/inkscape/extensions):
+Install the Inkscape extension for the current user (in `$HOME/.config/inkscape/extensions`):
 
     scons install-editor-inkscape
     
-Install the Inkscape extension for all users (in /usr/share/inkscape/extensions):
+Install the Inkscape extension for all users (in `/usr/share/inkscape/extensions`):
 
     sudo scons --prefix=/usr install-editor-inkscape
 
-Install the player files only (to /usr/share/sozi, /usr/share/doc/sozi and /usr/include):
+Install the player files only (to `/usr/share/sozi`, `/usr/share/doc/sozi` and `/usr/include`):
 
     sudo scons --prefix=/usr install-player
 
-Install all documentation files, including API reference (to /usr/share/doc/sozi):
+Install all documentation files, including API reference (to `/usr/share/doc/sozi`):
 
     sudo scons --prefix=/usr install-docs
 
