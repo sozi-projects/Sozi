@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-01-13 12:35+0100\n"
-"PO-Revision-Date: 2012-09-10 18:00+0000\n"
+"PO-Revision-Date: 2013-02-13 14:00+0000\n"
 "Last-Translator: Arthur Henrique Guimarães de Oliveira <warthur2@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-19 09:16+0000\n"
-"X-Generator: Launchpad (build 16430)\n"
+"X-Launchpad-Export-Date: 2013-05-17 14:40+0000\n"
+"X-Generator: Launchpad (build 16626)\n"
 
 #: editors/inkscape/sozi/document.py:68
 msgid "Untitled"
@@ -143,15 +143,15 @@ msgstr "Diminuir velocidade e então aumentar (rapidamente)"
 
 #: editors/inkscape/sozi/ui.py:131
 msgid "Immediate (beginning)"
-msgstr ""
+msgstr "Imediatamente (Início)"
 
 #: editors/inkscape/sozi/ui.py:132
 msgid "Immediate (end)"
-msgstr ""
+msgstr "Imediatamente (Fim)"
 
 #: editors/inkscape/sozi/ui.py:133
 msgid "Immediate (middle)"
-msgstr ""
+msgstr "Imediatamente (meio)"
 
 #: editors/inkscape/sozi/ui.py:303
 msgid "Delete the selected frame"
@@ -263,15 +263,15 @@ msgstr "Perfil"
 
 #: editors/inkscape/sozi/ui.glade:638
 msgid "Path"
-msgstr ""
+msgstr "Caminho"
 
 #: editors/inkscape/sozi/ui.glade:657
 msgid "Set the reference to a selected SVG path"
-msgstr ""
+msgstr "Estabelecer a referência para um caminho SVG"
 
 #: editors/inkscape/sozi/ui.glade:658
 msgid "Remove the reference to this SVG path"
-msgstr ""
+msgstr "Remover a referência para um caminho SVG"
 
 #: editors/inkscape/sozi/ui.glade:704
 msgid "<b>Transition to this frame</b>"
