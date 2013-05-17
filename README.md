@@ -13,8 +13,8 @@ This repository is organized in three main branches:
 Building and installing Sozi from sources
 =========================================
 
-Install the build tools:
-------------------------
+Install the build tools
+---------------------
 
 SCons 2.3 or higher is required.
 
@@ -39,8 +39,8 @@ For developers, install the Javascript checker:
     sudo npm install autolint -g
 
 
-Get the source files:
----------------------
+Get the source files
+------------------
 
 Clone the repository:
 
@@ -55,7 +55,7 @@ or
     git checkout dev
 
 
-Build:
+Builda
 ------
 
 Build a release bundle (`build/editors/inkscape/sozi-release-{version}.zip`):
@@ -71,8 +71,8 @@ For developers, check the Javascript sources:
     autolint --once
 
 
-Install:
---------
+Install
+-------
 
 Install the Inkscape extension for the current user (in `$HOME/.config/inkscape/extensions`):
 
