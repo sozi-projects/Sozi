@@ -24,6 +24,7 @@ Optionally, install Javascript and CSS compressors:
 - For Javascript: UglifyJS (default if installed), YUI-Compressor or none
 - For CSS: YUI-Compressor (default if installed) or none
 
+<!-- -->
 
     sudo apt-get install node-uglify
     sudo apt-get install yui-compressor
