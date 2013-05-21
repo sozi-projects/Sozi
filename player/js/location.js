@@ -91,17 +91,6 @@ namespace(this, "sozi.location", function (exports, window) {
         window.location.hash = "#" + sozi.document.frames[index].id;
     }
 
-	/*
-	 * Event handler: document load.
-	 *
-	 * This function registers the "framechange" handler.
-     *
-     * @depend events.js
-	 */
-    function onLoad() {
-        sozi.events.listen("sozi.player.framechange", onFrameChange);
-    }
-    
     window.addEventListener("hashchange", onHashChange, false);
-    window.addEventListener("load", onLoad, false);
+    sozi.events.listen("sozi.player.framechange", onFrameChange); // @depend events.js
 });

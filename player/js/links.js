@@ -23,19 +23,21 @@ namespace(this, "sozi.links", function (exports, window) {
     var XLINK_NS = "http://www.w3.org/1999/xlink";
     
     function getClickHandler(index) {
-        return function () {
+        return function (evt) {
             sozi.player.moveToFrame(index);
+            evt.preventDefault();
+            evt.stopPropagation();
         };
     }
     
     /*
-     * Event handler: document load.
+     * Event handler: document ready.
      *
      * This function adds an event listener to each internal link.
      * Clicking on a link that targets a frame of this document
      * will call sozi.player.moveToFrame().
      */
-    function onLoad() {
+    function onDocumentReady() {
         var links = window.document.getElementsByTagNameNS(SVG_NS, "a");
         for (var i = 0; i < links.length; i += 1) {
             var href = links[i].getAttributeNS(XLINK_NS, "href");
@@ -45,6 +47,6 @@ namespace(this, "sozi.links", function (exports, window) {
         }
     }
 
-    window.addEventListener("load", onLoad, false);
+    sozi.events.listen("sozi.document.ready", onDocumentReady); // @depend events.js
 });
 
