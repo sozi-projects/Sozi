@@ -195,7 +195,7 @@ class SoziComboField(SoziField):
 class SoziToggleField(SoziField):
     """
     A wrapper for a toggle based GTK Widget mapped to a Sozi frame attribute.
-    It can match gtk.CheckButton.
+    It can match Gtk.CheckButton.
     """
     
     def __init__(self, parent, attr, default_value):
