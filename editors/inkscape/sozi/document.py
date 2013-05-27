@@ -21,10 +21,12 @@ def read_xml_attr(element, attr, namespace, default = None, conversion = None):
 
     if ns_attr in element.attrib:
         value = element.attrib[ns_attr]
-        if conversion is None:
-            return value
-        else:
+        if conversion is not None:
             return conversion(value)
+        elif isinstance(value, unicode):
+            return value.encode("utf-8")
+        else:
+            return value
     else:
         return default
 
@@ -36,7 +38,11 @@ def write_xml_attr(element, attr, namespace, value):
         ns_attr = inkex.addNS(attr, namespace)
         
     if value is not None:
-        element.attrib[ns_attr] = unicode(value)
+        if not isinstance(value, basestring):
+            value = unicode(value)
+        elif not isinstance(value, unicode):
+            value = unicode(value, "utf-8")
+        element.attrib[ns_attr] = value
     elif ns_attr in element.attrib:
         del element.attrib[ns_attr]
 
@@ -147,13 +153,13 @@ class SoziFrame:
             # TODO write only values different from the global defaults
             write_xml_attr(self.xml, "refid", "sozi", self.refid) # Optional
             write_xml_attr(self.xml, "title", "sozi", self.title)
-            write_xml_attr(self.xml, "sequence", "sozi", unicode(self.sequence))
+            write_xml_attr(self.xml, "sequence", "sozi", self.sequence)
             write_xml_attr(self.xml, "hide", "sozi", "true" if self.hide else "false")
             write_xml_attr(self.xml, "clip", "sozi", "true" if self.clip else "false")
             write_xml_attr(self.xml, "timeout-enable", "sozi", "true" if self.timeout_enable else "false")
-            write_xml_attr(self.xml, "timeout-ms", "sozi", unicode(self.timeout_ms))
-            write_xml_attr(self.xml, "transition-duration-ms", "sozi", unicode(self.transition_duration_ms))
-            write_xml_attr(self.xml, "transition-zoom-percent", "sozi", unicode(self.transition_zoom_percent))
+            write_xml_attr(self.xml, "timeout-ms", "sozi", self.timeout_ms)
+            write_xml_attr(self.xml, "transition-duration-ms", "sozi", self.transition_duration_ms)
+            write_xml_attr(self.xml, "transition-zoom-percent", "sozi", self.transition_zoom_percent)
             write_xml_attr(self.xml, "transition-profile", "sozi", self.transition_profile)
             write_xml_attr(self.xml, "transition-path", "sozi", self.transition_path) # Optional
             write_xml_attr(self.xml, "transition-path-hide", "sozi", "true" if self.transition_path_hide else "false")
@@ -235,7 +241,7 @@ class SoziLayer:
             write_xml_attr(self.xml, "refid", "sozi", self.refid)
             write_xml_attr(self.xml, "hide", "sozi", "true" if self.hide else "false")
             write_xml_attr(self.xml, "clip", "sozi", "true" if self.clip else "false")
-            write_xml_attr(self.xml, "transition-zoom-percent", "sozi", unicode(self.transition_zoom_percent))
+            write_xml_attr(self.xml, "transition-zoom-percent", "sozi", self.transition_zoom_percent, "utf-8")
             write_xml_attr(self.xml, "transition-profile", "sozi", self.transition_profile)
             write_xml_attr(self.xml, "transition-path", "sozi", self.transition_path)
             write_xml_attr(self.xml, "transition-path-hide", "sozi", "true" if self.transition_path_hide else "false")

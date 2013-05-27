@@ -13,7 +13,7 @@ import os
 
 # Gettext settings for Python modules
 import gettext
-gettext.install("sozi", os.path.join(os.path.dirname(__file__), "lang"), unicode=1)
+gettext.install("sozi", os.path.join(os.path.dirname(__file__), "lang"))
 gettext.textdomain("sozi")
 
 # Locale settings for the C gettext library used by Glade
@@ -23,7 +23,7 @@ locale.bindtextdomain("sozi", os.path.join(os.path.dirname(__file__), "lang"))
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from fields import *
 from actions import *
@@ -349,7 +349,7 @@ class SoziUserInterface:
         selection = self.tree_view.get_selection()
         model, iter = selection.get_selected()
         if iter:
-            return model.get_path(iter)[0]
+            return model.get_path(iter).get_indices()[0]
         else:
             return None
 
@@ -363,8 +363,8 @@ class SoziUserInterface:
         model, iter = selection.get_selected()
         if iter:
             path = model.get_path(iter)
-            if len(path) > 1:
-                return self.model.frames[path[0]].layers.keys()[path[1]]
+            if path.get_depth() > 1:
+                return self.model.frames[path.get_indices()[0]].layers.keys()[path[1]]
             else:
                 return None
         else:
@@ -403,13 +403,13 @@ class SoziUserInterface:
     def selected_item_is_a_frame(self):
         selection = self.tree_view.get_selection()
         model, iter = selection.get_selected()
-        return iter is not None and len(model.get_path(iter)) == 1
+        return iter is not None and model.get_path(iter).get_depth() == 1
 
 
     def selected_item_is_a_layer(self):
         selection = self.tree_view.get_selection()
         model, iter = selection.get_selected()
-        return iter is not None and len(model.get_path(iter)) == 2
+        return iter is not None and model.get_path(iter).get_depth() == 2
 
 
     def on_create_new_frame(self, widget):
