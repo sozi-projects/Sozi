@@ -1,6 +1,7 @@
 Title: À propos de Sozi
 Slug: about
 Lang: fr
+Translation: true
 Author: Guillaume Savaton
 
 Sozi est un outil pour créer et jouer des présentations animées.
