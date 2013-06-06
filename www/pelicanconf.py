@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Guillaume Savaton'
 SITENAME = u'Sozi'
-SITEURL = ''
+SITEURL = 'http://sozi.baierouge.fr'
 
 TIMEZONE = 'Europe/Paris'
 
@@ -32,4 +32,11 @@ DEFAULT_PAGINATION = 10
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
 
+THEME = 'themes/sozi'
+
 STATIC_PATHS = ['images', 'releases']
+
+FILES_TO_COPY = (
+    ('extra/favicon.ico', 'favicon.ico'),
+)
+
