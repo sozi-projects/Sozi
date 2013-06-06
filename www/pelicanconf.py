@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Guillaume Savaton'
 SITENAME = u'Sozi'
-SITEURL = 'http://sozi.baierouge.fr'
+SITEURL = ''
 
 TIMEZONE = 'Europe/Paris'
 
