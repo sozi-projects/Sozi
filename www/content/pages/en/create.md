@@ -6,14 +6,15 @@ Author: Guillaume Savaton
 Tutorials
 =========
 
-TODO
-
-* Your first presentation.
-* Using layers
-* Transition effects
-* Showing and hiding objects
-* Embedding video and audio
-* Converting Sozi presentations to PDF or video
+* [Your first presentation](|filename|tutorial-first.md)
+* [Using layers](|filename|tutorial-layers.md)
+* [Transition effects](|filename|tutorial-transitions.md)
+* [Embedding Sozi presentations in HTML documents](|filename|tutorial-embedding.md)
+* [Showing and hiding objects](|filename|tutorial-showing-hiding.md)
+* [Embedding video and audio](|filename|tutorial-media.md)
+* [Converting Sozi presentations to PDF or video](|filename|tutorial-converting.md)
+* [Launching Sozi with a keyboard shortcut in Inkscape](|filename|tutorial-shortcut.md)
+* [Workaround for text rendering issues](|filename|tutorial-text.md)
 
 Getting help and reporting issues
 =================================
