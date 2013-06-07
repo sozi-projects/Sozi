@@ -1,5 +1,5 @@
 Title: Install
-Slug: install
+Slug: 20-install
 Lang: en
 Author: Guillaume Savaton
 

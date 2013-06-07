@@ -1,5 +1,5 @@
 Title: Installation
-Slug: install
+Slug: 20-install
 Lang: fr
 Translation: true
 Author: Guillaume Savaton

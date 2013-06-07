@@ -1,5 +1,5 @@
 Title: About Sozi
-Slug: about
+Slug: 10-about
 Lang: en
 Author: Guillaume Savaton
 

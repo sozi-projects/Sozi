@@ -1,5 +1,5 @@
 Title: À propos de Sozi
-Slug: about
+Slug: 10-about
 Lang: fr
 Translation: true
 Author: Guillaume Savaton

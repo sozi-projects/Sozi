@@ -1,5 +1,5 @@
 Title: Play
-Slug: play
+Slug: 40-play
 Lang: en
 Author: Guillaume Savaton
 

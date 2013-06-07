@@ -1,5 +1,5 @@
 Title: Contribuer
-Slug: contribute
+Slug: 50-contribute
 Lang: fr
 Author: Guillaume Savaton
 

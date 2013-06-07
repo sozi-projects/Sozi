@@ -1,5 +1,5 @@
 Title: Jouer
-Slug: play
+Slug: 40-play
 Lang: fr
 Author: Guillaume Savaton
 
