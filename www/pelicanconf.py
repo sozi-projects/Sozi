@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = u'Guillaume Savaton'
 SITENAME = u'Sozi'
 SITEURL = ''
-
+GITHUB_URL = 'https://github.com/senshu/Sozi'
 TIMEZONE = 'Europe/Paris'
 
 DEFAULT_LANG = u'en'
@@ -16,8 +16,9 @@ CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 
 # Blogroll
-LINKS =  ( # ('Pelican', 'http://getpelican.com/'),
-    )
+LINKS =  (
+    # ('Pelican', 'http://getpelican.com/'),
+)
 
 # Social widget
 SOCIAL = (
