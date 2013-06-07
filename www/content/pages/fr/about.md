@@ -14,6 +14,8 @@ permettant de focaliser l'attention sur les éléments que vous voulez montrer.
 Sozi repose sur des standards ouverts.
 C'est un logiciel libre sous double licence MIT ou GPL 3.0.
 
-<iframe width="500px" height="350px" src="|filename|/images/ceci-nest-pas-un-diaporama.fast.svg">
-</iframe>
+<div class="sozi">
+    <iframe src="|filename|/images/ceci-nest-pas-un-diaporama.fast.svg">
+    </iframe>
+</div>
 

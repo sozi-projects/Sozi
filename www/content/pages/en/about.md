@@ -13,6 +13,8 @@ that allow to focus on the elements you want to show.
 Sozi is based on open standards.
 It is free software distributed according to the terms of the MIT license or GPL 3.0.
 
-<iframe width="500px" height="350px" src="|filename|/images/this-is-not-a-slideshow.fast.svg">
-</iframe>
+<div class="sozi">
+    <iframe src="|filename|/images/this-is-not-a-slideshow.fast.svg">
+    </iframe>
+</div>
 

@@ -1,6 +1,21 @@
 @import "normalize.css";
 
 /*
+ * Embedding Sozi presentations
+ */
+
+.sozi {
+    text-align: center;
+}
+
+.sozi iframe {
+    border: 1px solid lightgray;
+    overflow: hidden;
+    width: 600px;
+    height: 450px;
+}
+
+/*
  * Social widget (from theme notmyidea)
  */
  
