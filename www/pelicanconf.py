@@ -11,7 +11,7 @@ TIMEZONE = 'Europe/Paris'
 DEFAULT_LANG = u'en'
 
 # Feed generation is usually not desired when developing
-FEED_ALL_ATOM = None
+# FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 
@@ -25,13 +25,14 @@ SOCIAL = (
     ('Twitter', 'https://twitter.com/senshua'),
     ('Facebook', 'https://www.facebook.com/sozi.project'),
     ('Google+', 'https://plus.google.com/u/0/115225184510134342799'),
-    ('Ohloh', 'https://www.ohloh.net/p/sozi')
+    ('Ohloh', 'https://www.ohloh.net/p/sozi'),
+    # TODO add YouTube
 )
 
 DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+RELATIVE_URLS = True
 
 THEME = 'themes/sozi'
 
