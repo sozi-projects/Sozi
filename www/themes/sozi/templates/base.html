@@ -6,7 +6,8 @@
         <meta charset="utf-8" />
         
         <link rel="shortcut icon" href="favicon.ico" />
-        <link rel="stylesheet" href="theme/main.css">
+
+        <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/{{ CSS_FILE }}" />
         
         {% if FEED_ALL_ATOM %}
             <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
@@ -60,6 +61,45 @@
     
     {% block content %}
     {% endblock %}
+
+    <aside id="sidebar">
+        <div class="widget">
+            <h2>Categories</h2>
+            <ul>
+                {% for cat, null in categories %}
+                   <li {% if cat == category %}class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if LINKS %}
+            <div class="widget blogroll">
+                <h2>Blogroll</h2>
+                <ul>
+                    {% for name, link in LINKS %}
+                        <li><a href="{{ link }}">{{ name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div><!-- /.blogroll -->
+        {% endif %}
+        {% if SOCIAL %}
+            <div class="widget social">
+                <h2>Social</h2>
+                <ul>
+                    <li><a href="{{ SITEURL }}/{{ FEED }}" rel="alternate">Atom feed</a></li>
+                    {% if FEED_RSS %}
+                        <li><a href="{{ SITEURL }}/{{ FEED_RSS }}" rel="alternate">RSS feed</a></li>
+                    {% endif %}
+                    {% if GITHUB_URL %}
+                        <li><a href="{{ GITHUB_URL }}">GitHub</a></li>
+                    {% endif %}
+                    {% for name, link in SOCIAL %}
+                        <li><a href="{{ link }}">{{ name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div><!-- /.social -->
+        {% endif %}
+    </aside><!-- /#sidebar -->
+
     
     <footer id="contentinfo" class="body">
         <address id="about" class="vcard body">
