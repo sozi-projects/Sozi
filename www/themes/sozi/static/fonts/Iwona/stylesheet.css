@@ -1,0 +1,14 @@
+
+@font-face {
+	font-family: "Iwona";
+	src: url("Iwona-Regular.otf") format("opentype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Iwona";
+	src: url("Iwona-Bold.otf") format("opentype");
+	font-weight: bold;
+	font-style: normal;
+}

@@ -1,4 +1,19 @@
 @import "normalize.css";
+@import "../fonts/Iwona/stylesheet.css";
+@import "../fonts/TeXGyreSchola/stylesheet.css";
+
+/*
+ * Default fonts
+ */
+
+body {
+    font-family: TeXGyreSchola, Georgia, "Times New Roman", serif;
+    font-size: 18px;
+}
+
+h1, h2, h3, h4 {
+    font-family: Iwona, Arial, sans-serif;
+}
 
 /*
  * Embedding Sozi presentations
