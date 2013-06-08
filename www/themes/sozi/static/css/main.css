@@ -3,17 +3,141 @@
 @import "../fonts/TeXGyreSchola/stylesheet.css";
 
 /*
- * Default fonts
+ * Fonts
  */
-
+ 
 body {
     font-family: TeXGyreSchola, Georgia, "Times New Roman", serif;
-    font-size: 18px;
+    font-size: large;
 }
 
 h1, h2, h3, h4 {
     font-family: Iwona, Arial, sans-serif;
     font-weight: normal;
+}
+
+/*
+ * Layout
+ */
+
+body {
+    margin: 0 auto 2em auto;
+    max-width: 50em;
+}
+
+#banner {
+    height: 5em;
+    
+    margin: 0 -50em 0 -50em;
+    padding: 0 50em 0 50em;
+}
+
+#banner h1 {
+    height: 2.1em;
+    margin-top: 0;
+    padding: 0.5em 0 1em 4em;
+}
+
+#sidebar {
+    height: 10em;
+    
+    margin: 2em -50em 0 -50em;
+    padding: 0 50em 0 50em;
+}
+
+/*
+ * Colors:
+ *	orange 		= rgb(255, 102, 0)
+ *  blue 		= rgb(34, 102, 170)
+ *	light blue 	= rgb(0, 204, 255)
+ *	yellow 		= rgb(255, 204, 0)
+ *	violet 		= rgb(221, 175, 233)
+ *  light green = rgb(204, 255, 0)
+ */
+
+#banner {
+	background:
+	    -moz-linear-gradient(white, rgba(255, 255, 255, 0.6) 4.5em, rgba(255, 255, 255, 0) 4.5em, rgba(255, 255, 255, 0) 5em, white 5em),
+		-moz-repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(255, 102, 0, 0.1) 30px, rgba(255, 102, 0, 0.1) 40px, transparent 40px, transparent 195px),
+		-moz-repeating-linear-gradient(0deg, transparent, transparent 75px, rgba(204, 255, 0, 0.5) 75px, rgba(204, 255, 0, 0.5) 150px, transparent 150px, transparent 165px),
+		-moz-repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(221, 175, 233, 0.5) 10px, rgba(221, 175, 233, 0.5) 65px, transparent 65px, transparent 105px),
+		-moz-repeating-linear-gradient(0deg, rgb(128, 230, 255), rgb(128, 230, 255) 15px, rgb(255, 230, 128) 15px, rgb(255, 230, 128) 45px);
+
+	background:
+	    -webkit-linear-gradient(white, rgba(255, 255, 255, 0.6) 4.5em, rgba(255, 255, 255, 0) 4.5em, rgba(255, 255, 255, 0) 5em, white 5em),
+		-webkit-repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(255, 102, 0, 0.1) 30px, rgba(255, 102, 0, 0.1) 40px, transparent 40px, transparent 195px),
+		-webkit-repeating-linear-gradient(0deg, transparent, transparent 75px, rgba(204, 255, 0, 0.5) 75px, rgba(204, 255, 0, 0.5) 150px, transparent 150px, transparent 165px),
+		-webkit-repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(221, 175, 233, 0.5) 10px, rgba(221, 175, 233, 0.5) 65px, transparent 65px, transparent 105px),
+		-webkit-repeating-linear-gradient(0deg, rgb(128, 230, 255), rgb(128, 230, 255) 15px, rgb(255, 230, 128) 15px, rgb(255, 230, 128) 45px);
+
+	box-shadow: rgb(230, 230, 230) 0px 5px 10px 3px;
+}
+
+#banner h1 {
+	background-image: url(../images/logo.png);
+	background-repeat: no-repeat;
+	background-position: 0 0.2em;
+	background-size: 2em;
+}
+
+#banner h1 a {
+	color: black;
+}
+
+#sidebar {
+	background:
+	    -moz-linear-gradient(white, rgba(255, 255, 255, 0.6) 4em, white 10em),
+		-moz-repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(255, 102, 0, 0.1) 30px, rgba(255, 102, 0, 0.1) 40px, transparent 40px, transparent 195px),
+		-moz-repeating-linear-gradient(0deg, transparent, transparent 75px, rgba(204, 255, 0, 0.5) 75px, rgba(204, 255, 0, 0.5) 150px, transparent 150px, transparent 165px),
+		-moz-repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(221, 175, 233, 0.5) 10px, rgba(221, 175, 233, 0.5) 65px, transparent 65px, transparent 105px),
+		-moz-repeating-linear-gradient(0deg, rgb(128, 230, 255), rgb(128, 230, 255) 15px, rgb(255, 230, 128) 15px, rgb(255, 230, 128) 45px);
+
+	background:
+	    -webkit-linear-gradient(white, rgba(255, 255, 255, 0.6) 4em, white 10em),
+		-webkit-repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(255, 102, 0, 0.1) 30px, rgba(255, 102, 0, 0.1) 40px, transparent 40px, transparent 195px),
+		-webkit-repeating-linear-gradient(0deg, transparent, transparent 75px, rgba(204, 255, 0, 0.5) 75px, rgba(204, 255, 0, 0.5) 150px, transparent 150px, transparent 165px),
+		-webkit-repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(221, 175, 233, 0.5) 10px, rgba(221, 175, 233, 0.5) 65px, transparent 65px, transparent 105px),
+		-webkit-repeating-linear-gradient(0deg, rgb(128, 230, 255), rgb(128, 230, 255) 15px, rgb(255, 230, 128) 15px, rgb(255, 230, 128) 45px);
+}
+
+/*
+ * Links
+ */
+
+a {
+    color: rgb(34, 102, 170);
+    text-decoration: none;
+    outline: 0;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+/*
+ * Menu
+ */
+#menu ul {
+    text-align: center;
+    margin: 0 auto;
+    padding: 0.5em 1em 0.5em 1em;
+}
+
+#menu li {
+    list-style: none;
+    display: inline;
+    padding: 0 0.5em 0.2em 0.5em;
+}
+
+#menu li.active:before {
+    content: "{\0000a0";
+    color: rgb(0, 204, 255);
+}
+
+#menu li.active:after {
+    content: "\0000a0}";
+    color: rgb(0, 204, 255);
 }
 
 /*
@@ -25,10 +149,31 @@ h1, h2, h3, h4 {
 }
 
 .sozi iframe {
-    border: 1px solid lightgray;
+	box-shadow: rgb(230, 230, 230) 0px 5px 10px 3px;
+
+    border: 1px solid rgb(230, 230, 230);
     overflow: hidden;
-    width: 600px;
-    height: 450px;
+    width: 32em;
+    height: 24em;
+}
+
+/*
+ * Widgets
+ */
+
+#sidebar .widget ul {
+    list-style: none;
+    padding: 0;
+}
+
+#sidebar .widget {
+    display: block;
+    float: left;
+    width: 33%;
+}
+
+#contentinfo {
+    clear: both;
 }
 
 /*
