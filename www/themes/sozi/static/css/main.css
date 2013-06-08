@@ -141,6 +141,14 @@ a:hover {
 }
 
 /*
+ * Content
+ */
+
+p {
+    text-align: justify;
+}
+
+/*
  * Embedding Sozi presentations
  */
 
