@@ -5,7 +5,7 @@ Status: hidden
 Author: Guillaume Savaton
 
 Distributions shipping Sozi
-===========================
+---------------------------
 
 Sozi is available in repositories for the following distributions:
 
@@ -15,7 +15,7 @@ Sozi is available in repositories for the following distributions:
 * [Fedora](https://apps.fedoraproject.org/packages/inkscape-sozi)
 
 Manual installation
-===================
+-------------------
 
 Sozi depends on the following packages:
 
