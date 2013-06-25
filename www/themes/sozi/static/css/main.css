@@ -114,20 +114,35 @@ a:hover {
     text-decoration: underline;
 }
 
+/*
+ * Lists
+ */
+
+ul {
+    list-style: none;
+}
+
+ul li:before {
+    content: "\2015\0000a0"; /* dash */
+}
 
 /*
  * Menu
  */
 #menu ul {
+    list-style: none;
     text-align: center;
     margin: 0 auto;
     padding: 0.5em 1em 0.5em 1em;
 }
 
 #menu li {
-    list-style: none;
     display: inline;
     padding: 0 0.5em 0.2em 0.5em;
+}
+
+#menu li:before {
+    content: none;
 }
 
 #menu li.active:before {
@@ -172,6 +187,10 @@ p {
 #sidebar .widget ul {
     list-style: none;
     padding: 0;
+}
+
+#sidebar .widget li:before {
+    content: none;
 }
 
 #sidebar .widget {
