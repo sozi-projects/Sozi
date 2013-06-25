@@ -12,7 +12,7 @@ DEP_RE = re.compile("@depend\s*([a-zA-Z0-9./_-]+)")
 
 def collect_dependencies(scores, stack, node, env):
     # Open the current file and add it to the list of files being processed
-    filename = str(node)
+    filename = os.path.abspath(str(node))
     stack.append(filename)
     
     # Get the location of the current file.
@@ -25,7 +25,7 @@ def collect_dependencies(scores, stack, node, env):
     # Process all @depend directives in the source file
     for match in DEP_RE.findall(node.get_text_contents()):
         # Compute the name of the target file
-        depFilename = os.path.join(dirname, match)
+        depFilename = os.path.abspath(os.path.join(dirname, match))
         # Check that the target file is not already being processed
         if depFilename in stack:
             sys.stderr.write("Circular dependency on files: " + filename + " " + depFilename)
@@ -66,8 +66,6 @@ def exists(env):
 
 
 def generate(env):
-    scan = Scanner(function = scan_dependencies, skeys = ".js")
-    env.Append(SCANNERS = scan)
     env.AddMethod(ConcatJS)
 
 
