@@ -9,6 +9,7 @@ Tutorials
 * [Your first presentation](|filename|tutorial-first.md)
 * [Using layers](|filename|tutorial-layers.md)
 * [Transition effects](|filename|tutorial-transitions.md)
+* [Frame URLs and hyperlinks](|filename|tutorial-links.md)
 * [Embedding Sozi presentations in HTML documents](|filename|tutorial-embedding.md)
 * [Showing and hiding objects](|filename|tutorial-showing-hiding.md)
 * [Embedding video and audio](|filename|tutorial-media.md)
