@@ -33,9 +33,9 @@ body {
 }
 
 #banner h1 {
-    height: 2.1em;
+    height: 2em;
     margin-top: 0;
-    padding: 0.5em 0 1em 4em;
+    padding: 0.5em 0 0 4em;
 }
 
 #sidebar {
@@ -57,26 +57,24 @@ body {
 
 #banner {
 	background:
-	    -moz-linear-gradient(white, rgba(255, 255, 255, 0.6) 4.5em, rgba(255, 255, 255, 0) 4.5em, rgba(255, 255, 255, 0) 5em, white 5em),
+	    -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 0.5em, rgba(255, 255, 255, 0.6) 0.5em, white 5em),
 		-moz-repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(255, 102, 0, 0.1) 30px, rgba(255, 102, 0, 0.1) 40px, transparent 40px, transparent 195px),
 		-moz-repeating-linear-gradient(0deg, transparent, transparent 75px, rgba(204, 255, 0, 0.5) 75px, rgba(204, 255, 0, 0.5) 150px, transparent 150px, transparent 165px),
 		-moz-repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(221, 175, 233, 0.5) 10px, rgba(221, 175, 233, 0.5) 65px, transparent 65px, transparent 105px),
 		-moz-repeating-linear-gradient(0deg, rgb(128, 230, 255), rgb(128, 230, 255) 15px, rgb(255, 230, 128) 15px, rgb(255, 230, 128) 45px);
 
 	background:
-	    -webkit-linear-gradient(white, rgba(255, 255, 255, 0.6) 4.5em, rgba(255, 255, 255, 0) 4.5em, rgba(255, 255, 255, 0) 5em, white 5em),
+	    -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 0.5em, rgba(255, 255, 255, 0.6) 0.5em, white 5em),
 		-webkit-repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(255, 102, 0, 0.1) 30px, rgba(255, 102, 0, 0.1) 40px, transparent 40px, transparent 195px),
 		-webkit-repeating-linear-gradient(0deg, transparent, transparent 75px, rgba(204, 255, 0, 0.5) 75px, rgba(204, 255, 0, 0.5) 150px, transparent 150px, transparent 165px),
 		-webkit-repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(221, 175, 233, 0.5) 10px, rgba(221, 175, 233, 0.5) 65px, transparent 65px, transparent 105px),
 		-webkit-repeating-linear-gradient(0deg, rgb(128, 230, 255), rgb(128, 230, 255) 15px, rgb(255, 230, 128) 15px, rgb(255, 230, 128) 45px);
-
-	box-shadow: rgb(230, 230, 230) 0px 5px 10px 3px;
 }
 
 #banner h1 {
 	background-image: url(../images/logo.png);
 	background-repeat: no-repeat;
-	background-position: 0 0.2em;
+	background-position: 0 0.4em;
 	background-size: 2em;
 }
 
