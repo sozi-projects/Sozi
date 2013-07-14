@@ -1,6 +1,7 @@
 @import "normalize.css";
 @import "../fonts/Iwona/stylesheet.css";
 @import "../fonts/TeXGyreSchola/stylesheet.css";
+@import "../fonts/SourceCodePro/stylesheet.css";
 
 /*
  * Fonts
@@ -16,6 +17,9 @@ h1, h2, h3, h4 {
     font-weight: normal;
 }
 
+code, pre {
+    font-family: SourceCodePro, monospace;
+}
 /*
  * Layout
  */
