@@ -161,21 +161,42 @@ p {
     text-align: justify;
 }
 
+blockquote {
+    background: rgba(204, 255, 0, 0.3);
+    border-radius: 0.5em;
+    padding: 0 1em 0 1em;
+	box-shadow: rgb(230, 230, 230) 0px 5px 10px 3px;
+}
+
+/*
+ * Images
+ */
+
+img {
+    max-width: 32em;
+	box-shadow: rgb(230, 230, 230) 0px 5px 10px 3px;
+
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 /*
  * Embedding Sozi presentations
  */
 
-.sozi {
-    text-align: center;
-}
-
-.sozi iframe {
+iframe.sozi {
 	box-shadow: rgb(230, 230, 230) 0px 5px 10px 3px;
 
     border: 1px solid rgb(230, 230, 230);
     overflow: hidden;
     width: 32em;
     height: 24em;
+
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+
 }
 
 /*
