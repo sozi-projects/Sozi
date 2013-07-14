@@ -30,14 +30,14 @@ Inkscape extensions can be installed in two possible locations:
 * in your home folder (`~/.config/inkscape/extensions`)
 
 > If you are upgrading from version 13.01 or earlier,
-you should uninstall the previous version by removing all files whose names begin with "sozi".
+you should uninstall the previous version by removing all files whose names begin with `sozi`.
 
 1. [Download Sozi](|filename|download.md)
 2. Unzip the archive `sozi-release-[...].zip`.
 You should get a folder named `archive sozi-release-[...]`.
 3. Copy the content of this folder into the Inkscape extensions folder.
-4. Check that the subfolder `sozi` has "execute" permissions.
+4. Check that the subfolder `sozi` has *execute* permissions.
 5. Start or relaunch Inkscape.
-You should now see an item "Sozi" in the "Extensions" menu.
+You should now see an item *Sozi* in the *Extensions* menu.
 
 You can now [create your first presentation](|filename|create.md).

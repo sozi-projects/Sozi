@@ -17,6 +17,7 @@ Tutorials
 * [Launching Sozi with a keyboard shortcut in Inkscape](|filename|tutorial-shortcut.md)
 * [Workaround for text rendering issues](|filename|tutorial-text.md)
 
+
 Getting help and reporting issues
 ---------------------------------
 
