@@ -53,8 +53,8 @@ The main window of Inkscape will not respond until the presentation editor is cl
 
 ![The frame editor](|filename|/images/tutorial-first/sozi-tutorial-screenshot-06.png)
 
-When you start Sozi with a new document, a presentation script will be automatically installed into the document.
-Later, each time you reopen Sozi with the same document, Sozi will update the script using the latest version installed on your computer. 
+When you start Sozi with a new document, the Sozi player will be automatically installed into the document.
+Later, each time you reopen Sozi with the same document, the player will be updated using the latest version installed on your computer. 
 
 Add frames and edit their properties
 ------------------------------------
