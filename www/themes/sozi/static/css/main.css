@@ -112,7 +112,7 @@ a {
     outline: 0;
 }
 
-a:hover {
+a:hover, a:focus {
     text-decoration: underline;
 }
 
@@ -175,6 +175,21 @@ blockquote {
 /*
  * Images
  */
+
+img.github-left, img.github-right {
+    position: absolute;
+    top: 0;
+    border: none;
+    box-shadow: none;
+}
+
+img.github-left {
+    left: 0;
+}
+
+img.github-right {
+    right: 0;
+}
 
 img {
     max-width: 32em;
