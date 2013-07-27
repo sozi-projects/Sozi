@@ -46,3 +46,5 @@ FILES_TO_COPY = (
     ('extra/favicon.ico', 'favicon.ico'),
 )
 
+DEFAULT_DATE_FORMAT = "%Y-%m-%d"
+
