@@ -158,6 +158,14 @@ ul li:before {
 }
 
 /*
+ * Blog post list
+ */
+
+ol#post-list {
+    list-style: none;
+}
+
+/*
  * Content
  */
 
