@@ -6,7 +6,7 @@ Status: hidden
 
 
 This tutorial will introduce the basic features of Sozi.
-You will learn to create several frames, edit their properties and play the presentation in a web browser.
+You will learn how to create frames and play the presentation in a web browser.
 
 
 Download and open the example document
@@ -91,7 +91,7 @@ Save the document in Inkscape.
 Open the SVG document with your favorite web browser.
 It will automatically focus on the first frame.
 Click inside the browser window to move to the next frame
-(See also: [Playing a presentation](|filename|40-play.md)).
+(See also: [Playing a presentation](|filename|play.md)).
 
 [Download or play the full presentation](|filename|/images/tutorial-first/sozi-tutorial-full.svg).
 
