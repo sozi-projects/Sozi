@@ -1,12 +1,10 @@
 Title: Sozi 12.09 is available
-Date: 2012-09-01 13:17
+Date: 2012-09-01
 Slug: release-12.09
 Lang: en
 Author: Guillaume Savaton
 Summary:
-    I am pleased to announce the release of Sozi 12.09.
-    It provides support for layers, new translations and a few bug fixes.
-    
+    Layers, new translations and a few bug fixes.
 
 I am pleased to announce the release of Sozi 12.09.
 It provides support for layers, new translations and a few bug fixes.

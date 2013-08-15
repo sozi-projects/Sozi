@@ -1,11 +1,10 @@
 Title: Sozi 13.01 is available for testers
-Date: 2013-01-19 11:17
+Date: 2013-01-19
 Slug: release-13.01
 Lang: en
 Author: Guillaume Savaton
 Summary:
-    A release candidate of Sozi is available for testers and translators.
-    This release comes with a few bug fixes, new features and translations.
+    Transition paths, PDF and video export, new translations, bug fixes.
 
 A release candidate of Sozi is available for testers and translators.
 See the instructions to [download](|filename|/pages/en/download.md) and [install](|filename|/pages/en/install.md) it.
