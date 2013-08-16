@@ -5,4 +5,4 @@ Lang: fr
 Translation: true
 Author: Guillaume Savaton
 
-TODO
+<!-- TODO -->
