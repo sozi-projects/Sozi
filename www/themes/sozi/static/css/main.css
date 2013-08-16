@@ -125,7 +125,16 @@ ul {
 }
 
 ul li:before {
-    content: "\2015\0000a0"; /* dash */
+    content: "\2015\2000"; /* dash */
+}
+
+ul li {
+    padding-left: 1em;
+    text-indent: -1.5em;
+}
+
+ol {
+    margin-left: 1em;
 }
 
 /*
@@ -171,13 +180,19 @@ ol#post-list {
 
 p {
     text-align: justify;
+    margin: 0.5em 0;
+    text-indent: 1em;
 }
 
 blockquote {
-    background: rgba(204, 255, 0, 0.3);
-    border-radius: 0.5em;
-    padding: 0 1em 0 1em;
+    background: rgb(255, 230, 128);
+    padding: 0.5em 1.5em;
 	box-shadow: rgb(230, 230, 230) 0px 5px 10px 3px;
+	margin: 1em 1em;
+}
+
+section#content > header {
+    margin-bottom: 1em;
 }
 
 /*
@@ -206,6 +221,32 @@ img {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+/*
+ * Tables
+ */
+
+table {
+	box-shadow: rgb(230, 230, 230) 0px 5px 10px 3px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td, th {
+	border: 1px solid rgb(196, 216, 110);
+	padding: 0.2em 0.5em;
+	vertical-align: middle;
+}
+
+th {
+    font-family: Iwona;
+    font-weight: normal;
+    background: rgb(239, 255, 178);
+}
+
+td {
+    font-size: 95%;
 }
 
 /*
