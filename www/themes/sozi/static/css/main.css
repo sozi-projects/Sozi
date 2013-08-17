@@ -147,23 +147,17 @@ ol {
     padding: 0.5em 1em 0.5em 1em;
 }
 
+#menu li:before {
+    content: none;
+}
+
 #menu li {
     display: inline;
     padding: 0 0.5em 0.2em 0.5em;
 }
 
-#menu li:before {
-    content: none;
-}
-
-#menu li.active:before {
-    content: "{\0000a0";
-    color: rgb(0, 204, 255);
-}
-
-#menu li.active:after {
-    content: "\0000a0}";
-    color: rgb(0, 204, 255);
+#menu li.active {
+    text-shadow: 0 0.2em 0.2em rgb(128, 230, 255);
 }
 
 /*
