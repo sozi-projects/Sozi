@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk+" version="2.24"/>
+  <!-- interface-naming-policy project-wide -->
   <object class="GtkTreeStore" id="frame-store">
     <columns>
       <!-- column-name sequence_column -->
@@ -18,6 +19,16 @@
   <object class="GtkMenu" id="selection-menu">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+  </object>
+  <object class="GtkAdjustment" id="timeout-adjustment">
+    <property name="upper">3600</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="transition-duration-adjustment">
+    <property name="upper">3600</property>
+    <property name="step_increment">0.10000000000000001</property>
+    <property name="page_increment">1</property>
   </object>
   <object class="GtkWindow" id="sozi-window">
     <property name="visible">True</property>
@@ -51,7 +62,6 @@
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="label" translatable="yes">Undo</property>
                         <property name="use_underline">True</property>
                         <property name="stock_id">gtk-undo</property>
@@ -68,7 +78,6 @@
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="label" translatable="yes">Redo</property>
                         <property name="use_underline">True</property>
                         <property name="stock_id">gtk-redo</property>
@@ -98,6 +107,8 @@
                           <object class="GtkScrolledWindow" id="scrolledwindow2">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="hscrollbar_policy">automatic</property>
+                            <property name="vscrollbar_policy">automatic</property>
                             <child>
                               <object class="GtkTreeView" id="frame-tree-view">
                                 <property name="visible">True</property>
@@ -106,9 +117,6 @@
                                 <property name="headers_clickable">False</property>
                                 <property name="expander_column">title-column</property>
                                 <property name="search_column">1</property>
-                                <child internal-child="selection">
-                                  <object class="GtkTreeSelection" id="treeview-selection1"/>
-                                </child>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="sequence-column">
                                     <property name="sizing">autosize</property>
@@ -156,7 +164,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="tooltip_text" translatable="yes">Create a new frame</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="label" translatable="yes">New</property>
                                 <property name="use_underline">True</property>
                                 <property name="stock_id">gtk-add</property>
@@ -189,7 +196,6 @@
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">False</property>
                                 <property name="tooltip_text" translatable="yes">Duplicate the selected frame</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="label" translatable="yes">Duplicate</property>
                                 <property name="use_underline">True</property>
                                 <property name="stock_id">gtk-copy</property>
@@ -206,7 +212,6 @@
                                 <property name="visible">True</property>
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">False</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="label" translatable="yes">Delete</property>
                                 <property name="use_underline">True</property>
                                 <property name="stock_id">gtk-delete</property>
@@ -224,7 +229,6 @@
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">False</property>
                                 <property name="tooltip_text" translatable="yes">Move the selected frame up</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="label" translatable="yes">Move frame up</property>
                                 <property name="use_underline">True</property>
                                 <property name="stock_id">gtk-go-up</property>
@@ -242,7 +246,6 @@
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">False</property>
                                 <property name="tooltip_text" translatable="yes">Move the selected frame down</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="label" translatable="yes">Move frame down</property>
                                 <property name="use_underline">True</property>
                                 <property name="stock_id">gtk-go-down</property>
@@ -272,6 +275,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="hscrollbar_policy">never</property>
+                        <property name="vscrollbar_policy">automatic</property>
                         <child>
                           <object class="GtkViewport" id="viewport1">
                             <property name="visible">True</property>
@@ -280,7 +284,6 @@
                               <object class="GtkVBox" id="frame-form">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="valign">start</property>
                                 <property name="spacing">12</property>
                                 <child>
                                   <object class="GtkFrame" id="frame-properties">
@@ -350,6 +353,8 @@
                                                 <property name="invisible_char">●</property>
                                                 <property name="primary_icon_activatable">False</property>
                                                 <property name="secondary_icon_activatable">False</property>
+                                                <property name="primary_icon_sensitive">True</property>
+                                                <property name="secondary_icon_sensitive">True</property>
                                               </object>
                                               <packing>
                                                 <property name="left_attach">1</property>
@@ -369,8 +374,6 @@
                                                     <property name="sensitive">False</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
-                                                    <property name="use_action_appearance">False</property>
-                                                    <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                   </object>
                                                   <packing>
@@ -387,8 +390,6 @@
                                                     <property name="sensitive">False</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
-                                                    <property name="use_action_appearance">False</property>
-                                                    <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                   </object>
                                                   <packing>
@@ -417,6 +418,8 @@
                                                     <property name="invisible_char">●</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
+                                                    <property name="primary_icon_sensitive">True</property>
+                                                    <property name="secondary_icon_sensitive">True</property>
                                                     <property name="adjustment">timeout-adjustment</property>
                                                     <property name="digits">2</property>
                                                     <property name="numeric">True</property>
@@ -435,7 +438,6 @@
                                                     <property name="sensitive">False</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">True</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="xalign">0.49000000953674316</property>
                                                   </object>
                                                   <packing>
@@ -471,6 +473,8 @@
                                                 <property name="invisible_char">●</property>
                                                 <property name="primary_icon_stock">gtk-paste</property>
                                                 <property name="secondary_icon_stock">gtk-clear</property>
+                                                <property name="primary_icon_activatable">True</property>
+                                                <property name="secondary_icon_activatable">True</property>
                                                 <property name="primary_icon_sensitive">False</property>
                                                 <property name="secondary_icon_sensitive">False</property>
                                                 <property name="primary_icon_tooltip_text" translatable="yes">Set the reference to a selected SVG element</property>
@@ -491,6 +495,8 @@
                                                 <property name="invisible_char">●</property>
                                                 <property name="primary_icon_activatable">False</property>
                                                 <property name="secondary_icon_activatable">False</property>
+                                                <property name="primary_icon_sensitive">True</property>
+                                                <property name="secondary_icon_sensitive">True</property>
                                               </object>
                                               <packing>
                                                 <property name="left_attach">1</property>
@@ -587,6 +593,8 @@
                                                 <property name="caps_lock_warning">False</property>
                                                 <property name="primary_icon_activatable">False</property>
                                                 <property name="secondary_icon_activatable">False</property>
+                                                <property name="primary_icon_sensitive">True</property>
+                                                <property name="secondary_icon_sensitive">True</property>
                                                 <property name="adjustment">transition-duration-adjustment</property>
                                                 <property name="digits">2</property>
                                                 <property name="numeric">True</property>
@@ -606,6 +614,8 @@
                                                 <property name="invisible_char_set">True</property>
                                                 <property name="primary_icon_activatable">False</property>
                                                 <property name="secondary_icon_activatable">False</property>
+                                                <property name="primary_icon_sensitive">True</property>
+                                                <property name="secondary_icon_sensitive">True</property>
                                                 <property name="adjustment">transition-zoom-adjustment</property>
                                                 <property name="numeric">True</property>
                                               </object>
@@ -670,6 +680,8 @@
                                                 <property name="invisible_char">●</property>
                                                 <property name="primary_icon_stock">gtk-paste</property>
                                                 <property name="secondary_icon_stock">gtk-clear</property>
+                                                <property name="primary_icon_activatable">True</property>
+                                                <property name="secondary_icon_activatable">True</property>
                                                 <property name="primary_icon_sensitive">False</property>
                                                 <property name="secondary_icon_sensitive">False</property>
                                                 <property name="primary_icon_tooltip_text" translatable="yes">Set the reference to a selected SVG path</property>
@@ -701,8 +713,6 @@
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">True</property>
                                                 <property name="receives_default">False</property>
-                                                <property name="use_action_appearance">False</property>
-                                                <property name="xalign">0</property>
                                                 <property name="draw_indicator">True</property>
                                               </object>
                                               <packing>
@@ -763,7 +773,6 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="tooltip_text" translatable="yes">Apply changes and go back to Inkscape</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="use_stock">True</property>
                         <signal name="clicked" handler="on_ok_button_clicked" swapped="no"/>
                       </object>
@@ -782,7 +791,6 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="tooltip_text" translatable="yes">Cancel all changes and go back to Inkscape</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="use_stock">True</property>
                         <signal name="clicked" handler="on_cancel_button_clicked" swapped="no"/>
                       </object>
@@ -872,16 +880,6 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkAdjustment" id="timeout-adjustment">
-    <property name="upper">3600</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="transition-duration-adjustment">
-    <property name="upper">3600</property>
-    <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">1</property>
   </object>
   <object class="GtkAdjustment" id="transition-zoom-adjustment">
     <property name="lower">-100</property>
