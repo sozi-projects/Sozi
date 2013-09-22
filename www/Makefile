@@ -12,10 +12,14 @@ FTP_HOST=localhost
 FTP_USER=anonymous
 FTP_TARGET_DIR=/
 
-SSH_HOST=sftp.dcO.gpaas.net
+SFTP_HOST=sftp.dc0.gpaas.net
+SFTP_USER=687280
+SFTP_TARGET_DIR=/lamp0/web/vhosts/sozi.baierouge.fr/htdocs
+
+SSH_HOST=localhost
 SSH_PORT=22
-SSH_USER=687280
-SSH_TARGET_DIR=/lamp0/web/vhosts/sozi.baierouge.fr
+SSH_USER=me
+SSH_TARGET_DIR=/
 
 S3_BUCKET=my_s3_bucket
 
@@ -77,6 +81,9 @@ dropbox_upload: publish
 
 ftp_upload: publish
 	lftp ftp://$(FTP_USER)@$(FTP_HOST) -e "mirror -R $(OUTPUTDIR) $(FTP_TARGET_DIR) ; quit"
+
+sftp_upload: publish
+	lftp sftp://$(SFTP_USER)@$(SFTP_HOST) -e "mirror -R $(OUTPUTDIR) $(SFTP_TARGET_DIR) ; quit"
 
 s3_upload: publish
 	s3cmd sync $(OUTPUTDIR)/ s3://$(S3_BUCKET) --acl-public --delete-removed
