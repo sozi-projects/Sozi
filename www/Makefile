@@ -12,10 +12,10 @@ FTP_HOST=localhost
 FTP_USER=anonymous
 FTP_TARGET_DIR=/
 
-SSH_HOST=baierouge.fr
+SSH_HOST=sftp.dcO.gpaas.net
 SSH_PORT=22
-SSH_USER=www-data
-SSH_TARGET_DIR=/var/www/sozi
+SSH_USER=687280
+SSH_TARGET_DIR=/lamp0/web/vhosts/sozi.baierouge.fr
 
 S3_BUCKET=my_s3_bucket
 
