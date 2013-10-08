@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:ns1="http://sozi.baierouge.fr"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1062.9921"
+   height="1062.9921"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="sozi-layers-tutorial-full.svg">
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="564.39569"
+     inkscape:cy="696.69923"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     inkscape:window-width="1600"
+     inkscape:window-height="878"
+     inkscape:window-x="1366"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     units="mm">
+    <inkscape:grid
+       snapvisiblegridlinesonly="true"
+       enabled="true"
+       visible="true"
+       empspacing="5"
+       type="xygrid"
+       id="grid2997" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient4333">
+      <stop
+         id="stop4335"
+         offset="0"
+         style="stop-color:#008000;stop-opacity:1;" />
+      <stop
+         id="stop4337"
+         offset="1"
+         style="stop-color:#004800;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4269">
+      <stop
+         id="stop4271"
+         offset="0"
+         style="stop-color:#3f2311;stop-opacity:1;" />
+      <stop
+         style="stop-color:#5e361a;stop-opacity:1;"
+         offset="0.5"
+         id="stop4277" />
+      <stop
+         id="stop4273"
+         offset="1"
+         style="stop-color:#3f2411;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3769">
+      <stop
+         style="stop-color:#69a5ff;stop-opacity:1;"
+         offset="0"
+         id="stop3771" />
+      <stop
+         style="stop-color:#001432;stop-opacity:1;"
+         offset="1"
+         id="stop3773" />
+    </linearGradient>
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter3787"
+       x="-0.13191488"
+       width="1.2638298"
+       y="-0.13191488"
+       height="1.2638298">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.6489362"
+         id="feGaussianBlur3789" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3769"
+       id="linearGradient4057"
+       gradientUnits="userSpaceOnUse"
+       x1="373.01944"
+       y1="328.45618"
+       x2="544.43646"
+       y2="382.02667" />
+    <filter
+       color-interpolation-filters="sRGB"
+       id="filter4261"
+       inkscape:collect="always">
+      <feGaussianBlur
+         id="feGaussianBlur4263"
+         stdDeviation="0.46057773"
+         inkscape:collect="always" />
+    </filter>
+    <filter
+       color-interpolation-filters="sRGB"
+       id="filter4265"
+       inkscape:collect="always">
+      <feGaussianBlur
+         id="feGaussianBlur4267"
+         stdDeviation="0.89095451"
+         inkscape:collect="always" />
+    </filter>
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="749.9184"
+       x2="445.01538"
+       y1="749.9184"
+       x1="418"
+       id="linearGradient4275"
+       xlink:href="#linearGradient4269"
+       inkscape:collect="always" />
+    <filter
+       color-interpolation-filters="sRGB"
+       height="1.4502336"
+       y="-0.2251168"
+       width="1.0608914"
+       x="-0.030445689"
+       id="filter4283"
+       inkscape:collect="always">
+      <feGaussianBlur
+         id="feGaussianBlur4285"
+         stdDeviation="1.0269308"
+         inkscape:collect="always" />
+    </filter>
+    <filter
+       color-interpolation-filters="sRGB"
+       height="1.2125103"
+       y="-0.10625522"
+       width="1.2130221"
+       x="-0.10651104"
+       id="filter4311"
+       inkscape:collect="always">
+      <feGaussianBlur
+         id="feGaussianBlur4313"
+         stdDeviation="0.93102136"
+         inkscape:collect="always" />
+    </filter>
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.0730919e-6,1.0822173,-1.5632029,1.5681795e-6,1538.6532,241.32663)"
+       r="41.581299"
+       fy="709.2193"
+       fx="421.38898"
+       cy="709.2193"
+       cx="421.38898"
+       id="radialGradient4341"
+       xlink:href="#linearGradient4333"
+       inkscape:collect="always" />
+  </defs>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     style="display:inline"
+     transform="translate(0,10.629915)"
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Sky">
+    <path
+       sodipodi:type="arc"
+       style="fill:url(#linearGradient4057);fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="path2999"
+       sodipodi:cx="450"
+       sodipodi:cy="352.36218"
+       sodipodi:rx="130"
+       sodipodi:ry="130"
+       d="m 580,352.36218 c 0,71.79702 -58.20298,130 -130,130 -71.79702,0 -130,-58.20298 -130,-130 0,-71.79701 58.20298,-130 130,-130 71.79702,0 130,58.20299 130,130 z"
+       transform="matrix(-1.2090695,1.5445985,-1.5445985,-1.2090695,1478.3394,43.323169)" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffff37;fill-opacity:0.99610895;fill-rule:nonzero;stroke:none;filter:url(#filter3787)"
+       id="path3777"
+       sodipodi:cx="235"
+       sodipodi:cy="307.36218"
+       sodipodi:rx="15"
+       sodipodi:ry="15"
+       d="m 250,307.36218 c 0,8.28427 -6.71573,15 -15,15 -8.28427,0 -15,-6.71573 -15,-15 0,-8.28427 6.71573,-15 15,-15 8.28427,0 15,6.71573 15,15 z"
+       transform="matrix(2.1437741e-4,-0.99999998,0.99999998,2.1437741e-4,0.58422918,408.29629)" />
+    <rect
+       inkscape:label="#rect3791"
+       style="fill:none;stroke:#ffaaaa"
+       id="rect-sky-noon"
+       width="240"
+       height="180"
+       x="61.730034"
+       y="285.45068"
+       transform="matrix(0.86619852,-0.49970004,0.49970004,0.86619852,0,0)" />
+    <rect
+       inkscape:label="#rect3793"
+       y="313.99463"
+       x="-195.09631"
+       height="180"
+       width="240"
+       id="rect-sky-evening"
+       style="fill:none;stroke:#ffaaaa;stroke-width:1"
+       transform="matrix(0.50073141,-0.86560271,0.86560271,0.50073141,0,0)" />
+    <rect
+       inkscape:label="#rect3795"
+       y="132.36218"
+       x="270.00003"
+       height="180"
+       width="240"
+       id="rect-sky-morning"
+       style="fill:none;stroke:#ffaaaa" />
+    <path
+       style="fill:#f9f9f9;fill-opacity:0.99610895;fill-rule:nonzero;stroke:none;filter:url(#filter3787)"
+       d="m 467.96875,271.92468 c -2.60503,2.69822 -4.21875,6.39075 -4.21875,10.4375 0,8.28427 6.71573,15 15,15 8.28427,0 15,-6.71573 15,-15 0,-0.6577 -0.0429,-1.30215 -0.125,-1.9375 -0.89161,6.73236 -6.64899,11.9375 -13.625,11.9375 -7.59391,0 -13.75,-6.15609 -13.75,-13.75 0,-2.42323 0.61837,-4.7104 1.71875,-6.6875 z"
+       id="path3886"
+       inkscape:connector-curvature="0"
+       transform="matrix(0.81490412,0.57959578,-0.57959578,0.81490412,15.744142,-176.52346)" />
+    <rect
+       y="210.06699"
+       x="-432.27856"
+       height="180"
+       width="240"
+       id="rect-sky-night"
+       style="fill:none;stroke:#ffaaaa;stroke-width:1"
+       inkscape:label="#rect3791"
+       transform="matrix(2.1438241e-4,-0.99999998,0.99999998,2.1438241e-4,0,0)" />
+    <path
+       inkscape:transform-center-y="-0.056323061"
+       inkscape:transform-center-x="0.19967991"
+       d="m 235,397.36218 -5.41301,-7.51462 -7.55247,5.36008 5.47412,-7.47023 -7.43158,-5.52647 8.79621,2.89777 2.9595,-8.77562 -0.0378,9.26114 9.26065,0.10284 -8.81955,2.82593 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="false"
+       sodipodi:arg2="1.7354672"
+       sodipodi:arg1="1.1071487"
+       sodipodi:r2="2.5194552"
+       sodipodi:r1="11.18034"
+       sodipodi:cy="387.36218"
+       sodipodi:cx="230"
+       sodipodi:sides="5"
+       id="path4287"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter4311)"
+       sodipodi:type="star"
+       transform="matrix(0.21804012,-0.09482083,0.09482083,0.21804012,135.55716,357.33282)" />
+    <path
+       transform="matrix(0.22938431,0.06257255,-0.06257255,0.22938431,206.05306,304.53604)"
+       sodipodi:type="star"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter4311)"
+       id="path4315"
+       sodipodi:sides="5"
+       sodipodi:cx="230"
+       sodipodi:cy="387.36218"
+       sodipodi:r1="11.18034"
+       sodipodi:r2="2.5194552"
+       sodipodi:arg1="1.1071487"
+       sodipodi:arg2="1.7354672"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 235,397.36218 -5.41301,-7.51462 -7.55247,5.36008 5.47412,-7.47023 -7.43158,-5.52647 8.79621,2.89777 2.9595,-8.77562 -0.0378,9.26114 9.26065,0.10284 -8.81955,2.82593 z"
+       inkscape:transform-center-x="-0.16105693"
+       inkscape:transform-center-y="0.095743664" />
+    <path
+       inkscape:transform-center-y="0.20884381"
+       inkscape:transform-center-x="-0.046873532"
+       d="m 235,397.36218 -5.41301,-7.51462 -7.55247,5.36008 5.47412,-7.47023 -7.43158,-5.52647 8.79621,2.89777 2.9595,-8.77562 -0.0378,9.26114 9.26065,0.10284 -8.81955,2.82593 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="false"
+       sodipodi:arg2="1.7354672"
+       sodipodi:arg1="1.1071487"
+       sodipodi:r2="2.5194552"
+       sodipodi:r1="11.18034"
+       sodipodi:cy="387.36218"
+       sodipodi:cx="230"
+       sodipodi:sides="5"
+       id="path4317"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter4311)"
+       sodipodi:type="star"
+       transform="matrix(-0.02193682,0.23675148,-0.23675148,-0.02193682,351.32725,366.82718)" />
+    <path
+       transform="matrix(0.21809405,-0.09469674,0.09469674,0.21809405,130.51577,300.88584)"
+       sodipodi:type="star"
+       style="fill:#ffffff;fill-opacity:0.75875483;fill-rule:nonzero;stroke:none;filter:url(#filter4311)"
+       id="path4319"
+       sodipodi:sides="5"
+       sodipodi:cx="230"
+       sodipodi:cy="387.36218"
+       sodipodi:r1="11.18034"
+       sodipodi:r2="2.5194552"
+       sodipodi:arg1="1.1071487"
+       sodipodi:arg2="1.7354672"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 235,397.36218 -5.41301,-7.51462 -7.55247,5.36008 5.47412,-7.47023 -7.43158,-5.52647 8.79621,2.89777 2.9595,-8.77562 -0.0378,9.26114 9.26065,0.10284 -8.81955,2.82593 z"
+       inkscape:transform-center-x="0.19922032"
+       inkscape:transform-center-y="-0.05678827" />
+    <path
+       inkscape:transform-center-y="0.24152449"
+       inkscape:transform-center-x="-0.012921211"
+       d="m 235,397.36218 -5.41301,-7.51462 -7.55247,5.36008 5.47412,-7.47023 -7.43158,-5.52647 8.79621,2.89777 2.9595,-8.77562 -0.0378,9.26114 9.26065,0.10284 -8.81955,2.82593 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="false"
+       sodipodi:arg2="1.7354672"
+       sodipodi:arg1="1.1071487"
+       sodipodi:r2="2.5194552"
+       sodipodi:r1="11.18034"
+       sodipodi:cy="387.36218"
+       sodipodi:cx="230"
+       sodipodi:sides="5"
+       id="path4321"
+       style="fill:#ffffff;fill-opacity:0.77431904;fill-rule:nonzero;stroke:none;filter:url(#filter4311)"
+       sodipodi:type="star"
+       transform="matrix(0.21431093,0.10297238,-0.10297238,0.21431093,235.86399,271.19838)" />
+    <path
+       transform="matrix(0.03492444,-0.23518667,0.23518667,0.03492444,170.33329,442.6507)"
+       sodipodi:type="star"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter4311)"
+       id="path4323"
+       sodipodi:sides="5"
+       sodipodi:cx="230"
+       sodipodi:cy="387.36218"
+       sodipodi:r1="11.18034"
+       sodipodi:r2="2.5194552"
+       sodipodi:arg1="1.1071487"
+       sodipodi:arg2="1.7354672"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 235,397.36218 -5.41301,-7.51462 -7.55247,5.36008 5.47412,-7.47023 -7.43158,-5.52647 8.79621,2.89777 2.9595,-8.77562 -0.0378,9.26114 9.26065,0.10284 -8.81955,2.82593 z"
+       inkscape:transform-center-x="0.0016998462"
+       inkscape:transform-center-y="-0.25222733" />
+    <path
+       inkscape:transform-center-y="-0.0059216965"
+       inkscape:transform-center-x="0.24821726"
+       d="m 235,397.36218 -5.41301,-7.51462 -7.55247,5.36008 5.47412,-7.47023 -7.43158,-5.52647 8.79621,2.89777 2.9595,-8.77562 -0.0378,9.26114 9.26065,0.10284 -8.81955,2.82593 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="false"
+       sodipodi:arg2="1.7354672"
+       sodipodi:arg1="1.1071487"
+       sodipodi:r2="2.5194552"
+       sodipodi:r1="11.18034"
+       sodipodi:cy="387.36218"
+       sodipodi:cx="230"
+       sodipodi:sides="5"
+       id="path4325"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter4311)"
+       sodipodi:type="star"
+       transform="matrix(0.16819019,0.16806114,-0.16806114,0.16819019,310.98999,313.97795)" />
+    <path
+       transform="matrix(0.23776561,0,0,0.23776561,170.58181,295.79657)"
+       sodipodi:type="star"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter4311)"
+       id="path4327"
+       sodipodi:sides="5"
+       sodipodi:cx="230"
+       sodipodi:cy="387.36218"
+       sodipodi:r1="11.18034"
+       sodipodi:r2="2.5194552"
+       sodipodi:arg1="1.1071487"
+       sodipodi:arg2="1.7354672"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 235,397.36218 -5.41301,-7.51462 -7.55247,5.36008 5.47412,-7.47023 -7.43158,-5.52647 8.79621,2.89777 2.9595,-8.77562 -0.0378,9.26114 9.26065,0.10284 -8.81955,2.82593 z"
+       inkscape:transform-center-x="-0.13465706"
+       inkscape:transform-center-y="-0.1223386" />
+    <path
+       inkscape:transform-center-y="-0.05678827"
+       inkscape:transform-center-x="0.19922032"
+       d="m 235,397.36218 -5.41301,-7.51462 -7.55247,5.36008 5.47412,-7.47023 -7.43158,-5.52647 8.79621,2.89777 2.9595,-8.77562 -0.0378,9.26114 9.26065,0.10284 -8.81955,2.82593 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="false"
+       sodipodi:arg2="1.7354672"
+       sodipodi:arg1="1.1071487"
+       sodipodi:r2="2.5194552"
+       sodipodi:r1="11.18034"
+       sodipodi:cy="387.36218"
+       sodipodi:cx="230"
+       sodipodi:sides="5"
+       id="path4329"
+       style="fill:#ffffff;fill-opacity:0.55252913;fill-rule:nonzero;stroke:none;filter:url(#filter4311)"
+       sodipodi:type="star"
+       transform="matrix(0.21809405,-0.09469674,0.09469674,0.21809405,132.93237,235.2166)" />
+    <path
+       transform="matrix(0.21431093,0.10297238,-0.10297238,0.21431093,255.02935,250.85664)"
+       sodipodi:type="star"
+       style="fill:#ffffff;fill-opacity:0.44357976;fill-rule:nonzero;stroke:none;filter:url(#filter4311)"
+       id="path4331"
+       sodipodi:sides="5"
+       sodipodi:cx="230"
+       sodipodi:cy="387.36218"
+       sodipodi:r1="11.18034"
+       sodipodi:r2="2.5194552"
+       sodipodi:arg1="1.1071487"
+       sodipodi:arg2="1.7354672"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 235,397.36218 -5.41301,-7.51462 -7.55247,5.36008 5.47412,-7.47023 -7.43158,-5.52647 8.79621,2.89777 2.9595,-8.77562 -0.0378,9.26114 9.26065,0.10284 -8.81955,2.82593 z"
+       inkscape:transform-center-x="-0.012921211"
+       inkscape:transform-center-y="0.24152449" />
+  </g>
+  <g
+     style="display:inline"
+     transform="translate(0,10.629915)"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Landscape">
+    <rect
+       inkscape:label="#rect4059"
+       style="fill:none;stroke:#ff0000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect-landscape"
+       width="240"
+       height="180"
+       x="260"
+       y="612.36212" />
+    <path
+       transform="matrix(1.0416667,0,0,1.3333335,-15.833352,-259.12086)"
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path4105"
+       d="m 260,777.36218 0,15 240,0 0,-15 c -65,-10 -180,-10 -240,0 z"
+       style="fill:#008000;stroke:none;filter:url(#filter4265)" />
+    <path
+       style="fill:url(#radialGradient4341);fill-opacity:1;stroke:none;filter:url(#filter4261)"
+       d="m 403.75,708.54218 c 0,0 -10.44867,-6.80659 -15,6.18 -2.57765,7.35499 7.5,12.36 7.5,12.36 0,0 16.33668,5.5148 26.25,6.18 0,6.18 31.5,4.944 37.5,-2.472 15.75,-4.944 7.5,-16.068 3.75,-16.068 0,0 3.79009,-13.07541 -15,-18.54 -12.75,-3.708 -18.75,6.18 -18.75,6.18 0,0 -18.75,-6.18 -26.25,6.18 z"
+       id="path4199"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csccccscc" />
+    <path
+       transform="matrix(1.2484861,0,0,-1.6996741,-106.81875,2106.0471)"
+       sodipodi:nodetypes="csccccscc"
+       inkscape:connector-curvature="0"
+       id="path4203"
+       d="m 405,777.97818 c 0,0 -10.44867,-1.77985 -15,1.616 -2.57765,1.92325 7.5,3.232 7.5,3.232 0,0 16.33668,1.44206 26.25,1.616 0,1.616 31.5,1.2928 37.5,-0.6464 15.75,-1.2928 7.5,-4.2016 3.75,-4.2016 0,0 3.79009,-3.41907 -15,-4.848 -12.75,-0.9696 -18.75,1.616 -18.75,1.616 0,0 -18.75,-1.616 -26.25,1.616 z"
+       style="fill:#000000;fill-opacity:0.50194576;stroke:none;filter:url(#filter4283)" />
+    <path
+       sodipodi:nodetypes="sscccccscssss"
+       inkscape:connector-curvature="0"
+       id="path4201"
+       d="m 427,768.36218 c 0.43769,-5.25225 0,-5.98078 0,-32 0,-6 -4,-15 -9,-19 0,0 1,1 3,0 0,0 6,10 9,10 3,0 4,-5 4,-5 0,0 0,1 3,0 -1,2 -4,3 -4,10 0,27 2,35 2,35 1,5 10.44721,9.10557 10,10 -1,2 -7.7889,-3.60555 -15,0 0,0 -9,6 -10,5 -1,-1 6,-1.99999 7,-14 z"
+       style="fill:url(#linearGradient4275);fill-opacity:1;stroke:none" />
+  </g>
+  <g
+     style="display:inline"
+     transform="translate(0,10.629915)"
+     inkscape:label="Text"
+     id="layer3"
+     inkscape:groupmode="layer">
+    <text
+       sodipodi:linespacing="125%"
+       id="text4344"
+       y="890.3623"
+       x="968.04688"
+       style="font-size:24.00000572px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#343551;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       xml:space="preserve"><tspan
+         id="tspan4348"
+         y="890.3623"
+         x="968.04688"
+         sodipodi:role="line">Morning</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:19.20000267px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#8094b4;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="558.00006"
+       y="890.3623"
+       id="text4350"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan4358"
+         sodipodi:role="line"
+         x="558.00006"
+         y="890.3623">Noon</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4360"
+       y="890.3623"
+       x="385"
+       style="font-size:19.20000267px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#b3b3b3;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       xml:space="preserve"><tspan
+         y="890.3623"
+         x="385"
+         sodipodi:role="line"
+         id="tspan4364">Evening</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:24.00000572px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#b3b3b3;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="188.00003"
+       y="890.3623"
+       id="text4376"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan4378"
+         sodipodi:role="line"
+         x="188.00003"
+         y="890.3623">Night</tspan></text>
+    <rect
+       inkscape:label="#rect4380"
+       y="842.36218"
+       x="755"
+       height="180.00003"
+       width="240.00005"
+       id="rect-text-morning"
+       style="fill:none;stroke:#ff0000;stroke-width:0.99999988" />
+    <rect
+       inkscape:label="#rect4382"
+       style="fill:none;stroke:#ff0000;stroke-width:0.99999988"
+       id="rect-text-noon"
+       width="240.00005"
+       height="180.00003"
+       x="510.00003"
+       y="842.36218" />
+    <rect
+       inkscape:label="#rect4384"
+       y="842.36218"
+       x="265.00003"
+       height="180.00003"
+       width="240.00005"
+       id="rect-text-evening"
+       style="fill:none;stroke:#ff0000;stroke-width:0.99999988" />
+    <rect
+       inkscape:label="#rect4386"
+       style="fill:none;stroke:#ff0000;stroke-width:1"
+       id="rect-text-night"
+       width="240.00005"
+       height="180.00003"
+       x="20"
+       y="842.36218" />
+  </g>
+  <ns1:frame
+     ns1:transition-path-hide="true"
+     ns1:refid="rect-text-noon"
+     ns1:title="Noon"
+     ns1:sequence="2"
+     ns1:hide="true"
+     ns1:clip="true"
+     ns1:timeout-enable="false"
+     ns1:timeout-ms="5000.0"
+     ns1:transition-duration-ms="1000.0"
+     ns1:transition-zoom-percent="0.0"
+     ns1:transition-profile="linear"
+     id="frame2">
+    <ns1:layer
+       ns1:transition-path-hide="true"
+       ns1:group="layer2"
+       ns1:refid="rect-sky-noon"
+       ns1:hide="true"
+       ns1:clip="true"
+       ns1:transition-zoom-percent="0.0"
+       ns1:transition-profile="linear" />
+  </ns1:frame>
+  <ns1:frame
+     ns1:transition-path-hide="true"
+     ns1:refid="rect-text-morning"
+     ns1:title="Morning"
+     ns1:sequence="1"
+     ns1:hide="true"
+     ns1:clip="true"
+     ns1:timeout-enable="false"
+     ns1:timeout-ms="5000.0"
+     ns1:transition-duration-ms="1000.0"
+     ns1:transition-zoom-percent="0.0"
+     ns1:transition-profile="linear"
+     id="frame1">
+    <ns1:layer
+       ns1:transition-path-hide="true"
+       ns1:transition-profile="linear"
+       ns1:transition-zoom-percent="0.0"
+       ns1:clip="true"
+       ns1:hide="true"
+       ns1:refid="rect-landscape"
+       ns1:group="layer1" />
+    <ns1:layer
+       ns1:transition-path-hide="true"
+       ns1:group="layer2"
+       ns1:refid="rect-sky-morning"
+       ns1:hide="true"
+       ns1:clip="true"
+       ns1:transition-zoom-percent="0.0"
+       ns1:transition-profile="linear" />
+  </ns1:frame>
+  <ns1:frame
+     ns1:transition-path-hide="true"
+     ns1:refid="rect-text-evening"
+     ns1:title="Evening"
+     ns1:sequence="3"
+     ns1:hide="true"
+     ns1:clip="true"
+     ns1:timeout-enable="false"
+     ns1:timeout-ms="5000.0"
+     ns1:transition-duration-ms="1000.0"
+     ns1:transition-zoom-percent="0.0"
+     ns1:transition-profile="linear"
+     id="frame3">
+    <ns1:layer
+       ns1:transition-path-hide="true"
+       ns1:group="layer2"
+       ns1:refid="rect-sky-evening"
+       ns1:hide="true"
+       ns1:clip="true"
+       ns1:transition-zoom-percent="0.0"
+       ns1:transition-profile="linear" />
+  </ns1:frame>
+  <ns1:frame
+     ns1:transition-path-hide="true"
+     ns1:refid="rect-text-night"
+     ns1:title="Night"
+     ns1:sequence="4"
+     ns1:hide="true"
+     ns1:clip="true"
+     ns1:timeout-enable="false"
+     ns1:timeout-ms="5000.0"
+     ns1:transition-duration-ms="1000.0"
+     ns1:transition-zoom-percent="0.0"
+     ns1:transition-profile="linear"
+     id="frame4">
+    <ns1:layer
+       ns1:transition-path-hide="true"
+       ns1:group="layer2"
+       ns1:refid="rect-sky-night"
+       ns1:hide="true"
+       ns1:clip="true"
+       ns1:transition-zoom-percent="0.0"
+       ns1:transition-profile="linear" />
+  </ns1:frame>
+  <script
+     ns1:version="13.05-21071236"
+     id="sozi-extras-media-script">this.addEventListener(&quot;load&quot;,function(){function p(a){a.stopPropagation()}function q(a,b,c){sozi.events.listen(&quot;sozi.player.framechange&quot;,function(d){var e=sozi.document.frames[d].id;e===b?a.play():e===c&amp;&amp;a.pause()})}var a=&quot;http://www.w3.org/2000/svg&quot;,b=&quot;http://sozi.baierouge.fr&quot;,c=&quot;http://www.w3.org/1999/xhtml&quot;,d=this,e=d.document,f=[],g,h,i,j,k,l,m,n,o;f.push(e.getElementsByTagNameNS(b,&quot;video&quot;)),f.push(e.getElementsByTagNameNS(b,&quot;audio&quot;)),g=[];for(j=0;j&lt;f.length;j+=1)for(h=0;h&lt;f[j].length;h+=1){k=f[j][h].parentNode,o=e.createElementNS(c,&quot;source&quot;),o.setAttribute(&quot;type&quot;,f[j][h].getAttributeNS(b,&quot;type&quot;)),o.setAttribute(&quot;src&quot;,f[j][h].getAttributeNS(b,&quot;src&quot;));for(i=0;i&lt;g.length;i+=1)if(g[i].rect===k)break;i===g.length&amp;&amp;(k.setAttribute(&quot;visibility&quot;,&quot;hidden&quot;),n=e.createElementNS(c,f[j][h].localName),n.setAttribute(&quot;controls&quot;,&quot;controls&quot;),f[j][h].localName===&quot;video&quot;&amp;&amp;(n.setAttribute(&quot;width&quot;,k.getAttribute(&quot;width&quot;)),n.setAttribute(&quot;height&quot;,k.getAttribute(&quot;height&quot;))),n.addEventListener(&quot;click&quot;,p,!1),n.addEventListener(&quot;contextmenu&quot;,p,!1),m=e.createElementNS(c,&quot;html&quot;),m.appendChild(n),l=e.createElementNS(a,&quot;foreignObject&quot;),l.setAttribute(&quot;x&quot;,k.getAttribute(&quot;x&quot;)),l.setAttribute(&quot;y&quot;,k.getAttribute(&quot;y&quot;)),l.setAttribute(&quot;width&quot;,k.getAttribute(&quot;width&quot;)),l.setAttribute(&quot;height&quot;,k.getAttribute(&quot;height&quot;)),l.appendChild(m),k.parentNode.insertBefore(l,k.nextSibling),f[j][h].hasAttributeNS(b,&quot;start-frame&quot;)&amp;&amp;q(n,f[j][h].getAttributeNS(b,&quot;start-frame&quot;),f[j][h].getAttributeNS(b,&quot;stop-frame&quot;)),g.push({rect:f[j][h].parentNode,htmlMedia:n})),g[i].htmlMedia.appendChild(o)}},!1);</script>
+  <script
+     id="sozi-script"
+     ns1:version="13.10-08150635">function namespace(a,b,c){&quot;use strict&quot;;var d=a;return b.split(&quot;.&quot;).forEach(function(a){typeof d[a]==&quot;undefined&quot;&amp;&amp;(d[a]={}),d=d[a]}),c&amp;&amp;c(d,a),d}namespace(this,&quot;sozi.events&quot;,function(a){&quot;use strict&quot;;var b={};a.listen=function(a,c){b.hasOwnProperty(a)||(b[a]=[]),b[a].push(c)},a.fire=function(a){var c=Array.prototype.slice.call(arguments,1);b.hasOwnProperty(a)&amp;&amp;b[a].forEach(function(a){a.apply(null,c)})}}),namespace(this,&quot;sozi.proto&quot;,function(a){&quot;use strict&quot;,a.Object={installConstructors:function(){function a(){}a.prototype=this,this.instance=function(){var b=new a;return b.construct.apply(b,arguments),b},this.subtype=function(b){var c=new a;return c.augment(b),c.installConstructors(),c}},construct:function(){},augment:function(a){for(var b in a)a.hasOwnProperty(b)&amp;&amp;(this[b]=a[b]);return this},bind:function(a){var b=this;return function(){return a.apply(b,arguments)}}},a.Object.installConstructors()}),namespace(this,&quot;sozi.actions&quot;,function(a,b){function n(a,b,e){c.stop(),d.viewPorts.player.zoom(a&gt;0?h:1/h,b,e)}function o(a){c.stop(),d.viewPorts.player.rotate(a&gt;0?i:-i)}function p(){sozi.framelist.isVisible()?(sozi.framelist.hide(),c.restart()):(c.stop(),sozi.framelist.show())}function q(a){return d.viewPorts.player.contains(a.clientX,a.clientY)}function r(a){if(!q(a))return;a.button===f?(e.documentElement.addEventListener(&quot;mousemove&quot;,s,!1),k=!1,l=a.clientX,m=a.clientY):a.button===g&amp;&amp;p(),a.stopPropagation(),a.preventDefault()}function s(a){if(!q(a))return;c.stop(),!k&amp;&amp;(Math.abs(a.clientX-l)&gt;j||Math.abs(a.clientY-m)&gt;j)&amp;&amp;(k=!0),k&amp;&amp;(sozi.events.fire(&quot;sozi.player.cleanup&quot;),d.viewPorts.player.drag(a.clientX-l,a.clientY-m),l=a.clientX,m=a.clientY),a.stopPropagation()}function t(a){if(!q(a))return;a.button===f&amp;&amp;e.documentElement.removeEventListener(&quot;mousemove&quot;,s,!1),a.stopPropagation(),a.preventDefault()}function u(a){if(!q(a))return;c.moveToPrevious(),a.stopPropagation(),a.preventDefault()}function v(a){if(!q(a))return;!k&amp;&amp;a.button!==g&amp;&amp;c.moveToNext(),a.stopPropagation(),a.preventDefault()}function w(a){if(!q(a))return;a||(a=b.event);var c=0;a.wheelDelta?c=a.wheelDelta:a.detail&amp;&amp;(c=-a.detail),c!==0&amp;&amp;(a.shiftKey?o(c):n(c,a.clientX,a.clientY)),a.stopPropagation(),a.preventDefault()}function x(a){if(a.altKey||a.ctrlKey||a.metaKey)return;switch(a.charCode||a.which){case 43:n(1,b.innerWidth/2,b.innerHeight/2);break;case 45:n(-1,b.innerWidth/2,b.innerHeight/2);break;case 61:c.moveToCurrent();break;case 70:case 102:c.showAll();break;case 84:case 116:p();break;case 82:o(-1);break;case 114:o(1);break;default:return}a.stopPropagation(),a.preventDefault()}function y(a){if(a.altKey||a.ctrlKey||a.metaKey)return;switch(a.keyCode){case 36:c.moveToFirst();break;case 35:c.moveToLast();break;case 38:c.jumpToPrevious();break;case 33:case 37:c.moveToPrevious();break;case 40:c.jumpToNext();break;case 34:case 39:case 13:case 32:c.moveToNext();break;default:return}a.stopPropagation()}function z(a){a.stopPropagation()}function A(){var a=e.getElementsByTagName(&quot;a&quot;);for(var c=0;c&lt;a.length;c+=1)a[c].addEventListener(&quot;click&quot;,z,!1),a[c].addEventListener(&quot;contextmenu&quot;,z,!1);var d=e.documentElement;d.addEventListener(&quot;click&quot;,v,!1),d.addEventListener(&quot;mousedown&quot;,r,!1),d.addEventListener(&quot;mouseup&quot;,t,!1),d.addEventListener(&quot;contextmenu&quot;,u,!1),d.addEventListener(&quot;DOMMouseScroll&quot;,w,!1),b.onmousewheel=w,d.addEventListener(&quot;keypress&quot;,x,!1),d.addEventListener(&quot;keydown&quot;,y,!1)}&quot;use strict&quot;;var c=namespace(b,&quot;sozi.player&quot;),d=namespace(b,&quot;sozi.display&quot;),e=b.document,f=0,g=1,h=1.05,i=5,j=5,k=!1,l=0,m=0;sozi.events.listen(&quot;sozi.display.ready&quot;,A)}),namespace(this,&quot;sozi.animation&quot;,function(a,b){function h(){g.length&gt;0?(c&amp;&amp;c(h),g.forEach(function(a){a.step(d())})):c||b.clearInterval(f)}function i(){c?c(h):f=b.setInterval(function(){h(d())},e)}function j(a){g.push(a),g.length===1&amp;&amp;i()}function k(a){g.splice(g.indexOf(a),1)}&quot;use strict&quot;;var c=b.mozRequestAnimationFrame||b.webkitRequestAnimationFrame||b.msRequestAnimationFrame||b.oRequestAnimationFrame,d=function(){return b.performance&amp;&amp;b.performance.now?b.performance.now():Date.now()};a.setAnimationFrameHandlers=function(a,b){c=a,d=b};var e=40,f,g=[];a.Animator=sozi.proto.Object.subtype({construct:function(){this.durationMs=0,this.data=null,this.initialTime=0,this.started=!1},start:function(a,b){this.durationMs=a,this.data=b,this.initialTime=d(),this.onStep(0),this.started||(this.started=!0,j(this))},stop:function(){this.started&amp;&amp;(k(this),this.started=!1)},step:function(a){var b=a-this.initialTime;b&gt;=this.durationMs?(this.stop(),this.onStep(1),this.onDone()):this.onStep(b/this.durationMs)},onStep:function(a){},onDone:function(){}}),a.profiles={linear:function(a){return a},accelerate:function(a){return Math.pow(a,3)},&quot;strong-accelerate&quot;:function(a){return Math.pow(a,5)},decelerate:function(a){return 1-Math.pow(1-a,3)},&quot;strong-decelerate&quot;:function(a){return 1-Math.pow(1-a,5)},&quot;accelerate-decelerate&quot;:function(a){var b=a&lt;=.5?a:1-a,c=Math.pow(2*b,3)/2;return a&lt;=.5?c:1-c},&quot;strong-accelerate-decelerate&quot;:function(a){var b=a&lt;=.5?a:1-a,c=Math.pow(2*b,5)/2;return a&lt;=.5?c:1-c},&quot;decelerate-accelerate&quot;:function(a){var b=a&lt;=.5?a:1-a,c=(1-Math.pow(1-2*b,2))/2;return a&lt;=.5?c:1-c},&quot;strong-decelerate-accelerate&quot;:function(a){var b=a&lt;=.5?a:1-a,c=(1-Math.pow(1-2*b,3))/2;return a&lt;=.5?c:1-c},&quot;immediate-beginning&quot;:function(a){return 1},&quot;immediate-end&quot;:function(a){return a===1?1:0},&quot;immediate-middle&quot;:function(a){return a&gt;=.5?1:0}}}),namespace(this,&quot;sozi.display&quot;,function(a,b){function j(){var a=e.documentElement;f=a.getBBox(),g=b.innerWidth,h=b.innerHeight,a.setAttribute(&quot;width&quot;,g),a.setAttribute(&quot;height&quot;,h),sozi.events.fire(&quot;sozi.display.ready&quot;)}function k(){var c=e.documentElement;c.setAttribute(&quot;width&quot;,b.innerWidth),c.setAttribute(&quot;height&quot;,b.innerHeight);for(var d in a.viewPorts)a.viewPorts[d].onWindowResize(b.innerWidth/g,b.innerHeight/h);g=b.innerWidth,h=b.innerHeight}&quot;use strict&quot;;var c=&quot;http://www.w3.org/2000/svg&quot;,d=&quot;http://www.w3.org/1999/xlink&quot;,e=b.document,f,g,h;a.viewPorts={};var i;a.CameraState=sozi.proto.Object.subtype({construct:function(){this.cx=this.cy=0,this.width=this.height=1,this.angle=0,this.clipped=!0,this.transitionZoomPercent=0,this.transitionProfile=sozi.animation.profiles.linear,this.transitionPath=null},setCenter:function(a,b){return this.cx=a,this.cy=b,this},setSize:function(a,b){return this.width=a,this.height=b,this},setClipped:function(a){return this.clipped=a,this},setAngle:function(a){return this.angle=(a+180)%360-180,this},setRawAngle:function(a){return this.angle=a,this},setTransitionZoomPercent:function(a){return this.transitionZoomPercent=a,this},setTransitionProfile:function(a){return this.transitionProfile=a,this},setTransitionPath:function(a){return this.transitionPath=a,this},setAtElement:function(a){var b,c,d,f;if(a.nodeName===&quot;rect&quot;)b=a.x.baseVal.value,c=a.y.baseVal.value,d=a.width.baseVal.value,f=a.height.baseVal.value;else{var g=a.getBBox();b=g.x,c=g.y,d=g.width,f=g.height}var h=e.documentElement.createSVGPoint();h.x=b+d/2,h.y=c+f/2;var i=a.getCTM();h=h.matrixTransform(i);var j=Math.sqrt(i.a*i.a+i.b*i.b);return this.setCenter(h.x,h.y).setSize(d*j,f*j).setAngle(Math.atan2(i.b,i.a)*180/Math.PI)},setAtState:function(a){return this.setCenter(a.cx,a.cy).setSize(a.width,a.height).setAngle(a.angle).setClipped(a.clipped).setTransitionZoomPercent(a.transitionZoomPercent).setTransitionProfile(a.transitionProfile).setTransitionPath(a.transitionPath)},interpolatableAttributes:[&quot;width&quot;,&quot;height&quot;,&quot;angle&quot;],interpolate:function(a,b,c,d,e){var f=1-c;for(var g=0;g&lt;this.interpolatableAttributes.length;g+=1){var h=this.interpolatableAttributes[g];this[h]=b[h]*c+a[h]*f}var i=e?a.transitionPath:b.transitionPath;if(d&amp;&amp;i){var j=i.getTotalLength();if(e)var k=i.getPointAtLength(j),l=i.getPointAtLength(0),m=i.getPointAtLength(j*f);else var k=i.getPointAtLength(0),l=i.getPointAtLength(j),m=i.getPointAtLength(j*c);this.cx=m.x+(b.cx-l.x)*c+(a.cx-k.x)*f,this.cy=m.y+(b.cy-l.y)*c+(a.cy-k.y)*f}else this.cx=b.cx*c+a.cx*f,this.cy=b.cy*c+a.cy*f}}),a.Camera=a.CameraState.subtype({construct:function(b,f){a.CameraState.construct.call(this),this.viewPort=b,this.svgClipRect=e.createElementNS(c,&quot;rect&quot;);var g=e.createElementNS(c,&quot;clipPath&quot;);g.setAttribute(&quot;id&quot;,&quot;sozi-clip-path-&quot;+b.id+&quot;-&quot;+f),g.appendChild(this.svgClipRect),b.svgGroup.appendChild(g);var h=e.createElementNS(c,&quot;g&quot;);h.setAttribute(&quot;clip-path&quot;,&quot;url(#sozi-clip-path-&quot;+b.id+&quot;-&quot;+f+&quot;)&quot;),b.svgGroup.appendChild(h),b.isPrimary?(this.svgLayer=e.createElementNS(c,&quot;g&quot;),this.svgLayer.appendChild(e.getElementById(f))):(this.svgLayer=e.createElementNS(c,&quot;use&quot;),this.svgLayer.setAttributeNS(d,&quot;href&quot;,&quot;#&quot;+f)),h.appendChild(this.svgLayer)},setAtState:function(b){return a.CameraState.setAtState.call(this,b).update()},getScale:function(){return Math.min(this.viewPort.width/this.width,this.viewPort.height/this.height)},rotate:function(a){return this.setAngle(this.angle+a).update()},zoom:function(a,b,c){return this.setSize(this.width/a,this.height/a).drag((1-a)*(b-this.viewPort.width/2),(1-a)*(c-this.viewPort.height/2))},drag:function(a,b){var c=this.getScale(),d=this.angle*Math.PI/180,e=Math.sin(d),f=Math.cos(d);return this.setCenter(this.cx-(a*f-b*e)/c,this.cy-(a*e+b*f)/c).setClipped(!1).update()},update:function(){var a=this.getScale(),b=this.width*a,c=this.height*a,d=(this.viewPort.width-b)/2,e=(this.viewPort.height-c)/2;this.svgClipRect.setAttribute(&quot;x&quot;,this.clipped?d:0),this.svgClipRect.setAttribute(&quot;y&quot;,this.clipped?e:0),this.svgClipRect.setAttribute(&quot;width&quot;,this.clipped?b:this.viewPort.width),this.svgClipRect.setAttribute(&quot;height&quot;,this.clipped?c:this.viewPort.height);var f=-this.cx+this.width/2+d/a,g=-this.cy+this.height/2+e/a;return this.svgLayer.setAttribute(&quot;transform&quot;,&quot;scale(&quot;+a+&quot;)&quot;+&quot;translate(&quot;+f+&quot;,&quot;+g+&quot;)&quot;+&quot;rotate(&quot;+ -this.angle+&quot;,&quot;+this.cx+&quot;,&quot;+this.cy+&quot;)&quot;),this}}),a.ViewPort=sozi.proto.Object.subtype({construct:function(d,f,g){this.id=d,a.viewPorts[d]=this,this.isPrimary=!!g;if(this.isPrimary){if(i)throw&quot;Failed to create a primary viewport. A primary viewport already exists.&quot;;i=this}this.svgGroup=e.createElementNS(c,&quot;g&quot;),this.svgGroup.setAttribute(&quot;class&quot;,&quot;sozi-viewport&quot;),this.svgGroup.setAttribute(&quot;id&quot;,&quot;sozi-viewport-&quot;+d),e.documentElement.appendChild(this.svgGroup),this.setLocation(0,0).setSize(b.innerWidth,b.innerHeight),this.cameras={},f.forEach(function(b){this.cameras[b]=a.Camera.instance(this,b)},this)},setSize:function(a,b){return this.width=a,this.height=b,this},setLocation:function(a,b){return this.x=a,this.y=b,this},contains:function(a,b){return a&gt;=this.x&amp;&amp;a&lt;this.x+this.width&amp;&amp;b&gt;=this.y&amp;&amp;b&lt;this.y+this.height},getDocumentState:function(){var b=a.CameraState.instance().setCenter(f.x+f.width/2,f.y+f.height/2).setSize(f.width,f.height).setClipped(!1),c={};for(var d in this.cameras)c[d]=b;return c},update:function(){this.svgGroup.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+this.x+&quot;,&quot;+this.y+&quot;)&quot;);for(var a in this.cameras)this.cameras[a].update();return this},showFrame:function(a){for(var b in a.states)this.cameras[b].setAtState(a.states[b]);return this},drag:function(a,b){for(var c in this.cameras)this.cameras[c].drag(a,b);return this},zoom:function(a,b,c){for(var d in this.cameras)this.cameras[d].zoom(a,b,c);return this},rotate:function(a){for(var b in this.cameras)this.cameras[b].rotate(a);return this},onWindowResize:function(a,b){this.setLocation(this.x*a,this.y*b).setSize(this.width*a,this.height*b).update()}}),sozi.events.listen(&quot;sozi.document.ready&quot;,j),b.addEventListener(&quot;resize&quot;,k,!1)}),namespace(this,&quot;sozi.document&quot;,function(a,b){function g(a,b){return a.getAttributeNS(d,b)||e[b]}function h(a,b,e){var f=a.states[b]=a.states[b]||sozi.display.CameraState.instance();(typeof f.transitionZoomPercent==&quot;undefined&quot;||e.hasAttributeNS(d,&quot;transition-zoom-percent&quot;))&amp;&amp;f.setTransitionZoomPercent(parseInt(g(e,&quot;transition-zoom-percent&quot;),10)),(typeof f.transitionProfile==&quot;undefined&quot;||e.hasAttributeNS(d,&quot;transition-profile&quot;))&amp;&amp;f.setTransitionProfile(sozi.animation.profiles[g(e,&quot;transition-profile&quot;)]);if(typeof f.transitionPath==&quot;undefined&quot;||e.hasAttributeNS(d,&quot;transition-path&quot;)){var h=c.getElementById(e.getAttributeNS(d,&quot;transition-path&quot;));h&amp;&amp;h.nodeName===&quot;path&quot;&amp;&amp;(f.setTransitionPath(h),g(e,&quot;transition-path-hide&quot;)===&quot;true&quot;&amp;&amp;(h.style.visibility=&quot;hidden&quot;))}if(e.hasAttributeNS(d,&quot;refid&quot;)){var i=c.getElementById(e.getAttributeNS(d,&quot;refid&quot;));i&amp;&amp;(f.setAtElement(i),g(e,&quot;hide&quot;)===&quot;true&quot;&amp;&amp;(i.style.visibility=&quot;hidden&quot;))}e.hasAttributeNS(d,&quot;clip&quot;)&amp;&amp;f.setClipped(g(e,&quot;clip&quot;)===&quot;true&quot;)}function i(){var b=[],e=c.getElementsByTagNameNS(d,&quot;layer&quot;);for(var i=0;i&lt;e.length;i+=1){var j=e[i].getAttributeNS(d,&quot;group&quot;);j&amp;&amp;b.indexOf(j)===-1&amp;&amp;b.push(j)}var k=c.documentElement,l=&quot;http://www.w3.org/2000/svg&quot;,m=c.createElementNS(l,&quot;g&quot;),n=Array.prototype.slice.call(k.childNodes);n.forEach(function(d,e){d.getAttribute?b.indexOf(d.getAttribute(&quot;id&quot;))!==-1?(m.firstChild&amp;&amp;(m.setAttribute(&quot;id&quot;,&quot;sozi-wrapper-&quot;+e),a.idLayerList.push(&quot;sozi-wrapper-&quot;+e),k.insertBefore(m,d),m=c.createElementNS(l,&quot;g&quot;)),a.idLayerList.push(d.getAttribute(&quot;id&quot;))):f.indexOf(d.localName.toLowerCase())!==-1&amp;&amp;(k.removeChild(d),m.appendChild(d)):k.removeChild(d)}),m.firstChild&amp;&amp;(m.setAttribute(&quot;id&quot;,&quot;sozi-wrapper-&quot;+n.length),a.idLayerList.push(&quot;sozi-wrapper-&quot;+n.length),k.appendChild(m));var o=Array.prototype.slice.call(c.getElementsByTagNameNS(d,&quot;frame&quot;));o.sort(function(a,b){var c=parseInt(g(a,&quot;sequence&quot;),10),d=parseInt(g(b,&quot;sequence&quot;),10);return c-d}),o.forEach(function(b,c){var e={id:b.getAttribute(&quot;id&quot;),title:g(b,&quot;title&quot;),sequence:parseInt(g(b,&quot;sequence&quot;),10),timeoutEnable:g(b,&quot;timeout-enable&quot;)===&quot;true&quot;,timeoutMs:parseInt(g(b,&quot;timeout-ms&quot;),10),transitionDurationMs:parseInt(g(b,&quot;transition-duration-ms&quot;),10),states:{}};a.idLayerList.forEach(function(d){if(c===0||d.search(&quot;sozi-wrapper-[0-9]+&quot;)!==-1)h(e,d,b);else{var f=e.states[d]=sozi.display.CameraState.instance(),g=a.frames[a.frames.length-1].states[d];f.setAtState(g)}});var f=Array.prototype.slice.call(b.getElementsByTagNameNS(d,&quot;layer&quot;));f.forEach(function(b){var c=b.getAttributeNS(d,&quot;group&quot;);c&amp;&amp;a.idLayerList.indexOf(c)!==-1&amp;&amp;h(e,c,b)});for(var i in e.states)if(e.states.hasOwnProperty(i)){a.frames.push(e);break}})}function j(){c.documentElement.removeAttribute(&quot;viewBox&quot;),i(),sozi.events.fire(&quot;sozi.document.ready&quot;)}&quot;use strict&quot;;var c=b.document,d=&quot;http://sozi.baierouge.fr&quot;,e={title:&quot;Untitled&quot;,sequence:&quot;0&quot;,hide:&quot;true&quot;,clip:&quot;true&quot;,&quot;timeout-enable&quot;:&quot;false&quot;,&quot;timeout-ms&quot;:&quot;5000&quot;,&quot;transition-duration-ms&quot;:&quot;1000&quot;,&quot;transition-zoom-percent&quot;:&quot;0&quot;,&quot;transition-profile&quot;:&quot;linear&quot;,&quot;transition-path-hide&quot;:&quot;true&quot;},f=[&quot;g&quot;,&quot;image&quot;,&quot;path&quot;,&quot;rect&quot;,&quot;circle&quot;,&quot;ellipse&quot;,&quot;line&quot;,&quot;polyline&quot;,&quot;polygon&quot;,&quot;text&quot;,&quot;clippath&quot;];a.frames=[],a.idLayerList=[],a.getFrameIndexForId=function(b){for(var c=0;c&lt;a.frames.length;c+=1)if(a.frames[c].id===b)return c;return-1},b.addEventListener(&quot;load&quot;,j,!1)}),namespace(this,&quot;sozi.framelist&quot;,function(a,b){function q(b){var d=b.relatedTarget,f=c.documentElement;while(d&amp;&amp;d!==e&amp;&amp;d!==f)d=d.parentNode;d!==e&amp;&amp;(a.hide(),sozi.player.restart(),b.stopPropagation())}function r(a){var c=f.getCTM().f;c&lt;=-b.innerHeight/2?c+=b.innerHeight/2:c&lt;0&amp;&amp;(c=0),f.setAttribute(&quot;transform&quot;,&quot;translate(0,&quot;+c+&quot;)&quot;),a.stopPropagation()}function s(a){var c=f.getCTM().f;c+g&gt;=b.innerHeight*3/2?c-=b.innerHeight/2:c+g&gt;b.innerHeight+2*d&amp;&amp;(c=b.innerHeight-g-4*d),f.setAttribute(&quot;transform&quot;,&quot;translate(0,&quot;+c+&quot;)&quot;),a.stopPropagation()}function t(a){return function(b){sozi.player.previewFrame(a),b.stopPropagation()}}function u(a){a.stopPropagation()}function v(){e=c.createElementNS(p,&quot;g&quot;),e.setAttribute(&quot;id&quot;,&quot;sozi-toc&quot;),c.documentElement.appendChild(e),f=c.createElementNS(p,&quot;g&quot;),e.appendChild(f);var a=c.createElementNS(p,&quot;rect&quot;);a.setAttribute(&quot;id&quot;,&quot;sozi-toc-background&quot;),a.setAttribute(&quot;x&quot;,d),a.setAttribute(&quot;y&quot;,d),a.setAttribute(&quot;rx&quot;,d),a.setAttribute(&quot;ry&quot;,d),a.addEventListener(&quot;click&quot;,u,!1),a.addEventListener(&quot;mousedown&quot;,u,!1),a.addEventListener(&quot;mouseout&quot;,q,!1),f.appendChild(a);var b=0;sozi.document.frames.forEach(function(a,e){var h=c.createElementNS(p,&quot;text&quot;);h.appendChild(c.createTextNode(a.title)),f.appendChild(h),e===sozi.player.currentFrameIndex&amp;&amp;h.setAttribute(&quot;class&quot;,&quot;sozi-toc-current&quot;);var i=h.getBBox().width;g+=h.getBBox().height,i&gt;b&amp;&amp;(b=i),h.setAttribute(&quot;x&quot;,2*d),h.setAttribute(&quot;y&quot;,g+d),h.addEventListener(&quot;click&quot;,t(e),!1),h.addEventListener(&quot;mousedown&quot;,u,!1)});var n=c.createElementNS(p,&quot;path&quot;);n.setAttribute(&quot;class&quot;,&quot;sozi-toc-arrow&quot;),n.setAttribute(&quot;d&quot;,&quot;M&quot;+(b+3*d)+&quot;,&quot;+5*d+&quot; l&quot;+4*d+&quot;,0&quot;+&quot; l-&quot;+2*d+&quot;,-&quot;+3*d+&quot; z&quot;),n.addEventListener(&quot;click&quot;,r,!1),n.addEventListener(&quot;mousedown&quot;,u,!1),e.appendChild(n);var v=c.createElementNS(p,&quot;path&quot;);v.setAttribute(&quot;class&quot;,&quot;sozi-toc-arrow&quot;),v.setAttribute(&quot;d&quot;,&quot;M&quot;+(b+3*d)+&quot;,&quot;+7*d+&quot; l&quot;+4*d+&quot;,0&quot;+&quot; l-&quot;+2*d+&quot;,&quot;+3*d+&quot; z&quot;),v.addEventListener(&quot;click&quot;,s,!1),v.addEventListener(&quot;mousedown&quot;,u,!1),e.appendChild(v),a.setAttribute(&quot;width&quot;,b+7*d),a.setAttribute(&quot;height&quot;,g+2*d),h=-b-9*d,i=0,l=k=h,e.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+h+&quot;,0)&quot;),m=sozi.animation.Animator.instance().augment({onStep:function(a){var b=sozi.animation.profiles[o](a),c=1-b;l=k*b+j*c,e.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+l+&quot;,0)&quot;)}})}function w(a){var b=Array.prototype.slice.call(c.getElementsByClassName(&quot;sozi-toc-current&quot;));b.forEach(function(a){a.removeAttribute(&quot;class&quot;)});var d=f.getElementsByTagName(&quot;text&quot;);d[a].setAttribute(&quot;class&quot;,&quot;sozi-toc-current&quot;)}&quot;use strict&quot;;var c=b.document,d=5,e,f,g=0,h,i,j,k,l,m,n=300,o=&quot;decelerate&quot;,p=&quot;http://www.w3.org/2000/svg&quot;;a.show=function(){c.documentElement.appendChild(e),j=l,k=i,m.start(n)},a.hide=function(){j=l,k=h,m.start(n)},a.isVisible=function(){return k===i},sozi.events.listen(&quot;sozi.player.ready&quot;,v),sozi.events.listen(&quot;sozi.player.cleanup&quot;,a.hide),sozi.events.listen(&quot;sozi.player.framechange&quot;,w)}),namespace(this,&quot;sozi.framenumber&quot;,function(a,b){function i(){var a=e.getBBox(),b=Math.max(a.width,a.height)*.75,c=b*1.25;g.setAttribute(&quot;r&quot;,b),d.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+c+&quot;,&quot;+c+&quot;)&quot;)}function j(){d=c.createElementNS(h,&quot;g&quot;),e=c.createElementNS(h,&quot;text&quot;),g=c.createElementNS(h,&quot;circle&quot;),d.setAttribute(&quot;id&quot;,&quot;sozi-framenumber&quot;),g.setAttribute(&quot;cx&quot;,0),g.setAttribute(&quot;cy&quot;,0),d.appendChild(g),f=c.createTextNode(sozi.player.currentFrameIndex+1),e.setAttribute(&quot;text-anchor&quot;,&quot;middle&quot;),e.setAttribute(&quot;dominant-baseline&quot;,&quot;central&quot;),e.setAttribute(&quot;x&quot;,0),e.setAttribute(&quot;y&quot;,0),e.appendChild(f),d.appendChild(e),c.documentElement.appendChild(d),i()}function k(a){f.nodeValue=a+1}&quot;use strict&quot;;var c=b.document,d,e,f,g,h=&quot;http://www.w3.org/2000/svg&quot;;sozi.events.listen(&quot;sozi.player.ready&quot;,j),sozi.events.listen(&quot;sozi.player.framechange&quot;,k)}),namespace(this,&quot;sozi.links&quot;,function(a,b){function e(a){return function(b){sozi.player.moveToFrame(a),b.preventDefault(),b.stopPropagation()}}function f(){var a=b.document.getElementsByTagNameNS(c,&quot;a&quot;);for(var f=0;f&lt;a.length;f+=1){var g=a[f].getAttributeNS(d,&quot;href&quot;);g&amp;&amp;g[0]===&quot;#&quot;&amp;&amp;a[f].addEventListener(&quot;click&quot;,e(sozi.location.getFrameIndexForHash(g)),!1)}}&quot;use strict&quot;;var c=&quot;http://www.w3.org/2000/svg&quot;,d=&quot;http://www.w3.org/1999/xlink&quot;;sozi.events.listen(&quot;sozi.document.ready&quot;,f)}),namespace(this,&quot;sozi.location&quot;,function(a,b){function d(){var b=a.getFrameIndex();c||sozi.player.moveToFrame(b),c=!1}function e(a){c=!0,b.location.hash=&quot;#&quot;+sozi.document.frames[a].id}&quot;use strict&quot;;var c=!1;a.getFrameIndex=function(){return a.getFrameIndexForHash(b.location.hash)},a.getFrameIndexForHash=function(a){var b=a?a.slice(1):&quot;1&quot;,c;return/^[0-9]+$/.test(b)?c=parseInt(b,10)-1:c=sozi.document.getFrameIndexForId(b),c&lt;0?0:c&gt;=sozi.document.frames.length?sozi.document.frames.length-1:c},b.addEventListener(&quot;hashchange&quot;,d,!1),sozi.events.listen(&quot;sozi.player.framechange&quot;,e)}),namespace(this,&quot;sozi.player&quot;,function(a,b){function l(){if(sozi.document.frames[a.currentFrameIndex].timeoutEnable){k=!0;var c=(a.currentFrameIndex+1)%sozi.document.frames.length;e=b.setTimeout(function(){a.moveToFrame(c)},sozi.document.frames[a.currentFrameIndex].timeoutMs)}}function m(a,b,c){var d={ss:(a&lt;0?Math.max(b,c):Math.min(b,c))*(100-a)/100,ts:.5,k:0};if(a!==0){var e=b-c,f=b-d.ss,g=c-d.ss;if(e!==0){var h=Math.sqrt(f*g),i=(f-h)/e,j=(f+h)/e;d.ts=i&gt;0&amp;&amp;i&lt;=1?i:j}d.k=f/d.ts/d.ts}return d}function n(){c=sozi.display.ViewPort.instance(&quot;player&quot;,sozi.document.idLayerList,!0),a.startFromIndex(sozi.location.getFrameIndex()),b.setTimeout(c.bind(c.update),1),sozi.events.fire(&quot;sozi.player.ready&quot;)}&quot;use strict&quot;;var c,d,e,f=500,g=-10,h=&quot;linear&quot;,i=0;a.currentFrameIndex=0;var j=!1,k=!1;a.startFromIndex=function(b){j=!0,k=!1,i=b,a.currentFrameIndex=b,c.showFrame(sozi.document.frames[b]),l()},a.restart=function(){a.startFromIndex(a.currentFrameIndex)},a.stop=function(){d.stop(),k&amp;&amp;(b.clearTimeout(e),k=!1),j=!1,i=a.currentFrameIndex},a.jumpToFrame=function(b){a.stop(),sozi.events.fire(&quot;sozi.player.cleanup&quot;),i=b,a.currentFrameIndex=b,c.showFrame(sozi.document.frames[b]),sozi.events.fire(&quot;sozi.player.framechange&quot;,b)},a.getAnimationData=function(a,b,c,d,e,f){var g={};for(var h in a){g[h]={initialState:sozi.display.CameraState.instance(),finalState:sozi.display.CameraState.instance(),useTransitionPath:e,reverseTransitionPath:f},g[h].profile=d||b[h].transitionProfile,g[h].initialState.setAtState(a[h]),b.hasOwnProperty(h)?g[h].finalState.setAtState(b[h]):g[h].finalState.setAtState(a[h]),g[h].finalState.angle-g[h].initialState.angle&gt;180?g[h].finalState.setRawAngle(g[h].finalState.angle-360):g[h].finalState.angle-g[h].initialState.angle&lt;-180&amp;&amp;g[h].initialState.setRawAngle(g[h].initialState.angle-360);var i=c||b[h].transitionZoomPercent;i&amp;&amp;b.hasOwnProperty(h)&amp;&amp;(g[h].zoomWidth=m(i,a[h].width,b[h].width),g[h].zoomHeight=m(i,a[h].height,b[h].height))}return g},a.previewFrame=function(b){a.currentFrameIndex=b,d.start(f,a.getAnimationData(c.cameras,sozi.document.frames[b].states,g,sozi.animation.profiles[h]),!1,!1),sozi.events.fire(&quot;sozi.player.framechange&quot;,b)},a.moveToFrame=function(i){k&amp;&amp;(b.clearTimeout(e),k=!1);var l,m,n,o,p;i===(a.currentFrameIndex-1)%sozi.document.frames.length?(l=sozi.document.frames[a.currentFrameIndex].transitionDurationMs,m=undefined,n=undefined,o=!0,p=!0):i===(a.currentFrameIndex+1)%sozi.document.frames.length?(l=sozi.document.frames[i].transitionDurationMs,m=undefined,n=undefined,o=!0,p=!1):(l=f,m=g,n=sozi.animation.profiles[h],o=!1,p=!1),sozi.events.fire(&quot;sozi.player.cleanup&quot;),j=!0,a.currentFrameIndex=i,d.start(l,a.getAnimationData(c.cameras,sozi.document.frames[i].states,m,n,o,p)),sozi.events.fire(&quot;sozi.player.framechange&quot;,i)},a.moveToFirst=function(){a.moveToFrame(0)},a.jumpToPrevious=function(){var b=a.currentFrameIndex;if(!d.started||i&lt;=a.currentFrameIndex)b-=1;b&gt;=0&amp;&amp;a.jumpToFrame(b)},a.moveToPrevious=function(){for(var b=a.currentFrameIndex-1;b&gt;=0;b-=1){var c=sozi.document.frames[b];if(!c.timeoutEnable||c.timeoutMs!==0){a.moveToFrame(b);break}}},a.jumpToNext=function(){var b=a.currentFrameIndex;if(!d.started||i&gt;=a.currentFrameIndex)b+=1;b&lt;sozi.document.frames.length&amp;&amp;a.jumpToFrame(b)},a.moveToNext=function(){(a.currentFrameIndex&lt;sozi.document.frames.length-1||sozi.document.frames[a.currentFrameIndex].timeoutEnable)&amp;&amp;a.moveToFrame((a.currentFrameIndex+1)%sozi.document.frames.length)},a.moveToLast=function(){a.moveToFrame(sozi.document.frames.length-1)},a.moveToCurrent=function(){a.moveToFrame(a.currentFrameIndex)},a.showAll=function(){a.stop(),sozi.events.fire(&quot;sozi.player.cleanup&quot;),d.start(f,a.getAnimationData(c.cameras,c.getDocumentState(),g,sozi.animation.profiles[h],!1,!1))},a.onAnimationStep=function(a,b){for(var d in b){var e=c.cameras[d];e.interpolate(b[d].initialState,b[d].finalState,b[d].profile(a),b[d].useTransitionPath,b[d].reverseTransitionPath);var f;b[d].zoomWidth&amp;&amp;b[d].zoomWidth.k!==0&amp;&amp;(f=a-b[d].zoomWidth.ts,e.width=b[d].zoomWidth.k*f*f+b[d].zoomWidth.ss),b[d].zoomHeight&amp;&amp;b[d].zoomHeight.k!==0&amp;&amp;(f=a-b[d].zoomHeight.ts,e.height=b[d].zoomHeight.k*f*f+b[d].zoomHeight.ss),e.setClipped(b[d].finalState.clipped)}c.update()},d=sozi.animation.Animator.instance().augment({onStep:function(b){a.onAnimationStep(b,this.data)},onDone:function(){for(var b in this.data)c.cameras[b].setAtState(this.data[b].finalState);c.update(),i=a.currentFrameIndex,j&amp;&amp;l()}}),sozi.events.listen(&quot;sozi.display.ready&quot;,n)});</script>
+  <style
+     id="sozi-style"
+     ns1:version="13.10-08150635">#sozi-toc text{fill:#eff;font-family:Verdana,sans-serif;font-size:12pt}#sozi-toc text:hover{fill:#0cf;cursor:pointer}#sozi-toc text.sozi-toc-current{fill:#fa4}#sozi-toc-background{stroke:#222;stroke-opacity:.1;stroke-width:10;fill:#222;fill-opacity:.9}.sozi-toc-arrow{fill:#eff;fill-opacity:.75;stroke:none}.sozi-toc-arrow:hover{fill:#0cf}#sozi-framenumber circle{stroke:#222;stroke-opacity:.1;stroke-width:4;fill:#222;fill-opacity:.9}#sozi-framenumber text{fill:#eff;font-family:Verdana,sans-serif;font-size:12pt}</style>
+</svg>
