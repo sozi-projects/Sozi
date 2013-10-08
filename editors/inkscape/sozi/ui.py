@@ -346,7 +346,7 @@ class SoziUserInterface:
         selection = self.tree_view.get_selection()
         model, iter = selection.get_selected()
         if iter:
-            return model.get_path(iter).get_indices()[0]
+            return model.get_path(iter)[0]
         else:
             return None
 
@@ -360,8 +360,8 @@ class SoziUserInterface:
         model, iter = selection.get_selected()
         if iter:
             path = model.get_path(iter)
-            if path.get_depth() > 1:
-                return self.model.frames[path.get_indices()[0]].layers.keys()[path[1]]
+            if len(path) > 1:
+                return self.model.frames[path[0]].layers.keys()[path[1]]
             else:
                 return None
         else:
@@ -400,13 +400,13 @@ class SoziUserInterface:
     def selected_item_is_a_frame(self):
         selection = self.tree_view.get_selection()
         model, iter = selection.get_selected()
-        return iter is not None and model.get_path(iter).get_depth() == 1
+        return iter is not None and len(model.get_path(iter)) == 1
 
 
     def selected_item_is_a_layer(self):
         selection = self.tree_view.get_selection()
         model, iter = selection.get_selected()
-        return iter is not None and model.get_path(iter).get_depth() == 2
+        return iter is not None and len(model.get_path(iter)) == 2
 
 
     def on_create_new_frame(self, widget):
