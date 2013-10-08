@@ -29,9 +29,9 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="false"
-     inkscape:window-width="1440"
-     inkscape:window-height="848"
-     inkscape:window-x="1680"
+     inkscape:window-width="1600"
+     inkscape:window-height="878"
+     inkscape:window-x="1366"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      units="mm">
@@ -177,19 +177,19 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Background"
+     inkscape:label="Sky"
      id="layer2"
      inkscape:groupmode="layer"
      transform="translate(0,10.629915)"
      style="display:inline">
     <path
        transform="matrix(-1.2090695,1.5445985,-1.5445985,-1.2090695,1478.3394,43.323169)"
-       d="m 580,352.36218 a 130,130 0 1 1 -260,0 130,130 0 1 1 260,0 z"
+       d="m 580,352.36218 c 0,71.79702 -58.20298,130 -130,130 -71.79702,0 -130,-58.20298 -130,-130 0,-71.79701 58.20298,-130 130,-130 71.79702,0 130,58.20299 130,130 z"
        sodipodi:ry="130"
        sodipodi:rx="130"
        sodipodi:cy="352.36218"
@@ -199,7 +199,7 @@
        sodipodi:type="arc" />
     <path
        transform="matrix(2.1437741e-4,-0.99999998,0.99999998,2.1437741e-4,0.58422918,408.29629)"
-       d="m 250,307.36218 a 15,15 0 1 1 -30,0 15,15 0 1 1 30,0 z"
+       d="m 250,307.36218 c 0,8.28427 -6.71573,15 -15,15 -8.28427,0 -15,-6.71573 -15,-15 0,-8.28427 6.71573,-15 15,-15 8.28427,0 15,6.71573 15,15 z"
        sodipodi:ry="15"
        sodipodi:rx="15"
        sodipodi:cy="307.36218"
@@ -213,13 +213,13 @@
        x="61.730034"
        height="180"
        width="240"
-       id="rect-background-noon"
+       id="rect-sky-noon"
        style="fill:none;stroke:#ffaaaa"
        inkscape:label="#rect3791" />
     <rect
        transform="matrix(0.50073141,-0.86560271,0.86560271,0.50073141,0,0)"
        style="fill:none;stroke:#ffaaaa;stroke-width:1"
-       id="rect-background-evening"
+       id="rect-sky-evening"
        width="240"
        height="180"
        x="-195.09631"
@@ -227,7 +227,7 @@
        inkscape:label="#rect3793" />
     <rect
        style="fill:none;stroke:#ffaaaa"
-       id="rect-background-morning"
+       id="rect-sky-morning"
        width="240"
        height="180"
        x="270.00003"
@@ -243,7 +243,7 @@
        transform="matrix(2.1438241e-4,-0.99999998,0.99999998,2.1438241e-4,0,0)"
        inkscape:label="#rect3791"
        style="fill:none;stroke:#ffaaaa;stroke-width:1"
-       id="rect-background-night"
+       id="rect-sky-night"
        width="240"
        height="180"
        x="-432.27856"
@@ -430,7 +430,7 @@
        transform="matrix(0.21431093,0.10297238,-0.10297238,0.21431093,255.02935,250.85664)" />
   </g>
   <g
-     inkscape:label="Foreground"
+     inkscape:label="Landscape"
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,10.629915)"
@@ -440,7 +440,7 @@
        x="260"
        height="180"
        width="240"
-       id="rect-foreground"
+       id="rect-landscape"
        style="fill:none;stroke:#ff0000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        inkscape:label="#rect4059" />
     <path
