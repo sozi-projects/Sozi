@@ -241,7 +241,7 @@ class SoziLayer:
             write_xml_attr(self.xml, "refid", "sozi", self.refid)
             write_xml_attr(self.xml, "hide", "sozi", "true" if self.hide else "false")
             write_xml_attr(self.xml, "clip", "sozi", "true" if self.clip else "false")
-            write_xml_attr(self.xml, "transition-zoom-percent", "sozi", self.transition_zoom_percent, "utf-8")
+            write_xml_attr(self.xml, "transition-zoom-percent", "sozi", self.transition_zoom_percent)
             write_xml_attr(self.xml, "transition-profile", "sozi", self.transition_profile)
             write_xml_attr(self.xml, "transition-path", "sozi", self.transition_path)
             write_xml_attr(self.xml, "transition-path-hide", "sozi", "true" if self.transition_path_hide else "false")
