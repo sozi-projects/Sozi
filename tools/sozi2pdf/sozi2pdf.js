@@ -27,6 +27,7 @@ page.onConsoleMessage = function (msg) {
  * Called from sandboxed Javascript.
  */
 page.onCallback = function (fileName) {
+    page.zoomFactor = 0.5;
     page.render(tmpDir + fileName + ".pdf");
 };
 
