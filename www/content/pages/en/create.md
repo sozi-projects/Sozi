@@ -15,7 +15,7 @@ Tutorials
 * [Embedding video and audio](|filename|tutorial-media.md)
 * [Converting Sozi presentations to PDF or video](|filename|tutorial-converting.md)
 * [Launching Sozi with a keyboard shortcut in Inkscape](|filename|tutorial-shortcut.md)
-* [Workaround for text rendering issues](|filename|tutorial-text.md)
+* [Improving rendering performance](|filename|tutorial-performance.md)
 
 
 Getting help and reporting issues
