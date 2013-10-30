@@ -1,4 +1,5 @@
 @import "normalize.css";
+@import "pygments.css";
 @import "../fonts/Iwona/stylesheet.css";
 @import "../fonts/TeXGyreSchola/stylesheet.css";
 @import "../fonts/SourceCodePro/stylesheet.css";
@@ -193,6 +194,10 @@ blockquote {
 
 section#content > header {
     margin-bottom: 1em;
+}
+
+.highlight {
+    margin-left: 2em;
 }
 
 /*
