@@ -44,6 +44,7 @@ STATIC_PATHS = ['images', 'releases']
 
 FILES_TO_COPY = (
     ('extra/favicon.ico', 'favicon.ico'),
+    ('wiki/index.html', 'wiki/index.html'),
 )
 
 DEFAULT_DATE_FORMAT = "%Y-%m-%d"
