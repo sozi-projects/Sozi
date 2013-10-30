@@ -17,7 +17,8 @@ from optparse import OptionParser
 
 PAGE_FORMATS = {
     "a4":     { "width_mm": 297, "height_mm": 210 },
-    "letter": { "width_mm": 279, "height_mm": 216 }
+    "letter": { "width_mm": 279, "height_mm": 216 },
+    "screen": { "width_mm": 1024, "height_mm": 768 }
 }
 
 DEFAULT_RESOLUTION = 7.2
