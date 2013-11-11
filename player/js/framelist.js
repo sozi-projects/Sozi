@@ -148,24 +148,27 @@ namespace(this, "sozi.framelist", function (exports, window) {
 
         var tocWidth = 0;
         sozi.document.frames.forEach(function (frame, frameIndex) {
-            var text = document.createElementNS(SVG_NS, "text");
-            text.appendChild(document.createTextNode(frame.title));
-            svgTitlesGroup.appendChild(text);
-
-            if (frameIndex === sozi.player.currentFrameIndex) {
-                text.setAttribute("class", "sozi-toc-current");
+            if (frame.showInFrameList) {
+                var text = document.createElementNS(SVG_NS, "text");
+                text.appendChild(document.createTextNode(frame.title));
+                text.setAttribute("id", "sozi-toc-" + frame.id);
+                svgTitlesGroup.appendChild(text);
+    
+                if (frameIndex === sozi.player.currentFrameIndex) {
+                    text.setAttribute("class", "sozi-toc-current");
+                }
+                         
+                var textWidth = text.getBBox().width;
+                tocHeight += text.getBBox().height;
+                if (textWidth > tocWidth) {
+                    tocWidth = textWidth;
+                }
+    
+                text.setAttribute("x", 2 * MARGIN);
+                text.setAttribute("y", tocHeight + MARGIN);
+                text.addEventListener("click", makeClickHandler(frameIndex), false);
+                text.addEventListener("mousedown", defaultEventHandler, false);
             }
-                     
-            var textWidth = text.getBBox().width;
-            tocHeight += text.getBBox().height;
-            if (textWidth > tocWidth) {
-                tocWidth = textWidth;
-            }
-
-            text.setAttribute("x", 2 * MARGIN);
-            text.setAttribute("y", tocHeight + MARGIN);
-            text.addEventListener("click", makeClickHandler(frameIndex), false);
-            text.addEventListener("mousedown", defaultEventHandler, false);
         });
 
         // The "up" button
@@ -220,8 +223,10 @@ namespace(this, "sozi.framelist", function (exports, window) {
             svgElement.removeAttribute("class");
         });
 
-        var textElements = svgTitlesGroup.getElementsByTagName("text");
-        textElements[index].setAttribute("class", "sozi-toc-current");
+        var frame = sozi.document.frames[index];
+        if (frame.showInFrameList) {
+            document.getElementById("sozi-toc-" + frame.id).setAttribute("class", "sozi-toc-current");
+        }
     }
     
     /*

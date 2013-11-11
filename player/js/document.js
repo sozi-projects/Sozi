@@ -31,6 +31,7 @@ namespace(this, "sozi.document", function (exports, window) {
         "sequence": "0",
         "hide": "true",
         "clip": "true",
+        "show-in-frame-list": "true",
         "timeout-enable": "false",
         "timeout-ms": "5000",
         "transition-duration-ms": "1000",
@@ -176,6 +177,7 @@ namespace(this, "sozi.document", function (exports, window) {
             var newFrame = {
                 id: soziFrame.getAttribute("id"),
                 title: readAttribute(soziFrame, "title"),
+                showInFrameList: readAttribute(soziFrame, "show-in-frame-list") === "true",
                 sequence: parseInt(readAttribute(soziFrame, "sequence"), 10),
                 timeoutEnable: readAttribute(soziFrame, "timeout-enable") === "true",
                 timeoutMs: parseInt(readAttribute(soziFrame, "timeout-ms"), 10),

@@ -76,6 +76,7 @@ class SoziFrame:
         self.sequence = read_xml_attr(self.xml, "sequence", "sozi", default_seq, int)
         self.hide = read_xml_attr(self.xml, "hide", "sozi", True, to_boolean)
         self.clip = read_xml_attr(self.xml, "clip", "sozi", True, to_boolean)
+        self.show_in_frame_list = read_xml_attr(self.xml, "show-in-frame-list", "sozi", True, to_boolean)
         self.timeout_enable = read_xml_attr(self.xml, "timeout-enable", "sozi", False, to_boolean)
         self.timeout_ms = read_xml_attr(self.xml, "timeout-ms", "sozi", 5000, float)
         self.transition_duration_ms = read_xml_attr(self.xml, "transition-duration-ms", "sozi", 1000, float)
@@ -104,6 +105,7 @@ class SoziFrame:
         result.title = self.title
         result.hide = self.hide
         result.clip = self.clip
+        result.show_in_frame_list = self.show_in_frame_list
         result.timeout_enable = self.timeout_enable
         result.timeout_ms = self.timeout_ms
         result.transition_duration_ms = self.transition_duration_ms
@@ -156,6 +158,7 @@ class SoziFrame:
             write_xml_attr(self.xml, "sequence", "sozi", self.sequence)
             write_xml_attr(self.xml, "hide", "sozi", "true" if self.hide else "false")
             write_xml_attr(self.xml, "clip", "sozi", "true" if self.clip else "false")
+            write_xml_attr(self.xml, "show-in-frame-list", "sozi", "true" if self.show_in_frame_list else "false")
             write_xml_attr(self.xml, "timeout-enable", "sozi", "true" if self.timeout_enable else "false")
             write_xml_attr(self.xml, "timeout-ms", "sozi", self.timeout_ms)
             write_xml_attr(self.xml, "transition-duration-ms", "sozi", self.transition_duration_ms)
