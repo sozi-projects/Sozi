@@ -337,38 +337,56 @@ namespace(this, "sozi.actions", function (exports, window) {
      * @param {Event} evt The DOM event object
      */
     function onKeyDown(evt) {
-        // Keys with modifiers are ignored
+        // Keys with Alt/Ctrl/Meta modifiers are ignored
         if (evt.altKey || evt.ctrlKey || evt.metaKey) {
             return;
         }
 
         switch (evt.keyCode) {
-        case 36: // Home
-            player.moveToFirst();
-            break;
-        case 35: // End
-            player.moveToLast();
-            break;
-        case 38: // Arrow up
-            player.jumpToPrevious();
-            break;
-        case 33: // Page up
-        case 37: // Arrow left
-            player.moveToPrevious();
-            break;
-        case 40: // Arrow down
-            player.jumpToNext();
-            break;
-        case 34: // Page down
-        case 39: // Arrow right
-        case 13: // Enter
-        case 32: // Space
-            player.moveToNext();
-            break;
-        default:
-            return;
+            case 36: // Home
+                if (evt.shiftKey) {
+                    player.jumpToFirst();
+                }
+                else {
+                    player.moveToFirst();
+                }
+                break;
+            case 35: // End
+                if (evt.shiftKey) {
+                    player.jumpToLast();
+                }
+                else {
+                    player.moveToLast();
+                }
+                break;
+            case 38: // Arrow up
+            case 33: // Page up
+            case 37: // Arrow left
+                if (evt.shiftKey) {
+                    player.jumpToPrevious();
+                }
+                else {
+                    player.moveToPrevious();
+                }
+                break;
+            case 40: // Arrow down
+            case 34: // Page down
+            case 39: // Arrow right
+            case 13: // Enter
+            case 32: // Space
+                if (evt.shiftKey) {
+                    player.jumpToNext();
+                }
+                else {
+                    player.moveToNext();
+                }
+                break;
+            default:
+                // Ignore other keys and propagate the event
+                return;
         }
         
+        // Stop event propagation for supported keys
         evt.stopPropagation();
         
         // In Chrome/Chromium, preventDefault() inhibits the "keypress" event

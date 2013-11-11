@@ -266,15 +266,22 @@ namespace(this, "sozi.player", function (exports, window) {
         sozi.events.fire("sozi.player.framechange", index);
     };
 
-    /*
+    /**
+     * Jumps to the first frame of the presentation.
+     */
+    exports.jumpToFirst = function () {
+        exports.jumpToFrame(0);
+    };
+    
+    /**
      * Moves to the first frame of the presentation.
      */
     exports.moveToFirst = function () {
         exports.moveToFrame(0);
     };
 
-    /*
-     * Jumps to the previous frame
+    /**
+     * Jumps to the previous frame.
      */
     exports.jumpToPrevious = function () {
         var index = exports.currentFrameIndex;
@@ -299,8 +306,8 @@ namespace(this, "sozi.player", function (exports, window) {
         }
     };
 
-    /*
-     * Jumps to the next frame
+    /**
+     * Jumps to the next frame.
      */
     exports.jumpToNext = function () {
         var index = exports.currentFrameIndex;
@@ -312,7 +319,7 @@ namespace(this, "sozi.player", function (exports, window) {
         }
     };
 
-    /*
+    /**
      * Moves to the next frame.
      */
     exports.moveToNext = function () {
@@ -321,7 +328,14 @@ namespace(this, "sozi.player", function (exports, window) {
         }
     };
 
-    /*
+    /**
+     * Jumps to the last frame of the presentation.
+     */
+    exports.jumpToLast = function () {
+        exports.jumpToFrame(sozi.document.frames.length - 1);
+    };
+
+    /**
      * Moves to the last frame of the presentation.
      */
     exports.moveToLast = function () {
