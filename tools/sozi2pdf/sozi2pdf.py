@@ -14,14 +14,19 @@
 import sys, os, tempfile, shutil, subprocess
 from optparse import OptionParser
 
-
+# The resolution used by PhantomJS is supposed to be 72dpi
+# However, we have to compute the viewport dimensions
+# as if the resolution was 72 dots per cm.
+# Moreover, a zoom factor of 0.5 will be needed when rendering
+# (see sozi2pdf.js, function page.onCallback).
 PAGE_FORMATS = {
-    "a4":     { "width_mm": 297, "height_mm": 210 },
-    "letter": { "width_mm": 279, "height_mm": 216 },
-    "screen": { "width_mm": 1024, "height_mm": 768 }
+    "a3":     { "width": 42,   "height": 29.7, "resolution": 72 },
+    "a4":     { "width": 29.7, "height": 21,   "resolution": 72 },
+    "letter": { "width": 11,   "height": 8.5,  "resolution": 72*2.54 },
+    "screen": { "width": 1024, "height": 768,  "resolution": 2 }
 }
 
-DEFAULT_RESOLUTION = 7.2
+DEFAULT_RESOLUTION = 3.6
 
 
 if __name__ == '__main__':
@@ -31,18 +36,18 @@ if __name__ == '__main__':
     option_parser.usage = "sozi2pdf.py [options] url.svg"
     
     option_parser.add_option("-f", "--format", type="string", dest="format", default="a4",
-        help="Page format: 'a4' | 'letter' (default is 'a4')")
+        help="Page format: 'a3' | 'a4' | 'letter' | 'screen' (default is 'a4')")
     option_parser.add_option("-l", "--landscape", action="store_true", dest="landscape", default=True,
         help="Set page orientation to landscape (default)")
     option_parser.add_option("-p", "--portrait", action="store_false", dest="landscape",
         help="Set page orientation to portrait")
 
-    option_parser.add_option("-W", "--width", type="float", dest="width_mm",
-        help="Page width, in millimeters (default is 297), supersedes 'format', 'landscape' and 'portrait' options")
-    option_parser.add_option("-H", "--height", type="float", dest="height_mm",
-        help="Page height, in millimeters (default is 210), supersedes 'format', 'landscape' and 'portrait' options")
-    option_parser.add_option("-r", "--resolution", type="float", dest="resolution", default=DEFAULT_RESOLUTION,
-        help="Pixels per millimeters (default is 7.2)")
+    option_parser.add_option("-W", "--width", type="float", dest="width",
+        help="Page width (default is 29.7), supersedes 'format', 'landscape' and 'portrait' options")
+    option_parser.add_option("-H", "--height", type="float", dest="height",
+        help="Page height (default is 21), supersedes 'format', 'landscape' and 'portrait' options")
+    option_parser.add_option("-r", "--resolution", type="float", dest="resolution",
+        help="Pixels per width/height unit (default is 72)")
 
     option_parser.add_option("-i", "--include", type="string", dest="include", default="all",
         help="List of frames to include (default is 'all')")
@@ -64,22 +69,23 @@ if __name__ == '__main__':
         sys.stderr.write("Unknown page format: " + page_format+ "\n")
         sys.exit()
         
-    width_mm = PAGE_FORMATS[page_format]["width_mm"]
-    height_mm = PAGE_FORMATS[page_format]["height_mm"]
+    width = PAGE_FORMATS[page_format]["width"]
+    height = PAGE_FORMATS[page_format]["height"]
+    resolution = PAGE_FORMATS[page_format]["resolution"]
     
     if not options.landscape:
-        width_mm, height_mm = height_mm, width_mm
+        width, height = height, width
 
     # Supersede page dimensions with "width" and "height" options
-    if options.width_mm is not None:
-        width_mm = options.width_mm
+    if options.width is not None:
+        width = options.width
         
-    if options.height_mm is not None:
-        height_mm = options.height_mm
+    if options.height is not None:
+        height = options.height
     
     # Compute page dimensions in pixels
-    width_px = width_mm * options.resolution
-    height_px = height_mm * options.resolution
+    width_px  = width  * resolution
+    height_px = height * resolution
     
     # Set input and output file name
     input_file_name = args[0]
@@ -97,12 +103,13 @@ if __name__ == '__main__':
     js = os.path.join(os.path.dirname(__file__), "sozi2pdf.js") 
     subprocess.call(["phantomjs", js, input_file_name, tmp_dir, str(width_px), str(height_px), options.include, options.exclude])
     
-    # Merge all frames to a single PDF file
+    # Merge all frames to a single PDF file.
+    # In some situations, PhantomJS generates two pages per frame. Only the first page is kept.
     # TODO support other pdf merge tools
     frame_pdfs = [os.path.join(tmp_dir, file_name) for file_name in sorted(os.listdir(tmp_dir))]
     if len(frame_pdfs):
         sys.stdout.write("Writing PDF to: {0}\n".format(output_file_name))
-        subprocess.call(["pdfjoin", "--outfile", output_file_name] + frame_pdfs)
+        subprocess.call(["pdfjoin", "--outfile", output_file_name] + frame_pdfs + ["1"])
 
     # Remove the temporary directory and its content
     shutil.rmtree(tmp_dir, ignore_errors=True)

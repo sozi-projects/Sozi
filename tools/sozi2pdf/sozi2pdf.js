@@ -128,8 +128,12 @@ if (phantom.args.length < 6) {
     phantom.exit();
 }
 else {
+    page.paperSize = {
+        width:  phantom.args[2] + "px",
+        height: phantom.args[3] + "px"
+    };
     page.viewportSize = {
-        width: parseFloat(phantom.args[2]),
+        width:  parseFloat(phantom.args[2]),
         height: parseFloat(phantom.args[3])
     };
 
