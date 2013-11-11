@@ -22,6 +22,7 @@ import gtk, gtk.glade
 gtk.glade.bindtextdomain("sozi", os.path.join(os.path.dirname(__file__), "lang"))
 gtk.glade.textdomain("sozi")
 
+from version import *
 from fields import *
 from actions import *
 
@@ -65,6 +66,8 @@ class SoziUserInterface:
             "on_ok_button_clicked":             self.on_save,
             "on_cancel_button_clicked":         gtk.main_quit
         })
+        
+        self.builder.get_object("sozi-window").set_title("Sozi " + SOZI_VERSION)
         
         self.tree_view = self.builder.get_object("frame-tree-view")
         self.frame_store = self.tree_view.get_model()
