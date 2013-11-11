@@ -40,12 +40,7 @@ class SoziField:
             self.label = self.label.get_text()
             
         self.optional = optional
-        
-        if default_value is None:
-            self.default_value = None
-        else:
-            self.default_value = default_value
-
+        self.default_value = default_value
         self.last_value = None
         self.current_frame = None
 
