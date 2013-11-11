@@ -11,7 +11,7 @@ Sozi is available in repositories for the following distributions:
 
 * [Archlinux (AUR)](http://aur.archlinux.org/packages.php?ID=42270)
 * [Ubuntu (PPA)](https://launchpad.net/~sunab/+archive/sozi-release)
-* [Debian](http://packages.debian.org/search?suite=default&section=all&arch=any&searchon=names&keywords=sozi)
+* [Debian](http://packages.banuscorp.eu/debian/)
 * [Fedora](https://apps.fedoraproject.org/packages/inkscape-sozi)
 
 Manual installation
