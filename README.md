@@ -26,7 +26,8 @@ Optionally, install Javascript and CSS compressors:
 
 <!-- -->
 
-    sudo apt-get install node-uglify
+    sudo apt-get install npm
+    sudo npm install -g uglify-js
     sudo apt-get install yui-compressor
 
 For developers, install the API documentation generator:
@@ -35,7 +36,6 @@ For developers, install the API documentation generator:
     
 For developers, install the Javascript checker:
 
-    sudo apt-get install npm
     sudo npm install autolint -g
 
 
