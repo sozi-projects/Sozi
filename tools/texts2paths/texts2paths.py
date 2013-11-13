@@ -13,13 +13,13 @@
 
 from optparse import OptionParser
 from lxml import etree
-import subprocess, shutil
+import subprocess, shutil, sys
 
 if __name__ == '__main__':
     option_parser = OptionParser()
 
     option_parser.description = "Convert all texts to paths"
-    option_parser.usage = "sozi2pdf.py [options] input_file.svg"
+    option_parser.usage = "texts2paths.py [options] input_file.svg"
     
     option_parser.add_option("-o", "--output", type="string", dest="output",
         help="The target SVG file name")
