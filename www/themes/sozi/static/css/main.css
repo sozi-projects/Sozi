@@ -200,6 +200,12 @@ section#content > header {
     margin-left: 2em;
 }
 
+pre {
+    padding: 0.2em 1.5em 0.2em 3.5em;
+	box-shadow: rgb(230, 230, 230) 0px 5px 10px 3px;
+    text-indent: -2em;
+}
+
 /*
  * Images
  */
