@@ -48,4 +48,3 @@ FILES_TO_COPY = (
 )
 
 DEFAULT_DATE_FORMAT = "%Y-%m-%d"
-

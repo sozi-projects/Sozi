@@ -1,3 +1,7 @@
+pre {
+    white-space: nowrap;
+}
+
 .hll {
 background-color:#eee;
 }
