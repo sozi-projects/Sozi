@@ -20,10 +20,11 @@ from optparse import OptionParser
 # Moreover, a zoom factor of 0.5 will be needed when rendering
 # (see sozi2pdf.js, function page.onCallback).
 PAGE_FORMATS = {
-    "a3":     { "width": 42,   "height": 29.7, "resolution": 72 },
-    "a4":     { "width": 29.7, "height": 21,   "resolution": 72 },
-    "letter": { "width": 11,   "height": 8.5,  "resolution": 72*2.54 },
-    "screen": { "width": 1024, "height": 768,  "resolution": 2 }
+    "a3":         { "width": 42,   "height": 29.7, "resolution": 72 },
+    "a4":         { "width": 29.7, "height": 21,   "resolution": 72 },
+    "letter":     { "width": 11,   "height": 8.5,  "resolution": 72*2.54 },
+    "screen":     { "width": 1024, "height": 768,  "resolution": 2 },
+    "widescreen": { "width": 1920, "height": 1080, "resolution": 2 }
 }
 
 DEFAULT_RESOLUTION = 3.6
@@ -36,7 +37,7 @@ if __name__ == '__main__':
     option_parser.usage = "sozi2pdf.py [options] url.svg"
     
     option_parser.add_option("-f", "--format", type="string", dest="format", default="a4",
-        help="Page format: 'a3' | 'a4' | 'letter' | 'screen' (default is 'a4')")
+        help="Page format: 'a3' | 'a4' | 'letter' | 'screen' | 'widescreen' (default is 'a4')")
     option_parser.add_option("-l", "--landscape", action="store_true", dest="landscape", default=True,
         help="Set page orientation to landscape (default)")
     option_parser.add_option("-p", "--portrait", action="store_false", dest="landscape",
