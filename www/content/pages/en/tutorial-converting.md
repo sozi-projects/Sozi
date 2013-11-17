@@ -10,8 +10,8 @@ of the source repository.
 These tools are Python scripts that can be run from the command line.
 They have been tested only on GNU/Linux.
 
-Conerting a Sozi presentation to PDF
-------------------------------------
+Converting a Sozi presentation to PDF
+-------------------------------------
 
 Download the scripts
 [sozi2pdf.py](https://github.com/senshu/Sozi/raw/dev/tools/sozi2pdf/sozi2pdf.py)
