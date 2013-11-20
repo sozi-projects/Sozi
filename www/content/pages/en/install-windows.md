@@ -16,7 +16,7 @@ The default installation location is `C:\Program Files\Inkscape`
 or `C:\Program Files (x86)\Inkscape`
 2. Install [Python](http://python.org/download/) 2.7.
 Use the default Windows 32-bit installer, not the one for x86_64. The default installation location is `C:\Python27`
-3. Install [LXML](http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml) for Python 2.7 and Windows 32-bit (win32).
+3. Install [LXML](https://pypi.python.org/pypi/lxml/3.2.4#downloads) for Python 2.7 and Windows 32-bit (win32-py2.7).
 4. Install [PyGTK](http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.24/) 2.24.
 Choose the *all-in-one* installer for Python 2.7 and Windows 32-bit (win32).
 5. Copy the folder `C:\Python27` into `C:\Program Files\Inkscape`
