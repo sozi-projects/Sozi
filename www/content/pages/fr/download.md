@@ -12,7 +12,7 @@ La dernière version stable porte le numéro 13.05 (Mai 2013).
 
 La version de test 13.11 (Novembre 2013) est également disponible.
 
-  * [Télécharger cette version](|filename|/releases/sozi-release-13.11-30202232.zip)
+  * [Télécharger cette version](|filename|/releases/sozi-release-13.11-30213629.zip)
   * [Consulter la liste des nouveautés](|filename|/News/release-13.11-fr.md)
   * [Installer Sozi](|filename|install.md)
 

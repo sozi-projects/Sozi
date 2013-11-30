@@ -12,7 +12,7 @@ The current stable version is 13.05 (May 2013).
 
 The release candidate 13.11 (November 2013) is available for testing:
 
-  * [Download it](|filename|/releases/sozi-release-13.11-30202232.zip)
+  * [Download it](|filename|/releases/sozi-release-13.11-30213629.zip)
   * [See the release notes](|filename|/News/release-13.11.md)
   * [Install Sozi](|filename|install.md)
 
