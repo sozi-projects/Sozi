@@ -35,12 +35,16 @@ If you want to convert only some frames of your document, you can use the ``--in
 These options accept a comma-separated list of frame numbers:
 
     :::sh
-    python /path/to/sozi2pdf.py --include=3,5,6,7,8,10,12,14,16,18 my_sozi_presentation.svg
+    python /path/to/sozi2pdf.py \
+        --include=3,5,6,7,8,10,12,14,16,18 \
+        my_sozi_presentation.svg
 
 Long lists of frame numbers can be shortened using ranges:
 
     :::sh
-    python /path/to/sozi2pdf.py --include=3,5:8,10:12:18 my_sozi_presentation.svg
+    python /path/to/sozi2pdf.py \
+        --include=3,5:8,10:12:18 \
+        my_sozi_presentation.svg
 
 * ``5:8`` will expand to ``5,6,7,8``
 * ``10:12:18`` will expand to ``10,12,14,16,18``
@@ -77,7 +81,10 @@ The tool provides options to control the video format and dimensions.
 This example will create a 720p MP4 video: 
 
     :::sh
-    python /path/to/sozi2video.py --output=my_sozi_presentation.mp4 --width=1280 --height=720 my_sozi_presentation.svg
+    python /path/to/sozi2video.py \
+        --output=my_sozi_presentation.mp4 \
+        --width=1280 --height=720 \
+        my_sozi_presentation.svg
 
 A complete list of options can be displayed by running this command:
 

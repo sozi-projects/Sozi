@@ -198,12 +198,12 @@ section#content > header {
 
 .highlight {
     margin-left: 2em;
+    margin-right: 2em;
 }
 
 pre {
-    padding: 0.2em 1.5em 0.2em 3.5em;
+    padding: 0.2em 1.5em 0.2em 1.5em;
 	box-shadow: rgb(230, 230, 230) 0px 5px 10px 3px;
-    text-indent: -2em;
 }
 
 /*
@@ -264,7 +264,9 @@ td {
  * Embedding Sozi presentations
  */
 
-iframe.sozi {
+iframe.sozi,
+object.sozi,
+embed.sozi {
 	box-shadow: rgb(230, 230, 230) 0px 5px 10px 3px;
 
     border: 1px solid rgb(230, 230, 230);
