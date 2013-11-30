@@ -61,7 +61,7 @@ Giving the keyboard focus to the Sozi presentation
 When loading an HTML page, the browser gives the keyboard focus to the first element
 that can accept it (hyperlink, form element, etc).
 For this reason, in many cases, the embedded Sozi presentation will not respond to keyboard events
-immediately on load
+immediately on load.
 One solution is to repeatedly hit the ``TAB`` key
 until the ``<iframe>``, ``<object>`` or ``<embed>`` element that displays your presentation
 receives focus.
