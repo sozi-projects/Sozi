@@ -389,7 +389,8 @@ namespace(this, "sozi.actions", function (exports, window) {
         // Stop event propagation for supported keys
         evt.stopPropagation();
         
-        // In Chrome/Chromium, preventDefault() inhibits the "keypress" event
+        // In some versions of Chrome/Chromium, preventDefault() inhibits the "keypress" event
+        evt.preventDefault();
     }
 
     /**
