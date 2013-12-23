@@ -26,17 +26,18 @@ namespace("sozi.display", function (exports) {
          *    - The current viewport.
          */
         init: function (doc) {
-            this.svgRoot = doc.svgRoot;
+            this.document = doc;
 
+            // Save the initial bounding box of the document
+            // and force its dimensions to fit the container.
+            this.initialBBox = doc.svgRoot.getBBox();
+            
             // Create a camera for each layer
             this.cameras = {};
             for (var layerId in doc.layers) {
                 this.cameras[layerId] = exports.Camera.create().init(this, doc.layers[layerId].svgNode);
             }
             
-            // Save the initial bounding box of the document
-            // and force its dimensions to fit the container.
-            this.initialBBox = this.svgRoot.getBBox();
             this.resize();
             
             return this;
@@ -55,9 +56,9 @@ namespace("sozi.display", function (exports) {
          *    - The width of the current viewport.
          */
         get width() {
-            return this.svgRoot === document.documentElement ?
+            return this.document.svgRoot === document.documentElement ?
                 window.innerWidth :
-                this.svgRoot.parentNode.clientWidth;
+                this.document.svgRoot.parentNode.clientWidth;
         },
         
         /*
@@ -73,9 +74,9 @@ namespace("sozi.display", function (exports) {
          *    - The height of the current viewport.
          */
         get height() {
-            return this.svgRoot === document.documentElement ?
+            return this.document.svgRoot === document.documentElement ?
                 window.innerHeight :
-                this.svgRoot.parentNode.clientHeight;
+                this.document.svgRoot.parentNode.clientHeight;
         },
         
         /*
@@ -85,11 +86,11 @@ namespace("sozi.display", function (exports) {
          *    - The current viewport.
          */
         resize: function () {
-            this.svgRoot.setAttribute("width", this.width);
-            this.svgRoot.setAttribute("height", this.height);
+            this.document.svgRoot.setAttribute("width", this.width);
+            this.document.svgRoot.setAttribute("height", this.height);
             
             for (var layerId in this.cameras) {
-                this.cameras[layerId].resize();
+                this.cameras[layerId].update();
             }
             
             return this;

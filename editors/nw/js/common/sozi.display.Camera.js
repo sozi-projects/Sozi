@@ -40,7 +40,7 @@ namespace("sozi.display", function (exports) {
             this.transitionZoomPercent = 0;
             
             // Transition profile
-            this.transitionProfile = sozi.animation.profiles.linear;
+            this.transitionProfile = "linear";
             
             // Transition path
             this.transitionPath = null;
@@ -159,14 +159,14 @@ namespace("sozi.display", function (exports) {
         
             // Clipping path
             var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
-            svgClipPath.setAttribute("id", "sozi-clip-path-" + viewPort.id + "-" + layerId);
+            svgClipPath.setAttribute("id", "sozi-clip-path-" + viewPort.document.id + "-" + layerId);
             svgClipPath.appendChild(this.svgClipRect);
-            viewPort.svgGroup.appendChild(svgClipPath);
+            viewPort.document.svgRoot.appendChild(svgClipPath);
 
             // The group that will support the clipping operation
             var svgClippedGroup = document.createElementNS(SVG_NS, "g");
-            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewPort.id + "-" + layerId + ")");
-            viewPort.svgGroup.appendChild(svgClippedGroup);
+            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewPort.document.id + "-" + layerId + ")");
+            viewPort.document.svgRoot.appendChild(svgClippedGroup);
             
             // This group will support transformations
             // we keep the layer group clean since it can be referenced

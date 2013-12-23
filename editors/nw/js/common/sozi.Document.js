@@ -22,14 +22,16 @@ namespace("sozi", function (exports) {
 
     exports.Document = sozi.model.Object.create({
         
-        init: function (svgRoot) {
+        init: function (id, svgRoot) {
+            this.id = id;
             this.svgRoot = svgRoot;
+
             this.layers = {};
             
             // Create an empty wrapper layer for elements that do not belong to a valid layer
             var wrapperCount = 0;
             var svgWrapper = document.createElementNS(SVG_NS, "g");
-            svgWrapper.setAttribute("id", "sozi-wrapper-" + wrapperCount);
+            svgWrapper.setAttribute("id", "sozi-wrapper-" + id + "-" + wrapperCount);
             
             // Get all child nodes of the SVG root.
             // Make a copy of svgRoot.childNodes before modifying the document.
@@ -61,7 +63,7 @@ namespace("sozi", function (exports) {
                                 // Create a new empty wrapper layer
                                 wrapperCount ++;
                                 svgWrapper = document.createElementNS(SVG_NS, "g");
-                                svgWrapper.setAttribute("id", "sozi-wrapper-" + wrapperCount);
+                                svgWrapper.setAttribute("id", "sozi-wrapper-" + id + "-" + wrapperCount);
                             }
                             
                             // Add the current node to the list of layers.
@@ -86,6 +88,8 @@ namespace("sozi", function (exports) {
                     svgNode: svgWrapper
                 };
             }
+        
+            return this;
         }
     });
 });

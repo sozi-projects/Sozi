@@ -47,6 +47,27 @@
 <script>
     window.addEventListener("load", function () {
         var svgRoot = document.querySelector("svg");
-        var doc = sozi.Document.create().init(svgRoot);
+        var doc = sozi.Document.create().init("test-01", svgRoot);
+        var viewPort = sozi.display.ViewPort.create().init(doc);
     });
 </script>
+
+<style>
+    h1, div {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    
+    h1 {
+        top: 0;
+        height: 30%;
+    }
+    
+    div {
+        top: 30%;
+        height: 70%;
+    }
+</style>

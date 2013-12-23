@@ -31,10 +31,10 @@ namespace(this, "sozi.model", function (exports, globals) {
         /*
          * Augment the current object with the properties of the given object.
          */
-        augment: function (properties) {
-            for (var p in properties) {
-                this[p] = properties[p];
-            }
+        augment: function (supplier) {
+            Object.keys(supplier).forEach(function(property) {
+                Object.defineProperty(this, property, Object.getOwnPropertyDescriptor(supplier, property));
+            }, this);
             return this;
         },
         
