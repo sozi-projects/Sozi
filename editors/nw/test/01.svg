@@ -38,7 +38,7 @@
     <script xlink:href="../js/common/sozi.Document.js"></script>
     <script>
         window.addEventListener("load", function () {
-            var doc = sozi.Document.create().init("test-01", document.documentElement);
+            var doc = sozi.Document.create().init(document.documentElement);
             var viewPort = sozi.display.ViewPort.create().init(doc);
         });
     </script>

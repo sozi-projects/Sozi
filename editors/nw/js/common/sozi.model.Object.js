@@ -47,6 +47,13 @@ namespace(this, "sozi.model", function (exports, globals) {
             return this;
         },
         
+        bind: function (fn) {
+            var self = this;
+            return function () {
+                return fn.apply(self, arguments);
+            };
+        },
+        
         /*
          * Add a listener for a given event.
          *

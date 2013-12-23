@@ -20,6 +20,8 @@ namespace("sozi.display", function (exports) {
     exports.CameraState = sozi.model.Object.create({
         
         init: function (viewPort) {
+            sozi.model.Object.init.call(this);
+            
             this.viewPort = viewPort;
             
             // Center coordinates

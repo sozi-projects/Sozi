@@ -14,6 +14,12 @@
 namespace("sozi.display", function (exports) {
     "use strict";
     
+    // Use left mouse button to drag
+    var DRAG_BUTTON = 0;
+    
+    // Minimum distance to detect a drag action
+    var DRAG_THRESHOLD_PX = 5;
+    
     exports.ViewPort = sozi.model.Object.create({
         
         /*
@@ -26,6 +32,8 @@ namespace("sozi.display", function (exports) {
          *    - The current viewport.
          */
         init: function (doc) {
+            sozi.model.Object.init.call(this);
+            
             this.document = doc;
 
             // Save the initial bounding box of the document
@@ -38,11 +46,101 @@ namespace("sozi.display", function (exports) {
                 this.cameras[layerId] = exports.Camera.create().init(this, doc.layers[layerId].svgNode);
             }
             
+            this.setupActions();
+            
             this.resize();
             
             return this;
         },
         
+        setupActions: function () {
+            var svgRoot = this.document.svgRoot;
+            
+            this.dragHandler = this.bind(this.onDrag);
+            this.dragEndHandler = this.bind(this.onDragEnd);
+            
+            svgRoot.addEventListener("mousedown", this.bind(this.onMouseDown), false);
+        },
+        
+        /*
+         * Event handler: mouse down.
+         *
+         * If the mouse button pressed is the left button,
+         * this method will setup event listeners for detecting a drag action.
+         *
+         * Fires:
+         *    - mouseDown(button)
+         */
+        onMouseDown: function (evt) {
+            if (evt.button === DRAG_BUTTON) {
+                evt.stopPropagation();
+                evt.preventDefault();
+
+                this.mouseDragged = false;
+                this.mouseLastX = evt.clientX;
+                this.mouseLastY = evt.clientY;
+
+                document.documentElement.addEventListener("mousemove", this.dragHandler, false);
+                document.documentElement.addEventListener("mouseup", this.dragEndHandler, false);
+            }
+
+            this.fire("mouseDown", evt.button);
+        },
+        
+        /*
+         * Event handler: mouse move after mouse down.
+         *
+         * Fires:
+         *    - dragStart
+         */
+        onDrag: function (evt) {
+            evt.stopPropagation();
+
+            // The drag action is confirmed when one of the mouse coordinates
+            // has moved past the threshold
+            if (!this.mouseDragged && (Math.abs(evt.clientX - this.mouseLastX) > DRAG_THRESHOLD_PX ||
+                                       Math.abs(evt.clientY - this.mouseLastY) > DRAG_THRESHOLD_PX)) {
+                this.mouseDragged = true;
+                this.fire("dragStart");
+            }
+            
+            if (this.mouseDragged) {
+                this.drag(evt.clientX - this.mouseLastX, evt.clientY - this.mouseLastY);
+                this.mouseLastX = evt.clientX;
+                this.mouseLastY = evt.clientY;
+            }
+        },
+        
+        /*
+         * Event handler: mouse up after mouse down.
+         *
+         * If the mouse has been moved past the drag threshold, this method
+         * will fire a "dragEnd" event. Otherwise, it will fire a "click" event.
+         *
+         * Fires:
+         *    - dragEnd
+         *    - click(button)
+         */
+        onDragEnd: function (evt) {
+            if (evt.button === DRAG_BUTTON) {
+                evt.stopPropagation();
+                evt.preventDefault();
+
+                if (this.mouseDragged) {
+                    this.fire("dragEnd");
+                }
+                else {
+                    this.fire("click", evt.button);
+                }
+                
+                document.documentElement.removeEventListener("mousemove", this.dragHandler, false);
+                document.documentElement.removeEventListener("mouseup", this.dragEndHandler, false);
+            }
+            else {
+                this.fire("click", evt.button);
+            }
+        },
+
         /*
          * Get the width of the current viewport.
          *
@@ -133,24 +231,20 @@ namespace("sozi.display", function (exports) {
         /*
          * Apply an additional translation to the SVG document based on onscreen coordinates.
          *
+         * This method delegates to the cameras of the currently selected layers.
+         *
          * Parameters:
          *    - deltaX: The horizontal displacement, in pixels
          *    - deltaY: The vertical displacement, in pixels
-         *    - layerIds (optional): The ids of the layers to drag (defaults to all layers)
          *
          * Returns:
          *    - The current viewport.
          */
-        drag: function (deltaX, deltaY, layerIds) {
-            if (layerIds === undefined) {
-                for (var layerId in this.cameras) {
+        drag: function (deltaX, deltaY) {
+            for (var layerId in this.document.layers) {
+                if (this.document.layers[layerId].selected) {
                     this.cameras[layerId].drag(deltaX, deltaY);
                 }
-            }
-            else {
-                layerIds.forEach(function (layerId) {
-                    this.cameras[layerId].drag(deltaX, deltaY);
-                }, this);
             }
             return this;
         },
@@ -160,24 +254,20 @@ namespace("sozi.display", function (exports) {
          *
          * The zoom is centered around (x, y) with respect to the center of the display area.
          *
+         * This method delegates to the cameras of the currently selected layers.
+         *
          * Parameters:
          *    - factor: The zoom factor (relative to the current state of the viewport).
          *    - x, y: The coordinates of the center of the zoom operation.
-         *    - layerIds (optional): The ids of the layers to zoom (defaults to all layers)
          *
          * Returns:
          *    - The current viewport.
          */
-        zoom: function (factor, x, y, layerIds) {
-            if (layerIds === undefined) {
-                for (var layerId in this.cameras) {
+        zoom: function (factor, x, y) {
+            for (var layerId in this.document.layers) {
+                if (this.document.layers[layerId].selected) {
                     this.cameras[layerId].zoom(factor, x, y);
                 }
-            }
-            else {
-                layerIds.forEach(function (layerId) {
-                    this.cameras[layerId].zoom(factor, x, y);
-                }, this);
             }
             return this;
         },
@@ -187,23 +277,19 @@ namespace("sozi.display", function (exports) {
          *
          * The rotation is centered around the center of the display area.
          *
+         * This method delegates to the cameras of the currently selected layers.
+         *
          * Parameters:
-         *    - The rotation angle, in degrees.
-         *    - layerIds (optional): The ids of the layers to rotate (defaults to all layers)
+         *    - angle: The rotation angle, in degrees.
          *
          * Returns:
          *    - The current viewport.
          */
-        rotate: function (angle, layerIds) {
-            if (layerIds === undefined) {
-                for (var layerId in this.cameras) {
+        rotate: function (angle) {
+            for (var layerId in this.document.layers) {
+                if (this.document.layers[layerId].selected) {
                     this.cameras[layerId].rotate(angle);
                 }
-            }
-            else {
-                layerIds.forEach(function (layerId) {
-                    this.cameras[layerId].rotate(angle);
-                }, this);
             }
             return this;
         }

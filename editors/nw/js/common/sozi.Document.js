@@ -22,8 +22,18 @@ namespace("sozi", function (exports) {
 
     exports.Document = sozi.model.Object.create({
         
-        init: function (id, svgRoot) {
-            this.id = id;
+        /*
+         * Initialize a Sozi document object.
+         *
+         * Parameters:
+         *    - svgRoot: The root element of the SVG document.
+         *
+         * Returns:
+         *    - The current document object.
+         */
+        init: function (svgRoot) {
+            sozi.model.Object.init.call(this);
+            
             this.svgRoot = svgRoot;
 
             this.layers = {};
@@ -31,18 +41,18 @@ namespace("sozi", function (exports) {
             // Create an empty wrapper layer for elements that do not belong to a valid layer
             var wrapperCount = 0;
             var svgWrapper = document.createElementNS(SVG_NS, "g");
-            svgWrapper.setAttribute("id", "sozi-wrapper-" + id + "-" + wrapperCount);
+            svgWrapper.setAttribute("id", "sozi-wrapper-" + this.id + "-" + wrapperCount);
             
             // Get all child nodes of the SVG root.
             // Make a copy of svgRoot.childNodes before modifying the document.
             var svgNodeList = Array.prototype.slice.call(svgRoot.childNodes);
             
-            for (var nodeIndex = 0; nodeIndex < svgNodeList.length; nodeIndex ++) {
-                var svgNode = svgNodeList[nodeIndex];
-                
+            svgNodeList.forEach(function (svgNode) {
+                // Remove text nodes and comments
                 if (svgNode.tagName === undefined) {
                     svgRoot.removeChild(svgNode);
                 }
+                // Reorganize SVG elements
                 else {
                     var nodeName = svgNode.localName.toLowerCase();
                     if (DRAWABLE_TAGS.indexOf(nodeName) !== -1) {
@@ -57,18 +67,20 @@ namespace("sozi", function (exports) {
                                 svgRoot.insertBefore(svgWrapper, svgNode);
                                 this.layers[svgWrapper.getAttribute("id")] = {
                                     auto: true,
+                                    selected: true,
                                     svgNode: svgWrapper
                                 };
                                 
                                 // Create a new empty wrapper layer
                                 wrapperCount ++;
                                 svgWrapper = document.createElementNS(SVG_NS, "g");
-                                svgWrapper.setAttribute("id", "sozi-wrapper-" + id + "-" + wrapperCount);
+                                svgWrapper.setAttribute("id", "sozi-wrapper-" + this.id + "-" + wrapperCount);
                             }
                             
                             // Add the current node to the list of layers.
                             this.layers[svgNode.getAttribute("id")] = {
                                 auto: false,
+                                selected: true,
                                 svgNode: svgNode
                             };
                         }
@@ -77,7 +89,7 @@ namespace("sozi", function (exports) {
                         }
                     }
                 }
-            }
+            }, this);
             
             // If the current wrapper layer contains elements,
             // add it to the document and to the list of layers.
@@ -85,10 +97,67 @@ namespace("sozi", function (exports) {
                 svgRoot.appendChild(svgWrapper);
                 this.layers[svgWrapper.getAttribute("id")] = {
                     auto: true,
+                    selected: true,
                     svgNode: svgWrapper
                 };
             }
         
+            return this;
+        },
+        
+        /*
+         * Mark all layers as selected.
+         *
+         * Returns:
+         *    - The current object.
+         */
+        selectAllLayers: function () {
+            for (var layerId in this.layers) {
+                this.layers[layerId].selected = true;
+            }
+            return this;
+        },
+        
+        /*
+         * Mark all layers as deselected.
+         *
+         * Returns:
+         *    - The current object.
+         */
+        deselectAllLayers: function () {
+            for (var layerId in this.layers) {
+                this.layers[layerId].selected = false;
+            }
+            return this;
+        },
+        
+        /*
+         * Mark a layers as selected.
+         *
+         * When selecting a layer, the previously selected layers are not deselected.
+         *
+         * Parameters:
+         *    - layerId: The id of the layer to select.
+         *
+         * Returns:
+         *    - The current object.
+         */
+        selectLayer: function (layerId) {
+            this.layers[layerId].selected = true;
+            return this;
+        },
+        
+        /*
+         * Mark a layers as deselected.
+         *
+         * Parameters:
+         *    - layerId: The id of the layer to deselect.
+         *
+         * Returns:
+         *    - The current object.
+         */
+        deselectLayer: function (layerId) {
+            this.layers[layerId].selected = false;
             return this;
         }
     });
