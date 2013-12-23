@@ -97,9 +97,9 @@ namespace(this, "sozi.model", function (exports, globals) {
             if (event in this.listeners) {
                 var args = Array.prototype.slice.call(arguments, 1);
                 args.unshift(this);
-                forEach(listener of this.listeners[event]) {
+                this.listeners[event].forEach(function (listener) {
                     listener.callback.apply(listener.receiver, args);
-                }
+                });
             }
             return this;
         },

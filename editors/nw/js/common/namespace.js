@@ -12,51 +12,61 @@
  */
 
 /**
- * Create or augment a namespace.
+ * Create, augment or alias a namespace.
  *
- * <p>A typical use of this function is:</p>
+ * In this example, function ``foo`` is exported and can be
+ * called as ``a.b.c.foo(someValue)``.
  *
- * <pre>
- * namespace(this, "a.b.c", function (exports, globals) {
+ * ```
+ * namespace("a.b.c", function (exports, env) {
  *     exports.foo = function (x) {
  *         ...
  *     };
  * });
- * </pre>
+ * ```
  *
- * <p>where <code>this</code> is the global object.</p>
+ * To create an alias to a given namespace, you can call this function
+ * like in the following example. This will create a new namespace object
+ * ``a.b.c`` if it does not exist yet.
  *
- * <p>In this example, function <code>foo</code> is exported and can be
- * called as <code>a.b.c.foo(someValue)</code>.</p>
+ * ```
+ * var abc = namespace("a.b.c");
+ * abc.foo(someValue);
+ * ```
  *
- * @memberOf _global_
- * @param globals The global object
- * @param {String} path The dot-separated path to the namespace
- * @param {Function} body A function to execute in the context of the namespace
+ * @param {Object}   [env]  - The object that contains the namespace definition (defaults to the global object)
+ * @param {String}   path   - The dot-separated path to the namespace
+ * @param {Function} [body] - A function to execute in the context of the namespace
+ * @return {Object} The namespace object
  */
-function namespace(globals, path, body) {
+function namespace(env, path, body) {
     "use strict";
+
+    if (typeof env === "string") {
+        body = path;
+        path = env;
+        env = window;
+    }
     
     // Start name lookup in the global object
-	var current = globals;
-	
+	var current = env;
+
 	// For each name in the given path
 	path.split(".").forEach(function (name) {
-	    // If the current path element does not exist
-	    // in the current namespace, create a new sub-namespace
+        // If the current path element does not exist
+        // in the current namespace, create a new sub-namespace
 		if (typeof current[name] === "undefined") {
 			current[name] = {};
 		}
-		
+
 		// Move to the namespace for the current path element
 		current = current[name];
 	});
-	
+
 	// Execute the given function in the last namespace
 	if (body) {
-	    body(current, globals);
+        body(current, env);
 	}
-	
+
 	return current;
 }
-
