@@ -20,6 +20,12 @@ namespace("sozi.display", function (exports) {
     // Minimum distance to detect a drag action
     var DRAG_THRESHOLD_PX = 5;
     
+    // Zoom factor for user zoom action (keyboard and mouse wheel)
+    var SCALE_FACTOR = 1.05;
+    
+    // Rotation step for user rotate action (keyboard and mouse wheel)
+    var ROTATE_STEP = 5;
+    
     exports.ViewPort = sozi.model.Object.create({
         
         /*
@@ -60,6 +66,8 @@ namespace("sozi.display", function (exports) {
             this.dragEndHandler = this.bind(this.onDragEnd);
             
             svgRoot.addEventListener("mousedown", this.bind(this.onMouseDown), false);
+            svgRoot.addEventListener("DOMMouseScroll", this.bind(this.onWheel), false); // Mozilla
+            svgRoot.addEventListener("mousewheel", this.bind(this.onWheel), false); // IE, Opera, Webkit
         },
         
         /*
@@ -138,6 +146,41 @@ namespace("sozi.display", function (exports) {
             }
             else {
                 this.fire("click", evt.button);
+            }
+        },
+
+        /*
+         * Event handler: mouse wheel.
+         *
+         * The effect of the mouse wheel depends on the state of the Shift key:
+         *    - released: zoom in and out,
+         *    - pressed: rotate clockwise or counter-clockwise
+         *
+         * Fires:
+         *    - zoom
+         *    - rotate
+         */
+        onWheel: function (evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+
+            var delta = 0;
+            if (evt.wheelDelta) { // IE and Opera
+                delta = evt.wheelDelta;
+            }
+            else if (evt.detail) { // Mozilla
+                delta = -evt.detail;
+            }
+            
+            if (delta !== 0) {
+                if (evt.shiftKey) {
+                    this.rotate(delta > 0 ? ROTATE_STEP : -ROTATE_STEP);
+                    this.fire("rotate");
+                }
+                else {
+                    this.zoom(delta > 0 ? SCALE_FACTOR : 1/SCALE_FACTOR, evt.clientX, evt.clientY);
+                    this.fire("zoom");
+                }
             }
         },
 
