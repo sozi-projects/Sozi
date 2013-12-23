@@ -39,6 +39,7 @@
     <script>
         window.addEventListener("load", function () {
             var doc = sozi.Document.create().init(document.documentElement);
+            var viewPort = sozi.display.ViewPort.create().init(doc);
         });
     </script>
 </svg>

@@ -14,9 +14,6 @@
 namespace("sozi.display", function (exports) {
     "use strict";
     
-    // Constant: the Sozi namespace
-    var SVG_NS = "http://www.w3.org/2000/svg";
-
     exports.ViewPort = sozi.model.Object.create({
         
         /*
@@ -39,7 +36,7 @@ namespace("sozi.display", function (exports) {
             
             // Save the initial bounding box of the document
             // and force its dimensions to fit the container.
-            this.initialBBox = svgRoot.getBBox();
+            this.initialBBox = this.svgRoot.getBBox();
             this.resize();
             
             return this;
@@ -144,7 +141,7 @@ namespace("sozi.display", function (exports) {
          *    - The current viewport.
          */
         drag: function (deltaX, deltaY, layerIds) {
-            if (typeof layerIds === "undefined") {
+            if (layerIds === undefined) {
                 for (var layerId in this.cameras) {
                     this.cameras[layerId].drag(deltaX, deltaY);
                 }
@@ -171,7 +168,7 @@ namespace("sozi.display", function (exports) {
          *    - The current viewport.
          */
         zoom: function (factor, x, y, layerIds) {
-            if (typeof layerIds === "undefined") {
+            if (layerIds === undefined) {
                 for (var layerId in this.cameras) {
                     this.cameras[layerId].zoom(factor, x, y);
                 }
@@ -197,7 +194,7 @@ namespace("sozi.display", function (exports) {
          *    - The current viewport.
          */
         rotate: function (angle, layerIds) {
-            if (typeof layerIds === "undefined") {
+            if (layerIds === undefined) {
                 for (var layerId in this.cameras) {
                     this.cameras[layerId].rotate(angle);
                 }

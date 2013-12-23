@@ -17,25 +17,6 @@ namespace("sozi.display", function (exports) {
     // Constant: the Sozi namespace
     var SVG_NS = "http://www.w3.org/2000/svg";
 
-    var XLINK_NS = "http://www.w3.org/1999/xlink";
-    
-    // The global document object
-    var document = window.document;
-    
-    // The initial bounding box of the whole document,
-    // assigned in onDocumentReady()
-    var initialBBox;
-    
-    var lastWindowWidth;
-    var lastWindowHeight;
-    
-    exports.viewPorts = {};
-    
-    var primaryViewport;
-
-    /**
-     * @depend proto.js
-     */
     exports.CameraState = sozi.model.Object.create({
         
         init: function (viewPort) {
@@ -151,18 +132,10 @@ namespace("sozi.display", function (exports) {
 
             var svgPath = reverseTransitionPath ? initialState.transitionPath : finalState.transitionPath;
             if (useTransitionPath && svgPath) {
-                var pathLength = svgPath.getTotalLength();
-                
-                if (reverseTransitionPath) {
-                    var startPoint = svgPath.getPointAtLength(pathLength);
-                    var endPoint = svgPath.getPointAtLength(0);
-                    var currentPoint = svgPath.getPointAtLength(pathLength * remaining);
-                }
-                else {
-                    var startPoint = svgPath.getPointAtLength(0);
-                    var endPoint = svgPath.getPointAtLength(pathLength);
-                    var currentPoint = svgPath.getPointAtLength(pathLength * ratio);
-                }
+                var pathLength   = svgPath.getTotalLength();
+                var startPoint   = svgPath.getPointAtLength(reverseTransitionPath ? pathLength : 0);
+                var endPoint     = svgPath.getPointAtLength(reverseTransitionPath ? 0 : pathLength);
+                var currentPoint = svgPath.getPointAtLength(pathLength * (reverseTransitionPath ? remaining : ratio));
  
                 this.cx = currentPoint.x + (finalState.cx - endPoint.x) * ratio + (initialState.cx - startPoint.x) * remaining;
                 this.cy = currentPoint.y + (finalState.cy - endPoint.y) * ratio + (initialState.cy - startPoint.y) * remaining;
@@ -178,19 +151,21 @@ namespace("sozi.display", function (exports) {
         
         init: function (viewPort, svgLayer) {
             exports.CameraState.init.call(this, viewPort);
+
+            var layerId = svgLayer.getAttribute("id");
             
             // Clipping rectangle
             this.svgClipRect = document.createElementNS(SVG_NS, "rect");
         
             // Clipping path
             var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
-            svgClipPath.setAttribute("id", "sozi-clip-path-" + viewPort.id + "-" + idLayer);
+            svgClipPath.setAttribute("id", "sozi-clip-path-" + viewPort.id + "-" + layerId);
             svgClipPath.appendChild(this.svgClipRect);
             viewPort.svgGroup.appendChild(svgClipPath);
 
             // The group that will support the clipping operation
             var svgClippedGroup = document.createElementNS(SVG_NS, "g");
-            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewPort.id + "-" + idLayer + ")");
+            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewPort.id + "-" + layerId + ")");
             viewPort.svgGroup.appendChild(svgClippedGroup);
             
             // This group will support transformations

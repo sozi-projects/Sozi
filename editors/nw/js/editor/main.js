@@ -51,12 +51,17 @@ window.addEventListener("load", function () {
                        svgRoot.nodeName === "#text" && svgRoot.nodeValue.trim() === "") {
                     svgRoot = svgRoot.nextSibling;
                 }
+                
                 // Check that the first non-empty node is an element named "svg"
                 // with the SVG namespace URI.
                 if (svgRoot.localName.toLowerCase() !== "svg" ||
                     svgRoot.namespaceURI !== "http://www.w3.org/2000/svg") {
-                    alert("Error: Document is not valid SVG. " + svgRoot.namespaceURI)
+                    alert("Error: Document is not valid SVG. " + svgRoot.namespaceURI);
                 }
+                
+                // Create Sozi document and viewport
+                var doc = sozi.display.Document.create().init(svgRoot);
+                var viewPort = sozi.display.ViewPort.create().init(doc);
             }
             else {
                 alert("Error: Failed to read file " + fileName);

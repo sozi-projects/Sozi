@@ -108,7 +108,7 @@ namespace(this, "sozi.model", function (exports, globals) {
          * Returns an event listener definition object.
          */
         makeListenerRecord: function (event, a, b) {
-            if (typeof b === "undefined") {
+            if (b === undefined) {
                 if (typeof a === "function") {
                     return {
                         callback: a,
