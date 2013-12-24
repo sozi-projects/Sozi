@@ -60,7 +60,7 @@ window.addEventListener("load", function () {
                 }
                 
                 // Create Sozi document and viewport
-                var doc = sozi.display.Document.create().init(svgRoot);
+                var doc = sozi.Document.create().init(svgRoot);
                 var viewPort = sozi.display.ViewPort.create().init(doc);
             }
             else {
