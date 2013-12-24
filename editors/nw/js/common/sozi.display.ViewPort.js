@@ -52,22 +52,18 @@ namespace("sozi.display", function (exports) {
                 this.cameras[layerId] = exports.Camera.create().init(this, doc.layers[layerId].svgNode);
             }
             
-            this.setupActions();
-            
-            this.resize();
-            
-            return this;
-        },
-        
-        setupActions: function () {
-            var svgRoot = this.document.svgRoot;
-            
+            // Setup mouse and keyboard event handlers
             this.dragHandler = this.bind(this.onDrag);
             this.dragEndHandler = this.bind(this.onDragEnd);
             
-            svgRoot.addEventListener("mousedown", this.bind(this.onMouseDown), false);
-            svgRoot.addEventListener("DOMMouseScroll", this.bind(this.onWheel), false); // Mozilla
-            svgRoot.addEventListener("mousewheel", this.bind(this.onWheel), false); // IE, Opera, Webkit
+            doc.svgRoot.addEventListener("mousedown", this.bind(this.onMouseDown), false);
+            doc.svgRoot.addEventListener("DOMMouseScroll", this.bind(this.onWheel), false); // Mozilla
+            doc.svgRoot.addEventListener("mousewheel", this.bind(this.onWheel), false); // IE, Opera, Webkit
+            doc.svgRoot.addEventListener("keypress", this.bind(this.onKeyPress), false);
+
+            this.resize();
+            
+            return this;
         },
         
         /*
@@ -75,6 +71,9 @@ namespace("sozi.display", function (exports) {
          *
          * If the mouse button pressed is the left button,
          * this method will setup event listeners for detecting a drag action.
+         *
+         * Parameters:
+         *    - evt: The DOM event object
          *
          * Fires:
          *    - mouseDown(button)
@@ -97,6 +96,9 @@ namespace("sozi.display", function (exports) {
         
         /*
          * Event handler: mouse move after mouse down.
+         *
+         * Parameters:
+         *    - evt: The DOM event object
          *
          * Fires:
          *    - dragStart
@@ -124,6 +126,9 @@ namespace("sozi.display", function (exports) {
          *
          * If the mouse has been moved past the drag threshold, this method
          * will fire a "dragEnd" event. Otherwise, it will fire a "click" event.
+         *
+         * Parameters:
+         *    - evt: The DOM event object
          *
          * Fires:
          *    - dragEnd
@@ -156,6 +161,9 @@ namespace("sozi.display", function (exports) {
          *    - released: zoom in and out,
          *    - pressed: rotate clockwise or counter-clockwise
          *
+         * Parameters:
+         *    - evt: The DOM event object
+         *
          * Fires:
          *    - zoom
          *    - rotate
@@ -175,13 +183,48 @@ namespace("sozi.display", function (exports) {
             if (delta !== 0) {
                 if (evt.shiftKey) {
                     this.rotate(delta > 0 ? ROTATE_STEP : -ROTATE_STEP);
-                    this.fire("rotate");
                 }
                 else {
                     this.zoom(delta > 0 ? SCALE_FACTOR : 1/SCALE_FACTOR, evt.clientX, evt.clientY);
-                    this.fire("zoom");
                 }
             }
+        },
+
+        /**
+         * Event handler: key press.
+         *
+         * This method handles character keys:
+         *    - "+", "-": zoom in/out
+         *    - "R", "r": rotate clockwise/counter-clockwise.
+         *
+         * Parameters:
+         *    - evt: The DOM event object
+         */
+        onKeyPress: function (evt) {
+            // Keys with modifiers are ignored
+            if (evt.altKey || evt.ctrlKey || evt.metaKey) {
+                return;
+            }
+            
+            switch (evt.charCode || evt.which) {
+                case 43: // +
+                    this.zoom(SCALE_FACTOR, this.width / 2, this.height / 2);
+                    break;
+                case 45: // -
+                    this.zoom(1 / SCALE_FACTOR, this.width / 2, this.height / 2);
+                    break;
+                case 82: // R
+                    this.rotate(-ROTATE_STEP);
+                    break;
+                case 114: // r
+                    this.rotate(ROTATE_STEP);
+                    break;
+                default:
+                    return;
+            }
+            
+            evt.stopPropagation();
+            evt.preventDefault();
         },
 
         /*
@@ -303,6 +346,9 @@ namespace("sozi.display", function (exports) {
          *    - factor: The zoom factor (relative to the current state of the viewport).
          *    - x, y: The coordinates of the center of the zoom operation.
          *
+         * Fires:
+         *    - zoom
+         *
          * Returns:
          *    - The current viewport.
          */
@@ -312,6 +358,7 @@ namespace("sozi.display", function (exports) {
                     this.cameras[layerId].zoom(factor, x, y);
                 }
             }
+            this.fire("zoom");
             return this;
         },
 
@@ -327,6 +374,9 @@ namespace("sozi.display", function (exports) {
          *
          * Returns:
          *    - The current viewport.
+         *
+         * Fires:
+         *    - rotate
          */
         rotate: function (angle) {
             for (var layerId in this.document.layers) {
@@ -334,6 +384,7 @@ namespace("sozi.display", function (exports) {
                     this.cameras[layerId].rotate(angle);
                 }
             }
+            this.fire("rotate");
             return this;
         }
     });
