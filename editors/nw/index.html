@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <title>Sozi</title>
         
+        <link rel="stylesheet" href="css/editor.css">
+        
         <script src="js/common/namespace.js"></script>
         <script src="js/common/sozi.model.Object.js"></script>
         <script src="js/common/sozi.display.Camera.js"></script>
@@ -14,5 +16,17 @@
     <body>
         <input style="display:none;" id="file-dialog" type="file">
         <div id="preview">Loading&hellip;</div>
+        <table id="timeline">
+            <tr>
+                <th>Default</th>
+            </tr>
+            <tr>
+                <th>
+                    <select id="layer">
+                        <option value="__add__">Add layer</option>
+                    </select>
+                </th>
+            </tr>
+        </table>
     </body>
 </html>
