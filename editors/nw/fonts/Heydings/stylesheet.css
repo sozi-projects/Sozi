@@ -1,0 +1,14 @@
+
+@font-face {
+	font-family: "Heydings Icons";
+	src: url("heydings_icons.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Heydings Controls";
+	src: url("heydings_controls.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}

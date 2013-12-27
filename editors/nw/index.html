@@ -11,22 +11,33 @@
         <script src="js/common/sozi.display.Camera.js"></script>
         <script src="js/common/sozi.display.ViewPort.js"></script>
         <script src="js/common/sozi.Document.js"></script>
+        <script src="js/editor/sozi.editor.DocumentView.js"></script>
         <script src="js/editor/main.js"></script>
     </head>
     <body>
         <input style="display:none;" id="file-dialog" type="file">
-        <div id="preview">Loading&hellip;</div>
-        <table id="timeline">
-            <tr>
-                <th>Default</th>
-            </tr>
-            <tr>
-                <th>
-                    <select id="layer">
-                        <option value="__add__">Add layer</option>
-                    </select>
-                </th>
-            </tr>
-        </table>
+        <div id="top">
+            <div id="preview">
+                Loading&hellip;
+            </div>
+        </div>
+        <div id="bottom">
+            <div>
+                Aspect ratio:
+                <input id="aspect-num" type="number" pattern="\d+" min="1" step="1" value="4" size="3">:<input id="aspect-den" type="number" pattern="\d+" min="1" step="1" value="3" size="3">
+            </div>
+            <table id="timeline">
+                <tr>
+                    <th>Default</th>
+                </tr>
+                <tr>
+                    <th>
+                        <select id="layer">
+                            <option value="__add__">Add layer</option>
+                        </select>
+                    </th>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>

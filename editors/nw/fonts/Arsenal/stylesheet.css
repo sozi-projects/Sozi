@@ -1,0 +1,28 @@
+
+@font-face {
+	font-family: "Arsenal";
+	src: url("Arsenal-Regular.otf") format("opentype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Arsenal";
+	src: url("Arsenal-Italic.otf") format("opentype");
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Arsenal";
+	src: url("Arsenal-Bold.otf") format("opentype");
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Arsenal";
+	src: url("Arsenal-BoldItalic.otf") format("opentype");
+	font-weight: bold;
+	font-style: italic;
+}
