@@ -182,10 +182,11 @@ namespace("sozi.display", function (exports) {
             
             if (delta !== 0) {
                 if (evt.shiftKey) {
+                    // TODO rotate around mouse cursor
                     this.rotate(delta > 0 ? ROTATE_STEP : -ROTATE_STEP);
                 }
                 else {
-                    this.zoom(delta > 0 ? SCALE_FACTOR : 1/SCALE_FACTOR, evt.clientX, evt.clientY);
+                    this.zoom(delta > 0 ? SCALE_FACTOR : 1/SCALE_FACTOR, evt.clientX - this.x, evt.clientY - this.y);
                 }
             }
         },
@@ -225,6 +226,34 @@ namespace("sozi.display", function (exports) {
             
             evt.stopPropagation();
             evt.preventDefault();
+        },
+
+        /*
+         * Get the X coordinate of the current viewport in the current browser window.
+         *
+         * If the SVG is a standalone document, the returned value is 0.
+         *
+         * Returns:
+         *    - The X coordinate of the current viewport.
+         */
+        get x() {
+            return this.document.svgRoot === document.documentElement ?
+                0 :
+                this.document.svgRoot.getBoundingClientRect().left;
+        },
+
+        /*
+         * Get the Y coordinate of the current viewport in the current browser window.
+         *
+         * If the SVG is a standalone document, the returned value is 0.
+         *
+         * Returns:
+         *    - The Y coordinate of the current viewport.
+         */
+        get y() {
+            return this.document.svgRoot === document.documentElement ?
+                0 :
+                this.document.svgRoot.getBoundingClientRect().top;
         },
 
         /*
