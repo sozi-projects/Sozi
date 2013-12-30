@@ -13,15 +13,19 @@
 
 namespace("sozi", function (exports) {
     "use strict";
-    
+
     // Constant: the SVG namespace
     var SVG_NS = "http://www.w3.org/2000/svg";
 
+    // Constant: the Inkscape namespace
+    var INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
+
+    // Constant: The SVG element names that can be found in layers
     var DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
         "ellipse", "line", "polyline", "polygon", "text", "clippath" ];
 
     exports.Document = sozi.model.Object.create({
-        
+
         /*
          * Initialize a Sozi document object.
          *
@@ -33,20 +37,20 @@ namespace("sozi", function (exports) {
          */
         init: function (svgRoot) {
             sozi.model.Object.init.call(this);
-            
+
             this.svgRoot = svgRoot;
 
             this.layers = {};
-            
+
             // Create an empty wrapper layer for elements that do not belong to a valid layer
             var wrapperCount = 0;
             var svgWrapper = document.createElementNS(SVG_NS, "g");
             svgWrapper.setAttribute("id", "sozi-wrapper-" + this.id + "-" + wrapperCount);
-            
+
             // Get all child nodes of the SVG root.
             // Make a copy of svgRoot.childNodes before modifying the document.
             var svgNodeList = Array.prototype.slice.call(svgRoot.childNodes);
-            
+
             svgNodeList.forEach(function (svgNode) {
                 // Remove text nodes and comments
                 if (svgNode.tagName === undefined) {
@@ -68,19 +72,22 @@ namespace("sozi", function (exports) {
                                 this.layers[svgWrapper.getAttribute("id")] = {
                                     auto: true,
                                     selected: true,
+                                    label: "#" + svgWrapper.getAttribute("id"),
                                     svgNode: svgWrapper
                                 };
-                                
+
                                 // Create a new empty wrapper layer
                                 wrapperCount ++;
                                 svgWrapper = document.createElementNS(SVG_NS, "g");
                                 svgWrapper.setAttribute("id", "sozi-wrapper-" + this.id + "-" + wrapperCount);
                             }
-                            
+
                             // Add the current node to the list of layers.
                             this.layers[svgNode.getAttribute("id")] = {
                                 auto: false,
                                 selected: true,
+                                // FIXME Should be has/getAttributeNS(INKSCAPE_NS, "label"
+                                label: svgNode.hasAttribute("inkscape:label") ? svgNode.getAttribute("inkscape:label") : ("#" + svgNode.getAttribute("id")),
                                 svgNode: svgNode
                             };
                         }
@@ -90,7 +97,7 @@ namespace("sozi", function (exports) {
                     }
                 }
             }, this);
-            
+
             // If the current wrapper layer contains elements,
             // add it to the document and to the list of layers.
             if (svgWrapper.firstChild) {
@@ -101,10 +108,10 @@ namespace("sozi", function (exports) {
                     svgNode: svgWrapper
                 };
             }
-        
+
             return this;
         },
-        
+
         /*
          * Mark all layers as selected.
          *
@@ -117,7 +124,7 @@ namespace("sozi", function (exports) {
             }
             return this;
         },
-        
+
         /*
          * Mark all layers as deselected.
          *
@@ -130,7 +137,7 @@ namespace("sozi", function (exports) {
             }
             return this;
         },
-        
+
         /*
          * Mark a layers as selected.
          *
@@ -146,7 +153,7 @@ namespace("sozi", function (exports) {
             this.layers[layerId].selected = true;
             return this;
         },
-        
+
         /*
          * Mark a layers as deselected.
          *

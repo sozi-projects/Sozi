@@ -62,6 +62,7 @@ window.addEventListener("load", function () {
                 // Create Sozi document and viewport
                 var doc = sozi.Document.create().init(svgRoot);
                 var documentView = sozi.editor.DocumentView.create().init(doc);
+                var tableView = sozi.editor.TimelineView.create().init(doc);
             }
             else {
                 alert("Error: Failed to read file " + fileName);
