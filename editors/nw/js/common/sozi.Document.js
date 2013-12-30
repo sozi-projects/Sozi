@@ -41,6 +41,7 @@ namespace("sozi", function (exports) {
             this.svgRoot = svgRoot;
 
             this.layers = {};
+            this.frames = [];
 
             // Create an empty wrapper layer for elements that do not belong to a valid layer
             var wrapperCount = 0;
@@ -115,12 +116,15 @@ namespace("sozi", function (exports) {
         /*
          * Mark all layers as selected.
          *
+         * Fires:
+         *    - selectLayer(layerId)
+         *
          * Returns:
          *    - The current object.
          */
         selectAllLayers: function () {
             for (var layerId in this.layers) {
-                this.layers[layerId].selected = true;
+                this.selectLayer(layerId);
             }
             return this;
         },
@@ -128,43 +132,122 @@ namespace("sozi", function (exports) {
         /*
          * Mark all layers as deselected.
          *
+         * Fires:
+         *    - deselectLayer(layerId)
+         *
          * Returns:
          *    - The current object.
          */
         deselectAllLayers: function () {
             for (var layerId in this.layers) {
-                this.layers[layerId].selected = false;
+                this.deselectLayer(layerId);
             }
             return this;
         },
 
         /*
-         * Mark a layers as selected.
+         * Mark a layer as selected.
          *
          * When selecting a layer, the previously selected layers are not deselected.
          *
          * Parameters:
          *    - layerId: The id of the layer to select.
          *
+         * Fires:
+         *    - selectLayer(layerId)
+         *
          * Returns:
          *    - The current object.
          */
         selectLayer: function (layerId) {
             this.layers[layerId].selected = true;
+            this.fire("selectLayer", layerId);
             return this;
         },
 
         /*
-         * Mark a layers as deselected.
+         * Mark a layer as deselected.
          *
          * Parameters:
          *    - layerId: The id of the layer to deselect.
+         *
+         * Fires:
+         *    - deselectLayer(layerId)
          *
          * Returns:
          *    - The current object.
          */
         deselectLayer: function (layerId) {
             this.layers[layerId].selected = false;
+            this.fire("deselectLayer", layerId);
+            return this;
+        },
+
+        /*
+         * Mark all frames as selected.
+         *
+         * Fires:
+         *    - selectFrame(frameIndex)
+         *
+         * Returns:
+         *    - The current object.
+         */
+        selectAllFrames: function () {
+            for (var frameIndex = 0; frameIndex < this.frames.length; frameIndex ++) {
+                this.selectFrame(frameIndex);
+            }
+            return this;
+        },
+
+        /*
+         * Mark all frames as deselected.
+         *
+         * Fires:
+         *    - deselectFrame(frameIndex)
+         *
+         * Returns:
+         *    - The current object.
+         */
+        deselectAllFrames: function () {
+            for (var frameIndex = 0; frameIndex < this.frames.length; frameIndex ++) {
+                this.deselectFrame(frameIndex);
+            }
+            return this;
+        },
+
+        /*
+         * Mark a frame as selected.
+         *
+         * Parameters:
+         *    - frameIndex: The index of the frame to select
+         *
+         * Fires:
+         *    - selectFrame(frameIndex)
+         *
+         * Returns:
+         *    - The current object.
+         */
+        selectFrame: function (frameIndex) {
+            this.frames[frameIndex].selected = true;
+            this.fire("selectFrame", frameIndex);
+            return this;
+        },
+
+        /*
+         * Mark a frame as deselected.
+         *
+         * Parameters:
+         *    - frameIndex: The index of the frame to deselect
+         *
+         * Fires:
+         *    - deselectFrame(frameIndex)
+         *
+         * Returns:
+         *    - The current object.
+         */
+        deselectFrame: function (frameIndex) {
+            this.frames[frameIndex].selected = false;
+            this.fire("deselectFrame", frameIndex);
             return this;
         }
     });
