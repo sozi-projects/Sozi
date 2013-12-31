@@ -13,59 +13,59 @@
 
 namespace("sozi.display", function (exports) {
     "use strict";
-    
+
     // Use left mouse button to drag
     var DRAG_BUTTON = 0;
-    
+
     // Minimum distance to detect a drag action
     var DRAG_THRESHOLD_PX = 5;
-    
+
     // Zoom factor for user zoom action (keyboard and mouse wheel)
     var SCALE_FACTOR = 1.05;
-    
+
     // Rotation step for user rotate action (keyboard and mouse wheel)
     var ROTATE_STEP = 5;
-    
+
     exports.ViewPort = sozi.model.Object.create({
-        
+
         /*
          * Initialize a new viewport for the given SVG root element.
          *
          * Parameters:
-         *    - doc: An instance of sozi.display.Document
+         *    - doc: An instance of sozi.document.Presentation
          *
          * Returns:
          *    - The current viewport.
          */
         init: function (doc) {
             sozi.model.Object.init.call(this);
-            
-            this.document = doc;
+
+            this.presentation = doc;
 
             // Save the initial bounding box of the document
             // and force its dimensions to fit the container.
             this.initialBBox = doc.svgRoot.getBBox();
-            
+
             // Create a camera for each layer
             this.cameras = {};
             for (var layerId in doc.layers) {
                 this.cameras[layerId] = exports.Camera.create().init(this, doc.layers[layerId].svgNode);
             }
-            
+
             // Setup mouse and keyboard event handlers
             this.dragHandler = this.bind(this.onDrag);
             this.dragEndHandler = this.bind(this.onDragEnd);
-            
+
             doc.svgRoot.addEventListener("mousedown", this.bind(this.onMouseDown), false);
             doc.svgRoot.addEventListener("DOMMouseScroll", this.bind(this.onWheel), false); // Mozilla
             doc.svgRoot.addEventListener("mousewheel", this.bind(this.onWheel), false); // IE, Opera, Webkit
             doc.svgRoot.addEventListener("keypress", this.bind(this.onKeyPress), false);
 
             this.resize();
-            
+
             return this;
         },
-        
+
         /*
          * Event handler: mouse down.
          *
@@ -93,7 +93,7 @@ namespace("sozi.display", function (exports) {
 
             this.fire("mouseDown", evt.button);
         },
-        
+
         /*
          * Event handler: mouse move after mouse down.
          *
@@ -113,14 +113,14 @@ namespace("sozi.display", function (exports) {
                 this.mouseDragged = true;
                 this.fire("dragStart");
             }
-            
+
             if (this.mouseDragged) {
                 this.drag(evt.clientX - this.mouseLastX, evt.clientY - this.mouseLastY);
                 this.mouseLastX = evt.clientX;
                 this.mouseLastY = evt.clientY;
             }
         },
-        
+
         /*
          * Event handler: mouse up after mouse down.
          *
@@ -145,7 +145,7 @@ namespace("sozi.display", function (exports) {
                 else {
                     this.fire("click", evt.button);
                 }
-                
+
                 document.documentElement.removeEventListener("mousemove", this.dragHandler, false);
                 document.documentElement.removeEventListener("mouseup", this.dragEndHandler, false);
             }
@@ -179,7 +179,7 @@ namespace("sozi.display", function (exports) {
             else if (evt.detail) { // Mozilla
                 delta = -evt.detail;
             }
-            
+
             if (delta !== 0) {
                 if (evt.shiftKey) {
                     // TODO rotate around mouse cursor
@@ -206,7 +206,7 @@ namespace("sozi.display", function (exports) {
             if (evt.altKey || evt.ctrlKey || evt.metaKey) {
                 return;
             }
-            
+
             switch (evt.charCode || evt.which) {
                 case 43: // +
                     this.zoom(SCALE_FACTOR, this.width / 2, this.height / 2);
@@ -223,7 +223,7 @@ namespace("sozi.display", function (exports) {
                 default:
                     return;
             }
-            
+
             evt.stopPropagation();
             evt.preventDefault();
         },
@@ -237,9 +237,9 @@ namespace("sozi.display", function (exports) {
          *    - The X coordinate of the current viewport.
          */
         get x() {
-            return this.document.svgRoot === document.documentElement ?
+            return this.presentation.svgRoot === document.documentElement ?
                 0 :
-                this.document.svgRoot.getBoundingClientRect().left;
+                this.presentation.svgRoot.getBoundingClientRect().left;
         },
 
         /*
@@ -251,9 +251,9 @@ namespace("sozi.display", function (exports) {
          *    - The Y coordinate of the current viewport.
          */
         get y() {
-            return this.document.svgRoot === document.documentElement ?
+            return this.presentation.svgRoot === document.documentElement ?
                 0 :
-                this.document.svgRoot.getBoundingClientRect().top;
+                this.presentation.svgRoot.getBoundingClientRect().top;
         },
 
         /*
@@ -269,11 +269,11 @@ namespace("sozi.display", function (exports) {
          *    - The width of the current viewport.
          */
         get width() {
-            return this.document.svgRoot === document.documentElement ?
+            return this.presentation.svgRoot === document.documentElement ?
                 window.innerWidth :
-                this.document.svgRoot.parentNode.clientWidth;
+                this.presentation.svgRoot.parentNode.clientWidth;
         },
-        
+
         /*
          * Get the height of the current viewport.
          *
@@ -287,11 +287,11 @@ namespace("sozi.display", function (exports) {
          *    - The height of the current viewport.
          */
         get height() {
-            return this.document.svgRoot === document.documentElement ?
+            return this.presentation.svgRoot === document.documentElement ?
                 window.innerHeight :
-                this.document.svgRoot.parentNode.clientHeight;
+                this.presentation.svgRoot.parentNode.clientHeight;
         },
-        
+
         /*
          * Fit the size of the SVG document to its container.
          *
@@ -299,16 +299,16 @@ namespace("sozi.display", function (exports) {
          *    - The current viewport.
          */
         resize: function () {
-            this.document.svgRoot.setAttribute("width", this.width);
-            this.document.svgRoot.setAttribute("height", this.height);
-            
+            this.presentation.svgRoot.setAttribute("width", this.width);
+            this.presentation.svgRoot.setAttribute("height", this.height);
+
             for (var layerId in this.cameras) {
                 this.cameras[layerId].update();
             }
-            
+
             return this;
         },
-        
+
         /*
          * Returns the default camera states to show the whole document.
          *
@@ -318,7 +318,7 @@ namespace("sozi.display", function (exports) {
         getDefaultStates: function () {
             // This object defines the bounding box of the whole document
             var state = exports.CameraState.create().init(this);
-            
+
             // Copy the document's bounding box to all layers
             var result = {};
             for (var layerId in this.cameras) {
@@ -356,8 +356,8 @@ namespace("sozi.display", function (exports) {
          *    - The current viewport.
          */
         drag: function (deltaX, deltaY) {
-            for (var layerId in this.document.layers) {
-                if (this.document.layers[layerId].selected) {
+            for (var layerId in this.presentation.layers) {
+                if (this.presentation.layers[layerId].selected) {
                     this.cameras[layerId].drag(deltaX, deltaY);
                 }
             }
@@ -382,8 +382,8 @@ namespace("sozi.display", function (exports) {
          *    - The current viewport.
          */
         zoom: function (factor, x, y) {
-            for (var layerId in this.document.layers) {
-                if (this.document.layers[layerId].selected) {
+            for (var layerId in this.presentation.layers) {
+                if (this.presentation.layers[layerId].selected) {
                     this.cameras[layerId].zoom(factor, x, y);
                 }
             }
@@ -408,8 +408,8 @@ namespace("sozi.display", function (exports) {
          *    - rotate
          */
         rotate: function (angle) {
-            for (var layerId in this.document.layers) {
-                if (this.document.layers[layerId].selected) {
+            for (var layerId in this.presentation.layers) {
+                if (this.presentation.layers[layerId].selected) {
                     this.cameras[layerId].rotate(angle);
                 }
             }

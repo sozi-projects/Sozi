@@ -13,40 +13,40 @@
 
 namespace("sozi.display", function (exports) {
     "use strict";
-    
+
     // Constant: the Sozi namespace
     var SVG_NS = "http://www.w3.org/2000/svg";
 
     exports.CameraState = sozi.model.Object.create({
-        
+
         init: function (viewPort) {
             sozi.model.Object.init.call(this);
-            
+
             this.viewPort = viewPort;
-            
+
             // Center coordinates
             this.cx = viewPort.initialBBox.x + viewPort.initialBBox.width / 2;
             this.cy = viewPort.initialBBox.y + viewPort.initialBBox.height / 2;
-            
+
             // Dimensions
             this.width = viewPort.initialBBox.width;
             this.height = viewPort.initialBBox.height;
-            
+
             // Rotation angle, in degrees
             this.angle = 0;
-            
+
             // Clipping
             this.clipped = false;
-            
+
             // Transition zoom
             this.transitionZoomPercent = 0;
-            
+
             // Transition profile
             this.transitionProfile = "linear";
-            
+
             // Transition path
             this.transitionPath = null;
-            
+
             return this;
         },
 
@@ -59,7 +59,7 @@ namespace("sozi.display", function (exports) {
             this.angle = (angle + 180) % 360 - 180;
             return this;
         },
-        
+
         /*
          * Set the current camera's properties to the given SVG element.
          *
@@ -92,7 +92,7 @@ namespace("sozi.display", function (exports) {
             var c = document.documentElement.createSVGPoint();
             c.x = x + w / 2;
             c.y = y + h / 2;
-            
+
             // Compute the coordinates of the center of the given SVG element
             // after its current transformation
             var matrix = svgElement.getCTM();
@@ -100,7 +100,7 @@ namespace("sozi.display", function (exports) {
 
             // Compute the scaling factor applied to the given SVG element
             var scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
-            
+
             // Update the camera to match the bounding box information of the
             // given SVG element after its current transformation
             this.cx = c.x;
@@ -108,13 +108,15 @@ namespace("sozi.display", function (exports) {
             this.width = w * scale;
             this.height = h * scale;
             this.angle = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI;
-            
+
             return this;
         },
 
         setAtState: function (state) {
             this.cx = state.cx;
             this.cy = state.cy;
+            this.width = state.width;
+            this.height = state.height;
             this.angle = state.angle;
             this.clipped = state.clipped;
             this.transitionZoomPercent = state.transitionZoomPercent;
@@ -122,9 +124,9 @@ namespace("sozi.display", function (exports) {
             this.transitionPath = state.transitionPath;
             return this;
         },
-        
+
         interpolatableAttributes: ["width", "height", "angle"],
-        
+
         interpolate: function (initialState, finalState, ratio, useTransitionPath, reverseTransitionPath) {
             var remaining = 1 - ratio;
             for (var i = 0; i < this.interpolatableAttributes.length; i += 1) {
@@ -138,7 +140,7 @@ namespace("sozi.display", function (exports) {
                 var startPoint   = svgPath.getPointAtLength(reverseTransitionPath ? pathLength : 0);
                 var endPoint     = svgPath.getPointAtLength(reverseTransitionPath ? 0 : pathLength);
                 var currentPoint = svgPath.getPointAtLength(pathLength * (reverseTransitionPath ? remaining : ratio));
- 
+
                 this.cx = currentPoint.x + (finalState.cx - endPoint.x) * ratio + (initialState.cx - startPoint.x) * remaining;
                 this.cy = currentPoint.y + (finalState.cy - endPoint.y) * ratio + (initialState.cy - startPoint.y) * remaining;
             }
@@ -148,46 +150,46 @@ namespace("sozi.display", function (exports) {
             }
         }
     });
-    
+
     exports.Camera = exports.CameraState.create({
-        
+
         init: function (viewPort, svgLayer) {
             exports.CameraState.init.call(this, viewPort);
 
             var layerId = svgLayer.getAttribute("id");
-            
+
             // Clipping rectangle
             this.svgClipRect = document.createElementNS(SVG_NS, "rect");
-        
+
             // Clipping path
             var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
-            svgClipPath.setAttribute("id", "sozi-clip-path-" + viewPort.document.id + "-" + layerId);
+            svgClipPath.setAttribute("id", "sozi-clip-path-" + viewPort.presentation.id + "-" + layerId);
             svgClipPath.appendChild(this.svgClipRect);
-            viewPort.document.svgRoot.appendChild(svgClipPath);
+            viewPort.presentation.svgRoot.appendChild(svgClipPath);
 
             // The group that will support the clipping operation
             var svgClippedGroup = document.createElementNS(SVG_NS, "g");
-            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewPort.document.id + "-" + layerId + ")");
-            viewPort.document.svgRoot.appendChild(svgClippedGroup);
-            
+            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewPort.presentation.id + "-" + layerId + ")");
+            viewPort.presentation.svgRoot.appendChild(svgClippedGroup);
+
             // This group will support transformations
             // we keep the layer group clean since it can be referenced
             // from <use> elements
             this.svgLayer = document.createElementNS(SVG_NS, "g");
             this.svgLayer.appendChild(svgLayer);
             svgClippedGroup.appendChild(this.svgLayer);
-            
+
             return this;
         },
-        
+
         setAtState: function (state) {
             return exports.CameraState.setAtState.call(this, state).update();
         },
-        
+
         get scale() {
             return Math.min(this.viewPort.width / this.width, this.viewPort.height / this.height);
         },
-        
+
         rotate: function (angle) {
             return this.setAngle(this.angle + angle).update();
         },
@@ -200,7 +202,7 @@ namespace("sozi.display", function (exports) {
                 (1 - factor) * (y - this.viewPort.height / 2)
             );
         },
-        
+
         drag: function (deltaX, deltaY) {
             var scale = this.scale;
             var angleRad = this.angle * Math.PI / 180;
@@ -214,7 +216,7 @@ namespace("sozi.display", function (exports) {
 
         update: function () {
             var scale = this.scale;
-                    
+
             // Compute the size and location of the frame on the screen
             var width = this.width  * scale;
             var height = this.height * scale;
@@ -226,7 +228,7 @@ namespace("sozi.display", function (exports) {
             this.svgClipRect.setAttribute("y", this.clipped ? y : 0);
             this.svgClipRect.setAttribute("width",  this.clipped ? width  : this.viewPort.width);
             this.svgClipRect.setAttribute("height", this.clipped ? height : this.viewPort.height);
-                    
+
             // Compute and apply the geometrical transformation to the layer group
             var translateX = -this.cx + this.width / 2  + x / scale;
             var translateY = -this.cy + this.height / 2 + y / scale;
@@ -236,7 +238,7 @@ namespace("sozi.display", function (exports) {
                 "translate(" + translateX + "," + translateY + ")" +
                 "rotate(" + (-this.angle) + ',' + this.cx + "," + this.cy + ")"
             );
-            
+
             return this;
         }
     });

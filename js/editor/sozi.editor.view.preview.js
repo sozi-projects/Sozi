@@ -6,10 +6,10 @@ namespace("sozi.editor.view", function (exports) {
 
     exports.preview = sozi.model.Object.create({
 
-        init: function (doc) {
+        init: function (pres) {
             sozi.model.Object.init.call(this);
-            this.document = doc;
-            this.viewPort = sozi.display.ViewPort.create().init(doc);
+            this.presentation = pres;
+            this.viewPort = sozi.display.ViewPort.create().init(pres);
 
             // Setup event handlers
             var aspectChangeHandler = this.bind(this.onAspectChange);

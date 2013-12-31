@@ -11,7 +11,7 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
-namespace("sozi", function (exports) {
+namespace("sozi.document", function (exports) {
     "use strict";
 
     // Constant: the SVG namespace
@@ -24,7 +24,23 @@ namespace("sozi", function (exports) {
     var DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
         "ellipse", "line", "polyline", "polygon", "text", "clippath" ];
 
-    exports.Document = sozi.model.Object.create({
+    exports.Frame = sozi.model.Object.create({
+
+        init: function (pres, state) {
+            sozi.model.Object.init.call(this);
+
+            this.presentation = pres;
+            this.state = state;
+
+            this.frameId = "frame" + this.id;
+            this.title = "New frame";
+            this.selected = false;
+
+            return this;
+        }
+    });
+
+    exports.Presentation = sozi.model.Object.create({
 
         /*
          * Initialize a Sozi document object.
@@ -249,6 +265,24 @@ namespace("sozi", function (exports) {
             this.frames[frameIndex].selected = false;
             this.fire("deselectFrame", frameIndex);
             return this;
+        },
+
+        addFrame: function (state) {
+            var frame = sozi.document.Frame.create().init(this, state);
+            for (var frameIndex = this.frames.length - 1; frameIndex >= 0; frameIndex --) {
+                if (this.frames[frameIndex].selected) {
+                    this.frames.splice(frameIndex + 1, 0, frame);
+                    break;
+                }
+            }
+            if (frameIndex === -1) {
+                frameIndex = this.frames.length;
+                this.frames.push(frame);
+            }
+            this.fire("addFrame", frame, frameIndex);
+            this.deselectAllFrames();
+            this.selectFrame(frameIndex);
+            return frame;
         }
     });
 });

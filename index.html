@@ -10,7 +10,7 @@
         <script src="js/common/sozi.model.Object.js"></script>
         <script src="js/common/sozi.display.Camera.js"></script>
         <script src="js/common/sozi.display.ViewPort.js"></script>
-        <script src="js/common/sozi.Document.js"></script>
+        <script src="js/common/sozi.document.Presentation.js"></script>
 
         <script src="js/editor/sozi.editor.view.preview.js"></script>
         <script src="js/editor/sozi.editor.view.timeline.js"></script>
@@ -25,8 +25,13 @@
         </div>
         <div id="bottom">
             <div>
-                Aspect ratio:
-                <input id="aspect-num" type="number" pattern="\d+" min="1" step="1" value="4" size="3">:<input id="aspect-den" type="number" pattern="\d+" min="1" step="1" value="3" size="3">
+                <span class="group">
+                    Aspect ratio:
+                    <input id="aspect-num" type="number" pattern="\d+" min="1" step="1" value="4" size="3">:<input id="aspect-den" type="number" pattern="\d+" min="1" step="1" value="3" size="3">
+                </span>
+                <span class="group">
+                    <input type="button" id="add-frame" value="Add frame">
+                </span>
             </div>
             <table id="timeline">
                 <tr>
