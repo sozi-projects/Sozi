@@ -315,7 +315,7 @@ namespace("sozi.display", function (exports) {
          * Returns:
          *    - An dictionary of camera states that fit the whole document.
          */
-        getDefaultStates: function () {
+        get defaultState() {
             // This object defines the bounding box of the whole document
             var state = exports.CameraState.create().init(this);
 
@@ -328,19 +328,29 @@ namespace("sozi.display", function (exports) {
         },
 
         /*
-         * Transform the SVG document to show the given frame.
+         * Set the state of the current viewport.
          *
          * Parameters:
-         *    - states: A dictionary of camera states
-         *
-         * Returns:
-         *    - The current viewport.
+         *    - state: A dictionary of camera states
          */
-        setStates: function (states) {
+        set state(state) {
             for (var layerId in this.cameras) {
                 this.cameras[layerId].setAtState(states[layerId]);
             }
-            return this;
+        },
+
+        /*
+         * Get the state of the current viewport.
+         *
+         * Returns:
+         *    - A dictionary of camera states
+         */
+        get state () {
+            var result = {};
+            for (var layerId in this.cameras) {
+                result[layerId] = this.cameras[layerId].clone;
+            }
+            return result;
         },
 
         /*

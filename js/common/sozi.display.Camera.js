@@ -113,16 +113,31 @@ namespace("sozi.display", function (exports) {
         },
 
         setAtState: function (state) {
-            this.cx = state.cx;
-            this.cy = state.cy;
-            this.width = state.width;
-            this.height = state.height;
-            this.angle = state.angle;
-            this.clipped = state.clipped;
-            this.transitionZoomPercent = state.transitionZoomPercent;
-            this.transitionProfile = state.transitionProfile;
-            this.transitionPath = state.transitionPath;
-            return this;
+            return this.augment({
+                cx: state.cx,
+                cy: state.cy,
+                width: state.width,
+                height: state.height,
+                angle: state.angle,
+                clipped: state.clipped,
+                transitionZoomPercent: state.transitionZoomPercent,
+                transitionProfile: state.transitionProfile,
+                transitionPath: state.transitionPath
+            });
+        },
+
+        clone: function () {
+            return exports.CameraState.create().init(this.viewPort).augment({
+                cx: this.cx,
+                cy: this.cy,
+                width: this.width,
+                height: this.height,
+                angle: this.angle,
+                clipped: this.clipped,
+                transitionZoomPercent: this.transitionZoomPercent,
+                transitionProfile: this.transitionProfile,
+                transitionPath: this.transitionPath
+            });
         },
 
         interpolatableAttributes: ["width", "height", "angle"],

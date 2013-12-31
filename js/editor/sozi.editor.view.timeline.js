@@ -21,7 +21,7 @@ namespace("sozi.editor.view", function (exports) {
 
             htmlLayerSelect.addEventListener("change", this.bind(this.onAddLayer), false);
             document.querySelector("#add-frame").addEventListener("click", this.bind(this.onAddFrame), false);
-
+            pres.addListener("addFrame", this);
             return this;
         },
 
@@ -36,8 +36,14 @@ namespace("sozi.editor.view", function (exports) {
             htmlLayerSelect.removeChild(htmlLayerSelect.querySelector("option[value='" + layerId + "']"));
         },
 
-        onAddFrame: function (frame, frameIndex) {
-            // TODO implement timeline.onAddFrame
+        onAddFrame: function () {
+            console.log("timeline.onAddFrame");
+            this.presentation.addFrame(sozi.editor.view.preview.viewPort.state);
+        },
+
+        addFrame: function (pres, frame, frameIndex) {
+            // TODO implement timeline.addFrame
+            console.log("timeline.addFrame");
         }
     });
 });
