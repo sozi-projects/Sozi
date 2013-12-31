@@ -1,8 +1,8 @@
 
-namespace("sozi.editor", function (exports) {
+namespace("sozi.editor.view", function (exports) {
     "use strict";
 
-    exports.TimelineView = sozi.model.Object.create({
+    exports.timeline = sozi.model.Object.create({
 
         init: function (doc) {
             sozi.model.Object.init.call(this);
