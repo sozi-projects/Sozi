@@ -1,9 +1,3 @@
-release
 node_modules
-CMakeCache.txt
-CMakeFiles
-*.pyc
-
-.sconsign.dblite
-build
+vendor
 
