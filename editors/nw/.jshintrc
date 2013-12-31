@@ -1,0 +1,16 @@
+{
+    "strict": true,
+    "undef": true,
+    "unused": true,
+    "newcap": false,
+
+    "browser": true,
+    "devel": true,
+    "jquery": true,
+    "node": true,
+
+	"globals": {
+		"sozi": false,
+		"namespace": false
+	}
+}

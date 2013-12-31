@@ -1,5 +1,7 @@
 
 window.addEventListener("load", function () {
+    "use strict";
+
     var gui = require("nw.gui");
     var fs = require("fs");
     var path = require("path");
