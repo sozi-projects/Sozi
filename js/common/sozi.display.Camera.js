@@ -178,14 +178,14 @@ namespace("sozi.display", function (exports) {
 
             // Clipping path
             var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
-            svgClipPath.setAttribute("id", "sozi-clip-path-" + viewPort.presentation.id + "-" + layerId);
+            svgClipPath.setAttribute("id", "sozi-clip-path-" + viewPort.id + "-" + layerId);
             svgClipPath.appendChild(this.svgClipRect);
-            viewPort.presentation.svgRoot.appendChild(svgClipPath);
+            viewPort.svgRoot.appendChild(svgClipPath);
 
             // The group that will support the clipping operation
             var svgClippedGroup = document.createElementNS(SVG_NS, "g");
-            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewPort.presentation.id + "-" + layerId + ")");
-            viewPort.presentation.svgRoot.appendChild(svgClippedGroup);
+            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewPort.id + "-" + layerId + ")");
+            viewPort.svgRoot.appendChild(svgClippedGroup);
 
             // This group will support transformations
             // we keep the layer group clean since it can be referenced

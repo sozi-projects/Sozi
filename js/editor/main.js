@@ -62,8 +62,8 @@ window.addEventListener("load", function () {
                 }
 
                 // Create Sozi document and viewport
-                var pres = sozi.document.Presentation.create().init(svgRoot);
-                sozi.editor.view.preview.init(pres);
+                var pres = sozi.document.Presentation.create().init();
+                sozi.editor.view.preview.init(svgRoot);
                 sozi.editor.view.timeline.init(pres);
             }
             else {

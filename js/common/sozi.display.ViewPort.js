@@ -14,6 +14,16 @@
 namespace("sozi.display", function (exports) {
     "use strict";
 
+    // Constant: the SVG namespace
+    var SVG_NS = "http://www.w3.org/2000/svg";
+
+    // Constant: the Inkscape namespace
+    var INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
+
+    // Constant: The SVG element names that can be found in layers
+    var DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
+        "ellipse", "line", "polyline", "polygon", "text", "clippath" ];
+
     // Use left mouse button to drag
     var DRAG_BUTTON = 0;
 
@@ -32,37 +42,176 @@ namespace("sozi.display", function (exports) {
          * Initialize a new viewport for the given SVG root element.
          *
          * Parameters:
-         *    - doc: An instance of sozi.document.Presentation
+         *    - svgRoot: The SVG root element
          *
          * Returns:
          *    - The current viewport.
          */
-        init: function (doc) {
+        init: function (svgRoot) {
             sozi.model.Object.init.call(this);
 
-            this.presentation = doc;
+            this.svgRoot = svgRoot;
+
+            this.layers = {};
+
+            // Create an empty wrapper layer for elements that do not belong to a valid layer
+            var wrapperCount = 0;
+            var svgWrapper = document.createElementNS(SVG_NS, "g");
+            svgWrapper.setAttribute("id", "sozi-wrapper-" + this.id + "-" + wrapperCount);
+
+            // Get all child nodes of the SVG root.
+            // Make a copy of svgRoot.childNodes before modifying the document.
+            var svgNodeList = Array.prototype.slice.call(svgRoot.childNodes);
+
+            svgNodeList.forEach(function (svgNode) {
+                // Remove text nodes and comments
+                if (svgNode.tagName === undefined) {
+                    svgRoot.removeChild(svgNode);
+                }
+                // Reorganize SVG elements
+                else {
+                    var nodeName = svgNode.localName.toLowerCase();
+                    if (DRAWABLE_TAGS.indexOf(nodeName) !== -1) {
+                        // The current node is a valid layer if it has the following characteristics:
+                        //    - it is an SVG group element
+                        //    - it has an id
+                        //    - the id has not been met before.
+                        if (nodeName === "g" && svgNode.getAttribute("id") && !(svgNode.getAttribute("id") in this.layers)) {
+                            // If the current wrapper layer contains elements,
+                            // add it to the document and to the list of layers.
+                            if (svgWrapper.firstChild) {
+                                svgRoot.insertBefore(svgWrapper, svgNode);
+                                this.layers[svgWrapper.getAttribute("id")] = {
+                                    auto: true,
+                                    selected: true,
+                                    label: "#" + svgWrapper.getAttribute("id"),
+                                    svgNode: svgWrapper
+                                };
+
+                                // Create a new empty wrapper layer
+                                wrapperCount ++;
+                                svgWrapper = document.createElementNS(SVG_NS, "g");
+                                svgWrapper.setAttribute("id", "sozi-wrapper-" + this.id + "-" + wrapperCount);
+                            }
+
+                            // Add the current node to the list of layers.
+                            this.layers[svgNode.getAttribute("id")] = {
+                                auto: false,
+                                selected: true,
+                                // FIXME Should be has/getAttributeNS(INKSCAPE_NS, "label"
+                                label: svgNode.hasAttribute("inkscape:label") ? svgNode.getAttribute("inkscape:label") : ("#" + svgNode.getAttribute("id")),
+                                svgNode: svgNode
+                            };
+                        }
+                        else {
+                            svgWrapper.appendChild(svgNode);
+                        }
+                    }
+                }
+            }, this);
+
+            // If the current wrapper layer contains elements,
+            // add it to the document and to the list of layers.
+            if (svgWrapper.firstChild) {
+                svgRoot.appendChild(svgWrapper);
+                this.layers[svgWrapper.getAttribute("id")] = {
+                    auto: true,
+                    selected: true,
+                    svgNode: svgWrapper
+                };
+            }
 
             // Save the initial bounding box of the document
             // and force its dimensions to fit the container.
-            this.initialBBox = doc.svgRoot.getBBox();
+            this.initialBBox = svgRoot.getBBox();
 
             // Create a camera for each layer
             this.cameras = {};
-            for (var layerId in doc.layers) {
-                this.cameras[layerId] = exports.Camera.create().init(this, doc.layers[layerId].svgNode);
+            for (var layerId in this.layers) {
+                this.cameras[layerId] = exports.Camera.create().init(this, this.layers[layerId].svgNode);
             }
 
             // Setup mouse and keyboard event handlers
             this.dragHandler = this.bind(this.onDrag);
             this.dragEndHandler = this.bind(this.onDragEnd);
 
-            doc.svgRoot.addEventListener("mousedown", this.bind(this.onMouseDown), false);
-            doc.svgRoot.addEventListener("DOMMouseScroll", this.bind(this.onWheel), false); // Mozilla
-            doc.svgRoot.addEventListener("mousewheel", this.bind(this.onWheel), false); // IE, Opera, Webkit
-            doc.svgRoot.addEventListener("keypress", this.bind(this.onKeyPress), false);
+            svgRoot.addEventListener("mousedown", this.bind(this.onMouseDown), false);
+            svgRoot.addEventListener("DOMMouseScroll", this.bind(this.onWheel), false); // Mozilla
+            svgRoot.addEventListener("mousewheel", this.bind(this.onWheel), false); // IE, Opera, Webkit
+            svgRoot.addEventListener("keypress", this.bind(this.onKeyPress), false);
 
             this.resize();
 
+            return this;
+        },
+
+        /*
+         * Mark all layers as selected.
+         *
+         * Fires:
+         *    - selectLayer(layerId)
+         *
+         * Returns:
+         *    - The current object.
+         */
+        selectAllLayers: function () {
+            for (var layerId in this.layers) {
+                this.selectLayer(layerId);
+            }
+            return this;
+        },
+
+        /*
+         * Mark all layers as deselected.
+         *
+         * Fires:
+         *    - deselectLayer(layerId)
+         *
+         * Returns:
+         *    - The current object.
+         */
+        deselectAllLayers: function () {
+            for (var layerId in this.layers) {
+                this.deselectLayer(layerId);
+            }
+            return this;
+        },
+
+        /*
+         * Mark a layer as selected.
+         *
+         * When selecting a layer, the previously selected layers are not deselected.
+         *
+         * Parameters:
+         *    - layerId: The id of the layer to select.
+         *
+         * Fires:
+         *    - selectLayer(layerId)
+         *
+         * Returns:
+         *    - The current object.
+         */
+        selectLayer: function (layerId) {
+            this.layers[layerId].selected = true;
+            this.fire("selectLayer", layerId);
+            return this;
+        },
+
+        /*
+         * Mark a layer as deselected.
+         *
+         * Parameters:
+         *    - layerId: The id of the layer to deselect.
+         *
+         * Fires:
+         *    - deselectLayer(layerId)
+         *
+         * Returns:
+         *    - The current object.
+         */
+        deselectLayer: function (layerId) {
+            this.layers[layerId].selected = false;
+            this.fire("deselectLayer", layerId);
             return this;
         },
 
@@ -237,9 +386,9 @@ namespace("sozi.display", function (exports) {
          *    - The X coordinate of the current viewport.
          */
         get x() {
-            return this.presentation.svgRoot === document.documentElement ?
+            return this.svgRoot === document.documentElement ?
                 0 :
-                this.presentation.svgRoot.getBoundingClientRect().left;
+                this.svgRoot.getBoundingClientRect().left;
         },
 
         /*
@@ -251,9 +400,9 @@ namespace("sozi.display", function (exports) {
          *    - The Y coordinate of the current viewport.
          */
         get y() {
-            return this.presentation.svgRoot === document.documentElement ?
+            return this.svgRoot === document.documentElement ?
                 0 :
-                this.presentation.svgRoot.getBoundingClientRect().top;
+                this.svgRoot.getBoundingClientRect().top;
         },
 
         /*
@@ -269,9 +418,9 @@ namespace("sozi.display", function (exports) {
          *    - The width of the current viewport.
          */
         get width() {
-            return this.presentation.svgRoot === document.documentElement ?
+            return this.svgRoot === document.documentElement ?
                 window.innerWidth :
-                this.presentation.svgRoot.parentNode.clientWidth;
+                this.svgRoot.parentNode.clientWidth;
         },
 
         /*
@@ -287,9 +436,9 @@ namespace("sozi.display", function (exports) {
          *    - The height of the current viewport.
          */
         get height() {
-            return this.presentation.svgRoot === document.documentElement ?
+            return this.svgRoot === document.documentElement ?
                 window.innerHeight :
-                this.presentation.svgRoot.parentNode.clientHeight;
+                this.svgRoot.parentNode.clientHeight;
         },
 
         /*
@@ -299,8 +448,8 @@ namespace("sozi.display", function (exports) {
          *    - The current viewport.
          */
         resize: function () {
-            this.presentation.svgRoot.setAttribute("width", this.width);
-            this.presentation.svgRoot.setAttribute("height", this.height);
+            this.svgRoot.setAttribute("width", this.width);
+            this.svgRoot.setAttribute("height", this.height);
 
             for (var layerId in this.cameras) {
                 this.cameras[layerId].update();
@@ -335,7 +484,7 @@ namespace("sozi.display", function (exports) {
          */
         set state(state) {
             for (var layerId in this.cameras) {
-                this.cameras[layerId].setAtState(states[layerId]);
+                this.cameras[layerId].setAtState(state[layerId]);
             }
         },
 
@@ -366,8 +515,8 @@ namespace("sozi.display", function (exports) {
          *    - The current viewport.
          */
         drag: function (deltaX, deltaY) {
-            for (var layerId in this.presentation.layers) {
-                if (this.presentation.layers[layerId].selected) {
+            for (var layerId in this.layers) {
+                if (this.layers[layerId].selected) {
                     this.cameras[layerId].drag(deltaX, deltaY);
                 }
             }
@@ -392,8 +541,8 @@ namespace("sozi.display", function (exports) {
          *    - The current viewport.
          */
         zoom: function (factor, x, y) {
-            for (var layerId in this.presentation.layers) {
-                if (this.presentation.layers[layerId].selected) {
+            for (var layerId in this.layers) {
+                if (this.layers[layerId].selected) {
                     this.cameras[layerId].zoom(factor, x, y);
                 }
             }
@@ -418,8 +567,8 @@ namespace("sozi.display", function (exports) {
          *    - rotate
          */
         rotate: function (angle) {
-            for (var layerId in this.presentation.layers) {
-                if (this.presentation.layers[layerId].selected) {
+            for (var layerId in this.layers) {
+                if (this.layers[layerId].selected) {
                     this.cameras[layerId].rotate(angle);
                 }
             }
