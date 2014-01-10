@@ -24,10 +24,10 @@ namespace(this, "sozi.location", function (exports, window) {
     /*
      * Returns the frame index corresponding to the URL hash.
      *
-     * This is a shortcut for sozi.location.getFrameIndexForHash(window.location.hash)
+     * This is a shortcut for sozi.location.getFrameIndexForHash(context.location.hash)
      */
     exports.getFrameIndex = function () {
-        return exports.getFrameIndexForHash(window.location.hash);
+        return exports.getFrameIndexForHash(context.location.hash);
     };
     
     /*
@@ -44,18 +44,19 @@ namespace(this, "sozi.location", function (exports, window) {
     exports.getFrameIndexForHash = function (hash) {
         var indexOrId = hash ? hash.slice(1) : "1";
         var index;
+
         if (/^[0-9]+$/.test(indexOrId)) {
             index = parseInt(indexOrId, 10) - 1;
         }
         else {
-            index = sozi.document.getFrameIndexForId(indexOrId);
+            index = context.sozi.document.getFrameIndexForId(indexOrId);
         }
         
         if (index < 0) {
             return 0;
         }
-        else if (index >= sozi.document.frames.length) {
-            return sozi.document.frames.length - 1;
+        else if (index >= context.sozi.document.frames.length) {
+            return context.sozi.document.frames.length - 1;
         }
         else {
             return index;
@@ -70,12 +71,12 @@ namespace(this, "sozi.location", function (exports, window) {
      * a valid frame number, then the presentation moves to that frame.
      *
      * The hashchange event can be triggered externally, by the user modifying the URL,
-     * or internally, by the script modifying window.location.hash.
+     * or internally, by the script modifying context.location.hash.
      */
     function onHashChange() {
         var index = exports.getFrameIndex();
         if (!changedFromWithin) {
-            sozi.player.moveToFrame(index);
+            context.sozi.player.moveToFrame(index);
         }
         changedFromWithin = false;
     }
@@ -88,9 +89,9 @@ namespace(this, "sozi.location", function (exports, window) {
      */
     function onFrameChange(index) {
         changedFromWithin = true;
-        window.location.hash = "#" + sozi.document.frames[index].id;
+        context.location.hash = "#" + context.sozi.document.frames[index].id;
     }
 
-    window.addEventListener("hashchange", onHashChange, false);
-    sozi.events.listen("sozi.player.framechange", onFrameChange); // @depend events.js
+    context.addEventListener("hashchange", onHashChange, false);
+    context.sozi.events.listen("sozi.player.framechange", onFrameChange); // @depend events.js
 });

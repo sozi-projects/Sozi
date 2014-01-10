@@ -20,12 +20,12 @@ namespace(this, "sozi.framelist", function (exports, window) {
     "use strict";
     
     // An alias to the global document object
-	var document = window.document;
-	
+    var document = context.document;
+
     // Constant: the margin around the text of the frame list
     var MARGIN = 5;
     
-	// The SVG group that will contain the frame list
+    // The SVG group that will contain the frame list
     var svgTocGroup;
     
     // The SVG group that will contain the frame titles
@@ -65,36 +65,38 @@ namespace(this, "sozi.framelist", function (exports, window) {
     // Constant: the SVG namespace
     var SVG_NS = "http://www.w3.org/2000/svg";
 
-	function onMouseOut(evt) {
-        var rel = evt.relatedTarget,
-            svgRoot = document.documentElement;
+    function onMouseOut(evt) {
+        var rel = evt.relatedTarget;
+
         while (rel && rel !== svgTocGroup && rel !== svgRoot) {
             rel = rel.parentNode;
         }
         if (rel !== svgTocGroup) {
             exports.hide();
-            sozi.player.restart();
+            context.sozi.player.restart();
             evt.stopPropagation();
         }
     }
 
-	function onClickArrowUp(evt) {
+    function onClickArrowUp(evt) {
         var ty = svgTitlesGroup.getCTM().f;
-        if (ty <= -window.innerHeight / 2) {
-            ty += window.innerHeight / 2;
+
+        if (ty <= -context.innerHeight / 2) {
+            ty += context.innerHeight / 2;
         } else if (ty < 0) {
             ty = 0;
         }
         svgTitlesGroup.setAttribute("transform", "translate(0," + ty + ")");
         evt.stopPropagation();
-	}
+    }
 
-	function onClickArrowDown(evt) {
+    function onClickArrowDown(evt) {
         var ty = svgTitlesGroup.getCTM().f;
-        if (ty + tocHeight >= window.innerHeight * 3 / 2) {
-            ty -= window.innerHeight / 2;
-        } else if (ty + tocHeight > window.innerHeight + 2 * MARGIN) {
-            ty = window.innerHeight - tocHeight - 4 * MARGIN;
+        
+        if (ty + tocHeight >= context.innerHeight * 3 / 2) {
+            ty -= context.innerHeight / 2;
+        } else if (ty + tocHeight > context.innerHeight + 2 * MARGIN) {
+            ty = context.innerHeight - tocHeight - 4 * MARGIN;
         }
         svgTitlesGroup.setAttribute("transform", "translate(0," + ty + ")");
         evt.stopPropagation();
@@ -105,7 +107,7 @@ namespace(this, "sozi.framelist", function (exports, window) {
      */
     function makeClickHandler(index) {
         return function (evt) {
-            sozi.player.previewFrame(index);
+            context.sozi.player.previewFrame(index);
             evt.stopPropagation();
         };
     }
@@ -115,7 +117,7 @@ namespace(this, "sozi.framelist", function (exports, window) {
      * through the frame list.
      */
     function defaultEventHandler(evt) {
-	    evt.stopPropagation();
+        evt.stopPropagation();
     }
     
     /*
@@ -127,15 +129,15 @@ namespace(this, "sozi.framelist", function (exports, window) {
      * The table of contents is hidden by default.
      */
     function onPlayerReady() {
-        svgTocGroup = document.createElementNS(SVG_NS, "g");
+        svgTocGroup = targetNode.document.createElementNS(SVG_NS, "g");
         svgTocGroup.setAttribute("id", "sozi-toc");
-        document.documentElement.appendChild(svgTocGroup);
+        svgRoot.appendChild(svgTocGroup);
 
-        svgTitlesGroup = document.createElementNS(SVG_NS, "g");
+        svgTitlesGroup = targetNode.document.createElementNS(SVG_NS, "g");
         svgTocGroup.appendChild(svgTitlesGroup);
-    
+
         // The background rectangle of the frame list
-        var tocBackground = document.createElementNS(SVG_NS, "rect");
+        var tocBackground = targetNode.document.createElementNS(SVG_NS, "rect");
         tocBackground.setAttribute("id", "sozi-toc-background");
         tocBackground.setAttribute("x", MARGIN);
         tocBackground.setAttribute("y", MARGIN);
@@ -147,23 +149,23 @@ namespace(this, "sozi.framelist", function (exports, window) {
         svgTitlesGroup.appendChild(tocBackground);
 
         var tocWidth = 0;
-        sozi.document.frames.forEach(function (frame, frameIndex) {
+        context.sozi.document.frames.forEach(function (frame, frameIndex) {
             if (frame.showInFrameList) {
-                var text = document.createElementNS(SVG_NS, "text");
-                text.appendChild(document.createTextNode(frame.title));
+                var text = targetNode.document.createElementNS(SVG_NS, "text");
+                text.appendChild(targetNode.document.createTextNode(frame.title));
                 text.setAttribute("id", "sozi-toc-" + frame.id);
                 svgTitlesGroup.appendChild(text);
-    
-                if (frameIndex === sozi.player.currentFrameIndex) {
+
+                if (frameIndex === context.sozi.player.currentFrameIndex) {
                     text.setAttribute("class", "sozi-toc-current");
                 }
-                         
+                                 
                 var textWidth = text.getBBox().width;
                 tocHeight += text.getBBox().height;
                 if (textWidth > tocWidth) {
                     tocWidth = textWidth;
                 }
-    
+
                 text.setAttribute("x", 2 * MARGIN);
                 text.setAttribute("y", tocHeight + MARGIN);
                 text.addEventListener("click", makeClickHandler(frameIndex), false);
@@ -172,23 +174,23 @@ namespace(this, "sozi.framelist", function (exports, window) {
         });
 
         // The "up" button
-        var tocUp = document.createElementNS(SVG_NS, "path");
+        var tocUp = targetNode.document.createElementNS(SVG_NS, "path");
         tocUp.setAttribute("class", "sozi-toc-arrow");
         tocUp.setAttribute("d", "M" + (tocWidth + 3 * MARGIN) + "," + (5 * MARGIN) +
-                           " l" + (4 * MARGIN) + ",0" +
-                           " l-" + (2 * MARGIN) + ",-" + (3 * MARGIN) +
-                           " z");
+                                     " l" + (4 * MARGIN) + ",0" +
+                                     " l-" + (2 * MARGIN) + ",-" + (3 * MARGIN) +
+                                     " z");
         tocUp.addEventListener("click", onClickArrowUp, false);
         tocUp.addEventListener("mousedown", defaultEventHandler, false);
         svgTocGroup.appendChild(tocUp);
 
         // The "down" button
-        var tocDown = document.createElementNS(SVG_NS, "path");
+        var tocDown = targetNode.document.createElementNS(SVG_NS, "path");
         tocDown.setAttribute("class", "sozi-toc-arrow");
         tocDown.setAttribute("d", "M" + (tocWidth + 3 * MARGIN) + "," + (7 * MARGIN) +
-                             " l" + (4 * MARGIN) + ",0" +
-                             " l-" + (2 * MARGIN) + "," + (3 * MARGIN) +
-                             " z");
+                                     " l" + (4 * MARGIN) + ",0" +
+                                     " l-" + (2 * MARGIN) + "," + (3 * MARGIN) +
+                                     " z");
         tocDown.addEventListener("click", onClickArrowDown, false);
         tocDown.addEventListener("mousedown", defaultEventHandler, false);
         svgTocGroup.appendChild(tocDown);
@@ -201,9 +203,9 @@ namespace(this, "sozi.framelist", function (exports, window) {
         translateX = translateXEnd = translateXHidden;
         
         svgTocGroup.setAttribute("transform", "translate(" + translateXHidden + ",0)");
-        animator = sozi.animation.Animator.instance().augment({
+        animator = context.sozi.animation.Animator.instance().augment({
             onStep: function (progress) {
-                var profileProgress = sozi.animation.profiles[ANIMATION_PROFILE](progress),
+                var profileProgress = context.sozi.animation.profiles[ANIMATION_PROFILE](progress),
                     remaining = 1 - profileProgress;
                 translateX = translateXEnd * profileProgress + translateXStart * remaining;
                 svgTocGroup.setAttribute("transform", "translate(" + translateX + ",0)");
@@ -211,21 +213,21 @@ namespace(this, "sozi.framelist", function (exports, window) {
         });
     }
 
-	/*
-	 * Highlight the current frame title in the frame list.
-	 *
-	 * This handler is called on each frame change,
-	 * even when the frame list is hidden.
-	 */
+    /*
+     * Highlight the current frame title in the frame list.
+     *
+     * This handler is called on each frame change,
+     * even when the frame list is hidden.
+     */
     function onFrameChange(index) {
-        var currentElementList = Array.prototype.slice.call(document.getElementsByClassName("sozi-toc-current"));
+        var currentElementList = Array.prototype.slice.call(targetNode.document.getElementsByClassName("sozi-toc-current"));
         currentElementList.forEach(function (svgElement) {
             svgElement.removeAttribute("class");
         });
 
-        var frame = sozi.document.frames[index];
+        var frame = context.sozi.document.frames[index];
         if (frame.showInFrameList) {
-            document.getElementById("sozi-toc-" + frame.id).setAttribute("class", "sozi-toc-current");
+            targetNode.document.getElementById("sozi-toc-" + frame.id).setAttribute("class", "sozi-toc-current");
         }
     }
     
@@ -234,7 +236,7 @@ namespace(this, "sozi.framelist", function (exports, window) {
      */
     exports.show = function () {
         // Bring frame list to front
-        document.documentElement.appendChild(svgTocGroup);
+        svgRoot.appendChild(svgTocGroup);
         
         translateXStart = translateX;
         translateXEnd = translateXVisible;
@@ -258,7 +260,7 @@ namespace(this, "sozi.framelist", function (exports, window) {
     };
 
     // @depend events.js
-	sozi.events.listen("sozi.player.ready", onPlayerReady);
-	sozi.events.listen("sozi.player.cleanup", exports.hide);
-	sozi.events.listen("sozi.player.framechange", onFrameChange);
+    context.sozi.events.listen("sozi.player.ready", onPlayerReady);
+    context.sozi.events.listen("sozi.player.cleanup", exports.hide);
+    context.sozi.events.listen("sozi.player.framechange", onFrameChange);
 });

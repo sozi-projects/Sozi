@@ -25,7 +25,7 @@ namespace(this, "sozi.display", function (exports, window) {
     var XLINK_NS = "http://www.w3.org/1999/xlink";
     
     // The global document object
-    var document = window.document;
+    var document = context.document;
     
     // The initial bounding box of the whole document,
     // assigned in onDocumentReady()
@@ -41,7 +41,7 @@ namespace(this, "sozi.display", function (exports, window) {
     /**
      * @depend proto.js
      */
-    exports.CameraState = sozi.proto.Object.subtype({
+    exports.CameraState = context.sozi.proto.Object.subtype({
         construct : function () {
             // Center coordinates
             this.cx = this.cy = 0;
@@ -59,7 +59,7 @@ namespace(this, "sozi.display", function (exports, window) {
             this.transitionZoomPercent = 0;
             
             // Transition profile
-            this.transitionProfile = sozi.animation.profiles.linear;
+            this.transitionProfile = context.sozi.animation.profiles.linear;
             
             // Transition path
             this.transitionPath = null;
@@ -141,7 +141,7 @@ namespace(this, "sozi.display", function (exports, window) {
 
             // Compute the raw coordinates of the center
             // of the given SVG element
-            var c = document.documentElement.createSVGPoint();
+            var c = svgRoot.createSVGPoint();
             c.x = x + w / 2;
             c.y = y + h / 2;
             
@@ -193,7 +193,7 @@ namespace(this, "sozi.display", function (exports, window) {
                     var endPoint = svgPath.getPointAtLength(pathLength);
                     var currentPoint = svgPath.getPointAtLength(pathLength * ratio);
                 }
- 
+
                 this.cx = currentPoint.x + (finalState.cx - endPoint.x) * ratio + (initialState.cx - startPoint.x) * remaining;
                 this.cy = currentPoint.y + (finalState.cy - endPoint.y) * ratio + (initialState.cy - startPoint.y) * remaining;
             }
@@ -211,16 +211,16 @@ namespace(this, "sozi.display", function (exports, window) {
             this.viewPort = viewPort;
             
             // Clipping rectangle
-            this.svgClipRect = document.createElementNS(SVG_NS, "rect");
-        
+            this.svgClipRect = targetNode.document.createElementNS(SVG_NS, "rect");
+    
             // Clipping path
-            var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
+            var svgClipPath = targetNode.document.createElementNS(SVG_NS, "clipPath");
             svgClipPath.setAttribute("id", "sozi-clip-path-" + viewPort.id + "-" + idLayer);
             svgClipPath.appendChild(this.svgClipRect);
             viewPort.svgGroup.appendChild(svgClipPath);
 
             // The group that will support the clipping operation
-            var svgClippedGroup = document.createElementNS(SVG_NS, "g");
+            var svgClippedGroup = targetNode.document.createElementNS(SVG_NS, "g");
             svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewPort.id + "-" + idLayer + ")");
             viewPort.svgGroup.appendChild(svgClippedGroup);
             
@@ -228,12 +228,12 @@ namespace(this, "sozi.display", function (exports, window) {
                 // This group will support transformations
                 // we keep the layer group clean since it can be referenced
                 // from <use> elements
-                this.svgLayer = document.createElementNS(SVG_NS, "g");
-                this.svgLayer.appendChild(document.getElementById(idLayer));
+                this.svgLayer = targetNode.document.createElementNS(SVG_NS, "g");
+                this.svgLayer.appendChild(targetNode.document.getElementById(idLayer));
             }
             else {
                 // A <use> element referencing the target layer
-                this.svgLayer = document.createElementNS(SVG_NS, "use");
+                this.svgLayer = targetNode.document.createElementNS(SVG_NS, "use");
                 this.svgLayer.setAttributeNS(XLINK_NS, "href", "#" + idLayer);
             }
             svgClippedGroup.appendChild(this.svgLayer);
@@ -302,7 +302,7 @@ namespace(this, "sozi.display", function (exports, window) {
     /**
      * @depend proto.js
      */
-    exports.ViewPort = sozi.proto.Object.subtype({
+    exports.ViewPort = context.sozi.proto.Object.subtype({
         construct: function (id, idLayerList, primary) {
             this.id = id;
             exports.viewPorts[id] = this;
@@ -319,12 +319,12 @@ namespace(this, "sozi.display", function (exports, window) {
             }
             
             // TODO add a clip path for the viewport
-            this.svgGroup = document.createElementNS(SVG_NS, "g");
+            this.svgGroup = targetNode.document.createElementNS(SVG_NS, "g");
             this.svgGroup.setAttribute("class", "sozi-viewport");
             this.svgGroup.setAttribute("id", "sozi-viewport-" + id);
-            document.documentElement.appendChild(this.svgGroup);
+            svgRoot.appendChild(this.svgGroup);
             
-            this.setLocation(0, 0).setSize(window.innerWidth, window.innerHeight);
+            this.setLocation(0, 0).setSize(targetNode.innerWidth, targetNode.innerHeight);
             
             // Create a camera for each layer
             this.cameras = {};
@@ -460,37 +460,34 @@ namespace(this, "sozi.display", function (exports, window) {
      * This method must be called when the document is ready to be manipulated.
      */
     function onDocumentReady() {
-        var svgRoot = document.documentElement; // TODO check SVG tag
-        
         // Save the initial bounding box of the document
         // and force its dimensions to the browser window
         initialBBox = svgRoot.getBBox();
-        lastWindowWidth = window.innerWidth;
-        lastWindowHeight = window.innerHeight;
+        lastWindowWidth = context.innerWidth;
+        lastWindowHeight = context.innerHeight;
         svgRoot.setAttribute("width", lastWindowWidth);
         svgRoot.setAttribute("height", lastWindowHeight);
         
-        sozi.events.fire("sozi.display.ready");
+        context.sozi.events.fire("sozi.display.ready");
     }
 
     /*
-     * Resizes the SVG document to fit the browser window.
+     * Resizes the SVG document to fit the browser context.
      *
      * This method calls onWindowResize on all registered viewports.
      */
     function resize() {
-        var svgRoot = document.documentElement;
-        svgRoot.setAttribute("width", window.innerWidth);
-        svgRoot.setAttribute("height", window.innerHeight);
+        svgRoot.setAttribute("width", targetNode.innerWidth);
+        svgRoot.setAttribute("height", targetNode.innerHeight);
         
         for (var vp in exports.viewPorts) {
-            exports.viewPorts[vp].onWindowResize(window.innerWidth / lastWindowWidth, window.innerHeight / lastWindowHeight);
+            exports.viewPorts[vp].onWindowResize(context.innerWidth / lastWindowWidth, context.innerHeight / lastWindowHeight);
         }
 
-        lastWindowWidth = window.innerWidth;
-        lastWindowHeight = window.innerHeight;
+        lastWindowWidth = context.innerWidth;
+        lastWindowHeight = context.innerHeight;
     }
     
-    sozi.events.listen("sozi.document.ready", onDocumentReady); // @depend events.js
-    window.addEventListener("resize", resize, false);
+    context.sozi.events.listen("sozi.document.ready", onDocumentReady); // @depend events.js
+    context.addEventListener("resize", resize, false);
 });

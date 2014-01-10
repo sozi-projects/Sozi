@@ -20,7 +20,7 @@ namespace(this, "sozi.framenumber", function (exports, window) {
     "use strict";
     
     // An alias to the global document object
-    var document = window.document;
+    var document = context.document;
     
     // The SVG group containing the frame number
     var svgGroup;
@@ -43,9 +43,9 @@ namespace(this, "sozi.framenumber", function (exports, window) {
     }
     
     function onPlayerReady() {
-        svgGroup = document.createElementNS(SVG_NS, "g");
-        svgText = document.createElementNS(SVG_NS, "text");
-        svgCircle = document.createElementNS(SVG_NS, "circle");
+        svgGroup = targetNode.document.createElementNS(SVG_NS, "g");
+        svgText = targetNode.document.createElementNS(SVG_NS, "text");
+        svgCircle = targetNode.document.createElementNS(SVG_NS, "circle");
         
         svgGroup.setAttribute("id", "sozi-framenumber");
 
@@ -53,7 +53,7 @@ namespace(this, "sozi.framenumber", function (exports, window) {
         svgCircle.setAttribute("cy", 0);
         svgGroup.appendChild(svgCircle);
         
-        svgTextNode = document.createTextNode(sozi.player.currentFrameIndex + 1);
+        svgTextNode = targetNode.document.createTextNode(context.sozi.player.currentFrameIndex + 1);
         svgText.setAttribute("text-anchor", "middle");
         svgText.setAttribute("dominant-baseline", "central");
         svgText.setAttribute("x", 0);
@@ -61,7 +61,7 @@ namespace(this, "sozi.framenumber", function (exports, window) {
         svgText.appendChild(svgTextNode);
         svgGroup.appendChild(svgText);
         
-        document.documentElement.appendChild(svgGroup);
+        svgRoot.appendChild(svgGroup);
         
         adjust();
     }
@@ -71,6 +71,6 @@ namespace(this, "sozi.framenumber", function (exports, window) {
     }
     
     // @depend events.js
-	sozi.events.listen("sozi.player.ready", onPlayerReady);
-	sozi.events.listen("sozi.player.framechange", onFrameChange);
+    context.sozi.events.listen("sozi.player.ready", onPlayerReady);
+    context.sozi.events.listen("sozi.player.framechange", onFrameChange);
 });

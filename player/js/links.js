@@ -24,7 +24,7 @@ namespace(this, "sozi.links", function (exports, window) {
     
     function getClickHandler(index) {
         return function (evt) {
-            sozi.player.moveToFrame(index);
+            context.sozi.player.moveToFrame(index);
             evt.preventDefault();
             evt.stopPropagation();
         };
@@ -38,15 +38,15 @@ namespace(this, "sozi.links", function (exports, window) {
      * will call sozi.player.moveToFrame().
      */
     function onDocumentReady() {
-        var links = window.document.getElementsByTagNameNS(SVG_NS, "a");
+        var links = context.document.getElementsByTagNameNS(SVG_NS, "a");
         for (var i = 0; i < links.length; i += 1) {
             var href = links[i].getAttributeNS(XLINK_NS, "href");
             if (href && href[0] === "#") {
-                links[i].addEventListener("click", getClickHandler(sozi.location.getFrameIndexForHash(href)), false);
+                links[i].addEventListener("click", getClickHandler(context.sozi.location.getFrameIndexForHash(href)), false);
             }
         }
     }
 
-    sozi.events.listen("sozi.document.ready", onDocumentReady); // @depend events.js
+    context.sozi.events.listen("sozi.document.ready", onDocumentReady); // @depend events.js
 });
 

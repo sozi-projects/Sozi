@@ -27,14 +27,14 @@ namespace(this, "sozi.animation", function (exports, window) {
      * @function
      */
     var requestAnimationFrame =
-            window.mozRequestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.msRequestAnimationFrame ||
-            window.oRequestAnimationFrame;
+            context.mozRequestAnimationFrame ||
+            context.webkitRequestAnimationFrame ||
+            context.msRequestAnimationFrame ||
+            context.oRequestAnimationFrame;
 
     var getCurrentTime = function () {
-        return window.performance && window.performance.now ?
-            window.performance.now() :
+        return context.performance && context.performance.now ?
+            context.performance.now() :
             Date.now();
     };
 
@@ -101,7 +101,7 @@ namespace(this, "sozi.animation", function (exports, window) {
             // and if this function is called periodically
             // through setInterval, disable the periodic calling.
             if (!requestAnimationFrame) {
-                window.clearInterval(timer);
+                context.clearInterval(timer);
             }
         }
     }
@@ -118,7 +118,7 @@ namespace(this, "sozi.animation", function (exports, window) {
             requestAnimationFrame(loop);
         }
         else {
-            timer = window.setInterval(function () {
+            timer = context.setInterval(function () {
                 loop(getCurrentTime());
             }, TIME_STEP_MS);
         }
@@ -130,7 +130,7 @@ namespace(this, "sozi.animation", function (exports, window) {
      * <p>If the animator list was empty before calling this function,
      * then the animation loop is started.</p>
      *
-     * @param {sozi.animation.Animator} animator The animator object to add.
+     * @param {context.sozi.animation.Animator} animator The animator object to add.
      */
     function addAnimator(animator) {
         animatorList.push(animator);
@@ -142,7 +142,7 @@ namespace(this, "sozi.animation", function (exports, window) {
     /**
      * Remove the given animator from the list of running animators.
      *
-     * @param {sozi.animation.Animator} animator The animator object to add.
+     * @param {context.sozi.animation.Animator} animator The animator object to add.
      */
     function removeAnimator(animator) {
         animatorList.splice(animatorList.indexOf(animator), 1);
@@ -156,11 +156,11 @@ namespace(this, "sozi.animation", function (exports, window) {
      * <p>The main purpose of an animator is to schedule the update
      * operations in the animated objects.</p>
      *
-     * @memberOf sozi.animation
+     * @memberOf context.sozi.animation
      * @name Animator
      * @depend proto.js
      */
-    exports.Animator = sozi.proto.Object.subtype({
+    exports.Animator = context.sozi.proto.Object.subtype({
         /** @lends sozi.animation.Animator */
         
         /**

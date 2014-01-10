@@ -20,7 +20,7 @@ namespace(this, "sozi.document", function (exports, window) {
     "use strict";
     
     // An alias to the global document object
-    var document = window.document;
+    var document = context.document;
     
     // Constant: the Sozi namespace
     var SOZI_NS = "http://sozi.baierouge.fr";
@@ -61,18 +61,18 @@ namespace(this, "sozi.document", function (exports, window) {
 
     function readStateForLayer(frame, idLayer, soziElement) {
         var state = frame.states[idLayer] =
-            frame.states[idLayer] || sozi.display.CameraState.instance();
+            frame.states[idLayer] || context.sozi.display.CameraState.instance();
         
         if (typeof state.transitionZoomPercent === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-zoom-percent")) {
             state.setTransitionZoomPercent(parseInt(readAttribute(soziElement, "transition-zoom-percent"), 10));
         }
 
         if (typeof state.transitionProfile === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-profile")) {
-            state.setTransitionProfile(sozi.animation.profiles[readAttribute(soziElement, "transition-profile")]);
+            state.setTransitionProfile(context.sozi.animation.profiles[readAttribute(soziElement, "transition-profile")]);
         }
         
         if (typeof state.transitionPath === "undefined" || soziElement.hasAttributeNS(SOZI_NS, "transition-path")) {
-            var svgPath = document.getElementById(soziElement.getAttributeNS(SOZI_NS, "transition-path"));
+            var svgPath = targetNode.document.getElementById(soziElement.getAttributeNS(SOZI_NS, "transition-path"));
             if (svgPath && svgPath.nodeName === "path") {
                 state.setTransitionPath(svgPath);
                 if (readAttribute(soziElement, "transition-path-hide") === "true") {
@@ -82,7 +82,7 @@ namespace(this, "sozi.document", function (exports, window) {
         }
         
         if (soziElement.hasAttributeNS(SOZI_NS, "refid")) {
-            var svgElement = document.getElementById(soziElement.getAttributeNS(SOZI_NS, "refid"));
+            var svgElement = targetNode.document.getElementById(soziElement.getAttributeNS(SOZI_NS, "refid"));
             if (svgElement) {
                 state.setAtElement(svgElement);
                 if (readAttribute(soziElement, "hide") === "true") {
@@ -108,7 +108,7 @@ namespace(this, "sozi.document", function (exports, window) {
     function readFrames() {
         // Collect all group ids referenced in <layer> elements
         var idLayerRefList = [];
-        var soziLayerList = document.getElementsByTagNameNS(SOZI_NS, "layer");
+        var soziLayerList = targetNode.document.getElementsByTagNameNS(SOZI_NS, "layer");
         for (var i = 0; i < soziLayerList.length; i += 1) {
             var idLayer = soziLayerList[i].getAttributeNS(SOZI_NS, "group");
             if (idLayer && idLayerRefList.indexOf(idLayer) === -1) {
@@ -118,11 +118,10 @@ namespace(this, "sozi.document", function (exports, window) {
 
         // Reorganize the document, grouping objects that do not belong
         // to a group referenced in <layer> elements
-        var svgRoot = document.documentElement;
         var SVG_NS = "http://www.w3.org/2000/svg";
 
         // Create the first wrapper group
-        var svgWrapper = document.createElementNS(SVG_NS, "g");
+        var svgWrapper = targetNode.document.createElementNS(SVG_NS, "g");
 
         // For each child of the root SVG element
         var svgElementList = Array.prototype.slice.call(svgRoot.childNodes);
@@ -141,7 +140,7 @@ namespace(this, "sozi.document", function (exports, window) {
                     svgRoot.insertBefore(svgWrapper, svgElement);
                     
                     // Prepare a new wrapper element
-                    svgWrapper = document.createElementNS(SVG_NS, "g");
+                    svgWrapper = targetNode.document.createElementNS(SVG_NS, "g");
                 }
                 
                 // ... append the current element to the <defs> element
@@ -164,7 +163,7 @@ namespace(this, "sozi.document", function (exports, window) {
 
         
         // Analyze <frame> elements sorted by sequence number
-        var soziFrameList = Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS, "frame"));
+        var soziFrameList = Array.prototype.slice.call(targetNode.document.getElementsByTagNameNS(SOZI_NS, "frame"));
         soziFrameList.sort(
             function (a, b) {
                 var seqA = parseInt(readAttribute(a, "sequence"), 10);
@@ -198,7 +197,7 @@ namespace(this, "sozi.document", function (exports, window) {
                 else {
                     // After the first frame, in referenced layers,
                     // copy attributes from the corresponding layer in the previous frame
-                    var currentState = newFrame.states[idLayer] = sozi.display.CameraState.instance();
+                    var currentState = newFrame.states[idLayer] = context.sozi.display.CameraState.instance();
                     var previousState = exports.frames[exports.frames.length - 1].states[idLayer];
                     currentState.setAtState(previousState);
                 }
@@ -247,10 +246,10 @@ namespace(this, "sozi.document", function (exports, window) {
      * @depend events.js
      */
     function onLoad() {
-        document.documentElement.removeAttribute("viewBox");
+        svgRoot.removeAttribute("viewBox");
         readFrames();
-        sozi.events.fire("sozi.document.ready");
+        context.sozi.events.fire("sozi.document.ready");
     }
 
-    window.addEventListener("load", onLoad, false);
+    targetNode.addEventListener("load",onLoad,false);
 });

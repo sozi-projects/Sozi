@@ -58,13 +58,15 @@ namespace(this, "sozi.player", function (exports, window) {
      * move to the first frame.
      */
     function waitTimeout() {
-        if (sozi.document.frames[exports.currentFrameIndex].timeoutEnable) {
+        if (context.sozi.document.frames[exports.currentFrameIndex].timeoutEnable) {
             waiting = true;
-            var index = (exports.currentFrameIndex + 1) % sozi.document.frames.length;
-            nextFrameTimeout = window.setTimeout(function () {
-                    exports.moveToFrame(index);
-                },
-                sozi.document.frames[exports.currentFrameIndex].timeoutMs
+            var index = (exports.currentFrameIndex + 1) % context.sozi.document.frames.length;
+            nextFrameTimeout = 
+                context.setTimeout(
+                    function () {
+                        exports.moveToFrame(index);
+                    },
+                context.sozi.document.frames[exports.currentFrameIndex].timeoutMs
             );
         }
     }
@@ -80,7 +82,7 @@ namespace(this, "sozi.player", function (exports, window) {
         waiting = false;
         sourceFrameIndex = index;
         exports.currentFrameIndex = index;
-        viewPort.showFrame(sozi.document.frames[index]);
+        viewPort.showFrame(context.sozi.document.frames[index]);
         waitTimeout();
     };
 
@@ -99,7 +101,7 @@ namespace(this, "sozi.player", function (exports, window) {
     exports.stop = function () {
         animator.stop();
         if (waiting) {
-            window.clearTimeout(nextFrameTimeout);
+            context.clearTimeout(nextFrameTimeout);
             waiting = false;
         }
         playing = false;
@@ -146,13 +148,13 @@ namespace(this, "sozi.player", function (exports, window) {
      */
     exports.jumpToFrame = function (index) {
         exports.stop();
-        sozi.events.fire("sozi.player.cleanup");
+        context.sozi.events.fire("sozi.player.cleanup");
 
         sourceFrameIndex = index;
         exports.currentFrameIndex = index;
-        viewPort.showFrame(sozi.document.frames[index]);
+        viewPort.showFrame(context.sozi.document.frames[index]);
 
-        sozi.events.fire("sozi.player.framechange", index);
+        context.sozi.events.fire("sozi.player.framechange", index);
     };
 
     /*
@@ -164,8 +166,8 @@ namespace(this, "sozi.player", function (exports, window) {
         
         for (var idLayer in initialState) {
             data[idLayer] = {
-                initialState: sozi.display.CameraState.instance(),
-                finalState: sozi.display.CameraState.instance(),
+                initialState: context.sozi.display.CameraState.instance(),
+                finalState: context.sozi.display.CameraState.instance(),
                 useTransitionPath: useTransitionPath,
                 reverseTransitionPath: reverseTransitionPath
             };
@@ -195,11 +197,11 @@ namespace(this, "sozi.player", function (exports, window) {
             
             if (zp && finalState.hasOwnProperty(idLayer)) {
                 data[idLayer].zoomWidth = getZoomData(zp,
-                    initialState[idLayer].width,
-                    finalState[idLayer].width);
+                        initialState[idLayer].width,
+                        finalState[idLayer].width);
                 data[idLayer].zoomHeight = getZoomData(zp,
-                    initialState[idLayer].height,
-                    finalState[idLayer].height);
+                        initialState[idLayer].height,
+                        finalState[idLayer].height);
             }
         }
         return data;
@@ -208,10 +210,10 @@ namespace(this, "sozi.player", function (exports, window) {
     exports.previewFrame = function (index) {
         exports.currentFrameIndex = index;
         animator.start(DEFAULT_DURATION_MS,
-            exports.getAnimationData(viewPort.cameras, sozi.document.frames[index].states,
-                DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE]),
+            exports.getAnimationData(viewPort.cameras, context.sozi.document.frames[index].states,
+                DEFAULT_ZOOM_PERCENT, context.sozi.animation.profiles[DEFAULT_PROFILE]),
                 false, false);
-        sozi.events.fire("sozi.player.framechange", index);
+        context.sozi.events.fire("sozi.player.framechange", index);
     };
 
     /*
@@ -226,20 +228,20 @@ namespace(this, "sozi.player", function (exports, window) {
      */
     exports.moveToFrame = function (index) {
         if (waiting) {
-            window.clearTimeout(nextFrameTimeout);
+            context.clearTimeout(nextFrameTimeout);
             waiting = false;
         }
 
         var durationMs, zoomPercent, profile, useTransitionPath, reverseTransitionPath;
-        if (index === (exports.currentFrameIndex - 1) % sozi.document.frames.length) {
-            durationMs = sozi.document.frames[exports.currentFrameIndex].transitionDurationMs;
+        if (index === (exports.currentFrameIndex - 1) % context.sozi.document.frames.length) {
+            durationMs = context.sozi.document.frames[exports.currentFrameIndex].transitionDurationMs;
             zoomPercent = undefined; // Set for each layer
             profile = undefined; // Set for each layer
             useTransitionPath = true;
             reverseTransitionPath = true;
         }
-        else if (index === (exports.currentFrameIndex + 1) % sozi.document.frames.length) {
-            durationMs = sozi.document.frames[index].transitionDurationMs;
+        else if (index === (exports.currentFrameIndex + 1) % context.sozi.document.frames.length) {
+            durationMs = context.sozi.document.frames[index].transitionDurationMs;
             zoomPercent = undefined; // Set for each layer
             profile = undefined; // Set for each layer
             useTransitionPath = true;
@@ -248,22 +250,22 @@ namespace(this, "sozi.player", function (exports, window) {
         else {
             durationMs = DEFAULT_DURATION_MS;
             zoomPercent = DEFAULT_ZOOM_PERCENT;
-            profile = sozi.animation.profiles[DEFAULT_PROFILE];
+            profile = context.sozi.animation.profiles[DEFAULT_PROFILE];
             useTransitionPath = false;
             reverseTransitionPath = false;
         }
 
-        sozi.events.fire("sozi.player.cleanup");
+        context.sozi.events.fire("sozi.player.cleanup");
 
         playing = true;
         exports.currentFrameIndex = index;
 
         animator.start(durationMs, exports.getAnimationData(
-            viewPort.cameras, sozi.document.frames[index].states,
+            viewPort.cameras, context.sozi.document.frames[index].states,
             zoomPercent, profile,
             useTransitionPath, reverseTransitionPath));
 
-        sozi.events.fire("sozi.player.framechange", index);
+        context.sozi.events.fire("sozi.player.framechange", index);
     };
 
     /**
@@ -298,7 +300,7 @@ namespace(this, "sozi.player", function (exports, window) {
      */
     exports.moveToPrevious = function () {
         for (var index = exports.currentFrameIndex - 1; index >= 0; index -= 1) {
-            var frame = sozi.document.frames[index];
+            var frame = context.sozi.document.frames[index];
             if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
                 exports.moveToFrame(index);
                 break;
@@ -314,7 +316,7 @@ namespace(this, "sozi.player", function (exports, window) {
         if (!animator.started || sourceFrameIndex >= exports.currentFrameIndex) {
             index += 1;
         }
-        if (index < sozi.document.frames.length) {
+        if (index < context.sozi.document.frames.length) {
             exports.jumpToFrame(index);
         }
     };
@@ -323,8 +325,8 @@ namespace(this, "sozi.player", function (exports, window) {
      * Moves to the next frame.
      */
     exports.moveToNext = function () {
-        if (exports.currentFrameIndex < sozi.document.frames.length - 1 || sozi.document.frames[exports.currentFrameIndex].timeoutEnable) {
-            exports.moveToFrame((exports.currentFrameIndex + 1) % sozi.document.frames.length);
+        if (exports.currentFrameIndex < context.sozi.document.frames.length - 1 || context.sozi.document.frames[exports.currentFrameIndex].timeoutEnable) {
+            exports.moveToFrame((exports.currentFrameIndex + 1) % context.sozi.document.frames.length);
         }
     };
 
@@ -332,14 +334,14 @@ namespace(this, "sozi.player", function (exports, window) {
      * Jumps to the last frame of the presentation.
      */
     exports.jumpToLast = function () {
-        exports.jumpToFrame(sozi.document.frames.length - 1);
+        exports.jumpToFrame(context.sozi.document.frames.length - 1);
     };
 
     /**
      * Moves to the last frame of the presentation.
      */
     exports.moveToLast = function () {
-        exports.moveToFrame(sozi.document.frames.length - 1);
+        exports.moveToFrame(context.sozi.document.frames.length - 1);
     };
 
     /*
@@ -353,14 +355,14 @@ namespace(this, "sozi.player", function (exports, window) {
     };
 
     /*
-     * Shows all the document in the browser window.
+     * Shows all the document in the browser context.
      */
     exports.showAll = function () {
         exports.stop();
-        sozi.events.fire("sozi.player.cleanup");
+        context.sozi.events.fire("sozi.player.cleanup");
         animator.start(DEFAULT_DURATION_MS,
             exports.getAnimationData(viewPort.cameras, viewPort.getDocumentState(),
-                DEFAULT_ZOOM_PERCENT, sozi.animation.profiles[DEFAULT_PROFILE],
+                DEFAULT_ZOOM_PERCENT, context.sozi.animation.profiles[DEFAULT_PROFILE],
                 false, false
             )
         );
@@ -370,15 +372,15 @@ namespace(this, "sozi.player", function (exports, window) {
      * Event handler: display ready.
      */
     function onDisplayReady() {
-        viewPort = sozi.display.ViewPort.instance("player", sozi.document.idLayerList, true);
+        viewPort = context.sozi.display.ViewPort.instance("player", context.sozi.document.idLayerList, true);
         
-        exports.startFromIndex(sozi.location.getFrameIndex());
+        exports.startFromIndex(context.sozi.location.getFrameIndex());
 
         // Hack to fix the blank screen bug in Chrome/Chromium
         // See https://github.com/senshu/Sozi/issues/109
-        window.setTimeout(viewPort.bind(viewPort.update), 1);
+        context.setTimeout(viewPort.bind(viewPort.update), 1);
         
-        sozi.events.fire("sozi.player.ready");
+        context.sozi.events.fire("sozi.player.ready");
     }
 
     // TODO move the zoom code to display.js
@@ -396,13 +398,13 @@ namespace(this, "sozi.player", function (exports, window) {
 
             var ps;
             if (data[idLayer].zoomWidth && data[idLayer].zoomWidth.k !== 0) {
-                ps = progress - data[idLayer].zoomWidth.ts;
-                camera.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
+                    ps = progress - data[idLayer].zoomWidth.ts;
+                    camera.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
             }
 
             if (data[idLayer].zoomHeight && data[idLayer].zoomHeight.k !== 0) {
-                ps = progress - data[idLayer].zoomHeight.ts;
-                camera.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
+                    ps = progress - data[idLayer].zoomHeight.ts;
+                    camera.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
             }
 
             camera.setClipped(data[idLayer].finalState.clipped);
@@ -414,49 +416,49 @@ namespace(this, "sozi.player", function (exports, window) {
     /**
      * @depend animation.js
      */
-    animator = sozi.animation.Animator.instance().augment({
-        /*
-         * Event handler: animation step.
-         *
-         * This method is called periodically by animator after the animation
-         * has been started, and until the animation time is elapsed.
-         *
-         * Parameter data provides the following information:
-         *    - initialState and finalState contain the geometrical properties of the display
-         *      at the start and end of the animation.
-         *    - profile is a reference to the speed profile function to use.
-         *    - zoomWidth and zoomHeight are the parameters of the zooming polynomial if the current
-         *      animation has a non-zero zooming effect.
-         *
-         * Parameter progress is a float number between 0 (start of the animation)
-         * and 1 (end of the animation).
-         */
-        onStep: function (progress) {
-            exports.onAnimationStep(progress, this.data);
-        },
-        
-        /*
-         * Event handler: animation done.
-         *
-         * This method is called by animator when the current animation is finished.
-         *
-         * If the animation was a transition in the normal course of the presentation,
-         * then we call the waitTimeout method to process the timeout property of the current frame.
-         */
-        onDone: function () {
-            for (var idLayer in this.data) {
-                viewPort.cameras[idLayer].setAtState(this.data[idLayer].finalState);
+    animator = context.sozi.animation.Animator.instance().augment({
+            /*
+             * Event handler: animation step.
+             *
+             * This method is called periodically by animator after the animation
+             * has been started, and until the animation time is elapsed.
+             *
+             * Parameter data provides the following information:
+             *    - initialState and finalState contain the geometrical properties of the display
+             *      at the start and end of the animation.
+             *    - profile is a reference to the speed profile function to use.
+             *    - zoomWidth and zoomHeight are the parameters of the zooming polynomial if the current
+             *      animation has a non-zero zooming effect.
+             *
+             * Parameter progress is a float number between 0 (start of the animation)
+             * and 1 (end of the animation).
+             */
+            onStep: function (progress) {
+                exports.onAnimationStep(progress, this.data);
+            },
+            
+            /*
+             * Event handler: animation done.
+             *
+             * This method is called by animator when the current animation is finished.
+             *
+             * If the animation was a transition in the normal course of the presentation,
+             * then we call the waitTimeout method to process the timeout property of the current frame.
+             */
+            onDone: function () {
+                for (var idLayer in this.data) {
+                    viewPort.cameras[idLayer].setAtState(this.data[idLayer].finalState);
+                }
+
+                viewPort.update();
+
+                sourceFrameIndex = exports.currentFrameIndex;
+
+                if (playing) {
+                    waitTimeout();
+                }
             }
-
-            viewPort.update();
-
-            sourceFrameIndex = exports.currentFrameIndex;
-
-            if (playing) {
-                waitTimeout();
-            }
-        }
     });
 
-    sozi.events.listen("sozi.display.ready", onDisplayReady); // @depend events.js
+    context.sozi.events.listen("sozi.display.ready", onDisplayReady); // @depend events.js
 });

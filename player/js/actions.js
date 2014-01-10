@@ -21,12 +21,14 @@ namespace(this, "sozi.actions", function (exports, window) {
     
     "use strict";
     
+    exports.presentationModeOff = false;
+
     // Module aliases
     var player = namespace(window, "sozi.player");
     var display = namespace(window, "sozi.display");
     
     // The global document object
-    var document = window.document;
+    var document = context.document;
     
     // Constants: mouse button numbers
     var DRAG_BUTTON = 0;    // Left button
@@ -102,12 +104,12 @@ namespace(this, "sozi.actions", function (exports, window) {
      * and restarts when the frame list is hidden.</p>
      */
     function toggleFrameList() {
-        if (sozi.framelist.isVisible()) {
-            sozi.framelist.hide();
+        if (context.sozi.framelist.isVisible()) {
+            context.sozi.framelist.hide();
             player.restart();
         } else {
             player.stop();
-            sozi.framelist.show();
+            context.sozi.framelist.show();
         }
     }
 
@@ -131,7 +133,7 @@ namespace(this, "sozi.actions", function (exports, window) {
             return;
         }
         if (evt.button === DRAG_BUTTON) {
-            document.documentElement.addEventListener("mousemove", onMouseDrag, false);
+            svgRoot.addEventListener("mousemove", onMouseDrag, false);
             mouseDragged = false;
             mouseLastX = evt.clientX;
             mouseLastY = evt.clientY;
@@ -165,7 +167,7 @@ namespace(this, "sozi.actions", function (exports, window) {
         }
         
         if (mouseDragged) {
-            sozi.events.fire("sozi.player.cleanup");
+            context.sozi.events.fire("sozi.player.cleanup");
             display.viewPorts["player"].drag(evt.clientX - mouseLastX, evt.clientY - mouseLastY);
             mouseLastX = evt.clientX;
             mouseLastY = evt.clientY;
@@ -186,7 +188,7 @@ namespace(this, "sozi.actions", function (exports, window) {
             return;
         }
         if (evt.button === DRAG_BUTTON) {
-            document.documentElement.removeEventListener("mousemove", onMouseDrag, false);
+            svgRoot.removeEventListener("mousemove", onMouseDrag, false);
         }
         evt.stopPropagation();
         evt.preventDefault();
@@ -251,7 +253,7 @@ namespace(this, "sozi.actions", function (exports, window) {
         }
         
         if (!evt) {
-            evt = window.event;
+            evt = context.event;
         }
 
         var delta = 0;
@@ -270,7 +272,7 @@ namespace(this, "sozi.actions", function (exports, window) {
                 zoom(delta, evt.clientX, evt.clientY);
             }
         }
-        
+
         evt.stopPropagation();
         evt.preventDefault();
     }
@@ -288,16 +290,16 @@ namespace(this, "sozi.actions", function (exports, window) {
      */
     function onKeyPress(evt) {
         // Keys with modifiers are ignored
-        if (evt.altKey || evt.ctrlKey || evt.metaKey) {
+        if (evt.altKey || evt.ctrlKey || evt.metaKey || context.sozi.actions.presentationModeOff) {
             return;
         }
 
         switch (evt.charCode || evt.which) {
         case 43: // +
-            zoom(1, window.innerWidth / 2, window.innerHeight / 2);
+            zoom(1, targetNode.innerWidth / 2, targetNode.innerHeight / 2);
             break;
         case 45: // -
-            zoom(-1, window.innerWidth / 2, window.innerHeight / 2);
+            zoom(-1, targetNode.innerWidth / 2, targetNode.innerHeight / 2);
             break;
         case 61: // =
             player.moveToCurrent();
@@ -338,7 +340,7 @@ namespace(this, "sozi.actions", function (exports, window) {
      */
     function onKeyDown(evt) {
         // Keys with Alt/Ctrl/Meta modifiers are ignored
-        if (evt.altKey || evt.ctrlKey || evt.metaKey) {
+        if (evt.altKey || evt.ctrlKey || evt.metaKey || context.sozi.actions.presentationModeOff) {
             return;
         }
 
@@ -393,6 +395,13 @@ namespace(this, "sozi.actions", function (exports, window) {
         evt.preventDefault();
     }
 
+    function onStopPresentationMode() {
+         context.sozi.actions.presentationModeOff = true;
+    }
+    function onStartPresentationMode() {
+         context.sozi.actions.presentationModeOff = false;
+    }
+
     /**
      * Dummy event handler: stop event propagation.
      *
@@ -410,7 +419,7 @@ namespace(this, "sozi.actions", function (exports, window) {
     function onDisplayReady() {
         // Prevent event propagation when clicking on a link
         // FIXME does not work in Firefox when the <a> is referenced through a <use>
-        var links = document.getElementsByTagName("a");
+        var links = targetNode.document.getElementsByTagName("a");
         for (var i = 0; i < links.length; i += 1) {
             links[i].addEventListener("click", stopEvent, false);
             links[i].addEventListener("contextmenu", stopEvent, false);
@@ -419,18 +428,19 @@ namespace(this, "sozi.actions", function (exports, window) {
         // Mouse events are constrained to the player viewport
         // see isPlayerEvent()
         // TODO also use shift-click as an alternative for middle-click
-        var svgRoot = document.documentElement;
         svgRoot.addEventListener("click", onClick, false);
         svgRoot.addEventListener("mousedown", onMouseDown, false);
         svgRoot.addEventListener("mouseup", onMouseUp, false);
         svgRoot.addEventListener("contextmenu", onContextMenu, false);
         svgRoot.addEventListener("DOMMouseScroll", onWheel, false); // Mozilla
-        window.onmousewheel = onWheel;
+        context.onmousewheel = onWheel;
 
         // Keyboard events are global to the SVG document
-        svgRoot.addEventListener("keypress", onKeyPress, false);
-        svgRoot.addEventListener("keydown", onKeyDown, false);
+        context.addEventListener("keypress", onKeyPress, false);
+        context.addEventListener("keydown", onKeyDown, false);
     }
 
-    sozi.events.listen("sozi.display.ready", onDisplayReady); // @depend events.js
+    context.sozi.events.listen("sozi.display.ready", onDisplayReady); // @depend events.js
+    context.sozi.events.listen("sozi.stopPresentationMode", onStopPresentationMode)
+    context.sozi.events.listen("sozi.startPresentationMode", onStartPresentationMode)
 });
