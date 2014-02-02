@@ -73,7 +73,7 @@ It works also with the ``<embed>`` element, but not with ``<iframe>``.
 
     :::html
     <script>
-        document.addEventListener("load", function () {
+        window.addEventListener("load", function () {
             document.querySelector("object").focus();
         }, false);
     </script>
