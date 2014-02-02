@@ -487,6 +487,8 @@ namespace(this, "sozi.display", function (exports, window) {
         lastWindowWidth = context.innerWidth;
         lastWindowHeight = context.innerHeight;
     }
+
+    exports.updateSize = resize;
     
     context.sozi.events.listen("sozi.document.ready", onDocumentReady); // @depend events.js
     context.addEventListener("resize", resize, false);

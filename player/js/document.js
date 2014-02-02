@@ -172,9 +172,31 @@ namespace(this, "sozi.document", function (exports, window) {
             }
         );
         
+        function createNewSVGReferenceFromFrame(soziFrame) {
+            var svgElement = soziFrame.ownerDocument.getElementById(soziFrame.getAttributeNS(SOZI_NS,"refid"));
+            
+            if(svgElement != null) {
+                var svgDescriptionElement = svgElement.getElementsByTagName("desc")[0];
+                var newSVG = {
+                  id:svgElement.getAttribute("id")
+                };
+                if(svgDescriptionElement != null) {
+                  newSVG.description = {
+                    id:svgDescriptionElement.getAttribute("id"),
+                    text:svgDescriptionElement.innerHTML
+                  }
+                }
+
+                return newSVG;
+            }
+            return null;
+        }
+
         soziFrameList.forEach(function (soziFrame, indexFrame) {
+
             var newFrame = {
                 id: soziFrame.getAttribute("id"),
+                svg: createNewSVGReferenceFromFrame(soziFrame),
                 title: readAttribute(soziFrame, "title"),
                 showInFrameList: readAttribute(soziFrame, "show-in-frame-list") === "true",
                 sequence: parseInt(readAttribute(soziFrame, "sequence"), 10),

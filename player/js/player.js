@@ -19,7 +19,7 @@
 namespace(this, "sozi.player", function (exports, window) {
     "use strict";
     
-    var viewPort;
+    var viewPorts = [];
     
     // The animator object used to animate transitions
     var animator;
@@ -82,7 +82,10 @@ namespace(this, "sozi.player", function (exports, window) {
         waiting = false;
         sourceFrameIndex = index;
         exports.currentFrameIndex = index;
-        viewPort.showFrame(context.sozi.document.frames[index]);
+        for(var i=0; i < viewPorts.length;i++) {
+            var viewPort = viewPorts[i];
+            viewPort.showFrame(context.sozi.document.frames[index]);
+        }
         waitTimeout();
     };
 
@@ -152,7 +155,10 @@ namespace(this, "sozi.player", function (exports, window) {
 
         sourceFrameIndex = index;
         exports.currentFrameIndex = index;
-        viewPort.showFrame(context.sozi.document.frames[index]);
+        for(var i=0; i < viewPorts.length;i++) {
+            var viewPort = viewPorts[i];
+            viewPort.showFrame(context.sozi.document.frames[index]);
+        }
 
         context.sozi.events.fire("sozi.player.framechange", index);
     };
@@ -209,10 +215,15 @@ namespace(this, "sozi.player", function (exports, window) {
     
     exports.previewFrame = function (index) {
         exports.currentFrameIndex = index;
-        animator.start(DEFAULT_DURATION_MS,
-            exports.getAnimationData(viewPort.cameras, context.sozi.document.frames[index].states,
-                DEFAULT_ZOOM_PERCENT, context.sozi.animation.profiles[DEFAULT_PROFILE]),
-                false, false);
+        
+        for(var i=0; i < viewPorts.length;i++) {
+            var viewPort = viewPorts[i];
+         
+            animator.start(DEFAULT_DURATION_MS,
+                exports.getAnimationData(viewPort.cameras, context.sozi.document.frames[index].states,
+                    DEFAULT_ZOOM_PERCENT, context.sozi.animation.profiles[DEFAULT_PROFILE]),
+                    false, false);
+        }
         context.sozi.events.fire("sozi.player.framechange", index);
     };
 
@@ -260,10 +271,14 @@ namespace(this, "sozi.player", function (exports, window) {
         playing = true;
         exports.currentFrameIndex = index;
 
-        animator.start(durationMs, exports.getAnimationData(
-            viewPort.cameras, context.sozi.document.frames[index].states,
-            zoomPercent, profile,
-            useTransitionPath, reverseTransitionPath));
+        for(var i=0; i < viewPorts.length;i++) {
+            var viewPort = viewPorts[i];
+
+            animator.start(durationMs, exports.getAnimationData(
+                viewPort.cameras, context.sozi.document.frames[index].states,
+                zoomPercent, profile,
+                useTransitionPath, reverseTransitionPath));
+        }
 
         context.sozi.events.fire("sozi.player.framechange", index);
     };
@@ -360,20 +375,25 @@ namespace(this, "sozi.player", function (exports, window) {
     exports.showAll = function () {
         exports.stop();
         context.sozi.events.fire("sozi.player.cleanup");
-        animator.start(DEFAULT_DURATION_MS,
-            exports.getAnimationData(viewPort.cameras, viewPort.getDocumentState(),
-                DEFAULT_ZOOM_PERCENT, context.sozi.animation.profiles[DEFAULT_PROFILE],
-                false, false
-            )
-        );
+        for(var i=0; i < viewPorts.length;i++) {
+            var viewPort = viewPorts[i];
+
+            animator.start(DEFAULT_DURATION_MS,
+                exports.getAnimationData(viewPort.cameras, viewPort.getDocumentState(),
+                    DEFAULT_ZOOM_PERCENT, context.sozi.animation.profiles[DEFAULT_PROFILE],
+                    false, false
+                )
+            );
+        }
     };
 
     /*
      * Event handler: display ready.
      */
     function onDisplayReady() {
-        viewPort = context.sozi.display.ViewPort.instance("player", context.sozi.document.idLayerList, true);
-        
+        var viewPort = context.sozi.display.ViewPort.instance("player", context.sozi.document.idLayerList, true);
+        viewPorts.push(viewPort);
+
         exports.startFromIndex(context.sozi.location.getFrameIndex());
 
         // Hack to fix the blank screen bug in Chrome/Chromium
@@ -383,34 +403,51 @@ namespace(this, "sozi.player", function (exports, window) {
         context.sozi.events.fire("sozi.player.ready");
     }
 
+    exports.createNewPlayer = function(name,frameStartPosition) {
+        var newViewPort = context.sozi.display.ViewPort.instance(name, context.sozi.document.idLayerList, false);
+        viewPorts.push(newViewPort);
+
+        exports.startFromIndex(frameStartPosition);
+
+        // Hack to fix the blank screen bug in Chrome/Chromium
+        // See https://github.com/senshu/Sozi/issues/109
+        context.setTimeout(newViewPort.bind(newViewPort.update), 1);
+        
+        //context.sozi.events.fire("sozi.player.ready");
+    }
+
     // TODO move the zoom code to display.js
     exports.onAnimationStep = function (progress, data) {
-        for (var idLayer in data) {
-            var camera = viewPort.cameras[idLayer];
+        for(var i=0; i < viewPorts.length;i++) {
+            var viewPort = viewPorts[i];
             
-            camera.interpolate(
-                data[idLayer].initialState,
-                data[idLayer].finalState,
-                data[idLayer].profile(progress),
-                data[idLayer].useTransitionPath,
-                data[idLayer].reverseTransitionPath
-            );
+            for (var idLayer in data) {
+                var camera = viewPort.cameras[idLayer];
+                
+                camera.interpolate(
+                    data[idLayer].initialState,
+                    data[idLayer].finalState,
+                    data[idLayer].profile(progress),
+                    data[idLayer].useTransitionPath,
+                    data[idLayer].reverseTransitionPath
+                );
 
-            var ps;
-            if (data[idLayer].zoomWidth && data[idLayer].zoomWidth.k !== 0) {
-                    ps = progress - data[idLayer].zoomWidth.ts;
-                    camera.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
+                var ps;
+                if (data[idLayer].zoomWidth && data[idLayer].zoomWidth.k !== 0) {
+                        ps = progress - data[idLayer].zoomWidth.ts;
+                        camera.width = data[idLayer].zoomWidth.k * ps * ps + data[idLayer].zoomWidth.ss;
+                }
+
+                if (data[idLayer].zoomHeight && data[idLayer].zoomHeight.k !== 0) {
+                        ps = progress - data[idLayer].zoomHeight.ts;
+                        camera.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
+                }
+
+                camera.setClipped(data[idLayer].finalState.clipped);
             }
 
-            if (data[idLayer].zoomHeight && data[idLayer].zoomHeight.k !== 0) {
-                    ps = progress - data[idLayer].zoomHeight.ts;
-                    camera.height = data[idLayer].zoomHeight.k * ps * ps + data[idLayer].zoomHeight.ss;
-            }
-
-            camera.setClipped(data[idLayer].finalState.clipped);
+            viewPort.update();
         }
-
-        viewPort.update();
     };
     
     /**
@@ -446,11 +483,14 @@ namespace(this, "sozi.player", function (exports, window) {
              * then we call the waitTimeout method to process the timeout property of the current frame.
              */
             onDone: function () {
-                for (var idLayer in this.data) {
-                    viewPort.cameras[idLayer].setAtState(this.data[idLayer].finalState);
-                }
+                for(var i=0; i < viewPorts.length;i++) {
+                    var viewPort = viewPorts[i];
 
-                viewPort.update();
+                    for (var idLayer in this.data) {
+                        viewPort.cameras[idLayer].setAtState(this.data[idLayer].finalState);
+                    }
+                    viewPort.update();
+                }
 
                 sourceFrameIndex = exports.currentFrameIndex;
 
