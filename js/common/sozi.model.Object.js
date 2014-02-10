@@ -3,7 +3,7 @@ namespace(this, "sozi.model", function (exports, globals) {
     "use strict";
 
     var creationCount = 0;
-    
+
     exports.Object = {
         /*
          * Initialize the current object.
@@ -14,46 +14,46 @@ namespace(this, "sozi.model", function (exports, globals) {
             creationCount ++;
             return this;
         },
-        
+
         /*
          * Create a new object with the current object as prototype.
          *
          * Optionally augment the new object with the given properties.
          */
         create: function (properties) {
-            return Object.create(this).augment(properties || {});
+            return Object.create(this).set(properties || {});
         },
-        
+
         get proto() {
             return Object.getPrototypeOf(this);
         },
-        
+
         /*
          * Augment the current object with the properties of the given object.
          */
-        augment: function (supplier) {
+        set: function (supplier) {
             Object.keys(supplier).forEach(function(property) {
                 Object.defineProperty(this, property, Object.getOwnPropertyDescriptor(supplier, property));
             }, this);
             return this;
         },
-        
+
         toStorable: function () {
             return {};
         },
-        
+
         fromStorable: function (obj) {
             // Abstract
             return this;
         },
-        
+
         bind: function (fn) {
             var self = this;
             return function () {
                 return fn.apply(self, arguments);
             };
         },
-        
+
         /*
          * Add a listener for a given event.
          *
@@ -73,7 +73,7 @@ namespace(this, "sozi.model", function (exports, globals) {
             this.listeners[event].push(this.makeListenerRecord(event, a, b));
             return this;
         },
-        
+
         /*
          * Remove a listener for a given event.
          *
@@ -94,7 +94,7 @@ namespace(this, "sozi.model", function (exports, globals) {
             }
             return this;
         },
-        
+
         /*
          * Fire an event.
          *
@@ -110,7 +110,7 @@ namespace(this, "sozi.model", function (exports, globals) {
             }
             return this;
         },
-        
+
         /*
          * Returns an event listener definition object.
          */

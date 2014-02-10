@@ -113,7 +113,7 @@ namespace("sozi.display", function (exports) {
         },
 
         setAtState: function (state) {
-            return this.augment({
+            return this.set({
                 cx: state.cx,
                 cy: state.cy,
                 width: state.width,
@@ -127,7 +127,7 @@ namespace("sozi.display", function (exports) {
         },
 
         clone: function () {
-            return exports.CameraState.create().init(this.viewPort).augment({
+            return exports.CameraState.create().init(this.viewPort).set({
                 cx: this.cx,
                 cy: this.cy,
                 width: this.width,
