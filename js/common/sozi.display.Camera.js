@@ -38,15 +38,6 @@ namespace("sozi.display", function (exports) {
             // Clipping
             this.clipped = false;
 
-            // Transition zoom
-            this.transitionZoomPercent = 0;
-
-            // Transition profile
-            this.transitionProfile = "linear";
-
-            // Transition path
-            this.transitionPath = null;
-
             return this;
         },
 
@@ -79,7 +70,8 @@ namespace("sozi.display", function (exports) {
                 y = svgElement.y.baseVal.value;
                 w = svgElement.width.baseVal.value;
                 h = svgElement.height.baseVal.value;
-            } else {
+            }
+            else {
                 var b = svgElement.getBBox();
                 x = b.x;
                 y = b.y;
@@ -89,7 +81,7 @@ namespace("sozi.display", function (exports) {
 
             // Compute the raw coordinates of the center
             // of the given SVG element
-            var c = document.documentElement.createSVGPoint();
+            var c = this.viewPort.svgRoot.createSVGPoint();
             c.x = x + w / 2;
             c.y = y + h / 2;
 
@@ -119,49 +111,69 @@ namespace("sozi.display", function (exports) {
                 width: state.width,
                 height: state.height,
                 angle: state.angle,
-                clipped: state.clipped,
-                transitionZoomPercent: state.transitionZoomPercent,
-                transitionProfile: state.transitionProfile,
-                transitionPath: state.transitionPath
+                clipped: state.clipped
             });
         },
 
         clone: function () {
-            return exports.CameraState.create().init(this.viewPort).set({
-                cx: this.cx,
-                cy: this.cy,
-                width: this.width,
-                height: this.height,
-                angle: this.angle,
-                clipped: this.clipped,
-                transitionZoomPercent: this.transitionZoomPercent,
-                transitionProfile: this.transitionProfile,
-                transitionPath: this.transitionPath
-            });
+            return exports.CameraState.create().init(this.viewPort).setAtState(this);
         },
 
-        interpolatableAttributes: ["width", "height", "angle"],
+        interpolate: function (initialState, finalState, progress, relativeZoom, svgPath, reversePath) {
+            var remaining = 1 - progress;
 
-        interpolate: function (initialState, finalState, ratio, useTransitionPath, reverseTransitionPath) {
-            var remaining = 1 - ratio;
-            for (var i = 0; i < this.interpolatableAttributes.length; i += 1) {
-                var attr = this.interpolatableAttributes[i];
-                this[attr] = finalState[attr] * ratio + initialState[attr] * remaining;
+            function inter(initial, final) {
+                return final * progress + initial * remaining;
             }
 
-            var svgPath = reverseTransitionPath ? initialState.transitionPath : finalState.transitionPath;
-            if (useTransitionPath && svgPath) {
-                var pathLength   = svgPath.getTotalLength();
-                var startPoint   = svgPath.getPointAtLength(reverseTransitionPath ? pathLength : 0);
-                var endPoint     = svgPath.getPointAtLength(reverseTransitionPath ? 0 : pathLength);
-                var currentPoint = svgPath.getPointAtLength(pathLength * (reverseTransitionPath ? remaining : ratio));
+            function parabola(u0, u1) {
+                var um = relativeZoom > 0 ?
+                    Math.max(u0, u1) * (1 + relativeZoom) :
+                    Math.min(u0, u1) * (1 - relativeZoom);
+                var du0 = u0 - um;
+                var du1 = u1 - um;
+                var r = Math.sqrt(du0 / du1);
+                var tm = r / (1 + r);
+                var k = du0 / tm / tm;
+                var dt = progress - tm;
+                return k * dt * dt + um;
+            }
 
-                this.cx = currentPoint.x + (finalState.cx - endPoint.x) * ratio + (initialState.cx - startPoint.x) * remaining;
-                this.cy = currentPoint.y + (finalState.cy - endPoint.y) * ratio + (initialState.cy - startPoint.y) * remaining;
+            // Interpolate camera width and height
+            if (relativeZoom) {
+                this.width  = parabola(initialState.width,  finalState.width);
+                this.height = parabola(initialState.height, finalState.height);
             }
             else {
-                this.cx = finalState.cx * ratio + initialState.cx * remaining;
-                this.cy = finalState.cy * ratio + initialState.cy * remaining;
+                this.width  = inter(initialState.width,  finalState.width);
+                this.height = inter(initialState.height, finalState.height);
+            }
+
+            // Interpolate camera location
+            if (svgPath) {
+                var pathLength   = svgPath.getTotalLength();
+                var startPoint   = svgPath.getPointAtLength(reversePath ? pathLength : 0);
+                var endPoint     = svgPath.getPointAtLength(reversePath ? 0 : pathLength);
+                var currentPoint = svgPath.getPointAtLength(pathLength * (reversePath ? remaining : progress));
+
+                this.cx = currentPoint.x + inter(initialState.cx - startPoint.x, finalState.cx - endPoint.x);
+                this.cy = currentPoint.y + inter(initialState.cy - startPoint.y, finalState.cy - endPoint.y);
+            }
+            else {
+                this.cx = inter(initialState.cx, finalState.cx);
+                this.cy = inter(initialState.cy, finalState.cy);
+            }
+
+            // Interpolate camera angle
+            // Keep the smallest angle between the initial and final states
+            if (finalState.angle - initialState.angle > 180) {
+                this.angle  = inter(initialState.angle, finalState.angle - 360);
+            }
+            else if (finalState.angle - initialState.angle < -180) {
+                this.angle  = inter(initialState.angle - 360, finalState.angle);
+            }
+            else {
+                this.angle  = inter(initialState.angle, finalState.angle);
             }
         }
     });
@@ -173,10 +185,10 @@ namespace("sozi.display", function (exports) {
 
             var layerId = svgLayer.getAttribute("id");
 
-            // Clipping rectangle
+            // The clipping rectangle of this camera
             this.svgClipRect = document.createElementNS(SVG_NS, "rect");
 
-            // Clipping path
+            // The clipping path of this camera
             var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
             svgClipPath.setAttribute("id", "sozi-clip-path-" + viewPort.id + "-" + layerId);
             svgClipPath.appendChild(this.svgClipRect);
@@ -187,9 +199,7 @@ namespace("sozi.display", function (exports) {
             svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewPort.id + "-" + layerId + ")");
             viewPort.svgRoot.appendChild(svgClippedGroup);
 
-            // This group will support transformations
-            // we keep the layer group clean since it can be referenced
-            // from <use> elements
+            // The group that will support transformations
             this.svgLayer = document.createElementNS(SVG_NS, "g");
             this.svgLayer.appendChild(svgLayer);
             svgClippedGroup.appendChild(this.svgLayer);
@@ -213,7 +223,7 @@ namespace("sozi.display", function (exports) {
             this.width /= factor;
             this.height /= factor;
             return this.drag(
-                (1 - factor) * (x - this.viewPort.width / 2),
+                (1 - factor) * (x - this.viewPort.width  / 2),
                 (1 - factor) * (y - this.viewPort.height / 2)
             );
         },
