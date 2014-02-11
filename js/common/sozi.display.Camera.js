@@ -54,8 +54,6 @@ namespace("sozi.display", function (exports) {
         /*
          * Set the current camera's properties to the given SVG element.
          *
-         * If the element is a rectangle, the properties of the frames are based
-         * on the geometrical properties of the rectangle.
          * Otherwise, the properties of the frame are based on the bounding box
          * of the given element.
          *
@@ -64,26 +62,13 @@ namespace("sozi.display", function (exports) {
          */
         setAtElement: function (svgElement) {
             // Read the raw bounding box of the given SVG element
-            var x, y, w, h;
-            if (svgElement.nodeName === "rect") {
-                x = svgElement.x.baseVal.value;
-                y = svgElement.y.baseVal.value;
-                w = svgElement.width.baseVal.value;
-                h = svgElement.height.baseVal.value;
-            }
-            else {
-                var b = svgElement.getBBox();
-                x = b.x;
-                y = b.y;
-                w = b.width;
-                h = b.height;
-            }
+            var b = svgElement.getBBox();
 
             // Compute the raw coordinates of the center
             // of the given SVG element
             var c = this.viewPort.svgRoot.createSVGPoint();
-            c.x = x + w / 2;
-            c.y = y + h / 2;
+            c.x = b.x + b.width  / 2;
+            c.y = b.y + b.height / 2;
 
             // Compute the coordinates of the center of the given SVG element
             // after its current transformation
@@ -95,11 +80,11 @@ namespace("sozi.display", function (exports) {
 
             // Update the camera to match the bounding box information of the
             // given SVG element after its current transformation
-            this.cx = c.x;
-            this.cy = c.y;
-            this.width = w * scale;
-            this.height = h * scale;
-            this.angle = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI;
+            this.cx     = c.x;
+            this.cy     = c.y;
+            this.width  = b.width  * scale;
+            this.height = b.height * scale;
+            this.angle  = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI;
 
             return this;
         },
