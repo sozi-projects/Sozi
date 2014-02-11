@@ -4,7 +4,7 @@ namespace("sozi.editor.view", function (exports) {
 
     var PREVIEW_MARGIN = 15;
 
-    exports.preview = sozi.model.Object.create({
+    exports.Preview = sozi.model.Object.create({
 
         init: function (svgRoot) {
             sozi.model.Object.init.call(this);

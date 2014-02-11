@@ -63,8 +63,8 @@ window.addEventListener("load", function () {
 
                 // Create Sozi document and viewport
                 var pres = sozi.document.Presentation.create().init();
-                sozi.editor.view.preview.init(svgRoot);
-                sozi.editor.view.timeline.init(pres);
+                sozi.editor.view.Preview.init(svgRoot);
+                sozi.editor.view.Timeline.init(pres);
             }
             else {
                 alert("Error: Failed to read file " + fileName);
