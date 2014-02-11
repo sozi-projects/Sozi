@@ -122,11 +122,11 @@ namespace("sozi.display", function (exports) {
         interpolate: function (initialState, finalState, progress, relativeZoom, svgPath, reversePath) {
             var remaining = 1 - progress;
 
-            function inter(initial, final) {
+            function linear(initial, final) {
                 return final * progress + initial * remaining;
             }
 
-            function parabola(u0, u1) {
+            function quadratic(u0, u1) {
                 var um = relativeZoom > 0 ?
                     Math.max(u0, u1) * (1 + relativeZoom) :
                     Math.min(u0, u1) * (1 - relativeZoom);
@@ -141,12 +141,12 @@ namespace("sozi.display", function (exports) {
 
             // Interpolate camera width and height
             if (relativeZoom) {
-                this.width  = parabola(initialState.width,  finalState.width);
-                this.height = parabola(initialState.height, finalState.height);
+                this.width  = quadratic(initialState.width,  finalState.width);
+                this.height = quadratic(initialState.height, finalState.height);
             }
             else {
-                this.width  = inter(initialState.width,  finalState.width);
-                this.height = inter(initialState.height, finalState.height);
+                this.width  = linear(initialState.width,  finalState.width);
+                this.height = linear(initialState.height, finalState.height);
             }
 
             // Interpolate camera location
@@ -156,24 +156,24 @@ namespace("sozi.display", function (exports) {
                 var endPoint     = svgPath.getPointAtLength(reversePath ? 0 : pathLength);
                 var currentPoint = svgPath.getPointAtLength(pathLength * (reversePath ? remaining : progress));
 
-                this.cx = currentPoint.x + inter(initialState.cx - startPoint.x, finalState.cx - endPoint.x);
-                this.cy = currentPoint.y + inter(initialState.cy - startPoint.y, finalState.cy - endPoint.y);
+                this.cx = currentPoint.x + linear(initialState.cx - startPoint.x, finalState.cx - endPoint.x);
+                this.cy = currentPoint.y + linear(initialState.cy - startPoint.y, finalState.cy - endPoint.y);
             }
             else {
-                this.cx = inter(initialState.cx, finalState.cx);
-                this.cy = inter(initialState.cy, finalState.cy);
+                this.cx = linear(initialState.cx, finalState.cx);
+                this.cy = linear(initialState.cy, finalState.cy);
             }
 
             // Interpolate camera angle
             // Keep the smallest angle between the initial and final states
             if (finalState.angle - initialState.angle > 180) {
-                this.angle  = inter(initialState.angle, finalState.angle - 360);
+                this.angle  = linear(initialState.angle, finalState.angle - 360);
             }
             else if (finalState.angle - initialState.angle < -180) {
-                this.angle  = inter(initialState.angle - 360, finalState.angle);
+                this.angle  = linear(initialState.angle - 360, finalState.angle);
             }
             else {
-                this.angle  = inter(initialState.angle, finalState.angle);
+                this.angle  = linear(initialState.angle, finalState.angle);
             }
         }
     });
