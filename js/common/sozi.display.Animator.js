@@ -24,7 +24,7 @@ namespace("sozi.display", function (exports) {
             window.msRequestAnimationFrame ||
             window.oRequestAnimationFrame;
 
-    var getCurrentTime = window.performance && window.performance.now || Date.now;
+    var perf = window.performance && window.performance.now ? window.performance : Date;
 
     /*
      * The default time step.
@@ -64,8 +64,9 @@ namespace("sozi.display", function (exports) {
                 requestAnimationFrame(loop);
             }
 
-            // Step all animators
-            animatorList.forEach(function (animator) {
+            // Step all animators. We iterate over a copy of the animator list
+            // in case the step() method removes an animator from the list.
+            animatorList.slice().forEach(function (animator) {
                 animator.step();
             });
         }
@@ -121,6 +122,8 @@ namespace("sozi.display", function (exports) {
     exports.Animator = sozi.model.Object.create({
 
         init: function () {
+            sozi.model.Object.init.call(this);
+
             // The animation duration, in milliseconds.
             this.durationMs = 500;
 
@@ -132,6 +135,8 @@ namespace("sozi.display", function (exports) {
 
             // The current state of this animator.
             this.started = false;
+
+            return this;
         },
 
         /*
@@ -144,10 +149,10 @@ namespace("sozi.display", function (exports) {
          *
          * The "step" event is fired once before starting the animation.
          */
-        start: function (durationMs, timingFunctionName) {
+        start: function (durationMs, timingFunction) {
             this.durationMs = durationMs || 500;
-            this.timingFunction = exports.timing[timingFunctionName || "linear"];
-            this.initialTime = getCurrentTime();
+            this.timingFunction = timingFunction;
+            this.initialTime = perf.now();
             this.fire("step", 0);
             if (!this.started) {
                 this.started = true;
@@ -176,13 +181,15 @@ namespace("sozi.display", function (exports) {
          * If the animation duration has elapsed, the "done" event is fired.
          */
         step: function () {
-            var elapsedTime = getCurrentTime() - this.initialTime;
-            if (elapsedTime >= this.durationMs) {
-                this.fire("step", 1);
-                this.stop();
-                this.fire("done");
-            } else {
-                this.fire("step", this.timingFunction(elapsedTime / this.durationMs));
+            if (this.started) {
+                var elapsedTime = perf.now() - this.initialTime;
+                if (elapsedTime >= this.durationMs) {
+                    this.fire("step", 1);
+                    this.stop();
+                    this.fire("done");
+                } else {
+                    this.fire("step", this.timingFunction(elapsedTime / this.durationMs));
+                }
             }
         }
     });
