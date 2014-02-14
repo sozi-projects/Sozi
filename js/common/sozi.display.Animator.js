@@ -38,8 +38,11 @@ namespace("sozi.display", function (exports) {
      */
     var timer;
 
+    // The number of running animators.
+    var runningAnimators = 0;
+
     /*
-     * The list of running animators.
+     * The list of managed animators.
      */
     var animatorList = [];
 
@@ -56,7 +59,7 @@ namespace("sozi.display", function (exports) {
      * or through setInterval().
      */
     function loop() {
-        if (animatorList.length > 0) {
+        if (runningAnimators > 0) {
             // If there is at least one animator,
             // and if the browser provides animation frames,
             // schedule this function to be called again in the next frame.
@@ -66,8 +69,10 @@ namespace("sozi.display", function (exports) {
 
             // Step all animators. We iterate over a copy of the animator list
             // in case the step() method removes an animator from the list.
-            animatorList.slice().forEach(function (animator) {
-                animator.step();
+            animatorList.forEach(function (animator) {
+                if (animator.running) {
+                    animator.step();
+                }
             });
         }
         else if (!requestAnimationFrame) {
@@ -95,25 +100,6 @@ namespace("sozi.display", function (exports) {
     }
 
     /*
-     * Add a new animator object to the list of running animators.
-     *
-     * If the animator list was empty before calling this function,
-     * then the animation loop is started.
-     */
-    function addAnimator(animator) {
-        if (animatorList.push(animator) === 1) {
-            start();
-        }
-    }
-
-    /*
-     * Remove the given animator from the list of running animators.
-     */
-    function removeAnimator(animator) {
-        animatorList.splice(animatorList.indexOf(animator), 1);
-    }
-
-    /*
      * An animator provides the logic for animating other objects.
      *
      * The main purpose of an animator is to schedule the update
@@ -123,6 +109,8 @@ namespace("sozi.display", function (exports) {
 
         init: function () {
             sozi.model.Object.init.call(this);
+
+            animatorList.push(this);
 
             // The animation duration, in milliseconds.
             this.durationMs = 500;
@@ -134,7 +122,7 @@ namespace("sozi.display", function (exports) {
             this.initialTime = 0;
 
             // The current state of this animator.
-            this.started = false;
+            this.running = false;
 
             return this;
         },
@@ -142,34 +130,29 @@ namespace("sozi.display", function (exports) {
         /*
          * Start the current animator.
          *
-         * The current animator is added to the list of running animators
-         * and is put in the "started" state.
-         * It will be removed from the list automatically when the given duration
-         * has elapsed.
-         *
          * The "step" event is fired once before starting the animation.
          */
         start: function (durationMs, timingFunction) {
             this.durationMs = durationMs || 500;
-            this.timingFunction = timingFunction;
+            this.timingFunction = timingFunction || sozi.display.timing.linear;
             this.initialTime = perf.now();
             this.fire("step", 0);
-            if (!this.started) {
-                this.started = true;
-                addAnimator(this);
+            if (!this.running) {
+                this.running = true;
+                runningAnimators ++;
+                if (runningAnimators === 1) {
+                    start();
+                }
             }
         },
 
         /*
          * Stop the current animator.
-         *
-         * The current animator is removed from the list of running animators
-         * and is put in the "stopped" state.
          */
         stop: function () {
-            if (this.started) {
-                removeAnimator(this);
-                this.started = false;
+            if (this.running) {
+                this.running = false;
+                runningAnimators --;
             }
         },
 
@@ -181,15 +164,13 @@ namespace("sozi.display", function (exports) {
          * If the animation duration has elapsed, the "done" event is fired.
          */
         step: function () {
-            if (this.started) {
-                var elapsedTime = perf.now() - this.initialTime;
-                if (elapsedTime >= this.durationMs) {
-                    this.fire("step", 1);
-                    this.stop();
-                    this.fire("done");
-                } else {
-                    this.fire("step", this.timingFunction(elapsedTime / this.durationMs));
-                }
+            var elapsedTime = perf.now() - this.initialTime;
+            if (elapsedTime >= this.durationMs) {
+                this.fire("step", 1);
+                this.stop();
+                this.fire("done");
+            } else {
+                this.fire("step", this.timingFunction(elapsedTime / this.durationMs));
             }
         }
     });
