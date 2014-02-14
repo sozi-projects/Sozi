@@ -9,7 +9,7 @@ namespace("sozi.editor.view", function (exports) {
         init: function (svgRoot) {
             sozi.model.Object.init.call(this);
 
-            this.viewPort = sozi.display.ViewPort.create().init(svgRoot);
+            this.viewport = sozi.display.Viewport.create().init(svgRoot);
 
             // Setup event handlers
             var aspectChangeHandler = this.bind(this.onAspectChange);
@@ -39,7 +39,7 @@ namespace("sozi.editor.view", function (exports) {
                 previewStyle.top = (top.clientHeight - height) / 2 + "px";
                 previewStyle.height = height + "px";
 
-                this.viewPort.resize();
+                this.viewport.resize();
             }
         }
     });

@@ -36,7 +36,7 @@ namespace("sozi.display", function (exports) {
     // Rotation step for user rotate action (keyboard and mouse wheel)
     var ROTATE_STEP = 5;
 
-    exports.ViewPort = sozi.model.Object.create({
+    exports.Viewport = sozi.model.Object.create({
 
         /*
          * Initialize a new viewport for the given SVG root element.

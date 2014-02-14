@@ -12,8 +12,8 @@ namespace("sozi.editor.view", function (exports) {
             // Fill layer selector
             var htmlLayerSelect = document.querySelector("#layer-select");
 
-            for (var layerId in exports.Preview.viewPort.layers) {
-                var layer = exports.Preview.viewPort.layers[layerId];
+            for (var layerId in exports.Preview.viewport.layers) {
+                var layer = exports.Preview.viewport.layers[layerId];
                 if (!layer.auto) {
                     htmlLayerSelect.insertAdjacentHTML("beforeend", "<option value='" + layerId + "'>" + layer.label + "</option>");
                 }
@@ -29,7 +29,7 @@ namespace("sozi.editor.view", function (exports) {
             // Add row to the timeline for the selected layer
             var htmlLayerSelect = document.querySelector("#layer-select");
             var layerId = htmlLayerSelect.value;
-            var layerLabel = exports.Preview.viewPort.layers[layerId].label;
+            var layerLabel = exports.Preview.viewport.layers[layerId].label;
             htmlLayerSelect.parentNode.parentNode.insertAdjacentHTML("beforebegin", "<tr id='timeline-" + layerId + "'><th>" + layerLabel + "</th></tr>");
 
             // Remove layer from drop-down list
@@ -38,7 +38,7 @@ namespace("sozi.editor.view", function (exports) {
 
         onAddFrame: function () {
             console.log("timeline.onAddFrame");
-            this.presentation.addFrame(sozi.editor.view.Preview.viewPort.state);
+            this.presentation.addFrame(sozi.editor.view.Preview.viewport.state);
         },
 
         addFrame: function (pres, frame, frameIndex) {
