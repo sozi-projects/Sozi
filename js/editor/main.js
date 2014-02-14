@@ -61,10 +61,11 @@ window.addEventListener("load", function () {
                     alert("Error: Document is not valid SVG. " + svgRoot.namespaceURI);
                 }
 
-                // Create Sozi document and viewport
-                var pres = sozi.document.Presentation.create().init();
-                sozi.editor.view.Preview.init(svgRoot);
-                sozi.editor.view.Timeline.init(pres);
+                // Initialize models and views
+                var pres = sozi.document.Presentation.init();
+                var editor = sozi.editor.model.Editor.init(pres);
+                sozi.editor.view.Preview.init(editor, svgRoot);
+                sozi.editor.view.Timeline.init(editor);
             }
             else {
                 alert("Error: Failed to read file " + fileName);

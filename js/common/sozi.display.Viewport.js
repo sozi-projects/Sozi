@@ -81,10 +81,12 @@ namespace("sozi.display", function (exports) {
                             // add it to the document and to the list of layers.
                             if (svgWrapper.firstChild) {
                                 svgRoot.insertBefore(svgWrapper, svgNode);
-                                this.layers[svgWrapper.getAttribute("id")] = {
+                                var wrapperId = svgWrapper.getAttribute("id");
+                                this.layers[wrapperId] = {
+                                    id: wrapperId,
                                     auto: true,
                                     selected: true,
-                                    label: "#" + svgWrapper.getAttribute("id"),
+                                    label: "#" + wrapperId,
                                     svgNode: svgWrapper
                                 };
 
@@ -95,11 +97,13 @@ namespace("sozi.display", function (exports) {
                             }
 
                             // Add the current node to the list of layers.
-                            this.layers[svgNode.getAttribute("id")] = {
+                            var nodeId = svgNode.getAttribute("id");
+                            this.layers[nodeId] = {
+                                id: nodeId,
                                 auto: false,
                                 selected: true,
                                 // FIXME Should be has/getAttributeNS(INKSCAPE_NS, "label"
-                                label: svgNode.hasAttribute("inkscape:label") ? svgNode.getAttribute("inkscape:label") : ("#" + svgNode.getAttribute("id")),
+                                label: svgNode.hasAttribute("inkscape:label") ? svgNode.getAttribute("inkscape:label") : ("#" + nodeId),
                                 svgNode: svgNode
                             };
                         }

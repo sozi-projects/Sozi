@@ -24,7 +24,6 @@ namespace("sozi.document", function (exports) {
 
             this.frameId = "frame" + this.id;
             this.title = "New frame";
-            this.selected = false;
 
             return this;
         }
@@ -43,74 +42,6 @@ namespace("sozi.document", function (exports) {
 
             this.frames = [];
 
-            return this;
-        },
-
-        /*
-         * Mark all frames as selected.
-         *
-         * Fires:
-         *    - selectFrame(frameIndex)
-         *
-         * Returns:
-         *    - The current object.
-         */
-        selectAllFrames: function () {
-            for (var frameIndex = 0; frameIndex < this.frames.length; frameIndex ++) {
-                this.selectFrame(frameIndex);
-            }
-            return this;
-        },
-
-        /*
-         * Mark all frames as deselected.
-         *
-         * Fires:
-         *    - deselectFrame(frameIndex)
-         *
-         * Returns:
-         *    - The current object.
-         */
-        deselectAllFrames: function () {
-            for (var frameIndex = 0; frameIndex < this.frames.length; frameIndex ++) {
-                this.deselectFrame(frameIndex);
-            }
-            return this;
-        },
-
-        /*
-         * Mark a frame as selected.
-         *
-         * Parameters:
-         *    - frameIndex: The index of the frame to select
-         *
-         * Fires:
-         *    - selectFrame(frameIndex)
-         *
-         * Returns:
-         *    - The current object.
-         */
-        selectFrame: function (frameIndex) {
-            this.frames[frameIndex].selected = true;
-            this.fire("selectFrame", frameIndex);
-            return this;
-        },
-
-        /*
-         * Mark a frame as deselected.
-         *
-         * Parameters:
-         *    - frameIndex: The index of the frame to deselect
-         *
-         * Fires:
-         *    - deselectFrame(frameIndex)
-         *
-         * Returns:
-         *    - The current object.
-         */
-        deselectFrame: function (frameIndex) {
-            this.frames[frameIndex].selected = false;
-            this.fire("deselectFrame", frameIndex);
             return this;
         },
 
