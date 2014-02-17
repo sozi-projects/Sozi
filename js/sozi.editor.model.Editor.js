@@ -79,7 +79,7 @@ namespace("sozi.editor.model", function (exports) {
             var index = this.selectedFrames.length ?
                 this.presentation.frames.indexOf(this.selectedFrames[this.selectedFrames.length - 1]) + 1 :
                 this.presentation.frames.length;
-            var frame = this.presentation.addFrame(sozi.editor.view.Preview.cameras, index);
+            var frame = this.presentation.addFrame(sozi.editor.view.Preview.state, index);
             this.fire("frameAdded", frame, index);
             return frame;
         },

@@ -311,9 +311,9 @@ namespace("sozi.player", function (exports) {
             this.svgRoot.setAttribute("width", this.width);
             this.svgRoot.setAttribute("height", this.height);
 
-            for (var layerId in this.cameras) {
-                this.cameras[layerId].update();
-            }
+            this.cameras.forEach(function (camera) {
+                camera.update();
+            });
 
             return this;
         },
@@ -329,23 +329,21 @@ namespace("sozi.player", function (exports) {
             var state = exports.CameraState.create().init(this);
 
             // Copy the document's bounding box to all layers
-            var result = {};
-            for (var layerId in this.cameras) {
-                result[layerId] = state;
-            }
-            return result;
+            return this.cameras.map(function (camera) {
+                return state;
+            });
         },
 
         /*
          * Set the state of the current viewport.
          *
          * Parameters:
-         *    - state: A dictionary of camera states
+         *    - state: An array of camera states
          */
         set state(state) {
-            for (var layerId in this.cameras) {
-                this.cameras[layerId].setAtState(state[layerId]);
-            }
+            this.cameras.forEach(function (camera, index) {
+                camera.setAtState(state[index]);
+            });
         },
 
         /*
@@ -355,11 +353,9 @@ namespace("sozi.player", function (exports) {
          *    - A dictionary of camera states
          */
         get state () {
-            var result = {};
-            for (var layerId in this.cameras) {
-                result[layerId] = this.cameras[layerId].clone;
-            }
-            return result;
+            return this.cameras.map(function (camera) {
+                return camera.clone();
+            });
         },
 
         /*
@@ -379,7 +375,7 @@ namespace("sozi.player", function (exports) {
                 if (camera.selected) {
                     camera.drag(deltaX, deltaY);
                 }
-            }, this);
+            });
             return this;
         },
 
@@ -405,7 +401,7 @@ namespace("sozi.player", function (exports) {
                 if (camera.selected) {
                     camera.zoom(factor, x, y);
                 }
-            }, this);
+            });
             this.fire("zoom");
             return this;
         },
@@ -431,7 +427,7 @@ namespace("sozi.player", function (exports) {
                 if (camera.selected) {
                     camera.rotate(angle);
                 }
-            }, this);
+            });
             this.fire("rotate");
             return this;
         }

@@ -17,7 +17,7 @@ namespace("sozi.editor.view", function (exports) {
             }
 
             var onResize = this.bind(function () {
-                this.setAspectRatio(editor, editor.aspect.num, editor.aspect.den);
+                this.aspectRatioChanged(editor, editor.aspect.num, editor.aspect.den);
             });
 
             document.querySelector("#aspect-num").addEventListener("change", onAspectChange, false);
@@ -50,8 +50,10 @@ namespace("sozi.editor.view", function (exports) {
         },
 
         selectionChanged: function (editor, defaultLayerSelected, selectedLayers, selectedFrames) {
-            // TODO implement preview.selectionChanged
-            console.log("preview.selectionChanged");
+            // TODO select active layers in viewport
+            if (selectedFrames.length) {
+                this.state = selectedFrames[selectedFrames.length - 1].state;
+            }
         }
     });
 });
