@@ -9,6 +9,8 @@ namespace("sozi.editor.view", function (exports) {
         init: function (editor) {
             sozi.player.Viewport.init.call(this, editor.presentation);
 
+            this.editor = editor;
+
             // Setup event handlers
             function onAspectChange() {
                 var num = parseInt(document.querySelector("#aspect-num").value);
@@ -62,8 +64,11 @@ namespace("sozi.editor.view", function (exports) {
             });
         },
 
-        stateChanged: function (editor) {
-            console.log("state changed");
+        stateChanged: function () {
+            var frame = this.editor.currentFrame;
+            if (frame) {
+                frame.state = this.state;
+            }
         }
     });
 });

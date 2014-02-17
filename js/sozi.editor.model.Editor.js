@@ -31,7 +31,7 @@ namespace("sozi.editor.model", function (exports) {
         },
 
         selectAllLayers: function () {
-            this.selectedLayers = this.layers;
+            this.selectedLayers = this.layers.slice();
             this.defaultLayerSelected = true;
             this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
             return this;
@@ -94,7 +94,7 @@ namespace("sozi.editor.model", function (exports) {
          *    - The current object.
          */
         selectAllFrames: function () {
-            this.selectedFrames = this.presentation.frames;
+            this.selectedFrames = this.presentation.frames.slice();
             this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
             return this;
         },
@@ -133,6 +133,13 @@ namespace("sozi.editor.model", function (exports) {
             return this.selectedFrames.indexOf(frame) >= 0 &&
                 (!layer && this.defaultLayerSelected ||
                  this.selectedLayers.indexOf(layer) >= 0);
+        },
+
+        get currentFrame() {
+            if (this.selectedFrames.length) {
+                return this.selectedFrames[this.selectedFrames.length - 1];
+            }
+            return null;
         },
 
         isCurrent: function (layer, frame) {
