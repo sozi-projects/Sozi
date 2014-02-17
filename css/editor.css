@@ -46,7 +46,13 @@ input#aspect-num, input#aspect-den {
 }
 
 div#timeline table {
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 1px;
+}
+
+div#timeline th,
+div#timeline td {
+    border: none;
 }
 
 div#timeline th {
@@ -54,15 +60,14 @@ div#timeline th {
 }
 
 div#timeline td {
-    border: 1px solid white;
     width: 2em;
     background: rgb(200, 200, 200);
 }
 
 div#timeline td.selected {
-    background: rgb(150, 200, 200);
+    background: rgb(200, 220, 220);
 }
 
 div#timeline td.current {
-    border-color: rgb(100, 200, 255);
+    background: rgb(150, 200, 200);
 }
