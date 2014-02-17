@@ -33,7 +33,7 @@ namespace("sozi.editor.model", function (exports) {
         selectAllLayers: function () {
             this.selectedLayers = this.layers;
             this.defaultLayerSelected = true;
-            this.fire("selectLayers");
+            this.fire("selectionChanged");
             return this;
         },
 
@@ -44,7 +44,7 @@ namespace("sozi.editor.model", function (exports) {
         deselectAllLayers: function () {
             this.selectedLayers = [];
             this.defaultLayerSelected = true;
-            this.fire("selectLayers");
+            this.fire("selectionChanged");
             return this;
         },
 
@@ -57,7 +57,7 @@ namespace("sozi.editor.model", function (exports) {
                 this.defaultLayerSelected = false;
                 this.selectedLayers = [layer];
             }
-            this.fire("selectLayers");
+            this.fire("selectionChanged");
             return this;
         },
 
@@ -82,22 +82,31 @@ namespace("sozi.editor.model", function (exports) {
                     this.defaultLayerSelected = true;
                 }
             }
-            this.fire("selectLayers");
+            this.fire("selectionChanged");
             return this;
+        },
+
+        addFrame: function () {
+            var index = this.selectedFrames.length ?
+                this.presentation.frames.indexOf(this.selectedFrames[this.selectedFrames.length - 1]) + 1 :
+                this.presentation.frames.length;
+            var frame = this.presentation.addFrame(sozi.editor.view.Preview.cameras, index);
+            this.fire("addFrame", frame, index);
+            return frame;
         },
 
         /*
          * Mark all frames as selected.
          *
          * Fires:
-         *    - selectFrames(array)
+         *    - selectionChanged(array)
          *
          * Returns:
          *    - The current object.
          */
         selectAllFrames: function () {
             this.selectedFrames = this.presentation.frames;
-            this.fire("selectFrames");
+            this.fire("selectionChanged");
             return this;
         },
 
@@ -105,14 +114,14 @@ namespace("sozi.editor.model", function (exports) {
          * Mark all frames as deselected.
          *
          * Fires:
-         *    - selectFrames(array)
+         *    - selectionChanged(array)
          *
          * Returns:
          *    - The current object.
          */
         deselectAllFrames: function () {
             this.selectedFrames = [];
-            this.fire("selectFrames");
+            this.fire("selectionChanged");
             return this;
         },
 
@@ -123,14 +132,14 @@ namespace("sozi.editor.model", function (exports) {
          *    - frame: The frame to select
          *
          * Fires:
-         *    - selectFrames(array)
+         *    - selectionChanged(array)
          *
          * Returns:
          *    - The current object.
          */
         selectFrame: function (frame) {
             this.selectedFrames = [frame];
-            this.fire("selectFrames");
+            this.fire("selectionChanged");
             return this;
         },
 
@@ -142,7 +151,7 @@ namespace("sozi.editor.model", function (exports) {
             else {
                 this.selectedFrames.splice(index, 1);
             }
-            this.fire("selectFrames");
+            this.fire("selectionChanged");
             return this;
         },
 
@@ -154,16 +163,6 @@ namespace("sozi.editor.model", function (exports) {
 
         isCurrent: function (frame) {
             return this.selectedFrames[this.selectedFrames.length - 1] === frame;
-        },
-
-        addFrame: function () {
-            this.deselectAllFrames();
-            var index = this.selectedFrames.length ?
-                this.presentation.frames.indexOf(this.selectedFrames[this.selectedFrames.length - 1]) + 1 :
-                this.presentation.frames.length;
-            var frame = this.presentation.addFrame(sozi.editor.view.Preview.cameras, index);
-            this.fire("addFrame", frame, index);
-            this.toggleFrameSelection(frame);
         }
     });
 });

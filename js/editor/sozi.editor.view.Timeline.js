@@ -12,19 +12,21 @@ namespace("sozi.editor.view", function (exports) {
             this.render();
 
             document.querySelector("#add-frame").addEventListener("click", function () {
-                editor.addFrame();
+                editor.selectFrame(editor.addFrame());
             }, false);
 
             var renderCallback = this.bind(this.render);
             editor.addListener("addLayer", renderCallback);
-            editor.addListener("selectFrames", renderCallback);
             editor.addListener("addFrame", renderCallback);
+            editor.addListener("selectionChanged", renderCallback);
 
             return this;
         },
 
         onAddLayer: function (evt) {
-            this.editor.addLayer(this.editor.presentation.layers[evt.target.value]);
+            var layer = this.editor.presentation.layers[evt.target.value];
+            this.editor.addLayer(layer);
+            this.editor.toggleLayerSelection(layer);
         },
 
         onFrameSelect: function (evt) {
