@@ -7,49 +7,69 @@ namespace("sozi.editor.view", function (exports) {
         init: function (editor) {
             sozi.model.Object.init.call(this);
 
-            // Fill layer selector
-            var htmlLayerSelect = document.querySelector("#layer-select");
+            this.editor = editor;
 
-            for (var layerId in exports.Preview.layers) {
-                var layer = exports.Preview.layers[layerId];
-                if (!layer.auto) {
-                    htmlLayerSelect.insertAdjacentHTML("beforeend", "<option value='" + layerId + "'>" + layer.label + "</option>");
-                }
-            }
-
-            htmlLayerSelect.addEventListener("change", function () {
-                editor.addLayer(htmlLayerSelect.value);
-            }, false);
+            this.render();
 
             document.querySelector("#add-frame").addEventListener("click", function () {
-                editor.presentation.addFrame();
+                editor.addFrame();
             }, false);
 
-            editor.addListener("addLayer", this);
-            editor.addListener("selectFrames", this);
-            editor.presentation.addListener("addFrame", this);
+            var renderCallback = this.bind(this.render);
+            editor.addListener("addLayer", renderCallback);
+            editor.addListener("selectFrames", renderCallback);
+            editor.addListener("addFrame", renderCallback);
 
             return this;
         },
 
-        addLayer: function (editor, layer) {
-            var htmlLayerSelect = document.querySelector("#layer-select");
-
-            // Add row to the timeline for the selected layer
-            htmlLayerSelect.parentNode.parentNode.insertAdjacentHTML("beforebegin", "<tr id='timeline-" + layer.id + "'><th>" + layer.label + "</th></tr>");
-
-            // Remove layer from drop-down list
-            htmlLayerSelect.removeChild(htmlLayerSelect.querySelector("option[value='" + layer.id + "']"));
+        onAddLayer: function (evt) {
+            this.editor.addLayer(this.editor.presentation.layers[evt.target.value]);
         },
 
-        addFrame: function (pres, frame, index) {
-            // TODO implement timeline.addFrame
-            console.log("timeline.addFrame");
+        onFrameSelect: function (evt) {
+            var frame = this.editor.presentation.frames[evt.target.dataset.frameIndex];
+            if (evt.ctrlKey) {
+                this.editor.toggleFrameSelection(frame);
+            }
+            else if (evt.shiftKey) {
+                // TODO toggle from last selected to current
+            }
+            else {
+                this.editor.selectFrame(frame);
+            }
+            this.editor.selectAllLayers();
         },
 
-        selectFrames: function (editor, frames) {
-            // TODO implement timeline.selectFrames
-            console.log("timeline.selectFrames");
+        onLayerSelect: function (evt) {
+            var index = parseInt(evt.target.parentNode.dataset.layerIndex, 10);
+            var layer = index >= 0 ? this.editor.presentation.layers[index] : null;
+            if (evt.ctrlKey) {
+                this.editor.toggleLayerSelection(layer);
+            }
+            else if (evt.shiftKey) {
+                // TODO toggle from last selected to current
+            }
+            else {
+                this.editor.selectLayer(layer);
+            }
+            this.editor.selectAllFrames();
+        },
+
+        render: function () {
+            document.querySelector("#timeline").innerHTML = nunjucks.render("templates/sozi.editor.view.Timeline.html", {
+                editor: this.editor
+            });
+
+            document.querySelector("#layer-select").addEventListener("change", this.bind(this.onAddLayer), false);
+
+            Array.prototype.slice.call(document.querySelectorAll(".frame-index")).forEach(function (th) {
+                th.addEventListener("click", this.bind(this.onFrameSelect), false);
+            }, this);
+
+            Array.prototype.slice.call(document.querySelectorAll(".layer-label")).forEach(function (th) {
+                th.addEventListener("click", this.bind(this.onLayerSelect), false);
+            }, this);
         }
     });
 });

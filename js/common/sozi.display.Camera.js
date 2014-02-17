@@ -165,29 +165,32 @@ namespace("sozi.display", function (exports) {
 
     exports.Camera = exports.CameraState.create({
 
-        init: function (viewport, svgLayer) {
+        init: function (viewport, svgNodes) {
             exports.CameraState.init.call(this, viewport);
 
-            var layerId = svgLayer.getAttribute("id");
+            this.selected = true;
 
             // The clipping rectangle of this camera
             this.svgClipRect = document.createElementNS(SVG_NS, "rect");
 
             // The clipping path of this camera
             var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
-            svgClipPath.setAttribute("id", "sozi-clip-path-" + viewport.id + "-" + layerId);
+            svgClipPath.setAttribute("id", "sozi-clip-path-" + viewport.id + "-" + this.id);
             svgClipPath.appendChild(this.svgClipRect);
             viewport.svgRoot.appendChild(svgClipPath);
 
             // The group that will support the clipping operation
             var svgClippedGroup = document.createElementNS(SVG_NS, "g");
-            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewport.id + "-" + layerId + ")");
+            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewport.id + "-" + this.id + ")");
             viewport.svgRoot.appendChild(svgClippedGroup);
 
-            // The group that will support transformations
-            this.svgLayer = document.createElementNS(SVG_NS, "g");
-            this.svgLayer.appendChild(svgLayer);
-            svgClippedGroup.appendChild(this.svgLayer);
+            // The groups that will support transformations
+            this.svgTransformGroups = svgNodes.map(function (svgNode) {
+                var svgGroup = document.createElementNS(SVG_NS, "g");
+                svgGroup.appendChild(svgNode);
+                svgClippedGroup.appendChild(svgGroup);
+                return svgGroup;
+            }, this);
 
             return this;
         },
@@ -243,11 +246,13 @@ namespace("sozi.display", function (exports) {
             var translateX = -this.cx + this.width / 2  + x / scale;
             var translateY = -this.cy + this.height / 2 + y / scale;
 
-            this.svgLayer.setAttribute("transform",
-                "scale(" + scale + ")" +
-                "translate(" + translateX + "," + translateY + ")" +
-                "rotate(" + (-this.angle) + ',' + this.cx + "," + this.cy + ")"
-            );
+            this.svgTransformGroups.forEach(function (svgGroup) {
+                svgGroup.setAttribute("transform",
+                    "scale(" + scale + ")" +
+                    "translate(" + translateX + "," + translateY + ")" +
+                    "rotate(" + (-this.angle) + ',' + this.cx + "," + this.cy + ")"
+                );
+            }, this);
 
             return this;
         }

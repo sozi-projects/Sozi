@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
     "use strict";
 
+    grunt.loadNpmTasks("grunt-nunjucks");
     grunt.loadNpmTasks("grunt-contrib-jshint");
 
     var version = grunt.template.today("yy.mm.ddHHMM");
@@ -15,8 +16,15 @@ module.exports = function(grunt) {
             all: [
                 "js/**/*.js"
             ]
+        },
+
+        nunjucks: {
+            templates: {
+                src: "templates/*",
+                dest: "build/sozi.editor.view.templates.js"
+            }
         }
     });
 
-    grunt.registerTask("default", []);
+    grunt.registerTask("default", ["nunjucks"]);
 };

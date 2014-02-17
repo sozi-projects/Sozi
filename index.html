@@ -6,6 +6,8 @@
 
         <link rel="stylesheet" href="css/editor.css">
 
+        <script src="vendor/nunjucks-slim.min.js"></script>
+
         <script src="js/common/namespace.js"></script>
         <script src="js/common/sozi.model.Object.js"></script>
         <script src="js/common/sozi.display.Camera.js"></script>
@@ -16,6 +18,8 @@
         <script src="js/editor/sozi.editor.view.Preview.js"></script>
         <script src="js/editor/sozi.editor.view.Timeline.js"></script>
         <script src="js/editor/main.js"></script>
+
+        <script src="build/sozi.editor.view.templates.js"></script>
     </head>
     <body>
         <input style="display:none;" id="file-dialog" type="file">
@@ -34,18 +38,7 @@
                     <input type="button" id="add-frame" value="Add frame">
                 </span>
             </div>
-            <table id="timeline">
-                <tr>
-                    <th>Default</th>
-                </tr>
-                <tr>
-                    <th>
-                        <select id="layer-select">
-                            <option value="__add__">Add layer</option>
-                        </select>
-                    </th>
-                </tr>
-            </table>
+            <div id="timeline"></div>
         </div>
     </body>
 </html>

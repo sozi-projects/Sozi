@@ -1,4 +1,5 @@
 namespace("sozi.editor.model", function (exports) {
+    "use strict";
 
     exports.Editor = sozi.model.Object.create({
         init: function (pres) {
@@ -7,7 +8,9 @@ namespace("sozi.editor.model", function (exports) {
             this.presentation = pres;
             this.aspect = {num: 4, den: 3};
             this.layers = [];
-            this.selectedFrames = [];
+            this.selectedFrames = pres.frames.length ? [pres.frames[0]] : [];
+            this.selectedLayers = [];
+            this.defaultLayerSelected = true;
 
             return this;
         },
@@ -18,26 +21,83 @@ namespace("sozi.editor.model", function (exports) {
                 this.aspect.den = den;
                 this.fire("setAspectRatio", num, den);
             }
+            return this;
         },
 
-        addLayer: function (id) {
-            var layer = sozi.editor.view.Preview.layers[id];
+        addLayer: function (layer) {
             this.layers.push(layer);
             this.fire("addLayer", layer);
+            return this;
+        },
+
+        selectAllLayers: function () {
+            this.selectedLayers = this.layers;
+            this.defaultLayerSelected = true;
+            this.fire("selectLayers");
+            return this;
+        },
+
+        /*
+         * Deselect all managed layers.
+         * Unmanaged layers are selected automatically.
+         */
+        deselectAllLayers: function () {
+            this.selectedLayers = [];
+            this.defaultLayerSelected = true;
+            this.fire("selectLayers");
+            return this;
+        },
+
+        selectLayer: function (layer) {
+            if (layer === null) {
+                this.defaultLayerSelected = true;
+                this.selectedLayers = [];
+            }
+            else {
+                this.defaultLayerSelected = false;
+                this.selectedLayers = [layer];
+            }
+            this.fire("selectLayers");
+            return this;
+        },
+
+        toggleLayerSelection: function (layer) {
+            if (layer === null) {
+                if (!this.defaultLayerSelected) {
+                    this.defaultLayerSelected = true;
+                }
+                else if (this.selectedLayers.length) {
+                    this.defaultLayerSelected = false;
+                }
+            }
+            else {
+                var index = this.selectedLayers.indexOf(layer);
+                if (index < 0) {
+                    this.selectedLayers.push(layer);
+                }
+                else {
+                    this.selectedLayers.splice(index, 1);
+                }
+                if (!this.selectedLayers.length) {
+                    this.defaultLayerSelected = true;
+                }
+            }
+            this.fire("selectLayers");
+            return this;
         },
 
         /*
          * Mark all frames as selected.
          *
          * Fires:
-         *    - selectFrame(frameIndex)
+         *    - selectFrames(array)
          *
          * Returns:
          *    - The current object.
          */
         selectAllFrames: function () {
             this.selectedFrames = this.presentation.frames;
-            this.fire("selectFrames", this.selectedFrames);
+            this.fire("selectFrames");
             return this;
         },
 
@@ -45,14 +105,14 @@ namespace("sozi.editor.model", function (exports) {
          * Mark all frames as deselected.
          *
          * Fires:
-         *    - deselectFrame(frameIndex)
+         *    - selectFrames(array)
          *
          * Returns:
          *    - The current object.
          */
         deselectAllFrames: function () {
             this.selectedFrames = [];
-            this.fire("selectFrames", this.selectedFrames);
+            this.fire("selectFrames");
             return this;
         },
 
@@ -60,14 +120,20 @@ namespace("sozi.editor.model", function (exports) {
          * Mark a frame as selected.
          *
          * Parameters:
-         *    - frameIndex: The index of the frame to select
+         *    - frame: The frame to select
          *
          * Fires:
-         *    - selectFrame(frameIndex)
+         *    - selectFrames(array)
          *
          * Returns:
          *    - The current object.
          */
+        selectFrame: function (frame) {
+            this.selectedFrames = [frame];
+            this.fire("selectFrames");
+            return this;
+        },
+
         toggleFrameSelection: function (frame) {
             var index = this.selectedFrames.indexOf(frame);
             if (index < 0) {
@@ -76,8 +142,28 @@ namespace("sozi.editor.model", function (exports) {
             else {
                 this.selectedFrames.splice(index, 1);
             }
-            this.fire("selectFrames", this.selectedFrames);
+            this.fire("selectFrames");
             return this;
+        },
+
+        isSelected: function (layer, frame) {
+            return this.selectedFrames.indexOf(frame) >= 0 &&
+                (!layer && this.defaultLayerSelected ||
+                 this.selectedLayers.indexOf(layer) >= 0);
+        },
+
+        isCurrent: function (frame) {
+            return this.selectedFrames[this.selectedFrames.length - 1] === frame;
+        },
+
+        addFrame: function () {
+            this.deselectAllFrames();
+            var index = this.selectedFrames.length ?
+                this.presentation.frames.indexOf(this.selectedFrames[this.selectedFrames.length - 1]) + 1 :
+                this.presentation.frames.length;
+            var frame = this.presentation.addFrame(sozi.editor.view.Preview.cameras, index);
+            this.fire("addFrame", frame, index);
+            this.toggleFrameSelection(frame);
         }
     });
 });

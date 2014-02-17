@@ -11,6 +11,7 @@
 
 	"globals": {
 		"sozi": false,
-		"namespace": false
+		"namespace": false,
+        "nunjucks": false
 	}
 }

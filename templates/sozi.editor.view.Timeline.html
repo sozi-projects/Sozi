@@ -1,0 +1,38 @@
+<table>
+    <tr>
+        <th></th>
+        {% for frame in editor.presentation.frames %}
+            <th data-frame-index="{{loop.index0}}" class="frame-index">{{loop.index}}</th>
+        {% endfor %}
+    </tr>
+    <tr data-layer-index="-1">
+        <th class="layer-label">Default</th>
+        {% for frame in editor.presentation.frames %}
+            <td data-frame-index="{{loop.index0}}"
+                class="{{'selected' if editor.isSelected(null, frame)}} {{'current' if editor.isCurrent(frame)}}"></td>
+        {% endfor %}
+    </tr>
+    {% for layer in editor.presentation.layers %}
+        {% if editor.layers.indexOf(layer) >= 0 %}
+            <tr data-layer-index="{{loop.index0}}">
+                <th class="layer-label">{{layer.label}}</th>
+                {% for frame in editor.presentation.frames %}
+                    <td data-frame-index="{{loop.index0}}"
+                        class="{{'selected' if editor.isSelected(layer, frame)}} {{'current' if editor.isCurrent(frame)}}"></td>
+                {% endfor %}
+            </tr>
+        {% endif %}
+    {% endfor %}
+    <tr>
+        <th>
+            <select id="layer-select">
+                <option value="__add__">Add layer</option>
+                {% for layer in editor.presentation.layers %}
+                    {% if not layer.auto and editor.layers.indexOf(layer) < 0 %}
+                        <option value="{{loop.index0}}">{{layer.label}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </th>
+    </tr>
+</table>
