@@ -26,6 +26,7 @@ namespace("sozi.editor.view", function (exports) {
 
             editor.addListener("aspectRatioChanged", this);
             editor.addListener("selectionChanged", this);
+            this.addListener("stateChanged", this);
 
             onResize();
 
@@ -50,10 +51,19 @@ namespace("sozi.editor.view", function (exports) {
         },
 
         selectionChanged: function (editor, defaultLayerSelected, selectedLayers, selectedFrames) {
-            // TODO select active layers in viewport
             if (selectedFrames.length) {
                 this.state = selectedFrames[selectedFrames.length - 1].state;
             }
+            // A camera is selected if its layer belongs to the list of selected layers
+            // or if its layer is not managed and the default layer is selected.
+            this.cameras.forEach(function (camera) {
+                camera.selected = selectedLayers.indexOf(camera.layer) >= 0 ||
+                    defaultLayerSelected && editor.layers.indexOf(camera.layer) < 0;
+            });
+        },
+
+        stateChanged: function (editor) {
+            console.log("state changed");
         }
     });
 });

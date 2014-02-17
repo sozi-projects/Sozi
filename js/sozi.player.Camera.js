@@ -165,9 +165,10 @@ namespace("sozi.player", function (exports) {
 
     exports.Camera = exports.CameraState.create({
 
-        init: function (viewport, svgNodes) {
+        init: function (viewport, layer) {
             exports.CameraState.init.call(this, viewport);
 
+            this.layer = layer;
             this.selected = true;
 
             // The clipping rectangle of this camera
@@ -185,7 +186,7 @@ namespace("sozi.player", function (exports) {
             viewport.svgRoot.appendChild(svgClippedGroup);
 
             // The groups that will support transformations
-            this.svgTransformGroups = svgNodes.map(function (svgNode) {
+            this.svgTransformGroups = layer.svgNodes.map(function (svgNode) {
                 var svgGroup = document.createElementNS(SVG_NS, "g");
                 svgGroup.appendChild(svgNode);
                 svgClippedGroup.appendChild(svgGroup);

@@ -48,7 +48,7 @@ namespace("sozi.player", function (exports) {
 
             // Create a camera for each layer
             this.cameras = this.presentation.layers.map(function (layer) {
-                return exports.Camera.create().init(this, layer.svgNodes);
+                return exports.Camera.create().init(this, layer);
             }, this);
 
             // Setup mouse and keyboard event handlers
@@ -367,6 +367,9 @@ namespace("sozi.player", function (exports) {
          *    - deltaX: The horizontal displacement, in pixels
          *    - deltaY: The vertical displacement, in pixels
          *
+         * Fires:
+         *    - stateChanged
+         *
          * Returns:
          *    - The current viewport.
          */
@@ -376,6 +379,7 @@ namespace("sozi.player", function (exports) {
                     camera.drag(deltaX, deltaY);
                 }
             });
+            this.fire("stateChanged");
             return this;
         },
 
@@ -391,7 +395,7 @@ namespace("sozi.player", function (exports) {
          *    - x, y: The coordinates of the center of the zoom operation.
          *
          * Fires:
-         *    - zoom
+         *    - stateChanged
          *
          * Returns:
          *    - The current viewport.
@@ -402,7 +406,7 @@ namespace("sozi.player", function (exports) {
                     camera.zoom(factor, x, y);
                 }
             });
-            this.fire("zoom");
+            this.fire("stateChanged");
             return this;
         },
 
@@ -420,7 +424,7 @@ namespace("sozi.player", function (exports) {
          *    - The current viewport.
          *
          * Fires:
-         *    - rotate
+         *    - stateChanged
          */
         rotate: function (angle) {
             this.cameras.forEach(function (camera) {
@@ -428,7 +432,7 @@ namespace("sozi.player", function (exports) {
                     camera.rotate(angle);
                 }
             });
-            this.fire("rotate");
+            this.fire("stateChanged");
             return this;
         }
     });
