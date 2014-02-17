@@ -9,7 +9,7 @@
         <th class="layer-label">Default</th>
         {% for frame in editor.presentation.frames %}
             <td data-frame-index="{{loop.index0}}"
-                class="{{'selected' if editor.isSelected(null, frame)}} {{'current' if editor.isCurrent(frame)}}"></td>
+                class="{{'selected' if editor.isSelected(null, frame)}} {{'current' if editor.isCurrent(layer, frame)}}"></td>
         {% endfor %}
     </tr>
     {% for layer in editor.presentation.layers %}
@@ -18,7 +18,7 @@
                 <th class="layer-label">{{layer.label}}</th>
                 {% for frame in editor.presentation.frames %}
                     <td data-frame-index="{{loop.index0}}"
-                        class="{{'selected' if editor.isSelected(layer, frame)}} {{'current' if editor.isCurrent(frame)}}"></td>
+                        class="{{'selected' if editor.isSelected(layer, frame)}} {{'current' if editor.isCurrent(layer, frame)}}"></td>
                 {% endfor %}
             </tr>
         {% endif %}

@@ -135,8 +135,9 @@ namespace("sozi.editor.model", function (exports) {
                  this.selectedLayers.indexOf(layer) >= 0);
         },
 
-        isCurrent: function (frame) {
-            return this.selectedFrames[this.selectedFrames.length - 1] === frame;
+        isCurrent: function (layer, frame) {
+            return this.isSelected(layer, frame) &&
+                this.selectedFrames[this.selectedFrames.length - 1] === frame;
         }
     });
 });
