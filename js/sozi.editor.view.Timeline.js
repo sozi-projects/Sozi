@@ -16,8 +16,8 @@ namespace("sozi.editor.view", function (exports) {
             }, false);
 
             var renderCallback = this.bind(this.render);
-            editor.addListener("addLayer", renderCallback);
-            editor.addListener("addFrame", renderCallback);
+            editor.addListener("layerAdded", renderCallback);
+            editor.addListener("frameAdded", renderCallback);
             editor.addListener("selectionChanged", renderCallback);
 
             return this;

@@ -19,32 +19,21 @@ namespace("sozi.editor.model", function (exports) {
             if (num > 0 && den > 0) {
                 this.aspect.num = num;
                 this.aspect.den = den;
-                this.fire("setAspectRatio", num, den);
+                this.fire("aspectRatioChanged", num, den);
             }
             return this;
         },
 
         addLayer: function (layer) {
             this.layers.push(layer);
-            this.fire("addLayer", layer);
+            this.fire("layerAdded", layer);
             return this;
         },
 
         selectAllLayers: function () {
             this.selectedLayers = this.layers;
             this.defaultLayerSelected = true;
-            this.fire("selectionChanged");
-            return this;
-        },
-
-        /*
-         * Deselect all managed layers.
-         * Unmanaged layers are selected automatically.
-         */
-        deselectAllLayers: function () {
-            this.selectedLayers = [];
-            this.defaultLayerSelected = true;
-            this.fire("selectionChanged");
+            this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
             return this;
         },
 
@@ -57,7 +46,7 @@ namespace("sozi.editor.model", function (exports) {
                 this.defaultLayerSelected = false;
                 this.selectedLayers = [layer];
             }
-            this.fire("selectionChanged");
+            this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
             return this;
         },
 
@@ -82,7 +71,7 @@ namespace("sozi.editor.model", function (exports) {
                     this.defaultLayerSelected = true;
                 }
             }
-            this.fire("selectionChanged");
+            this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
             return this;
         },
 
@@ -91,7 +80,7 @@ namespace("sozi.editor.model", function (exports) {
                 this.presentation.frames.indexOf(this.selectedFrames[this.selectedFrames.length - 1]) + 1 :
                 this.presentation.frames.length;
             var frame = this.presentation.addFrame(sozi.editor.view.Preview.cameras, index);
-            this.fire("addFrame", frame, index);
+            this.fire("frameAdded", frame, index);
             return frame;
         },
 
@@ -106,22 +95,7 @@ namespace("sozi.editor.model", function (exports) {
          */
         selectAllFrames: function () {
             this.selectedFrames = this.presentation.frames;
-            this.fire("selectionChanged");
-            return this;
-        },
-
-        /*
-         * Mark all frames as deselected.
-         *
-         * Fires:
-         *    - selectionChanged(array)
-         *
-         * Returns:
-         *    - The current object.
-         */
-        deselectAllFrames: function () {
-            this.selectedFrames = [];
-            this.fire("selectionChanged");
+            this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
             return this;
         },
 
@@ -139,7 +113,7 @@ namespace("sozi.editor.model", function (exports) {
          */
         selectFrame: function (frame) {
             this.selectedFrames = [frame];
-            this.fire("selectionChanged");
+            this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
             return this;
         },
 
@@ -151,7 +125,7 @@ namespace("sozi.editor.model", function (exports) {
             else {
                 this.selectedFrames.splice(index, 1);
             }
-            this.fire("selectionChanged");
+            this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
             return this;
         },
 

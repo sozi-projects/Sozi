@@ -24,15 +24,15 @@ namespace("sozi.editor.view", function (exports) {
             document.querySelector("#aspect-den").addEventListener("change", onAspectChange, false);
             window.addEventListener("resize", onResize, false);
 
-            editor.addListener("setAspectRatio", this);
-            editor.addListener("selectFrames", this);
+            editor.addListener("aspectRatioChanged", this);
+            editor.addListener("selectionChanged", this);
 
             onResize();
 
             return this;
         },
 
-        setAspectRatio: function (editor, num, den) {
+        aspectRatioChanged: function (editor, num, den) {
             var top = document.querySelector("#top");
             var maxWidth = top.clientWidth - 2 * PREVIEW_MARGIN;
             var maxHeight = top.clientHeight - 2 * PREVIEW_MARGIN;
@@ -49,9 +49,9 @@ namespace("sozi.editor.view", function (exports) {
             this.resize();
         },
 
-        selectFrames: function (editor, frames) {
-            // TODO implement preview.selectFrames
-            console.log("preview.selectFrames");
+        selectionChanged: function (editor, defaultLayerSelected, selectedLayers, selectedFrames) {
+            // TODO implement preview.selectionChanged
+            console.log("preview.selectionChanged");
         }
     });
 });
