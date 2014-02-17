@@ -4,10 +4,10 @@ namespace("sozi.editor.view", function (exports) {
 
     var PREVIEW_MARGIN = 15;
 
-    exports.Preview = sozi.display.Viewport.create({
+    exports.Preview = sozi.player.Viewport.create({
 
         init: function (editor) {
-            sozi.display.Viewport.init.call(this, editor.presentation);
+            sozi.player.Viewport.init.call(this, editor.presentation);
 
             // Setup event handlers
             function onAspectChange() {

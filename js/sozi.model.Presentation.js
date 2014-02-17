@@ -11,7 +11,7 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
-namespace("sozi.document", function (exports) {
+namespace("sozi.model", function (exports) {
     "use strict";
 
     exports.Frame = sozi.model.Object.create({
@@ -126,7 +126,7 @@ namespace("sozi.document", function (exports) {
         },
 
         addFrame: function (state, index) {
-            var frame = sozi.document.Frame.create().init(this, state);
+            var frame = exports.Frame.create().init(this, state);
             this.frames.splice(index, 0, frame);
             return frame;
         }

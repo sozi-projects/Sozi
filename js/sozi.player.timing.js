@@ -1,4 +1,4 @@
-namespace("sozi.display.timing", function (exports) {
+namespace("sozi.player.timing", function (exports) {
     "use strict";
 
     /*

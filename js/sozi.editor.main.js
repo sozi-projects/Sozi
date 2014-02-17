@@ -62,7 +62,7 @@ window.addEventListener("load", function () {
                 }
 
                 // Initialize models and views
-                var pres = sozi.document.Presentation.init(svgRoot);
+                var pres = sozi.model.Presentation.init(svgRoot);
                 var editor = sozi.editor.model.Editor.init(pres);
                 sozi.editor.view.Preview.init(editor);
                 sozi.editor.view.Timeline.init(editor);

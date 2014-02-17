@@ -11,7 +11,7 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
-namespace("sozi.display", function (exports) {
+namespace("sozi.player", function (exports) {
     "use strict";
 
     // Use left mouse button to drag

@@ -11,7 +11,7 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
-namespace("sozi.display", function (exports) {
+namespace("sozi.player", function (exports) {
     "use strict";
 
     /*
@@ -134,7 +134,7 @@ namespace("sozi.display", function (exports) {
          */
         start: function (durationMs, timingFunction) {
             this.durationMs = durationMs || 500;
-            this.timingFunction = timingFunction || sozi.display.timing.linear;
+            this.timingFunction = timingFunction || sozi.player.timing.linear;
             this.initialTime = perf.now();
             this.fire("step", 0);
             if (!this.running) {
