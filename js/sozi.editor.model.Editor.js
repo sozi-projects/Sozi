@@ -52,27 +52,26 @@ namespace("sozi.editor.model", function (exports) {
 
         toggleLayerSelection: function (layer) {
             if (layer === null) {
-                if (!this.defaultLayerSelected) {
-                    this.defaultLayerSelected = true;
-                }
-                else if (this.selectedLayers.length) {
-                    this.defaultLayerSelected = false;
-                }
+                this.defaultLayerSelected = !this.defaultLayerSelected || !this.selectedLayers.length;
             }
             else {
-                var index = this.selectedLayers.indexOf(layer);
-                if (index < 0) {
+                var layerIndex = this.selectedLayers.indexOf(layer);
+                if (layerIndex < 0) {
                     this.selectedLayers.push(layer);
                 }
                 else {
-                    this.selectedLayers.splice(index, 1);
-                }
-                if (!this.selectedLayers.length) {
-                    this.defaultLayerSelected = true;
+                    this.selectedLayers.splice(layerIndex, 1);
+                    if (!this.selectedLayers.length) {
+                        this.defaultLayerSelected = true;
+                    }
                 }
             }
             this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
             return this;
+        },
+
+        layerIsSelected: function (layer) {
+            return !layer && this.defaultLayerSelected || this.selectedLayers.indexOf(layer) >= 0;
         },
 
         addFrame: function () {
@@ -118,21 +117,40 @@ namespace("sozi.editor.model", function (exports) {
         },
 
         toggleFrameSelection: function (frame) {
-            var index = this.selectedFrames.indexOf(frame);
-            if (index < 0) {
+            var frameIndex = this.selectedFrames.indexOf(frame);
+            if (frameIndex < 0) {
                 this.selectedFrames.push(frame);
             }
             else {
-                this.selectedFrames.splice(index, 1);
+                this.selectedFrames.splice(frameIndex, 1);
             }
             this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
             return this;
         },
 
-        isSelected: function (layer, frame) {
-            return this.selectedFrames.indexOf(frame) >= 0 &&
-                (!layer && this.defaultLayerSelected ||
-                 this.selectedLayers.indexOf(layer) >= 0);
+        toggleFrameLayerSelection: function (layer, frame) {
+            var layerIsSelected = this.layerIsSelected(layer);
+            var frameIsSelected = this.frameIsSelected(frame);
+            if (layerIsSelected === frameIsSelected) {
+                this.toggleLayerSelection(layer);
+                this.toggleFrameSelection(frame);
+            }
+            else if (layerIsSelected) {
+                this.toggleFrameSelection(frame);
+            }
+            else if (frameIsSelected) {
+                this.toggleLayerSelection(layer);
+            }
+
+            return this;
+        },
+
+        frameIsSelected: function (frame) {
+            return this.selectedFrames.indexOf(frame) >= 0;
+        },
+
+        frameIsCurrent: function (frame) {
+            return this.currentFrame === frame;
         },
 
         get currentFrame() {
@@ -140,11 +158,6 @@ namespace("sozi.editor.model", function (exports) {
                 return this.selectedFrames[this.selectedFrames.length - 1];
             }
             return null;
-        },
-
-        isCurrent: function (layer, frame) {
-            return this.isSelected(layer, frame) &&
-                this.selectedFrames[this.selectedFrames.length - 1] === frame;
         }
     });
 });

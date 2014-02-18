@@ -39,13 +39,13 @@ namespace("sozi.editor.view", function (exports) {
             }
             else {
                 this.editor.selectFrame(frame);
+                this.editor.selectAllLayers();
             }
-            this.editor.selectAllLayers();
         },
 
         onLayerSelect: function (evt) {
-            var index = parseInt(evt.target.parentNode.dataset.layerIndex, 10);
-            var layer = index >= 0 ? this.editor.presentation.layers[index] : null;
+            var layerIndex = evt.target.parentNode.dataset.layerIndex;
+            var layer = layerIndex >= 0 ? this.editor.presentation.layers[layerIndex] : null;
             if (evt.ctrlKey) {
                 this.editor.toggleLayerSelection(layer);
             }
@@ -54,8 +54,24 @@ namespace("sozi.editor.view", function (exports) {
             }
             else {
                 this.editor.selectLayer(layer);
+                this.editor.selectAllFrames();
             }
-            this.editor.selectAllFrames();
+        },
+
+        onCellSelect: function (evt) {
+            var layerIndex = evt.target.parentNode.dataset.layerIndex;
+            var layer = layerIndex >= 0 ? this.editor.presentation.layers[layerIndex] : null;
+            var frame = this.editor.presentation.frames[evt.target.dataset.frameIndex];
+            if (evt.ctrlKey) {
+                this.editor.toggleFrameLayerSelection(layer, frame);
+            }
+            else if (evt.shiftKey) {
+                // TODO toggle from last selected to current
+            }
+            else {
+                this.editor.selectLayer(layer);
+                this.editor.selectFrame(frame);
+            }
         },
 
         render: function () {
@@ -65,12 +81,16 @@ namespace("sozi.editor.view", function (exports) {
 
             document.querySelector("#layer-select").addEventListener("change", this.bind(this.onAddLayer), false);
 
-            Array.prototype.slice.call(document.querySelectorAll(".frame-index")).forEach(function (th) {
+            Array.prototype.slice.call(document.querySelectorAll("#timeline .frame-index")).forEach(function (th) {
                 th.addEventListener("click", this.bind(this.onFrameSelect), false);
             }, this);
 
-            Array.prototype.slice.call(document.querySelectorAll(".layer-label")).forEach(function (th) {
+            Array.prototype.slice.call(document.querySelectorAll("#timeline .layer-label")).forEach(function (th) {
                 th.addEventListener("click", this.bind(this.onLayerSelect), false);
+            }, this);
+
+            Array.prototype.slice.call(document.querySelectorAll("#timeline td")).forEach(function (td) {
+                td.addEventListener("click", this.bind(this.onCellSelect), false);
             }, this);
         }
     });

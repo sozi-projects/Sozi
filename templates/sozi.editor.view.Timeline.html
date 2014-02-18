@@ -2,23 +2,24 @@
     <tr>
         <th></th>
         {% for frame in editor.presentation.frames %}
-            <th data-frame-index="{{loop.index0}}" class="frame-index">{{loop.index}}</th>
+            <th data-frame-index="{{loop.index0}}"
+                class="frame-index {{'selected' if editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}">{{loop.index}}</th>
         {% endfor %}
     </tr>
     <tr data-layer-index="-1">
-        <th class="layer-label">Default</th>
+        <th class="layer-label {{'selected' if editor.layerIsSelected(null)}}">Default</th>
         {% for frame in editor.presentation.frames %}
             <td data-frame-index="{{loop.index0}}"
-                class="{{'selected' if editor.isSelected(null, frame)}} {{'current' if editor.isCurrent(layer, frame)}}"></td>
+                class="{{'selected' if editor.layerIsSelected(null) and editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}"></td>
         {% endfor %}
     </tr>
     {% for layer in editor.presentation.layers %}
         {% if editor.layers.indexOf(layer) >= 0 %}
             <tr data-layer-index="{{loop.index0}}">
-                <th class="layer-label">{{layer.label}}</th>
+                <th class="layer-label {{'selected' if editor.layerIsSelected(layer)}}">{{layer.label}}</th>
                 {% for frame in editor.presentation.frames %}
                     <td data-frame-index="{{loop.index0}}"
-                        class="{{'selected' if editor.isSelected(layer, frame)}} {{'current' if editor.isCurrent(layer, frame)}}"></td>
+                        class="{{'selected' if editor.layerIsSelected(layer) and editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}"></td>
                 {% endfor %}
             </tr>
         {% endif %}

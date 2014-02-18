@@ -64,10 +64,10 @@ div#timeline td {
     background: rgb(200, 200, 200);
 }
 
-div#timeline td.selected {
+div#timeline .selected {
     background: rgb(200, 220, 220);
 }
 
-div#timeline td.current {
+div#timeline .selected.current {
     background: rgb(150, 200, 200);
 }
