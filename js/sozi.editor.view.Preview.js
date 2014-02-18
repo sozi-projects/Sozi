@@ -69,6 +69,9 @@ namespace("sozi.editor.view", function (exports) {
             if (frame) {
                 frame.state = this.state;
             }
+            // TODO choose reference SVG element for frame
+            // getIntersectionList(SVGRect, SVGElement)
+            // getEnclosureList(SVGRect, SVGElement)
         }
     });
 });

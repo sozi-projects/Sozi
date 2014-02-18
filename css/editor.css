@@ -39,6 +39,7 @@ div#bottom {
     left: 0;
     width: 100%;
     height: 30%;
+    overflow: auto;
 }
 
 input#aspect-num, input#aspect-den {
@@ -46,8 +47,7 @@ input#aspect-num, input#aspect-den {
 }
 
 div#timeline table {
-    border-collapse: separate;
-    border-spacing: 1px;
+    border-collapse: collapse;
 }
 
 div#timeline th,
@@ -59,8 +59,18 @@ div#timeline th {
     cursor: default;
 }
 
+div#timeline td,
+div#timeline th.layer-label {
+    border: 2px solid white;
+}
+
+div#timeline th.layer-label {
+    text-align: left;
+    max-width: 4em;
+    text-overflow: ellipsis;
+}
+
 div#timeline td {
-    width: 2em;
     background: rgb(200, 200, 200);
 }
 
@@ -70,4 +80,22 @@ div#timeline .selected {
 
 div#timeline .selected.current {
     background: rgb(150, 200, 200);
+}
+
+div#timeline .frame-index {
+    border-collapse: collapse;
+}
+
+div#timeline .frame-title {
+    font-weight: normal;
+}
+
+div#timeline .frame-index,
+div#timeline .frame-title,
+div#timeline td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: small;
+    width: 8em;
 }

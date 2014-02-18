@@ -3,7 +3,25 @@
         <th></th>
         {% for frame in editor.presentation.frames %}
             <th data-frame-index="{{loop.index0}}"
+                title="{{frame.title}}"
                 class="frame-index {{'selected' if editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}">{{loop.index}}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        <th>
+            <select id="layer-select">
+                <option value="__add__">Add layer</option>
+                {% for layer in editor.presentation.layers %}
+                    {% if not layer.auto and editor.layers.indexOf(layer) < 0 %}
+                        <option value="{{loop.index0}}">{{layer.label}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </th>
+        {% for frame in editor.presentation.frames %}
+            <th data-frame-index="{{loop.index0}}"
+                title="{{frame.title}}"
+                class="frame-title {{'selected' if editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}">{{frame.title}}</th>
         {% endfor %}
     </tr>
     <tr data-layer-index="-1">
@@ -24,16 +42,4 @@
             </tr>
         {% endif %}
     {% endfor %}
-    <tr>
-        <th>
-            <select id="layer-select">
-                <option value="__add__">Add layer</option>
-                {% for layer in editor.presentation.layers %}
-                    {% if not layer.auto and editor.layers.indexOf(layer) < 0 %}
-                        <option value="{{loop.index0}}">{{layer.label}}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-        </th>
-    </tr>
 </table>

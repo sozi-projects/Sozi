@@ -81,7 +81,7 @@ namespace("sozi.editor.view", function (exports) {
 
             document.querySelector("#layer-select").addEventListener("change", this.bind(this.onAddLayer), false);
 
-            Array.prototype.slice.call(document.querySelectorAll("#timeline .frame-index")).forEach(function (th) {
+            Array.prototype.slice.call(document.querySelectorAll("#timeline .frame-index, #timeline .frame-title")).forEach(function (th) {
                 th.addEventListener("click", this.bind(this.onFrameSelect), false);
             }, this);
 
