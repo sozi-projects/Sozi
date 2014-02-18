@@ -10,7 +10,8 @@ namespace("sozi.editor.model", function (exports) {
             this.layers = [];
             this.selectedFrames = pres.frames.length ? [pres.frames[0]] : [];
             this.selectedLayers = [];
-            this.defaultLayerSelected = true;
+            this.defaultLayers = pres.layers.slice();
+            this.defaultLayersSelected = true;
 
             return this;
         },
@@ -26,33 +27,41 @@ namespace("sozi.editor.model", function (exports) {
 
         addLayer: function (layer) {
             this.layers.push(layer);
+            this.defaultLayers.splice(this.defaultLayers.indexOf(layer), 1);
             this.fire("layerAdded", layer);
             return this;
         },
 
         selectAllLayers: function () {
             this.selectedLayers = this.layers.slice();
-            this.defaultLayerSelected = true;
-            this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
+            this.defaultLayersSelected = true;
+            this.fire("selectionChanged", this.defaultLayersSelected, this.selectedLayers, this.selectedFrames);
             return this;
         },
 
         selectLayer: function (layer) {
             if (layer === null) {
-                this.defaultLayerSelected = true;
+                this.defaultLayersSelected = true;
                 this.selectedLayers = [];
             }
             else {
-                this.defaultLayerSelected = false;
+                this.defaultLayersSelected = false;
                 this.selectedLayers = [layer];
             }
-            this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
+            this.fire("selectionChanged", this.defaultLayersSelected, this.selectedLayers, this.selectedFrames);
+            return this;
+        },
+
+        deselectLayer: function (layer) {
+            if (this.layerIsSelected(layer)) {
+                this.toggleLayerSelection(layer);
+            }
             return this;
         },
 
         toggleLayerSelection: function (layer) {
             if (layer === null) {
-                this.defaultLayerSelected = !this.defaultLayerSelected || !this.selectedLayers.length;
+                this.defaultLayersSelected = !this.defaultLayersSelected || !this.selectedLayers.length;
             }
             else {
                 var layerIndex = this.selectedLayers.indexOf(layer);
@@ -62,16 +71,35 @@ namespace("sozi.editor.model", function (exports) {
                 else {
                     this.selectedLayers.splice(layerIndex, 1);
                     if (!this.selectedLayers.length) {
-                        this.defaultLayerSelected = true;
+                        this.defaultLayersSelected = true;
                     }
                 }
             }
-            this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
+            this.fire("selectionChanged", this.defaultLayersSelected, this.selectedLayers, this.selectedFrames);
+            return this;
+        },
+
+        defaultLayersAreVisible: function () {
+            return this.defaultLayers.some(function (layer) {
+                return layer.isVisible;
+            });
+        },
+
+        toggleLayerVisibility: function (layer) {
+            if (layer) {
+                layer.isVisible = !layer.isVisible;
+            }
+            else {
+                this.defaultLayers.forEach(function (layer) {
+                    layer.isVisible = !layer.isVisible;
+                });
+            }
+            this.fire("visibilityChanged", layer);
             return this;
         },
 
         layerIsSelected: function (layer) {
-            return !layer && this.defaultLayerSelected || this.selectedLayers.indexOf(layer) >= 0;
+            return !layer && this.defaultLayersSelected || this.selectedLayers.indexOf(layer) >= 0;
         },
 
         addFrame: function () {
@@ -94,7 +122,7 @@ namespace("sozi.editor.model", function (exports) {
          */
         selectAllFrames: function () {
             this.selectedFrames = this.presentation.frames.slice();
-            this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
+            this.fire("selectionChanged", this.defaultLayersSelected, this.selectedLayers, this.selectedFrames);
             return this;
         },
 
@@ -112,7 +140,7 @@ namespace("sozi.editor.model", function (exports) {
          */
         selectFrame: function (frame) {
             this.selectedFrames = [frame];
-            this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
+            this.fire("selectionChanged", this.defaultLayersSelected, this.selectedLayers, this.selectedFrames);
             return this;
         },
 
@@ -124,7 +152,7 @@ namespace("sozi.editor.model", function (exports) {
             else {
                 this.selectedFrames.splice(frameIndex, 1);
             }
-            this.fire("selectionChanged", this.defaultLayerSelected, this.selectedLayers, this.selectedFrames);
+            this.fire("selectionChanged", this.defaultLayersSelected, this.selectedLayers, this.selectedFrames);
             return this;
         },
 

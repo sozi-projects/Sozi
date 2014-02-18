@@ -1,8 +1,6 @@
 <table>
     <tr>
-        <th>
-            <input type="button" id="add-frame" value="Add frame">
-        </th>
+        <th><input type="button" id="add-frame" value="Add frame"></th>
         {% for frame in editor.presentation.frames %}
             <th data-frame-index="{{loop.index0}}"
                 title="{{frame.title}}"
@@ -27,7 +25,9 @@
         {% endfor %}
     </tr>
     <tr data-layer-index="-1">
-        <th class="layer-label {{'selected' if editor.layerIsSelected(null)}}">Default</th>
+        <th class="layer-label {{'selected' if editor.layerIsSelected(null)}}">
+            <i class="visibility fa {{'fa-eye' if editor.defaultLayersAreVisible() else 'fa-eye-slash'}}"></i> Default
+        </th>
         {% for frame in editor.presentation.frames %}
             <td data-frame-index="{{loop.index0}}"
                 class="{{'selected' if editor.layerIsSelected(null) and editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}"></td>
@@ -36,7 +36,9 @@
     {% for layer in editor.presentation.layers %}
         {% if editor.layers.indexOf(layer) >= 0 %}
             <tr data-layer-index="{{loop.index0}}">
-                <th class="layer-label {{'selected' if editor.layerIsSelected(layer)}}">{{layer.label}}</th>
+                <th class="layer-label {{'selected' if editor.layerIsSelected(layer)}}">
+                    <i class="visibility fa {{'fa-eye' if layer.isVisible else 'fa-eye-slash'}}"></i> {{layer.label}}
+                </th>
                 {% for frame in editor.presentation.frames %}
                     <td data-frame-index="{{loop.index0}}"
                         class="{{'selected' if editor.layerIsSelected(layer) and editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}"></td>

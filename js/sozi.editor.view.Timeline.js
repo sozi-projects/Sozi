@@ -15,6 +15,7 @@ namespace("sozi.editor.view", function (exports) {
             editor.addListener("layerAdded", renderCallback);
             editor.addListener("frameAdded", renderCallback);
             editor.addListener("selectionChanged", renderCallback);
+            editor.addListener("visibilityChanged", renderCallback);
 
             return this;
         },
@@ -25,8 +26,8 @@ namespace("sozi.editor.view", function (exports) {
             this.editor.toggleLayerSelection(layer);
         },
 
-        onFrameSelect: function (evt) {
-            var frame = this.editor.presentation.frames[evt.target.dataset.frameIndex];
+        onFrameSelect: function (evt, frameIndex) {
+            var frame = this.editor.presentation.frames[frameIndex];
             if (evt.ctrlKey) {
                 this.editor.toggleFrameSelection(frame);
             }
@@ -39,8 +40,7 @@ namespace("sozi.editor.view", function (exports) {
             }
         },
 
-        onLayerSelect: function (evt) {
-            var layerIndex = evt.target.parentNode.dataset.layerIndex;
+        onLayerSelect: function (evt, layerIndex) {
             var layer = layerIndex >= 0 ? this.editor.presentation.layers[layerIndex] : null;
             if (evt.ctrlKey) {
                 this.editor.toggleLayerSelection(layer);
@@ -54,10 +54,9 @@ namespace("sozi.editor.view", function (exports) {
             }
         },
 
-        onCellSelect: function (evt) {
-            var layerIndex = evt.target.parentNode.dataset.layerIndex;
+        onCellSelect: function (evt, layerIndex, frameIndex) {
             var layer = layerIndex >= 0 ? this.editor.presentation.layers[layerIndex] : null;
-            var frame = this.editor.presentation.frames[evt.target.dataset.frameIndex];
+            var frame = this.editor.presentation.frames[frameIndex];
             if (evt.ctrlKey) {
                 this.editor.toggleFrameLayerSelection(layer, frame);
             }
@@ -68,6 +67,13 @@ namespace("sozi.editor.view", function (exports) {
                 this.editor.selectLayer(layer);
                 this.editor.selectFrame(frame);
             }
+        },
+
+        onToggleVisibility: function (evt, layerIndex) {
+            var layer = layerIndex >= 0 ? this.editor.presentation.layers[layerIndex] : null;
+            this.editor.toggleLayerVisibility(layer);
+            this.editor.deselectLayer(layer);
+            evt.stopPropagation();
         },
 
         render: function () {
@@ -82,15 +88,27 @@ namespace("sozi.editor.view", function (exports) {
             document.querySelector("#layer-select").addEventListener("change", this.bind(this.onAddLayer), false);
 
             Array.prototype.slice.call(document.querySelectorAll("#timeline .frame-index, #timeline .frame-title")).forEach(function (th) {
-                th.addEventListener("click", this.bind(this.onFrameSelect), false);
+                th.addEventListener("click", this.bind(function (evt) {
+                    this.onFrameSelect(evt, th.dataset.frameIndex);
+                }), false);
             }, this);
 
             Array.prototype.slice.call(document.querySelectorAll("#timeline .layer-label")).forEach(function (th) {
-                th.addEventListener("click", this.bind(this.onLayerSelect), false);
+                th.addEventListener("click", this.bind(function (evt) {
+                    this.onLayerSelect(evt, th.parentNode.dataset.layerIndex);
+                }), false);
             }, this);
 
             Array.prototype.slice.call(document.querySelectorAll("#timeline td")).forEach(function (td) {
-                td.addEventListener("click", this.bind(this.onCellSelect), false);
+                td.addEventListener("click", this.bind(function (evt) {
+                    this.onCellSelect(evt, td.parentNode.dataset.layerIndex, td.dataset.frameIndex);
+                }), false);
+            }, this);
+
+            Array.prototype.slice.call(document.querySelectorAll("#timeline .layer-label .visibility")).forEach(function (icon) {
+                icon.addEventListener("click", this.bind(function (evt) {
+                    this.onToggleVisibility(evt, icon.parentNode.parentNode.dataset.layerIndex);
+                }), false);
             }, this);
         }
     });

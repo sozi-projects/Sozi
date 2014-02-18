@@ -43,6 +43,18 @@ namespace("sozi.model", function (exports) {
             this.auto = auto;
             this.svgNodes = [];
             return this;
+        },
+
+        get isVisible() {
+            return this.svgNodes.some(function (node) {
+                return window.getComputedStyle(node).visibility === "visible";
+            });
+        },
+
+        set isVisible(visible) {
+            this.svgNodes.forEach(function (node) {
+                node.style.visibility = visible ? "visible" : "hidden";
+            });
         }
     });
 
@@ -91,12 +103,12 @@ namespace("sozi.model", function (exports) {
                     var nodeName = svgNode.localName.toLowerCase();
                     var nodeId = svgNode.getAttribute("id");
 
-                    if (DRAWABLE_TAGS.indexOf(nodeName) !== -1) {
+                    if (DRAWABLE_TAGS.indexOf(nodeName) >= 0) {
                         // The current node is a valid layer if it has the following characteristics:
                         //    - it is an SVG group element
-                        //    - it has an id
-                        //    - the id has not been met before.
-                        if (nodeName === "g" && nodeId !== null && this.layers.every(function (layer) { return layer.nodeId !== nodeId; })) {
+                        //    - it has an id that has not been met before
+                        if (nodeName === "g" && nodeId !== null &&
+                            this.layers.every(function (layer) { return layer.nodeId !== nodeId; })) {
                             // If the current wrapper layer contains elements,
                             // add it to the document and to the list of layers.
                             if (svgWrapper.firstChild) {

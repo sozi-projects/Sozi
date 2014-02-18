@@ -52,7 +52,7 @@ namespace("sozi.editor.view", function (exports) {
             this.resize();
         },
 
-        selectionChanged: function (editor, defaultLayerSelected, selectedLayers, selectedFrames) {
+        selectionChanged: function (editor, defaultLayersSelected, selectedLayers, selectedFrames) {
             if (selectedFrames.length) {
                 this.state = selectedFrames[selectedFrames.length - 1].state;
             }
@@ -60,7 +60,7 @@ namespace("sozi.editor.view", function (exports) {
             // or if its layer is not managed and the default layer is selected.
             this.cameras.forEach(function (camera) {
                 camera.selected = selectedLayers.indexOf(camera.layer) >= 0 ||
-                    defaultLayerSelected && editor.layers.indexOf(camera.layer) < 0;
+                    defaultLayersSelected && editor.layers.indexOf(camera.layer) < 0;
             });
         },
 
