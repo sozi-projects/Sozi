@@ -1,6 +1,8 @@
 <table>
     <tr>
-        <th></th>
+        <th>
+            <input type="button" id="add-frame" value="Add frame">
+        </th>
         {% for frame in editor.presentation.frames %}
             <th data-frame-index="{{loop.index0}}"
                 title="{{frame.title}}"

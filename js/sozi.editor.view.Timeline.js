@@ -11,10 +11,6 @@ namespace("sozi.editor.view", function (exports) {
 
             this.render();
 
-            document.querySelector("#add-frame").addEventListener("click", function () {
-                editor.selectFrame(editor.addFrame());
-            }, false);
-
             var renderCallback = this.bind(this.render);
             editor.addListener("layerAdded", renderCallback);
             editor.addListener("frameAdded", renderCallback);
@@ -78,6 +74,10 @@ namespace("sozi.editor.view", function (exports) {
             document.querySelector("#timeline").innerHTML = nunjucks.render("templates/sozi.editor.view.Timeline.html", {
                 editor: this.editor
             });
+
+            document.querySelector("#add-frame").addEventListener("click", this.bind(function () {
+                this.editor.selectFrame(this.editor.addFrame());
+            }), false);
 
             document.querySelector("#layer-select").addEventListener("change", this.bind(this.onAddLayer), false);
 

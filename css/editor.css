@@ -3,8 +3,8 @@
 @import "../fonts/Heydings/stylesheet.css";
 
 body {
-    font-size: large;
-    font-family: Arsenal;
+    font-size: small;
+    font-family: sans-serif;
 
     margin: 0;
     padding: 0;
@@ -37,44 +37,63 @@ div#bottom {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: 30%;
+    width: calc(100% - 2em);
+    height: calc(30% - 1em);
     overflow: auto;
+
+    padding: 0.5em 1em;
+    background: linear-gradient(to bottom, rgb(64, 64, 64), rgb(80, 80, 80) 2em);
+    color: white;
 }
 
 input#aspect-num, input#aspect-den {
     width: 3em;
+    padding: 0.2em 0.5em;
+    border: 1px solid rgb(80, 80, 80);
 }
 
 div#timeline table {
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 2px;
 }
 
-div#timeline th,
-div#timeline td {
-    border: none;
+div#timeline {
+    margin-top: 0.5em;
 }
 
-div#timeline th {
-    cursor: default;
+div#timeline input,
+div#timeline select {
+    width: 100%;
 }
 
 div#timeline td,
-div#timeline th.layer-label {
-    border: 2px solid white;
-}
-
-div#timeline th.layer-label {
-    text-align: left;
-    max-width: 4em;
+div#timeline th {
+    cursor: default;
+    font-weight: normal;
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
+    width: 8em;
 }
 
 div#timeline td {
     background: rgb(200, 200, 200);
 }
 
+div#timeline .layer-label {
+    text-align: left;
+    padding-left: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+}
+
+div#timeline .frame-title {
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+}
+
 div#timeline .selected {
+    color: black;
     background: rgb(200, 220, 220);
 }
 
@@ -82,20 +101,8 @@ div#timeline .selected.current {
     background: rgb(150, 200, 200);
 }
 
-div#timeline .frame-index {
-    border-collapse: collapse;
-}
-
-div#timeline .frame-title {
-    font-weight: normal;
-}
-
-div#timeline .frame-index,
-div#timeline .frame-title,
-div#timeline td {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: small;
-    width: 8em;
+div#timeline .frame-index.selected {
+    color: rgb(200, 220, 220);
+    background: transparent;
+    font-weight: bold;
 }
