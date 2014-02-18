@@ -35,7 +35,7 @@ namespace("sozi.editor.view", function (exports) {
                 this.editor.toggleFrameSelection(frame);
             }
             else if (evt.shiftKey) {
-                // TODO toggle from last selected to current
+                this.editor.toggleFrameSequenceSelection(frame);
             }
             else {
                 this.editor.selectFrame(frame);

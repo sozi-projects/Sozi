@@ -128,6 +128,21 @@ namespace("sozi.editor.model", function (exports) {
             return this;
         },
 
+        toggleFrameSequenceSelection: function (frame) {
+            if (!this.selectedFrames.length) {
+                this.toggleFrameSelection(frame);
+            }
+            else {
+                var endIndex = frame.index;
+                var startIndex = this.currentFrame.index;
+                var inc = startIndex <= endIndex ? 1 : -1;
+                for (var i = startIndex + inc; startIndex <= endIndex ? i <= endIndex : i >= endIndex; i += inc) {
+                    this.toggleFrameSelection(this.presentation.frames[i]);
+                }
+            }
+            return this;
+        },
+
         toggleFrameLayerSelection: function (layer, frame) {
             var layerIsSelected = this.layerIsSelected(layer);
             var frameIsSelected = this.frameIsSelected(frame);

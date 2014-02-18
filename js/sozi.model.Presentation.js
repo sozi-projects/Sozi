@@ -26,6 +26,10 @@ namespace("sozi.model", function (exports) {
             this.title = "New frame";
 
             return this;
+        },
+
+        get index() {
+            return this.presentation.frames.indexOf(this);
         }
     });
 
