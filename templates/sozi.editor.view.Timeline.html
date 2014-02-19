@@ -13,9 +13,9 @@
         <th>
             <select id="add-layer">
                 <option value="__add__">Add layer</option>
-                {% for layer in editor.presentation.layers %}
+                {% for layer in editor.presentation.layers.slice().reverse() %}
                     {% if not layer.auto and editor.layers.indexOf(layer) < 0 %}
-                        <option value="{{loop.index0}}">{{layer.label}}</option>
+                        <option value="{{loop.revindex0}}">{{layer.label}}</option>
                     {% endif %}
                 {% endfor %}
             </select>
@@ -39,9 +39,9 @@
                 class="{{'selected' if editor.layerIsSelected('default') and editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}"></td>
         {% endfor %}
     </tr>
-    {% for layer in editor.presentation.layers %}
+    {% for layer in editor.presentation.layers.slice().reverse() %}
         {% if editor.layers.indexOf(layer) >= 0 %}
-            <tr data-layer-index="{{loop.index0}}">
+            <tr data-layer-index="{{loop.revindex0}}">
                 <th class="layer-label {{'selected' if editor.layerIsSelected(layer)}}">
                     <i class="visibility fa {{'fa-eye' if layer.isVisible else 'fa-eye-slash'}}"
                         title="{{'This layer is visible. Click to hide it.' if layer.isVisible else 'This layer is hidden. Click to show it.'}}"></i>

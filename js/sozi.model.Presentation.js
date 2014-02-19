@@ -45,6 +45,10 @@ namespace("sozi.model", function (exports) {
             return this;
         },
 
+        get index() {
+            return this.presentation.layers.indexOf(this);
+        },
+
         get isVisible() {
             return this.svgNodes.some(function (node) {
                 return window.getComputedStyle(node).visibility === "visible";
@@ -84,8 +88,8 @@ namespace("sozi.model", function (exports) {
             this.svgRoot = svgRoot;
 
             // Create an empty wrapper layer for elements that do not belong to a valid layer
-            var defaultLayer = exports.Layer.create().init(this, "auto", true);
-            this.layers = [defaultLayer];
+            var autoLayer = exports.Layer.create().init(this, "auto", true);
+            this.layers = [autoLayer];
 
             var svgWrapper = document.createElementNS(SVG_NS, "g");
 
@@ -113,7 +117,7 @@ namespace("sozi.model", function (exports) {
                             // add it to the document and to the list of layers.
                             if (svgWrapper.firstChild) {
                                 svgRoot.insertBefore(svgWrapper, svgNode);
-                                defaultLayer.svgNodes.push(svgWrapper);
+                                autoLayer.svgNodes.push(svgWrapper);
 
                                 // Create a new empty wrapper layer
                                 svgWrapper = document.createElementNS(SVG_NS, "g");
@@ -135,7 +139,7 @@ namespace("sozi.model", function (exports) {
             // add it to the document and to the list of layers.
             if (svgWrapper.firstChild) {
                 svgRoot.appendChild(svgWrapper);
-                defaultLayer.svgNodes.push(svgWrapper);
+                autoLayer.svgNodes.push(svgWrapper);
             }
 
             return this;
