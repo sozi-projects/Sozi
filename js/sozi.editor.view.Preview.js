@@ -12,42 +12,40 @@ namespace("sozi.editor.view", function (exports) {
             this.editor = editor;
 
             // Setup event handlers
-            function onAspectChange() {
-                var num = parseInt(document.querySelector("#aspect-num").value);
-                var den = parseInt(document.querySelector("#aspect-den").value);
+            $("#aspect-num, #aspect-den").change(function () {
+                var num = parseInt($("#aspect-num").val());
+                var den = parseInt($("#aspect-den").val());
                 editor.setAspectRatio(num, den);
-            }
-
-            var onResize = this.bind(function () {
-                this.aspectRatioChanged(editor, editor.aspect.num, editor.aspect.den);
             });
 
-            document.querySelector("#aspect-num").addEventListener("change", onAspectChange, false);
-            document.querySelector("#aspect-den").addEventListener("change", onAspectChange, false);
-            window.addEventListener("resize", onResize, false);
+            $(window).resize(this.bind(function () {
+                this.aspectRatioChanged(editor, editor.aspect.num, editor.aspect.den);
+            })).resize();
 
             editor.addListener("aspectRatioChanged", this);
             editor.addListener("selectionChanged", this);
             this.addListener("stateChanged", this);
 
-            onResize();
-
             return this;
         },
 
         aspectRatioChanged: function (editor, num, den) {
-            var top = document.querySelector("#top");
-            var maxWidth = top.clientWidth - 2 * PREVIEW_MARGIN;
-            var maxHeight = top.clientHeight - 2 * PREVIEW_MARGIN;
+            var top = $("#top");
+            var topWidth  = top.innerWidth();
+            var topHeight = top.innerHeight();
 
-            var width = Math.min(maxWidth, maxHeight * num / den);
+            var maxWidth  = topWidth  - 2 * PREVIEW_MARGIN;
+            var maxHeight = topHeight - 2 * PREVIEW_MARGIN;
+
+            var width  = Math.min(maxWidth, maxHeight * num / den);
             var height = Math.min(maxHeight, maxWidth * den / num);
 
-            var previewStyle = document.querySelector("#preview").style;
-            previewStyle.left = (top.clientWidth - width) / 2 + "px";
-            previewStyle.width = width + "px";
-            previewStyle.top = (top.clientHeight - height) / 2 + "px";
-            previewStyle.height = height + "px";
+            var previewStyle = $("#preview").css({
+                left:   (topWidth  - width)  / 2 + "px",
+                top:    (topHeight - height) / 2 + "px",
+                width:  width + "px",
+                height: height + "px"
+            });
 
             this.resize();
         },

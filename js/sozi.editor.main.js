@@ -30,11 +30,9 @@ window.addEventListener("load", function () {
     // If no file name was specified,
     // open a file dialog and load the selected file.
     else {
-        var fileDialog = document.querySelector("#file-dialog");
-        fileDialog.addEventListener("change", function () {
+        $("#file-dialog").change(function () {
             loadSVG(this.value);
-        }, false);
-        fileDialog.click();
+        }).click();
     }
 
     // Load the file with the given name
@@ -42,23 +40,10 @@ window.addEventListener("load", function () {
     function loadSVG(fileName) {
         fs.readFile(fileName, { encoding: "utf8" }, function (err, data) {
             if (!err) {
-                var preview = document.querySelector("#preview");
-                preview.innerHTML = data;
-
-                // Check that the loaded document is valid SVG.
-                // Find the SVG root: the beginning of the document
-                // can contain comments and whitespace.
-                var svgRoot = preview.firstChild;
-                while (svgRoot.nodeName === "#comment" ||
-                       svgRoot.nodeName === "#text" && svgRoot.nodeValue.trim() === "") {
-                    svgRoot = svgRoot.nextSibling;
-                }
-
-                // Check that the first non-empty node is an element named "svg"
-                // with the SVG namespace URI.
-                if (svgRoot.localName.toLowerCase() !== "svg" ||
-                    svgRoot.namespaceURI !== "http://www.w3.org/2000/svg") {
-                    alert("Error: Document is not valid SVG. " + svgRoot.namespaceURI);
+                // Find the SVG root and check that the loaded document is valid SVG.
+                var svgRoot = $("#preview").html(data).get(0).querySelector("svg");
+                if (!(svgRoot instanceof SVGSVGElement)) {
+                    alert("Error: Document is not valid SVG.");
                 }
 
                 // Initialize models and views
