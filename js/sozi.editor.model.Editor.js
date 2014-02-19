@@ -79,7 +79,7 @@ namespace("sozi.editor.model", function (exports) {
             return this;
         },
 
-        defaultLayersAreVisible: function () {
+        get defaultLayersAreVisible() {
             return this.defaultLayers.some(function (layer) {
                 return layer.isVisible;
             });

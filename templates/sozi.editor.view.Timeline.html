@@ -3,8 +3,10 @@
         <th><input type="button" id="add-frame" value="Add frame"></th>
         {% for frame in editor.presentation.frames %}
             <th data-frame-index="{{loop.index0}}"
-                title="{{frame.title}}"
-                class="frame-index {{'selected' if editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}">{{loop.index}}</th>
+                class="frame-index {{'selected' if editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}">
+                {{loop.index}}
+                <i title="Delete this frame" class="fa fa-trash-o"></i>
+            </th>
         {% endfor %}
     </tr>
     <tr>
@@ -21,12 +23,16 @@
         {% for frame in editor.presentation.frames %}
             <th data-frame-index="{{loop.index0}}"
                 title="{{frame.title}}"
-                class="frame-title {{'selected' if editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}">{{frame.title}}</th>
+                class="frame-title {{'selected' if editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}">
+                {{frame.title}}
+            </th>
         {% endfor %}
     </tr>
     <tr data-layer-index="-1">
         <th class="layer-label {{'selected' if editor.layerIsSelected(null)}}">
-            <i class="visibility fa {{'fa-eye' if editor.defaultLayersAreVisible() else 'fa-eye-slash'}}"></i> Default
+            <i class="visibility fa {{'fa-eye' if editor.defaultLayersAreVisible else 'fa-eye-slash'}}"
+                title="{{'This layer is visible. Click to hide it.' if editor.defaultLayersAreVisible else 'This layer is hidden. Click to show it.'}}"></i>
+            Default
         </th>
         {% for frame in editor.presentation.frames %}
             <td data-frame-index="{{loop.index0}}"
@@ -37,7 +43,10 @@
         {% if editor.layers.indexOf(layer) >= 0 %}
             <tr data-layer-index="{{loop.index0}}">
                 <th class="layer-label {{'selected' if editor.layerIsSelected(layer)}}">
-                    <i class="visibility fa {{'fa-eye' if layer.isVisible else 'fa-eye-slash'}}"></i> {{layer.label}}
+                    <i class="visibility fa {{'fa-eye' if layer.isVisible else 'fa-eye-slash'}}"
+                        title="{{'This layer is visible. Click to hide it.' if layer.isVisible else 'This layer is hidden. Click to show it.'}}"></i>
+                    <i title="Remove this layer" class="fa fa-trash-o"></i>
+                    {{layer.label}}
                 </th>
                 {% for frame in editor.presentation.frames %}
                     <td data-frame-index="{{loop.index0}}"
