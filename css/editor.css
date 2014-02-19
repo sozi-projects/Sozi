@@ -56,6 +56,11 @@ div#timeline table {
 
 div#timeline {
     margin-top: 0.5em;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
 }
 
 div#timeline input,
