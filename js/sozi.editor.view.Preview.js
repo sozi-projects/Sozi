@@ -52,15 +52,15 @@ namespace("sozi.editor.view", function (exports) {
             this.resize();
         },
 
-        selectionChanged: function (editor, defaultLayersSelected, selectedLayers, selectedFrames) {
-            if (selectedFrames.length) {
-                this.state = selectedFrames[selectedFrames.length - 1].state;
+        selectionChanged: function (editor) {
+            if (editor.currentFrame) {
+                this.state = editor.currentFrame.state;
             }
             // A camera is selected if its layer belongs to the list of selected layers
             // or if its layer is not managed and the default layer is selected.
             this.cameras.forEach(function (camera) {
-                camera.selected = selectedLayers.indexOf(camera.layer) >= 0 ||
-                    defaultLayersSelected && editor.layers.indexOf(camera.layer) < 0;
+                camera.selected = editor.layerIsSelected(camera.layer) ||
+                    editor.layerIsSelected("default") && editor.layers.indexOf(camera.layer) < 0;
             });
         },
 

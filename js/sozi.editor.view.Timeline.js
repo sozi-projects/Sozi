@@ -13,6 +13,7 @@ namespace("sozi.editor.view", function (exports) {
 
             var renderCallback = this.bind(this.render);
             editor.addListener("layerAdded", renderCallback);
+            editor.addListener("layerRemoved", renderCallback);
             editor.addListener("frameAdded", renderCallback);
             editor.addListener("selectionChanged", renderCallback);
             editor.addListener("visibilityChanged", renderCallback);
@@ -20,96 +21,77 @@ namespace("sozi.editor.view", function (exports) {
             return this;
         },
 
-        onAddLayer: function (evt) {
-            var layer = this.editor.presentation.layers[evt.target.value];
-            this.editor.addLayer(layer);
-            this.editor.toggleLayerSelection(layer);
-        },
-
-        onFrameSelect: function (evt, frameIndex) {
-            var frame = this.editor.presentation.frames[frameIndex];
-            if (evt.ctrlKey) {
-                this.editor.toggleFrameSelection(frame);
-            }
-            else if (evt.shiftKey) {
-                this.editor.toggleFrameSequenceSelection(frame);
-            }
-            else {
-                this.editor.selectFrame(frame);
-                this.editor.selectAllLayers();
-            }
-        },
-
-        onLayerSelect: function (evt, layerIndex) {
-            var layer = layerIndex >= 0 ? this.editor.presentation.layers[layerIndex] : null;
-            if (evt.ctrlKey) {
-                this.editor.toggleLayerSelection(layer);
-            }
-            else if (evt.shiftKey) {
-                // TODO toggle from last selected to current
-            }
-            else {
-                this.editor.selectLayer(layer);
-                this.editor.selectAllFrames();
-            }
-        },
-
-        onCellSelect: function (evt, layerIndex, frameIndex) {
-            var layer = layerIndex >= 0 ? this.editor.presentation.layers[layerIndex] : null;
-            var frame = this.editor.presentation.frames[frameIndex];
-            if (evt.ctrlKey) {
-                this.editor.toggleFrameLayerSelection(layer, frame);
-            }
-            else if (evt.shiftKey) {
-                // TODO toggle from last selected to current
-            }
-            else {
-                this.editor.selectLayer(layer);
-                this.editor.selectFrame(frame);
-            }
-        },
-
-        onToggleVisibility: function (evt, layerIndex) {
-            var layer = layerIndex >= 0 ? this.editor.presentation.layers[layerIndex] : null;
-            this.editor.toggleLayerVisibility(layer);
-            this.editor.deselectLayer(layer);
-            evt.stopPropagation();
-        },
-
         render: function () {
-            document.querySelector("#timeline").innerHTML = nunjucks.render("templates/sozi.editor.view.Timeline.html", {
-                editor: this.editor
+            var editor = this.editor;
+
+            $("#timeline").html(nunjucks.render("templates/sozi.editor.view.Timeline.html", {
+                editor: editor
+            }));
+
+            $("#add-frame").click(function () {
+                editor.addFrame();
             });
 
-            document.querySelector("#add-frame").addEventListener("click", this.bind(function () {
-                this.editor.selectFrame(this.editor.addFrame());
-            }), false);
+            $("#add-layer").change(function () {
+                editor.addLayer(editor.presentation.layers[this.value]);
+            });
 
-            document.querySelector("#layer-select").addEventListener("change", this.bind(this.onAddLayer), false);
+            $("#timeline .frame-index, #timeline .frame-title").click(function (evt) {
+                var frame = editor.presentation.frames[this.dataset.frameIndex];
+                if (evt.ctrlKey) {
+                    editor.toggleFrameSelection(frame);
+                }
+                else if (evt.shiftKey) {
+                    editor.toggleFrameSequenceSelection(frame);
+                }
+                else {
+                    editor.selectFrame(frame);
+                    editor.selectAllLayers();
+                }
+            });
 
-            Array.prototype.slice.call(document.querySelectorAll("#timeline .frame-index, #timeline .frame-title")).forEach(function (th) {
-                th.addEventListener("click", this.bind(function (evt) {
-                    this.onFrameSelect(evt, th.dataset.frameIndex);
-                }), false);
-            }, this);
+            $("#timeline .layer-label").click(function (evt) {
+                var layerIndex = this.parentNode.dataset.layerIndex;
+                var layer = layerIndex >= 0 ? editor.presentation.layers[layerIndex] : "default";
+                if (evt.ctrlKey) {
+                    editor.toggleLayerSelection(layer);
+                }
+                else if (evt.shiftKey) {
+                    // TODO toggle from last selected to current
+                }
+                else {
+                    editor.selectLayer(layer);
+                    editor.selectAllFrames();
+                }
+            });
 
-            Array.prototype.slice.call(document.querySelectorAll("#timeline .layer-label")).forEach(function (th) {
-                th.addEventListener("click", this.bind(function (evt) {
-                    this.onLayerSelect(evt, th.parentNode.dataset.layerIndex);
-                }), false);
-            }, this);
+            $("#timeline td").click(function (evt) {
+                var layerIndex = this.parentNode.dataset.layerIndex;
+                var layer = layerIndex >= 0 ? editor.presentation.layers[layerIndex] : "default";
+                var frame = editor.presentation.frames[this.dataset.frameIndex];
+                if (evt.ctrlKey) {
+                    editor.toggleLayerAndFrameSelection(layer, frame);
+                }
+                else if (evt.shiftKey) {
+                    // TODO toggle from last selected to current
+                }
+                else {
+                    editor.selectLayer(layer);
+                    editor.selectFrame(frame);
+                }
+            });
 
-            Array.prototype.slice.call(document.querySelectorAll("#timeline td")).forEach(function (td) {
-                td.addEventListener("click", this.bind(function (evt) {
-                    this.onCellSelect(evt, td.parentNode.dataset.layerIndex, td.dataset.frameIndex);
-                }), false);
-            }, this);
+            $("#timeline .layer-label .visibility").click(function (evt) {
+                var layerIndex = this.parentNode.parentNode.dataset.layerIndex;
+                var layer = layerIndex >= 0 ? editor.presentation.layers[layerIndex] : "default";
+                editor.toggleLayerVisibility(layer);
+                editor.deselectLayer(layer);
+                evt.stopPropagation();
+            });
 
-            Array.prototype.slice.call(document.querySelectorAll("#timeline .layer-label .visibility")).forEach(function (icon) {
-                icon.addEventListener("click", this.bind(function (evt) {
-                    this.onToggleVisibility(evt, icon.parentNode.parentNode.dataset.layerIndex);
-                }), false);
-            }, this);
+            $("#timeline .layer-label .remove").click(function () {
+                editor.removeLayer(editor.presentation.layers[this.parentNode.parentNode.dataset.layerIndex]);
+            });
         }
     });
 });
