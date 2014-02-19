@@ -85,7 +85,7 @@ namespace("sozi.editor.view", function (exports) {
                 var layerIndex = this.parentNode.parentNode.dataset.layerIndex;
                 var layer = layerIndex >= 0 ? editor.presentation.layers[layerIndex] : "default";
                 editor.toggleLayerVisibility(layer);
-                editor.deselectLayer(layer);
+                editor.removeLayerFromSelection(layer);
                 evt.stopPropagation();
             });
 
