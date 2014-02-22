@@ -59,6 +59,7 @@ namespace("sozi.model", function (exports) {
             this.svgNodes.forEach(function (node) {
                 node.style.visibility = visible ? "visible" : "hidden";
             });
+            this.fire("visibilityChanged");
         }
     });
 
@@ -148,6 +149,7 @@ namespace("sozi.model", function (exports) {
         addFrame: function (state, index) {
             var frame = exports.Frame.create().init(this, state);
             this.frames.splice(index, 0, frame);
+            this.fire("frameAdded", frame);
             return frame;
         }
     });

@@ -6,64 +6,65 @@ namespace("sozi.editor.view", function (exports) {
 
     exports.Preview = sozi.player.Viewport.create({
 
-        init: function (editor) {
-            sozi.player.Viewport.init.call(this, editor.presentation);
+        init: function (pres, selection) {
+            sozi.player.Viewport.init.call(this, pres);
 
-            this.editor = editor;
+            this.selection = selection;
 
             // Setup event handlers
-            $("#aspect-num, #aspect-den").change(function () {
-                var num = parseInt($("#aspect-num").val());
-                var den = parseInt($("#aspect-den").val());
-                editor.setAspectRatio(num, den);
+            var resizeHandler = this.bind(function () {
+                this.setAspectRatio(parseInt($("#aspect-num").val()), parseInt($("#aspect-den").val()));
             });
 
-            $(window).resize(this.bind(function () {
-                this.aspectRatioChanged(editor, editor.aspect.num, editor.aspect.den);
-            })).resize();
+            $("#aspect-num, #aspect-den").change(resizeHandler);
+            $(window).resize(resizeHandler).resize();
 
-            editor.addListener("aspectRatioChanged", this);
-            editor.addListener("selectionChanged", this);
+            selection.addListener("selectionChanged", this);
             this.addListener("stateChanged", this);
 
             return this;
         },
 
-        aspectRatioChanged: function (editor, num, den) {
-            var top = $("#top");
-            var topWidth  = top.innerWidth();
-            var topHeight = top.innerHeight();
+        setAspectRatio: function (num, den) {
+            if (num > 0 && den > 0) {
+                var top = $("#top");
+                var topWidth  = top.innerWidth();
+                var topHeight = top.innerHeight();
 
-            var maxWidth  = topWidth  - 2 * PREVIEW_MARGIN;
-            var maxHeight = topHeight - 2 * PREVIEW_MARGIN;
+                var maxWidth  = topWidth  - 2 * PREVIEW_MARGIN;
+                var maxHeight = topHeight - 2 * PREVIEW_MARGIN;
 
-            var width  = Math.min(maxWidth, maxHeight * num / den);
-            var height = Math.min(maxHeight, maxWidth * den / num);
+                var width  = Math.min(maxWidth, maxHeight * num / den);
+                var height = Math.min(maxHeight, maxWidth * den / num);
 
-            var previewStyle = $("#preview").css({
-                left:   (topWidth  - width)  / 2 + "px",
-                top:    (topHeight - height) / 2 + "px",
-                width:  width + "px",
-                height: height + "px"
-            });
+                var previewStyle = $("#preview").css({
+                    left:   (topWidth  - width)  / 2 + "px",
+                    top:    (topHeight - height) / 2 + "px",
+                    width:  width + "px",
+                    height: height + "px"
+                });
 
-            this.resize();
+                this.resize();
+
+                this.fire("aspectRatioChanged", num, den);
+            }
+            return this;
         },
 
-        selectionChanged: function (editor) {
-            if (editor.currentFrame) {
-                this.state = editor.currentFrame.state;
+        selectionChanged: function (selection) {
+            if (selection.currentFrame) {
+                this.state = selection.currentFrame.state;
             }
             // A camera is selected if its layer belongs to the list of selected layers
             // or if its layer is not managed and the default layer is selected.
             this.cameras.forEach(function (camera) {
-                camera.selected = editor.layerIsSelected(camera.layer) ||
-                    editor.layerIsSelected("default") && editor.layers.indexOf(camera.layer) < 0;
+                camera.selected = selection.layerIsSelected(camera.layer) ||
+                    selection.layerIsSelected("default") && selection.layers.indexOf(camera.layer) < 0;
             });
         },
 
         stateChanged: function () {
-            var frame = this.editor.currentFrame;
+            var frame = this.selection.currentFrame;
             if (frame) {
                 frame.state = this.state;
             }

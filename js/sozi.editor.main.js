@@ -48,9 +48,9 @@ window.addEventListener("load", function () {
 
                 // Initialize models and views
                 var pres = sozi.model.Presentation.init(svgRoot);
-                var editor = sozi.editor.model.Editor.init(pres);
-                sozi.editor.view.Preview.init(editor);
-                sozi.editor.view.Timeline.init(editor);
+                var selection = sozi.editor.model.Selection.init(pres);
+                sozi.editor.view.Preview.init(pres, selection);
+                sozi.editor.view.Timeline.init(pres, selection);
             }
             else {
                 alert("Error: Failed to read file " + fileName);

@@ -1,9 +1,9 @@
 <table>
     <tr>
         <th><input type="button" id="add-frame" value="Add frame"></th>
-        {% for frame in editor.presentation.frames %}
+        {% for frame in presentation.frames %}
             <th data-frame-index="{{loop.index0}}"
-                class="frame-index {{'selected' if editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}">
+                class="frame-index {{'selected' if selection.frameIsSelected(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
                 {{loop.index}}
                 <i title="Delete this frame" class="fa fa-trash-o"></i>
             </th>
@@ -13,44 +13,44 @@
         <th>
             <select id="add-layer">
                 <option value="__add__">Add layer</option>
-                {% for layer in editor.presentation.layers.slice().reverse() %}
-                    {% if not layer.auto and editor.layers.indexOf(layer) < 0 %}
+                {% for layer in presentation.layers.slice().reverse() %}
+                    {% if not layer.auto and defaultLayers.indexOf(layer) >= 0 %}
                         <option value="{{loop.revindex0}}">{{layer.label}}</option>
                     {% endif %}
                 {% endfor %}
             </select>
         </th>
-        {% for frame in editor.presentation.frames %}
+        {% for frame in presentation.frames %}
             <th data-frame-index="{{loop.index0}}"
                 title="{{frame.title}}"
-                class="frame-title {{'selected' if editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}">
+                class="frame-title {{'selected' if selection.frameIsSelected(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
                 {{frame.title}}
             </th>
         {% endfor %}
     </tr>
     <tr data-layer-index="-1">
-        <th class="layer-label {{'selected' if editor.layerIsSelected('default')}}">
-            <i class="visibility fa {{'fa-eye' if editor.defaultLayersAreVisible else 'fa-eye-slash'}}"
-                title="{{'This layer is visible. Click to hide it.' if editor.defaultLayersAreVisible else 'This layer is hidden. Click to show it.'}}"></i>
+        <th class="layer-label {{'selected' if defaultLayersAreSelected}}">
+            <i class="visibility fa {{'fa-eye' if defaultLayersAreVisible else 'fa-eye-slash'}}"
+                title="{{'This layer is visible. Click to hide it.' if defaultLayersAreVisible else 'This layer is hidden. Click to show it.'}}"></i>
             Default
         </th>
-        {% for frame in editor.presentation.frames %}
+        {% for frame in presentation.frames %}
             <td data-frame-index="{{loop.index0}}"
-                class="{{'selected' if editor.layerIsSelected('default') and editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}"></td>
+                class="{{'selected' if defaultLayersAreSelected and selection.frameIsSelected(frame)}} {{'current' if selection.frameIsCurrent(frame)}}"></td>
         {% endfor %}
     </tr>
-    {% for layer in editor.presentation.layers.slice().reverse() %}
-        {% if editor.layers.indexOf(layer) >= 0 %}
+    {% for layer in presentation.layers.slice().reverse() %}
+        {% if editableLayers.indexOf(layer) >= 0 %}
             <tr data-layer-index="{{loop.revindex0}}">
-                <th class="layer-label {{'selected' if editor.layerIsSelected(layer)}}">
+                <th class="layer-label {{'selected' if selection.layerIsSelected(layer)}}">
                     <i class="visibility fa {{'fa-eye' if layer.isVisible else 'fa-eye-slash'}}"
                         title="{{'This layer is visible. Click to hide it.' if layer.isVisible else 'This layer is hidden. Click to show it.'}}"></i>
                     <i title="Remove this layer" class="remove fa fa-trash-o"></i>
                     {{layer.label}}
                 </th>
-                {% for frame in editor.presentation.frames %}
+                {% for frame in presentation.frames %}
                     <td data-frame-index="{{loop.index0}}"
-                        class="{{'selected' if editor.layerIsSelected(layer) and editor.frameIsSelected(frame)}} {{'current' if editor.frameIsCurrent(frame)}}"></td>
+                        class="{{'selected' if selection.layerIsSelected(layer) and selection.frameIsSelected(frame)}} {{'current' if selection.frameIsCurrent(frame)}}"></td>
                 {% endfor %}
             </tr>
         {% endif %}
