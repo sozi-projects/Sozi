@@ -13,46 +13,44 @@ namespace("sozi.editor.model", function (exports) {
             return this;
         },
 
-        layerIsSelected: function (layer) {
+        hasLayer: function (layer) {
             return this.selectedLayers.indexOf(layer) >= 0;
         },
 
-        addLayerToSelection: function (layer) {
-            if (!this.layerIsSelected(layer)) {
+        addLayer: function (layer) {
+            if (!this.hasLayer(layer)) {
                 this.selectedLayers.push(layer);
-                this.fire("selectionChanged", this.selectedLayers, this.selectedFrames);
+                this.fire("changed");
             }
             return this;
         },
 
-        removeLayerFromSelection: function (layer) {
+        removeLayer: function (layer) {
             var layerIndex = this.selectedLayers.indexOf(layer);
             if (layerIndex >= 0) {
                 this.selectedLayers.splice(layerIndex, 1);
-                this.fire("selectionChanged", this.selectedLayers, this.selectedFrames);
+                this.fire("changed");
             }
             return this;
         },
 
-        toggleLayerSelection: function (layers) {
-            layers.forEach(function (layer) {
-                if (this.layerIsSelected(layer)) {
-                    this.removeLayerFromSelection(layer);
-                }
-                else {
-                    this.addLayerToSelection(layer);
-                }
-            }, this);
+        toggleLayer: function (layer) {
+            if (this.hasLayer(layer)) {
+                this.removeLayer(layer);
+            }
+            else {
+                this.addLayer(layer);
+            }
             return this;
         },
 
         selectLayers: function (layers) {
             this.selectedLayers = layers.slice();
-            this.fire("selectionChanged", this.selectedLayers, this.selectedFrames);
+            this.fire("changed");
             return this;
         },
 
-        frameIsSelected: function (frame) {
+        hasFrame: function (frame) {
             return this.selectedFrames.indexOf(frame) >= 0;
         },
 
@@ -67,29 +65,29 @@ namespace("sozi.editor.model", function (exports) {
             return null;
         },
 
-        addFrameToSelection: function (frame) {
-            if (!this.frameIsSelected(frame)) {
+        addFrame: function (frame) {
+            if (!this.hasFrame(frame)) {
                 this.selectedFrames.push(frame);
-                this.fire("selectionChanged", this.selectedLayers, this.selectedFrames);
+                this.fire("changed");
             }
             return this;
         },
 
-        removeFrameFromSelection: function (frame) {
+        removeFrame: function (frame) {
             var frameIndex = this.selectedFrames.indexOf(frame);
             if (frameIndex >= 0) {
                 this.selectedFrames.splice(frameIndex, 1);
-                this.fire("selectionChanged", this.selectedLayers, this.selectedFrames);
+                this.fire("changed");
             }
             return this;
         },
 
-        toggleFrameSelection: function (frame) {
-            if (this.frameIsSelected(frame)) {
-                this.removeFrameFromSelection(frame);
+        toggleFrame: function (frame) {
+            if (this.hasFrame(frame)) {
+                this.removeFrame(frame);
             }
             else {
-                this.addFrameToSelection(frame);
+                this.addFrame(frame);
             }
             return this;
         },
@@ -101,48 +99,28 @@ namespace("sozi.editor.model", function (exports) {
          *    - frame: The frame to select
          *
          * Fires:
-         *    - selectionChanged(array)
+         *    - changed(array)
          *
          * Returns:
          *    - The current object.
          */
         selectFrames: function (frames) {
             this.selectedFrames = frames.slice();
-            this.fire("selectionChanged", this.selectedLayers, this.selectedFrames);
+            this.fire("changed");
             return this;
         },
 
-        toggleFrameSelectionTo: function (frame) {
+        toggleFramesTo: function (frame) {
             if (!this.selectedFrames.length) {
-                this.toggleFrameSelection(frame);
+                this.toggleFrame(frame);
             }
             else {
                 var endIndex = frame.index;
                 var startIndex = this.currentFrame.index;
                 var inc = startIndex <= endIndex ? 1 : -1;
                 for (var i = startIndex + inc; startIndex <= endIndex ? i <= endIndex : i >= endIndex; i += inc) {
-                    this.toggleFrameSelection(this.presentation.frames[i]);
+                    this.toggleFrame(this.presentation.frames[i]);
                 }
-            }
-            return this;
-        },
-
-        toggleLayersAndFrameSelection: function (layers, frame) {
-            var layersAreSelected = layers.every(function (layer) {
-                return this.layerIsSelected(layer);
-            }, this);
-            var frameIsSelected = this.frameIsSelected(frame);
-            if (layersAreSelected && frameIsSelected) {
-                layers.forEach(function (layer) {
-                    this.removeLayerFromSelection(layer);
-                }, this);
-                this.removeFrameFromSelection(frame);
-            }
-            else {
-                layers.forEach(function (layer) {
-                    this.addLayerToSelection(layer);
-                }, this);
-                this.addFrameToSelection(frame);
             }
             return this;
         }

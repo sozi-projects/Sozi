@@ -19,7 +19,7 @@ namespace("sozi.editor.view", function (exports) {
             $("#aspect-num, #aspect-den").change(resizeHandler);
             $(window).resize(resizeHandler).resize();
 
-            selection.addListener("selectionChanged", this);
+            selection.addListener("changed", this.selectionChanged, this);
             this.addListener("stateChanged", this);
 
             return this;
@@ -58,8 +58,7 @@ namespace("sozi.editor.view", function (exports) {
             // A camera is selected if its layer belongs to the list of selected layers
             // or if its layer is not managed and the default layer is selected.
             this.cameras.forEach(function (camera) {
-                camera.selected = selection.layerIsSelected(camera.layer) ||
-                    selection.layerIsSelected("default") && selection.layers.indexOf(camera.layer) < 0;
+                camera.selected = selection.hasLayer(camera.layer);
             });
         },
 
