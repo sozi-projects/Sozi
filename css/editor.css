@@ -103,6 +103,26 @@ div#timeline .selected.current {
     background: rgb(150, 200, 200);
 }
 
+div#timeline .frame-index i.fa-arrows-h {
+    margin-right: 1em;
+}
+
+div#timeline .frame-index i.fa-trash-o {
+    margin-left: 1em;
+}
+
+div#timeline .frame-index i {
+    visibility: hidden;
+    color: black;
+    background: rgb(200, 220, 220);
+    border-radius: 30%;
+    padding: 0.1em;
+}
+
+div#timeline .frame-index:hover i {
+    visibility: visible;
+}
+
 div#timeline .frame-index.selected {
     color: rgb(200, 220, 220);
     background: transparent;
