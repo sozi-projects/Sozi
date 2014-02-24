@@ -153,6 +153,23 @@ namespace("sozi.model", function (exports) {
             return frame;
         },
 
+        moveFrames: function (frames, toIndex) {
+            var framesByIndex = frames.slice().sort(function (a, b) {
+                return a.index - b.index;
+            });
+
+            framesByIndex.forEach(function (frame) {
+                console.log(frame.index + " / " + toIndex);
+                if (frame.index < toIndex) {
+                    toIndex --;
+                }
+                this.frames.splice(frame.index, 1);
+                this.frames.splice(toIndex, 0, frame);
+                toIndex ++;
+            }, this);
+            this.fire("framesMoved", frames, toIndex);
+        },
+
         deleteFrames: function (frames) {
             frames.forEach(function (frame) {
                 this.frames.splice(frame.index, 1);

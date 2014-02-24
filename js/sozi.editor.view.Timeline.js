@@ -44,6 +44,7 @@ namespace("sozi.editor.view", function (exports) {
 
             pres.addListener("frameAdded", this);
             pres.addListener("framesDeleted", this.render, this);
+            pres.addListener("framesMoved", this.render, this);
 
             selection.addListener("changed", this.render, this);
 
@@ -154,6 +155,21 @@ namespace("sozi.editor.view", function (exports) {
             return this.defaultLayers.every(function (layer) {
                 return this.selection.hasLayer(layer);
             }, this);
+        },
+
+        /*
+         * Action: Move frames.
+         *
+         * This method is called as a result of a user action
+         * in the current view.
+         *
+         * All selected frames to the given frame index.
+         *
+         * Parameters:
+         *  - toFrameIndex: The index of the destination
+         */
+        moveFrames: function (toFrameIndex) {
+            this.presentation.moveFrames(this.selection.selectedFrames, toFrameIndex);
         },
 
         /*
@@ -339,33 +355,39 @@ namespace("sozi.editor.view", function (exports) {
                 self.addLayer(this.value);
             });
 
-            $("#timeline .layer-label .remove").click(function () {
-                self.removeLayer(this.parentNode.parentNode.dataset.layerIndex);
+            $("#timeline .layer-icons .remove").click(function () {
+                self.removeLayer(parseInt(this.parentNode.parentNode.dataset.layerIndex));
             });
 
             $("#timeline .frame-index, #timeline .frame-title").click(function (evt) {
-                self.updateFrameSelection(evt, this.dataset.frameIndex);
+                self.updateFrameSelection(evt, parseInt(this.dataset.frameIndex));
             });
 
-            $("#timeline .frame-index .move").click(function () {
-                // TODO drag-and-drop to move frame
+            $("#timeline .frame-index .insert-before").click(function (evt) {
+                self.moveFrames(parseInt(this.parentNode.dataset.frameIndex));
+                evt.stopPropagation();
+            });
+
+            $("#timeline .frame-index .insert-after").click(function (evt) {
+                self.moveFrames(parseInt(this.parentNode.dataset.frameIndex) + 1);
+                evt.stopPropagation();
             });
 
             $("#timeline .frame-index .delete").click(function (evt) {
-                self.deleteFrames(this.parentNode.dataset.frameIndex);
+                self.deleteFrames(parseInt(this.parentNode.dataset.frameIndex));
                 evt.stopPropagation();
             });
 
             $("#timeline .layer-label").click(function (evt) {
-                self.updateLayerSelection(evt, this.parentNode.dataset.layerIndex);
+                self.updateLayerSelection(evt, parseInt(this.parentNode.dataset.layerIndex));
             });
 
             $("#timeline td").click(function (evt) {
-                self.updateLayerAndFrameSelection(evt, this.parentNode.dataset.layerIndex, this.dataset.frameIndex);
+                self.updateLayerAndFrameSelection(evt, parseInt(this.parentNode.dataset.layerIndex), parseInt(this.dataset.frameIndex));
             });
 
-            $("#timeline .layer-label .visibility").click(function (evt) {
-                self.updateLayerVisibility(this.parentNode.parentNode.dataset.layerIndex);
+            $("#timeline .layer-icons .visibility").click(function (evt) {
+                self.updateLayerVisibility(parseInt(this.parentNode.parentNode.dataset.layerIndex));
                 evt.stopPropagation();
             });
         }

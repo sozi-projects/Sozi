@@ -69,13 +69,21 @@ div#timeline select {
 }
 
 div#timeline td,
-div#timeline th {
+div#timeline th.frame-index,
+div#timeline th.frame-title,
+div#timeline th.layer-label {
     cursor: default;
     font-weight: normal;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 8em;
+    max-width: 8em;
+}
+
+div#timeline th.layer-icons {
+    width: auto;
+    text-align: left;
 }
 
 div#timeline td {
@@ -85,8 +93,22 @@ div#timeline td {
 div#timeline .layer-label {
     text-align: left;
     padding-left: 0.5em;
+    padding-right: 0.5em;
     border-bottom-left-radius: 0.5em;
     border-top-left-radius: 0.5em;
+}
+
+div#timeline .layer-icons .visibility,
+div#timeline .layer-icons .remove {
+    margin-right: 0.5em;
+}
+
+div#timeline .layer-label .remove {
+    display: none;
+}
+
+div#timeline .layer-label:hover .remove {
+    display: inline;
 }
 
 div#timeline .frame-title {
@@ -103,24 +125,26 @@ div#timeline .selected.current {
     background: rgb(150, 200, 200);
 }
 
-div#timeline .frame-index i.fa-arrows-h {
+div#timeline .frame-index i.insert-before {
     margin-right: 1em;
 }
 
-div#timeline .frame-index i.fa-trash-o {
+div#timeline .frame-index i.insert-after {
     margin-left: 1em;
 }
 
+div#timeline .frame-index i.delete {
+    margin-left: 1em;
+    margin-right: 1em;
+    color: rgb(255, 50, 50);
+}
+
 div#timeline .frame-index i {
-    visibility: hidden;
-    color: black;
-    background: rgb(200, 220, 220);
-    border-radius: 30%;
-    padding: 0.1em;
+    display: none;
 }
 
 div#timeline .frame-index:hover i {
-    visibility: visible;
+    display: inline;
 }
 
 div#timeline .frame-index.selected {
