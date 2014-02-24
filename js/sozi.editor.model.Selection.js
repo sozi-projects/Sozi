@@ -30,6 +30,8 @@ namespace("sozi.editor.model", function (exports) {
             this.selectFrames(pres.frames.length ? [pres.frames[0]] : []);
             this.selectLayers(pres.layers);
 
+            pres.addListener("framesDeleted", this);
+
             return this;
         },
 
@@ -305,6 +307,22 @@ namespace("sozi.editor.model", function (exports) {
                 }
             }
             return this;
+        },
+
+        /*
+         * Event handler: Frames deleted from presentation.
+         *
+         * This method is called when a presentation object
+         * fires the "framesDeleted" event.
+         *
+         * Parameters:
+         *  - pres: The presentation that fired the event
+         *  - frames: An array of frames.
+         */
+        framesDeleted: function (pres, frames) {
+            frames.forEach(function (frame) {
+                this.removeFrame(frame);
+            }, this);
         }
     });
 });

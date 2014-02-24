@@ -43,6 +43,7 @@ namespace("sozi.editor.view", function (exports) {
             this.render();
 
             pres.addListener("frameAdded", this);
+            pres.addListener("framesDeleted", this.render, this);
 
             selection.addListener("changed", this.render, this);
 
@@ -153,6 +154,28 @@ namespace("sozi.editor.view", function (exports) {
             return this.defaultLayers.every(function (layer) {
                 return this.selection.hasLayer(layer);
             }, this);
+        },
+
+        /*
+         * Action: Delete frames from the presentation.
+         *
+         * This method is called as a result of a user action
+         * in the current view.
+         *
+         * If the given frame is selected, then all selected frames
+         * are deleted, else only the given frame is deleted.
+         *
+         * Parameters:
+         *  - frameIndex: The index of a frame in the presentation
+         */
+        deleteFrames: function (frameIndex) {
+            var frame = this.presentation.frames[frameIndex];
+            if (this.selection.hasFrame(frame)) {
+                this.presentation.deleteFrames(this.selection.selectedFrames);
+            }
+            else {
+                this.presentation.deleteFrames([frame]);
+            }
         },
 
         /*
@@ -322,6 +345,15 @@ namespace("sozi.editor.view", function (exports) {
 
             $("#timeline .frame-index, #timeline .frame-title").click(function (evt) {
                 self.updateFrameSelection(evt, this.dataset.frameIndex);
+            });
+
+            $("#timeline .frame-index .move").click(function () {
+                // TODO drag-and-drop to move frame
+            });
+
+            $("#timeline .frame-index .delete").click(function (evt) {
+                self.deleteFrames(this.parentNode.dataset.frameIndex);
+                evt.stopPropagation();
             });
 
             $("#timeline .layer-label").click(function (evt) {

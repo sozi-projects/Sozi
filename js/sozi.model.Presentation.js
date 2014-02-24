@@ -151,6 +151,14 @@ namespace("sozi.model", function (exports) {
             this.frames.splice(index, 0, frame);
             this.fire("frameAdded", frame);
             return frame;
+        },
+
+        deleteFrames: function (frames) {
+            frames.forEach(function (frame) {
+                this.frames.splice(frame.index, 1);
+            }, this);
+            this.fire("framesDeleted", frames);
+            return this;
         }
     });
 });

@@ -4,9 +4,9 @@
         {% for frame in presentation.frames %}
             <th data-frame-index="{{loop.index0}}"
                 class="frame-index {{'selected' if selection.hasFrame(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
-                <i title="Move" class="fa fa-arrows-h"></i>
+                <i title="Move" class="move fa fa-arrows-h"></i>
                 {{loop.index}}
-                <i title="Delete" class="fa fa-trash-o"></i>
+                <i title="Delete" class="delete fa fa-trash-o"></i>
             </th>
         {% endfor %}
     </tr>
