@@ -159,7 +159,6 @@ namespace("sozi.model", function (exports) {
             });
 
             framesByIndex.forEach(function (frame) {
-                console.log(frame.index + " / " + toIndex);
                 if (frame.index < toIndex) {
                     toIndex --;
                 }
