@@ -30,6 +30,15 @@ namespace("sozi.model", function (exports) {
 
         get index() {
             return this.presentation.frames.indexOf(this);
+        },
+
+        set title(title) {
+            this._title = title;
+            this.fire("changed");
+        },
+
+        get title() {
+            return this._title;
         }
     });
 
@@ -147,9 +156,13 @@ namespace("sozi.model", function (exports) {
         },
 
         addFrame: function (state, index) {
+            if (index === undefined) {
+                index = this.frames.length;
+            }
             var frame = exports.Frame.create().init(this, state);
             this.frames.splice(index, 0, frame);
             this.fire("frameAdded", frame);
+            frame.addListener("changed", this.frameChanged, this);
             return frame;
         },
 
@@ -175,6 +188,10 @@ namespace("sozi.model", function (exports) {
             }, this);
             this.fire("framesDeleted", frames);
             return this;
+        },
+
+        frameChanged: function (frame) {
+            this.fire("frameChanged", frame);
         }
     });
 });

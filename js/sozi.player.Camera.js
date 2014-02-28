@@ -19,18 +19,20 @@ namespace("sozi.player", function (exports) {
 
     exports.CameraState = sozi.model.Object.create({
 
-        init: function (viewport) {
+        init: function (svgRoot) {
             sozi.model.Object.init.call(this);
 
-            this.viewport = viewport;
+            this.svgRoot = svgRoot;
+
+            var initialBBox = svgRoot.getBBox();
 
             // Center coordinates
-            this.cx = viewport.initialBBox.x + viewport.initialBBox.width / 2;
-            this.cy = viewport.initialBBox.y + viewport.initialBBox.height / 2;
+            this.cx = initialBBox.x + initialBBox.width / 2;
+            this.cy = initialBBox.y + initialBBox.height / 2;
 
             // Dimensions
-            this.width = viewport.initialBBox.width;
-            this.height = viewport.initialBBox.height;
+            this.width = initialBBox.width;
+            this.height = initialBBox.height;
 
             // Rotation angle, in degrees
             this.angle = 0;
@@ -66,7 +68,7 @@ namespace("sozi.player", function (exports) {
 
             // Compute the raw coordinates of the center
             // of the given SVG element
-            var c = this.viewport.svgRoot.createSVGPoint();
+            var c = this.svgRoot.createSVGPoint();
             c.x = b.x + b.width  / 2;
             c.y = b.y + b.height / 2;
 
@@ -101,7 +103,7 @@ namespace("sozi.player", function (exports) {
         },
 
         clone: function () {
-            return exports.CameraState.create().init(this.viewport).setAtState(this);
+            return exports.CameraState.create().init(this.svgRoot).setAtState(this);
         },
 
         interpolate: function (initialState, finalState, progress, relativeZoom, svgPath, reversePath) {
@@ -166,8 +168,9 @@ namespace("sozi.player", function (exports) {
     exports.Camera = exports.CameraState.create({
 
         init: function (viewport, layer) {
-            exports.CameraState.init.call(this, viewport);
+            exports.CameraState.init.call(this, viewport.svgRoot);
 
+            this.viewport = viewport;
             this.layer = layer;
             this.selected = true;
 

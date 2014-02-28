@@ -45,6 +45,7 @@ namespace("sozi.editor.view", function (exports) {
             pres.addListener("frameAdded", this);
             pres.addListener("framesDeleted", this.render, this);
             pres.addListener("framesMoved", this.render, this);
+            pres.addListener("frameChanged", this.render, this);
 
             selection.addListener("changed", this.render, this);
 

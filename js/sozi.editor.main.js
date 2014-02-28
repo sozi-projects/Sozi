@@ -51,10 +51,45 @@ window.addEventListener("load", function () {
                 var selection = sozi.editor.model.Selection.init(pres);
                 sozi.editor.view.Preview.init(pres, selection);
                 sozi.editor.view.Timeline.init(pres, selection);
+
+                // Load presentation data from JSON file.
+                //
+                // If no JSON data is available, attempt to extract
+                // presentation data from the SVG document, assuming
+                // it has been generated from Sozi 13 or earlier.
+                // Then save the extracted data to a JSON file.
+                var jsonFileName = fileName.replace(/\.svg$/, ".sozi.json");
+//                var presData = loadJSON(jsonFileName);
+//                if (presData) {
+//                    pres.fromStorable(presData);
+//                }
+//                else {
+                    pres.upgrade();
+                    saveJSON(jsonFileName, pres.toStorable());
+//                }
             }
             else {
                 alert("Error: Failed to read file " + fileName);
             }
         });
     }
+
+    function loadJSON(fileName) {
+        if (!fs.existsSync(fileName)) {
+            console.log("File " + fileName + " does not exist.");
+            return null;
+        }
+        try {
+            return JSON.parse(fs.readFileSync(fileName, { encoding: "utf8" }));
+        }
+        catch (e) {
+            alert("Error: file " + fileName + " could not be read or is corrupted");
+            return null;
+        }
+    }
+
+    function saveJSON(fileName, data) {
+        fs.writeFileSync(fileName, JSON.stringify(data), { encoding: "utf-8" });
+    }
+
 }, false);

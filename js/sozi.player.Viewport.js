@@ -42,10 +42,6 @@ namespace("sozi.player", function (exports) {
 
             this.presentation = pres;
 
-            // Save the initial bounding box of the document
-            // and force its dimensions to fit the container.
-            this.initialBBox = this.svgRoot.getBBox();
-
             // Create a camera for each layer
             this.cameras = this.presentation.layers.map(function (layer) {
                 return exports.Camera.create().init(this, layer);
