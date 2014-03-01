@@ -133,12 +133,6 @@ div#timeline .frame-index i.insert-after {
     margin-left: 1em;
 }
 
-div#timeline .frame-index i.delete {
-    margin-left: 1em;
-    margin-right: 1em;
-    color: rgb(255, 50, 50);
-}
-
 div#timeline .frame-index i {
     display: none;
 }
