@@ -72,9 +72,16 @@ namespace("sozi.player", function (exports) {
             c.x = b.x + b.width  / 2;
             c.y = b.y + b.height / 2;
 
+            // Find the transform group corresponding to the layer
+            // that contains the given element
+            var layerGroup = svgElement;
+            while (layerGroup.parentNode.parentNode !== this.svgRoot) {
+                layerGroup = layerGroup.parentNode;
+            }
+
             // Compute the coordinates of the center of the given SVG element
             // after its current transformation
-            var matrix = svgElement.getCTM();
+            var matrix = layerGroup.getCTM().inverse().multiply(svgElement.getCTM());
             c = c.matrixTransform(matrix);
 
             // Compute the scaling factor applied to the given SVG element
