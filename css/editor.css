@@ -126,11 +126,15 @@ div#timeline .selected.current {
 }
 
 div#timeline .frame-index i.insert-before {
-    margin-right: 1em;
+    float: left;
+    position: relative;
+    top: 0.7em;
 }
 
 div#timeline .frame-index i.insert-after {
-    margin-left: 1em;
+    float: right;
+    position: relative;
+    top: 0.7em;
 }
 
 div#timeline .frame-index i {

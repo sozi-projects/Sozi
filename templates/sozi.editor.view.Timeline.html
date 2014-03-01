@@ -5,12 +5,12 @@
             <th data-frame-index="{{loop.index0}}"
                 class="frame-index {{'selected' if selection.hasFrame(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
                 {% if selection.selectedFrames.length %}
-                    <i title="Insert selection before" class="insert-before fa fa-step-backward"></i>
+                    <i title="Insert selection before frame {{loop.index}}" class="insert-before fa fa-caret-down"></i>
+                {% endif %}
+                {% if selection.selectedFrames.length %}
+                    <i title="Insert selection after frame {{loop.index}}" class="insert-after fa fa-caret-down"></i>
                 {% endif %}
                 {{loop.index}}
-                {% if selection.selectedFrames.length %}
-                    <i title="Insert selection after" class="insert-after fa fa-step-forward"></i>
-                {% endif %}
             </th>
         {% endfor %}
     </tr>
