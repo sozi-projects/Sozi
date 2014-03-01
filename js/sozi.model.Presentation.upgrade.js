@@ -45,6 +45,12 @@ namespace("sozi.model", function (exports) {
             return parseInt(a.getAttribute(soziPrefix + "sequence")) - parseInt(b.getAttribute(soziPrefix + "sequence"));
         });
 
+        // The "default" pool contains all layers that have no corresponding
+        // <layer> element in any frame. The properties for these layers are
+        // set in the <frame> elements. This array is updated as we process
+        // the sequence of frames.
+        var defaultLayers = this.layers.slice();
+
         frames.forEach(function (frameElt, frameIndex) {
             // If this is not the first frame, the state is cloned from the previous frame.
             // Else, create a new default state.
@@ -70,14 +76,20 @@ namespace("sozi.model", function (exports) {
                     layerElt = frameElt;
                 }
                 else {
-                    // If the current layer has a corresponding <layer> element, use it.
-                    // Else, if this is the first frame, the layer is managed by the <frame> element.
+                    // If the current layer has a corresponding <layer> element, use it
+                    // and consider that the layer is no longer in the "default" pool.
+                    // Else, if the layer is in the "default" pool, then it is managed
+                    // by the <frame> element.
                     // Other frames are cloned from the predecessors.
+                    var defaultLayerIndex = defaultLayers.indexOf(layer);
                     var groupId = layer.svgNodes[0].getAttribute("id");
                     if (groupId in layerEltsByGroupId) {
                         layerElt = layerEltsByGroupId[groupId];
+                        if (defaultLayerIndex >= 0) {
+                            defaultLayers.splice(defaultLayerIndex, 1);
+                        }
                     }
-                    else if (!frameIndex) {
+                    else if (defaultLayerIndex >= 0) {
                         layerElt = frameElt;
                     }
                 }
