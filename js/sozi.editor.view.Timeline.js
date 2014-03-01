@@ -42,8 +42,6 @@ namespace("sozi.editor.view", function (exports) {
 
             this.render();
 
-            $("button#delete-frames").click(this.bind(this.deleteFrames));
-
             pres.addListener("frameAdded", this);
             pres.addListener("framesDeleted", this.render, this);
             pres.addListener("framesMoved", this.render, this);
@@ -341,6 +339,7 @@ namespace("sozi.editor.view", function (exports) {
             $("#timeline").html(nunjucks.render("templates/sozi.editor.view.Timeline.html", this));
 
             $("#add-frame").click(this.bind(this.addFrame));
+            $("#delete-frames").click(this.bind(this.deleteFrames));
 
             $("#add-layer").change(function () {
                 self.addLayer(this.value);

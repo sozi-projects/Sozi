@@ -64,6 +64,7 @@ div#timeline {
 }
 
 div#timeline input,
+div#timeline button,
 div#timeline select {
     width: 100%;
 }

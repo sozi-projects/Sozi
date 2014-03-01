@@ -1,6 +1,11 @@
 <table>
     <tr>
-        <th colspan="2"><input type="button" id="add-frame" value="Add frame"></th>
+        <th>
+            <button id="delete-frames" title="Delete selected frames" {{"disabled" if selection.selectedFrames.length == 0}}><i class="fa fa-trash-o"></i></button>
+        </th>
+        <th>
+            <button id="add-frame" title="Create a new frame"><i class="fa fa-plus"></i></button>
+        </th>
         {% for frame in presentation.frames %}
             <th data-frame-index="{{loop.index0}}"
                 class="frame-index {{'selected' if selection.hasFrame(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
