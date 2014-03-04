@@ -20,6 +20,7 @@ namespace("sozi.model", function (exports) {
         return Array.prototype.slice.call(coll);
 
     }
+
     exports.Presentation.upgrade = function () {
         console.log("Attempting document upgrade from Sozi 13 or earlier");
 
@@ -40,8 +41,8 @@ namespace("sozi.model", function (exports) {
         var soziPrefix = soziNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
 
         // Get an ordered array of sozi:frame elements
-        var frames = toArray(this.svgRoot.getElementsByTagName(soziPrefix + "frame"));
-        frames.sort(function (a, b) {
+        var frameElts = toArray(this.svgRoot.getElementsByTagName(soziPrefix + "frame"));
+        frameElts.sort(function (a, b) {
             return parseInt(a.getAttribute(soziPrefix + "sequence")) - parseInt(b.getAttribute(soziPrefix + "sequence"));
         });
 
@@ -51,7 +52,7 @@ namespace("sozi.model", function (exports) {
         // the sequence of frames.
         var defaultLayers = this.layers.slice();
 
-        frames.forEach(function (frameElt, frameIndex) {
+        frameElts.forEach(function (frameElt, frameIndex) {
             // If this is not the first frame, the state is cloned from the previous frame.
             // Else, create a new default state.
             var state = frameIndex ?
@@ -65,8 +66,8 @@ namespace("sozi.model", function (exports) {
             // Collect layer elements inside the current frame element
             var layerElts = toArray(frameElt.getElementsByTagName(soziPrefix + "layer"));
             var layerEltsByGroupId = {};
-            layerElts.forEach(function (elt) {
-                layerEltsByGroupId[elt.getAttribute(soziPrefix + "group")] = elt;
+            layerElts.forEach(function (layerElt) {
+                layerEltsByGroupId[layerElt.getAttribute(soziPrefix + "group")] = layerElt;
             });
 
             this.layers.forEach(function (layer, layerIndex) {
@@ -103,7 +104,31 @@ namespace("sozi.model", function (exports) {
             }, this);
 
             var frame = this.addFrame(state);
-            frame.title = frameElt.getAttribute(soziPrefix + "title");
+
+            function importAttribute(srcName, targetName, fn) {
+                targetName = targetName || srcName;
+                fn = fn || function (x) { return x; };
+                frame[targetName] = frameElt.hasAttribute(soziPrefix + srcName) ?
+                    fn(frameElt.getAttribute(soziPrefix + srcName)) :
+                    frame[targetName]
+            }
+
+            importAttribute("title");
+            importAttribute("id", "frameId");
+            importAttribute("transition-duration-ms", "transitionDurationMs", parseFloat);
+            importAttribute("timeout-ms", "timeoutMs", parseFloat);
+            importAttribute("timeout-enable", "timeoutEnable", function (str) { return str === "true"; });
+            frame.fire("changed");
+
+/* TODO process layer-specific elements
+            frameElt.getAttribute(soziPrefix + "clip");
+            frameElt.getAttribute(soziPrefix + "hide");
+            frameElt.getAttribute(soziPrefix + "transition-profile");
+            frameElt.getAttribute(soziPrefix + "transition-zoom-percent");
+            frameElt.getAttribute(soziPrefix + "transition-path-hide");
+            frameElt.getAttribute(soziPrefix + "transition-path");
+*/
+
         }, this);
     };
 });
