@@ -22,23 +22,18 @@ namespace("sozi.model", function (exports) {
             this.presentation = pres;
             this.state = state;
 
+            // TODO define default properties separately
             this.frameId = "frame" + this.id;
             this.title = "New frame";
+            this.transitionDurationMs = 1000;
+            this.timeoutMs = 0;
+            this.timeoutEnable = false;
 
             return this;
         },
 
         get index() {
             return this.presentation.frames.indexOf(this);
-        },
-
-        set title(title) {
-            this._title = title;
-            this.fire("changed");
-        },
-
-        get title() {
-            return this._title;
         }
     });
 
