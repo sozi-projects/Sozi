@@ -11,7 +11,7 @@ div#top {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 70%;
     height: 70%;
 
     background-image: linear-gradient(-45deg,
@@ -28,6 +28,15 @@ div#preview {
     height: 100%;
     background: white;
     box-shadow: 0 0 20px 5px rgb(32, 32, 32);
+}
+
+div#right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 70%;
+    background: rgb(64, 64, 64);
 }
 
 div#bottom {
@@ -150,4 +159,30 @@ div#timeline .frame-index.selected {
     color: rgb(200, 220, 220);
     background: transparent;
     font-weight: bold;
+}
+
+div#right h1 {
+    text-align: center;
+    font-size: 150%;
+    color: white;
+}
+
+div#right th {
+    text-align: right;
+    padding: 0.3em 1em;
+    color: white;
+}
+
+div#right td {
+    text-align: left;
+}
+
+div#right td input[type=text],
+div#right td input[type=number] {
+    width: 100%;
+    border: 1px solid rgb(80, 80, 80);
+}
+
+div#right .multiple {
+    background: rgb(200, 220, 220);
 }

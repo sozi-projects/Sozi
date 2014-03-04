@@ -19,6 +19,7 @@
         <script src="js/sozi.editor.model.Selection.js"></script>
         <script src="js/sozi.editor.view.Preview.js"></script>
         <script src="js/sozi.editor.view.Timeline.js"></script>
+        <script src="js/sozi.editor.view.Properties.js"></script>
         <script src="js/sozi.editor.main.js"></script>
 
         <script src="build/sozi.editor.view.templates.js"></script>
@@ -29,6 +30,28 @@
             <div id="preview">
                 Loading&hellip;
             </div>
+        </div>
+        <div id="right">
+            <h1>Frame</h1>
+
+            <table>
+                <tr>
+                    <th>Title:</th>
+                    <td><input id="frame-title" type="text"></td>
+                </tr>
+                <tr>
+                    <th>Id:</th>
+                    <td><input id="frame-id" type="text"></td>
+                </tr>
+                <tr>
+                    <th>Timeout (sec):</th>
+                    <td><input id="frame-timeout-ms" type="number" pattern="\d+" min="0" step="0.1" value="5" size="3"></td>
+                </tr>
+                <tr>
+                    <th>Timeout enable</th>
+                    <td><input id="frame-timeout-enable" type="checkbox"></td>
+                </tr>
+            </table>
         </div>
         <div id="bottom">
             <div>

@@ -51,6 +51,7 @@ window.addEventListener("load", function () {
                 var selection = sozi.editor.model.Selection.init(pres);
                 sozi.editor.view.Preview.init(pres, selection);
                 sozi.editor.view.Timeline.init(pres, selection);
+                sozi.editor.view.Properties.init(pres, selection);
 
                 // Load presentation data from JSON file.
                 //
