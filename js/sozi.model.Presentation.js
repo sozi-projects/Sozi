@@ -25,9 +25,9 @@ namespace("sozi.model", function (exports) {
             // TODO define default properties separately
             this.frameId = "frame" + this.id;
             this.title = "New frame";
-            this.transitionDurationMs = 1000;
             this.timeoutMs = 0;
             this.timeoutEnable = false;
+            this.transitionDurationMs = 1000;
 
             return this;
         },
