@@ -167,6 +167,10 @@ div#right h1 {
     color: white;
 }
 
+div#right table {
+    margin: 0 auto;
+}
+
 div#right th {
     text-align: right;
     padding: 0.3em 1em;
