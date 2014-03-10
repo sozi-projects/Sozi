@@ -108,16 +108,16 @@ namespace("sozi.model", function (exports) {
             function importAttribute(srcName, targetName, fn) {
                 targetName = targetName || srcName;
                 fn = fn || function (x) { return x; };
-                frame[targetName] = frameElt.hasAttribute(soziPrefix + srcName) ?
-                    fn(frameElt.getAttribute(soziPrefix + srcName)) :
+                frame[targetName] = frameElt.hasAttribute(srcName) ?
+                    fn(frameElt.getAttribute(srcName)) :
                     frame[targetName]
             }
 
-            importAttribute("title");
             importAttribute("id", "frameId");
-            importAttribute("transition-duration-ms", "transitionDurationMs", parseFloat);
-            importAttribute("timeout-ms", "timeoutMs", parseFloat);
-            importAttribute("timeout-enable", "timeoutEnable", function (str) { return str === "true"; });
+            importAttribute(soziPrefix + "title", "title");
+            importAttribute(soziPrefix + "transition-duration-ms", "transitionDurationMs", parseFloat);
+            importAttribute(soziPrefix + "timeout-ms", "timeoutMs", parseFloat);
+            importAttribute(soziPrefix + "timeout-enable", "timeoutEnable", function (str) { return str === "true"; });
             frame.fire("changed");
 
 /* TODO process layer-specific elements
