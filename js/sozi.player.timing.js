@@ -66,4 +66,7 @@ namespace("sozi.player.timing", function (exports) {
     exports.easeOut   = exports.makeBezier(0.0,  0.0, 0.58, 1.0);
     exports.stepStart = exports.makeSteps(1, "start");
     exports.stepEnd   = exports.makeSteps(1, "end");
+    exports.stepMiddle = function (x) {
+        return x >= 0.5 ? 1 : 0;
+    }
 });

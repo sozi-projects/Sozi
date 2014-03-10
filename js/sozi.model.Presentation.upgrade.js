@@ -21,6 +21,45 @@ namespace("sozi.model", function (exports) {
 
     }
 
+    function parseBoolean(str) {
+        return str === "true";
+    }
+
+    function convertTimingFunction(str) {
+        switch (str) {
+                case "accelerate":
+                case "strong-accelerate":
+                    return "easeIn";
+
+                case "decelerate":
+                case "strong-decelerate":
+                    return "easeOut";
+
+                case "accelerate-decelerate":
+                case "strong-accelerate-decelerate":
+                    return "easeInOut";
+
+                case "immediate-beginning":
+                    return "step-start";
+
+                case "immediate-end":
+                    return "step-end";
+
+                case "immediate-middle":
+                    return "step-middle";
+
+                default:
+                    return "linear";
+        }
+    }
+
+    function importAttribute(elt, name, value, fn) {
+        fn = fn || function (x) { return x; };
+        return elt.hasAttribute(name) ?
+            fn(elt.getAttribute(name)) :
+            value;
+    }
+
     exports.Presentation.upgrade = function () {
         console.log("Attempting document upgrade from Sozi 13 or earlier");
 
@@ -98,32 +137,28 @@ namespace("sozi.model", function (exports) {
                 if (layerElt) {
                     var refElt = this.svgRoot.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
                     frame.cameraStates[layerIndex].setAtElement(refElt);
+
+                    var layerProperties = frame.layerProperties[layerIndex];
+                    layerProperties.set({
+                        clip: importAttribute(layerElt, soziPrefix + "clip", layerProperties.clip, parseBoolean),
+                        hide: importAttribute(layerElt, soziPrefix + "hide", layerProperties.hide, parseBoolean),
+                        transitionTimingFunction: importAttribute(layerElt, soziPrefix + "transition-profile", layerProperties.transitionTimingFunction, convertTimingFunction),
+                        transitionRelativeZoom: importAttribute(layerElt, soziPrefix + "transition-zoom-percent", layerProperties.transitionRelativeZoom, function (z) { return parseFloat(z) / 100; }),
+                        transitionPathId: importAttribute(layerElt, soziPrefix + "transition-path", layerProperties.transitionPathId),
+                        transitionPathHide: importAttribute(layerElt, soziPrefix + "transition-path-hide", layerProperties.transitionPathHide, parseBoolean)
+                    });
                 }
             }, this);
 
-            function importAttribute(srcName, targetName, fn) {
-                targetName = targetName || srcName;
-                fn = fn || function (x) { return x; };
-                frame[targetName] = frameElt.hasAttribute(srcName) ?
-                    fn(frameElt.getAttribute(srcName)) :
-                    frame[targetName]
-            }
+            frame.set({
+                frameId: importAttribute(frameElt, "id", frame.frameId),
+                title: importAttribute(frameElt, soziPrefix + "title", frame.title),
+                transitionDurationMs: importAttribute(frameElt, soziPrefix + "transition-duration-ms", frame.transitionDurationMs, parseFloat),
+                timeoutMs: importAttribute(frameElt, soziPrefix + "timeout-ms", frame.timeoutMs, parseFloat),
+                timeoutEnable: importAttribute(frameElt, soziPrefix + "timeout-enable", frame.timeoutEnable, parseBoolean)
+            });
 
-            importAttribute("id", "frameId");
-            importAttribute(soziPrefix + "title", "title");
-            importAttribute(soziPrefix + "transition-duration-ms", "transitionDurationMs", parseFloat);
-            importAttribute(soziPrefix + "timeout-ms", "timeoutMs", parseFloat);
-            importAttribute(soziPrefix + "timeout-enable", "timeoutEnable", function (str) { return str === "true"; });
             frame.fire("changed");
-
-/* TODO process layer-specific elements
-            frameElt.getAttribute(soziPrefix + "clip");
-            frameElt.getAttribute(soziPrefix + "hide");
-            frameElt.getAttribute(soziPrefix + "transition-profile");
-            frameElt.getAttribute(soziPrefix + "transition-zoom-percent");
-            frameElt.getAttribute(soziPrefix + "transition-path-hide");
-            frameElt.getAttribute(soziPrefix + "transition-path");
-*/
 
         }, this);
     };

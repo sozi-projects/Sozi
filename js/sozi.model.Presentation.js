@@ -16,7 +16,7 @@ namespace("sozi.model", function (exports) {
 
     exports.Frame = sozi.model.Object.create({
 
-        init: function (pres, states) {
+        init: function (pres) {
             sozi.model.Object.init.call(this);
 
             this.presentation = pres;
@@ -31,6 +31,17 @@ namespace("sozi.model", function (exports) {
             this.timeoutEnable = false;
             this.transitionDurationMs = 1000;
 
+            this.layerProperties = pres.layers.map(function () {
+                return sozi.model.Object.create({
+                    clip: true,
+                    hide: true,
+                    transitionTimingFunction: "linear",
+                    transitionRelativeZoom: 0,
+                    transitionPathId: "",
+                    transitionPathHide: true
+                }).init();
+            });
+
             return this;
         },
 
@@ -44,7 +55,7 @@ namespace("sozi.model", function (exports) {
             });
         },
 
-        get cameraStates(states) {
+        get cameraStates() {
             return this._cameraStates;
         }
     });
