@@ -71,7 +71,7 @@ namespace("sozi.editor.view", function (exports) {
             var index = this.selection.currentFrame ?
                 this.presentation.frames.indexOf(this.selection.currentFrame) + 1 :
                 this.presentation.frames.length;
-            this.presentation.addFrame(sozi.editor.view.Preview.state, index);
+            this.presentation.addFrame(sozi.editor.view.Preview.cameraStates, index);
         },
 
         /*

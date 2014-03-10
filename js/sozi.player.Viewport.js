@@ -320,7 +320,7 @@ namespace("sozi.player", function (exports) {
          * Returns:
          *    - An dictionary of camera states that fit the whole document.
          */
-        get defaultState() {
+        get defaultStates() {
             // This object defines the bounding box of the whole document
             var state = exports.CameraState.create().init(this);
 
@@ -331,24 +331,24 @@ namespace("sozi.player", function (exports) {
         },
 
         /*
-         * Set the state of the current viewport.
+         * Set the states of the cameras of the current viewport.
          *
          * Parameters:
-         *    - state: An array of camera states
+         *    - states: An array of camera states
          */
-        set state(state) {
+        set cameraStates(states) {
             this.cameras.forEach(function (camera, index) {
-                camera.setAtState(state[index]);
+                camera.setAtState(states[index]);
             });
         },
 
         /*
-         * Get the state of the current viewport.
+         * Get the states of the cameras of the current viewport.
          *
          * Returns:
-         *    - A dictionary of camera states
+         *    - An array of camera states
          */
-        get state () {
+        get cameraStates () {
             return this.cameras.map(function (camera) {
                 return camera.clone();
             });

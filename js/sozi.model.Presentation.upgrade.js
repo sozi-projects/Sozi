@@ -55,8 +55,8 @@ namespace("sozi.model", function (exports) {
         frameElts.forEach(function (frameElt, frameIndex) {
             // If this is not the first frame, the state is cloned from the previous frame.
             // Else, create a new default state.
-            var state = frameIndex ?
-                this.frames[frameIndex - 1].state.map(function (state) {
+            var states = frameIndex ?
+                this.frames[frameIndex - 1].cameraStates.map(function (state) {
                     return state.clone();
                 }) :
                 this.layers.map(function () {
@@ -99,11 +99,11 @@ namespace("sozi.model", function (exports) {
                 // update the camera state for this layer.
                 if (layerElt) {
                     var refElt = this.svgRoot.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
-                    state[layerIndex].setAtElement(refElt);
+                    states[layerIndex].setAtElement(refElt);
                 }
             }, this);
 
-            var frame = this.addFrame(state);
+            var frame = this.addFrame(states);
 
             function importAttribute(srcName, targetName, fn) {
                 targetName = targetName || srcName;

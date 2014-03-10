@@ -53,7 +53,7 @@ namespace("sozi.editor.view", function (exports) {
 
         selectionChanged: function (selection) {
             if (selection.currentFrame) {
-                this.state = selection.currentFrame.state;
+                this.cameraStates = selection.currentFrame.cameraStates;
             }
             // A camera is selected if its layer belongs to the list of selected layers
             // or if its layer is not managed and the default layer is selected.
@@ -65,7 +65,7 @@ namespace("sozi.editor.view", function (exports) {
         stateChanged: function () {
             var frame = this.selection.currentFrame;
             if (frame) {
-                frame.state = this.state;
+                frame.cameraStates = this.cameraStates;
             }
             // TODO choose reference SVG element for frame
             // getIntersectionList(SVGRect, SVGElement)

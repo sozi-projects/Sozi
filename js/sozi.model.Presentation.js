@@ -16,11 +16,11 @@ namespace("sozi.model", function (exports) {
 
     exports.Frame = sozi.model.Object.create({
 
-        init: function (pres, state) {
+        init: function (pres, states) {
             sozi.model.Object.init.call(this);
 
             this.presentation = pres;
-            this.state = state;
+            this.cameraStates = states;
 
             // TODO define default properties separately
             this.frameId = "frame" + this.id;
@@ -150,11 +150,11 @@ namespace("sozi.model", function (exports) {
             return this;
         },
 
-        addFrame: function (state, index) {
+        addFrame: function (states, index) {
             if (index === undefined) {
                 index = this.frames.length;
             }
-            var frame = exports.Frame.create().init(this, state);
+            var frame = exports.Frame.create().init(this, states);
             this.frames.splice(index, 0, frame);
             this.fire("frameAdded", frame);
             frame.addListener("changed", this.frameChanged, this);
