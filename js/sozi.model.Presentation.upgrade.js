@@ -53,15 +53,13 @@ namespace("sozi.model", function (exports) {
         var defaultLayers = this.layers.slice();
 
         frameElts.forEach(function (frameElt, frameIndex) {
+            // Create a new frame with defaule camera states
+            var frame = this.addFrame();
+
             // If this is not the first frame, the state is cloned from the previous frame.
-            // Else, create a new default state.
-            var states = frameIndex ?
-                this.frames[frameIndex - 1].cameraStates.map(function (state) {
-                    return state.clone();
-                }) :
-                this.layers.map(function () {
-                    return sozi.player.CameraState.create().init(this.svgRoot);
-                }, this);
+            if (frameIndex) {
+                frame.cameraStates = this.frames[frameIndex - 1].cameraStates;
+            }
 
             // Collect layer elements inside the current frame element
             var layerElts = toArray(frameElt.getElementsByTagName(soziPrefix + "layer"));
@@ -99,11 +97,9 @@ namespace("sozi.model", function (exports) {
                 // update the camera state for this layer.
                 if (layerElt) {
                     var refElt = this.svgRoot.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
-                    states[layerIndex].setAtElement(refElt);
+                    frame.cameraStates[layerIndex].setAtElement(refElt);
                 }
             }, this);
-
-            var frame = this.addFrame(states);
 
             function importAttribute(srcName, targetName, fn) {
                 targetName = targetName || srcName;

@@ -20,7 +20,9 @@ namespace("sozi.model", function (exports) {
             sozi.model.Object.init.call(this);
 
             this.presentation = pres;
-            this.cameraStates = states;
+            this._cameraStates = pres.layers.map(function () {
+                return sozi.player.CameraState.create().init(pres.svgRoot);
+            });
 
             // TODO define default properties separately
             this.frameId = "frame" + this.id;
@@ -34,6 +36,16 @@ namespace("sozi.model", function (exports) {
 
         get index() {
             return this.presentation.frames.indexOf(this);
+        },
+
+        set cameraStates(states) {
+            this._cameraStates.forEach(function (state, index) {
+                state.setAtState(states[index]);
+            });
+        },
+
+        get cameraStates(states) {
+            return this._cameraStates;
         }
     });
 
@@ -150,11 +162,11 @@ namespace("sozi.model", function (exports) {
             return this;
         },
 
-        addFrame: function (states, index) {
+        addFrame: function (index) {
             if (index === undefined) {
                 index = this.frames.length;
             }
-            var frame = exports.Frame.create().init(this, states);
+            var frame = exports.Frame.create().init(this);
             this.frames.splice(index, 0, frame);
             this.fire("frameAdded", frame);
             frame.addListener("changed", this.frameChanged, this);
