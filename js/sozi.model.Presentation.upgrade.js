@@ -134,8 +134,13 @@ namespace("sozi.model", function (exports) {
 
                 // It the current layer is managed by a <frame> or <layer> element,
                 // update the camera state for this layer.
-                if (layerElt) {
+                if (layerElt && layerElt.hasAttribute(soziPrefix + "refid")) {
                     var refElt = this.svgRoot.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
+                    if (!refElt) {
+                        console.log("Element not found: #" + layerElt.getAttribute(soziPrefix + "refid"));
+                        return;
+                    }
+
                     frame.cameraStates[layerIndex].setAtElement(refElt);
 
                     var layerProperties = frame.layerProperties[layerIndex];
