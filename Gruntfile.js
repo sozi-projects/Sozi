@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks("grunt-nunjucks");
     grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-node-webkit-builder");
 
     var version = grunt.template.today("yy.mm.ddHHMM");
 
@@ -21,10 +22,29 @@ module.exports = function(grunt) {
         nunjucks: {
             templates: {
                 src: "templates/*",
-                dest: "build/sozi.editor.view.templates.js"
+                dest: "build/templates/sozi.editor.view.templates.js"
             }
+        },
+
+        nodewebkit: {
+            options: {
+                version: "0.8.4",
+                build_dir: "build",
+                win: true,
+                mac: true,
+                linux32: true,
+                linux64: true
+            },
+            all: [
+                "package.json",
+                "index.html",
+                "js/**/*",
+                "css/**/*",
+                "vendor/**/*",
+                "<%= nunjucks.templates.dest %>"
+            ]
         }
     });
 
-    grunt.registerTask("default", ["nunjucks"]);
+    grunt.registerTask("default", ["nunjucks", "nodewebkit"]);
 };

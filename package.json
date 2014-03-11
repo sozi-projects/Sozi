@@ -20,6 +20,7 @@
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.7.2",
     "nunjucks": "~1.0.1",
-    "grunt-nunjucks": "~0.1.3"
+    "grunt-nunjucks": "~0.1.3",
+    "grunt-node-webkit-builder": "^0.1.17"
   }
 }
