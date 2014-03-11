@@ -66,6 +66,9 @@ window.addEventListener("load", function () {
 //                }
 //                else {
                     pres.upgrade();
+                    if (pres.frames.length) {
+                        selection.selectFrames([pres.frames[0]]);
+                    }
                     saveJSON(jsonFileName, pres.toStorable());
 //                }
             }

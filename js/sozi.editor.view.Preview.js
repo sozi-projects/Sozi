@@ -10,6 +10,7 @@ namespace("sozi.editor.view", function (exports) {
             sozi.player.Viewport.init.call(this, pres);
 
             this.selection = selection;
+            this.selectionChanged(selection);
 
             // Setup event handlers
             var resizeHandler = this.bind(function () {

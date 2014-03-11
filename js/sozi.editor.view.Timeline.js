@@ -42,7 +42,7 @@ namespace("sozi.editor.view", function (exports) {
 
             this.render();
 
-            pres.addListener("frameAdded", this);
+            pres.addListener("frameAdded", this.render, this);
             pres.addListener("framesDeleted", this.render, this);
             pres.addListener("framesMoved", this.render, this);
             pres.addListener("frameChanged", this.render, this);
@@ -73,23 +73,6 @@ namespace("sozi.editor.view", function (exports) {
                 this.presentation.frames.length;
             var frame = this.presentation.addFrame(index);
             frame.cameraStates = sozi.editor.view.Preview.cameraStates;
-        },
-
-        /*
-         * Event handler: A frame was added to the presentation.
-         *
-         * This method is called when a new frame has been added
-         * to the presentation (see Presentation event: frameAdded).
-         *
-         * The current view is updated and the selection is set to the
-         * new frame.
-         *
-         * Parameters:
-         *  - presentation: The presentation that fired the event
-         *  - frame: The new frame
-         */
-        frameAdded: function (presentation, frame) {
-            this.render();
             this.selection.selectFrames([frame]);
         },
 
