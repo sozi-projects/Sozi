@@ -44,31 +44,40 @@ module.exports = function(grunt) {
                 "vendor/**/*",
                 "<%= nunjucks.templates.dest %>"
             ]
-        },
-
-        zip: {
-            win: {
-                cwd: "build/releases/Sozi/win",
-                src: "build/releases/Sozi/win/Sozi/**/*",
-                dest: "build/Sozi-win.zip"
-            },
-            mac: {
-                cwd: "build/releases/Sozi/mac",
-                src: "build/releases/Sozi/mac/Sozi.app/**/*",
-                dest: "build/Sozi-mac.zip"
-            },
-            linux32: {
-                cwd: "build/releases/Sozi/linux32",
-                src: "build/releases/Sozi/linux32/Sozi/**/*",
-                dest: "build/Sozi-linux32.zip"
-            },
-            linux64: {
-                cwd: "build/releases/Sozi/linux64",
-                src: "build/releases/Sozi/linux64/Sozi/**/*",
-                dest: "build/Sozi-linux64.zip"
-            }
         }
     });
+
+    // Default options for target OS in nodewebkit task
+    var targets = {
+        linux32: {
+            enabled: false,
+            dir: "Sozi"
+        },
+        linux64: {
+            enabled: false,
+            dir: "Sozi"
+        },
+        win: {
+            enabled: true,
+            dir: "Sozi"
+        },
+        mac: {
+            enabled: true,
+            dir: "Sozi.app"
+        }
+    };
+
+    for (var targetName in targets) {
+        var targetOpt = grunt.config(["nodewebkit", "options", targetName]);
+        var targetEnabled = targetOpt !== undefined ? targetOpt : targets[targetName].enabled;
+        if (targetEnabled) {
+            grunt.config(["zip", targetName], {
+                cwd: "build/releases/Sozi/" + targetName,
+                src: "build/releases/Sozi/" + targetName + "/" + targets[targetName].dir + "/**/*",
+                dest: "build/Sozi-" + targetName + ".zip"
+            });
+        }
+    }
 
     grunt.registerTask("default", ["nunjucks", "nodewebkit", "zip"]);
 };
