@@ -30,11 +30,13 @@ namespace("sozi.model", function (exports) {
             this.timeoutMs = 0;
             this.timeoutEnable = false;
             this.transitionDurationMs = 1000;
+            this.showInFrameList = true;
 
             this.layerProperties = pres.layers.map(function () {
                 return sozi.model.Object.create({
                     clip: true,
-                    hide: true,
+                    referenceElementId: "",
+                    referenceElementHide: true,
                     transitionTimingFunction: "linear",
                     transitionRelativeZoom: 0,
                     transitionPathId: "",

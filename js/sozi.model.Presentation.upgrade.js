@@ -55,7 +55,7 @@ namespace("sozi.model", function (exports) {
 
     function importAttribute(elt, name, value, fn) {
         fn = fn || function (x) { return x; };
-        return elt.hasAttribute(name) ?
+        return elt && elt.hasAttribute(name) ?
             fn(elt.getAttribute(name)) :
             value;
     }
@@ -92,12 +92,14 @@ namespace("sozi.model", function (exports) {
         var defaultLayers = this.layers.slice();
 
         frameElts.forEach(function (frameElt, frameIndex) {
-            // Create a new frame with defaule camera states
+            // Create a new frame with default camera states
             var frame = this.addFrame();
-
+            var refFrame = frame;
+            
             // If this is not the first frame, the state is cloned from the previous frame.
             if (frameIndex) {
-                frame.cameraStates = this.frames[frameIndex - 1].cameraStates;
+                refFrame = this.frames[frameIndex - 1];
+                frame.cameraStates = refFrame.cameraStates;
             }
 
             // Collect layer elements inside the current frame element
@@ -142,25 +144,27 @@ namespace("sozi.model", function (exports) {
                     }
 
                     frame.cameraStates[layerIndex].setAtElement(refElt);
-
-                    var layerProperties = frame.layerProperties[layerIndex];
-                    layerProperties.set({
-                        clip: importAttribute(layerElt, soziPrefix + "clip", layerProperties.clip, parseBoolean),
-                        hide: importAttribute(layerElt, soziPrefix + "hide", layerProperties.hide, parseBoolean),
-                        transitionTimingFunction: importAttribute(layerElt, soziPrefix + "transition-profile", layerProperties.transitionTimingFunction, convertTimingFunction),
-                        transitionRelativeZoom: importAttribute(layerElt, soziPrefix + "transition-zoom-percent", layerProperties.transitionRelativeZoom, function (z) { return parseFloat(z) / 100; }),
-                        transitionPathId: importAttribute(layerElt, soziPrefix + "transition-path", layerProperties.transitionPathId),
-                        transitionPathHide: importAttribute(layerElt, soziPrefix + "transition-path-hide", layerProperties.transitionPathHide, parseBoolean)
-                    });
                 }
+
+                var refLayerProperties = refFrame.layerProperties[layerIndex];
+                frame.layerProperties[layerIndex].set({
+                    clip: importAttribute(layerElt, soziPrefix + "clip", refLayerProperties.clip, parseBoolean),
+                    referenceElementId: importAttribute(layerElt, soziPrefix + "refid", refLayerProperties.referenceElementId),
+                    referenceElementHide: importAttribute(layerElt, soziPrefix + "hide", refLayerProperties.referenceElementHide, parseBoolean),
+                    transitionTimingFunction: importAttribute(layerElt, soziPrefix + "transition-profile", refLayerProperties.transitionTimingFunction, convertTimingFunction),
+                    transitionRelativeZoom: importAttribute(layerElt, soziPrefix + "transition-zoom-percent", refLayerProperties.transitionRelativeZoom, function (z) { return parseFloat(z) / 100; }),
+                    transitionPathId: importAttribute(layerElt, soziPrefix + "transition-path", refLayerProperties.transitionPathId),
+                    transitionPathHide: importAttribute(layerElt, soziPrefix + "transition-path-hide", refLayerProperties.transitionPathHide, parseBoolean)
+                });
             }, this);
 
             frame.set({
-                frameId: importAttribute(frameElt, "id", frame.frameId),
-                title: importAttribute(frameElt, soziPrefix + "title", frame.title),
-                transitionDurationMs: importAttribute(frameElt, soziPrefix + "transition-duration-ms", frame.transitionDurationMs, parseFloat),
-                timeoutMs: importAttribute(frameElt, soziPrefix + "timeout-ms", frame.timeoutMs, parseFloat),
-                timeoutEnable: importAttribute(frameElt, soziPrefix + "timeout-enable", frame.timeoutEnable, parseBoolean)
+                frameId: importAttribute(frameElt, "id", refFrame.frameId),
+                title: importAttribute(frameElt, soziPrefix + "title", refFrame.title),
+                transitionDurationMs: importAttribute(frameElt, soziPrefix + "transition-duration-ms", refFrame.transitionDurationMs, parseFloat),
+                timeoutMs: importAttribute(frameElt, soziPrefix + "timeout-ms", refFrame.timeoutMs, parseFloat),
+                timeoutEnable: importAttribute(frameElt, soziPrefix + "timeout-enable", refFrame.timeoutEnable, parseBoolean),
+                showInFrameList: importAttribute(frameElt, soziPrefix + "show-in-frame-list", refFrame.showInFrameList, parseBoolean)
             });
 
             frame.fire("changed");

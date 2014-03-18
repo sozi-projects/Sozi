@@ -44,6 +44,10 @@
                     <td><input id="frame-id" type="text"></td>
                 </tr>
                 <tr>
+                    <th>Show in frame list</th>
+                    <td><input id="frame-list" type="checkbox"></td>
+                </tr>
+                <tr>
                     <th>Timeout (sec)</th>
                     <td><input id="frame-timeout" type="number" pattern="\d+" min="0" step="0.1" value="5" size="3"></td>
                 </tr>
@@ -51,14 +55,53 @@
                     <th>Timeout enable</th>
                     <td><input id="frame-timeout-enable" type="checkbox"></td>
                 </tr>
+                <tr>
+                    <th>Clip</th>
+                    <td><input id="layer-clip" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <th>Reference element Id</th>
+                    <td><input id="layer-reference-id" type="text"></td>
+                </tr>
+                <tr>
+                    <th>Hide element</th>
+                    <td><input id="layer-reference-hide" type="checkbox"></td>
+                </tr>
             </table>
-
+            
             <h1>Transition</h1>
 
             <table>
                 <tr>
                     <th>Duration (sec)</th>
-                    <td><input id="transition-duration" type="number" pattern="\d+" min="0" step="0.1" value="1" size="3"></td>
+                    <td><input id="frame-transition-duration" type="number" pattern="\d+" min="0" step="0.1" value="1" size="3"></td>
+                </tr>
+                <tr>
+                    <th>Timing function</th>
+                    <td>
+                        <select id="layer-transition-timing-function">
+                            <option value="linear" selected>Linear</option>
+                            <option value="ease">Ease</option>
+                            <option value="easeIn">Ease in</option>
+                            <option value="easeOut">Ease out</option>
+                            <option value="easeInOut">Ease in-out</option>
+                            <option value="stepStart">Step start</option>
+                            <option value="stepEnd">Step end</option>
+                            <option value="stepMiddle">Step middle</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Relative zoom (%)</th>
+                    <td><input id="layer-transition-relative-zoom" type="number" pattern="\d+" step="1" value="0" size="3"></td>
+                </tr>
+                <tr>
+                    <th>Path Id</th>
+                    <td><input id="layer-transition-path-id" type="text"></td>
+                </tr>
+                <tr>
+                    <th>Hide path</th>
+                    <td><input id="layer-transition-path-hide" type="checkbox"></td>
                 </tr>
             </table>
         </div>
