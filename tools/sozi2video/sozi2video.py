@@ -58,7 +58,7 @@ if __name__ == '__main__':
     if len(os.listdir(tmp_dir)):
         sys.stdout.write("Writing video to: {0}\n".format(output_file_name))
         frame_pngs = os.path.join(tmp_dir, "frame-%d.png")
-        subprocess.call(["ffmpeg", "-r", "50", "-f", "image2",
+        subprocess.call(["ffmpeg", "-r", "50", "-f", "image2", "-vf", "movie=bg.png, scale=1280:720:0:0 [bg]; [in] format=rgb32, split [T1], fifo, [bg] overlay=0:0, [T2] overlay=0:0 [out]; [T1] fifo [T2]",
             "-i", frame_pngs, "-b", options.bit_rate, output_file_name])
 
     # Remove the temporary directory and its content
