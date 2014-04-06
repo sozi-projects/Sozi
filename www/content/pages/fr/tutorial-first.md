@@ -1,17 +1,14 @@
 Title: Votre première présentation
 Slug: tutorial-first
 Lang: fr
-Author: Guillaume Savaton
-Translation fr: David Libralesso
+Author: Guillaume Savaton, David Libralesso
+Translation: true
 Status: hidden
-
 
 Ce tutoriel est une introduction aux principes de base de Sozi.
 vous apprendrez à créer vos premières vues et à jouer la présentation dans un navigateur web.
 
-
-
-Télécharger et ouvrir le document d'exemple
+Téléchargez et ouvrez le document d'exemple
 -------------------------------------------
 
 Ce tutoriel se base sur un simple document SVG qui contient les éléments visuels nécessaires à notre présentation.
@@ -41,7 +38,7 @@ vous pouvez changer l'identifiant si vous le souhaitez, en faisant attention à 
 
 ![L'identifiant d'un rectangle](|filename|/images/tutorial-first/sozi-tutorial-screenshot-04.png)
 
-ouvrer l'éditeur de présentation
+Ouvrez l'éditeur de présentation
 --------------------------------
 
 Selectionnez le premier rectangle.
@@ -51,32 +48,31 @@ Puis, dans le menu *Extensions*, cliquez sur *Sozi*
 ![Ouvrir l'éditeur de présentation](|filename|/images/tutorial-first/sozi-tutorial-screenshot-05.png)
 
 La fenêtre *Sozi* vous permet de créer, modifier et effacer les vues de votre présentation.
-La fenêtre principale de Inkscape restera inactive tant que la fenêtre de l'éditeur de vue sera active.
+La fenêtre principale d'Inkscape restera inactive tant que la fenêtre de l'éditeur de présentation sera active.
 
 ![L'éditeur de présentation](|filename|/images/tutorial-first/sozi-tutorial-screenshot-06.png)
 
-Quand vous démarrez Sozi avec un nouveau document, Sozi sera automatique installé dans votre document.
-Par la suite, chaque fois que vous réouvrez Sozi dans le même document, Sozi sera mis à jour en utilisant la dernière version installée sur votre ordinateur.
+Quand vous démarrez Sozi avec un nouveau document, Sozi est automatiquement installé dans votre document.
+Par la suite, chaque fois que vous réouvrirez Sozi dans le même document, Sozi sera mis à jour en utilisant la dernière version installée sur votre ordinateur.
 
-Ajouter des vues et éditer leurs propriétés
+Ajoutez des vues et éditez leurs propriétés
 -------------------------------------------
 
 Cliquez sur le bouton *+* en bas à gauche de la fenêtre.
 Ceci va créer une nouvelle vue sans titre.
 Dans la capture d'écran ci-dessous, nous avons changé le titre de la vue par *First*.
 
-Remarquez que le champs *Elément SVG* a été automatiquement complété avec l'identifiant du rectangle sélectionné
+Remarquez que le champ *Élément SVG* a été automatiquement complété avec l'identifiant du rectangle sélectionné
 (`rect3816` dans notre exemple).
-Pour lier la vue à un autre rectangle, vous pouvez modifier manuellement le champs *Elément SVG*, ou, après avoir sélectionné un autre rectangle dans Inkscape, utilisez l'iĉone *Coller* sur la gauche.
+Pour lier la vue à un autre rectangle, vous pouvez modifier manuellement le champs *Élément SVG*, ou, après avoir sélectionné un autre rectangle dans Inkscape, utiliser l'iĉone *Coller* sur la gauche.
 
-
-![L'éditeur de vues](|filename|/images/tutorial-first/sozi-tutorial-screenshot-07.png)
+![L'éditeur de présentation](|filename|/images/tutorial-first/sozi-tutorial-screenshot-07.png)
 
 Fermez l'éditeur de présentation Sozi en cliquant sur le bouton *OK*.
 Dans la fenêtre principale de Inkscape, sélectionnez les trois autres rectangles (en maintenant enfoncé la touche Majuscule),
 en suivant l'ordre de la présentation.
 
-![L'éditeur de vues](|filename|/images/tutorial-first/sozi-tutorial-screenshot-08.png)
+![L'éditeur de présentation](|filename|/images/tutorial-first/sozi-tutorial-screenshot-08.png)
 
 Ouvrez de nouveau l'éditeur de présentation, et appuyez trois fois sur le bouton *+*.
 Cela va créer trois nouvelles vues en utilisant les trois rectangles sélectionnés.
@@ -85,14 +81,14 @@ Cela va créer trois nouvelles vues en utilisant les trois rectangles sélection
 
 Donnez un titre à chaque vue et fermez l'éditeur de présentation.
 
-Jouer la présentation dans un navigateur web
+Jouez la présentation dans un navigateur web
 --------------------------------------------
 
 Sauvez le document dans Inkscape.
 
 Ouvrez le document SVG dans votre navigateur préféré.
-La première vue sera automatiquement chargé.
+La première vue sera automatiquement chargée.
 Cliquez à l'intérieur de la présentation pour passer à la vue suivante.
-(voir aussi: [Jouer une présentation](|filename|play.md)).
+(voir aussi&nbsp;: [Jouer une présentation](|filename|play.md)).
 
-[Télécharger ou jouer une présentation complète](|filename|/images/tutorial-first/sozi-tutorial-full.svg).
+[Télécharger ou jouer la présentation complète](|filename|/images/tutorial-first/sozi-tutorial-full.svg).
