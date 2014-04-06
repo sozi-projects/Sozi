@@ -4,15 +4,10 @@ Lang: en
 Status: hidden
 Author: Guillaume Savaton
 
-The current stable version is 13.05 (May 2013).
+The current stable release is 13.11 (November 2013):
 
-  * [Download it](|filename|/releases/sozi-release-13.05-21064303.zip)
-  * [See the release notes](|filename|/News/release-13.05.md)
-  * [Install Sozi](|filename|install.md)
-
-The release candidate 13.11 (November 2013) is available for testing:
-
-  * [Download it](|filename|/releases/sozi-release-13.11-30213629.zip)
+  * [Download it](https://drive.google.com/file/d/0ByRUreHgekjMRnFad24wMEZwRGM/edit?usp=sharing)
+  * [Download another version](https://drive.google.com/folderview?id=0ByRUreHgekjMWG9teGM2dE8wck0&usp=sharing)
   * [See the release notes](|filename|/News/release-13.11.md)
   * [Install Sozi](|filename|install.md)
 
