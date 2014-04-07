@@ -37,6 +37,7 @@ div#right {
     width: 30%;
     height: 70%;
     background: rgb(64, 64, 64);
+    overflow: auto;
 }
 
 div#bottom {
@@ -163,7 +164,7 @@ div#timeline .frame-index.selected {
 
 div#right h1 {
     text-align: center;
-    font-size: 150%;
+    font-size: 120%;
     color: white;
 }
 
@@ -175,6 +176,7 @@ div#right th {
     text-align: right;
     padding: 0.3em 1em;
     color: white;
+    font-weight: normal;
 }
 
 div#right td {
