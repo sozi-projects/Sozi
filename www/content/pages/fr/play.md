@@ -1,9 +1,8 @@
 Title: Jouer
 Slug: 40-play
 Lang: fr
-Author: Guillaume Savaton, David Libralesso
 Translation: true
-Status: hidden
+Author: Guillaume Savaton, David Libralesso
 
 
 Naviguer dans une présentation
@@ -27,16 +26,16 @@ Naviguer dans une présentation
         <td>Clic milieu</td>
     </tr>
     <tr>
-        <th rowspan="4">Clavier</th>
+        <th rowspan="5">Clavier</th>
         <td>Flèche droite</td>
         <td>Flèche gauche</td>
-        <td rowspan="4">Début</td>
-        <td rowspan="4">Fin</td>
-        <td rowspan="4">t, T</td>
+        <td rowspan="5">Début</td>
+        <td rowspan="5">Fin</td>
+        <td rowspan="5">t, T</td>
     </tr>
     <tr>
-        <td>Flèche bas (immédiat)</td>
-        <td>Flèche haut (immédiat)</td>
+        <td>Flèche bas</td>
+        <td>Flèche haut</td>
     </tr>
     <tr>
         <td>Page bas</td>
@@ -44,9 +43,17 @@ Naviguer dans une présentation
     </tr>
     <tr>
         <td>Entrée</td>
+        <td></td>
+    </tr>
+    <tr>
         <td>Espace</td>
+        <td></td>
     </tr>
 </table>
+
+Lorsque vous souhaitez passer d'une vue à l'autre en utilisant les touches du clavier,
+vous pouvez presser la touche ``Shift`` (``Maj.``) simultanément pour sauter à la vue
+de destination sans animer la transition.
 
 Actions directes sur le canevas
 -------------------------------

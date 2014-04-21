@@ -22,7 +22,7 @@ Getting help and reporting issues
 ---------------------------------
 
 * [Frequently Asked Questions](|filename|faq.md)
-* [Join the Sozi discussion group](http://groups.google.com/group/sozi-users)
+* [Join the Sozi users discussion group](http://groups.google.com/group/sozi-users)
 * [Report issues and propose new features](http://github.com/senshu/Sozi/issues)
 
 
