@@ -32,17 +32,13 @@ namespace("sozi.editor.backend", function (exports) {
         load: function (fileName) {
             var self = this;
             fs.readFile(fileName, { encoding: "utf8" }, function (err, data) {
-                if (!err) {
-                    self.fire("load", data);
-                }
-                else {
-                    console.log("Failed to read file " + fileName);
-                }
+                self.fire("load", fileName, err, data);
             });
         },
 
         save: function (fileName, data) {
-            fs.writeFileSync(fileName, data, { encoding: "utf-8" });
+            var err = fs.writeFileSync(fileName, data, { encoding: "utf-8" });
+            this.fire("save", fileName, err);
         }
     });
 });

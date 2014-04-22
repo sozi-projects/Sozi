@@ -7,9 +7,9 @@ window.addEventListener("load", function () {
 
     var backend = sozi.editor.backend.NodeWebkit.init();
     
-    var fileName = backend.svgFileName;
-
-    backend.addListener("load", function (context, data) {
+    var presentation, selection;
+    
+    function loadSVG(fileName, data) {
         // Find the SVG root and check that the loaded document is valid SVG.
         var svgRoot = $("#preview").html(data).get(0).querySelector("svg");
         if (!(svgRoot instanceof SVGSVGElement)) {
@@ -17,11 +17,11 @@ window.addEventListener("load", function () {
         }
 
         // Initialize models and views
-        var pres = sozi.model.Presentation.init(svgRoot);
-        var selection = sozi.editor.model.Selection.init(pres);
-        sozi.editor.view.Preview.init(pres, selection);
-        sozi.editor.view.Timeline.init(pres, selection);
-        sozi.editor.view.Properties.init(pres, selection);
+        presentation = sozi.model.Presentation.init(svgRoot);
+        selection = sozi.editor.model.Selection.init(presentation);
+        sozi.editor.view.Preview.init(presentation, selection);
+        sozi.editor.view.Timeline.init(presentation, selection);
+        sozi.editor.view.Properties.init(presentation, selection);
 
         // Load presentation data from JSON file.
         //
@@ -29,20 +29,33 @@ window.addEventListener("load", function () {
         // presentation data from the SVG document, assuming
         // it has been generated from Sozi 13 or earlier.
         // Then save the extracted data to a JSON file.
-        var jsonFileName = fileName.replace(/\.svg$/, ".sozi.json");
-//        var presData = backend.load(jsonFileName);
-//        if (presData) {
-//            pres.fromStorable(presData);
+        backend.load(fileName.replace(/\.svg$/, ".sozi.json"));
+    }
+    
+    function loadJSON(fileName, data) {
+//        if (data) {
+//            presentation.fromStorable(JSON.parse(data));
 //        }
 //        else {
-            pres.upgrade();
-            if (pres.frames.length) {
-                selection.selectFrames([pres.frames[0]]);
-            }
-            backend.save(jsonFileName, JSON.stringify(pres.toStorable()));
+            presentation.upgrade();
+            backend.save(fileName, JSON.stringify(presentation.toStorable()));
 //        }
+        if (presentation.frames.length) {
+            selection.selectFrames([presentation.frames[0]]);
+        }
+    }
+    
+    backend.addListener("load", function (context, fileName, err, data) {
+        if (fileName.match(/\.svg$/) && !err) {
+            loadSVG(fileName, data);
+        }
+        else if (fileName.match(/\.sozi\.json$/)) {
+            loadJSON(fileName, !err && data);
+        }
     });
     
+    var fileName = backend.svgFileName;
+
     if (fileName) {
         backend.load(fileName);
     }
@@ -50,8 +63,7 @@ window.addEventListener("load", function () {
         // If no file name was specified,
         // open a file dialog and load the selected file.
         $("#file-dialog").change(function () {
-            fileName = this.value;
-            backend.load(fileName);
+            backend.load(this.value);
         }).click();
     }
     
