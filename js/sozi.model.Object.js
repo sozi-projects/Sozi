@@ -1,5 +1,5 @@
 
-namespace(this, "sozi.model", function (exports, globals) {
+namespace(this, "sozi.model", function (exports) {
     "use strict";
 
     var creationCount = 0;
@@ -119,7 +119,7 @@ namespace(this, "sozi.model", function (exports, globals) {
                 if (typeof a === "function") {
                     return {
                         callback: a,
-                        receiver: globals
+                        receiver: namespace.global
                     };
                 }
                 else {

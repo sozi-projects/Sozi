@@ -1,6 +1,10 @@
 namespace("sozi.editor.backend", function (exports) {
     "use strict";
 
+    if (!namespace.global.require) {
+        return;
+    }
+    
     var gui = require("nw.gui");
     var fs = require("fs");
     var path = require("path");
@@ -29,10 +33,14 @@ namespace("sozi.editor.backend", function (exports) {
             return null;
         },
 
-        load: function (fileName) {
+        load: function (file) {
+            if (file instanceof File) {
+                console.log(file.path);
+                file = file.path; // file.path is exposed in node-webkit
+            }
             var self = this;
-            fs.readFile(fileName, { encoding: "utf8" }, function (err, data) {
-                self.fire("load", fileName, err, data);
+            fs.readFile(file, { encoding: "utf8" }, function (err, data) {
+                self.fire("load", file, err, data);
             });
         },
 

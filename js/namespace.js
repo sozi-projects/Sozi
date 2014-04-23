@@ -45,12 +45,12 @@ function namespace(env, path, body) {
     if (typeof env === "string") {
         body = path;
         path = env;
-        env = window;
+        env = namespace.global;
     }
-    
-    // Start name lookup in the global object
-	var current = env;
 
+    // Start name lookup in the global object
+    var current = env;
+    
 	// For each name in the given path
 	path.split(".").forEach(function (name) {
         // If the current path element does not exist
@@ -65,8 +65,10 @@ function namespace(env, path, body) {
 
 	// Execute the given function in the last namespace
 	if (body) {
-        body(current, env);
+        body(current);
 	}
 
 	return current;
 }
+
+namespace.global = this;

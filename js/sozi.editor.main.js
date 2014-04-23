@@ -5,7 +5,16 @@ window.addEventListener("load", function () {
     // Display context info
     console.log("Opening Sozi editor");
 
-    var backend = sozi.editor.backend.NodeWebkit.init();
+    var backend;
+    
+    if (namespace.global.require) {
+        console.log("Running in node.js");
+        backend = sozi.editor.backend.NodeWebkit.init();
+    }
+    else {
+        console.log("Running in browser");
+        backend = sozi.editor.backend.FileReader.init();
+    }
     
     var presentation, selection;
     
@@ -46,8 +55,13 @@ window.addEventListener("load", function () {
     }
     
     backend.addListener("load", function (context, fileName, err, data) {
-        if (fileName.match(/\.svg$/) && !err) {
-            loadSVG(fileName, data);
+        if (fileName.match(/\.svg$/)) {
+            if (!err) {
+                loadSVG(fileName, data);
+            }
+            else {
+                console.log("Error loading file: " + fileName);
+            }
         }
         else if (fileName.match(/\.sozi\.json$/)) {
             loadJSON(fileName, !err && data);
@@ -63,7 +77,9 @@ window.addEventListener("load", function () {
         // If no file name was specified,
         // open a file dialog and load the selected file.
         $("#file-dialog").change(function () {
-            backend.load(this.value);
+            if (this.files.length) {
+                backend.load(this.files[0]);
+            }
         }).click();
     }
     
