@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-nunjucks");
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-node-webkit-builder");
-    grunt.loadNpmTasks("grunt-zip");
+    grunt.loadNpmTasks("grunt-contrib-compress");
 
     var version = grunt.template.today("yy.mm.ddHHMM");
 
@@ -51,19 +51,23 @@ module.exports = function(grunt) {
     var targets = {
         linux32: {
             enabled: false,
-            dir: "Sozi"
+            dir: "Sozi",
+            mode: "tgz"
         },
         linux64: {
             enabled: false,
-            dir: "Sozi"
+            dir: "Sozi",
+            mode: "tgz"
         },
         win: {
             enabled: true,
-            dir: "Sozi"
+            dir: "Sozi",
+            mode: "zip"
         },
         mac: {
             enabled: true,
-            dir: "Sozi.app"
+            dir: "Sozi.app",
+            mode: "zip"
         }
     };
 
@@ -71,13 +75,18 @@ module.exports = function(grunt) {
         var targetOpt = grunt.config(["nodewebkit", "options", targetName]);
         var targetEnabled = targetOpt !== undefined ? targetOpt : targets[targetName].enabled;
         if (targetEnabled) {
-            grunt.config(["zip", targetName], {
+            grunt.config(["compress", targetName], {
+                options: {
+                    // FIXME: preserve permissions for Linux executables
+                    mode: targets[targetName].mode,
+                    archive: "build/Sozi-" + targetName + "." + targets[targetName].mode
+                },
+                expand: true,
                 cwd: "build/releases/Sozi/" + targetName,
-                src: "build/releases/Sozi/" + targetName + "/" + targets[targetName].dir + "/**/*",
-                dest: "build/Sozi-" + targetName + ".zip"
+                src: [targets[targetName].dir + "/**/*"]
             });
         }
     }
 
-    grunt.registerTask("default", ["nunjucks", "nodewebkit", "zip"]);
+    grunt.registerTask("default", ["nunjucks", "nodewebkit", "compress"]);
 };
