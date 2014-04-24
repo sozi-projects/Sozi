@@ -1,11 +1,13 @@
 @font-face {
     font-family: "Droid Sans";
-    src: url("../vendor/DroidSans/DroidSans.ttf") format("truetype");
+    src: url("../vendor/DroidSans/DroidSans.eot?") format("embedded-opentype"),
+         url("../vendor/DroidSans/DroidSans.ttf") format("truetype");
 }
 
 @font-face {
     font-family: "Droid Sans";
-    src: url("../vendor/DroidSans/DroidSans-Bold.ttf") format("truetype");
+    src: url("../vendor/DroidSans/DroidSans-Bold.eot?") format("embedded-opentype"),
+         url("../vendor/DroidSans/DroidSans-Bold.ttf") format("truetype");
     font-weight: bold;
 }
 
@@ -76,11 +78,11 @@ div#timeline table {
 
 div#timeline {
     margin-top: 0.5em;
-    user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-user-select: none;
     -o-user-select: none;
+    user-select: none;
 }
 
 div#timeline input,
