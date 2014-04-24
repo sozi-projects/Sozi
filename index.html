@@ -28,12 +28,12 @@
     </head>
     <body>
         <input style="display:none;" id="file-dialog" type="file">
-        <div id="top">
-            <div id="preview">
+        <div class="top-left">
+            <div id="sozi-editor-view-preview">
                 Loading&hellip;
             </div>
         </div>
-        <div id="right">
+        <form id="sozi-editor-view-properties" class="top-right">
             <h1>Frame</h1>
 
             <table>
@@ -106,15 +106,15 @@
                     <td><input id="layer-transition-path-hide" type="checkbox"></td>
                 </tr>
             </table>
-        </div>
-        <div id="bottom">
+        </form>
+        <div class="bottom">
             <div>
                 <span class="group">
                     Aspect ratio:
-                    <input id="aspect-num" type="number" pattern="\d+" min="1" step="1" value="4" size="3">:<input id="aspect-den" type="number" pattern="\d+" min="1" step="1" value="3" size="3">
+                    <input id="sozi-editor-aspect-num" class="aspect" type="number" pattern="\d+" min="1" step="1" value="4" size="3">:<input id="sozi-editor-aspect-den" class="aspect" type="number" pattern="\d+" min="1" step="1" value="3" size="3">
                 </span>
             </div>
-            <div id="timeline"></div>
+            <div id="sozi-editor-view-timeline"></div>
         </div>
     </body>
 </html>

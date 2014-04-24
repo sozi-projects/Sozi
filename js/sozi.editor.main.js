@@ -20,7 +20,7 @@ window.addEventListener("load", function () {
     
     function loadSVG(fileName, data) {
         // Find the SVG root and check that the loaded document is valid SVG.
-        var svgRoot = $("#preview").html(data).get(0).querySelector("svg");
+        var svgRoot = $("#sozi-editor-view-preview").html(data).get(0).querySelector("svg");
         if (!(svgRoot instanceof SVGSVGElement)) {
             alert("Error: Document is not valid SVG.");
         }

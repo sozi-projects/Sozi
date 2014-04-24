@@ -320,7 +320,7 @@ namespace("sozi.editor.view", function (exports) {
         render: function () {
             var self = this;
 
-            $("#timeline").html(nunjucks.render("templates/sozi.editor.view.Timeline.html", this));
+            $("#sozi-editor-view-timeline").html(nunjucks.render("templates/sozi.editor.view.Timeline.html", this));
 
             $("#add-frame").click(this.bind(this.addFrame));
             $("#delete-frames").click(this.bind(this.deleteFrames));
@@ -329,33 +329,33 @@ namespace("sozi.editor.view", function (exports) {
                 self.addLayer(this.value);
             });
 
-            $("#timeline .layer-icons .remove").click(function () {
+            $("#sozi-editor-view-timeline .layer-icons .remove").click(function () {
                 self.removeLayer(parseInt(this.parentNode.parentNode.dataset.layerIndex));
             });
 
-            $("#timeline .frame-index, #timeline .frame-title").click(function (evt) {
+            $("#sozi-editor-view-timeline .frame-index, #sozi-editor-view-timeline .frame-title").click(function (evt) {
                 self.updateFrameSelection(evt, parseInt(this.dataset.frameIndex));
             });
 
-            $("#timeline .frame-index .insert-before").click(function (evt) {
+            $("#sozi-editor-view-timeline .frame-index .insert-before").click(function (evt) {
                 self.moveFrames(parseInt(this.parentNode.dataset.frameIndex));
                 evt.stopPropagation();
             });
 
-            $("#timeline .frame-index .insert-after").click(function (evt) {
+            $("#sozi-editor-view-timeline .frame-index .insert-after").click(function (evt) {
                 self.moveFrames(parseInt(this.parentNode.dataset.frameIndex) + 1);
                 evt.stopPropagation();
             });
 
-            $("#timeline .layer-label").click(function (evt) {
+            $("#sozi-editor-view-timeline .layer-label").click(function (evt) {
                 self.updateLayerSelection(evt, parseInt(this.parentNode.dataset.layerIndex));
             });
 
-            $("#timeline td").click(function (evt) {
+            $("#sozi-editor-view-timeline td").click(function (evt) {
                 self.updateLayerAndFrameSelection(evt, parseInt(this.parentNode.dataset.layerIndex), parseInt(this.dataset.frameIndex));
             });
 
-            $("#timeline .layer-icons .visibility").click(function (evt) {
+            $("#sozi-editor-view-timeline .layer-icons .visibility").click(function (evt) {
                 self.updateLayerVisibility(parseInt(this.parentNode.parentNode.dataset.layerIndex));
                 evt.stopPropagation();
             });

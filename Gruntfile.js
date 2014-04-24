@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks("grunt-nunjucks");
     grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-contrib-csslint");
     grunt.loadNpmTasks("grunt-node-webkit-builder");
     grunt.loadNpmTasks("grunt-contrib-compress");
     grunt.loadNpmTasks("grunt-rsync");
@@ -18,6 +19,15 @@ module.exports = function(grunt) {
             },
             all: [
                 "js/**/*.js"
+            ]
+        },
+
+        csslint: {
+            options: {
+                csslintrc: ".csslintrc"
+            },
+            all: [
+                "css/**/*.css"
             ]
         },
 
@@ -112,5 +122,6 @@ module.exports = function(grunt) {
         }
     }
 
+    grunt.registerTask("lint", ["jshint", "csslint"]);
     grunt.registerTask("default", ["nunjucks", "nodewebkit", "compress"]);
 };

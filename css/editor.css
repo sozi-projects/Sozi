@@ -1,3 +1,7 @@
+/*
+ * Using bulletproof @font-face syntax:
+ * http://www.paulirish.com/2009/bulletproof-font-face-implementation-syntax/
+ */
 @font-face {
     font-family: "Droid Sans";
     src: url("../vendor/DroidSans/DroidSans.eot?") format("embedded-opentype"),
@@ -11,6 +15,16 @@
     font-weight: bold;
 }
 
+/*
+ * Apply a natural box layout model to all elements:
+ * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+ */
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 body {
     font-size: small;
     font-family: "Droid Sans", serif;
@@ -19,7 +33,7 @@ body {
     padding: 0;
 }
 
-div#top {
+.top-left {
     position: absolute;
     top: 0;
     left: 0;
@@ -32,7 +46,7 @@ div#top {
     background-size: 1em 1em;
 }
 
-div#preview {
+.top-left div {
     position: absolute;
     left: 0;
     top: 0;
@@ -42,7 +56,7 @@ div#preview {
     box-shadow: 0 0 20px 5px rgb(32, 32, 32);
 }
 
-div#right {
+.top-right {
     position: absolute;
     top: 0;
     right: 0;
@@ -52,12 +66,12 @@ div#right {
     overflow: auto;
 }
 
-div#bottom {
+.bottom {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: calc(100% - 2em);
-    height: calc(30% - 1em);
+    width: 100%;
+    height: 30%;
     overflow: auto;
 
     padding: 0.5em 1em;
@@ -65,18 +79,23 @@ div#bottom {
     color: white;
 }
 
-input#aspect-num, input#aspect-den {
-    width: 3em;
+/*
+ * Aspect ration inputs
+ */
+
+.aspect {
+    width: 4em;
     padding: 0.2em 0.5em;
     border: 1px solid rgb(80, 80, 80);
 }
 
-div#timeline table {
+/*
+ * Timeline
+ */
+
+.timeline {
     border-collapse: separate;
     border-spacing: 2px;
-}
-
-div#timeline {
     margin-top: 0.5em;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -85,16 +104,16 @@ div#timeline {
     user-select: none;
 }
 
-div#timeline input,
-div#timeline button,
-div#timeline select {
+.timeline input,
+.timeline button,
+.timeline select {
     width: 100%;
 }
 
-div#timeline td,
-div#timeline th.frame-index,
-div#timeline th.frame-title,
-div#timeline th.layer-label {
+.timeline td,
+.timeline th.frame-index,
+.timeline th.frame-title,
+.timeline th.layer-label {
     cursor: default;
     font-weight: normal;
     white-space: nowrap;
@@ -104,16 +123,16 @@ div#timeline th.layer-label {
     max-width: 8em;
 }
 
-div#timeline th.layer-icons {
+.timeline th.layer-icons {
     width: auto;
     text-align: left;
 }
 
-div#timeline td {
+.timeline td {
     background: rgb(200, 200, 200);
 }
 
-div#timeline .layer-label {
+.timeline .layer-label {
     text-align: left;
     padding-left: 0.5em;
     padding-right: 0.5em;
@@ -121,86 +140,90 @@ div#timeline .layer-label {
     border-top-left-radius: 0.5em;
 }
 
-div#timeline .layer-icons .visibility,
-div#timeline .layer-icons .remove {
+.timeline .layer-icons .visibility,
+.timeline .layer-icons .remove {
     margin-right: 0.5em;
 }
 
-div#timeline .layer-label .remove {
+.timeline .layer-label .remove {
     display: none;
 }
 
-div#timeline .layer-label:hover .remove {
+.timeline .layer-label:hover .remove {
     display: inline;
 }
 
-div#timeline .frame-title {
+.timeline .frame-title {
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
 }
 
-div#timeline .selected {
+.timeline .selected {
     color: black;
     background: rgb(200, 220, 220);
 }
 
-div#timeline .selected.current {
+.timeline .current { /* overrides .selected */
     background: rgb(150, 200, 200);
 }
 
-div#timeline .frame-index i.insert-before {
+.timeline .frame-index .insert-before {
     float: left;
     position: relative;
     top: 0.7em;
 }
 
-div#timeline .frame-index i.insert-after {
+.timeline .frame-index .insert-after {
     float: right;
     position: relative;
     top: 0.7em;
 }
 
-div#timeline .frame-index i {
+.timeline .frame-index i {
     display: none;
 }
 
-div#timeline .frame-index:hover i {
+.timeline .frame-index:hover i {
     display: inline;
 }
 
-div#timeline .frame-index.selected {
+.timeline .frame-index.selected {
     color: rgb(200, 220, 220);
     background: transparent;
     font-weight: bold;
 }
 
-div#right h1 {
+/*
+ * Form elements
+ */
+
+form h1 {
     text-align: center;
     font-size: 120%;
     color: white;
 }
 
-div#right table {
+form table {
     margin: 0 auto;
 }
 
-div#right th {
+form th {
     text-align: right;
     padding: 0.3em 1em;
     color: white;
     font-weight: normal;
 }
 
-div#right td {
+form td {
     text-align: left;
 }
 
-div#right td input[type=text],
-div#right td input[type=number] {
+form td input[type=text],
+form td input[type=number] {
     width: 100%;
     border: 1px solid rgb(80, 80, 80);
 }
 
-div#right .multiple {
+form .multiple {
     background: rgb(200, 220, 220);
 }

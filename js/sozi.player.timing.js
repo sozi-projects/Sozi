@@ -68,5 +68,5 @@ namespace("sozi.player.timing", function (exports) {
     exports.stepEnd   = exports.makeSteps(1, "end");
     exports.stepMiddle = function (x) {
         return x >= 0.5 ? 1 : 0;
-    }
+    };
 });

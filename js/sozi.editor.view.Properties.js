@@ -62,7 +62,7 @@ namespace("sozi.editor.view", function (exports) {
 
         setupChangeHandler: function (id, attr, isLayer) {
             var self = this;
-            $("#right #" + id).change(function () {
+            $("#sozi-editor-view-properties #" + id).change(function () {
                 var fieldValue = $(this).attr("type") === "checkbox" ?
                     $(this).prop("checked") :
                     $(this).val();
@@ -121,7 +121,7 @@ namespace("sozi.editor.view", function (exports) {
             
             for (var frameFieldId in this.frameFields) {
                 var frameAttr = this.frameFields[frameFieldId];
-                var frameFieldElt = $("#right #" + frameFieldId);
+                var frameFieldElt = $("#sozi-editor-view-properties #" + frameFieldId);
 
                 disable(frameFieldElt);
 
@@ -135,7 +135,7 @@ namespace("sozi.editor.view", function (exports) {
             }
             for (var layerFieldId in this.layerFields) {
                 var layerAttr = this.layerFields[layerFieldId];
-                var layerFieldElt = $("#right #" + layerFieldId);
+                var layerFieldElt = $("#sozi-editor-view-properties #" + layerFieldId);
 
                 disable(layerFieldElt);
 

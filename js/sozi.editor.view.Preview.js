@@ -14,10 +14,10 @@ namespace("sozi.editor.view", function (exports) {
 
             // Setup event handlers
             var resizeHandler = this.bind(function () {
-                this.setAspectRatio(parseInt($("#aspect-num").val()), parseInt($("#aspect-den").val()));
+                this.setAspectRatio(parseInt($("#sozi-editor-aspect-num").val()), parseInt($("#sozi-editor-aspect-den").val()));
             });
 
-            $("#aspect-num, #aspect-den").change(resizeHandler);
+            $("#sozi-editor-aspect-num, #sozi-editor-aspect-den").change(resizeHandler);
             $(window).resize(resizeHandler).resize();
 
             selection.addListener("changed", this.selectionChanged, this);
@@ -28,19 +28,19 @@ namespace("sozi.editor.view", function (exports) {
 
         setAspectRatio: function (num, den) {
             if (num > 0 && den > 0) {
-                var top = $("#top");
-                var topWidth  = top.innerWidth();
-                var topHeight = top.innerHeight();
+                var parent = $("#sozi-editor-view-preview").parent();
+                var parentWidth  = parent.innerWidth();
+                var parentHeight = parent.innerHeight();
 
-                var maxWidth  = topWidth  - 2 * PREVIEW_MARGIN;
-                var maxHeight = topHeight - 2 * PREVIEW_MARGIN;
+                var maxWidth  = parentWidth  - 2 * PREVIEW_MARGIN;
+                var maxHeight = parentHeight - 2 * PREVIEW_MARGIN;
 
                 var width  = Math.min(maxWidth, maxHeight * num / den);
                 var height = Math.min(maxHeight, maxWidth * den / num);
 
-                var previewStyle = $("#preview").css({
-                    left:   (topWidth  - width)  / 2 + "px",
-                    top:    (topHeight - height) / 2 + "px",
+                $("#sozi-editor-view-preview").css({
+                    left:   (parentWidth  - width)  / 2 + "px",
+                    top:    (parentHeight - height) / 2 + "px",
                     width:  width + "px",
                     height: height + "px"
                 });
