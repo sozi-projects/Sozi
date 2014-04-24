@@ -5,6 +5,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-node-webkit-builder");
     grunt.loadNpmTasks("grunt-contrib-compress");
+    grunt.loadNpmTasks("grunt-rsync");
 
     var version = grunt.template.today("yy.mm.ddHHMM");
 
@@ -44,7 +45,30 @@ module.exports = function(grunt) {
                 "vendor/**/*",
                 "<%= nunjucks.templates.dest %>"
             ]
-        }
+        },
+
+        rsync: {
+            options: {
+                args: ["--verbose", "--update"]
+            },
+            demo: {
+                options: {
+                    src: [
+                        "index.html",
+                        "js",
+                        "css",
+                        "vendor",
+                        "build"
+                    ],
+                    exclude: ["build/*"],
+                    include: ["build/templates"],
+                    dest: "/var/www/sozi.baierouge.fr/demo/",
+                    host: "www-data@baierouge.fr",
+                    syncDest: true, // Delete files on destination
+                    recursive: true
+                }
+            }
+        },
     });
 
     // Default options for target OS in nodewebkit task
