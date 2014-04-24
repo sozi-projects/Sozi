@@ -80,7 +80,7 @@ window.addEventListener("load", function () {
             if (this.files.length) {
                 backend.load(this.files[0]);
             }
-        }).click();
+        });
     }
     
 }, false);

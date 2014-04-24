@@ -27,10 +27,12 @@
         <script src="build/templates/sozi.editor.view.templates.js"></script>
     </head>
     <body>
-        <input style="display:none;" id="file-dialog" type="file">
         <div class="top-left">
             <div id="sozi-editor-view-preview">
-                Loading&hellip;
+                <p>
+                    Choose an SVG document: <br>
+                    <input id="file-dialog" type="file" accept="image/svg+xml" autofocus>
+                </p>
             </div>
         </div>
         <form id="sozi-editor-view-properties" class="top-right">

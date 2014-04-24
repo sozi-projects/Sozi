@@ -56,6 +56,12 @@ body {
     box-shadow: 0 0 20px 5px rgb(32, 32, 32);
 }
 
+.top-left p {
+    text-align: center;
+    font-size: 200%;
+    margin: 2em;
+}
+
 .top-right {
     position: absolute;
     top: 0;
