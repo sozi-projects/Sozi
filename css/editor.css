@@ -1,7 +1,17 @@
+@font-face {
+    font-family: "Droid Sans";
+    src: url("../vendor/DroidSans/DroidSans.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Droid Sans";
+    src: url("../vendor/DroidSans/DroidSans-Bold.ttf") format("truetype");
+    font-weight: bold;
+}
 
 body {
     font-size: small;
-    font-family: sans-serif;
+    font-family: "Droid Sans", serif;
 
     margin: 0;
     padding: 0;
