@@ -1,154 +1,166 @@
 namespace("sozi.editor.view", function (exports) {
     "use strict";
 
-    exports.Properties = sozi.model.Object.create({
+    var Field = sozi.model.Object.create({
+        init: function (selection, elementId, propertyName) {
+            sozi.model.Object.init.call(this);
+            this.element = $("#sozi-editor-view-properties #" + elementId);
+            this.isFrameField = /^frame/.test(elementId);
+            this.propertyName = propertyName;
+            this.selection = selection;
 
-        frameFields: {
-            "frame-title": "title",
-            "frame-id": "frameId",
-            "frame-list": "showInFrameList",
-            "frame-timeout": {
-                get: function (frame) {
-                    return frame.timeoutMs / 1000;
-                },
-                set: function (frame, value) {
-                    frame.timeoutMs = value * 1000;
+            var self = this;
+            this.element.change(function () {
+                var value = $(this).attr("type") === "checkbox" ?
+                    $(this).prop("checked") :
+                    $(this).val();
+                self.enter(value);
+            });
+
+            return this;
+        },
+        
+        enter: function (value) {
+            if (this.validate(value)) {
+                this.selection.selectedFrames.forEach(function (frame) {
+                    if (this.isFrameField) {
+                        frame[this.propertyName] = this.convertFromField(value);
+                    }
+                    else {
+                        this.selection.selectedLayers.forEach(function (layer) {
+                            frame.layerProperties[layer.index][this.propertyName] = this.convertFromField(value);
+                        }, this);
+                    }
+                }, this);
+            }
+            this.render();
+        },
+        
+        render: function () {
+            // Clear and disable field
+            this.element.removeClass("multiple").prop("disabled", true).val("");
+
+            var value = null;
+            var multiple = false;
+            
+            this.selection.selectedFrames.forEach(function (frame, frameIndex) {
+                if (this.isFrameField) {
+                    var current = frame[this.propertyName];
+                    if (!frameIndex) {
+                        value = current;
+                    }
+                    else if (value !== current) {
+                        multiple = true;
+                    }
                 }
-            },
-            "frame-timeout-enable": "timeoutEnable",
-            "frame-transition-duration": {
-                get: function (frame) {
-                    return frame.transitionDurationMs / 1000;
-                },
-                set: function (frame, value) {
-                    frame.transitionDurationMs = value * 1000;
+                else {
+                    this.selection.selectedLayers.forEach(function (layer, layerIndex) {
+                        var current = frame.layerProperties[layer.index][this.propertyName];
+                        if (!frameIndex && !layerIndex) {
+                            value = current;
+                        }
+                        else if (value !== current) {
+                            multiple = true;
+                        }
+                    }, this);
                 }
+            }, this);
+
+            if (value !== null) {
+                if (multiple) {
+                    this.element.addClass("multiple");
+                }
+                else if (this.element.attr("type") === "checkbox") {
+                    this.element.prop("checked", value);
+                }
+                else {
+                    this.element.val(this.convertToField(value));
+                }
+                this.element.prop("disabled", false);
             }
         },
         
-        layerFields: {
-            "layer-clip" : "clip",
-            "layer-reference-id": "referenceElementId",
-            "layer-reference-hide": "referenceElementHide",
-            "layer-transition-timing-function": "transitionTimingFunction",
-            "layer-transition-relative-zoom": {
-                get: function (frame) {
-                    return frame.transitionRelativeZoom * 100;
-                },
-                set: function (frame, value) {
-                    frame.transitionRelativeZoom = value / 100;
-                }
-            },
-            "layer-transition-path-id": "transitionPathId",
-            "layer-transition-path-hide": "transitionPathHide"
+        convertToField: function (value) {
+            return value;
         },
+        
+        convertFromField: function (value) {
+            return value;
+        },
+        
+        validate: function (value) {
+            return true;
+        }
+    });
+    
+    var NumericField = Field.create({
+        init: function (selection, elementId, propertyName, min, max, factor) {
+            Field.init.call(this, selection, elementId, propertyName);
+            this.min = min;
+            this.max = max;
+            this.factor = factor;
+            return this;
+        },
+        
+        convertToField: function (value) {
+            return (value / this.factor).toString();
+        },
+        
+        convertFromField: function (value) {
+            return parseFloat(value) * this.factor;
+        },
+        
+        validate: function (value) {
+            value = parseFloat(value);
+            return !isNaN(value) &&
+                (this.min === null || value >= this.min) &&
+                (this.max === null || value <= this.max);
+        }
+    });
+    
+    var StringField = Field.create({
+        init: function (selection, elementId, propertyName, acceptsEmpty) {
+            Field.init.call(this, selection, elementId, propertyName);
+            this.acceptsEmpty = acceptsEmpty;
+            return this;
+        },
+        
+        validate: function (value) {
+            return this.acceptsEmpty || value.length;
+        }
+    });
+
+    exports.Properties = sozi.model.Object.create({
 
         init: function (pres, selection) {
             sozi.model.Object.init.call(this);
 
-            this.selection = selection;
+            this.fields = [
+                StringField.create().init(selection, "frame-title", "title", true),
+                StringField.create().init(selection, "frame-id", "frameId", false),
+                Field.create().init(selection, "frame-list", "showInFrameList"),
+                NumericField.create().init(selection, "frame-timeout", "timeoutMs", 0, null, 1000),
+                Field.create().init(selection, "frame-timeout-enable", "timeoutEnable"),
+                NumericField.create().init(selection, "frame-transition-duration", "transitionDurationMs", 0, null, 1000),
+                Field.create().init(selection, "layer-clip", "clip"),
+                StringField.create().init(selection, "layer-reference-id", "referenceElementId", true),
+                Field.create().init(selection, "layer-reference-hide", "referenceElementHide"),
+                StringField.create().init(selection, "layer-transition-timing-function", "transitionTimingFunction", false),
+                NumericField.create().init(selection, "layer-transition-relative-zoom", "transitionRelativeZoom", null, null, 0.01),
+                StringField.create().init(selection, "layer-transition-path-id", "transitionPathId", true),
+                Field.create().init(selection, "layer-transition-path-hide", "transitionPathHide")
+            ];
 
             pres.addListener("frameChanged", this.render, this);
             selection.addListener("changed", this.render, this);
-
-            for (var frameFieldId in this.frameFields) {
-                this.setupChangeHandler(frameFieldId, this.frameFields[frameFieldId], false);
-            }
-            for (var layerFieldId in this.layerFields) {
-                this.setupChangeHandler(layerFieldId, this.layerFields[layerFieldId], true);
-            }
+            
             return this;
         },
 
-        setupChangeHandler: function (id, attr, isLayer) {
-            var self = this;
-            $("#sozi-editor-view-properties #" + id).change(function () {
-                var fieldValue = $(this).attr("type") === "checkbox" ?
-                    $(this).prop("checked") :
-                    $(this).val();
-                self.selection.selectedFrames.forEach(function (frame) {
-                    if (!isLayer) {
-                        if (typeof attr === "string") {
-                            frame[attr] = fieldValue;
-                        }
-                        else {
-                            attr.set(frame, fieldValue);
-                        }
-                    }
-                    else {
-                        self.selection.selectedLayers.forEach(function (layer) {
-                            var layerProperties = frame.layerProperties[layer.index];
-                            if (typeof attr === "string") {
-                                layerProperties[attr] = fieldValue;
-                            }
-                            else {
-                                attr.set(layerProperties, fieldValue);
-                            }
-                        });
-                    }
-                });
-            });
-        },
-
         render: function () {
-            function disable(elt) {
-                elt.removeClass("multiple").prop("disabled", true).val("");
-            }
-            
-            function updateFieldValue(previous, attr, prop, isFirst) {
-                var next = typeof attr === "string" ? prop[attr] : attr.get(prop);
-                if (isFirst) {
-                    return next;
-                }
-                if (previous !== next) {
-                    return null;
-                }
-                return previous;
-            }
-            
-            function updateFieldElement(elt, value) {
-                if (value === null) {
-                    elt.addClass("multiple");
-                }
-                else if (elt.attr("type") === "checkbox") {
-                    elt.prop("checked", value);
-                }
-                else {
-                    elt.val(value);
-                }
-                elt.prop("disabled", false);
-            }
-            
-            for (var frameFieldId in this.frameFields) {
-                var frameAttr = this.frameFields[frameFieldId];
-                var frameFieldElt = $("#sozi-editor-view-properties #" + frameFieldId);
-
-                disable(frameFieldElt);
-
-                if (this.selection.selectedFrames.length) {
-                    var frameFieldValue = null;
-                    this.selection.selectedFrames.forEach(function (frame, frameIndex) {
-                        frameFieldValue = updateFieldValue(frameFieldValue, frameAttr, frame, !frameIndex);
-                    });
-                    updateFieldElement(frameFieldElt, frameFieldValue);
-                }
-            }
-            for (var layerFieldId in this.layerFields) {
-                var layerAttr = this.layerFields[layerFieldId];
-                var layerFieldElt = $("#sozi-editor-view-properties #" + layerFieldId);
-
-                disable(layerFieldElt);
-
-                if (this.selection.selectedFrames.length && this.selection.selectedLayers.length) {
-                    var layerFieldValue = null;
-                    this.selection.selectedFrames.forEach(function (frame, frameIndex) {
-                        this.selection.selectedLayers.forEach(function (layer, layerIndex) {
-                            layerFieldValue = updateFieldValue(layerFieldValue, layerAttr, frame.layerProperties[layer.index], !frameIndex && !layerIndex);
-                        });
-                    }, this);
-                    updateFieldElement(layerFieldElt, layerFieldValue);
-                }
-            }
+            this.fields.forEach(function (field) {
+                field.render();
+            });
         }
     });
 });

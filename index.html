@@ -51,7 +51,7 @@
                 </tr>
                 <tr>
                     <th>Timeout (sec)</th>
-                    <td><input id="frame-timeout" type="number" pattern="\d+" min="0" step="0.1" value="5" size="3"></td>
+                    <td><input id="frame-timeout" type="number" pattern="\d+(\.\d+)?" min="0" step="0.1" value="5" size="3"></td>
                 </tr>
                 <tr>
                     <th>Timeout enable</th>
@@ -76,7 +76,7 @@
             <table>
                 <tr>
                     <th>Duration (sec)</th>
-                    <td><input id="frame-transition-duration" type="number" pattern="\d+" min="0" step="0.1" value="1" size="3"></td>
+                    <td><input id="frame-transition-duration" type="number" pattern="\d+(\.\d+)?" min="0" step="0.1" value="1" size="3"></td>
                 </tr>
                 <tr>
                     <th>Timing function</th>
@@ -95,7 +95,7 @@
                 </tr>
                 <tr>
                     <th>Relative zoom (%)</th>
-                    <td><input id="layer-transition-relative-zoom" type="number" pattern="\d+" step="1" value="0" size="3"></td>
+                    <td><input id="layer-transition-relative-zoom" type="number" pattern="[+-]?\d+(\.\d+)?" step="1" value="0" size="3"></td>
                 </tr>
                 <tr>
                     <th>Path Id</th>
