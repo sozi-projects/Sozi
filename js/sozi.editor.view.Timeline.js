@@ -53,6 +53,8 @@ namespace("sozi.editor.view", function (exports) {
                 layer.addListener("visibilityChanged", this.render, this);
             }, this);
 
+            $(window).resize(this.bind(this.render));
+            
             return this;
         },
 
