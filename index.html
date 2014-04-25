@@ -5,7 +5,9 @@
         <title>Sozi</title>
 
         <link rel="stylesheet" href="vendor/font-awesome-4.0.3/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/editor.css">
+        <link rel="stylesheet" href="css/editor-layout.css">
+        <link rel="stylesheet" href="css/editor-fonts.css">
+        <link rel="stylesheet" href="css/editor-colors.css">
 
         <script src="vendor/nunjucks-slim.min.js"></script>
         <script src="vendor/jquery-2.1.0.min.js"></script>
@@ -109,14 +111,13 @@
                 </tr>
             </table>
         </form>
-        <div class="bottom">
-            <div>
-                <span class="group">
-                    Aspect ratio:
-                    <input id="sozi-editor-aspect-num" class="aspect" type="number" pattern="\d+" min="1" step="1" value="4" size="3">:<input id="sozi-editor-aspect-den" class="aspect" type="number" pattern="\d+" min="1" step="1" value="3" size="3">
-                </span>
-            </div>
-            <div id="sozi-editor-view-timeline"></div>
+        <div class="toolbar">
+            <span class="group">
+                Aspect ratio:
+                <input id="sozi-editor-aspect-num" class="aspect" type="number" pattern="\d+" min="1" step="1" value="4" size="3">:<input id="sozi-editor-aspect-den" class="aspect" type="number" pattern="\d+" min="1" step="1" value="3" size="3">
+            </span>
+        </div>
+        <div id="sozi-editor-view-timeline" class="bottom">
         </div>
     </body>
 </html>

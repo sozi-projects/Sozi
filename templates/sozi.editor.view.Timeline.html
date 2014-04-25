@@ -1,72 +1,94 @@
-<table class="timeline">
-    <tr>
-        <th>
-            <button id="delete-frames" title="Delete selected frames" {{"disabled" if selection.selectedFrames.length == 0}}><i class="fa fa-trash-o"></i></button>
-        </th>
-        <th>
-            <button id="add-frame" title="Create a new frame"><i class="fa fa-plus"></i></button>
-        </th>
-        {% for frame in presentation.frames %}
-            <th data-frame-index="{{loop.index0}}"
-                class="frame-index {{'selected' if selection.hasFrame(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
-                {% if selection.selectedFrames.length %}
-                    <i title="Insert selection before frame {{loop.index}}" class="insert-before fa fa-caret-down"></i>
-                {% endif %}
-                {% if selection.selectedFrames.length %}
-                    <i title="Insert selection after frame {{loop.index}}" class="insert-after fa fa-caret-down"></i>
-                {% endif %}
-                {{loop.index}}
+<div class="timeline-left">
+    <table class="timeline">
+        <tr>
+            <th>
+                <button id="delete-frames" title="Delete selected frames" {{"disabled" if selection.selectedFrames.length == 0}}><i class="fa fa-trash-o"></i></button>
             </th>
+            <th>
+                <button id="add-frame" title="Create a new frame"><i class="fa fa-plus"></i></button>
+            </th>
+        </tr>
+        <tr>
+            <th colspan="2">
+                <select id="add-layer">
+                    <option value="__add__">Add layer</option>
+                    {% for layer in presentation.layers.slice().reverse() %}
+                        {% if not layer.auto and defaultLayers.indexOf(layer) >= 0 %}
+                            <option value="{{loop.revindex0}}">{{layer.label}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </th>
+        </tr>
+        <tr data-layer-index="-1">
+            <th class="layer-icons">
+                <i class="visibility fa {{'fa-eye' if defaultLayersAreVisible else 'fa-eye-slash'}}"
+                    title="{{'This layer is visible. Click to hide it.' if defaultLayersAreVisible else 'This layer is hidden. Click to show it.'}}"></i>
+            </th>
+            <th class="layer-label {{'selected' if defaultLayersAreSelected}}">
+                Default
+            </th>
+        </tr>
+        {% for layer in presentation.layers.slice().reverse() %}
+            {% if editableLayers.indexOf(layer) >= 0 %}
+                <tr data-layer-index="{{loop.revindex0}}">
+                    <th class="layer-icons">
+                        <i class="visibility fa {{'fa-eye' if layer.isVisible else 'fa-eye-slash'}}"
+                            title="{{'This layer is visible. Click to hide it.' if layer.isVisible else 'This layer is hidden. Click to show it.'}}"></i>
+                        <i title="Remove this layer" class="remove fa fa-times"></i>
+                    </th>
+                    <th class="layer-label {{'selected' if selection.hasLayer(layer)}}">
+                        {{layer.label}}
+                    </th>
+                </tr>
+            {% endif %}
         {% endfor %}
-    </tr>
-    <tr>
-        <th colspan="2">
-            <select id="add-layer">
-                <option value="__add__">Add layer</option>
-                {% for layer in presentation.layers.slice().reverse() %}
-                    {% if not layer.auto and defaultLayers.indexOf(layer) >= 0 %}
-                        <option value="{{loop.revindex0}}">{{layer.label}}</option>
+    </table>
+</div>
+<div class="timeline-right">
+    <table class="timeline">
+        <tr>
+            {% for frame in presentation.frames %}
+                <th data-frame-index="{{loop.index0}}"
+                    class="frame-index {{'selected' if selection.hasFrame(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
+                    {% if selection.selectedFrames.length %}
+                        <i title="Insert selection before frame {{loop.index}}" class="insert-before fa fa-caret-down"></i>
                     {% endif %}
-                {% endfor %}
-            </select>
-        </th>
-        {% for frame in presentation.frames %}
-            <th data-frame-index="{{loop.index0}}"
-                title="{{frame.title}}"
-                class="frame-title {{'selected' if selection.hasFrame(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
-                {{frame.title}}
-            </th>
-        {% endfor %}
-    </tr>
-    <tr data-layer-index="-1">
-        <th class="layer-icons">
-            <i class="visibility fa {{'fa-eye' if defaultLayersAreVisible else 'fa-eye-slash'}}"
-                title="{{'This layer is visible. Click to hide it.' if defaultLayersAreVisible else 'This layer is hidden. Click to show it.'}}"></i>
-        </th>
-        <th class="layer-label {{'selected' if defaultLayersAreSelected}}">
-            Default
-        </th>
-        {% for frame in presentation.frames %}
-            <td data-frame-index="{{loop.index0}}"
-                class="{{'selected' if defaultLayersAreSelected and selection.hasFrame(frame)}} {{'current' if selection.frameIsCurrent(frame)}}"></td>
-        {% endfor %}
-    </tr>
-    {% for layer in presentation.layers.slice().reverse() %}
-        {% if editableLayers.indexOf(layer) >= 0 %}
-            <tr data-layer-index="{{loop.revindex0}}">
-                <th class="layer-icons">
-                    <i class="visibility fa {{'fa-eye' if layer.isVisible else 'fa-eye-slash'}}"
-                        title="{{'This layer is visible. Click to hide it.' if layer.isVisible else 'This layer is hidden. Click to show it.'}}"></i>
-                    <i title="Remove this layer" class="remove fa fa-times"></i>
+                    {% if selection.selectedFrames.length %}
+                        <i title="Insert selection after frame {{loop.index}}" class="insert-after fa fa-caret-down"></i>
+                    {% endif %}
+                    {{loop.index}}
                 </th>
-                <th class="layer-label {{'selected' if selection.hasLayer(layer)}}">
-                    {{layer.label}}
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for frame in presentation.frames %}
+                <th data-frame-index="{{loop.index0}}"
+                    title="{{frame.title}}"
+                    class="frame-title {{'selected' if selection.hasFrame(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
+                    {{frame.title}}
                 </th>
-                {% for frame in presentation.frames %}
-                    <td data-frame-index="{{loop.index0}}"
-                        class="{{'selected' if selection.hasLayer(layer) and selection.hasFrame(frame)}} {{'current' if selection.frameIsCurrent(frame)}}"></td>
-                {% endfor %}
-            </tr>
-        {% endif %}
-    {% endfor %}
-</table>
+            {% endfor %}
+        </tr>
+        <tr data-layer-index="-1">
+            {% for frame in presentation.frames %}
+                <td data-frame-index="{{loop.index0}}"
+                    class="{{'selected' if defaultLayersAreSelected and selection.hasFrame(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
+                    {{frame.title}}                        
+                </td>
+            {% endfor %}
+        </tr>
+        {% for layer in presentation.layers.slice().reverse() %}
+            {% if editableLayers.indexOf(layer) >= 0 %}
+                <tr data-layer-index="{{loop.revindex0}}">
+                    {% for frame in presentation.frames %}
+                        <td data-frame-index="{{loop.index0}}"
+                            class="{{'selected' if selection.hasLayer(layer) and selection.hasFrame(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
+                            {{frame.title}}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</div>

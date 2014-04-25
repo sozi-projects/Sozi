@@ -1,0 +1,95 @@
+.top-left {
+    background-image: linear-gradient(-45deg,
+        rgb(80, 80, 80) 25%, rgb(64, 64, 64) 25%, rgb(64, 64, 64) 50%,
+        rgb(80, 80, 80) 50%, rgb(80, 80, 80) 75%, rgb(64, 64, 64) 75%, rgb(64, 64, 64));
+    background-size: 1em 1em;
+}
+
+.top-left div {
+    background: white;
+    box-shadow: 0 0 20px 5px rgb(32, 32, 32);
+}
+
+.top-right {
+    background: rgb(64, 64, 64);
+}
+
+.toolbar {
+    color: white;
+    background: linear-gradient(to bottom, rgb(64, 64, 64), rgb(80, 80, 80) 2em);
+}
+
+.bottom {
+    color: white;
+    background: rgb(80, 80, 80);
+}
+
+/*
+ * Aspect ratio inputs
+ */
+
+.aspect {
+    border: 1px solid rgb(80, 80, 80);
+}
+
+/*
+ * Timeline
+ */
+
+.timeline {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.timeline td,
+.timeline th.frame-index,
+.timeline th.frame-title,
+.timeline th.layer-label {
+    cursor: default;
+}
+
+.timeline td {
+    background: rgb(200, 200, 200);
+    color: transparent;
+}
+
+.timeline .selected {
+    background: rgb(200, 220, 220);
+}
+
+.timeline th.selected {
+    color: black;
+}
+
+.timeline .selected.current {
+    background: rgb(150, 200, 200);
+}
+
+.timeline .frame-index.selected {
+    color: rgb(200, 220, 220);
+    background: transparent;
+}
+
+/*
+ * Form elements
+ */
+
+form h1 {
+    color: white;
+}
+
+form th {
+    color: white;
+}
+
+form td input[type=text],
+form td input[type=number] {
+    border: 1px solid rgb(80, 80, 80);
+}
+
+form .multiple {
+    background: rgb(200, 220, 220);
+}

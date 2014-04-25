@@ -318,9 +318,41 @@ namespace("sozi.editor.view", function (exports) {
          * Event handlers are attached to UI elements.
          */
         render: function () {
-            var self = this;
-
+            var container = $("#sozi-editor-view-timeline");
+            
+            // Save scrollbar positions before rendering
+            var scrollTop = container.scrollTop();
+            var scrollLeft = $(".timeline-right", container).scrollLeft();
+            
+            // Render the frame and layer table
             $("#sozi-editor-view-timeline").html(nunjucks.render("templates/sozi.editor.view.Timeline.html", this));
+
+            var left = $(".timeline-left", container);
+            var right = $(".timeline-right", container);
+
+            // Fit the width of the left table,
+            // allocate remaining width to the right table
+            var leftWidth = $("table", left).width();
+            left.width(leftWidth);
+            right.width(container.width() - leftWidth);
+            
+            // Corresponding rows in left and right tables must have the same height
+            $("tr", left).each(function (index) {
+                var rightRow = $("tr", right).eq(index);
+                var maxHeight = Math.max($(this).height(), rightRow.height());
+                $(this).height(maxHeight);
+                rightRow.height(maxHeight);
+            });
+            
+            // Restore scrollbar positions
+            container.scrollTop(scrollTop);
+            right.scrollLeft(scrollLeft);
+            
+            this.setupEvents();
+        },
+        
+        setupEvents: function () {
+            var self = this;
 
             $("#add-frame").click(this.bind(this.addFrame));
             $("#delete-frames").click(this.bind(this.deleteFrames));
