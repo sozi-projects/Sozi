@@ -339,12 +339,22 @@ namespace("sozi.editor.view", function (exports) {
             var leftWidth = Math.max($("table", topLeft).width(), $("table", bottomLeft).width());
             topLeft.width(leftWidth);
             bottomLeft.width(leftWidth);
+            $("table", topLeft).width(leftWidth);
+            $("table", bottomLeft).width(leftWidth);
             topRight.width(container.width() - leftWidth);
             bottomRight.width(container.width() - leftWidth);
             
+            // Fit the height of the top tables,
+            // allocate remaining width to the bottom tables
+            var topHeight = Math.max($("table", topLeft).height(), $("table", topRight).height());
+            topLeft.height(topHeight);
+            topRight.height(topHeight);
+            bottomLeft.height(container.height() - topHeight);
+            bottomRight.height(container.height() - topHeight);
+            
             // Corresponding rows in left and right tables must have the same height
-            $(".timeline-*-left tr", container).each(function (index) {
-                var rightRow = $(".timeline-*-right tr", container).eq(index);
+            $("tr", topLeft).each(function (index) {
+                var rightRow = $("tr", topRight).eq(index);
                 var maxHeight = Math.max($(this).height(), rightRow.height());
                 $(this).height(maxHeight);
                 rightRow.height(maxHeight);

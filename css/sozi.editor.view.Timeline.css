@@ -33,16 +33,20 @@
     right: 0;
 }
 
-.timeline-top-right {
-    /* FIXME alignment when vertical scrollbar in bottm-right */
+.timeline-top-right,
+.timeline-bottom-right {
+    /* Always-visible vertical scrollbar in top and bottom right tables.
+     * Required for alignment between columns. */
+    overflow-y: scroll;
 }
 
-.timeline-bottom-left {
-    /* FIXME alignment when hozirontal scrollbar in bottm-right */
+.timeline-bottom-left table {
+    /* Fixes alignment when hozirontal scrollbar is visible in bottom-right table */
+    margin-bottom: 2em;
 }
 
 .timeline-bottom-right {
-    overflow: auto;
+    overflow-x: auto;
 }
 
 .timeline {

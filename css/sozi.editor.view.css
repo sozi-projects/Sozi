@@ -51,7 +51,8 @@ body {
     position: absolute;
     top: 70%;
     width: 100%;
-    height: 2em;
+    height: 2.5em;
+    padding: 0.5em 1em;
 }
 
 .bottom {
@@ -59,10 +60,9 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: calc(30% - 2em);
+    height: calc(30% - 2.5em);
     
     overflow-y: auto;
-    padding: 0.5em 1em;
 }
 
 .aspect {
