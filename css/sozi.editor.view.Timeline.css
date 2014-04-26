@@ -33,14 +33,6 @@
     right: 0;
 }
 
-.timeline-top-right {
-    /* FIXME alignment when vertical scrollbar in bottm-right */
-}
-
-.timeline-bottom-left {
-    /* FIXME alignment when hozirontal scrollbar in bottm-right */
-}
-
 .timeline-bottom-right {
     overflow: auto;
 }
