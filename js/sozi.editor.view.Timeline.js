@@ -323,32 +323,38 @@ namespace("sozi.editor.view", function (exports) {
             var container = $("#sozi-editor-view-timeline");
             
             // Save scrollbar positions before rendering
-            var scrollTop = container.scrollTop();
-            var scrollLeft = $(".timeline-right", container).scrollLeft();
+            var scrollTop  = $(".timeline-bottom-right", container).scrollTop();
+            var scrollLeft = $(".timeline-bottom-right", container).scrollLeft();
             
             // Render the frame and layer table
             $("#sozi-editor-view-timeline").html(nunjucks.render("templates/sozi.editor.view.Timeline.html", this));
 
-            var left = $(".timeline-left", container);
-            var right = $(".timeline-right", container);
+            var topLeft = $(".timeline-top-left", container);
+            var topRight = $(".timeline-top-right", container);
+            var bottomLeft = $(".timeline-bottom-left", container);
+            var bottomRight = $(".timeline-bottom-right", container);
 
-            // Fit the width of the left table,
-            // allocate remaining width to the right table
-            var leftWidth = $("table", left).width();
-            left.width(leftWidth);
-            right.width(container.width() - leftWidth);
+            // Fit the width of the left tables,
+            // allocate remaining width to the right tables
+            var leftWidth = Math.max($("table", topLeft).width(), $("table", bottomLeft).width());
+            topLeft.width(leftWidth);
+            bottomLeft.width(leftWidth);
+            topRight.width(container.width() - leftWidth);
+            bottomRight.width(container.width() - leftWidth);
             
             // Corresponding rows in left and right tables must have the same height
-            $("tr", left).each(function (index) {
-                var rightRow = $("tr", right).eq(index);
+            $(".timeline-*-left tr", container).each(function (index) {
+                var rightRow = $(".timeline-*-right tr", container).eq(index);
                 var maxHeight = Math.max($(this).height(), rightRow.height());
                 $(this).height(maxHeight);
                 rightRow.height(maxHeight);
             });
             
             // Restore scrollbar positions
-            container.scrollTop(scrollTop);
-            right.scrollLeft(scrollLeft);
+            bottomLeft.scrollTop(scrollTop);
+            bottomRight.scrollTop(scrollTop);
+            topRight.scrollLeft(scrollLeft);
+            bottomRight.scrollLeft(scrollLeft);
             
             this.setupEvents();
         },
@@ -356,6 +362,8 @@ namespace("sozi.editor.view", function (exports) {
         setupEvents: function () {
             var self = this;
 
+            var container = $("#sozi-editor-view-timeline");
+            
             $("#add-frame").click(this.bind(this.addFrame));
             $("#delete-frames").click(this.bind(this.deleteFrames));
 
@@ -363,35 +371,40 @@ namespace("sozi.editor.view", function (exports) {
                 self.addLayer(this.value);
             });
 
-            $("#sozi-editor-view-timeline .layer-icons .remove").click(function () {
+            $(".layer-icons .remove", container).click(function () {
                 self.removeLayer(parseInt(this.parentNode.parentNode.dataset.layerIndex));
             });
 
-            $("#sozi-editor-view-timeline .frame-index, #sozi-editor-view-timeline .frame-title").click(function (evt) {
+            $(".frame-index, .frame-title", container).click(function (evt) {
                 self.updateFrameSelection(evt, parseInt(this.dataset.frameIndex));
             });
 
-            $("#sozi-editor-view-timeline .frame-index .insert-before").click(function (evt) {
+            $(".frame-index .insert-before", container).click(function (evt) {
                 self.moveFrames(parseInt(this.parentNode.dataset.frameIndex));
                 evt.stopPropagation();
             });
 
-            $("#sozi-editor-view-timeline .frame-index .insert-after").click(function (evt) {
+            $(".frame-index .insert-after", container).click(function (evt) {
                 self.moveFrames(parseInt(this.parentNode.dataset.frameIndex) + 1);
                 evt.stopPropagation();
             });
 
-            $("#sozi-editor-view-timeline .layer-label").click(function (evt) {
+            $(".layer-label", container).click(function (evt) {
                 self.updateLayerSelection(evt, parseInt(this.parentNode.dataset.layerIndex));
             });
 
-            $("#sozi-editor-view-timeline td").click(function (evt) {
+            $("td", container).click(function (evt) {
                 self.updateLayerAndFrameSelection(evt, parseInt(this.parentNode.dataset.layerIndex), parseInt(this.dataset.frameIndex));
             });
 
-            $("#sozi-editor-view-timeline .layer-icons .visibility").click(function (evt) {
+            $(".layer-icons .visibility", container).click(function (evt) {
                 self.updateLayerVisibility(parseInt(this.parentNode.parentNode.dataset.layerIndex));
                 evt.stopPropagation();
+            });
+            
+            $(".timeline-bottom-right", container).scroll(function () {
+                $(".timeline-top-right", container).scrollLeft($(this).scrollLeft());
+                $(".timeline-bottom-left", container).scrollTop($(this).scrollTop());
             });
         }
     });

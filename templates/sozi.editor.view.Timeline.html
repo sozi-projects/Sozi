@@ -1,4 +1,4 @@
-<div class="timeline-left">
+<div class="timeline-top-left">
     <table class="timeline">
         <tr>
             <th>
@@ -20,6 +20,10 @@
                 </select>
             </th>
         </tr>
+    </table>
+</div>
+<div class="timeline-bottom-left">
+    <table class="timeline">
         <tr data-layer-index="-1">
             <th class="layer-icons">
                 <i class="visibility fa {{'fa-eye' if defaultLayersAreVisible else 'fa-eye-slash'}}"
@@ -45,7 +49,7 @@
         {% endfor %}
     </table>
 </div>
-<div class="timeline-right">
+<div class="timeline-top-right">
     <table class="timeline">
         <tr>
             {% for frame in presentation.frames %}
@@ -70,6 +74,10 @@
                 </th>
             {% endfor %}
         </tr>
+    </table>
+</div>
+<div class="timeline-bottom-right">
+    <table class="timeline">
         <tr data-layer-index="-1">
             {% for frame in presentation.frames %}
                 <td data-frame-index="{{loop.index0}}"

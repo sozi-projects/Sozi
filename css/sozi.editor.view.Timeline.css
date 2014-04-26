@@ -1,0 +1,179 @@
+
+/*
+ * Layout
+ */
+
+.timeline-top-left,
+.timeline-top-right,
+.timeline-bottom-left,
+.timeline-bottom-right {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    overflow: hidden;
+}
+
+.timeline-top-left,
+.timeline-top-right {
+    top: 0;
+}
+
+.timeline-bottom-left,
+.timeline-bottom-right {
+    bottom: 0;
+}
+
+.timeline-top-left,
+.timeline-bottom-left {
+    left: 0;
+}
+
+.timeline-top-right,
+.timeline-bottom-right {
+    right: 0;
+}
+
+.timeline-top-right {
+    /* FIXME alignment when vertical scrollbar in bottm-right */
+}
+
+.timeline-bottom-left {
+    /* FIXME alignment when hozirontal scrollbar in bottm-right */
+}
+
+.timeline-bottom-right {
+    overflow: auto;
+}
+
+.timeline {
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+
+.timeline input,
+.timeline button,
+.timeline select {
+    width: 100%;
+}
+
+.timeline td,
+.timeline th.frame-index,
+.timeline th.frame-title,
+.timeline th.layer-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 8em;
+    max-width: 8em;
+}
+
+.timeline th.layer-icons {
+    width: auto;
+    text-align: left;
+}
+
+.timeline .layer-label {
+    text-align: left;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+}
+
+.timeline .layer-icons .visibility,
+.timeline .layer-icons .remove {
+    margin-right: 0.5em;
+}
+
+.timeline .layer-label .remove {
+    display: none;
+}
+
+.timeline .layer-label:hover .remove {
+    display: inline;
+}
+
+.timeline .frame-title {
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+}
+
+.timeline .frame-index .insert-before {
+    float: left;
+    position: relative;
+    top: 0.7em;
+}
+
+.timeline .frame-index .insert-after {
+    float: right;
+    position: relative;
+    top: 0.7em;
+}
+
+.timeline .frame-index i {
+    display: none;
+}
+
+.timeline .frame-index:hover i {
+    display: inline;
+}
+
+/*
+ * Colors
+ */
+
+.timeline td {
+    background: rgb(200, 200, 200);
+    color: transparent;
+}
+
+.timeline .selected {
+    background: rgb(200, 220, 220);
+}
+
+.timeline th.selected {
+    color: black;
+}
+
+.timeline .selected.current {
+    background: rgb(150, 200, 200);
+}
+
+.timeline .frame-index.selected {
+    color: rgb(200, 220, 220);
+    background: transparent;
+}
+
+/*
+ * Fonts
+ */
+
+.timeline td,
+.timeline th.frame-index,
+.timeline th.frame-title,
+.timeline th.layer-label {
+    font-weight: normal;
+}
+
+.timeline .frame-index.selected {
+    font-weight: bold;
+}
+
+/*
+ * Behavior
+ */
+
+.timeline {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.timeline td,
+.timeline th.frame-index,
+.timeline th.frame-title,
+.timeline th.layer-label {
+    cursor: default;
+}

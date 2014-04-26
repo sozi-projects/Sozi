@@ -1,0 +1,191 @@
+/* ------------------------------------------------------------------------- *
+ * Layout
+ * ------------------------------------------------------------------------- */
+
+/*
+ * Apply a natural box layout model to all elements:
+ * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+ */
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.top-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70%;
+    height: 70%;
+}
+
+.top-left div {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.top-left p {
+    margin: 2em;
+}
+
+.top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 70%;
+    
+    overflow: auto;
+}
+
+.toolbar {
+    position: absolute;
+    top: 70%;
+    width: 100%;
+    height: 2em;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: calc(30% - 2em);
+    
+    overflow-y: auto;
+    padding: 0.5em 1em;
+}
+
+.aspect {
+    width: 4em;
+    padding: 0.2em 0.5em;
+}
+
+form h1 {
+    text-align: center;
+}
+
+form table {
+    margin: 0 auto;
+}
+
+form th {
+    padding: 0.3em 1em;
+}
+
+form td input[type=text],
+form td input[type=number] {
+    width: 100%;
+}
+
+/* ------------------------------------------------------------------------- *
+ * Colors
+ * ------------------------------------------------------------------------- */
+
+.top-left {
+    background-image: linear-gradient(-45deg,
+        rgb(80, 80, 80) 25%, rgb(64, 64, 64) 25%, rgb(64, 64, 64) 50%,
+        rgb(80, 80, 80) 50%, rgb(80, 80, 80) 75%, rgb(64, 64, 64) 75%, rgb(64, 64, 64));
+    background-size: 1em 1em;
+}
+
+.top-left div {
+    background: white;
+    box-shadow: 0 0 20px 5px rgb(32, 32, 32);
+}
+
+.top-right {
+    background: rgb(64, 64, 64);
+}
+
+.toolbar {
+    color: white;
+    background: linear-gradient(to bottom, rgb(64, 64, 64), rgb(80, 80, 80) 2em);
+}
+
+.bottom {
+    color: white;
+    background: rgb(80, 80, 80);
+}
+
+/*
+ * Aspect ratio inputs
+ */
+
+.aspect {
+    border: 1px solid rgb(80, 80, 80);
+}
+
+/*
+ * Form elements
+ */
+
+form h1 {
+    color: white;
+}
+
+form th {
+    color: white;
+}
+
+form td input[type=text],
+form td input[type=number] {
+    border: 1px solid rgb(80, 80, 80);
+}
+
+form .multiple {
+    background: rgb(200, 220, 220);
+}
+
+/* ------------------------------------------------------------------------- *
+ * Fonts
+ * ------------------------------------------------------------------------- */
+
+/*
+ * Using bulletproof @font-face syntax:
+ * http://www.paulirish.com/2009/bulletproof-font-face-implementation-syntax/
+ */
+@font-face {
+    font-family: "Droid Sans";
+    src: url("../vendor/DroidSans/DroidSans.eot?") format("embedded-opentype"),
+         url("../vendor/DroidSans/DroidSans.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Droid Sans";
+    src: url("../vendor/DroidSans/DroidSans-Bold.eot?") format("embedded-opentype"),
+         url("../vendor/DroidSans/DroidSans-Bold.ttf") format("truetype");
+    font-weight: bold;
+}
+
+body {
+    font-size: small;
+    font-family: "Droid Sans", serif;
+}
+
+.top-left p {
+    font-size: 200%;
+    text-align: center;
+}
+
+form h1 {
+    font-size: 120%;
+}
+
+form th {
+    font-weight: normal;
+    text-align: right;
+}
+
+form td {
+    text-align: left;
+}
