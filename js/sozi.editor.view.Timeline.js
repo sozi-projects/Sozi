@@ -360,6 +360,13 @@ namespace("sozi.editor.view", function (exports) {
                 rightRow.height(maxHeight);
             });
             
+            $("tr", bottomLeft).each(function (index) {
+                var rightRow = $("tr", bottomRight).eq(index);
+                var maxHeight = Math.max($(this).height(), rightRow.height());
+                $(this).height(maxHeight);
+                rightRow.height(maxHeight);
+            });
+            
             // Restore scrollbar positions
             bottomLeft.scrollTop(scrollTop);
             bottomRight.scrollTop(scrollTop);

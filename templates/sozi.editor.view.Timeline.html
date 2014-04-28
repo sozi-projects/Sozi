@@ -82,7 +82,6 @@
             {% for frame in presentation.frames %}
                 <td data-frame-index="{{loop.index0}}"
                     class="{{'selected' if defaultLayersAreSelected and selection.hasFrame(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
-                    {{frame.title}}                        
                 </td>
             {% endfor %}
         </tr>
@@ -92,11 +91,17 @@
                     {% for frame in presentation.frames %}
                         <td data-frame-index="{{loop.index0}}"
                             class="{{'selected' if selection.hasLayer(layer) and selection.hasFrame(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
-                            {{frame.title}}
                         </td>
                     {% endfor %}
                 </tr>
             {% endif %}
         {% endfor %}
+        <tr style="visibility:collapse;">
+            {% for frame in presentation.frames %}
+                <td>
+                    {{frame.title}}                        
+                </td>
+            {% endfor %}
+        </tr>
     </table>
 </div>
