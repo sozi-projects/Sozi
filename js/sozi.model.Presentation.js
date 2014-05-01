@@ -25,7 +25,7 @@ namespace("sozi.model", function (exports) {
             });
 
             // TODO define default properties separately
-            this.frameId = "frame" + this.id;
+            this.frameId = pres.makeFrameId();
             this.title = "New frame";
             this.timeoutMs = 0;
             this.timeoutEnable = false;
@@ -175,6 +175,19 @@ namespace("sozi.model", function (exports) {
             return this;
         },
 
+        makeFrameId: function () {
+            var prefix = "frame";
+            var suffix = Math.floor(1000 * (1 + 9 * Math.random()));
+            var frameId;
+            do {
+                frameId = prefix + suffix;
+                suffix ++;
+            } while (this.frames.some(function (frame) {
+                return frame.frameId === frameId;
+            }));
+            return frameId;
+        },
+        
         addFrame: function (index) {
             if (index === undefined) {
                 index = this.frames.length;

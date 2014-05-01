@@ -186,13 +186,14 @@ namespace("sozi.player", function (exports) {
 
             // The clipping path of this camera
             var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
-            svgClipPath.setAttribute("id", "sozi-clip-path-" + viewport.id + "-" + this.id);
+            var svgClipPathId = this.makeUniqueId("sozi-clip-path-");
+            svgClipPath.setAttribute("id", svgClipPathId);
             svgClipPath.appendChild(this.svgClipRect);
             viewport.svgRoot.appendChild(svgClipPath);
 
             // The group that will support the clipping operation
             var svgClippedGroup = document.createElementNS(SVG_NS, "g");
-            svgClippedGroup.setAttribute("clip-path", "url(#sozi-clip-path-" + viewport.id + "-" + this.id + ")");
+            svgClippedGroup.setAttribute("clip-path", "url(#" + svgClipPathId + ")");
             viewport.svgRoot.appendChild(svgClippedGroup);
 
             // The groups that will support transformations
@@ -206,6 +207,16 @@ namespace("sozi.player", function (exports) {
             return this;
         },
 
+        makeUniqueId: function (prefix) {
+            var suffix = Math.floor(1000 * (1 + 9 * Math.random()));
+            var id;
+            do {
+                id = prefix + suffix;
+                suffix ++;
+            } while(this.viewport.svgRoot.getElementById(id));
+            return id;
+        },
+        
         setAtState: function (state) {
             return exports.CameraState.setAtState.call(this, state).update();
         },
