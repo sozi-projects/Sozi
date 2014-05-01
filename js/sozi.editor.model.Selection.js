@@ -6,7 +6,7 @@ namespace("sozi.editor.model", function (exports) {
      * frames and layers of the presentation.
      *
      * Events:
-     *  - changed: when the content of the selection has changed
+     *  - change: when the content of the selection has changed
      */
     exports.Selection = sozi.model.Object.create({
 
@@ -30,7 +30,7 @@ namespace("sozi.editor.model", function (exports) {
             this.selectFrames(pres.frames.length ? [pres.frames[0]] : []);
             this.selectLayers(pres.layers);
 
-            pres.addListener("framesDeleted", this);
+            pres.addListener("delete", this.onDeleteFrames, this);
 
             return this;
         },
@@ -58,7 +58,7 @@ namespace("sozi.editor.model", function (exports) {
          *  - layer: A layer object
          *
          * Fires:
-         *  - changed
+         *  - change
          *
          * Returns:
          *  - The current selection object
@@ -66,7 +66,7 @@ namespace("sozi.editor.model", function (exports) {
         addLayer: function (layer) {
             if (!this.hasLayer(layer)) {
                 this.selectedLayers.push(layer);
-                this.fire("changed");
+                this.fire("change");
             }
             return this;
         },
@@ -81,7 +81,7 @@ namespace("sozi.editor.model", function (exports) {
          *  - layer: A layer object
          *
          * Fires:
-         *  - changed
+         *  - change
          *
          * Returns:
          *  - The current selection object
@@ -90,7 +90,7 @@ namespace("sozi.editor.model", function (exports) {
             var layerIndex = this.selectedLayers.indexOf(layer);
             if (layerIndex >= 0) {
                 this.selectedLayers.splice(layerIndex, 1);
-                this.fire("changed");
+                this.fire("change");
             }
             return this;
         },
@@ -105,7 +105,7 @@ namespace("sozi.editor.model", function (exports) {
          *  - layer: A layer object
          *
          * Fires:
-         *  - changed
+         *  - change
          *
          * Returns:
          *  - The current selection object
@@ -131,14 +131,14 @@ namespace("sozi.editor.model", function (exports) {
          *  - layers: an array of layer objects
          *
          * Fires:
-         *  - changed
+         *  - change
          *
          * Returns:
          *  - The current selection object
          */
         selectLayers: function (layers) {
             this.selectedLayers = layers.slice();
-            this.fire("changed");
+            this.fire("change");
             return this;
         },
 
@@ -191,7 +191,7 @@ namespace("sozi.editor.model", function (exports) {
          *  - frame: A frame object
          *
          * Fires:
-         *  - changed
+         *  - change
          *
          * Returns:
          *  - The current selection object
@@ -199,7 +199,7 @@ namespace("sozi.editor.model", function (exports) {
         addFrame: function (frame) {
             if (!this.hasFrame(frame)) {
                 this.selectedFrames.push(frame);
-                this.fire("changed");
+                this.fire("change");
             }
             return this;
         },
@@ -214,7 +214,7 @@ namespace("sozi.editor.model", function (exports) {
          *  - frame: A frame object
          *
          * Fires:
-         *  - changed
+         *  - change
          *
          * Returns:
          *  - The current selection object
@@ -223,7 +223,7 @@ namespace("sozi.editor.model", function (exports) {
             var frameIndex = this.selectedFrames.indexOf(frame);
             if (frameIndex >= 0) {
                 this.selectedFrames.splice(frameIndex, 1);
-                this.fire("changed");
+                this.fire("change");
             }
             return this;
         },
@@ -238,7 +238,7 @@ namespace("sozi.editor.model", function (exports) {
          *  - frame: A frame object
          *
          * Fires:
-         *  - changed
+         *  - change
          *
          * Returns:
          *  - The current selection object
@@ -264,14 +264,14 @@ namespace("sozi.editor.model", function (exports) {
          *  - frames: an array of frame objects
          *
          * Fires:
-         *  - changed
+         *  - change
          *
          * Returns:
          *  - The current selection object
          */
         selectFrames: function (frames) {
             this.selectedFrames = frames.slice();
-            this.fire("changed");
+            this.fire("change");
             return this;
         },
 
@@ -289,7 +289,7 @@ namespace("sozi.editor.model", function (exports) {
          *  - frame: A frame object
          *
          * Fires:
-         *  - changed
+         *  - change
          *
          * Returns:
          *  - The current selection object
@@ -319,7 +319,7 @@ namespace("sozi.editor.model", function (exports) {
          *  - pres: The presentation that fired the event
          *  - frames: An array of frames.
          */
-        framesDeleted: function (pres, frames) {
+        onDeleteFrames: function (pres, frames) {
             frames.forEach(function (frame) {
                 this.removeFrame(frame);
             }, this);

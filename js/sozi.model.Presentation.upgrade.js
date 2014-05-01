@@ -167,7 +167,8 @@ namespace("sozi.model", function (exports) {
                 showInFrameList: importAttribute(frameElt, soziPrefix + "show-in-frame-list", refFrame.showInFrameList, parseBoolean)
             });
 
-            frame.fire("changed");
+            // TODO: remove this when model can trigger events by itself
+            frame.fire("change");
 
         }, this);
     };

@@ -10,7 +10,7 @@ namespace("sozi.editor.view", function (exports) {
             sozi.player.Viewport.init.call(this, pres);
 
             this.selection = selection;
-            this.selectionChanged(selection);
+            this.onChangeSelection(selection);
 
             // Setup event handlers
             var resizeHandler = this.bind(function () {
@@ -20,8 +20,8 @@ namespace("sozi.editor.view", function (exports) {
             $("#sozi-editor-aspect-num, #sozi-editor-aspect-den").change(resizeHandler);
             $(window).resize(resizeHandler).resize();
 
-            selection.addListener("changed", this.selectionChanged, this);
-            this.addListener("stateChanged", this);
+            selection.addListener("change", this.onChangeSelection, this);
+            this.addListener("change", this.onChangeState, this);
 
             return this;
         },
@@ -47,12 +47,12 @@ namespace("sozi.editor.view", function (exports) {
 
                 this.resize();
 
-                this.fire("aspectRatioChanged", num, den);
+                this.fire("change:aspectRatio", num, den);
             }
             return this;
         },
 
-        selectionChanged: function (selection) {
+        onChangeSelection: function (selection) {
             if (selection.currentFrame) {
                 this.cameraStates = selection.currentFrame.cameraStates;
             }
@@ -63,7 +63,7 @@ namespace("sozi.editor.view", function (exports) {
             });
         },
 
-        stateChanged: function () {
+        onChangeState: function () {
             var frame = this.selection.currentFrame;
             if (frame) {
                 frame.cameraStates = this.cameraStates;

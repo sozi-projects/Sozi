@@ -42,15 +42,15 @@ namespace("sozi.editor.view", function (exports) {
 
             this.render();
 
-            pres.addListener("frameAdded", this.render, this);
-            pres.addListener("framesDeleted", this.render, this);
-            pres.addListener("framesMoved", this.render, this);
-            pres.addListener("frameChanged", this.render, this);
+            pres.addListener("add", this.render, this);
+            pres.addListener("delete", this.render, this);
+            pres.addListener("move", this.render, this);
+            // TODO on selection change, listen to frame change
 
-            selection.addListener("changed", this.render, this);
+            selection.addListener("change", this.render, this);
 
             pres.layers.forEach(function (layer) {
-                layer.addListener("visibilityChanged", this.render, this);
+                layer.addListener("change:isVisibile", this.render, this);
             }, this);
 
             $(window).resize(this.bind(this.render));

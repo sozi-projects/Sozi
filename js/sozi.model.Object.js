@@ -1,5 +1,5 @@
 
-namespace(this, "sozi.model", function (exports) {
+namespace("sozi.model", function (exports) {
     "use strict";
 
     var creationCount = 0;
@@ -60,17 +60,14 @@ namespace(this, "sozi.model", function (exports) {
          * model.addListener("anEvent", aFunction, anObject);
          *    emitter.fire("anEvent", ...) -> anObject.aFunction(emitter, ...);
          *
-         * model.addListener("anEvent", anObject);
-         *    emitter.fire("anEvent", ...) -> anObject.anEvent(emitter, ...);
-         *
          * model.addListener("anEvent", aFunction);
          *    emitter.fire("anEvent", ...) -> aFunction(emitter, ...);
          */
-        addListener: function (event, a, b) {
+        addListener: function (event, callback, context) {
             if (!(event in this.listeners)) {
                 this.listeners[event] = [];
             }
-            this.listeners[event].push(this.makeListenerRecord(event, a, b));
+            this.listeners[event].push(callback, context);
             return this;
         },
 
@@ -79,16 +76,15 @@ namespace(this, "sozi.model", function (exports) {
          *
          * This method accepts the same arguments as addListener.
          */
-        removeListener: function (event, a, b) {
+        removeListener: function (event, callback, context) {
             if (event in this.listeners) {
                 var listeners = this.listeners[event];
-                var record = this.makeListenerRecord(event, a, b);
                 for (var i = 0; i < listeners.length;) {
-                    if (listeners[i].callback === record.callback && listeners[i].receiver === record.receiver) {
-                        listeners.splice(i, 1);
+                    if (listeners[i] === callback && listeners[i + 1] === context) {
+                        listeners.splice(i, 2);
                     }
                     else {
-                        i ++;
+                        i += 2;
                     }
                 }
             }
@@ -98,43 +94,19 @@ namespace(this, "sozi.model", function (exports) {
         /*
          * Fire an event.
          *
-         * fire("anEvent", ...) -> receiver.callback(emitter, ...)
+         * fire("anEvent", ...) -> context.callback(emitter, ...)
          */
         fire: function (event) {
             if (event in this.listeners) {
                 var args = Array.prototype.slice.call(arguments, 1);
                 args.unshift(this);
-                this.listeners[event].forEach(function (listener) {
-                    listener.callback.apply(listener.receiver, args);
-                });
+                
+                var listeners = this.listeners[event];
+                for (var i = 0; i < listeners.length; i += 2) {
+                    listeners[i].apply(listeners[i+1], args);
+                }
             }
             return this;
-        },
-
-        /*
-         * Returns an event listener definition object.
-         */
-        makeListenerRecord: function (event, a, b) {
-            if (b === undefined) {
-                if (typeof a === "function") {
-                    return {
-                        callback: a,
-                        receiver: namespace.global
-                    };
-                }
-                else {
-                    return {
-                        callback: a[event],
-                        receiver: a
-                    };
-                }
-            }
-            else {
-                return {
-                    callback: a,
-                    receiver: b
-                };
-            }
         }
     };
 });

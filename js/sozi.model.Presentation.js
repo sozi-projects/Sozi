@@ -88,7 +88,7 @@ namespace("sozi.model", function (exports) {
             this.svgNodes.forEach(function (node) {
                 node.style.visibility = visible ? "visible" : "hidden";
             });
-            this.fire("visibilityChanged");
+            this.fire("change:isVisible");
         }
     });
 
@@ -181,8 +181,7 @@ namespace("sozi.model", function (exports) {
             }
             var frame = exports.Frame.create().init(this);
             this.frames.splice(index, 0, frame);
-            this.fire("frameAdded", frame);
-            frame.addListener("changed", this.frameChanged, this);
+            this.fire("add", frame, index);
             return frame;
         },
 
@@ -199,19 +198,15 @@ namespace("sozi.model", function (exports) {
                 this.frames.splice(toIndex, 0, frame);
                 toIndex ++;
             }, this);
-            this.fire("framesMoved", frames, toIndex);
+            this.fire("move", frames, toIndex);
         },
 
         deleteFrames: function (frames) {
             frames.forEach(function (frame) {
                 this.frames.splice(frame.index, 1);
             }, this);
-            this.fire("framesDeleted", frames);
+            this.fire("delete", frames);
             return this;
-        },
-
-        frameChanged: function (frame) {
-            this.fire("frameChanged", frame);
         }
     });
 });

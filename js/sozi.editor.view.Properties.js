@@ -151,8 +151,8 @@ namespace("sozi.editor.view", function (exports) {
                 Field.create().init(selection, "layer-transition-path-hide", "transitionPathHide")
             ];
 
-            pres.addListener("frameChanged", this.render, this);
-            selection.addListener("changed", this.render, this);
+            // TODO on selection change, listen to frame change
+            selection.addListener("change", this.render, this);
             
             return this;
         },
