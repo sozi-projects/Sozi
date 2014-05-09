@@ -17,7 +17,7 @@ namespace("sozi.editor.backend", function (exports) {
     console.log("Configuration in: " + gui.App.dataPath);
     console.log("Current working dir: " + cwd);
 
-    exports.NodeWebkit = sozi.model.Object.create({
+    exports.NodeWebkit = sozi.model.Object.clone({
         get svgFileName() {
             // If a file name was provided on the command line,
             // check that the file exists and return its name.

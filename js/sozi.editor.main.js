@@ -9,11 +9,11 @@ window.addEventListener("load", function () {
     
     if (namespace.global.require) {
         console.log("Running in node.js");
-        backend = sozi.editor.backend.NodeWebkit.init();
+        backend = sozi.editor.backend.NodeWebkit;
     }
     else {
         console.log("Running in browser");
-        backend = sozi.editor.backend.FileReader.init();
+        backend = sozi.editor.backend.FileReader;
     }
     
     var presentation, selection;
@@ -50,7 +50,7 @@ window.addEventListener("load", function () {
             backend.save(fileName, JSON.stringify(presentation.toStorable()));
 //        }
         if (presentation.frames.length) {
-            selection.selectFrames([presentation.frames[0]]);
+            selection.selectedFrames.push(presentation.frames.first);
         }
     }
     

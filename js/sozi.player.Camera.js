@@ -17,29 +17,31 @@ namespace("sozi.player", function (exports) {
     // Constant: the Sozi namespace
     var SVG_NS = "http://www.w3.org/2000/svg";
 
-    exports.CameraState = sozi.model.Object.create({
+    exports.CameraState = sozi.model.Object.clone({
 
+        svgRoot: null,
+        
+        // Center coordinates
+        cx: 0,
+        cy: 0,
+        
+        // Dimensions
+        width: 0,
+        height: 0,
+        
+        // Rotation angle, in degrees
+        angle: 0,
+        
+        // Clipping
+        clipped: false,
+        
         init: function (svgRoot) {
-            sozi.model.Object.init.call(this);
-
             this.svgRoot = svgRoot;
-
             var initialBBox = svgRoot.getBBox();
-
-            // Center coordinates
             this.cx = initialBBox.x + initialBBox.width / 2;
             this.cy = initialBBox.y + initialBBox.height / 2;
-
-            // Dimensions
             this.width = initialBBox.width;
             this.height = initialBBox.height;
-
-            // Rotation angle, in degrees
-            this.angle = 0;
-
-            // Clipping
-            this.clipped = false;
-
             return this;
         },
 
@@ -99,18 +101,13 @@ namespace("sozi.player", function (exports) {
         },
 
         setAtState: function (state) {
-            return this.set({
-                cx: state.cx,
-                cy: state.cy,
-                width: state.width,
-                height: state.height,
-                angle: state.angle,
-                clipped: state.clipped
-            });
-        },
-
-        clone: function () {
-            return exports.CameraState.create().init(this.svgRoot).setAtState(this);
+            this.cx = state.cx;
+            this.cy = state.cy;
+            this.width = state.width;
+            this.height = state.height;
+            this.angle = state.angle;
+            this.clipped = state.clipped;
+            return this;
         },
 
         interpolate: function (initialState, finalState, progress, relativeZoom, svgPath, reversePath) {
@@ -172,14 +169,19 @@ namespace("sozi.player", function (exports) {
         }
     });
 
-    exports.Camera = exports.CameraState.create({
+    exports.Camera = exports.CameraState.clone({
 
+        viewport: null,
+        layer: null,
+        selected: true,
+        svgClipRect: false,
+        svgTransformGroups: [],
+        
         init: function (viewport, layer) {
             exports.CameraState.init.call(this, viewport.svgRoot);
 
             this.viewport = viewport;
             this.layer = layer;
-            this.selected = true;
 
             // The clipping rectangle of this camera
             this.svgClipRect = document.createElementNS(SVG_NS, "rect");
@@ -197,11 +199,11 @@ namespace("sozi.player", function (exports) {
             viewport.svgRoot.appendChild(svgClippedGroup);
 
             // The groups that will support transformations
-            this.svgTransformGroups = layer.svgNodes.map(function (svgNode) {
+            layer.svgNodes.forEach(function (svgNode) {
                 var svgGroup = document.createElementNS(SVG_NS, "g");
                 svgGroup.appendChild(svgNode);
                 svgClippedGroup.appendChild(svgGroup);
-                return svgGroup;
+                this.svgTransformGroups.push(svgGroup);
             }, this);
 
             return this;

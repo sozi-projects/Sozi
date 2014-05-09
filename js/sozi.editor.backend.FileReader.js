@@ -3,7 +3,7 @@ namespace("sozi.editor.backend", function (exports) {
 
     console.log("Configuration in local storage");
 
-    exports.FileReader = sozi.model.Object.create({
+    exports.FileReader = sozi.model.Object.clone({
         get svgFileName() {
             return null;
         },

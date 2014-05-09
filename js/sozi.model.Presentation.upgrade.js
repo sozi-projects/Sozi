@@ -93,13 +93,14 @@ namespace("sozi.model", function (exports) {
 
         frameElts.forEach(function (frameElt, frameIndex) {
             // Create a new frame with default camera states
-            var frame = this.addFrame();
+            var frame = exports.Frame.clone().init(this);
+            this.frames.insert(frame, frameIndex);
             var refFrame = frame;
             
             // If this is not the first frame, the state is cloned from the previous frame.
             if (frameIndex) {
-                refFrame = this.frames[frameIndex - 1];
-                frame.cameraStates = refFrame.cameraStates;
+                refFrame = this.frames.at(frameIndex - 1);
+                frame.setAtStates(refFrame.cameraStates);
             }
 
             // Collect layer elements inside the current frame element
@@ -122,7 +123,7 @@ namespace("sozi.model", function (exports) {
                     // by the <frame> element.
                     // Other frames are cloned from the predecessors.
                     var defaultLayerIndex = defaultLayers.indexOf(layer);
-                    var groupId = layer.svgNodes[0].getAttribute("id");
+                    var groupId = layer.svgNodes.at(0).getAttribute("id");
                     if (groupId in layerEltsByGroupId) {
                         layerElt = layerEltsByGroupId[groupId];
                         if (defaultLayerIndex >= 0) {
@@ -143,29 +144,26 @@ namespace("sozi.model", function (exports) {
                         return;
                     }
 
-                    frame.cameraStates[layerIndex].setAtElement(refElt);
+                    frame.cameraStates.at(layerIndex).setAtElement(refElt);
                 }
 
-                var refLayerProperties = refFrame.layerProperties[layerIndex];
-                frame.layerProperties[layerIndex].set({
-                    clip: importAttribute(layerElt, soziPrefix + "clip", refLayerProperties.clip, parseBoolean),
-                    referenceElementId: importAttribute(layerElt, soziPrefix + "refid", refLayerProperties.referenceElementId),
-                    referenceElementHide: importAttribute(layerElt, soziPrefix + "hide", refLayerProperties.referenceElementHide, parseBoolean),
-                    transitionTimingFunction: importAttribute(layerElt, soziPrefix + "transition-profile", refLayerProperties.transitionTimingFunction, convertTimingFunction),
-                    transitionRelativeZoom: importAttribute(layerElt, soziPrefix + "transition-zoom-percent", refLayerProperties.transitionRelativeZoom, function (z) { return parseFloat(z) / 100; }),
-                    transitionPathId: importAttribute(layerElt, soziPrefix + "transition-path", refLayerProperties.transitionPathId),
-                    transitionPathHide: importAttribute(layerElt, soziPrefix + "transition-path-hide", refLayerProperties.transitionPathHide, parseBoolean)
-                });
+                var refLayerProperties = refFrame.layerProperties.at(layerIndex);
+                var layerProperties = frame.layerProperties.at(layerIndex);
+                layerProperties.clip = importAttribute(layerElt, soziPrefix + "clip", refLayerProperties.clip, parseBoolean);
+                layerProperties.referenceElementId = importAttribute(layerElt, soziPrefix + "refid", refLayerProperties.referenceElementId);
+                layerProperties.referenceElementHide = importAttribute(layerElt, soziPrefix + "hide", refLayerProperties.referenceElementHide, parseBoolean);
+                layerProperties.transitionTimingFunction = importAttribute(layerElt, soziPrefix + "transition-profile", refLayerProperties.transitionTimingFunction, convertTimingFunction);
+                layerProperties.transitionRelativeZoom = importAttribute(layerElt, soziPrefix + "transition-zoom-percent", refLayerProperties.transitionRelativeZoom, function (z) { return parseFloat(z) / 100; });
+                layerProperties.transitionPathId = importAttribute(layerElt, soziPrefix + "transition-path", refLayerProperties.transitionPathId);
+                layerProperties.transitionPathHide = importAttribute(layerElt, soziPrefix + "transition-path-hide", refLayerProperties.transitionPathHide, parseBoolean);
             }, this);
 
-            frame.set({
-                frameId: importAttribute(frameElt, "id", refFrame.frameId),
-                title: importAttribute(frameElt, soziPrefix + "title", refFrame.title),
-                transitionDurationMs: importAttribute(frameElt, soziPrefix + "transition-duration-ms", refFrame.transitionDurationMs, parseFloat),
-                timeoutMs: importAttribute(frameElt, soziPrefix + "timeout-ms", refFrame.timeoutMs, parseFloat),
-                timeoutEnable: importAttribute(frameElt, soziPrefix + "timeout-enable", refFrame.timeoutEnable, parseBoolean),
-                showInFrameList: importAttribute(frameElt, soziPrefix + "show-in-frame-list", refFrame.showInFrameList, parseBoolean)
-            });
+            frame.frameId = importAttribute(frameElt, "id", refFrame.frameId);
+            frame.title = importAttribute(frameElt, soziPrefix + "title", refFrame.title);
+            frame.transitionDurationMs = importAttribute(frameElt, soziPrefix + "transition-duration-ms", refFrame.transitionDurationMs, parseFloat);
+            frame.timeoutMs = importAttribute(frameElt, soziPrefix + "timeout-ms", refFrame.timeoutMs, parseFloat);
+            frame.timeoutEnable = importAttribute(frameElt, soziPrefix + "timeout-enable", refFrame.timeoutEnable, parseBoolean);
+            frame.showInFrameList = importAttribute(frameElt, soziPrefix + "show-in-frame-list", refFrame.showInFrameList, parseBoolean);
 
             // TODO: remove this when model can trigger events by itself
             frame.fire("change");

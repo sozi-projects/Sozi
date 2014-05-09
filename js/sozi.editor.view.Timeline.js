@@ -17,8 +17,13 @@ namespace("sozi.editor.view", function (exports) {
      * See also:
      *  - templates/sozi.editor.Timeline.html
      */
-    exports.Timeline = sozi.model.Object.create({
+    exports.Timeline = sozi.model.Object.clone({
 
+        presentation: null,
+        selection: null,
+        editableLayers: [],
+        defaultLayers: [],
+        
         /*
          * Initialize a Timeline view.
          *
@@ -32,25 +37,21 @@ namespace("sozi.editor.view", function (exports) {
          *  - The current view
          */
         init: function (pres, selection) {
-            sozi.model.Object.init.call(this);
-
             this.presentation = pres;
             this.selection = selection;
 
-            this.editableLayers = [];
-            this.defaultLayers = pres.layers.slice();
+            this.defaultLayers.pushAll(pres.layers);
 
             this.render();
 
-            pres.addListener("add", this.render, this);
-            pres.addListener("delete", this.render, this);
-            pres.addListener("move", this.render, this);
-            // TODO on selection change, listen to frame change
-
+            pres.addListener("change:frames", this.render, this);
+            pres.frames.addListener("add", this.onAddFrame, this);
+            pres.frames.addListener("remove", this.onRemoveFrame, this);
+            
             selection.addListener("change", this.render, this);
 
             pres.layers.forEach(function (layer) {
-                layer.addListener("change:isVisibile", this.render, this);
+                layer.addListener("change:isVisible", this.render, this);
             }, this);
 
             $(window).resize(this.bind(this.render));
@@ -58,6 +59,14 @@ namespace("sozi.editor.view", function (exports) {
             return this;
         },
 
+        onAddFrame: function (collection, frame) {
+            frame.addListener("change", this.render, this);
+        },
+        
+        onRemoveFrame: function (collection, frame) {
+            frame.removeListener("change", this.render, this);
+        },
+        
         /*
          * Action: Add a frame to the presentation.
          *
@@ -73,9 +82,11 @@ namespace("sozi.editor.view", function (exports) {
             var index = this.selection.currentFrame ?
                 this.presentation.frames.indexOf(this.selection.currentFrame) + 1 :
                 this.presentation.frames.length;
-            var frame = this.presentation.addFrame(index);
-            frame.cameraStates = sozi.editor.view.Preview.cameraStates;
-            this.selection.selectFrames([frame]);
+            var frame = sozi.model.Frame.clone().init(this.presentation);
+            this.presentation.frames.insert(frame, index);
+            frame.setAtStates(sozi.editor.view.Preview.cameras);
+            this.selection.selectedFrames.clear();
+            this.selection.selectedFrames.push(frame);
         },
 
         /*
@@ -92,11 +103,11 @@ namespace("sozi.editor.view", function (exports) {
          *  - layerIndex: The index of a layer in the presentation
          */
         addLayer: function (layerIndex) {
-            var layer = this.presentation.layers[layerIndex];
+            var layer = this.presentation.layers.at(layerIndex);
             this.editableLayers.push(layer);
-            this.defaultLayers.splice(this.defaultLayers.indexOf(layer), 1);
+            this.defaultLayers.remove(layer);
             this.render();
-            this.selection.addLayer(layer);
+            this.selection.selectedLayers.push(layer);
         },
 
         /*
@@ -113,9 +124,9 @@ namespace("sozi.editor.view", function (exports) {
          *  - layerIndex: The index of a layer in the presentation
          */
         removeLayer: function (layerIndex) {
-            var layer = this.presentation.layers[layerIndex];
-            this.selection.removeLayer(layer);
-            this.editableLayers.splice(this.editableLayers.indexOf(layer), 1);
+            var layer = this.presentation.layers.at(layerIndex);
+            this.selection.selectedLayers.remove(layer);
+            this.editableLayers.remove(layer);
             this.defaultLayers.push(layer);
             this.render();
         },
@@ -140,7 +151,7 @@ namespace("sozi.editor.view", function (exports) {
          */
         get defaultLayersAreSelected() {
             return this.defaultLayers.every(function (layer) {
-                return this.selection.hasLayer(layer);
+                return this.selection.selectedLayers.contains(layer);
             }, this);
         },
 
@@ -150,13 +161,24 @@ namespace("sozi.editor.view", function (exports) {
          * This method is called as a result of a user action
          * in the current view.
          *
-         * All selected frames to the given frame index.
+         * Move all selected frames to the given frame index.
          *
          * Parameters:
          *  - toFrameIndex: The index of the destination
          */
         moveFrames: function (toFrameIndex) {
-            this.presentation.moveFrames(this.selection.selectedFrames, toFrameIndex);
+            var framesByIndex = this.selection.selectedFrames.slice().sort(function (a, b) {
+                return a.index - b.index;
+            });
+
+            framesByIndex.forEach(function (frame) {
+                if (frame.index < toFrameIndex) {
+                    toFrameIndex --;
+                }
+                this.presentation.frames.remove(frame);
+                this.presentation.frames.insert(frame, toFrameIndex);
+                toFrameIndex ++;
+            }, this);
         },
 
         /*
@@ -166,7 +188,9 @@ namespace("sozi.editor.view", function (exports) {
          * in the current view.
          */
         deleteFrames: function () {
-            this.presentation.deleteFrames(this.selection.selectedFrames);
+            this.selection.selectedFrames.slice().forEach(function (frame) {
+                this.presentation.frames.remove(frame);
+            }, this);
         },
 
         /*
@@ -186,16 +210,38 @@ namespace("sozi.editor.view", function (exports) {
          *  - frameIndex: The index of a frame in the presentation
          */
         updateFrameSelection: function (evt, frameIndex) {
-            var frame = this.presentation.frames[frameIndex];
+            var frame = this.presentation.frames.at(frameIndex);
             if (evt.ctrlKey) {
-                this.selection.toggleFrame(frame);
+                if (this.selection.selectedFrames.contains(frame)) {
+                    this.selection.selectedFrames.remove(frame);
+                }
+                else {
+                    this.selection.selectedFrames.push(frame);
+                }
             }
             else if (evt.shiftKey) {
-                this.selection.toggleFramesTo(frame);
+                if (!this.selection.selectedFrames.length) {
+                    this.selection.selectedFrames.push(frame);
+                }
+                else {
+                    var endIndex = frame.index;
+                    var startIndex = this.selection.currentFrame.index;
+                    var inc = startIndex <= endIndex ? 1 : -1;
+                    for (var i = startIndex + inc; startIndex <= endIndex ? i <= endIndex : i >= endIndex; i += inc) {
+                        if (this.selection.selectedFrames.contains(this.presentation.frames.at(i))) {
+                            this.selection.selectedFrames.remove(this.presentation.frames.at(i));
+                        }
+                        else {
+                            this.selection.selectedFrames.push(this.presentation.frames.at(i));
+                        }
+                    }
+                }
             }
             else {
-                this.selection.selectFrames([frame]);
-                this.selection.selectLayers(this.presentation.layers);
+                this.selection.selectedLayers.clear();
+                this.selection.selectedLayers.pushAll(this.presentation.layers);
+                this.selection.selectedFrames.clear();
+                this.selection.selectedFrames.push(frame);
             }
         },
 
@@ -217,19 +263,26 @@ namespace("sozi.editor.view", function (exports) {
          */
         updateLayerSelection: function (evt, layerIndex) {
             var layers = layerIndex >= 0 ?
-                [this.presentation.layers[layerIndex]] :
+                [this.presentation.layers.at(layerIndex)] :
                 this.defaultLayers;
             if (evt.ctrlKey) {
                 layers.forEach(function (layer) {
-                    this.selection.toggleLayer(layer);
+                    if (this.selection.selectedLayers.contains(layer)) {
+                        this.selection.selectedLayers.remove(layer);
+                    }
+                    else {
+                        this.selection.selectedLayers.push(layer);
+                    }
                 }, this);
             }
             else if (evt.shiftKey) {
                 // TODO toggle from last selected to current
             }
             else {
-                this.selection.selectLayers(layers);
-                this.selection.selectFrames(this.presentation.frames);
+                this.selection.selectedLayers.clear();
+                this.selection.selectedLayers.pushAll(layers);
+                this.selection.selectedFrames.clear();
+                this.selection.selectedFrames.pushAll(this.presentation.frames);
             }
         },
 
@@ -254,33 +307,35 @@ namespace("sozi.editor.view", function (exports) {
          */
         updateLayerAndFrameSelection: function (evt, layerIndex, frameIndex) {
             var layers = layerIndex >= 0 ?
-                [this.presentation.layers[layerIndex]] :
+                [this.presentation.layers.at(layerIndex)] :
                 this.defaultLayers;
-            var frame = this.presentation.frames[frameIndex];
+            var frame = this.presentation.frames.at(frameIndex);
             if (evt.ctrlKey) {
                 var layersAreSelected = layers.every(function (layer) {
-                    return this.selection.hasLayer(layer);
+                    return this.selection.selectedLayers.contains(layer);
                 }, this);
-                var frameIsSelected = this.selection.hasFrame(frame);
+                var frameIsSelected = this.selection.selectedFrames.contains(frame);
                 if (layersAreSelected && frameIsSelected) {
                     layers.forEach(function (layer) {
-                        this.selection.removeLayer(layer);
+                        this.selection.selectedLayers.remove(layer);
                     }, this);
-                    this.selection.removeFrame(frame);
+                    this.selection.selectedFrames.remove(frame);
                 }
                 else {
                     layers.forEach(function (layer) {
-                        this.selection.addLayer(layer);
+                        this.selection.selectedLayers.push(layer);
                     }, this);
-                    this.selection.addFrame(frame);
+                    this.selection.selectedFrames.push(frame);
                 }
             }
             else if (evt.shiftKey) {
                 // TODO toggle from last selected to current
             }
             else {
-                this.selection.selectLayers(layers);
-                this.selection.selectFrames([frame]);
+                this.selection.selectedLayers.clear();
+                this.selection.selectedLayers.pushAll(layers);
+                this.selection.selectedFrames.clear();
+                this.selection.selectedFrames.push(frame);
             }
         },
 
@@ -299,15 +354,15 @@ namespace("sozi.editor.view", function (exports) {
          */
         updateLayerVisibility: function (layerIndex) {
             var layers = layerIndex >= 0 ?
-                [this.presentation.layers[layerIndex]] :
+                [this.presentation.layers.at(layerIndex)] :
                 this.defaultLayers;
             layers.forEach(function (layer) {
                 layer.isVisible = !layer.isVisible;
                 if (layer.isVisible) {
-                    this.selection.addLayer(layer);
+                    this.selection.selectedLayers.push(layer);
                 }
                 else {
-                    this.selection.removeLayer(layer);
+                    this.selection.selectedLayers.remove(layer);
                 }
             }, this);
         },

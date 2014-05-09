@@ -1,9 +1,13 @@
 namespace("sozi.editor.view", function (exports) {
     "use strict";
 
-    var Field = sozi.model.Object.create({
+    var Field = sozi.model.Object.clone({
+        element: null,
+        isFrameField: false,
+        propertyName: "",
+        selection: null,
+        
         init: function (selection, elementId, propertyName) {
-            sozi.model.Object.init.call(this);
             this.element = $("#sozi-editor-view-properties #" + elementId);
             this.isFrameField = /^frame/.test(elementId);
             this.propertyName = propertyName;
@@ -28,7 +32,7 @@ namespace("sozi.editor.view", function (exports) {
                     }
                     else {
                         this.selection.selectedLayers.forEach(function (layer) {
-                            frame.layerProperties[layer.index][this.propertyName] = this.convertFromField(value);
+                            frame.layerProperties.at(layer.index)[this.propertyName] = this.convertFromField(value);
                         }, this);
                     }
                 }, this);
@@ -55,7 +59,7 @@ namespace("sozi.editor.view", function (exports) {
                 }
                 else {
                     this.selection.selectedLayers.forEach(function (layer, layerIndex) {
-                        var current = frame.layerProperties[layer.index][this.propertyName];
+                        var current = frame.layerProperties.at(layer.index)[this.propertyName];
                         if (!frameIndex && !layerIndex) {
                             value = current;
                         }
@@ -93,7 +97,11 @@ namespace("sozi.editor.view", function (exports) {
         }
     });
     
-    var NumericField = Field.create({
+    var NumericField = Field.clone({
+        min: 0,
+        max: 100,
+        factor: 1,
+        
         init: function (selection, elementId, propertyName, min, max, factor) {
             Field.init.call(this, selection, elementId, propertyName);
             this.min = min;
@@ -118,7 +126,9 @@ namespace("sozi.editor.view", function (exports) {
         }
     });
     
-    var StringField = Field.create({
+    var StringField = Field.clone({
+        acceptsEmpty: false,
+        
         init: function (selection, elementId, propertyName, acceptsEmpty) {
             Field.init.call(this, selection, elementId, propertyName);
             this.acceptsEmpty = acceptsEmpty;
@@ -130,26 +140,25 @@ namespace("sozi.editor.view", function (exports) {
         }
     });
 
-    exports.Properties = sozi.model.Object.create({
-
+    exports.Properties = sozi.model.Object.clone({
+        fields: {own: []},
+        
         init: function (pres, selection) {
-            sozi.model.Object.init.call(this);
-
-            this.fields = [
-                StringField.create().init(selection, "frame-title", "title", true),
-                StringField.create().init(selection, "frame-id", "frameId", false),
-                Field.create().init(selection, "frame-list", "showInFrameList"),
-                NumericField.create().init(selection, "frame-timeout", "timeoutMs", 0, null, 1000),
-                Field.create().init(selection, "frame-timeout-enable", "timeoutEnable"),
-                NumericField.create().init(selection, "frame-transition-duration", "transitionDurationMs", 0, null, 1000),
-                Field.create().init(selection, "layer-clip", "clip"),
-                StringField.create().init(selection, "layer-reference-id", "referenceElementId", true),
-                Field.create().init(selection, "layer-reference-hide", "referenceElementHide"),
-                StringField.create().init(selection, "layer-transition-timing-function", "transitionTimingFunction", false),
-                NumericField.create().init(selection, "layer-transition-relative-zoom", "transitionRelativeZoom", null, null, 0.01),
-                StringField.create().init(selection, "layer-transition-path-id", "transitionPathId", true),
-                Field.create().init(selection, "layer-transition-path-hide", "transitionPathHide")
-            ];
+            this.fields.push(
+                StringField.clone().init(selection, "frame-title", "title", true),
+                StringField.clone().init(selection, "frame-id", "frameId", false),
+                Field.clone().init(selection, "frame-list", "showInFrameList"),
+                NumericField.clone().init(selection, "frame-timeout", "timeoutMs", 0, null, 1000),
+                Field.clone().init(selection, "frame-timeout-enable", "timeoutEnable"),
+                NumericField.clone().init(selection, "frame-transition-duration", "transitionDurationMs", 0, null, 1000),
+                Field.clone().init(selection, "layer-clip", "clip"),
+                StringField.clone().init(selection, "layer-reference-id", "referenceElementId", true),
+                Field.clone().init(selection, "layer-reference-hide", "referenceElementHide"),
+                StringField.clone().init(selection, "layer-transition-timing-function", "transitionTimingFunction", false),
+                NumericField.clone().init(selection, "layer-transition-relative-zoom", "transitionRelativeZoom", null, null, 0.01),
+                StringField.clone().init(selection, "layer-transition-path-id", "transitionPathId", true),
+                Field.clone().init(selection, "layer-transition-path-hide", "transitionPathHide")
+            );
 
             // TODO on selection change, listen to frame change
             selection.addListener("change", this.render, this);

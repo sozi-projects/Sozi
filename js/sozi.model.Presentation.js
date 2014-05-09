@@ -14,26 +14,24 @@
 namespace("sozi.model", function (exports) {
     "use strict";
 
-    exports.Frame = sozi.model.Object.create({
+    exports.Frame = sozi.model.Object.clone({
 
+        // TODO define default properties separately
+        frameId: "",
+        title: "New frame",
+        timeoutMs: 0,
+        timeoutEnable: false,
+        transitionDurationMs: 1000,
+        showInFrameList: true,
+        layerProperties: {own: []},
+        cameraStates: {own: []},
+        
         init: function (pres) {
-            sozi.model.Object.init.call(this);
-
-            this.presentation = pres;
-            this._cameraStates = pres.layers.map(function () {
-                return sozi.player.CameraState.create().init(pres.svgRoot);
-            });
-
-            // TODO define default properties separately
             this.frameId = pres.makeFrameId();
-            this.title = "New frame";
-            this.timeoutMs = 0;
-            this.timeoutEnable = false;
-            this.transitionDurationMs = 1000;
-            this.showInFrameList = true;
 
-            this.layerProperties = pres.layers.map(function () {
-                return sozi.model.Object.create({
+            pres.layers.forEach(function () {
+                this.cameraStates.push(sozi.player.CameraState.clone().init(pres.svgRoot));
+                this.layerProperties.push(sozi.model.Object.clone({
                     clip: true,
                     referenceElementId: "",
                     referenceElementHide: true,
@@ -41,41 +39,37 @@ namespace("sozi.model", function (exports) {
                     transitionRelativeZoom: 0,
                     transitionPathId: "",
                     transitionPathHide: true
-                }).init();
-            });
+                }));
+            }, this);
 
             return this;
         },
 
         get index() {
-            return this.presentation.frames.indexOf(this);
+            return this.owner.frames.indexOf(this);
         },
 
-        set cameraStates(states) {
-            this._cameraStates.forEach(function (state, index) {
-                state.setAtState(states[index]);
-            });
-        },
-
-        get cameraStates() {
-            return this._cameraStates;
+        setAtStates: function (states) {
+            states.forEach(function (state, index) {
+                this.cameraStates.at(index).setAtState(state);
+            }, this);
         }
     });
 
-    exports.Layer = sozi.model.Object.create({
+    exports.Layer = sozi.model.Object.clone({
 
-        init: function (pres, label, auto) {
-            sozi.model.Object.init.call(this);
-
-            this.presentation = pres;
+        label: "",
+        auto: false,
+        svgNodes: [],
+        
+        init: function (label, auto) {
             this.label = label;
             this.auto = auto;
-            this.svgNodes = [];
             return this;
         },
 
         get index() {
-            return this.presentation.layers.indexOf(this);
+            return this.owner.layers.indexOf(this);
         },
 
         get isVisible() {
@@ -102,8 +96,12 @@ namespace("sozi.model", function (exports) {
     var DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
         "ellipse", "line", "polyline", "polygon", "text", "clippath" ];
 
-    exports.Presentation = sozi.model.Object.create({
+    exports.Presentation = sozi.model.Object.clone({
 
+        svgRoot: null,
+        frames: {own: []},
+        layers: {own: []},
+        
         /*
          * Initialize a Sozi document object.
          *
@@ -111,15 +109,11 @@ namespace("sozi.model", function (exports) {
          *    - The current presentation object.
          */
         init: function (svgRoot) {
-            sozi.model.Object.init.call(this);
-
-            this.frames = [];
-
             this.svgRoot = svgRoot;
 
             // Create an empty wrapper layer for elements that do not belong to a valid layer
-            var autoLayer = exports.Layer.create().init(this, "auto", true);
-            this.layers = [autoLayer];
+            var autoLayer = exports.Layer.clone().init("auto", true);
+            this.layers.push(autoLayer);
 
             var svgWrapper = document.createElementNS(SVG_NS, "g");
 
@@ -154,7 +148,7 @@ namespace("sozi.model", function (exports) {
                             }
 
                             // Add the current node as a new layer.
-                            var layer = exports.Layer.create().init(this, svgNode.hasAttribute("inkscape:label") ? svgNode.getAttribute("inkscape:label") : ("#" + nodeId), false);
+                            var layer = exports.Layer.clone().init(svgNode.hasAttribute("inkscape:label") ? svgNode.getAttribute("inkscape:label") : ("#" + nodeId), false);
                             layer.svgNodes.push(svgNode);
                             this.layers.push(layer);
                         }
@@ -186,40 +180,6 @@ namespace("sozi.model", function (exports) {
                 return frame.frameId === frameId;
             }));
             return frameId;
-        },
-        
-        addFrame: function (index) {
-            if (index === undefined) {
-                index = this.frames.length;
-            }
-            var frame = exports.Frame.create().init(this);
-            this.frames.splice(index, 0, frame);
-            this.fire("add", frame, index);
-            return frame;
-        },
-
-        moveFrames: function (frames, toIndex) {
-            var framesByIndex = frames.slice().sort(function (a, b) {
-                return a.index - b.index;
-            });
-
-            framesByIndex.forEach(function (frame) {
-                if (frame.index < toIndex) {
-                    toIndex --;
-                }
-                this.frames.splice(frame.index, 1);
-                this.frames.splice(toIndex, 0, frame);
-                toIndex ++;
-            }, this);
-            this.fire("move", frames, toIndex);
-        },
-
-        deleteFrames: function (frames) {
-            frames.forEach(function (frame) {
-                this.frames.splice(frame.index, 1);
-            }, this);
-            this.fire("delete", frames);
-            return this;
         }
     });
 });

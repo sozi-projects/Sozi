@@ -7,7 +7,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-node-webkit-builder");
     grunt.loadNpmTasks("grunt-contrib-compress");
     grunt.loadNpmTasks("grunt-rsync");
-
+    grunt.loadNpmTasks('grunt-simple-mocha');
+    
     var version = grunt.template.today("yy.mm.ddHHMM");
 
     grunt.initConfig({
@@ -30,7 +31,18 @@ module.exports = function(grunt) {
                 "css/**/*.css"
             ]
         },
+        
+        simplemocha: {
+            options: {
+                timeout: 3000,
+                ignoreLeaks: false,
+                ui: 'bdd',
+                reporter: 'tap'
+            },
 
+            all: { src: ['test/**/*.mocha.js'] }
+        },
+        
         nunjucks: {
             templates: {
                 src: "templates/*",

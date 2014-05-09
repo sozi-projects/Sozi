@@ -26,8 +26,13 @@ namespace("sozi.player", function (exports) {
     // Rotation step for user rotate action (keyboard and mouse wheel)
     var ROTATE_STEP = 5;
 
-    exports.Viewport = sozi.model.Object.create({
+    exports.Viewport = sozi.model.Object.clone({
 
+        presentation: null,
+        cameras: {own: []},
+        dragHandler: null,
+        dragEngHandler: null,
+        
         /*
          * Initialize a new viewport for the given SVG root element.
          *
@@ -38,13 +43,11 @@ namespace("sozi.player", function (exports) {
          *    - The current viewport.
          */
         init: function (pres) {
-            sozi.model.Object.init.call(this);
-
             this.presentation = pres;
 
             // Create a camera for each layer
-            this.cameras = this.presentation.layers.map(function (layer) {
-                return exports.Camera.create().init(this, layer);
+            this.presentation.layers.forEach(function (layer) {
+                this.cameras.push(exports.Camera.clone().init(this, layer));
             }, this);
 
             // Setup mouse and keyboard event handlers
@@ -315,43 +318,15 @@ namespace("sozi.player", function (exports) {
         },
 
         /*
-         * Returns the default camera states to show the whole document.
-         *
-         * Returns:
-         *    - An dictionary of camera states that fit the whole document.
-         */
-        get defaultStates() {
-            // This object defines the bounding box of the whole document
-            var state = exports.CameraState.create().init(this);
-
-            // Copy the document's bounding box to all layers
-            return this.cameras.map(function (camera) {
-                return state;
-            });
-        },
-
-        /*
          * Set the states of the cameras of the current viewport.
          *
          * Parameters:
          *    - states: An array of camera states
          */
-        set cameraStates(states) {
-            this.cameras.forEach(function (camera, index) {
-                camera.setAtState(states[index]);
-            });
-        },
-
-        /*
-         * Get the states of the cameras of the current viewport.
-         *
-         * Returns:
-         *    - An array of camera states
-         */
-        get cameraStates () {
-            return this.cameras.map(function (camera) {
-                return camera.clone();
-            });
+        setAtStates: function (states) {
+            states.forEach(function (state, index) {
+                this.cameras.at(index).setAtState(state);
+            }, this);
         },
 
         /*

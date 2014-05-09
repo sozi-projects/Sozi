@@ -11,64 +11,61 @@
  * See http://sozi.baierouge.fr/wiki/en:license for details.
  */
 
-/**
- * Create, augment or alias a namespace.
- *
- * In this example, function ``foo`` is exported and can be
- * called as ``a.b.c.foo(someValue)``.
- *
- * ```
- * namespace("a.b.c", function (exports, env) {
- *     exports.foo = function (x) {
- *         ...
- *     };
- * });
- * ```
- *
- * To create an alias to a given namespace, you can call this function
- * like in the following example. This will create a new namespace object
- * ``a.b.c`` if it does not exist yet.
- *
- * ```
- * var abc = namespace("a.b.c");
- * abc.foo(someValue);
- * ```
- *
- * @param {Object}   [env]  - The object that contains the namespace definition (defaults to the global object)
- * @param {String}   path   - The dot-separated path to the namespace
- * @param {Function} [body] - A function to execute in the context of the namespace
- * @return {Object} The namespace object
- */
-function namespace(env, path, body) {
+(function (global) {
     "use strict";
-
-    if (typeof env === "string") {
-        body = path;
-        path = env;
-        env = namespace.global;
-    }
-
-    // Start name lookup in the global object
-    var current = env;
     
-	// For each name in the given path
-	path.split(".").forEach(function (name) {
-        // If the current path element does not exist
-        // in the current namespace, create a new sub-namespace
-		if (typeof current[name] === "undefined") {
-			current[name] = {};
-		}
+    /**
+     * Create, augment or alias a namespace.
+     *
+     * In this example, function ``foo`` is exported and can be
+     * called as ``a.b.c.foo(someValue)``.
+     *
+     * ```
+     * namespace("a.b.c", function (exports) {
+     *     exports.foo = function (x) {
+     *         ...
+     *     };
+     * });
+     * ```
+     *
+     * The global object is aliased as ``namespace.global``.
+     * 
+     * To create an alias to a given namespace, you can call this function
+     * like in the following example. This will create a new namespace object
+     * ``a.b.c`` if it does not exist yet.
+     *
+     * ```
+     * var abc = namespace("a.b.c");
+     * abc.foo(someValue);
+     * ```
+     *
+     * @param {String}   path   - The dot-separated path to the namespace
+     * @param {Function} [body] - A function to execute in the context of the namespace
+     * @return {Object} The namespace object
+     */
+    global.namespace = function (path, body) {
+        // Start name lookup in the global object
+        var current = global;
 
-		// Move to the namespace for the current path element
-		current = current[name];
-	});
+        // For each name in the given path
+        path.split(".").forEach(function (name) {
+            // If the current path element does not exist
+            // in the current namespace, create a new sub-namespace
+            if (typeof current[name] === "undefined") {
+                current[name] = {};
+            }
 
-	// Execute the given function in the last namespace
-	if (body) {
-        body(current);
-	}
+            // Move to the namespace for the current path element
+            current = current[name];
+        });
 
-	return current;
-}
+        // Execute the given function in the last namespace
+        if (body) {
+            body(current);
+        }
 
-namespace.global = this;
+        return current;
+    };
+
+    global.namespace.global = global;
+})(typeof window !== "undefined" ? window : global);

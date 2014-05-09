@@ -4,8 +4,10 @@ namespace("sozi.editor.view", function (exports) {
 
     var PREVIEW_MARGIN = 15;
 
-    exports.Preview = sozi.player.Viewport.create({
+    exports.Preview = sozi.player.Viewport.clone({
 
+        selection: null,
+        
         init: function (pres, selection) {
             sozi.player.Viewport.init.call(this, pres);
 
@@ -54,19 +56,19 @@ namespace("sozi.editor.view", function (exports) {
 
         onChangeSelection: function (selection) {
             if (selection.currentFrame) {
-                this.cameraStates = selection.currentFrame.cameraStates;
+                this.setAtStates(selection.currentFrame.cameraStates);
             }
             // A camera is selected if its layer belongs to the list of selected layers
             // or if its layer is not managed and the default layer is selected.
             this.cameras.forEach(function (camera) {
-                camera.selected = selection.hasLayer(camera.layer);
+                camera.selected = selection.selectedLayers.contains(camera.layer);
             });
         },
 
         onChangeState: function () {
             var frame = this.selection.currentFrame;
             if (frame) {
-                frame.cameraStates = this.cameraStates;
+                frame.setAtStates(this.cameras);
             }
             // TODO choose reference SVG element for frame
             // getIntersectionList(SVGRect, SVGElement)

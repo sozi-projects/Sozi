@@ -105,25 +105,22 @@ namespace("sozi.player", function (exports) {
      * The main purpose of an animator is to schedule the update
      * operations in the animated objects.
      */
-    exports.Animator = sozi.model.Object.create({
+    exports.Animator = sozi.model.Object.clone({
+        
+        // The animation duration, in milliseconds.
+        durationMs: 500,
 
+        // The animation timing function.
+        timingFunction: exports.timing.linear,
+        
+        // The start time of the animation.
+        initialTime: 0,
+
+        // The current state of this animator.
+        running: false,
+        
         init: function () {
-            sozi.model.Object.init.call(this);
-
             animatorList.push(this);
-
-            // The animation duration, in milliseconds.
-            this.durationMs = 500;
-
-            // The animation timing function.
-            this.timingFunction = exports.timing.linear;
-
-            // The start time of the animation.
-            this.initialTime = 0;
-
-            // The current state of this animator.
-            this.running = false;
-
             return this;
         },
 
