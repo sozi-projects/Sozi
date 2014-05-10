@@ -40,19 +40,6 @@ namespace("sozi.editor.model", function (exports) {
         },
 
         /*
-         * Check whether the given frame is the last selected frame.
-         *
-         * Parameters:
-         *  - frame: a frame object
-         *
-         * Returns:
-         *  - true if the given frame has been selected last, else false
-         */
-        frameIsCurrent: function (frame) {
-            return this.currentFrame === frame;
-        },
-
-        /*
          * Get the last selected frame.
          *
          * Returns:

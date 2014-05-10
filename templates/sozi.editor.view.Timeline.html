@@ -61,7 +61,7 @@
         <tr>
             {% for frame in presentation.frames.slice() %}
                 <th data-frame-index="{{loop.index0}}"
-                    class="frame-index {{'selected' if selection.selectedFrames.contains(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
+                    class="frame-index {{'selected' if selection.selectedFrames.contains(frame)}} {{'current' if frame == selection.currentFrame}}">
                     {% if selection.selectedFrames.length %}
                         <i title="Insert selection before frame {{loop.index}}" class="insert-before fa fa-caret-down"></i>
                     {% endif %}
@@ -76,7 +76,7 @@
             {% for frame in presentation.frames.slice() %}
                 <th data-frame-index="{{loop.index0}}"
                     title="{{frame.title}}"
-                    class="frame-title {{'selected' if selection.selectedFrames.contains(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
+                    class="frame-title {{'selected' if selection.selectedFrames.contains(frame)}} {{'current' if frame == selection.currentFrame}}">
                     {{frame.title}}
                 </th>
             {% endfor %}
@@ -88,7 +88,7 @@
         <tr data-layer-index="-1">
             {% for frame in presentation.frames.slice() %}
                 <td data-frame-index="{{loop.index0}}"
-                    class="{{'selected' if defaultLayersAreSelected and selection.selectedFrames.contains(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
+                    class="{{'selected' if defaultLayersAreSelected and selection.selectedFrames.contains(frame)}} {{'current' if frame == selection.currentFrame}}">
                 </td>
             {% endfor %}
         </tr>
@@ -97,7 +97,7 @@
                 <tr data-layer-index="{{loop.revindex0}}">
                     {% for frame in presentation.frames.slice() %}
                         <td data-frame-index="{{loop.index0}}"
-                            class="{{'selected' if selection.selectedLayers.contains(layer) and selection.selectedFrames.contains(frame)}} {{'current' if selection.frameIsCurrent(frame)}}">
+                            class="{{'selected' if selection.selectedLayers.contains(layer) and selection.selectedFrames.contains(frame)}} {{'current' if frame == selection.currentFrame}}">
                         </td>
                     {% endfor %}
                 </tr>

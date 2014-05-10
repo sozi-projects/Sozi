@@ -48,7 +48,7 @@ namespace("sozi.editor.view", function (exports) {
             pres.frames.addListener("add", this.onAddFrame, this);
             pres.frames.addListener("remove", this.onRemoveFrame, this);
             
-            selection.addListener("change", this.render, this);
+            selection.addListener("change", this.onChangeSelection, this);
 
             pres.layers.forEach(function (layer) {
                 layer.addListener("change:isVisible", this.render, this);
@@ -478,6 +478,50 @@ namespace("sozi.editor.view", function (exports) {
                 $(".timeline-top-right", container).scrollLeft($(this).scrollLeft());
                 $(".timeline-bottom-left", container).scrollTop($(this).scrollTop());
             });
+        },
+        
+        onChangeSelection: function () {
+            var container = $("#sozi-editor-view-timeline");
+            
+            $("th, td", container).removeClass("selected current");
+            
+            if (this.defaultLayersAreSelected) {
+                $(".timeline-bottom-left tr[data-layer-index=-1] .layer-label", container).addClass("selected");
+            }
+            
+            this.presentation.layers.forEach(function (layer, index) {
+                if (this.editableLayers.contains(layer) && this.selection.selectedLayers.contains(layer)) {
+                    $(".timeline-bottom-left tr[data-layer-index=" + index + "] .layer-label", container).addClass("selected");
+                }
+            }, this);
+            
+            this.presentation.frames.forEach(function (frame, frameIndex) {
+                if(this.selection.selectedFrames.contains(frame)) {
+                    var th = $(".timeline-top-right th[data-frame-index=" + frameIndex + "]");
+                    th.addClass("selected");
+                    if (frame === this.selection.currentFrame) {
+                        th.addClass("current");
+                    }
+                    if (this.defaultLayersAreSelected) {
+                        var td = $(".timeline-bottom-right tr[data-layer-index=-1] td[data-frame-index=" + frameIndex + "]", container);
+                        td.addClass("selected");
+                        if (frame === this.selection.currentFrame) {
+                            td.addClass("current");
+                        }
+                    }
+                    this.presentation.layers.forEach(function (layer, layerIndex) {
+                        if (this.editableLayers.contains(layer) && this.selection.selectedLayers.contains(layer)) {
+                            var td = $(".timeline-bottom-right tr[data-layer-index=" + layerIndex + "] td[data-frame-index=" + frameIndex + "]", container);
+                            td.addClass("selected");
+                            if (frame === this.selection.currentFrame) {
+                                td.addClass("current");
+                            }
+                        }
+                    }, this);
+                }
+            }, this);
+            
+            //this.render();
         }
     });
 });
