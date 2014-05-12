@@ -35,6 +35,8 @@ namespace("sozi.editor.model", function (exports) {
             this.selectedLayers.pushAll(pres.layers);
 
             pres.frames.addListener("remove", this.onRemoveFrame, this);
+            pres.layers.addListener("add", this.onAddLayer, this);
+            pres.layers.addListener("remove", this.onRemoveLayer, this);
 
             return this;
         },
@@ -63,8 +65,16 @@ namespace("sozi.editor.model", function (exports) {
          *  - frame: The removed frame
          *  - index: The index of the removed frame in the collection
          */
-        onRemoveFrame: function (collection, frame, index) {
+        onRemoveFrame: function (collection, frame) {
             this.selectedFrames.remove(frame);
+        },
+        
+        onAddLayer: function (collection, layer) {
+            this.selectedLayers.push(layer);
+        },
+        
+        onRemoveLayer: function (collection, layer) {
+            this.selectedLayers.remove(layer);
         }
     });
 });

@@ -110,6 +110,8 @@ namespace("sozi.model", function (exports) {
          */
         init: function (svgRoot) {
             this.svgRoot = svgRoot;
+            this.frames.clear();
+            this.layers.clear();
 
             // Create an empty wrapper layer for elements that do not belong to a valid layer
             var autoLayer = exports.Layer.clone().init("auto", true);
@@ -166,6 +168,8 @@ namespace("sozi.model", function (exports) {
                 autoLayer.svgNodes.push(svgWrapper);
             }
 
+            // TODO redirect frames to the new set of layers if document has been reloaded
+            
             return this;
         },
 

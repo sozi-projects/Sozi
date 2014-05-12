@@ -47,6 +47,8 @@ namespace("sozi.editor.view", function (exports) {
             pres.addListener("change:frames", this.render, this);
             pres.frames.addListener("add", this.onAddFrame, this);
             pres.frames.addListener("remove", this.onRemoveFrame, this);
+            pres.layers.addListener("add", this.onAddLayer, this);
+            pres.layers.addListener("remove", this.onRemoveLayer, this);
             
             selection.addListener("change", this.onChangeSelection, this);
 
@@ -59,6 +61,17 @@ namespace("sozi.editor.view", function (exports) {
             return this;
         },
 
+        onAddLayer: function (collection, layer) {
+            this.defaultLayers.push(layer);
+            this.render();
+        },
+        
+        onRemoveLayer: function (collection, layer) {
+            this.defaultLayers.remove(layer);
+            this.editableLayers.remove(layer);
+            this.render();
+        },
+        
         onAddFrame: function (collection, frame) {
             frame.addListener("change", this.render, this);
         },

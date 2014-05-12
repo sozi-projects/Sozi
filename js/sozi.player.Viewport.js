@@ -45,25 +45,53 @@ namespace("sozi.player", function (exports) {
         init: function (pres) {
             this.presentation = pres;
 
-            // Create a camera for each layer
-            this.presentation.layers.forEach(function (layer) {
-                this.cameras.push(exports.Camera.clone().init(this, layer));
-            }, this);
-
             // Setup mouse and keyboard event handlers
             this.dragHandler = this.bind(this.onDrag);
             this.dragEndHandler = this.bind(this.onDragEnd);
 
-            this.svgRoot.addEventListener("mousedown", this.bind(this.onMouseDown), false);
-            this.svgRoot.addEventListener("DOMMouseScroll", this.bind(this.onWheel), false); // Mozilla
-            this.svgRoot.addEventListener("mousewheel", this.bind(this.onWheel), false); // IE, Opera, Webkit
-            this.svgRoot.addEventListener("keypress", this.bind(this.onKeyPress), false);
-
-            this.resize();
+            pres.addListener("change:svgRoot", this.onChangeSVGRoot, this);
+            pres.layers.addListener("add", this.onAddLayer, this);
+            pres.layers.addListener("remove", this.onRemoveLayer, this);
+            
+            if (pres.svgRoot) {
+                this.onChangeSVGRoot();
+            }
 
             return this;
         },
 
+        makeUniqueId: function (prefix) {
+            var suffix = Math.floor(1000 * (1 + 9 * Math.random()));
+            var id;
+            do {
+                id = prefix + suffix;
+                suffix ++;
+            } while(this.svgRoot.getElementById(id));
+            return id;
+        },
+        
+        onChangeSVGRoot: function () {
+            this.svgRoot.addEventListener("mousedown", this.bind(this.onMouseDown), false);
+            this.svgRoot.addEventListener("DOMMouseScroll", this.bind(this.onWheel), false); // Mozilla
+            this.svgRoot.addEventListener("mousewheel", this.bind(this.onWheel), false); // IE, Opera, Webkit
+            this.svgRoot.addEventListener("keypress", this.bind(this.onKeyPress), false);
+            this.resize();
+        },
+        
+        onAddLayer: function (collection, layer) {
+            this.cameras.push(exports.Camera.clone().init(this, layer));
+            this.resize();
+        },
+        
+        onRemoveLayer: function (collection, layer) {
+            this.cameras.forEach(function (camera) {
+                if (camera.layer === layer) {
+                    this.cameras.remove(camera);
+                }
+            }, this);
+            this.resize();
+        },
+        
         get svgRoot() {
             return this.presentation.svgRoot;
         },
@@ -307,6 +335,10 @@ namespace("sozi.player", function (exports) {
          *    - The current viewport.
          */
         resize: function () {
+            if (!this.svgRoot) {
+                return this;
+            }
+            
             this.svgRoot.setAttribute("width", this.width);
             this.svgRoot.setAttribute("height", this.height);
 

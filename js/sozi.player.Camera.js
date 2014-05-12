@@ -171,7 +171,6 @@ namespace("sozi.player", function (exports) {
 
     exports.Camera = exports.CameraState.clone({
 
-        viewport: null,
         layer: null,
         selected: true,
         svgClipRect: false,
@@ -180,7 +179,6 @@ namespace("sozi.player", function (exports) {
         init: function (viewport, layer) {
             exports.CameraState.init.call(this, viewport.svgRoot);
 
-            this.viewport = viewport;
             this.layer = layer;
 
             // The clipping rectangle of this camera
@@ -188,7 +186,7 @@ namespace("sozi.player", function (exports) {
 
             // The clipping path of this camera
             var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
-            var svgClipPathId = this.makeUniqueId("sozi-clip-path-");
+            var svgClipPathId = viewport.makeUniqueId("sozi-clip-path-");
             svgClipPath.setAttribute("id", svgClipPathId);
             svgClipPath.appendChild(this.svgClipRect);
             viewport.svgRoot.appendChild(svgClipPath);
@@ -209,22 +207,12 @@ namespace("sozi.player", function (exports) {
             return this;
         },
 
-        makeUniqueId: function (prefix) {
-            var suffix = Math.floor(1000 * (1 + 9 * Math.random()));
-            var id;
-            do {
-                id = prefix + suffix;
-                suffix ++;
-            } while(this.viewport.svgRoot.getElementById(id));
-            return id;
-        },
-        
         setAtState: function (state) {
             return exports.CameraState.setAtState.call(this, state).update();
         },
 
         get scale() {
-            return Math.min(this.viewport.width / this.width, this.viewport.height / this.height);
+            return Math.min(this.owner.width / this.width, this.owner.height / this.height);
         },
 
         rotate: function (angle) {
@@ -235,8 +223,8 @@ namespace("sozi.player", function (exports) {
             this.width /= factor;
             this.height /= factor;
             return this.drag(
-                (1 - factor) * (x - this.viewport.width  / 2),
-                (1 - factor) * (y - this.viewport.height / 2)
+                (1 - factor) * (x - this.owner.width  / 2),
+                (1 - factor) * (y - this.owner.height / 2)
             );
         },
 
@@ -257,14 +245,14 @@ namespace("sozi.player", function (exports) {
             // Compute the size and location of the frame on the screen
             var width = this.width  * scale;
             var height = this.height * scale;
-            var x = (this.viewport.width - width) / 2;
-            var y = (this.viewport.height - height) / 2;
+            var x = (this.owner.width - width) / 2;
+            var y = (this.owner.height - height) / 2;
 
             // Adjust the location and size of the clipping rectangle and the frame rectangle
             this.svgClipRect.setAttribute("x", this.clipped ? x : 0);
             this.svgClipRect.setAttribute("y", this.clipped ? y : 0);
-            this.svgClipRect.setAttribute("width",  this.clipped ? width  : this.viewport.width);
-            this.svgClipRect.setAttribute("height", this.clipped ? height : this.viewport.height);
+            this.svgClipRect.setAttribute("width",  this.clipped ? width  : this.owner.width);
+            this.svgClipRect.setAttribute("height", this.clipped ? height : this.owner.height);
 
             // Compute and apply the geometrical transformation to the layer group
             var translateX = -this.cx + this.width / 2  + x / scale;

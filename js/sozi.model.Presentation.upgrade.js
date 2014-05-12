@@ -164,10 +164,6 @@ namespace("sozi.model", function (exports) {
             frame.timeoutMs = importAttribute(frameElt, soziPrefix + "timeout-ms", refFrame.timeoutMs, parseFloat);
             frame.timeoutEnable = importAttribute(frameElt, soziPrefix + "timeout-enable", refFrame.timeoutEnable, parseBoolean);
             frame.showInFrameList = importAttribute(frameElt, soziPrefix + "show-in-frame-list", refFrame.showInFrameList, parseBoolean);
-
-            // TODO: remove this when model can trigger events by itself
-            frame.fire("change");
-
         }, this);
     };
 });
