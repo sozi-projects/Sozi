@@ -1,3 +1,4 @@
 node_modules
 vendor
 build
+/js/sozi.editor.backend.GoogleDrive.config.js

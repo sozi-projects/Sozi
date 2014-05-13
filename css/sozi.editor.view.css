@@ -33,8 +33,14 @@ body {
     height: 80%;
 }
 
-.top-left p {
+.top-left p,
+.top-left ul {
     margin: 2em;
+    padding: 0;
+}
+
+.top-left ul li {
+    list-style-type: none;
 }
 
 .top-right {
