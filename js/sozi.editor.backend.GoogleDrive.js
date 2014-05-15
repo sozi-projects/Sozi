@@ -132,14 +132,48 @@ namespace("sozi.editor.backend", function (exports) {
         },
         
         save: function (fileDescriptor) {
+            var boundary = "-------314159265358979323846";
+            var delimiter = "\r\n--" + boundary + "\r\n";
+            var closeDelimiter = "\r\n--" + boundary + "--";
+
             if (fileDescriptor.location === undefined) {
-                // TODO create file on drive.
-                //
-                // fileDescriptor.location = ...; // Compute URL
-                // fileDescriptor.parents = ...; // Keep relevant parents
-                // fileDescriptor.type = ...: // Provide correct MIME type
-                fileDescriptor.status = "Not implemented";
-                this.fire("save", fileDescriptor);
+                var contentType = fileDescriptor.type || "application/octet-stream";
+                
+                var metadata = {
+                    title: fileDescriptor.name,
+                    parents: fileDescriptor.parents,
+                    mimeType: contentType
+                };
+
+                var multipartRequestBody =
+                    delimiter +
+                    "Content-Type: application/json\r\n\r\n" + JSON.stringify(metadata) +
+                    delimiter +
+                    "Content-Type: " + contentType + "\r\n" +
+                    "Content-Transfer-Encoding: base64\r\n\r\n" +
+                    btoa(fileDescriptor.content) +
+                    closeDelimiter;
+
+                gapi.client.request({
+                    path: "/upload/drive/v2/files",
+                    method: "POST",
+                    params: {
+                        uploadType: "multipart"
+                    },
+                    headers: {
+                      "Content-Type": 'multipart/mixed; boundary="' + boundary + '"'
+                    },
+                    body: multipartRequestBody
+                }).execute(function (response) {
+                    if (!response.error) {
+                        fileDescriptor.status = response.error.message;
+                    }
+                    else {
+                        fileDescriptor.location = response.downloadUrl;
+                        fileDescriptor.type = response.mimeType;
+                    }
+                    this.fire("save", fileDescriptor);
+                });
                 return;
             }
             
