@@ -13,18 +13,40 @@ window.addEventListener("load", function () {
     
     var backends = ["NodeWebkit", "FileReader", "GoogleDrive"];
     
+    var svgFileDescriptor;
+    var jsonFileDescriptor;
+    
     backends.forEach(function (name) {
         sozi.editor.backend[name]
-            .addListener("load", function (context, fileDescriptor) {
-                if (/\.svg$/.test(fileDescriptor.name)) {
-                    if (!fileDescriptor.status) {
+            .addListener("load", function (backend, fileDescriptor, data, err) {
+                var name = backend.getName(fileDescriptor);
+                var location = backend.getLocation(fileDescriptor);
+                if (/\.svg$/.test(name)) {
+                    if (!err) {
                         // Find the SVG root and check that the loaded document is valid SVG.
-                        var svgRoot = $("#sozi-editor-view-preview").html(fileDescriptor.content).get(0).querySelector("svg");
+                        var svgRoot = $("#sozi-editor-view-preview").html(data).get(0).querySelector("svg");
                         if (svgRoot instanceof SVGSVGElement) {
+                            svgFileDescriptor = fileDescriptor;
                             presentation.init(svgRoot);
-                            context.load({
-                                name: fileDescriptor.name.replace(/\.svg$/, ".sozi.json"),
-                                parents: fileDescriptor.parents
+                            
+                            var jsonName = name.replace(/\.svg$/, ".sozi.json");
+                            backend.find(jsonName, location, function (fileDescriptor) {
+                                if (fileDescriptor) {
+//                                    backend.load(fileDescriptor);
+                                }
+//                                else {
+                                    // If no JSON file is available, attempt to extract
+                                    // presentation data from the SVG document, assuming
+                                    // it has been generated from Sozi 13 or earlier.
+                                    // Then save the extracted data to a JSON file.
+                                    presentation.upgrade();
+                                    if (presentation.frames.length) {
+                                        selection.selectedFrames.push(presentation.frames.first);
+                                    }
+                                    backend.create(jsonName, location, "application/json", JSON.stringify(presentation.toStorable()), function (fileDescriptor) {
+                                        jsonFileDescriptor = fileDescriptor;
+                                    });
+//                                }
                             });
                         }
                         else {
@@ -32,32 +54,23 @@ window.addEventListener("load", function () {
                         }
                     }
                     else {
-                        console.log("Error loading file: " + fileDescriptor.name);
+                        console.log("Error loading file: " + name);
                     }
                 }
-                else if (/\.sozi\.json$/.test(fileDescriptor.name)) {
-//                    if (!fileDescriptor.status) {
-//                        // Load presentation data from JSON file.
-//                        presentation.fromStorable(JSON.parse(fileDescriptor.content));
-//                    }
-//                    else {
-                        // If no JSON data is available, attempt to extract
-                        // presentation data from the SVG document, assuming
-                        // it has been generated from Sozi 13 or earlier.
-                        // Then save the extracted data to a JSON file.
-                        presentation.upgrade();
-                        fileDescriptor.content = JSON.stringify(presentation.toStorable());
-                        context.save(fileDescriptor);
-//                    }
-                    if (presentation.frames.length) {
-                        selection.selectedFrames.push(presentation.frames.first);
+                else if (/\.sozi\.json$/.test(name)) {
+                    if (!err) {
+                        // Load presentation data from JSON file.
+                        presentation.fromStorable(JSON.parse(data));
+                        if (presentation.frames.length) {
+                            selection.selectedFrames.push(presentation.frames.first);
+                        }
                     }
                 }
             })
-            .addListener("change", function (context, fileDescriptor) {
-                if (/\.svg$/.test(fileDescriptor.name)) {
-                    console.log("Reloading " + fileDescriptor.name);
-//                    context.load(fileDescriptor);
+            .addListener("change", function (backend, fileDescriptor) {
+                if (fileDescriptor === svgFileDescriptor) {
+                    console.log("Reloading");
+                    backend.load(fileDescriptor);
                 }
             })
             .init();

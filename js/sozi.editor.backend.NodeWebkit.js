@@ -19,17 +19,6 @@ namespace("sozi.editor.backend", function (exports) {
 
     exports.NodeWebkit = sozi.model.Object.clone({
 
-        getDescriptor: function (fileName) {
-            return {
-                name: path.basename(fileName),
-                location: fileName,
-                parents: [path.dirname(fileName)],
-                type: path.extname(fileName),
-                status: null,
-                content: null
-            };
-        },
-        
         init: function () {
             if (!namespace.global.require) {
                 return this;
@@ -40,7 +29,7 @@ namespace("sozi.editor.backend", function (exports) {
             var self = this;
             $("#sozi-editor-backend-NodeWebkit-input").change(function () {
                 if (this.files.length) {
-                    self.load(self.getDescriptor(this.files[0].path));
+                    self.load(this.files[0].path);
                 }
             });
             
@@ -49,7 +38,7 @@ namespace("sozi.editor.backend", function (exports) {
             if (gui.App.argv.length > 0) {
                 var fileName = path.resolve(cwd, gui.App.argv[0]);
                 if (fs.existsSync(fileName)) {
-                    this.load(this.getDescriptor(fileName));
+                    this.load(fileName);
                 }
                 else {
                     console.log("File not found " + fileName);
@@ -59,18 +48,30 @@ namespace("sozi.editor.backend", function (exports) {
             return this;
         },
         
+        getName: function (fileDescriptor) {
+            return path.basename(fileDescriptor);
+        },
+        
+        getLocation: function (fileDescriptor) {
+            return path.dirname(fileDescriptor);
+        },
+        
+        find: function (name, location, callback) {
+            var fileName = path.join(location, name);
+            fs.exists(fileName, function (err) {
+                if (!err) {
+                    callback(fileName);
+                }
+                else {
+                    callback(null);
+                }
+            });
+        },
+        
         load: function (fileDescriptor) {
-            if (fileDescriptor.location === undefined) {
-                fileDescriptor.location = path.join(fileDescriptor.parents[0], fileDescriptor.name);
-            }
-            
             // Read file asynchronously and fire the "load" event.
             var self = this;
-            fs.readFile(fileDescriptor.location, { encoding: "utf8" }, function (err, data) {
-                fileDescriptor.status = err;
-                fileDescriptor.content = data;
-                
-                self.fire("load", fileDescriptor);
+            fs.readFile(fileDescriptor, { encoding: "utf8" }, function (err, data) {
                 if (!err) {
                     // Watch for changes in the loaded file and fire the "change" event.
                     // The "change" event is fired only once if the the file is modified
@@ -79,7 +80,7 @@ namespace("sozi.editor.backend", function (exports) {
                     // This includes a debouncing mechanism to ensure the file is in a stable
                     // state when the "change" event is fired: the event is fired only if the
                     // file has not changed for 100 ms.
-                    var watcher = fs.watch(fileDescriptor.location);
+                    var watcher = fs.watch(fileDescriptor);
                     var timer;
                     watcher.on("change", function () {
                         if (timer) {
@@ -91,12 +92,19 @@ namespace("sozi.editor.backend", function (exports) {
                         }, 100);
                     });
                 }
+                self.fire("load", fileDescriptor, data, err);
             });
         },
 
-        save: function (fileDescriptor) {
-            fileDescriptor.status = fs.writeFileSync(fileDescriptor.location, fileDescriptor.content, { encoding: "utf-8" });
-            this.fire("save", fileDescriptor);
+        create: function (name, location, mimeType, data, callback) {
+            var fileName = path.join(location, name);
+            var err = fs.writeFileSync(fileName, data, { encoding: "utf-8" });
+            callback(fileName, err);
+        },
+        
+        save: function (fileDescriptor, data) {
+            var err = fs.writeFileSync(fileDescriptor, data, { encoding: "utf-8" });
+            this.fire("save", fileDescriptor, err);
         }
     });
 });

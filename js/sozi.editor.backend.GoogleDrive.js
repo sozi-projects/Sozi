@@ -59,14 +59,7 @@ namespace("sozi.editor.backend", function (exports) {
                     if (data[google.picker.Response.ACTION] === google.picker.Action.PICKED) {
                         gapi.client.drive.files.get({fileId: data.docs[0].id}).execute(function (response) {
                             if (!response.error) {
-                                self.load({
-                                    name: response.title,
-                                    location: response.downloadUrl,
-                                    parents: response.parents,
-                                    type: response.mimeType,
-                                    status: null,
-                                    content: null
-                                });
+                                self.load(response);
                             }
                             else {
                                 console.log(response.error.message);
@@ -77,106 +70,96 @@ namespace("sozi.editor.backend", function (exports) {
                 build();
         },
         
-        load: function (fileDescriptor) {
-            // If the location of the file is unknown,
-            // try to find it based on it name and parents.
-            if (fileDescriptor.location === undefined) {
-                var found;
-                for (var i = 0; i < fileDescriptor.parents.length && !found; i ++) {
-                    gapi.client.drive.files.list({
-                        q: "title = '" + fileDescriptor.name + "' and " +
-                           "'" + fileDescriptor.parents[i].id + "' in parents"
-                    }).execute(function (response) {
-                        if (response.items && response.items.length) {
-                            found = response.items[0];
-                        }
-                    });
-                }
-                
-                // If no file with the given name has been found
-                // in the given list of parents, fire the "load" event
-                // with the "Not found" status.
-                if (!found) {
-                    fileDescriptor.status = "Not found";
-                    this.fire("load", fileDescriptor);
-                    return;
-                }
-                
-                // If a file was found, fill the missing properties
-                // and load it.
-                fileDescriptor.location = found.downloadUrl;
-                fileDescriptor.parents = found.parents;
-                fileDescriptor.type = found.mimeType;
+        getName: function (fileDescriptor) {
+            return fileDescriptor.title;
+        },
+        
+        getLocation: function (fileDescriptor) {
+            return fileDescriptor.parents;
+        },
+        
+        find: function (name, location, callback) {
+            function findInParent(index) {
+                gapi.client.drive.files.list({
+                    q: "title = '" + name + "' and " +
+                       "'" + location[index].id + "' in parents"
+                }).execute(function (response) {
+                    if (response.items && response.items.length) {
+                        callback(response.items[0]);
+                    }
+                    else if (index < location.length - 1) {
+                        findInParent(index + 1);
+                    }
+                    else {
+                        callback(null);
+                    }
+                });
             }
-            
+            findInParent(0);
+        },
+        
+        load: function (fileDescriptor) {
             // The file is loaded using an AJAX GET operation.
             // The data type is forced to "text" to prevent parsing it.
             // Fire the "load" event with the file content in case of success,
             // or with the error status in case of failure.
-            $.ajax(fileDescriptor.location, {
-                contentType: fileDescriptor.type,
+            $.ajax(fileDescriptor.downloadUrl, {
+                contentType: fileDescriptor.mimeType,
                 dataType: "text",
                 headers: {
                     "Authorization": "Bearer " + this.accessToken
                 },
                 context: this
             }).done(function (data) {
-                fileDescriptor.content = data;
-                this.fire("load", fileDescriptor);
+                this.fire("load", fileDescriptor, data);
             }).fail(function (xhr, status) {
-                fileDescriptor.status = status;
-                this.fire("load", fileDescriptor);
+                this.fire("load", fileDescriptor, null, status);
             });
             
             // TODO watch file for modifications
         },
         
-        save: function (fileDescriptor) {
+        create: function (name, location, mimeType, data, callback) {
             var boundary = "-------314159265358979323846";
             var delimiter = "\r\n--" + boundary + "\r\n";
             var closeDelimiter = "\r\n--" + boundary + "--";
 
-            if (fileDescriptor.location === undefined) {
-                var contentType = fileDescriptor.type || "application/octet-stream";
-                
-                var metadata = {
-                    title: fileDescriptor.name,
-                    parents: fileDescriptor.parents,
-                    mimeType: contentType
-                };
+            var metadata = {
+                title: name,
+                parents: location,
+                mimeType: mimeType
+            };
 
-                var multipartRequestBody =
-                    delimiter +
-                    "Content-Type: application/json\r\n\r\n" + JSON.stringify(metadata) +
-                    delimiter +
-                    "Content-Type: " + contentType + "\r\n" +
-                    "Content-Transfer-Encoding: base64\r\n\r\n" +
-                    btoa(fileDescriptor.content) +
-                    closeDelimiter;
+            var multipartRequestBody =
+                delimiter +
+                "Content-Type: application/json\r\n\r\n" + JSON.stringify(metadata) +
+                delimiter +
+                "Content-Type: " + mimeType + "\r\n" +
+                "Content-Transfer-Encoding: base64\r\n\r\n" +
+                btoa(data) +
+                closeDelimiter;
 
-                gapi.client.request({
-                    path: "/upload/drive/v2/files",
-                    method: "POST",
-                    params: {
-                        uploadType: "multipart"
-                    },
-                    headers: {
-                      "Content-Type": 'multipart/mixed; boundary="' + boundary + '"'
-                    },
-                    body: multipartRequestBody
-                }).execute(function (response) {
-                    if (!response.error) {
-                        fileDescriptor.status = response.error.message;
-                    }
-                    else {
-                        fileDescriptor.location = response.downloadUrl;
-                        fileDescriptor.type = response.mimeType;
-                    }
-                    this.fire("save", fileDescriptor);
-                });
-                return;
-            }
-            
+            gapi.client.request({
+                path: "/upload/drive/v2/files",
+                method: "POST",
+                params: {
+                    uploadType: "multipart"
+                },
+                headers: {
+                  "Content-Type": 'multipart/mixed; boundary="' + boundary + '"'
+                },
+                body: multipartRequestBody
+            }).execute(function (response) {
+                if (!response.error) {
+                    callback(response);
+                }
+                else {
+                    callback(response, response.error.message);
+                }
+            });
+        },
+        
+        save: function (fileDescriptor, data) {
             // TODO implement saving
             this.fire("save", fileDescriptor);
         }
