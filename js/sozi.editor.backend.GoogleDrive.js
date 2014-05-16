@@ -7,42 +7,47 @@ namespace("sozi.editor.backend", function (exports) {
         apiKey: "Your developer API key",
         
         init: function (container) {
-            exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-GoogleDrive-auth" type="button" style="display: none" value="Authorize Google Drive"><input id="sozi-editor-backend-GoogleDrive-input" type="button" style="display: none" value="Load from Google Drive">');
+            exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-GoogleDrive-input" type="button" value="Load from Google Drive">');
             gapi.client.setApiKey(this.apiKey);
             this.authorize(true);
             return this;
         },
         
-        authorize: function (immediate) {
+        authorize: function (onInit) {
+            var self = this;
             gapi.auth.authorize({
                 client_id: this.clientId,
                 scope: "https://www.googleapis.com/auth/drive",
-                immediate: immediate
-            }, this.bind(this.onAuthResult));
+                immediate: onInit
+            }, function (authResult) {
+                self.onAuthResult(authResult, onInit);
+            });
         },
         
-        onAuthResult: function (authResult) {
-            var authButton = $("#sozi-editor-backend-GoogleDrive-auth").css({display: "none"});
-            var inputButton = $("#sozi-editor-backend-GoogleDrive-input").css({display: "none"});
+        onAuthResult: function (authResult, onInit) {
+            var inputButton = $("#sozi-editor-backend-GoogleDrive-input");
             
             var self = this;
             
             if (authResult && !authResult.error) {
                 this.accessToken = authResult.access_token;
                 // Access granted: create a file picker and show the "Load" button.
+                gapi.client.load("drive", "v2");
                 gapi.load("picker", {
                     callback: function () {
                         self.createPicker();
-                        inputButton.css({display: "block"}).click(function () {
+                        inputButton.off("click").click(function () {
                             self.picker.setVisible(true);
                         });
+                        if (!onInit) {
+                            inputButton.click();
+                        }
                     }
                 });
-                gapi.client.load("drive", "v2");
             }
             else {
                 // No access token could be retrieved, show the button to start the authorization flow.
-                authButton.css({display: "block"}).click(function () {
+                inputButton.click(function () {
                     self.authorize(false);
                 });
             }
