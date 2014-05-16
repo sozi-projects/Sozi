@@ -1,13 +1,13 @@
 namespace("sozi.editor.backend", function (exports) {
     "use strict";
 
-    exports.GoogleDrive = sozi.model.Object.clone({
+    exports.GoogleDrive = exports.AbstractBackend.clone({
         // Configure these settings in sozi.editor.backend.GoogleDrive.config.js
         clientId: "Your OAuth client Id",
         apiKey: "Your developer API key",
         
-        init: function () {
-            $("#sozi-editor-view-preview ul").append('<li><input id="sozi-editor-backend-GoogleDrive-auth" type="button" style="display: none" value="Authorize Google Drive"><input id="sozi-editor-backend-GoogleDrive-input" type="button" style="display: none" value="Load from Google Drive"></li>');
+        init: function (container) {
+            exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-GoogleDrive-auth" type="button" style="display: none" value="Authorize Google Drive"><input id="sozi-editor-backend-GoogleDrive-input" type="button" style="display: none" value="Load from Google Drive">');
             gapi.client.setApiKey(this.apiKey);
             this.authorize(true);
             return this;
@@ -98,6 +98,7 @@ namespace("sozi.editor.backend", function (exports) {
             findInParent(0);
         },
         
+        // TODO implement the "change" event
         load: function (fileDescriptor) {
             // The file is loaded using an AJAX GET operation.
             // The data type is forced to "text" to prevent parsing it.
@@ -115,8 +116,6 @@ namespace("sozi.editor.backend", function (exports) {
             }).fail(function (xhr, status) {
                 this.fire("load", fileDescriptor, null, status);
             });
-            
-            // TODO watch file for modifications
         },
         
         create: function (name, location, mimeType, data, callback) {
@@ -159,9 +158,9 @@ namespace("sozi.editor.backend", function (exports) {
             });
         },
         
+        // TODO implement saving
         save: function (fileDescriptor, data) {
-            // TODO implement saving
-            this.fire("save", fileDescriptor);
+            this.fire("save", fileDescriptor, "Not implemented");
         }
     });
 });

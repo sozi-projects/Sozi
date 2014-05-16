@@ -17,14 +17,14 @@ namespace("sozi.editor.backend", function (exports) {
         console.log("Current working dir: " + cwd);
     }
 
-    exports.NodeWebkit = sozi.model.Object.clone({
+    exports.NodeWebkit = exports.AbstractBackend.clone({
 
-        init: function () {
+        init: function (container) {
             if (!namespace.global.require) {
                 return this;
             }
             
-            $("#sozi-editor-view-preview ul").append('<li><input id="sozi-editor-backend-NodeWebkit-input" type="file" accept="image/svg+xml" autofocus></li>');
+            exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-NodeWebkit-input" type="file" accept="image/svg+xml" autofocus>');
             
             var self = this;
             $("#sozi-editor-backend-NodeWebkit-input").change(function () {

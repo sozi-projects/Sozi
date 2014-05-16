@@ -17,6 +17,8 @@ window.addEventListener("load", function () {
     var jsonFileDescriptor;
     
     backends.forEach(function (name) {
+        var listItem = $("<li></li>");
+        $("#sozi-editor-view-preview ul").append(listItem);
         sozi.editor.backend[name]
             .addListener("load", function (backend, fileDescriptor, data, err) {
                 var name = backend.getName(fileDescriptor);
@@ -73,6 +75,6 @@ window.addEventListener("load", function () {
                     backend.load(fileDescriptor);
                 }
             })
-            .init();
+            .init(listItem);
     });
 }, false);
