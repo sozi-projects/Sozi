@@ -31,5 +31,5 @@ L'en-tête d'un fichier Markdown traduit devrait contenir les champs suivants :
 * ``Author`` : une liste des auteurs et traducteurs originaux séparés par des virgules.
 * ``Slug`` : identique au fichier original.
 * ``Lang`` : le code de la langue de traduction.
-* ``Translation`` : doit être ``true``.
+* ``Translation`` : doit avoir la valeur ``true``.
 
