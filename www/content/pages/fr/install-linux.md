@@ -40,4 +40,4 @@ Vous devriez obtenir un dossier nommé `archive sozi-release-[...]`.
 5. Lancer ou redémarrer Inkscape.
 Vous devriez voir un item *Sozi* dans le menu *Extensions*.
 
-Maintenant vous pouvez [creer votre première présentation](|filename|create.md).
+Maintenant vous pouvez [créer votre première présentation](|filename|create.md).
