@@ -15,7 +15,8 @@ namespace("sozi.model", function (exports) {
     "use strict";
 
     exports.Frame = sozi.model.Object.clone({
-
+        id: "sozi.model.Frame",
+        
         // TODO define default properties separately
         frameId: "",
         title: "New frame",

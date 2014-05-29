@@ -2,17 +2,13 @@
 namespace("sozi.model", function (exports) {
     "use strict";
 
-    var creationCount = 0;
-
     var ProtoObject = {
-        _id: String(creationCount++),
         _owner: null,
         _owningProperty: null,
         _listeners: {},
         
         clone: function () {
             var object = Object.create(this);
-            object._id = String(creationCount++);
             object._owner = null;
             object._owningProperty = null;
             object._listeners = {};
@@ -32,12 +28,10 @@ namespace("sozi.model", function (exports) {
         },
         
         toStorable: function () {
-            // TODO
             return {};
         },
 
         fromStorable: function (obj) {
-            // TODO
             return this;
         },
 
@@ -134,22 +128,6 @@ namespace("sozi.model", function (exports) {
     
     exports.Object._values = {};
         
-    exports.Object.clone = function () {
-        var object = ProtoObject.clone.call(this);
-        object._values = {};
-        for (var name in this._values) {
-            var value = this._values[name];
-            if (ProtoObject.isPrototypeOf(value) && value._owner === this && value._owningProperty === name) {
-                setProperty(object, name, value.clone(), true);
-            }
-            else {
-                setProperty(object, name, value, false);
-            }
-        }
-        this.define.apply(object, arguments);
-        return object;
-    };
-
     function changeOwnership(owner, owningProperty, previousValue, newValue) {
         if (ProtoObject.isPrototypeOf(previousValue)) {
             previousValue._owner = null;
@@ -215,6 +193,114 @@ namespace("sozi.model", function (exports) {
         
         return this;
     };
+
+    exports.Object.define({
+        id: "sozi.model.Object",
+
+        clone: function () {
+            var object = ProtoObject.clone.call(this);
+            object._values = {};
+            for (var name in this._values) {
+                var value = this._values[name];
+                if (ProtoObject.isPrototypeOf(value) && value._owner === this && value._owningProperty === name) {
+                    setProperty(object, name, value.clone(), true);
+                }
+                else {
+                    setProperty(object, name, value, false);
+                }
+            }
+            this.define.apply(object, arguments);
+            return object;
+        },
+
+        toStorable: function () {
+            var storable = {
+                proto: this.proto.path
+            };
+            for (var key in this._values) {
+                var value = this._values[key];
+                
+                if (!(value instanceof Object) || (value instanceof Array)) {
+                    storable[key] = value;
+                }
+                else if (value instanceof Element) {
+                    if (value.hasAttribute("id")) {
+                        storable[key] = {dom: value.getAttribute("id")};
+                    }
+                }
+                else if (!ProtoObject.isPrototypeOf(value)) {
+                    storable[key] = {val: value};
+                }
+                else if (value._owner === this && value._owningProperty === key) {
+                    storable[key] = value.toStorable();
+                }
+                else {
+                    storable[key] = {ref: value.path};
+                }
+            }
+            return storable;
+        },
+        
+        fromStorable: function (storable) {
+            for (var key in storable) {
+                var value = storable[key];
+
+                if (Collection.isPrototypeOf(this[key])) {
+                    this[key].fromStorable(value);
+                }
+                else if (!(value instanceof Object) || (value instanceof Array)) {
+                    this[key] = value;
+                }
+                else if (Object.keys(value).length === 1 && "dom" in value) {
+                    this[key] = document.getElementById(value.dom);
+                }
+                else if (Object.keys(value).length === 1 && "val" in value) {
+                    this[key] = value.val;
+                }
+                else if (Object.keys(value).length === 1 && "ref" in value) {
+                    // TODO this[key] = value.val;
+                }
+                else {
+                    var proto = value.proto;
+                    this[key] = proto.clone().fromStorable(value);
+                }
+            }
+            return this;
+        },
+        
+        get path() {
+            if (!this._owner) {
+                return [this.id];
+            }
+            var path = this._owner.path.concat(this._owningProperty);
+            var value = this._owner[this._owningProperty];
+            if (Collection.isPrototypeOf(value)) {
+                path.push(value.indexOf(this));
+            }
+            return path;
+        },
+        
+        getObjectAtPath: function (path) {
+            // The first path element is a qualified name of an object.
+            var obj = namespace.global;
+            path[0].split(".").forEach(function (name) {
+                obj = obj[name];
+            });
+            
+            // The following path elements are property names
+            // followed by indices if a property holds a collection.
+            for (var i = 1; i < path.length; i ++) {
+                obj = obj[path[i]];
+                if (Collection.isPrototypeOf(obj)) {
+                    obj = obj.at(path[i + 1]);
+                    i ++;
+                }
+            }
+            
+            return obj;
+        }
+    });
+
     
     var Collection = ProtoObject.clone();
     
@@ -353,5 +439,50 @@ namespace("sozi.model", function (exports) {
     makeAlias("every");
     makeAlias("slice");
     makeAlias("filter");
-    
+
+    Collection.toStorable = function () {
+        var storable = [];
+        this._values.forEach(function (value, index) {
+            if (!(value instanceof Object) || (value instanceof Array)) {
+                storable[index] = value;
+            }
+            else if (value instanceof Element) {
+                if (value.hasAttribute("id")) {
+                    storable[index] = {dom: value.getAttribute("id")};
+                }
+            }
+            else if (!ProtoObject.isPrototypeOf(value)) {
+                storable[index] = {val: value};
+            }
+            else if (value._owner === this._owner && value._owningProperty === this._owningProperty) {
+                storable[index] = value.toStorable();
+            }
+            else {
+                storable[index] = {ref: value.path};
+            }
+        }, this);
+        return storable;
+    };
+
+    Collection.fromStorable = function (storable) {
+        storable.forEach(function (value, index) {
+            if (!(value instanceof Object) || (value instanceof Array)) {
+                this._values[index] = value;
+            }
+            else if (Object.keys(value).length === 1 && "dom" in value) {
+                this._values[index] = document.getElementById(value.dom);
+            }
+            else if (Object.keys(value).length === 1 && "val" in value) {
+                this._values[index] = value.val;
+            }
+            else if (Object.keys(value).length === 1 && "ref" in value) {
+                // TODO this[key] = value.val;
+            }
+            else {
+                var proto = value.proto;
+                this._values[index] = proto.clone().fromStorable(value);
+            }
+        }, this);
+        return this;
+    };
 });
