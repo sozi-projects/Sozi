@@ -7,6 +7,8 @@ SITENAME = u'Sozi'
 SITEURL = ''
 GITHUB_URL = 'https://github.com/senshu/Sozi'
 FLATTR_URL = 'http://sozi.baierouge.fr/'
+PIWIK_URL = 'http://baierouge.fr/piwik'
+PIWIK_SITE = '2'
 TIMEZONE = 'Europe/Paris'
 
 DEFAULT_LANG = u'en'

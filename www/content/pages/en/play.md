@@ -24,16 +24,16 @@ Moving through the presentation
         <td>Middle click</td>
     </tr>
     <tr>
-        <th rowspan="4">Keyboard</th>
+        <th rowspan="5">Keyboard</th>
         <td>Right arrow</td>
         <td>Left arrow</td>
-        <td rowspan="4">Home</td>
-        <td rowspan="4">End</td>
-        <td rowspan="4">t, T</td>
+        <td rowspan="5">Home</td>
+        <td rowspan="5">End</td>
+        <td rowspan="5">t, T</td>
     </tr>
     <tr>
-        <td>Down arrow (immediate)</td>
-        <td>Up arrow (immediate)</td>
+        <td>Down arrow</td>
+        <td>Up arrow</td>
     </tr>
     <tr>
         <td>Page down</td>
@@ -41,9 +41,16 @@ Moving through the presentation
     </tr>
     <tr>
         <td>Enter</td>
+        <td></td>
+    </tr>
+    <tr>
         <td>Space</td>
+        <td></td>
     </tr>
 </table>
+
+When using the keyboard to navigate through the presentation, you can
+hold the ``Shift`` key to jump to the destination frame with no transition animation.
 
 Direct actions on the canvas
 ----------------------------
