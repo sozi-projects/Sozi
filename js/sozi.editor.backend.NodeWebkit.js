@@ -58,8 +58,8 @@ namespace("sozi.editor.backend", function (exports) {
         
         find: function (name, location, callback) {
             var fileName = path.join(location, name);
-            fs.exists(fileName, function (err) {
-                if (!err) {
+            fs.exists(fileName, function (found) {
+                if (found) {
                     callback(fileName);
                 }
                 else {

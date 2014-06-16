@@ -34,9 +34,9 @@ window.addEventListener("load", function () {
                             var jsonName = name.replace(/\.svg$/, ".sozi.json");
                             backend.find(jsonName, location, function (fileDescriptor) {
                                 if (fileDescriptor) {
-//                                    backend.load(fileDescriptor);
+                                    backend.load(fileDescriptor);
                                 }
-//                                else {
+                                else {
                                     // If no JSON file is available, attempt to extract
                                     // presentation data from the SVG document, assuming
                                     // it has been generated from Sozi 13 or earlier.
@@ -48,7 +48,7 @@ window.addEventListener("load", function () {
                                     backend.create(jsonName, location, "application/json", JSON.stringify(presentation.toStorable()), function (fileDescriptor) {
                                         jsonFileDescriptor = fileDescriptor;
                                     });
-//                                }
+                                }
                             });
                         }
                         else {

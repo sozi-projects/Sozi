@@ -14,9 +14,40 @@
 namespace("sozi.model", function (exports) {
     "use strict";
 
-    exports.Frame = sozi.model.Object.clone({
-        id: "sozi.model.Frame",
+    var LayerProperties = sozi.model.Object.clone({
+        clip: true,
+        referenceElementId: "",
+        referenceElementHide: true,
+        transitionTimingFunction: "linear",
+        transitionRelativeZoom: 0,
+        transitionPathId: "",
+        transitionPathHide: true,
         
+        toStorable: function () {
+            return {
+                clip: this.clip,
+                referenceElementId: this.referenceElementId,
+                referenceElementHide: this.referenceElementHide,
+                transitionTimingFunction: this.transitionTimingFunction,
+                transitionRelativeZoom: this.transitionRelativeZoom,
+                transitionPathId: this.transitionPathId,
+                transitionPathHide: this.transitionPathHide
+            };
+        },
+        
+        fromStorable: function (obj) {
+            this.clip = obj.clip;
+            this.referenceElementId = obj.referenceElementId;
+            this.referenceElementHide = obj.referenceElementHide;
+            this.transitionTimingFunction = obj.transitionTimingFunction;
+            this.transitionRelativeZoom = obj.transitionRelativeZoom;
+            this.transitionPathId = obj.transitionPathId;
+            this.transitionPathHide = obj.transitionPathHide;
+            return this;
+        }
+    });
+    
+    exports.Frame = sozi.model.Object.clone({
         // TODO define default properties separately
         frameId: "",
         title: "New frame",
@@ -32,20 +63,53 @@ namespace("sozi.model", function (exports) {
 
             pres.layers.forEach(function () {
                 this.cameraStates.push(sozi.player.CameraState.clone().init(pres.svgRoot));
-                this.layerProperties.push(sozi.model.Object.clone({
-                    clip: true,
-                    referenceElementId: "",
-                    referenceElementHide: true,
-                    transitionTimingFunction: "linear",
-                    transitionRelativeZoom: 0,
-                    transitionPathId: "",
-                    transitionPathHide: true
-                }));
+                this.layerProperties.push(LayerProperties.clone());
             }, this);
 
             return this;
         },
 
+        toStorable: function () {
+            var layerProperties = {};
+            var cameraStates = {};
+            this.owner.layers.forEach(function (layer, index) {
+                var key = layer.auto ? "__sozi_auto__" : layer.svgNodes.first.getAttribute("id");
+                layerProperties[key] = this.layerProperties.at(index).toStorable();
+                cameraStates[key] = this.cameraStates.at(index).toStorable();
+            }, this);
+            return {
+                frameId: this.frameId,
+                title: this.title,
+                timeoutMs: this.timeoutMs,
+                timeoutEnable: this.timeoutEnable,
+                transitionDurationMs: this.transitionDurationMs,
+                showInFrameList: this.showInFrameList,
+                layerProperties: layerProperties,
+                cameraStates: cameraStates
+            };
+        },
+        
+        fromStorable: function (obj) {
+            this.frameId = obj.frameId;
+            this.title = obj.title;
+            this.timeoutMs = obj.timeoutMs;
+            this.timeoutEnable = obj.timeoutEnable;
+            this.transitionDurationMs = obj.transitionDurationMs;
+            this.showInFrameList = obj.showInFrameList;
+
+            // TODO if obj.LayerProperties has keys not in layers, create fake layers marked as "deleted"
+            this.owner.layers.forEach(function (layer, index) {
+                var key = layer.auto ? "__sozi_auto__" : layer.svgNodes.first.getAttribute("id");
+                if (key in obj.layerProperties) {
+                    this.layerProperties.at(index).fromStorable(obj.layerProperties[key]);
+                    this.cameraStates.at(index).fromStorable(obj.cameraStates[key]);
+                }
+                // TODO else, link to "auto" layer
+            }, this);
+
+            return this;
+        },
+        
         get index() {
             return this.owner.frames.indexOf(this);
         },
@@ -91,7 +155,7 @@ namespace("sozi.model", function (exports) {
     var SVG_NS = "http://www.w3.org/2000/svg";
 
     // Constant: the Inkscape namespace
-    var INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
+    // var INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
 
     // Constant: The SVG element names that can be found in layers
     var DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
@@ -185,6 +249,24 @@ namespace("sozi.model", function (exports) {
                 return frame.frameId === frameId;
             }));
             return frameId;
+        },
+        
+        toStorable: function () {
+            return {
+                frames: this.frames.map(function (frame) {
+                    return frame.toStorable();
+                })
+            };
+        },
+        
+        fromStorable: function (obj) {
+            this.frames.clear();
+            obj.frames.forEach(function (f) {
+                var frame = exports.Frame.clone().init(this);
+                this.frames.push(frame);
+                frame.fromStorable(f);
+            }, this);
+            return this;
         }
     });
 });

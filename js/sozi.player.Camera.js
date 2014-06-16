@@ -45,6 +45,27 @@ namespace("sozi.player", function (exports) {
             return this;
         },
 
+        toStorable: function () {
+            return {
+                cx: this.cx,
+                cy: this.cy,
+                width: this.width,
+                height: this.height,
+                angle: this.angle,
+                clipped: this.clipped
+            };
+        },
+        
+        fromStorable: function (obj) {
+            this.cx = obj.cx;
+            this.cy = obj.cy;
+            this.width = obj.width;
+            this.height = obj.height;
+            this.angle = obj.angle;
+            this.clipped = obj.clipped;
+            return this;    
+        },
+        
         /*
          * Set the angle of the current camera state.
          * The angle of the current state is normalized
