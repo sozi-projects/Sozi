@@ -42,9 +42,13 @@ window.addEventListener("load", function () {
                                     // it has been generated from Sozi 13 or earlier.
                                     // Then save the extracted data to a JSON file.
                                     presentation.upgrade();
+                                    
+                                    // Select the first frame and all layers
                                     if (presentation.frames.length) {
                                         selection.selectedFrames.push(presentation.frames.first);
                                     }
+                                    selection.selectedLayers.pushAll(presentation.layers);
+                                    
                                     backend.create(jsonName, location, "application/json", JSON.stringify(presentation.toStorable()), function (fileDescriptor) {
                                         jsonFileDescriptor = fileDescriptor;
                                     });
@@ -63,9 +67,12 @@ window.addEventListener("load", function () {
                     if (!err) {
                         // Load presentation data from JSON file.
                         presentation.fromStorable(JSON.parse(data));
+
+                        // Select the first frame and all layers
                         if (presentation.frames.length) {
                             selection.selectedFrames.push(presentation.frames.first);
                         }
+                        selection.selectedLayers.pushAll(presentation.layers);
                     }
                 }
             })

@@ -178,9 +178,12 @@ namespace("sozi.model", function (exports) {
             this.frames.clear();
             this.layers.clear();
 
+            // Remove attributes that prevent correct rendering
+            svgRoot.removeAttribute("viewBox");
+            svgRoot.style.width = svgRoot.style.height = "auto";
+            
             // Create an empty wrapper layer for elements that do not belong to a valid layer
             var autoLayer = exports.Layer.clone().init("auto", true);
-            this.layers.push(autoLayer);
 
             var svgWrapper = document.createElementNS(SVG_NS, "g");
 
@@ -233,8 +236,8 @@ namespace("sozi.model", function (exports) {
                 autoLayer.svgNodes.push(svgWrapper);
             }
 
-            // TODO redirect frames to the new set of layers if document has been reloaded
-            
+            this.layers.push(autoLayer);
+
             return this;
         },
 
