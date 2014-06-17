@@ -140,7 +140,7 @@ namespace("sozi.editor.backend", function (exports) {
                 delimiter +
                 "Content-Type: " + mimeType + "\r\n" +
                 "Content-Transfer-Encoding: base64\r\n\r\n" +
-                btoa(data) +
+                btoa(unescape(encodeURIComponent(data))) + // Force UTF-8 encoding
                 closeDelimiter;
 
             gapi.client.request({
