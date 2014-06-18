@@ -16,31 +16,10 @@ Building and installing Sozi from sources
 Install the build tools
 ---------------------
 
-SCons 2.3 or higher is required.
-
-    sudo apt-get install git scons
-
-Optionally, install Javascript and CSS compressors:
-- For Javascript: UglifyJS (default if installed), YUI-Compressor or none
-- For CSS: YUI-Compressor (default if installed) or none
-
-<!-- -->
-
-    sudo apt-get install npm
-    sudo npm install -g uglify-js
-    sudo apt-get install yui-compressor
-
-For developers, install the API documentation generator:
-
-    sudo apt-get install jsdoc-toolkit
-    
-For developers, install the Javascript checker:
-
-    sudo npm install autolint -g
-
+TODO
 
 Get the source files
-------------------
+--------------------
 
 Clone the repository:
 
@@ -55,39 +34,21 @@ or
     git checkout dev
 
 
+Dependencies
+------------
+
+* [Font Awesome](http://fortawesome.github.io/Font-Awesome/) ([download](http://fortawesome.github.io/Font-Awesome/assets/font-awesome-4.1.0.zip)) as `vendor/font-awesome/`
+* [jQuery](http://jquery.com/) ([download](http://code.jquery.com/jquery-2.1.1.min.js)) as `vendor/jquery.min.js`
+* [Notify.js](http://notifyjs.com/) ([download](http://notifyjs.com/dist/notify-combined.min.js) as `vendor/notify-combined.min.js`
+* [Nunjucks](http://mozilla.github.io/nunjucks/) ([download](http://mozilla.github.io/nunjucks/files/nunjucks-slim.js)) as `vendor/nunjucks-slim.js`
+* [Droid Sans](http://www.fontsquirrel.com/fonts/Droid-Sans) as `vendor/DroidSans/DroidSans.eot|ttf` and `vendor/DroidSans/DroidSans-Bold.eot|ttf`
+
 Build
 -----
 
-Build a release bundle (`build/editors/inkscape/sozi-release-{version}.zip`):
-
-    scons
-
-For translators, create a translation template file (`build/editors/inkscape/sozi.pot`):
-
-    scons pot-update
-
-For developers, check the Javascript sources:
-
-    autolint --once
-
+TODO
 
 Install
 -------
 
-Install the Inkscape extension for the current user (in `$HOME/.config/inkscape/extensions`):
-
-    scons install-editor-inkscape
-    
-Install the Inkscape extension for all users (in `/usr/share/inkscape/extensions`):
-
-    sudo scons --prefix=/usr install-editor-inkscape
-
-Install the player files only (to `/usr/share/sozi`, `/usr/share/doc/sozi` and `/usr/include`):
-
-    sudo scons --prefix=/usr install-player
-
-Install all documentation files, including API reference (to `/usr/share/doc/sozi`):
-
-    sudo scons --prefix=/usr install-docs
-
-
+TODO
