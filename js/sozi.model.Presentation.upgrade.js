@@ -61,8 +61,6 @@ namespace("sozi.model", function (exports) {
     }
 
     exports.Presentation.upgrade = function () {
-        console.log("Attempting document upgrade from Sozi 13 or earlier");
-
         // In the inlined SVG, DOM accessors fail to get elements with explicit XML namespaces.
         // getElementsByTagNameNS, getAttributeNS do not work for elements with the Sozi namespace.
         // We need to use an explicit namespace prefix ("ns:attr") and use methods

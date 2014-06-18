@@ -2,9 +2,6 @@
 window.addEventListener("load", function () {
     "use strict";
 
-    // Display context info
-    console.log("Opening Sozi editor");
-
     var presentation = sozi.model.Presentation;
     var selection = sozi.editor.model.Selection;
     sozi.editor.view.Preview.init(presentation, selection);
@@ -45,6 +42,7 @@ window.addEventListener("load", function () {
                                     
                                     // Select the first frame and all layers
                                     if (presentation.frames.length) {
+                                        $.notify("Document was imported from Sozi 13 or earlier.", "success");
                                         selection.selectedFrames.push(presentation.frames.first);
                                     }
                                     selection.selectedLayers.pushAll(presentation.layers);
@@ -56,11 +54,11 @@ window.addEventListener("load", function () {
                             });
                         }
                         else {
-                            console.log("Error: Document is not valid SVG.");
+                            $.notify("Document is not valid SVG.", "error");
                         }
                     }
                     else {
-                        console.log("Error loading file: " + name);
+                        $.notify("File " + name + " could not be loaded.", "error");
                     }
                 }
                 else if (/\.sozi\.json$/.test(name)) {
@@ -78,7 +76,7 @@ window.addEventListener("load", function () {
             })
             .addListener("change", function (backend, fileDescriptor) {
                 if (fileDescriptor === svgFileDescriptor) {
-                    console.log("Reloading");
+                    $.notify("Document was changed. Reloading", "info");
                     backend.load(fileDescriptor);
                 }
             })
