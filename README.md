@@ -13,11 +13,6 @@ This repository is organized in three main branches:
 Building and installing Sozi from sources
 =========================================
 
-Install the build tools
----------------------
-
-TODO
-
 Get the source files
 --------------------
 
@@ -43,10 +38,24 @@ Dependencies
 * [Nunjucks](http://mozilla.github.io/nunjucks/) ([download](http://mozilla.github.io/nunjucks/files/nunjucks-slim.js)) as `vendor/nunjucks-slim.js`
 * [Droid Sans](http://www.fontsquirrel.com/fonts/Droid-Sans) as `vendor/DroidSans/DroidSans.eot|ttf` and `vendor/DroidSans/DroidSans-Bold.eot|ttf`
 
+Install the build tools
+-----------------------
+
+    sudo apt-get install nodejs
+    sudo npm install grunt-cli -g
+
+From the root of the source tree:
+
+    npm install
+
+
 Build
 -----
 
-TODO
+From the root of the source tree:
+
+    grunt
+
 
 Install
 -------
