@@ -168,4 +168,6 @@ namespace("sozi.editor.backend", function (exports) {
             this.fire("save", fileDescriptor, "Not implemented");
         }
     });
+    
+    exports.add(exports.GoogleDrive);
 });

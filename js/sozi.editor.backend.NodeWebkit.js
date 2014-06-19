@@ -107,4 +107,6 @@ namespace("sozi.editor.backend", function (exports) {
             this.fire("save", fileDescriptor, err);
         }
     });
+
+    exports.add(exports.NodeWebkit);
 });

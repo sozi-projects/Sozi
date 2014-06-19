@@ -35,4 +35,6 @@ namespace("sozi.editor.backend", function (exports) {
             };
         }
     });
+    
+    exports.add(exports.FileReader);
 });

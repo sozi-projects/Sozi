@@ -8,15 +8,13 @@ window.addEventListener("load", function () {
     sozi.editor.view.Timeline.init(presentation, selection);
     sozi.editor.view.Properties.init(presentation, selection);
     
-    var backends = ["NodeWebkit", "FileReader", "GoogleDrive"];
-    
     var svgFileDescriptor;
     var jsonFileDescriptor;
     
-    backends.forEach(function (name) {
+    sozi.editor.backend.list.forEach(function (backend) {
         var listItem = $("<li></li>");
         $("#sozi-editor-view-preview ul").append(listItem);
-        sozi.editor.backend[name]
+        backend
             .addListener("load", function (backend, fileDescriptor, data, err) {
                 var name = backend.getName(fileDescriptor);
                 var location = backend.getLocation(fileDescriptor);

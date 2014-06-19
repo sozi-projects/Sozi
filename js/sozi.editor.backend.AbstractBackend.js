@@ -1,6 +1,12 @@
 namespace("sozi.editor.backend", function (exports) {
     "use strict";
 
+    exports.list = [];
+    
+    exports.add = function (backend) {
+        exports.list.push(backend);
+    };
+    
     exports.AbstractBackend = sozi.model.Object.clone({
         
         init: function (container, html) {
