@@ -72,9 +72,14 @@ namespace("sozi.player", function (exports) {
         
         onChangeSVGRoot: function () {
             this.svgRoot.addEventListener("mousedown", this.bind(this.onMouseDown), false);
-            this.svgRoot.addEventListener("DOMMouseScroll", this.bind(this.onWheel), false); // Mozilla
-            this.svgRoot.addEventListener("mousewheel", this.bind(this.onWheel), false); // IE, Opera, Webkit
             this.svgRoot.addEventListener("keypress", this.bind(this.onKeyPress), false);
+            
+            var wheelEvent =
+                "onwheel" in document.createElement("div") ? "wheel" :  // Modern browsers support "wheel"
+                document.onmousewheel !== undefined ? "mousewheel" :    // Webkit and IE support at least "mousewheel"
+                "DOMMouseScroll";                                       // Firefox < 17
+            this.svgRoot.addEventListener(wheelEvent, this.bind(this.onWheel), false);
+
             this.resize();
         },
         
@@ -209,11 +214,14 @@ namespace("sozi.player", function (exports) {
             evt.preventDefault();
 
             var delta = 0;
-            if (evt.wheelDelta) { // IE and Opera
+            if (evt.wheelDelta) {   // "mousewheel" event
                 delta = evt.wheelDelta;
             }
-            else if (evt.detail) { // Mozilla
+            else if (evt.detail) {  // "DOMMouseScroll" event
                 delta = -evt.detail;
+            }
+            else {                  // "wheel" event
+                delta = -evt.deltaY;
             }
 
             if (delta !== 0) {
@@ -273,9 +281,7 @@ namespace("sozi.player", function (exports) {
          *    - The X coordinate of the current viewport.
          */
         get x() {
-            return this.svgRoot === document.documentElement ?
-                0 :
-                this.svgRoot.getBoundingClientRect().left;
+            return this.svgRoot.getScreenCTM().e;
         },
 
         /*
@@ -287,9 +293,7 @@ namespace("sozi.player", function (exports) {
          *    - The Y coordinate of the current viewport.
          */
         get y() {
-            return this.svgRoot === document.documentElement ?
-                0 :
-                this.svgRoot.getBoundingClientRect().top;
+            return this.svgRoot.getScreenCTM().f;
         },
 
         /*
