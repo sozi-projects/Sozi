@@ -10,7 +10,6 @@ namespace("sozi.editor.model", function (exports) {
      */
     exports.Selection = sozi.model.Object.clone({
         
-        presentation: null,
         selectedFrames: [],
         selectedLayers: [],
         
@@ -27,10 +26,8 @@ namespace("sozi.editor.model", function (exports) {
          *  - The current selection object
          */
         init: function (pres) {
-            this.presentation = pres;
-
             if (pres.frames.length) {
-                this.selectedFrames.push(pres.frames.at(0));
+                this.selectedFrames.push(pres.frames.first);
             }
             this.selectedLayers.pushAll(pres.layers);
 

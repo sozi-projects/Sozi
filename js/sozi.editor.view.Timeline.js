@@ -63,6 +63,7 @@ namespace("sozi.editor.view", function (exports) {
 
         onAddLayer: function (collection, layer) {
             this.defaultLayers.push(layer);
+            layer.addListener("change:isVisible", this.render, this);
             this.render();
         },
         
@@ -120,7 +121,9 @@ namespace("sozi.editor.view", function (exports) {
             this.editableLayers.push(layer);
             this.defaultLayers.remove(layer);
             this.render();
-            this.selection.selectedLayers.push(layer);
+            if (!this.selection.selectedLayers.contains(layer)) {
+                this.selection.selectedLayers.push(layer);
+            }
         },
 
         /*
@@ -138,9 +141,17 @@ namespace("sozi.editor.view", function (exports) {
          */
         removeLayer: function (layerIndex) {
             var layer = this.presentation.layers.at(layerIndex);
-            this.selection.selectedLayers.remove(layer);
             this.editableLayers.remove(layer);
+            if (!this.defaultLayersAreSelected) {
+                this.selection.selectedLayers.remove(layer);
+            }
+            else if (!this.selection.selectedLayers.contains(layer)) {
+                this.selection.selectedLayers.push(layer);
+            }
             this.defaultLayers.push(layer);
+            if (this.selection.selectedLayers.isEmpty) {
+                this.selection.selectedLayers.pushAll(this.defaultLayers);
+            }
             this.render();
         },
 
@@ -533,8 +544,6 @@ namespace("sozi.editor.view", function (exports) {
                     }, this);
                 }
             }, this);
-            
-            //this.render();
         }
     });
 });

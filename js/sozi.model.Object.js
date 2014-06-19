@@ -344,6 +344,12 @@ namespace("sozi.model", function (exports) {
         }
     });
     
+    Object.defineProperty(Collection, "isEmpty", {
+        get: function () {
+            return !this._values.length;
+        }
+    });
+    
     function makeAlias(name) {
         Collection[name] = function () {
             return Array.prototype[name].apply(this._values, arguments);

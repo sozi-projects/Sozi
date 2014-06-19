@@ -3,7 +3,7 @@ window.addEventListener("load", function () {
     "use strict";
 
     var presentation = sozi.model.Presentation;
-    var selection = sozi.editor.model.Selection;
+    var selection = sozi.editor.model.Selection.init(presentation);
     sozi.editor.view.Preview.init(presentation, selection);
     sozi.editor.view.Timeline.init(presentation, selection);
     sozi.editor.view.Properties.init(presentation, selection);
@@ -40,12 +40,11 @@ window.addEventListener("load", function () {
                                     // Then save the extracted data to a JSON file.
                                     presentation.upgrade();
                                     
-                                    // Select the first frame and all layers
+                                    // Select the first frame
                                     if (presentation.frames.length) {
                                         $.notify("Document was imported from Sozi 13 or earlier.", "success");
                                         selection.selectedFrames.push(presentation.frames.first);
                                     }
-                                    selection.selectedLayers.pushAll(presentation.layers);
                                     
                                     backend.create(jsonName, location, "application/json", JSON.stringify(presentation.toStorable()), function (fileDescriptor) {
                                         jsonFileDescriptor = fileDescriptor;
@@ -66,11 +65,10 @@ window.addEventListener("load", function () {
                         // Load presentation data from JSON file.
                         presentation.fromStorable(JSON.parse(data));
 
-                        // Select the first frame and all layers
+                        // Select the first frame
                         if (presentation.frames.length) {
                             selection.selectedFrames.push(presentation.frames.first);
                         }
-                        selection.selectedLayers.pushAll(presentation.layers);
                     }
                 }
             })
