@@ -23,8 +23,8 @@ namespace("sozi.editor.view", function (exports) {
             $(window).resize(resizeHandler).resize();
 
             selection.addListener("change", this.onChangeSelection, this);
-            this.addListener("change", this.onChangeState, this);
-
+            this.addListener("userChangeState", this.onUserChangeState, this);
+            
             return this;
         },
 
@@ -55,6 +55,7 @@ namespace("sozi.editor.view", function (exports) {
         },
 
         onChangeSelection: function (selection) {
+            // TODO add event handler for "change" cameraState event on currentFrame
             if (selection.currentFrame) {
                 this.setAtStates(selection.currentFrame.cameraStates);
             }
@@ -65,10 +66,20 @@ namespace("sozi.editor.view", function (exports) {
             });
         },
 
-        onChangeState: function () {
+        onUserChangeState: function () {
             var frame = this.selection.currentFrame;
             if (frame) {
-                frame.setAtStates(this.cameras);
+                this.cameras.forEach(function (camera) {
+                    if (camera.selected) {
+                        var cameraIndex = this.cameras.indexOf(camera);
+                        
+                        // Update the camera states of the current frame
+                        frame.cameraStates.at(cameraIndex).setAtState(camera);
+                        
+                        // Mark the modified layers as unlinked in the current frame
+                        frame.layerProperties.at(cameraIndex).link = false;
+                    }
+                }, this);
             }
             // TODO choose reference SVG element for frame
             // getIntersectionList(SVGRect, SVGElement)

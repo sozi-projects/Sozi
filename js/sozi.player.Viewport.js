@@ -375,7 +375,7 @@ namespace("sozi.player", function (exports) {
          *    - deltaY: The vertical displacement, in pixels
          *
          * Fires:
-         *    - change
+         *    - userChangeState
          *
          * Returns:
          *    - The current viewport.
@@ -386,7 +386,7 @@ namespace("sozi.player", function (exports) {
                     camera.drag(deltaX, deltaY);
                 }
             });
-            this.fire("change");
+            this.fire("userChangeState");
             return this;
         },
 
@@ -402,7 +402,7 @@ namespace("sozi.player", function (exports) {
          *    - x, y: The coordinates of the center of the zoom operation.
          *
          * Fires:
-         *    - change
+         *    - userChangeState
          *
          * Returns:
          *    - The current viewport.
@@ -413,7 +413,7 @@ namespace("sozi.player", function (exports) {
                     camera.zoom(factor, x, y);
                 }
             });
-            this.fire("change");
+            this.fire("userChangeState");
             return this;
         },
 
@@ -431,7 +431,7 @@ namespace("sozi.player", function (exports) {
          *    - The current viewport.
          *
          * Fires:
-         *    - change
+         *    - userChangeState
          */
         rotate: function (angle) {
             this.cameras.forEach(function (camera) {
@@ -439,7 +439,7 @@ namespace("sozi.player", function (exports) {
                     camera.rotate(angle);
                 }
             });
-            this.fire("change");
+            this.fire("userChangeState");
             return this;
         }
     });

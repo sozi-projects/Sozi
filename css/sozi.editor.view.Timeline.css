@@ -128,7 +128,11 @@
 
 .timeline td {
     background: rgb(200, 200, 200);
-    color: transparent;
+    color: black;
+}
+
+.timeline .link {
+    background: rgb(220, 220, 200);
 }
 
 .timeline .selected {

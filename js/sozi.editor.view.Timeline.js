@@ -74,11 +74,17 @@ namespace("sozi.editor.view", function (exports) {
         },
         
         onAddFrame: function (collection, frame) {
-            frame.addListener("change", this.render, this);
+            frame.addListener("change:title", this.render, this);
+            frame.layerProperties.forEach(function (lp) {
+                lp.addListener("change:link", this.render, this);
+            }, this);
         },
         
         onRemoveFrame: function (collection, frame) {
             frame.removeListener("change", this.render, this);
+            frame.layerProperties.forEach(function (lp) {
+                lp.removeListener("change:link", this.render, this);
+            }, this);
         },
         
         /*

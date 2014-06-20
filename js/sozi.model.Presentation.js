@@ -15,6 +15,8 @@ namespace("sozi.model", function (exports) {
     "use strict";
 
     var LayerProperties = sozi.model.Object.clone({
+        // TODO define default properties separately
+        link: true,
         clip: true,
         referenceElementId: "",
         referenceElementHide: true,
@@ -23,8 +25,39 @@ namespace("sozi.model", function (exports) {
         transitionPathId: "",
         transitionPathHide: true,
         
+        init: function () {
+            this.addListener("change:link", this.onChangeLink, this);
+            return this;
+        },
+        
+        get index() {
+            return this.owner.layerProperties.indexOf(this);
+        },
+        
+        onChangeLink: function () {
+            if (this.link) {
+                var frames = this.owner.owner.frames;
+                var frameIndex = this.owner.index;
+                var layerIndex = this.index;
+                
+                var cameraState = frameIndex > 0 ?
+                    frames.at(frameIndex - 1).cameraStates.at(layerIndex) :
+                    this.owner.cameraStates.last; // Link to "auto" layer
+
+                // Update the camera states of the linked layers in the following frames
+                for (var i = frameIndex; i < frames.length; i ++) {
+                    var frame = frames.at(i);
+                    if (!frame.layerProperties.at(layerIndex).link) {
+                        break;
+                    }
+                    frame.cameraStates.at(layerIndex).setAtState(cameraState);
+                }
+            }
+        },
+        
         toStorable: function () {
             return {
+                link: this.link,
                 clip: this.clip,
                 referenceElementId: this.referenceElementId,
                 referenceElementHide: this.referenceElementHide,
@@ -36,6 +69,7 @@ namespace("sozi.model", function (exports) {
         },
         
         fromStorable: function (obj) {
+            this.link = obj.link;
             this.clip = obj.clip;
             this.referenceElementId = obj.referenceElementId;
             this.referenceElementHide = obj.referenceElementHide;
@@ -62,13 +96,29 @@ namespace("sozi.model", function (exports) {
             this.frameId = pres.makeFrameId();
 
             pres.layers.forEach(function () {
-                this.cameraStates.push(sozi.player.CameraState.clone().init(pres.svgRoot));
-                this.layerProperties.push(LayerProperties.clone());
+                var cameraState = sozi.player.CameraState.clone().init(pres.svgRoot);
+                this.cameraStates.push(cameraState);
+                cameraState.addListener("change", this.onChangeCameraState, this);
+                this.layerProperties.push(LayerProperties.clone().init());
             }, this);
 
             return this;
         },
 
+        onChangeCameraState: function (cameraState) {
+            var frames = this.owner.frames;
+            var layerIndex = this.cameraStates.indexOf(cameraState);
+
+            // Update the camera states of the linked layers in the following frames
+            for (var i = this.index + 1; i < frames.length; i ++) {
+                var frame = frames.at(i);
+                if (!frame.layerProperties.at(layerIndex).link) {
+                    break;
+                }
+                frame.cameraStates.at(layerIndex).setAtState(cameraState);
+            }
+        },
+        
         toStorable: function () {
             var layerProperties = {};
             var cameraStates = {};

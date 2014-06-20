@@ -151,6 +151,7 @@ namespace("sozi.editor.view", function (exports) {
                 NumericField.clone().init(selection, "frame-timeout", "timeoutMs", 0, null, 1000),
                 Field.clone().init(selection, "frame-timeout-enable", "timeoutEnable"),
                 NumericField.clone().init(selection, "frame-transition-duration", "transitionDurationMs", 0, null, 1000),
+                Field.clone().init(selection, "layer-link", "link"),
                 Field.clone().init(selection, "layer-clip", "clip"),
                 StringField.clone().init(selection, "layer-reference-id", "referenceElementId", true),
                 Field.clone().init(selection, "layer-reference-hide", "referenceElementHide"),

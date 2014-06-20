@@ -1,7 +1,7 @@
 {
     "strict": true,
     "undef": true,
-    "unused": true,
+    "unused": false,
     "newcap": false,
     "loopfunc": true,
 
