@@ -7,6 +7,7 @@ namespace("sozi.editor.view", function (exports) {
     exports.Preview = sozi.player.Viewport.clone({
 
         selection: null,
+        userChange: false,
         
         init: function (pres, selection) {
             sozi.player.Viewport.init.call(this, pres);
@@ -24,6 +25,7 @@ namespace("sozi.editor.view", function (exports) {
 
             selection.addListener("change", this.onChangeSelection, this);
             this.addListener("userChangeState", this.onUserChangeState, this);
+            pres.frames.addListener("add", this.onAddFrame, this);
             
             return this;
         },
@@ -54,6 +56,16 @@ namespace("sozi.editor.view", function (exports) {
             return this;
         },
 
+        onAddFrame: function (collection, frame) {
+            frame.cameraStates.forEach(function (cameraState, cameraIndex) {
+                cameraState.addListener("change", function () {
+                    if (!this.userChange) {
+                        this.cameras.at(cameraIndex).setAtState(cameraState);
+                    }
+                }, this);
+            }, this);
+        },
+        
         onChangeSelection: function (selection) {
             // TODO add event handler for "change" cameraState event on currentFrame
             if (selection.currentFrame) {
@@ -69,6 +81,7 @@ namespace("sozi.editor.view", function (exports) {
         onUserChangeState: function () {
             var frame = this.selection.currentFrame;
             if (frame) {
+                this.userChange = true;
                 this.cameras.forEach(function (camera) {
                     if (camera.selected) {
                         var cameraIndex = this.cameras.indexOf(camera);
@@ -80,6 +93,7 @@ namespace("sozi.editor.view", function (exports) {
                         frame.layerProperties.at(cameraIndex).link = false;
                     }
                 }, this);
+                this.userChange = false;
             }
             // TODO choose reference SVG element for frame
             // getIntersectionList(SVGRect, SVGElement)

@@ -182,6 +182,7 @@ namespace("sozi.player", function (exports) {
 
                 if (this.mouseDragged) {
                     this.fire("dragEnd");
+                    this.fire("userChangeState");
                 }
                 else {
                     this.fire("click", evt.button);
@@ -386,7 +387,6 @@ namespace("sozi.player", function (exports) {
                     camera.drag(deltaX, deltaY);
                 }
             });
-            this.fire("userChangeState");
             return this;
         },
 
