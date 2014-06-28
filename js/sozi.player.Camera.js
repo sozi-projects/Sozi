@@ -121,16 +121,6 @@ namespace("sozi.player", function (exports) {
             return this;
         },
 
-        setAtState: function (state) {
-            this.cx = state.cx;
-            this.cy = state.cy;
-            this.width = state.width;
-            this.height = state.height;
-            this.angle = state.angle;
-            this.clipped = state.clipped;
-            return this;
-        },
-
         interpolate: function (initialState, finalState, progress, relativeZoom, svgPath, reversePath) {
             var remaining = 1 - progress;
 
@@ -226,10 +216,6 @@ namespace("sozi.player", function (exports) {
             }, this);
 
             return this;
-        },
-
-        setAtState: function (state) {
-            return exports.CameraState.setAtState.call(this, state).update();
         },
 
         get scale() {

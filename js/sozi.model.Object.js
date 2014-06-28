@@ -36,6 +36,10 @@ namespace("sozi.model", function (exports) {
             return this._owningProperty;
         },
         
+        owns: function (name, other) {
+            return ProtoObject.isPrototypeOf(other) && other._owner === this && other._owningProperty === name;
+        },
+        
         toStorable: function () {
             return {};
         },
@@ -208,7 +212,7 @@ namespace("sozi.model", function (exports) {
         object._values = {};
         for (var name in this._values) {
             var value = this._values[name];
-            if (ProtoObject.isPrototypeOf(value) && value._owner === this && value._owningProperty === name) {
+            if (this.owns(name, value)) {
                 setProperty(object, name, value.clone(), true);
             }
             else {
@@ -219,6 +223,26 @@ namespace("sozi.model", function (exports) {
         return object;
     };
 
+    exports.Object.copy = function (other) {
+        for (var name in this._values) {
+            if (name in other._values) {
+                var thisValue = this._values[name];
+                var otherValue = other._values[name];
+                if (other.owns(name, otherValue)) {
+                    if (Collection.isPrototypeOf(thisValue) && Collection.isPrototypeOf(otherValue)) {
+                        thisValue.copy(otherValue);
+                    }
+                    else {
+                        setProperty(this, name, otherValue.clone(), true);
+                    }
+                }
+                else {
+                    setProperty(this, name, otherValue, false);
+                }
+            }
+        }
+        return this;
+    };
     
     var Collection = ProtoObject.clone();
     
@@ -235,6 +259,12 @@ namespace("sozi.model", function (exports) {
             return value;
         }, this);
         return object;
+    };
+    
+    Collection.copy = function (other) {
+        this.clear();
+        this.pushAll(other);
+        return this;
     };
     
     Collection.push = function () {

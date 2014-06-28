@@ -50,7 +50,7 @@ namespace("sozi.model", function (exports) {
                     if (!frame.layerProperties.at(layerIndex).link) {
                         break;
                     }
-                    frame.cameraStates.at(layerIndex).setAtState(cameraState);
+                    frame.cameraStates.at(layerIndex).copy(cameraState);
                 }
             }
         },
@@ -115,7 +115,7 @@ namespace("sozi.model", function (exports) {
                 if (!frame.layerProperties.at(layerIndex).link) {
                     break;
                 }
-                frame.cameraStates.at(layerIndex).setAtState(cameraState);
+                frame.cameraStates.at(layerIndex).copy(cameraState);
             }
         },
         
@@ -166,7 +166,7 @@ namespace("sozi.model", function (exports) {
 
         setAtStates: function (states) {
             states.forEach(function (state, index) {
-                this.cameraStates.at(index).setAtState(state);
+                this.cameraStates.at(index).copy(state);
             }, this);
         }
     });

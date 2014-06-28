@@ -362,7 +362,7 @@ namespace("sozi.player", function (exports) {
          */
         setAtStates: function (states) {
             states.forEach(function (state, index) {
-                this.cameras.at(index).setAtState(state);
+                this.cameras.at(index).copy(state).update();
             }, this);
         },
 

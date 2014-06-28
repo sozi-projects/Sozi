@@ -60,14 +60,13 @@ namespace("sozi.editor.view", function (exports) {
             frame.cameraStates.forEach(function (cameraState, cameraIndex) {
                 cameraState.addListener("change", function () {
                     if (!this.userChange) {
-                        this.cameras.at(cameraIndex).setAtState(cameraState);
+                        this.cameras.at(cameraIndex).copy(cameraState).update();
                     }
                 }, this);
             }, this);
         },
         
         onChangeSelection: function (selection) {
-            // TODO add event handler for "change" cameraState event on currentFrame
             if (selection.currentFrame) {
                 this.setAtStates(selection.currentFrame.cameraStates);
             }
@@ -87,7 +86,7 @@ namespace("sozi.editor.view", function (exports) {
                         var cameraIndex = this.cameras.indexOf(camera);
                         
                         // Update the camera states of the current frame
-                        frame.cameraStates.at(cameraIndex).setAtState(camera);
+                        frame.cameraStates.at(cameraIndex).copy(camera);
                         
                         // Mark the modified layers as unlinked in the current frame
                         frame.layerProperties.at(cameraIndex).link = false;
