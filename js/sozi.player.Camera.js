@@ -56,15 +56,7 @@ namespace("sozi.player", function (exports) {
             };
         },
         
-        fromStorable: function (obj) {
-            this.cx = obj.cx;
-            this.cy = obj.cy;
-            this.width = obj.width;
-            this.height = obj.height;
-            this.angle = obj.angle;
-            this.clipped = obj.clipped;
-            return this;    
-        },
+        fromStorable: sozi.model.Object.copy,
         
         /*
          * Set the angle of the current camera state.

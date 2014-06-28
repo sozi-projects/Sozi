@@ -68,17 +68,7 @@ namespace("sozi.model", function (exports) {
             };
         },
         
-        fromStorable: function (obj) {
-            this.link = obj.link;
-            this.clip = obj.clip;
-            this.referenceElementId = obj.referenceElementId;
-            this.referenceElementHide = obj.referenceElementHide;
-            this.transitionTimingFunction = obj.transitionTimingFunction;
-            this.transitionRelativeZoom = obj.transitionRelativeZoom;
-            this.transitionPathId = obj.transitionPathId;
-            this.transitionPathHide = obj.transitionPathHide;
-            return this;
-        }
+        fromStorable: sozi.model.Object.copy
     });
     
     exports.Frame = sozi.model.Object.clone({

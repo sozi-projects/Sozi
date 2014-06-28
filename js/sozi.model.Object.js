@@ -36,18 +36,6 @@ namespace("sozi.model", function (exports) {
             return this._owningProperty;
         },
         
-        owns: function (name, other) {
-            return ProtoObject.isPrototypeOf(other) && other._owner === this && other._owningProperty === name;
-        },
-        
-        toStorable: function () {
-            return {};
-        },
-
-        fromStorable: function (obj) {
-            return this;
-        },
-
         bind: function (fn) {
             var self = this;
             return function () {
@@ -212,7 +200,7 @@ namespace("sozi.model", function (exports) {
         object._values = {};
         for (var name in this._values) {
             var value = this._values[name];
-            if (this.owns(name, value)) {
+            if (ProtoObject.isPrototypeOf(value) && value._owner === this && value._owningProperty === name) {
                 setProperty(object, name, value.clone(), true);
             }
             else {
@@ -224,17 +212,18 @@ namespace("sozi.model", function (exports) {
     };
 
     exports.Object.copy = function (other) {
+        var otherProps = exports.Object.isPrototypeOf(other) ?
+            other._values : other;
+
         for (var name in this._values) {
-            if (name in other._values) {
-                var thisValue = this._values[name];
-                var otherValue = other._values[name];
-                if (other.owns(name, otherValue)) {
-                    if (Collection.isPrototypeOf(thisValue) && Collection.isPrototypeOf(otherValue)) {
-                        thisValue.copy(otherValue);
-                    }
-                    else {
-                        setProperty(this, name, otherValue.clone(), true);
-                    }
+            var value = this._values[name];
+            if (name in otherProps) {
+                var otherValue = otherProps[name];
+                if (Collection.isPrototypeOf(value) && (Collection.isPrototypeOf(otherValue) || otherValue instanceof Array)) {
+                    value.copy(otherValue);
+                }
+                else if (ProtoObject.isPrototypeOf(otherValue) && otherValue._owner === other && otherValue._owningProperty === name) {
+                    setProperty(this, name, otherValue.clone(), true);
                 }
                 else {
                     setProperty(this, name, otherValue, false);
