@@ -171,15 +171,15 @@ namespace(this, "sozi.player", function (exports, window) {
             };
             
             data[idLayer].profile = profile || finalState[idLayer].transitionProfile;
-            data[idLayer].initialState.setAtState(initialState[idLayer]);
+            data[idLayer].initialState.setAtState(initialState[idLayer], true);
 
             // If the current layer is referenced in final state, copy the final properties
             // else, copy initial state to final state for the current layer.
             if (finalState.hasOwnProperty(idLayer)) {
-                data[idLayer].finalState.setAtState(finalState[idLayer]);
+                data[idLayer].finalState.setAtState(finalState[idLayer], true);
             }
             else {
-                data[idLayer].finalState.setAtState(initialState[idLayer]);
+                data[idLayer].finalState.setAtState(initialState[idLayer], true);
             }
 
             // Keep the smallest angle difference between initial state and final state
@@ -445,7 +445,7 @@ namespace(this, "sozi.player", function (exports, window) {
          */
         onDone: function () {
             for (var idLayer in this.data) {
-                viewPort.cameras[idLayer].setAtState(this.data[idLayer].finalState);
+                viewPort.cameras[idLayer].setAtState(this.data[idLayer].finalState, true);
             }
 
             viewPort.update();

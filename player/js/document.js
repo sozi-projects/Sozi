@@ -37,7 +37,9 @@ namespace(this, "sozi.document", function (exports, window) {
         "transition-duration-ms": "1000",
         "transition-zoom-percent": "0",
         "transition-profile": "linear",
-        "transition-path-hide": "true"
+        "transition-path-hide": "true",
+        "parallax": "0",
+        "fitting": "min"
     };
 
     var DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
@@ -59,7 +61,7 @@ namespace(this, "sozi.document", function (exports, window) {
         return soziElement.getAttributeNS(SOZI_NS, attr) || DEFAULTS[attr];
     }
 
-    function readStateForLayer(frame, idLayer, soziElement) {
+    function readStateForLayer(frame, idLayer, soziElement, soziParentElement) {
         var state = frame.states[idLayer] =
             frame.states[idLayer] || sozi.display.CameraState.instance();
         
@@ -80,20 +82,25 @@ namespace(this, "sozi.document", function (exports, window) {
                 }
             }
         }
-        
+            
         if (soziElement.hasAttributeNS(SOZI_NS, "refid")) {
             var svgElement = document.getElementById(soziElement.getAttributeNS(SOZI_NS, "refid"));
             if (svgElement) {
-                state.setAtElement(svgElement);
+                state.setAtElement(svgElement, soziElement.localName == "layer");
                 if (readAttribute(soziElement, "hide") === "true") {
                     svgElement.style.visibility = "hidden";
                 }
             }
         }
+        
+        state.setParallax(parseFloat(readAttribute(soziElement, "parallax")));
+        state.setFitting(readAttribute(soziElement, "fitting"));
             
         if (soziElement.hasAttributeNS(SOZI_NS, "clip")) {
             state.setClipped(readAttribute(soziElement, "clip") === "true");
         }
+        
+        return state;
     }
     
     /*
@@ -107,6 +114,7 @@ namespace(this, "sozi.document", function (exports, window) {
     */
     function readFrames() {
         // Collect all group ids referenced in <layer> elements
+        var idMainLayer;
         var idLayerRefList = [];
         var soziLayerList = document.getElementsByTagNameNS(SOZI_NS, "layer");
         for (var i = 0; i < soziLayerList.length; i += 1) {
@@ -135,7 +143,7 @@ namespace(this, "sozi.document", function (exports, window) {
                 // If the current element is a referenced layer ...
                 if (svgWrapper.firstChild) {
                     // ... and if there were other non-referenced elements before it,
-                    // append the wrapper group to the <defs> element
+                    // append the wrapper group to the <defs> element*
                     svgWrapper.setAttribute("id", "sozi-wrapper-" + index);
                     exports.idLayerList.push("sozi-wrapper-" + index);
                     svgRoot.insertBefore(svgWrapper, svgElement);
@@ -200,7 +208,8 @@ namespace(this, "sozi.document", function (exports, window) {
                     // copy attributes from the corresponding layer in the previous frame
                     var currentState = newFrame.states[idLayer] = sozi.display.CameraState.instance();
                     var previousState = exports.frames[exports.frames.length - 1].states[idLayer];
-                    currentState.setAtState(previousState);
+                    readStateForLayer(newFrame, idLayer, soziFrame);
+                    currentState.setAtState(previousState, false);
                 }
             });
 
@@ -209,6 +218,7 @@ namespace(this, "sozi.document", function (exports, window) {
             soziLayerList.forEach(function (soziLayer) {
                 var idLayer = soziLayer.getAttributeNS(SOZI_NS, "group");
                 if (idLayer && exports.idLayerList.indexOf(idLayer) !== -1) {
+                    readStateForLayer(newFrame, idLayer, soziFrame);
                     readStateForLayer(newFrame, idLayer, soziLayer);
                 }
             });

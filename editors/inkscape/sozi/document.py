@@ -76,6 +76,7 @@ class SoziFrame:
         self.sequence = read_xml_attr(self.xml, "sequence", "sozi", default_seq, int)
         self.hide = read_xml_attr(self.xml, "hide", "sozi", True, to_boolean)
         self.clip = read_xml_attr(self.xml, "clip", "sozi", True, to_boolean)
+        self.maximum_fitting = read_xml_attr(self.xml, "fitting", "sozi", "min") == "max"
         self.show_in_frame_list = read_xml_attr(self.xml, "show-in-frame-list", "sozi", True, to_boolean)
         self.timeout_enable = read_xml_attr(self.xml, "timeout-enable", "sozi", False, to_boolean)
         self.timeout_ms = read_xml_attr(self.xml, "timeout-ms", "sozi", 5000, float)
@@ -84,6 +85,7 @@ class SoziFrame:
         self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", "linear")
         self.transition_path = read_xml_attr(self.xml, "transition-path", "sozi")
         self.transition_path_hide = read_xml_attr(self.xml, "transition-path-hide", "sozi", True, to_boolean)
+        self.parallax = read_xml_attr(self.xml, "parallax", "sozi", 0, float)
         
         # Generate a frame id that does not look like a frame number
         id_suffix = (int(time.time()) + default_seq) % 10000
@@ -105,6 +107,7 @@ class SoziFrame:
         result.title = self.title
         result.hide = self.hide
         result.clip = self.clip
+        result.maximum_fitting = self.maximum_fitting
         result.show_in_frame_list = self.show_in_frame_list
         result.timeout_enable = self.timeout_enable
         result.timeout_ms = self.timeout_ms
@@ -113,6 +116,7 @@ class SoziFrame:
         result.transition_profile = self.transition_profile
         result.transition_path = self.transition_path
         result.transition_path_hide = self.transition_path_hide
+        result.parallax = self.parallax
 
         # Fill layers dict with copies of each layer object
         for l in self.layers.itervalues():
@@ -158,6 +162,7 @@ class SoziFrame:
             write_xml_attr(self.xml, "sequence", "sozi", self.sequence)
             write_xml_attr(self.xml, "hide", "sozi", "true" if self.hide else "false")
             write_xml_attr(self.xml, "clip", "sozi", "true" if self.clip else "false")
+            write_xml_attr(self.xml, "fitting", "sozi", "max" if self.maximum_fitting else "min")
             write_xml_attr(self.xml, "show-in-frame-list", "sozi", "true" if self.show_in_frame_list else "false")
             write_xml_attr(self.xml, "timeout-enable", "sozi", "true" if self.timeout_enable else "false")
             write_xml_attr(self.xml, "timeout-ms", "sozi", self.timeout_ms)
@@ -167,6 +172,7 @@ class SoziFrame:
             write_xml_attr(self.xml, "transition-path", "sozi", self.transition_path) # Optional
             write_xml_attr(self.xml, "transition-path-hide", "sozi", "true" if self.transition_path_hide else "false")
             write_xml_attr(self.xml, "id", None, self.id)
+            write_xml_attr(self.xml, "parallax", "sozi", self.parallax)
 
             for l in self.all_layers:
                 l.write()
@@ -197,10 +203,12 @@ class SoziLayer:
         # Missing attributes are inherited from the enclosing frame element
         self.hide = read_xml_attr(self.xml, "hide", "sozi", frame.hide, to_boolean)
         self.clip = read_xml_attr(self.xml, "clip", "sozi", frame.clip, to_boolean)
+        self.maximum_fitting = read_xml_attr(self.xml, "fitting", "sozi", "min") == "max"
         self.transition_zoom_percent = read_xml_attr(self.xml, "transition-zoom-percent", "sozi", frame.transition_zoom_percent, float)
         self.transition_profile = read_xml_attr(self.xml, "transition-profile", "sozi", frame.transition_profile)
         self.transition_path = read_xml_attr(self.xml, "transition-path", "sozi", frame.transition_path)
         self.transition_path_hide = read_xml_attr(self.xml, "transition-path-hide", "sozi", frame.transition_path_hide, to_boolean)
+        self.parallax = read_xml_attr(self.xml, "parallax", "sozi", frame.parallax, float)
 
         group_xml = frame.document.xml.xpath("//*[@id='" + self.group_id + "']")
         label_attr = inkex.addNS("label", "inkscape")
@@ -217,11 +225,13 @@ class SoziLayer:
         result.refid = self.refid
         result.hide = self.hide
         result.clip = self.clip
+        result.maximum_fitting = self.maximum_fitting
         result.transition_zoom_percent = self.transition_zoom_percent
         result.transition_profile = self.transition_profile
         result.transition_path = self.transition_path
         result.transition_path_hide = self.transition_path_hide
         result.label = self.label
+        result.parallax = self.parallax
 
         return result
 
@@ -244,10 +254,12 @@ class SoziLayer:
             write_xml_attr(self.xml, "refid", "sozi", self.refid)
             write_xml_attr(self.xml, "hide", "sozi", "true" if self.hide else "false")
             write_xml_attr(self.xml, "clip", "sozi", "true" if self.clip else "false")
+            write_xml_attr(self.xml, "fitting", "sozi", "max" if self.maximum_fitting else "min")
             write_xml_attr(self.xml, "transition-zoom-percent", "sozi", self.transition_zoom_percent)
             write_xml_attr(self.xml, "transition-profile", "sozi", self.transition_profile)
             write_xml_attr(self.xml, "transition-path", "sozi", self.transition_path)
             write_xml_attr(self.xml, "transition-path-hide", "sozi", "true" if self.transition_path_hide else "false")
+            write_xml_attr(self.xml, "parallax", "sozi", self.parallax)
             
         elif not self.is_new:
             # Remove element from the SVG document

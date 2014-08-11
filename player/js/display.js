@@ -43,17 +43,28 @@ namespace(this, "sozi.display", function (exports, window) {
      */
     exports.CameraState = sozi.proto.Object.subtype({
         construct : function () {
+            this.layer = false;
+        
             // Center coordinates
             this.cx = this.cy = 0;
+            this.frame_cx = this.frame_cy = 0;
             
             // Dimensions
             this.width = this.height = 1;
+            this.frame_width = this.frame_height = 1;
             
             // Rotation angle, in degrees
             this.angle = 0;
+            this.frame_angle = 0;
             
             // Clipping
             this.clipped = true;
+            
+            // Sliding
+            this.parallax = 0;
+            
+            // Fitting
+            this.fitting = 'min';
             
             // Transition zoom
             this.transitionZoomPercent = 0;
@@ -65,15 +76,29 @@ namespace(this, "sozi.display", function (exports, window) {
             this.transitionPath = null;
         },
 
-        setCenter: function (cx, cy) {
-            this.cx = cx;
-            this.cy = cy;
+        setCenter: function (cx, cy, layer) {
+            if(layer === undefined) console.trace("Expected layer boolean argument");
+            if(layer || !this.layer) {
+                this.cx = cx;
+                this.cy = cy;
+            }
+            if(!layer) {
+                this.frame_cx = cx;
+                this.frame_cy = cy;
+            }
             return this;
         },
         
-        setSize: function (width, height) {
-            this.width = width;
-            this.height = height;
+        setSize: function (width, height, layer) {
+            if(layer === undefined) console.trace("Expected layer boolean argument");
+            if(layer || !this.layer) {
+                this.width = width;
+                this.height = height;
+            }
+            if(!layer) {
+                this.frame_width = width;
+                this.frame_height = height;
+            }
             return this;
         },
         
@@ -82,18 +107,29 @@ namespace(this, "sozi.display", function (exports, window) {
             return this;
         },
         
+        setParallax: function(parallax){
+            this.parallax = parallax;
+            return this;
+        },
+        
+        setFitting: function(fit){
+            this.fitting = fit;
+            return this;
+        },
+        
         /*
          * Set the angle of the current camera state.
          * The angle of the current state is normalized
          * in the interval [-180 ; 180]
          */
-        setAngle: function (angle) {
-            this.angle = (angle + 180) % 360 - 180;
-            return this;
+        setAngle: function (angle, layer) {
+            return this.setRawAngle((angle + 180) % 360 - 180, layer);
         },
         
-        setRawAngle: function (angle) {
-            this.angle = angle;
+        setRawAngle: function (angle, layer) {
+            if(layer === undefined) console.trace("Expected layer boolean argument");
+            if(layer || !this.layer) this.angle = angle;
+            if(!layer) this.frame_angle = angle;
             return this;
         },
         
@@ -123,7 +159,7 @@ namespace(this, "sozi.display", function (exports, window) {
          * Parameters:
          *    - svgElement: an element from the SVG DOM
          */
-        setAtElement: function (svgElement) {
+        setAtElement: function (svgElement, layer) {
             // Read the raw bounding box of the given SVG element
             var x, y, w, h;
             if (svgElement.nodeName === "rect") {
@@ -155,22 +191,32 @@ namespace(this, "sozi.display", function (exports, window) {
             
             // Update the camera to match the bounding box information of the
             // given SVG element after its current transformation
-            return this.setCenter(c.x, c.y)
-                .setSize(w * scale, h * scale)
-                .setAngle(Math.atan2(matrix.b, matrix.a) * 180 / Math.PI);
+            this.setCenter(c.x, c.y, layer)
+                .setSize(w * scale, h * scale, layer)
+                .setAngle(Math.atan2(matrix.b, matrix.a) * 180 / Math.PI, layer);
+            this.layer = this.layer || layer;
+            return this;
         },
 
-        setAtState: function (other) {
-            return this.setCenter(other.cx, other.cy)
-                .setSize(other.width, other.height)
-                .setAngle(other.angle)
+        setAtState: function (other, overwrite_frame) {
+            if(overwrite_frame === undefined) console.trace();
+            if(overwrite_frame) {
+                this.setCenter(other.frame_cx, other.frame_cy, false)
+                    .setSize(other.frame_width, other.frame_height, false)
+                    .setAngle(other.frame_angle, false);
+            }
+            return this.setCenter(other.cx, other.cy, true)
+                .setSize(other.width, other.height, true)
+                .setAngle(other.angle, true)
                 .setClipped(other.clipped)
+                .setParallax(other.parallax)
+                .setFitting(other.fitting)
                 .setTransitionZoomPercent(other.transitionZoomPercent)
                 .setTransitionProfile(other.transitionProfile)
                 .setTransitionPath(other.transitionPath);
         },
         
-        interpolatableAttributes: ["width", "height", "angle"],
+        interpolatableAttributes: ["width", "height", "angle", "frame_width", "frame_height", "frame_angle"],
         
         interpolate: function (initialState, finalState, ratio, useTransitionPath, reverseTransitionPath) {
             var remaining = 1 - ratio;
@@ -196,10 +242,14 @@ namespace(this, "sozi.display", function (exports, window) {
  
                 this.cx = currentPoint.x + (finalState.cx - endPoint.x) * ratio + (initialState.cx - startPoint.x) * remaining;
                 this.cy = currentPoint.y + (finalState.cy - endPoint.y) * ratio + (initialState.cy - startPoint.y) * remaining;
+                this.frame_cx = currentPoint.x + (finalState.frame_cx - endPoint.x) * ratio + (initialState.frame_cx - startPoint.x) * remaining;
+                this.frame_cy = currentPoint.y + (finalState.frame_cy - endPoint.y) * ratio + (initialState.frame_cy - startPoint.y) * remaining;
             }
             else {
                 this.cx = finalState.cx * ratio + initialState.cx * remaining;
                 this.cy = finalState.cy * ratio + initialState.cy * remaining;
+                this.frame_cx = finalState.frame_cx * ratio + initialState.frame_cx * remaining;
+                this.frame_cy = finalState.frame_cy * ratio + initialState.frame_cy * remaining;
             }
         }
     });
@@ -240,11 +290,23 @@ namespace(this, "sozi.display", function (exports, window) {
         },
         
         setAtState: function (other) {
-            return exports.CameraState.setAtState.call(this, other).update();
+            return exports.CameraState.setAtState.call(this, other, true).update();
         },
         
         getScale: function () {
-            return Math.min(this.viewPort.width / this.width, this.viewPort.height / this.height);
+            var wscale0 = this.viewPort.width  / this.width;
+            var hscale0 = this.viewPort.height / this.height;
+            
+            if (this.parallax == 0) {
+                if(this.fitting == 'max') return Math.max(wscale0, hscale0);
+                return Math.min(wscale0, hscale0);
+            } else {
+                var wscale = this.parallax + wscale0 * this.width  / this.frame_width;
+                var hscale = this.parallax + hscale0 * this.height / this.frame_height;
+                if(this.fitting == 'max') return wscale0 > hscale0 ? wscale : hscale;
+                else                      return wscale0 < hscale0 ? wscale : hscale;
+            }
+
         },
         
         rotate: function (angle) {
@@ -274,10 +336,20 @@ namespace(this, "sozi.display", function (exports, window) {
             var scale = this.getScale();
                     
             // Compute the size and location of the frame on the screen
-            var width = this.width  * scale;
+            var width  = this.width  * scale;
             var height = this.height * scale;
-            var x = (this.viewPort.width - width) / 2;
-            var y = (this.viewPort.height - height) / 2;
+            var x = (this.viewPort.width - width);
+            var y = (this.viewPort.height - height);
+            
+            if(this.parallax != 0) {
+                var left = (this.frame_cx - initialBBox.x) / initialBBox.width;
+                var top  = (this.frame_cy - initialBBox.y) / initialBBox.height;
+                x = x * left;
+                y = y * top;
+            } else {
+                x = x / 2;
+                y = y / 2;
+            }
 
             // Adjust the location and size of the clipping rectangle and the frame rectangle
             this.svgClipRect.setAttribute("x", this.clipped ? x : 0);

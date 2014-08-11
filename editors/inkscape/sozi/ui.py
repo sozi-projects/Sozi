@@ -113,6 +113,8 @@ class SoziUserInterface:
             "refid": SoziTextField(self, "refid", None, optional=True),
             "hide": SoziToggleField(self, "hide", True),
             "clip": SoziToggleField(self, "clip", True),
+            "maximum-fitting": SoziToggleField(self, "maximum-fitting", True),
+            "parallax": SoziSpinButtonField(self, "parallax", 0),
             "transition-zoom-percent": SoziSpinButtonField(self, "transition-zoom-percent", 0),
             "transition-profile": SoziComboField(self, "transition-profile", profiles, "linear"),
             "transition-path": SoziTextField(self, "transition-path", None, optional=True),
