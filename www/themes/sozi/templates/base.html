@@ -19,9 +19,6 @@
         {% if FLATTR_URL %}
             {% include 'flattr-loader.html' %}
         {% endif %}
-        {% if PAYPAL_KEY %}
-            {% include 'paypal.html' %}
-        {% endif %}
     {% endblock head %}
 </head>
 <body id="index" class="home">
@@ -44,6 +41,9 @@
             {% endfor %}
             {% if FLATTR_URL %}
                 <li>{% include 'flattr-button.html' %}</li>
+            {% endif %}
+            {% if PAYPAL_KEY %}
+                {% include 'paypal.html' %}
             {% endif %}
         </ul>
     </nav><!-- /#menu -->

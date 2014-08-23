@@ -161,6 +161,10 @@ ol {
     text-shadow: 0 0.2em 0.2em rgb(128, 230, 255);
 }
 
+#menu form {
+    display: inline;
+}
+
 /*
  * Blog post list
  */
