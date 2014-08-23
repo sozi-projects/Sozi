@@ -19,6 +19,9 @@
         {% if FLATTR_URL %}
             {% include 'flattr-loader.html' %}
         {% endif %}
+        {% if PAYPAL_KEY %}
+            {% include 'paypal.html' %}
+        {% endif %}
     {% endblock head %}
 </head>
 <body id="index" class="home">
