@@ -4,12 +4,6 @@ Lang: fr
 Status: hidden
 Author: Guillaume Savaton
 
-Title: Install Sozi on GNU/Linux
-Slug: install-linux
-Lang: en
-Status: hidden
-Author: Guillaume Savaton
-
 Distributions contenant Sozi
 ----------------------------
 
