@@ -10,10 +10,10 @@ Le site web de Sozi est un site statique généré avec [Pelican](http://blog.ge
 Il ne fournit pas d'éditeur en ligne où vous pourriez éditer, prévisualiser et publier vos contributions.
 
 Les fichiers source du site sont des fichiers texte utilisant la syntaxe [Markdown](http://daringfireball.net/projects/markdown/syntax).
-Ces fichiers sont hébergés dans le [dépôt GitHub de Sozi](https://github.com/senshu/Sozi), dans le répertoire [www/content/](https://github.com/senshu/Sozi/tree/master/www/content).
-Le répertoire [www/content/pages](https://github.com/senshu/Sozi/tree/master/www/content/pages) contient
+Ces fichiers sont hébergés dans le [dépôt GitHub de Sozi](https://github.com/senshu/Sozi), dans le dossier [www/content/](https://github.com/senshu/Sozi/tree/master/www/content).
+Le dossier [www/content/pages](https://github.com/senshu/Sozi/tree/master/www/content/pages) contient
 la documentation de Sozi.
-Il est divisé en sous-répertoires pour chaque langue (``en`` pour l'anglais, ``fr`` pour le français, etc.)
+Il est divisé en sous-dossiers pour chaque langue (``en`` pour l'anglais, ``fr`` pour le français, etc.)
 contenant les fichiers Markdown.
 
 Pour commencer à traduire, nous recommendons de suivre les étapes suivantes :
