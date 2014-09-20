@@ -5,8 +5,8 @@ Author: Guillaume Savaton
 Status: hidden
 
 PDF and video conversion tools are available in the
-[development branch](https://github.com/senshu/Sozi/tree/dev/tools)
-of the source repository.
+[source repository](https://github.com/senshu/Sozi/tree/dev/tools)
+of the project.
 These tools are Python scripts that can be run from the command line.
 They have been tested only on GNU/Linux.
 

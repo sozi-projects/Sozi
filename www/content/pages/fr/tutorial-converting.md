@@ -4,27 +4,27 @@ Lang: fr
 Author: Guillaume Savaton
 Status: hidden
 
-Les outis de conversion en PDF ou vidéo sont disponibles dans la
-[branche de développement](https://github.com/senshu/Sozi/tree/dev/tools)
-des sources.
+Les outis de conversion en PDF ou vidéo sont disponibles dans le
+[dépôt de code source](https://github.com/senshu/Sozi/tree/dev/tools)
+du projet.
 Ces outils sont des scripts Python utilisables en ligne de commande.
 Ils n'ont été testés que sous GNU/Linux.
 
 Convertir une présentation Sozi en PDF
 --------------------------------------
 
-Télécharger les scripts
+Téléchargez les scripts
 [sozi2pdf.py](https://github.com/senshu/Sozi/raw/dev/tools/sozi2pdf/sozi2pdf.py)
 et [sozi2pdf.js](https://github.com/senshu/Sozi/raw/dev/tools/sozi2pdf/sozi2pdf.js).
 Vous pouvez les installer où vous voulez, mais les deux scripts doivent être dans le même dossier.
 
-``sozi2pdf`` dépend des logiciels suivants:
+``sozi2pdf`` dépend des logiciels suivants :
 
 * [Python 2.7](http://python.org/download/)
 * [PhantomJS](http://phantomjs.org/)
 * [PDFjam](http://www2.warwick.ac.uk/fac/sci/statistics/staff/academic-research/firth/software/pdfjam), disponible dans la plupart des distributions GNU/Linux.
 
-Pour convertir une présentation en un document PDF de format A4, lancez les commandes suivantes:
+Pour convertir une présentation en un document PDF de format A4, lancez les commandes suivantes :
 
     :::sh
     python /path/to/sozi2pdf.py my_sozi_presentation.svg
@@ -32,14 +32,14 @@ Pour convertir une présentation en un document PDF de format A4, lancez les com
 Un nouveau document nommé ``my_sozi_presentation.pdf`` sera créé.
 
 Si vous ne voulez convertir que certains calques de votre document, vous pouvez utilier les options ``-include`` et ``--exclude``.
-Ces options acceptent une liste de numéros de calques séparés par des virgules:
+Ces options acceptent une liste de numéros de calques séparés par des virgules :
 
     :::sh
     python /path/to/sozi2pdf.py \
         --include=3,5,6,7,8,10,12,14,16,18 \
         my_sozi_presentation.svg
 
-De longues listes de numéros de calques peuvent être raccourcies à l'aide de deux points:
+De longues listes de numéros de calques peuvent être raccourcies à l'aide de deux points :
 
     :::sh
     python /path/to/sozi2pdf.py \
@@ -49,7 +49,7 @@ De longues listes de numéros de calques peuvent être raccourcies à l'aide de 
 * ``5:8`` correspont à ``5,6,7,8``
 * ``10:12:18`` correspond à ``10,12,14,16,18``
 
-Une liste complète des options est disponible via la commande suivante:
+Une liste complète des options est disponible via la commande suivante :
 
     :::sh
     python /path/to/sozi2pdf.py --help
@@ -85,7 +85,7 @@ Cet exemple crée une vidéo 720p en MP4.
         --width=1280 --height=720 \
         my_sozi_presentation.svg
 
-Une liste complète des options est disponible via la commande suivante:
+Une liste complète des options est disponible via la commande suivante :
 
     :::sh
     python /path/to/sozi2video.py --help
