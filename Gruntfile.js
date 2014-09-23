@@ -65,6 +65,7 @@ module.exports = function(grunt) {
                 "js/**/*",
                 "css/**/*",
                 "vendor/**/*",
+                "bower_components/**/*",
                 "<%= nunjucks.templates.dest %>"
             ]
         },
@@ -80,6 +81,7 @@ module.exports = function(grunt) {
                         "js",
                         "css",
                         "vendor",
+                        "bower_components",
                         "build"
                     ],
                     exclude: ["build/*"],

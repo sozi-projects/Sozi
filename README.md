@@ -29,25 +29,26 @@ or
     git checkout dev
 
 
-Dependencies
-------------
-
-* [Font Awesome](http://fortawesome.github.io/Font-Awesome/) ([download](http://fortawesome.github.io/Font-Awesome/assets/font-awesome-4.1.0.zip)) as `vendor/font-awesome/`
-* [jQuery](http://jquery.com/) ([download](http://code.jquery.com/jquery-2.1.1.min.js)) as `vendor/jquery.min.js`
-* [Notify.js](http://notifyjs.com/) ([download](http://notifyjs.com/dist/notify-combined.min.js) as `vendor/notify-combined.min.js`
-* [Nunjucks](http://mozilla.github.io/nunjucks/) ([download](http://mozilla.github.io/nunjucks/files/nunjucks-slim.js)) as `vendor/nunjucks-slim.js`
-* [Droid Sans](http://www.fontsquirrel.com/fonts/Droid-Sans) as `vendor/DroidSans/DroidSans.eot|ttf` and `vendor/DroidSans/DroidSans-Bold.eot|ttf`
-
 Install the build tools
 -----------------------
 
     sudo apt-get install nodejs
-    sudo npm install grunt-cli -g
+    sudo npm install bower grunt-cli -g
 
 From the root of the source tree:
 
     npm install
 
+Install the dependencies
+------------------------
+
+Most dependencies are installed as Bower components:
+
+    bower install
+
+Also install the following:
+
+* [Droid Sans](http://www.fontsquirrel.com/fonts/Droid-Sans) as `vendor/DroidSans/DroidSans.eot|ttf` and `vendor/DroidSans/DroidSans-Bold.eot|ttf`
 
 Build
 -----
