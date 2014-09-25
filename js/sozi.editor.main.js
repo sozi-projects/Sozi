@@ -82,21 +82,11 @@ window.addEventListener("load", function () {
     });
 
     function setupAutosave(backend, fileDescriptor) {
-        function doSave() {
+        backend.autosave(fileDescriptor, function () {
+            return JSON.stringify(presentation.toStorable());
+        });
+        backend.addListener("save", function () {
             $.notify("Saved", "info");
-            backend.save(fileDescriptor, JSON.stringify(presentation.toStorable()));
-        }
-
-        // Save the document every time the editor loses focus
-        $(window).blur(doSave);
-
-        // Save the document when the window closes
-//        gui.Window.get().on("close", function () {
-//            console.log("Closing");
-//            editor.off("blur", save);
-//            save(editor);
-//            stopWatching();
-//            this.close(true);
-//        });
+        });
     }
 }, false);

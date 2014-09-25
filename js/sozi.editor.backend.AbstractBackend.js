@@ -117,6 +117,13 @@ namespace("sozi.editor.backend", function (exports) {
         save: function (fileDescriptor, data) {
             // Not implemented
             this.fire("save", fileDescriptor, "Not implemented");
+        },
+
+        autosave: function (fileDescriptor, getData) {
+            var self = this;
+            $(window).blur(function () {
+                self.save(fileDescriptor, getData());
+            });
         }
     });
 });

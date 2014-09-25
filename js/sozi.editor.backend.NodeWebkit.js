@@ -1,12 +1,14 @@
 namespace("sozi.editor.backend", function (exports) {
     "use strict";
 
-    var gui, fs, path, cwd;
+    var gui, fs, path, cwd, win;
     
     if (namespace.global.require) {
         gui = require("nw.gui");
         fs = require("fs");
         path = require("path");
+
+        win = gui.Window.get();
 
         // Get the current working directory.
         // We use the PWD environment variable directly because
@@ -105,6 +107,17 @@ namespace("sozi.editor.backend", function (exports) {
         save: function (fileDescriptor, data) {
             var err = fs.writeFileSync(fileDescriptor, data, { encoding: "utf-8" });
             this.fire("save", fileDescriptor, err);
+        },
+
+        autosave: function (fileDescriptor, getData) {
+            var self = this;
+            win.on("close", function () {
+                self.save(fileDescriptor, getData());
+                this.close(true);
+            });
+            win.on("blur", function () {
+                self.save(fileDescriptor, getData());
+            });
         }
     });
 
