@@ -77,7 +77,7 @@ namespace("sozi.player", function (exports) {
          * Parameters:
          *    - svgElement: an element from the SVG DOM
          */
-        setAtElement: function (svgElement) {
+        setAtElement: function (svgElement, deltaX, deltaY, scaleFactor, deltaAngle) {
             // Read the raw bounding box of the given SVG element
             var b = svgElement.getBBox();
 
@@ -104,13 +104,23 @@ namespace("sozi.player", function (exports) {
 
             // Update the camera to match the bounding box information of the
             // given SVG element after its current transformation
-            this.cx     = c.x;
-            this.cy     = c.y;
-            this.width  = b.width  * scale;
-            this.height = b.height * scale;
-            this.angle  = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI;
+            this.cx     = c.x + deltaX;
+            this.cy     = c.y + deltaY;
+            this.width  = b.width  * scale * scaleFactor;
+            this.height = b.height * scale * scaleFactor;
+            this.angle  = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI + deltaAngle;
 
             return this;
+        },
+
+        offsetFromElement: function (svgElement) {
+            var cam = this.clone().setAtElement(svgElement, 0, 0, 1, 0);
+            return {
+                deltaX: this.cx - cam.cx,
+                deltaY: this.cy - cam.cy,
+                scaleFactor: this.width / cam.width,
+                deltaAngle: this.angle - cam.angle
+            };
         },
 
         interpolate: function (initialState, finalState, progress, relativeZoom, svgPath, reversePath) {
