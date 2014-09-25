@@ -34,6 +34,10 @@ namespace("sozi.model", function (exports) {
             return this.owner.layerProperties.indexOf(this);
         },
         
+        get referenceElement() {
+            return this.owner.owner.svgRoot.getElementById(this.referenceElementId);
+        },
+
         onChangeLink: function () {
             if (this.link) {
                 var frames = this.owner.owner.frames;
@@ -112,11 +116,21 @@ namespace("sozi.model", function (exports) {
         toStorable: function () {
             var layerProperties = {};
             var cameraStates = {};
+            var cameraOffsets = {};
+
             this.owner.layers.forEach(function (layer, index) {
+                var lp = this.layerProperties.at(index);
+                var cs = this.cameraStates.at(index);
+                var re = lp.referenceElement;
+
                 var key = layer.auto ? "__sozi_auto__" : layer.svgNodes.first.getAttribute("id");
-                layerProperties[key] = this.layerProperties.at(index).toStorable();
-                cameraStates[key] = this.cameraStates.at(index).toStorable();
+                layerProperties[key] = lp.toStorable();
+                cameraStates[key] = cs.toStorable();
+                if (re) {
+                    cameraOffsets[key] = this.cameraStates.at(index).offsetFromElement(re);
+                }
             }, this);
+
             return {
                 frameId: this.frameId,
                 title: this.title,
@@ -125,7 +139,8 @@ namespace("sozi.model", function (exports) {
                 transitionDurationMs: this.transitionDurationMs,
                 showInFrameList: this.showInFrameList,
                 layerProperties: layerProperties,
-                cameraStates: cameraStates
+                cameraStates: cameraStates,
+                cameraOffsets: cameraOffsets
             };
         },
         
@@ -141,8 +156,24 @@ namespace("sozi.model", function (exports) {
             this.owner.layers.forEach(function (layer, index) {
                 var key = layer.auto ? "__sozi_auto__" : layer.svgNodes.first.getAttribute("id");
                 if (key in obj.layerProperties) {
-                    this.layerProperties.at(index).fromStorable(obj.layerProperties[key]);
-                    this.cameraStates.at(index).fromStorable(obj.cameraStates[key]);
+                    var lp = this.layerProperties.at(index);
+                    lp.fromStorable(obj.layerProperties[key]);
+
+                    var cs = this.cameraStates.at(index);
+                    var re = lp.referenceElement;
+                    if (re) {
+                        var ofs = obj.cameraOffsets || {};
+                        cs.setAtElement(re,
+                                        ofs.deltaX || 0,
+                                        ofs.deltaY || 0,
+                                        ofs.scaleFactor || 1,
+                                        ofs.deltaAngle || 0);
+                        // TODO compare current camera state with stored camera state.
+                        // If different, mark the current layer as "dirty".
+                    }
+                    else {
+                        cs.fromStorable(obj.cameraStates[key]);
+                    }
                 }
                 // TODO else, link to "auto" layer
             }, this);
