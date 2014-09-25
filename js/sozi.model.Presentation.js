@@ -162,7 +162,7 @@ namespace("sozi.model", function (exports) {
                     var cs = this.cameraStates.at(index);
                     var re = lp.referenceElement;
                     if (re) {
-                        var ofs = obj.cameraOffsets || {};
+                        var ofs = obj.cameraOffsets[key] || {};
                         cs.setAtElement(re,
                                         ofs.deltaX || 0,
                                         ofs.deltaY || 0,

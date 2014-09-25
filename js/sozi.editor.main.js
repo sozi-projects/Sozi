@@ -9,7 +9,6 @@ window.addEventListener("load", function () {
     sozi.editor.view.Properties.init(presentation, selection);
     
     var svgFileDescriptor;
-    var jsonFileDescriptor;
     
     sozi.editor.backend.list.forEach(function (backend) {
         var listItem = $("<li></li>");
@@ -45,8 +44,9 @@ window.addEventListener("load", function () {
                                     }
                                     
                                     backend.create(jsonName, location, "application/json", JSON.stringify(presentation.toStorable()), function (fileDescriptor) {
-                                        jsonFileDescriptor = fileDescriptor;
+                                        setupAutosave(backend, fileDescriptor);
                                     });
+
                                 }
                             });
                         }
@@ -67,6 +67,8 @@ window.addEventListener("load", function () {
                         if (presentation.frames.length) {
                             selection.selectedFrames.push(presentation.frames.first);
                         }
+
+                        setupAutosave(backend, fileDescriptor);
                     }
                 }
             })
@@ -78,4 +80,23 @@ window.addEventListener("load", function () {
             })
             .init(listItem);
     });
+
+    function setupAutosave(backend, fileDescriptor) {
+        function doSave() {
+            $.notify("Saved", "info");
+            backend.save(fileDescriptor, JSON.stringify(presentation.toStorable()));
+        }
+
+        // Save the document every time the editor loses focus
+        $(window).blur(doSave);
+
+        // Save the document when the window closes
+//        gui.Window.get().on("close", function () {
+//            console.log("Closing");
+//            editor.off("blur", save);
+//            save(editor);
+//            stopWatching();
+//            this.close(true);
+//        });
+    }
 }, false);
