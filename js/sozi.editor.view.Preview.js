@@ -90,13 +90,13 @@ namespace("sozi.editor.view", function (exports) {
                         
                         // Mark the modified layers as unlinked in the current frame
                         frame.layerProperties.at(cameraIndex).link = false;
+
+                        // TODO choose reference SVG element for frame
+                        camera.getCandidateReferenceElement();
                     }
                 }, this);
                 this.userChange = false;
             }
-            // TODO choose reference SVG element for frame
-            // getIntersectionList(SVGRect, SVGElement)
-            // getEnclosureList(SVGRect, SVGElement)
         }
     });
 });

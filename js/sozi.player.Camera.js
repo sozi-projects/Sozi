@@ -248,6 +248,62 @@ namespace("sozi.player", function (exports) {
             return this.update();
         },
 
+        getCandidateReferenceElement: function () {
+            // Get all elements that intersect with the viewport.
+            var viewportRect = this.svgRoot.createSVGRect();
+            viewportRect.x = 0;
+            viewportRect.y = 0;
+            viewportRect.width = this.owner.width;
+            viewportRect.height = this.owner.height;
+            var viewportArea = this.owner.width * this.owner.height;
+
+            var intersectionList = this.svgRoot.getIntersectionList(viewportRect, null);
+
+            // Find the element which bounding box best fits in the viewport.
+            var bestScore = -1;
+            var result;
+
+            for (var i = 0; i < intersectionList.length; i ++) {
+                var elt = intersectionList[i];
+                if (elt.hasAttribute("id")) {
+                    // Compute the current element's bounding box
+                    var eltRect = elt.getBBox();
+                    var eltCTM = elt.getScreenCTM();
+
+                    var topLeft = this.svgRoot.createSVGPoint();
+                    topLeft.x = eltRect.x;
+                    topLeft.y = eltRect.y;
+                    topLeft = topLeft.matrixTransform(eltCTM);
+
+                    var bottomRight = this.svgRoot.createSVGPoint();
+                    bottomRight.x = eltRect.x + eltRect.width;
+                    bottomRight.y = eltRect.y + eltRect.height;
+                    bottomRight = bottomRight.matrixTransform(eltCTM);
+
+                    var eltArea = (bottomRight.x - topLeft.x) * (bottomRight.y - topLeft.y);
+
+                    // Compute the intersection of the element'b bounding
+                    // box with the current viewport.
+                    topLeft.x = Math.max(topLeft.x, this.owner.x);
+                    topLeft.y = Math.max(topLeft.y, this.owner.y);
+                    bottomRight.x = Math.min(bottomRight.x, this.owner.x + this.owner.width);
+                    bottomRight.y = Math.min(bottomRight.y, this.owner.y + this.owner.height);
+
+                    var intersectArea = (bottomRight.x - topLeft.x) * (bottomRight.y - topLeft.y);
+
+                    // An element is selected if it has the biggest intersect area
+                    // and the smallest area outside the intersection.
+                    var eltScore = viewportArea + eltArea - 2 * intersectArea;
+                    if (bestScore < 0 || eltScore < bestScore) {
+                        bestScore = eltScore;
+                        result = elt;
+                    }
+                }
+            }
+
+            return result;
+        },
+
         update: function () {
             var scale = this.scale;
 
