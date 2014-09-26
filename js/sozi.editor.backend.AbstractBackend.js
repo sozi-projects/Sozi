@@ -119,6 +119,16 @@ namespace("sozi.editor.backend", function (exports) {
             this.fire("save", fileDescriptor, "Not implemented");
         },
 
+        /*
+         * Start autosaving the given file.
+         *
+         * Typically, we want to save each time the editor loses focus
+         * and when the editor closes.
+         *
+         * Parameters:
+         *  - fileDescriptor (backend-dependent)
+         *  - getData (function) A function that returns the data to save.
+         */
         autosave: function (fileDescriptor, getData) {
             var self = this;
             $(window).blur(function () {
