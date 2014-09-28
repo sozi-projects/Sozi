@@ -84,15 +84,21 @@ namespace("sozi.editor.view", function (exports) {
                 this.cameras.forEach(function (camera) {
                     if (camera.selected) {
                         var cameraIndex = this.cameras.indexOf(camera);
+                        var layerProperties = frame.layerProperties.at(cameraIndex);
                         
                         // Update the camera states of the current frame
                         frame.cameraStates.at(cameraIndex).copy(camera);
                         
                         // Mark the modified layers as unlinked in the current frame
-                        frame.layerProperties.at(cameraIndex).link = false;
+                        layerProperties.link = false;
 
                         // TODO choose reference SVG element for frame
-                        camera.getCandidateReferenceElement();
+                        if (layerProperties.referenceElementAuto) {
+                            var refElt = camera.getCandidateReferenceElement();
+                            if (refElt) {
+                                layerProperties.referenceElementId = refElt.getAttribute("id");
+                            }
+                        }
                     }
                 }, this);
                 this.userChange = false;

@@ -150,6 +150,7 @@ namespace("sozi.model", function (exports) {
                 var layerProperties = frame.layerProperties.at(layerIndex);
                 layerProperties.clip = importAttribute(layerElt, soziPrefix + "clip", refLayerProperties.clip, parseBoolean);
                 layerProperties.referenceElementId = importAttribute(layerElt, soziPrefix + "refid", refLayerProperties.referenceElementId);
+                layerProperties.referenceElementAuto = false;
                 layerProperties.referenceElementHide = importAttribute(layerElt, soziPrefix + "hide", refLayerProperties.referenceElementHide, parseBoolean);
                 layerProperties.transitionTimingFunction = importAttribute(layerElt, soziPrefix + "transition-profile", refLayerProperties.transitionTimingFunction, convertTimingFunction);
                 layerProperties.transitionRelativeZoom = importAttribute(layerElt, soziPrefix + "transition-zoom-percent", refLayerProperties.transitionRelativeZoom, function (z) { return parseFloat(z) / 100; });

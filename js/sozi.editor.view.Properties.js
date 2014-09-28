@@ -154,6 +154,7 @@ namespace("sozi.editor.view", function (exports) {
                 Field.clone().init(selection, "layer-link", "link"),
                 Field.clone().init(selection, "layer-clip", "clip"),
                 StringField.clone().init(selection, "layer-reference-id", "referenceElementId", true),
+                Field.clone().init(selection, "layer-reference-auto", "referenceElementAuto"),
                 Field.clone().init(selection, "layer-reference-hide", "referenceElementHide"),
                 StringField.clone().init(selection, "layer-transition-timing-function", "transitionTimingFunction", false),
                 NumericField.clone().init(selection, "layer-transition-relative-zoom", "transitionRelativeZoom", null, null, 0.01),
@@ -161,8 +162,8 @@ namespace("sozi.editor.view", function (exports) {
                 Field.clone().init(selection, "layer-transition-path-hide", "transitionPathHide")
             );
 
-            // TODO on selection change, listen to frame change
             selection.addListener("change", this.render, this);
+            pres.frames.addListener("add", this.onAddFrame, this);
             
             return this;
         },
@@ -171,6 +172,18 @@ namespace("sozi.editor.view", function (exports) {
             this.fields.forEach(function (field) {
                 field.render();
             });
+        },
+
+        onAddFrame: function (collection, frame) {
+            frame.addListener("change", this.render, this);
+            frame.layerProperties.addListener("add", this.onAddLayer, this);
+            frame.layerProperties.forEach(function (layer) {
+                this.onAddLayer(frame.layerProperties, layer);
+            }, this);
+        },
+
+        onAddLayer: function (collection, layer) {
+            layer.addListener("change", this.render, this);
         }
     });
 });
