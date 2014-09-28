@@ -162,6 +162,19 @@ namespace("sozi.editor.view", function (exports) {
                 Field.clone().init(selection, "layer-transition-path-hide", "transitionPathHide")
             );
 
+            $("#layer-reference-id-fit").click(function () {
+                var frame = selection.currentFrame;
+                if (frame) {
+                    selection.selectedLayers.forEach(function (layer, layerIndex) {
+                        var id = frame.layerProperties.at(layerIndex).referenceElementId;
+                        var elt = pres.svgRoot.getElementById(id);
+                        if (elt) {
+                            frame.cameraStates.at(layerIndex).setAtElement(elt, 0, 0, 1, 0);
+                        }
+                    });
+                }
+            });
+
             selection.addListener("change", this.render, this);
             pres.frames.addListener("add", this.onAddFrame, this);
             
