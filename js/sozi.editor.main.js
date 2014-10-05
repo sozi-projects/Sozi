@@ -9,7 +9,16 @@ window.addEventListener("load", function () {
     sozi.editor.view.Properties.init(presentation, selection);
     
     var svgFileDescriptor;
-    
+
+    function htmlGenerator(svgData) {
+        return function () {
+            return nunjucks.render("templates/sozi.export.html", {
+                svg: svgData,
+                pres: presentation
+            });
+        };
+    }
+
     sozi.editor.backend.list.forEach(function (backend) {
         var listItem = $("<li></li>");
         $("#sozi-editor-view-preview ul").append(listItem);
@@ -17,6 +26,7 @@ window.addEventListener("load", function () {
             .addListener("load", function (backend, fileDescriptor, data, err) {
                 var name = backend.getName(fileDescriptor);
                 var location = backend.getLocation(fileDescriptor);
+
                 if (/\.svg$/.test(name)) {
                     if (!err) {
                         // Find the SVG root and check that the loaded document is valid SVG.
@@ -26,6 +36,7 @@ window.addEventListener("load", function () {
                             presentation.init(svgRoot);
                             
                             var jsonName = name.replace(/\.svg$/, ".sozi.json");
+
                             backend.find(jsonName, location, function (fileDescriptor) {
                                 if (fileDescriptor) {
                                     backend.load(fileDescriptor);
@@ -46,8 +57,19 @@ window.addEventListener("load", function () {
                                     backend.create(jsonName, location, "application/json", JSON.stringify(presentation.toStorable()), function (fileDescriptor) {
                                         setupAutosave(backend, fileDescriptor);
                                     });
-
                                 }
+                            });
+
+                            // Always create an exported SVG file and set autosave
+                            var htmlName = name.replace(/\.svg$/, ".sozi.html");
+                            var htmlExporter = htmlGenerator(data);
+
+                            backend.create(htmlName, location, "text/html", htmlExporter(), function (fileDescriptor) {
+                                backend.autosave(fileDescriptor, htmlExporter);
+                            });
+
+                            backend.addListener("save", function (backend, fileDescriptor) {
+                                $.notify("Saved " + backend.getName(fileDescriptor), "info");
                             });
                         }
                         else {
@@ -84,9 +106,6 @@ window.addEventListener("load", function () {
     function setupAutosave(backend, fileDescriptor) {
         backend.autosave(fileDescriptor, function () {
             return JSON.stringify(presentation.toStorable());
-        });
-        backend.addListener("save", function () {
-            $.notify("Saved", "info");
         });
     }
 }, false);
