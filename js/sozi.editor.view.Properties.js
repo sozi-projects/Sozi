@@ -165,7 +165,8 @@ namespace("sozi.editor.view", function (exports) {
             $("#layer-reference-id-fit").click(function () {
                 var frame = selection.currentFrame;
                 if (frame) {
-                    selection.selectedLayers.forEach(function (layer, layerIndex) {
+                    selection.selectedLayers.forEach(function (layer) {
+                        var layerIndex = layer.index;
                         var id = frame.layerProperties.at(layerIndex).referenceElementId;
                         var elt = pres.svgRoot.getElementById(id);
                         if (elt) {
