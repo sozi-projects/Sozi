@@ -8,11 +8,23 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-compress");
     grunt.loadNpmTasks("grunt-rsync");
     grunt.loadNpmTasks('grunt-simple-mocha');
+    grunt.loadNpmTasks('grunt-modify-json');
     
     var version = grunt.template.today("yy.mm.ddHHMM");
 
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
+
+        modify_json: {
+            options: {
+                fields: {
+                    version: version
+                }
+            },
+            all: [
+                "package.json"
+            ]
+        },
 
         jshint: {
             options: {
@@ -137,5 +149,5 @@ module.exports = function(grunt) {
     }
 
     grunt.registerTask("lint", ["jshint", "csslint"]);
-    grunt.registerTask("default", ["nunjucks", "nodewebkit", "compress"]);
+    grunt.registerTask("default", ["modify_json", "nunjucks", "nodewebkit", "compress"]);
 };
