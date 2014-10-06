@@ -314,6 +314,11 @@ namespace("sozi.model", function (exports) {
             return this;
         },
 
+        get title() {
+            var svgTitles = this.svgRoot.getElementsByTagNameNS(SVG_NS, "title");
+            return svgTitles.length ? svgTitles[0].firstChild.wholeText.trim() : "Untitled";
+        },
+
         makeFrameId: function () {
             var prefix = "frame";
             var suffix = Math.floor(1000 * (1 + 9 * Math.random()));

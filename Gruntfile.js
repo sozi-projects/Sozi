@@ -149,5 +149,6 @@ module.exports = function(grunt) {
     }
 
     grunt.registerTask("lint", ["jshint", "csslint"]);
-    grunt.registerTask("default", ["modify_json", "nunjucks", "nodewebkit", "compress"]);
+    grunt.registerTask("build", ["modify_json", "nunjucks"]);
+    grunt.registerTask("default", ["build", "nodewebkit", "compress"]);
 };

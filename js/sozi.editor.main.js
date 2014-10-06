@@ -34,6 +34,7 @@ window.addEventListener("load", function () {
                         if (svgRoot instanceof SVGSVGElement) {
                             svgFileDescriptor = fileDescriptor;
                             presentation.init(svgRoot);
+                            $("html head title").text(presentation.title);
                             
                             var jsonName = name.replace(/\.svg$/, ".sozi.json");
 
