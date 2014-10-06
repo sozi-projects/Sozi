@@ -15,7 +15,6 @@
 
                 var presentation = sozi.model.Presentation.init(document.querySelector("svg"));
                 var viewport = sozi.player.Viewport.init(presentation);
-                var json = document.querySelector("script[type='application/json")
                 presentation.fromStorable({{ pres.toJSON() }});
             });
         </script>
