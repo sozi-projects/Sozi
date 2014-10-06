@@ -348,6 +348,14 @@ namespace("sozi.model", function (exports) {
                 frame.fromStorable(f);
             }, this);
             return this;
+        },
+
+        toJSON: function () {
+            return JSON.stringify(this.toStorable());
+        },
+
+        fromJSON: function (json) {
+            return this.fromStorable(JSON.parse(json));
         }
     });
 });

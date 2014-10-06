@@ -40,7 +40,7 @@ window.addEventListener("load", function () {
                     selection.selectedFrames.push(presentation.frames.first);
                 }
 
-                backend.create(name, location, "application/json", JSON.stringify(presentation.toStorable()), function (fileDescriptor) {
+                backend.create(name, location, "application/json", presentation.toJSON(), function (fileDescriptor) {
                     autosaveJSON(backend, fileDescriptor);
                 });
             }
@@ -49,7 +49,7 @@ window.addEventListener("load", function () {
 
     function autosaveJSON(backend, fileDescriptor) {
         backend.autosave(fileDescriptor, function () {
-            return JSON.stringify(presentation.toStorable());
+            return presentation.toJSON();
         });
     }
 
@@ -89,7 +89,7 @@ window.addEventListener("load", function () {
                 }
                 else if (/\.sozi\.json$/.test(name)) {
                     // Load presentation data from JSON file.
-                    presentation.fromStorable(JSON.parse(data));
+                    presentation.fromJSON(data);
 
                     // Select the first frame
                     if (presentation.frames.length) {
