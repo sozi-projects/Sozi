@@ -55,7 +55,7 @@ window.addEventListener("load", function () {
 
     function createHTML(backend, name, location, data) {
         function exportHTML() {
-            return nunjucks.render("templates/sozi.export.html", {
+            return nunjucks.render("build/templates/sozi.player.html", {
                 svg: data,
                 pres: presentation
             });

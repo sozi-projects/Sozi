@@ -1,3 +1,4 @@
+{% raw %}
 <!doctype html>
 <html>
     <head>
@@ -6,9 +7,9 @@
     </head>
     <body>
         {{ svg }}
-        <script>
-            {{ playerJs }}
-        </script>
+{% endraw %}
+        <script>{{ playerJs }}</script>
+{% raw %}
         <script>
             window.addEventListener("load", function () {
                 "use strict";
@@ -20,3 +21,4 @@
         </script>
     </body>
 </html>
+{% endraw %}
