@@ -179,6 +179,8 @@ namespace("sozi.editor.view", function (exports) {
             selection.addListener("change", this.render, this);
             pres.frames.addListener("add", this.onAddFrame, this);
             
+            this.render();
+
             return this;
         },
 

@@ -45,17 +45,26 @@ namespace("sozi.player", function (exports) {
         init: function (pres) {
             this.presentation = pres;
 
-            // Setup mouse and keyboard event handlers
+            // Setup mouse and keyboard event handlers.
             this.dragHandler = this.bind(this.onDrag);
             this.dragEndHandler = this.bind(this.onDragEnd);
 
+            // Setup model event handlers.
             pres.addListener("change:svgRoot", this.onChangeSVGRoot, this);
             pres.layers.addListener("add", this.onAddLayer, this);
             pres.layers.addListener("remove", this.onRemoveLayer, this);
             
+            // If the presentation has already been initialized,
+            // register its SVG root.
             if (pres.svgRoot) {
                 this.onChangeSVGRoot();
             }
+
+            // If the presentation has already been initialized,
+            // register its layers.
+            pres.layers.forEach(function (layer) {
+                this.onAddLayer(pres.layers, layer);
+            }, this);
 
             return this;
         },

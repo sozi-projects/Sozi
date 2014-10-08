@@ -35,12 +35,14 @@ window.addEventListener("load", function () {
             obsoleteSoziScript.parentNode.removeChild(obsoleteSoziScript);
         }
 
+        var result = div.innerHTML;
+
         // Add the SVG root to the editor view
         $("#sozi-editor-view-preview").html(svgRoot);
         presentation.init(svgRoot);
         $("html head title").text(presentation.title);
 
-        return svgRoot.cloneNode(true);
+        return result;
     }
 
     function loadJSON(backend, name, location) {
@@ -74,9 +76,9 @@ window.addEventListener("load", function () {
         });
     }
 
-    function createHTML(backend, name, location, fragment) {
+    function createHTML(backend, name, location, svg) {
         var context = {
-            svg: new XMLSerializer().serializeToString(fragment),
+            svg: svg,
             pres: presentation
         };
         function exportHTML() {
@@ -99,15 +101,17 @@ window.addEventListener("load", function () {
                     $.notify("File " + name + " could not be loaded.", "error");
                 }
                 else if (/\.svg$/.test(name)) {
-                    svgFileDescriptor = fileDescriptor;
+                    var svg = loadSVG(data);
+                    if (svg) {
+                        svgFileDescriptor = fileDescriptor;
 
-                    var fragment = loadSVG(data);
-                    loadJSON(backend, name.replace(/\.svg$/, ".sozi.json"), location);
-                    createHTML(backend, name.replace(/\.svg$/, ".sozi.html"), location, fragment);
+                        loadJSON(backend, name.replace(/\.svg$/, ".sozi.json"), location);
+                        createHTML(backend, name.replace(/\.svg$/, ".sozi.html"), location, svg);
 
-                    backend.addListener("save", function (backend, fileDescriptor) {
-                        $.notify("Saved " + backend.getName(fileDescriptor), "info");
-                    });
+                        backend.addListener("save", function (backend, fileDescriptor) {
+                            $.notify("Saved " + backend.getName(fileDescriptor), "info");
+                        });
+                    }
                 }
                 else if (/\.sozi\.json$/.test(name)) {
                     // Load presentation data from JSON file.

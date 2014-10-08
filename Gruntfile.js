@@ -69,6 +69,10 @@ module.exports = function(grunt) {
          * Compress the JavaScript code of the Sozi player.
          */
         uglify: {
+            options: {
+//                mangle: false,
+//                beautify: true
+            },
             player: {
                 src: [
                     "js/namespace.js",
