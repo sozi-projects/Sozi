@@ -14,9 +14,16 @@
             window.addEventListener("load", function () {
                 "use strict";
 
-                var presentation = sozi.model.Presentation.init(document.querySelector("svg"));
+                var presentation = sozi.model.Presentation;
                 var viewport = sozi.player.Viewport.init(presentation);
+                presentation.init(document.querySelector("svg"));
                 presentation.fromStorable({{ pres.toJSON() }});
+
+                // Show the first frame.
+                // TODO move this to the player controller
+                if (presentation.frames.length) {
+                    viewport.setAtStates(presentation.frames.at(0).cameraStates);
+                }
             });
         </script>
     </body>

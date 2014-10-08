@@ -1,7 +1,9 @@
 module.exports = function(grunt) {
     "use strict";
 
-    var nunjucks = require('nunjucks');
+    var nunjucks = require("nunjucks");
+    //var process = require("process");
+    var path = require("path");
 
     grunt.loadNpmTasks("grunt-nunjucks");
     grunt.loadNpmTasks("grunt-contrib-jshint");
