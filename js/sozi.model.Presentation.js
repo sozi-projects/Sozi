@@ -17,7 +17,6 @@ namespace("sozi.model", function (exports) {
     var LayerProperties = sozi.model.Object.clone({
         // TODO define default properties separately
         link: true,
-        clip: true,
         referenceElementId: "",
         referenceElementAuto: true,
         referenceElementHide: false,
@@ -68,14 +67,14 @@ namespace("sozi.model", function (exports) {
         
         onChangeReferenceElementHide: function (self, value) {
             if (this.referenceElement) {
-                // TODO: make it visible if it is visible in all frames and all layers
+                // TODO: update visibility in other frames and layers
                 this.referenceElement.style.visibility = value ? "hidden" : "visible";
             }
         },
 
         onChangeTransitionPathHide: function (self, value) {
             if (this.transitionPath) {
-                // TODO: make it visible if it is visible in all frames and all layers
+                // TODO: update visibility in other frames and layers
                 this.transitionPath.style.visibility = value ? "hidden" : "visible";
             }
         },
@@ -83,7 +82,6 @@ namespace("sozi.model", function (exports) {
         toStorable: function () {
             return {
                 link: this.link,
-                clip: this.clip,
                 referenceElementId: this.referenceElementId,
                 referenceElementAuto: this.referenceElementAuto,
                 referenceElementHide: this.referenceElementHide,
@@ -181,7 +179,7 @@ namespace("sozi.model", function (exports) {
                     var lp = this.layerProperties.at(index);
                     lp.fromStorable(obj.layerProperties[key]);
 
-                    var cs = this.cameraStates.at(index);
+                    var cs = this.cameraStates.at(index).fromStorable(obj.cameraStates[key]);
                     var re = lp.referenceElement;
                     if (re) {
                         var ofs = obj.cameraOffsets[key] || {};
@@ -192,9 +190,6 @@ namespace("sozi.model", function (exports) {
                                         ofs.deltaAngle || 0);
                         // TODO compare current camera state with stored camera state.
                         // If different, mark the current layer as "dirty".
-                    }
-                    else {
-                        cs.fromStorable(obj.cameraStates[key]);
                     }
                 }
                 // TODO else, link to "auto" layer

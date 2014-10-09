@@ -34,8 +34,10 @@
                     player.playFromIndex(0);
                 }
 
-                viewport.addListener("click", function () {
-                    player.moveToNext();
+                viewport.addListener("click", function (viewport, button) {
+                    if (button === 0) {
+                        player.moveToNext();
+                    }
                 });
 
                 window.addEventListener('resize', function() {

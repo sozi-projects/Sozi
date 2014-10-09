@@ -147,8 +147,10 @@ namespace("sozi.model", function (exports) {
                 }
 
                 var refLayerProperties = refFrame.layerProperties.at(layerIndex);
+                var refCameraState = refFrame.cameraStates.at(layerIndex);
                 var layerProperties = frame.layerProperties.at(layerIndex);
-                layerProperties.clip = importAttribute(layerElt, soziPrefix + "clip", refLayerProperties.clip, parseBoolean);
+                var cameraState = frame.cameraStates.at(layerIndex);
+                cameraState.clipped = importAttribute(layerElt, soziPrefix + "clip", refCameraState.clipped, parseBoolean);
                 layerProperties.referenceElementId = importAttribute(layerElt, soziPrefix + "refid", refLayerProperties.referenceElementId);
                 layerProperties.referenceElementAuto = false;
                 layerProperties.referenceElementHide = importAttribute(layerElt, soziPrefix + "hide", refLayerProperties.referenceElementHide, parseBoolean);

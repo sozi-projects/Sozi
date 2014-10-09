@@ -4,12 +4,16 @@ namespace("sozi.editor.view", function (exports) {
     var Field = sozi.model.Object.clone({
         element: null,
         isFrameField: false,
+        isLayerField: false,
+        isCameraField: false,
         propertyName: "",
         selection: null,
         
         init: function (selection, elementId, propertyName) {
             this.element = $("#sozi-editor-view-properties #" + elementId);
             this.isFrameField = /^frame/.test(elementId);
+            this.isLayerField = /^layer/.test(elementId);
+            this.isCameraField = /^camera/.test(elementId);
             this.propertyName = propertyName;
             this.selection = selection;
 
@@ -31,8 +35,9 @@ namespace("sozi.editor.view", function (exports) {
                         frame[this.propertyName] = this.convertFromField(value);
                     }
                     else {
+                        var obj = this.isLayerField ? frame.layerProperties : frame.cameraStates;
                         this.selection.selectedLayers.forEach(function (layer) {
-                            frame.layerProperties.at(layer.index)[this.propertyName] = this.convertFromField(value);
+                            obj.at(layer.index)[this.propertyName] = this.convertFromField(value);
                         }, this);
                     }
                 }, this);
@@ -58,8 +63,9 @@ namespace("sozi.editor.view", function (exports) {
                     }
                 }
                 else {
+                    var obj = this.isLayerField ? frame.layerProperties : frame.cameraStates;
                     this.selection.selectedLayers.forEach(function (layer, layerIndex) {
-                        var current = frame.layerProperties.at(layer.index)[this.propertyName];
+                        var current = obj.at(layer.index)[this.propertyName];
                         if (!frameIndex && !layerIndex) {
                             value = current;
                         }
@@ -152,7 +158,7 @@ namespace("sozi.editor.view", function (exports) {
                 Field.clone().init(selection, "frame-timeout-enable", "timeoutEnable"),
                 NumericField.clone().init(selection, "frame-transition-duration", "transitionDurationMs", 0, null, 1000),
                 Field.clone().init(selection, "layer-link", "link"),
-                Field.clone().init(selection, "layer-clip", "clip"),
+                Field.clone().init(selection, "camera-clipped", "clipped"),
                 StringField.clone().init(selection, "layer-reference-id", "referenceElementId", true),
                 Field.clone().init(selection, "layer-reference-auto", "referenceElementAuto"),
                 Field.clone().init(selection, "layer-reference-hide", "referenceElementHide"),
