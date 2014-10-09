@@ -20,14 +20,16 @@ namespace("sozi.model", function (exports) {
         clip: true,
         referenceElementId: "",
         referenceElementAuto: true,
-        referenceElementHide: true,
+        referenceElementHide: false,
         transitionTimingFunction: "linear",
         transitionRelativeZoom: 0,
         transitionPathId: "",
-        transitionPathHide: true,
+        transitionPathHide: false,
         
         init: function () {
             this.addListener("change:link", this.onChangeLink, this);
+            this.addListener("change:referenceElementHide", this.onChangeReferenceElementHide, this);
+            this.addListener("change:transitionPathHide", this.onChangeTransitionPathHide, this);
             return this;
         },
         
@@ -64,6 +66,20 @@ namespace("sozi.model", function (exports) {
             }
         },
         
+        onChangeReferenceElementHide: function (self, value) {
+            if (this.referenceElement) {
+                // TODO: make it visible if it is visible in all frames and all layers
+                this.referenceElement.style.visibility = value ? "hidden" : "visible";
+            }
+        },
+
+        onChangeTransitionPathHide: function (self, value) {
+            if (this.transitionPath) {
+                // TODO: make it visible if it is visible in all frames and all layers
+                this.transitionPath.style.visibility = value ? "hidden" : "visible";
+            }
+        },
+
         toStorable: function () {
             return {
                 link: this.link,
