@@ -81,7 +81,7 @@ namespace("sozi.player", function (exports) {
         
         onChangeSVGRoot: function () {
             this.svgRoot.addEventListener("mousedown", this.bind(this.onMouseDown), false);
-            this.svgRoot.addEventListener("keypress", this.bind(this.onKeyPress), false);
+            this.svgRoot.addEventListener("contextmenu", this.bind(this.onContextMenu), false);
             
             var wheelEvent =
                 "onwheel" in document.createElement("div") ? "wheel" :  // Modern browsers support "wheel"
@@ -116,6 +116,12 @@ namespace("sozi.player", function (exports) {
             })[0];
         },
 
+        onContextMenu: function (evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            this.fire("click", 2);
+        },
+
         /*
          * Event handler: mouse down.
          *
@@ -129,9 +135,10 @@ namespace("sozi.player", function (exports) {
          *    - mouseDown(button)
          */
         onMouseDown: function (evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+
             if (evt.button === DRAG_BUTTON) {
-                evt.stopPropagation();
-                evt.preventDefault();
 
                 this.mouseDragged = false;
                 this.mouseLastX = evt.clientX;
@@ -152,6 +159,8 @@ namespace("sozi.player", function (exports) {
          *
          * Fires:
          *    - dragStart
+         *
+         * TODO drag horizontally/vertically when Shift key is pressed
          */
         onDrag: function (evt) {
             evt.stopPropagation();
@@ -185,10 +194,10 @@ namespace("sozi.player", function (exports) {
          *    - click(button)
          */
         onDragEnd: function (evt) {
-            if (evt.button === DRAG_BUTTON) {
-                evt.stopPropagation();
-                evt.preventDefault();
+            evt.stopPropagation();
+            evt.preventDefault();
 
+            if (evt.button === DRAG_BUTTON) {
                 if (this.mouseDragged) {
                     this.fire("dragEnd");
                     this.fire("userChangeState");
@@ -243,43 +252,6 @@ namespace("sozi.player", function (exports) {
                     this.zoom(delta > 0 ? SCALE_FACTOR : 1/SCALE_FACTOR, evt.clientX - this.x, evt.clientY - this.y);
                 }
             }
-        },
-
-        /**
-         * Event handler: key press.
-         *
-         * This method handles character keys:
-         *    - "+", "-": zoom in/out
-         *    - "R", "r": rotate clockwise/counter-clockwise.
-         *
-         * Parameters:
-         *    - evt: The DOM event object
-         */
-        onKeyPress: function (evt) {
-            // Keys with modifiers are ignored
-            if (evt.altKey || evt.ctrlKey || evt.metaKey) {
-                return;
-            }
-
-            switch (evt.charCode || evt.which) {
-                case 43: // +
-                    this.zoom(SCALE_FACTOR, this.width / 2, this.height / 2);
-                    break;
-                case 45: // -
-                    this.zoom(1 / SCALE_FACTOR, this.width / 2, this.height / 2);
-                    break;
-                case 82: // R
-                    this.rotate(-ROTATE_STEP);
-                    break;
-                case 114: // r
-                    this.rotate(ROTATE_STEP);
-                    break;
-                default:
-                    return;
-            }
-
-            evt.stopPropagation();
-            evt.preventDefault();
         },
 
         /*

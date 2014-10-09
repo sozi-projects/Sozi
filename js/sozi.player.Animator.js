@@ -146,6 +146,7 @@ namespace("sozi.player", function (exports) {
             if (this.running) {
                 this.running = false;
                 runningAnimators --;
+                this.fire("done");
             }
         },
 
@@ -161,7 +162,6 @@ namespace("sozi.player", function (exports) {
             if (elapsedTime >= this.durationMs) {
                 this.fire("step", 1);
                 this.stop();
-                this.fire("done");
             } else {
                 this.fire("step", elapsedTime / this.durationMs);
             }

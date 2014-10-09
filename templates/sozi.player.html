@@ -34,9 +34,13 @@
                     player.playFromIndex(0);
                 }
 
-                viewport.addListener("click", function (viewport, button) {
-                    if (button === 0) {
-                        player.moveToNext();
+                player.addListener("change:playing", function (player, playing) {
+                    console.log(playing);
+                    if (playing) {
+                        document.title = presentation.title;
+                    }
+                    else {
+                        document.title = presentation.title + "(Paused)";
                     }
                 });
 
