@@ -81,7 +81,8 @@ module.exports = function(grunt) {
                     "js/sozi.player.Camera.js",
                     "js/sozi.player.Viewport.js",
                     "js/sozi.player.timing.js",
-                    "js/sozi.player.Animator.js"
+                    "js/sozi.player.Animator.js",
+                    "js/sozi.player.Player.js"
                 ],
                 dest: "build/player/sozi.player.min.js"
             }
