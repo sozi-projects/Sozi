@@ -110,9 +110,6 @@ namespace("sozi.player", function (exports) {
         // The animation duration, in milliseconds.
         durationMs: 500,
 
-        // The animation timing function.
-        timingFunction: exports.timing.linear,
-        
         // The start time of the animation.
         initialTime: 0,
 
@@ -129,9 +126,8 @@ namespace("sozi.player", function (exports) {
          *
          * The "step" event is fired once before starting the animation.
          */
-        start: function (durationMs, timingFunction) {
+        start: function (durationMs) {
             this.durationMs = durationMs || 500;
-            this.timingFunction = timingFunction || sozi.player.timing.linear;
             this.initialTime = perf.now();
             this.fire("step", 0);
             if (!this.running) {
@@ -167,7 +163,7 @@ namespace("sozi.player", function (exports) {
                 this.stop();
                 this.fire("done");
             } else {
-                this.fire("step", this.timingFunction(elapsedTime / this.durationMs));
+                this.fire("step", elapsedTime / this.durationMs);
             }
         }
     });

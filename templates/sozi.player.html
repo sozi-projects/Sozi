@@ -28,12 +28,15 @@
                 var presentation = sozi.model.Presentation.init(document.querySelector("svg"));
                 var viewport = sozi.player.Viewport.init(presentation);
                 presentation.fromStorable({{ pres.toJSON() }});
+                var player = sozi.player.Player.init(viewport, presentation);
 
-                // Show the first frame.
-                // TODO move this to the player controller
                 if (presentation.frames.length) {
-                    viewport.setAtStates(presentation.frames.at(0).cameraStates);
+                    player.playFromIndex(0);
                 }
+
+                viewport.addListener("click", function () {
+                    player.moveToNext();
+                });
 
                 window.addEventListener('resize', function() {
                     viewport.resize();

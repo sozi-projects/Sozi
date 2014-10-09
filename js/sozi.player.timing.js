@@ -59,14 +59,27 @@ namespace("sozi.player.timing", function (exports) {
         };
     };
 
-    exports.linear    = exports.makeBezier(0.0,  0.0, 1.0,  1.0);
-    exports.ease      = exports.makeBezier(0.25, 0.1, 0.25, 1.0);
-    exports.easeIn    = exports.makeBezier(0.42, 0.0, 1.0,  1.0);
+    exports.linear = exports.makeBezier(0.0,  0.0, 1.0,  1.0);
+    exports.linear.reverse = exports.linear;
+
+    exports.ease = exports.makeBezier(0.25, 0.1, 0.25, 1.0);
+    exports.ease.reverse = exports.ease;
+
+    exports.easeIn = exports.makeBezier(0.42, 0.0, 1.0,  1.0);
+    exports.easeOut = exports.makeBezier(0.0,  0.0, 0.58, 1.0);
+    exports.easeIn.reverse = exports.easeOut;
+    exports.easeOut.reverse = exports.easeIn;
+
     exports.easeInOut = exports.makeBezier(0.42, 0.0, 0.58, 1.0);
-    exports.easeOut   = exports.makeBezier(0.0,  0.0, 0.58, 1.0);
+    exports.easeInOut.reverse = exports.easeInOut;
+
     exports.stepStart = exports.makeSteps(1, "start");
-    exports.stepEnd   = exports.makeSteps(1, "end");
+    exports.stepEnd = exports.makeSteps(1, "end");
+    exports.stepStart.reverse = exports.stepEnd;
+    exports.stepEnd.reverse = exports.stepStart;
+
     exports.stepMiddle = function (x) {
         return x >= 0.5 ? 1 : 0;
     };
+    exports.stepMiddle.reverse = exports.stepMiddle;
 });

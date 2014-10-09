@@ -39,6 +39,10 @@ namespace("sozi.model", function (exports) {
             return this.owner.owner.svgRoot.getElementById(this.referenceElementId);
         },
 
+        get transitionPath() {
+            return this.owner.owner.svgRoot.getElementById(this.transitionPathId);
+        },
+
         onChangeLink: function () {
             if (this.link) {
                 var frames = this.owner.owner.frames;

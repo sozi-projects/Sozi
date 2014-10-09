@@ -123,11 +123,12 @@ namespace("sozi.player", function (exports) {
             };
         },
 
-        interpolate: function (initialState, finalState, progress, relativeZoom, svgPath, reversePath) {
-            var remaining = 1 - progress;
+        interpolate: function (initialState, finalState, progress, timingFunction, relativeZoom, svgPath, reversePath) {
+            var tfProgress = timingFunction(progress);
+            var tfRemaining = 1 - tfProgress;
 
             function linear(initial, final) {
-                return final * progress + initial * remaining;
+                return final * tfProgress + initial * tfRemaining;
             }
 
             function quadratic(u0, u1) {
@@ -158,7 +159,7 @@ namespace("sozi.player", function (exports) {
                 var pathLength   = svgPath.getTotalLength();
                 var startPoint   = svgPath.getPointAtLength(reversePath ? pathLength : 0);
                 var endPoint     = svgPath.getPointAtLength(reversePath ? 0 : pathLength);
-                var currentPoint = svgPath.getPointAtLength(pathLength * (reversePath ? remaining : progress));
+                var currentPoint = svgPath.getPointAtLength(pathLength * (reversePath ? tfRemaining : tfProgress));
 
                 this.cx = currentPoint.x + linear(initialState.cx - startPoint.x, finalState.cx - endPoint.x);
                 this.cy = currentPoint.y + linear(initialState.cy - startPoint.y, finalState.cy - endPoint.y);
