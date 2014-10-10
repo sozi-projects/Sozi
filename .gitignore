@@ -2,5 +2,6 @@ node_modules
 vendor
 bower_components
 build
+cache
 /js/sozi.editor.backend.GoogleDrive.config.js
 npm-debug.log

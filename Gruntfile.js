@@ -119,12 +119,8 @@ module.exports = function(grunt) {
          */
         nodewebkit: {
             options: {
-                version: "0.9.2",
-                build_dir: "build",
-                win: true,
-                mac: true,
-                linux32: true,
-                linux64: true
+                buildDir: "build",
+                platforms: ["win", "osx", "linux64", "linux32"]
             },
             editor: [
                 "package.json",
@@ -167,28 +163,22 @@ module.exports = function(grunt) {
     });
 
     /*
-     * Default options for target OS in nodewebkit task.
-     * The options in the "nodewebkit" target take precedence
-     * over the "enable" options below.
+     * Compress options for target OS in nodewebkit task.
      */
     var targets = {
         linux32: {
-            enabled: false,
             dir: "Sozi",
             mode: "tgz"
         },
         linux64: {
-            enabled: false,
             dir: "Sozi",
             mode: "tgz"
         },
         win: {
-            enabled: true,
             dir: "Sozi",
             mode: "zip"
         },
-        mac: {
-            enabled: true,
+        osx: {
             dir: "Sozi.app",
             mode: "zip"
         }
@@ -199,9 +189,7 @@ module.exports = function(grunt) {
      * for various platforms.
      */
     for (var targetName in targets) {
-        var targetOpt = grunt.config(["nodewebkit", "options", targetName]);
-        var targetEnabled = targetOpt !== undefined ? targetOpt : targets[targetName].enabled;
-        if (targetEnabled) {
+        if (grunt.config(["nodewebkit", "options", "platforms"]).indexOf(targetName) >= 0) {
             grunt.config(["compress", targetName], {
                 options: {
                     // FIXME: preserve permissions for Linux executables
