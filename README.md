@@ -1,6 +1,9 @@
 
 Sozi is a presentation tool for SVG documents.
 
+It is free software distributed under the terms of the
+[Mozilla Public License 2.0](https://www.mozilla.org/MPL/2.0/).
+
 More details can be found on the official web site: <http://sozi.baierouge.fr>
 
 This repository is organized in three main branches:
@@ -31,6 +34,10 @@ or
 
 Install the build tools
 -----------------------
+
+Install [Node.js](http://nodejs.org/), [Bower](http://bower.io/)
+and the [Grunt](http://gruntjs.com/) CLI.
+In Debian/Ubuntu and their derivatives, you can type the following commands.
 
     sudo apt-get install nodejs
     sudo npm install bower grunt-cli -g
