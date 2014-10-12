@@ -28,6 +28,7 @@ namespace("sozi.editor.view", function (exports) {
 
             selection.addListener("change", this.onChangeSelection, this);
             this.addListener("userChangeState", this.onUserChangeState, this);
+            this.addListener("click", this.onClick, this);
             pres.frames.addListener("add", this.onAddFrame, this);
             
             return this;
@@ -95,7 +96,7 @@ namespace("sozi.editor.view", function (exports) {
                         // Mark the modified layers as unlinked in the current frame
                         layerProperties.link = false;
 
-                        // TODO choose reference SVG element for frame
+                        // Choose reference SVG element for frame
                         if (layerProperties.referenceElementAuto) {
                             var refElt = camera.getCandidateReferenceElement();
                             if (refElt) {
@@ -105,6 +106,26 @@ namespace("sozi.editor.view", function (exports) {
                     }
                 }, this);
                 this.userChange = false;
+            }
+        },
+
+        onClick: function (viewport, button, evt) {
+            if (button === 0 && evt.altKey) {
+                var referenceElement = evt.target;
+                var frame = this.selection.currentFrame;
+                if (frame && referenceElement.hasAttribute("id") && referenceElement.getBBox) {
+                    this.cameras.forEach(function (camera) {
+                        if (camera.selected) {
+                            var cameraIndex = this.cameras.indexOf(camera);
+                            var layerProperties = frame.layerProperties.at(cameraIndex);
+
+                            // Mark the modified layers as unlinked in the current frame
+                            layerProperties.link = false;
+                            layerProperties.referenceElementAuto = false;
+                            layerProperties.referenceElementId = referenceElement.getAttribute("id");
+                        }
+                    }, this);
+                }
             }
         }
     });

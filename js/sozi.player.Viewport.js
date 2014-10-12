@@ -110,7 +110,7 @@ namespace("sozi.player", function (exports) {
         onContextMenu: function (evt) {
             evt.stopPropagation();
             evt.preventDefault();
-            this.fire("click", 2);
+            this.fire("click", 2, evt);
         },
 
         /*
@@ -182,7 +182,7 @@ namespace("sozi.player", function (exports) {
          *
          * Fires:
          *    - dragEnd
-         *    - click(button)
+         *    - click(button, event)
          */
         onDragEnd: function (evt) {
             evt.stopPropagation();
@@ -194,14 +194,14 @@ namespace("sozi.player", function (exports) {
                     this.fire("userChangeState");
                 }
                 else {
-                    this.fire("click", evt.button);
+                    this.fire("click", evt.button, evt);
                 }
 
                 document.documentElement.removeEventListener("mousemove", this.dragHandler, false);
                 document.documentElement.removeEventListener("mouseup", this.dragEndHandler, false);
             }
             else {
-                this.fire("click", evt.button);
+                this.fire("click", evt.button, evt);
             }
         },
 
