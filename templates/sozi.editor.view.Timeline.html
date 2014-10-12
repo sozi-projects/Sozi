@@ -9,7 +9,7 @@
                 <button id="delete-frames"
                         title="Delete selected frames"
                         {{"disabled" if selection.selectedFrames.length == 0}}>
-                    <i class="fa fa-trash-o"></i>
+                    <i class="fa fa-trash"></i>
                 </button>
             </th>
             <th>
@@ -67,10 +67,10 @@
                 <th data-frame-index="{{loop.index0}}"
                     class="frame-index {{'selected' if selection.selectedFrames.contains(frame)}} {{'current' if frame == selection.currentFrame}}">
                     {% if selection.selectedFrames.length %}
-                        <i title="Insert selection before frame {{loop.index}}" class="insert-before fa fa-caret-down"></i>
+                        <i title="Insert selection before frame {{loop.index}}" class="insert-before fa fa-arrow-circle-down"></i>
                     {% endif %}
                     {% if selection.selectedFrames.length %}
-                        <i title="Insert selection after frame {{loop.index}}" class="insert-after fa fa-caret-down"></i>
+                        <i title="Insert selection after frame {{loop.index}}" class="insert-after fa fa-arrow-circle-down"></i>
                     {% endif %}
                     {{loop.index}}
                 </th>
