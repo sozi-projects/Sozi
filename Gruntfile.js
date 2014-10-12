@@ -128,6 +128,7 @@ module.exports = function(grunt) {
                 "js/**/*",
                 "css/**/*",
                 "vendor/**/*",
+                "build/templates/*",
                 "bower_components/**/*",
                 "<%= nunjucks.editor.dest %>",
                 "<%= uglify.player.dest %>"
@@ -167,18 +168,22 @@ module.exports = function(grunt) {
      */
     var targets = {
         linux32: {
-            dir: "Sozi",
+            cd: false,
+            dir: "linux32",
             mode: "tgz"
         },
         linux64: {
-            dir: "Sozi",
+            cd: false,
+            dir: "linux64",
             mode: "tgz"
         },
         win: {
-            dir: "Sozi",
+            cd: false,
+            dir: "win",
             mode: "zip"
         },
         osx: {
+            cd: true,
             dir: "Sozi.app",
             mode: "zip"
         }
@@ -197,7 +202,7 @@ module.exports = function(grunt) {
                     archive: "build/Sozi-" + targetName + "." + targets[targetName].mode
                 },
                 expand: true,
-                cwd: "build/releases/Sozi/" + targetName,
+                cwd: "build/Sozi/" + (targets[targetName].cd ? targetName : ""),
                 src: [targets[targetName].dir + "/**/*"]
             });
         }

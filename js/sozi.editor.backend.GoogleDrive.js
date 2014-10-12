@@ -7,6 +7,10 @@ namespace("sozi.editor.backend", function (exports) {
         apiKey: "Your developer API key",
         
         init: function (container) {
+            if (namespace.global.require) {
+                return this;
+            }
+
             exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-GoogleDrive-input" type="button" value="Load from Google Drive">');
             gapi.client.setApiKey(this.apiKey);
             this.authorize(true);
