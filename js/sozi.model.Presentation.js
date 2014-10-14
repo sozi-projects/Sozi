@@ -83,6 +83,16 @@ namespace("sozi.model", function (exports) {
             };
         },
         
+        toMinimalStorable: function () {
+            return {
+                referenceElementHide: this.referenceElementHide,
+                transitionTimingFunction: this.transitionTimingFunction,
+                transitionRelativeZoom: this.transitionRelativeZoom,
+                transitionPathId: this.transitionPathId,
+                transitionPathHide: this.transitionPathHide
+            };
+        },
+
         fromStorable: sozi.model.Object.copy
     });
     
@@ -139,6 +149,8 @@ namespace("sozi.model", function (exports) {
                 cameraStates[key] = cs.toStorable();
                 if (re) {
                     cameraOffsets[key] = this.cameraStates.at(index).offsetFromElement(re);
+                    if (this.index === 0)
+                        console.log(key + ": " + cameraOffsets[key].scaleFactor);
                 }
             }, this);
 
@@ -155,6 +167,31 @@ namespace("sozi.model", function (exports) {
             };
         },
         
+        toMinimalStorable: function () {
+            var layerProperties = {};
+            var cameraStates = {};
+
+            this.owner.layers.forEach(function (layer, index) {
+                var lp = this.layerProperties.at(index);
+                var cs = this.cameraStates.at(index);
+
+                var key = layer.auto ? "__sozi_auto__" : layer.svgNodes.first.getAttribute("id");
+                layerProperties[key] = lp.toMinimalStorable();
+                cameraStates[key] = cs.toMinimalStorable();
+            }, this);
+
+            return {
+                frameId: this.frameId,
+                title: this.title,
+                timeoutMs: this.timeoutMs,
+                timeoutEnable: this.timeoutEnable,
+                transitionDurationMs: this.transitionDurationMs,
+                showInFrameList: this.showInFrameList,
+                layerProperties: layerProperties,
+                cameraStates: cameraStates
+            };
+        },
+
         fromStorable: function (obj) {
             this.frameId = obj.frameId;
             this.title = obj.title;
@@ -179,6 +216,8 @@ namespace("sozi.model", function (exports) {
                                         ofs.deltaY || 0,
                                         ofs.scaleFactor || 1,
                                         ofs.deltaAngle || 0);
+                        if (this.index === 0)
+                            console.log(key + ": " + ofs.scaleFactor);
                         // TODO compare current camera state with stored camera state.
                         // If different, mark the current layer as "dirty".
                     }
@@ -346,6 +385,14 @@ namespace("sozi.model", function (exports) {
             };
         },
         
+        toMinimalStorable: function () {
+            return {
+                frames: this.frames.map(function (frame) {
+                    return frame.toMinimalStorable();
+                })
+            };
+        },
+
         fromStorable: function (obj) {
             this.frames.clear();
             obj.frames.forEach(function (f) {
@@ -358,6 +405,10 @@ namespace("sozi.model", function (exports) {
 
         toJSON: function () {
             return JSON.stringify(this.toStorable());
+        },
+
+        toMinimalJSON: function () {
+            return JSON.stringify(this.toMinimalStorable());
         },
 
         fromJSON: function (json) {

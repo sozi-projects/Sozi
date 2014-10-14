@@ -31,7 +31,7 @@
 
                 var presentation = sozi.model.Presentation.init(document.querySelector("svg"));
                 var viewport = sozi.player.Viewport.init(presentation);
-                presentation.fromStorable({{ pres.toJSON() }});
+                presentation.fromStorable({{ pres.toMinimalJSON() }});
                 var player = sozi.player.Player.init(viewport, presentation);
 
                 if (presentation.frames.length) {
