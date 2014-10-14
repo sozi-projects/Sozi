@@ -5,6 +5,8 @@ module.exports = function(grunt) {
     //var process = require("process");
     var path = require("path");
 
+    grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('grunt-rename');
     grunt.loadNpmTasks("grunt-nunjucks");
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-csslint");
@@ -166,55 +168,47 @@ module.exports = function(grunt) {
     /*
      * Compress options for target OS in nodewebkit task.
      */
-    var targets = {
-        linux32: {
-            cd: false,
-            dir: "linux32",
-            mode: "tgz"
-        },
-        linux64: {
-            cd: false,
-            dir: "linux64",
-            mode: "tgz"
-        },
-        win: {
-            cd: false,
-            dir: "win",
-            mode: "zip"
-        },
-        osx: {
-            cd: true,
-            dir: "Sozi.app",
-            mode: "zip"
-        }
+    var targetConfig = {
+        linux32: "tgz",
+        linux64: "tgz",
+        win: "zip",
+        osx: "zip"
     };
 
     /*
      * Compress enabled node-webkit applications
      * for various platforms.
      */
-    for (var targetName in targets) {
+    for (var targetName in targetConfig) {
         if (grunt.config(["nodewebkit", "options", "platforms"]).indexOf(targetName) >= 0) {
+            var prefix = "Sozi-" + version + "-" + targetName;
+
+            grunt.config(["rename", targetName], {
+                src: "build/Sozi/" + targetName,
+                dest: "build/Sozi/" + prefix
+            });
+
             grunt.config(["compress", targetName], {
                 options: {
                     // FIXME: preserve permissions for Linux executables
-                    mode: targets[targetName].mode,
-                    archive: "build/Sozi-" + targetName + "." + targets[targetName].mode
+                    mode: targetConfig[targetName],
+                    archive: "build/" + prefix + "." + targetConfig[targetName]
                 },
                 expand: true,
-                cwd: "build/Sozi/" + (targets[targetName].cd ? targetName : ""),
-                src: [targets[targetName].dir + "/**/*"]
+                cwd: "build/Sozi/",
+                src: [prefix + "/**/*"]
             });
         }
     }
 
     grunt.registerMultiTask("nunjucks_render", function () {
-        var result = nunjucks.render(this.data.src, this.data.context);
-        grunt.file.write(this.data.dest, result);
-        grunt.log.writeln('File ' + this.data.dest + ' created.');
+        this.files.forEach(function (file) {
+            grunt.file.write(file.dest, nunjucks.render(file.src[0], this.data.context));
+            grunt.log.writeln('File ' + file.dest + ' created.');
+        }, this);
     });
 
     grunt.registerTask("lint", ["jshint", "csslint"]);
-    grunt.registerTask("build", ["modify_json", "uglify", "nunjucks_render", "nunjucks"]);
-    grunt.registerTask("default", ["build", "nodewebkit", "compress"]);
+    grunt.registerTask("build", ["modify_json", "newer:uglify", "newer:nunjucks_render", "newer:nunjucks"]);
+    grunt.registerTask("default", ["build", "nodewebkit", "rename", "compress"]);
 };
