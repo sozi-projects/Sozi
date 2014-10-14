@@ -16,6 +16,12 @@ namespace("sozi.editor.backend", function (exports) {
             }
 
             exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-GoogleDrive-input" type="button" value="Load from Google Drive">');
+
+            var self = this;
+            $(window).blur(function () {
+                self.doAutosave();
+            });
+
             gapi.client.setApiKey(this.apiKey);
             this.authorize(true);
             return this;

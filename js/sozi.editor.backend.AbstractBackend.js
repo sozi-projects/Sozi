@@ -13,6 +13,8 @@ namespace("sozi.editor.backend", function (exports) {
     
     exports.AbstractBackend = sozi.model.Object.clone({
         
+        autosavedFiles: [],
+
         init: function (container, html) {
             container.html(html);
             return this;
@@ -124,20 +126,29 @@ namespace("sozi.editor.backend", function (exports) {
         },
 
         /*
-         * Start autosaving the given file.
-         *
-         * Typically, we want to save each time the editor loses focus
-         * and when the editor closes.
+         * Add the given file to the list of files to save automatically.
          *
          * Parameters:
          *  - fileDescriptor (backend-dependent)
          *  - getData (function) A function that returns the data to save.
          */
         autosave: function (fileDescriptor, getData) {
-            var self = this;
-            $(window).blur(function () {
-                self.save(fileDescriptor, getData());
+            this.autosavedFiles.push({
+                descriptor: fileDescriptor,
+                getData: getData
             });
+        },
+
+        /*
+         * Save all files previously added to the list of files to save automatically.
+         *
+         * Typically, we want to call this method each time the editor loses focus
+         * and when the editor closes.
+         */
+        doAutosave: function () {
+            this.autosavedFiles.forEach(function (file) {
+                this.save(file.descriptor, file.getData());
+            }, this);
         }
     });
 });

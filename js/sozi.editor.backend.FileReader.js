@@ -17,6 +17,8 @@ namespace("sozi.editor.backend", function (exports) {
             exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-FileReader-input" type="file" accept="image/svg+xml" autofocus>');
             
             var self = this;
+
+            // Load the SVG document selected in the file input
             $("#sozi-editor-backend-FileReader-input").change(function () {
                 if (this.files.length) {
                     self.load(this.files[0]);

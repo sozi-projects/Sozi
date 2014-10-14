@@ -33,12 +33,25 @@ namespace("sozi.editor.backend", function (exports) {
             exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-NodeWebkit-input" type="file" accept="image/svg+xml" autofocus>');
             
             var self = this;
+
+            // Load the SVG document selected in the file input
             $("#sozi-editor-backend-NodeWebkit-input").change(function () {
                 if (this.files.length) {
                     self.load(this.files[0].path);
                 }
             });
+
+            // Save automatically when closing the window
+            win.on("close", function () {
+                self.doAutosave();
+                this.close(true);
+            });
             
+            // Save automatically when the window loses focus
+            win.on("blur", function () {
+                self.doAutosave();
+            });
+
             // If a file name was provided on the command line,
             // check that the file exists and load it.
             if (gui.App.argv.length > 0) {
@@ -111,17 +124,6 @@ namespace("sozi.editor.backend", function (exports) {
         save: function (fileDescriptor, data) {
             var err = fs.writeFileSync(fileDescriptor, data, { encoding: "utf-8" });
             this.fire("save", fileDescriptor, err);
-        },
-
-        autosave: function (fileDescriptor, getData) {
-            var self = this;
-            win.on("close", function () {
-                self.save(fileDescriptor, getData());
-                this.close(true);
-            });
-            win.on("blur", function () {
-                self.save(fileDescriptor, getData());
-            });
         }
     });
 
