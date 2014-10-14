@@ -47,6 +47,10 @@ namespace("sozi.player", function (exports) {
             };
         },
         
+        toMinimalStorable: function () {
+            return this.toStorable();
+        },
+
         fromStorable: sozi.model.Object.copy,
         
         /*
@@ -239,6 +243,11 @@ namespace("sozi.player", function (exports) {
         },
 
         getCandidateReferenceElement: function () {
+            // getIntersectionList is not supported in Gecko
+            if (!this.svgRoot.getIntersectionList) {
+                return this.svgRoot;
+            }
+
             // Get all elements that intersect with the viewport.
             var viewportRect = this.svgRoot.createSVGRect();
             viewportRect.x = 0;
@@ -256,30 +265,18 @@ namespace("sozi.player", function (exports) {
             for (var i = 0; i < intersectionList.length; i ++) {
                 var elt = intersectionList[i];
                 if (elt.hasAttribute("id")) {
-                    // Compute the current element's bounding box
-                    var eltRect = elt.getBBox();
-                    var eltCTM = elt.getScreenCTM();
-
-                    var topLeft = this.svgRoot.createSVGPoint();
-                    topLeft.x = eltRect.x;
-                    topLeft.y = eltRect.y;
-                    topLeft = topLeft.matrixTransform(eltCTM);
-
-                    var bottomRight = this.svgRoot.createSVGPoint();
-                    bottomRight.x = eltRect.x + eltRect.width;
-                    bottomRight.y = eltRect.y + eltRect.height;
-                    bottomRight = bottomRight.matrixTransform(eltCTM);
-
-                    var eltArea = (bottomRight.x - topLeft.x) * (bottomRight.y - topLeft.y);
+                    // TODO getBoundingClientRect returns bounding box or bounding box
+                    var eltRect = elt.getBoundingClientRect();
+                    var eltArea = eltRect.width * eltRect.height;
 
                     // Compute the intersection of the element'b bounding
                     // box with the current viewport.
-                    topLeft.x = Math.max(topLeft.x, this.owner.x);
-                    topLeft.y = Math.max(topLeft.y, this.owner.y);
-                    bottomRight.x = Math.min(bottomRight.x, this.owner.x + this.owner.width);
-                    bottomRight.y = Math.min(bottomRight.y, this.owner.y + this.owner.height);
+                    var l = Math.max(eltRect.left, this.owner.x);
+                    var t = Math.max(eltRect.top, this.owner.y);
+                    var r = Math.min(eltRect.right, this.owner.x + this.owner.width);
+                    var b = Math.min(eltRect.bottom, this.owner.y + this.owner.height);
 
-                    var intersectArea = (bottomRight.x - topLeft.x) * (bottomRight.y - topLeft.y);
+                    var intersectArea = (r - l) * (b - t);
 
                     // An element is selected if it has the biggest intersect area
                     // and the smallest area outside the intersection.
