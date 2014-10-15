@@ -24,6 +24,9 @@
 .timeline-bottom-left,
 .timeline-bottom-right {
     bottom: 0;
+    /* Always-visible horizontal scrollbar in left and right bottom tables.
+     * Required for alignment between rows. */
+    overflow-x: scroll;
 }
 
 .timeline-top-left,
@@ -41,15 +44,6 @@
     /* Always-visible vertical scrollbar in top and bottom right tables.
      * Required for alignment between columns. */
     overflow-y: scroll;
-}
-
-.timeline-bottom-left table {
-    /* Fixes alignment when hozirontal scrollbar is visible in bottom-right table */
-    margin-bottom: 2em;
-}
-
-.timeline-bottom-right {
-    overflow-x: auto;
 }
 
 .timeline {
