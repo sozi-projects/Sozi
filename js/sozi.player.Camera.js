@@ -72,7 +72,13 @@ namespace("sozi.player", function (exports) {
          * Parameters:
          *    - svgElement: an element from the SVG DOM
          */
-        setAtElement: function (svgElement, deltaX, deltaY, scaleFactor, deltaAngle) {
+        setAtElement: function (svgElement, deltaX, deltaY, widthFactor, heightFactor, deltaAngle) {
+            deltaX = deltaX || 0;
+            deltaY = deltaY || 0;
+            widthFactor = widthFactor || 1;
+            heightFactor = heightFactor || 1;
+            deltaAngle = deltaAngle || 0;
+
             // Read the raw bounding box of the given SVG element
             var b = svgElement.getBBox();
 
@@ -101,19 +107,20 @@ namespace("sozi.player", function (exports) {
             // given SVG element after its current transformation
             this.cx     = c.x + deltaX;
             this.cy     = c.y + deltaY;
-            this.width  = b.width  * scale * scaleFactor;
-            this.height = b.height * scale * scaleFactor;
+            this.width  = b.width  * scale * widthFactor;
+            this.height = b.height * scale * heightFactor;
             this.angle  = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI + deltaAngle;
 
             return this;
         },
 
         offsetFromElement: function (svgElement) {
-            var cam = this.clone().setAtElement(svgElement, 0, 0, 1, 0);
+            var cam = this.clone().setAtElement(svgElement);
             return {
                 deltaX: this.cx - cam.cx,
                 deltaY: this.cy - cam.cy,
-                scaleFactor: this.width / cam.width,
+                widthFactor: this.width / cam.width,
+                heightFactor: this.height / cam.height,
                 deltaAngle: this.angle - cam.angle
             };
         },

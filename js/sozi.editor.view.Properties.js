@@ -180,7 +180,7 @@ namespace("sozi.editor.view", function (exports) {
                         var id = frame.layerProperties.at(layerIndex).referenceElementId;
                         var elt = pres.svgRoot.getElementById(id);
                         if (elt) {
-                            frame.cameraStates.at(layerIndex).setAtElement(elt, 0, 0, 1, 0);
+                            frame.cameraStates.at(layerIndex).setAtElement(elt);
                         }
                     });
                 }

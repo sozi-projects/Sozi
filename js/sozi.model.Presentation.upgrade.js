@@ -133,7 +133,7 @@ namespace("sozi.model", function (exports) {
                         return;
                     }
 
-                    frame.cameraStates.at(layerIndex).setAtElement(refElt, 0, 0, 1, 0);
+                    frame.cameraStates.at(layerIndex).setAtElement(refElt);
                     frame.layerProperties.at(layerIndex).link = false;
                 }
 
