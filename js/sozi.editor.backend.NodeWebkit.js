@@ -48,7 +48,13 @@ namespace("sozi.editor.backend", function (exports) {
             });
             
             // Save automatically when the window loses focus
-            win.on("blur", function () {
+//            win.on("blur", function () {
+//                self.doAutosave();
+//            });
+
+            // Workaround for issue #1720 in node-webkit for Windows
+            // https://github.com/rogerwang/node-webkit/issues/1720
+            window.addEventListener("blur", function () {
                 self.doAutosave();
             });
 
