@@ -72,6 +72,7 @@ module.exports = function(grunt) {
          */
         uglify: {
             options: {
+//                compress: false,
 //                mangle: false,
 //                beautify: true
             },
@@ -209,6 +210,10 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask("lint", ["jshint", "csslint"]);
-    grunt.registerTask("build", ["modify_json", "newer:uglify", "newer:nunjucks_render", "newer:nunjucks"]);
+
+    // nunjucks_render cannot use newer because build/player/sozi.player.min.js
+    // is not identified as a source file
+    grunt.registerTask("build", ["modify_json", "newer:uglify", "nunjucks_render", "newer:nunjucks"]);
+
     grunt.registerTask("default", ["build", "nodewebkit", "rename", "compress"]);
 };
