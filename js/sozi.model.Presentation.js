@@ -149,8 +149,6 @@ namespace("sozi.model", function (exports) {
                 cameraStates[key] = cs.toStorable();
                 if (re) {
                     cameraOffsets[key] = this.cameraStates.at(index).offsetFromElement(re);
-                    if (this.index === 0)
-                        console.log(key + ": " + cameraStates[key].width + " " + cameraStates[key].height + " " + cameraOffsets[key].widthFactor + " " + cameraOffsets[key].heightFactor);
                 }
             }, this);
 
@@ -214,8 +212,6 @@ namespace("sozi.model", function (exports) {
                         cs.setAtElement(re, ofs.deltaX, ofs.deltaY,
                                         ofs.widthFactor, ofs.heightFactor,
                                         ofs.deltaAngle);
-                        if (this.index === 0)
-                            console.log(key + ": " + cs.width + " " + cs.height + " " + ofs.widthFactor + " " + ofs.heightFactor);
                         // TODO compare current camera state with stored camera state.
                         // If different, mark the current layer as "dirty".
                     }

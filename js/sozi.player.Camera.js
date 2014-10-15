@@ -226,12 +226,14 @@ namespace("sozi.player", function (exports) {
         },
 
         rotate: function (angle) {
+            this.restoreAspectRatio();
             return this.setAngle(this.angle + angle).update();
         },
 
         zoom: function (factor, x, y) {
             this.width /= factor;
             this.height /= factor;
+            this.restoreAspectRatio();
             return this.drag(
                 (1 - factor) * (x - this.owner.width  / 2),
                 (1 - factor) * (y - this.owner.height / 2)
@@ -243,10 +245,21 @@ namespace("sozi.player", function (exports) {
             var angleRad = this.angle * Math.PI / 180;
             var si = Math.sin(angleRad);
             var co = Math.cos(angleRad);
-            this.clipped = false;
             this.cx -= (deltaX * co - deltaY * si) / scale;
             this.cy -= (deltaX * si + deltaY * co) / scale;
+            this.restoreAspectRatio();
             return this.update();
+        },
+
+        restoreAspectRatio: function () {
+            var ownerRatio = this.owner.width / this.owner.height;
+            var camRatio = this.width / this.height;
+            if (ownerRatio > camRatio) {
+                this.width = this.height * ownerRatio;
+            }
+            else {
+                this.height = this.width / ownerRatio;
+            }
         },
 
         getCandidateReferenceElement: function () {
