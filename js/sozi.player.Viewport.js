@@ -23,6 +23,11 @@ namespace("sozi.player", function (exports) {
         cameras: {own: []},
         dragHandler: null,
         dragEngHandler: null,
+        mouseDragX: 0,
+        mouseDragY: 0,
+        mouseDragStartX: 0,
+        mouseDragStartY: 0,
+        dragMode: "translate",
         
         /*
          * Initialize a new viewport for the given SVG root element.
@@ -132,8 +137,8 @@ namespace("sozi.player", function (exports) {
             if (evt.button === DRAG_BUTTON) {
 
                 this.mouseDragged = false;
-                this.mouseLastX = evt.clientX;
-                this.mouseLastY = evt.clientY;
+                this.mouseDragX = evt.clientX;
+                this.mouseDragY = evt.clientY;
 
                 document.documentElement.addEventListener("mousemove", this.dragHandler, false);
                 document.documentElement.addEventListener("mouseup", this.dragEndHandler, false);
@@ -158,16 +163,46 @@ namespace("sozi.player", function (exports) {
 
             // The drag action is confirmed when one of the mouse coordinates
             // has moved past the threshold
-            if (!this.mouseDragged && (Math.abs(evt.clientX - this.mouseLastX) > DRAG_THRESHOLD_PX ||
-                                       Math.abs(evt.clientY - this.mouseLastY) > DRAG_THRESHOLD_PX)) {
+            if (!this.mouseDragged && (Math.abs(evt.clientX - this.mouseDragX) > DRAG_THRESHOLD_PX ||
+                                       Math.abs(evt.clientY - this.mouseDragY) > DRAG_THRESHOLD_PX)) {
                 this.mouseDragged = true;
+                this.mouseDragStartX = evt.clientX;
+                this.mouseDragStartY = evt.clientY;
                 this.fire("dragStart");
             }
 
             if (this.mouseDragged) {
-                this.drag(evt.clientX - this.mouseLastX, evt.clientY - this.mouseLastY);
-                this.mouseLastX = evt.clientX;
-                this.mouseLastY = evt.clientY;
+                var mode = this.dragMode;
+                if (mode == "translate") {
+                    if (evt.ctrlKey) {
+                        mode = "scale";
+                    }
+                    else if (evt.shiftKey) {
+                        mode = "rotate";
+                    }
+                }
+                switch (mode) {
+                    case "scale":
+                        var dx1 = this.mouseDragX - this.x - this.width / 2;
+                        var dy1 = this.mouseDragY - this.y - this.height / 2;
+                        var d1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
+                        var dx2 = evt.clientX - this.x - this.width / 2;
+                        var dy2 = evt.clientY - this.y - this.height / 2;
+                        var d2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+                        if (d1 !== 0) {
+                            this.zoom(d2 / d1, this.width / 2, this.height / 2);
+                        }
+                        break;
+                    case "rotate":
+                        var a1 = 180 * Math.atan2(this.mouseDragY - this.y - this.height / 2, this.mouseDragX - this.x - this.width / 2) / Math.PI;
+                        var a2 = 180 * Math.atan2(evt.clientY - this.y - this.height / 2, evt.clientX - this.x - this.width / 2) / Math.PI;
+                        this.rotate(a1 - a2);
+                        break;
+                    default: // case "translate":
+                        this.translate(evt.clientX - this.mouseDragX, evt.clientY - this.mouseDragY);
+                }
+                this.mouseDragX = evt.clientX;
+                this.mouseDragY = evt.clientY;
             }
         },
 
@@ -353,10 +388,10 @@ namespace("sozi.player", function (exports) {
          * Returns:
          *    - The current viewport.
          */
-        drag: function (deltaX, deltaY) {
+        translate: function (deltaX, deltaY) {
             this.cameras.forEach(function (camera) {
                 if (camera.selected) {
-                    camera.drag(deltaX, deltaY);
+                    camera.translate(deltaX, deltaY);
                 }
             });
             return this;

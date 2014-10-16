@@ -137,6 +137,14 @@
                 Aspect ratio:
                 <input id="sozi-editor-aspect-num" class="aspect" type="number" pattern="\d+" min="1" step="1" value="4" size="3">:<input id="sozi-editor-aspect-den" class="aspect" type="number" pattern="\d+" min="1" step="1" value="3" size="3">
             </span>
+            <span class="group">
+               <input name="sozi-editor-preview-mode" type="radio"
+                      value="translate" title="Move the camera (hold Ctrl to zoom, Shift to rotate)" checked><i class="fa fa-arrows"></i>
+               <input name="sozi-editor-preview-mode" type="radio"
+                      value="scale" title="Zoom in/out (you can also hold the Ctrl key in Move mode)" ><i class="fa fa-expand"></i>
+               <input name="sozi-editor-preview-mode" type="radio"
+                      value="rotate" title="Rotate (you can also hold the Shift key in Move mode)"><i class="fa fa-rotate-left"></i>
+            </span>
         </div>
         <div id="sozi-editor-view-timeline" class="bottom">
         </div>

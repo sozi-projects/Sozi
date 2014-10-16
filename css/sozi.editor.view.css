@@ -37,6 +37,10 @@ body {
     height: 80%;
 }
 
+.top-left * {
+    cursor: default;
+}
+
 .top-left p,
 .top-left ul {
     margin: 2em;

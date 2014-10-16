@@ -234,13 +234,13 @@ namespace("sozi.player", function (exports) {
             this.width /= factor;
             this.height /= factor;
             this.restoreAspectRatio();
-            return this.drag(
+            return this.translate(
                 (1 - factor) * (x - this.owner.width  / 2),
                 (1 - factor) * (y - this.owner.height / 2)
             );
         },
 
-        drag: function (deltaX, deltaY) {
+        translate: function (deltaX, deltaY) {
             var scale = this.scale;
             var angleRad = this.angle * Math.PI / 180;
             var si = Math.sin(angleRad);

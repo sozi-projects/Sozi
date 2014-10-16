@@ -26,6 +26,8 @@ namespace("sozi.editor.view", function (exports) {
             $("#sozi-editor-aspect-num, #sozi-editor-aspect-den").change(resizeHandler);
             $(window).resize(resizeHandler).resize();
 
+            $("input[name=sozi-editor-preview-mode][type=radio]").change(this.bind(this.onChangeDragMode));
+
             selection.addListener("change", this.onChangeSelection, this);
             this.addListener("userChangeState", this.onUserChangeState, this);
             this.addListener("click", this.onClick, this);
@@ -58,6 +60,10 @@ namespace("sozi.editor.view", function (exports) {
                 this.fire("change:aspectRatio", num, den);
             }
             return this;
+        },
+
+        onChangeDragMode: function () {
+            this.dragMode = $("input[name=sozi-editor-preview-mode][type=radio]:checked").val();
         },
 
         onAddFrame: function (collection, frame) {
