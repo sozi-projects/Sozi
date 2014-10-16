@@ -243,19 +243,19 @@ namespace("sozi.model", function (exports) {
     
     Collection.clone = function () {
         var object = ProtoObject.clone.call(this);
+        object._values = [];
         object._isOwner = this._isOwner;
-        object._values = this._values.map(function (value) {
-            if (ProtoObject.isPrototypeOf(value) && this._isOwner) {
-                return value.clone();
-            }
-            return value;
-        }, this);
-        return object;
+        return object.copy(this);
     };
     
     Collection.copy = function (other) {
         this.clear();
-        this.pushAll(other);
+        other.forEach(function (elt) {
+            if (ProtoObject.isPrototypeOf(elt) && this._isOwner) {
+                elt = elt.clone();
+            }
+            this.push(elt);
+        }, this);
         return this;
     };
     

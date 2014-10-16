@@ -120,17 +120,25 @@ namespace("sozi.model", function (exports) {
             return this;
         },
 
-        onChangeCameraState: function (cameraState) {
-            var frames = this.owner.frames;
-            var layerIndex = this.cameraStates.indexOf(cameraState);
+        copy: function (other) {
+            var frameId = this.frameId;
+            sozi.model.Object.copy.call(this, other);
+            this.frameId = frameId;
+        },
 
-            // Update the camera states of the linked layers in the following frames
-            for (var i = this.index + 1; i < frames.length; i ++) {
-                var frame = frames.at(i);
-                if (!frame.layerProperties.at(layerIndex).link) {
-                    break;
+        onChangeCameraState: function (cameraState) {
+            if (this.owner) {
+                var frames = this.owner.frames;
+                var layerIndex = this.cameraStates.indexOf(cameraState);
+
+                // Update the camera states of the linked layers in the following frames
+                for (var i = this.index + 1; i < frames.length; i ++) {
+                    var frame = frames.at(i);
+                    if (!frame.layerProperties.at(layerIndex).link) {
+                        break;
+                    }
+                    frame.cameraStates.at(layerIndex).copy(cameraState);
                 }
-                frame.cameraStates.at(layerIndex).copy(cameraState);
             }
         },
         
@@ -284,6 +292,8 @@ namespace("sozi.model", function (exports) {
          *
          * Returns:
          *    - The current presentation object.
+         *
+         * TODO listen to frame add/remove and update linked camera states accordingly
          */
         init: function (svgRoot) {
             this.svgRoot = svgRoot;
