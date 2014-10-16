@@ -525,6 +525,8 @@ namespace("sozi.editor.view", function (exports) {
             
             $("th, td", container).removeClass("selected current");
             
+            $("#delete-frames").prop("disabled", this.selection.selectedFrames.length === 0);
+
             if (this.defaultLayersAreSelected) {
                 $(".timeline-bottom-left tr[data-layer-index=-1] .layer-label", container).addClass("selected");
             }

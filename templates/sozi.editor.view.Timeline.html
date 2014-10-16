@@ -73,12 +73,8 @@
             {% for frame in presentation.frames.slice() %}
                 <th data-frame-index="{{loop.index0}}"
                     class="frame-index {{'selected' if selection.selectedFrames.contains(frame)}} {{'current' if frame == selection.currentFrame}}">
-                    {% if selection.selectedFrames.length %}
-                        <i title="Insert selection before frame {{loop.index}}" class="insert-before fa fa-arrow-circle-down"></i>
-                    {% endif %}
-                    {% if selection.selectedFrames.length %}
-                        <i title="Insert selection after frame {{loop.index}}" class="insert-after fa fa-arrow-circle-down"></i>
-                    {% endif %}
+                    <i title="Insert selection before frame {{loop.index}}" class="insert-before fa fa-arrow-circle-down"></i>
+                    <i title="Insert selection after frame {{loop.index}}" class="insert-after fa fa-arrow-circle-down"></i>
                     {{loop.index}}
                 </th>
             {% endfor %}
