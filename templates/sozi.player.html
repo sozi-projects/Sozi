@@ -33,6 +33,7 @@
                 var viewport = sozi.player.Viewport.init(presentation);
                 presentation.fromStorable({{ pres.toMinimalJSON() }});
                 var player = sozi.player.Player.init(viewport, presentation);
+                sozi.player.media.init(player);
 
                 if (presentation.frames.length) {
                     player.playFromIndex(0);

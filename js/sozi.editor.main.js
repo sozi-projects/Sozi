@@ -32,11 +32,11 @@ window.addEventListener("load", function () {
             return null;
         }
 
-        // Remove any existing Sozi script inside the DOM tree
-        var obsoleteSoziScript = svgRoot.getElementById("sozi-script");
-        if (obsoleteSoziScript) {
-            obsoleteSoziScript.parentNode.removeChild(obsoleteSoziScript);
-        }
+        // Remove any existing script inside the SVG DOM tree
+        var scripts = Array.prototype.slice.call(svgRoot.getElementsByTagName("script"));
+        scripts.forEach(function (script) {
+            script.parentNode.removeChild(script);
+        });
 
         var result = div.innerHTML;
 

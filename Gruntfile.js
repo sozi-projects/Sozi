@@ -72,9 +72,9 @@ module.exports = function(grunt) {
          */
         uglify: {
             options: {
-//                compress: false,
-//                mangle: false,
-//                beautify: true
+                compress: false,
+                mangle: false,
+                beautify: true
             },
             player: {
                 src: [
@@ -85,7 +85,8 @@ module.exports = function(grunt) {
                     "js/sozi.player.Viewport.js",
                     "js/sozi.player.timing.js",
                     "js/sozi.player.Animator.js",
-                    "js/sozi.player.Player.js"
+                    "js/sozi.player.Player.js",
+                    "js/sozi.player.media.js"
                 ],
                 dest: "build/player/sozi.player.min.js"
             }
