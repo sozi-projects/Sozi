@@ -40,6 +40,9 @@ namespace("sozi.player", function (exports) {
         // The animator object used in transitions
         animator: {own: null},
 
+        // The current transition data
+        transitions: {own: []},
+
         init: function (viewport, pres) {
             this.viewport = viewport;
             this.presentation = pres;
@@ -55,6 +58,8 @@ namespace("sozi.player", function (exports) {
             this.viewport.addListener("userChangeState", this.bind(this.pause));
             window.addEventListener("keydown", this.bind(this.onKeyDown), false);
             window.addEventListener("keypress", this.bind(this.onKeyPress), false);
+            this.animator.addListener("step", this.bind(this.onAnimatorStep));
+            this.animator.addListener("done", this.bind(this.onAnimatorDone));
         },
 
         onClick: function (viewport, button) {
@@ -170,6 +175,10 @@ namespace("sozi.player", function (exports) {
 
         get currentFrame() {
             return this.presentation.frames.at(this.currentFrameIndex);
+        },
+
+        get targetFrame() {
+            return this.presentation.frames.at(this.targetFrameIndex);
         },
 
         get previousFrameIndex() {
@@ -319,8 +328,6 @@ namespace("sozi.player", function (exports) {
 
             this.targetFrameIndex = index;
 
-            var targetFrame = this.presentation.frames.at(index);
-
             var layerProperties = null;
             var durationMs = DEFAULT_TRANSITION_DURATION_MS;
             var useTransitionPath = false;
@@ -333,8 +340,8 @@ namespace("sozi.player", function (exports) {
                 backwards = true;
             }
             else if (index === this.nextFrameIndex) {
-                durationMs = targetFrame.transitionDurationMs;
-                layerProperties = targetFrame.layerProperties;
+                durationMs = this.targetFrame.transitionDurationMs;
+                layerProperties = this.targetFrame.layerProperties;
                 useTransitionPath = true;
             }
 
@@ -359,10 +366,10 @@ namespace("sozi.player", function (exports) {
                     }
                 }
 
-                this.setupTransition(camera, targetFrame, timingFunction, relativeZoom, transitionPath, backwards);
+                this.setupTransition(camera, timingFunction, relativeZoom, transitionPath, backwards);
             }, this);
 
-            this.startTransition(index, durationMs);
+            this.animator.start(durationMs);
 
             return this;
         },
@@ -422,52 +429,44 @@ namespace("sozi.player", function (exports) {
          * default transition settings.
          */
         previewFrame: function (index) {
-            var targetFrame = this.presentation.frames.at(index);
+            this.targetFrameIndex = index;
 
             this.viewport.cameras.forEach(function (camera) {
-                this.setupTransition(camera, targetFrame,
-                                     sozi.player.timing[DEFAULT_TIMING_FUNCTION],
-                                     DEFAULT_RELATIVE_ZOOM);
+                this.setupTransition(camera, sozi.player.timing[DEFAULT_TIMING_FUNCTION], DEFAULT_RELATIVE_ZOOM);
             }, this);
 
-            this.startTransition(index, DEFAULT_TRANSITION_DURATION_MS);
+            this.animator.start(DEFAULT_TRANSITION_DURATION_MS);
             return this;
         },
 
-        setupTransition: function (camera, targetFrame, timingFunction, relativeZoom, svgPath, reverse) {
+        setupTransition: function (camera, timingFunction, relativeZoom, svgPath, reverse) {
             if (this.animator.running) {
                 this.animator.stop();
             }
 
-            var initialState = sozi.player.CameraState.clone().copy(camera);
-            var finalState = targetFrame.cameraStates.at(camera.layer.index);
+            this.transitions.push({
+                camera: camera,
+                initialState: sozi.player.CameraState.clone().copy(camera),
+                finalState: this.targetFrame.cameraStates.at(camera.layer.index),
+                timingFunction: timingFunction,
+                relativeZoom: relativeZoom,
+                svgPath: svgPath,
+                reverse: reverse
+            });
 
-            function onStep(animator, progress) {
-                camera.interpolate(initialState, finalState, progress, timingFunction, relativeZoom, svgPath, reverse);
-                camera.update();
-            }
-
-            function onDone(animator) {
-                animator.removeListener("step", onStep);
-                animator.removeListener("done", onDone);
-            }
-
-            this.animator.addListener("step", onStep);
-            this.animator.addListener("done", onDone);
             return this;
         },
 
-        startTransition: function (index, durationMs) {
-            var self = this;
-            function onDone(animator) {
-                self.currentFrameIndex = index;
-                animator.removeListener("done", onDone);
-            }
+        onAnimatorStep: function (animator, progress) {
+            this.transitions.forEach(function (transition) {
+                transition.camera.interpolate(transition.initialState, transition.finalState, progress, transition.timingFunction, transition.relativeZoom, transition.svgPath, transition.reverse);
+                transition.camera.update();
+            });
+        },
 
-            this.animator.addListener("done", onDone);
-
-            this.animator.start(durationMs);
-            return this;
+        onAnimatorDone: function (animator) {
+            this.transitions.clear();
+            this.currentFrameIndex = this.targetFrameIndex;
         }
     });
 });
