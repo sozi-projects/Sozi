@@ -67,8 +67,8 @@ class SoziExtrasMedia(inkex.Effect):
         # provided by the user and insert it into a <g> element.
         if rect == None:
             rect = inkex.etree.Element("rect")
-            rect.set("x", "0")
-            rect.set("y", "0")
+            rect.set("x", unicode(self.view_center[0] - self.options.width / 2))
+            rect.set("y", unicode(self.view_center[1] - self.options.height / 2))
             rect.set("width", unicode(self.options.width))
             rect.set("height", unicode(self.options.height))
             rect.set("stroke", "none")
@@ -77,7 +77,7 @@ class SoziExtrasMedia(inkex.Effect):
             g = inkex.etree.Element("g")
             g.append(rect)
 
-            self.document.getroot().append(g)
+            self.current_layer.append(g)
 
         # Add a <sozi:video /> or <sozi:audio /> element inside the <rect>
         v = inkex.etree.Element(inkex.addNS(self.options.element, "sozi"))
