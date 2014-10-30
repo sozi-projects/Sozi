@@ -68,6 +68,26 @@ namespace("sozi.editor.view", function (exports) {
             return this;
         },
 
+        toStorable: function () {
+            return {
+                editableLayers: this.editableLayers.map(function (layer) {
+                    return layer.groupId;
+                })
+            };
+        },
+
+        fromStorable: function (storable) {
+            if ("editableLayers" in storable) {
+                storable.editableLayers.forEach(function (groupId) {
+                    var layer = this.presentation.getLayerWithId(groupId);
+                    if (layer) {
+                        this.addLayer(layer.index);
+                    }
+                }, this);
+            }
+            return this;
+        },
+
         onAddLayer: function (collection, layer) {
             this.defaultLayers.push(layer);
             layer.addListener("change:isVisible", this.render, this);

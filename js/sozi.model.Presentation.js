@@ -152,7 +152,7 @@ namespace("sozi.model", function (exports) {
                 var cs = this.cameraStates.at(index);
                 var re = lp.referenceElement;
 
-                var key = layer.auto ? "__sozi_auto__" : layer.svgNodes.first.getAttribute("id");
+                var key = layer.groupId;
                 layerProperties[key] = lp.toStorable();
                 cameraStates[key] = cs.toStorable();
                 if (re) {
@@ -181,7 +181,7 @@ namespace("sozi.model", function (exports) {
                 var lp = this.layerProperties.at(index);
                 var cs = this.cameraStates.at(index);
 
-                var key = layer.auto ? "__sozi_auto__" : layer.svgNodes.first.getAttribute("id");
+                var key = layer.groupId;
                 layerProperties[key] = lp.toMinimalStorable();
                 cameraStates[key] = cs.toMinimalStorable();
             }, this);
@@ -208,7 +208,7 @@ namespace("sozi.model", function (exports) {
 
             // TODO if obj.LayerProperties has keys not in layers, create fake layers marked as "deleted"
             this.owner.layers.forEach(function (layer, index) {
-                var key = layer.auto ? "__sozi_auto__" : layer.svgNodes.first.getAttribute("id");
+                var key = layer.groupId;
                 if (key in obj.layerProperties) {
                     var lp = this.layerProperties.at(index);
                     lp.fromStorable(obj.layerProperties[key]);
@@ -251,6 +251,10 @@ namespace("sozi.model", function (exports) {
             this.label = label;
             this.auto = auto;
             return this;
+        },
+
+        get groupId() {
+            return this.auto ? "__sozi_auto__" : this.svgNodes.first.getAttribute("id");
         },
 
         get index() {
@@ -381,6 +385,18 @@ namespace("sozi.model", function (exports) {
             return frameId;
         },
         
+        getFrameWithId: function (frameId) {
+            return this.frames.find(function (frame) {
+                return frame.frameId === frameId;
+            });
+        },
+
+        getLayerWithId: function (groupId) {
+            return this.layers.find(function (layer) {
+                return layer.groupId === groupId;
+            });
+        },
+
         toStorable: function () {
             return {
                 frames: this.frames.map(function (frame) {
@@ -405,18 +421,6 @@ namespace("sozi.model", function (exports) {
                 frame.fromStorable(f);
             }, this);
             return this;
-        },
-
-        toJSON: function () {
-            return JSON.stringify(this.toStorable());
-        },
-
-        toMinimalJSON: function () {
-            return JSON.stringify(this.toMinimalStorable());
-        },
-
-        fromJSON: function (json) {
-            return this.fromStorable(JSON.parse(json));
         }
     });
 });

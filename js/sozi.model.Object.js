@@ -348,6 +348,16 @@ namespace("sozi.model", function (exports) {
         return this._values[index];
     };
 
+    Collection.find = function (condition) {
+        for (var i = 0; i < this._values.length; i ++) {
+            var value = this._values[i];
+            if (condition(value)) {
+                return value;
+            }
+        }
+        return null;
+    };
+
     Object.defineProperty(Collection, "first", {
         get: function () {
             return this._values[0];

@@ -8,7 +8,7 @@ window.addEventListener("load", function () {
     var presentation = sozi.model.Presentation;
     var selection = sozi.editor.model.Selection.init(presentation);
     sozi.editor.view.Preview.init(presentation, selection);
-    sozi.editor.view.Timeline.init(presentation, selection);
+    var timeline = sozi.editor.view.Timeline.init(presentation, selection);
     sozi.editor.view.Properties.init(presentation, selection);
     
     var svgFileDescriptor;
@@ -48,7 +48,7 @@ window.addEventListener("load", function () {
         return result;
     }
 
-    function loadJSON(backend, name, location) {
+    function openJSONFile(backend, name, location) {
         backend.find(name, location, function (fileDescriptor) {
             if (fileDescriptor) {
                 backend.load(fileDescriptor);
@@ -66,23 +66,48 @@ window.addEventListener("load", function () {
                     selection.selectedFrames.push(presentation.frames.first);
                 }
 
-                backend.create(name, location, "application/json", presentation.toJSON(), function (fileDescriptor) {
-                    autosaveJSON(backend, fileDescriptor);
+                backend.create(name, location, "application/json", getJSONData(), function (fileDescriptor) {
+                    autosaveJSONFile(backend, fileDescriptor);
                 });
             }
         });
     }
 
-    function autosaveJSON(backend, fileDescriptor) {
-        backend.autosave(fileDescriptor, function () {
-            return presentation.toJSON();
-        });
+    function mergeStorables() {
+        var storable = {};
+        for (var i = 0; i < arguments.length; i ++) {
+            var partial = arguments[i].toStorable();
+            for (var key in partial) {
+                storable[key] = partial[key];
+            }
+        }
+        return storable;
     }
 
-    function createHTML(backend, name, location, svg) {
+    function getJSONData() {
+        return JSON.stringify(mergeStorables(
+            presentation,
+            timeline,
+            selection
+        ));
+    }
+
+    function loadJSONData(data) {
+        var storable = JSON.parse(data);
+        presentation.fromStorable(storable);
+        timeline.fromStorable(storable);
+        selection.fromStorable(storable);
+    }
+
+    function autosaveJSONFile(backend, fileDescriptor) {
+        backend.autosave(fileDescriptor, getJSONData);
+    }
+
+    function createHTMLFile(backend, name, location, svg) {
         var context = {
             svg: svg,
-            pres: presentation
+            title: presentation.title,
+            json: JSON.stringify(presentation.toMinimalStorable())
         };
         function exportHTML() {
             return nunjucks.render("build/templates/sozi.player.html", context);
@@ -108,8 +133,8 @@ window.addEventListener("load", function () {
                     if (svg) {
                         svgFileDescriptor = fileDescriptor;
 
-                        loadJSON(backend, name.replace(/\.svg$/, ".sozi.json"), location);
-                        createHTML(backend, name.replace(/\.svg$/, ".sozi.html"), location, svg);
+                        openJSONFile(backend, name.replace(/\.svg$/, ".sozi.json"), location);
+                        createHTMLFile(backend, name.replace(/\.svg$/, ".sozi.html"), location, svg);
 
                         backend.addListener("save", function (backend, fileDescriptor) {
                             $.notify("Saved " + backend.getName(fileDescriptor), "info");
@@ -118,14 +143,14 @@ window.addEventListener("load", function () {
                 }
                 else if (/\.sozi\.json$/.test(name)) {
                     // Load presentation data from JSON file.
-                    presentation.fromJSON(data);
+                    loadJSONData(data);
 
                     // Select the first frame
-                    if (presentation.frames.length) {
+                    if (presentation.frames.length && !selection.selectedFrames.length) {
                         selection.selectedFrames.push(presentation.frames.first);
                     }
 
-                    autosaveJSON(backend, fileDescriptor);
+                    autosaveJSONFile(backend, fileDescriptor);
                 }
             })
             .addListener("change", function (backend, fileDescriptor) {

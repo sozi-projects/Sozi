@@ -14,6 +14,7 @@ namespace("sozi.editor.model", function (exports) {
      */
     exports.Selection = sozi.model.Object.clone({
         
+        presentation: null,
         selectedFrames: [],
         selectedLayers: [],
         
@@ -30,6 +31,8 @@ namespace("sozi.editor.model", function (exports) {
          *  - The current selection object
          */
         init: function (pres) {
+            this.presentation = pres;
+
             if (pres.frames.length) {
                 this.selectedFrames.push(pres.frames.first);
             }
@@ -40,6 +43,39 @@ namespace("sozi.editor.model", function (exports) {
             pres.layers.addListener("remove", this.onRemoveLayer, this);
 
             return this;
+        },
+
+        toStorable: function () {
+            return {
+                selectedFrames: this.selectedFrames.map(function (frame) {
+                    return frame.frameId;
+                }),
+                selectedLayers: this.selectedLayers.map(function (layer) {
+                    return layer.groupId;
+                })
+            };
+        },
+
+        fromStorable: function (storable) {
+            if ("selectedFrames" in storable) {
+                this.selectedFrames.clear();
+                storable.selectedFrames.forEach(function (frameId) {
+                    var frame = this.presentation.getFrameWithId(frameId);
+                    if (frame) {
+                        this.selectedFrames.push(frame);
+                    }
+                }, this);
+            }
+
+            if ("selectedLayers" in storable) {
+                this.selectedLayers.clear();
+                storable.selectedLayers.forEach(function (groupId) {
+                    var layer = this.presentation.getLayerWithId(groupId);
+                    if (layer) {
+                        this.selectedLayers.push(layer);
+                    }
+                }, this);
+            }
         },
 
         /*
