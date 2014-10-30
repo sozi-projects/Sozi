@@ -11,7 +11,9 @@ window.addEventListener("load", function () {
     var timeline = sozi.editor.view.Timeline.init(presentation, selection);
     sozi.editor.view.Properties.init(presentation, selection);
     
-    var svgFileDescriptor;
+    // The objects that contain the presentation data and
+    // the editor state that need to be saved.
+    var jsonSources = [presentation, selection, timeline];
 
     /*
      * Create an SVG DOM tree from the given textual data
@@ -48,6 +50,11 @@ window.addEventListener("load", function () {
         return result;
     }
 
+    /*
+     * Open the JSON file with the given name at the given location.
+     * If the file exists, load it.
+     * It it does not exist, create it.
+     */
     function openJSONFile(backend, name, location) {
         backend.find(name, location, function (fileDescriptor) {
             if (fileDescriptor) {
@@ -67,31 +74,32 @@ window.addEventListener("load", function () {
                 }
 
                 backend.create(name, location, "application/json", getJSONData(), function (fileDescriptor) {
-                    autosaveJSONFile(backend, fileDescriptor);
+                    backend.autosave(fileDescriptor, getJSONData);
                 });
             }
         });
     }
 
-    function mergeStorables() {
+    /*
+     * Extract the data to save from the current presentation
+     * and the current editor state.
+     * Return it as a JSON string.
+     */
+    function getJSONData() {
         var storable = {};
-        for (var i = 0; i < arguments.length; i ++) {
-            var partial = arguments[i].toStorable();
+        jsonSources.forEach(function (object) {
+            var partial = object.toStorable();
             for (var key in partial) {
                 storable[key] = partial[key];
             }
-        }
-        return storable;
+        });
+        return JSON.stringify(storable);
     }
 
-    function getJSONData() {
-        return JSON.stringify(mergeStorables(
-            presentation,
-            timeline,
-            selection
-        ));
-    }
-
+    /*
+     * Load the presentation and set the initial state
+     * of the editor using the given JSON data.
+     */
     function loadJSONData(data) {
         var storable = JSON.parse(data);
         presentation.fromStorable(storable);
@@ -99,10 +107,10 @@ window.addEventListener("load", function () {
         selection.fromStorable(storable);
     }
 
-    function autosaveJSONFile(backend, fileDescriptor) {
-        backend.autosave(fileDescriptor, getJSONData);
-    }
-
+    /*
+     * Export the presentation to the HTML file with the given name,
+     * at the given location and using the given SVG data.
+     */
     function createHTMLFile(backend, name, location, svg) {
         var context = {
             svg: svg,
@@ -116,6 +124,8 @@ window.addEventListener("load", function () {
             backend.autosave(fileDescriptor, exportHTML);
         });
     }
+
+    var svgFileDescriptor;
 
     sozi.editor.backend.list.forEach(function (backend) {
         var listItem = $("<li></li>");
@@ -142,15 +152,15 @@ window.addEventListener("load", function () {
                     }
                 }
                 else if (/\.sozi\.json$/.test(name)) {
-                    // Load presentation data from JSON file.
+                    // Load presentation data and editor state from JSON file.
                     loadJSONData(data);
 
-                    // Select the first frame
+                    // If no frame is selected, select the first frame
                     if (presentation.frames.length && !selection.selectedFrames.length) {
                         selection.selectedFrames.push(presentation.frames.first);
                     }
 
-                    autosaveJSONFile(backend, fileDescriptor);
+                    backend.autosave(fileDescriptor, getJSONData);
                 }
             })
             .addListener("change", function (backend, fileDescriptor) {
