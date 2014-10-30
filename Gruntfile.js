@@ -2,20 +2,18 @@ module.exports = function(grunt) {
     "use strict";
 
     var nunjucks = require("nunjucks");
-    //var process = require("process");
-    var path = require("path");
 
-    grunt.loadNpmTasks('grunt-newer');
-    grunt.loadNpmTasks('grunt-rename');
+    grunt.loadNpmTasks("grunt-newer");
+    grunt.loadNpmTasks("grunt-rename");
     grunt.loadNpmTasks("grunt-nunjucks");
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-csslint");
     grunt.loadNpmTasks("grunt-node-webkit-builder");
     grunt.loadNpmTasks("grunt-contrib-compress");
     grunt.loadNpmTasks("grunt-rsync");
-    grunt.loadNpmTasks('grunt-simple-mocha');
-    grunt.loadNpmTasks('grunt-modify-json');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks("grunt-simple-mocha");
+    grunt.loadNpmTasks("grunt-modify-json");
+    grunt.loadNpmTasks("grunt-contrib-uglify");
     
     var version = grunt.template.today("yy.mm.ddHHMM");
 
@@ -59,11 +57,11 @@ module.exports = function(grunt) {
             options: {
                 timeout: 3000,
                 ignoreLeaks: false,
-                ui: 'bdd',
-                reporter: 'tap'
+                ui: "bdd",
+                reporter: "tap"
             },
             all: {
-                src: ['test/**/*.mocha.js']
+                src: ["test/**/*.mocha.js"]
             }
         },
 
@@ -72,9 +70,9 @@ module.exports = function(grunt) {
          */
         uglify: {
             options: {
-                compress: false,
-                mangle: false,
-                beautify: true
+//                compress: false,
+//                mangle: false,
+//                beautify: true
             },
             player: {
                 src: [
@@ -113,6 +111,18 @@ module.exports = function(grunt) {
             player: {
                 src: [ "<%= nunjucks_render.player.dest %>"],
                 dest: "build/templates/sozi.player.templates.js"
+            }
+        },
+
+        compress: {
+            media: {
+                options: {
+                    mode: "zip",
+                    archive: "build/Sozi-extras-media-" + version + ".zip"
+                },
+                expand: true,
+                cwd: "extras/media",
+                src: ["**/*"]
             }
         },
 
@@ -206,7 +216,7 @@ module.exports = function(grunt) {
     grunt.registerMultiTask("nunjucks_render", function () {
         this.files.forEach(function (file) {
             grunt.file.write(file.dest, nunjucks.render(file.src[0], this.data.context));
-            grunt.log.writeln('File ' + file.dest + ' created.');
+            grunt.log.writeln("File " + file.dest + " created.");
         }, this);
     });
 
