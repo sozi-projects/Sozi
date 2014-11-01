@@ -31,31 +31,29 @@ namespace("sozi.editor.backend", function (exports) {
             }
             
             exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-NodeWebkit-input" type="file" accept="image/svg+xml" autofocus>');
-            
-            var self = this;
 
             // Load the SVG document selected in the file input
+            var self = this;
             $("#sozi-editor-backend-NodeWebkit-input").change(function () {
                 if (this.files.length) {
                     self.load(this.files[0].path);
                 }
             });
 
-            // Save automatically when closing the window
-            win.on("close", function () {
-                self.doAutosave();
-                this.close(true);
-            });
+            var autosaveCallback = this.bind(this.doAutosave);
             
             // Save automatically when the window loses focus
-//            win.on("blur", function () {
-//                self.doAutosave();
-//            });
+//            win.on("blur", autosaveCallback);
 
             // Workaround for issue #1720 in node-webkit for Windows
             // https://github.com/rogerwang/node-webkit/issues/1720
-            window.addEventListener("blur", function () {
-                self.doAutosave();
+            window.addEventListener("blur", autosaveCallback);
+
+            // Save automatically when closing the window
+            win.on("close", function () {
+                window.removeEventListener("blur", autosaveCallback);
+                autosaveCallback();
+                this.close(true);
             });
 
             // If a file name was provided on the command line,
@@ -123,11 +121,13 @@ namespace("sozi.editor.backend", function (exports) {
 
         create: function (name, location, mimeType, data, callback) {
             var fileName = path.join(location, name);
+            // TODO use async file write
             var err = fs.writeFileSync(fileName, data, { encoding: "utf-8" });
             callback(fileName, err);
         },
         
         save: function (fileDescriptor, data) {
+            // TODO use async file write
             var err = fs.writeFileSync(fileDescriptor, data, { encoding: "utf-8" });
             this.fire("save", fileDescriptor, err);
         }
