@@ -276,7 +276,7 @@ namespace("sozi.player", function (exports) {
             viewportRect.height = this.owner.height;
             var viewportArea = this.owner.width * this.owner.height;
 
-            var intersectionList = this.svgRoot.getIntersectionList(viewportRect, null);
+            var intersectionList = this.svgRoot.getIntersectionList(viewportRect, this.layer.svgNodes.first);
 
             // Find the element which bounding box best fits in the viewport.
             var bestScore = -1;
@@ -285,7 +285,7 @@ namespace("sozi.player", function (exports) {
             for (var i = 0; i < intersectionList.length; i ++) {
                 var elt = intersectionList[i];
                 if (elt.hasAttribute("id")) {
-                    // TODO getBoundingClientRect returns bounding box or bounding box
+                    // TODO getBoundingClientRect returns bounding box of bounding box
                     var eltRect = elt.getBoundingClientRect();
                     var eltArea = eltRect.width * eltRect.height;
 
