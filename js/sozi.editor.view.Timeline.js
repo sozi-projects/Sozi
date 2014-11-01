@@ -128,13 +128,15 @@ namespace("sozi.editor.view", function (exports) {
         addFrame: function () {
             var frame = sozi.model.Frame.clone().init(this.presentation);
             if (this.selection.currentFrame) {
-                frame.copy(this.selection.currentFrame);
                 this.presentation.frames.insert(frame, this.selection.currentFrame.index + 1);
             }
             else {
                 frame.setAtStates(sozi.editor.view.Preview.cameras);
                 this.presentation.frames.push(frame);
             }
+            frame.layerProperties.forEach(function (layer) {
+                layer.link = true;
+            });
             this.selection.selectedFrames.clear();
             this.selection.selectedFrames.push(frame);
         },

@@ -7,7 +7,7 @@ namespace("sozi.model", function (exports) {
 
     var LayerProperties = sozi.model.Object.clone({
         // TODO define default properties separately
-        link: true,
+        link: false,
         referenceElementId: "",
         referenceElementAuto: true,
         referenceElementHide: false,
