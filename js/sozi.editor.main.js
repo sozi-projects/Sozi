@@ -112,13 +112,12 @@ window.addEventListener("load", function () {
      * at the given location and using the given SVG data.
      */
     function createHTMLFile(backend, name, location, svg) {
-        var context = {
-            svg: svg,
-            title: presentation.title,
-            json: JSON.stringify(presentation.toMinimalStorable())
-        };
         function exportHTML() {
-            return nunjucks.render("build/templates/sozi.player.html", context);
+            return nunjucks.render("build/templates/sozi.player.html", {
+                svg: svg,
+                title: presentation.title,
+                json: JSON.stringify(presentation.toMinimalStorable())
+            });
         }
         backend.create(name, location, "text/html", exportHTML(), function (fileDescriptor) {
             backend.autosave(fileDescriptor, exportHTML);
