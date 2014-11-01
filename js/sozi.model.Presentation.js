@@ -36,24 +36,7 @@ namespace("sozi.model", function (exports) {
         },
 
         onChangeLink: function () {
-            if (this.link) {
-                var frames = this.owner.owner.frames;
-                var frameIndex = this.owner.index;
-                var layerIndex = this.index;
-                
-                var cameraState = frameIndex > 0 ?
-                    frames.at(frameIndex - 1).cameraStates.at(layerIndex) :
-                    this.owner.cameraStates.last; // Link to "auto" layer
-
-                // Update the camera states of the linked layers in the following frames
-                for (var i = frameIndex; i < frames.length; i ++) {
-                    var frame = frames.at(i);
-                    if (!frame.layerProperties.at(layerIndex).link) {
-                        break;
-                    }
-                    frame.cameraStates.at(layerIndex).copy(cameraState);
-                }
-            }
+            this.owner.owner.updateLinkedLayers();
         },
         
         onChangeReferenceElementHide: function (self, value) {
@@ -113,7 +96,6 @@ namespace("sozi.model", function (exports) {
             pres.layers.forEach(function () {
                 var cameraState = sozi.player.CameraState.clone().init(pres.svgRoot);
                 this.cameraStates.push(cameraState);
-                cameraState.addListener("change", this.onChangeCameraState, this);
                 this.layerProperties.push(LayerProperties.clone().init());
             }, this);
 
@@ -126,22 +108,6 @@ namespace("sozi.model", function (exports) {
             this.frameId = frameId;
         },
 
-        onChangeCameraState: function (cameraState) {
-            if (this.owner) {
-                var frames = this.owner.frames;
-                var layerIndex = this.cameraStates.indexOf(cameraState);
-
-                // Update the camera states of the linked layers in the following frames
-                for (var i = this.index + 1; i < frames.length; i ++) {
-                    var frame = frames.at(i);
-                    if (!frame.layerProperties.at(layerIndex).link) {
-                        break;
-                    }
-                    frame.cameraStates.at(layerIndex).copy(cameraState);
-                }
-            }
-        },
-        
         toStorable: function () {
             var layerProperties = {};
             var cameraStates = {};
@@ -304,6 +270,8 @@ namespace("sozi.model", function (exports) {
             this.frames.clear();
             this.layers.clear();
 
+            this.addListener("change:frames", this.updateLinkedLayers, this);
+
             // Remove attributes that prevent correct rendering
             svgRoot.removeAttribute("viewBox");
             svgRoot.style.width = svgRoot.style.height = "auto";
@@ -421,6 +389,27 @@ namespace("sozi.model", function (exports) {
                 frame.fromStorable(f);
             }, this);
             return this;
+        },
+
+        updateLinkedLayers: function () {
+            if (!this.frames.length) {
+                return this;
+            }
+
+            var defaultCameraState = this.frames.at(0).cameraStates.last;
+
+            this.layers.forEach(function (layer, layerIndex) {
+                var cameraState = defaultCameraState;
+
+                this.frames.forEach(function (frame) {
+                    if (frame.layerProperties.at(layerIndex).link) {
+                        frame.cameraStates.at(layerIndex).copy(cameraState);
+                    }
+                    else {
+                        cameraState = frame.cameraStates.at(layerIndex);
+                    }
+                }, this);
+            }, this);
         }
     });
 });
