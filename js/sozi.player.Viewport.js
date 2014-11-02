@@ -25,8 +25,6 @@ namespace("sozi.player", function (exports) {
         dragEngHandler: null,
         mouseDragX: 0,
         mouseDragY: 0,
-        mouseDragStartX: 0,
-        mouseDragStartY: 0,
         dragMode: "translate",
         
         /*
@@ -161,45 +159,64 @@ namespace("sozi.player", function (exports) {
         onDrag: function (evt) {
             evt.stopPropagation();
 
+            var xFromCenter = evt.clientX - this.x - this.width / 2;
+            var yFromCenter = evt.clientY - this.y - this.height / 2;
+            var angle = 180 * Math.atan2(yFromCenter, xFromCenter) / Math.PI;
+            var translateX = evt.clientX;
+            var translateY = evt.clientY;
+            var zoom = Math.sqrt(xFromCenter * xFromCenter + yFromCenter * yFromCenter);
+
             // The drag action is confirmed when one of the mouse coordinates
             // has moved past the threshold
             if (!this.mouseDragged && (Math.abs(evt.clientX - this.mouseDragX) > DRAG_THRESHOLD_PX ||
                                        Math.abs(evt.clientY - this.mouseDragY) > DRAG_THRESHOLD_PX)) {
                 this.mouseDragged = true;
-                this.mouseDragStartX = evt.clientX;
-                this.mouseDragStartY = evt.clientY;
+
+                this.rotateStart = this.rotatePrev = angle;
+                this.translateStartX = this.translateXPrev = translateX;
+                this.translateStartY = this.translateYPrev = translateY;
+                this.zoomPrev = zoom;
+
                 this.fire("dragStart");
             }
 
             if (this.mouseDragged) {
                 var mode = this.dragMode;
                 if (mode == "translate") {
-                    if (evt.ctrlKey) {
+                    if (evt.altKey) {
                         mode = "scale";
                     }
                     else if (evt.shiftKey) {
                         mode = "rotate";
                     }
                 }
+
                 switch (mode) {
                     case "scale":
-                        var dx1 = this.mouseDragX - this.x - this.width / 2;
-                        var dy1 = this.mouseDragY - this.y - this.height / 2;
-                        var d1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
-                        var dx2 = evt.clientX - this.x - this.width / 2;
-                        var dy2 = evt.clientY - this.y - this.height / 2;
-                        var d2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-                        if (d1 !== 0) {
-                            this.zoom(d2 / d1, this.width / 2, this.height / 2);
+                        if (this.zoomPrev !== 0) {
+                            this.zoom(zoom / this.zoomPrev, this.width / 2, this.height / 2);
                         }
+                        this.zoomPrev = zoom;
                         break;
                     case "rotate":
-                        var a1 = 180 * Math.atan2(this.mouseDragY - this.y - this.height / 2, this.mouseDragX - this.x - this.width / 2) / Math.PI;
-                        var a2 = 180 * Math.atan2(evt.clientY - this.y - this.height / 2, evt.clientX - this.x - this.width / 2) / Math.PI;
-                        this.rotate(a1 - a2);
+                        if (evt.ctrlKey) {
+                            angle = 10 * Math.round((angle - this.rotateStart) / 10) + this.rotateStart;
+                        }
+                        this.rotate(this.rotatePrev - angle);
+                        this.rotatePrev = angle;
                         break;
                     default: // case "translate":
-                        this.translate(evt.clientX - this.mouseDragX, evt.clientY - this.mouseDragY);
+                        if (evt.ctrlKey) {
+                            if (Math.abs(translateX - this.translateStartX) >= Math.abs(translateY - this.translateStartY)) {
+                                translateY = this.translateStartY;
+                            }
+                            else {
+                                translateX = this.translateStartX;
+                            }
+                        }
+                        this.translate(translateX - this.translateXPrev, translateY - this.translateYPrev);
+                        this.translateXPrev = translateX;
+                        this.translateYPrev = translateY;
                 }
                 this.mouseDragX = evt.clientX;
                 this.mouseDragY = evt.clientY;
