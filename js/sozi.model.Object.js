@@ -151,6 +151,7 @@ namespace("sozi.model", function (exports) {
                 changeOwnership(object, name, previousValue, value);
             }
             object.fire("change:" + name, value);
+            object.root.fire("contentChange");
         }
     }
         
@@ -268,6 +269,7 @@ namespace("sozi.model", function (exports) {
             }
             this.fire("add", value, this._values.length - 1);
             this._owner.fire("change:" + this._owningProperty, this);
+            this.root.fire("contentChange");
         }
         return this;
     };
@@ -286,6 +288,7 @@ namespace("sozi.model", function (exports) {
         }
         this.fire("add", value, index);
         this._owner.fire("change:" + this._owningProperty, this);
+        this.root.fire("contentChange");
         return this;
     };
 
@@ -303,6 +306,7 @@ namespace("sozi.model", function (exports) {
         }
         this.fire("add", value, index);
         this._owner.fire("change:" + this._owningProperty, this);
+        this.root.fire("contentChange");
         return this;
     };
     
@@ -314,6 +318,7 @@ namespace("sozi.model", function (exports) {
             }
             this.fire("remove", values[0], index);
             this._owner.fire("change:" + this._owningProperty, this);
+            this.root.fire("contentChange");
         }
         return this;
     };

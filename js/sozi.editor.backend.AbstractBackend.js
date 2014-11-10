@@ -130,11 +130,13 @@ namespace("sozi.editor.backend", function (exports) {
          *
          * Parameters:
          *  - fileDescriptor (backend-dependent)
+         *  - needsSaving (function) A function that returns true if the file needs saving
          *  - getData (function) A function that returns the data to save.
          */
-        autosave: function (fileDescriptor, getData) {
+        autosave: function (fileDescriptor, needsSaving, getData) {
             this.autosavedFiles.push({
                 descriptor: fileDescriptor,
+                needsSaving: needsSaving,
                 getData: getData
             });
         },
@@ -147,7 +149,9 @@ namespace("sozi.editor.backend", function (exports) {
          */
         doAutosave: function () {
             this.autosavedFiles.forEach(function (file) {
-                this.save(file.descriptor, file.getData());
+                if (file.needsSaving()) {
+                    this.save(file.descriptor, file.getData());
+                }
             }, this);
         }
     });

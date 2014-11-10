@@ -15,6 +15,8 @@ window.addEventListener("load", function () {
     // the editor state that need to be saved.
     var jsonSources = [presentation, selection, timeline];
 
+    var svgData;
+
     /*
      * Create an SVG DOM tree from the given textual data
      * and add it to the editor "preview" area.
@@ -40,14 +42,12 @@ window.addEventListener("load", function () {
             script.parentNode.removeChild(script);
         });
 
-        var result = div.innerHTML;
+        svgData = div.innerHTML;
 
         // Add the SVG root to the editor view
         $("#sozi-editor-view-preview").html(svgRoot);
         presentation.init(svgRoot);
         $("html head title").text(presentation.title);
-
-        return result;
     }
 
     /*
@@ -74,8 +74,31 @@ window.addEventListener("load", function () {
                 }
 
                 backend.create(name, location, "application/json", getJSONData(), function (fileDescriptor) {
-                    backend.autosave(fileDescriptor, getJSONData);
+                    autosaveJSON(backend, fileDescriptor);
                 });
+            }
+        });
+    }
+
+    /*
+     * Configure autosaving for presentation data
+     * and editor state.
+     */
+    function autosaveJSON(backend, fileDescriptor) {
+        var jsonNeedsSaving = false;
+
+        jsonSources.forEach(function (object) {
+            object.addListener("contentChange", function () {
+                jsonNeedsSaving = true;
+            });
+        });
+
+        backend.autosave(fileDescriptor, function () { return jsonNeedsSaving; }, getJSONData);
+
+        backend.addListener("save", function (backend, savedFileDescriptor) {
+            if (fileDescriptor === savedFileDescriptor) {
+                jsonNeedsSaving = false;
+                $.notify("Saved " + backend.getName(fileDescriptor), "info");
             }
         });
     }
@@ -108,19 +131,49 @@ window.addEventListener("load", function () {
     }
 
     /*
-     * Export the presentation to the HTML file with the given name,
-     * at the given location and using the given SVG data.
+     * Create the exported HTML file if it does not exist.
      */
-    function createHTMLFile(backend, name, location, svg) {
-        function exportHTML() {
-            return nunjucks.render("build/templates/sozi.player.html", {
-                svg: svg,
-                title: presentation.title,
-                json: JSON.stringify(presentation.toMinimalStorable())
-            });
-        }
-        backend.create(name, location, "text/html", exportHTML(), function (fileDescriptor) {
-            backend.autosave(fileDescriptor, exportHTML);
+    function createHTMLFile(backend, name, location) {
+        backend.find(name, location, function (fileDescriptor) {
+            if (fileDescriptor) {
+                autosaveHTML(backend, fileDescriptor);
+            }
+            else {
+                backend.create(name, location, "text/html", exportHTML(), function (fileDescriptor) {
+                    autosaveHTML(backend, fileDescriptor);
+                });
+            }
+        });
+    }
+
+    /*
+     * Generate the content of the exported HTML file.
+     */
+    function exportHTML() {
+        return nunjucks.render("build/templates/sozi.player.html", {
+            svg: svgData,
+            title: presentation.title,
+            json: JSON.stringify(presentation.toMinimalStorable())
+        });
+    }
+
+    /*
+     * Configure autosaving for HTML export.
+     */
+    function autosaveHTML(backend, fileDescriptor) {
+        var htmlNeedsSaving = false;
+
+        presentation.addListener("contentChange", function () {
+            htmlNeedsSaving = true;
+        });
+
+        backend.autosave(fileDescriptor, function () { return htmlNeedsSaving; }, exportHTML);
+
+        backend.addListener("save", function (backend, savedFileDescriptor) {
+            if (fileDescriptor === savedFileDescriptor) {
+                htmlNeedsSaving = false;
+                $.notify("Saved " + backend.getName(fileDescriptor), "info");
+            }
         });
     }
 
@@ -138,16 +191,12 @@ window.addEventListener("load", function () {
                     $.notify("File " + name + " could not be loaded.", "error");
                 }
                 else if (/\.svg$/.test(name)) {
-                    var svg = loadSVG(data);
-                    if (svg) {
+                    loadSVG(data);
+                    if (svgData) {
                         svgFileDescriptor = fileDescriptor;
 
                         openJSONFile(backend, name.replace(/\.svg$/, ".sozi.json"), location);
-                        createHTMLFile(backend, name.replace(/\.svg$/, ".sozi.html"), location, svg);
-
-                        backend.addListener("save", function (backend, fileDescriptor) {
-                            $.notify("Saved " + backend.getName(fileDescriptor), "info");
-                        });
+                        createHTMLFile(backend, name.replace(/\.svg$/, ".sozi.html"), location);
                     }
                 }
                 else if (/\.sozi\.json$/.test(name)) {
@@ -159,7 +208,7 @@ window.addEventListener("load", function () {
                         selection.selectedFrames.push(presentation.frames.first);
                     }
 
-                    backend.autosave(fileDescriptor, getJSONData);
+                    autosaveJSON(backend, fileDescriptor);
                 }
             })
             .addListener("change", function (backend, fileDescriptor) {
