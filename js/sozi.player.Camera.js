@@ -25,14 +25,18 @@ namespace("sozi.player", function (exports) {
         
         // Clipping
         clipped: false,
+        clipXOffset: 0,
+        clipYOffset: 0,
+        clipWidthFactor: 1,
+        clipHeightFactor: 1,
         
         init: function (svgRoot) {
             this.svgRoot = svgRoot;
             var initialBBox = svgRoot.getBBox();
-            this.cx = initialBBox.x + initialBBox.width / 2;
-            this.cy = initialBBox.y + initialBBox.height / 2;
-            this.width = initialBBox.width;
-            this.height = initialBBox.height;
+            this.cx = this.clipCx = initialBBox.x + initialBBox.width / 2;
+            this.cy = this.clipCy = initialBBox.y + initialBBox.height / 2;
+            this.width = this.clipWidth = initialBBox.width;
+            this.height = this.clipHeight = initialBBox.height;
             return this;
         },
 
@@ -43,7 +47,11 @@ namespace("sozi.player", function (exports) {
                 width: this.width,
                 height: this.height,
                 angle: this.angle,
-                clipped: this.clipped
+                clipped: this.clipped,
+                clipXOffset: this.clipXOffset,
+                clipYOffset: this.clipYOffset,
+                clipWidthFactor: this.clipWidthFactor,
+                clipHeightFactor: this.clipHeightFactor
             };
         },
         
@@ -180,6 +188,12 @@ namespace("sozi.player", function (exports) {
             else {
                 this.angle  = linear(initialState.angle, finalState.angle);
             }
+
+            // Interpolate clip rectangle
+            this.clipXOffset      = linear(initialState.clipXOffset,      finalState.clipXOffset);
+            this.clipYOffset      = linear(initialState.clipYOffset,      finalState.clipYOffset);
+            this.clipWidthFactor  = linear(initialState.clipWidthFactor,  finalState.clipWidthFactor);
+            this.clipHeightFactor = linear(initialState.clipHeightFactor, finalState.clipHeightFactor);
         }
     });
 
@@ -254,11 +268,18 @@ namespace("sozi.player", function (exports) {
         restoreAspectRatio: function () {
             var ownerRatio = this.owner.width / this.owner.height;
             var camRatio = this.width / this.height;
-            if (ownerRatio > camRatio) {
-                this.width = this.height * ownerRatio;
+            var ratio = ownerRatio / camRatio;
+            if (ratio > 1) {
+                this.width *= ratio;
+                if (this.clipped) {
+                    this.clipWidthFactor /= ratio;
+                }
             }
             else {
-                this.height = this.width / ownerRatio;
+                this.height /= ratio;
+                if (this.clipped) {
+                    this.clipHeightFactor *= ratio;
+                }
             }
         },
 
@@ -314,21 +335,30 @@ namespace("sozi.player", function (exports) {
         update: function () {
             var scale = this.scale;
 
-            // Compute the size and location of the frame on the screen
-            var width = this.width  * scale;
-            var height = this.height * scale;
-            var x = (this.owner.width - width) / 2;
-            var y = (this.owner.height - height) / 2;
+            // Adjust the location and size of the clipping rectangle
+            var clipWidth, clipHeight, clipX, clipY;
 
-            // Adjust the location and size of the clipping rectangle and the frame rectangle
-            this.svgClipRect.setAttribute("x", this.clipped ? x : 0);
-            this.svgClipRect.setAttribute("y", this.clipped ? y : 0);
-            this.svgClipRect.setAttribute("width",  this.clipped ? width  : this.owner.width);
-            this.svgClipRect.setAttribute("height", this.clipped ? height : this.owner.height);
+            if (this.clipped) {
+                clipWidth  = this.width  * this.clipWidthFactor  * scale;
+                clipHeight = this.height * this.clipHeightFactor * scale;
+                clipX = (this.owner.width  - clipWidth)  / 2 + this.clipXOffset * this.clipWidthFactor  * scale;
+                clipY = (this.owner.height - clipHeight) / 2 + this.clipYOffset * this.clipHeightFactor * scale;
+            }
+            else {
+                clipWidth = this.owner.width;
+                clipHeight = this.owner.height;
+                clipX = 0;
+                clipY = 0;
+            }
+
+            this.svgClipRect.setAttribute("x", clipX);
+            this.svgClipRect.setAttribute("y", clipY);
+            this.svgClipRect.setAttribute("width",  clipWidth);
+            this.svgClipRect.setAttribute("height", clipHeight);
 
             // Compute and apply the geometrical transformation to the layer group
-            var translateX = -this.cx + this.width / 2  + x / scale;
-            var translateY = -this.cy + this.height / 2 + y / scale;
+            var translateX = this.owner.width  / scale / 2 - this.cx;
+            var translateY = this.owner.height / scale / 2 - this.cy;
 
             this.svgTransformGroups.forEach(function (svgGroup) {
                 svgGroup.setAttribute("transform",

@@ -44,6 +44,8 @@ window.addEventListener("load", function () {
 
         svgData = div.innerHTML;
 
+        // TODO Transform xlink:href attributes to replace relative URLs with absolute URLs
+
         // Add the SVG root to the editor view
         $("#sozi-editor-view-preview").html(svgRoot);
         presentation.init(svgRoot);
