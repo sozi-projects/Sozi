@@ -187,7 +187,7 @@ namespace("sozi.editor.view", function (exports) {
             });
 
             selection.addListener("change", this.render, this);
-            pres.frames.addListener("add", this.onAddFrame, this);
+            pres.addListener("contentChange", this.render, this);
             
             this.render();
 
@@ -198,10 +198,6 @@ namespace("sozi.editor.view", function (exports) {
             this.fields.forEach(function (field) {
                 field.render();
             });
-        },
-
-        onAddFrame: function (collection, frame) {
-            frame.addListener("contentChange", this.render, this);
         }
     });
 });

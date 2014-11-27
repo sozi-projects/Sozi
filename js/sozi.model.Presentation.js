@@ -10,16 +10,12 @@ namespace("sozi.model", function (exports) {
         link: false,
         referenceElementId: "",
         referenceElementAuto: true,
-        referenceElementHide: false,
         transitionTimingFunction: "linear",
         transitionRelativeZoom: 0,
         transitionPathId: "",
-        transitionPathHide: false,
         
         init: function () {
             this.addListener("change:link", this.onChangeLink, this);
-            this.addListener("change:referenceElementHide", this.onChangeReferenceElementHide, this);
-            this.addListener("change:transitionPathHide", this.onChangeTransitionPathHide, this);
             return this;
         },
         
@@ -35,22 +31,36 @@ namespace("sozi.model", function (exports) {
             return this.owner.owner.svgRoot.getElementById(this.transitionPathId);
         },
 
-        onChangeLink: function () {
-            this.owner.owner.updateLinkedLayers();
+        get referenceElementHide() {
+            return this.owner.owner.elementsToHide.contains(this.referenceElementId);
         },
         
-        onChangeReferenceElementHide: function (self, value) {
-            if (this.referenceElement) {
-                // TODO: update visibility in other frames and layers
-                this.referenceElement.style.visibility = value ? "hidden" : "visible";
+        set referenceElementHide(hide) {
+            var hidden = this.referenceElementHide;
+            if (hide && !hidden) {
+                this.owner.owner.elementsToHide.push(this.referenceElementId);
+            }
+            else if (!hide && hidden) {
+                this.owner.owner.elementsToHide.remove(this.referenceElementId);
             }
         },
 
-        onChangeTransitionPathHide: function (self, value) {
-            if (this.transitionPath) {
-                // TODO: update visibility in other frames and layers
-                this.transitionPath.style.visibility = value ? "hidden" : "visible";
+        get transitionPathHide() {
+            return this.owner.owner.elementsToHide.contains(this.transitionPathId);
+        },
+
+        set transitionPathHide(hide) {
+            var hidden = this.transitionPathHide;
+            if (hide && !hidden) {
+                this.owner.owner.elementsToHide.push(this.transitionPathId);
             }
+            else if (!hide && hidden) {
+                this.owner.owner.elementsToHide.remove(this.transitionPathId);
+            }
+        },
+
+        onChangeLink: function () {
+            this.owner.owner.updateLinkedLayers();
         },
 
         toStorable: function () {
@@ -58,21 +68,17 @@ namespace("sozi.model", function (exports) {
                 link: this.link,
                 referenceElementId: this.referenceElementId,
                 referenceElementAuto: this.referenceElementAuto,
-                referenceElementHide: this.referenceElementHide,
                 transitionTimingFunction: this.transitionTimingFunction,
                 transitionRelativeZoom: this.transitionRelativeZoom,
-                transitionPathId: this.transitionPathId,
-                transitionPathHide: this.transitionPathHide
+                transitionPathId: this.transitionPathId
             };
         },
         
         toMinimalStorable: function () {
             return {
-                referenceElementHide: this.referenceElementHide,
                 transitionTimingFunction: this.transitionTimingFunction,
                 transitionRelativeZoom: this.transitionRelativeZoom,
-                transitionPathId: this.transitionPathId,
-                transitionPathHide: this.transitionPathHide
+                transitionPathId: this.transitionPathId
             };
         },
 
@@ -256,6 +262,7 @@ namespace("sozi.model", function (exports) {
         svgRoot: null,
         frames: {own: []},
         layers: {own: []},
+        elementsToHide: {own: []},
         
         /*
          * Initialize a Sozi document object.
@@ -271,6 +278,8 @@ namespace("sozi.model", function (exports) {
             this.layers.clear();
 
             this.addListener("change:frames", this.updateLinkedLayers, this);
+            this.elementsToHide.addListener("add", this.onAddElementToHide, this);
+            this.elementsToHide.addListener("remove", this.onRemoveElementToHide, this);
 
             // Remove attributes that prevent correct rendering
             svgRoot.removeAttribute("viewBox");
@@ -369,7 +378,8 @@ namespace("sozi.model", function (exports) {
             return {
                 frames: this.frames.map(function (frame) {
                     return frame.toStorable();
-                })
+                }),
+                elementsToHide: this.elementsToHide.values
             };
         },
         
@@ -377,7 +387,8 @@ namespace("sozi.model", function (exports) {
             return {
                 frames: this.frames.map(function (frame) {
                     return frame.toMinimalStorable();
-                })
+                }),
+                elementsToHide: this.elementsToHide.values
             };
         },
 
@@ -388,7 +399,25 @@ namespace("sozi.model", function (exports) {
                 this.frames.push(frame);
                 frame.fromStorable(f);
             }, this);
+
+            this.elementsToHide.clear();
+            this.elementsToHide.pushAll(obj.elementsToHide);
+
             return this;
+        },
+
+        onAddElementToHide: function (collection, id) {
+            var elt = document.getElementById(id);
+            if (elt) {
+                elt.style.visibility = "hidden";
+            }
+        },
+
+        onRemoveElementToHide: function (collection, id) {
+            var elt = document.getElementById(id);
+            if (elt) {
+                elt.style.visibility = "visible";
+            }
         },
 
         updateLinkedLayers: function () {

@@ -372,6 +372,12 @@ namespace("sozi.model", function (exports) {
         return null;
     };
 
+    Object.defineProperty(Collection, "values", {
+        get: function () {
+            return this._values.slice();
+        }
+    });
+
     Object.defineProperty(Collection, "first", {
         get: function () {
             return this._values[0];
