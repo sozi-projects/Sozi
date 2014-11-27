@@ -190,10 +190,18 @@ namespace("sozi.player", function (exports) {
             }
 
             // Interpolate clip rectangle
-            this.clipXOffset      = linear(initialState.clipXOffset,      finalState.clipXOffset);
-            this.clipYOffset      = linear(initialState.clipYOffset,      finalState.clipYOffset);
-            this.clipWidthFactor  = linear(initialState.clipWidthFactor,  finalState.clipWidthFactor);
-            this.clipHeightFactor = linear(initialState.clipHeightFactor, finalState.clipHeightFactor);
+            this.clipped = true;
+            var clipDefaults = {
+                clipXOffset: 0,
+                clipYOffset: 0,
+                clipWidthFactor: 1,
+                clipHeightFactor: 1
+            };
+            var initialClipping = initialState.clipped ? initialState : clipDefaults;
+            var finalClipping   = finalState.clipped   ? finalState   : clipDefaults;
+            for (var clipProp in clipDefaults) {
+                this[clipProp] = linear(initialClipping[clipProp], finalClipping[clipProp]);
+            }
         }
     });
 
@@ -201,7 +209,8 @@ namespace("sozi.player", function (exports) {
 
         layer: null,
         selected: true,
-        svgClipRect: false,
+        svgClipMask: null,
+        svgClipRect: null,
         svgTransformGroups: [],
         maskValue: 0,
         

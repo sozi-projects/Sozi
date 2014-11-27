@@ -31,13 +31,13 @@ namespace("sozi.model", function (exports) {
                     return "easeInOut";
 
                 case "immediate-beginning":
-                    return "step-start";
+                    return "stepStart";
 
                 case "immediate-end":
-                    return "step-end";
+                    return "stepEnd";
 
                 case "immediate-middle":
-                    return "step-middle";
+                    return "stepMiddle";
 
                 default:
                     return "linear";
