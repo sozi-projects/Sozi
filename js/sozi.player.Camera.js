@@ -203,6 +203,7 @@ namespace("sozi.player", function (exports) {
         selected: true,
         svgClipRect: false,
         svgTransformGroups: [],
+        maskValue: 0,
         
         init: function (viewport, layer) {
             exports.CameraState.init.call(this, viewport.svgRoot);
@@ -210,18 +211,21 @@ namespace("sozi.player", function (exports) {
             this.layer = layer;
 
             // The clipping rectangle of this camera
+            this.svgMaskRect = document.createElementNS(SVG_NS, "rect");
             this.svgClipRect = document.createElementNS(SVG_NS, "rect");
+            this.svgClipRect.setAttribute("fill", "white");
 
             // The clipping path of this camera
-            var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
-            var svgClipPathId = viewport.makeUniqueId("sozi-clip-path-");
-            svgClipPath.setAttribute("id", svgClipPathId);
-            svgClipPath.appendChild(this.svgClipRect);
-            viewport.svgRoot.appendChild(svgClipPath);
+            var svgMask = document.createElementNS(SVG_NS, "mask");
+            var svgMaskId = viewport.makeUniqueId("sozi-mask-");
+            svgMask.setAttribute("id", svgMaskId);
+            svgMask.appendChild(this.svgMaskRect);
+            svgMask.appendChild(this.svgClipRect);
+            viewport.svgRoot.appendChild(svgMask);
 
             // The group that will support the clipping operation
             var svgClippedGroup = document.createElementNS(SVG_NS, "g");
-            svgClippedGroup.setAttribute("clip-path", "url(#" + svgClipPathId + ")");
+            svgClippedGroup.setAttribute("mask", "url(#" + svgMaskId + ")");
             viewport.svgRoot.appendChild(svgClippedGroup);
 
             // The groups that will support transformations
@@ -362,6 +366,12 @@ namespace("sozi.player", function (exports) {
                 clipX = 0;
                 clipY = 0;
             }
+
+            this.svgMaskRect.setAttribute("fill", "rgb(" + this.maskValue + "," + this.maskValue + "," + this.maskValue + ")");
+            this.svgMaskRect.setAttribute("x", 0);
+            this.svgMaskRect.setAttribute("y", 0);
+            this.svgMaskRect.setAttribute("width",  this.owner.width);
+            this.svgMaskRect.setAttribute("height", this.owner.height);
 
             this.svgClipRect.setAttribute("x", clipX);
             this.svgClipRect.setAttribute("y", clipY);

@@ -195,7 +195,6 @@ namespace("sozi.editor.view", function (exports) {
         },
 
         render: function () {
-            console.log("render");
             this.fields.forEach(function (field) {
                 field.render();
             });

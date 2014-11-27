@@ -28,11 +28,14 @@ namespace("sozi.editor.view", function (exports) {
 
             $("input[name=sozi-editor-preview-mode][type=radio]").change(this.bind(this.onChangeDragMode));
 
+            $("#sozi-editor-clip-transparency").change(this.bind(this.onChangeClipTransparency));
+
             selection.addListener("change", this.onChangeSelection, this);
             this.addListener("userChangeState", this.onUserChangeState, this);
             this.addListener("click", this.onClick, this);
             pres.frames.addListener("add", this.onAddFrame, this);
             
+            this.onChangeClipTransparency();
             return this;
         },
 
@@ -134,6 +137,20 @@ namespace("sozi.editor.view", function (exports) {
                     }, this);
                 }
             }
+        },
+
+        onChangeClipTransparency: function () {
+            var maskValue = $("#sozi-editor-clip-transparency").val();
+
+            // Change the transparency of the mask in existing cameras
+            this.cameras.forEach(function (camera) {
+                camera.maskValue = maskValue;
+                camera.update();
+            });
+
+            // Change the default transparency of the mask
+            // for cameras that will be created later.
+            sozi.player.Camera.maskValue = maskValue;
         }
     });
 });
