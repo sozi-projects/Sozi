@@ -235,7 +235,7 @@ namespace("sozi.player", function (exports) {
          * Resume playing from the current frame.
          */
         resume: function () {
-            this.startFromIndex(this.currentFrameIndex);
+            this.playFromIndex(this.currentFrameIndex);
             return this;
         },
 
@@ -250,9 +250,9 @@ namespace("sozi.player", function (exports) {
          * move to the first frame.
          */
         waitTimeout: function () {
-            var self = this;
             if (this.currentFrame.timeoutEnable) {
                 this.waitingTimeout = true;
+                var self = this;
                 var nextIndex = this.nextFrameIndex;
                 this.timeoutHandle = window.setTimeout(function () {
                         self.moveToFrame(nextIndex);
@@ -467,6 +467,9 @@ namespace("sozi.player", function (exports) {
         onAnimatorDone: function (animator) {
             this.transitions.clear();
             this.currentFrameIndex = this.targetFrameIndex;
+            if (this.playing) {
+                this.waitTimeout();
+            }
         }
     });
 });
