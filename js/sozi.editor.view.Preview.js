@@ -28,15 +28,18 @@ namespace("sozi.editor.view", function (exports) {
 
             $("input[name=sozi-editor-preview-mode][type=radio]").change(this.bind(this.onChangeDragMode));
 
-            $("#sozi-editor-clip-transparency").change(this.bind(this.onChangeClipTransparency));
-
             selection.addListener("change", this.onChangeSelection, this);
             this.addListener("userChangeState", this.onUserChangeState, this);
             this.addListener("click", this.onClick, this);
             pres.frames.addListener("add", this.onAddFrame, this);
-            
-            this.onChangeClipTransparency();
+
             return this;
+        },
+
+        onChangeSVGRoot: function () {
+            sozi.player.Viewport.onChangeSVGRoot.call(this);
+            this.svgRoot.addEventListener("mouseenter", this.bind(this.onMouseEnter), false);
+            this.svgRoot.addEventListener("mouseleave", this.bind(this.onMouseLeave), false);
         },
 
         setAspectRatio: function (num, den) {
@@ -139,18 +142,44 @@ namespace("sozi.editor.view", function (exports) {
             }
         },
 
-        onChangeClipTransparency: function () {
-            var maskValue = $("#sozi-editor-clip-transparency").val();
-
-            // Change the transparency of the mask in existing cameras
+        /*
+         * When the mouse enters the preview area,
+         * show the document outside the clipping rectangle
+         * and show the hidden SVG elements.
+         */
+        onMouseEnter: function () {
             this.cameras.forEach(function (camera) {
-                camera.maskValue = maskValue;
-                camera.update();
+                if (camera.selected) {
+                    camera.maskValue = 64;
+                    camera.update();
+                }
             });
+            this.presentation.elementsToHide.forEach(function (id) {
+                var elt = document.getElementById(id);
+                if (elt) {
+                    elt.style.visibility = "visible";
+                }
+            });
+        },
 
-            // Change the default transparency of the mask
-            // for cameras that will be created later.
-            sozi.player.Camera.maskValue = maskValue;
+        /*
+         * When the mouse leaves the preview area,
+         * hide the document outside the clipping rectangle
+         * and hide the hidden SVG elements.
+         */
+        onMouseLeave: function () {
+            this.cameras.forEach(function (camera) {
+                if (camera.selected) {
+                    camera.maskValue = 0;
+                    camera.update();
+                }
+            });
+            this.presentation.elementsToHide.forEach(function (id) {
+                var elt = document.getElementById(id);
+                if (elt) {
+                    elt.style.visibility = "hidden";
+                }
+            });
         }
     });
 });
