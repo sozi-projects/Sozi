@@ -195,21 +195,14 @@ namespace("sozi.editor.view", function (exports) {
         },
 
         render: function () {
+            console.log("render");
             this.fields.forEach(function (field) {
                 field.render();
             });
         },
 
         onAddFrame: function (collection, frame) {
-            frame.addListener("change", this.render, this);
-            frame.layerProperties.addListener("add", this.onAddLayer, this);
-            frame.layerProperties.forEach(function (layer) {
-                this.onAddLayer(frame.layerProperties, layer);
-            }, this);
-        },
-
-        onAddLayer: function (collection, layer) {
-            layer.addListener("change", this.render, this);
+            frame.addListener("contentChange", this.render, this);
         }
     });
 });

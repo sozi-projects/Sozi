@@ -33,10 +33,10 @@ namespace("sozi.player", function (exports) {
         init: function (svgRoot) {
             this.svgRoot = svgRoot;
             var initialBBox = svgRoot.getBBox();
-            this.cx = this.clipCx = initialBBox.x + initialBBox.width / 2;
-            this.cy = this.clipCy = initialBBox.y + initialBBox.height / 2;
-            this.width = this.clipWidth = initialBBox.width;
-            this.height = this.clipHeight = initialBBox.height;
+            this.cx = initialBBox.x + initialBBox.width / 2;
+            this.cy = initialBBox.y + initialBBox.height / 2;
+            this.width = initialBBox.width;
+            this.height = initialBBox.height;
             return this;
         },
 
@@ -262,6 +262,18 @@ namespace("sozi.player", function (exports) {
             this.cx -= (deltaX * co - deltaY * si) / scale;
             this.cy -= (deltaX * si + deltaY * co) / scale;
             this.restoreAspectRatio();
+            return this.update();
+        },
+
+        clip: function (x0, y0, x1, y1) {
+            this.clipped = true;
+            var scale = this.scale;
+            var clipWidth = Math.abs(x1 - x0);
+            var clipHeight = Math.abs(y1 - y0);
+            this.clipXOffset = (Math.min(x0, x1) - (this.owner.width  - clipWidth)  / 2) * this.width  / clipWidth;
+            this.clipYOffset = (Math.min(y0, y1) - (this.owner.height - clipHeight) / 2) * this.height / clipHeight;
+            this.clipWidthFactor  = clipWidth  / this.width  / scale;
+            this.clipHeightFactor = clipHeight / this.height / scale;
             return this.update();
         },
 

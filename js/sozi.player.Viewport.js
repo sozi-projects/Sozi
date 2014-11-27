@@ -135,8 +135,8 @@ namespace("sozi.player", function (exports) {
             if (evt.button === DRAG_BUTTON) {
 
                 this.mouseDragged = false;
-                this.mouseDragX = evt.clientX;
-                this.mouseDragY = evt.clientY;
+                this.mouseDragX = this.mouseDragStartX = evt.clientX;
+                this.mouseDragY = this.mouseDragStartY = evt.clientY;
 
                 document.documentElement.addEventListener("mousemove", this.dragHandler, false);
                 document.documentElement.addEventListener("mouseup", this.dragEndHandler, false);
@@ -204,6 +204,10 @@ namespace("sozi.player", function (exports) {
                         }
                         this.rotate(this.rotatePrev - angle);
                         this.rotatePrev = angle;
+                        break;
+                    case "clip":
+                        this.clip(this.mouseDragStartX - this.x, this.mouseDragStartY - this.y,
+                                  this.mouseDragX      - this.x, this.mouseDragY      - this.y);
                         break;
                     default: // case "translate":
                         if (evt.ctrlKey) {
@@ -461,6 +465,16 @@ namespace("sozi.player", function (exports) {
             this.cameras.forEach(function (camera) {
                 if (camera.selected) {
                     camera.rotate(angle);
+                }
+            });
+            this.fire("userChangeState");
+            return this;
+        },
+
+        clip: function (x0, y0, x1, y1) {
+            this.cameras.forEach(function (camera) {
+                if (camera.selected) {
+                    camera.clip(x0, y0, x1, y1);
                 }
             });
             this.fire("userChangeState");

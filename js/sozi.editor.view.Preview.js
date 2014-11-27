@@ -88,6 +88,7 @@ namespace("sozi.editor.view", function (exports) {
         },
 
         onUserChangeState: function () {
+            // TODO move this to the model
             var frame = this.selection.currentFrame;
             if (frame) {
                 this.userChange = true;
