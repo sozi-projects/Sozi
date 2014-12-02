@@ -12,7 +12,7 @@ namespace("sozi.editor.backend", function (exports) {
      * web application is hosted.
      */
     exports.GoogleDrive.clientId = "Your OAuth client Id";
-    
+
     /*
      * Use the Google Developers Console to generate a
      * developer key for browser applications.

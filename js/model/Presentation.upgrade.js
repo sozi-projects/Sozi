@@ -85,7 +85,7 @@ namespace("sozi.model", function (exports) {
             var frame = exports.Frame.clone().init(this);
             this.frames.insert(frame, frameIndex);
             var refFrame = frame;
-            
+
             // If this is not the first frame, the state is cloned from the previous frame.
             if (frameIndex) {
                 refFrame = this.frames.at(frameIndex - 1);

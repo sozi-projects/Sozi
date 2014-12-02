@@ -6,16 +6,16 @@ namespace("sozi.editor.backend", function (exports) {
     "use strict";
 
     exports.FileReader = exports.AbstractBackend.clone({
-        
+
         init: function (container) {
             if (namespace.global.require) {
                 return this;
             }
-            
+
             console.log("Configuration in local storage");
 
             exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-FileReader-input" type="file" accept="image/svg+xml" autofocus>');
-            
+
             var self = this;
 
             // Load the SVG document selected in the file input
@@ -24,14 +24,14 @@ namespace("sozi.editor.backend", function (exports) {
                     self.load(this.files[0]);
                 }
             });
-            
+
             return this;
         },
-        
+
         getName: function (fileDescriptor) {
             return fileDescriptor.name;
         },
-        
+
         load: function (fileDescriptor) {
             var self = this;
             var reader = new FileReader();
@@ -41,6 +41,6 @@ namespace("sozi.editor.backend", function (exports) {
             };
         }
     });
-    
+
     exports.add(exports.FileReader);
 });

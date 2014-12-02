@@ -11,25 +11,25 @@ namespace("sozi.player", function (exports) {
     exports.CameraState = sozi.model.Object.clone({
 
         svgRoot: null,
-        
+
         // Center coordinates
         cx: 0,
         cy: 0,
-        
+
         // Dimensions
         width: 0,
         height: 0,
-        
+
         // Rotation angle, in degrees
         angle: 0,
-        
+
         // Clipping
         clipped: false,
         clipXOffset: 0,
         clipYOffset: 0,
         clipWidthFactor: 1,
         clipHeightFactor: 1,
-        
+
         init: function (svgRoot) {
             this.svgRoot = svgRoot;
             var initialBBox = svgRoot.getBBox();
@@ -54,13 +54,13 @@ namespace("sozi.player", function (exports) {
                 clipHeightFactor: this.clipHeightFactor
             };
         },
-        
+
         toMinimalStorable: function () {
             return this.toStorable();
         },
 
         fromStorable: sozi.model.Object.copy,
-        
+
         /*
          * Set the angle of the current camera state.
          * The angle of the current state is normalized
@@ -213,7 +213,7 @@ namespace("sozi.player", function (exports) {
         svgClipRect: null,
         svgTransformGroups: [],
         maskValue: 0,
-        
+
         init: function (viewport, layer) {
             exports.CameraState.init.call(this, viewport.svgRoot);
 

@@ -13,11 +13,11 @@ namespace("sozi.editor.model", function (exports) {
      *  - change: when the content of the selection has changed
      */
     exports.Selection = sozi.model.Object.clone({
-        
+
         presentation: null,
         selectedFrames: [],
         selectedLayers: [],
-        
+
         /*
          * Initialize a selection for a given presentation.
          *
@@ -105,11 +105,11 @@ namespace("sozi.editor.model", function (exports) {
         onRemoveFrame: function (collection, frame) {
             this.selectedFrames.remove(frame);
         },
-        
+
         onAddLayer: function (collection, layer) {
             this.selectedLayers.push(layer);
         },
-        
+
         onRemoveLayer: function (collection, layer) {
             this.selectedLayers.remove(layer);
         }

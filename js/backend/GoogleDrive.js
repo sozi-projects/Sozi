@@ -9,7 +9,7 @@ namespace("sozi.editor.backend", function (exports) {
         // Configure these settings in sozi.editor.backend.GoogleDrive.config.js
         clientId: "Your OAuth client Id",
         apiKey: "Your developer API key",
-        
+
         init: function (container) {
             if (namespace.global.require) {
                 return this;
@@ -26,7 +26,7 @@ namespace("sozi.editor.backend", function (exports) {
             this.authorize(true);
             return this;
         },
-        
+
         authorize: function (onInit) {
             var self = this;
             gapi.auth.authorize({
@@ -37,12 +37,12 @@ namespace("sozi.editor.backend", function (exports) {
                 self.onAuthResult(authResult, onInit);
             });
         },
-        
+
         onAuthResult: function (authResult, onInit) {
             var inputButton = $("#sozi-editor-backend-GoogleDrive-input");
-            
+
             var self = this;
-            
+
             if (authResult && !authResult.error) {
                 this.accessToken = authResult.access_token;
                 // Access granted: create a file picker and show the "Load" button.
@@ -66,10 +66,10 @@ namespace("sozi.editor.backend", function (exports) {
                 });
             }
         },
-        
+
         createPicker: function () {
             var self = this;
-            
+
             this.picker = new google.picker.PickerBuilder().
                 addView(google.picker.DocsView).
                 setOAuthToken(this.accessToken).
@@ -88,15 +88,15 @@ namespace("sozi.editor.backend", function (exports) {
                 }).
                 build();
         },
-        
+
         getName: function (fileDescriptor) {
             return fileDescriptor.title;
         },
-        
+
         getLocation: function (fileDescriptor) {
             return fileDescriptor.parents;
         },
-        
+
         find: function (name, location, callback) {
             function findInParent(index) {
                 gapi.client.drive.files.list({
@@ -116,7 +116,7 @@ namespace("sozi.editor.backend", function (exports) {
             }
             findInParent(0);
         },
-        
+
         // TODO implement the "change" event
         load: function (fileDescriptor) {
             // The file is loaded using an AJAX GET operation.
@@ -136,7 +136,7 @@ namespace("sozi.editor.backend", function (exports) {
                 this.fire("load", fileDescriptor, null, status);
             });
         },
-        
+
         create: function (name, location, mimeType, data, callback) {
             var boundary = "-------314159265358979323846";
             var delimiter = "\r\n--" + boundary + "\r\n";
@@ -176,12 +176,12 @@ namespace("sozi.editor.backend", function (exports) {
                 }
             });
         },
-        
+
         // TODO implement saving
         save: function (fileDescriptor, data) {
             this.fire("save", fileDescriptor, "Not implemented");
         }
     });
-    
+
     exports.add(exports.GoogleDrive);
 });

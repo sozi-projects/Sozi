@@ -10,7 +10,7 @@ window.addEventListener("load", function () {
     sozi.editor.view.Preview.init(presentation, selection);
     var timeline = sozi.editor.view.Timeline.init(presentation, selection);
     sozi.editor.view.Properties.init(presentation, selection);
-    
+
     // The objects that contain the presentation data and
     // the editor state that need to be saved.
     var jsonSources = [presentation, selection, timeline];

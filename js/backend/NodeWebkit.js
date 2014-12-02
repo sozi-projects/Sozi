@@ -6,7 +6,7 @@ namespace("sozi.editor.backend", function (exports) {
     "use strict";
 
     var gui, fs, path, cwd, win;
-    
+
     if (namespace.global.require) {
         gui = require("nw.gui");
         fs = require("fs");
@@ -29,7 +29,7 @@ namespace("sozi.editor.backend", function (exports) {
             if (!namespace.global.require) {
                 return this;
             }
-            
+
             exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-NodeWebkit-input" type="file" accept="image/svg+xml" autofocus>');
 
             // Load the SVG document selected in the file input
@@ -41,7 +41,7 @@ namespace("sozi.editor.backend", function (exports) {
             });
 
             var autosaveCallback = this.bind(this.doAutosave);
-            
+
             // Save automatically when the window loses focus
 //            win.on("blur", autosaveCallback);
 
@@ -70,15 +70,15 @@ namespace("sozi.editor.backend", function (exports) {
 
             return this;
         },
-        
+
         getName: function (fileDescriptor) {
             return path.basename(fileDescriptor);
         },
-        
+
         getLocation: function (fileDescriptor) {
             return path.dirname(fileDescriptor);
         },
-        
+
         find: function (name, location, callback) {
             var fileName = path.join(location, name);
             fs.exists(fileName, function (found) {
@@ -90,7 +90,7 @@ namespace("sozi.editor.backend", function (exports) {
                 }
             });
         },
-        
+
         load: function (fileDescriptor) {
             // Read file asynchronously and fire the "load" event.
             var self = this;
@@ -125,7 +125,7 @@ namespace("sozi.editor.backend", function (exports) {
             var err = fs.writeFileSync(fileName, data, { encoding: "utf-8" });
             callback(fileName, err);
         },
-        
+
         save: function (fileDescriptor, data) {
             // TODO use async file write
             var err = fs.writeFileSync(fileDescriptor, data, { encoding: "utf-8" });

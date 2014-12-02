@@ -26,7 +26,7 @@ namespace("sozi.editor.view", function (exports) {
         selection: null,
         editableLayers: [],
         defaultLayers: [],
-        
+
         /*
          * Initialize a Timeline view.
          *
@@ -50,7 +50,7 @@ namespace("sozi.editor.view", function (exports) {
             pres.frames.addListener("remove", this.onRemoveFrame, this);
             pres.layers.addListener("add", this.onAddLayer, this);
             pres.layers.addListener("remove", this.onRemoveLayer, this);
-            
+
             selection.addListener("change", this.onChangeSelection, this);
 
             pres.layers.forEach(function (layer) {
@@ -62,7 +62,7 @@ namespace("sozi.editor.view", function (exports) {
             }, this);
 
             $(window).resize(this.bind(this.render));
-            
+
             this.render();
 
             return this;
@@ -93,27 +93,27 @@ namespace("sozi.editor.view", function (exports) {
             layer.addListener("change:isVisible", this.render, this);
             this.render();
         },
-        
+
         onRemoveLayer: function (collection, layer) {
             this.defaultLayers.remove(layer);
             this.editableLayers.remove(layer);
             this.render();
         },
-        
+
         onAddFrame: function (collection, frame) {
             frame.addListener("change:title", this.render, this);
             frame.layerProperties.forEach(function (lp) {
                 lp.addListener("change:link", this.render, this);
             }, this);
         },
-        
+
         onRemoveFrame: function (collection, frame) {
             frame.removeListener("change", this.render, this);
             frame.layerProperties.forEach(function (lp) {
                 lp.removeListener("change:link", this.render, this);
             }, this);
         },
-        
+
         /*
          * Action: Add a frame to the presentation.
          *
@@ -438,11 +438,11 @@ namespace("sozi.editor.view", function (exports) {
          */
         render: function () {
             var container = $("#sozi-editor-view-timeline");
-            
+
             // Save scrollbar positions before rendering
             var scrollTop  = $(".timeline-bottom-right", container).scrollTop();
             var scrollLeft = $(".timeline-bottom-right", container).scrollLeft();
-            
+
             // Render the frame and layer table
             $("#sozi-editor-view-timeline").html(nunjucks.render("templates/sozi.editor.view.Timeline.html", this));
 
@@ -460,7 +460,7 @@ namespace("sozi.editor.view", function (exports) {
             $("table", bottomLeft).width(leftWidth);
             topRight.width(container.width() - leftWidth);
             bottomRight.width(container.width() - leftWidth);
-            
+
             // Fit the height of the top tables,
             // allocate remaining width to the bottom tables
             var topHeight = Math.max($("table", topLeft).height(), $("table", topRight).height());
@@ -468,7 +468,7 @@ namespace("sozi.editor.view", function (exports) {
             topRight.height(topHeight);
             bottomLeft.height(container.height() - topHeight);
             bottomRight.height(container.height() - topHeight);
-            
+
             // Corresponding rows in left and right tables must have the same height
             $("tr", topLeft).each(function (index) {
                 var rightRow = $("tr", topRight).eq(index);
@@ -476,28 +476,28 @@ namespace("sozi.editor.view", function (exports) {
                 $(this).height(maxHeight);
                 rightRow.height(maxHeight);
             });
-            
+
             $("tr", bottomLeft).each(function (index) {
                 var rightRow = $("tr", bottomRight).eq(index);
                 var maxHeight = Math.max($(this).height(), rightRow.height());
                 $(this).height(maxHeight);
                 rightRow.height(maxHeight);
             });
-            
+
             // Restore scrollbar positions
             bottomLeft.scrollTop(scrollTop);
             bottomRight.scrollTop(scrollTop);
             topRight.scrollLeft(scrollLeft);
             bottomRight.scrollLeft(scrollLeft);
-            
+
             this.setupEvents();
         },
-        
+
         setupEvents: function () {
             var self = this;
 
             var container = $("#sozi-editor-view-timeline");
-            
+
             $("#add-frame").click(this.bind(this.addFrame));
             $("#delete-frames").click(this.bind(this.deleteFrames));
 
@@ -535,30 +535,30 @@ namespace("sozi.editor.view", function (exports) {
                 self.updateLayerVisibility(parseInt(this.parentNode.parentNode.dataset.layerIndex));
                 evt.stopPropagation();
             });
-            
+
             $(".timeline-bottom-right", container).scroll(function () {
                 $(".timeline-top-right", container).scrollLeft($(this).scrollLeft());
                 $(".timeline-bottom-left", container).scrollTop($(this).scrollTop());
             });
         },
-        
+
         onChangeSelection: function () {
             var container = $("#sozi-editor-view-timeline");
-            
+
             $("th, td", container).removeClass("selected current");
-            
+
             $("#delete-frames").prop("disabled", this.selection.selectedFrames.length === 0);
 
             if (this.defaultLayersAreSelected) {
                 $(".timeline-bottom-left tr[data-layer-index=-1] .layer-label", container).addClass("selected");
             }
-            
+
             this.presentation.layers.forEach(function (layer, index) {
                 if (this.editableLayers.contains(layer) && this.selection.selectedLayers.contains(layer)) {
                     $(".timeline-bottom-left tr[data-layer-index=" + index + "] .layer-label", container).addClass("selected");
                 }
             }, this);
-            
+
             this.presentation.frames.forEach(function (frame, frameIndex) {
                 if(this.selection.selectedFrames.contains(frame)) {
                     var th = $(".timeline-top-right th[data-frame-index=" + frameIndex + "]");

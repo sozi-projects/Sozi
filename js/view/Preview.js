@@ -11,7 +11,7 @@ namespace("sozi.editor.view", function (exports) {
 
         selection: null,
         userChange: false,
-        
+
         init: function (pres, selection) {
             sozi.player.Viewport.init.call(this, pres);
 
@@ -81,7 +81,7 @@ namespace("sozi.editor.view", function (exports) {
                 }, this);
             }, this);
         },
-        
+
         onChangeSelection: function (selection) {
             if (selection.currentFrame) {
                 this.setAtStates(selection.currentFrame.cameraStates);
@@ -102,10 +102,10 @@ namespace("sozi.editor.view", function (exports) {
                     if (camera.selected) {
                         var cameraIndex = this.cameras.indexOf(camera);
                         var layerProperties = frame.layerProperties.at(cameraIndex);
-                        
+
                         // Update the camera states of the current frame
                         frame.cameraStates.at(cameraIndex).copy(camera);
-                        
+
                         // Mark the modified layers as unlinked in the current frame
                         layerProperties.link = false;
 

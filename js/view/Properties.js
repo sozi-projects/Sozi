@@ -12,7 +12,7 @@ namespace("sozi.editor.view", function (exports) {
         isCameraField: false,
         propertyName: "",
         selection: null,
-        
+
         init: function (selection, elementId, propertyName) {
             this.element = $("#sozi-editor-view-properties #" + elementId);
             this.isFrameField = /^frame/.test(elementId);
@@ -31,7 +31,7 @@ namespace("sozi.editor.view", function (exports) {
 
             return this;
         },
-        
+
         enter: function (value) {
             if (this.validate(value)) {
                 this.selection.selectedFrames.forEach(function (frame) {
@@ -48,14 +48,14 @@ namespace("sozi.editor.view", function (exports) {
             }
             this.render();
         },
-        
+
         render: function () {
             // Clear and disable field
             this.element.removeClass("multiple").prop("disabled", true).val("");
 
             var value = null;
             var multiple = false;
-            
+
             this.selection.selectedFrames.forEach(function (frame, frameIndex) {
                 if (this.isFrameField) {
                     var current = frame[this.propertyName];
@@ -93,25 +93,25 @@ namespace("sozi.editor.view", function (exports) {
                 this.element.prop("disabled", false);
             }
         },
-        
+
         convertToField: function (value) {
             return value;
         },
-        
+
         convertFromField: function (value) {
             return value;
         },
-        
+
         validate: function (value) {
             return true;
         }
     });
-    
+
     var NumericField = Field.clone({
         min: 0,
         max: 100,
         factor: 1,
-        
+
         init: function (selection, elementId, propertyName, min, max, factor) {
             Field.init.call(this, selection, elementId, propertyName);
             this.min = min;
@@ -119,15 +119,15 @@ namespace("sozi.editor.view", function (exports) {
             this.factor = factor;
             return this;
         },
-        
+
         convertToField: function (value) {
             return (value / this.factor).toString();
         },
-        
+
         convertFromField: function (value) {
             return parseFloat(value) * this.factor;
         },
-        
+
         validate: function (value) {
             value = parseFloat(value);
             return !isNaN(value) &&
@@ -135,16 +135,16 @@ namespace("sozi.editor.view", function (exports) {
                 (this.max === null || value <= this.max);
         }
     });
-    
+
     var StringField = Field.clone({
         acceptsEmpty: false,
-        
+
         init: function (selection, elementId, propertyName, acceptsEmpty) {
             Field.init.call(this, selection, elementId, propertyName);
             this.acceptsEmpty = acceptsEmpty;
             return this;
         },
-        
+
         validate: function (value) {
             return this.acceptsEmpty || value.length;
         }
@@ -152,7 +152,7 @@ namespace("sozi.editor.view", function (exports) {
 
     exports.Properties = sozi.model.Object.clone({
         fields: {own: []},
-        
+
         init: function (pres, selection) {
             this.fields.push(
                 StringField.clone().init(selection, "frame-title", "title", true),
@@ -188,7 +188,7 @@ namespace("sozi.editor.view", function (exports) {
 
             selection.addListener("change", this.render, this);
             pres.addListener("contentChange", this.render, this);
-            
+
             this.render();
 
             return this;

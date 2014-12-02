@@ -9,7 +9,7 @@ namespace("sozi.model", function (exports) {
         _owner: null,
         _owningProperty: null,
         _listeners: {},
-        
+
         clone: function () {
             var object = Object.create(this);
             object._owner = null;
@@ -17,11 +17,11 @@ namespace("sozi.model", function (exports) {
             object._listeners = {};
             return object;
         },
-        
+
         get proto() {
             return Object.getPrototypeOf(this);
         },
-        
+
         get root() {
             if (this._owner) {
                 return this._owner.root;
@@ -30,15 +30,15 @@ namespace("sozi.model", function (exports) {
                 return this;
             }
         },
-        
+
         get owner() {
             return this._owner;
         },
-        
+
         get owningProperty() {
             return this._owningProperty;
         },
-        
+
         bind: function (fn) {
             var self = this;
             return function () {
@@ -98,11 +98,11 @@ namespace("sozi.model", function (exports) {
             //  - *(this, "foo", args...)
             var extendedEvents = {};
             extendedEvents[event] = [this].concat(args);
-            
+
             if (event !== "*") {
                 extendedEvents["*"] = [this, event].concat(args);
             }
-            
+
             // If the event name is of the form "bar:attr",
             // the following listeners will also be called:
             //  - bar(this, "attr", args...)
@@ -123,7 +123,7 @@ namespace("sozi.model", function (exports) {
                     }
                 }
             }
-            
+
             return this;
         },
 
@@ -136,11 +136,11 @@ namespace("sozi.model", function (exports) {
             return this;
         }
     };
-    
+
     exports.Object = ProtoObject.clone();
-    
+
     exports.Object._values = {};
-        
+
     function changeOwnership(owner, owningProperty, previousValue, newValue) {
         if (ProtoObject.isPrototypeOf(previousValue)) {
             previousValue._owner = null;
@@ -151,7 +151,7 @@ namespace("sozi.model", function (exports) {
             newValue._owningProperty = owningProperty;
         }
     }
-    
+
     function setProperty(object, name, value, isOwner) {
         var previousValue = object._values[name];
         if (value !== previousValue) {
@@ -163,7 +163,7 @@ namespace("sozi.model", function (exports) {
             object.fireToRoot("contentChange");
         }
     }
-        
+
     exports.Object.define = function (properties) {
         function addProperty(object, name, value) {
             var isOwner = false;
@@ -204,7 +204,7 @@ namespace("sozi.model", function (exports) {
                 }
             }, this);
         }
-        
+
         return this;
     };
 
@@ -245,19 +245,19 @@ namespace("sozi.model", function (exports) {
         }
         return this;
     };
-    
+
     var Collection = ProtoObject.clone();
-    
+
     Collection._values = [];
     Collection._isOwner = false;
-    
+
     Collection.clone = function () {
         var object = ProtoObject.clone.call(this);
         object._values = [];
         object._isOwner = this._isOwner;
         return object.copy(this);
     };
-    
+
     Collection.copy = function (other) {
         this.clear();
         other.forEach(function (elt) {
@@ -268,7 +268,7 @@ namespace("sozi.model", function (exports) {
         }, this);
         return this;
     };
-    
+
     Collection.push = function () {
         for (var i = 0; i < arguments.length; i++) {
             var value = arguments[i];
@@ -289,7 +289,7 @@ namespace("sozi.model", function (exports) {
         }, this);
         return this;
     };
-    
+
     Collection.insert = function (value, index) {
         this._values.splice(index, 0, value);
         if (this._isOwner) {
@@ -318,7 +318,7 @@ namespace("sozi.model", function (exports) {
         this._owner.fireToRoot("contentChange");
         return this;
     };
-    
+
     Collection.removeAt = function (index) {
         var values = this._values.splice(index, 1);
         if (values.length) {
@@ -331,7 +331,7 @@ namespace("sozi.model", function (exports) {
         }
         return this;
     };
-    
+
     Collection.remove = function (value) {
         var index = this._values.indexOf(value);
         if (index < 0) {
@@ -353,7 +353,7 @@ namespace("sozi.model", function (exports) {
         }
         return this;
     };
-    
+
     Collection.contains = function (value) {
         return this._values.indexOf(value) >= 0;
     };
@@ -383,31 +383,31 @@ namespace("sozi.model", function (exports) {
             return this._values[0];
         }
     });
-    
+
     Object.defineProperty(Collection, "last", {
         get: function () {
             return this._values[this._values.length - 1];
         }
     });
-    
+
     Object.defineProperty(Collection, "length", {
         get: function () {
             return this._values.length;
         }
     });
-    
+
     Object.defineProperty(Collection, "isEmpty", {
         get: function () {
             return !this._values.length;
         }
     });
-    
+
     function makeAlias(name) {
         Collection[name] = function () {
             return Array.prototype[name].apply(this._values, arguments);
         };
     }
-    
+
     makeAlias("indexOf");
     makeAlias("forEach");
     makeAlias("map");

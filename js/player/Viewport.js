@@ -26,7 +26,7 @@ namespace("sozi.player", function (exports) {
         mouseDragX: 0,
         mouseDragY: 0,
         dragMode: "translate",
-        
+
         /*
          * Initialize a new viewport for the given SVG root element.
          *
@@ -47,7 +47,7 @@ namespace("sozi.player", function (exports) {
             pres.addListener("change:svgRoot", this.onChangeSVGRoot, this);
             pres.layers.addListener("add", this.onAddLayer, this);
             pres.layers.addListener("remove", this.onRemoveLayer, this);
-            
+
             // If the presentation has already been initialized,
             // register its SVG root.
             if (pres.svgRoot) {
@@ -72,11 +72,11 @@ namespace("sozi.player", function (exports) {
             } while(this.svgRoot.getElementById(id));
             return id;
         },
-        
+
         onChangeSVGRoot: function () {
             this.svgRoot.addEventListener("mousedown", this.bind(this.onMouseDown), false);
             this.svgRoot.addEventListener("contextmenu", this.bind(this.onContextMenu), false);
-            
+
             var wheelEvent =
                 "onwheel" in document.createElement("div") ? "wheel" :  // Modern browsers support "wheel"
                 document.onmousewheel !== undefined ? "mousewheel" :    // Webkit and IE support at least "mousewheel"
@@ -85,7 +85,7 @@ namespace("sozi.player", function (exports) {
 
             this.resize();
         },
-        
+
         onAddLayer: function (collection, layer) {
             var camera = exports.Camera.clone().init(this, layer);
             if (this.cameras.length) {
@@ -94,7 +94,7 @@ namespace("sozi.player", function (exports) {
             this.cameras.push(camera);
             camera.update();
         },
-        
+
         onRemoveLayer: function (collection, layer) {
             this.cameras.forEach(function (camera) {
                 if (camera.layer === layer) {
@@ -102,7 +102,7 @@ namespace("sozi.player", function (exports) {
                 }
             }, this);
         },
-        
+
         get svgRoot() {
             return this.presentation.svgRoot;
         },
@@ -374,7 +374,7 @@ namespace("sozi.player", function (exports) {
             if (!this.svgRoot) {
                 return this;
             }
-            
+
             this.svgRoot.setAttribute("width", this.width);
             this.svgRoot.setAttribute("height", this.height);
 

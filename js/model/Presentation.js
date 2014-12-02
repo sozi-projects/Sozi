@@ -13,16 +13,16 @@ namespace("sozi.model", function (exports) {
         transitionTimingFunction: "linear",
         transitionRelativeZoom: 0,
         transitionPathId: "",
-        
+
         init: function () {
             this.addListener("change:link", this.onChangeLink, this);
             return this;
         },
-        
+
         get index() {
             return this.owner.layerProperties.indexOf(this);
         },
-        
+
         get referenceElement() {
             return this.owner.owner.svgRoot.getElementById(this.referenceElementId);
         },
@@ -34,7 +34,7 @@ namespace("sozi.model", function (exports) {
         get referenceElementHide() {
             return this.owner.owner.elementsToHide.contains(this.referenceElementId);
         },
-        
+
         set referenceElementHide(hide) {
             var hidden = this.referenceElementHide;
             if (hide && !hidden) {
@@ -73,7 +73,7 @@ namespace("sozi.model", function (exports) {
                 transitionPathId: this.transitionPathId
             };
         },
-        
+
         toMinimalStorable: function () {
             return {
                 transitionTimingFunction: this.transitionTimingFunction,
@@ -84,7 +84,7 @@ namespace("sozi.model", function (exports) {
 
         fromStorable: sozi.model.Object.copy
     });
-    
+
     exports.Frame = sozi.model.Object.clone({
         // TODO define default properties separately
         frameId: "",
@@ -95,7 +95,7 @@ namespace("sozi.model", function (exports) {
         showInFrameList: true,
         layerProperties: {own: []},
         cameraStates: {own: []},
-        
+
         init: function (pres) {
             this.frameId = pres.makeFrameId();
 
@@ -144,7 +144,7 @@ namespace("sozi.model", function (exports) {
                 cameraOffsets: cameraOffsets
             };
         },
-        
+
         toMinimalStorable: function () {
             var layerProperties = {};
             var cameraStates = {};
@@ -201,7 +201,7 @@ namespace("sozi.model", function (exports) {
 
             return this;
         },
-        
+
         get index() {
             return this.owner.frames.indexOf(this);
         },
@@ -218,7 +218,7 @@ namespace("sozi.model", function (exports) {
         label: "",
         auto: false,
         svgNodes: [],
-        
+
         init: function (label, auto) {
             this.label = label;
             this.auto = auto;
@@ -263,7 +263,7 @@ namespace("sozi.model", function (exports) {
         frames: {own: []},
         layers: {own: []},
         elementsToHide: {own: []},
-        
+
         /*
          * Initialize a Sozi document object.
          *
@@ -284,7 +284,7 @@ namespace("sozi.model", function (exports) {
             // Remove attributes that prevent correct rendering
             svgRoot.removeAttribute("viewBox");
             svgRoot.style.width = svgRoot.style.height = "auto";
-            
+
             // Create an empty wrapper layer for elements that do not belong to a valid layer
             var autoLayer = exports.Layer.clone().init("auto", true);
 
@@ -361,7 +361,7 @@ namespace("sozi.model", function (exports) {
             }));
             return frameId;
         },
-        
+
         getFrameWithId: function (frameId) {
             return this.frames.find(function (frame) {
                 return frame.frameId === frameId;
@@ -382,7 +382,7 @@ namespace("sozi.model", function (exports) {
                 elementsToHide: this.elementsToHide.values
             };
         },
-        
+
         toMinimalStorable: function () {
             return {
                 frames: this.frames.map(function (frame) {

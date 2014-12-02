@@ -97,7 +97,7 @@ namespace("sozi.player", function (exports) {
      * operations in the animated objects.
      */
     exports.Animator = sozi.model.Object.clone({
-        
+
         // The animation duration, in milliseconds.
         durationMs: 500,
 
@@ -106,7 +106,7 @@ namespace("sozi.player", function (exports) {
 
         // The current state of this animator.
         running: false,
-        
+
         init: function () {
             animatorList.push(this);
             return this;

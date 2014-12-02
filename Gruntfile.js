@@ -77,14 +77,14 @@ module.exports = function(grunt) {
             player: {
                 src: [
                     "js/namespace.js",
-                    "js/sozi.model.Object.js",
-                    "js/sozi.model.Presentation.js",
-                    "js/sozi.player.Camera.js",
-                    "js/sozi.player.Viewport.js",
-                    "js/sozi.player.timing.js",
-                    "js/sozi.player.Animator.js",
-                    "js/sozi.player.Player.js",
-                    "js/sozi.player.media.js"
+                    "js/model/Object.js",
+                    "js/model/Presentation.js",
+                    "js/player/Camera.js",
+                    "js/player/Viewport.js",
+                    "js/player/timing.js",
+                    "js/player/Animator.js",
+                    "js/player/Player.js",
+                    "js/player/media.js"
                 ],
                 dest: "build/player/sozi.player.min.js"
             }
