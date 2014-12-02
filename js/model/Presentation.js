@@ -100,7 +100,7 @@ namespace("sozi.model", function (exports) {
             this.frameId = pres.makeFrameId();
 
             pres.layers.forEach(function () {
-                var cameraState = sozi.player.CameraState.clone().init(pres.svgRoot);
+                var cameraState = sozi.model.CameraState.clone().init(pres.svgRoot);
                 this.cameraStates.push(cameraState);
                 this.layerProperties.push(LayerProperties.clone().init());
             }, this);

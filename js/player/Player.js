@@ -446,7 +446,7 @@ namespace("sozi.player", function (exports) {
 
             this.transitions.push({
                 camera: camera,
-                initialState: sozi.player.CameraState.clone().copy(camera),
+                initialState: sozi.model.CameraState.clone().copy(camera),
                 finalState: this.targetFrame.cameraStates.at(camera.layer.index),
                 timingFunction: timingFunction,
                 relativeZoom: relativeZoom,

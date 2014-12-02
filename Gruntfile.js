@@ -78,6 +78,7 @@ module.exports = function(grunt) {
                 src: [
                     "js/namespace.js",
                     "js/model/Object.js",
+                    "js/model/CameraState.js",
                     "js/model/Presentation.js",
                     "js/player/Camera.js",
                     "js/player/Viewport.js",
