@@ -96,6 +96,9 @@
             {% for frame in presentation.frames.slice() %}
                 <td data-frame-index="{{loop.index0}}"
                     class="{{'selected' if defaultLayersAreSelected and selection.selectedFrames.contains(frame)}} {{'current' if frame == selection.currentFrame}}">
+                    {% if frame.layerProperties.last.link %}
+                        <i class="fa fa-link"></i>
+                    {% endif %}
                 </td>
             {% endfor %}
         </tr>

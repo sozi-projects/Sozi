@@ -87,8 +87,12 @@ namespace("sozi.player", function (exports) {
         },
         
         onAddLayer: function (collection, layer) {
-            this.cameras.push(exports.Camera.clone().init(this, layer));
-            this.resize();
+            var camera = exports.Camera.clone().init(this, layer);
+            if (this.cameras.length) {
+                camera.copy(this.cameras.at(0));
+            }
+            this.cameras.push(camera);
+            camera.update();
         },
         
         onRemoveLayer: function (collection, layer) {
@@ -97,7 +101,6 @@ namespace("sozi.player", function (exports) {
                     this.cameras.remove(camera);
                 }
             }, this);
-            this.resize();
         },
         
         get svgRoot() {
