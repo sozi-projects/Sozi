@@ -4,6 +4,7 @@
     "font-awesome": "~4.2.0",
     "nunjucks": "~1.1.0",
     "jquery": "~2.1.1",
-    "notifyjs": "~0.3.2"
+    "notifyjs": "~0.3.2",
+    "eventEmitter": "~4.2.10"
   }
 }

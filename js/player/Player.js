@@ -43,9 +43,9 @@ namespace("sozi.player", function (exports) {
         // The current transition data
         transitions: {own: []},
 
-        init: function (viewport, pres) {
+        init: function (viewport, presentation) {
             this.viewport = viewport;
-            this.presentation = pres;
+            this.presentation = presentation;
             this.animator = sozi.player.Animator.clone().init();
             this.setupEventHandlers();
             return this;

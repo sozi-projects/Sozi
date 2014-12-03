@@ -15,7 +15,6 @@ namespace("sozi.model", function (exports) {
         transitionPathId: "",
 
         init: function () {
-            this.addListener("change:link", this.onChangeLink, this);
             return this;
         },
 
@@ -57,10 +56,6 @@ namespace("sozi.model", function (exports) {
             else if (!hide && hidden) {
                 this.owner.owner.elementsToHide.remove(this.transitionPathId);
             }
-        },
-
-        onChangeLink: function () {
-            this.owner.owner.updateLinkedLayers();
         },
 
         toStorable: function () {
@@ -243,7 +238,6 @@ namespace("sozi.model", function (exports) {
             this.svgNodes.forEach(function (node) {
                 node.style.visibility = visible ? "visible" : "hidden";
             });
-            this.fire("change:isVisible");
         }
     });
 
@@ -263,6 +257,8 @@ namespace("sozi.model", function (exports) {
         frames: {own: []},
         layers: {own: []},
         elementsToHide: {own: []},
+        aspectWidth: 4,
+        aspectHeight: 3,
 
         /*
          * Initialize a Sozi document object.
@@ -276,10 +272,6 @@ namespace("sozi.model", function (exports) {
             this.svgRoot = svgRoot;
             this.frames.clear();
             this.layers.clear();
-
-            this.addListener("change:frames", this.updateLinkedLayers, this);
-            this.elementsToHide.addListener("add", this.onAddElementToHide, this);
-            this.elementsToHide.addListener("remove", this.onRemoveElementToHide, this);
 
             // Remove attributes that prevent correct rendering
             svgRoot.removeAttribute("viewBox");
@@ -376,6 +368,8 @@ namespace("sozi.model", function (exports) {
 
         toStorable: function () {
             return {
+                aspectWidth: this.aspectWidth,
+                aspectHeight: this.aspectHeight,
                 frames: this.frames.map(function (frame) {
                     return frame.toStorable();
                 }),
@@ -393,6 +387,9 @@ namespace("sozi.model", function (exports) {
         },
 
         fromStorable: function (obj) {
+            this.aspectWidth = obj.aspectWidth;
+            this.aspectHeight = obj.aspectHeight;
+
             this.frames.clear();
             obj.frames.forEach(function (f) {
                 var frame = exports.Frame.clone().init(this);
@@ -406,26 +403,12 @@ namespace("sozi.model", function (exports) {
             return this;
         },
 
-        onAddElementToHide: function (collection, id) {
-            var elt = document.getElementById(id);
-            if (elt) {
-                elt.style.visibility = "hidden";
-            }
-        },
-
-        onRemoveElementToHide: function (collection, id) {
-            var elt = document.getElementById(id);
-            if (elt) {
-                elt.style.visibility = "visible";
-            }
-        },
-
         updateLinkedLayers: function () {
             if (!this.frames.length) {
-                return this;
+                return;
             }
 
-            var defaultCameraState = this.frames.at(0).cameraStates.last;
+            var defaultCameraState = this.frames.first.cameraStates.last;
 
             this.layers.forEach(function (layer, layerIndex) {
                 var cameraState = defaultCameraState;

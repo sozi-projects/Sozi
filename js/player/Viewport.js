@@ -21,8 +21,6 @@ namespace("sozi.player", function (exports) {
 
         presentation: null,
         cameras: {own: []},
-        dragHandler: null,
-        dragEngHandler: null,
         mouseDragX: 0,
         mouseDragY: 0,
         dragMode: "translate",
@@ -36,29 +34,12 @@ namespace("sozi.player", function (exports) {
          * Returns:
          *    - The current viewport.
          */
-        init: function (pres) {
-            this.presentation = pres;
+        init: function (presentation) {
+            this.presentation = presentation;
 
             // Setup mouse and keyboard event handlers.
-            this.dragHandler = this.bind(this.onDrag);
-            this.dragEndHandler = this.bind(this.onDragEnd);
-
-            // Setup model event handlers.
-            pres.addListener("change:svgRoot", this.onChangeSVGRoot, this);
-            pres.layers.addListener("add", this.onAddLayer, this);
-            pres.layers.addListener("remove", this.onRemoveLayer, this);
-
-            // If the presentation has already been initialized,
-            // register its SVG root.
-            if (pres.svgRoot) {
-                this.onChangeSVGRoot();
-            }
-
-            // If the presentation has already been initialized,
-            // register its layers.
-            pres.layers.forEach(function (layer) {
-                this.onAddLayer(pres.layers, layer);
-            }, this);
+            this.dragHandler = this.onDrag.bind(this);
+            this.dragEndHandler = this.onDragEnd.bind(this);
 
             return this;
         },
@@ -73,33 +54,18 @@ namespace("sozi.player", function (exports) {
             return id;
         },
 
-        onChangeSVGRoot: function () {
-            this.svgRoot.addEventListener("mousedown", this.bind(this.onMouseDown), false);
-            this.svgRoot.addEventListener("contextmenu", this.bind(this.onContextMenu), false);
+        onLoad: function () {
+            this.svgRoot.addEventListener("mousedown", this.onMouseDown.bind(this), false);
+            this.svgRoot.addEventListener("contextmenu", this.onContextMenu.bind(this), false);
 
             var wheelEvent =
                 "onwheel" in document.createElement("div") ? "wheel" :  // Modern browsers support "wheel"
                 document.onmousewheel !== undefined ? "mousewheel" :    // Webkit and IE support at least "mousewheel"
                 "DOMMouseScroll";                                       // Firefox < 17
-            this.svgRoot.addEventListener(wheelEvent, this.bind(this.onWheel), false);
+            this.svgRoot.addEventListener(wheelEvent, this.onWheel.bind(this), false);
 
-            this.resize();
-        },
-
-        onAddLayer: function (collection, layer) {
-            var camera = exports.Camera.clone().init(this, layer);
-            if (this.cameras.length) {
-                camera.copy(this.cameras.at(0));
-            }
-            this.cameras.push(camera);
-            camera.update();
-        },
-
-        onRemoveLayer: function (collection, layer) {
-            this.cameras.forEach(function (camera) {
-                if (camera.layer === layer) {
-                    this.cameras.remove(camera);
-                }
+            this.presentation.layers.forEach(function (layer) {
+                this.cameras.push(exports.Camera.clone().init(this, layer));
             }, this);
         },
 
@@ -364,17 +330,7 @@ namespace("sozi.player", function (exports) {
                 this.svgRoot.parentNode.clientHeight;
         },
 
-        /*
-         * Fit the size of the SVG document to its container.
-         *
-         * Returns:
-         *    - The current viewport.
-         */
-        resize: function () {
-            if (!this.svgRoot) {
-                return this;
-            }
-
+        repaint: function () {
             this.svgRoot.setAttribute("width", this.width);
             this.svgRoot.setAttribute("height", this.height);
 
@@ -382,7 +338,12 @@ namespace("sozi.player", function (exports) {
                 camera.update();
             });
 
-            return this;
+            this.presentation.elementsToHide.forEach(function (id) {
+                var elt = document.getElementById(id);
+                if (elt) {
+                    elt.style.visibility = "hidden";
+                }
+            });
         },
 
         /*
@@ -393,7 +354,7 @@ namespace("sozi.player", function (exports) {
          */
         setAtStates: function (states) {
             states.forEach(function (state, index) {
-                this.cameras.at(index).copy(state).update();
+                this.cameras.at(index).copy(state);
             }, this);
         },
 

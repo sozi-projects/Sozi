@@ -30,18 +30,8 @@ namespace("sozi.editor.model", function (exports) {
          * Returns:
          *  - The current selection object
          */
-        init: function (pres) {
-            this.presentation = pres;
-
-            if (pres.frames.length) {
-                this.selectedFrames.push(pres.frames.first);
-            }
-            this.selectedLayers.pushAll(pres.layers);
-
-            pres.frames.addListener("remove", this.onRemoveFrame, this);
-            pres.layers.addListener("add", this.onAddLayer, this);
-            pres.layers.addListener("remove", this.onRemoveLayer, this);
-
+        init: function (presentation) {
+            this.presentation = presentation;
             return this;
         },
 
@@ -85,33 +75,9 @@ namespace("sozi.editor.model", function (exports) {
          *  - The frame that has been selected last, null if no frame is selected.
          */
         get currentFrame() {
-            if (this.selectedFrames.length) {
-                return this.selectedFrames.last;
-            }
-            return null;
-        },
-
-        /*
-         * Event handler: Frames deleted from presentation.
-         *
-         * This method is called when a presentation object
-         * fires the "framesDeleted" event.
-         *
-         * Parameters:
-         *  - collection: The collection that fired the event
-         *  - frame: The removed frame
-         *  - index: The index of the removed frame in the collection
-         */
-        onRemoveFrame: function (collection, frame) {
-            this.selectedFrames.remove(frame);
-        },
-
-        onAddLayer: function (collection, layer) {
-            this.selectedLayers.push(layer);
-        },
-
-        onRemoveLayer: function (collection, layer) {
-            this.selectedLayers.remove(layer);
+            return this.selectedFrames.length ?
+                this.selectedFrames.last :
+                null;
         }
     });
 });

@@ -15,6 +15,7 @@
         <script src="bower_components/nunjucks/browser/nunjucks-slim.min.js" defer></script>
         <script src="bower_components/jquery/dist/jquery.min.js" defer></script>
         <script src="bower_components/notifyjs/dist/notify-combined.min.js" defer></script>
+        <script src="bower_components/eventEmitter/EventEmitter.min.js" defer></script>
 
         <script src="js/namespace.js" defer></script>
         <script src="js/model/Object.js" defer></script>
@@ -35,6 +36,7 @@
         <script src="js/backend/GoogleDrive.js" defer></script>
         <script src="js/backend/GoogleDrive.config.js" defer></script>
 
+        <script src="js/Controller.js" defer></script>
         <script src="js/index.js" defer></script>
 
         <script src="build/templates/sozi.editor.view.templates.js" defer></script>
@@ -136,7 +138,7 @@
         <div class="toolbar">
             <span class="group">
                 Aspect ratio:
-                <input id="sozi-editor-aspect-num" class="aspect" type="number" pattern="\d+" min="1" step="1" value="4" size="3">:<input id="sozi-editor-aspect-den" class="aspect" type="number" pattern="\d+" min="1" step="1" value="3" size="3">
+                <input id="sozi-editor-aspect-width" class="aspect" type="number" pattern="\d+" min="1" step="1" value="4" size="3">:<input id="sozi-editor-aspect-height" class="aspect" type="number" pattern="\d+" min="1" step="1" value="3" size="3">
             </span>
             <span class="group">
                <input name="sozi-editor-preview-mode" type="radio"

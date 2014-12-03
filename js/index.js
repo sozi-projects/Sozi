@@ -7,9 +7,13 @@ window.addEventListener("load", function () {
 
     var presentation = sozi.model.Presentation;
     var selection = sozi.editor.model.Selection.init(presentation);
-    sozi.editor.view.Preview.init(presentation, selection);
-    var timeline = sozi.editor.view.Timeline.init(presentation, selection);
-    sozi.editor.view.Properties.init(presentation, selection);
+    var viewport = sozi.player.Viewport.init(presentation);
+
+    var controller = sozi.editor.Controller.init(presentation, selection, viewport);
+
+    sozi.editor.view.Preview.init(presentation, selection, viewport, controller);
+    sozi.editor.view.Properties.init(presentation, selection, controller);
+    var timeline = sozi.editor.view.Timeline.init(presentation, selection, controller);
 
     // The objects that contain the presentation data and
     // the editor state that need to be saved.
@@ -49,6 +53,7 @@ window.addEventListener("load", function () {
         // Add the SVG root to the editor view
         $("#sozi-editor-view-preview").html(svgRoot);
         presentation.init(svgRoot);
+        viewport.onLoad();
         $("html head title").text(presentation.title);
     }
 
@@ -72,12 +77,13 @@ window.addEventListener("load", function () {
                 // Select the first frame
                 if (presentation.frames.length) {
                     $.notify("Document was imported from Sozi 13 or earlier.", "success");
-                    selection.selectedFrames.push(presentation.frames.first);
                 }
 
                 backend.create(name, location, "application/json", getJSONData(), function (fileDescriptor) {
                     autosaveJSON(backend, fileDescriptor);
                 });
+
+                controller.onLoad();
             }
         });
     }
@@ -130,6 +136,7 @@ window.addEventListener("load", function () {
         presentation.fromStorable(storable);
         timeline.fromStorable(storable);
         selection.fromStorable(storable);
+        controller.onLoad();
     }
 
     /*

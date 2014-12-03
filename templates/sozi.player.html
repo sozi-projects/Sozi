@@ -31,13 +31,10 @@
 
                 var presentation = sozi.model.Presentation.init(document.querySelector("svg"));
                 var viewport = sozi.player.Viewport.init(presentation);
+                viewport.onLoad();
                 presentation.fromStorable({{ json }});
                 var player = sozi.player.Player.init(viewport, presentation);
                 sozi.player.media.init(player);
-
-                if (presentation.frames.length) {
-                    player.playFromIndex(0);
-                }
 
                 player.addListener("change:playing", function (player, playing) {
                     if (playing) {
@@ -48,9 +45,13 @@
                     }
                 });
 
-                window.addEventListener('resize', function() {
-                    viewport.resize();
-                });
+                window.addEventListener('resize', viewport.repaint.bind(viewport));
+
+                if (presentation.frames.length) {
+                    player.playFromIndex(0);
+                }
+
+                viewport.repaint();
             });
         </script>
     </body>

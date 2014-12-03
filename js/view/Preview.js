@@ -7,135 +7,79 @@ namespace("sozi.editor.view", function (exports) {
 
     var PREVIEW_MARGIN = 15;
 
-    exports.Preview = sozi.player.Viewport.clone({
+    exports.Preview = sozi.model.Object.clone({
 
         selection: null,
         userChange: false,
 
-        init: function (pres, selection) {
-            sozi.player.Viewport.init.call(this, pres);
-
+        init: function (presentation, selection, viewport, controller) {
+            this.presentation = presentation;
             this.selection = selection;
-            this.onChangeSelection(selection);
+            this.viewport = viewport;
+            this.controller = controller;
 
             // Setup event handlers
-            var resizeHandler = this.bind(function () {
-                this.setAspectRatio(parseInt($("#sozi-editor-aspect-num").val()), parseInt($("#sozi-editor-aspect-den").val()));
-            });
+            var repaintHandler = this.repaint.bind(this);
+            $(window).resize(repaintHandler);
+            controller.addListener("repaint", repaintHandler);
+            controller.addListener("load", this.onLoad.bind(this));
 
-            $("#sozi-editor-aspect-num, #sozi-editor-aspect-den").change(resizeHandler);
-            $(window).resize(resizeHandler).resize();
+            $("#sozi-editor-aspect-width, #sozi-editor-aspect-height").change(this.onChangeAspectRatio.bind(this));
+            $("input[name=sozi-editor-preview-mode][type=radio]").change(this.onChangeDragMode.bind(this));
 
-            $("input[name=sozi-editor-preview-mode][type=radio]").change(this.bind(this.onChangeDragMode));
-
-            selection.addListener("change", this.onChangeSelection, this);
-            this.addListener("userChangeState", this.onUserChangeState, this);
-            this.addListener("click", this.onClick, this);
-            pres.frames.addListener("add", this.onAddFrame, this);
+            this.viewport.addListener("click", this.onClick.bind(this));
+            this.viewport.addListener("userChangeState", controller.updateCameraStates.bind(controller));
 
             return this;
         },
 
-        onChangeSVGRoot: function () {
-            sozi.player.Viewport.onChangeSVGRoot.call(this);
-            this.svgRoot.addEventListener("mouseenter", this.bind(this.onMouseEnter), false);
-            this.svgRoot.addEventListener("mouseleave", this.bind(this.onMouseLeave), false);
+        onChangeAspectRatio: function () {
+            this.controller.setAspectRatio(parseInt($("#sozi-editor-aspect-width").val()), parseInt($("#sozi-editor-aspect-height").val()));
         },
 
-        setAspectRatio: function (num, den) {
-            if (num > 0 && den > 0) {
-                var parent = $("#sozi-editor-view-preview").parent();
-                var parentWidth  = parent.innerWidth();
-                var parentHeight = parent.innerHeight();
-
-                var maxWidth  = parentWidth  - 2 * PREVIEW_MARGIN;
-                var maxHeight = parentHeight - 2 * PREVIEW_MARGIN;
-
-                var width  = Math.min(maxWidth, maxHeight * num / den);
-                var height = Math.min(maxHeight, maxWidth * den / num);
-
-                $("#sozi-editor-view-preview").css({
-                    left:   (parentWidth  - width)  / 2 + "px",
-                    top:    (parentHeight - height) / 2 + "px",
-                    width:  width + "px",
-                    height: height + "px"
-                });
-
-                this.resize();
-
-                this.fire("change:aspectRatio", num, den);
-            }
-            return this;
+        onLoad: function () {
+            $("#sozi-editor-aspect-width").val(this.presentation.aspectWidth);
+            $("#sozi-editor-aspect-height").val(this.presentation.aspectHeight);
+            this.presentation.svgRoot.addEventListener("mouseenter", this.bind(this.onMouseEnter), false);
+            this.presentation.svgRoot.addEventListener("mouseleave", this.bind(this.onMouseLeave), false);
         },
 
         onChangeDragMode: function () {
-            this.dragMode = $("input[name=sozi-editor-preview-mode][type=radio]:checked").val();
+            this.viewport.dragMode = $("input[name=sozi-editor-preview-mode][type=radio]:checked").val();
         },
 
-        onAddFrame: function (collection, frame) {
-            frame.cameraStates.forEach(function (cameraState, cameraIndex) {
-                cameraState.addListener("change", function () {
-                    if (!this.userChange) {
-                        this.cameras.at(cameraIndex).copy(cameraState).update();
-                    }
-                }, this);
-            }, this);
-        },
+        repaint: function () {
+            var parent = $("#sozi-editor-view-preview").parent();
+            var parentWidth  = parent.innerWidth();
+            var parentHeight = parent.innerHeight();
 
-        onChangeSelection: function (selection) {
-            if (selection.currentFrame) {
-                this.setAtStates(selection.currentFrame.cameraStates);
-            }
-            // A camera is selected if its layer belongs to the list of selected layers
-            // or if its layer is not managed and the default layer is selected.
-            this.cameras.forEach(function (camera) {
-                camera.selected = selection.selectedLayers.contains(camera.layer);
+            var maxWidth  = parentWidth  - 2 * PREVIEW_MARGIN;
+            var maxHeight = parentHeight - 2 * PREVIEW_MARGIN;
+
+            var width  = Math.min(maxWidth, maxHeight * this.presentation.aspectWidth / this.presentation.aspectHeight);
+            var height = Math.min(maxHeight, maxWidth * this.presentation.aspectHeight / this.presentation.aspectWidth);
+
+            $("#sozi-editor-view-preview").css({
+                left:   (parentWidth  - width)  / 2 + "px",
+                top:    (parentHeight - height) / 2 + "px",
+                width:  width + "px",
+                height: height + "px"
             });
-        },
 
-        onUserChangeState: function () {
-            // TODO move this to the model
-            var frame = this.selection.currentFrame;
-            if (frame) {
-                this.userChange = true;
-                this.cameras.forEach(function (camera) {
-                    if (camera.selected) {
-                        var cameraIndex = this.cameras.indexOf(camera);
-                        var layerProperties = frame.layerProperties.at(cameraIndex);
-
-                        // Update the camera states of the current frame
-                        frame.cameraStates.at(cameraIndex).copy(camera);
-
-                        // Mark the modified layers as unlinked in the current frame
-                        layerProperties.link = false;
-
-                        // Choose reference SVG element for frame
-                        if (layerProperties.referenceElementAuto) {
-                            var refElt = camera.getCandidateReferenceElement();
-                            if (refElt) {
-                                layerProperties.referenceElementId = refElt.getAttribute("id");
-                            }
-                        }
-                    }
-                }, this);
-                this.userChange = false;
+            if (this.selection.currentFrame) {
+                this.viewport.setAtStates(this.selection.currentFrame.cameraStates);
             }
+
+            this.viewport.repaint();
         },
 
         onClick: function (viewport, button, evt) {
             if (button === 0 && evt.altKey) {
                 var referenceElement = evt.target;
-                var frame = this.selection.currentFrame;
-                if (frame && referenceElement.hasAttribute("id") && referenceElement.getBBox) {
-                    this.cameras.forEach(function (camera) {
+                if (referenceElement.hasAttribute("id") && referenceElement.getBBox) {
+                    this.viewport.cameras.forEach(function (camera) {
                         if (camera.selected) {
-                            var cameraIndex = this.cameras.indexOf(camera);
-                            var layerProperties = frame.layerProperties.at(cameraIndex);
-
-                            // Mark the modified layers as unlinked in the current frame
-                            layerProperties.link = false;
-                            layerProperties.referenceElementAuto = false;
-                            layerProperties.referenceElementId = referenceElement.getAttribute("id");
+                            this.controller.setReferenceElement(this.viewport.cameras.indexOf(camera), referenceElement);
                         }
                     }, this);
                 }
@@ -148,7 +92,7 @@ namespace("sozi.editor.view", function (exports) {
          * and show the hidden SVG elements.
          */
         onMouseEnter: function () {
-            this.cameras.forEach(function (camera) {
+            this.viewport.cameras.forEach(function (camera) {
                 if (camera.selected) {
                     camera.maskValue = 64;
                     camera.update();
@@ -168,7 +112,7 @@ namespace("sozi.editor.view", function (exports) {
          * and hide the hidden SVG elements.
          */
         onMouseLeave: function () {
-            this.cameras.forEach(function (camera) {
+            this.viewport.cameras.forEach(function (camera) {
                 if (camera.selected) {
                     camera.maskValue = 0;
                     camera.update();
