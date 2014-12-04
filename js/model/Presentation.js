@@ -29,6 +29,35 @@ namespace("sozi.model", function (exports) {
             return this;
         },
 
+        toStorable: function () {
+            return {
+                link: this.link,
+                referenceElementId: this.referenceElementId,
+                referenceElementAuto: this.referenceElementAuto,
+                transitionTimingFunction: this.transitionTimingFunction,
+                transitionRelativeZoom: this.transitionRelativeZoom,
+                transitionPathId: this.transitionPathId
+            };
+        },
+
+        toMinimalStorable: function () {
+            return {
+                transitionTimingFunction: this.transitionTimingFunction,
+                transitionRelativeZoom: this.transitionRelativeZoom,
+                transitionPathId: this.transitionPathId
+            };
+        },
+
+        fromStorable: function (storable) {
+            this.link = storable.link;
+            this.referenceElementId = storable.referenceElementId;
+            this.referenceElementAuto = storable.referenceElementAuto;
+            this.transitionTimingFunction = storable.transitionTimingFunction;
+            this.transitionRelativeZoom = storable.transitionRelativeZoom;
+            this.transitionPathId = storable.transitionPathId;
+            return this;
+        },
+
         get index() {
             return this.frame.layerProperties.indexOf(this);
         },
@@ -69,35 +98,6 @@ namespace("sozi.model", function (exports) {
                 var index = this.frame.presentation.elementsToHide.indexOf(this.transitionPathId);
                 this.frame.presentation.elementsToHide.splice(index, 1);
             }
-        },
-
-        toStorable: function () {
-            return {
-                link: this.link,
-                referenceElementId: this.referenceElementId,
-                referenceElementAuto: this.referenceElementAuto,
-                transitionTimingFunction: this.transitionTimingFunction,
-                transitionRelativeZoom: this.transitionRelativeZoom,
-                transitionPathId: this.transitionPathId
-            };
-        },
-
-        toMinimalStorable: function () {
-            return {
-                transitionTimingFunction: this.transitionTimingFunction,
-                transitionRelativeZoom: this.transitionRelativeZoom,
-                transitionPathId: this.transitionPathId
-            };
-        },
-
-        fromStorable: function (storable) {
-            this.link = storable.link;
-            this.referenceElementId = storable.referenceElementId;
-            this.referenceElementAuto = storable.referenceElementAuto;
-            this.transitionTimingFunction = storable.transitionTimingFunction;
-            this.transitionRelativeZoom = storable.transitionRelativeZoom;
-            this.transitionPathId = storable.transitionPathId;
-            return this;
         }
     };
 
@@ -284,8 +284,6 @@ namespace("sozi.model", function (exports) {
          *
          * Returns:
          *    - The current presentation object.
-         *
-         * TODO listen to frame add/remove and update linked camera states accordingly
          */
         init: function (svgRoot) {
             this.svgRoot = svgRoot;
@@ -358,6 +356,39 @@ namespace("sozi.model", function (exports) {
             return this;
         },
 
+        toStorable: function () {
+            return {
+                aspectWidth: this.aspectWidth,
+                aspectHeight: this.aspectHeight,
+                frames: this.frames.map(function (frame) {
+                    return frame.toStorable();
+                }),
+                elementsToHide: this.elementsToHide.slice()
+            };
+        },
+
+        toMinimalStorable: function () {
+            return {
+                frames: this.frames.map(function (frame) {
+                    return frame.toMinimalStorable();
+                }),
+                elementsToHide: this.elementsToHide.slice()
+            };
+        },
+
+        fromStorable: function (obj) {
+            this.aspectWidth = obj.aspectWidth;
+            this.aspectHeight = obj.aspectHeight;
+
+            this.frames = obj.frames.map(function (f) {
+                return Object.create(sozi.model.Frame).init(this).fromStorable(f);
+            }, this);
+
+            this.elementsToHide = obj.elementsToHide.slice();
+
+            return this;
+        },
+
         get title() {
             var svgTitles = this.svgRoot.getElementsByTagNameNS(SVG_NS, "title");
             return svgTitles.length ? svgTitles[0].firstChild.wholeText.trim() : "Untitled";
@@ -392,39 +423,6 @@ namespace("sozi.model", function (exports) {
                 }
             }
             return null;
-        },
-
-        toStorable: function () {
-            return {
-                aspectWidth: this.aspectWidth,
-                aspectHeight: this.aspectHeight,
-                frames: this.frames.map(function (frame) {
-                    return frame.toStorable();
-                }),
-                elementsToHide: this.elementsToHide.slice()
-            };
-        },
-
-        toMinimalStorable: function () {
-            return {
-                frames: this.frames.map(function (frame) {
-                    return frame.toMinimalStorable();
-                }),
-                elementsToHide: this.elementsToHide.slice()
-            };
-        },
-
-        fromStorable: function (obj) {
-            this.aspectWidth = obj.aspectWidth;
-            this.aspectHeight = obj.aspectHeight;
-
-            this.frames = obj.frames.map(function (f) {
-                return Object.create(sozi.model.Frame).init(this).fromStorable(f);
-            }, this);
-
-            this.elementsToHide = obj.elementsToHide.slice();
-
-            return this;
         },
 
         updateLinkedLayers: function () {

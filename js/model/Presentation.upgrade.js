@@ -9,7 +9,6 @@ namespace("sozi.model", function (exports) {
 
     function toArray(coll) {
         return Array.prototype.slice.call(coll);
-
     }
 
     function parseBoolean(str) {

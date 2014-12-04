@@ -122,8 +122,6 @@ namespace("sozi.player", function (exports) {
      *
      * Fires:
      *    - dragStart
-     *
-     * TODO drag horizontally/vertically when Shift key is pressed
      */
     Viewport.onDrag = function (evt) {
         evt.stopPropagation();
@@ -387,6 +385,7 @@ namespace("sozi.player", function (exports) {
                 camera.translate(deltaX, deltaY);
             }
         });
+        this.emitEvent("userChangeState");
         return this;
     };
 
