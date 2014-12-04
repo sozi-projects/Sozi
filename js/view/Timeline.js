@@ -93,11 +93,11 @@ namespace("sozi.editor.view", function (exports) {
             var layerIndexInDefaults = this.defaultLayers.indexOf(layer);
             this.defaultLayers.splice(layerIndexInDefaults, 1);
 
-            this.repaint();
+            this.controller.addLayerToSelection(layer);
 
-            if (this.selection.selectedLayers.indexOf(layer) < 0) {
-                this.selection.selectedLayers.push(layer);
-            }
+            // Force a repaint even if the controller
+            // did not modify the selection
+            this.repaint();
         },
 
         /*
@@ -119,24 +119,27 @@ namespace("sozi.editor.view", function (exports) {
             var layerIndexInEditable = this.editableLayers.indexOf(layer);
             this.editableLayers.splice(layerIndexInEditable, 1);
 
-            if (!this.defaultLayersAreSelected) {
-                // TODO move this to controller
-                var layerIndexInSelection = this.selection.selectedLayers.indexOf(layer);
-                this.selection.selectedLayers.splice(layerIndexInSelection, 1);
+            if (this.defaultLayersAreSelected) {
+                this.controller.addLayerToSelection(layer);
             }
-            else if (this.selection.selectedLayers.indexOf(layer) < 0) {
-                // TODO move this to controller
-                this.selection.selectedLayers.push(layer);
+            else if (this.selection.selectedLayers.length > 1) {
+                this.controller.removeLayerFromSelection(layer);
+            }
+            else {
+                this.controller.selectLayers(this.defaultLayers);
             }
 
             this.defaultLayers.push(layer);
 
-            // TODO move this to controller
-            if (!this.selection.selectedLayers.length) {
-                this.selection.selectedLayers = this.defaultLayers.slice();
-            }
-
+            // Force a repaint even if the controller
+            // did not modify the selection
             this.repaint();
+        },
+
+        getLayersAtIndex: function (layerIndex) {
+            return layerIndex >= 0 ?
+                [this.presentation.layers[layerIndex]] :
+                this.defaultLayers;
         },
 
         /*
@@ -225,12 +228,6 @@ namespace("sozi.editor.view", function (exports) {
             bottomRight.scrollLeft(scrollLeft);
 
             this.setupEvents();
-        },
-
-        getLayersAtIndex: function (layerIndex) {
-            return layerIndex >= 0 ?
-                [this.presentation.layers[layerIndex]] :
-                this.defaultLayers;
         },
 
         setupEvents: function () {

@@ -116,6 +116,29 @@ namespace("sozi.editor", function (exports) {
         this.emitEvent("repaint");
     };
 
+    Controller.selectLayers = function (layers) {
+        this.selection.selectedLayers = layers.slice();
+        this.emitEvent("editorStateChange");
+        this.emitEvent("repaint");
+    };
+
+    Controller.addLayerToSelection = function (layer) {
+        if (this.selection.selectedLayers.indexOf(layer) < 0) {
+            this.selection.selectedLayers.push(layer);
+            this.emitEvent("editorStateChange");
+            this.emitEvent("repaint");
+        }
+    };
+
+    Controller.removeLayerFromSelection = function (layer) {
+        var index = this.selection.selectedLayers.indexOf(layer);
+        if (index >= 0) {
+            this.selection.selectedLayers.splice(index, 1);
+            this.emitEvent("editorStateChange");
+            this.emitEvent("repaint");
+        }
+    };
+
     /*
      * Update the selection for a given frame.
      *
