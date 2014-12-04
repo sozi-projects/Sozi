@@ -7,10 +7,7 @@ namespace("sozi.editor.view", function (exports) {
 
     var PREVIEW_MARGIN = 15;
 
-    exports.Preview = sozi.model.Object.clone({
-
-        selection: null,
-        userChange: false,
+    exports.Preview = {
 
         init: function (presentation, selection, viewport, controller) {
             this.presentation = presentation;
@@ -40,8 +37,8 @@ namespace("sozi.editor.view", function (exports) {
         onLoad: function () {
             $("#sozi-editor-aspect-width").val(this.presentation.aspectWidth);
             $("#sozi-editor-aspect-height").val(this.presentation.aspectHeight);
-            this.presentation.svgRoot.addEventListener("mouseenter", this.bind(this.onMouseEnter), false);
-            this.presentation.svgRoot.addEventListener("mouseleave", this.bind(this.onMouseLeave), false);
+            this.presentation.svgRoot.addEventListener("mouseenter", this.onMouseEnter.bind(this), false);
+            this.presentation.svgRoot.addEventListener("mouseleave", this.onMouseLeave.bind(this), false);
         },
 
         onChangeDragMode: function () {
@@ -73,7 +70,7 @@ namespace("sozi.editor.view", function (exports) {
             this.viewport.repaint();
         },
 
-        onClick: function (viewport, button, evt) {
+        onClick: function (button, evt) {
             if (button === 0 && evt.altKey) {
                 var referenceElement = evt.target;
                 if (referenceElement.hasAttribute("id") && referenceElement.getBBox) {
@@ -125,5 +122,5 @@ namespace("sozi.editor.view", function (exports) {
                 }
             });
         }
-    });
+    };
 });

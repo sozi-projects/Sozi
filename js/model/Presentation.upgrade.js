@@ -82,13 +82,13 @@ namespace("sozi.model", function (exports) {
 
         frameElts.forEach(function (frameElt, frameIndex) {
             // Create a new frame with default camera states
-            var frame = exports.Frame.clone().init(this);
-            this.frames.insert(frame, frameIndex);
+            var frame = Object.create(exports.Frame).init(this);
+            this.frames.splice(frameIndex, 0, frame);
             var refFrame = frame;
 
             // If this is not the first frame, the state is cloned from the previous frame.
             if (frameIndex) {
-                refFrame = this.frames.at(frameIndex - 1);
+                refFrame = this.frames[frameIndex - 1];
                 frame.setAtStates(refFrame.cameraStates);
             }
 
@@ -112,7 +112,7 @@ namespace("sozi.model", function (exports) {
                     // by the <frame> element.
                     // Other frames are cloned from the predecessors.
                     var defaultLayerIndex = defaultLayers.indexOf(layer);
-                    var groupId = layer.svgNodes.at(0).getAttribute("id");
+                    var groupId = layer.svgNodes[0].getAttribute("id");
                     if (groupId in layerEltsByGroupId) {
                         layerElt = layerEltsByGroupId[groupId];
                         if (defaultLayerIndex >= 0) {
@@ -133,14 +133,14 @@ namespace("sozi.model", function (exports) {
                         return;
                     }
 
-                    frame.cameraStates.at(layerIndex).setAtElement(refElt);
-                    frame.layerProperties.at(layerIndex).link = false;
+                    frame.cameraStates[layerIndex].setAtElement(refElt);
+                    frame.layerProperties[layerIndex].link = false;
                 }
 
-                var refLayerProperties = refFrame.layerProperties.at(layerIndex);
-                var refCameraState = refFrame.cameraStates.at(layerIndex);
-                var layerProperties = frame.layerProperties.at(layerIndex);
-                var cameraState = frame.cameraStates.at(layerIndex);
+                var refLayerProperties = refFrame.layerProperties[layerIndex];
+                var refCameraState = refFrame.cameraStates[layerIndex];
+                var layerProperties = frame.layerProperties[layerIndex];
+                var cameraState = frame.cameraStates[layerIndex];
                 cameraState.clipped = importAttribute(layerElt, soziPrefix + "clip", refCameraState.clipped, parseBoolean);
                 layerProperties.referenceElementId = importAttribute(layerElt, soziPrefix + "refid", refLayerProperties.referenceElementId);
                 layerProperties.referenceElementAuto = false;

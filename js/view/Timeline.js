@@ -20,12 +20,7 @@ namespace("sozi.editor.view", function (exports) {
      * See also:
      *  - templates/sozi.editor.Timeline.html
      */
-    exports.Timeline = sozi.model.Object.clone({
-
-        presentation: null,
-        selection: null,
-        editableLayers: [],
-        defaultLayers: [],
+    exports.Timeline = {
 
         /*
          * Initialize a Timeline view.
@@ -43,6 +38,8 @@ namespace("sozi.editor.view", function (exports) {
             this.presentation = presentation;
             this.selection = selection;
             this.controller = controller;
+            this.editableLayers = [];
+            this.defaultLayers = [];
 
             controller.addListener("repaint", this.repaint.bind(this));
             controller.addListener("load", this.onLoad.bind(this));
@@ -53,7 +50,7 @@ namespace("sozi.editor.view", function (exports) {
         },
 
         onLoad: function () {
-            this.defaultLayers.pushAll(this.presentation.layers);
+            this.defaultLayers = this.presentation.layers.slice();
         },
 
         toStorable: function () {
@@ -90,11 +87,15 @@ namespace("sozi.editor.view", function (exports) {
          *  - layerIndex: The index of a layer in the presentation
          */
         addLayer: function (layerIndex) {
-            var layer = this.presentation.layers.at(layerIndex);
+            var layer = this.presentation.layers[layerIndex];
             this.editableLayers.push(layer);
-            this.defaultLayers.remove(layer);
+
+            var layerIndexInDefaults = this.defaultLayers.indexOf(layer);
+            this.defaultLayers.splice(layerIndexInDefaults, 1);
+
             this.repaint();
-            if (!this.selection.selectedLayers.contains(layer)) {
+
+            if (this.selection.selectedLayers.indexOf(layer) < 0) {
                 this.selection.selectedLayers.push(layer);
             }
         },
@@ -113,18 +114,28 @@ namespace("sozi.editor.view", function (exports) {
          *  - layerIndex: The index of a layer in the presentation
          */
         removeLayer: function (layerIndex) {
-            var layer = this.presentation.layers.at(layerIndex);
-            this.editableLayers.remove(layer);
+            var layer = this.presentation.layers[layerIndex];
+
+            var layerIndexInEditable = this.editableLayers.indexOf(layer);
+            this.editableLayers.splice(layerIndexInEditable, 1);
+
             if (!this.defaultLayersAreSelected) {
-                this.selection.selectedLayers.remove(layer);
+                // TODO move this to controller
+                var layerIndexInSelection = this.selection.selectedLayers.indexOf(layer);
+                this.selection.selectedLayers.splice(layerIndexInSelection, 1);
             }
-            else if (!this.selection.selectedLayers.contains(layer)) {
+            else if (this.selection.selectedLayers.indexOf(layer) < 0) {
+                // TODO move this to controller
                 this.selection.selectedLayers.push(layer);
             }
+
             this.defaultLayers.push(layer);
-            if (this.selection.selectedLayers.isEmpty) {
-                this.selection.selectedLayers.pushAll(this.defaultLayers);
+
+            // TODO move this to controller
+            if (!this.selection.selectedLayers.length) {
+                this.selection.selectedLayers = this.defaultLayers.slice();
             }
+
             this.repaint();
         },
 
@@ -148,7 +159,7 @@ namespace("sozi.editor.view", function (exports) {
          */
         get defaultLayersAreSelected() {
             return this.defaultLayers.every(function (layer) {
-                return this.selection.selectedLayers.contains(layer);
+                return this.selection.selectedLayers.indexOf(layer) >= 0;
             }, this);
         },
 
@@ -218,7 +229,7 @@ namespace("sozi.editor.view", function (exports) {
 
         getLayersAtIndex: function (layerIndex) {
             return layerIndex >= 0 ?
-                [this.presentation.layers.at(layerIndex)] :
+                [this.presentation.layers[layerIndex]] :
                 this.defaultLayers;
         },
 
@@ -274,5 +285,5 @@ namespace("sozi.editor.view", function (exports) {
                 $(".timeline-bottom-left", container).scrollTop($(this).scrollTop());
             });
         }
-    });
+    };
 });

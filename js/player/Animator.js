@@ -96,66 +96,60 @@ namespace("sozi.player", function (exports) {
      * The main purpose of an animator is to schedule the update
      * operations in the animated objects.
      */
-    exports.Animator = sozi.model.Object.clone({
+    exports.Animator = Object.create(EventEmitter.prototype);
 
-        // The animation duration, in milliseconds.
-        durationMs: 500,
+    exports.Animator.init = function () {
+        EventEmitter.call(this);
+        this.durationMs = 500;
+        this.initialTime = 0;
+        this.running = false;
+        animatorList.push(this);
+        return this;
+    };
 
-        // The start time of the animation.
-        initialTime: 0,
-
-        // The current state of this animator.
-        running: false,
-
-        init: function () {
-            animatorList.push(this);
-            return this;
-        },
-
-        /*
-         * Start the current animator.
-         *
-         * The "step" event is fired once before starting the animation.
-         */
-        start: function (durationMs) {
-            this.durationMs = durationMs || 500;
-            this.initialTime = perf.now();
-            this.fire("step", 0);
-            if (!this.running) {
-                this.running = true;
-                runningAnimators ++;
-                if (runningAnimators === 1) {
-                    start();
-                }
-            }
-        },
-
-        /*
-         * Stop the current animator.
-         */
-        stop: function () {
-            if (this.running) {
-                this.running = false;
-                runningAnimators --;
-                this.fire("done");
-            }
-        },
-
-        /*
-         * Perform one animation step.
-         *
-         * This function is called automatically by the loop() function.
-         * It fires the "step" event with the current progress (elapsed time / duration).
-         * If the animation duration has elapsed, the "done" event is fired.
-         */
-        step: function () {
-            var elapsedTime = perf.now() - this.initialTime;
-            if (elapsedTime >= this.durationMs) {
-                this.fire("step", 1);
-                this.stop();
-            } else {
-                this.fire("step", elapsedTime / this.durationMs);
+    /*
+     * Start the current animator.
+     *
+     * The "step" event is fired once before starting the animation.
+     */
+    exports.Animator.start = function (durationMs) {
+        this.durationMs = durationMs || 500;
+        this.initialTime = perf.now();
+        this.emitEvent("step", [0]);
+        if (!this.running) {
+            this.running = true;
+            runningAnimators ++;
+            if (runningAnimators === 1) {
+                start();
             }
         }
-    });
+    };
+
+    /*
+     * Stop the current animator.
+     */
+    exports.Animator.stop = function () {
+        if (this.running) {
+            this.running = false;
+            runningAnimators --;
+            this.emitEvent("done");
+        }
+    };
+
+    /*
+     * Perform one animation step.
+     *
+     * This function is called automatically by the loop() function.
+     * It fires the "step" event with the current progress (elapsed time / duration).
+     * If the animation duration has elapsed, the "done" event is fired.
+     */
+    exports.Animator.step = function () {
+        var elapsedTime = perf.now() - this.initialTime;
+        if (elapsedTime >= this.durationMs) {
+            this.emitEvent("step", [1]);
+            this.stop();
+        } else {
+            this.emitEvent("step", [elapsedTime / this.durationMs]);
+        }
+    };
 });

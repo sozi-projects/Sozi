@@ -95,15 +95,12 @@ window.addEventListener("load", function () {
     function autosaveJSON(backend, fileDescriptor) {
         var jsonNeedsSaving = false;
 
-        jsonSources.forEach(function (object) {
-            object.addListener("contentChange", function () {
-                jsonNeedsSaving = true;
-            });
-        });
+        controller.addListener("presentationChange", function () { jsonNeedsSaving = true; });
+        controller.addListener("editorStateChange",  function () { jsonNeedsSaving = true; });
 
         backend.autosave(fileDescriptor, function () { return jsonNeedsSaving; }, getJSONData);
 
-        backend.addListener("save", function (backend, savedFileDescriptor) {
+        backend.addListener("save", function (savedFileDescriptor) {
             if (fileDescriptor === savedFileDescriptor) {
                 jsonNeedsSaving = false;
                 $.notify("Saved " + backend.getName(fileDescriptor), "info");
@@ -172,13 +169,11 @@ window.addEventListener("load", function () {
     function autosaveHTML(backend, fileDescriptor) {
         var htmlNeedsSaving = false;
 
-        presentation.addListener("contentChange", function () {
-            htmlNeedsSaving = true;
-        });
+        controller.addListener("presentationChange", function () { htmlNeedsSaving = true; });
 
         backend.autosave(fileDescriptor, function () { return htmlNeedsSaving; }, exportHTML);
 
-        backend.addListener("save", function (backend, savedFileDescriptor) {
+        backend.addListener("save", function (savedFileDescriptor) {
             if (fileDescriptor === savedFileDescriptor) {
                 htmlNeedsSaving = false;
                 $.notify("Saved " + backend.getName(fileDescriptor), "info");
@@ -192,7 +187,7 @@ window.addEventListener("load", function () {
         var listItem = $("<li></li>");
         $("#sozi-editor-view-preview ul").append(listItem);
         backend
-            .addListener("load", function (backend, fileDescriptor, data, err) {
+            .addListener("load", function (fileDescriptor, data, err) {
                 var name = backend.getName(fileDescriptor);
                 var location = backend.getLocation(fileDescriptor);
 
@@ -214,13 +209,13 @@ window.addEventListener("load", function () {
 
                     // If no frame is selected, select the first frame
                     if (presentation.frames.length && !selection.selectedFrames.length) {
-                        selection.selectedFrames.push(presentation.frames.first);
+                        selection.selectedFrames.push(presentation.frames[0]);
                     }
 
                     autosaveJSON(backend, fileDescriptor);
                 }
             })
-            .addListener("change", function (backend, fileDescriptor) {
+            .addListener("change", function (fileDescriptor) {
                 if (fileDescriptor === svgFileDescriptor) {
                     $.notify("Document was changed. Reloading", "info");
                     backend.load(fileDescriptor);

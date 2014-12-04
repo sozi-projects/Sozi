@@ -5,13 +5,7 @@
 namespace("sozi.editor.view", function (exports) {
     "use strict";
 
-    var Field = sozi.model.Object.clone({
-        element: null,
-        isFrameField: false,
-        isLayerField: false,
-        isCameraField: false,
-        propertyName: "",
-        selection: null,
+    var Field = {
 
         init: function (controller, selection, elementId, propertyName) {
             this.element = $("#sozi-editor-view-properties #" + elementId);
@@ -46,10 +40,10 @@ namespace("sozi.editor.view", function (exports) {
                     this.controller.setCameraProperty(this.propertyName, propertyValue);
                 }
             }
-            this.render();
+            this.repaint();
         },
 
-        render: function () {
+        repaint: function () {
             // Clear and disable field
             this.element.removeClass("multiple").prop("disabled", true).val("");
 
@@ -69,7 +63,7 @@ namespace("sozi.editor.view", function (exports) {
                 else {
                     var obj = this.isLayerField ? frame.layerProperties : frame.cameraStates;
                     this.selection.selectedLayers.forEach(function (layer, layerIndex) {
-                        var current = obj.at(layer.index)[this.propertyName];
+                        var current = obj[layer.index][this.propertyName];
                         if (!frameIndex && !layerIndex) {
                             value = current;
                         }
@@ -105,84 +99,81 @@ namespace("sozi.editor.view", function (exports) {
         validate: function (value) {
             return true;
         }
-    });
+    };
 
-    var NumericField = Field.clone({
-        min: 0,
-        max: 100,
-        factor: 1,
+    var NumericField = Object.create(Field);
 
-        init: function (controller, selection, elementId, propertyName, min, max, factor) {
-            Field.init.call(this, controller, selection, elementId, propertyName);
-            this.min = min;
-            this.max = max;
-            this.factor = factor;
-            return this;
-        },
+    NumericField.init = function (controller, selection, elementId, propertyName, min, max, factor) {
+        Field.init.call(this, controller, selection, elementId, propertyName);
+        this.min = min;
+        this.max = max;
+        this.factor = factor;
+        return this;
+    };
 
-        convertToField: function (value) {
-            return (value / this.factor).toString();
-        },
+    NumericField.convertToField = function (value) {
+        return (value / this.factor).toString();
+    };
 
-        convertFromField: function (value) {
-            return parseFloat(value) * this.factor;
-        },
+    NumericField.convertFromField = function (value) {
+        return parseFloat(value) * this.factor;
+    };
 
-        validate: function (value) {
-            value = parseFloat(value);
-            return !isNaN(value) &&
-                (this.min === null || value >= this.min) &&
-                (this.max === null || value <= this.max);
-        }
-    });
+    NumericField.validate = function (value) {
+        value = parseFloat(value);
+        return !isNaN(value) &&
+            (this.min === null || value >= this.min) &&
+            (this.max === null || value <= this.max);
+    };
 
-    var StringField = Field.clone({
-        acceptsEmpty: false,
 
-        init: function (controller, selection, elementId, propertyName, acceptsEmpty) {
-            Field.init.call(this, controller, selection, elementId, propertyName);
-            this.acceptsEmpty = acceptsEmpty;
-            return this;
-        },
+    var StringField = Object.create(Field);
 
-        validate: function (value) {
-            return this.acceptsEmpty || value.length;
-        }
-    });
+    StringField.acceptsEmpty = false;
 
-    exports.Properties = sozi.model.Object.clone({
-        fields: {own: []},
+    StringField.init = function (controller, selection, elementId, propertyName, acceptsEmpty) {
+        Field.init.call(this, controller, selection, elementId, propertyName);
+        this.acceptsEmpty = acceptsEmpty;
+        return this;
+    };
+
+    StringField.validate = function (value) {
+        return this.acceptsEmpty || value.length;
+    };
+
+
+    exports.Properties = {
 
         init: function (presentation, selection, controller) {
-            this.fields.push(
-                StringField.clone().init(controller, selection, "frame-title", "title", true),
-                StringField.clone().init(controller, selection, "frame-id", "frameId", false),
-                Field.clone().init(controller, selection, "frame-list", "showInFrameList"),
-                NumericField.clone().init(controller, selection, "frame-timeout", "timeoutMs", 0, null, 1000),
-                Field.clone().init(controller, selection, "frame-timeout-enable", "timeoutEnable"),
-                NumericField.clone().init(controller, selection, "frame-transition-duration", "transitionDurationMs", 0, null, 1000),
-                Field.clone().init(controller, selection, "layer-link", "link"),
-                Field.clone().init(controller, selection, "camera-clipped", "clipped"),
-                StringField.clone().init(controller, selection, "layer-reference-id", "referenceElementId", true),
-                Field.clone().init(controller, selection, "layer-reference-auto", "referenceElementAuto"),
-                Field.clone().init(controller, selection, "layer-reference-hide", "referenceElementHide"),
-                StringField.clone().init(controller, selection, "layer-transition-timing-function", "transitionTimingFunction", false),
-                NumericField.clone().init(controller, selection, "layer-transition-relative-zoom", "transitionRelativeZoom", null, null, 0.01),
-                StringField.clone().init(controller, selection, "layer-transition-path-id", "transitionPathId", true),
-                Field.clone().init(controller, selection, "layer-transition-path-hide", "transitionPathHide")
-            );
+            this.fields = [
+                Object.create(StringField).init(controller, selection, "frame-title", "title", true),
+                Object.create(StringField).init(controller, selection, "frame-id", "frameId", false),
+                Object.create(Field).init(controller, selection, "frame-list", "showInFrameList"),
+                Object.create(NumericField).init(controller, selection, "frame-timeout", "timeoutMs", 0, null, 1000),
+                Object.create(Field).init(controller, selection, "frame-timeout-enable", "timeoutEnable"),
+                Object.create(NumericField).init(controller, selection, "frame-transition-duration", "transitionDurationMs", 0, null, 1000),
+                Object.create(Field).init(controller, selection, "layer-link", "link"),
+                Object.create(Field).init(controller, selection, "camera-clipped", "clipped"),
+                Object.create(StringField).init(controller, selection, "layer-reference-id", "referenceElementId", true),
+                Object.create(Field).init(controller, selection, "layer-reference-auto", "referenceElementAuto"),
+                Object.create(Field).init(controller, selection, "layer-reference-hide", "referenceElementHide"),
+                Object.create(StringField).init(controller, selection, "layer-transition-timing-function", "transitionTimingFunction", false),
+                Object.create(NumericField).init(controller, selection, "layer-transition-relative-zoom", "transitionRelativeZoom", null, null, 0.01),
+                Object.create(StringField).init(controller, selection, "layer-transition-path-id", "transitionPathId", true),
+                Object.create(Field).init(controller, selection, "layer-transition-path-hide", "transitionPathHide")
+            ];
 
             $("#layer-reference-id-fit").click(controller.fitElement.bind(controller));
 
-            controller.addListener("repaint", this.render.bind(this));
+            controller.addListener("repaint", this.repaint.bind(this));
 
             return this;
         },
 
-        render: function () {
+        repaint: function () {
             this.fields.forEach(function (field) {
-                field.render();
+                field.repaint();
             });
         }
-    });
+    };
 });

@@ -24,7 +24,7 @@
                 <select id="add-layer">
                     <option value="__add__">Add layer</option>
                     {% for layer in presentation.layers.slice().reverse() %}
-                        {% if not layer.auto and defaultLayers.contains(layer) %}
+                        {% if not layer.auto and defaultLayers.indexOf(layer) >= 0 %}
                             <option value="{{loop.revindex0}}">{{layer.label}}</option>
                         {% endif %}
                     {% endfor %}
@@ -45,14 +45,14 @@
             </th>
         </tr>
         {% for layer in presentation.layers.slice().reverse() %}
-            {% if editableLayers.contains(layer) %}
+            {% if editableLayers.indexOf(layer) >= 0 %}
                 <tr data-layer-index="{{loop.revindex0}}">
                     <th class="layer-icons">
                         <i class="visibility fa {{'fa-eye' if layer.isVisible else 'fa-eye-slash'}}"
                             title="{{'This layer is visible. Click to hide it.' if layer.isVisible else 'This layer is hidden. Click to show it.'}}"></i>
                         <i title="Remove this layer" class="remove fa fa-times"></i>
                     </th>
-                    <th class="layer-label {{'selected' if selection.selectedLayers.contains(layer)}}">
+                    <th class="layer-label {{'selected' if selection.selectedLayers.indexOf(layer) >= 0}}">
                         {{layer.label}}
                     </th>
                 </tr>
@@ -72,7 +72,7 @@
         <tr>
             {% for frame in presentation.frames.slice() %}
                 <th data-frame-index="{{loop.index0}}"
-                    class="frame-index {{'selected' if selection.selectedFrames.contains(frame)}} {{'current' if frame == selection.currentFrame}}">
+                    class="frame-index {{'selected' if selection.selectedFrames.indexOf(frame) >= 0}} {{'current' if frame == selection.currentFrame}}">
                     <i title="Insert selection before frame {{loop.index}}" class="insert-before fa fa-arrow-circle-down"></i>
                     <i title="Insert selection after frame {{loop.index}}" class="insert-after fa fa-arrow-circle-down"></i>
                     {{loop.index}}
@@ -83,7 +83,7 @@
             {% for frame in presentation.frames.slice() %}
                 <th data-frame-index="{{loop.index0}}"
                     title="{{frame.title}}"
-                    class="frame-title {{'selected' if selection.selectedFrames.contains(frame)}} {{'current' if frame == selection.currentFrame}}">
+                    class="frame-title {{'selected' if selection.selectedFrames.indexOf(frame) >= 0}} {{'current' if frame == selection.currentFrame}}">
                     {{frame.title}}
                 </th>
             {% endfor %}
@@ -95,20 +95,17 @@
         <tr data-layer-index="-1">
             {% for frame in presentation.frames.slice() %}
                 <td data-frame-index="{{loop.index0}}"
-                    class="{{'selected' if defaultLayersAreSelected and selection.selectedFrames.contains(frame)}} {{'current' if frame == selection.currentFrame}}">
-                    {% if frame.layerProperties.last.link %}
-                        <i class="fa fa-link"></i>
-                    {% endif %}
+                    class="{{'selected' if defaultLayersAreSelected and selection.selectedFrames.indexOf(frame) >= 0}} {{'current' if frame == selection.currentFrame}}">
                 </td>
             {% endfor %}
         </tr>
         {% for layer in presentation.layers.slice().reverse() %}
-            {% if editableLayers.contains(layer) %}
+            {% if editableLayers.indexOf(layer) >= 0 %}
                 <tr data-layer-index="{{loop.revindex0}}">
                     {% for frame in presentation.frames.slice() %}
                         <td data-frame-index="{{loop.index0}}"
-                            class="{{'selected' if selection.selectedLayers.contains(layer) and selection.selectedFrames.contains(frame)}} {{'current' if frame == selection.currentFrame}}">
-                            {% if frame.layerProperties.at(layer.index).link %}
+                            class="{{'selected' if selection.selectedLayers.indexOf(layer) >= 0 and selection.selectedFrames.indexOf(frame) >= 0}} {{'current' if frame == selection.currentFrame}}">
+                            {% if frame.layerProperties[layer.index].link %}
                                 <i class="fa fa-link"></i>
                             {% endif %}
                         </td>

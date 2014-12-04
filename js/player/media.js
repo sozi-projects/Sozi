@@ -9,6 +9,8 @@ namespace("sozi.player.media", function (exports) {
     var soziNs = "http://sozi.baierouge.fr";
     var xhtmlNs = "http://www.w3.org/1999/xhtml";
 
+    var player;
+
     function clickHandler(evt) {
         evt.stopPropagation();
     }
@@ -16,7 +18,7 @@ namespace("sozi.player.media", function (exports) {
     var mediaToStartByFrameId = {};
     var mediaToStopByFrameId = {};
 
-    function onFrameChange(player, index) {
+    function onFrameChange() {
         var frameId = player.currentFrame.frameId;
         var mediaToStart = mediaToStartByFrameId[frameId];
         if (mediaToStart) {
@@ -32,8 +34,10 @@ namespace("sozi.player.media", function (exports) {
         return Array.prototype.slice.call(collection);
     }
 
-    exports.init = function (player) {
-        player.addListener("change:currentFrameIndex", onFrameChange);
+    exports.init = function (aPlayer) {
+        player = aPlayer;
+
+        player.addListener("frameChange", onFrameChange);
 
         // Find namespace prefix for Sozi.
         // Inlining SVG inside HTML does not allow to use

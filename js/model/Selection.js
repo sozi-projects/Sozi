@@ -12,11 +12,7 @@ namespace("sozi.editor.model", function (exports) {
      * Events:
      *  - change: when the content of the selection has changed
      */
-    exports.Selection = sozi.model.Object.clone({
-
-        presentation: null,
-        selectedFrames: [],
-        selectedLayers: [],
+    exports.Selection = {
 
         /*
          * Initialize a selection for a given presentation.
@@ -32,6 +28,8 @@ namespace("sozi.editor.model", function (exports) {
          */
         init: function (presentation) {
             this.presentation = presentation;
+            this.selectedFrames = [];
+            this.selectedLayers = [];
             return this;
         },
 
@@ -48,7 +46,7 @@ namespace("sozi.editor.model", function (exports) {
 
         fromStorable: function (storable) {
             if ("selectedFrames" in storable) {
-                this.selectedFrames.clear();
+                this.selectedFrames = [];
                 storable.selectedFrames.forEach(function (frameId) {
                     var frame = this.presentation.getFrameWithId(frameId);
                     if (frame) {
@@ -58,7 +56,7 @@ namespace("sozi.editor.model", function (exports) {
             }
 
             if ("selectedLayers" in storable) {
-                this.selectedLayers.clear();
+                this.selectedLayers = [];
                 storable.selectedLayers.forEach(function (groupId) {
                     var layer = this.presentation.getLayerWithId(groupId);
                     if (layer) {
@@ -76,8 +74,8 @@ namespace("sozi.editor.model", function (exports) {
          */
         get currentFrame() {
             return this.selectedFrames.length ?
-                this.selectedFrames.last :
+                this.selectedFrames[this.selectedFrames.length - 1] :
                 null;
         }
-    });
+    };
 });

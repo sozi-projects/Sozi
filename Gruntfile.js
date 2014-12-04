@@ -76,8 +76,8 @@ module.exports = function(grunt) {
             },
             player: {
                 src: [
+                    "bower_components/eventEmitter/EventEmitter.js",
                     "js/namespace.js",
-                    "js/model/Object.js",
                     "js/model/CameraState.js",
                     "js/model/Presentation.js",
                     "js/player/Camera.js",

@@ -5,35 +5,46 @@
 namespace("sozi.model", function (exports) {
     "use strict";
 
-    exports.CameraState = sozi.model.Object.clone({
-
-        svgRoot: null,
-
-        // Center coordinates
-        cx: 0,
-        cy: 0,
-
-        // Dimensions
-        width: 0,
-        height: 0,
-
-        // Rotation angle, in degrees
-        angle: 0,
-
-        // Clipping
-        clipped: false,
-        clipXOffset: 0,
-        clipYOffset: 0,
-        clipWidthFactor: 1,
-        clipHeightFactor: 1,
+    exports.CameraState = {
 
         init: function (svgRoot) {
             this.svgRoot = svgRoot;
+
             var initialBBox = svgRoot.getBBox();
+
+            // Center coordinates
             this.cx = initialBBox.x + initialBBox.width / 2;
             this.cy = initialBBox.y + initialBBox.height / 2;
+
+            // Dimensions
             this.width = initialBBox.width;
             this.height = initialBBox.height;
+
+            // Rotation angle, in degrees
+            this.angle = 0;
+
+            // Clipping properties
+            this.clipped = false;
+            this.clipXOffset = 0;
+            this.clipYOffset = 0;
+            this.clipWidthFactor = 1;
+            this.clipHeightFactor = 1;
+
+            return this;
+        },
+
+        initFrom: function (state) {
+            this.svgRoot = state.svgRoot;
+            this.cx = state.cx;
+            this.cy = state.cy;
+            this.width = state.width;
+            this.height = state.height;
+            this.angle = state.angle;
+            this.clipped = state.clipped;
+            this.clipXOffset = state.clipXOffset;
+            this.clipYOffset = state.clipYOffset;
+            this.clipWidthFactor = state.clipWidthFactor;
+            this.clipHeightFactor = state.clipHeightFactor;
             return this;
         },
 
@@ -56,7 +67,19 @@ namespace("sozi.model", function (exports) {
             return this.toStorable();
         },
 
-        fromStorable: sozi.model.Object.copy,
+        fromStorable: function (storable) {
+            this.cx = storable.cx;
+            this.cy = storable.cy;
+            this.width = storable.width;
+            this.height = storable.height;
+            this.angle = storable.angle;
+            this.clipped = storable.clipped;
+            this.clipXOffset = storable.clipXOffset;
+            this.clipYOffset = storable.clipYOffset;
+            this.clipWidthFactor = storable.clipWidthFactor;
+            this.clipHeightFactor = storable.clipHeightFactor;
+            return this;
+        },
 
         /*
          * Set the angle of the current camera state.
@@ -120,7 +143,7 @@ namespace("sozi.model", function (exports) {
         },
 
         offsetFromElement: function (svgElement) {
-            var cam = this.clone().setAtElement(svgElement);
+            var cam = Object.create(exports.CameraState).init(this.svgRoot).setAtElement(svgElement);
             return {
                 deltaX: this.cx - cam.cx,
                 deltaY: this.cy - cam.cy,
@@ -200,5 +223,5 @@ namespace("sozi.model", function (exports) {
                 this[clipProp] = linear(initialClipping[clipProp], finalClipping[clipProp]);
             }
         }
-    });
+    };
 });
