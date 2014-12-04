@@ -5,18 +5,18 @@
 namespace("sozi.editor.backend", function (exports) {
     "use strict";
 
-    exports.GoogleDrive = Object.create(exports.AbstractBackend);
+    var GoogleDrive = Object.create(sozi.editor.backend.AbstractBackend);
 
     // Configure these settings in sozi.editor.backend.GoogleDrive.config.js
-    exports.GoogleDrive.clientId = "Your OAuth client Id";
-    exports.GoogleDrive.apiKey = "Your developer API key";
+    GoogleDrive.clientId = "Your OAuth client Id";
+    GoogleDrive.apiKey = "Your developer API key";
 
-    exports.GoogleDrive.init = function (container) {
+    GoogleDrive.init = function (container) {
         if (namespace.global.require) {
             return this;
         }
 
-        exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-GoogleDrive-input" type="button" value="Load from Google Drive">');
+        sozi.editor.backend.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-GoogleDrive-input" type="button" value="Load from Google Drive">');
 
         var self = this;
         $(window).blur(function () {
@@ -28,7 +28,7 @@ namespace("sozi.editor.backend", function (exports) {
         return this;
     };
 
-    exports.GoogleDrive.authorize = function (onInit) {
+    GoogleDrive.authorize = function (onInit) {
         var self = this;
         gapi.auth.authorize({
             client_id: this.clientId,
@@ -39,7 +39,7 @@ namespace("sozi.editor.backend", function (exports) {
         });
     };
 
-    exports.GoogleDrive.onAuthResult = function (authResult, onInit) {
+    GoogleDrive.onAuthResult = function (authResult, onInit) {
         var inputButton = $("#sozi-editor-backend-GoogleDrive-input");
 
         var self = this;
@@ -68,7 +68,7 @@ namespace("sozi.editor.backend", function (exports) {
         }
     };
 
-    exports.GoogleDrive.createPicker = function () {
+    GoogleDrive.createPicker = function () {
         var self = this;
 
         this.picker = new google.picker.PickerBuilder().
@@ -90,15 +90,15 @@ namespace("sozi.editor.backend", function (exports) {
             build();
     };
 
-    exports.GoogleDrive.getName = function (fileDescriptor) {
+    GoogleDrive.getName = function (fileDescriptor) {
         return fileDescriptor.title;
     };
 
-    exports.GoogleDrive.getLocation = function (fileDescriptor) {
+    GoogleDrive.getLocation = function (fileDescriptor) {
         return fileDescriptor.parents;
     };
 
-    exports.GoogleDrive.find = function (name, location, callback) {
+    GoogleDrive.find = function (name, location, callback) {
         function findInParent(index) {
             gapi.client.drive.files.list({
                 q: "title = '" + name + "' and " +
@@ -119,7 +119,7 @@ namespace("sozi.editor.backend", function (exports) {
     };
 
     // TODO implement the "change" event
-    exports.GoogleDrive.load = function (fileDescriptor) {
+    GoogleDrive.load = function (fileDescriptor) {
         // The file is loaded using an AJAX GET operation.
         // The data type is forced to "text" to prevent parsing it.
         // Emit the "load" event with the file content in case of success,
@@ -138,7 +138,7 @@ namespace("sozi.editor.backend", function (exports) {
         });
     };
 
-    exports.GoogleDrive.create = function (name, location, mimeType, data, callback) {
+    GoogleDrive.create = function (name, location, mimeType, data, callback) {
         var boundary = "-------314159265358979323846";
         var delimiter = "\r\n--" + boundary + "\r\n";
         var closeDelimiter = "\r\n--" + boundary + "--";
@@ -179,9 +179,11 @@ namespace("sozi.editor.backend", function (exports) {
     };
 
     // TODO implement saving
-    exports.GoogleDrive.save = function (fileDescriptor, data) {
+    GoogleDrive.save = function (fileDescriptor, data) {
         this.emitEvent("save", [fileDescriptor, "Not implemented"]);
     };
 
-    exports.add(exports.GoogleDrive);
+    sozi.editor.backend.add(GoogleDrive);
+
+    exports.GoogleDrive = GoogleDrive;
 });

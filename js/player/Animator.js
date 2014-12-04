@@ -96,9 +96,9 @@ namespace("sozi.player", function (exports) {
      * The main purpose of an animator is to schedule the update
      * operations in the animated objects.
      */
-    exports.Animator = Object.create(EventEmitter.prototype);
+    var Animator = Object.create(EventEmitter.prototype);
 
-    exports.Animator.init = function () {
+    Animator.init = function () {
         EventEmitter.call(this);
         this.durationMs = 500;
         this.initialTime = 0;
@@ -112,7 +112,7 @@ namespace("sozi.player", function (exports) {
      *
      * The "step" event is fired once before starting the animation.
      */
-    exports.Animator.start = function (durationMs) {
+    Animator.start = function (durationMs) {
         this.durationMs = durationMs || 500;
         this.initialTime = perf.now();
         this.emitEvent("step", [0]);
@@ -128,7 +128,7 @@ namespace("sozi.player", function (exports) {
     /*
      * Stop the current animator.
      */
-    exports.Animator.stop = function () {
+    Animator.stop = function () {
         if (this.running) {
             this.running = false;
             runningAnimators --;
@@ -143,7 +143,7 @@ namespace("sozi.player", function (exports) {
      * It fires the "step" event with the current progress (elapsed time / duration).
      * If the animation duration has elapsed, the "done" event is fired.
      */
-    exports.Animator.step = function () {
+    Animator.step = function () {
         var elapsedTime = perf.now() - this.initialTime;
         if (elapsedTime >= this.durationMs) {
             this.emitEvent("step", [1]);
@@ -152,4 +152,6 @@ namespace("sozi.player", function (exports) {
             this.emitEvent("step", [elapsedTime / this.durationMs]);
         }
     };
+
+    exports.Animator = Animator;
 });

@@ -23,14 +23,14 @@ namespace("sozi.editor.backend", function (exports) {
         console.log("Current working dir: " + cwd);
     }
 
-    exports.NodeWebkit = Object.create(exports.AbstractBackend);
+    var NodeWebkit = Object.create(sozi.editor.backend.AbstractBackend);
 
-    exports.NodeWebkit.init = function (container) {
+    NodeWebkit.init = function (container) {
         if (!namespace.global.require) {
             return this;
         }
 
-        exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-NodeWebkit-input" type="file" accept="image/svg+xml" autofocus>');
+        sozi.editor.backend.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-NodeWebkit-input" type="file" accept="image/svg+xml" autofocus>');
 
         // Load the SVG document selected in the file input
         var self = this;
@@ -71,15 +71,15 @@ namespace("sozi.editor.backend", function (exports) {
         return this;
     };
 
-    exports.NodeWebkit.getName = function (fileDescriptor) {
+    NodeWebkit.getName = function (fileDescriptor) {
         return path.basename(fileDescriptor);
     };
 
-    exports.NodeWebkit.getLocation = function (fileDescriptor) {
+    NodeWebkit.getLocation = function (fileDescriptor) {
         return path.dirname(fileDescriptor);
     };
 
-    exports.NodeWebkit.find = function (name, location, callback) {
+    NodeWebkit.find = function (name, location, callback) {
         var fileName = path.join(location, name);
         fs.exists(fileName, function (found) {
             if (found) {
@@ -91,7 +91,7 @@ namespace("sozi.editor.backend", function (exports) {
         });
     };
 
-    exports.NodeWebkit.load = function (fileDescriptor) {
+    NodeWebkit.load = function (fileDescriptor) {
         // Read file asynchronously and fire the "load" event.
         var self = this;
         fs.readFile(fileDescriptor, { encoding: "utf8" }, function (err, data) {
@@ -119,18 +119,20 @@ namespace("sozi.editor.backend", function (exports) {
         });
     };
 
-    exports.NodeWebkit.create = function (name, location, mimeType, data, callback) {
+    NodeWebkit.create = function (name, location, mimeType, data, callback) {
         var fileName = path.join(location, name);
         // TODO use async file write
         var err = fs.writeFileSync(fileName, data, { encoding: "utf-8" });
         callback(fileName, err);
     };
 
-    exports.NodeWebkit.save = function (fileDescriptor, data) {
+    NodeWebkit.save = function (fileDescriptor, data) {
         // TODO use async file write
         var err = fs.writeFileSync(fileDescriptor, data, { encoding: "utf-8" });
         this.emitEvent("save", [fileDescriptor, err]);
     };
 
-    exports.add(exports.NodeWebkit);
+    sozi.editor.backend.add(NodeWebkit);
+
+    exports.NodeWebkit = NodeWebkit;
 });

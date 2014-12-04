@@ -17,7 +17,7 @@ namespace("sozi.player", function (exports) {
     // Rotation step for user rotate action (keyboard and mouse wheel)
     var ROTATE_STEP = 5;
 
-    exports.Viewport = Object.create(EventEmitter.prototype);
+    var Viewport = Object.create(EventEmitter.prototype);
 
     /*
      * Initialize a new viewport for the given SVG root element.
@@ -28,7 +28,7 @@ namespace("sozi.player", function (exports) {
      * Returns:
      *    - The current viewport.
      */
-    exports.Viewport.init = function (presentation) {
+    Viewport.init = function (presentation) {
         this.presentation = presentation;
         this.cameras = [];
         this.mouseDragX = 0;
@@ -42,7 +42,7 @@ namespace("sozi.player", function (exports) {
         return this;
     };
 
-    exports.Viewport.makeUniqueId = function (prefix) {
+    Viewport.makeUniqueId = function (prefix) {
         var suffix = Math.floor(1000 * (1 + 9 * Math.random()));
         var id;
         do {
@@ -52,7 +52,7 @@ namespace("sozi.player", function (exports) {
         return id;
     };
 
-    exports.Viewport.onLoad = function () {
+    Viewport.onLoad = function () {
         this.svgRoot.addEventListener("mousedown", this.onMouseDown.bind(this), false);
         this.svgRoot.addEventListener("contextmenu", this.onContextMenu.bind(this), false);
 
@@ -63,23 +63,23 @@ namespace("sozi.player", function (exports) {
         this.svgRoot.addEventListener(wheelEvent, this.onWheel.bind(this), false);
 
         this.cameras = this.presentation.layers.map(function (layer) {
-            return Object.create(exports.Camera).init(this, layer);
+            return Object.create(sozi.player.Camera).init(this, layer);
         }, this);
     };
 
-    Object.defineProperty(exports.Viewport, "svgRoot", {
+    Object.defineProperty(Viewport, "svgRoot", {
         get: function () {
             return this.presentation.svgRoot;
         }
     });
 
-    exports.Viewport.getLayer = function (nodeId) {
+    Viewport.getLayer = function (nodeId) {
         return this.layers.filter(function (layer) {
             return layer.nodeId === nodeId;
         })[0];
     };
 
-    exports.Viewport.onContextMenu = function (evt) {
+    Viewport.onContextMenu = function (evt) {
         evt.stopPropagation();
         evt.preventDefault();
         this.emitEvent("click", [2, evt]);
@@ -97,7 +97,7 @@ namespace("sozi.player", function (exports) {
      * Fires:
      *    - mouseDown(button)
      */
-    exports.Viewport.onMouseDown = function (evt) {
+    Viewport.onMouseDown = function (evt) {
         evt.stopPropagation();
         evt.preventDefault();
 
@@ -125,7 +125,7 @@ namespace("sozi.player", function (exports) {
      *
      * TODO drag horizontally/vertically when Shift key is pressed
      */
-    exports.Viewport.onDrag = function (evt) {
+    Viewport.onDrag = function (evt) {
         evt.stopPropagation();
 
         var xFromCenter = evt.clientX - this.x - this.width / 2;
@@ -209,7 +209,7 @@ namespace("sozi.player", function (exports) {
      *    - dragEnd
      *    - click(button, event)
      */
-    exports.Viewport.onDragEnd = function (evt) {
+    Viewport.onDragEnd = function (evt) {
         evt.stopPropagation();
         evt.preventDefault();
 
@@ -244,7 +244,7 @@ namespace("sozi.player", function (exports) {
      *    - zoom
      *    - rotate
      */
-    exports.Viewport.onWheel = function (evt) {
+    Viewport.onWheel = function (evt) {
         evt.stopPropagation();
         evt.preventDefault();
 
@@ -278,7 +278,7 @@ namespace("sozi.player", function (exports) {
      * Returns:
      *    - The X coordinate of the current viewport.
      */
-    Object.defineProperty(exports.Viewport, "x", {
+    Object.defineProperty(Viewport, "x", {
         get: function () {
             return this.svgRoot.getScreenCTM().e;
         }
@@ -292,7 +292,7 @@ namespace("sozi.player", function (exports) {
      * Returns:
      *    - The Y coordinate of the current viewport.
      */
-    Object.defineProperty(exports.Viewport, "y", {
+    Object.defineProperty(Viewport, "y", {
         get: function () {
             return this.svgRoot.getScreenCTM().f;
         }
@@ -310,7 +310,7 @@ namespace("sozi.player", function (exports) {
      * Returns:
      *    - The width of the current viewport.
      */
-    Object.defineProperty(exports.Viewport, "width", {
+    Object.defineProperty(Viewport, "width", {
         get: function () {
             return this.svgRoot === document.documentElement ?
                 window.innerWidth :
@@ -330,7 +330,7 @@ namespace("sozi.player", function (exports) {
      * Returns:
      *    - The height of the current viewport.
      */
-    Object.defineProperty(exports.Viewport, "height", {
+    Object.defineProperty(Viewport, "height", {
         get: function () {
             return this.svgRoot === document.documentElement ?
                 window.innerHeight :
@@ -338,7 +338,7 @@ namespace("sozi.player", function (exports) {
         }
     });
 
-    exports.Viewport.repaint = function () {
+    Viewport.repaint = function () {
         this.svgRoot.setAttribute("width", this.width);
         this.svgRoot.setAttribute("height", this.height);
 
@@ -360,7 +360,7 @@ namespace("sozi.player", function (exports) {
      * Parameters:
      *    - states: An array of camera states
      */
-    exports.Viewport.setAtStates = function (states) {
+    Viewport.setAtStates = function (states) {
         states.forEach(function (state, index) {
             this.cameras[index].initFrom(state);
         }, this);
@@ -381,7 +381,7 @@ namespace("sozi.player", function (exports) {
      * Returns:
      *    - The current viewport.
      */
-    exports.Viewport.translate = function (deltaX, deltaY) {
+    Viewport.translate = function (deltaX, deltaY) {
         this.cameras.forEach(function (camera) {
             if (camera.selected) {
                 camera.translate(deltaX, deltaY);
@@ -407,7 +407,7 @@ namespace("sozi.player", function (exports) {
      * Returns:
      *    - The current viewport.
      */
-    exports.Viewport.zoom = function (factor, x, y) {
+    Viewport.zoom = function (factor, x, y) {
         this.cameras.forEach(function (camera) {
             if (camera.selected) {
                 camera.zoom(factor, x, y);
@@ -433,7 +433,7 @@ namespace("sozi.player", function (exports) {
      * Fires:
      *    - userChangeState
      */
-    exports.Viewport.rotate = function (angle) {
+    Viewport.rotate = function (angle) {
         this.cameras.forEach(function (camera) {
             if (camera.selected) {
                 camera.rotate(angle);
@@ -443,7 +443,7 @@ namespace("sozi.player", function (exports) {
         return this;
     };
 
-    exports.Viewport.clip = function (x0, y0, x1, y1) {
+    Viewport.clip = function (x0, y0, x1, y1) {
         this.cameras.forEach(function (camera) {
             if (camera.selected) {
                 camera.clip(x0, y0, x1, y1);
@@ -452,4 +452,6 @@ namespace("sozi.player", function (exports) {
         this.emitEvent("userChangeState");
         return this;
     };
+
+    exports.Viewport = Viewport;
 });

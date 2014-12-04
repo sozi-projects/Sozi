@@ -115,7 +115,7 @@ namespace("sozi.model", function (exports) {
                 return Object.create(LayerProperties).init(this);
             }, this);
             this.cameraStates = presentation.layers.map(function () {
-                return Object.create(exports.CameraState).init(presentation.svgRoot);
+                return Object.create(sozi.model.CameraState).init(presentation.svgRoot);
             });
             return this;
         },
@@ -132,7 +132,7 @@ namespace("sozi.model", function (exports) {
                 return Object.create(LayerProperties).initFrom(lp);
             });
             this.cameraStates = other.cameraStates.map(function (cs) {
-                return Object.create(exports.CameraState).initFrom(cs);
+                return Object.create(sozi.model.CameraState).initFrom(cs);
             });
             return this;
         },
@@ -300,7 +300,7 @@ namespace("sozi.model", function (exports) {
             svgRoot.style.width = svgRoot.style.height = "auto";
 
             // Create an empty wrapper layer for elements that do not belong to a valid layer
-            var autoLayer = Object.create(exports.Layer).init(this, "auto", true);
+            var autoLayer = Object.create(sozi.model.Layer).init(this, "auto", true);
 
             var svgWrapper = document.createElementNS(SVG_NS, "g");
 
@@ -335,7 +335,7 @@ namespace("sozi.model", function (exports) {
                             }
 
                             // Add the current node as a new layer.
-                            var layer = Object.create(exports.Layer).init(this, svgNode.hasAttribute("inkscape:label") ? svgNode.getAttribute("inkscape:label") : ("#" + nodeId), false);
+                            var layer = Object.create(sozi.model.Layer).init(this, svgNode.hasAttribute("inkscape:label") ? svgNode.getAttribute("inkscape:label") : ("#" + nodeId), false);
                             layer.svgNodes.push(svgNode);
                             this.layers.push(layer);
                         }
@@ -419,7 +419,7 @@ namespace("sozi.model", function (exports) {
             this.aspectHeight = obj.aspectHeight;
 
             this.frames = obj.frames.map(function (f) {
-                return Object.create(exports.Frame).init(this).fromStorable(f);
+                return Object.create(sozi.model.Frame).init(this).fromStorable(f);
             }, this);
 
             this.elementsToHide = obj.elementsToHide.slice();

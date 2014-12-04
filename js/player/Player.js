@@ -17,9 +17,9 @@ namespace("sozi.player", function (exports) {
     // Rotation step for user rotate action (keyboard and mouse wheel)
     var ROTATE_STEP = 5;
 
-    exports.Player = Object.create(EventEmitter.prototype);
+    var Player = Object.create(EventEmitter.prototype);
 
-    exports.Player.init = function (viewport, presentation) {
+    Player.init = function (viewport, presentation) {
         EventEmitter.call(this);
         this.viewport = viewport;
         this.presentation = presentation;
@@ -35,7 +35,7 @@ namespace("sozi.player", function (exports) {
         return this;
     };
 
-    exports.Player.setupEventHandlers = function () {
+    Player.setupEventHandlers = function () {
         this.viewport.addListener("click", this.onClick.bind(this));
         this.viewport.addListener("dragStart", this.pause.bind(this));
         this.viewport.addListener("userChangeState", this.pause.bind(this));
@@ -45,7 +45,7 @@ namespace("sozi.player", function (exports) {
         this.animator.addListener("done", this.onAnimatorDone.bind(this));
     };
 
-    exports.Player.onClick = function (button) {
+    Player.onClick = function (button) {
         switch (button) {
             case 0: this.moveToNext(); break;
             case 1: /* TODO show table of contents */ break;
@@ -53,7 +53,7 @@ namespace("sozi.player", function (exports) {
         }
     };
 
-    exports.Player.onKeyDown = function (evt) {
+    Player.onKeyDown = function (evt) {
         // Keys with Alt/Ctrl/Meta modifiers are ignored
         if (evt.altKey || evt.ctrlKey || evt.metaKey) {
             return;
@@ -116,7 +116,7 @@ namespace("sozi.player", function (exports) {
      * Parameters:
      *    - evt: The DOM event object
      */
-    exports.Player.onKeyPress = function (evt) {
+    Player.onKeyPress = function (evt) {
         // Keys with modifiers are ignored
         if (evt.altKey || evt.ctrlKey || evt.metaKey) {
             return;
@@ -156,33 +156,33 @@ namespace("sozi.player", function (exports) {
         evt.preventDefault();
     };
 
-    Object.defineProperty(exports.Player, "currentFrame", {
+    Object.defineProperty(Player, "currentFrame", {
         get: function () {
             return this.presentation.frames[this.currentFrameIndex];
         }
     });
 
-    Object.defineProperty(exports.Player, "targetFrame", {
+    Object.defineProperty(Player, "targetFrame", {
         get: function () {
             return this.presentation.frames[this.targetFrameIndex];
         }
     });
 
-    Object.defineProperty(exports.Player, "previousFrameIndex", {
+    Object.defineProperty(Player, "previousFrameIndex", {
         get: function () {
             var index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
             return (index - 1) % this.presentation.frames.length;
         }
     });
 
-    Object.defineProperty(exports.Player, "nextFrameIndex", {
+    Object.defineProperty(Player, "nextFrameIndex", {
         get: function () {
             var index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
             return (index + 1) % this.presentation.frames.length;
         }
     });
 
-    exports.Player.showCurrentFrame = function () {
+    Player.showCurrentFrame = function () {
         this.viewport.setAtStates(this.currentFrame.cameraStates);
         return this;
     };
@@ -193,7 +193,7 @@ namespace("sozi.player", function (exports) {
      * This method sets the "playing" flag, shows the desired frame
      * and waits for the frame timeout if needed.
      */
-    exports.Player.playFromIndex = function (index) {
+    Player.playFromIndex = function (index) {
         this.playing = true;
         this.waitingTimeout = false;
         this.targetFrameIndex = index;
@@ -211,7 +211,7 @@ namespace("sozi.player", function (exports) {
      * in the current frame, then it stops waiting.
      * The current animation is stopped in its current state.
      */
-    exports.Player.pause = function () {
+    Player.pause = function () {
         this.animator.stop();
         if (this.waitingTimeout) {
             window.clearTimeout(this.timeoutHandle);
@@ -225,7 +225,7 @@ namespace("sozi.player", function (exports) {
     /*
      * Resume playing from the current frame.
      */
-    exports.Player.resume = function () {
+    Player.resume = function () {
         this.playFromIndex(this.currentFrameIndex);
         return this;
     };
@@ -240,7 +240,7 @@ namespace("sozi.player", function (exports) {
      * If the current frame is the last, the presentation will
      * move to the first frame.
      */
-    exports.Player.waitTimeout = function () {
+    Player.waitTimeout = function () {
         if (this.currentFrame.timeoutEnable) {
             this.waitingTimeout = true;
             var self = this;
@@ -263,7 +263,7 @@ namespace("sozi.player", function (exports) {
      * The presentation is stopped: if a timeout has been set for the
      * target frame, it will be ignored.
      */
-    exports.Player.jumpToFrame = function (index) {
+    Player.jumpToFrame = function (index) {
         this.pause();
 
         this.targetFrameIndex = index;
@@ -275,28 +275,28 @@ namespace("sozi.player", function (exports) {
     /*
      * Jumps to the first frame of the presentation.
      */
-    exports.Player.jumpToFirst = function () {
+    Player.jumpToFirst = function () {
         return this.jumpToFrame(0);
     };
 
     /*
      * Jump to the last frame of the presentation.
      */
-    exports.Player.jumpToLast = function () {
+    Player.jumpToLast = function () {
         return this.jumpToFrame(this.presentation.frames.length - 1);
     };
 
     /*
      * Jumps to the previous frame.
      */
-    exports.Player.jumpToPrevious = function () {
+    Player.jumpToPrevious = function () {
         return this.jumpToFrame(this.previousFrameIndex);
     };
 
     /*
      * Jumps to the next frame.
      */
-    exports.Player.jumpToNext = function () {
+    Player.jumpToNext = function () {
         return this.jumpToFrame(this.nextFrameIndex);
     };
 
@@ -310,7 +310,7 @@ namespace("sozi.player", function (exports) {
      * the transition properties of the next frame are used.
      * Otherwise, default transition properties are used.
      */
-    exports.Player.moveToFrame = function (index) {
+    Player.moveToFrame = function (index) {
         if (this.waitingTimeout) {
             window.clearTimeout(this.timeoutHandle);
             this.waitingTimeout = false;
@@ -365,14 +365,14 @@ namespace("sozi.player", function (exports) {
     /*
      * Move to the first frame of the presentation.
      */
-    exports.Player.moveToFirst = function () {
+    Player.moveToFirst = function () {
         return this.moveToFrame(0);
     };
 
     /*
      * Move to the last frame of the presentation.
      */
-    exports.Player.moveToLast = function () {
+    Player.moveToLast = function () {
         return this.moveToFrame(this.presentation.frames.length - 1);
     };
 
@@ -381,7 +381,7 @@ namespace("sozi.player", function (exports) {
      *
      * This method skips previous frames with 0 ms timeout.
      */
-    exports.Player.moveToPrevious = function () {
+    Player.moveToPrevious = function () {
         for (var index = this.previousFrameIndex; index >= 0; index --) {
             var frame = this.presentation.frames[index];
             if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
@@ -395,7 +395,7 @@ namespace("sozi.player", function (exports) {
     /*
      * Move to the next frame.
      */
-    exports.Player.moveToNext = function () {
+    Player.moveToNext = function () {
         return this.moveToFrame(this.nextFrameIndex);
     };
 
@@ -405,7 +405,7 @@ namespace("sozi.player", function (exports) {
      * This method restores the viewport to fit the current frame,
      * e.g. after the viewport has been zoomed or dragged.
      */
-    exports.Player.moveToCurrent = function () {
+    Player.moveToCurrent = function () {
         return this.moveToFrame(this.currentFrameIndex);
     };
 
@@ -416,7 +416,7 @@ namespace("sozi.player", function (exports) {
      * state of the viewport to the desired frame, using
      * default transition settings.
      */
-    exports.Player.previewFrame = function (index) {
+    Player.previewFrame = function (index) {
         this.targetFrameIndex = index;
 
         this.viewport.cameras.forEach(function (camera) {
@@ -427,7 +427,7 @@ namespace("sozi.player", function (exports) {
         return this;
     };
 
-    exports.Player.setupTransition = function (camera, timingFunction, relativeZoom, svgPath, reverse) {
+    Player.setupTransition = function (camera, timingFunction, relativeZoom, svgPath, reverse) {
         if (this.animator.running) {
             this.animator.stop();
         }
@@ -445,14 +445,14 @@ namespace("sozi.player", function (exports) {
         return this;
     };
 
-    exports.Player.onAnimatorStep = function (progress) {
+    Player.onAnimatorStep = function (progress) {
         this.transitions.forEach(function (transition) {
             transition.camera.interpolate(transition.initialState, transition.finalState, progress, transition.timingFunction, transition.relativeZoom, transition.svgPath, transition.reverse);
             transition.camera.update();
         });
     };
 
-    exports.Player.onAnimatorDone = function () {
+    Player.onAnimatorDone = function () {
         this.transitions = [];
         this.currentFrameIndex = this.targetFrameIndex;
         if (this.playing) {
@@ -460,4 +460,6 @@ namespace("sozi.player", function (exports) {
             this.waitTimeout();
         }
     };
+
+    exports.Player = Player;
 });

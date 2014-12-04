@@ -8,9 +8,9 @@ namespace("sozi.player", function (exports) {
     // Constant: the Sozi namespace
     var SVG_NS = "http://www.w3.org/2000/svg";
 
-    exports.Camera = Object.create(sozi.model.CameraState);
+    var Camera = Object.create(sozi.model.CameraState);
 
-    exports.Camera.init = function (viewport, layer) {
+    Camera.init = function (viewport, layer) {
         sozi.model.CameraState.init.call(this, viewport.svgRoot);
 
         this.viewport = viewport;
@@ -47,18 +47,18 @@ namespace("sozi.player", function (exports) {
         return this;
     };
 
-    Object.defineProperty(exports.Camera, "scale", {
+    Object.defineProperty(Camera, "scale", {
         get: function () {
             return Math.min(this.viewport.width / this.width, this.viewport.height / this.height);
         }
     });
 
-    exports.Camera.rotate = function (angle) {
+    Camera.rotate = function (angle) {
         this.restoreAspectRatio();
         return this.setAngle(this.angle + angle).update();
     };
 
-    exports.Camera.zoom = function (factor, x, y) {
+    Camera.zoom = function (factor, x, y) {
         this.width /= factor;
         this.height /= factor;
         this.restoreAspectRatio();
@@ -68,7 +68,7 @@ namespace("sozi.player", function (exports) {
         );
     };
 
-    exports.Camera.translate = function (deltaX, deltaY) {
+    Camera.translate = function (deltaX, deltaY) {
         var scale = this.scale;
         var angleRad = this.angle * Math.PI / 180;
         var si = Math.sin(angleRad);
@@ -79,7 +79,7 @@ namespace("sozi.player", function (exports) {
         return this.update();
     };
 
-    exports.Camera.clip = function (x0, y0, x1, y1) {
+    Camera.clip = function (x0, y0, x1, y1) {
         this.clipped = true;
         var scale = this.scale;
         var clipWidth = Math.abs(x1 - x0);
@@ -91,7 +91,7 @@ namespace("sozi.player", function (exports) {
         return this.update();
     };
 
-    exports.Camera.restoreAspectRatio = function () {
+    Camera.restoreAspectRatio = function () {
         var viewportRatio = this.viewport.width / this.viewport.height;
         var camRatio = this.width / this.height;
         var ratio = viewportRatio / camRatio;
@@ -109,7 +109,7 @@ namespace("sozi.player", function (exports) {
         }
     };
 
-    exports.Camera.getCandidateReferenceElement = function () {
+    Camera.getCandidateReferenceElement = function () {
         // getIntersectionList is not supported in Gecko
         if (!this.svgRoot.getIntersectionList) {
             return this.svgRoot;
@@ -158,7 +158,7 @@ namespace("sozi.player", function (exports) {
         return result;
     };
 
-    exports.Camera.update = function () {
+    Camera.update = function () {
         var scale = this.scale;
 
         // Adjust the location and size of the clipping rectangle
@@ -202,4 +202,6 @@ namespace("sozi.player", function (exports) {
 
         return this;
     };
+
+    exports.Camera = Camera;
 });

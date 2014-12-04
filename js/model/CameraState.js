@@ -5,7 +5,7 @@
 namespace("sozi.model", function (exports) {
     "use strict";
 
-    exports.CameraState = {
+    var CameraState = {
 
         init: function (svgRoot) {
             this.svgRoot = svgRoot;
@@ -143,7 +143,7 @@ namespace("sozi.model", function (exports) {
         },
 
         offsetFromElement: function (svgElement) {
-            var cam = Object.create(exports.CameraState).init(this.svgRoot).setAtElement(svgElement);
+            var cam = Object.create(CameraState).init(this.svgRoot).setAtElement(svgElement);
             return {
                 deltaX: this.cx - cam.cx,
                 deltaY: this.cy - cam.cy,
@@ -224,4 +224,6 @@ namespace("sozi.model", function (exports) {
             }
         }
     };
+
+    exports.CameraState = CameraState;
 });

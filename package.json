@@ -2,7 +2,7 @@
     "name": "Sozi",
     "description": "A zooming presentation editor",
     "author": "Guillaume Savaton",
-    "version": "14.12.040954",
+    "version": "14.12.041037",
     "main": "index.html",
     "window": {
         "title": "Sozi",

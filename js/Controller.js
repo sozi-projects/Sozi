@@ -1,16 +1,16 @@
 namespace("sozi.editor", function (exports) {
     "use strict";
 
-    exports.Controller = Object.create(EventEmitter.prototype);
+    var Controller = Object.create(EventEmitter.prototype);
 
-    exports.Controller.init = function (presentation, selection, viewport) {
+    Controller.init = function (presentation, selection, viewport) {
         this.presentation = presentation;
         this.selection = selection;
         this.viewport = viewport;
         return this;
     };
 
-    exports.Controller.onLoad = function () {
+    Controller.onLoad = function () {
         if (!this.selection.selectedFrames.length && this.presentation.frames.length) {
             this.selection.selectedFrames.push(this.presentation.frames[0]);
         }
@@ -32,7 +32,7 @@ namespace("sozi.editor", function (exports) {
      * If no frame is selected, the new frame is added at the
      * end of the presentation.
      */
-    exports.Controller.addFrame = function () {
+    Controller.addFrame = function () {
         // Create a new frame
         var frame = Object.create(sozi.model.Frame).init(this.presentation);
 
@@ -66,7 +66,7 @@ namespace("sozi.editor", function (exports) {
     /*
      * Delete selected frames.
      */
-    exports.Controller.deleteFrames = function () {
+    Controller.deleteFrames = function () {
         // Remove all selected frames from the presentation.
         this.selection.selectedFrames.forEach(function (frame) {
             this.presentation.frames.splice(frame.index, 1);
@@ -91,7 +91,7 @@ namespace("sozi.editor", function (exports) {
      * Parameters:
      *  - toFrameIndex: The index of the destination
      */
-    exports.Controller.moveFrames = function (toFrameIndex) {
+    Controller.moveFrames = function (toFrameIndex) {
         // Sort the selected frames by presentation order.
         var framesByIndex = this.selection.selectedFrames.slice().sort(function (a, b) {
             return a.index - b.index;
@@ -124,7 +124,7 @@ namespace("sozi.editor", function (exports) {
      *  - sequence: toggle a sequence of frames to the given frame
      *  - frameIndex: The index of a frame in the presentation
      */
-    exports.Controller.updateFrameSelection = function (single, sequence, frameIndex) {
+    Controller.updateFrameSelection = function (single, sequence, frameIndex) {
         var frame = this.presentation.frames[frameIndex];
         if (single) {
             var frameIndexInSelection = this.selection.selectedFrames.indexOf(frame);
@@ -175,7 +175,7 @@ namespace("sozi.editor", function (exports) {
      *  - sequence: toggle a sequence of layers to the given layer
      *  - layerIndex: The index of a layer in the presentation
      */
-    exports.Controller.updateLayerSelection = function (single, sequence, layers) {
+    Controller.updateLayerSelection = function (single, sequence, layers) {
         if (single) {
             layers.forEach(function (layer) {
                 var layerIndexInSelection = this.selection.selectedLayers.indexOf(layer);
@@ -217,7 +217,7 @@ namespace("sozi.editor", function (exports) {
      *  - layerIndex: The index of a layer in the presentation
      *  - frameIndex: The index of a frame in the presentation
      */
-    exports.Controller.updateLayerAndFrameSelection = function (single, sequence, layers, frameIndex) {
+    Controller.updateLayerAndFrameSelection = function (single, sequence, layers, frameIndex) {
         var frame = this.presentation.frames[frameIndex];
         if (single) {
             var layersAreSelected = layers.every(function (layer) {
@@ -268,7 +268,7 @@ namespace("sozi.editor", function (exports) {
      * Parameters:
      *  - layerIndex: The index of a layer in the presentation
      */
-    exports.Controller.updateLayerVisibility = function (layers) {
+    Controller.updateLayerVisibility = function (layers) {
         layers.forEach(function (layer) {
             layer.isVisible = !layer.isVisible;
             if (layer.isVisible) {
@@ -285,7 +285,7 @@ namespace("sozi.editor", function (exports) {
         this.emitEvent("repaint");
     };
 
-    exports.Controller.fitElement = function () {
+    Controller.fitElement = function () {
         var frame = this.selection.currentFrame;
         if (frame) {
             this.selection.selectedLayers.forEach(function (layer) {
@@ -305,7 +305,7 @@ namespace("sozi.editor", function (exports) {
         }
     };
 
-    exports.Controller.setFrameProperty = function (propertyName, propertyValue) {
+    Controller.setFrameProperty = function (propertyName, propertyValue) {
         this.selection.selectedFrames.forEach(function (frame) {
             frame[propertyName] = propertyValue;
         });
@@ -315,7 +315,7 @@ namespace("sozi.editor", function (exports) {
         this.emitEvent("repaint");
     };
 
-    exports.Controller.setLayerProperty = function (propertyName, propertyValue) {
+    Controller.setLayerProperty = function (propertyName, propertyValue) {
         this.selection.selectedFrames.forEach(function (frame) {
             this.selection.selectedLayers.forEach(function (layer) {
                 frame.layerProperties[layer.index][propertyName] = propertyValue;
@@ -329,7 +329,7 @@ namespace("sozi.editor", function (exports) {
         this.emitEvent("repaint");
     };
 
-    exports.Controller.setCameraProperty = function (propertyName, propertyValue) {
+    Controller.setCameraProperty = function (propertyName, propertyValue) {
         this.selection.selectedFrames.forEach(function (frame) {
             this.selection.selectedLayers.forEach(function (layer) {
                 frame.cameraStates[layer.index][propertyName] = propertyValue;
@@ -343,7 +343,7 @@ namespace("sozi.editor", function (exports) {
         this.emitEvent("repaint");
     };
 
-    exports.Controller.updateCameraStates = function () {
+    Controller.updateCameraStates = function () {
         var frame = this.selection.currentFrame;
         if (frame) {
             this.viewport.cameras.forEach(function (camera) {
@@ -375,7 +375,7 @@ namespace("sozi.editor", function (exports) {
         }
     };
 
-    exports.Controller.setReferenceElement = function (cameraIndex, referenceElement) {
+    Controller.setReferenceElement = function (cameraIndex, referenceElement) {
         var frame = this.selection.currentFrame;
         if (frame) {
             var layerProperties = frame.layerProperties[cameraIndex];
@@ -394,7 +394,7 @@ namespace("sozi.editor", function (exports) {
         }
     };
 
-    exports.Controller.setAspectRatio = function (width, height) {
+    Controller.setAspectRatio = function (width, height) {
         this.presentation.aspectWidth = width;
         this.presentation.aspectHeight = height;
 
@@ -402,4 +402,6 @@ namespace("sozi.editor", function (exports) {
         this.emitEvent("presentationChange");
         this.emitEvent("repaint");
     };
+
+    exports.Controller = Controller;
 });

@@ -11,9 +11,9 @@ namespace("sozi.editor.backend", function (exports) {
         exports.list.push(backend);
     };
 
-    exports.AbstractBackend = Object.create(EventEmitter.prototype);
+    var AbstractBackend = Object.create(EventEmitter.prototype);
 
-    exports.AbstractBackend.init = function (container, html) {
+    AbstractBackend.init = function (container, html) {
         EventEmitter.call(this);
         this.autosavedFiles = [];
         container.html(html);
@@ -30,7 +30,7 @@ namespace("sozi.editor.backend", function (exports) {
      * Returns:
      *  - The file name (string)
      */
-    exports.AbstractBackend.getName = function (fileDescriptor) {
+    AbstractBackend.getName = function (fileDescriptor) {
         // Not implemented
         return "";
     };
@@ -45,7 +45,7 @@ namespace("sozi.editor.backend", function (exports) {
      * Returns:
      *  - The file location (backend-dependent)
      */
-    exports.AbstractBackend.getLocation = function (fileDescriptor) {
+    AbstractBackend.getLocation = function (fileDescriptor) {
         // Not implemented
         return null;
     };
@@ -61,7 +61,7 @@ namespace("sozi.editor.backend", function (exports) {
      * The callback function accepts the following parameters:
      *  - fileDescriptor (backend-dependent), null if no file was found
      */
-    exports.AbstractBackend.find = function (name, location, callback) {
+    AbstractBackend.find = function (name, location, callback) {
         // Not implemented
         callback(null);
     };
@@ -84,7 +84,7 @@ namespace("sozi.editor.backend", function (exports) {
      *  - load(fileDescriptor, data, err)
      *  - change(fileDescriptor)
      */
-    exports.AbstractBackend.load = function (fileDescriptor) {
+    AbstractBackend.load = function (fileDescriptor) {
         // Not implemented
         this.emitEvent("load", [fileDescriptor, "", "Not implemented"]);
     };
@@ -103,7 +103,7 @@ namespace("sozi.editor.backend", function (exports) {
      *  - fileDescriptor (backend-dependent)
      *  - err (string)
      */
-    exports.AbstractBackend.create = function (name, location, mimeType, data, callback) {
+    AbstractBackend.create = function (name, location, mimeType, data, callback) {
         // Not implemented
         callback(null, "Not implemented");
     };
@@ -120,7 +120,7 @@ namespace("sozi.editor.backend", function (exports) {
      *
      * TODO use a callback instead of an event
      */
-    exports.AbstractBackend.save = function (fileDescriptor, data) {
+    AbstractBackend.save = function (fileDescriptor, data) {
         // Not implemented
         this.emitEvent("save", [fileDescriptor, "Not implemented"]);
     };
@@ -133,7 +133,7 @@ namespace("sozi.editor.backend", function (exports) {
      *  - needsSaving (function) A function that returns true if the file needs saving
      *  - getData (function) A function that returns the data to save.
      */
-    exports.AbstractBackend.autosave = function (fileDescriptor, needsSaving, getData) {
+    AbstractBackend.autosave = function (fileDescriptor, needsSaving, getData) {
         this.autosavedFiles.push({
             descriptor: fileDescriptor,
             needsSaving: needsSaving,
@@ -147,11 +147,13 @@ namespace("sozi.editor.backend", function (exports) {
      * Typically, we want to call this method each time the editor loses focus
      * and when the editor closes.
      */
-    exports.AbstractBackend.doAutosave = function () {
+    AbstractBackend.doAutosave = function () {
         this.autosavedFiles.forEach(function (file) {
             if (file.needsSaving()) {
                 this.save(file.descriptor, file.getData());
             }
         }, this);
     };
+
+    exports.AbstractBackend = AbstractBackend;
 });

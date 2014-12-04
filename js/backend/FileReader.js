@@ -5,16 +5,16 @@
 namespace("sozi.editor.backend", function (exports) {
     "use strict";
 
-    exports.FileReader = Object.create(exports.AbstractBackend);
+    var FileReader = Object.create(sozi.editor.backend.AbstractBackend);
 
-    exports.FileReader.init = function (container) {
+    FileReader.init = function (container) {
         if (namespace.global.require) {
             return this;
         }
 
         console.log("Configuration in local storage");
 
-        exports.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-FileReader-input" type="file" accept="image/svg+xml" autofocus>');
+        sozi.editor.backend.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-FileReader-input" type="file" accept="image/svg+xml" autofocus>');
 
         var self = this;
 
@@ -28,11 +28,11 @@ namespace("sozi.editor.backend", function (exports) {
         return this;
     };
 
-    exports.FileReader.getName = function (fileDescriptor) {
+    FileReader.getName = function (fileDescriptor) {
         return fileDescriptor.name;
     };
 
-    exports.FileReader.load = function (fileDescriptor) {
+    FileReader.load = function (fileDescriptor) {
         var self = this;
         var reader = new FileReader();
         reader.readAsText(fileDescriptor, "utf8");
@@ -41,5 +41,7 @@ namespace("sozi.editor.backend", function (exports) {
         };
     };
 
-    exports.add(exports.FileReader);
+    sozi.editor.backend.add(FileReader);
+
+    exports.FileReader = FileReader;
 });

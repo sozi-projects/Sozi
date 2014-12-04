@@ -51,7 +51,7 @@ namespace("sozi.model", function (exports) {
             value;
     }
 
-    exports.Presentation.upgrade = function () {
+    sozi.model.Presentation.upgrade = function () {
         // In the inlined SVG, DOM accessors fail to get elements with explicit XML namespaces.
         // getElementsByTagNameNS, getAttributeNS do not work for elements with the Sozi namespace.
         // We need to use an explicit namespace prefix ("ns:attr") and use methods
@@ -82,7 +82,7 @@ namespace("sozi.model", function (exports) {
 
         frameElts.forEach(function (frameElt, frameIndex) {
             // Create a new frame with default camera states
-            var frame = Object.create(exports.Frame).init(this);
+            var frame = Object.create(sozi.model.Frame).init(this);
             this.frames.splice(frameIndex, 0, frame);
             var refFrame = frame;
 
