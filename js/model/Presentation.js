@@ -83,6 +83,9 @@ namespace("sozi.model", function (exports) {
                 var index = this.frame.presentation.elementsToHide.indexOf(this.referenceElementId);
                 this.frame.presentation.elementsToHide.splice(index, 1);
             }
+            if (this.referenceElement) {
+                this.referenceElement.style.visibility = hide ? "hidden" : "visible";
+            }
         },
 
         get transitionPathHide() {
@@ -97,6 +100,9 @@ namespace("sozi.model", function (exports) {
             else if (!hide && hidden) {
                 var index = this.frame.presentation.elementsToHide.indexOf(this.transitionPathId);
                 this.frame.presentation.elementsToHide.splice(index, 1);
+            }
+            if (this.transitionPath) {
+                this.transitionPath.style.visibility = hide ? "hidden" : "visible";
             }
         }
     };
