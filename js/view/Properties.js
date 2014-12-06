@@ -5,165 +5,20 @@
 namespace("sozi.editor.view", function (exports) {
     "use strict";
 
-    var Field = {
-
-        init: function (controller, selection, elementId, propertyName) {
-            this.element = $("#sozi-editor-view-properties #" + elementId);
-            this.isFrameField = /^frame/.test(elementId);
-            this.isLayerField = /^layer/.test(elementId);
-            this.isCameraField = /^camera/.test(elementId);
-            this.propertyName = propertyName;
-            this.selection = selection;
-            this.controller = controller;
-
-            var self = this;
-            this.element.change(function () {
-                var value = $(this).attr("type") === "checkbox" ?
-                    $(this).prop("checked") :
-                    $(this).val();
-                self.enter(value);
-            });
-
-            return this;
-        },
-
-        enter: function (value) {
-            if (this.validate(value)) {
-                var propertyValue = this.convertFromField(value);
-                if (this.isFrameField) {
-                    this.controller.setFrameProperty(this.propertyName, propertyValue);
-                }
-                else if (this.isLayerField) {
-                    this.controller.setLayerProperty(this.propertyName, propertyValue);
-                }
-                else {
-                    this.controller.setCameraProperty(this.propertyName, propertyValue);
-                }
-            }
-            this.repaint();
-        },
-
-        repaint: function () {
-            // Clear and disable field
-            this.element.removeClass("multiple").prop("disabled", true).val("");
-
-            var value = null;
-            var multiple = false;
-
-            this.selection.selectedFrames.forEach(function (frame, frameIndex) {
-                if (this.isFrameField) {
-                    var current = frame[this.propertyName];
-                    if (!frameIndex) {
-                        value = current;
-                    }
-                    else if (value !== current) {
-                        multiple = true;
-                    }
-                }
-                else {
-                    var obj = this.isLayerField ? frame.layerProperties : frame.cameraStates;
-                    this.selection.selectedLayers.forEach(function (layer, layerIndex) {
-                        var current = obj[layer.index][this.propertyName];
-                        if (!frameIndex && !layerIndex) {
-                            value = current;
-                        }
-                        else if (value !== current) {
-                            multiple = true;
-                        }
-                    }, this);
-                }
-            }, this);
-
-            if (value !== null) {
-                if (multiple) {
-                    this.element.addClass("multiple");
-                }
-                else if (this.element.attr("type") === "checkbox") {
-                    this.element.prop("checked", value);
-                }
-                else {
-                    this.element.val(this.convertToField(value));
-                }
-                this.element.prop("disabled", false);
-            }
-        },
-
-        convertToField: function (value) {
-            return value;
-        },
-
-        convertFromField: function (value) {
-            return value;
-        },
-
-        validate: function (value) {
-            return true;
-        }
-    };
-
-    var NumericField = Object.create(Field);
-
-    NumericField.init = function (controller, selection, elementId, propertyName, min, max, factor) {
-        Field.init.call(this, controller, selection, elementId, propertyName);
-        this.min = min;
-        this.max = max;
-        this.factor = factor;
-        return this;
-    };
-
-    NumericField.convertToField = function (value) {
-        return (value / this.factor).toString();
-    };
-
-    NumericField.convertFromField = function (value) {
-        return parseFloat(value) * this.factor;
-    };
-
-    NumericField.validate = function (value) {
-        value = parseFloat(value);
-        return !isNaN(value) &&
-            (this.min === null || value >= this.min) &&
-            (this.max === null || value <= this.max);
-    };
-
-
-    var StringField = Object.create(Field);
-
-    StringField.acceptsEmpty = false;
-
-    StringField.init = function (controller, selection, elementId, propertyName, acceptsEmpty) {
-        Field.init.call(this, controller, selection, elementId, propertyName);
-        this.acceptsEmpty = acceptsEmpty;
-        return this;
-    };
-
-    StringField.validate = function (value) {
-        return this.acceptsEmpty || value.length;
-    };
-
+    var h = require("virtual-dom/h");
+    var createElement = require("virtual-dom/create-element");
+    var diff = require("virtual-dom/diff");
+    var patch = require("virtual-dom/patch");
 
     exports.Properties = {
 
-        init: function (presentation, selection, controller) {
-            this.fields = [
-                Object.create(StringField).init(controller, selection, "frame-title", "title", true),
-                Object.create(StringField).init(controller, selection, "frame-id", "frameId", false),
-                Object.create(Field).init(controller, selection, "frame-list", "showInFrameList"),
-                Object.create(NumericField).init(controller, selection, "frame-timeout", "timeoutMs", 0, null, 1000),
-                Object.create(Field).init(controller, selection, "frame-timeout-enable", "timeoutEnable"),
-                Object.create(NumericField).init(controller, selection, "frame-transition-duration", "transitionDurationMs", 0, null, 1000),
-                Object.create(Field).init(controller, selection, "layer-link", "link"),
-                Object.create(Field).init(controller, selection, "camera-clipped", "clipped"),
-                Object.create(StringField).init(controller, selection, "layer-reference-id", "referenceElementId", true),
-                Object.create(Field).init(controller, selection, "layer-reference-auto", "referenceElementAuto"),
-                Object.create(Field).init(controller, selection, "layer-reference-hide", "referenceElementHide"),
-                Object.create(StringField).init(controller, selection, "layer-transition-timing-function", "transitionTimingFunction", false),
-                Object.create(NumericField).init(controller, selection, "layer-transition-relative-zoom", "transitionRelativeZoom", null, null, 0.01),
-                Object.create(StringField).init(controller, selection, "layer-transition-path-id", "transitionPathId", true),
-                Object.create(Field).init(controller, selection, "layer-transition-path-hide", "transitionPathHide")
-            ];
+        init: function (container, selection, controller) {
+            this.controller = controller;
+            this.selection = selection;
 
-            $("#layer-reference-id-fit").click(controller.fitElement.bind(controller));
+            this.vtree = h("form");
+            this.rootNode = createElement(this.vtree, {document: document});
+            container.appendChild(this.rootNode);
 
             controller.addListener("repaint", this.repaint.bind(this));
 
@@ -171,9 +26,193 @@ namespace("sozi.editor.view", function (exports) {
         },
 
         repaint: function () {
-            this.fields.forEach(function (field) {
-                field.repaint();
-            });
+            var vtree = this.render();
+            this.rootNode = patch(this.rootNode, diff(this.vtree, vtree));
+            this.vtree = vtree;
+        },
+
+        render: function () {
+            var c = this.controller;
+            return h("form", [
+                h("h1", "Frame"),
+
+                h("table", [
+                    this.renderTextField("Title", "title", this.getFrameProperty, c.setFrameProperty, true),
+                    this.renderTextField("Id", "frameId", this.getFrameProperty, c.setFrameProperty, false),
+                    this.renderCheckboxField("Show in frame list", "showInFrameList", this.getFrameProperty, c.setFrameProperty),
+                    this.renderNumberField("Timeout (sec)", "timeoutMs", this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
+                    this.renderCheckboxField("Timeout enable", "timeoutEnable", this.getFrameProperty, c.setFrameProperty),
+                    this.renderCheckboxField("Link to previous frame", "link", this.getLayerProperty, c.setLayerProperty),
+                    this.renderCheckboxField("Clip", "clip", this.getCameraProperty, c.setCameraProperty),
+                    this.renderTextField("Reference element Id", "referenceElementId", this.getLayerProperty, c.setLayerProperty, true),
+                    h("tr", [
+                        h("th"),
+                        h("td", h("input", {
+                            type: "button",
+                            value: "Fit to element",
+                            onclick: c.fitElement.bind(c)
+                        }))
+                    ]),
+                    this.renderCheckboxField("Autoselect element", "referenceElementAuto", this.getLayerProperty, c.setLayerProperty),
+                    this.renderCheckboxField("Hide element", "referenceElementHide", this.getLayerProperty, c.setLayerProperty)
+                ]),
+
+                h("h1", "Transition"),
+
+                h("table", [
+                    this.renderNumberField("Duration (sec)", "transitionDurationMs", this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
+                    this.renderSelectField("Timing function", "transitionTimingFunction", this.getLayerProperty, c.setLayerProperty, {
+                        "linear": "Linear",
+                        "ease": "Ease",
+                        "easeIn": "Ease in",
+                        "easeOut": "Ease out",
+                        "easeInOut": "Ease in-out",
+                        "stepStart": "Step start",
+                        "stepEnd": "Step end",
+                        "stepMiddle": "Step middle"
+                    }),
+                    this.renderNumberField("Relative zoom (%)", "transitionRelativeZoom", this.getLayerProperty, c.setLayerProperty, true, 1, 0.01),
+                    this.renderTextField("Path Id", "transitionPathId", this.getLayerProperty, c.setLayerProperty, true),
+                    this.renderCheckboxField("Hide path", "transitionPathHide", this.getLayerProperty, c.setLayerProperty)
+                ])
+            ]);
+        },
+
+        renderTextField: function (label, property, getter, setter, acceptsEmpty) {
+            var c = this.controller;
+
+            var values = getter.call(this, property);
+            var className = values.length > 1 ? "multiple" : undefined;
+            var value = values.length != 1 ? "" : values[0];
+
+            return h("tr", [
+                h("th", label),
+                h("td", h("input", {
+                    type: "text",
+                    value: value,
+                    className: className,
+                    onchange: function () {
+                        var value = this.value;
+                        if (acceptsEmpty || value.length) {
+                            setter.call(c, property, value);
+                        }
+                    }
+                }))
+            ]);
+        },
+
+        renderCheckboxField: function (label, property, getter, setter) {
+            var c = this.controller;
+
+            var values = getter.call(this, property);
+            var className = values.length > 1 ? "multiple" : undefined;
+            var value = values.length != 1 ? undefined : values[0];
+
+            return h("tr", [
+                h("th", label),
+                h("td", h("input", {
+                    type: "checkbox",
+                    className: className,
+                    checked: value ? "checked" : undefined,
+                    onchange: function () {
+                        setter.call(c, property, this.checked);
+                    }
+                }))
+            ]);
+        },
+
+        renderNumberField: function (label, property, getter, setter, signed, step, factor) {
+            var c = this.controller;
+
+            var values = getter.call(this, property);
+            var className = values.length > 1 ? "multiple" : undefined;
+            var value = values.length != 1 ? 0 : values[0] / factor;
+
+            return h("tr", [
+                h("th", label),
+                h("td", h("input", {
+                    type: "number",
+                    value: value,
+                    className: className,
+                    min: signed ? 0 : undefined,
+                    step: step,
+                    pattern: "[+-]?\\d+(\\.\\d+)?",
+                    onchange: function () {
+                        var value = parseFloat(this.value);
+                        if (!isNaN(value) && (signed || value >= 0)) {
+                            setter.call(c, property, value * factor);
+                        }
+                    }
+                }))
+            ]);
+        },
+
+        renderSelectField: function (label, property, getter, setter, options) {
+            var c = this.controller;
+
+            var values = getter.call(this, property);
+            var className = values.length > 1 ? "multiple" : undefined;
+            var value = values.length != 1 ? options[0] : values[0];
+
+            return h("tr", [
+                h("th", label),
+                h("td",
+                    h("select", {
+                        className: className,
+                        onchange: function () {
+                            setter.call(c, property, this.value);
+                        }
+                    }, Object.keys(options).map(function (optionValue) {
+                        return h("option", {
+                            value: optionValue,
+                            selected: value === optionValue
+                        }, options[optionValue]);
+                    }, this))
+                )
+            ]);
+        },
+
+        getFrameProperty: function (property) {
+            var values = [];
+
+            this.selection.selectedFrames.forEach(function (frame) {
+                var current = frame[property];
+                if (values.indexOf(current) < 0) {
+                    values.push(current);
+                }
+            }, this);
+
+            return values;
+        },
+
+        getLayerProperty: function (property) {
+            var values = [];
+
+            this.selection.selectedFrames.forEach(function (frame) {
+                this.selection.selectedLayers.forEach(function (layer) {
+                    var current = frame.layerProperties[layer.index][property];
+                    if (values.indexOf(current) < 0) {
+                        values.push(current);
+                    }
+                }, this);
+            }, this);
+
+            return values;
+        },
+
+        getCameraProperty: function (property) {
+            var values = [];
+
+            this.selection.selectedFrames.forEach(function (frame) {
+                this.selection.selectedLayers.forEach(function (layer) {
+                    var current = frame.cameraStates[layer.index][property];
+                    if (values.indexOf(current) < 0) {
+                        values.push(current);
+                    }
+                }, this);
+            }, this);
+
+            return values;
         }
     };
 });

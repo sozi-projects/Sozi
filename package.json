@@ -1,32 +1,36 @@
 {
-    "name": "Sozi",
-    "description": "A zooming presentation editor",
-    "author": "Guillaume Savaton",
-    "version": "14.12.041037",
-    "main": "index.html",
-    "window": {
-        "title": "Sozi",
-        "toolbar": false,
-        "icon": "icons/icon-128.png"
-    },
-    "single-instance": false,
-    "repository": {
-        "type": "git",
-        "url": "http://github.com/senshu/Sozi.git"
-    },
-    "devDependencies": {
-        "grunt": "~0.4.5",
-        "grunt-contrib-compress": "^0.12.0",
-        "grunt-contrib-csslint": "^0.3.1",
-        "grunt-contrib-jshint": "~0.10.0",
-        "grunt-contrib-uglify": "^0.6.0",
-        "grunt-modify-json": "^0.1.1",
-        "grunt-newer": "^0.7.0",
-        "grunt-node-webkit-builder": "^0.2.3",
-        "grunt-nunjucks": "~0.1.4",
-        "grunt-rename": "^0.1.4",
-        "grunt-rsync": "^0.6.2",
-        "grunt-simple-mocha": "^0.4.0",
-        "nunjucks": "~1.1.0"
-    }
+  "name": "Sozi",
+  "description": "A zooming presentation editor",
+  "author": "Guillaume Savaton",
+  "version": "14.12.051025",
+  "main": "index.html",
+  "window": {
+    "title": "Sozi",
+    "toolbar": true,
+    "icon": "icons/icon-128.png"
+  },
+  "single-instance": false,
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/senshu/Sozi.git"
+  },
+  "dependencies": {
+    "nunjucks": "~1.1.0",
+    "virtual-dom": "0.0.23"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-compress": "^0.12.0",
+    "grunt-contrib-csslint": "^0.3.1",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-modify-json": "^0.1.1",
+    "grunt-newer": "^0.7.0",
+    "grunt-node-webkit-builder": "^0.2.3",
+    "grunt-nunjucks": "~0.1.4",
+    "grunt-rename": "^0.1.4",
+    "grunt-rsync": "^0.6.2",
+    "grunt-simple-mocha": "^0.4.0",
+    "nunjucks": "~1.1.0"
+  }
 }
