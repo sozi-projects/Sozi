@@ -5,6 +5,8 @@
 window.addEventListener("load", function () {
     "use strict";
 
+    var nunjucks = require("nunjucks");
+
     var presentation = sozi.model.Presentation;
     var selection = sozi.editor.model.Selection.init(presentation);
     var viewport = sozi.player.Viewport.init(presentation);
@@ -12,7 +14,7 @@ window.addEventListener("load", function () {
     var controller = sozi.editor.Controller.init(presentation, selection, viewport);
 
     sozi.editor.view.Preview.init(presentation, selection, viewport, controller);
-    sozi.editor.view.Properties.init(presentation, selection, controller);
+    sozi.editor.view.Properties.init(document.getElementById("sozi-editor-view-properties"), selection, controller);
     var timeline = sozi.editor.view.Timeline.init(presentation, selection, controller);
 
     // The objects that contain the presentation data and

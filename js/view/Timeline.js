@@ -5,6 +5,8 @@
 namespace("sozi.editor.view", function (exports) {
     "use strict";
 
+    var nunjucks = require("nunjucks");
+
     /*
      * The Timeline view shows a table where columns represent frames
      * and rows represent layers.
