@@ -16,9 +16,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-uglify");
     
     var version = grunt.template.today("yy.mm.ddHHMM");
+    var pkg = grunt.file.readJSON("package.json");
 
     grunt.initConfig({
-        pkg: grunt.file.readJSON("package.json"),
+        pkg: pkg,
 
         /*
          * Update the version number in package.json
@@ -147,7 +148,11 @@ module.exports = function(grunt) {
                 "bower_components/**/*",
                 "<%= nunjucks.editor.dest %>",
                 "<%= uglify.player.dest %>"
-            ]
+            ].concat(
+                Object.keys(pkg.dependencies).map(function (packageName) {
+                    return "node_modules/" + packageName + "/**/*"
+                })
+            )
         },
 
         /*
