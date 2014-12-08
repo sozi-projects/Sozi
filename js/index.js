@@ -15,7 +15,7 @@ window.addEventListener("load", function () {
 
     sozi.editor.view.Preview.init(presentation, selection, viewport, controller);
     sozi.editor.view.Properties.init(document.getElementById("sozi-editor-view-properties"), selection, controller);
-    var timeline = sozi.editor.view.Timeline.init(presentation, selection, controller);
+    var timeline = sozi.editor.view.Timeline.init(document.getElementById("sozi-editor-view-timeline"), presentation, selection, controller);
 
     // The objects that contain the presentation data and
     // the editor state that need to be saved.

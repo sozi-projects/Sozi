@@ -6,6 +6,15 @@
  * Layout
  */
 
+#sozi-editor-view-timeline > div {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 .timeline-top-left,
 .timeline-top-right,
 .timeline-bottom-left,
