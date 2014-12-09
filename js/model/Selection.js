@@ -76,6 +76,64 @@ namespace("sozi.editor.model", function (exports) {
             return this.selectedFrames.length ?
                 this.selectedFrames[this.selectedFrames.length - 1] :
                 null;
+        },
+
+        hasFrames: function (frames) {
+            return frames.every(function (frame) {
+                return this.selectedFrames.indexOf(frame) >= 0;
+            }, this);
+        },
+
+        addFrame: function (frame) {
+            if (this.selectedFrames.indexOf(frame) < 0) {
+                this.selectedFrames.push(frame);
+            }
+        },
+
+        removeFrame: function (frame) {
+            var index = this.selectedFrames.indexOf(frame);
+            if (index >= 0) {
+                this.selectedFrames.splice(index, 1);
+            }
+        },
+
+        toggleFrameSelection: function (frame) {
+            var index = this.selectedFrames.indexOf(frame);
+            if (index >= 0) {
+                this.selectedFrames.splice(index, 1);
+            }
+            else {
+                this.selectedFrames.push(frame);
+            }
+        },
+
+        hasLayers: function (layers) {
+            return layers.every(function (layer) {
+                return this.selectedLayers.indexOf(layer) >= 0;
+            }, this);
+        },
+
+        addLayer: function (layer) {
+            if (this.selectedLayers.indexOf(layer) < 0) {
+                this.selectedLayers.push(layer);
+            }
+        },
+
+        removeLayer: function (layer) {
+            var index = this.selectedLayers.indexOf(layer);
+            if (index >= 0) {
+                this.selectedLayers.splice(index, 1);
+            }
+        },
+
+        toggleLayerSelection: function (layer) {
+            var index = this.selectedLayers.indexOf(layer);
+            if (index >= 0) {
+                this.selectedLayers.splice(index, 1);
+            }
+            else {
+                this.selectedLayers.push(layer);
+            }
         }
     };
 });

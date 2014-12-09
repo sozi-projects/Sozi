@@ -12,7 +12,7 @@ namespace("sozi.editor", function (exports) {
 
     Controller.onLoad = function () {
         if (!this.selection.selectedFrames.length && this.presentation.frames.length) {
-            this.selection.selectedFrames.push(this.presentation.frames[0]);
+            this.selection.addFrame(this.presentation.frames[0]);
         }
         if (!this.selection.selectedLayers.length) {
             this.selection.selectedLayers = this.presentation.layers.slice();
@@ -123,17 +123,16 @@ namespace("sozi.editor", function (exports) {
     };
 
     Controller.addLayerToSelection = function (layer) {
-        if (this.selection.selectedLayers.indexOf(layer) < 0) {
-            this.selection.selectedLayers.push(layer);
+        if (!this.selection.hasLayers([layer])) {
+            this.selection.addLayer(layer);
             this.emitEvent("editorStateChange");
             this.emitEvent("repaint");
         }
     };
 
     Controller.removeLayerFromSelection = function (layer) {
-        var index = this.selection.selectedLayers.indexOf(layer);
-        if (index >= 0) {
-            this.selection.selectedLayers.splice(index, 1);
+        if (this.selection.hasLayers([layer])) {
+            this.selection.removeLayer(layer);
             this.emitEvent("editorStateChange");
             this.emitEvent("repaint");
         }
@@ -150,30 +149,18 @@ namespace("sozi.editor", function (exports) {
     Controller.updateFrameSelection = function (single, sequence, frameIndex) {
         var frame = this.presentation.frames[frameIndex];
         if (single) {
-            var frameIndexInSelection = this.selection.selectedFrames.indexOf(frame);
-            if (frameIndexInSelection >= 0) {
-                this.selection.selectedFrames.splice(frameIndexInSelection, 1);
-            }
-            else {
-                this.selection.selectedFrames.push(frame);
-            }
+            this.selection.toggleFrameSelection(frame);
         }
         else if (sequence) {
             if (!this.selection.selectedFrames.length) {
-                this.selection.selectedFrames.push(frame);
+                this.selection.addFrame(frame);
             }
             else {
                 var endIndex = frame.index;
                 var startIndex = this.selection.currentFrame.index;
                 var inc = startIndex <= endIndex ? 1 : -1;
                 for (var i = startIndex + inc; startIndex <= endIndex ? i <= endIndex : i >= endIndex; i += inc) {
-                    var frameIndexInSelection = this.selection.selectedFrames.indexOf(this.presentation.frames[i]);
-                    if (frameIndexInSelection >= 0) {
-                        this.selection.selectedFrames.splice(frameIndexInSelection, 1);
-                    }
-                    else {
-                        this.selection.selectedFrames.push(this.presentation.frames[i]);
-                    }
+                    this.selection.toggleFrameSelection(this.presentation.frames[i]);
                 }
             }
         }
@@ -201,13 +188,7 @@ namespace("sozi.editor", function (exports) {
     Controller.updateLayerSelection = function (single, sequence, layers) {
         if (single) {
             layers.forEach(function (layer) {
-                var layerIndexInSelection = this.selection.selectedLayers.indexOf(layer);
-                if (layerIndexInSelection >= 0) {
-                    this.selection.selectedLayers.splice(layerIndexInSelection, 1);
-                }
-                else {
-                    this.selection.selectedLayers.push(layer);
-                }
+                this.selection.toggleLayerSelection(layer);
             }, this);
         }
         else if (sequence) {
@@ -221,7 +202,7 @@ namespace("sozi.editor", function (exports) {
         // A camera is selected if its layer belongs to the list of selected layers
         // or if its layer is not managed and the default layer is selected.
         this.viewport.cameras.forEach(function (camera) {
-            camera.selected = this.selection.selectedLayers.indexOf(camera.layer) >= 0;
+            camera.selected = this.selection.hasLayers([camera.layer]);
         }, this);
 
         // Trigger a repaint of the editor views.
@@ -237,29 +218,23 @@ namespace("sozi.editor", function (exports) {
      *          If both are selected, they are removed from the selection.
      *          If at least one is not selected, they are added to the selection.
      *  - sequence: toggle a sequence of frames and layers to the given frame and layer.
-     *  - layerIndex: The index of a layer in the presentation
+     *  - layers: A set of layers
      *  - frameIndex: The index of a frame in the presentation
      */
     Controller.updateLayerAndFrameSelection = function (single, sequence, layers, frameIndex) {
         var frame = this.presentation.frames[frameIndex];
         if (single) {
-            var layersAreSelected = layers.every(function (layer) {
-                return this.selection.selectedLayers.indexOf(layer) >= 0;
-            }, this);
-            var frameIndexInSelection = this.selection.selectedFrames.indexOf(frame);
-            var frameIsSelected = frameIndexInSelection >= 0;
-            if (layersAreSelected && frameIsSelected) {
+            if (this.selection.hasLayers(layers) && this.selection.hasFrames([frame])) {
                 layers.forEach(function (layer) {
-                    var layerIndexInSelection = this.selection.selectedLayers.indexOf(layer);
-                    this.selection.selectedLayers.splice(layerIndexInSelection, 1);
+                    this.selection.removeLayer(layer);
                 }, this);
-                this.selection.selectedFrames.splice(frameIndexInSelection, 1);
+                this.selection.removeFrame(frame);
             }
             else {
                 layers.forEach(function (layer) {
-                    this.selection.selectedLayers.push(layer);
+                    this.selection.addLayer(layer);
                 }, this);
-                this.selection.selectedFrames.push(frame);
+                this.selection.addFrame(frame);
             }
         }
         else if (sequence) {
@@ -273,7 +248,7 @@ namespace("sozi.editor", function (exports) {
         // A camera is selected if its layer belongs to the list of selected layers
         // or if its layer is not managed and the default layer is selected.
         this.viewport.cameras.forEach(function (camera) {
-            camera.selected = this.selection.selectedLayers.indexOf(camera.layer) >= 0;
+            camera.selected = this.selection.hasLayers([camera.layer]);
         }, this);
 
         // Trigger a repaint of the editor views.
@@ -295,11 +270,10 @@ namespace("sozi.editor", function (exports) {
         layers.forEach(function (layer) {
             layer.isVisible = !layer.isVisible;
             if (layer.isVisible) {
-                this.selection.selectedLayers.push(layer);
+                this.selection.addLayer(layer);
             }
             else {
-                var layerIndexInSelection = this.selection.selectedLayers.indexOf(layer);
-                this.selection.selectedLayers.splice(layerIndexInSelection, 1);
+                this.selection.removeLayer(layer);
             }
         }, this);
 
