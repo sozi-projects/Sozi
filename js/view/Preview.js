@@ -9,7 +9,8 @@ namespace("sozi.editor.view", function (exports) {
 
     exports.Preview = {
 
-        init: function (presentation, selection, viewport, controller) {
+        init: function (container, presentation, selection, viewport, controller) {
+            this.container = container;
             this.presentation = presentation;
             this.selection = selection;
             this.viewport = viewport;
@@ -37,8 +38,8 @@ namespace("sozi.editor.view", function (exports) {
         onLoad: function () {
             $("#sozi-editor-aspect-width").val(this.presentation.aspectWidth);
             $("#sozi-editor-aspect-height").val(this.presentation.aspectHeight);
-            this.presentation.svgRoot.addEventListener("mouseenter", this.onMouseEnter.bind(this), false);
-            this.presentation.svgRoot.addEventListener("mouseleave", this.onMouseLeave.bind(this), false);
+            this.container.addEventListener("mouseenter", this.onMouseEnter.bind(this), false);
+            this.container.addEventListener("mouseleave", this.onMouseLeave.bind(this), false);
         },
 
         onChangeDragMode: function () {
@@ -46,7 +47,7 @@ namespace("sozi.editor.view", function (exports) {
         },
 
         repaint: function () {
-            var parent = $("#sozi-editor-view-preview").parent();
+            var parent = $(this.container).parent();
             var parentWidth  = parent.innerWidth();
             var parentHeight = parent.innerHeight();
 
@@ -92,15 +93,10 @@ namespace("sozi.editor.view", function (exports) {
             this.viewport.cameras.forEach(function (camera) {
                 if (camera.selected) {
                     camera.maskValue = 64;
-                    camera.update();
                 }
             });
-            this.presentation.elementsToHide.forEach(function (id) {
-                var elt = document.getElementById(id);
-                if (elt) {
-                    elt.style.visibility = "visible";
-                }
-            });
+            this.viewport.showHiddenElements = true;
+            this.viewport.repaint();
         },
 
         /*
@@ -112,15 +108,10 @@ namespace("sozi.editor.view", function (exports) {
             this.viewport.cameras.forEach(function (camera) {
                 if (camera.selected) {
                     camera.maskValue = 0;
-                    camera.update();
                 }
             });
-            this.presentation.elementsToHide.forEach(function (id) {
-                var elt = document.getElementById(id);
-                if (elt) {
-                    elt.style.visibility = "hidden";
-                }
-            });
+            this.viewport.showHiddenElements = false;
+            this.viewport.repaint();
         }
     };
 });

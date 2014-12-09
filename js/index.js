@@ -13,7 +13,7 @@ window.addEventListener("load", function () {
 
     var controller = sozi.editor.Controller.init(presentation, selection, viewport);
 
-    sozi.editor.view.Preview.init(presentation, selection, viewport, controller);
+    sozi.editor.view.Preview.init(document.getElementById("sozi-editor-view-preview"), presentation, selection, viewport, controller);
     sozi.editor.view.Properties.init(document.getElementById("sozi-editor-view-properties"), selection, controller);
     var timeline = sozi.editor.view.Timeline.init(document.getElementById("sozi-editor-view-timeline"), presentation, selection, controller);
 

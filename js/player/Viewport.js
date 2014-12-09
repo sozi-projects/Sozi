@@ -34,6 +34,7 @@ namespace("sozi.player", function (exports) {
         this.mouseDragX = 0;
         this.mouseDragY = 0;
         this.dragMode = "translate";
+        this.showHiddenElements = false;
 
         // Setup mouse and keyboard event handlers.
         this.dragHandler = this.onDrag.bind(this);
@@ -347,9 +348,9 @@ namespace("sozi.player", function (exports) {
         this.presentation.elementsToHide.forEach(function (id) {
             var elt = document.getElementById(id);
             if (elt) {
-                elt.style.visibility = "hidden";
+                elt.style.visibility = this.showHiddenElements ? "visible" : "hidden";
             }
-        });
+        }, this);
     };
 
     /*
