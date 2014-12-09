@@ -111,13 +111,13 @@
 .timeline .frame-index .insert-before {
     float: left;
     position: relative;
-    top: 0.7em;
+    top: 0.5em;
 }
 
 .timeline .frame-index .insert-after {
     float: right;
     position: relative;
-    top: 0.7em;
+    top: 0.5em;
 }
 
 .timeline .frame-index i {
