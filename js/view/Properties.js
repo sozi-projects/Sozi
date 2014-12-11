@@ -43,7 +43,7 @@ namespace("sozi.editor.view", function (exports) {
                     this.renderNumberField("Timeout (sec)", "timeoutMs", this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
                     this.renderCheckboxField("Timeout enable", "timeoutEnable", this.getFrameProperty, c.setFrameProperty),
                     this.renderCheckboxField("Link to previous frame", "link", this.getLayerProperty, c.setLayerProperty),
-                    this.renderCheckboxField("Clip", "clip", this.getCameraProperty, c.setCameraProperty),
+                    this.renderCheckboxField("Clip", "clipped", this.getCameraProperty, c.setCameraProperty),
                     this.renderTextField("Reference element Id", "referenceElementId", this.getLayerProperty, c.setLayerProperty, true),
                     h("tr", [
                         h("th"),
