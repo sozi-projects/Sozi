@@ -34,16 +34,17 @@ namespace("sozi.editor", function (exports) {
      */
     Controller.addFrame = function () {
         // Create a new frame
-        var frame = Object.create(sozi.model.Frame).init(this.presentation);
+        var frame = Object.create(sozi.model.Frame);
 
         if (this.selection.currentFrame) {
             // If a frame is selected, insert the new frame after.
+            frame.initFrom(this.selection.currentFrame);
             this.presentation.frames.splice(this.selection.currentFrame.index + 1, 0, frame);
         }
         else {
             // If no frame is selected, copy the state of the current viewport
             // and add the new frame at the end of the presentation.
-            frame.setAtStates(this.viewport.cameras);
+            frame.init(this.presentation).setAtStates(this.viewport.cameras);
             this.presentation.frames.push(frame);
         }
 
