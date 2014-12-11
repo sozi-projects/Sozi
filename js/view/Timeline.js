@@ -10,8 +10,6 @@ namespace("sozi.editor.view", function (exports) {
     var diff = require("virtual-dom/diff");
     var patch = require("virtual-dom/patch");
 
-    var nunjucks = require("nunjucks");
-
     /*
      * The Timeline view shows a table where columns represent frames
      * and rows represent layers.
@@ -55,7 +53,7 @@ namespace("sozi.editor.view", function (exports) {
             controller.addListener("repaint", this.repaint.bind(this));
             controller.addListener("load", this.onLoad.bind(this));
 
-            $(window).resize(this.repaint.bind(this));
+            window.addEventListener("resize", this.repaint.bind(this), false);
 
             return this;
         },
@@ -401,8 +399,6 @@ namespace("sozi.editor.view", function (exports) {
          * Event handlers are attached to UI elements.
          */
         adjust: function () {
-            var root = $(this.rootNode);
-
             var topLeft = this.rootNode.querySelector(".timeline-top-left");
             var topRight = this.rootNode.querySelector(".timeline-top-right");
             var bottomLeft = this.rootNode.querySelector(".timeline-bottom-left");
