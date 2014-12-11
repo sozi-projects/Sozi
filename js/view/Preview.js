@@ -36,8 +36,6 @@ namespace("sozi.editor.view", function (exports) {
         },
 
         onLoad: function () {
-            $("#sozi-editor-aspect-width").val(this.presentation.aspectWidth);
-            $("#sozi-editor-aspect-height").val(this.presentation.aspectHeight);
             this.container.addEventListener("mouseenter", this.onMouseEnter.bind(this), false);
             this.container.addEventListener("mouseleave", this.onMouseLeave.bind(this), false);
         },
@@ -47,6 +45,9 @@ namespace("sozi.editor.view", function (exports) {
         },
 
         repaint: function () {
+            $("#sozi-editor-aspect-width").val(this.presentation.aspectWidth);
+            $("#sozi-editor-aspect-height").val(this.presentation.aspectHeight);
+
             var parent = $(this.container).parent();
             var parentWidth  = parent.innerWidth();
             var parentHeight = parent.innerHeight();
@@ -57,7 +58,7 @@ namespace("sozi.editor.view", function (exports) {
             var width  = Math.min(maxWidth, maxHeight * this.presentation.aspectWidth / this.presentation.aspectHeight);
             var height = Math.min(maxHeight, maxWidth * this.presentation.aspectHeight / this.presentation.aspectWidth);
 
-            $("#sozi-editor-view-preview").css({
+            $(this.container).css({
                 left:   (parentWidth  - width)  / 2 + "px",
                 top:    (parentHeight - height) / 2 + "px",
                 width:  width + "px",

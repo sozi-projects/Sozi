@@ -47,11 +47,11 @@ namespace("sozi.editor.backend", function (exports) {
 
         // Workaround for issue #1720 in node-webkit for Windows
         // https://github.com/rogerwang/node-webkit/issues/1720
-        window.addEventListener("blur", autosaveCallback);
+        $(window).blur(autosaveCallback);
 
         // Save automatically when closing the window
         win.on("close", function () {
-            window.removeEventListener("blur", autosaveCallback);
+            $(window).off("blur");
             autosaveCallback();
             this.close(true);
         });

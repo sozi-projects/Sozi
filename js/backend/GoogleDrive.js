@@ -18,10 +18,7 @@ namespace("sozi.editor.backend", function (exports) {
 
         sozi.editor.backend.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-GoogleDrive-input" type="button" value="Load from Google Drive">');
 
-        var self = this;
-        $(window).blur(function () {
-            self.doAutosave();
-        });
+        $(window).blur(this.doAutosave.bind(this));
 
         gapi.client.setApiKey(this.apiKey);
         this.authorize(true);
@@ -29,17 +26,14 @@ namespace("sozi.editor.backend", function (exports) {
     };
 
     GoogleDrive.authorize = function (onInit) {
-        var self = this;
         gapi.auth.authorize({
             client_id: this.clientId,
             scope: "https://www.googleapis.com/auth/drive",
             immediate: onInit
-        }, function (authResult) {
-            self.onAuthResult(authResult, onInit);
-        });
+        }, this.onAuthResult.bind(this, onInit));
     };
 
-    GoogleDrive.onAuthResult = function (authResult, onInit) {
+    GoogleDrive.onAuthResult = function (onInit, authResult) {
         var inputButton = $("#sozi-editor-backend-GoogleDrive-input");
 
         var self = this;

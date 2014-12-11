@@ -14,7 +14,7 @@ window.addEventListener("load", function () {
 
     var controller = sozi.editor.Controller.init(presentation, selection, viewport);
 
-    sozi.editor.view.Preview.init(document.getElementById("sozi-editor-view-preview"), presentation, selection, viewport, controller);
+    var preview = sozi.editor.view.Preview.init(document.getElementById("sozi-editor-view-preview"), presentation, selection, viewport, controller);
     sozi.editor.view.Properties.init(document.getElementById("sozi-editor-view-properties"), selection, controller);
     var timeline = sozi.editor.view.Timeline.init(document.getElementById("sozi-editor-view-timeline"), presentation, selection, controller);
 
@@ -55,7 +55,8 @@ window.addEventListener("load", function () {
         // TODO Transform xlink:href attributes to replace relative URLs with absolute URLs
 
         // Add the SVG root to the editor view
-        $("#sozi-editor-view-preview").html(svgRoot);
+        $(preview.container).html(svgRoot);
+
         presentation.init(svgRoot);
         viewport.onLoad();
         $("html head title").text(presentation.title);
