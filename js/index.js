@@ -6,6 +6,7 @@ window.addEventListener("load", function () {
     "use strict";
 
     var nunjucks = require("nunjucks");
+    nunjucks.configure("build/templates", {watch: false});
 
     var presentation = sozi.model.Presentation;
     var selection = sozi.editor.model.Selection.init(presentation);
@@ -22,6 +23,7 @@ window.addEventListener("load", function () {
     var jsonSources = [presentation, selection, timeline];
 
     var svgData;
+    var reloading = false;
 
     /*
      * Create an SVG DOM tree from the given textual data
@@ -95,6 +97,10 @@ window.addEventListener("load", function () {
      * and editor state.
      */
     function autosaveJSON(backend, fileDescriptor) {
+        if (reloading) {
+            return;
+        }
+
         var jsonNeedsSaving = false;
 
         controller.addListener("presentationChange", function () { jsonNeedsSaving = true; });
@@ -145,6 +151,7 @@ window.addEventListener("load", function () {
         backend.find(name, location, function (fileDescriptor) {
             if (fileDescriptor) {
                 autosaveHTML(backend, fileDescriptor);
+                backend.save(fileDescriptor, exportHTML());
             }
             else {
                 backend.create(name, location, "text/html", exportHTML(), function (fileDescriptor) {
@@ -158,7 +165,7 @@ window.addEventListener("load", function () {
      * Generate the content of the exported HTML file.
      */
     function exportHTML() {
-        return nunjucks.render("build/templates/sozi.player.html", {
+        return nunjucks.render("sozi.player.html", {
             svg: svgData,
             title: presentation.title,
             json: JSON.stringify(presentation.toMinimalStorable())
@@ -169,6 +176,10 @@ window.addEventListener("load", function () {
      * Configure autosaving for HTML export.
      */
     function autosaveHTML(backend, fileDescriptor) {
+        if (reloading) {
+            return;
+        }
+
         var htmlNeedsSaving = false;
 
         controller.addListener("presentationChange", function () { htmlNeedsSaving = true; });
@@ -197,12 +208,16 @@ window.addEventListener("load", function () {
                     $.notify("File " + name + " could not be loaded.", "error");
                 }
                 else if (/\.svg$/.test(name)) {
+                    reloading = fileDescriptor === svgFileDescriptor;
+
                     loadSVG(data);
                     if (svgData) {
                         svgFileDescriptor = fileDescriptor;
 
                         openJSONFile(backend, name.replace(/\.svg$/, ".sozi.json"), location);
-                        createHTMLFile(backend, name.replace(/\.svg$/, ".sozi.html"), location);
+                        controller.once("load", function () {
+                            createHTMLFile(backend, name.replace(/\.svg$/, ".sozi.html"), location);
+                        });
                     }
                 }
                 else if (/\.sozi\.json$/.test(name)) {
