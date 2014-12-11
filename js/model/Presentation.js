@@ -359,6 +359,15 @@ namespace("sozi.model", function (exports) {
 
             this.layers.push(autoLayer);
 
+            // Prevent event propagation on hyperlinks
+            var links = Array.prototype.slice.call(svgRoot.getElementsByTagName("a"));
+
+            links.forEach(function (link) {
+                link.addEventListener("mousedown", function (evt) {
+                    evt.stopPropagation();
+                }, false);
+            });
+
             return this;
         },
 
