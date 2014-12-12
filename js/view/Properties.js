@@ -134,7 +134,7 @@ namespace("sozi.editor.view", function (exports) {
                     type: "number",
                     value: value,
                     className: className,
-                    min: signed ? 0 : undefined,
+                    min: signed ? undefined : 0,
                     step: step,
                     pattern: "[+-]?\\d+(\\.\\d+)?",
                     onchange: function () {
