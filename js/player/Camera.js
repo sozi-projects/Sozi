@@ -23,6 +23,15 @@ namespace("sozi.player", function (exports) {
         this.svgClipRect = document.createElementNS(SVG_NS, "rect");
         this.svgClipRect.setAttribute("fill", "white");
 
+        this.svgClipOutlineRect1 = document.createElementNS(SVG_NS, "rect");
+        this.svgClipOutlineRect1.setAttribute("stroke", "black");
+        this.svgClipOutlineRect1.setAttribute("fill", "none");
+
+        this.svgClipOutlineRect2 = document.createElementNS(SVG_NS, "rect");
+        this.svgClipOutlineRect2.setAttribute("stroke", "white");
+        this.svgClipOutlineRect2.setAttribute("fill", "none");
+        this.svgClipOutlineRect2.setAttribute("stroke-dasharray", "2,2");
+
         // The clipping path of this camera
         var svgMask = document.createElementNS(SVG_NS, "mask");
         var svgMaskId = viewport.makeUniqueId("sozi-mask-");
@@ -30,6 +39,8 @@ namespace("sozi.player", function (exports) {
         svgMask.appendChild(this.svgMaskRect);
         svgMask.appendChild(this.svgClipRect);
         viewport.svgRoot.appendChild(svgMask);
+        viewport.svgRoot.appendChild(this.svgClipOutlineRect1);
+        viewport.svgRoot.appendChild(this.svgClipOutlineRect2);
 
         // The group that will support the clipping operation
         var svgClippedGroup = document.createElementNS(SVG_NS, "g");
@@ -44,7 +55,21 @@ namespace("sozi.player", function (exports) {
             return svgGroup;
         }, this);
 
+        this.concealClipping();
+
         return this;
+    };
+
+    Camera.revealClipping = function () {
+        this.maskValue = 64;
+        this.svgClipOutlineRect1.style.display = "inline";
+        this.svgClipOutlineRect2.style.display = "inline";
+    };
+
+    Camera.concealClipping = function () {
+        this.maskValue = 0;
+        this.svgClipOutlineRect1.style.display = "none";
+        this.svgClipOutlineRect2.style.display = "none";
     };
 
     Object.defineProperty(Camera, "scale", {
@@ -165,10 +190,10 @@ namespace("sozi.player", function (exports) {
         var clipWidth, clipHeight, clipX, clipY;
 
         if (this.clipped) {
-            clipWidth  = this.width  * this.clipWidthFactor  * scale;
-            clipHeight = this.height * this.clipHeightFactor * scale;
-            clipX = (this.viewport.width  - clipWidth)  / 2 + this.clipXOffset * this.clipWidthFactor  * scale;
-            clipY = (this.viewport.height - clipHeight) / 2 + this.clipYOffset * this.clipHeightFactor * scale;
+            clipWidth  = Math.round(this.width  * this.clipWidthFactor  * scale);
+            clipHeight = Math.round(this.height * this.clipHeightFactor * scale);
+            clipX = Math.round((this.viewport.width  - clipWidth)  / 2 + this.clipXOffset * this.clipWidthFactor  * scale);
+            clipY = Math.round((this.viewport.height - clipHeight) / 2 + this.clipYOffset * this.clipHeightFactor * scale);
         }
         else {
             clipWidth = this.viewport.width;
@@ -187,6 +212,16 @@ namespace("sozi.player", function (exports) {
         this.svgClipRect.setAttribute("y", clipY);
         this.svgClipRect.setAttribute("width",  clipWidth);
         this.svgClipRect.setAttribute("height", clipHeight);
+
+        this.svgClipOutlineRect1.setAttribute("x", clipX);
+        this.svgClipOutlineRect1.setAttribute("y", clipY);
+        this.svgClipOutlineRect1.setAttribute("width",  clipWidth);
+        this.svgClipOutlineRect1.setAttribute("height", clipHeight);
+
+        this.svgClipOutlineRect2.setAttribute("x", clipX);
+        this.svgClipOutlineRect2.setAttribute("y", clipY);
+        this.svgClipOutlineRect2.setAttribute("width",  clipWidth);
+        this.svgClipOutlineRect2.setAttribute("height", clipHeight);
 
         // Compute and apply the geometrical transformation to the layer group
         var translateX = this.viewport.width  / scale / 2 - this.cx;

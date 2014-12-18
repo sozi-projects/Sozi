@@ -93,7 +93,7 @@ namespace("sozi.editor.view", function (exports) {
         onMouseEnter: function () {
             this.viewport.cameras.forEach(function (camera) {
                 if (camera.selected) {
-                    camera.maskValue = 64;
+                    camera.revealClipping();
                 }
             });
             this.viewport.showHiddenElements = true;
@@ -108,7 +108,7 @@ namespace("sozi.editor.view", function (exports) {
         onMouseLeave: function () {
             this.viewport.cameras.forEach(function (camera) {
                 if (camera.selected) {
-                    camera.maskValue = 0;
+                    camera.concealClipping();
                 }
             });
             this.viewport.showHiddenElements = false;
