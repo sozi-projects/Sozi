@@ -75,7 +75,7 @@ namespace("sozi.editor.view", function (exports) {
         },
 
         fromStorable: function (storable) {
-            if ("editableLayers" in storable) {
+            if (storable.hasOwnProperty("editableLayers")) {
                 storable.editableLayers.forEach(function (groupId) {
                     var layer = this.presentation.getLayerWithId(groupId);
                     if (layer) {
@@ -199,7 +199,7 @@ namespace("sozi.editor.view", function (exports) {
             evt.stopPropagation();
         },
 
-        defaultLayerIsNotEmpty: function () {
+        get defaultLayerIsNotEmpty() {
             return this.defaultLayers.length > 1 || this.defaultLayers[0].svgNodes.length;
         },
 
