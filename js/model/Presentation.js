@@ -399,7 +399,9 @@ namespace("sozi.model", function (exports) {
                 return Object.create(sozi.model.Frame).init(this).fromStorable(f);
             }, this);
 
-            this.elementsToHide = obj.elementsToHide.slice();
+            if (obj.elementsToHide) {
+                this.elementsToHide = obj.elementsToHide.slice();
+            }
 
             return this;
         },
