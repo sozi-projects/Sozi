@@ -37,7 +37,7 @@ namespace("sozi.editor.view", function (exports) {
             var v = this.viewport;
             return h("div", [
                 h("span.group", [
-                    "Aspect ratio:",
+                    "Aspect ratio: ",
                     h("input.aspect", {
                         type: "number",
                         pattern: "\\d+",

@@ -1,0 +1,9 @@
+.aspect {
+    width: 4em;
+    padding: 0.2em 0.5em;
+    border: 1px solid rgb(80, 80, 80);
+}
+
+.group {
+    margin-right: 1.5em;
+}

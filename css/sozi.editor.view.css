@@ -88,11 +88,6 @@ body {
     overflow-y: auto;
 }
 
-.aspect {
-    width: 4em;
-    padding: 0.2em 0.5em;
-}
-
 form h1 {
     text-align: center;
 }
@@ -138,14 +133,6 @@ form td input[type=number] {
 .bottom {
     color: white;
     background: rgb(80, 80, 80);
-}
-
-/*
- * Aspect ratio inputs
- */
-
-.aspect {
-    border: 1px solid rgb(80, 80, 80);
 }
 
 /*
