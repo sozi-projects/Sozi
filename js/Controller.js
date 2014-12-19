@@ -408,5 +408,13 @@ namespace("sozi.editor", function (exports) {
         this.emitEvent("repaint");
     };
 
+    Controller.undo = function () {
+        // TODO implement undo/redo
+    };
+
+    Controller.redo = function () {
+        // TODO implement undo/redo
+    };
+
     exports.Controller = Controller;
 });
