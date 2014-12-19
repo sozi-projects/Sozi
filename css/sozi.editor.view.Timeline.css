@@ -80,6 +80,7 @@
 .timeline th.layer-icons {
     width: auto;
     text-align: left;
+    white-space: nowrap;
 }
 
 .timeline .layer-label {
