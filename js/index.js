@@ -16,7 +16,7 @@ window.addEventListener("load", function () {
 
     var preview = sozi.editor.view.Preview.init(document.getElementById("sozi-editor-view-preview"), presentation, selection, viewport, controller);
     sozi.editor.view.Properties.init(document.getElementById("sozi-editor-view-properties"), selection, controller);
-    sozi.editor.view.Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), presentation, controller);
+    sozi.editor.view.Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), presentation, viewport, controller);
     var timeline = sozi.editor.view.Timeline.init(document.getElementById("sozi-editor-view-timeline"), presentation, selection, controller);
 
     // The objects that contain the presentation data and

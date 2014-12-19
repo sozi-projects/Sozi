@@ -22,8 +22,6 @@ namespace("sozi.editor.view", function (exports) {
             controller.addListener("repaint", repaintHandler);
             controller.addListener("load", this.onLoad.bind(this));
 
-            $("input[name=sozi-editor-preview-mode][type=radio]").change(this.onChangeDragMode.bind(this));
-
             this.viewport.addListener("click", this.onClick.bind(this));
             this.viewport.addListener("userChangeState", controller.updateCameraStates.bind(controller));
 
@@ -33,10 +31,6 @@ namespace("sozi.editor.view", function (exports) {
         onLoad: function () {
             this.container.addEventListener("mouseenter", this.onMouseEnter.bind(this), false);
             this.container.addEventListener("mouseleave", this.onMouseLeave.bind(this), false);
-        },
-
-        onChangeDragMode: function () {
-            this.viewport.dragMode = $("input[name=sozi-editor-preview-mode][type=radio]:checked").val();
         },
 
         repaint: function () {

@@ -11,9 +11,10 @@ namespace("sozi.editor.view", function (exports) {
     var patch = require("virtual-dom/patch");
 
     exports.Toolbar = {
-        init: function (container, presentation, controller) {
+        init: function (container, presentation, viewport, controller) {
             this.container = container;
             this.presentation = presentation;
+            this.viewport = viewport;
             this.controller = controller;
 
             this.vtree = h("div");
@@ -33,6 +34,7 @@ namespace("sozi.editor.view", function (exports) {
 
         render: function () {
             var c = this.controller;
+            var v = this.viewport;
             return h("div", [
                 h("span.group", [
                     "Aspect ratio:",
@@ -70,30 +72,33 @@ namespace("sozi.editor.view", function (exports) {
                     h("input", {
                         name: "sozi-editor-preview-mode",
                         type: "radio",
-                        value: "translate",
                         title: "Move the camera (hold Alt to zoom, Shift to rotate)",
-                        checked: "checked"
+                        checked: v.dragMode === "translate",
+                        onclick: function () { v.dragMode = "translate"; }
                     }),
                     h("i.fa.fa-arrows"),
                     h("input", {
                         name: "sozi-editor-preview-mode",
                         type: "radio",
-                        value: "scale",
-                        title: "Zoom in/out (you can also hold the Alt key in Move mode)"
+                        title: "Zoom in/out (you can also hold the Alt key in Move mode)",
+                        checked: v.dragMode === "scale",
+                        onclick: function () { v.dragMode = "scale"; }
                     }),
                     h("i.fa.fa-expand"),
                     h("input", {
                         name: "sozi-editor-preview-mode",
                         type: "radio",
-                        value: "rotate",
-                        title: "Rotate (you can also hold the Shift key in Move mode)"
+                        title: "Rotate (you can also hold the Shift key in Move mode)",
+                        checked: v.dragMode === "rotate",
+                        onclick: function () { v.dragMode = "rotate"; }
                     }),
                     h("i.fa.fa-rotate-left"),
                     h("input", {
                         name: "sozi-editor-preview-mode",
                         type: "radio",
-                        value: "clip",
-                        title: "Clip"
+                        title: "Clip",
+                        checked: v.dragMode === "clip",
+                        onclick: function () { v.dragMode = "clip"; }
                     }),
                     h("i.fa.fa-pencil-square")
                 ]),
