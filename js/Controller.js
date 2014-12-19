@@ -392,8 +392,15 @@ namespace("sozi.editor", function (exports) {
         }
     };
 
-    Controller.setAspectRatio = function (width, height) {
+    Controller.setAspectWidth = function (width) {
         this.presentation.aspectWidth = width;
+
+        // Trigger a repaint of the editor views.
+        this.emitEvent("presentationChange");
+        this.emitEvent("repaint");
+    };
+
+    Controller.setAspectHeight = function (height) {
         this.presentation.aspectHeight = height;
 
         // Trigger a repaint of the editor views.

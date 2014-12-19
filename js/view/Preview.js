@@ -22,17 +22,12 @@ namespace("sozi.editor.view", function (exports) {
             controller.addListener("repaint", repaintHandler);
             controller.addListener("load", this.onLoad.bind(this));
 
-            $("#sozi-editor-aspect-width, #sozi-editor-aspect-height").change(this.onChangeAspectRatio.bind(this));
             $("input[name=sozi-editor-preview-mode][type=radio]").change(this.onChangeDragMode.bind(this));
 
             this.viewport.addListener("click", this.onClick.bind(this));
             this.viewport.addListener("userChangeState", controller.updateCameraStates.bind(controller));
 
             return this;
-        },
-
-        onChangeAspectRatio: function () {
-            this.controller.setAspectRatio(parseInt($("#sozi-editor-aspect-width").val()), parseInt($("#sozi-editor-aspect-height").val()));
         },
 
         onLoad: function () {
@@ -45,9 +40,6 @@ namespace("sozi.editor.view", function (exports) {
         },
 
         repaint: function () {
-            $("#sozi-editor-aspect-width").val(this.presentation.aspectWidth);
-            $("#sozi-editor-aspect-height").val(this.presentation.aspectHeight);
-
             var parent = $(this.container).parent();
             var parentWidth  = parent.innerWidth();
             var parentHeight = parent.innerHeight();
