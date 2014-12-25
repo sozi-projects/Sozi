@@ -91,10 +91,12 @@ namespace("sozi.editor.view", function (exports) {
             h("span.group", [
                 h("button", {
                     title: "Undo",
+                    disabled: this.controller.undoStack.length ? undefined : "disabled",
                     onclick: c.undo.bind(c)
                 }, h("i.fa.fa-undo")),
                 h("button", {
                     title: "Redo",
+                    disabled: this.controller.redoStack.length ? undefined : "disabled",
                     onclick: c.redo.bind(c)
                 }, h("i.fa.fa-repeat"))
             ])
