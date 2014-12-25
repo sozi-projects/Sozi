@@ -7,6 +7,10 @@ namespace("sozi.editor", function (exports) {
         this.presentation = presentation;
         this.selection = selection;
         this.viewport = viewport;
+
+        this.undoStack = [];
+        this.redoStack = [];
+
         return this;
     };
 
@@ -393,27 +397,72 @@ namespace("sozi.editor", function (exports) {
     };
 
     Controller.setAspectWidth = function (width) {
-        this.presentation.aspectWidth = width;
-
-        // Trigger a repaint of the editor views.
-        this.emitEvent("presentationChange");
-        this.emitEvent("repaint");
+        var widthPrev = this.presentation.aspectWidth;
+        this.perform(
+            function () {
+                this.presentation.aspectWidth = width;
+            },
+            function () {
+                this.presentation.aspectWidth = widthPrev;
+            },
+            false,
+            ["presentationChange", "repaint"]
+        );
     };
 
     Controller.setAspectHeight = function (height) {
-        this.presentation.aspectHeight = height;
+        var heightPrev = this.presentation.aspectHeight;
+        this.perform(
+            function () {
+                this.presentation.aspectHeight = height;
+            },
+            function () {
+                this.presentation.aspectHeight = heightPrev;
+            },
+            false,
+            ["presentationChange", "repaint"]
+        );
+    };
 
-        // Trigger a repaint of the editor views.
-        this.emitEvent("presentationChange");
-        this.emitEvent("repaint");
+    Controller.perform = function (onDo, onUndo, updateSelection, events) {
+        var action = {
+            onDo: onDo,
+            onUndo: onUndo,
+            updateSelection: updateSelection,
+            events: events
+        };
+        if (updateSelection) {
+            action.selectedFrames = this.selection.selectedFrames.slice();
+            action.selectedLayers = this.selection.selectedLayers.slice();
+        }
+        this.undoStack.push(action);
+        this.redoStack = [];
+        onDo.call(this);
+        events.forEach(function (evt) { this.emitEvent(evt) }, this);
     };
 
     Controller.undo = function () {
-        // TODO implement undo/redo
+        if (!this.undoStack.length) {
+            return;
+        }
+        var action = this.undoStack.pop();
+        this.redoStack.push(action);
+        action.onUndo.call(this);
+        if (action.updateSelection) {
+            this.selection.selectedFrames = action.selectedFrames.slice();
+            this.selection.selectedLayers = action.selectedLayers.slice();
+        }
+        action.events.forEach(function (evt) { this.emitEvent(evt) }, this);
     };
 
     Controller.redo = function () {
-        // TODO implement undo/redo
+        if (!this.redoStack.length) {
+            return;
+        }
+        var action = this.redoStack.pop();
+        this.undoStack.push(action);
+        action.onDo.call(this);
+        action.events.forEach(function (evt) { this.emitEvent(evt) }, this);
     };
 
     exports.Controller = Controller;
