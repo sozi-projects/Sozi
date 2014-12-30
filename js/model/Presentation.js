@@ -5,7 +5,7 @@
 namespace("sozi.model", exports => {
     "use strict";
 
-    var LayerProperties = {
+    exports.LayerProperties = {
 
         init: function (frame) {
             this.frame = frame;
@@ -117,20 +117,22 @@ namespace("sozi.model", exports => {
             this.timeoutEnable = false;
             this.transitionDurationMs = 1000;
             this.showInFrameList = true;
-            this.layerProperties = presentation.layers.map(lp => Object.create(LayerProperties).init(this));
+            this.layerProperties = presentation.layers.map(lp => Object.create(exports.LayerProperties).init(this));
             this.cameraStates = presentation.layers.map(cs => Object.create(sozi.model.CameraState).init(presentation.svgRoot));
             return this;
         },
 
-        initFrom: function (other) {
+        initFrom: function (other, preserveId) {
             this.presentation = other.presentation;
-            this.frameId = other.presentation.makeFrameId();
+            if (!preserveId) {
+                this.frameId = other.presentation.makeFrameId();
+            }
             this.title = other.title;
             this.timeoutMs = other.timeoutMs;
             this.timeoutEnable = other.timeoutEnable;
             this.transitionDurationMs = other.transitionDurationMs;
             this.showInFrameList = other.showInFrameList;
-            this.layerProperties = other.layerProperties.map(lp => Object.create(LayerProperties).initFrom(lp));
+            this.layerProperties = other.layerProperties.map(lp => Object.create(exports.LayerProperties).initFrom(lp));
             this.cameraStates = other.cameraStates.map(cs => Object.create(sozi.model.CameraState).initFrom(cs));
             return this;
         },
@@ -199,7 +201,7 @@ namespace("sozi.model", exports => {
             this.transitionDurationMs = obj.transitionDurationMs;
             this.showInFrameList = obj.showInFrameList;
 
-            // TODO if obj.LayerProperties has keys not in layers, create fake layers marked as "deleted"
+            // TODO if obj.layerProperties has keys not in layers, create fake layers marked as "deleted"
             this.presentation.layers.forEach((layer, index) => {
                 var key = layer.groupId;
                 if (key in obj.layerProperties) {

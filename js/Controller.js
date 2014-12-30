@@ -314,24 +314,35 @@ namespace("sozi.editor", exports => {
     };
 
     Controller.fitElement = function () {
-        // TODO add undo/redo
+        var currentFrame = this.selection.currentFrame;
+        if (currentFrame) {
+            var savedFrame = Object.create(sozi.model.Frame).initFrom(currentFrame);
+            var modifiedFrame = Object.create(sozi.model.Frame).initFrom(currentFrame);
 
-        var frame = this.selection.currentFrame;
-        if (frame) {
+            var hasReferenceElement = false;
             this.selection.selectedLayers.forEach(layer => {
-                var layerIndex = layer.index;
-                var id = frame.layerProperties[layerIndex].referenceElementId;
+                var id = currentFrame.layerProperties[layer.index].referenceElementId;
                 var elt = this.presentation.svgRoot.getElementById(id);
                 if (elt) {
-                    frame.cameraStates[layerIndex].setAtElement(elt);
+                    hasReferenceElement = true;
+                    modifiedFrame.cameraStates[layer.index].setAtElement(elt);
                 }
             });
 
-            this.presentation.updateLinkedLayers();
-
-            // Trigger a repaint of the editor views.
-            this.emitEvent("presentationChange");
-            this.emitEvent("repaint");
+            if (hasReferenceElement) {
+                this.perform(
+                    function onDo() {
+                        currentFrame.setAtStates(modifiedFrame.cameraStates);
+                        this.presentation.updateLinkedLayers();
+                    },
+                    function onUndo() {
+                        currentFrame.setAtStates(savedFrame.cameraStates);
+                        this.presentation.updateLinkedLayers();
+                    },
+                    false,
+                    ["presentationChange", "repaint"]
+                );
+            }
         }
     };
 
@@ -422,17 +433,19 @@ namespace("sozi.editor", exports => {
     };
 
     Controller.updateCameraStates = function () {
-        // TODO add undo/redo
+        // TODO do not register a new action for each elementary state change
+        var currentFrame = this.selection.currentFrame;
+        if (currentFrame) {
+            var savedFrame = Object.create(sozi.model.Frame).initFrom(currentFrame);
+            var modifiedFrame = Object.create(sozi.model.Frame).initFrom(currentFrame);
 
-        var frame = this.selection.currentFrame;
-        if (frame) {
             this.viewport.cameras.forEach(camera => {
                 if (camera.selected) {
                     var cameraIndex = this.viewport.cameras.indexOf(camera);
-                    var layerProperties = frame.layerProperties[cameraIndex];
+                    var layerProperties = modifiedFrame.layerProperties[cameraIndex];
 
                     // Update the camera states of the current frame
-                    frame.cameraStates[cameraIndex].initFrom(camera);
+                    modifiedFrame.cameraStates[cameraIndex].initFrom(camera);
 
                     // Mark the modified layers as unlinked in the current frame
                     layerProperties.link = false;
@@ -447,32 +460,47 @@ namespace("sozi.editor", exports => {
                 }
             });
 
-            this.presentation.updateLinkedLayers();
-
-            // Trigger a repaint of the editor views.
-            this.emitEvent("presentationChange");
-            this.emitEvent("repaint");
+            this.perform(
+                function onDo() {
+                    currentFrame.initFrom(modifiedFrame, true);
+                    this.presentation.updateLinkedLayers();
+                },
+                function onUndo() {
+                    currentFrame.initFrom(savedFrame, true);
+                    this.presentation.updateLinkedLayers();
+                },
+                false,
+                ["presentationChange", "repaint"]
+            );
         }
     };
 
     Controller.setReferenceElement = function (cameraIndex, referenceElement) {
-        // TODO add undo/redo
-
-        var frame = this.selection.currentFrame;
-        if (frame) {
-            var layerProperties = frame.layerProperties[cameraIndex];
+        // TODO set all cameras in one action
+        var currentFrame = this.selection.currentFrame;
+        if (currentFrame) {
+            var layerProperties = currentFrame.layerProperties[cameraIndex];
+            var savedProperties = Object.create(sozi.model.LayerProperties).initFrom(layerProperties);
+            var modifiedProperties = Object.create(sozi.model.LayerProperties).initFrom(layerProperties);
 
             // Mark the modified layers as unlinked in the current frame
-            layerProperties.link = false;
+            modifiedProperties.link = false;
 
-            layerProperties.referenceElementAuto = false;
-            layerProperties.referenceElementId = referenceElement.getAttribute("id");
+            modifiedProperties.referenceElementAuto = false;
+            modifiedProperties.referenceElementId = referenceElement.getAttribute("id");
 
-            this.presentation.updateLinkedLayers();
-
-            // Trigger a repaint of the editor views.
-            this.emitEvent("presentationChange");
-            this.emitEvent("repaint");
+            this.perform(
+                function onDo() {
+                    layerProperties.initFrom(modifiedProperties);
+                    this.presentation.updateLinkedLayers();
+                },
+                function onUndo() {
+                    layerProperties.initFrom(savedProperties);
+                    this.presentation.updateLinkedLayers();
+                },
+                false,
+                ["presentationChange", "repaint"]
+            );
         }
     };
 
