@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.editor.backend", function (exports) {
+namespace("sozi.editor.backend", exports => {
     "use strict";
 
     var GoogleDrive = Object.create(sozi.editor.backend.AbstractBackend);
@@ -36,18 +36,14 @@ namespace("sozi.editor.backend", function (exports) {
     GoogleDrive.onAuthResult = function (onInit, authResult) {
         var inputButton = $("#sozi-editor-backend-GoogleDrive-input");
 
-        var self = this;
-
         if (authResult && !authResult.error) {
             this.accessToken = authResult.access_token;
             // Access granted: create a file picker and show the "Load" button.
             gapi.client.load("drive", "v2");
             gapi.load("picker", {
-                callback: function () {
-                    self.createPicker();
-                    inputButton.off("click").click(function () {
-                        self.picker.setVisible(true);
-                    });
+                callback: () => {
+                    this.createPicker();
+                    inputButton.off("click").click(() => this.picker.setVisible(true));
                     if (!onInit) {
                         inputButton.click();
                     }
@@ -56,24 +52,20 @@ namespace("sozi.editor.backend", function (exports) {
         }
         else {
             // No access token could be retrieved, show the button to start the authorization flow.
-            inputButton.click(function () {
-                self.authorize(false);
-            });
+            inputButton.click(() => this.authorize(false));
         }
     };
 
     GoogleDrive.createPicker = function () {
-        var self = this;
-
         this.picker = new google.picker.PickerBuilder().
             addView(google.picker.DocsView).
             setOAuthToken(this.accessToken).
             setDeveloperKey(this.apiKey).
-            setCallback(function (data) {
+            setCallback(data => {
                 if (data[google.picker.Response.ACTION] === google.picker.Action.PICKED) {
-                    gapi.client.drive.files.get({fileId: data.docs[0].id}).execute(function (response) {
+                    gapi.client.drive.files.get({fileId: data.docs[0].id}).execute(response => {
                         if (!response.error) {
-                            self.load(response);
+                            this.load(response);
                         }
                         else {
                             console.log(response.error.message);
@@ -97,7 +89,7 @@ namespace("sozi.editor.backend", function (exports) {
             gapi.client.drive.files.list({
                 q: "title = '" + name + "' and " +
                    "'" + location[index].id + "' in parents"
-            }).execute(function (response) {
+            }).execute(response => {
                 if (response.items && response.items.length) {
                     callback(response.items[0]);
                 }
@@ -125,11 +117,8 @@ namespace("sozi.editor.backend", function (exports) {
                 "Authorization": "Bearer " + this.accessToken
             },
             context: this
-        }).done(function (data) {
-            this.emitEvent("load", [fileDescriptor, data]);
-        }).fail(function (xhr, status) {
-            this.emitEvent("load", [fileDescriptor, null, status]);
-        });
+        }).done(data => this.emitEvent("load", [fileDescriptor, data]))
+          .fail((xhr, status) => this.emitEvent("load", [fileDescriptor, null, status]));
     };
 
     GoogleDrive.create = function (name, location, mimeType, data, callback) {
@@ -162,7 +151,7 @@ namespace("sozi.editor.backend", function (exports) {
               "Content-Type": 'multipart/mixed; boundary="' + boundary + '"'
             },
             body: multipartRequestBody
-        }).execute(function (response) {
+        }).execute(response => {
             if (!response.error) {
                 callback(response);
             }

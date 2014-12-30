@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.editor.backend", function (exports) {
+namespace("sozi.editor.backend", exports => {
     "use strict";
 
     exports.list = [];
@@ -148,11 +148,11 @@ namespace("sozi.editor.backend", function (exports) {
      * and when the editor closes.
      */
     AbstractBackend.doAutosave = function () {
-        this.autosavedFiles.forEach(function (file) {
+        this.autosavedFiles.forEach(file => {
             if (file.needsSaving()) {
                 this.save(file.descriptor, file.getData());
             }
-        }, this);
+        });
     };
 
     exports.AbstractBackend = AbstractBackend;

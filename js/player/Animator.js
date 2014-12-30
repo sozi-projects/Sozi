@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.player", function (exports) {
+namespace("sozi.player", exports => {
     "use strict";
 
     /*
@@ -60,7 +60,7 @@ namespace("sozi.player", function (exports) {
 
             // Step all animators. We iterate over a copy of the animator list
             // in case the step() method removes an animator from the list.
-            animatorList.forEach(function (animator) {
+            animatorList.forEach(animator => {
                 if (animator.running) {
                     animator.step();
                 }

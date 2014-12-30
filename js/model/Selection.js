@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.editor.model", function (exports) {
+namespace("sozi.editor.model", exports => {
     "use strict";
 
     /*
@@ -35,34 +35,30 @@ namespace("sozi.editor.model", function (exports) {
 
         toStorable: function () {
             return {
-                selectedFrames: this.selectedFrames.map(function (frame) {
-                    return frame.frameId;
-                }),
-                selectedLayers: this.selectedLayers.map(function (layer) {
-                    return layer.groupId;
-                })
+                selectedFrames: this.selectedFrames.map(frame => frame.frameId),
+                selectedLayers: this.selectedLayers.map(layer => layer.groupId)
             };
         },
 
         fromStorable: function (storable) {
             if ("selectedFrames" in storable) {
                 this.selectedFrames = [];
-                storable.selectedFrames.forEach(function (frameId) {
+                storable.selectedFrames.forEach(frameId => {
                     var frame = this.presentation.getFrameWithId(frameId);
                     if (frame) {
                         this.selectedFrames.push(frame);
                     }
-                }, this);
+                });
             }
 
             if ("selectedLayers" in storable) {
                 this.selectedLayers = [];
-                storable.selectedLayers.forEach(function (groupId) {
+                storable.selectedLayers.forEach(groupId => {
                     var layer = this.presentation.getLayerWithId(groupId);
                     if (layer) {
                         this.selectedLayers.push(layer);
                     }
-                }, this);
+                });
             }
         },
 
@@ -79,9 +75,7 @@ namespace("sozi.editor.model", function (exports) {
         },
 
         hasFrames: function (frames) {
-            return frames.every(function (frame) {
-                return this.selectedFrames.indexOf(frame) >= 0;
-            }, this);
+            return frames.every(frame => this.selectedFrames.indexOf(frame) >= 0);
         },
 
         addFrame: function (frame) {
@@ -108,9 +102,7 @@ namespace("sozi.editor.model", function (exports) {
         },
 
         hasLayers: function (layers) {
-            return layers.every(function (layer) {
-                return this.selectedLayers.indexOf(layer) >= 0;
-            }, this);
+            return layers.every(layer => this.selectedLayers.indexOf(layer) >= 0);
         },
 
         addLayer: function (layer) {

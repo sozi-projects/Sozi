@@ -39,7 +39,7 @@
         var current = global;
 
         // For each name in the given path
-        path.split(".").forEach(function (name) {
+        path.split(".").forEach(name => {
             // If the current path element does not exist
             // in the current namespace, create a new sub-namespace
             if (typeof current[name] === "undefined") {

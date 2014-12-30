@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.model", function (exports) {
+namespace("sozi.model", exports => {
     "use strict";
 
     var SOZI_NS = "http://sozi.baierouge.fr";
@@ -59,9 +59,7 @@ namespace("sozi.model", function (exports) {
         // (ns1, ns2, ...). We first need to identify which one corresponds to the Sozi namespace.
 
         // Get the xmlns for the Sozi namespace
-        var soziNsAttrs = toArray(this.svgRoot.attributes).filter(function (a) {
-            return a.value === SOZI_NS;
-        });
+        var soziNsAttrs = toArray(this.svgRoot.attributes).filter(a => a.value === SOZI_NS);
         if (!soziNsAttrs.length) {
             return;
         }
@@ -69,9 +67,7 @@ namespace("sozi.model", function (exports) {
 
         // Get an ordered array of sozi:frame elements
         var frameElts = toArray(this.svgRoot.getElementsByTagName(soziPrefix + "frame"));
-        frameElts.sort(function (a, b) {
-            return parseInt(a.getAttribute(soziPrefix + "sequence")) - parseInt(b.getAttribute(soziPrefix + "sequence"));
-        });
+        frameElts.sort((a, b) => parseInt(a.getAttribute(soziPrefix + "sequence")) - parseInt(b.getAttribute(soziPrefix + "sequence")));
 
         // The "default" pool contains all layers that have no corresponding
         // <layer> element in any frame. The properties for these layers are
@@ -79,7 +75,7 @@ namespace("sozi.model", function (exports) {
         // the sequence of frames.
         var defaultLayers = this.layers.slice();
 
-        frameElts.forEach(function (frameElt, frameIndex) {
+        frameElts.forEach((frameElt, frameIndex) => {
             // Create a new frame with default camera states
             var frame = Object.create(sozi.model.Frame).init(this);
             this.frames.splice(frameIndex, 0, frame);
@@ -94,11 +90,11 @@ namespace("sozi.model", function (exports) {
             // Collect layer elements inside the current frame element
             var layerElts = toArray(frameElt.getElementsByTagName(soziPrefix + "layer"));
             var layerEltsByGroupId = {};
-            layerElts.forEach(function (layerElt) {
+            layerElts.forEach(layerElt => {
                 layerEltsByGroupId[layerElt.getAttribute(soziPrefix + "group")] = layerElt;
             });
 
-            this.layers.forEach(function (layer, layerIndex) {
+            this.layers.forEach((layer, layerIndex) => {
                 var layerElt = null;
                 if (layer.auto) {
                     // The "auto" layer is managed by the current <frame> element
@@ -145,10 +141,10 @@ namespace("sozi.model", function (exports) {
                 layerProperties.referenceElementAuto = false;
                 layerProperties.referenceElementHide = importAttribute(layerElt, soziPrefix + "hide", refLayerProperties.referenceElementHide, parseBoolean);
                 layerProperties.transitionTimingFunction = importAttribute(layerElt, soziPrefix + "transition-profile", refLayerProperties.transitionTimingFunction, convertTimingFunction);
-                layerProperties.transitionRelativeZoom = importAttribute(layerElt, soziPrefix + "transition-zoom-percent", refLayerProperties.transitionRelativeZoom, function (z) { return parseFloat(z) / 100; });
+                layerProperties.transitionRelativeZoom = importAttribute(layerElt, soziPrefix + "transition-zoom-percent", refLayerProperties.transitionRelativeZoom, z => parseFloat(z) / 100);
                 layerProperties.transitionPathId = importAttribute(layerElt, soziPrefix + "transition-path", refLayerProperties.transitionPathId);
                 layerProperties.transitionPathHide = importAttribute(layerElt, soziPrefix + "transition-path-hide", refLayerProperties.transitionPathHide, parseBoolean);
-            }, this);
+            });
 
             frame.frameId = importAttribute(frameElt, "id", refFrame.frameId);
             frame.title = importAttribute(frameElt, soziPrefix + "title", refFrame.title);
@@ -156,6 +152,6 @@ namespace("sozi.model", function (exports) {
             frame.timeoutMs = importAttribute(frameElt, soziPrefix + "timeout-ms", refFrame.timeoutMs, parseFloat);
             frame.timeoutEnable = importAttribute(frameElt, soziPrefix + "timeout-enable", refFrame.timeoutEnable, parseBoolean);
             frame.showInFrameList = importAttribute(frameElt, soziPrefix + "show-in-frame-list", refFrame.showInFrameList, parseBoolean);
-        }, this);
+        });
     };
 });

@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.player", function (exports) {
+namespace("sozi.player", exports => {
     "use strict";
 
     // Use left mouse button to drag
@@ -63,9 +63,7 @@ namespace("sozi.player", function (exports) {
             "DOMMouseScroll";                                       // Firefox < 17
         this.svgRoot.addEventListener(wheelEvent, this.onWheel.bind(this), false);
 
-        this.cameras = this.presentation.layers.map(function (layer) {
-            return Object.create(sozi.player.Camera).init(this, layer);
-        }, this);
+        this.cameras = this.presentation.layers.map(layer => Object.create(sozi.player.Camera).init(this, layer));
     };
 
     Object.defineProperty(Viewport, "svgRoot", {
@@ -75,9 +73,7 @@ namespace("sozi.player", function (exports) {
     });
 
     Viewport.getLayer = function (nodeId) {
-        return this.layers.filter(function (layer) {
-            return layer.nodeId === nodeId;
-        })[0];
+        return this.layers.filter(layer => layer.nodeId === nodeId)[0];
     };
 
     Viewport.onContextMenu = function (evt) {
@@ -341,16 +337,16 @@ namespace("sozi.player", function (exports) {
         this.svgRoot.setAttribute("width", this.width);
         this.svgRoot.setAttribute("height", this.height);
 
-        this.cameras.forEach(function (camera) {
+        this.cameras.forEach(camera => {
             camera.update();
         });
 
-        this.presentation.elementsToHide.forEach(function (id) {
+        this.presentation.elementsToHide.forEach(id => {
             var elt = document.getElementById(id);
             if (elt) {
                 elt.style.visibility = this.showHiddenElements ? "visible" : "hidden";
             }
-        }, this);
+        });
     };
 
     /*
@@ -360,9 +356,9 @@ namespace("sozi.player", function (exports) {
      *    - states: An array of camera states
      */
     Viewport.setAtStates = function (states) {
-        states.forEach(function (state, index) {
+        states.forEach((state, index) => {
             this.cameras[index].initFrom(state);
-        }, this);
+        });
     };
 
     /*
@@ -381,7 +377,7 @@ namespace("sozi.player", function (exports) {
      *    - The current viewport.
      */
     Viewport.translate = function (deltaX, deltaY) {
-        this.cameras.forEach(function (camera) {
+        this.cameras.forEach(camera => {
             if (camera.selected) {
                 camera.translate(deltaX, deltaY);
             }
@@ -408,7 +404,7 @@ namespace("sozi.player", function (exports) {
      *    - The current viewport.
      */
     Viewport.zoom = function (factor, x, y) {
-        this.cameras.forEach(function (camera) {
+        this.cameras.forEach(camera => {
             if (camera.selected) {
                 camera.zoom(factor, x, y);
             }
@@ -434,7 +430,7 @@ namespace("sozi.player", function (exports) {
      *    - userChangeState
      */
     Viewport.rotate = function (angle) {
-        this.cameras.forEach(function (camera) {
+        this.cameras.forEach(camera => {
             if (camera.selected) {
                 camera.rotate(angle);
             }
@@ -444,7 +440,7 @@ namespace("sozi.player", function (exports) {
     };
 
     Viewport.clip = function (x0, y0, x1, y1) {
-        this.cameras.forEach(function (camera) {
+        this.cameras.forEach(camera => {
             if (camera.selected) {
                 camera.clip(x0, y0, x1, y1);
             }

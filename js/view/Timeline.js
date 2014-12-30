@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.editor.view", function (exports) {
+namespace("sozi.editor.view", exports => {
     "use strict";
 
     var h = require("virtual-dom/h");
@@ -52,29 +52,27 @@ namespace("sozi.editor.view", function (exports) {
     };
 
     Timeline.onLoad = function () {
-        this.presentation.layers.forEach(function (layer) {
+        this.presentation.layers.forEach(layer => {
             if (this.editableLayers.indexOf(layer) < 0) {
                 this.defaultLayers.push(layer);
             }
-        }, this);
+        });
     };
 
     Timeline.toStorable = function () {
         return {
-            editableLayers: this.editableLayers.map(function (layer) {
-                return layer.groupId;
-            })
+            editableLayers: this.editableLayers.map(layer => layer.groupId)
         };
     };
 
     Timeline.fromStorable = function (storable) {
         if (storable.hasOwnProperty("editableLayers")) {
-            storable.editableLayers.forEach(function (groupId) {
+            storable.editableLayers.forEach(groupId => {
                 var layer = this.presentation.getLayerWithId(groupId);
                 if (layer) {
                     this.editableLayers.push(layer);
                 }
-            }, this);
+            });
         }
         return this;
     };
@@ -161,9 +159,7 @@ namespace("sozi.editor.view", function (exports) {
      */
     Object.defineProperty(Timeline, "defaultLayersAreSelected", {
         get: function () {
-            return this.defaultLayers.every(function (layer) {
-                return this.selection.selectedLayers.indexOf(layer) >= 0;
-            }, this);
+            return this.defaultLayers.every(layer => this.selection.selectedLayers.indexOf(layer) >= 0);
         }
     });
 
@@ -213,7 +209,7 @@ namespace("sozi.editor.view", function (exports) {
         // Corresponding rows in left and right tables must have the same height
         var leftRows  = Array.prototype.slice.call(topLeft.querySelectorAll("tr")).concat(Array.prototype.slice.call(bottomLeft.querySelectorAll("tr")));
         var rightRows = Array.prototype.slice.call(topRight.querySelectorAll("tr")).concat(Array.prototype.slice.call(bottomRight.querySelectorAll("tr")));
-        leftRows.forEach(function (leftRow, rowIndex) {
+        leftRows.forEach((leftRow, rowIndex) => {
             var rightRow = rightRows[rowIndex];
             var maxHeight = Math.max(leftRow.clientHeight, rightRow.clientHeight);
             leftRow.style.height = rightRow.style.height = maxHeight + "px";
@@ -221,11 +217,7 @@ namespace("sozi.editor.view", function (exports) {
     };
 
     Timeline.render = function () {
-        var self = this;
-
-        var defaultLayersAreVisible = this.defaultLayers.some(function (layer) {
-            return layer.isVisible;
-        });
+        var defaultLayersAreVisible = this.defaultLayers.some(layer => layer.isVisible);
 
         var defaultLayerIsNotEmpty = this.defaultLayers.length > 1 || this.defaultLayers[0].svgNodes.length;
 
@@ -250,21 +242,17 @@ namespace("sozi.editor.view", function (exports) {
                     h("tr",
                         h("th", {colspan: 2},
                             h("select", {
-                                onchange: function () {
-                                    var value = this.value;
-                                    this.value = "__add__";
-                                    self.addLayer(value);
+                                onchange: evt => {
+                                    var value = evt.target.value;
+                                    evt.target.value = "__add__";
+                                    this.addLayer(value);
                                 }
                             }, [
                                 h("option", {value: "__add__", selected: "selected"}, "Add layer")
                             ].concat(
                                 this.presentation.layers.slice().reverse()
-                                    .filter(function (layer) {
-                                        return !layer.auto && this.defaultLayers.indexOf(layer) >= 0;
-                                    }, this)
-                                    .map(function (layer) {
-                                        return h("option", {value: layer.index}, layer.label);
-                                    })
+                                    .filter(layer => !layer.auto && this.defaultLayers.indexOf(layer) >= 0)
+                                    .map(layer => h("option", {value: layer.index}, layer.label))
                             ))
                         )
                     )
@@ -292,11 +280,8 @@ namespace("sozi.editor.view", function (exports) {
                     ]),
                 ] : []).concat(
                     this.presentation.layers.slice().reverse()
-                        .filter(function (layer) {
-                            return this.editableLayers.indexOf(layer) >= 0;
-                        }, this)
-                        .map(function (layer) {
-                            return h("tr", [
+                        .filter(layer => this.editableLayers.indexOf(layer) >= 0)
+                        .map(layer => h("tr", [
                                 h("th.layer-icons", [
                                     layer.isVisible ?
                                         h("i.visibility.fa.fa-eye", {
@@ -316,8 +301,8 @@ namespace("sozi.editor.view", function (exports) {
                                     className: "layer-label" + (this.selection.selectedLayers.indexOf(layer) >= 0 ? " selected" : ""),
                                     onclick: this.updateLayerSelection.bind(this, layer.index)
                                 }, layer.label)
-                            ]);
-                        }, this)
+                            ])
+                        )
                 ).concat([
                     h("tr", {style: {visibility: "collapse"}}, [
                         h("th.layer-icons"),
@@ -327,8 +312,7 @@ namespace("sozi.editor.view", function (exports) {
             ]),
             h("div.timeline-top-right", [
                 h("table.timeline", [
-                    h("tr", this.presentation.frames.map(function (frame, frameIndex) {
-                        return h("th", {
+                    h("tr", this.presentation.frames.map((frame, frameIndex)  => h("th", {
                             className: "frame-index" +
                                 (this.selection.selectedFrames.indexOf(frame) >= 0 ? " selected" : "") +
                                 (frame === this.selection.currentFrame ? " current" : ""),
@@ -336,71 +320,62 @@ namespace("sozi.editor.view", function (exports) {
                         }, [
                             h("i.insert-before.fa.fa-arrow-circle-down", {
                                 title: "Insert selection before frame " + frameIndex,
-                                onclick: function (evt) {
-                                    self.controller.moveFrames(frameIndex);
+                                onclick: evt => {
+                                    this.controller.moveFrames(frameIndex);
                                     evt.stopPropagation();
                                 }
                             }),
                             h("i.insert-after.fa.fa-arrow-circle-down", {
                                 title: "Insert selection after frame " + frameIndex,
-                                onclick: function (evt) {
-                                    self.controller.moveFrames(frameIndex + 1);
+                                onclick: evt => {
+                                    this.controller.moveFrames(frameIndex + 1);
                                     evt.stopPropagation();
                                 }
                             }),
                             frameIndex.toString()
-                        ]);
-                    }, this)),
-                    h("tr", this.presentation.frames.map(function (frame, frameIndex) {
-                        return h("th", {
-                            title: frame.title,
-                            className: "frame-title" +
-                                (this.selection.selectedFrames.indexOf(frame) >= 0 ? " selected" : "") +
-                                (frame === this.selection.currentFrame ? " current" : ""),
-                            onclick: this.updateFrameSelection.bind(this, frameIndex)
-                        }, frame.title);
-                    }, this))
+                        ])
+                    )),
+                    h("tr",
+                      this.presentation.frames.map((frame, frameIndex) => h("th", {
+                                title: frame.title,
+                                className: "frame-title" +
+                                    (this.selection.selectedFrames.indexOf(frame) >= 0 ? " selected" : "") +
+                                    (frame === this.selection.currentFrame ? " current" : ""),
+                                onclick: this.updateFrameSelection.bind(this, frameIndex)
+                            }, frame.title)
+                        )
+                     )
                 ])
             ]),
             h("div.timeline-bottom-right", {
-                onscroll: function (evt) {
-                    self.rootNode.querySelector(".timeline-top-right").scrollLeft = this.scrollLeft;
-                    self.rootNode.querySelector(".timeline-bottom-left").scrollTop = this.scrollTop;
+                onscroll: evt => {
+                    this.rootNode.querySelector(".timeline-top-right").scrollLeft = evt.target.scrollLeft;
+                    this.rootNode.querySelector(".timeline-bottom-left").scrollTop = evt.target.scrollTop;
                 }
             }, [
                 h("table.timeline", (defaultLayerIsNotEmpty ? [
                     h("tr",
-                        this.presentation.frames.map(function (frame, frameIndex) {
-                            return h("td", {
-                                className:
-                                    (this.defaultLayersAreSelected && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
-                                    (frame === this.selection.currentFrame ? " current" : ""),
-                                onclick: this.updateLayerAndFrameSelection.bind(this, -1, frameIndex)
-                            });
-                        }, this)
+                        this.presentation.frames.map((frame, frameIndex) => h("td", {
+                            className:
+                                (this.defaultLayersAreSelected && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
+                                (frame === this.selection.currentFrame ? " current" : ""),
+                            onclick: this.updateLayerAndFrameSelection.bind(this, -1, frameIndex)
+                        }))
                     )
                 ] : []).concat(
                     this.presentation.layers.slice().reverse()
-                        .filter(function (layer) {
-                            return this.editableLayers.indexOf(layer) >= 0;
-                        }, this)
-                        .map(function (layer) {
-                            return h("tr",
-                                this.presentation.frames.map(function (frame, frameIndex) {
-                                    return h("td", {
-                                        className:
-                                            (this.selection.selectedLayers.indexOf(layer) >= 0 && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
-                                            (frame === this.selection.currentFrame ? " current" : ""),
-                                        onclick: this.updateLayerAndFrameSelection.bind(this, layer.index, frameIndex)
-                                    }, frame.layerProperties[layer.index].link ? h("i.fa.fa-link") : []);
-                                }, this)
-                            );
-                        }, this)
+                        .filter(layer => this.editableLayers.indexOf(layer) >= 0)
+                        .map(layer => h("tr",
+                            this.presentation.frames.map((frame, frameIndex) => h("td", {
+                                className:
+                                    (this.selection.selectedLayers.indexOf(layer) >= 0 && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
+                                    (frame === this.selection.currentFrame ? " current" : ""),
+                                onclick: this.updateLayerAndFrameSelection.bind(this, layer.index, frameIndex)
+                            }, frame.layerProperties[layer.index].link ? h("i.fa.fa-link") : []))
+                        ))
                 ).concat([
                     h("tr", {style: {visibility: "collapse"}},
-                        this.presentation.frames.map(function (frame) {
-                            return h("td", frame.title);
-                        })
+                        this.presentation.frames.map(frame => h("td", frame.title))
                     )
                 ]))
             ])

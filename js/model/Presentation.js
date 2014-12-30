@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.model", function (exports) {
+namespace("sozi.model", exports => {
     "use strict";
 
     var LayerProperties = {
@@ -117,12 +117,8 @@ namespace("sozi.model", function (exports) {
             this.timeoutEnable = false;
             this.transitionDurationMs = 1000;
             this.showInFrameList = true;
-            this.layerProperties = presentation.layers.map(function () {
-                return Object.create(LayerProperties).init(this);
-            }, this);
-            this.cameraStates = presentation.layers.map(function () {
-                return Object.create(sozi.model.CameraState).init(presentation.svgRoot);
-            });
+            this.layerProperties = presentation.layers.map(lp => Object.create(LayerProperties).init(this));
+            this.cameraStates = presentation.layers.map(cs => Object.create(sozi.model.CameraState).init(presentation.svgRoot));
             return this;
         },
 
@@ -134,12 +130,8 @@ namespace("sozi.model", function (exports) {
             this.timeoutEnable = other.timeoutEnable;
             this.transitionDurationMs = other.transitionDurationMs;
             this.showInFrameList = other.showInFrameList;
-            this.layerProperties = other.layerProperties.map(function (lp) {
-                return Object.create(LayerProperties).initFrom(lp);
-            });
-            this.cameraStates = other.cameraStates.map(function (cs) {
-                return Object.create(sozi.model.CameraState).initFrom(cs);
-            });
+            this.layerProperties = other.layerProperties.map(lp => Object.create(LayerProperties).initFrom(lp));
+            this.cameraStates = other.cameraStates.map(cs => Object.create(sozi.model.CameraState).initFrom(cs));
             return this;
         },
 
@@ -148,7 +140,7 @@ namespace("sozi.model", function (exports) {
             var cameraStates = {};
             var cameraOffsets = {};
 
-            this.presentation.layers.forEach(function (layer, index) {
+            this.presentation.layers.forEach((layer, index) => {
                 var lp = this.layerProperties[index];
                 var cs = this.cameraStates[index];
                 var re = lp.referenceElement;
@@ -159,7 +151,7 @@ namespace("sozi.model", function (exports) {
                 if (re) {
                     cameraOffsets[key] = this.cameraStates[index].offsetFromElement(re);
                 }
-            }, this);
+            });
 
             return {
                 frameId: this.frameId,
@@ -178,14 +170,14 @@ namespace("sozi.model", function (exports) {
             var layerProperties = {};
             var cameraStates = {};
 
-            this.presentation.layers.forEach(function (layer, index) {
+            this.presentation.layers.forEach((layer, index) => {
                 var lp = this.layerProperties[index];
                 var cs = this.cameraStates[index];
 
                 var key = layer.groupId;
                 layerProperties[key] = lp.toMinimalStorable();
                 cameraStates[key] = cs.toMinimalStorable();
-            }, this);
+            });
 
             return {
                 frameId: this.frameId,
@@ -208,7 +200,7 @@ namespace("sozi.model", function (exports) {
             this.showInFrameList = obj.showInFrameList;
 
             // TODO if obj.LayerProperties has keys not in layers, create fake layers marked as "deleted"
-            this.presentation.layers.forEach(function (layer, index) {
+            this.presentation.layers.forEach((layer, index) => {
                 var key = layer.groupId;
                 if (key in obj.layerProperties) {
                     var lp = this.layerProperties[index];
@@ -226,7 +218,7 @@ namespace("sozi.model", function (exports) {
                     }
                 }
                 // TODO else, link to "auto" layer
-            }, this);
+            });
 
             return this;
         },
@@ -236,9 +228,9 @@ namespace("sozi.model", function (exports) {
         },
 
         setAtStates: function (states) {
-            states.forEach(function (state, index) {
+            states.forEach((state, index) => {
                 this.cameraStates[index].initFrom(state);
-            }, this);
+            });
         }
     };
 
@@ -261,13 +253,11 @@ namespace("sozi.model", function (exports) {
         },
 
         get isVisible() {
-            return this.svgNodes.some(function (node) {
-                return window.getComputedStyle(node).visibility === "visible";
-            });
+            return this.svgNodes.some(node => window.getComputedStyle(node).visibility === "visible");
         },
 
         set isVisible(visible) {
-            this.svgNodes.forEach(function (node) {
+            this.svgNodes.forEach(node => {
                 node.style.visibility = visible ? "visible" : "hidden";
             });
         }
@@ -312,7 +302,7 @@ namespace("sozi.model", function (exports) {
             // Make a copy of svgRoot.childNodes before modifying the document.
             var svgNodeList = Array.prototype.slice.call(svgRoot.childNodes);
 
-            svgNodeList.forEach(function (svgNode) {
+            svgNodeList.forEach(svgNode => {
                 // Remove text nodes and comments
                 if (svgNode.tagName === undefined) {
                     svgRoot.removeChild(svgNode);
@@ -327,7 +317,7 @@ namespace("sozi.model", function (exports) {
                         //    - it is an SVG group element
                         //    - it has an id that has not been met before
                         if (nodeName === "g" && nodeId !== null &&
-                            this.layers.every(function (layer) { return layer.nodeId !== nodeId; })) {
+                            this.layers.every(layer => layer.nodeId !== nodeId)) {
                             // If the current wrapper layer contains elements,
                             // add it to the document and to the list of layers.
                             if (svgWrapper.firstChild) {
@@ -348,7 +338,7 @@ namespace("sozi.model", function (exports) {
                         }
                     }
                 }
-            }, this);
+            });
 
             // If the current wrapper layer contains elements,
             // add it to the document and to the list of layers.
@@ -362,10 +352,8 @@ namespace("sozi.model", function (exports) {
             // Prevent event propagation on hyperlinks
             var links = Array.prototype.slice.call(svgRoot.getElementsByTagName("a"));
 
-            links.forEach(function (link) {
-                link.addEventListener("mousedown", function (evt) {
-                    evt.stopPropagation();
-                }, false);
+            links.forEach(link => {
+                link.addEventListener("mousedown", evt => evt.stopPropagation(), false);
             });
 
             return this;
@@ -375,18 +363,14 @@ namespace("sozi.model", function (exports) {
             return {
                 aspectWidth: this.aspectWidth,
                 aspectHeight: this.aspectHeight,
-                frames: this.frames.map(function (frame) {
-                    return frame.toStorable();
-                }),
+                frames: this.frames.map(frame => frame.toStorable()),
                 elementsToHide: this.elementsToHide.slice()
             };
         },
 
         toMinimalStorable: function () {
             return {
-                frames: this.frames.map(function (frame) {
-                    return frame.toMinimalStorable();
-                }),
+                frames: this.frames.map(frame => frame.toMinimalStorable()),
                 elementsToHide: this.elementsToHide.slice()
             };
         },
@@ -395,9 +379,7 @@ namespace("sozi.model", function (exports) {
             this.aspectWidth = obj.aspectWidth;
             this.aspectHeight = obj.aspectHeight;
 
-            this.frames = obj.frames.map(function (f) {
-                return Object.create(sozi.model.Frame).init(this).fromStorable(f);
-            }, this);
+            this.frames = obj.frames.map(f => Object.create(sozi.model.Frame).init(this).fromStorable(f));
 
             if (obj.elementsToHide) {
                 this.elementsToHide = obj.elementsToHide.slice();
@@ -418,9 +400,7 @@ namespace("sozi.model", function (exports) {
             do {
                 frameId = prefix + suffix;
                 suffix ++;
-            } while (this.frames.some(function (frame) {
-                return frame.frameId === frameId;
-            }));
+            } while (this.frames.some(frame => frame.frameId === frameId));
             return frameId;
         },
 
@@ -450,18 +430,18 @@ namespace("sozi.model", function (exports) {
             var firstCameraStates = this.frames[0].cameraStates;
             var defaultCameraState = firstCameraStates[firstCameraStates.length - 1];
 
-            this.layers.forEach(function (layer, layerIndex) {
+            this.layers.forEach((layer, layerIndex) => {
                 var cameraState = defaultCameraState;
 
-                this.frames.forEach(function (frame) {
+                this.frames.forEach(frame => {
                     if (frame.layerProperties[layerIndex].link) {
                         frame.cameraStates[layerIndex].initFrom(cameraState);
                     }
                     else {
                         cameraState = frame.cameraStates[layerIndex];
                     }
-                }, this);
-            }, this);
+                });
+            });
         }
     };
 });

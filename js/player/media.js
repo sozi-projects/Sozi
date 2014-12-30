@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.player.media", function (exports) {
+namespace("sozi.player.media", exports => {
     "use strict";
 
 	var	svgNs = "http://www.w3.org/2000/svg";
@@ -64,7 +64,7 @@ namespace("sozi.player.media", function (exports) {
 
         // Replace them with HTML5 audio and video elements
         var mediaList = [];
-        mediaSources.forEach(function (source) {
+        mediaSources.forEach(source => {
             var rect = source.parentNode;
             var tagName = source.localName.slice(soziPrefix.length + 1);
 

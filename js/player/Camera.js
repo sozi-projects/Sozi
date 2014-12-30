@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.player", function (exports) {
+namespace("sozi.player", exports => {
     "use strict";
 
     // Constant: the Sozi namespace
@@ -48,12 +48,12 @@ namespace("sozi.player", function (exports) {
         viewport.svgRoot.appendChild(svgClippedGroup);
 
         // The groups that will support transformations
-        this.svgTransformGroups = layer.svgNodes.map(function (svgNode) {
+        this.svgTransformGroups = layer.svgNodes.map(svgNode => {
             var svgGroup = document.createElementNS(SVG_NS, "g");
             svgGroup.appendChild(svgNode);
             svgClippedGroup.appendChild(svgGroup);
             return svgGroup;
-        }, this);
+        });
 
         this.concealClipping();
 
@@ -227,13 +227,13 @@ namespace("sozi.player", function (exports) {
         var translateX = this.viewport.width  / scale / 2 - this.cx;
         var translateY = this.viewport.height / scale / 2 - this.cy;
 
-        this.svgTransformGroups.forEach(function (svgGroup) {
+        this.svgTransformGroups.forEach(svgGroup => {
             svgGroup.setAttribute("transform",
                 "scale(" + scale + ")" +
                 "translate(" + translateX + "," + translateY + ")" +
                 "rotate(" + (-this.angle) + ',' + this.cx + "," + this.cy + ")"
             );
-        }, this);
+        });
 
         return this;
     };

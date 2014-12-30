@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.player", function (exports) {
+namespace("sozi.player", exports => {
     "use strict";
 
     // Constants: default animation properties
@@ -243,11 +243,9 @@ namespace("sozi.player", function (exports) {
     Player.waitTimeout = function () {
         if (this.currentFrame.timeoutEnable) {
             this.waitingTimeout = true;
-            var self = this;
             var nextIndex = this.nextFrameIndex;
-            this.timeoutHandle = window.setTimeout(function () {
-                    self.moveToFrame(nextIndex);
-                },
+            this.timeoutHandle = window.setTimeout(
+                () => { this.moveToFrame(nextIndex); },
                 this.currentFrame.timeoutMs
             );
         }
@@ -337,7 +335,7 @@ namespace("sozi.player", function (exports) {
 
         this.playing = true;
 
-        this.viewport.cameras.forEach(function (camera) {
+        this.viewport.cameras.forEach(camera => {
             var timingFunction = sozi.player.timing[DEFAULT_TIMING_FUNCTION];
             var relativeZoom = DEFAULT_RELATIVE_ZOOM;
             var transitionPath = null;
@@ -355,7 +353,7 @@ namespace("sozi.player", function (exports) {
             }
 
             this.setupTransition(camera, timingFunction, relativeZoom, transitionPath, backwards);
-        }, this);
+        });
 
         this.animator.start(durationMs);
 
@@ -419,9 +417,9 @@ namespace("sozi.player", function (exports) {
     Player.previewFrame = function (index) {
         this.targetFrameIndex = index;
 
-        this.viewport.cameras.forEach(function (camera) {
+        this.viewport.cameras.forEach(camera => {
             this.setupTransition(camera, sozi.player.timing[DEFAULT_TIMING_FUNCTION], DEFAULT_RELATIVE_ZOOM);
-        }, this);
+        });
 
         this.animator.start(DEFAULT_TRANSITION_DURATION_MS);
         return this;
@@ -446,7 +444,7 @@ namespace("sozi.player", function (exports) {
     };
 
     Player.onAnimatorStep = function (progress) {
-        this.transitions.forEach(function (transition) {
+        this.transitions.forEach(transition => {
             transition.camera.interpolate(transition.initialState, transition.finalState, progress, transition.timingFunction, transition.relativeZoom, transition.svgPath, transition.reverse);
             transition.camera.update();
         });

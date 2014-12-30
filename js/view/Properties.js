@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.editor.view", function (exports) {
+namespace("sozi.editor.view", exports => {
     "use strict";
 
     var h = require("virtual-dom/h");
@@ -148,12 +148,11 @@ namespace("sozi.editor.view", function (exports) {
                     onchange: function () {
                         setter.call(c, property, this.value);
                     }
-                }, Object.keys(options).map(function (optionValue) {
-                    return h("option", {
+                }, Object.keys(options).map(optionValue => h("option", {
                         value: optionValue,
                         selected: value === optionValue
-                    }, options[optionValue]);
-                }, this))
+                    }, options[optionValue])
+                ))
             )
         ]);
     };
@@ -161,12 +160,12 @@ namespace("sozi.editor.view", function (exports) {
     Properties.getFrameProperty = function (property) {
         var values = [];
 
-        this.selection.selectedFrames.forEach(function (frame) {
+        this.selection.selectedFrames.forEach(frame => {
             var current = frame[property];
             if (values.indexOf(current) < 0) {
                 values.push(current);
             }
-        }, this);
+        });
 
         return values;
     };
@@ -174,14 +173,14 @@ namespace("sozi.editor.view", function (exports) {
     Properties.getLayerProperty = function (property) {
         var values = [];
 
-        this.selection.selectedFrames.forEach(function (frame) {
-            this.selection.selectedLayers.forEach(function (layer) {
+        this.selection.selectedFrames.forEach(frame => {
+            this.selection.selectedLayers.forEach(layer => {
                 var current = frame.layerProperties[layer.index][property];
                 if (values.indexOf(current) < 0) {
                     values.push(current);
                 }
-            }, this);
-        }, this);
+            });
+        });
 
         return values;
     };
@@ -189,14 +188,14 @@ namespace("sozi.editor.view", function (exports) {
     Properties.getCameraProperty = function (property) {
         var values = [];
 
-        this.selection.selectedFrames.forEach(function (frame) {
-            this.selection.selectedLayers.forEach(function (layer) {
+        this.selection.selectedFrames.forEach(frame => {
+            this.selection.selectedLayers.forEach(layer => {
                 var current = frame.cameraStates[layer.index][property];
                 if (values.indexOf(current) < 0) {
                     values.push(current);
                 }
-            }, this);
-        }, this);
+            });
+        });
 
         return values;
     };

@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.editor.backend", function (exports) {
+namespace("sozi.editor.backend", exports => {
     "use strict";
 
     var gui, fs, path, cwd, win;
@@ -33,10 +33,9 @@ namespace("sozi.editor.backend", function (exports) {
         sozi.editor.backend.AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-NodeWebkit-input" type="file" accept="image/svg+xml" autofocus>');
 
         // Load the SVG document selected in the file input
-        var self = this;
-        $("#sozi-editor-backend-NodeWebkit-input").change(function () {
-            if (this.files.length) {
-                self.load(this.files[0].path);
+        $("#sozi-editor-backend-NodeWebkit-input").change(evt => {
+            if (evt.target.files.length) {
+                this.load(evt.target.files[0].path);
             }
         });
 
@@ -50,10 +49,10 @@ namespace("sozi.editor.backend", function (exports) {
         $(window).blur(autosaveCallback);
 
         // Save automatically when closing the window
-        win.on("close", function () {
+        win.on("close", () => {
             $(window).off("blur");
             autosaveCallback();
-            this.close(true);
+            win.close(true);
         });
 
         // If a file name was provided on the command line,
@@ -81,20 +80,12 @@ namespace("sozi.editor.backend", function (exports) {
 
     NodeWebkit.find = function (name, location, callback) {
         var fileName = path.join(location, name);
-        fs.exists(fileName, function (found) {
-            if (found) {
-                callback(fileName);
-            }
-            else {
-                callback(null);
-            }
-        });
+        fs.exists(fileName, found => callback(found ? fileName : null));
     };
 
     NodeWebkit.load = function (fileDescriptor) {
         // Read file asynchronously and fire the "load" event.
-        var self = this;
-        fs.readFile(fileDescriptor, { encoding: "utf8" }, function (err, data) {
+        fs.readFile(fileDescriptor, { encoding: "utf8" }, (err, data) => {
             if (!err) {
                 // Watch for changes in the loaded file and fire the "change" event.
                 // The "change" event is fired only once if the the file is modified
@@ -105,17 +96,17 @@ namespace("sozi.editor.backend", function (exports) {
                 // file has not changed for 100 ms.
                 var watcher = fs.watch(fileDescriptor);
                 var timer;
-                watcher.on("change", function () {
+                watcher.on("change", () => {
                     if (timer) {
                         clearTimeout(timer);
                     }
-                    timer = setTimeout(function () {
+                    timer = setTimeout(() => {
                         watcher.close();
-                        self.emitEvent("change", [fileDescriptor]);
+                        this.emitEvent("change", [fileDescriptor]);
                     }, 100);
                 });
             }
-            self.emitEvent("load", [fileDescriptor, data, err]);
+            this.emitEvent("load", [fileDescriptor, data, err]);
         });
     };
 

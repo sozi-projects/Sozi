@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-window.addEventListener("load", function () {
+window.addEventListener("load", () => {
     "use strict";
 
     var nunjucks = require("nunjucks");
@@ -47,7 +47,7 @@ window.addEventListener("load", function () {
 
         // Remove any existing script inside the SVG DOM tree
         var scripts = Array.prototype.slice.call(svgRoot.getElementsByTagName("script"));
-        scripts.forEach(function (script) {
+        scripts.forEach(script => {
             script.parentNode.removeChild(script);
         });
 
@@ -69,7 +69,7 @@ window.addEventListener("load", function () {
      * It it does not exist, create it.
      */
     function openJSONFile(backend, name, location) {
-        backend.find(name, location, function (fileDescriptor) {
+        backend.find(name, location, fileDescriptor => {
             if (fileDescriptor) {
                 backend.load(fileDescriptor);
             }
@@ -85,7 +85,7 @@ window.addEventListener("load", function () {
                     $.notify("Document was imported from Sozi 13 or earlier.", "success");
                 }
 
-                backend.create(name, location, "application/json", getJSONData(), function (fileDescriptor) {
+                backend.create(name, location, "application/json", getJSONData(), fileDescriptor => {
                     autosaveJSON(backend, fileDescriptor);
                 });
 
@@ -105,12 +105,16 @@ window.addEventListener("load", function () {
 
         var jsonNeedsSaving = false;
 
-        controller.addListener("presentationChange", function () { jsonNeedsSaving = true; });
-        controller.addListener("editorStateChange",  function () { jsonNeedsSaving = true; });
+        function changeHandler() {
+            jsonNeedsSaving = true;
+        }
 
-        backend.autosave(fileDescriptor, function () { return jsonNeedsSaving; }, getJSONData);
+        controller.addListener("presentationChange", changeHandler);
+        controller.addListener("editorStateChange",  changeHandler);
 
-        backend.addListener("save", function (savedFileDescriptor) {
+        backend.autosave(fileDescriptor, () => jsonNeedsSaving, getJSONData);
+
+        backend.addListener("save", savedFileDescriptor => {
             if (fileDescriptor === savedFileDescriptor) {
                 jsonNeedsSaving = false;
                 $.notify("Saved " + backend.getName(fileDescriptor), "info");
@@ -125,7 +129,7 @@ window.addEventListener("load", function () {
      */
     function getJSONData() {
         var storable = {};
-        jsonSources.forEach(function (object) {
+        jsonSources.forEach(object => {
             var partial = object.toStorable();
             for (var key in partial) {
                 storable[key] = partial[key];
@@ -150,13 +154,13 @@ window.addEventListener("load", function () {
      * Create the exported HTML file if it does not exist.
      */
     function createHTMLFile(backend, name, location) {
-        backend.find(name, location, function (fileDescriptor) {
+        backend.find(name, location, fileDescriptor => {
             if (fileDescriptor) {
                 autosaveHTML(backend, fileDescriptor);
                 backend.save(fileDescriptor, exportHTML());
             }
             else {
-                backend.create(name, location, "text/html", exportHTML(), function (fileDescriptor) {
+                backend.create(name, location, "text/html", exportHTML(), fileDescriptor => {
                     autosaveHTML(backend, fileDescriptor);
                 });
             }
@@ -184,11 +188,15 @@ window.addEventListener("load", function () {
 
         var htmlNeedsSaving = false;
 
-        controller.addListener("presentationChange", function () { htmlNeedsSaving = true; });
+        function changeHandler() {
+            htmlNeedsSaving = true;
+        }
 
-        backend.autosave(fileDescriptor, function () { return htmlNeedsSaving; }, exportHTML);
+        controller.addListener("presentationChange", changeHandler);
 
-        backend.addListener("save", function (savedFileDescriptor) {
+        backend.autosave(fileDescriptor, () => htmlNeedsSaving, exportHTML);
+
+        backend.addListener("save", savedFileDescriptor => {
             if (fileDescriptor === savedFileDescriptor) {
                 htmlNeedsSaving = false;
                 $.notify("Saved " + backend.getName(fileDescriptor), "info");
@@ -198,11 +206,11 @@ window.addEventListener("load", function () {
 
     var svgFileDescriptor;
 
-    sozi.editor.backend.list.forEach(function (backend) {
+    sozi.editor.backend.list.forEach(backend => {
         var listItem = $("<li></li>");
         $("#sozi-editor-view-preview ul").append(listItem);
         backend
-            .addListener("load", function (fileDescriptor, data, err) {
+            .addListener("load", (fileDescriptor, data, err) => {
                 var name = backend.getName(fileDescriptor);
                 var location = backend.getLocation(fileDescriptor);
 
@@ -217,7 +225,7 @@ window.addEventListener("load", function () {
                         svgFileDescriptor = fileDescriptor;
 
                         openJSONFile(backend, name.replace(/\.svg$/, ".sozi.json"), location);
-                        controller.once("load", function () {
+                        controller.once("load", () => {
                             createHTMLFile(backend, name.replace(/\.svg$/, ".sozi.html"), location);
                         });
                     }
@@ -234,7 +242,7 @@ window.addEventListener("load", function () {
                     autosaveJSON(backend, fileDescriptor);
                 }
             })
-            .addListener("change", function (fileDescriptor) {
+            .addListener("change", fileDescriptor => {
                 if (fileDescriptor === svgFileDescriptor) {
                     $.notify("Document was changed. Reloading", "info");
                     backend.load(fileDescriptor);
