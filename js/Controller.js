@@ -78,17 +78,18 @@ namespace("sozi.editor", function (exports) {
      * Delete selected frames.
      */
     Controller.deleteFrames = function () {
-        var framesToDelete = this.selection.selectedFrames.slice().sort(function (a, b) {
+        // Sort the selected frames by presentation order.
+        var framesByIndex = this.selection.selectedFrames.slice().sort(function (a, b) {
             return a.index - b.index;
         });
-        var frameIndices = framesToDelete.map(function (frame) {
+        var frameIndices = framesByIndex.map(function (frame) {
             return frame.index;
         });
 
         this.perform(
             function () {
                 // Remove the selected frames and clear the selection.
-                framesToDelete.forEach(function (frame) {
+                framesByIndex.forEach(function (frame) {
                     this.presentation.frames.splice(frame.index, 1);
                 }, this);
                 this.selection.selectedFrames = [];
@@ -96,7 +97,7 @@ namespace("sozi.editor", function (exports) {
             },
             function () {
                 // Restore the deleted frames to their original locations.
-                framesToDelete.forEach(function (frame, i) {
+                framesByIndex.forEach(function (frame, i) {
                     this.presentation.frames.splice(frameIndices[i], 0, frame);
                 }, this);
                 this.presentation.updateLinkedLayers();
@@ -115,30 +116,45 @@ namespace("sozi.editor", function (exports) {
      *  - toFrameIndex: The index of the destination
      */
     Controller.moveFrames = function (toFrameIndex) {
-        // TODO add undo/redo
-
         // Sort the selected frames by presentation order.
         var framesByIndex = this.selection.selectedFrames.slice().sort(function (a, b) {
             return a.index - b.index;
         });
-
-        // Move the selected frames to the given index.
+        var frameIndices = framesByIndex.map(function (frame) {
+            return frame.index;
+        });
         framesByIndex.forEach(function (frame) {
             if (frame.index < toFrameIndex) {
                 toFrameIndex --;
             }
-            this.presentation.frames.splice(frame.index, 1);
-            this.presentation.frames.splice(toFrameIndex, 0, frame);
-            toFrameIndex ++;
-        }, this);
+        });
 
+        this.perform(
+            function () {
+                // Move the selected frames to the given index.
+                framesByIndex.forEach(function (frame) {
+                    this.presentation.frames.splice(frame.index, 1);
+                }, this);
+                framesByIndex.forEach(function (frame, i) {
+                    this.presentation.frames.splice(toFrameIndex + i, 0, frame);
+                }, this);
 
-        this.presentation.updateLinkedLayers();
+                this.presentation.updateLinkedLayers();
+            },
+            function () {
+                // Move the selected frames to their original locations.
+                framesByIndex.forEach(function (frame) {
+                    this.presentation.frames.splice(frame.index, 1);
+                }, this);
+                framesByIndex.forEach(function (frame, i) {
+                    this.presentation.frames.splice(frameIndices[i], 0, frame);
+                }, this);
 
-        // Trigger a repaint of the editor views.
-        this.emitEvent("presentationChange");
-        this.emitEvent("editorStateChange");
-        this.emitEvent("repaint");
+                this.presentation.updateLinkedLayers();
+            },
+            false,
+            ["presentationChange", "editorStateChange", "repaint"]
+        );
     };
 
     Controller.selectLayers = function (layers) {
@@ -330,47 +346,91 @@ namespace("sozi.editor", function (exports) {
     };
 
     Controller.setFrameProperty = function (propertyName, propertyValue) {
-        // TODO add undo/redo
-
-        this.selection.selectedFrames.forEach(function (frame) {
-            frame[propertyName] = propertyValue;
+        var selectedFrames = this.selection.selectedFrames.slice();
+        var savedValues = selectedFrames.map(function (frame) {
+            return frame[propertyName];
         });
 
-        // Trigger a repaint of the editor views.
-        this.emitEvent("presentationChange");
-        this.emitEvent("repaint");
+        this.perform(
+            function () {
+                selectedFrames.forEach(function (frame) {
+                    frame[propertyName] = propertyValue;
+                });
+            },
+            function () {
+                selectedFrames.forEach(function (frame, frameIndex) {
+                    frame[propertyName] = savedValues[frameIndex];
+                });
+            },
+            false,
+            ["presentationChange", "repaint"]
+        );
     };
 
     Controller.setLayerProperty = function (propertyName, propertyValue) {
-        // TODO add undo/redo
+        var selectedFrames = this.selection.selectedFrames.slice();
+        var selectedLayers = this.selection.selectedLayers.slice();
+        var savedValues = selectedFrames.map(function (frame) {
+            return selectedLayers.map(function (layer) {
+                return frame.layerProperties[layer.index][propertyName];
+            });
+        });
 
-        this.selection.selectedFrames.forEach(function (frame) {
-            this.selection.selectedLayers.forEach(function (layer) {
-                frame.layerProperties[layer.index][propertyName] = propertyValue;
-            }, this);
-        }, this);
+        this.perform(
+            function () {
+                selectedFrames.forEach(function (frame) {
+                    selectedLayers.forEach(function (layer) {
+                        frame.layerProperties[layer.index][propertyName] = propertyValue;
+                    }, this);
+                }, this);
 
-        this.presentation.updateLinkedLayers();
+                this.presentation.updateLinkedLayers();
+            },
+            function () {
+                selectedFrames.forEach(function (frame, frameIndex) {
+                    selectedLayers.forEach(function (layer, layerIndex) {
+                        frame.layerProperties[layer.index][propertyName] = savedValues[frameIndex][layerIndex];
+                    }, this);
+                }, this);
 
-        // Trigger a repaint of the editor views.
-        this.emitEvent("presentationChange");
-        this.emitEvent("repaint");
+                this.presentation.updateLinkedLayers();
+            },
+            false,
+            ["presentationChange", "repaint"]
+        );
     };
 
     Controller.setCameraProperty = function (propertyName, propertyValue) {
-        // TODO add undo/redo
+        var selectedFrames = this.selection.selectedFrames.slice();
+        var selectedLayers = this.selection.selectedLayers.slice();
+        var savedValues = selectedFrames.map(function (frame) {
+            return selectedLayers.map(function (layer) {
+                return frame.cameraStates[layer.index][propertyName];
+            });
+        });
 
-        this.selection.selectedFrames.forEach(function (frame) {
-            this.selection.selectedLayers.forEach(function (layer) {
-                frame.cameraStates[layer.index][propertyName] = propertyValue;
-            }, this);
-        }, this);
+        this.perform(
+            function () {
+                selectedFrames.forEach(function (frame) {
+                    selectedLayers.forEach(function (layer) {
+                        frame.cameraStates[layer.index][propertyName] = propertyValue;
+                    }, this);
+                }, this);
 
-        this.presentation.updateLinkedLayers();
+                this.presentation.updateLinkedLayers();
+            },
+            function () {
+                selectedFrames.forEach(function (frame, frameIndex) {
+                    selectedLayers.forEach(function (layer, layerIndex) {
+                        frame.cameraStates[layer.index][propertyName] = savedValues[frameIndex][layerIndex];
+                    }, this);
+                }, this);
 
-        // Trigger a repaint of the editor views.
-        this.emitEvent("presentationChange");
-        this.emitEvent("repaint");
+                this.presentation.updateLinkedLayers();
+            },
+            false,
+            ["presentationChange", "repaint"]
+        );
     };
 
     Controller.updateCameraStates = function () {
@@ -470,7 +530,7 @@ namespace("sozi.editor", function (exports) {
         this.undoStack.push(action);
         this.redoStack = [];
         onDo.call(this);
-        events.forEach(function (evt) { this.emitEvent(evt) }, this);
+        events.forEach(function (evt) { this.emitEvent(evt); }, this);
     };
 
     Controller.undo = function () {
@@ -484,7 +544,7 @@ namespace("sozi.editor", function (exports) {
             this.selection.selectedFrames = action.selectedFrames.slice();
             this.selection.selectedLayers = action.selectedLayers.slice();
         }
-        action.events.forEach(function (evt) { this.emitEvent(evt) }, this);
+        action.events.forEach(function (evt) { this.emitEvent(evt); }, this);
     };
 
     Controller.redo = function () {
@@ -494,7 +554,7 @@ namespace("sozi.editor", function (exports) {
         var action = this.redoStack.pop();
         this.undoStack.push(action);
         action.onDo.call(this);
-        action.events.forEach(function (evt) { this.emitEvent(evt) }, this);
+        action.events.forEach(function (evt) { this.emitEvent(evt); }, this);
     };
 
     exports.Controller = Controller;
