@@ -37,19 +37,21 @@ namespace("sozi.editor", function (exports) {
      * end of the presentation.
      */
     Controller.addFrame = function () {
+        var frameIndex;
+
         // Create a new frame
         var frame = Object.create(sozi.model.Frame);
 
         if (this.selection.currentFrame) {
             // If a frame is selected, insert the new frame after.
             frame.initFrom(this.selection.currentFrame);
-            this.presentation.frames.splice(this.selection.currentFrame.index + 1, 0, frame);
+            frameIndex = this.selection.currentFrame.index + 1;
         }
         else {
             // If no frame is selected, copy the state of the current viewport
             // and add the new frame at the end of the presentation.
             frame.init(this.presentation).setAtStates(this.viewport.cameras);
-            this.presentation.frames.push(frame);
+            frameIndex = this.presentation.frames.length;
         }
 
         // Set the 'link' flag to all layers in the new frame.
@@ -57,35 +59,51 @@ namespace("sozi.editor", function (exports) {
             layer.link = true;
         });
 
-        this.presentation.updateLinkedLayers();
-
-        // Clear the selection and select the new frame.
-        this.selection.selectedFrames = [frame];
-
-        // Trigger a repaint of the editor views.
-        this.emitEvent("presentationChange");
-        this.emitEvent("editorStateChange");
-        this.emitEvent("repaint");
+        this.perform(
+            function () {
+                this.presentation.frames.splice(frameIndex, 0, frame);
+                this.presentation.updateLinkedLayers();
+                this.selection.selectedFrames = [frame];
+            },
+            function () {
+                this.presentation.frames.splice(frameIndex, 1);
+                this.presentation.updateLinkedLayers();
+            },
+            true,
+            ["presentationChange", "editorStateChange", "repaint"]
+        );
     };
 
     /*
      * Delete selected frames.
      */
     Controller.deleteFrames = function () {
-        // Remove all selected frames from the presentation.
-        this.selection.selectedFrames.forEach(function (frame) {
-            this.presentation.frames.splice(frame.index, 1);
-        }, this);
+        var framesToDelete = this.selection.selectedFrames.slice().sort(function (a, b) {
+            return a.index - b.index;
+        });
+        var frameIndices = framesToDelete.map(function (frame) {
+            return frame.index;
+        });
 
-        this.presentation.updateLinkedLayers();
-
-        // Clear the selection.
-        this.selection.selectedFrames = [];
-
-        // Trigger a repaint of the editor views.
-        this.emitEvent("presentationChange");
-        this.emitEvent("editorStateChange");
-        this.emitEvent("repaint");
+        this.perform(
+            function () {
+                // Remove the selected frames and clear the selection.
+                framesToDelete.forEach(function (frame) {
+                    this.presentation.frames.splice(frame.index, 1);
+                }, this);
+                this.selection.selectedFrames = [];
+                this.presentation.updateLinkedLayers();
+            },
+            function () {
+                // Restore the deleted frames to their original locations.
+                framesToDelete.forEach(function (frame, i) {
+                    this.presentation.frames.splice(frameIndices[i], 0, frame);
+                }, this);
+                this.presentation.updateLinkedLayers();
+            },
+            true,
+            ["presentationChange", "editorStateChange", "repaint"]
+        );
     };
 
     /*
@@ -97,6 +115,8 @@ namespace("sozi.editor", function (exports) {
      *  - toFrameIndex: The index of the destination
      */
     Controller.moveFrames = function (toFrameIndex) {
+        // TODO add undo/redo
+
         // Sort the selected frames by presentation order.
         var framesByIndex = this.selection.selectedFrames.slice().sort(function (a, b) {
             return a.index - b.index;
@@ -288,6 +308,8 @@ namespace("sozi.editor", function (exports) {
     };
 
     Controller.fitElement = function () {
+        // TODO add undo/redo
+
         var frame = this.selection.currentFrame;
         if (frame) {
             this.selection.selectedLayers.forEach(function (layer) {
@@ -308,6 +330,8 @@ namespace("sozi.editor", function (exports) {
     };
 
     Controller.setFrameProperty = function (propertyName, propertyValue) {
+        // TODO add undo/redo
+
         this.selection.selectedFrames.forEach(function (frame) {
             frame[propertyName] = propertyValue;
         });
@@ -318,6 +342,8 @@ namespace("sozi.editor", function (exports) {
     };
 
     Controller.setLayerProperty = function (propertyName, propertyValue) {
+        // TODO add undo/redo
+
         this.selection.selectedFrames.forEach(function (frame) {
             this.selection.selectedLayers.forEach(function (layer) {
                 frame.layerProperties[layer.index][propertyName] = propertyValue;
@@ -332,6 +358,8 @@ namespace("sozi.editor", function (exports) {
     };
 
     Controller.setCameraProperty = function (propertyName, propertyValue) {
+        // TODO add undo/redo
+
         this.selection.selectedFrames.forEach(function (frame) {
             this.selection.selectedLayers.forEach(function (layer) {
                 frame.cameraStates[layer.index][propertyName] = propertyValue;
@@ -346,6 +374,8 @@ namespace("sozi.editor", function (exports) {
     };
 
     Controller.updateCameraStates = function () {
+        // TODO add undo/redo
+
         var frame = this.selection.currentFrame;
         if (frame) {
             this.viewport.cameras.forEach(function (camera) {
@@ -378,6 +408,8 @@ namespace("sozi.editor", function (exports) {
     };
 
     Controller.setReferenceElement = function (cameraIndex, referenceElement) {
+        // TODO add undo/redo
+
         var frame = this.selection.currentFrame;
         if (frame) {
             var layerProperties = frame.layerProperties[cameraIndex];
