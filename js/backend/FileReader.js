@@ -5,9 +5,9 @@
 namespace("sozi.editor.backend", exports => {
     "use strict";
 
-    var FileReader = Object.create(sozi.editor.backend.AbstractBackend);
+    var FileReaderBackend = Object.create(sozi.editor.backend.AbstractBackend);
 
-    FileReader.init = function (container) {
+    FileReaderBackend.init = function (container) {
         if (namespace.global.require) {
             return this;
         }
@@ -26,11 +26,11 @@ namespace("sozi.editor.backend", exports => {
         return this;
     };
 
-    FileReader.getName = function (fileDescriptor) {
+    FileReaderBackend.getName = function (fileDescriptor) {
         return fileDescriptor.name;
     };
 
-    FileReader.load = function (fileDescriptor) {
+    FileReaderBackend.load = function (fileDescriptor) {
         var reader = new FileReader();
         reader.readAsText(fileDescriptor, "utf8");
         reader.onload = () => {
@@ -38,7 +38,7 @@ namespace("sozi.editor.backend", exports => {
         };
     };
 
-    sozi.editor.backend.add(FileReader);
+    sozi.editor.backend.add(FileReaderBackend);
 
-    exports.FileReader = FileReader;
+    exports.FileReader = FileReaderBackend;
 });
