@@ -46,12 +46,12 @@ namespace("sozi.editor.view", exports => {
 
         controller.addListener("load", this.onLoad.bind(this));
 
-        window.addEventListener("resize", this.repaint.bind(this), false);
-
         return this;
     };
 
     Timeline.onLoad = function () {
+        $(window).resize(this.repaint.bind(this));
+
         this.presentation.layers.forEach(layer => {
             if (this.editableLayers.indexOf(layer) < 0) {
                 this.defaultLayers.push(layer);

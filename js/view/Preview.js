@@ -16,19 +16,17 @@ namespace("sozi.editor.view", exports => {
             this.viewport = viewport;
             this.controller = controller;
 
-            // Setup event handlers
-            var repaintHandler = this.repaint.bind(this);
-            $(window).resize(repaintHandler);
-            controller.addListener("repaint", repaintHandler);
             controller.addListener("load", this.onLoad.bind(this));
-
-            this.viewport.addListener("click", this.onClick.bind(this));
-            this.viewport.addListener("userChangeState", controller.updateCameraStates.bind(controller));
 
             return this;
         },
 
         onLoad: function () {
+            var repaintHandler = this.repaint.bind(this);
+            $(window).resize(repaintHandler);
+            this.viewport.addListener("click", this.onClick.bind(this));
+            this.viewport.addListener("userChangeState", this.controller.updateCameraStates.bind(this.controller));
+            this.controller.addListener("repaint", repaintHandler);
             this.container.addEventListener("mouseenter", this.onMouseEnter.bind(this), false);
             this.container.addEventListener("mouseleave", this.onMouseLeave.bind(this), false);
         },

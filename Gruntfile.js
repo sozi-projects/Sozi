@@ -3,53 +3,45 @@ module.exports = function(grunt) {
 
     var nunjucks = require("nunjucks");
 
-    grunt.loadNpmTasks("grunt-newer");
-    grunt.loadNpmTasks("grunt-rename");
-    grunt.loadNpmTasks("grunt-nunjucks");
-    grunt.loadNpmTasks("grunt-contrib-jshint");
-    grunt.loadNpmTasks("grunt-contrib-csslint");
-    grunt.loadNpmTasks("grunt-node-webkit-builder");
-    grunt.loadNpmTasks("grunt-contrib-compress");
-    grunt.loadNpmTasks("grunt-rsync");
-    grunt.loadNpmTasks("grunt-simple-mocha");
-    grunt.loadNpmTasks("grunt-modify-json");
-    grunt.loadNpmTasks("grunt-contrib-uglify");
-    grunt.loadNpmTasks("grunt-esnext");
+    require("load-grunt-tasks")(grunt);
     
     var version = grunt.template.today("yy.mm.ddHHMM");
     var pkg = grunt.file.readJSON("package.json");
 
     var editorJs = [
-        "js/namespace.js",
-        "js/model/CameraState.js",
-        "js/model/Presentation.js",
-        "js/model/Presentation.upgrade.js",
-        "js/player/Camera.js",
-        "js/player/Viewport.js",
-        "js/model/Selection.js",
-        "js/view/VirtualDOMView.js",
-        "js/view/Toolbar.js",
-        "js/view/Preview.js",
-        "js/view/Timeline.js",
-        "js/view/Properties.js",
-        "js/backend/AbstractBackend.js",
-        "js/backend/FileReader.js",
-        "js/backend/NodeWebkit.js",
-        "js/backend/GoogleDrive.js",
-        "js/backend/GoogleDrive.config.js",
-        "js/Controller.js",
-        "js/index.js"
+        "bower_components/eventEmitter/EventEmitter.js",
+        "<%= nunjucks.player.dest %>",
+        "build/js/namespace.js",
+        "build/js/model/CameraState.js",
+        "build/js/model/Presentation.js",
+        "build/js/model/Presentation.upgrade.js",
+        "build/js/player/Camera.js",
+        "build/js/player/Viewport.js",
+        "build/js/model/Selection.js",
+        "build/js/view/VirtualDOMView.js",
+        "build/js/view/Toolbar.js",
+        "build/js/view/Preview.js",
+        "build/js/view/Timeline.js",
+        "build/js/view/Properties.js",
+        "build/js/backend/AbstractBackend.js",
+        "build/js/backend/FileReader.js",
+        "build/js/backend/NodeWebkit.js",
+        "build/js/backend/GoogleDrive.js",
+        "build/js/backend/GoogleDrive.config.js",
+        "build/js/Controller.js",
+        "build/js/index.js"
     ];
     var playerJs = [
-        "js/namespace.js",
-        "js/model/CameraState.js",
-        "js/model/Presentation.js",
-        "js/player/Camera.js",
-        "js/player/Viewport.js",
-        "js/player/timing.js",
-        "js/player/Animator.js",
-        "js/player/Player.js",
-        "js/player/media.js"
+        "bower_components/eventEmitter/EventEmitter.js",
+        "build/js/namespace.js",
+        "build/js/model/CameraState.js",
+        "build/js/model/Presentation.js",
+        "build/js/player/Camera.js",
+        "build/js/player/Viewport.js",
+        "build/js/player/timing.js",
+        "build/js/player/Animator.js",
+        "build/js/player/Player.js",
+        "build/js/player/media.js"
     ];
 
     grunt.initConfig({
@@ -100,11 +92,24 @@ module.exports = function(grunt) {
             }
         },
 
-        esnext: {
+        "6to5": {
             options: {
-                arrowFunction: true
+                whitelist: ["es6.arrowFunctions"]
             },
+            all: {
+                files: [{
+                    expand: true,
+                    src: "js/**/*.js",
+                    dest: "build"
+                }]
+            }
+        },
+
+        browserify: {
             editor: {
+                options: {
+                    external: ["nw.gui", "fs", "path"]
+                },
                 src: editorJs,
                 dest: "build/js/sozi.editor.js"
             },
@@ -119,15 +124,16 @@ module.exports = function(grunt) {
          */
         uglify: {
             options: {
-//                compress: false,
-//                mangle: false,
-//                beautify: true
+                compress: false,
+                mangle: false,
+                beautify: true
+            },
+            editor: {
+                src: "<%= browserify.editor.dest %>",
+                dest: "build/js/sozi.editor.min.js"
             },
             player: {
-                src: [
-                    "bower_components/eventEmitter/EventEmitter.js",
-                    "<%= esnext.player.dest %>"
-                ],
+                src: "<%= browserify.player.dest %>",
                 dest: "build/js/sozi.player.min.js"
             }
         },
@@ -147,7 +153,7 @@ module.exports = function(grunt) {
         
         nunjucks: {
             player: {
-                src: [ "<%= nunjucks_render.player.dest %>"],
+                src: ["<%= nunjucks_render.player.dest %>"],
                 dest: "build/templates/sozi.player.templates.js"
             }
         },
@@ -172,19 +178,18 @@ module.exports = function(grunt) {
         nodewebkit: {
             options: {
                 buildDir: "build",
-                platforms: ["win", "osx", "linux64", "linux32"]
+                platforms: ["win64", "osx64", "linux64"]
             },
             editor: [
                 "package.json",
                 "index.html",
-                "<%= esnext.editor.dest %>",
+                "<%= uglify.editor.dest %>",
                 "css/**/*",
                 "vendor/**/*",
-                "build/templates/*",
                 "bower_components/**/*"
             ].concat(
                 Object.keys(pkg.dependencies).map(function (packageName) {
-                    return "node_modules/" + packageName + "/**/*"
+                    return "node_modules/" + packageName + "/**/*";
                 })
             )
         },
@@ -200,14 +205,13 @@ module.exports = function(grunt) {
                 options: {
                     src: [
                         "index.html",
-                        "<%= esnext.editor.dest %>",
                         "css",
                         "vendor",
                         "bower_components",
                         "build"
                     ],
-                    exclude: ["build/*"],
-                    include: ["build/templates"],
+                    exclude: ["build/templates"],
+                    include: ["<%= uglify.editor.dest %>"],
                     dest: "/var/www/sozi.baierouge.fr/demo/",
                     host: "www-data@baierouge.fr",
                     syncDest: true, // Delete files on destination
@@ -223,8 +227,10 @@ module.exports = function(grunt) {
     var targetConfig = {
         linux32: "tgz",
         linux64: "tgz",
-        win: "zip",
-        osx: "zip"
+        win32: "zip",
+        win64: "zip",
+        osx32: "zip",
+        osx64: "zip"
     };
 
     /*
@@ -264,7 +270,7 @@ module.exports = function(grunt) {
 
     // nunjucks_render cannot use newer because build/js/sozi.player.min.js
     // is not identified as a source file
-    grunt.registerTask("build", ["modify_json", "newer:esnext", "newer:uglify", "nunjucks_render", "newer:nunjucks"]);
+    grunt.registerTask("build", ["modify_json", "newer:6to5", "newer:browserify", "newer:uglify", "nunjucks_render", "newer:nunjucks"]);
 
     grunt.registerTask("default", ["build", "nodewebkit", "rename", "compress"]);
 };
