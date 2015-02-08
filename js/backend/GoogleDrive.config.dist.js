@@ -2,13 +2,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import {GoogleDrive} from "./GoogleDrive";
+
 /*
  * Use the Google Developers Console to generate an
  * OAuth client ID for web application.
  * This key will be restricted to the domain where the
  * web application is hosted.
  */
-sozi.editor.backend.GoogleDrive.clientId = "Your OAuth client Id";
+GoogleDrive.clientId = "Your OAuth client Id";
 
 /*
  * Use the Google Developers Console to generate a
@@ -16,4 +18,4 @@ sozi.editor.backend.GoogleDrive.clientId = "Your OAuth client Id";
  * This key will be restricted to the domain where the
  * web application is hosted.
  */
-sozi.editor.backend.GoogleDrive.apiKey = "Your developer API key";
+GoogleDrive.apiKey = "Your developer API key";

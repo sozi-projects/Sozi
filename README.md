@@ -32,8 +32,8 @@ or
     git checkout dev
 
 
-Install the build tools
------------------------
+Install the build tools and dependencies
+----------------------------------------
 
 Install [Node.js](http://nodejs.org/), [Bower](http://bower.io/)
 and the [Grunt](http://gruntjs.com/) CLI.
@@ -45,12 +45,6 @@ In Debian/Ubuntu and their derivatives, you can type the following commands.
 From the root of the source tree:
 
     npm install
-
-Install the dependencies
-------------------------
-
-Most dependencies are installed as Bower components:
-
     bower install
 
 Also install the following:
@@ -60,9 +54,18 @@ Also install the following:
 Build
 -----
 
-From the root of the source tree:
+To build the desktop application, run the following command from the root of the source tree:
 
     grunt
+
+Other Grunt tasks are available for developers:
+
+Command | Effect
+--------|-------
+`grunt nw-build`            | Build the desktop application without creating executable bundles.
+`grunt web-build`           | Build the web application without uploading it.
+`grunt nw-bundle` (default) | Build the desktop application and create executable bundles for various platforms.
+`grunt web-demo`            | Build the web application and upload it to a server.
 
 
 Install

@@ -2,37 +2,35 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.editor.view", exports => {
-    "use strict";
+"use strict";
 
-    var h = require("virtual-dom/h");
-    var createElement = require("virtual-dom/create-element");
-    var diff = require("virtual-dom/diff");
-    var patch = require("virtual-dom/patch");
+import h from "virtual-dom/h";
+import createElement from "virtual-dom/create-element";
+import diff from "virtual-dom/diff";
+import patch from "virtual-dom/patch";
 
-    exports.VirtualDOMView = {
+export var VirtualDOMView = {
 
-        init: function (container, controller) {
-            this.container = container;
-            this.controller = controller;
+    init: function (container, controller) {
+        this.container = container;
+        this.controller = controller;
 
-            this.vtree = h("div");
-            this.rootNode = createElement(this.vtree, {document: document});
-            container.appendChild(this.rootNode);
+        this.vtree = h("div");
+        this.rootNode = createElement(this.vtree, {document: document});
+        container.appendChild(this.rootNode);
 
-            controller.addListener("repaint", this.repaint.bind(this));
+        controller.addListener("repaint", this.repaint.bind(this));
 
-            return this;
-        },
+        return this;
+    },
 
-        repaint: function () {
-            var vtree = this.render();
-            this.rootNode = patch(this.rootNode, diff(this.vtree, vtree));
-            this.vtree = vtree;
-        },
+    repaint: function () {
+        var vtree = this.render();
+        this.rootNode = patch(this.rootNode, diff(this.vtree, vtree));
+        this.vtree = vtree;
+    },
 
-        render: function () {
-            return h("div");
-        }
-    };
-});
+    render: function () {
+        return h("div");
+    }
+};

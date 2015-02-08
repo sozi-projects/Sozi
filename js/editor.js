@@ -2,22 +2,33 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+import {backendList} from "./backend/AbstractBackend";
+import {Presentation} from "./model/Presentation";
+import "./model/Presentation.upgrade";
+import {Selection} from "./model/Selection";
+import {Viewport} from "./player/Viewport";
+import {Controller} from "./Controller";
+import {Preview} from "./view/Preview";
+import {Properties} from "./view/Properties";
+import {Toolbar} from "./view/Toolbar";
+import {Timeline} from "./view/Timeline";
+import nunjucks from "nunjucks";
+
 window.addEventListener("load", () => {
     "use strict";
 
-    var nunjucks = require("nunjucks");
-    nunjucks.configure("build/templates", {watch: false});
+    nunjucks.configure({watch: false});
+    
+    var presentation = Presentation;
+    var selection = Selection.init(presentation);
+    var viewport = Viewport.init(presentation);
 
-    var presentation = sozi.model.Presentation;
-    var selection = sozi.editor.model.Selection.init(presentation);
-    var viewport = sozi.player.Viewport.init(presentation);
+    var controller = Controller.init(presentation, selection, viewport);
 
-    var controller = sozi.editor.Controller.init(presentation, selection, viewport);
-
-    var preview = sozi.editor.view.Preview.init(document.getElementById("sozi-editor-view-preview"), presentation, selection, viewport, controller);
-    sozi.editor.view.Properties.init(document.getElementById("sozi-editor-view-properties"), selection, controller);
-    sozi.editor.view.Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), presentation, viewport, controller);
-    var timeline = sozi.editor.view.Timeline.init(document.getElementById("sozi-editor-view-timeline"), presentation, selection, controller);
+    var preview = Preview.init(document.getElementById("sozi-editor-view-preview"), presentation, selection, viewport, controller);
+    Properties.init(document.getElementById("sozi-editor-view-properties"), selection, controller);
+    Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), presentation, viewport, controller);
+    var timeline = Timeline.init(document.getElementById("sozi-editor-view-timeline"), presentation, selection, controller);
 
     // The objects that contain the presentation data and
     // the editor state that need to be saved.
@@ -171,7 +182,7 @@ window.addEventListener("load", () => {
      * Generate the content of the exported HTML file.
      */
     function exportHTML() {
-        return nunjucks.render("sozi.player.html", {
+        return nunjucks.render("build/templates/player.html", {
             svg: svgData,
             title: presentation.title,
             json: JSON.stringify(presentation.toMinimalStorable())
@@ -206,7 +217,7 @@ window.addEventListener("load", () => {
 
     var svgFileDescriptor;
 
-    sozi.editor.backend.list.forEach(backend => {
+    backendList.forEach(backend => {
         var listItem = $("<li></li>");
         $("#sozi-editor-view-preview ul").append(listItem);
         backend

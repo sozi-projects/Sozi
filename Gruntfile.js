@@ -8,42 +8,16 @@ module.exports = function(grunt) {
     var version = grunt.template.today("yy.mm.ddHHMM");
     var pkg = grunt.file.readJSON("package.json");
 
-    var editorJs = [
-        "bower_components/eventEmitter/EventEmitter.js",
-        "<%= nunjucks.player.dest %>",
-        "build/js/namespace.js",
-        "build/js/model/CameraState.js",
-        "build/js/model/Presentation.js",
-        "build/js/model/Presentation.upgrade.js",
-        "build/js/player/Camera.js",
-        "build/js/player/Viewport.js",
-        "build/js/model/Selection.js",
-        "build/js/view/VirtualDOMView.js",
-        "build/js/view/Toolbar.js",
-        "build/js/view/Preview.js",
-        "build/js/view/Timeline.js",
-        "build/js/view/Properties.js",
-        "build/js/backend/AbstractBackend.js",
-        "build/js/backend/FileReader.js",
-        "build/js/backend/NodeWebkit.js",
-        "build/js/backend/GoogleDrive.js",
-        "build/js/backend/GoogleDrive.config.js",
-        "build/js/Controller.js",
-        "build/js/index.js"
-    ];
-    var playerJs = [
-        "bower_components/eventEmitter/EventEmitter.js",
-        "build/js/namespace.js",
-        "build/js/model/CameraState.js",
-        "build/js/model/Presentation.js",
-        "build/js/player/Camera.js",
-        "build/js/player/Viewport.js",
-        "build/js/player/timing.js",
-        "build/js/player/Animator.js",
-        "build/js/player/Player.js",
-        "build/js/player/media.js"
-    ];
-
+    var backends = {
+        web: [
+            "build/js/backend/FileReader.js",
+            "build/js/backend/GoogleDrive.config.js"
+        ],
+        nw: [
+            "build/js/backend/NodeWebkit.js"
+        ]
+    };
+    
     grunt.initConfig({
         pkg: pkg,
 
@@ -92,9 +66,12 @@ module.exports = function(grunt) {
             }
         },
 
+        /*
+         * Transpile JavaScript source files from ES6 to ES5
+         */
         "6to5": {
             options: {
-                whitelist: ["es6.arrowFunctions"]
+                whitelist: ["es6.arrowFunctions", "es6.modules"]
             },
             all: {
                 files: [{
@@ -108,19 +85,24 @@ module.exports = function(grunt) {
         browserify: {
             editor: {
                 options: {
-                    external: ["nw.gui", "fs", "path"]
+                    external: ["nw.gui", "fs", "path", "process"]
                 },
-                src: editorJs,
-                dest: "build/js/sozi.editor.js"
+                src: [
+                    "<%= nunjucks.player.dest %>",
+                    "build/js/editor.js"
+                ],
+                dest: "build/js/editor.bundle.js"
             },
             player: {
-                src: playerJs,
-                dest: "build/js/sozi.player.js"
+                src: [
+                    "build/js/player.js"
+                ],
+                dest: "build/js/player.bundle.js"
             }
         },
 
         /*
-         * Compress the JavaScript code of the Sozi player.
+         * Compress the JavaScript code of the editor and player.
          */
         uglify: {
             options: {
@@ -130,11 +112,11 @@ module.exports = function(grunt) {
             },
             editor: {
                 src: "<%= browserify.editor.dest %>",
-                dest: "build/js/sozi.editor.min.js"
+                dest: "build/js/editor.min.js"
             },
             player: {
                 src: "<%= browserify.player.dest %>",
-                dest: "build/js/sozi.player.min.js"
+                dest: "build/js/player.min.js"
             }
         },
 
@@ -143,10 +125,10 @@ module.exports = function(grunt) {
          */
         nunjucks_render: {
             player: {
-                src: "templates/sozi.player.html",
-                dest: "build/templates/sozi.player.html",
+                src: "templates/player.html",
+                dest: "build/templates/player.html",
                 context: {
-                    playerJs: "<%= grunt.file.read('build/js/sozi.player.min.js') %>"
+                    playerJs: "<%= grunt.file.read('build/js/player.min.js') %>"
                 }
             }
         },
@@ -154,10 +136,32 @@ module.exports = function(grunt) {
         nunjucks: {
             player: {
                 src: ["<%= nunjucks_render.player.dest %>"],
-                dest: "build/templates/sozi.player.templates.js"
+                dest: "build/templates/player.templates.js"
             }
         },
 
+        copy: {
+            editor: {
+                files: [
+                    {
+                        expand: true,
+                        src: [
+                            "index.html",
+                            "package.json",
+                            "css/**/*",
+                            "vendor/**/*",
+                            "bower_components/**/*"
+                        ],
+                        dest: "build/app"
+                    },
+                    {
+                        src: "<%= uglify.editor.dest %>",
+                        dest: "build/app/js/editor.min.js"
+                    }
+                ]
+            }
+        },
+        
         compress: {
             media: {
                 options: {
@@ -180,18 +184,7 @@ module.exports = function(grunt) {
                 buildDir: "build",
                 platforms: ["win64", "osx64", "linux64"]
             },
-            editor: [
-                "package.json",
-                "index.html",
-                "<%= uglify.editor.dest %>",
-                "css/**/*",
-                "vendor/**/*",
-                "bower_components/**/*"
-            ].concat(
-                Object.keys(pkg.dependencies).map(function (packageName) {
-                    return "node_modules/" + packageName + "/**/*";
-                })
-            )
+            editor: ["build/app/**/*"]
         },
 
         /*
@@ -201,17 +194,9 @@ module.exports = function(grunt) {
             options: {
                 args: ["--verbose", "--update"]
             },
-            demo: {
+            editor: {
                 options: {
-                    src: [
-                        "index.html",
-                        "css",
-                        "vendor",
-                        "bower_components",
-                        "build"
-                    ],
-                    exclude: ["build/templates"],
-                    include: ["<%= uglify.editor.dest %>"],
+                    src: ["build/app/*"],
                     dest: "/var/www/sozi.baierouge.fr/demo/",
                     host: "www-data@baierouge.fr",
                     syncDest: true, // Delete files on destination
@@ -266,11 +251,48 @@ module.exports = function(grunt) {
         }, this);
     });
 
+    grunt.registerTask("backends-web", function () {
+        // grunt.config.merge does not work for this
+        grunt.config.set("browserify.editor.src",
+            grunt.config.get("browserify.editor.src").concat(backends.web)
+        );
+    });
+    
+    grunt.registerTask("backends-nw", function () {
+        // grunt.config.merge does not work for this
+        grunt.config.set("browserify.editor.src",
+            grunt.config.get("browserify.editor.src").concat(backends.nw)
+        );
+    });
+    
     grunt.registerTask("lint", ["jshint", "csslint"]);
 
-    // nunjucks_render cannot use newer because build/js/sozi.player.min.js
-    // is not identified as a source file
-    grunt.registerTask("build", ["modify_json", "newer:6to5", "newer:browserify", "newer:uglify", "nunjucks_render", "newer:nunjucks"]);
-
-    grunt.registerTask("default", ["build", "nodewebkit", "rename", "compress"]);
+    grunt.registerTask("build", [
+        "modify_json",
+        "6to5",
+        "browserify:player",
+        "uglify:player",
+        "nunjucks_render",
+        "nunjucks",
+        "browserify:editor",
+        "uglify:editor",
+        "copy"
+    ]);
+    
+    grunt.registerTask("nw-build",  ["backends-nw", "build"]);
+    grunt.registerTask("web-build", ["backends-web", "build"]);
+    
+    grunt.registerTask("nw-bundle", [
+        "nw-build",
+        "nodewebkit",
+        "rename",
+        "compress"
+    ]);
+    
+    grunt.registerTask("web-demo", [
+        "web-build",
+        "rsync"
+    ]);
+    
+    grunt.registerTask("default", ["nw-bundle"]);
 };

@@ -2,156 +2,156 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-namespace("sozi.model", exports => {
-    "use strict";
+"use strict";
 
-    var SOZI_NS = "http://sozi.baierouge.fr";
+import {Presentation, Frame} from "./Presentation";
 
-    function toArray(coll) {
-        return Array.prototype.slice.call(coll);
+var SOZI_NS = "http://sozi.baierouge.fr";
+
+function toArray(coll) {
+    return Array.prototype.slice.call(coll);
+}
+
+function parseBoolean(str) {
+    return str === "true";
+}
+
+function convertTimingFunction(str) {
+    switch (str) {
+            case "accelerate":
+            case "strong-accelerate":
+                return "easeIn";
+
+            case "decelerate":
+            case "strong-decelerate":
+                return "easeOut";
+
+            case "accelerate-decelerate":
+            case "strong-accelerate-decelerate":
+                return "easeInOut";
+
+            case "immediate-beginning":
+                return "stepStart";
+
+            case "immediate-end":
+                return "stepEnd";
+
+            case "immediate-middle":
+                return "stepMiddle";
+
+            default:
+                return "linear";
     }
+}
 
-    function parseBoolean(str) {
-        return str === "true";
+function importAttribute(elt, name, value, fn) {
+    fn = fn || function (x) { return x; };
+    return elt && elt.hasAttribute(name) ?
+        fn(elt.getAttribute(name)) :
+        value;
+}
+
+Presentation.upgrade = function () {
+    // In the inlined SVG, DOM accessors fail to get elements with explicit XML namespaces.
+    // getElementsByTagNameNS, getAttributeNS do not work for elements with the Sozi namespace.
+    // We need to use an explicit namespace prefix ("ns:attr") and use methods
+    // getElementsByTagName and getAttribute as if the prefix was part of the attribute name.
+    // With SVG documents from Inkscape, custom namespaces have an automatically generated prefix
+    // (ns1, ns2, ...). We first need to identify which one corresponds to the Sozi namespace.
+
+    // Get the xmlns for the Sozi namespace
+    var soziNsAttrs = toArray(this.svgRoot.attributes).filter(a => a.value === SOZI_NS);
+    if (!soziNsAttrs.length) {
+        return;
     }
+    var soziPrefix = soziNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
 
-    function convertTimingFunction(str) {
-        switch (str) {
-                case "accelerate":
-                case "strong-accelerate":
-                    return "easeIn";
+    // Get an ordered array of sozi:frame elements
+    var frameElts = toArray(this.svgRoot.getElementsByTagName(soziPrefix + "frame"));
+    frameElts.sort((a, b) => parseInt(a.getAttribute(soziPrefix + "sequence")) - parseInt(b.getAttribute(soziPrefix + "sequence")));
 
-                case "decelerate":
-                case "strong-decelerate":
-                    return "easeOut";
+    // The "default" pool contains all layers that have no corresponding
+    // <layer> element in any frame. The properties for these layers are
+    // set in the <frame> elements. This array is updated as we process
+    // the sequence of frames.
+    var defaultLayers = this.layers.slice();
 
-                case "accelerate-decelerate":
-                case "strong-accelerate-decelerate":
-                    return "easeInOut";
+    frameElts.forEach((frameElt, frameIndex) => {
+        // Create a new frame with default camera states
+        var frame = Object.create(Frame).init(this);
+        this.frames.splice(frameIndex, 0, frame);
+        var refFrame = frame;
 
-                case "immediate-beginning":
-                    return "stepStart";
-
-                case "immediate-end":
-                    return "stepEnd";
-
-                case "immediate-middle":
-                    return "stepMiddle";
-
-                default:
-                    return "linear";
+        // If this is not the first frame, the state is cloned from the previous frame.
+        if (frameIndex) {
+            refFrame = this.frames[frameIndex - 1];
+            frame.setAtStates(refFrame.cameraStates);
         }
-    }
 
-    function importAttribute(elt, name, value, fn) {
-        fn = fn || function (x) { return x; };
-        return elt && elt.hasAttribute(name) ?
-            fn(elt.getAttribute(name)) :
-            value;
-    }
+        // Collect layer elements inside the current frame element
+        var layerElts = toArray(frameElt.getElementsByTagName(soziPrefix + "layer"));
+        var layerEltsByGroupId = {};
+        layerElts.forEach(layerElt => {
+            layerEltsByGroupId[layerElt.getAttribute(soziPrefix + "group")] = layerElt;
+        });
 
-    sozi.model.Presentation.upgrade = function () {
-        // In the inlined SVG, DOM accessors fail to get elements with explicit XML namespaces.
-        // getElementsByTagNameNS, getAttributeNS do not work for elements with the Sozi namespace.
-        // We need to use an explicit namespace prefix ("ns:attr") and use methods
-        // getElementsByTagName and getAttribute as if the prefix was part of the attribute name.
-        // With SVG documents from Inkscape, custom namespaces have an automatically generated prefix
-        // (ns1, ns2, ...). We first need to identify which one corresponds to the Sozi namespace.
-
-        // Get the xmlns for the Sozi namespace
-        var soziNsAttrs = toArray(this.svgRoot.attributes).filter(a => a.value === SOZI_NS);
-        if (!soziNsAttrs.length) {
-            return;
-        }
-        var soziPrefix = soziNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
-
-        // Get an ordered array of sozi:frame elements
-        var frameElts = toArray(this.svgRoot.getElementsByTagName(soziPrefix + "frame"));
-        frameElts.sort((a, b) => parseInt(a.getAttribute(soziPrefix + "sequence")) - parseInt(b.getAttribute(soziPrefix + "sequence")));
-
-        // The "default" pool contains all layers that have no corresponding
-        // <layer> element in any frame. The properties for these layers are
-        // set in the <frame> elements. This array is updated as we process
-        // the sequence of frames.
-        var defaultLayers = this.layers.slice();
-
-        frameElts.forEach((frameElt, frameIndex) => {
-            // Create a new frame with default camera states
-            var frame = Object.create(sozi.model.Frame).init(this);
-            this.frames.splice(frameIndex, 0, frame);
-            var refFrame = frame;
-
-            // If this is not the first frame, the state is cloned from the previous frame.
-            if (frameIndex) {
-                refFrame = this.frames[frameIndex - 1];
-                frame.setAtStates(refFrame.cameraStates);
+        this.layers.forEach((layer, layerIndex) => {
+            var layerElt = null;
+            if (layer.auto) {
+                // The "auto" layer is managed by the current <frame> element
+                layerElt = frameElt;
             }
-
-            // Collect layer elements inside the current frame element
-            var layerElts = toArray(frameElt.getElementsByTagName(soziPrefix + "layer"));
-            var layerEltsByGroupId = {};
-            layerElts.forEach(layerElt => {
-                layerEltsByGroupId[layerElt.getAttribute(soziPrefix + "group")] = layerElt;
-            });
-
-            this.layers.forEach((layer, layerIndex) => {
-                var layerElt = null;
-                if (layer.auto) {
-                    // The "auto" layer is managed by the current <frame> element
+            else {
+                // If the current layer has a corresponding <layer> element, use it
+                // and consider that the layer is no longer in the "default" pool.
+                // Else, if the layer is in the "default" pool, then it is managed
+                // by the <frame> element.
+                // Other frames are cloned from the predecessors.
+                var defaultLayerIndex = defaultLayers.indexOf(layer);
+                var groupId = layer.svgNodes[0].getAttribute("id");
+                if (groupId in layerEltsByGroupId) {
+                    layerElt = layerEltsByGroupId[groupId];
+                    if (defaultLayerIndex >= 0) {
+                        defaultLayers.splice(defaultLayerIndex, 1);
+                    }
+                }
+                else if (defaultLayerIndex >= 0) {
                     layerElt = frameElt;
                 }
-                else {
-                    // If the current layer has a corresponding <layer> element, use it
-                    // and consider that the layer is no longer in the "default" pool.
-                    // Else, if the layer is in the "default" pool, then it is managed
-                    // by the <frame> element.
-                    // Other frames are cloned from the predecessors.
-                    var defaultLayerIndex = defaultLayers.indexOf(layer);
-                    var groupId = layer.svgNodes[0].getAttribute("id");
-                    if (groupId in layerEltsByGroupId) {
-                        layerElt = layerEltsByGroupId[groupId];
-                        if (defaultLayerIndex >= 0) {
-                            defaultLayers.splice(defaultLayerIndex, 1);
-                        }
-                    }
-                    else if (defaultLayerIndex >= 0) {
-                        layerElt = frameElt;
-                    }
+            }
+
+            // It the current layer is managed by a <frame> or <layer> element,
+            // update the camera state for this layer.
+            if (layerElt && layerElt.hasAttribute(soziPrefix + "refid")) {
+                var refElt = this.svgRoot.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
+                if (!refElt) {
+                    console.log("Element not found: #" + layerElt.getAttribute(soziPrefix + "refid"));
+                    return;
                 }
 
-                // It the current layer is managed by a <frame> or <layer> element,
-                // update the camera state for this layer.
-                if (layerElt && layerElt.hasAttribute(soziPrefix + "refid")) {
-                    var refElt = this.svgRoot.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
-                    if (!refElt) {
-                        console.log("Element not found: #" + layerElt.getAttribute(soziPrefix + "refid"));
-                        return;
-                    }
+                frame.cameraStates[layerIndex].setAtElement(refElt);
+                frame.layerProperties[layerIndex].link = false;
+            }
 
-                    frame.cameraStates[layerIndex].setAtElement(refElt);
-                    frame.layerProperties[layerIndex].link = false;
-                }
-
-                var refLayerProperties = refFrame.layerProperties[layerIndex];
-                var refCameraState = refFrame.cameraStates[layerIndex];
-                var layerProperties = frame.layerProperties[layerIndex];
-                var cameraState = frame.cameraStates[layerIndex];
-                cameraState.clipped = importAttribute(layerElt, soziPrefix + "clip", refCameraState.clipped, parseBoolean);
-                layerProperties.referenceElementId = importAttribute(layerElt, soziPrefix + "refid", refLayerProperties.referenceElementId);
-                layerProperties.referenceElementAuto = false;
-                layerProperties.referenceElementHide = importAttribute(layerElt, soziPrefix + "hide", refLayerProperties.referenceElementHide, parseBoolean);
-                layerProperties.transitionTimingFunction = importAttribute(layerElt, soziPrefix + "transition-profile", refLayerProperties.transitionTimingFunction, convertTimingFunction);
-                layerProperties.transitionRelativeZoom = importAttribute(layerElt, soziPrefix + "transition-zoom-percent", refLayerProperties.transitionRelativeZoom, z => parseFloat(z) / 100);
-                layerProperties.transitionPathId = importAttribute(layerElt, soziPrefix + "transition-path", refLayerProperties.transitionPathId);
-                layerProperties.transitionPathHide = importAttribute(layerElt, soziPrefix + "transition-path-hide", refLayerProperties.transitionPathHide, parseBoolean);
-            });
-
-            frame.frameId = importAttribute(frameElt, "id", refFrame.frameId);
-            frame.title = importAttribute(frameElt, soziPrefix + "title", refFrame.title);
-            frame.transitionDurationMs = importAttribute(frameElt, soziPrefix + "transition-duration-ms", refFrame.transitionDurationMs, parseFloat);
-            frame.timeoutMs = importAttribute(frameElt, soziPrefix + "timeout-ms", refFrame.timeoutMs, parseFloat);
-            frame.timeoutEnable = importAttribute(frameElt, soziPrefix + "timeout-enable", refFrame.timeoutEnable, parseBoolean);
-            frame.showInFrameList = importAttribute(frameElt, soziPrefix + "show-in-frame-list", refFrame.showInFrameList, parseBoolean);
+            var refLayerProperties = refFrame.layerProperties[layerIndex];
+            var refCameraState = refFrame.cameraStates[layerIndex];
+            var layerProperties = frame.layerProperties[layerIndex];
+            var cameraState = frame.cameraStates[layerIndex];
+            cameraState.clipped = importAttribute(layerElt, soziPrefix + "clip", refCameraState.clipped, parseBoolean);
+            layerProperties.referenceElementId = importAttribute(layerElt, soziPrefix + "refid", refLayerProperties.referenceElementId);
+            layerProperties.referenceElementAuto = false;
+            layerProperties.referenceElementHide = importAttribute(layerElt, soziPrefix + "hide", refLayerProperties.referenceElementHide, parseBoolean);
+            layerProperties.transitionTimingFunction = importAttribute(layerElt, soziPrefix + "transition-profile", refLayerProperties.transitionTimingFunction, convertTimingFunction);
+            layerProperties.transitionRelativeZoom = importAttribute(layerElt, soziPrefix + "transition-zoom-percent", refLayerProperties.transitionRelativeZoom, z => parseFloat(z) / 100);
+            layerProperties.transitionPathId = importAttribute(layerElt, soziPrefix + "transition-path", refLayerProperties.transitionPathId);
+            layerProperties.transitionPathHide = importAttribute(layerElt, soziPrefix + "transition-path-hide", refLayerProperties.transitionPathHide, parseBoolean);
         });
-    };
-});
+
+        frame.frameId = importAttribute(frameElt, "id", refFrame.frameId);
+        frame.title = importAttribute(frameElt, soziPrefix + "title", refFrame.title);
+        frame.transitionDurationMs = importAttribute(frameElt, soziPrefix + "transition-duration-ms", refFrame.transitionDurationMs, parseFloat);
+        frame.timeoutMs = importAttribute(frameElt, soziPrefix + "timeout-ms", refFrame.timeoutMs, parseFloat);
+        frame.timeoutEnable = importAttribute(frameElt, soziPrefix + "timeout-enable", refFrame.timeoutEnable, parseBoolean);
+        frame.showInFrameList = importAttribute(frameElt, soziPrefix + "show-in-frame-list", refFrame.showInFrameList, parseBoolean);
+    });
+};
