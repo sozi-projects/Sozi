@@ -126,7 +126,7 @@ GoogleDrive.create = function (name, location, mimeType, data, callback) {
     var metadata = {
         title: name,
         parents: location,
-        mimeType: mimeType
+        mimeType
     };
 
     var multipartRequestBody =

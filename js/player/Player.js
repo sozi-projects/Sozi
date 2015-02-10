@@ -161,26 +161,26 @@ Player.onKeyPress = function (evt) {
 };
 
 Object.defineProperty(Player, "currentFrame", {
-    get: function () {
+    get() {
         return this.presentation.frames[this.currentFrameIndex];
     }
 });
 
 Object.defineProperty(Player, "targetFrame", {
-    get: function () {
+    get() {
         return this.presentation.frames[this.targetFrameIndex];
     }
 });
 
 Object.defineProperty(Player, "previousFrameIndex", {
-    get: function () {
+    get() {
         var index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
         return (index - 1) % this.presentation.frames.length;
     }
 });
 
 Object.defineProperty(Player, "nextFrameIndex", {
-    get: function () {
+    get() {
         var index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
         return (index + 1) % this.presentation.frames.length;
     }
@@ -435,13 +435,13 @@ Player.setupTransition = function (camera, timingFunction, relativeZoom, svgPath
     }
 
     this.transitions.push({
-        camera: camera,
+        camera,
         initialState: Object.create(CameraState).initFrom(camera),
         finalState: this.targetFrame.cameraStates[camera.layer.index],
-        timingFunction: timingFunction,
-        relativeZoom: relativeZoom,
-        svgPath: svgPath,
-        reverse: reverse
+        timingFunction,
+        relativeZoom,
+        svgPath,
+        reverse
     });
 
     return this;

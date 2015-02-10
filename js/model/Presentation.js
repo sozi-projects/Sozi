@@ -8,7 +8,7 @@ import {CameraState} from "./CameraState";
 
 export var LayerProperties = {
 
-    init: function (frame) {
+    init(frame) {
         this.frame = frame;
         this.link = false;
         this.referenceElementId = "";
@@ -19,7 +19,7 @@ export var LayerProperties = {
         return this;
     },
 
-    initFrom: function (other) {
+    initFrom(other) {
         this.frame = other.frame;
         this.link = other.link;
         this.referenceElementId = other.referenceElementId;
@@ -30,7 +30,7 @@ export var LayerProperties = {
         return this;
     },
 
-    toStorable: function () {
+    toStorable() {
         return {
             link: this.link,
             referenceElementId: this.referenceElementId,
@@ -41,7 +41,7 @@ export var LayerProperties = {
         };
     },
 
-    toMinimalStorable: function () {
+    toMinimalStorable() {
         return {
             transitionTimingFunction: this.transitionTimingFunction,
             transitionRelativeZoom: this.transitionRelativeZoom,
@@ -49,7 +49,7 @@ export var LayerProperties = {
         };
     },
 
-    fromStorable: function (storable) {
+    fromStorable(storable) {
         this.link = storable.link;
         this.referenceElementId = storable.referenceElementId;
         this.referenceElementAuto = storable.referenceElementAuto;
@@ -110,7 +110,7 @@ export var LayerProperties = {
 
 export var Frame = {
 
-    init: function (presentation) {
+    init(presentation) {
         this.presentation = presentation;
         this.frameId = presentation.makeFrameId();
         this.title = "New frame";
@@ -123,7 +123,7 @@ export var Frame = {
         return this;
     },
 
-    initFrom: function (other, preserveId) {
+    initFrom(other, preserveId) {
         this.presentation = other.presentation;
         if (!preserveId) {
             this.frameId = other.presentation.makeFrameId();
@@ -138,7 +138,7 @@ export var Frame = {
         return this;
     },
 
-    toStorable: function () {
+    toStorable() {
         var layerProperties = {};
         var cameraStates = {};
         var cameraOffsets = {};
@@ -163,13 +163,13 @@ export var Frame = {
             timeoutEnable: this.timeoutEnable,
             transitionDurationMs: this.transitionDurationMs,
             showInFrameList: this.showInFrameList,
-            layerProperties: layerProperties,
-            cameraStates: cameraStates,
-            cameraOffsets: cameraOffsets
+            layerProperties,
+            cameraStates,
+            cameraOffsets
         };
     },
 
-    toMinimalStorable: function () {
+    toMinimalStorable() {
         var layerProperties = {};
         var cameraStates = {};
 
@@ -189,12 +189,12 @@ export var Frame = {
             timeoutEnable: this.timeoutEnable,
             transitionDurationMs: this.transitionDurationMs,
             showInFrameList: this.showInFrameList,
-            layerProperties: layerProperties,
-            cameraStates: cameraStates
+            layerProperties,
+            cameraStates
         };
     },
 
-    fromStorable: function (obj) {
+    fromStorable(obj) {
         this.frameId = obj.frameId;
         this.title = obj.title;
         this.timeoutMs = obj.timeoutMs;
@@ -230,7 +230,7 @@ export var Frame = {
         return this.presentation.frames.indexOf(this);
     },
 
-    setAtStates: function (states) {
+    setAtStates(states) {
         states.forEach((state, index) => {
             this.cameraStates[index].initFrom(state);
         });
@@ -239,7 +239,7 @@ export var Frame = {
 
 export var Layer = {
 
-    init: function (presentation, label, auto) {
+    init(presentation, label, auto) {
         this.presentation = presentation;
         this.label = label;
         this.auto = auto;
@@ -284,7 +284,7 @@ export var Presentation = {
      * Returns:
      *    - The current presentation object.
      */
-    init: function (svgRoot) {
+    init(svgRoot) {
         this.svgRoot = svgRoot;
         this.frames = [];
         this.layers = [];
@@ -362,7 +362,7 @@ export var Presentation = {
         return this;
     },
 
-    toStorable: function () {
+    toStorable() {
         return {
             aspectWidth: this.aspectWidth,
             aspectHeight: this.aspectHeight,
@@ -371,14 +371,14 @@ export var Presentation = {
         };
     },
 
-    toMinimalStorable: function () {
+    toMinimalStorable() {
         return {
             frames: this.frames.map(frame => frame.toMinimalStorable()),
             elementsToHide: this.elementsToHide.slice()
         };
     },
 
-    fromStorable: function (obj) {
+    fromStorable(obj) {
         this.aspectWidth = obj.aspectWidth;
         this.aspectHeight = obj.aspectHeight;
 
@@ -396,7 +396,7 @@ export var Presentation = {
         return svgTitles.length ? svgTitles[0].firstChild.wholeText.trim() : "Untitled";
     },
 
-    makeFrameId: function () {
+    makeFrameId() {
         var prefix = "frame";
         var suffix = Math.floor(1000 * (1 + 9 * Math.random()));
         var frameId;
@@ -407,7 +407,7 @@ export var Presentation = {
         return frameId;
     },
 
-    getFrameWithId: function (frameId) {
+    getFrameWithId(frameId) {
         for (var i = 0; i < this.frames.length; i ++) {
             if (this.frames[i].frameId === frameId) {
                 return this.frames[i];
@@ -416,7 +416,7 @@ export var Presentation = {
         return null;
     },
 
-    getLayerWithId: function (groupId) {
+    getLayerWithId(groupId) {
         for (var i = 0; i < this.layers.length; i ++) {
             if (this.layers[i].groupId === groupId) {
                 return this.layers[i];
@@ -425,7 +425,7 @@ export var Presentation = {
         return null;
     },
 
-    updateLinkedLayers: function () {
+    updateLinkedLayers() {
         if (!this.frames.length) {
             return;
         }

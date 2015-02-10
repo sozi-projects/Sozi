@@ -112,7 +112,7 @@ export function init(aPlayer) {
 
             mediaList.push({
                 rect: source.parentNode,
-                htmlMedia: htmlMedia
+                htmlMedia
             });
         }
 

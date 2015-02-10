@@ -155,7 +155,7 @@ Timeline.getLayersAtIndex = function (layerIndex) {
  *  - true if all "default" layers are selected, else false
  */
 Object.defineProperty(Timeline, "defaultLayersAreSelected", {
-    get: function () {
+    get() {
         return this.defaultLayers.every(layer => this.selection.selectedLayers.indexOf(layer) >= 0);
     }
 });
@@ -239,7 +239,7 @@ Timeline.render = function () {
                 h("tr",
                     h("th", {colspan: 2},
                         h("select", {
-                            onchange: evt => {
+                            onchange(evt) {
                                 var value = evt.target.value;
                                 evt.target.value = "__add__";
                                 this.addLayer(value);
@@ -317,14 +317,14 @@ Timeline.render = function () {
                     }, [
                         h("i.insert-before.fa.fa-arrow-circle-down", {
                             title: "Insert selection before frame " + frameIndex,
-                            onclick: evt => {
+                            onclick(evt) {
                                 this.controller.moveFrames(frameIndex);
                                 evt.stopPropagation();
                             }
                         }),
                         h("i.insert-after.fa.fa-arrow-circle-down", {
                             title: "Insert selection after frame " + frameIndex,
-                            onclick: evt => {
+                            onclick(evt) {
                                 this.controller.moveFrames(frameIndex + 1);
                                 evt.stopPropagation();
                             }
@@ -345,7 +345,7 @@ Timeline.render = function () {
             ])
         ]),
         h("div.timeline-bottom-right", {
-            onscroll: evt => {
+            onscroll(evt) {
                 this.rootNode.querySelector(".timeline-top-right").scrollLeft = evt.target.scrollLeft;
                 this.rootNode.querySelector(".timeline-bottom-left").scrollTop = evt.target.scrollTop;
             }

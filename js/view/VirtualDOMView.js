@@ -11,12 +11,12 @@ import patch from "virtual-dom/patch";
 
 export var VirtualDOMView = {
 
-    init: function (container, controller) {
+    init(container, controller) {
         this.container = container;
         this.controller = controller;
 
         this.vtree = h("div");
-        this.rootNode = createElement(this.vtree, {document: document});
+        this.rootNode = createElement(this.vtree, {document});
         container.appendChild(this.rootNode);
 
         controller.addListener("repaint", this.repaint.bind(this));
@@ -24,13 +24,13 @@ export var VirtualDOMView = {
         return this;
     },
 
-    repaint: function () {
+    repaint() {
         var vtree = this.render();
         this.rootNode = patch(this.rootNode, diff(this.vtree, vtree));
         this.vtree = vtree;
     },
 
-    render: function () {
+    render() {
         return h("div");
     }
 };

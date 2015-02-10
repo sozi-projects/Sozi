@@ -71,7 +71,7 @@ Viewport.onLoad = function () {
 };
 
 Object.defineProperty(Viewport, "svgRoot", {
-    get: function () {
+    get() {
         return this.presentation.svgRoot;
     }
 });
@@ -103,7 +103,6 @@ Viewport.onMouseDown = function (evt) {
     evt.preventDefault();
 
     if (evt.button === DRAG_BUTTON) {
-
         this.mouseDragged = false;
         this.mouseDragX = this.mouseDragStartX = evt.clientX;
         this.mouseDragY = this.mouseDragStartY = evt.clientY;
@@ -281,7 +280,7 @@ Viewport.onWheel = function (evt) {
  *    - The X coordinate of the current viewport.
  */
 Object.defineProperty(Viewport, "x", {
-    get: function () {
+    get() {
         return this.svgRoot.getScreenCTM().e;
     }
 });
@@ -295,7 +294,7 @@ Object.defineProperty(Viewport, "x", {
  *    - The Y coordinate of the current viewport.
  */
 Object.defineProperty(Viewport, "y", {
-    get: function () {
+    get() {
         return this.svgRoot.getScreenCTM().f;
     }
 });
@@ -313,7 +312,7 @@ Object.defineProperty(Viewport, "y", {
  *    - The width of the current viewport.
  */
 Object.defineProperty(Viewport, "width", {
-    get: function () {
+    get() {
         return this.svgRoot === document.documentElement ?
             window.innerWidth :
             this.svgRoot.parentNode.clientWidth;
@@ -333,7 +332,7 @@ Object.defineProperty(Viewport, "width", {
  *    - The height of the current viewport.
  */
 Object.defineProperty(Viewport, "height", {
-    get: function () {
+    get() {
         return this.svgRoot === document.documentElement ?
             window.innerHeight :
             this.svgRoot.parentNode.clientHeight;

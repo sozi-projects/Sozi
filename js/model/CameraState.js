@@ -6,7 +6,7 @@
 
 export var CameraState = {
 
-    init: function (svgRoot) {
+    init(svgRoot) {
         this.svgRoot = svgRoot;
 
         var initialBBox = svgRoot.getBBox();
@@ -32,7 +32,7 @@ export var CameraState = {
         return this;
     },
 
-    initFrom: function (state) {
+    initFrom(state) {
         this.svgRoot = state.svgRoot;
         this.cx = state.cx;
         this.cy = state.cy;
@@ -47,7 +47,7 @@ export var CameraState = {
         return this;
     },
 
-    toStorable: function () {
+    toStorable() {
         return {
             cx: this.cx,
             cy: this.cy,
@@ -62,11 +62,11 @@ export var CameraState = {
         };
     },
 
-    toMinimalStorable: function () {
+    toMinimalStorable() {
         return this.toStorable();
     },
 
-    fromStorable: function (storable) {
+    fromStorable(storable) {
         this.cx = storable.cx;
         this.cy = storable.cy;
         this.width = storable.width;
@@ -85,7 +85,7 @@ export var CameraState = {
      * The angle of the current state is normalized
      * in the interval [-180 ; 180]
      */
-    setAngle: function (angle) {
+    setAngle(angle) {
         this.angle = (angle + 180) % 360 - 180;
         return this;
     },
@@ -99,7 +99,7 @@ export var CameraState = {
      * Parameters:
      *    - svgElement: an element from the SVG DOM
      */
-    setAtElement: function (svgElement, deltaX, deltaY, widthFactor, heightFactor, deltaAngle) {
+    setAtElement(svgElement, deltaX, deltaY, widthFactor, heightFactor, deltaAngle) {
         deltaX = deltaX || 0;
         deltaY = deltaY || 0;
         widthFactor = widthFactor || 1;
@@ -141,7 +141,7 @@ export var CameraState = {
         return this;
     },
 
-    offsetFromElement: function (svgElement) {
+    offsetFromElement(svgElement) {
         var cam = Object.create(CameraState).init(this.svgRoot).setAtElement(svgElement);
         return {
             deltaX: this.cx - cam.cx,
@@ -152,7 +152,7 @@ export var CameraState = {
         };
     },
 
-    interpolate: function (initialState, finalState, progress, timingFunction, relativeZoom, svgPath, reversePath) {
+    interpolate(initialState, finalState, progress, timingFunction, relativeZoom, svgPath, reversePath) {
         var tfProgress = timingFunction(progress);
         var tfRemaining = 1 - tfProgress;
 

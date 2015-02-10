@@ -74,7 +74,7 @@ Camera.concealClipping = function () {
 };
 
 Object.defineProperty(Camera, "scale", {
-    get: function () {
+    get() {
         return Math.min(this.viewport.width / this.width, this.viewport.height / this.height);
     }
 });

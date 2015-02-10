@@ -8,7 +8,7 @@ var PREVIEW_MARGIN = 15;
 
 export var Preview = {
 
-    init: function (container, presentation, selection, viewport, controller) {
+    init(container, presentation, selection, viewport, controller) {
         this.container = container;
         this.presentation = presentation;
         this.selection = selection;
@@ -20,7 +20,7 @@ export var Preview = {
         return this;
     },
 
-    onLoad: function () {
+    onLoad() {
         var repaintHandler = this.repaint.bind(this);
         $(window).resize(repaintHandler);
         this.viewport.addListener("click", this.onClick.bind(this));
@@ -30,7 +30,7 @@ export var Preview = {
         this.container.addEventListener("mouseleave", this.onMouseLeave.bind(this), false);
     },
 
-    repaint: function () {
+    repaint() {
         var parent = $(this.container).parent();
         var parentWidth  = parent.innerWidth();
         var parentHeight = parent.innerHeight();
@@ -55,7 +55,7 @@ export var Preview = {
         this.viewport.repaint();
     },
 
-    onClick: function (button, evt) {
+    onClick(button, evt) {
         if (button === 0 && evt.altKey) {
             var referenceElement = evt.target;
             if (referenceElement.hasAttribute("id") && referenceElement.getBBox) {
@@ -69,7 +69,7 @@ export var Preview = {
      * show the document outside the clipping rectangle
      * and show the hidden SVG elements.
      */
-    onMouseEnter: function () {
+    onMouseEnter() {
         this.viewport.cameras.forEach(camera => {
             if (camera.selected) {
                 camera.revealClipping();
@@ -84,7 +84,7 @@ export var Preview = {
      * hide the document outside the clipping rectangle
      * and hide the hidden SVG elements.
      */
-    onMouseLeave: function () {
+    onMouseLeave() {
         this.viewport.cameras.forEach(camera => {
             if (camera.selected) {
                 camera.concealClipping();

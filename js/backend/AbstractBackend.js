@@ -130,16 +130,12 @@ AbstractBackend.save = function (fileDescriptor, data) {
  * Add the given file to the list of files to save automatically.
  *
  * Parameters:
- *  - fileDescriptor (backend-dependent)
+ *  - descriptor (backend-dependent)
  *  - needsSaving (function) A function that returns true if the file needs saving
  *  - getData (function) A function that returns the data to save.
  */
-AbstractBackend.autosave = function (fileDescriptor, needsSaving, getData) {
-    this.autosavedFiles.push({
-        descriptor: fileDescriptor,
-        needsSaving: needsSaving,
-        getData: getData
-    });
+AbstractBackend.autosave = function (descriptor, needsSaving, getData) {
+    this.autosavedFiles.push({descriptor, needsSaving, getData});
 };
 
 /*

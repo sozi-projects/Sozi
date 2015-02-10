@@ -75,9 +75,9 @@ Properties.renderTextField = function (label, property, getter, setter, acceptsE
         h("th", label),
         h("td", h("input", {
             type: "text",
-            value: value,
-            className: className,
-            onchange: function () {
+            value,
+            className,
+            onchange() {
                 var value = this.value;
                 if (acceptsEmpty || value.length) {
                     setter.call(c, property, value);
@@ -98,9 +98,9 @@ Properties.renderCheckboxField = function (label, property, getter, setter) {
         h("th", label),
         h("td", h("input", {
             type: "checkbox",
-            className: className,
+            className,
             checked: value ? "checked" : undefined,
-            onchange: function () {
+            onchange() {
                 setter.call(c, property, this.checked);
             }
         }))
@@ -118,12 +118,12 @@ Properties.renderNumberField = function (label, property, getter, setter, signed
         h("th", label),
         h("td", h("input", {
             type: "number",
-            value: value,
-            className: className,
+            value,
+            className,
             min: signed ? undefined : 0,
-            step: step,
+            step,
             pattern: "[+-]?\\d+(\\.\\d+)?",
-            onchange: function () {
+            onchange() {
                 var value = parseFloat(this.value);
                 if (!isNaN(value) && (signed || value >= 0)) {
                     setter.call(c, property, value * factor);
@@ -144,8 +144,8 @@ Properties.renderSelectField = function (label, property, getter, setter, option
         h("th", label),
         h("td",
             h("select", {
-                className: className,
-                onchange: function () {
+                className,
+                onchange() {
                     setter.call(c, property, this.value);
                 }
             }, Object.keys(options).map(optionValue => h("option", {

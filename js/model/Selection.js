@@ -25,21 +25,21 @@ export var Selection = {
      * Returns:
      *  - The current selection object
      */
-    init: function (presentation) {
+    init(presentation) {
         this.presentation = presentation;
         this.selectedFrames = [];
         this.selectedLayers = [];
         return this;
     },
 
-    toStorable: function () {
+    toStorable() {
         return {
             selectedFrames: this.selectedFrames.map(frame => frame.frameId),
             selectedLayers: this.selectedLayers.map(layer => layer.groupId)
         };
     },
 
-    fromStorable: function (storable) {
+    fromStorable(storable) {
         if ("selectedFrames" in storable) {
             this.selectedFrames = [];
             storable.selectedFrames.forEach(frameId => {
@@ -73,24 +73,24 @@ export var Selection = {
             null;
     },
 
-    hasFrames: function (frames) {
+    hasFrames(frames) {
         return frames.every(frame => this.selectedFrames.indexOf(frame) >= 0);
     },
 
-    addFrame: function (frame) {
+    addFrame(frame) {
         if (this.selectedFrames.indexOf(frame) < 0) {
             this.selectedFrames.push(frame);
         }
     },
 
-    removeFrame: function (frame) {
+    removeFrame(frame) {
         var index = this.selectedFrames.indexOf(frame);
         if (index >= 0) {
             this.selectedFrames.splice(index, 1);
         }
     },
 
-    toggleFrameSelection: function (frame) {
+    toggleFrameSelection(frame) {
         var index = this.selectedFrames.indexOf(frame);
         if (index >= 0) {
             this.selectedFrames.splice(index, 1);
@@ -100,24 +100,24 @@ export var Selection = {
         }
     },
 
-    hasLayers: function (layers) {
+    hasLayers(layers) {
         return layers.every(layer => this.selectedLayers.indexOf(layer) >= 0);
     },
 
-    addLayer: function (layer) {
+    addLayer(layer) {
         if (this.selectedLayers.indexOf(layer) < 0) {
             this.selectedLayers.push(layer);
         }
     },
 
-    removeLayer: function (layer) {
+    removeLayer(layer) {
         var index = this.selectedLayers.indexOf(layer);
         if (index >= 0) {
             this.selectedLayers.splice(index, 1);
         }
     },
 
-    toggleLayerSelection: function (layer) {
+    toggleLayerSelection(layer) {
         var index = this.selectedLayers.indexOf(layer);
         if (index >= 0) {
             this.selectedLayers.splice(index, 1);

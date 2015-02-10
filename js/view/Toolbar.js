@@ -31,7 +31,7 @@ Toolbar.render = function () {
                 step: "1",
                 size: "3",
                 value: this.presentation.aspectWidth,
-                onchange: function () {
+                onchange() {
                     var width = parseInt(this.value);
                     if (!width.isNaN) {
                         c.setAspectWidth(width);
@@ -46,7 +46,7 @@ Toolbar.render = function () {
                 step: "1",
                 size: "3",
                 value: this.presentation.aspectHeight,
-                onchange: function () {
+                onchange() {
                     var height = parseInt(this.value);
                     if (!height.isNaN) {
                         c.setAspectHeight(height);
@@ -60,7 +60,7 @@ Toolbar.render = function () {
                 type: "radio",
                 title: "Move the camera (hold Alt to zoom, Shift to rotate)",
                 checked: v.dragMode === "translate",
-                onclick: function () { v.dragMode = "translate"; }
+                onclick() { v.dragMode = "translate"; }
             }),
             h("i.fa.fa-arrows"),
             h("input", {
@@ -68,7 +68,7 @@ Toolbar.render = function () {
                 type: "radio",
                 title: "Zoom in/out (you can also hold the Alt key in Move mode)",
                 checked: v.dragMode === "scale",
-                onclick: function () { v.dragMode = "scale"; }
+                onclick() { v.dragMode = "scale"; }
             }),
             h("i.fa.fa-expand"),
             h("input", {
@@ -76,7 +76,7 @@ Toolbar.render = function () {
                 type: "radio",
                 title: "Rotate (you can also hold the Shift key in Move mode)",
                 checked: v.dragMode === "rotate",
-                onclick: function () { v.dragMode = "rotate"; }
+                onclick() { v.dragMode = "rotate"; }
             }),
             h("i.fa.fa-rotate-left"),
             h("input", {
@@ -84,7 +84,7 @@ Toolbar.render = function () {
                 type: "radio",
                 title: "Clip",
                 checked: v.dragMode === "clip",
-                onclick: function () { v.dragMode = "clip"; }
+                onclick() { v.dragMode = "clip"; }
             }),
             h("i.fa.fa-pencil-square")
         ]),

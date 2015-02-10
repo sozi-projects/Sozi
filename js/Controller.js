@@ -549,12 +549,7 @@ Controller.setAspectHeight = function (height) {
 };
 
 Controller.perform = function (onDo, onUndo, updateSelection, events) {
-    var action = {
-        onDo: onDo,
-        onUndo: onUndo,
-        updateSelection: updateSelection,
-        events: events
-    };
+    var action = {onDo, onUndo, updateSelection, events};
     if (updateSelection) {
         action.selectedFrames = this.selection.selectedFrames.slice();
         action.selectedLayers = this.selection.selectedLayers.slice();
