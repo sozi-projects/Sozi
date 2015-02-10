@@ -206,6 +206,7 @@ Viewport.onDrag = function (evt) {
  *
  * Fires:
  *    - dragEnd
+ *    - userChangeState
  *    - click(button, event)
  */
 Viewport.onDragEnd = function (evt) {
@@ -240,8 +241,7 @@ Viewport.onDragEnd = function (evt) {
  *    - evt: The DOM event object
  *
  * Fires:
- *    - zoom
- *    - rotate
+ *    - userChangeState
  */
 Viewport.onWheel = function (evt) {
     evt.stopPropagation();
@@ -267,6 +267,9 @@ Viewport.onWheel = function (evt) {
             this.zoom(delta > 0 ? SCALE_FACTOR : 1/SCALE_FACTOR, evt.clientX - this.x, evt.clientY - this.y);
         }
     }
+
+    // TODO Do not emit this event at each step but only when the action is "finished" (whatever that means)
+    this.emit("userChangeState");
 };
 
 /*
@@ -374,9 +377,6 @@ Viewport.setAtStates = function (states) {
  *    - deltaX: The horizontal displacement, in pixels
  *    - deltaY: The vertical displacement, in pixels
  *
- * Fires:
- *    - userChangeState
- *
  * Returns:
  *    - The current viewport.
  */
@@ -386,7 +386,6 @@ Viewport.translate = function (deltaX, deltaY) {
             camera.translate(deltaX, deltaY);
         }
     });
-    this.emit("userChangeState");
     return this;
 };
 
@@ -401,9 +400,6 @@ Viewport.translate = function (deltaX, deltaY) {
  *    - factor: The zoom factor (relative to the current state of the viewport).
  *    - x, y: The coordinates of the center of the zoom operation.
  *
- * Fires:
- *    - userChangeState
- *
  * Returns:
  *    - The current viewport.
  */
@@ -413,7 +409,6 @@ Viewport.zoom = function (factor, x, y) {
             camera.zoom(factor, x, y);
         }
     });
-    this.emit("userChangeState");
     return this;
 };
 
@@ -429,9 +424,6 @@ Viewport.zoom = function (factor, x, y) {
  *
  * Returns:
  *    - The current viewport.
- *
- * Fires:
- *    - userChangeState
  */
 Viewport.rotate = function (angle) {
     this.cameras.forEach(camera => {
@@ -439,7 +431,6 @@ Viewport.rotate = function (angle) {
             camera.rotate(angle);
         }
     });
-    this.emit("userChangeState");
     return this;
 };
 
@@ -449,6 +440,5 @@ Viewport.clip = function (x0, y0, x1, y1) {
             camera.clip(x0, y0, x1, y1);
         }
     });
-    this.emit("userChangeState");
     return this;
 };

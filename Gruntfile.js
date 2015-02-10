@@ -71,7 +71,11 @@ module.exports = function(grunt) {
          */
         "6to5": {
             options: {
-                whitelist: ["es6.arrowFunctions", "es6.modules"]
+                whitelist: [
+                    "es6.arrowFunctions",
+                    "es6.properties.shorthand",
+                    "es6.modules"
+                ]
             },
             all: {
                 files: [{

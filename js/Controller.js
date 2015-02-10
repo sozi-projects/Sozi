@@ -437,7 +437,6 @@ Controller.setCameraProperty = function (propertyName, propertyValue) {
 };
 
 Controller.updateCameraStates = function () {
-    // TODO do not register a new action for each elementary state change
     var currentFrame = this.selection.currentFrame;
     if (currentFrame) {
         var savedFrame = Object.create(Frame).initFrom(currentFrame);
@@ -479,27 +478,40 @@ Controller.updateCameraStates = function () {
     }
 };
 
-Controller.setReferenceElement = function (cameraIndex, referenceElement) {
-    // TODO set all cameras in one action
+Controller.setReferenceElement = function (referenceElement) {
     var currentFrame = this.selection.currentFrame;
     if (currentFrame) {
-        var layerProperties = currentFrame.layerProperties[cameraIndex];
-        var savedProperties = Object.create(LayerProperties).initFrom(layerProperties);
-        var modifiedProperties = Object.create(LayerProperties).initFrom(layerProperties);
+        var properties = this.viewport.cameras.map((camera, cameraIndex) => {
+            if (camera.selected) {
+                var layerProperties = currentFrame.layerProperties[cameraIndex];
+                var savedProperties = Object.create(LayerProperties).initFrom(layerProperties);
+                var modifiedProperties = Object.create(LayerProperties).initFrom(layerProperties);
 
-        // Mark the modified layers as unlinked in the current frame
-        modifiedProperties.link = false;
+                // Mark the modified layers as unlinked in the current frame
+                modifiedProperties.link = false;
 
-        modifiedProperties.referenceElementAuto = false;
-        modifiedProperties.referenceElementId = referenceElement.getAttribute("id");
+                modifiedProperties.referenceElementAuto = false;
+                modifiedProperties.referenceElementId = referenceElement.getAttribute("id");
+
+                return {layerProperties, savedProperties, modifiedProperties};
+            }
+        });
 
         this.perform(
             function onDo() {
-                layerProperties.initFrom(modifiedProperties);
+                properties.forEach(p => {
+                    if (p) {
+                        p.layerProperties.initFrom(p.modifiedProperties);
+                    }
+                });
                 this.presentation.updateLinkedLayers();
             },
             function onUndo() {
-                layerProperties.initFrom(savedProperties);
+                properties.forEach(p => {
+                    if (p) {
+                        p.layerProperties.initFrom(p.savedProperties);
+                    }
+                });
                 this.presentation.updateLinkedLayers();
             },
             false,

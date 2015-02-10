@@ -59,11 +59,7 @@ export var Preview = {
         if (button === 0 && evt.altKey) {
             var referenceElement = evt.target;
             if (referenceElement.hasAttribute("id") && referenceElement.getBBox) {
-                this.viewport.cameras.forEach(camera => {
-                    if (camera.selected) {
-                        this.controller.setReferenceElement(this.viewport.cameras.indexOf(camera), referenceElement);
-                    }
-                });
+                this.controller.setReferenceElement(referenceElement);
             }
         }
     },
