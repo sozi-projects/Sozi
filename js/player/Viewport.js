@@ -19,6 +19,10 @@ var SCALE_FACTOR = 1.05;
 // Rotation step for user rotate action (keyboard and mouse wheel)
 var ROTATE_STEP = 5;
 
+// The delay after the last mouse wheel event
+// to consider that the wheel action is terminated
+var WHEEL_TIMEOUT_MS = 200;
+
 export var Viewport = Object.create(EventEmitter.prototype);
 
 /*
@@ -39,6 +43,7 @@ Viewport.init = function (presentation) {
     this.mouseDragY = 0;
     this.dragMode = "translate";
     this.showHiddenElements = false;
+    this.wheelTimeout = null;
 
     // Setup mouse and keyboard event handlers.
     this.dragHandler = this.onDrag.bind(this);
@@ -243,6 +248,10 @@ Viewport.onDragEnd = function (evt) {
  *    - userChangeState
  */
 Viewport.onWheel = function (evt) {
+    if (this.wheelTimeout !== null) {
+        window.clearTimeout(this.wheelTimeout);
+    }
+
     evt.stopPropagation();
     evt.preventDefault();
 
@@ -267,8 +276,10 @@ Viewport.onWheel = function (evt) {
         }
     }
 
-    // TODO Do not emit this event at each step but only when the action is "finished" (whatever that means)
-    this.emit("userChangeState");
+    this.wheelTimeout = window.setTimeout(() => {
+        this.wheelTimeout = null;
+        this.emit("userChangeState");
+    }, WHEEL_TIMEOUT_MS);
 };
 
 /*
