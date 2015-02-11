@@ -186,7 +186,10 @@ module.exports = function(grunt) {
         nodewebkit: {
             options: {
                 buildDir: "build",
-                platforms: ["win64", "osx64", "linux64"]
+                platforms: [
+                    "win32", "osx32", "linux32",
+                    "win64", "osx64", "linux64"
+                ]
             },
             editor: ["build/app/**/*"]
         },
