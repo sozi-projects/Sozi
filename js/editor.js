@@ -96,11 +96,12 @@ window.addEventListener("load", () => {
                     $.notify("Document was imported from Sozi 13 or earlier.", "success");
                 }
 
+                // TODO Move this to controller
                 backend.create(name, location, "application/json", getJSONData(), fileDescriptor => {
                     autosaveJSON(backend, fileDescriptor);
                 });
 
-                controller.onLoad();
+                controller.onLoad(backend);
             }
         });
     }
@@ -109,25 +110,17 @@ window.addEventListener("load", () => {
      * Configure autosaving for presentation data
      * and editor state.
      */
+    // TODO Move this to controller
     function autosaveJSON(backend, fileDescriptor) {
         if (reloading) {
             return;
         }
 
-        var jsonNeedsSaving = false;
-
-        function changeHandler() {
-            jsonNeedsSaving = true;
-        }
-
-        controller.addListener("presentationChange", changeHandler);
-        controller.addListener("editorStateChange",  changeHandler);
-
-        backend.autosave(fileDescriptor, () => jsonNeedsSaving, getJSONData);
+        backend.autosave(fileDescriptor, () => controller.jsonNeedsSaving, getJSONData);
 
         backend.addListener("save", savedFileDescriptor => {
             if (fileDescriptor === savedFileDescriptor) {
-                jsonNeedsSaving = false;
+                controller.jsonNeedsSaving = false;
                 $.notify("Saved " + backend.getName(fileDescriptor), "info");
             }
         });
@@ -153,12 +146,12 @@ window.addEventListener("load", () => {
      * Load the presentation and set the initial state
      * of the editor using the given JSON data.
      */
-    function loadJSONData(data) {
+    function loadJSONData(backend, data) {
         var storable = JSON.parse(data);
         presentation.fromStorable(storable);
         timeline.fromStorable(storable);
         selection.fromStorable(storable);
-        controller.onLoad();
+        controller.onLoad(backend);
     }
 
     /*
@@ -192,24 +185,18 @@ window.addEventListener("load", () => {
     /*
      * Configure autosaving for HTML export.
      */
+    // TODO Move this to controller
     function autosaveHTML(backend, fileDescriptor) {
         if (reloading) {
             return;
         }
 
-        var htmlNeedsSaving = false;
-
-        function changeHandler() {
-            htmlNeedsSaving = true;
-        }
-
-        controller.addListener("presentationChange", changeHandler);
-
-        backend.autosave(fileDescriptor, () => htmlNeedsSaving, exportHTML);
+        backend.autosave(fileDescriptor, () => controller.htmlNeedsSaving, exportHTML);
 
         backend.addListener("save", savedFileDescriptor => {
             if (fileDescriptor === savedFileDescriptor) {
-                htmlNeedsSaving = false;
+                controller.htmlNeedsSaving = false;
+                controller.emit("repaint");
                 $.notify("Saved " + backend.getName(fileDescriptor), "info");
             }
         });
@@ -243,7 +230,7 @@ window.addEventListener("load", () => {
                 }
                 else if (/\.sozi\.json$/.test(name)) {
                     // Load presentation data and editor state from JSON file.
-                    loadJSONData(data);
+                    loadJSONData(backend, data);
 
                     // If no frame is selected, select the first frame
                     if (presentation.frames.length && !selection.selectedFrames.length) {

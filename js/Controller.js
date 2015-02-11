@@ -11,6 +11,10 @@ Controller.init = function (presentation, selection, viewport) {
     this.presentation = presentation;
     this.selection = selection;
     this.viewport = viewport;
+    this.backend = null;
+
+    this.jsonNeedsSaving = false;
+    this.htmlNeedsSaving = false;
 
     this.undoStack = [];
     this.redoStack = [];
@@ -18,7 +22,9 @@ Controller.init = function (presentation, selection, viewport) {
     return this;
 };
 
-Controller.onLoad = function () {
+Controller.onLoad = function (backend) {
+    this.backend = backend;
+
     if (!this.selection.selectedFrames.length && this.presentation.frames.length) {
         this.selection.addFrame(this.presentation.frames[0]);
     }
@@ -26,10 +32,26 @@ Controller.onLoad = function () {
         this.selection.selectedLayers = this.presentation.layers.slice();
     }
 
+    this.addListener("presentationChange", () => {
+        this.jsonNeedsSaving = this.htmlNeedsSaving = true;
+    });
+
+    this.addListener("editorStateChange",  () => {
+        this.jsonNeedsSaving = true;
+    });
+
     this.emit("load");
 
     // Trigger a repaint of the editor views.
     this.emit("repaint");
+};
+
+Controller.save = function () {
+    this.backend.doAutosave();
+};
+
+Controller.reload = function () {
+    // TODO
 };
 
 /*

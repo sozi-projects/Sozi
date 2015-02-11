@@ -91,14 +91,25 @@ Toolbar.render = function () {
         h("span.group", [
             h("button", {
                 title: "Undo",
-                disabled: this.controller.undoStack.length ? undefined : "disabled",
+                disabled: c.undoStack.length ? undefined : "disabled",
                 onclick: c.undo.bind(c)
             }, h("i.fa.fa-undo")),
             h("button", {
                 title: "Redo",
-                disabled: this.controller.redoStack.length ? undefined : "disabled",
+                disabled: c.redoStack.length ? undefined : "disabled",
                 onclick: c.redo.bind(c)
             }, h("i.fa.fa-repeat"))
+        ]),
+        h("span.group", [
+            h("button", {
+                title: "Save the presentation",
+                disabled: c.htmlNeedsSaving ? undefined : "disabled",
+                onclick: c.save.bind(c)
+            }, "Save"),
+            h("button", {
+                title: "Reload the SVG document",
+                onclick: c.reload.bind(c)
+            }, "Reload")
         ])
     ]);
 };
