@@ -4,7 +4,6 @@ import {Player} from "./player/Player";
 import * as media from "./player/media";
 
 window.addEventListener("load", function () {
-    "use strict";
 
     var presentation = Presentation.init(document.querySelector("svg"));
     var viewport = Viewport.init(presentation);

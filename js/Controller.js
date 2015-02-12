@@ -1,4 +1,3 @@
-"use strict";
 
 import {Frame, LayerProperties} from "./model/Presentation";
 import {EventEmitter} from "events";
