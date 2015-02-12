@@ -14,7 +14,7 @@ export var Preview = {
         this.controller = controller;
 
         controller.addListener("loadSVG", this.onLoadSVG.bind(this));
-        controller.addListener("ready", this.onReady.bind(this));
+        controller.once("ready", this.onReady.bind(this));
 
         return this;
     },

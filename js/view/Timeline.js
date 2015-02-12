@@ -39,7 +39,7 @@ Timeline.init = function (container, presentation, selection, controller) {
     this.editableLayers = [];
     this.defaultLayers = [];
 
-    controller.addListener("ready", this.onReady.bind(this));
+    controller.once("ready", this.onReady.bind(this));
 
     return this;
 };
@@ -237,7 +237,7 @@ Timeline.render = function () {
                 h("tr",
                     h("th", {colspan: 2},
                         h("select", {
-                            onchange(evt) {
+                            onchange: (evt) => {
                                 var value = evt.target.value;
                                 evt.target.value = "__add__";
                                 this.addLayer(value);
@@ -315,14 +315,14 @@ Timeline.render = function () {
                     }, [
                         h("i.insert-before.fa.fa-arrow-circle-down", {
                             title: "Insert selection before frame " + frameIndex,
-                            onclick(evt) {
+                            onclick: (evt) => {
                                 this.controller.moveFrames(frameIndex);
                                 evt.stopPropagation();
                             }
                         }),
                         h("i.insert-after.fa.fa-arrow-circle-down", {
                             title: "Insert selection after frame " + frameIndex,
-                            onclick(evt) {
+                            onclick: (evt) => {
                                 this.controller.moveFrames(frameIndex + 1);
                                 evt.stopPropagation();
                             }
@@ -343,7 +343,7 @@ Timeline.render = function () {
             ])
         ]),
         h("div.timeline-bottom-right", {
-            onscroll(evt) {
+            onscroll: (evt) => {
                 this.rootNode.querySelector(".timeline-top-right").scrollLeft = evt.target.scrollLeft;
                 this.rootNode.querySelector(".timeline-bottom-left").scrollTop = evt.target.scrollTop;
             }
