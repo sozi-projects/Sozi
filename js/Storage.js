@@ -203,7 +203,7 @@ Storage.autosaveHTML = function (fileDescriptor) {
     this.backend.addListener("save", savedFileDescriptor => {
         if (fileDescriptor === savedFileDescriptor) {
             this.htmlNeedsSaving = false;
-            this.controller.emit("repaint"); // FIXME
+            this.controller.emit("repaint"); // TODO move this to controller
             $.notify("Saved " + this.backend.getName(fileDescriptor), "info");
         }
     });

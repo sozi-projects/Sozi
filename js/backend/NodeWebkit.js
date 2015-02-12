@@ -51,10 +51,11 @@ NodeWebkit.init = function (container) {
     // check that the file exists and load it.
     if (gui.App.argv.length > 0) {
         var fileName = path.resolve(cwd, gui.App.argv[0]);
-        if (fs.existsSync(fileName)) {
+        try {
+            fs.accessSync(fileName);
             this.load(fileName);
         }
-        else {
+        catch (err) {
             console.log("File not found " + fileName);
         }
     }
@@ -72,7 +73,7 @@ NodeWebkit.getLocation = function (fileDescriptor) {
 
 NodeWebkit.find = function (name, location, callback) {
     var fileName = path.join(location, name);
-    fs.exists(fileName, found => callback(found ? fileName : null));
+    fs.access(fileName, err => callback(err ? null : fileName));
 };
 
 NodeWebkit.load = function (fileDescriptor) {

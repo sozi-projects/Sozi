@@ -240,7 +240,7 @@ module.exports = function(grunt) {
 
             grunt.config(["compress", targetName], {
                 options: {
-                    // FIXME: preserve permissions for Linux executables
+                    // TODO preserve permissions for Linux executables
                     mode: targetConfig[targetName],
                     archive: "build/" + prefix + "." + targetConfig[targetName]
                 },
