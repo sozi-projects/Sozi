@@ -41,12 +41,12 @@ Timeline.init = function (container, presentation, selection, controller) {
     this.editableLayers = [];
     this.defaultLayers = [];
 
-    controller.addListener("load", this.onLoad.bind(this));
+    controller.addListener("ready", this.onReady.bind(this));
 
     return this;
 };
 
-Timeline.onLoad = function () {
+Timeline.onReady = function () {
     $(window).resize(this.repaint.bind(this));
 
     this.presentation.layers.forEach(layer => {

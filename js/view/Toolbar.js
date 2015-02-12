@@ -9,9 +9,10 @@ import {VirtualDOMView} from "./VirtualDOMView";
 
 export var Toolbar = Object.create(VirtualDOMView);
 
-Toolbar.init = function (container, presentation, viewport, controller) {
+Toolbar.init = function (container, storage, presentation, viewport, controller) {
     VirtualDOMView.init.call(this, container, controller);
 
+    this.storage = storage;
     this.presentation = presentation;
     this.viewport = viewport;
 
@@ -103,7 +104,7 @@ Toolbar.render = function () {
         h("span.group", [
             h("button", {
                 title: "Save the presentation",
-                disabled: c.htmlNeedsSaving ? undefined : "disabled",
+                disabled: this.storage.htmlNeedsSaving ? undefined : "disabled",
                 onclick: c.save.bind(c)
             }, "Save"),
             h("button", {

@@ -15,12 +15,19 @@ export var Preview = {
         this.viewport = viewport;
         this.controller = controller;
 
-        controller.addListener("load", this.onLoad.bind(this));
+        controller.addListener("loadSVG", this.onLoadSVG.bind(this));
+        controller.addListener("ready", this.onReady.bind(this));
 
         return this;
     },
 
-    onLoad() {
+    onLoadSVG() {
+        $("html head title").text(this.presentation.title);
+        $(this.container).html(this.presentation.svgRoot);
+        this.viewport.onLoad();
+    },
+
+    onReady() {
         var repaintHandler = this.repaint.bind(this);
         $(window).resize(repaintHandler);
         this.viewport.addListener("click", this.onClick.bind(this));

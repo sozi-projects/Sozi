@@ -5,16 +5,13 @@ import {EventEmitter} from "events";
 
 export var Controller = Object.create(EventEmitter.prototype);
 
-Controller.init = function (presentation, selection, viewport) {
+Controller.init = function (storage, presentation, selection, viewport) {
     EventEmitter.call(this);
 
+    this.storage = storage;
     this.presentation = presentation;
     this.selection = selection;
     this.viewport = viewport;
-    this.backend = null;
-
-    this.jsonNeedsSaving = false;
-    this.htmlNeedsSaving = false;
 
     this.undoStack = [];
     this.redoStack = [];
@@ -22,9 +19,7 @@ Controller.init = function (presentation, selection, viewport) {
     return this;
 };
 
-Controller.onLoad = function (backend) {
-    this.backend = backend;
-
+Controller.onLoad = function () {
     if (!this.selection.selectedFrames.length && this.presentation.frames.length) {
         this.selection.addFrame(this.presentation.frames[0]);
     }
@@ -32,26 +27,24 @@ Controller.onLoad = function (backend) {
         this.selection.selectedLayers = this.presentation.layers.slice();
     }
 
-    this.addListener("presentationChange", () => {
-        this.jsonNeedsSaving = this.htmlNeedsSaving = true;
-    });
-
-    this.addListener("editorStateChange",  () => {
-        this.jsonNeedsSaving = true;
-    });
-
-    this.emit("load");
+    this.emit("ready");
 
     // Trigger a repaint of the editor views.
     this.emit("repaint");
 };
 
 Controller.save = function () {
-    this.backend.doAutosave();
+    this.storage.save();
+    this.emit("repaint");
 };
 
 Controller.reload = function () {
-    // TODO
+    this.storage.reload();
+};
+
+Controller.setSVGRoot = function (svgRoot) {
+    this.presentation.init(svgRoot);
+    this.emit("loadSVG");
 };
 
 /*
