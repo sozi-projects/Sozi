@@ -574,6 +574,9 @@ Controller.perform = function (onDo, onUndo, updateSelection, events) {
         action.selectedLayers = this.selection.selectedLayers.slice();
     }
     this.undoStack.push(action);
+    while (this.undoStack.length > 100) {
+      this.undoStack.shift();
+    }
     this.redoStack = [];
     onDo.call(this);
     events.forEach(evt => { this.emit(evt); });
