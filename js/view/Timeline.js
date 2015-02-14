@@ -66,7 +66,7 @@ Timeline.fromStorable = function (storable) {
     if (storable.hasOwnProperty("editableLayers")) {
         storable.editableLayers.forEach(groupId => {
             var layer = this.presentation.getLayerWithId(groupId);
-            if (layer) {
+            if (layer && this.editableLayers.indexOf(layer) == -1) {
                 this.editableLayers.push(layer);
             }
         });
@@ -89,7 +89,9 @@ Timeline.fromStorable = function (storable) {
  */
 Timeline.addLayer = function (layerIndex) {
     var layer = this.presentation.layers[layerIndex];
-    this.editableLayers.push(layer);
+    if (this.editableLayers.indexOf(layer) == -1) {
+      this.editableLayers.push(layer);
+    }
 
     var layerIndexInDefaults = this.defaultLayers.indexOf(layer);
     this.defaultLayers.splice(layerIndexInDefaults, 1);
