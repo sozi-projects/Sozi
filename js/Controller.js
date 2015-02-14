@@ -9,6 +9,8 @@ import {EventEmitter} from "events";
 
 export var Controller = Object.create(EventEmitter.prototype);
 
+var UNDO_STACK_LIMIT = 100;
+
 Controller.init = function (storage, presentation, selection, viewport) {
     EventEmitter.call(this);
 
@@ -574,7 +576,7 @@ Controller.perform = function (onDo, onUndo, updateSelection, events) {
         action.selectedLayers = this.selection.selectedLayers.slice();
     }
     this.undoStack.push(action);
-    while (this.undoStack.length > 100) {
+    while (this.undoStack.length > UNDO_STACK_LIMIT) {
       this.undoStack.shift();
     }
     this.redoStack = [];
