@@ -138,7 +138,7 @@ Storage.openJSONFile = function (name, location) {
                 $.notify("Document was imported from Sozi 13 or earlier.", "success");
             }
 
-            this.backend.create(name, location, "application/json", this.getJSONData.bind(this), fileDescriptor => {
+            this.backend.create(name, location, "application/json", this.getJSONData(), fileDescriptor => {
                 this.autosaveJSON(fileDescriptor);
             });
 
@@ -157,7 +157,7 @@ Storage.createHTMLFile = function (name, location) {
             this.backend.save(fileDescriptor, this.exportHTML());
         }
         else {
-            this.backend.create(name, location, "text/html", this.exportHTML.bind(this), fileDescriptor => {
+            this.backend.create(name, location, "text/html", this.exportHTML(), fileDescriptor => {
                 this.autosaveHTML(fileDescriptor);
             });
         }
