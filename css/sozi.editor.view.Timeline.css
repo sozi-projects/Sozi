@@ -6,6 +6,17 @@
  * Layout
  */
 
+#sozi-editor-view-timeline {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: calc(100% - 2.5em);
+    overflow-y: auto;
+    color: white;
+    background: rgb(80, 80, 80);
+}
+
 #sozi-editor-view-timeline > div {
     position: absolute;
     top: 0;

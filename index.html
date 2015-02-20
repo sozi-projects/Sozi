@@ -10,6 +10,7 @@
 
         <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/sozi.editor.view.css">
+        <link rel="stylesheet" href="css/sozi.editor.view.Preview.css">
         <link rel="stylesheet" href="css/sozi.editor.view.Timeline.css">
         <link rel="stylesheet" href="css/sozi.editor.view.Toolbar.css">
 
@@ -21,14 +22,18 @@
         <script src="js/editor.min.js" defer></script>
     </head>
     <body>
-        <div class="top-left">
-            <div id="sozi-editor-view-preview">
-                <p>Choose an SVG document:</p>
-                <ul></ul>
+        <div class="top">
+            <div class="left">
+                <div id="sozi-editor-view-preview">
+                    <p>Choose an SVG document:</p>
+                    <ul></ul>
+                </div>
             </div>
+            <div id="sozi-editor-view-properties" class="right properties"></div>
         </div>
-        <div id="sozi-editor-view-properties" class="top-right"></div>
-        <div id="sozi-editor-view-toolbar" class="toolbar"></div>
-        <div id="sozi-editor-view-timeline" class="bottom"></div>
+        <div class="bottom">
+            <div id="sozi-editor-view-toolbar"></div>
+            <div id="sozi-editor-view-timeline"></div>
+        </div>
     </body>
 </html>

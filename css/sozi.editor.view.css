@@ -20,72 +20,17 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    background: rgb(80, 80, 80);
 }
 
-.top-left {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 70%;
-    height: 70%;
-}
+.top    { position: absolute; left:  0; top:    0; width: 100%; height: 70%; }
+.bottom { position: absolute; left:  0; bottom: 0; width: 100%; height: 30%; }
+.left   { position: absolute; left:  0; top:    0; width: 70%;  height: 100%; }
+.right  { position: absolute; right: 0; top:    0; width: 30%;  height: 100%; }
 
-.top-left div {
-    position: absolute;
-    left: 10%;
-    top: 10%;
-    width: 80%;
-    height: 80%;
-}
-
-.top-left svg {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.top-left * {
-    cursor: default;
-}
-
-.top-left p,
-.top-left ul {
-    margin: 2em;
-    padding: 0;
-}
-
-.top-left ul li {
-    list-style-type: none;
-}
-
-.top-right {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 30%;
-    height: 70%;
-    
+#sozi-editor-view-properties {
+    background: rgb(64, 64, 64);
     overflow: auto;
-}
-
-.toolbar {
-    position: absolute;
-    top: 70%;
-    width: 100%;
-    height: 2.5em;
-    padding: 0.5em 1em;
-}
-
-.bottom {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: calc(30% - 2.5em);
-    
-    overflow-y: auto;
 }
 
 form h1 {
@@ -109,30 +54,11 @@ form td input[type=number] {
  * Colors
  * ------------------------------------------------------------------------- */
 
-.top-left {
+.top .left {
     background-image: linear-gradient(-45deg,
         rgb(80, 80, 80) 25%, rgb(64, 64, 64) 25%, rgb(64, 64, 64) 50%,
         rgb(80, 80, 80) 50%, rgb(80, 80, 80) 75%, rgb(64, 64, 64) 75%, rgb(64, 64, 64));
     background-size: 1em 1em;
-}
-
-.top-left div {
-    background: white;
-    box-shadow: 0 0 20px 5px rgb(32, 32, 32);
-}
-
-.top-right {
-    background: rgb(64, 64, 64);
-}
-
-.toolbar {
-    color: white;
-    background: linear-gradient(to bottom, rgb(64, 64, 64), rgb(80, 80, 80) 2em);
-}
-
-.bottom {
-    color: white;
-    background: rgb(80, 80, 80);
 }
 
 /*
