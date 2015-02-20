@@ -23,10 +23,36 @@ body {
     background: rgb(80, 80, 80);
 }
 
-.top    { position: absolute; left:  0; top:    0; width: 100%; height: 70%; }
-.bottom { position: absolute; left:  0; bottom: 0; width: 100%; height: 30%; }
-.left   { position: absolute; left:  0; top:    0; width: 70%;  height: 100%; }
-.right  { position: absolute; right: 0; top:    0; width: 30%;  height: 100%; }
+.top    { position: absolute; left:  0; top:    0; width: 100%;             height: calc(70% - 2px); }
+.bottom { position: absolute; left:  0; bottom: 0; width: 100%;             height: calc(30% - 2px); }
+.left   { position: absolute; left:  0; top:    0; width: calc(70% - 2px);  height: 100%; }
+.right  { position: absolute; right: 0; top:    0; width: calc(30% - 2px);  height: 100%; }
+
+.hsplitter {
+    position: absolute;
+    left: 0;
+    top: calc(70% - 3px);
+    width: 100%;
+    height: 6px;
+    cursor: ns-resize;
+}
+
+.vsplitter {
+    position: absolute;
+    left: calc(70% - 3px);
+    top: 0;
+    width: 6px;
+    height: 100%;
+    cursor: ew-resize;
+}
+
+.hsplitter, .vsplitter {
+    background: rgb(64, 64, 64);
+}
+
+.hsplitter:hover, .vsplitter:hover {
+    background: rgb(80, 80, 80);
+}
 
 #sozi-editor-view-properties {
     background: rgb(64, 64, 64);

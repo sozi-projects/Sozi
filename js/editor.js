@@ -30,4 +30,42 @@ window.addEventListener("load", () => {
     Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller);
 
     Storage.init(Controller, Presentation, Selection, Timeline);
+
+    var body = $("body");
+    var left = $(".left");
+    var right = $(".right");
+    var top = $(".top");
+    var bottom = $(".bottom");
+    var hsplitter = $(".hsplitter");
+    var vsplitter = $(".vsplitter");
+
+    hsplitter.mousedown((evt) => {
+        var startY = hsplitter.offset().top - evt.clientY;
+        body.mousemove((evt) => {
+            var topHeightPercent = 100 * (startY + evt.clientY) / $(window).height();
+            top.css({ height: topHeightPercent + "%" });
+            hsplitter.css({ top: topHeightPercent + "%" });
+            bottom.css({ height: "calc(" + (100 - topHeightPercent) + "% - " + hsplitter.height() + "px)" });
+            $(window).resize();
+            return false;
+        }).one("mouseup", (evt) => {
+            body.off("mousemove");
+            body.off("mouseup");
+        })
+    });
+
+    vsplitter.mousedown((evt) => {
+        var startX = vsplitter.offset().left - evt.clientX;
+        body.mousemove((evt) => {
+            var leftWidthPercent = 100 * (startX + evt.clientX) / $(window).width();
+            left.css({ width: leftWidthPercent + "%" });
+            vsplitter.css({ left: leftWidthPercent + "%" });
+            right.css({ width: "calc(" + (100 - leftWidthPercent) + "% - " + vsplitter.width() + "px)" });
+            $(window).resize();
+            return false;
+        }).one("mouseup", (evt) => {
+            body.off("mousemove");
+            body.off("mouseup");
+        })
+    });
 }, false);
