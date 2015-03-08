@@ -11,7 +11,7 @@ export var FileReaderBackend = Object.create(AbstractBackend);
 FileReaderBackend.init = function (container) {
     console.log("Configuration in local storage");
 
-    AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-FileReader-input" type="file" accept="image/svg+xml" autofocus>');
+    AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-FileReader-input" type="file" accept="image/svg+xml" autofocus> <strong><i class="fa fa-warning"></i> Local file saving is not supported.</strong>');
 
     // Load the SVG document selected in the file input
     $("#sozi-editor-backend-FileReader-input").change(evt => {

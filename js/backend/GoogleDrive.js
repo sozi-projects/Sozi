@@ -135,7 +135,7 @@ GoogleDrive.create = function (name, location, mimeType, data, callback) {
         delimiter +
         "Content-Type: " + mimeType + "\r\n" +
         "Content-Transfer-Encoding: base64\r\n\r\n" +
-        btoa(unescape(encodeURIComponent(data))) + // Force UTF-8 encoding
+        toBase64(data) + // Force UTF-8 encoding
         closeDelimiter;
 
     gapi.client.request({
@@ -158,9 +158,27 @@ GoogleDrive.create = function (name, location, mimeType, data, callback) {
     });
 };
 
-// TODO implement saving
 GoogleDrive.save = function (fileDescriptor, data) {
-    this.emit("save", fileDescriptor, "Not implemented");
+    var base64Data = toBase64(data); // Force UTF-8 encoding
+    gapi.client.request({
+        path: "/upload/drive/v2/files/" + fileDescriptor.id,
+        method: "PUT",
+        params: {
+            uploadType: "media"
+        },
+        headers: {
+            "Content-Type": fileDescriptor.mimeType,
+            "Content-Length": base64Data.length,
+            "Content-Encoding": "base64"
+        },
+        body: base64Data
+    }).execute(response => {
+        this.emit("save", fileDescriptor, response.error);
+    });
 };
+
+function toBase64(data) {
+    return btoa(unescape(encodeURIComponent(data)));
+}
 
 addBackend(GoogleDrive);
