@@ -236,7 +236,7 @@ Storage.getJSONData = function () {
 Storage.exportHTML = function () {
     return nunjucks.render("build/templates/player.html", {
         svg: this.svgData,
-        title: this.presentation.title,
+        pres: this.presentation,
         json: JSON.stringify(this.presentation.toMinimalStorable())
     });
 };

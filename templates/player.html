@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>{{ title }}</title>
+        <title>{{ pres.title }}</title>
         <style>
             body {
                 position: absolute;
@@ -19,10 +19,54 @@
                 padding: 0;
                 overflow: hidden;
             }
+
+            .sozi-toc {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 33%;
+                height: 100%;
+                margin: 0;
+                padding: 0.5em 1em;
+                overflow-y: auto;
+
+                list-style: decimal inside;
+
+                font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+                font-size: 12pt;
+
+                color: rgb(240, 255, 255);
+                background-color: rgba(34, 34, 34, 0.9);
+            }
+
+            .sozi-toc li {
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .sozi-toc a {
+                color: inherit;
+                text-decoration: none;
+            }
+
+            .sozi-toc a:hover {
+                color: rgb(0, 204, 255);
+                text-decoration: underline;
+            }
         </style>
     </head>
     <body>
         {{ svg }}
+        <ol class="sozi-toc">
+            {% for frame in pres.frames %}
+                {% if frame.showInFrameList %}
+                    <li value="{{ loop.index }}"><a href="#{{ frame.frameId }}" title="{{ frame.title }}">{{ frame.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ol>
         <script>var soziPresentationData = {{ json }};</script>
 {% endraw %}
         <script>{{ playerJs }}</script>

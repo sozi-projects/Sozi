@@ -73,6 +73,8 @@ Viewport.onLoad = function () {
     this.svgRoot.addEventListener(wheelEvent, this.onWheel.bind(this), false);
 
     this.cameras = this.presentation.layers.map(layer => Object.create(Camera).init(this, layer));
+
+    return this;
 };
 
 Object.defineProperty(Viewport, "svgRoot", {

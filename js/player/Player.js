@@ -5,7 +5,7 @@
 "use strict";
 
 import {Animator} from "./Animator";
-import * as timing from "./timing";
+import * as Timing from "./Timing";
 import {CameraState} from "../model/CameraState";
 import {EventEmitter} from "events";
 
@@ -340,14 +340,14 @@ Player.moveToFrame = function (index) {
     this.playing = true;
 
     this.viewport.cameras.forEach(camera => {
-        var timingFunction = timing[DEFAULT_TIMING_FUNCTION];
+        var timingFunction = Timing[DEFAULT_TIMING_FUNCTION];
         var relativeZoom = DEFAULT_RELATIVE_ZOOM;
         var transitionPath = null;
 
         if (layerProperties) {
             var lp = layerProperties[camera.layer.index];
             relativeZoom = lp.transitionRelativeZoom;
-            timingFunction = timing[lp.transitionTimingFunction];
+            timingFunction = Timing[lp.transitionTimingFunction];
             if (useTransitionPath) {
                 transitionPath = lp.transitionPath;
             }
@@ -422,7 +422,7 @@ Player.previewFrame = function (index) {
     this.targetFrameIndex = index;
 
     this.viewport.cameras.forEach(camera => {
-        this.setupTransition(camera, timing[DEFAULT_TIMING_FUNCTION], DEFAULT_RELATIVE_ZOOM);
+        this.setupTransition(camera, Timing[DEFAULT_TIMING_FUNCTION], DEFAULT_RELATIVE_ZOOM);
     });
 
     this.animator.start(DEFAULT_TRANSITION_DURATION_MS);
