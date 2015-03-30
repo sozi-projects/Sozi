@@ -16,6 +16,9 @@ window.addEventListener("load", function () {
     viewport.onLoad();
     presentation.fromStorable(window.soziPresentationData);
     var player = Player.init(viewport, presentation);
+    window.soziPresentation = presentation;
+    window.soziViewport = viewport;
+    window.soziPlayer = player;
     media.init(player);
 
     player.addListener("change:playing", function (player, playing) {
