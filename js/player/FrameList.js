@@ -24,7 +24,10 @@ export function init(viewport, aPlayer) {
 
     Array.prototype.slice.call(tocElement.querySelectorAll("li a")).forEach(link => {
         link.addEventListener("click", evt => {
-            player.previewFrame(parseInt(link.dataset.frameIndex));
+            if (evt.button === 0) {
+                player.previewFrame(parseInt(link.dataset.frameIndex));
+                evt.preventDefault();
+            }
         });
     });
 
