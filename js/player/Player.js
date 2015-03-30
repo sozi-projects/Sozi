@@ -457,8 +457,9 @@ Player.onAnimatorStep = function (progress) {
 Player.onAnimatorDone = function () {
     this.transitions = [];
     this.currentFrameIndex = this.targetFrameIndex;
+    console.log("Done " + this.targetFrameIndex + " " + this.currentFrameIndex);
+    this.emit("frameChange");
     if (this.playing) {
-        this.emit("frameChange");
         this.waitTimeout();
     }
 };

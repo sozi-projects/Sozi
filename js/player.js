@@ -17,7 +17,7 @@ window.addEventListener("load", function () {
     Presentation.fromStorable(window.soziPresentationData);
     Player.init(Viewport, Presentation);
     Media.init(Player);
-    FrameList.init(Viewport);
+    FrameList.init(Viewport, Player);
 
     Player.addListener("change:playing", function (player, playing) {
         if (playing) {

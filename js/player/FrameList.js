@@ -10,14 +10,24 @@ import * as Timing from "./Timing";
 const DURATION_MS = 500;
 
 var tocElement;
+var player;
 var animator;
 var isOpen = false;
 var startOffset = -1;
 var endOffset = -1;
 var currentOffset = startOffset;
 
-export function init(viewport) {
+export function init(viewport, aPlayer) {
+    player = aPlayer;
+
     tocElement = document.querySelector(".sozi-toc");
+
+    Array.prototype.slice.call(tocElement.querySelectorAll("li a")).forEach(link => {
+        link.addEventListener("click", evt => {
+            player.previewFrame(parseInt(link.dataset.frameIndex));
+        });
+    });
+
     animator = Object.create(Animator).init();
     animator.addListener("step", onAnimatorStep);
     window.addEventListener("keypress", onKeyPress, false);
@@ -32,6 +42,7 @@ function setCurrentOffset(offset) {
 }
 
 export function toggle() {
+    player.pause();
     startOffset = currentOffset;
     endOffset = -1 - endOffset;
     animator.start(Math.abs(endOffset - startOffset) * DURATION_MS);
@@ -62,7 +73,6 @@ function onAnimatorStep(progress) {
 }
 
 function onMouseDown(button) {
-    console.log(button);
     if (button === 1) {
         toggle();
     }
