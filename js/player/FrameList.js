@@ -9,7 +9,7 @@ import * as Timing from "./Timing";
 
 const DURATION_MS = 500;
 
-var tocElement;
+var frameList;
 var player;
 var animator;
 var isOpen = false;
@@ -20,9 +20,9 @@ var currentOffset = startOffset;
 export function init(viewport, aPlayer) {
     player = aPlayer;
 
-    tocElement = document.querySelector(".sozi-toc");
+    frameList = document.querySelector(".sozi-frame-list");
 
-    Array.prototype.slice.call(tocElement.querySelectorAll("li a")).forEach(link => {
+    Array.prototype.slice.call(frameList.querySelectorAll("li a")).forEach(link => {
         link.addEventListener("click", evt => {
             if (evt.button === 0) {
                 player.previewFrame(parseInt(link.dataset.frameIndex));
@@ -35,13 +35,13 @@ export function init(viewport, aPlayer) {
     animator.addListener("step", onAnimatorStep);
     window.addEventListener("keypress", onKeyPress, false);
     viewport.addListener("mouseDown", onMouseDown);
-    tocElement.addEventListener("mouseout", onMouseOut, false);
+    frameList.addEventListener("mouseout", onMouseOut, false);
     setCurrentOffset(startOffset);
 }
 
 function setCurrentOffset(offset) {
     currentOffset = offset;
-    tocElement.style.left = currentOffset * tocElement.clientWidth + "px";
+    frameList.style.left = currentOffset * frameList.clientWidth + "px";
 }
 
 export function toggle() {
@@ -83,10 +83,10 @@ function onMouseDown(button) {
 
 function onMouseOut(evt) {
     var rel = evt.relatedTarget;
-    while (rel && rel !== tocElement && rel !== document.documentElement) {
+    while (rel && rel !== frameList && rel !== document.documentElement) {
         rel = rel.parentNode;
     }
-    if (rel !== tocElement) {
+    if (rel !== frameList) {
         toggle();
         evt.stopPropagation();
     }

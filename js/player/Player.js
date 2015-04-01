@@ -175,7 +175,7 @@ Object.defineProperty(Player, "targetFrame", {
 Object.defineProperty(Player, "previousFrameIndex", {
     get() {
         var index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
-        return (index - 1) % this.presentation.frames.length;
+        return (index + this.presentation.frames.length - 1) % this.presentation.frames.length;
     }
 });
 
@@ -187,7 +187,8 @@ Object.defineProperty(Player, "nextFrameIndex", {
 });
 
 Player.showCurrentFrame = function () {
-    this.viewport.setAtStates(this.currentFrame.cameraStates);
+    this.viewport.setAtStates(this.currentFrame.cameraStates).update();
+    this.emit("frameChange");
     return this;
 };
 
@@ -457,7 +458,6 @@ Player.onAnimatorStep = function (progress) {
 Player.onAnimatorDone = function () {
     this.transitions = [];
     this.currentFrameIndex = this.targetFrameIndex;
-    console.log("Done " + this.targetFrameIndex + " " + this.currentFrameIndex);
     this.emit("frameChange");
     if (this.playing) {
         this.waitTimeout();

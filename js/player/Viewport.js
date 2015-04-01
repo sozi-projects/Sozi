@@ -356,16 +356,23 @@ Viewport.repaint = function () {
     this.svgRoot.setAttribute("width", this.width);
     this.svgRoot.setAttribute("height", this.height);
 
-    this.cameras.forEach(camera => {
-        camera.update();
-    });
-
+    this.update();
+    
     this.presentation.elementsToHide.forEach(id => {
         var elt = document.getElementById(id);
         if (elt) {
             elt.style.visibility = this.showHiddenElements ? "visible" : "hidden";
         }
     });
+    
+    return this;
+};
+
+Viewport.update = function () {
+    this.cameras.forEach(camera => {
+        camera.update();
+    });
+    return this;
 };
 
 /*
@@ -378,6 +385,7 @@ Viewport.setAtStates = function (states) {
     states.forEach((state, index) => {
         this.cameras[index].initFrom(state);
     });
+    return this;
 };
 
 /*

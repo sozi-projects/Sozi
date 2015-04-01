@@ -26,6 +26,7 @@ Properties.render = function () {
             this.renderTextField("Title", "title", this.getFrameProperty, c.setFrameProperty, true),
             this.renderTextField("Id", "frameId", this.getFrameProperty, c.setFrameProperty, false),
             this.renderCheckboxField("Show in frame list", "showInFrameList", this.getFrameProperty, c.setFrameProperty),
+            this.renderCheckboxField("Show frame number", "showFrameNumber", this.getFrameProperty, c.setFrameProperty),
             this.renderNumberField("Timeout (sec)", "timeoutMs", this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
             this.renderCheckboxField("Timeout enable", "timeoutEnable", this.getFrameProperty, c.setFrameProperty),
             this.renderCheckboxField("Link to previous frame", "link", this.getLayerProperty, c.setLayerProperty),

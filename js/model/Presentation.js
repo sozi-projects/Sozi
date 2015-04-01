@@ -6,16 +6,23 @@
 
 import {CameraState} from "./CameraState";
 
+function copyIfSet(dest, src, prop) {
+    if (src.hasOwnProperty(prop)) {
+        dest[prop] = src[prop];
+    }
+}
+
 export var LayerProperties = {
+
+    link: false,
+    referenceElementId: "",
+    referenceElementAuto: true,
+    transitionTimingFunction: "linear",
+    transitionRelativeZoom: 0,
+    transitionPathId: "",
 
     init(frame) {
         this.frame = frame;
-        this.link = false;
-        this.referenceElementId = "";
-        this.referenceElementAuto = true;
-        this.transitionTimingFunction = "linear";
-        this.transitionRelativeZoom = 0;
-        this.transitionPathId = "";
         return this;
     },
 
@@ -50,12 +57,12 @@ export var LayerProperties = {
     },
 
     fromStorable(storable) {
-        this.link = storable.link;
-        this.referenceElementId = storable.referenceElementId;
-        this.referenceElementAuto = storable.referenceElementAuto;
-        this.transitionTimingFunction = storable.transitionTimingFunction;
-        this.transitionRelativeZoom = storable.transitionRelativeZoom;
-        this.transitionPathId = storable.transitionPathId;
+        copyIfSet(this, storable, "link");
+        copyIfSet(this, storable, "referenceElementId");
+        copyIfSet(this, storable, "referenceElementAuto");
+        copyIfSet(this, storable, "transitionTimingFunction");
+        copyIfSet(this, storable, "transitionRelativeZoom");
+        copyIfSet(this, storable, "transitionPathId");
         return this;
     },
 
@@ -110,14 +117,17 @@ export var LayerProperties = {
 
 export var Frame = {
 
+    // Default values for new frames
+    title: "New frame",
+    timeoutMs: 0,
+    timeoutEnable: false,
+    transitionDurationMs: 1000,
+    showInFrameList: true,
+    showFrameNumber: true,
+
     init(presentation) {
         this.presentation = presentation;
         this.frameId = presentation.makeFrameId();
-        this.title = "New frame";
-        this.timeoutMs = 0;
-        this.timeoutEnable = false;
-        this.transitionDurationMs = 1000;
-        this.showInFrameList = true;
         this.layerProperties = presentation.layers.map(lp => Object.create(LayerProperties).init(this));
         this.cameraStates = presentation.layers.map(cs => Object.create(CameraState).init(presentation.svgRoot));
         return this;
@@ -133,6 +143,7 @@ export var Frame = {
         this.timeoutEnable = other.timeoutEnable;
         this.transitionDurationMs = other.transitionDurationMs;
         this.showInFrameList = other.showInFrameList;
+        this.showFrameNumber = other.showFrameNumber;
         this.layerProperties = other.layerProperties.map(lp => Object.create(LayerProperties).initFrom(lp));
         this.cameraStates = other.cameraStates.map(cs => Object.create(CameraState).initFrom(cs));
         return this;
@@ -163,6 +174,7 @@ export var Frame = {
             timeoutEnable: this.timeoutEnable,
             transitionDurationMs: this.transitionDurationMs,
             showInFrameList: this.showInFrameList,
+            showFrameNumber: this.showFrameNumber,
             layerProperties,
             cameraStates,
             cameraOffsets
@@ -189,30 +201,32 @@ export var Frame = {
             timeoutEnable: this.timeoutEnable,
             transitionDurationMs: this.transitionDurationMs,
             showInFrameList: this.showInFrameList,
+            showFrameNumber: this.showFrameNumber,
             layerProperties,
             cameraStates
         };
     },
 
-    fromStorable(obj) {
-        this.frameId = obj.frameId;
-        this.title = obj.title;
-        this.timeoutMs = obj.timeoutMs;
-        this.timeoutEnable = obj.timeoutEnable;
-        this.transitionDurationMs = obj.transitionDurationMs;
-        this.showInFrameList = obj.showInFrameList;
+    fromStorable(storable) {
+        copyIfSet(this, storable, "frameId");
+        copyIfSet(this, storable, "title");
+        copyIfSet(this, storable, "timeoutMs");
+        copyIfSet(this, storable, "timeoutEnable");
+        copyIfSet(this, storable, "transitionDurationMs");
+        copyIfSet(this, storable, "showInFrameList");
+        copyIfSet(this, storable, "showFrameNumber");
 
-        // TODO if obj.layerProperties has keys not in layers, create fake layers marked as "deleted"
+        // TODO if storable.layerProperties has keys not in layers, create fake layers marked as "deleted"
         this.presentation.layers.forEach((layer, index) => {
             var key = layer.groupId;
-            if (key in obj.layerProperties) {
+            if (key in storable.layerProperties) {
                 var lp = this.layerProperties[index];
-                lp.fromStorable(obj.layerProperties[key]);
+                lp.fromStorable(storable.layerProperties[key]);
 
-                var cs = this.cameraStates[index].fromStorable(obj.cameraStates[key]);
+                var cs = this.cameraStates[index].fromStorable(storable.cameraStates[key]);
                 var re = lp.referenceElement;
                 if (re) {
-                    var ofs = obj.cameraOffsets[key] || {};
+                    var ofs = storable.cameraOffsets[key] || {};
                     cs.setAtElement(re, ofs.deltaX, ofs.deltaY,
                                     ofs.widthFactor, ofs.heightFactor,
                                     ofs.deltaAngle);
@@ -278,6 +292,9 @@ var DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
 
 export var Presentation = {
 
+    aspectWidth: 4,
+    aspectHeight: 3,
+    
     /*
      * Initialize a Sozi document object.
      *
@@ -289,8 +306,6 @@ export var Presentation = {
         this.frames = [];
         this.layers = [];
         this.elementsToHide = [];
-        this.aspectWidth = 4;
-        this.aspectHeight = 3;
 
         // Remove attributes that prevent correct rendering
         svgRoot.removeAttribute("viewBox");
@@ -378,14 +393,14 @@ export var Presentation = {
         };
     },
 
-    fromStorable(obj) {
-        this.aspectWidth = obj.aspectWidth;
-        this.aspectHeight = obj.aspectHeight;
+    fromStorable(storable) {
+        copyIfSet(this, storable, "aspectWidth");
+        copyIfSet(this, storable, "aspectHeight");
 
-        this.frames = obj.frames.map(f => Object.create(Frame).init(this).fromStorable(f));
+        this.frames = storable.frames.map(f => Object.create(Frame).init(this).fromStorable(f));
 
-        if (obj.elementsToHide) {
-            this.elementsToHide = obj.elementsToHide.slice();
+        if (storable.elementsToHide) {
+            this.elementsToHide = storable.elementsToHide.slice();
         }
 
         return this;

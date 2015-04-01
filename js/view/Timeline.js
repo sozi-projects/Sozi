@@ -331,7 +331,7 @@ Timeline.render = function () {
                                 evt.stopPropagation();
                             }
                         }),
-                        frameIndex.toString()
+                        (frameIndex + 1).toString()
                     ])
                 )),
                 h("tr",

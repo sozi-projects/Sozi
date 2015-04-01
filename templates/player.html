@@ -20,7 +20,7 @@
                 overflow: hidden;
             }
 
-            .sozi-toc {
+            .sozi-frame-list {
                 position: absolute;
                 top: 0;
                 right: 0;
@@ -39,7 +39,7 @@
                 background-color: rgba(34, 34, 34, 0.9);
             }
 
-            .sozi-toc li {
+            .sozi-frame-list li {
                 margin: 0;
                 padding: 0;
                 overflow: hidden;
@@ -47,20 +47,34 @@
                 text-overflow: ellipsis;
             }
 
-            .sozi-toc a {
+            .sozi-frame-list a {
                 color: inherit;
                 text-decoration: none;
             }
 
-            .sozi-toc a:hover {
+            .sozi-frame-list a:hover {
                 color: rgb(0, 204, 255);
                 text-decoration: underline;
+            }
+            
+            .sozi-frame-number {
+                position: absolute;
+                top: 0;
+                left: 1em;
+                text-align: center;
+                padding: 0.3em 0.6em;
+
+                font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+                font-size: 12pt;
+                color: rgb(240, 255, 255);
+                background-color: rgba(34, 34, 34, 0.9);
             }
         </style>
     </head>
     <body>
         {{ svg }}
-        <ol class="sozi-toc">
+        <div class="sozi-frame-number">1</div>
+        <ol class="sozi-frame-list">
             {% for frame in pres.frames %}
                 {% if frame.showInFrameList %}
                     <li value="{{ loop.index }}"><a data-frame-index="{{ loop.index0 }}" href="#{{ frame.frameId }}" title="{{ frame.title }}">{{ frame.title }}</a></li>
