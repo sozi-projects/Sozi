@@ -10,6 +10,7 @@ import {Player} from "./player/Player";
 import * as Media from "./player/Media";
 import * as FrameList from "./player/FrameList";
 import * as FrameNumber from "./player/FrameNumber";
+import * as FrameURL from "./player/FrameURL";
 
 window.addEventListener("load", function () {
 
@@ -18,8 +19,9 @@ window.addEventListener("load", function () {
     Presentation.fromStorable(window.soziPresentationData);
     Player.init(Viewport, Presentation);
     Media.init(Player);
-    FrameList.init(Viewport, Player);
+    FrameList.init(Player);
     FrameNumber.init(Player);
+    FrameURL.init(Player);
 
     Player.addListener("change:playing", function (player, playing) {
         if (playing) {

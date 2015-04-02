@@ -18,7 +18,7 @@ var startOffset = -1;
 var endOffset = -1;
 var currentOffset = startOffset;
 
-export function init(viewport, aPlayer) {
+export function init(aPlayer) {
     player = aPlayer;
 
     frameList = document.querySelector(".sozi-frame-list");
@@ -36,7 +36,7 @@ export function init(viewport, aPlayer) {
     animator = Object.create(Animator).init();
     animator.addListener("step", onAnimatorStep);
     window.addEventListener("keypress", onKeyPress, false);
-    viewport.addListener("mouseDown", onMouseDown);
+    player.viewport.addListener("mouseDown", onMouseDown);
     frameList.addEventListener("mouseout", onMouseOut, false);
     aPlayer.addListener("frameChange", onFrameChange);
     setCurrentOffset(startOffset);
