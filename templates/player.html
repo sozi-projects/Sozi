@@ -57,12 +57,18 @@
                 text-decoration: underline;
             }
             
+            .sozi-frame-list a.current {
+                color: rgb(255, 170, 68);
+            }
+
             .sozi-frame-number {
                 position: absolute;
                 top: 0;
                 left: 1em;
                 text-align: center;
                 padding: 0.3em 0.6em;
+
+                cursor: pointer;
 
                 font-family: "Droid Sans", Helvetica, Arial, sans-serif;
                 font-size: 12pt;
@@ -73,7 +79,7 @@
     </head>
     <body>
         {{ svg }}
-        <div class="sozi-frame-number">1</div>
+        <div class="sozi-frame-number" title="Click to show the frame list">1</div>
         <ol class="sozi-frame-list">
             {% for frame in pres.frames %}
                 {% if frame.showInFrameList %}

@@ -10,6 +10,7 @@ import * as Timing from "./Timing";
 const DURATION_MS = 500;
 
 var frameList;
+var links;
 var player;
 var animator;
 var isOpen = false;
@@ -22,7 +23,8 @@ export function init(viewport, aPlayer) {
 
     frameList = document.querySelector(".sozi-frame-list");
 
-    Array.prototype.slice.call(frameList.querySelectorAll("li a")).forEach(link => {
+    links = Array.prototype.slice.call(frameList.querySelectorAll("li a"));
+    links.forEach(link => {
         link.addEventListener("click", evt => {
             if (evt.button === 0) {
                 player.previewFrame(parseInt(link.dataset.frameIndex));
@@ -36,6 +38,7 @@ export function init(viewport, aPlayer) {
     window.addEventListener("keypress", onKeyPress, false);
     viewport.addListener("mouseDown", onMouseDown);
     frameList.addEventListener("mouseout", onMouseOut, false);
+    aPlayer.addListener("frameChange", onFrameChange);
     setCurrentOffset(startOffset);
 }
 
@@ -44,11 +47,23 @@ function setCurrentOffset(offset) {
     frameList.style.left = currentOffset * frameList.clientWidth + "px";
 }
 
-export function toggle() {
+function moveTo(offset) {
     player.pause();
     startOffset = currentOffset;
-    endOffset = -1 - endOffset;
+    endOffset = offset;
     animator.start(Math.abs(endOffset - startOffset) * DURATION_MS);
+}
+
+export function open() {
+    moveTo(0);
+}
+
+export function close() {
+    moveTo(-1);
+}
+
+export function toggle() {
+    moveTo(-1 - endOffset);
 }
 
 function onKeyPress(evt) {
@@ -87,7 +102,15 @@ function onMouseOut(evt) {
         rel = rel.parentNode;
     }
     if (rel !== frameList) {
-        toggle();
+        close();
         evt.stopPropagation();
     }
+}
+
+function onFrameChange() {
+    links.forEach(link => {
+        link.className = parseInt(link.dataset.frameIndex) === player.currentFrameIndex ?
+            "current" :
+            "";
+    });
 }
