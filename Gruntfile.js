@@ -69,7 +69,7 @@ module.exports = function(grunt) {
         /*
          * Transpile JavaScript source files from ES6 to ES5
          */
-        "6to5": {
+        babel: {
             options: {
                 whitelist: [
                     "es6.arrowFunctions",
@@ -276,7 +276,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask("build", [
         "modify_json",
-        "6to5",
+        "babel",
         "browserify:player",
         "uglify:player",
         "nunjucks_render",
