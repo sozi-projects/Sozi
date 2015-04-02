@@ -51,7 +51,7 @@ window.addEventListener("load", () => {
         }).one("mouseup", (evt) => {
             body.off("mousemove");
             body.off("mouseup");
-        })
+        });
     });
 
     vsplitter.mousedown((evt) => {
@@ -66,6 +66,6 @@ window.addEventListener("load", () => {
         }).one("mouseup", (evt) => {
             body.off("mousemove");
             body.off("mouseup");
-        })
+        });
     });
 }, false);

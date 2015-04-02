@@ -6,6 +6,7 @@
 
 import {backendList} from "./backend/AbstractBackend";
 import {EventEmitter} from "events";
+import nunjucks from "nunjucks";
 
 export var Storage = Object.create(EventEmitter.prototype);
 
