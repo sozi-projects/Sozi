@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
-"POT-Creation-Date: 2015-04-04 04:25:+0000\n"
-"PO-Revision-Date: 2015-04-04 18:27+0100\n"
+"POT-Creation-Date: 2015-04-04 07:43:+0000\n"
+"PO-Revision-Date: 2015-04-04 21:45+0100\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Sozi translators\n"
 "Language: fr\n"
@@ -12,6 +12,19 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+
+#: build/js/backend/FileReader.js:20
+msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
+msgstr ""
+"Charger un fichier local (<i class=\"fa fa-warning\"></i> en lecture seule)"
+
+#: build/js/backend/GoogleDrive.js:22
+msgid "Load from Google Drive"
+msgstr "Charger depuis Google Drive"
+
+#: build/js/backend/NodeWebkit.js:41
+msgid "Load local file"
+msgstr "Charger un fichier local"
 
 #: build/js/view/Properties.js:32
 msgid "Frame"

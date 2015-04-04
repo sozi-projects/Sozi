@@ -74,7 +74,8 @@ module.exports = function(grunt) {
                 whitelist: [
                     "es6.arrowFunctions",
                     "es6.properties.shorthand",
-                    "es6.modules"
+                    "es6.modules",
+                    "es6.templateLiterals"
                 ]
             },
             all: {

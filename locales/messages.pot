@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2015-04-04 04:25:+0000\n"
+"POT-Creation-Date: 2015-04-04 07:43:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -8,6 +8,18 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+
+#: build/js/backend/FileReader.js:20
+msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
+msgstr ""
+
+#: build/js/backend/GoogleDrive.js:22
+msgid "Load from Google Drive"
+msgstr ""
+
+#: build/js/backend/NodeWebkit.js:41
+msgid "Load local file"
+msgstr ""
 
 #: build/js/view/Properties.js:32
 msgid "Frame"

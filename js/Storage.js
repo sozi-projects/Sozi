@@ -10,7 +10,7 @@ import nunjucks from "nunjucks";
 
 export var Storage = Object.create(EventEmitter.prototype);
 
-Storage.init = function (controller, presentation, selection, timeline) {
+Storage.init = function (controller, presentation, selection, timeline, i18n) {
     EventEmitter.call(this);
 
     this.controller = controller;
@@ -32,13 +32,21 @@ Storage.init = function (controller, presentation, selection, timeline) {
         this.jsonNeedsSaving = true;
     });
 
+    var gettext = i18n.gettext.bind(i18n);
+
     backendList.forEach(backend => {
         var listItem = $("<li></li>");
         $("#sozi-editor-view-preview ul").append(listItem);
-        backend.init(listItem)
+        backend.init(listItem, gettext)
             .addListener("load", this.onBackendLoad.bind(this, backend))
             .addListener("change", this.onBackendChange.bind(this));
     });
+
+    if (backendList.length === 1) {
+//        window.setTimeout(() => {
+            backendList[0].openFileChooser();
+//        }, 100);
+    }
 
     return this;
 };

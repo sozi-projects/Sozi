@@ -12,14 +12,18 @@ export var GoogleDrive = Object.create(AbstractBackend);
 GoogleDrive.clientId = "Your OAuth client Id";
 GoogleDrive.apiKey = "Your developer API key";
 
-GoogleDrive.init = function (container) {
-    AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-GoogleDrive-input" type="button" value="Load from Google Drive">');
+GoogleDrive.init = function (container, _) {
+    AbstractBackend.init.call(this, container, "sozi-editor-backend-GoogleDrive-input", _("Load from Google Drive"));
 
     $(window).blur(this.doAutosave.bind(this));
 
     gapi.client.setApiKey(this.apiKey);
     this.authorize(true);
     return this;
+};
+
+GoogleDrive.openFileChooser = function () {
+    $("#sozi-editor-backend-GoogleDrive-input").click();
 };
 
 GoogleDrive.authorize = function (onInit) {

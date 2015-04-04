@@ -31,9 +31,8 @@ window.addEventListener("load", () => {
         Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, tr);
         Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, tr);
         Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, tr);
+        Storage.init(Controller, Presentation, Selection, Timeline, tr);
     });
-
-    Storage.init(Controller, Presentation, Selection, Timeline);
 
     var body = $("body");
     var left = $(".left");
