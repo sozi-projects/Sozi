@@ -66,6 +66,7 @@ Command | Effect
 `grunt web-build`           | Build the web application without uploading it.
 `grunt nw-bundle` (default) | Build the desktop application and create executable bundles for various platforms.
 `grunt web-demo`            | Build the web application and upload it to a server.
+`grunt pot`                 | Extract a template file (`locales/messages.pot`) for translation.
 
 
 Install
