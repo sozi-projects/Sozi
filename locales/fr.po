@@ -1,0 +1,175 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Sozi 15.04\n"
+"POT-Creation-Date: 2015-04-04 04:25:+0000\n"
+"PO-Revision-Date: 2015-04-04 18:27+0100\n"
+"Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
+"Language-Team: Sozi translators\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: build/js/view/Properties.js:32
+msgid "Frame"
+msgstr "Vue"
+
+#: build/js/view/Properties.js:32
+msgid "Title"
+msgstr "Titre"
+
+#: build/js/view/Properties.js:32
+msgid "Id"
+msgstr "Id"
+
+#: build/js/view/Properties.js:32
+msgid "Show in frame list"
+msgstr "Afficher dans la liste des vues"
+
+#: build/js/view/Properties.js:32
+msgid "Show frame number"
+msgstr "Afficher le numéro de la vue"
+
+#: build/js/view/Properties.js:32
+msgid "Timeout (sec)"
+msgstr "Délai (sec)"
+
+#: build/js/view/Properties.js:32
+msgid "Timeout enable"
+msgstr "Activer le délai"
+
+#: build/js/view/Properties.js:32
+msgid "Link to previous frame"
+msgstr "Lier à la vue précédente"
+
+#: build/js/view/Properties.js:32 build/js/view/Toolbar.js:87
+msgid "Clip"
+msgstr "Rogner"
+
+#: build/js/view/Properties.js:32
+msgid "Reference element Id"
+msgstr "Id de l'élément de référence"
+
+#: build/js/view/Properties.js:34
+msgid "Fit to element"
+msgstr "Ajuster à l'élément"
+
+#: build/js/view/Properties.js:36
+msgid "Autoselect element"
+msgstr "Sélectionner l'élément automatiquement"
+
+#: build/js/view/Properties.js:36
+msgid "Hide element"
+msgstr "Cacher l'élément"
+
+#: build/js/view/Properties.js:36
+msgid "Transition"
+msgstr "Transition"
+
+#: build/js/view/Properties.js:36
+msgid "Duration (sec)"
+msgstr "Durée (sec)"
+
+#: build/js/view/Properties.js:36
+msgid "Timing function"
+msgstr "Fonction de progression du temps"
+
+#: build/js/view/Properties.js:45
+msgid "Relative zoom (%)"
+msgstr "Zoom relatif (%)"
+
+#: build/js/view/Properties.js:45
+msgid "Path Id"
+msgstr "Id du chemin"
+
+#: build/js/view/Properties.js:45
+msgid "Hide path"
+msgstr "Cacher le chemin"
+
+#: build/js/view/Timeline.js:246
+msgid "Delete the selected frames"
+msgstr "Supprimer les vues sélectionnées"
+
+#: build/js/view/Timeline.js:250
+msgid "Create a new frame"
+msgstr "Créer une nouvelle vue"
+
+#: build/js/view/Timeline.js:258
+msgid "Add layer"
+msgstr "Ajouter un calque"
+
+#: build/js/view/Timeline.js:263 build/js/view/Timeline.js:275
+msgid "This layer is visible. Click to hide it."
+msgstr "Ce calque est visible. Cliquez pour le cacher."
+
+#: build/js/view/Timeline.js:266 build/js/view/Timeline.js:278
+msgid "This layer is hidden. Click to show it."
+msgstr "Ce calque est caché. Cliquez pour le rendre visible."
+
+#: build/js/view/Timeline.js:271 build/js/view/Timeline.js:287
+msgid "Default"
+msgstr "Par défaut"
+
+#: build/js/view/Timeline.js:281
+msgid "Remove this layer"
+msgstr "Retirer ce calque"
+
+#: build/js/view/Timeline.js:292
+msgid "Insert selection before frame %d"
+msgstr "Insérer la sélection avant la vue %d"
+
+#: build/js/view/Timeline.js:298
+msgid "Insert selection after frame %d"
+msgstr "Insérer la sélection après la vue %d"
+
+#: build/js/view/Toolbar.js:34
+msgid "Aspect ratio: "
+msgstr "Format : "
+
+#: build/js/view/Toolbar.js:63
+msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
+msgstr ""
+"Déplacer les calques sélectionnés (pressez la touche Alt pour zoomer, Shift "
+"pour tourner)"
+
+#: build/js/view/Toolbar.js:71
+msgid ""
+"Zoom in/out on the selected layers (you can also hold the Alt key in Move "
+"mode)"
+msgstr ""
+"Zoomer/dézoomer sur les calques sélectionnés (vous pouvez aussi presser la "
+"touche Alt en mode déplacement)"
+
+#: build/js/view/Toolbar.js:79
+msgid ""
+"Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgstr ""
+"Tourner les calques sélectionnés (vous pouvez aussi presser la touche Shift "
+"en mode déplacement)"
+
+#: build/js/view/Toolbar.js:93
+msgid "Undo"
+msgstr "Annuler"
+
+#: build/js/view/Toolbar.js:97
+msgid "Redo"
+msgstr "Refaire"
+
+#: build/js/view/Toolbar.js:101
+msgid "Save the presentation"
+msgstr "Enregistrer la présentation"
+
+#: build/js/view/Toolbar.js:104
+msgid "Save"
+msgstr "Enregistrer"
+
+#: build/js/view/Toolbar.js:105
+msgid "Reload the SVG document"
+msgstr "Recharger le document SVG"
+
+#: build/js/view/Toolbar.js:107
+msgid "Reload"
+msgstr "Recharger"

@@ -2,7 +2,7 @@
     "name": "Sozi",
     "description": "A zooming presentation editor",
     "author": "Guillaume Savaton",
-    "version": "15.04.021552",
+    "version": "15.04.041828",
     "main": "index.html",
     "window": {
         "title": "Sozi",
@@ -15,6 +15,7 @@
         "url": "http://github.com/senshu/Sozi.git"
     },
     "dependencies": {
+        "jed": "^1.1.0",
         "nunjucks": "~1.1.0",
         "virtual-dom": "^1.3.0"
     },
@@ -27,10 +28,12 @@
         "grunt-contrib-csslint": "^0.4.0",
         "grunt-contrib-jshint": "^0.11.0",
         "grunt-contrib-uglify": "^0.7.0",
+        "grunt-jspot": "^0.1.0",
         "grunt-modify-json": "^0.1.1",
         "grunt-newer": "^1.1.0",
         "grunt-node-webkit-builder": "^1.0.0",
         "grunt-nunjucks": "~0.1.4",
+        "grunt-po2json": "^0.3.0",
         "grunt-rename": "^0.1.4",
         "grunt-rsync": "^0.6.2",
         "grunt-simple-mocha": "^0.4.0",

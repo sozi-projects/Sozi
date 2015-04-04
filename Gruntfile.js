@@ -86,6 +86,28 @@ module.exports = function(grunt) {
             }
         },
 
+        jspot: {
+            options: {
+                keyword: "_"
+            },
+            all: {
+                // Exclude *.bundle.js and *.min.js
+                src: ["build/js/**/*.js", "!build/js/*.*.js"],
+                dest: "locales"
+            }
+        },
+        
+        po2json: {
+            options: {
+                pretty: true,
+                format: "jed1.x"
+            },
+            all: {
+                src: ["locales/*.po"],
+                dest: "build/app/locales",
+            }
+        },
+        
         browserify: {
             editor: {
                 options: {
@@ -281,6 +303,7 @@ module.exports = function(grunt) {
         "uglify:player",
         "nunjucks_render",
         "nunjucks",
+        "po2json",
         "browserify:editor",
         "uglify:editor",
         "copy"
@@ -300,6 +323,8 @@ module.exports = function(grunt) {
         "web-build",
         "rsync"
     ]);
+    
+    grunt.registerTask("pot", ["babel", "jspot"]);
     
     grunt.registerTask("default", ["nw-bundle"]);
 };

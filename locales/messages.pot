@@ -1,0 +1,164 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2015-04-04 04:25:+0000\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+
+#: build/js/view/Properties.js:32
+msgid "Frame"
+msgstr ""
+
+#: build/js/view/Properties.js:32
+msgid "Title"
+msgstr ""
+
+#: build/js/view/Properties.js:32
+msgid "Id"
+msgstr ""
+
+#: build/js/view/Properties.js:32
+msgid "Show in frame list"
+msgstr ""
+
+#: build/js/view/Properties.js:32
+msgid "Show frame number"
+msgstr ""
+
+#: build/js/view/Properties.js:32
+msgid "Timeout (sec)"
+msgstr ""
+
+#: build/js/view/Properties.js:32
+msgid "Timeout enable"
+msgstr ""
+
+#: build/js/view/Properties.js:32
+msgid "Link to previous frame"
+msgstr ""
+
+#: build/js/view/Properties.js:32 build/js/view/Toolbar.js:87
+msgid "Clip"
+msgstr ""
+
+#: build/js/view/Properties.js:32
+msgid "Reference element Id"
+msgstr ""
+
+#: build/js/view/Properties.js:34
+msgid "Fit to element"
+msgstr ""
+
+#: build/js/view/Properties.js:36
+msgid "Autoselect element"
+msgstr ""
+
+#: build/js/view/Properties.js:36
+msgid "Hide element"
+msgstr ""
+
+#: build/js/view/Properties.js:36
+msgid "Transition"
+msgstr ""
+
+#: build/js/view/Properties.js:36
+msgid "Duration (sec)"
+msgstr ""
+
+#: build/js/view/Properties.js:36
+msgid "Timing function"
+msgstr ""
+
+#: build/js/view/Properties.js:45
+msgid "Relative zoom (%)"
+msgstr ""
+
+#: build/js/view/Properties.js:45
+msgid "Path Id"
+msgstr ""
+
+#: build/js/view/Properties.js:45
+msgid "Hide path"
+msgstr ""
+
+#: build/js/view/Timeline.js:246
+msgid "Delete the selected frames"
+msgstr ""
+
+#: build/js/view/Timeline.js:250
+msgid "Create a new frame"
+msgstr ""
+
+#: build/js/view/Timeline.js:258
+msgid "Add layer"
+msgstr ""
+
+#: build/js/view/Timeline.js:263 build/js/view/Timeline.js:275
+msgid "This layer is visible. Click to hide it."
+msgstr ""
+
+#: build/js/view/Timeline.js:266 build/js/view/Timeline.js:278
+msgid "This layer is hidden. Click to show it."
+msgstr ""
+
+#: build/js/view/Timeline.js:271 build/js/view/Timeline.js:287
+msgid "Default"
+msgstr ""
+
+#: build/js/view/Timeline.js:281
+msgid "Remove this layer"
+msgstr ""
+
+#: build/js/view/Timeline.js:292
+msgid "Insert selection before frame %d"
+msgstr ""
+
+#: build/js/view/Timeline.js:298
+msgid "Insert selection after frame %d"
+msgstr ""
+
+#: build/js/view/Toolbar.js:34
+msgid "Aspect ratio: "
+msgstr ""
+
+#: build/js/view/Toolbar.js:63
+msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:71
+msgid ""
+"Zoom in/out on the selected layers (you can also hold the Alt key in Move "
+"mode)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:79
+msgid "Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:93
+msgid "Undo"
+msgstr ""
+
+#: build/js/view/Toolbar.js:97
+msgid "Redo"
+msgstr ""
+
+#: build/js/view/Toolbar.js:101
+msgid "Save the presentation"
+msgstr ""
+
+#: build/js/view/Toolbar.js:104
+msgid "Save"
+msgstr ""
+
+#: build/js/view/Toolbar.js:105
+msgid "Reload the SVG document"
+msgstr ""
+
+#: build/js/view/Toolbar.js:107
+msgid "Reload"
+msgstr ""
