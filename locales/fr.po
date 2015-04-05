@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
-"POT-Creation-Date: 2015-04-04 07:43:+0000\n"
-"PO-Revision-Date: 2015-04-04 21:45+0100\n"
+"POT-Creation-Date: 2015-04-05 09:39:+0000\n"
+"PO-Revision-Date: 2015-04-05 11:41+0100\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Sozi translators\n"
 "Language: fr\n"
@@ -13,6 +13,26 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
+#: build/js/Storage.js:76
+msgid "File %s could not be loaded."
+msgstr "Le fichier %s n'a pas pu être chargé."
+
+#: build/js/Storage.js:97
+msgid "Document was changed. Reloading."
+msgstr "Le document a été modifié. Rechargement."
+
+#: build/js/Storage.js:118
+msgid "Document is not valid SVG."
+msgstr "Le document n'est pas conforme au standard SVG."
+
+#: build/js/Storage.js:158
+msgid "Document was imported from Sozi 13 or earlier."
+msgstr "Le document a été importé depuis Sozi 13 ou une version antérieure."
+
+#: build/js/Storage.js:243
+msgid "Saved %s."
+msgstr "Fichier %s enregistré."
+
 #: build/js/backend/FileReader.js:20
 msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
 msgstr ""
@@ -22,9 +42,13 @@ msgstr ""
 msgid "Load from Google Drive"
 msgstr "Charger depuis Google Drive"
 
-#: build/js/backend/NodeWebkit.js:41
+#: build/js/backend/NodeWebkit.js:43
 msgid "Load local file"
 msgstr "Charger un fichier local"
+
+#: build/js/backend/NodeWebkit.js:80
+msgid "File not found: %s."
+msgstr "Fichier non trouvé : %s."
 
 #: build/js/view/Properties.js:32
 msgid "Frame"

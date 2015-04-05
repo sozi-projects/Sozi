@@ -5,11 +5,11 @@
 "use strict";
 
 import {AbstractBackend, addBackend} from "./AbstractBackend";
-
 import gui from "nw.gui";
 import fs from "fs";
 import path from "path";
 import process from "process";
+import Jed from "jed";
 
 var win = gui.Window.get();
 
@@ -62,7 +62,7 @@ NodeWebkit.init = function (container, _) {
             this.load(fileName);
         }
         catch (err) {
-            console.log("File not found " + fileName);
+            $.notify(Jed.sprintf(_("File not found: %s."), fileName), "error");
         }
     }
 
