@@ -1,0 +1,82 @@
+body {
+    margin:0px;
+    padding:0px;
+    font-family: sans-serif;
+}
+.loadingOverlay {
+    background:  #fff no-repeat 40% 23px;
+    position: absolute;
+    z-index: 1001;
+    display: block;
+}
+ 
+#loadingContent {
+    width:300px;
+    margin-left: auto;
+    margin-top: 60px;
+    margin-right: auto;    
+}
+
+#loadingImage {
+    float: left;
+    margin-top: 19px;
+    margin-left: 50px;    
+}
+
+.pageOverlay {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    text-align:center;
+}
+ 
+.loadingMessage {
+    padding: 25px 40px;
+    color: #999;
+}
+
+#presentation {
+    text-align: center;
+}
+
+#SVG {
+    margin:0px;
+    padding:0px;
+}
+
+.btn {
+    float:right;
+}
+
+.presentator {
+    -webkit-transition: all 0.5s linear;
+       -moz-transition: all 0.5s linear;
+        -ms-transition: all 0.5s linear;
+         -o-transition: all 0.5s linear;
+            transition: all 0.5s linear;   
+    position:absolute; 
+    border:solid 1px;
+    background-color: #fff;
+    margin-left:-10px;
+    padding-right:10px;
+    padding-left:10px;
+}
+
+.presentator.ng-enter {
+    opacity: 0;
+    left:-20%;
+}
+.presentator.ng-enter-active {
+    opacity: 1;
+    left:0%;
+}
+
+.presentator.ng-leave {
+    opacity: 1;
+    left:0%;
+}
+.presentator.ng-leave-active {
+    opacity: 0;
+    left:-20%;
+}

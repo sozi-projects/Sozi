@@ -1,0 +1,20 @@
+<div class="presentator" ng-if="svgController.presentatorShown">
+    <h3>Presentation Controller</h3>
+    <div ng-repeat="(key,value) in meta" >
+        <label for="meta_{{key}}">{{key}}</label>
+        <input id="meta_{{key}}" placeholder="{{key}}" value="{{value}}" ng-model="meta[key]">
+    </div>
+    <hr>
+    <label for="screenSizes">Screen size</label>
+    <select id="screenSizes" ng-model="selectedScreenSize" ng-options="r.width+'x'+r.height group by r.ratio for r in screenSizes" ng-change="changeScreenSize()">
+    </select>
+    <input id="screenWidth" type="text" ng-model="$parent.screen.width" placeholder="screen width" size="6">x
+    <input id="screenHeight" type="text" ng-model="$parent.screen.height" placeholder="screen height" size="6">
+    <button class="btn" ng-click="resetSizeToFullscreen()">Reset to Window-Size</button>
+    <br>
+    <hr>
+    <label for="presentationMode">PresentationMode</label> is <input type="checkbox" id="presentationMode" ng-model="presentationModeOn" ng-change="switchPresentationMode()">({{presentationModeState}})
+    <hr>
+    <button class="btn" ng-click="svgController.presentatorShown = false">Hide</button>
+    <button class="btn" ng-click="$parent.multipleWindowMode = true">Open Presentation in new Window</button>
+</div>

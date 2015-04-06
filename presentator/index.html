@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html ng-app="DynSVG" presentor-show>
+<head>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-animate.min.js"></script>
+    <script src="js/moment-with-langs.min.js"></script>
+    <script src="js/snap.svg.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="css/presentation.css">
+    <link rel="stylesheet" type="text/css" media="all" href="css/fonts.css">
+</head>
+<body>
+    <span id="controller" ng-controller="SVGController as svgController">
+        <div id="loadingOverlay" class="loadingOverlay pageOverlay" ui-fade-toggle="loading">
+            <div id="loadingContent">
+                <img id="loadingImage" src="img/loading.gif"></img>
+                <p class="loadingMessage">Loading Presentation ...</p>
+            </div>
+        </div>
+        <presentator></presentator>
+        <dynsvg id="presentation" default-file="default.json"></dynsvg>
+        <div id="nextPresentation" ng-if="multipleWindowMode" ></div>        
+    </span>
+    <script src="js/presentation.js"></script>
+</body>
+</html>

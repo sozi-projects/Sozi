@@ -1,0 +1,14 @@
+{
+	"presentationPath":"examplePresentation.svg",
+	"meta":{
+		"name":"Kai W.",
+		"email":"kwe@mydomain.com",
+		"imagePath":"img/examples/image1.png"
+	},
+	"animations":{
+
+	},
+	"setup":{
+	}
+
+}
