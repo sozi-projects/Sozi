@@ -6,6 +6,8 @@
     height: 80%;
     background: white;
     box-shadow: 0 0 20px 5px rgb(32, 32, 32);
+
+    text-align: center;
 }
 
 #sozi-editor-view-preview svg {
@@ -28,5 +30,7 @@
 
 #sozi-editor-view-preview ul li {
     list-style-type: none;
+    display: inline-block;
+    margin: 0 1em 0.5em 1em;
 }
 

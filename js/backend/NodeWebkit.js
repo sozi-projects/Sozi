@@ -5,11 +5,11 @@
 "use strict";
 
 import {AbstractBackend, addBackend} from "./AbstractBackend";
-
 import gui from "nw.gui";
 import fs from "fs";
 import path from "path";
 import process from "process";
+import Jed from "jed";
 
 var win = gui.Window.get();
 
@@ -23,11 +23,15 @@ console.log("Current working dir: " + cwd);
 
 export var NodeWebkit = Object.create(AbstractBackend);
 
-NodeWebkit.init = function (container) {
-    AbstractBackend.init.call(this, container, '<input id="sozi-editor-backend-NodeWebkit-input" type="file" accept="image/svg+xml" autofocus>');
+NodeWebkit.init = function (container, _) {
+    AbstractBackend.init.call(this, container, "sozi-editor-backend-NodeWebkit-input", _("Load local file"));
+
+    $(container).append('<input style="display:none;" id="sozi-editor-backend-NodeWebkit-file" type="file">');
+
+    $("#sozi-editor-backend-NodeWebkit-input").click(this.openFileChooser.bind(this));
 
     // Load the SVG document selected in the file input
-    $("#sozi-editor-backend-NodeWebkit-input").change(evt => {
+    $("#sozi-editor-backend-NodeWebkit-file").change(evt => {
         if (evt.target.files.length) {
             this.load(evt.target.files[0].path);
         }
@@ -58,11 +62,15 @@ NodeWebkit.init = function (container) {
             this.load(fileName);
         }
         catch (err) {
-            console.log("File not found " + fileName);
+            $.notify(Jed.sprintf(_("File not found: %s."), fileName), "error");
         }
     }
 
     return this;
+};
+
+NodeWebkit.openFileChooser = function () {
+    $("#sozi-editor-backend-NodeWebkit-file").click();
 };
 
 NodeWebkit.getName = function (fileDescriptor) {

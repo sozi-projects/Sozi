@@ -22,7 +22,7 @@ class SoziExtrasMedia(inkex.Effect):
 
     NS_URI = u"http://sozi.baierouge.fr"
 
-    SOZI_VERSION = "14.10"
+    SOZI_VERSION = "15.04"
 
     def __init__(self):
         inkex.Effect.__init__(self)
@@ -81,13 +81,13 @@ class SoziExtrasMedia(inkex.Effect):
 
         # Add a <sozi:video /> or <sozi:audio /> element inside the <rect>
         v = inkex.etree.Element(inkex.addNS(self.options.element, "sozi"))
-        v.set(inkex.addNS("type", "sozi"), unicode(self.options.type))
-        v.set(inkex.addNS("src", "sozi"), unicode(self.options.src))
+        v.set(inkex.addNS("type", "sozi"), self.options.type.decode("utf-8"))
+        v.set(inkex.addNS("src", "sozi"), self.options.src.decode("utf-8"))
 
         # If the media is set to autoplay, add "start-frame" and "stop-frame" attributes
         if self.options.auto == "true":
-            v.set(inkex.addNS("start-frame", "sozi"), unicode(self.options.start_frame))
-            v.set(inkex.addNS("stop-frame", "sozi"), unicode(self.options.stop_frame))
+            v.set(inkex.addNS("start-frame", "sozi"), self.options.start_frame.decode("utf-8"))
+            v.set(inkex.addNS("stop-frame", "sozi"), self.options.stop_frame.decode("utf-8"))
 
         rect.append(v)
 

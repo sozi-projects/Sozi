@@ -15,6 +15,7 @@ import {Properties} from "./view/Properties";
 import {Toolbar} from "./view/Toolbar";
 import {Timeline} from "./view/Timeline";
 import nunjucks from "nunjucks";
+import * as i18n from "./i18n";
 
 window.addEventListener("load", () => {
     nunjucks.configure({watch: false});
@@ -25,11 +26,13 @@ window.addEventListener("load", () => {
     Controller.init(Storage, Presentation, Selection, Viewport);
 
     Preview.init(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller);
-    Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller);
-    Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller);
-    Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller);
 
-    Storage.init(Controller, Presentation, Selection, Timeline);
+    i18n.init().always(tr => {
+        Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, tr);
+        Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, tr);
+        Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, tr);
+        Storage.init(Controller, Presentation, Selection, Timeline, tr);
+    });
 
     var body = $("body");
     var left = $(".left");
@@ -51,7 +54,7 @@ window.addEventListener("load", () => {
         }).one("mouseup", (evt) => {
             body.off("mousemove");
             body.off("mouseup");
-        })
+        });
     });
 
     vsplitter.mousedown((evt) => {
@@ -66,6 +69,6 @@ window.addEventListener("load", () => {
         }).one("mouseup", (evt) => {
             body.off("mousemove");
             body.off("mouseup");
-        })
+        });
     });
 }, false);

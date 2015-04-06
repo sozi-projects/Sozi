@@ -6,6 +6,7 @@
 
 import h from "virtual-dom/h";
 import {VirtualDOMView} from "./VirtualDOMView";
+import Jed from "jed";
 
 /*
  * The Timeline view shows a table where columns represent frames
@@ -33,11 +34,13 @@ export var Timeline = Object.create(VirtualDOMView);
  * Returns:
  *  - The current view
  */
-Timeline.init = function (container, presentation, selection, controller) {
+Timeline.init = function (container, presentation, selection, controller, i18n) {
     VirtualDOMView.init.call(this, container, controller);
 
     this.presentation = presentation;
     this.selection = selection;
+    this.gettext = i18n.gettext.bind(i18n);
+    
     this.editableLayers = [];
     this.defaultLayers = [];
 
@@ -216,6 +219,8 @@ Timeline.repaint = function () {
 };
 
 Timeline.render = function () {
+    var _ = this.gettext;
+    
     var defaultLayersAreVisible = this.defaultLayers.some(layer => layer.isVisible);
 
     var defaultLayerIsNotEmpty = this.defaultLayers.length > 1 || this.defaultLayers[0].svgNodes.length;
@@ -226,14 +231,14 @@ Timeline.render = function () {
                 h("tr", [
                     h("th",
                         h("button", {
-                            title: "Delete selected frames",
+                            title: _("Delete the selected frames"),
                             disabled: this.selection.selectedFrames.length ? undefined : "disabled",
                             onclick: this.controller.deleteFrames.bind(this.controller)
                         },
                             h("i.fa.fa-trash"))),
                     h("th",
                         h("button", {
-                            title: "Create a new frame",
+                            title: _("Create a new frame"),
                             onclick: this.controller.addFrame.bind(this.controller)
                         },
                             h("i.fa.fa-plus"))),
@@ -247,7 +252,7 @@ Timeline.render = function () {
                                 this.addLayer(value);
                             }
                         }, [
-                            h("option", {value: "__add__", selected: "selected"}, "Add layer")
+                            h("option", {value: "__add__", selected: "selected"}, _("Add layer"))
                         ].concat(
                             this.presentation.layers.slice().reverse()
                                 .filter(layer => !layer.auto && this.defaultLayers.indexOf(layer) >= 0)
@@ -263,11 +268,11 @@ Timeline.render = function () {
                     h("th.layer-icons", [
                         defaultLayersAreVisible ?
                             h("i.visibility.fa.fa-eye", {
-                                title: "This layer is visible. Click to hide it.",
+                                title: _("This layer is visible. Click to hide it."),
                                 onclick: this.toggleLayerVisibility.bind(this, -1)
                             }) :
                             h("i.visibility.fa.fa-eye-slash", {
-                                title: "This layer is hidden. Click to show it.",
+                                title: _("This layer is hidden. Click to show it."),
                                 onclick: this.toggleLayerVisibility.bind(this, -1)
                             }),
                         h("i.remove.fa.fa-times", {style: {visibility: "hidden"}})
@@ -275,7 +280,7 @@ Timeline.render = function () {
                     h("th", {
                         className: "layer-label" + (this.defaultLayersAreSelected ? " selected" : ""),
                         onclick: this.updateLayerSelection.bind(this, -1)
-                    }, "Default")
+                    }, _("Default"))
                 ]),
             ] : []).concat(
                 this.presentation.layers.slice().reverse()
@@ -284,15 +289,15 @@ Timeline.render = function () {
                             h("th.layer-icons", [
                                 layer.isVisible ?
                                     h("i.visibility.fa.fa-eye", {
-                                        title: "This layer is visible. Click to hide it.",
+                                        title: _("This layer is visible. Click to hide it."),
                                         onclick: this.toggleLayerVisibility.bind(this, layer.index)
                                     }) :
                                     h("i.visibility.fa.fa-eye-slash", {
-                                        title: "This layer is hidden. Click to show it.",
+                                        title: _("This layer is hidden. Click to show it."),
                                         onclick: this.toggleLayerVisibility.bind(this, layer.index)
                                     }),
                                 h("i.remove.fa.fa-times", {
-                                    title: "Remove this layer",
+                                    title: _("Remove this layer"),
                                     onclick: this.removeLayer.bind(this, layer.index)
                                 })
                             ]),
@@ -305,7 +310,7 @@ Timeline.render = function () {
             ).concat([
                 h("tr", {style: {visibility: "collapse"}}, [
                     h("th.layer-icons"),
-                    h("th.layer-label", "Default")
+                    h("th.layer-label", _("Default"))
                 ])
             ]))
         ]),
@@ -318,20 +323,20 @@ Timeline.render = function () {
                         onclick: this.updateFrameSelection.bind(this, frameIndex)
                     }, [
                         h("i.insert-before.fa.fa-arrow-circle-down", {
-                            title: "Insert selection before frame " + frameIndex,
+                            title: Jed.sprintf(_("Insert selection before frame %d"), frameIndex + 1),
                             onclick: (evt) => {
                                 this.controller.moveFrames(frameIndex);
                                 evt.stopPropagation();
                             }
                         }),
                         h("i.insert-after.fa.fa-arrow-circle-down", {
-                            title: "Insert selection after frame " + frameIndex,
+                            title: Jed.sprintf(_("Insert selection after frame %d"), frameIndex + 1),
                             onclick: (evt) => {
                                 this.controller.moveFrames(frameIndex + 1);
                                 evt.stopPropagation();
                             }
                         }),
-                        frameIndex.toString()
+                        (frameIndex + 1).toString()
                     ])
                 )),
                 h("tr",

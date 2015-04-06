@@ -5,7 +5,7 @@
 "use strict";
 
 import {Animator} from "./Animator";
-import * as timing from "./timing";
+import * as Timing from "./Timing";
 import {CameraState} from "../model/CameraState";
 import {EventEmitter} from "events";
 
@@ -175,7 +175,7 @@ Object.defineProperty(Player, "targetFrame", {
 Object.defineProperty(Player, "previousFrameIndex", {
     get() {
         var index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
-        return (index - 1) % this.presentation.frames.length;
+        return (index + this.presentation.frames.length - 1) % this.presentation.frames.length;
     }
 });
 
@@ -187,7 +187,8 @@ Object.defineProperty(Player, "nextFrameIndex", {
 });
 
 Player.showCurrentFrame = function () {
-    this.viewport.setAtStates(this.currentFrame.cameraStates);
+    this.viewport.setAtStates(this.currentFrame.cameraStates).update();
+    this.emit("frameChange");
     return this;
 };
 
@@ -340,14 +341,14 @@ Player.moveToFrame = function (index) {
     this.playing = true;
 
     this.viewport.cameras.forEach(camera => {
-        var timingFunction = timing[DEFAULT_TIMING_FUNCTION];
+        var timingFunction = Timing[DEFAULT_TIMING_FUNCTION];
         var relativeZoom = DEFAULT_RELATIVE_ZOOM;
         var transitionPath = null;
 
         if (layerProperties) {
             var lp = layerProperties[camera.layer.index];
             relativeZoom = lp.transitionRelativeZoom;
-            timingFunction = timing[lp.transitionTimingFunction];
+            timingFunction = Timing[lp.transitionTimingFunction];
             if (useTransitionPath) {
                 transitionPath = lp.transitionPath;
             }
@@ -422,7 +423,7 @@ Player.previewFrame = function (index) {
     this.targetFrameIndex = index;
 
     this.viewport.cameras.forEach(camera => {
-        this.setupTransition(camera, timing[DEFAULT_TIMING_FUNCTION], DEFAULT_RELATIVE_ZOOM);
+        this.setupTransition(camera, Timing[DEFAULT_TIMING_FUNCTION], DEFAULT_RELATIVE_ZOOM);
     });
 
     this.animator.start(DEFAULT_TRANSITION_DURATION_MS);
@@ -457,8 +458,8 @@ Player.onAnimatorStep = function (progress) {
 Player.onAnimatorDone = function () {
     this.transitions = [];
     this.currentFrameIndex = this.targetFrameIndex;
+    this.emit("frameChange");
     if (this.playing) {
-        this.emit("frameChange");
         this.waitTimeout();
     }
 };

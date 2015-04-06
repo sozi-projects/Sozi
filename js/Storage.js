@@ -6,10 +6,12 @@
 
 import {backendList} from "./backend/AbstractBackend";
 import {EventEmitter} from "events";
+import nunjucks from "nunjucks";
+import Jed from "jed";
 
 export var Storage = Object.create(EventEmitter.prototype);
 
-Storage.init = function (controller, presentation, selection, timeline) {
+Storage.init = function (controller, presentation, selection, timeline, i18n) {
     EventEmitter.call(this);
 
     this.controller = controller;
@@ -22,6 +24,7 @@ Storage.init = function (controller, presentation, selection, timeline) {
     this.jsonNeedsSaving = false;
     this.htmlNeedsSaving = false;
     this.reloading = false;
+    this.gettext = i18n.gettext.bind(i18n);
 
     controller.addListener("presentationChange", () => {
         this.jsonNeedsSaving = this.htmlNeedsSaving = true;
@@ -34,7 +37,7 @@ Storage.init = function (controller, presentation, selection, timeline) {
     backendList.forEach(backend => {
         var listItem = $("<li></li>");
         $("#sozi-editor-view-preview ul").append(listItem);
-        backend.init(listItem)
+        backend.init(listItem, this.gettext)
             .addListener("load", this.onBackendLoad.bind(this, backend))
             .addListener("change", this.onBackendChange.bind(this));
     });
@@ -52,13 +55,14 @@ Storage.reload = function () {
 };
 
 Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
+    var _ = this.gettext;
     this.backend = backend;
 
     var name = backend.getName(fileDescriptor);
     var location = backend.getLocation(fileDescriptor);
 
     if (err) {
-        $.notify("File " + name + " could not be loaded.", "error");
+        $.notify(Jed.sprintf(_("File %s could not be loaded."), name), "error");
     }
     else if (/\.svg$/.test(name)) {
         this.reloading = fileDescriptor === this.svgFileDescriptor;
@@ -78,8 +82,10 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
 };
 
 Storage.onBackendChange = function (fileDescriptor) {
+    var _ = this.gettext;
+    
     if (fileDescriptor === this.svgFileDescriptor) {
-        $.notify("Document was changed. Reloading", "info");
+        $.notify(_("Document was changed. Reloading."), "info");
         this.reload();
     }
 };
@@ -91,6 +97,8 @@ Storage.onBackendChange = function (fileDescriptor) {
  * Return true on success, false on failure.
  */
 Storage.loadSVG = function (data) {
+    var _ = this.gettext;
+
     // Create a DOM tree from the given textual data
     var div = document.createElement("div");
     div.innerHTML = data;
@@ -98,7 +106,7 @@ Storage.loadSVG = function (data) {
     // Check that the root of is an SVG element
     var svgRoot = div.firstElementChild;
     if (!(svgRoot instanceof SVGSVGElement)) {
-        $.notify("Document is not valid SVG.", "error");
+        $.notify(_("Document is not valid SVG."), "error");
         return false;
     }
 
@@ -122,6 +130,8 @@ Storage.loadSVG = function (data) {
  * It it does not exist, create it.
  */
 Storage.openJSONFile = function (name, location) {
+    var _ = this.gettext;
+
     this.backend.find(name, location, fileDescriptor => {
         if (fileDescriptor) {
             this.backend.load(fileDescriptor);
@@ -135,7 +145,7 @@ Storage.openJSONFile = function (name, location) {
 
             // Select the first frame
             if (this.presentation.frames.length) {
-                $.notify("Document was imported from Sozi 13 or earlier.", "success");
+                $.notify(_("Document was imported from Sozi 13 or earlier."), "success");
             }
 
             this.backend.create(name, location, "application/json", this.getJSONData(), fileDescriptor => {
@@ -199,6 +209,8 @@ Storage.autosaveJSON = function (fileDescriptor) {
  * Configure autosaving for HTML export.
  */
 Storage.autosaveHTML = function (fileDescriptor) {
+    var _ = this.gettext;
+
     if (this.reloading) {
         return;
     }
@@ -209,7 +221,7 @@ Storage.autosaveHTML = function (fileDescriptor) {
         if (fileDescriptor === savedFileDescriptor) {
             this.htmlNeedsSaving = false;
             this.controller.emit("repaint"); // TODO move this to controller
-            $.notify("Saved " + this.backend.getName(fileDescriptor), "info");
+            $.notify(Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)), "info");
         }
     });
 };
@@ -236,7 +248,7 @@ Storage.getJSONData = function () {
 Storage.exportHTML = function () {
     return nunjucks.render("build/templates/player.html", {
         svg: this.svgData,
-        title: this.presentation.title,
+        pres: this.presentation,
         json: JSON.stringify(this.presentation.toMinimalStorable())
     });
 };

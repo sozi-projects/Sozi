@@ -9,45 +9,49 @@ import {VirtualDOMView} from "./VirtualDOMView";
 
 export var Properties = Object.create(VirtualDOMView);
 
-Properties.init = function (container, selection, controller) {
+Properties.init = function (container, selection, controller, i18n) {
     VirtualDOMView.init.call(this, container, controller);
 
     this.selection = selection;
+    this.gettext = i18n.gettext.bind(i18n);
 
     return this;
 };
 
 Properties.render = function () {
+    var _ = this.gettext;
+    
     var c = this.controller;
     return h("form", [
-        h("h1", "Frame"),
+        h("h1", _("Frame")),
 
         h("table", [
-            this.renderTextField("Title", "title", this.getFrameProperty, c.setFrameProperty, true),
-            this.renderTextField("Id", "frameId", this.getFrameProperty, c.setFrameProperty, false),
-            this.renderCheckboxField("Show in frame list", "showInFrameList", this.getFrameProperty, c.setFrameProperty),
-            this.renderNumberField("Timeout (sec)", "timeoutMs", this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
-            this.renderCheckboxField("Timeout enable", "timeoutEnable", this.getFrameProperty, c.setFrameProperty),
-            this.renderCheckboxField("Link to previous frame", "link", this.getLayerProperty, c.setLayerProperty),
-            this.renderCheckboxField("Clip", "clipped", this.getCameraProperty, c.setCameraProperty),
-            this.renderTextField("Reference element Id", "referenceElementId", this.getLayerProperty, c.setLayerProperty, true),
+            this.renderTextField(_("Title"), "title", this.getFrameProperty, c.setFrameProperty, true),
+            this.renderTextField(_("Id"), "frameId", this.getFrameProperty, c.setFrameProperty, false),
+            this.renderCheckboxField(_("Show in frame list"), "showInFrameList", this.getFrameProperty, c.setFrameProperty),
+            this.renderCheckboxField(_("Show frame number"), "showFrameNumber", this.getFrameProperty, c.setFrameProperty),
+            this.renderNumberField(_("Timeout (sec)"), "timeoutMs", this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
+            this.renderCheckboxField(_("Timeout enable"), "timeoutEnable", this.getFrameProperty, c.setFrameProperty),
+            this.renderCheckboxField(_("Link to previous frame"), "link", this.getLayerProperty, c.setLayerProperty),
+            this.renderCheckboxField(_("Clip"), "clipped", this.getCameraProperty, c.setCameraProperty),
+            this.renderTextField(_("Reference element Id"), "referenceElementId", this.getLayerProperty, c.setLayerProperty, true),
             h("tr", [
                 h("th"),
                 h("td", h("input", {
                     type: "button",
-                    value: "Fit to element",
+                    value: _("Fit to element"),
                     onclick: c.fitElement.bind(c)
                 }))
             ]),
-            this.renderCheckboxField("Autoselect element", "referenceElementAuto", this.getLayerProperty, c.setLayerProperty),
-            this.renderCheckboxField("Hide element", "referenceElementHide", this.getLayerProperty, c.setLayerProperty)
+            this.renderCheckboxField(_("Autoselect element"), "referenceElementAuto", this.getLayerProperty, c.setLayerProperty),
+            this.renderCheckboxField(_("Hide element"), "referenceElementHide", this.getLayerProperty, c.setLayerProperty)
         ]),
 
-        h("h1", "Transition"),
+        h("h1", _("Transition")),
 
         h("table", [
-            this.renderNumberField("Duration (sec)", "transitionDurationMs", this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
-            this.renderSelectField("Timing function", "transitionTimingFunction", this.getLayerProperty, c.setLayerProperty, {
+            this.renderNumberField(_("Duration (sec)"), "transitionDurationMs", this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
+            this.renderSelectField(_("Timing function"), "transitionTimingFunction", this.getLayerProperty, c.setLayerProperty, {
                 "linear": "Linear",
                 "ease": "Ease",
                 "easeIn": "Ease in",
@@ -57,9 +61,9 @@ Properties.render = function () {
                 "stepEnd": "Step end",
                 "stepMiddle": "Step middle"
             }),
-            this.renderNumberField("Relative zoom (%)", "transitionRelativeZoom", this.getLayerProperty, c.setLayerProperty, true, 1, 0.01),
-            this.renderTextField("Path Id", "transitionPathId", this.getLayerProperty, c.setLayerProperty, true),
-            this.renderCheckboxField("Hide path", "transitionPathHide", this.getLayerProperty, c.setLayerProperty)
+            this.renderNumberField(_("Relative zoom (%)"), "transitionRelativeZoom", this.getLayerProperty, c.setLayerProperty, true, 1, 0.01),
+            this.renderTextField(_("Path Id"), "transitionPathId", this.getLayerProperty, c.setLayerProperty, true),
+            this.renderCheckboxField(_("Hide path"), "transitionPathHide", this.getLayerProperty, c.setLayerProperty)
         ])
     ]);
 };

@@ -7,34 +7,36 @@
 import {Presentation} from "./model/Presentation";
 import {Viewport} from "./player/Viewport";
 import {Player} from "./player/Player";
-import * as media from "./player/media";
+import * as Media from "./player/Media";
+import * as FrameList from "./player/FrameList";
+import * as FrameNumber from "./player/FrameNumber";
+import * as FrameURL from "./player/FrameURL";
 
 window.addEventListener("load", function () {
 
-    var presentation = Presentation.init(document.querySelector("svg"));
-    var viewport = Viewport.init(presentation);
-    viewport.onLoad();
-    presentation.fromStorable(window.soziPresentationData);
-    var player = Player.init(viewport, presentation);
-    window.soziPresentation = presentation;
-    window.soziViewport = viewport;
-    window.soziPlayer = player;
-    media.init(player);
+    Presentation.init(document.querySelector("svg"));
+    Viewport.init(Presentation).onLoad();
+    Presentation.fromStorable(window.soziPresentationData);
+    Player.init(Viewport, Presentation);
+    Media.init(Player);
+    FrameList.init(Player);
+    FrameNumber.init(Player);
+    FrameURL.init(Player);
 
-    player.addListener("change:playing", function (player, playing) {
+    Player.addListener("change:playing", function (player, playing) {
         if (playing) {
-            document.title = presentation.title;
+            document.title = Presentation.title;
         }
         else {
-            document.title = presentation.title + "(Paused)";
+            document.title = Presentation.title + "(Paused)";
         }
     });
 
-    window.addEventListener('resize', viewport.repaint.bind(viewport));
+    window.addEventListener('resize', Viewport.repaint.bind(Viewport));
 
-    if (presentation.frames.length) {
-        player.playFromIndex(0);
+    if (Presentation.frames.length) {
+        Player.playFromIndex(0);
     }
 
-    viewport.repaint();
+    Viewport.repaint();
 });

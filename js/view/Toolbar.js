@@ -9,22 +9,24 @@ import {VirtualDOMView} from "./VirtualDOMView";
 
 export var Toolbar = Object.create(VirtualDOMView);
 
-Toolbar.init = function (container, storage, presentation, viewport, controller) {
+Toolbar.init = function (container, storage, presentation, viewport, controller, i18n) {
     VirtualDOMView.init.call(this, container, controller);
 
     this.storage = storage;
     this.presentation = presentation;
     this.viewport = viewport;
+    this.gettext = i18n.gettext.bind(i18n);
 
     return this;
 };
 
 Toolbar.render = function () {
+    var _ = this.gettext;
     var c = this.controller;
     var v = this.viewport;
     return h("div", [
         h("span.group", [
-            "Aspect ratio: ",
+            _("Aspect ratio: "),
             h("input.aspect", {
                 type: "number",
                 pattern: "\\d+",
@@ -59,7 +61,7 @@ Toolbar.render = function () {
             h("input", {
                 name: "sozi-editor-preview-mode",
                 type: "radio",
-                title: "Move the camera (hold Alt to zoom, Shift to rotate)",
+                title: _("Move the selected layers (hold Alt to zoom, Shift to rotate)"),
                 checked: v.dragMode === "translate",
                 onclick() { v.dragMode = "translate"; }
             }),
@@ -67,7 +69,7 @@ Toolbar.render = function () {
             h("input", {
                 name: "sozi-editor-preview-mode",
                 type: "radio",
-                title: "Zoom in/out (you can also hold the Alt key in Move mode)",
+                title: _("Zoom in/out on the selected layers (you can also hold the Alt key in Move mode)"),
                 checked: v.dragMode === "scale",
                 onclick() { v.dragMode = "scale"; }
             }),
@@ -75,7 +77,7 @@ Toolbar.render = function () {
             h("input", {
                 name: "sozi-editor-preview-mode",
                 type: "radio",
-                title: "Rotate (you can also hold the Shift key in Move mode)",
+                title: _("Rotate the selected layers (you can also hold the Shift key in Move mode)"),
                 checked: v.dragMode === "rotate",
                 onclick() { v.dragMode = "rotate"; }
             }),
@@ -83,7 +85,7 @@ Toolbar.render = function () {
             h("input", {
                 name: "sozi-editor-preview-mode",
                 type: "radio",
-                title: "Clip",
+                title: _("Clip"),
                 checked: v.dragMode === "clip",
                 onclick() { v.dragMode = "clip"; }
             }),
@@ -91,26 +93,26 @@ Toolbar.render = function () {
         ]),
         h("span.group", [
             h("button", {
-                title: "Undo",
+                title: _("Undo"),
                 disabled: c.undoStack.length ? undefined : "disabled",
                 onclick: c.undo.bind(c)
             }, h("i.fa.fa-undo")),
             h("button", {
-                title: "Redo",
+                title: _("Redo"),
                 disabled: c.redoStack.length ? undefined : "disabled",
                 onclick: c.redo.bind(c)
             }, h("i.fa.fa-repeat"))
         ]),
         h("span.group", [
             h("button", {
-                title: "Save the presentation",
+                title: _("Save the presentation"),
                 disabled: this.storage.htmlNeedsSaving ? undefined : "disabled",
                 onclick: c.save.bind(c)
-            }, "Save"),
+            }, _("Save")),
             h("button", {
-                title: "Reload the SVG document",
+                title: _("Reload the SVG document"),
                 onclick: c.reload.bind(c)
-            }, "Reload")
+            }, _("Reload"))
         ])
     ]);
 };

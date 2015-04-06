@@ -14,10 +14,15 @@ export function addBackend(backend) {
 
 export var AbstractBackend = Object.create(EventEmitter.prototype);
 
-AbstractBackend.init = function (container, html) {
+AbstractBackend.init = function (container, buttonId, buttonLabel) {
     EventEmitter.call(this);
     this.autosavedFiles = [];
-    container.html(html);
+    container.html(`<button id="${buttonId}">${buttonLabel}</button>`);
+    return this;
+};
+
+AbstractBackend.openFileChooser = function () {
+    // Not implemented
     return this;
 };
 

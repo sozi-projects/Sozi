@@ -54,7 +54,7 @@ export function makeBezier(x1, y1, x2, y2) {
         return bezier(t, ay, by, cy);
     };
 }
-    
+
 export function makeSteps(n, direction) {
     var trunc = direction === "start" ? Math.ceil : Math.floor;
     return function (x) {
