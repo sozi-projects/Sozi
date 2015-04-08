@@ -9,13 +9,13 @@ import {VirtualDOMView} from "./VirtualDOMView";
 
 export var Toolbar = Object.create(VirtualDOMView);
 
-Toolbar.init = function (container, storage, presentation, viewport, controller, i18n) {
+Toolbar.init = function (container, storage, presentation, viewport, controller, locale) {
     VirtualDOMView.init.call(this, container, controller);
 
     this.storage = storage;
     this.presentation = presentation;
     this.viewport = viewport;
-    this.gettext = i18n.gettext.bind(i18n);
+    this.gettext = locale.gettext.bind(locale);
 
     return this;
 };

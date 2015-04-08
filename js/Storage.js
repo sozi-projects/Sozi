@@ -11,7 +11,7 @@ import Jed from "jed";
 
 export var Storage = Object.create(EventEmitter.prototype);
 
-Storage.init = function (controller, presentation, selection, timeline, i18n) {
+Storage.init = function (controller, presentation, selection, timeline, locale) {
     EventEmitter.call(this);
 
     this.controller = controller;
@@ -24,7 +24,7 @@ Storage.init = function (controller, presentation, selection, timeline, i18n) {
     this.jsonNeedsSaving = false;
     this.htmlNeedsSaving = false;
     this.reloading = false;
-    this.gettext = i18n.gettext.bind(i18n);
+    this.gettext = locale.gettext.bind(locale);
 
     controller.addListener("presentationChange", () => {
         this.jsonNeedsSaving = this.htmlNeedsSaving = true;
