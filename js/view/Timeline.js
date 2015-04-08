@@ -34,12 +34,12 @@ export var Timeline = Object.create(VirtualDOMView);
  * Returns:
  *  - The current view
  */
-Timeline.init = function (container, presentation, selection, controller, i18n) {
+Timeline.init = function (container, presentation, selection, controller, locale) {
     VirtualDOMView.init.call(this, container, controller);
 
     this.presentation = presentation;
     this.selection = selection;
-    this.gettext = i18n.gettext.bind(i18n);
+    this.gettext = locale.gettext.bind(locale);
     
     this.editableLayers = [];
     this.defaultLayers = [];

@@ -27,12 +27,11 @@ window.addEventListener("load", () => {
 
     Preview.init(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller);
 
-    i18n.init().always(tr => {
-        Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, tr);
-        Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, tr);
-        Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, tr);
-        Storage.init(Controller, Presentation, Selection, Timeline, tr);
-    });
+    var locale = i18n.init();
+    Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, locale);
+    Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, locale);
+    Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, locale);
+    Storage.init(Controller, Presentation, Selection, Timeline, locale);
 
     var body = $("body");
     var left = $(".left");

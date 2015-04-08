@@ -9,11 +9,11 @@ import {VirtualDOMView} from "./VirtualDOMView";
 
 export var Properties = Object.create(VirtualDOMView);
 
-Properties.init = function (container, selection, controller, i18n) {
+Properties.init = function (container, selection, controller, locale) {
     VirtualDOMView.init.call(this, container, controller);
 
     this.selection = selection;
-    this.gettext = i18n.gettext.bind(i18n);
+    this.gettext = locale.gettext.bind(locale);
 
     return this;
 };

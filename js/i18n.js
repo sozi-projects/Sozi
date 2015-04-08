@@ -5,12 +5,16 @@
 "use strict";
 
 import Jed from "jed";
+import locales from "./locales";
 
 export function init() {
-    return $.getJSON("locales/fr.json").then(resp => {
-        return new Jed(resp);
-    }, (jqxhr, status, err) => {
-        console.log( "Could not load locale: " + status + ", " + err);
-        return new Jed({});
-    });
+    var lang = window.navigator.languages && window.navigator.languages.length ?
+        window.navigator.languages[0] :
+        (window.navigator.language || window.navigator.userLanguage);
+
+    var langShort = lang.split("-")[0];
+
+    var localeData = locales[lang] || locales[langShort] || {};
+
+    return new Jed(localeData);
 }

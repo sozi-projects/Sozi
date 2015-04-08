@@ -100,12 +100,13 @@ module.exports = function(grunt) {
         
         po2json: {
             options: {
-                pretty: true,
+                singleFile: true,
+                nodeJs: true,
                 format: "jed1.x"
             },
             all: {
                 src: ["locales/*.po"],
-                dest: "build/app/locales",
+                dest: "build/js/locales.js",
             }
         },
         
