@@ -58,8 +58,11 @@ GoogleDrive.onAuthResult = function (onInit, authResult) {
 };
 
 GoogleDrive.createPicker = function () {
+    var view = new google.picker.View(google.picker.ViewId.DOCS);
+    view.setMimeTypes("image/svg+xml");
+
     this.picker = new google.picker.PickerBuilder().
-        addView(google.picker.DocsView).
+        addView(view).
         setOAuthToken(this.accessToken).
         setDeveloperKey(this.apiKey).
         setCallback(data => {
