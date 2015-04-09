@@ -187,6 +187,22 @@ module.exports = function(grunt) {
                         dest: "build/app/js/editor.min.js"
                     }
                 ]
+            },
+            nw_locales: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: "cache/0.12.0/linux32/locales",
+                        src: ["*.pak"],
+                        dest: "build/Sozi/linux32/locales"
+                    },
+                    {
+                        expand: true,
+                        cwd: "cache/0.12.0/linux64/locales",
+                        src: ["*.pak"],
+                        dest: "build/Sozi/linux64/locales"
+                    },
+                ]
             }
         },
         
@@ -308,7 +324,7 @@ module.exports = function(grunt) {
         "po2json",
         "browserify:editor",
         "uglify:editor",
-        "copy"
+        "copy:editor"
     ]);
     
     grunt.registerTask("nw-build",  ["backends-nw", "build"]);
@@ -317,6 +333,7 @@ module.exports = function(grunt) {
     grunt.registerTask("nw-bundle", [
         "nw-build",
         "nodewebkit",
+        "copy:nw_locales",
         "rename",
         "compress"
     ]);

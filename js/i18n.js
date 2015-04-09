@@ -10,9 +10,9 @@ import locales from "./locales";
 export function init() {
     var lang = window.navigator.languages && window.navigator.languages.length ?
         window.navigator.languages[0] :
-        (window.navigator.language || window.navigator.userLanguage);
+        (window.navigator.language || window.navigator.userLanguage || "en");
 
-    var langShort = lang.split("-")[0];
+    var langShort = lang.split(/[-_]/)[0];
 
     var localeData = locales[lang] || locales[langShort] || {};
 
