@@ -14,14 +14,20 @@ import * as FrameURL from "./player/FrameURL";
 
 window.addEventListener("load", function () {
 
-    Presentation.init(document.querySelector("svg"));
-    Viewport.init(Presentation).onLoad();
+    var presentation = Presentation.init(document.querySelector("svg"));
+    var viewport = Viewport.init(Presentation).onLoad();
+
     Presentation.fromStorable(window.soziPresentationData);
-    Player.init(Viewport, Presentation);
+    var player = Player.init(Viewport, Presentation);
+
     Media.init(Player);
     FrameList.init(Player);
     FrameNumber.init(Player);
     FrameURL.init(Player);
+
+    window.soziPresentation = presentation;
+    window.soziViewport = viewport;
+    window.soziPlayer = player;
 
     Player.addListener("change:playing", function (player, playing) {
         if (playing) {
