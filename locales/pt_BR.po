@@ -1,0 +1,306 @@
+# Brazilian Portuguese translation for sozi
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the sozi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sozi\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-11-30 22:09+0100\n"
+"PO-Revision-Date: 2014-12-28 18:26+0000\n"
+"Last-Translator: desus <deesus@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2015-04-11 13:36+0000\n"
+"X-Generator: Launchpad (build 17423)\n"
+
+#: sozi/actions.py:72
+msgid "Restore '{0}' in frame {1}"
+msgstr "Restaurar '{0}' no quadro {1}"
+
+#: sozi/actions.py:73
+msgid "Change '{0}' in frame {1}"
+msgstr "Alterar '{0}' no quadro {1}"
+
+#: sozi/actions.py:78
+msgid "Restore '{0}' in layer '{1}' of frame {2}"
+msgstr "Restaurar '{0}' na  camada {1} do quadro {2}"
+
+#: sozi/actions.py:79
+msgid "Change '{0}' in layer '{1}' of frame {2}"
+msgstr "Alterar '{0}' na camada '{1}' do quadro {2}"
+
+#: sozi/actions.py:135
+msgid "Delete the new frame {0}"
+msgstr "Remover o novo quadro {0}"
+
+#: sozi/actions.py:136
+msgid "Create a new frame at {0}"
+msgstr "Criar um novo quadro em {0}"
+
+#: sozi/actions.py:179
+msgid "Remove the layer '{0}' from frame {1}"
+msgstr "Remover a camada '{0}' do quadro {1}"
+
+#: sozi/actions.py:180
+msgid "Add layer '{0}' to frame {1}"
+msgstr "Adicionar a camada '{0}' no quadro {1}"
+
+#: sozi/actions.py:224
+msgid "Restore deleted frame {0}"
+msgstr "Restaurar o quadro removido {0}"
+
+#: sozi/actions.py:225
+msgid "Delete frame {0}"
+msgstr "Remover quadro {0}"
+
+#: sozi/actions.py:269
+msgid "Restore deleted layer '{0}' in frame {1}"
+msgstr "Restaurar camada  '{0}' removida  do quadro {1}"
+
+#: sozi/actions.py:270
+msgid "Remove layer '{0}' from frame {1}"
+msgstr "Remover camada '{0}' do quadro {1}"
+
+#: sozi/actions.py:314
+msgid "Delete duplicated frame {0}"
+msgstr "Excluir quadro duplicado {0}"
+
+#: sozi/actions.py:315
+msgid "Duplicate frame {0}"
+msgstr "Duplicar quadro {0}"
+
+#: sozi/actions.py:360 sozi/actions.py:366
+msgid "Move frame {0} up"
+msgstr "Mover o quadro {0} para cima"
+
+#: sozi/actions.py:361 sozi/actions.py:365
+msgid "Move frame {0} down"
+msgstr "Mover o quadro {0} para baixo"
+
+#: sozi/document.py:75
+msgid "Untitled"
+msgstr "Sem título"
+
+#: sozi/ui.py:87
+msgid "Create a new frame or add a layer"
+msgstr "Criar um novo quadro ou adicionar uma camada"
+
+#: sozi/ui.py:92
+msgid "Add layer '{0}'"
+msgstr "Adicionar camada '{0}'"
+
+#: sozi/ui.py:105 sozi/ui.glade:170
+msgid "New frame"
+msgstr "Novo quadro"
+
+#: sozi/ui.py:107
+msgid "Enabled"
+msgstr "Ativado"
+
+#: sozi/ui.py:107
+msgid "Disabled"
+msgstr "Desativado(a)"
+
+#: sozi/ui.py:128
+msgid "Constant speed"
+msgstr "Velocidade Constante"
+
+#: sozi/ui.py:129
+msgid "Speed up"
+msgstr "Aumentar Velocidade"
+
+#: sozi/ui.py:130
+msgid "Speed up (strong)"
+msgstr "Aumentar velocidade (rapidamente)"
+
+#: sozi/ui.py:131
+msgid "Speed down"
+msgstr "Diminuir velocidade"
+
+#: sozi/ui.py:132
+msgid "Speed down (strong)"
+msgstr "Diminuir velocidade (rapidamente)"
+
+#: sozi/ui.py:133
+msgid "Speed up, then down"
+msgstr "Aumentar e então diminuir a velocidade"
+
+#: sozi/ui.py:134
+msgid "Speed up, then down (strong)"
+msgstr "Aumentar e então diminuir a velocidade (rapidamente)"
+
+#: sozi/ui.py:135
+msgid "Speed down, then up"
+msgstr "Diminuir velocidade e então aumentar"
+
+#: sozi/ui.py:136
+msgid "Speed down, then up (strong)"
+msgstr "Diminuir velocidade e então aumentar (rapidamente)"
+
+#: sozi/ui.py:137
+msgid "Immediate (beginning)"
+msgstr "Imediatamente (Início)"
+
+#: sozi/ui.py:138
+msgid "Immediate (end)"
+msgstr "Imediatamente (Fim)"
+
+#: sozi/ui.py:139
+msgid "Immediate (middle)"
+msgstr "Imediatamente (meio)"
+
+#: sozi/ui.py:309
+msgid "Delete the selected frame"
+msgstr "Remover o quadro selecionado"
+
+#: sozi/ui.py:334
+msgid "Remove the selected layer"
+msgstr "Remover a camada selecionada"
+
+#: sozi/ui.py:616
+msgid "No action to undo"
+msgstr "Não há ações para serem desfeitas"
+
+#: sozi/ui.py:622
+msgid "No action to redo"
+msgstr "Não há ações para serem refeitas"
+
+#: sozi/ui.glade:55
+msgid "Undo"
+msgstr "Desfazer"
+
+#: sozi/ui.glade:71
+msgid "Redo"
+msgstr "Refazer"
+
+#: sozi/ui.glade:113
+msgid "Seq."
+msgstr "Seq."
+
+#: sozi/ui.glade:126 sozi/ui.glade:317
+msgid "Title"
+msgstr "Título"
+
+#: sozi/ui.glade:155
+msgid "Create a new frame"
+msgstr "Criar um novo quadro"
+
+#: sozi/ui.glade:157
+msgid "New"
+msgstr "Novo"
+
+#: sozi/ui.glade:187
+msgid "Duplicate the selected frame"
+msgstr "Duplicar o quadro selecionado"
+
+#: sozi/ui.glade:189
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: sozi/ui.glade:205
+msgid "Delete"
+msgstr "Remover"
+
+#: sozi/ui.glade:220
+msgid "Move the selected frame up"
+msgstr "Mover o quadro selecionado para cima"
+
+#: sozi/ui.glade:222
+msgid "Move frame up"
+msgstr "Mover quadro para cima"
+
+#: sozi/ui.glade:237
+msgid "Move the selected frame down"
+msgstr "Mover o quadro selecionado para baixo"
+
+#: sozi/ui.glade:239
+msgid "Move frame down"
+msgstr "Mover quadro para baixo"
+
+#: sozi/ui.glade:302
+msgid "SVG element"
+msgstr "Elemento SVG"
+
+#: sozi/ui.glade:329
+msgid "Timeout (seconds)"
+msgstr "Tempo de espera (segundos)"
+
+#: sozi/ui.glade:361 sozi/ui.glade:716
+msgid "Hide"
+msgstr "Ocultar"
+
+#: sozi/ui.glade:377
+msgid "Clip"
+msgstr "Cortar"
+
+#: sozi/ui.glade:393
+msgid "Show in frame list"
+msgstr "Exibir frames como lista"
+
+#: sozi/ui.glade:485
+msgid "Set the reference to a selected SVG element"
+msgstr "Referenciar um objeto SVG"
+
+#: sozi/ui.glade:486
+msgid "Remove the reference to this SVG element"
+msgstr "Remover referência de um objeto SVG"
+
+#: sozi/ui.glade:518
+msgid "Id"
+msgstr "Id"
+
+#: sozi/ui.glade:535
+msgid "<b>Frame properties</b>"
+msgstr "<b>Propriedades do quadro</b>"
+
+#: sozi/ui.glade:570
+msgid "Duration (seconds)"
+msgstr "Duração (segundos)"
+
+#: sozi/ui.glade:582
+msgid "Zoom (%)"
+msgstr "Zoom (%)"
+
+#: sozi/ui.glade:639
+msgid "Profile"
+msgstr "Perfil"
+
+#: sozi/ui.glade:673
+msgid "Path"
+msgstr "Caminho"
+
+#: sozi/ui.glade:692
+msgid "Set the reference to a selected SVG path"
+msgstr "Estabelecer a referência para um caminho SVG"
+
+#: sozi/ui.glade:693
+msgid "Remove the reference to this SVG path"
+msgstr "Remover a referência para um caminho SVG"
+
+#: sozi/ui.glade:739
+msgid "<b>Transition to this frame</b>"
+msgstr "<b>Transições para esse quadro</b>"
+
+#: sozi/ui.glade:779
+msgid "Apply changes and go back to Inkscape"
+msgstr "Aplicar mudanças e voltar para o Inkscape"
+
+#: sozi/ui.glade:797
+msgid "Cancel all changes and go back to Inkscape"
+msgstr "Cancelar todas as alterações e voltar para o Inkscape"
+
+#: sozi/ui.glade:837
+msgid "Presentation"
+msgstr "Apresentação"
+
+#: sozi/ui.glade:850
+msgid "Modules list"
+msgstr "Lista de Módulos"
+
+#: sozi/ui.glade:861 sozi/ui.glade:877
+msgid "Settings"
+msgstr "Preferências"

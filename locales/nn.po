@@ -1,0 +1,307 @@
+# Norwegian Nynorsk translation for sozi
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the sozi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FULL NAME <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sozi\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-11-30 22:09+0100\n"
+"PO-Revision-Date: 2012-11-25 04:21+0000\n"
+"Last-Translator: Yngve Spjeld Landro <l10n@landro.net>\n"
+"Language-Team: Norwegian Nynorsk <nn@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2015-04-11 13:36+0000\n"
+"X-Generator: Launchpad (build 17423)\n"
+
+#: sozi/actions.py:72
+msgid "Restore '{0}' in frame {1}"
+msgstr "Før '{0}' attende i ramma {1}"
+
+#: sozi/actions.py:73
+msgid "Change '{0}' in frame {1}"
+msgstr "Endra '{0}' i ramma {1}"
+
+#: sozi/actions.py:78
+msgid "Restore '{0}' in layer '{1}' of frame {2}"
+msgstr "Før attende '{0}' i laget '{1}' til ramma {2}"
+
+#: sozi/actions.py:79
+msgid "Change '{0}' in layer '{1}' of frame {2}"
+msgstr "Endra '{0}' i laget '{1}' til ramma {2}"
+
+#: sozi/actions.py:135
+msgid "Delete the new frame {0}"
+msgstr "Slett den nye ramma {0}"
+
+#: sozi/actions.py:136
+msgid "Create a new frame at {0}"
+msgstr "Lag ei ny ramme ved {0}"
+
+#: sozi/actions.py:179
+msgid "Remove the layer '{0}' from frame {1}"
+msgstr "Fjern laget '{0}' frå ramma {1}"
+
+#: sozi/actions.py:180
+msgid "Add layer '{0}' to frame {1}"
+msgstr "Legg til laget '{0}' til ramma {1}"
+
+#: sozi/actions.py:224
+msgid "Restore deleted frame {0}"
+msgstr "Før attende den sletta ramma {0}"
+
+#: sozi/actions.py:225
+msgid "Delete frame {0}"
+msgstr "Slett frå {0}"
+
+#: sozi/actions.py:269
+msgid "Restore deleted layer '{0}' in frame {1}"
+msgstr "Før attende det sletta laget '{0}' i ramma {1}"
+
+#: sozi/actions.py:270
+msgid "Remove layer '{0}' from frame {1}"
+msgstr "Fjern laget '{0}' frå ramma {1}"
+
+#: sozi/actions.py:314
+msgid "Delete duplicated frame {0}"
+msgstr "Slett den dupliserte ramma {0}"
+
+#: sozi/actions.py:315
+msgid "Duplicate frame {0}"
+msgstr "Dupliser ramma {0}"
+
+#: sozi/actions.py:360 sozi/actions.py:366
+msgid "Move frame {0} up"
+msgstr "Flytt ramma {0} opp"
+
+#: sozi/actions.py:361 sozi/actions.py:365
+msgid "Move frame {0} down"
+msgstr "Flytt ramma {0} ned"
+
+#: sozi/document.py:75
+msgid "Untitled"
+msgstr "Utan namn"
+
+#: sozi/ui.py:87
+msgid "Create a new frame or add a layer"
+msgstr "Lag ei ny ramme eller legg til eit lag"
+
+#: sozi/ui.py:92
+msgid "Add layer '{0}'"
+msgstr "Legg til laget '{0}'"
+
+#: sozi/ui.py:105 sozi/ui.glade:170
+msgid "New frame"
+msgstr "Ny ramme"
+
+#: sozi/ui.py:107
+msgid "Enabled"
+msgstr "I bruk"
+
+#: sozi/ui.py:107
+msgid "Disabled"
+msgstr "Ikkje i bruk"
+
+#: sozi/ui.py:128
+msgid "Constant speed"
+msgstr "Konstant fart"
+
+#: sozi/ui.py:129
+msgid "Speed up"
+msgstr "Auk farten"
+
+#: sozi/ui.py:130
+msgid "Speed up (strong)"
+msgstr "Auk farten (mykje)"
+
+#: sozi/ui.py:131
+msgid "Speed down"
+msgstr "Senk farten"
+
+#: sozi/ui.py:132
+msgid "Speed down (strong)"
+msgstr "Senk farten (mykje)"
+
+#: sozi/ui.py:133
+msgid "Speed up, then down"
+msgstr "Auk farten, deretter ned"
+
+#: sozi/ui.py:134
+msgid "Speed up, then down (strong)"
+msgstr "Auk farten, deretter ned (mykje)"
+
+#: sozi/ui.py:135
+msgid "Speed down, then up"
+msgstr "Senk farten, deretter auk han"
+
+#: sozi/ui.py:136
+msgid "Speed down, then up (strong)"
+msgstr "Senk farten, deretter auk han (mykje)"
+
+#: sozi/ui.py:137
+msgid "Immediate (beginning)"
+msgstr ""
+
+#: sozi/ui.py:138
+msgid "Immediate (end)"
+msgstr ""
+
+#: sozi/ui.py:139
+msgid "Immediate (middle)"
+msgstr ""
+
+#: sozi/ui.py:309
+msgid "Delete the selected frame"
+msgstr "Slett den valde ramma"
+
+#: sozi/ui.py:334
+msgid "Remove the selected layer"
+msgstr "Fjern det valde laget"
+
+#: sozi/ui.py:616
+msgid "No action to undo"
+msgstr "Det finst inga handling å gjera om"
+
+#: sozi/ui.py:622
+msgid "No action to redo"
+msgstr "Det finst inga handling å gjera på nytt"
+
+#: sozi/ui.glade:55
+msgid "Undo"
+msgstr "Angra"
+
+#: sozi/ui.glade:71
+msgid "Redo"
+msgstr "Ger om att"
+
+#: sozi/ui.glade:113
+msgid "Seq."
+msgstr "Sekv."
+
+#: sozi/ui.glade:126 sozi/ui.glade:317
+msgid "Title"
+msgstr "Namn"
+
+#: sozi/ui.glade:155
+msgid "Create a new frame"
+msgstr "Lag ei ny ramme"
+
+#: sozi/ui.glade:157
+msgid "New"
+msgstr "Ny"
+
+#: sozi/ui.glade:187
+msgid "Duplicate the selected frame"
+msgstr "Dupliser den valde ramma"
+
+#: sozi/ui.glade:189
+msgid "Duplicate"
+msgstr "Dupliser"
+
+#: sozi/ui.glade:205
+msgid "Delete"
+msgstr "Sletta"
+
+#: sozi/ui.glade:220
+msgid "Move the selected frame up"
+msgstr "Flytt den valde ramma opp"
+
+#: sozi/ui.glade:222
+msgid "Move frame up"
+msgstr "Flytt ramma opp"
+
+#: sozi/ui.glade:237
+msgid "Move the selected frame down"
+msgstr "Flytt den valde ramma ned"
+
+#: sozi/ui.glade:239
+msgid "Move frame down"
+msgstr "Flytt ramma ned"
+
+#: sozi/ui.glade:302
+msgid "SVG element"
+msgstr "SVG-element"
+
+#: sozi/ui.glade:329
+msgid "Timeout (seconds)"
+msgstr "Tidsavbrot (sekund)"
+
+#: sozi/ui.glade:361 sozi/ui.glade:716
+msgid "Hide"
+msgstr "Gøym"
+
+#: sozi/ui.glade:377
+msgid "Clip"
+msgstr "Klipp"
+
+#: sozi/ui.glade:393
+msgid "Show in frame list"
+msgstr ""
+
+#: sozi/ui.glade:485
+msgid "Set the reference to a selected SVG element"
+msgstr "Set referansen til eit vald SVG-element"
+
+#: sozi/ui.glade:486
+msgid "Remove the reference to this SVG element"
+msgstr "Fjern referansen til dette SVG-elementet"
+
+#: sozi/ui.glade:518
+msgid "Id"
+msgstr ""
+
+#: sozi/ui.glade:535
+msgid "<b>Frame properties</b>"
+msgstr "<b>Ramme-eigenskapar</b>"
+
+#: sozi/ui.glade:570
+msgid "Duration (seconds)"
+msgstr "Varer (sekund)"
+
+#: sozi/ui.glade:582
+msgid "Zoom (%)"
+msgstr "Skalering (%)"
+
+#: sozi/ui.glade:639
+msgid "Profile"
+msgstr "Profil"
+
+#: sozi/ui.glade:673
+msgid "Path"
+msgstr ""
+
+#: sozi/ui.glade:692
+msgid "Set the reference to a selected SVG path"
+msgstr ""
+
+#: sozi/ui.glade:693
+msgid "Remove the reference to this SVG path"
+msgstr ""
+
+#: sozi/ui.glade:739
+msgid "<b>Transition to this frame</b>"
+msgstr "<b>Overgang til denne ramma</b>"
+
+#: sozi/ui.glade:779
+msgid "Apply changes and go back to Inkscape"
+msgstr "Ta i bruk endringane og gå attende til Inkscape"
+
+#: sozi/ui.glade:797
+msgid "Cancel all changes and go back to Inkscape"
+msgstr "Gjer ingen av endringane og gå attende til Inkscape"
+
+#: sozi/ui.glade:837
+msgid "Presentation"
+msgstr "Presentasjon"
+
+#: sozi/ui.glade:850
+msgid "Modules list"
+msgstr "Modullista"
+
+#: sozi/ui.glade:861 sozi/ui.glade:877
+msgid "Settings"
+msgstr "Innstillingar"

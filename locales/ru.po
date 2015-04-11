@@ -1,0 +1,306 @@
+# Russian translation for sozi
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the sozi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sozi\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-11-30 22:09+0100\n"
+"PO-Revision-Date: 2012-09-17 07:44+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2015-04-11 13:36+0000\n"
+"X-Generator: Launchpad (build 17423)\n"
+
+#: sozi/actions.py:72
+msgid "Restore '{0}' in frame {1}"
+msgstr ""
+
+#: sozi/actions.py:73
+msgid "Change '{0}' in frame {1}"
+msgstr ""
+
+#: sozi/actions.py:78
+msgid "Restore '{0}' in layer '{1}' of frame {2}"
+msgstr ""
+
+#: sozi/actions.py:79
+msgid "Change '{0}' in layer '{1}' of frame {2}"
+msgstr ""
+
+#: sozi/actions.py:135
+msgid "Delete the new frame {0}"
+msgstr ""
+
+#: sozi/actions.py:136
+msgid "Create a new frame at {0}"
+msgstr ""
+
+#: sozi/actions.py:179
+msgid "Remove the layer '{0}' from frame {1}"
+msgstr ""
+
+#: sozi/actions.py:180
+msgid "Add layer '{0}' to frame {1}"
+msgstr ""
+
+#: sozi/actions.py:224
+msgid "Restore deleted frame {0}"
+msgstr ""
+
+#: sozi/actions.py:225
+msgid "Delete frame {0}"
+msgstr ""
+
+#: sozi/actions.py:269
+msgid "Restore deleted layer '{0}' in frame {1}"
+msgstr ""
+
+#: sozi/actions.py:270
+msgid "Remove layer '{0}' from frame {1}"
+msgstr ""
+
+#: sozi/actions.py:314
+msgid "Delete duplicated frame {0}"
+msgstr ""
+
+#: sozi/actions.py:315
+msgid "Duplicate frame {0}"
+msgstr ""
+
+#: sozi/actions.py:360 sozi/actions.py:366
+msgid "Move frame {0} up"
+msgstr ""
+
+#: sozi/actions.py:361 sozi/actions.py:365
+msgid "Move frame {0} down"
+msgstr ""
+
+#: sozi/document.py:75
+msgid "Untitled"
+msgstr ""
+
+#: sozi/ui.py:87
+msgid "Create a new frame or add a layer"
+msgstr ""
+
+#: sozi/ui.py:92
+msgid "Add layer '{0}'"
+msgstr ""
+
+#: sozi/ui.py:105 sozi/ui.glade:170
+msgid "New frame"
+msgstr ""
+
+#: sozi/ui.py:107
+msgid "Enabled"
+msgstr ""
+
+#: sozi/ui.py:107
+msgid "Disabled"
+msgstr ""
+
+#: sozi/ui.py:128
+msgid "Constant speed"
+msgstr ""
+
+#: sozi/ui.py:129
+msgid "Speed up"
+msgstr ""
+
+#: sozi/ui.py:130
+msgid "Speed up (strong)"
+msgstr ""
+
+#: sozi/ui.py:131
+msgid "Speed down"
+msgstr ""
+
+#: sozi/ui.py:132
+msgid "Speed down (strong)"
+msgstr ""
+
+#: sozi/ui.py:133
+msgid "Speed up, then down"
+msgstr ""
+
+#: sozi/ui.py:134
+msgid "Speed up, then down (strong)"
+msgstr ""
+
+#: sozi/ui.py:135
+msgid "Speed down, then up"
+msgstr ""
+
+#: sozi/ui.py:136
+msgid "Speed down, then up (strong)"
+msgstr ""
+
+#: sozi/ui.py:137
+msgid "Immediate (beginning)"
+msgstr ""
+
+#: sozi/ui.py:138
+msgid "Immediate (end)"
+msgstr ""
+
+#: sozi/ui.py:139
+msgid "Immediate (middle)"
+msgstr ""
+
+#: sozi/ui.py:309
+msgid "Delete the selected frame"
+msgstr ""
+
+#: sozi/ui.py:334
+msgid "Remove the selected layer"
+msgstr ""
+
+#: sozi/ui.py:616
+msgid "No action to undo"
+msgstr ""
+
+#: sozi/ui.py:622
+msgid "No action to redo"
+msgstr ""
+
+#: sozi/ui.glade:55
+msgid "Undo"
+msgstr ""
+
+#: sozi/ui.glade:71
+msgid "Redo"
+msgstr ""
+
+#: sozi/ui.glade:113
+msgid "Seq."
+msgstr ""
+
+#: sozi/ui.glade:126 sozi/ui.glade:317
+msgid "Title"
+msgstr ""
+
+#: sozi/ui.glade:155
+msgid "Create a new frame"
+msgstr ""
+
+#: sozi/ui.glade:157
+msgid "New"
+msgstr ""
+
+#: sozi/ui.glade:187
+msgid "Duplicate the selected frame"
+msgstr ""
+
+#: sozi/ui.glade:189
+msgid "Duplicate"
+msgstr ""
+
+#: sozi/ui.glade:205
+msgid "Delete"
+msgstr ""
+
+#: sozi/ui.glade:220
+msgid "Move the selected frame up"
+msgstr ""
+
+#: sozi/ui.glade:222
+msgid "Move frame up"
+msgstr ""
+
+#: sozi/ui.glade:237
+msgid "Move the selected frame down"
+msgstr ""
+
+#: sozi/ui.glade:239
+msgid "Move frame down"
+msgstr ""
+
+#: sozi/ui.glade:302
+msgid "SVG element"
+msgstr ""
+
+#: sozi/ui.glade:329
+msgid "Timeout (seconds)"
+msgstr ""
+
+#: sozi/ui.glade:361 sozi/ui.glade:716
+msgid "Hide"
+msgstr ""
+
+#: sozi/ui.glade:377
+msgid "Clip"
+msgstr ""
+
+#: sozi/ui.glade:393
+msgid "Show in frame list"
+msgstr ""
+
+#: sozi/ui.glade:485
+msgid "Set the reference to a selected SVG element"
+msgstr ""
+
+#: sozi/ui.glade:486
+msgid "Remove the reference to this SVG element"
+msgstr ""
+
+#: sozi/ui.glade:518
+msgid "Id"
+msgstr ""
+
+#: sozi/ui.glade:535
+msgid "<b>Frame properties</b>"
+msgstr ""
+
+#: sozi/ui.glade:570
+msgid "Duration (seconds)"
+msgstr ""
+
+#: sozi/ui.glade:582
+msgid "Zoom (%)"
+msgstr ""
+
+#: sozi/ui.glade:639
+msgid "Profile"
+msgstr ""
+
+#: sozi/ui.glade:673
+msgid "Path"
+msgstr ""
+
+#: sozi/ui.glade:692
+msgid "Set the reference to a selected SVG path"
+msgstr ""
+
+#: sozi/ui.glade:693
+msgid "Remove the reference to this SVG path"
+msgstr ""
+
+#: sozi/ui.glade:739
+msgid "<b>Transition to this frame</b>"
+msgstr ""
+
+#: sozi/ui.glade:779
+msgid "Apply changes and go back to Inkscape"
+msgstr ""
+
+#: sozi/ui.glade:797
+msgid "Cancel all changes and go back to Inkscape"
+msgstr ""
+
+#: sozi/ui.glade:837
+msgid "Presentation"
+msgstr ""
+
+#: sozi/ui.glade:850
+msgid "Modules list"
+msgstr ""
+
+#: sozi/ui.glade:861 sozi/ui.glade:877
+msgid "Settings"
+msgstr ""
