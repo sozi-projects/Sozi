@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2015-04-05 09:39:+0000\n"
+"POT-Creation-Date: 2015-04-11 01:52:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -66,7 +66,7 @@ msgid "Show frame number"
 msgstr ""
 
 #: build/js/view/Properties.js:32
-msgid "Timeout (sec)"
+msgid "Timeout (seconds)"
 msgstr ""
 
 #: build/js/view/Properties.js:32
@@ -102,7 +102,7 @@ msgid "Transition"
 msgstr ""
 
 #: build/js/view/Properties.js:36
-msgid "Duration (sec)"
+msgid "Duration (seconds)"
 msgstr ""
 
 #: build/js/view/Properties.js:36

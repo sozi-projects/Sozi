@@ -7,300 +7,381 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-11-30 22:09+0100\n"
+"POT-Creation-Date: 2015-04-11 01:52:+0000\n"
 "PO-Revision-Date: 2014-02-06 08:40+0000\n"
 "Last-Translator: ejvindh <ejvindh@gmail.com>\n"
 "Language-Team: Danish <da@li.org>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2015-04-11 13:36+0000\n"
 "X-Generator: Launchpad (build 17423)\n"
 
-#: sozi/actions.py:72
-msgid "Restore '{0}' in frame {1}"
-msgstr "Gendan '{0}' i ramme {1}"
+#: build/js/Storage.js:76
+msgid "File %s could not be loaded."
+msgstr ""
 
-#: sozi/actions.py:73
-msgid "Change '{0}' in frame {1}"
-msgstr "Skift '{0}' i ramme {1}"
+#: build/js/Storage.js:97
+msgid "Document was changed. Reloading."
+msgstr ""
 
-#: sozi/actions.py:78
-msgid "Restore '{0}' in layer '{1}' of frame {2}"
-msgstr "Gendan '{0}' i lag '{1}' af ramme {2}"
+#: build/js/Storage.js:118
+msgid "Document is not valid SVG."
+msgstr ""
 
-#: sozi/actions.py:79
-msgid "Change '{0}' in layer '{1}' of frame {2}"
-msgstr "Skift '{0}' i lag '{1}' af ramme {2}"
+#: build/js/Storage.js:158
+msgid "Document was imported from Sozi 13 or earlier."
+msgstr ""
 
-#: sozi/actions.py:135
-msgid "Delete the new frame {0}"
-msgstr "Slet den nye ramme {0}"
+#: build/js/Storage.js:243
+msgid "Saved %s."
+msgstr ""
 
-#: sozi/actions.py:136
-msgid "Create a new frame at {0}"
-msgstr "Opret en ny ramme ved {0}"
+#: build/js/backend/FileReader.js:20
+msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
+msgstr ""
 
-#: sozi/actions.py:179
-msgid "Remove the layer '{0}' from frame {1}"
-msgstr "Fjern lag '{0}' fra ramme {1}"
+#: build/js/backend/GoogleDrive.js:22
+msgid "Load from Google Drive"
+msgstr ""
 
-#: sozi/actions.py:180
-msgid "Add layer '{0}' to frame {1}"
-msgstr "TIlføj lag '{0}' til ramme {1}"
+#: build/js/backend/NodeWebkit.js:43
+msgid "Load local file"
+msgstr ""
 
-#: sozi/actions.py:224
-msgid "Restore deleted frame {0}"
-msgstr "Gendan slettet ramme {0}"
+#: build/js/backend/NodeWebkit.js:80
+msgid "File not found: %s."
+msgstr ""
 
-#: sozi/actions.py:225
-msgid "Delete frame {0}"
-msgstr "Slet ramme {0}"
+#: build/js/view/Properties.js:32
+msgid "Frame"
+msgstr ""
 
-#: sozi/actions.py:269
-msgid "Restore deleted layer '{0}' in frame {1}"
-msgstr "Gendan slettet lag '{0}' i ramme {1}"
-
-#: sozi/actions.py:270
-msgid "Remove layer '{0}' from frame {1}"
-msgstr "Fjern lag '{0}' fra ramme {1}"
-
-#: sozi/actions.py:314
-msgid "Delete duplicated frame {0}"
-msgstr "Slet duplikeret ramme {0}"
-
-#: sozi/actions.py:315
-msgid "Duplicate frame {0}"
-msgstr "Dupliker ramme {0}"
-
-#: sozi/actions.py:360 sozi/actions.py:366
-msgid "Move frame {0} up"
-msgstr "Flyt ramme {0} op"
-
-#: sozi/actions.py:361 sozi/actions.py:365
-msgid "Move frame {0} down"
-msgstr "Flyt ramme {0} ned"
-
-#: sozi/document.py:75
-msgid "Untitled"
-msgstr "Unavngivet"
-
-#: sozi/ui.py:87
-msgid "Create a new frame or add a layer"
-msgstr "Opret en nye ramme eller tilføj et lag"
-
-#: sozi/ui.py:92
-msgid "Add layer '{0}'"
-msgstr "Tilføj lag '{0}'"
-
-#: sozi/ui.py:105 sozi/ui.glade:170
-msgid "New frame"
-msgstr "Ny ramme"
-
-#: sozi/ui.py:107
-msgid "Enabled"
-msgstr "Aktiveret"
-
-#: sozi/ui.py:107
-msgid "Disabled"
-msgstr "Deaktiveret"
-
-#: sozi/ui.py:128
-msgid "Constant speed"
-msgstr "Konstant tempo"
-
-#: sozi/ui.py:129
-msgid "Speed up"
-msgstr "Øg tempo"
-
-#: sozi/ui.py:130
-msgid "Speed up (strong)"
-msgstr "Øg tempo (meget)"
-
-#: sozi/ui.py:131
-msgid "Speed down"
-msgstr "Sænk tempo"
-
-#: sozi/ui.py:132
-msgid "Speed down (strong)"
-msgstr "Sænk tempo (meget)"
-
-#: sozi/ui.py:133
-msgid "Speed up, then down"
-msgstr "Øg tempo, sænk det derefter"
-
-#: sozi/ui.py:134
-msgid "Speed up, then down (strong)"
-msgstr "Øg tempo, sænk det derefter (meget)"
-
-#: sozi/ui.py:135
-msgid "Speed down, then up"
-msgstr "Sænk tempoet, øg derefter"
-
-#: sozi/ui.py:136
-msgid "Speed down, then up (strong)"
-msgstr "Sænk tempoet, øg derefter (meget)"
-
-#: sozi/ui.py:137
-msgid "Immediate (beginning)"
-msgstr "Straks (start)"
-
-#: sozi/ui.py:138
-msgid "Immediate (end)"
-msgstr "Straks (slut)"
-
-#: sozi/ui.py:139
-msgid "Immediate (middle)"
-msgstr "Straks (midte)"
-
-#: sozi/ui.py:309
-msgid "Delete the selected frame"
-msgstr "Slet den markerede ramme"
-
-#: sozi/ui.py:334
-msgid "Remove the selected layer"
-msgstr "Fjern det valgte lag"
-
-#: sozi/ui.py:616
-msgid "No action to undo"
-msgstr "Ingen handling at fortryde"
-
-#: sozi/ui.py:622
-msgid "No action to redo"
-msgstr "Ingen handling at omgøre"
-
-#: sozi/ui.glade:55
-msgid "Undo"
-msgstr "Fortryd"
-
-#: sozi/ui.glade:71
-msgid "Redo"
-msgstr "Omgør"
-
-#: sozi/ui.glade:113
-msgid "Seq."
-msgstr "Sekv."
-
-#: sozi/ui.glade:126 sozi/ui.glade:317
+#: build/js/view/Properties.js:32
 msgid "Title"
 msgstr "Position"
 
-#: sozi/ui.glade:155
-msgid "Create a new frame"
-msgstr "Dan ny ramme"
-
-#: sozi/ui.glade:157
-msgid "New"
-msgstr "Opret"
-
-#: sozi/ui.glade:187
-msgid "Duplicate the selected frame"
-msgstr "Dupliker valgt ramme"
-
-#: sozi/ui.glade:189
-msgid "Duplicate"
-msgstr "Dobbeltgænger"
-
-#: sozi/ui.glade:205
-msgid "Delete"
-msgstr "Del"
-
-#: sozi/ui.glade:220
-msgid "Move the selected frame up"
-msgstr "Flyt den valgte ramme op"
-
-#: sozi/ui.glade:222
-msgid "Move frame up"
-msgstr "Flyt ramme op"
-
-#: sozi/ui.glade:237
-msgid "Move the selected frame down"
-msgstr "Flyt den valgte ramme ned"
-
-#: sozi/ui.glade:239
-msgid "Move frame down"
-msgstr "Flyt ramme ned"
-
-#: sozi/ui.glade:302
-msgid "SVG element"
-msgstr "SVG element"
-
-#: sozi/ui.glade:329
-msgid "Timeout (seconds)"
-msgstr "Timeout (sekunder)"
-
-#: sozi/ui.glade:361 sozi/ui.glade:716
-msgid "Hide"
-msgstr "Skjul"
-
-#: sozi/ui.glade:377
-msgid "Clip"
-msgstr "Klip"
-
-#: sozi/ui.glade:393
-msgid "Show in frame list"
-msgstr "Vis ramme liste"
-
-#: sozi/ui.glade:485
-msgid "Set the reference to a selected SVG element"
-msgstr "Sæt referencen til et valgt SVG element"
-
-#: sozi/ui.glade:486
-msgid "Remove the reference to this SVG element"
-msgstr "Fjern referencen til dette SVG element"
-
-#: sozi/ui.glade:518
+#: build/js/view/Properties.js:32
 msgid "Id"
 msgstr "Id"
 
-#: sozi/ui.glade:535
-msgid "<b>Frame properties</b>"
-msgstr "<b>Egenskaber for ramme</b>"
+#: build/js/view/Properties.js:32
+msgid "Show in frame list"
+msgstr "Vis ramme liste"
 
-#: sozi/ui.glade:570
+#: build/js/view/Properties.js:32
+#, fuzzy
+msgid "Show frame number"
+msgstr "Vis ramme liste"
+
+#: build/js/view/Properties.js:32
+msgid "Timeout (seconds)"
+msgstr "Timeout (sekunder)"
+
+#: build/js/view/Properties.js:32
+#, fuzzy
+msgid "Timeout enable"
+msgstr "Timeout (sekunder)"
+
+#: build/js/view/Properties.js:32
+msgid "Link to previous frame"
+msgstr ""
+
+#: build/js/view/Properties.js:32 build/js/view/Toolbar.js:87
+msgid "Clip"
+msgstr "Klip"
+
+#: build/js/view/Properties.js:32
+msgid "Reference element Id"
+msgstr ""
+
+#: build/js/view/Properties.js:34
+#, fuzzy
+msgid "Fit to element"
+msgstr "SVG element"
+
+#: build/js/view/Properties.js:36
+msgid "Autoselect element"
+msgstr ""
+
+#: build/js/view/Properties.js:36
+#, fuzzy
+msgid "Hide element"
+msgstr "SVG element"
+
+#: build/js/view/Properties.js:36
+msgid "Transition"
+msgstr ""
+
+#: build/js/view/Properties.js:36
 msgid "Duration (seconds)"
 msgstr "Varighed"
 
-#: sozi/ui.glade:582
-msgid "Zoom (%)"
-msgstr "Zoom (%)"
+#: build/js/view/Properties.js:36
+msgid "Timing function"
+msgstr ""
 
-#: sozi/ui.glade:639
-msgid "Profile"
-msgstr "Profil"
+#: build/js/view/Properties.js:45
+msgid "Relative zoom (%)"
+msgstr ""
 
-#: sozi/ui.glade:673
-msgid "Path"
+#: build/js/view/Properties.js:45
+#, fuzzy
+msgid "Path Id"
 msgstr "Sti"
 
-#: sozi/ui.glade:692
-msgid "Set the reference to a selected SVG path"
-msgstr "Sæt referencen til en valgt SVG sti"
+#: build/js/view/Properties.js:45
+#, fuzzy
+msgid "Hide path"
+msgstr "Skjul"
 
-#: sozi/ui.glade:693
-msgid "Remove the reference to this SVG path"
-msgstr "Fjern referencen til denne SVG sti"
+#: build/js/view/Timeline.js:246
+#, fuzzy
+msgid "Delete the selected frames"
+msgstr "Slet den markerede ramme"
 
-#: sozi/ui.glade:739
-msgid "<b>Transition to this frame</b>"
-msgstr "<b>Overgang til denne ramme</b>"
+#: build/js/view/Timeline.js:250
+msgid "Create a new frame"
+msgstr "Dan ny ramme"
 
-#: sozi/ui.glade:779
-msgid "Apply changes and go back to Inkscape"
-msgstr "Gem ændringer og gå tilbage til Inkscape"
+#: build/js/view/Timeline.js:258
+#, fuzzy
+msgid "Add layer"
+msgstr "Tilføj lag '{0}'"
 
-#: sozi/ui.glade:797
-msgid "Cancel all changes and go back to Inkscape"
-msgstr "Fjern alle ændringer og gå tilbage til Inkscape"
+#: build/js/view/Timeline.js:263 build/js/view/Timeline.js:275
+msgid "This layer is visible. Click to hide it."
+msgstr ""
 
-#: sozi/ui.glade:837
-msgid "Presentation"
+#: build/js/view/Timeline.js:266 build/js/view/Timeline.js:278
+msgid "This layer is hidden. Click to show it."
+msgstr ""
+
+#: build/js/view/Timeline.js:271 build/js/view/Timeline.js:287
+msgid "Default"
+msgstr ""
+
+#: build/js/view/Timeline.js:281
+#, fuzzy
+msgid "Remove this layer"
+msgstr "Fjern det valgte lag"
+
+#: build/js/view/Timeline.js:292
+#, fuzzy
+msgid "Insert selection before frame %d"
+msgstr "Flyt den valgte ramme ned"
+
+#: build/js/view/Timeline.js:298
+#, fuzzy
+msgid "Insert selection after frame %d"
+msgstr "Flyt den valgte ramme ned"
+
+#: build/js/view/Toolbar.js:34
+msgid "Aspect ratio: "
+msgstr ""
+
+#: build/js/view/Toolbar.js:63
+msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:71
+msgid ""
+"Zoom in/out on the selected layers (you can also hold the Alt key in Move "
+"mode)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:79
+msgid ""
+"Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:93
+msgid "Undo"
+msgstr "Fortryd"
+
+#: build/js/view/Toolbar.js:97
+msgid "Redo"
+msgstr "Omgør"
+
+#: build/js/view/Toolbar.js:101
+#, fuzzy
+msgid "Save the presentation"
 msgstr "Præsentation"
 
-#: sozi/ui.glade:850
-msgid "Modules list"
-msgstr "Modul liste"
+#: build/js/view/Toolbar.js:104
+msgid "Save"
+msgstr ""
 
-#: sozi/ui.glade:861 sozi/ui.glade:877
-msgid "Settings"
-msgstr "Indstillinger"
+#: build/js/view/Toolbar.js:105
+msgid "Reload the SVG document"
+msgstr ""
+
+#: build/js/view/Toolbar.js:107
+msgid "Reload"
+msgstr ""
+
+#~ msgid "Restore '{0}' in frame {1}"
+#~ msgstr "Gendan '{0}' i ramme {1}"
+
+#~ msgid "Change '{0}' in frame {1}"
+#~ msgstr "Skift '{0}' i ramme {1}"
+
+#~ msgid "Restore '{0}' in layer '{1}' of frame {2}"
+#~ msgstr "Gendan '{0}' i lag '{1}' af ramme {2}"
+
+#~ msgid "Change '{0}' in layer '{1}' of frame {2}"
+#~ msgstr "Skift '{0}' i lag '{1}' af ramme {2}"
+
+#~ msgid "Delete the new frame {0}"
+#~ msgstr "Slet den nye ramme {0}"
+
+#~ msgid "Create a new frame at {0}"
+#~ msgstr "Opret en ny ramme ved {0}"
+
+#~ msgid "Remove the layer '{0}' from frame {1}"
+#~ msgstr "Fjern lag '{0}' fra ramme {1}"
+
+#~ msgid "Add layer '{0}' to frame {1}"
+#~ msgstr "TIlføj lag '{0}' til ramme {1}"
+
+#~ msgid "Restore deleted frame {0}"
+#~ msgstr "Gendan slettet ramme {0}"
+
+#~ msgid "Delete frame {0}"
+#~ msgstr "Slet ramme {0}"
+
+#~ msgid "Restore deleted layer '{0}' in frame {1}"
+#~ msgstr "Gendan slettet lag '{0}' i ramme {1}"
+
+#~ msgid "Remove layer '{0}' from frame {1}"
+#~ msgstr "Fjern lag '{0}' fra ramme {1}"
+
+#~ msgid "Delete duplicated frame {0}"
+#~ msgstr "Slet duplikeret ramme {0}"
+
+#~ msgid "Duplicate frame {0}"
+#~ msgstr "Dupliker ramme {0}"
+
+#~ msgid "Move frame {0} up"
+#~ msgstr "Flyt ramme {0} op"
+
+#~ msgid "Move frame {0} down"
+#~ msgstr "Flyt ramme {0} ned"
+
+#~ msgid "Untitled"
+#~ msgstr "Unavngivet"
+
+#~ msgid "Create a new frame or add a layer"
+#~ msgstr "Opret en nye ramme eller tilføj et lag"
+
+#~ msgid "New frame"
+#~ msgstr "Ny ramme"
+
+#~ msgid "Enabled"
+#~ msgstr "Aktiveret"
+
+#~ msgid "Disabled"
+#~ msgstr "Deaktiveret"
+
+#~ msgid "Constant speed"
+#~ msgstr "Konstant tempo"
+
+#~ msgid "Speed up"
+#~ msgstr "Øg tempo"
+
+#~ msgid "Speed up (strong)"
+#~ msgstr "Øg tempo (meget)"
+
+#~ msgid "Speed down"
+#~ msgstr "Sænk tempo"
+
+#~ msgid "Speed down (strong)"
+#~ msgstr "Sænk tempo (meget)"
+
+#~ msgid "Speed up, then down"
+#~ msgstr "Øg tempo, sænk det derefter"
+
+#~ msgid "Speed up, then down (strong)"
+#~ msgstr "Øg tempo, sænk det derefter (meget)"
+
+#~ msgid "Speed down, then up"
+#~ msgstr "Sænk tempoet, øg derefter"
+
+#~ msgid "Speed down, then up (strong)"
+#~ msgstr "Sænk tempoet, øg derefter (meget)"
+
+#~ msgid "Immediate (beginning)"
+#~ msgstr "Straks (start)"
+
+#~ msgid "Immediate (end)"
+#~ msgstr "Straks (slut)"
+
+#~ msgid "Immediate (middle)"
+#~ msgstr "Straks (midte)"
+
+#~ msgid "No action to undo"
+#~ msgstr "Ingen handling at fortryde"
+
+#~ msgid "No action to redo"
+#~ msgstr "Ingen handling at omgøre"
+
+#~ msgid "Seq."
+#~ msgstr "Sekv."
+
+#~ msgid "New"
+#~ msgstr "Opret"
+
+#~ msgid "Duplicate the selected frame"
+#~ msgstr "Dupliker valgt ramme"
+
+#~ msgid "Duplicate"
+#~ msgstr "Dobbeltgænger"
+
+#~ msgid "Delete"
+#~ msgstr "Del"
+
+#~ msgid "Move the selected frame up"
+#~ msgstr "Flyt den valgte ramme op"
+
+#~ msgid "Move frame up"
+#~ msgstr "Flyt ramme op"
+
+#~ msgid "Move frame down"
+#~ msgstr "Flyt ramme ned"
+
+#~ msgid "Set the reference to a selected SVG element"
+#~ msgstr "Sæt referencen til et valgt SVG element"
+
+#~ msgid "Remove the reference to this SVG element"
+#~ msgstr "Fjern referencen til dette SVG element"
+
+#~ msgid "<b>Frame properties</b>"
+#~ msgstr "<b>Egenskaber for ramme</b>"
+
+#~ msgid "Zoom (%)"
+#~ msgstr "Zoom (%)"
+
+#~ msgid "Profile"
+#~ msgstr "Profil"
+
+#~ msgid "Set the reference to a selected SVG path"
+#~ msgstr "Sæt referencen til en valgt SVG sti"
+
+#~ msgid "Remove the reference to this SVG path"
+#~ msgstr "Fjern referencen til denne SVG sti"
+
+#~ msgid "<b>Transition to this frame</b>"
+#~ msgstr "<b>Overgang til denne ramme</b>"
+
+#~ msgid "Apply changes and go back to Inkscape"
+#~ msgstr "Gem ændringer og gå tilbage til Inkscape"
+
+#~ msgid "Cancel all changes and go back to Inkscape"
+#~ msgstr "Fjern alle ændringer og gå tilbage til Inkscape"
+
+#~ msgid "Modules list"
+#~ msgstr "Modul liste"
+
+#~ msgid "Settings"
+#~ msgstr "Indstillinger"

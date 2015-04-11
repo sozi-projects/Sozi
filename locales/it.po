@@ -7,300 +7,378 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-11-30 22:09+0100\n"
+"POT-Creation-Date: 2015-04-11 01:52:+0000\n"
 "PO-Revision-Date: 2013-01-26 18:19+0000\n"
 "Last-Translator: Gianfranco Frisani <gfrisani@libero.it>\n"
 "Language-Team: Italian <it@li.org>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2015-04-11 13:36+0000\n"
 "X-Generator: Launchpad (build 17423)\n"
 
-#: sozi/actions.py:72
-msgid "Restore '{0}' in frame {1}"
-msgstr "Ripristina '{0}' nel frame {1}"
+#: build/js/Storage.js:76
+msgid "File %s could not be loaded."
+msgstr ""
 
-#: sozi/actions.py:73
-msgid "Change '{0}' in frame {1}"
-msgstr "Cambia '{0}' nel frame {1}"
+#: build/js/Storage.js:97
+msgid "Document was changed. Reloading."
+msgstr ""
 
-#: sozi/actions.py:78
-msgid "Restore '{0}' in layer '{1}' of frame {2}"
-msgstr "Ripristina '{0}' nel livello '{1}' del frame {2}"
+#: build/js/Storage.js:118
+msgid "Document is not valid SVG."
+msgstr ""
 
-#: sozi/actions.py:79
-msgid "Change '{0}' in layer '{1}' of frame {2}"
-msgstr "Cambia '{0}' nel livello '{1}' del frame {2}"
+#: build/js/Storage.js:158
+msgid "Document was imported from Sozi 13 or earlier."
+msgstr ""
 
-#: sozi/actions.py:135
-msgid "Delete the new frame {0}"
-msgstr "Elimina il nuovo frame {0}"
+#: build/js/Storage.js:243
+msgid "Saved %s."
+msgstr ""
 
-#: sozi/actions.py:136
-msgid "Create a new frame at {0}"
-msgstr "Crea un nuovo frame a {0}"
+#: build/js/backend/FileReader.js:20
+msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
+msgstr ""
 
-#: sozi/actions.py:179
-msgid "Remove the layer '{0}' from frame {1}"
-msgstr "Cancella il livello '{0}' dal frame {1}"
+#: build/js/backend/GoogleDrive.js:22
+msgid "Load from Google Drive"
+msgstr ""
 
-#: sozi/actions.py:180
-msgid "Add layer '{0}' to frame {1}"
-msgstr "Aggiungi un livello '{0}' al frame {1}"
+#: build/js/backend/NodeWebkit.js:43
+msgid "Load local file"
+msgstr ""
 
-#: sozi/actions.py:224
-msgid "Restore deleted frame {0}"
-msgstr "Ripristina il frame cancellato {0}"
+#: build/js/backend/NodeWebkit.js:80
+msgid "File not found: %s."
+msgstr ""
 
-#: sozi/actions.py:225
-msgid "Delete frame {0}"
-msgstr "Elimina il frame {0}"
+#: build/js/view/Properties.js:32
+msgid "Frame"
+msgstr ""
 
-#: sozi/actions.py:269
-msgid "Restore deleted layer '{0}' in frame {1}"
-msgstr "Ripristina il livello cancellato '{0}' nel frame {1}"
-
-#: sozi/actions.py:270
-msgid "Remove layer '{0}' from frame {1}"
-msgstr "Cancella il livello '{0}' dal frame {1}"
-
-#: sozi/actions.py:314
-msgid "Delete duplicated frame {0}"
-msgstr "Elimina il frame duplicato {0}"
-
-#: sozi/actions.py:315
-msgid "Duplicate frame {0}"
-msgstr "Clona il frame {0}"
-
-#: sozi/actions.py:360 sozi/actions.py:366
-msgid "Move frame {0} up"
-msgstr "Sposta il frame {0} in alto"
-
-#: sozi/actions.py:361 sozi/actions.py:365
-msgid "Move frame {0} down"
-msgstr "Sposta il frame {0} in basso"
-
-#: sozi/document.py:75
-msgid "Untitled"
-msgstr "Senza titolo"
-
-#: sozi/ui.py:87
-msgid "Create a new frame or add a layer"
-msgstr "Crea un nuovo frame o aggiungi un livello"
-
-#: sozi/ui.py:92
-msgid "Add layer '{0}'"
-msgstr "Aggiungi un livello '{0}'"
-
-#: sozi/ui.py:105 sozi/ui.glade:170
-msgid "New frame"
-msgstr "Nuovo frame"
-
-#: sozi/ui.py:107
-msgid "Enabled"
-msgstr "Attivato"
-
-#: sozi/ui.py:107
-msgid "Disabled"
-msgstr "Disabilitato"
-
-#: sozi/ui.py:128
-msgid "Constant speed"
-msgstr "Velocità costante"
-
-#: sozi/ui.py:129
-msgid "Speed up"
-msgstr "Accelera"
-
-#: sozi/ui.py:130
-msgid "Speed up (strong)"
-msgstr "Accelera (in maniera decisa)"
-
-#: sozi/ui.py:131
-msgid "Speed down"
-msgstr "Rallenta"
-
-#: sozi/ui.py:132
-msgid "Speed down (strong)"
-msgstr "Rallenta (in maniera decisa)"
-
-#: sozi/ui.py:133
-msgid "Speed up, then down"
-msgstr "Accelera e poi rallenta"
-
-#: sozi/ui.py:134
-msgid "Speed up, then down (strong)"
-msgstr "Accelera e poi rallenta (in maniera decisa)"
-
-#: sozi/ui.py:135
-msgid "Speed down, then up"
-msgstr "Rallenta e poi accelera"
-
-#: sozi/ui.py:136
-msgid "Speed down, then up (strong)"
-msgstr "Rallenta e poi accelera (in maniera decisa)"
-
-#: sozi/ui.py:137
-msgid "Immediate (beginning)"
-msgstr "Immediato (inizio)"
-
-#: sozi/ui.py:138
-msgid "Immediate (end)"
-msgstr "Immediato (termine)"
-
-#: sozi/ui.py:139
-msgid "Immediate (middle)"
-msgstr "Immediato (medio)"
-
-#: sozi/ui.py:309
-msgid "Delete the selected frame"
-msgstr "Elimina il frame selezionato"
-
-#: sozi/ui.py:334
-msgid "Remove the selected layer"
-msgstr "Rimuovi il livello selezionato"
-
-#: sozi/ui.py:616
-msgid "No action to undo"
-msgstr "Nessuna azione da annullare"
-
-#: sozi/ui.py:622
-msgid "No action to redo"
-msgstr "Nessuna azione da ripetere"
-
-#: sozi/ui.glade:55
-msgid "Undo"
-msgstr "Annulla"
-
-#: sozi/ui.glade:71
-msgid "Redo"
-msgstr "Ripeti"
-
-#: sozi/ui.glade:113
-msgid "Seq."
-msgstr "Seg."
-
-#: sozi/ui.glade:126 sozi/ui.glade:317
+#: build/js/view/Properties.js:32
 msgid "Title"
 msgstr "Titolo"
 
-#: sozi/ui.glade:155
-msgid "Create a new frame"
-msgstr "Crea un nuovo frame"
-
-#: sozi/ui.glade:157
-msgid "New"
-msgstr "Nuovo"
-
-#: sozi/ui.glade:187
-msgid "Duplicate the selected frame"
-msgstr "Duplica il frame selezionato"
-
-#: sozi/ui.glade:189
-msgid "Duplicate"
-msgstr "Duplica"
-
-#: sozi/ui.glade:205
-msgid "Delete"
-msgstr "Elimina"
-
-#: sozi/ui.glade:220
-msgid "Move the selected frame up"
-msgstr "Muovi il frame selezionato in alto"
-
-#: sozi/ui.glade:222
-msgid "Move frame up"
-msgstr "Muovi il frame in alto"
-
-#: sozi/ui.glade:237
-msgid "Move the selected frame down"
-msgstr "Muovi il frame selezionato in basso"
-
-#: sozi/ui.glade:239
-msgid "Move frame down"
-msgstr "Muovi il frame in basso"
-
-#: sozi/ui.glade:302
-msgid "SVG element"
-msgstr "Elemento SVG"
-
-#: sozi/ui.glade:329
-msgid "Timeout (seconds)"
-msgstr "Timeout (secondi)"
-
-#: sozi/ui.glade:361 sozi/ui.glade:716
-msgid "Hide"
-msgstr "Nascondi"
-
-#: sozi/ui.glade:377
-msgid "Clip"
-msgstr "Clip"
-
-#: sozi/ui.glade:393
-msgid "Show in frame list"
-msgstr ""
-
-#: sozi/ui.glade:485
-msgid "Set the reference to a selected SVG element"
-msgstr "Imposta il riferimento a un elemento SVG selezionato"
-
-#: sozi/ui.glade:486
-msgid "Remove the reference to this SVG element"
-msgstr "Cancella il riferimento a un elemento SVG selezionato"
-
-#: sozi/ui.glade:518
+#: build/js/view/Properties.js:32
 msgid "Id"
 msgstr ""
 
-#: sozi/ui.glade:535
-msgid "<b>Frame properties</b>"
-msgstr "<b>Proprietà del frame</b>"
+#: build/js/view/Properties.js:32
+msgid "Show in frame list"
+msgstr ""
 
-#: sozi/ui.glade:570
+#: build/js/view/Properties.js:32
+#, fuzzy
+msgid "Show frame number"
+msgstr "Muovi il frame in alto"
+
+#: build/js/view/Properties.js:32
+msgid "Timeout (seconds)"
+msgstr "Timeout (secondi)"
+
+#: build/js/view/Properties.js:32
+#, fuzzy
+msgid "Timeout enable"
+msgstr "Timeout (secondi)"
+
+#: build/js/view/Properties.js:32
+msgid "Link to previous frame"
+msgstr ""
+
+#: build/js/view/Properties.js:32 build/js/view/Toolbar.js:87
+msgid "Clip"
+msgstr "Clip"
+
+#: build/js/view/Properties.js:32
+msgid "Reference element Id"
+msgstr ""
+
+#: build/js/view/Properties.js:34
+#, fuzzy
+msgid "Fit to element"
+msgstr "Elemento SVG"
+
+#: build/js/view/Properties.js:36
+msgid "Autoselect element"
+msgstr ""
+
+#: build/js/view/Properties.js:36
+#, fuzzy
+msgid "Hide element"
+msgstr "Elemento SVG"
+
+#: build/js/view/Properties.js:36
+msgid "Transition"
+msgstr ""
+
+#: build/js/view/Properties.js:36
 msgid "Duration (seconds)"
 msgstr "Durata (secondi)"
 
-#: sozi/ui.glade:582
-msgid "Zoom (%)"
-msgstr "Zoom (%)"
+#: build/js/view/Properties.js:36
+msgid "Timing function"
+msgstr ""
 
-#: sozi/ui.glade:639
-msgid "Profile"
-msgstr "Profilo"
+#: build/js/view/Properties.js:45
+msgid "Relative zoom (%)"
+msgstr ""
 
-#: sozi/ui.glade:673
-msgid "Path"
+#: build/js/view/Properties.js:45
+#, fuzzy
+msgid "Path Id"
 msgstr "Percorso"
 
-#: sozi/ui.glade:692
-msgid "Set the reference to a selected SVG path"
-msgstr "Imposta il riferimento a un percorso SVG selezionato"
+#: build/js/view/Properties.js:45
+#, fuzzy
+msgid "Hide path"
+msgstr "Nascondi"
 
-#: sozi/ui.glade:693
-msgid "Remove the reference to this SVG path"
-msgstr "Rimuovi il riferimento a questo percorso SVG selezionato"
+#: build/js/view/Timeline.js:246
+#, fuzzy
+msgid "Delete the selected frames"
+msgstr "Elimina il frame selezionato"
 
-#: sozi/ui.glade:739
-msgid "<b>Transition to this frame</b>"
-msgstr "<b>Transizione a questo frame</b>"
+#: build/js/view/Timeline.js:250
+msgid "Create a new frame"
+msgstr "Crea un nuovo frame"
 
-#: sozi/ui.glade:779
-msgid "Apply changes and go back to Inkscape"
-msgstr "Applica le modifiche e torna a Inkscape"
+#: build/js/view/Timeline.js:258
+#, fuzzy
+msgid "Add layer"
+msgstr "Aggiungi un livello '{0}'"
 
-#: sozi/ui.glade:797
-msgid "Cancel all changes and go back to Inkscape"
-msgstr "Elimina tutte le modifiche e torna a Inkscape"
+#: build/js/view/Timeline.js:263 build/js/view/Timeline.js:275
+msgid "This layer is visible. Click to hide it."
+msgstr ""
 
-#: sozi/ui.glade:837
-msgid "Presentation"
+#: build/js/view/Timeline.js:266 build/js/view/Timeline.js:278
+msgid "This layer is hidden. Click to show it."
+msgstr ""
+
+#: build/js/view/Timeline.js:271 build/js/view/Timeline.js:287
+msgid "Default"
+msgstr ""
+
+#: build/js/view/Timeline.js:281
+#, fuzzy
+msgid "Remove this layer"
+msgstr "Rimuovi il livello selezionato"
+
+#: build/js/view/Timeline.js:292
+#, fuzzy
+msgid "Insert selection before frame %d"
+msgstr "Muovi il frame selezionato in basso"
+
+#: build/js/view/Timeline.js:298
+#, fuzzy
+msgid "Insert selection after frame %d"
+msgstr "Muovi il frame selezionato in basso"
+
+#: build/js/view/Toolbar.js:34
+msgid "Aspect ratio: "
+msgstr ""
+
+#: build/js/view/Toolbar.js:63
+msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:71
+msgid ""
+"Zoom in/out on the selected layers (you can also hold the Alt key in Move "
+"mode)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:79
+msgid ""
+"Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:93
+msgid "Undo"
+msgstr "Annulla"
+
+#: build/js/view/Toolbar.js:97
+msgid "Redo"
+msgstr "Ripeti"
+
+#: build/js/view/Toolbar.js:101
+#, fuzzy
+msgid "Save the presentation"
 msgstr "Presentazione"
 
-#: sozi/ui.glade:850
-msgid "Modules list"
-msgstr "Elenco moduli"
+#: build/js/view/Toolbar.js:104
+msgid "Save"
+msgstr ""
 
-#: sozi/ui.glade:861 sozi/ui.glade:877
-msgid "Settings"
-msgstr "Impostazioni"
+#: build/js/view/Toolbar.js:105
+msgid "Reload the SVG document"
+msgstr ""
+
+#: build/js/view/Toolbar.js:107
+msgid "Reload"
+msgstr ""
+
+#~ msgid "Restore '{0}' in frame {1}"
+#~ msgstr "Ripristina '{0}' nel frame {1}"
+
+#~ msgid "Change '{0}' in frame {1}"
+#~ msgstr "Cambia '{0}' nel frame {1}"
+
+#~ msgid "Restore '{0}' in layer '{1}' of frame {2}"
+#~ msgstr "Ripristina '{0}' nel livello '{1}' del frame {2}"
+
+#~ msgid "Change '{0}' in layer '{1}' of frame {2}"
+#~ msgstr "Cambia '{0}' nel livello '{1}' del frame {2}"
+
+#~ msgid "Delete the new frame {0}"
+#~ msgstr "Elimina il nuovo frame {0}"
+
+#~ msgid "Create a new frame at {0}"
+#~ msgstr "Crea un nuovo frame a {0}"
+
+#~ msgid "Remove the layer '{0}' from frame {1}"
+#~ msgstr "Cancella il livello '{0}' dal frame {1}"
+
+#~ msgid "Add layer '{0}' to frame {1}"
+#~ msgstr "Aggiungi un livello '{0}' al frame {1}"
+
+#~ msgid "Restore deleted frame {0}"
+#~ msgstr "Ripristina il frame cancellato {0}"
+
+#~ msgid "Delete frame {0}"
+#~ msgstr "Elimina il frame {0}"
+
+#~ msgid "Restore deleted layer '{0}' in frame {1}"
+#~ msgstr "Ripristina il livello cancellato '{0}' nel frame {1}"
+
+#~ msgid "Remove layer '{0}' from frame {1}"
+#~ msgstr "Cancella il livello '{0}' dal frame {1}"
+
+#~ msgid "Delete duplicated frame {0}"
+#~ msgstr "Elimina il frame duplicato {0}"
+
+#~ msgid "Duplicate frame {0}"
+#~ msgstr "Clona il frame {0}"
+
+#~ msgid "Move frame {0} up"
+#~ msgstr "Sposta il frame {0} in alto"
+
+#~ msgid "Move frame {0} down"
+#~ msgstr "Sposta il frame {0} in basso"
+
+#~ msgid "Untitled"
+#~ msgstr "Senza titolo"
+
+#~ msgid "Create a new frame or add a layer"
+#~ msgstr "Crea un nuovo frame o aggiungi un livello"
+
+#~ msgid "New frame"
+#~ msgstr "Nuovo frame"
+
+#~ msgid "Enabled"
+#~ msgstr "Attivato"
+
+#~ msgid "Disabled"
+#~ msgstr "Disabilitato"
+
+#~ msgid "Constant speed"
+#~ msgstr "Velocità costante"
+
+#~ msgid "Speed up"
+#~ msgstr "Accelera"
+
+#~ msgid "Speed up (strong)"
+#~ msgstr "Accelera (in maniera decisa)"
+
+#~ msgid "Speed down"
+#~ msgstr "Rallenta"
+
+#~ msgid "Speed down (strong)"
+#~ msgstr "Rallenta (in maniera decisa)"
+
+#~ msgid "Speed up, then down"
+#~ msgstr "Accelera e poi rallenta"
+
+#~ msgid "Speed up, then down (strong)"
+#~ msgstr "Accelera e poi rallenta (in maniera decisa)"
+
+#~ msgid "Speed down, then up"
+#~ msgstr "Rallenta e poi accelera"
+
+#~ msgid "Speed down, then up (strong)"
+#~ msgstr "Rallenta e poi accelera (in maniera decisa)"
+
+#~ msgid "Immediate (beginning)"
+#~ msgstr "Immediato (inizio)"
+
+#~ msgid "Immediate (end)"
+#~ msgstr "Immediato (termine)"
+
+#~ msgid "Immediate (middle)"
+#~ msgstr "Immediato (medio)"
+
+#~ msgid "No action to undo"
+#~ msgstr "Nessuna azione da annullare"
+
+#~ msgid "No action to redo"
+#~ msgstr "Nessuna azione da ripetere"
+
+#~ msgid "Seq."
+#~ msgstr "Seg."
+
+#~ msgid "New"
+#~ msgstr "Nuovo"
+
+#~ msgid "Duplicate the selected frame"
+#~ msgstr "Duplica il frame selezionato"
+
+#~ msgid "Duplicate"
+#~ msgstr "Duplica"
+
+#~ msgid "Delete"
+#~ msgstr "Elimina"
+
+#~ msgid "Move the selected frame up"
+#~ msgstr "Muovi il frame selezionato in alto"
+
+#~ msgid "Move frame down"
+#~ msgstr "Muovi il frame in basso"
+
+#~ msgid "Set the reference to a selected SVG element"
+#~ msgstr "Imposta il riferimento a un elemento SVG selezionato"
+
+#~ msgid "Remove the reference to this SVG element"
+#~ msgstr "Cancella il riferimento a un elemento SVG selezionato"
+
+#~ msgid "<b>Frame properties</b>"
+#~ msgstr "<b>Proprietà del frame</b>"
+
+#~ msgid "Zoom (%)"
+#~ msgstr "Zoom (%)"
+
+#~ msgid "Profile"
+#~ msgstr "Profilo"
+
+#~ msgid "Set the reference to a selected SVG path"
+#~ msgstr "Imposta il riferimento a un percorso SVG selezionato"
+
+#~ msgid "Remove the reference to this SVG path"
+#~ msgstr "Rimuovi il riferimento a questo percorso SVG selezionato"
+
+#~ msgid "<b>Transition to this frame</b>"
+#~ msgstr "<b>Transizione a questo frame</b>"
+
+#~ msgid "Apply changes and go back to Inkscape"
+#~ msgstr "Applica le modifiche e torna a Inkscape"
+
+#~ msgid "Cancel all changes and go back to Inkscape"
+#~ msgstr "Elimina tutte le modifiche e torna a Inkscape"
+
+#~ msgid "Modules list"
+#~ msgstr "Elenco moduli"
+
+#~ msgid "Settings"
+#~ msgstr "Impostazioni"

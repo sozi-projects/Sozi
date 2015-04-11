@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
-"POT-Creation-Date: 2015-04-05 09:39:+0000\n"
+"POT-Creation-Date: 2015-04-11 01:52:+0000\n"
 "PO-Revision-Date: 2015-04-05 11:41+0100\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Sozi translators\n"
@@ -71,8 +71,9 @@ msgid "Show frame number"
 msgstr "Afficher le numéro de la vue"
 
 #: build/js/view/Properties.js:32
-msgid "Timeout (sec)"
-msgstr "Délai (sec)"
+#, fuzzy
+msgid "Timeout (seconds)"
+msgstr "Délai (secondes)"
 
 #: build/js/view/Properties.js:32
 msgid "Timeout enable"
@@ -107,8 +108,9 @@ msgid "Transition"
 msgstr "Transition"
 
 #: build/js/view/Properties.js:36
-msgid "Duration (sec)"
-msgstr "Durée (sec)"
+#, fuzzy
+msgid "Duration (seconds)"
+msgstr "Durée (secondes)"
 
 #: build/js/view/Properties.js:36
 msgid "Timing function"

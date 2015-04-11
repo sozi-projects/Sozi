@@ -30,7 +30,7 @@ Properties.render = function () {
             this.renderTextField(_("Id"), "frameId", this.getFrameProperty, c.setFrameProperty, false),
             this.renderCheckboxField(_("Show in frame list"), "showInFrameList", this.getFrameProperty, c.setFrameProperty),
             this.renderCheckboxField(_("Show frame number"), "showFrameNumber", this.getFrameProperty, c.setFrameProperty),
-            this.renderNumberField(_("Timeout (sec)"), "timeoutMs", this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
+            this.renderNumberField(_("Timeout (seconds)"), "timeoutMs", this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
             this.renderCheckboxField(_("Timeout enable"), "timeoutEnable", this.getFrameProperty, c.setFrameProperty),
             this.renderCheckboxField(_("Link to previous frame"), "link", this.getLayerProperty, c.setLayerProperty),
             this.renderCheckboxField(_("Clip"), "clipped", this.getCameraProperty, c.setCameraProperty),
@@ -50,7 +50,7 @@ Properties.render = function () {
         h("h1", _("Transition")),
 
         h("table", [
-            this.renderNumberField(_("Duration (sec)"), "transitionDurationMs", this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
+            this.renderNumberField(_("Duration (seconds)"), "transitionDurationMs", this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
             this.renderSelectField(_("Timing function"), "transitionTimingFunction", this.getLayerProperty, c.setLayerProperty, {
                 "linear": "Linear",
                 "ease": "Ease",
