@@ -4,7 +4,6 @@ module.exports = function(grunt) {
     var nunjucks = require("nunjucks");
 
     require("load-grunt-tasks")(grunt);
-    var fs = require("fs");
 
     var version = grunt.template.today("yy.mm.ddHHMM");
     var pkg = grunt.file.readJSON("package.json");
@@ -21,41 +20,28 @@ module.exports = function(grunt) {
 
     var buildConfig;
     try {
-      buildConfig = require('./buildConfig.js');
-      console.log("buildConfig.js present - using it ...");
+        buildConfig = require('./buildConfig.js');
+        grunt.verbose.writeln("buildConfig.js present - using it.");
     }
     catch (noBuildConfigFound) {
-      console.log("no buildConfig.js present - using the standard configuration ...");
-      buildConfig = {
-        platforms:
-          [
-              "win32", "osx32", "linux32",
-              "win64", "osx64", "linux64"
-          ],
-        uglifyOptions:{}
-      };
+        grunt.verbose.writeln("no buildConfig.js present - using the default configuration.");
+        buildConfig = {
+            platforms: [
+                "win32", "osx32", "linux32",
+                "win64", "osx64", "linux64"
+            ],
+            uglifyOptions:{}
+        };
     }
 
-    console.log("Checking for dependencies ...");
-    try {
-      var bowerFD = fs.openSync("bower_components",'r');
-      fs.closeSync(bowerFD);
-      console.log("... bower is here.");
-    } catch (bowerNotFound) {
-      console.log("... could not find bower_components! Please run `bower install`.");
-      process.exit();
+    grunt.verbose.write("Checking for bower_components...");
+    if (grunt.file.isDir("bower_components")) {
+        grunt.verbose.ok();
     }
-
-    try {
-      var nodeFD = fs.openSync("node_modules",'r');
-      fs.closeSync(nodeFD);
-      console.log("... node_modules is here.");
-    } catch (nodeModulesNotFound) {
-      console.log("... could not find node_modules! Please run `npm install`.");
-      process.exit();
+    else {
+        grunt.log.error("bower_components not found! Please run `bower install`.");
+        process.exit();
     }
-
-
 
     grunt.initConfig({
         pkg: pkg,
