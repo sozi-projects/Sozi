@@ -4,7 +4,8 @@ module.exports = function(grunt) {
     var nunjucks = require("nunjucks");
 
     require("load-grunt-tasks")(grunt);
-    
+    var fs = require("fs");
+
     var version = grunt.template.today("yy.mm.ddHHMM");
     var pkg = grunt.file.readJSON("package.json");
 
@@ -17,7 +18,45 @@ module.exports = function(grunt) {
             "build/js/backend/NodeWebkit.js"
         ]
     };
-    
+
+    var buildConfig;
+    try {
+      buildConfig = require('./buildConfig.js');
+      console.log("buildConfig.js present - using it ...");
+    }
+    catch (noBuildConfigFound) {
+      console.log("no buildConfig.js present - using the standard configuration ...");
+      buildConfig = {
+        platforms:
+          [
+              "win32", "osx32", "linux32",
+              "win64", "osx64", "linux64"
+          ],
+        uglifyOptions:{}
+      };
+    }
+
+    console.log("Checking for dependencies ...");
+    try {
+      var bowerFD = fs.openSync("bower_components",'r');
+      fs.closeSync(bowerFD);
+      console.log("... bower is here.");
+    } catch (bowerNotFound) {
+      console.log("... could not find bower_components! Please run `bower install`.");
+      process.exit();
+    }
+
+    try {
+      var nodeFD = fs.openSync("node_modules",'r');
+      fs.closeSync(nodeFD);
+      console.log("... node_modules is here.");
+    } catch (nodeModulesNotFound) {
+      console.log("... could not find node_modules! Please run `npm install`.");
+      process.exit();
+    }
+
+
+
     grunt.initConfig({
         pkg: pkg,
 
@@ -50,7 +89,7 @@ module.exports = function(grunt) {
             },
             all: [ "css/**/*.css" ]
         },
-        
+
         /*
          * Automatic tests.
          */
@@ -97,7 +136,7 @@ module.exports = function(grunt) {
                 dest: "locales"
             }
         },
-        
+
         po2json: {
             options: {
                 singleFile: true,
@@ -109,7 +148,7 @@ module.exports = function(grunt) {
                 dest: "build/js/locales.js",
             }
         },
-        
+
         browserify: {
             editor: {
                 options: {
@@ -133,11 +172,7 @@ module.exports = function(grunt) {
          * Compress the JavaScript code of the editor and player.
          */
         uglify: {
-            options: {
-//                compress: false,
-//                mangle: false,
-//                beautify: true
-            },
+            options: buildConfig.uglifyOptions,
             editor: {
                 src: "<%= browserify.editor.dest %>",
                 dest: "build/js/editor.min.js"
@@ -160,7 +195,7 @@ module.exports = function(grunt) {
                 }
             }
         },
-        
+
         nunjucks: {
             player: {
                 src: ["<%= nunjucks_render.player.dest %>"],
@@ -205,7 +240,7 @@ module.exports = function(grunt) {
                 ]
             }
         },
-        
+
         compress: {
             media: {
                 options: {
@@ -223,13 +258,11 @@ module.exports = function(grunt) {
          * The options take precedence over the targets variable
          * defined later.
          */
+
         nodewebkit: {
             options: {
                 buildDir: "build",
-                platforms: [
-                    "win32", "osx32", "linux32",
-                    "win64", "osx64", "linux64"
-                ]
+                platforms: buildConfig.platforms
             },
             editor: ["build/app/**/*"]
         },
@@ -304,14 +337,14 @@ module.exports = function(grunt) {
             grunt.config.get("browserify.editor.src").concat(backends.web)
         );
     });
-    
+
     grunt.registerTask("backends-nw", function () {
         // grunt.config.merge does not work for this
         grunt.config.set("browserify.editor.src",
             grunt.config.get("browserify.editor.src").concat(backends.nw)
         );
     });
-    
+
     grunt.registerTask("lint", ["jshint", "csslint"]);
 
     grunt.registerTask("build", [
@@ -326,10 +359,10 @@ module.exports = function(grunt) {
         "uglify:editor",
         "copy:editor"
     ]);
-    
+
     grunt.registerTask("nw-build",  ["backends-nw", "build"]);
     grunt.registerTask("web-build", ["backends-web", "build"]);
-    
+
     grunt.registerTask("nw-bundle", [
         "nw-build",
         "nodewebkit",
@@ -337,13 +370,13 @@ module.exports = function(grunt) {
         "rename",
         "compress"
     ]);
-    
+
     grunt.registerTask("web-demo", [
         "web-build",
         "rsync"
     ]);
-    
+
     grunt.registerTask("pot", ["babel", "jspot"]);
-    
+
     grunt.registerTask("default", ["nw-bundle"]);
 };
