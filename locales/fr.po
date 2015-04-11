@@ -71,7 +71,6 @@ msgid "Show frame number"
 msgstr "Afficher le numéro de la vue"
 
 #: build/js/view/Properties.js:32
-#, fuzzy
 msgid "Timeout (seconds)"
 msgstr "Délai (secondes)"
 
@@ -108,7 +107,6 @@ msgid "Transition"
 msgstr "Transition"
 
 #: build/js/view/Properties.js:36
-#, fuzzy
 msgid "Duration (seconds)"
 msgstr "Durée (secondes)"
 
