@@ -184,47 +184,52 @@ Camera.getCandidateReferenceElement = function () {
     return result;
 };
 
+Object.defineProperty(Camera, "clipRect", {
+    get: function () {
+        var width, height, x, y;
+        if (this.clipped) {
+            var scale = this.scale;
+            width = Math.round(this.width  * this.clipWidthFactor  * scale);
+            height = Math.round(this.height * this.clipHeightFactor * scale);
+            x = Math.round((this.viewport.width  - width)  / 2 + this.clipXOffset * this.clipWidthFactor  * scale);
+            y = Math.round((this.viewport.height - height) / 2 + this.clipYOffset * this.clipHeightFactor * scale);
+        }
+        else {
+            width = this.viewport.width;
+            height = this.viewport.height;
+            x = 0;
+            y = 0;
+        }
+        return {width, height, x, y};
+    }
+});
+
 Camera.update = function () {
-    var scale = this.scale;
-
     // Adjust the location and size of the clipping rectangle
-    var clipWidth, clipHeight, clipX, clipY;
-
-    if (this.clipped) {
-        clipWidth  = Math.round(this.width  * this.clipWidthFactor  * scale);
-        clipHeight = Math.round(this.height * this.clipHeightFactor * scale);
-        clipX = Math.round((this.viewport.width  - clipWidth)  / 2 + this.clipXOffset * this.clipWidthFactor  * scale);
-        clipY = Math.round((this.viewport.height - clipHeight) / 2 + this.clipYOffset * this.clipHeightFactor * scale);
-    }
-    else {
-        clipWidth = this.viewport.width;
-        clipHeight = this.viewport.height;
-        clipX = 0;
-        clipY = 0;
-    }
-
     this.svgMaskRect.setAttribute("fill", "rgb(" + this.maskValue + "," + this.maskValue + "," + this.maskValue + ")");
     this.svgMaskRect.setAttribute("x", 0);
     this.svgMaskRect.setAttribute("y", 0);
     this.svgMaskRect.setAttribute("width",  this.viewport.width);
     this.svgMaskRect.setAttribute("height", this.viewport.height);
 
-    this.svgClipRect.setAttribute("x", clipX);
-    this.svgClipRect.setAttribute("y", clipY);
-    this.svgClipRect.setAttribute("width",  clipWidth);
-    this.svgClipRect.setAttribute("height", clipHeight);
+    var rect = this.clipRect;
+    this.svgClipRect.setAttribute("x", rect.x);
+    this.svgClipRect.setAttribute("y", rect.y);
+    this.svgClipRect.setAttribute("width",  rect.width);
+    this.svgClipRect.setAttribute("height", rect.height);
 
-    this.svgClipOutlineRect1.setAttribute("x", clipX);
-    this.svgClipOutlineRect1.setAttribute("y", clipY);
-    this.svgClipOutlineRect1.setAttribute("width",  clipWidth);
-    this.svgClipOutlineRect1.setAttribute("height", clipHeight);
+    this.svgClipOutlineRect1.setAttribute("x", rect.x);
+    this.svgClipOutlineRect1.setAttribute("y", rect.y);
+    this.svgClipOutlineRect1.setAttribute("width",  rect.width);
+    this.svgClipOutlineRect1.setAttribute("height", rect.height);
 
-    this.svgClipOutlineRect2.setAttribute("x", clipX);
-    this.svgClipOutlineRect2.setAttribute("y", clipY);
-    this.svgClipOutlineRect2.setAttribute("width",  clipWidth);
-    this.svgClipOutlineRect2.setAttribute("height", clipHeight);
+    this.svgClipOutlineRect2.setAttribute("x", rect.x);
+    this.svgClipOutlineRect2.setAttribute("y", rect.y);
+    this.svgClipOutlineRect2.setAttribute("width",  rect.width);
+    this.svgClipOutlineRect2.setAttribute("height", rect.height);
 
     // Compute and apply the geometrical transformation to the layer group
+    var scale = this.scale;
     var translateX = this.viewport.width  / scale / 2 - this.cx;
     var translateY = this.viewport.height / scale / 2 - this.cy;
 
