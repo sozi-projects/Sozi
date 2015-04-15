@@ -32,6 +32,7 @@ Controller.onLoad = function () {
     if (!this.selection.selectedLayers.length) {
         this.selection.selectedLayers = this.presentation.layers.slice();
     }
+    this.updateCameraSelection();
 
     this.emit("ready");
 
@@ -172,8 +173,15 @@ Controller.moveFrames = function (toFrameIndex) {
     );
 };
 
+Controller.updateCameraSelection = function () {
+    this.viewport.cameras.forEach(camera => {
+        camera.selected = this.selection.hasLayers([camera.layer]);
+    });
+};
+
 Controller.selectLayers = function (layers) {
     this.selection.selectedLayers = layers.slice();
+    this.updateCameraSelection();
     this.emit("editorStateChange");
     this.emit("repaint");
 };
@@ -181,6 +189,7 @@ Controller.selectLayers = function (layers) {
 Controller.addLayerToSelection = function (layer) {
     if (!this.selection.hasLayers([layer])) {
         this.selection.addLayer(layer);
+        this.updateCameraSelection();
         this.emit("editorStateChange");
         this.emit("repaint");
     }
@@ -189,6 +198,7 @@ Controller.addLayerToSelection = function (layer) {
 Controller.removeLayerFromSelection = function (layer) {
     if (this.selection.hasLayers([layer])) {
         this.selection.removeLayer(layer);
+        this.updateCameraSelection();
         this.emit("editorStateChange");
         this.emit("repaint");
     }
@@ -223,9 +233,7 @@ Controller.updateFrameSelection = function (single, sequence, frameIndex) {
     else {
         this.selection.selectedLayers = this.presentation.layers.slice();
         this.selection.selectedFrames = [frame];
-        this.viewport.cameras.forEach(camera => {
-            camera.selected = true;
-        });
+        this.updateCameraSelection();
     }
 
     // Trigger a repaint of the editor views.
@@ -255,11 +263,7 @@ Controller.updateLayerSelection = function (single, sequence, layers) {
         this.selection.selectedFrames = this.presentation.frames.slice();
     }
 
-    // A camera is selected if its layer belongs to the list of selected layers
-    // or if its layer is not managed and the default layer is selected.
-    this.viewport.cameras.forEach(camera => {
-        camera.selected = this.selection.hasLayers([camera.layer]);
-    });
+    this.updateCameraSelection();
 
     // Trigger a repaint of the editor views.
     this.emit("editorStateChange");
@@ -301,11 +305,7 @@ Controller.updateLayerAndFrameSelection = function (single, sequence, layers, fr
         this.selection.selectedFrames = [frame];
     }
 
-    // A camera is selected if its layer belongs to the list of selected layers
-    // or if its layer is not managed and the default layer is selected.
-    this.viewport.cameras.forEach(camera => {
-        camera.selected = this.selection.hasLayers([camera.layer]);
-    });
+    this.updateCameraSelection();
 
     // Trigger a repaint of the editor views.
     this.emit("editorStateChange");

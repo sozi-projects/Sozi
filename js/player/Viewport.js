@@ -23,6 +23,8 @@ var ROTATE_STEP = 5;
 // to consider that the wheel action is terminated
 var WHEEL_TIMEOUT_MS = 200;
 
+var CLIP_BORDER = 3;
+
 export var Viewport = Object.create(EventEmitter.prototype);
 
 /*
@@ -42,6 +44,7 @@ Viewport.init = function (presentation) {
     this.mouseDragX = 0;
     this.mouseDragY = 0;
     this.dragMode = "translate";
+    this.clipMode = {cameras: [], operation: "select"};
     this.showHiddenElements = false;
     this.wheelTimeout = null;
 
@@ -64,6 +67,7 @@ Viewport.makeUniqueId = function (prefix) {
 
 Viewport.onLoad = function () {
     this.svgRoot.addEventListener("mousedown", this.onMouseDown.bind(this), false);
+    this.svgRoot.addEventListener("mousemove", this.onMouseMove.bind(this), false);
     this.svgRoot.addEventListener("contextmenu", this.onContextMenu.bind(this), false);
 
     var wheelEvent =
@@ -93,6 +97,40 @@ Viewport.onContextMenu = function (evt) {
     this.emit("click", 2, evt);
 };
 
+Viewport.onMouseMove = function (evt) {
+    if (this.dragMode === "clip") {
+        switch (this.getClipMode(evt).operation) {
+            case "select":
+                this.svgRoot.style.cursor = "crosshair";
+                break;
+            case "n":
+            case "s":
+                this.svgRoot.style.cursor = "ns-resize";
+                break;
+            case "w":
+            case "e":
+                this.svgRoot.style.cursor = "ew-resize";
+                break;
+            case "nw":
+            case "se":
+                this.svgRoot.style.cursor = "nwse-resize";
+                break;
+            case "ne":
+            case "sw":
+                this.svgRoot.style.cursor = "nesw-resize";
+                break;
+            case "move":
+                this.svgRoot.style.cursor = "move";
+                break;
+            default:
+                this.svgRoot.style.cursor = "default";
+        }
+    }
+    else {
+        this.svgRoot.style.cursor = "default";
+    }
+};
+
 /*
  * Event handler: mouse down.
  *
@@ -116,9 +154,63 @@ Viewport.onMouseDown = function (evt) {
 
         document.documentElement.addEventListener("mousemove", this.dragHandler, false);
         document.documentElement.addEventListener("mouseup", this.dragEndHandler, false);
+
+        if (this.dragMode === "clip") {
+            this.clipMode = this.getClipMode(evt);
+        }
     }
 
     this.emit("mouseDown", evt.button);
+};
+
+Viewport.getClipMode = function (evt) {
+    var x = evt.clientX - this.x;
+    var y = evt.clientY - this.y;
+
+    var camerasByOperation = {
+        nw: [],
+        sw: [],
+        ne: [],
+        se: [],
+        w: [],
+        e: [],
+        n: [],
+        s: [],
+        move: []
+    };
+
+    var selectedCameras = this.cameras.filter(camera => camera.selected);
+
+    selectedCameras.forEach(camera => {
+        var rect = camera.clipRect;
+        if (x >= rect.x - CLIP_BORDER && x <= rect.x + rect.width  + CLIP_BORDER &&
+            y >= rect.y - CLIP_BORDER && y <= rect.y + rect.height + CLIP_BORDER) {
+            var w = x <= rect.x + CLIP_BORDER;
+            var e = x >= rect.x + rect.width - CLIP_BORDER - 1;
+            var n = y <= rect.y + CLIP_BORDER;
+            var s = y >= rect.y + rect.height - CLIP_BORDER - 1;
+            var operation =
+                w || e || n || s ?
+                    (n ? "n" : s ? "s" : "") +
+                    (w ? "w" : e ? "e" : "") :
+                    "move";
+            camerasByOperation[operation].push(camera);
+        }
+    });
+
+    for (var operation in camerasByOperation) {
+        if (camerasByOperation[operation].length) {
+            return {
+                cameras: camerasByOperation[operation],
+                operation: operation
+            };
+        }
+    }
+
+    return {
+        cameras: selectedCameras,
+        operation: "select"
+    };
 };
 
 /*
@@ -139,11 +231,13 @@ Viewport.onDrag = function (evt) {
     var translateX = evt.clientX;
     var translateY = evt.clientY;
     var zoom = Math.sqrt(xFromCenter * xFromCenter + yFromCenter * yFromCenter);
+    var deltaX = evt.clientX - this.mouseDragX;
+    var deltaY = evt.clientY - this.mouseDragY;
 
     // The drag action is confirmed when one of the mouse coordinates
     // has moved past the threshold
-    if (!this.mouseDragged && (Math.abs(evt.clientX - this.mouseDragX) > DRAG_THRESHOLD_PX ||
-                               Math.abs(evt.clientY - this.mouseDragY) > DRAG_THRESHOLD_PX)) {
+    if (!this.mouseDragged && (Math.abs(deltaX) > DRAG_THRESHOLD_PX ||
+                               Math.abs(deltaY) > DRAG_THRESHOLD_PX)) {
         this.mouseDragged = true;
 
         this.rotateStart = this.rotatePrev = angle;
@@ -180,8 +274,39 @@ Viewport.onDrag = function (evt) {
                 this.rotatePrev = angle;
                 break;
             case "clip":
-                this.clip(this.mouseDragStartX - this.x, this.mouseDragStartY - this.y,
-                          this.mouseDragX      - this.x, this.mouseDragY      - this.y);
+                switch (this.clipMode.operation) {
+                    case "select":
+                        this.clip(this.mouseDragStartX - this.x, this.mouseDragStartY - this.y,
+                                  this.mouseDragX      - this.x, this.mouseDragY      - this.y);
+                        break;
+                    case "move":
+                        this.clipRel(deltaX, deltaY, deltaX, deltaY);
+                        break;
+                    case "w":
+                        this.clipRel(deltaX, 0, 0, 0);
+                        break;
+                    case "e":
+                        this.clipRel(0, 0, deltaX, 0);
+                        break;
+                    case "n":
+                        this.clipRel(0, deltaY, 0, 0);
+                        break;
+                    case "s":
+                        this.clipRel(0, 0, 0, deltaY);
+                        break;
+                    case "nw":
+                        this.clipRel(deltaX, deltaY, 0, 0);
+                        break;
+                    case "ne":
+                        this.clipRel(0, deltaY, deltaX, 0);
+                        break;
+                    case "sw":
+                        this.clipRel(deltaX, 0, 0, deltaY);
+                        break;
+                    case "se":
+                        this.clipRel(0, 0, deltaX, deltaY);
+                        break;
+                }
                 break;
             default: // case "translate":
                 if (evt.ctrlKey) {
@@ -455,9 +580,20 @@ Viewport.rotate = function (angle) {
 };
 
 Viewport.clip = function (x0, y0, x1, y1) {
-    this.cameras.forEach(camera => {
-        if (camera.selected) {
-            camera.clip(x0, y0, x1, y1);
+    this.clipMode.cameras.forEach(camera => {
+        camera.clip(x0, y0, x1, y1);
+    });
+    return this;
+};
+
+Viewport.clipRel = function (w, n, e, s) {
+    this.clipMode.cameras.forEach(camera => {
+        var rect = camera.clipRect;
+        if (w <= rect.width + e - 1 && n <= rect.height + s - 1) {
+            camera.clip(rect.x + w,
+                        rect.y + n,
+                        rect.x + rect.width + e - 1,
+                        rect.y + rect.height + s - 1);
         }
     });
     return this;

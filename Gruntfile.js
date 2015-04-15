@@ -209,17 +209,20 @@ module.exports = function(grunt) {
                     }
                 ]
             },
+            // This is a temporary workaround to force NW.js to apply
+            // correct localization.
+            // See: https://github.com/mllrsohn/node-webkit-builder/pull/213
             nw_locales: {
                 files: [
                     {
                         expand: true,
-                        cwd: "cache/0.12.0/linux32/locales",
+                        cwd: "cache/0.12.1/linux32/locales",
                         src: ["*.pak"],
                         dest: "build/Sozi/linux32/locales"
                     },
                     {
                         expand: true,
-                        cwd: "cache/0.12.0/linux64/locales",
+                        cwd: "cache/0.12.1/linux64/locales",
                         src: ["*.pak"],
                         dest: "build/Sozi/linux64/locales"
                     },
