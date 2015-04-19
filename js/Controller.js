@@ -569,6 +569,11 @@ Controller.setAspectHeight = function (height) {
     );
 };
 
+Controller.setDragMode = function (dragMode) {
+    this.viewport.dragMode = dragMode;
+    this.emit("repaint");
+};
+
 Controller.perform = function (onDo, onUndo, updateSelection, events) {
     var action = {onDo, onUndo, updateSelection, events};
     if (updateSelection) {

@@ -57,62 +57,70 @@ Toolbar.render = function () {
                 }
             })
         ]),
-        h("span.group", [
-            h("input", {
-                name: "sozi-editor-preview-mode",
-                type: "radio",
-                title: _("Move the selected layers (hold Alt to zoom, Shift to rotate)"),
-                checked: v.dragMode === "translate",
-                onclick() { v.dragMode = "translate"; }
-            }),
-            h("i.fa.fa-arrows"),
-            h("input", {
-                name: "sozi-editor-preview-mode",
-                type: "radio",
-                title: _("Zoom in/out on the selected layers (you can also hold the Alt key in Move mode)"),
-                checked: v.dragMode === "scale",
-                onclick() { v.dragMode = "scale"; }
-            }),
-            h("i.fa.fa-expand"),
-            h("input", {
-                name: "sozi-editor-preview-mode",
-                type: "radio",
-                title: _("Rotate the selected layers (you can also hold the Shift key in Move mode)"),
-                checked: v.dragMode === "rotate",
-                onclick() { v.dragMode = "rotate"; }
-            }),
-            h("i.fa.fa-rotate-left"),
-            h("input", {
-                name: "sozi-editor-preview-mode",
-                type: "radio",
-                title: _("Clip"),
-                checked: v.dragMode === "clip",
-                onclick() { v.dragMode = "clip"; }
-            }),
-            h("i.fa.fa-pencil-square")
+        h("span.group.btn-group", [
+            h("label.btn" + (v.dragMode === "translate" ? ".active" : ""), [
+                h("input", {
+                    name: "sozi-editor-preview-mode",
+                    type: "radio",
+                    title: _("Move the selected layers (hold Alt to zoom, Shift to rotate)"),
+                    checked: v.dragMode === "translate",
+                    onclick() { c.setDragMode("translate"); }
+                }),
+                h("i.fa.fa-arrows")
+            ]),
+            h("label.btn" + (v.dragMode === "scale" ? ".active" : ""), [
+                h("input", {
+                    name: "sozi-editor-preview-mode",
+                    type: "radio",
+                    title: _("Zoom in/out on the selected layers (you can also hold the Alt key in Move mode)"),
+                    checked: v.dragMode === "scale",
+                    onclick() { c.setDragMode("scale"); }
+                }),
+                h("i.fa.fa-expand")
+            ]),
+            h("label.btn" + (v.dragMode === "rotate" ? ".active" : ""), [
+                h("input", {
+                    name: "sozi-editor-preview-mode",
+                    type: "radio",
+                    title: _("Rotate the selected layers (you can also hold the Shift key in Move mode)"),
+                    checked: v.dragMode === "rotate",
+                    onclick() { c.setDragMode("rotate"); }
+                }),
+                h("i.fa.fa-rotate-left"),
+            ]),
+            h("label.btn" + (v.dragMode === "clip" ? ".active" : ""), [
+                h("input", {
+                    name: "sozi-editor-preview-mode",
+                    type: "radio",
+                    title: _("Clip"),
+                    checked: v.dragMode === "clip",
+                    onclick() { c.setDragMode("clip"); }
+                }),
+                h("i.fa.fa-square-o")
+            ])
         ]),
-        h("span.group", [
+        h("span.group.btn-group", [
             h("button", {
                 title: _("Undo"),
                 disabled: c.undoStack.length ? undefined : "disabled",
                 onclick: c.undo.bind(c)
-            }, h("i.fa.fa-undo")),
+            }, h("i.fa.fa-reply")), // "reply" icon preferred to the official "undo" icon
             h("button", {
                 title: _("Redo"),
                 disabled: c.redoStack.length ? undefined : "disabled",
                 onclick: c.redo.bind(c)
-            }, h("i.fa.fa-repeat"))
+            }, h("i.fa.fa-share")) // "share" icon preferred to the official "redo" icon
         ]),
-        h("span.group", [
+        h("span.group.btn-group", [
             h("button", {
                 title: _("Save the presentation"),
                 disabled: this.storage.htmlNeedsSaving ? undefined : "disabled",
                 onclick: c.save.bind(c)
-            }, _("Save")),
+            }, h("i.fa.fa-download")), // "download" icon preferred to the official "save" icon
             h("button", {
                 title: _("Reload the SVG document"),
                 onclick: c.reload.bind(c)
-            }, _("Reload"))
+            }, h("i.fa.fa-refresh"))
         ])
     ]);
 };

@@ -37,11 +37,10 @@ Properties.render = function () {
             this.renderTextField(_("Reference element Id"), "referenceElementId", this.getLayerProperty, c.setLayerProperty, true),
             h("tr", [
                 h("th"),
-                h("td", h("input", {
+                h("td", h("button", {
                     type: "button",
-                    value: _("Fit to element"),
                     onclick: c.fitElement.bind(c)
-                }))
+                }, _("Fit to element")))
             ]),
             this.renderCheckboxField(_("Autoselect element"), "referenceElementAuto", this.getLayerProperty, c.setLayerProperty),
             this.renderCheckboxField(_("Hide element"), "referenceElementHide", this.getLayerProperty, c.setLayerProperty)

@@ -47,10 +47,10 @@ window.addEventListener("load", () => {
             var topHeightPercent = 100 * (startY + evt.clientY) / $(window).height();
             top.css({ height: topHeightPercent + "%" });
             hsplitter.css({ top: topHeightPercent + "%" });
-            bottom.css({ height: "calc(" + (100 - topHeightPercent) + "% - " + hsplitter.height() + "px)" });
+            bottom.css({height: `calc(${100 - topHeightPercent}% - ${hsplitter.height()}px)`});
             $(window).resize();
             return false;
-        }).one("mouseup", (evt) => {
+        }).one("mouseup", evt => {
             body.off("mousemove");
             body.off("mouseup");
         });
@@ -62,10 +62,10 @@ window.addEventListener("load", () => {
             var leftWidthPercent = 100 * (startX + evt.clientX) / $(window).width();
             left.css({ width: leftWidthPercent + "%" });
             vsplitter.css({ left: leftWidthPercent + "%" });
-            right.css({ width: "calc(" + (100 - leftWidthPercent) + "% - " + vsplitter.width() + "px)" });
+            right.css({width: `calc(${100 - leftWidthPercent}% - ${vsplitter.width()}px)` });
             $(window).resize();
             return false;
-        }).one("mouseup", (evt) => {
+        }).one("mouseup", evt => {
             body.off("mousemove");
             body.off("mouseup");
         });
