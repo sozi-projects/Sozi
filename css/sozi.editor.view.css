@@ -102,8 +102,7 @@ form th {
 input[type=text],
 input[type=number],
 select,
-button,
-.btn {
+button {
     border-radius: 0.5em;
     border: none;
     padding: 0.3em 0.5em;
@@ -118,14 +117,8 @@ input.multiple {
     background: rgb(200, 220, 220);
 }
 
-.btn input[type=radio] {
-    position: absolute;
-    clip: rect(0px, 0px, 0px, 0px);
-}
-
 select,
-button,
-.btn {
+button {
     color: black;
     background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(180, 180, 180) 100%);
 }
@@ -134,12 +127,11 @@ button:disabled {
     color: rgb(150, 150, 150);
 }
 
-.btn.active {
+.active {
     background: linear-gradient(to bottom, rgb(150, 200, 200), rgb(180, 220, 220) 100%);
 }
 
-.btn-group button:first-child:not(:last-child),
-.btn-group label.btn:first-child:not(:last-child) {
+.btn-group button:first-child:not(:last-child) {
     border-top-left-radius: 0.5em;
     border-bottom-left-radius: 0.5em;
     border-top-right-radius: 0;
@@ -147,16 +139,14 @@ button:disabled {
     border-right: 1px solid rgb(80, 80, 80);
 }
 
-.btn-group button:last-child:not(:first-child),
-.btn-group label.btn:last-child:not(:first-child) {
+.btn-group button:last-child:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-top-right-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
 }
 
-.btn-group button:not(:first-child):not(:last-child),
-.btn-group label.btn:not(:first-child):not(:last-child) {
+.btn-group button:not(:first-child):not(:last-child) {
     border-radius: 0;
     border-right: 1px solid rgb(80, 80, 80);
 }
