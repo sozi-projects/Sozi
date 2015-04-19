@@ -58,45 +58,49 @@ Toolbar.render = function () {
             })
         ]),
         h("span.group.btn-group", [
-            h("label.btn" + (v.dragMode === "translate" ? ".active" : ""), [
+            h("label.btn" + (v.dragMode === "translate" ? ".active" : ""), {
+                title: _("Move the selected layers (hold Alt to zoom, Shift to rotate)")
+            }, [
                 h("input", {
                     name: "sozi-editor-preview-mode",
                     type: "radio",
-                    title: _("Move the selected layers (hold Alt to zoom, Shift to rotate)"),
                     checked: v.dragMode === "translate",
                     onclick() { c.setDragMode("translate"); }
                 }),
                 h("i.fa.fa-arrows")
             ]),
-            h("label.btn" + (v.dragMode === "scale" ? ".active" : ""), [
+            h("label.btn" + (v.dragMode === "scale" ? ".active" : ""), {
+                title: _("Zoom in/out on the selected layers (you can also hold the Alt key in Move mode)")
+            }, [
                 h("input", {
                     name: "sozi-editor-preview-mode",
                     type: "radio",
-                    title: _("Zoom in/out on the selected layers (you can also hold the Alt key in Move mode)"),
                     checked: v.dragMode === "scale",
                     onclick() { c.setDragMode("scale"); }
                 }),
                 h("i.fa.fa-expand")
             ]),
-            h("label.btn" + (v.dragMode === "rotate" ? ".active" : ""), [
+            h("label.btn" + (v.dragMode === "rotate" ? ".active" : ""), {
+                title: _("Rotate the selected layers (you can also hold the Shift key in Move mode)")
+            }, [
                 h("input", {
                     name: "sozi-editor-preview-mode",
                     type: "radio",
-                    title: _("Rotate the selected layers (you can also hold the Shift key in Move mode)"),
                     checked: v.dragMode === "rotate",
                     onclick() { c.setDragMode("rotate"); }
                 }),
                 h("i.fa.fa-rotate-left"),
             ]),
-            h("label.btn" + (v.dragMode === "clip" ? ".active" : ""), [
+            h("label.btn" + (v.dragMode === "clip" ? ".active" : ""), {
+                title: _("Clip")
+            }, [
                 h("input", {
                     name: "sozi-editor-preview-mode",
                     type: "radio",
-                    title: _("Clip"),
                     checked: v.dragMode === "clip",
                     onclick() { c.setDragMode("clip"); }
                 }),
-                h("i.fa.fa-square-o")
+                h("i.fa.fa-crop")
             ])
         ]),
         h("span.group.btn-group", [
