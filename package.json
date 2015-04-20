@@ -2,7 +2,7 @@
     "name": "Sozi",
     "description": "A zooming presentation editor",
     "author": "Guillaume Savaton",
-    "version": "15.04.191729",
+    "version": "15.04.202317",
     "main": "index.html",
     "window": {
         "title": "Sozi",
@@ -16,18 +16,18 @@
     },
     "dependencies": {
         "jed": "^1.1.0",
-        "nunjucks": "~1.1.0",
-        "virtual-dom": "^1.3.0"
+        "nunjucks": "^1.3.0",
+        "virtual-dom": "^2.0.0"
     },
     "devDependencies": {
         "grunt": "~0.4.5",
-        "grunt-babel": "^4.0.0",
+        "grunt-babel": "^5.0.0",
         "grunt-browserify": "^3.3.0",
         "grunt-contrib-compress": "^0.13.0",
-        "grunt-contrib-copy": "^0.7.0",
+        "grunt-contrib-copy": "^0.8.0",
         "grunt-contrib-csslint": "^0.4.0",
         "grunt-contrib-jshint": "^0.11.0",
-        "grunt-contrib-uglify": "^0.7.0",
+        "grunt-contrib-uglify": "^0.9.0",
         "grunt-jspot": "^0.1.0",
         "grunt-modify-json": "^0.1.1",
         "grunt-newer": "^1.1.0",
@@ -38,6 +38,6 @@
         "grunt-rsync": "^0.6.2",
         "grunt-simple-mocha": "^0.4.0",
         "load-grunt-tasks": "^3.1.0",
-        "nunjucks": "~1.1.0"
+        "nunjucks": "^1.3.0"
     }
 }

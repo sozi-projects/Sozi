@@ -2,6 +2,7 @@ module.exports = function(grunt) {
     "use strict";
 
     var nunjucks = require("nunjucks");
+    nunjucks.configure({watch: false});
 
     require("load-grunt-tasks")(grunt);
 

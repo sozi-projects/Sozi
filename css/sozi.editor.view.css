@@ -54,25 +54,25 @@ body {
     background: rgb(80, 80, 80);
 }
 
-#sozi-editor-view-properties {
+.properties {
     background: rgb(64, 64, 64);
     overflow: auto;
 }
 
-form h1 {
+.properties h1 {
     text-align: center;
 }
 
-form table {
+.properties table {
     margin: 0 auto;
 }
 
-form th {
+.properties th {
     padding: 0.3em 1em;
 }
 
-form td input[type=text],
-form td input[type=number] {
+.properties td input[type=text],
+.properties td input[type=number] {
     width: 100%;
 }
 
@@ -91,11 +91,11 @@ form td input[type=number] {
  * Form elements
  */
 
-form h1 {
+.properties h1 {
     color: white;
 }
 
-form th {
+.properties th {
     color: white;
 }
 
@@ -129,6 +129,10 @@ button:disabled {
 
 .active {
     background: linear-gradient(to bottom, rgb(150, 200, 200), rgb(180, 220, 220) 100%);
+}
+
+.btn-group {
+    white-space: nowrap;
 }
 
 .btn-group button:first-child:not(:last-child) {
@@ -182,15 +186,15 @@ body {
     text-align: center;
 }
 
-form h1 {
+.properties h1 {
     font-size: 120%;
 }
 
-form th {
+.properties th {
     font-weight: normal;
     text-align: right;
 }
 
-form td {
+.properties td {
     text-align: left;
 }
