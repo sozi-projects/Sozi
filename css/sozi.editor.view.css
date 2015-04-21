@@ -54,26 +54,34 @@ body {
     background: rgb(80, 80, 80);
 }
 
-.properties {
+.right {
     background: rgb(64, 64, 64);
+}
+
+.properties {
     overflow: auto;
+    padding: 0.5em 1em;
 }
 
 .properties h1 {
     text-align: center;
 }
 
-.properties table {
-    margin: 0 auto;
+.properties label {
+    display: block;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
 }
 
-.properties th {
-    padding: 0.3em 1em;
-}
-
-.properties td input[type=text],
-.properties td input[type=number] {
+.properties input[type=text],
+.properties input[type=number],
+.properties select {
     width: 100%;
+}
+
+.properties .btn-group,
+.properties label > button {
+    margin-left: 1em;
 }
 
 /* ------------------------------------------------------------------------- *
@@ -91,11 +99,7 @@ body {
  * Form elements
  */
 
-.properties h1 {
-    color: white;
-}
-
-.properties th {
+.properties {
     color: white;
 }
 
@@ -188,13 +192,4 @@ body {
 
 .properties h1 {
     font-size: 120%;
-}
-
-.properties th {
-    font-weight: normal;
-    text-align: right;
-}
-
-.properties td {
-    text-align: left;
 }
