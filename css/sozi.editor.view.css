@@ -56,11 +56,11 @@ body {
 
 .right {
     background: rgb(64, 64, 64);
+    overflow: auto;
 }
 
 .properties {
-    overflow: auto;
-    padding: 0.5em 1em;
+    margin: 0.5em 1em;
 }
 
 .properties h1 {
