@@ -117,10 +117,6 @@ input[type=number] {
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5) inset;
 }
 
-input.multiple {
-    background: rgb(200, 220, 220);
-}
-
 select,
 button {
     color: black;
@@ -133,6 +129,13 @@ button:disabled {
 
 .active {
     background: linear-gradient(to bottom, rgb(150, 200, 200), rgb(180, 220, 220) 100%);
+}
+
+.multiple {
+    background-image: linear-gradient(-45deg,
+        rgb(150, 200, 200) 25%, rgb(220, 220, 220) 25%, rgb(220, 220, 220) 50%,
+        rgb(150, 200, 200) 50%, rgb(150, 200, 200) 75%, rgb(220, 220, 220) 75%, rgb(220, 220, 220));
+    background-size: 1em 1em;
 }
 
 .btn-group {
