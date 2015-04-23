@@ -1,6 +1,8 @@
 module.exports = function(grunt) {
     "use strict";
 
+    var path = require("path");
+
     var nunjucks = require("nunjucks");
     nunjucks.configure({watch: false});
 
@@ -19,13 +21,14 @@ module.exports = function(grunt) {
         ]
     };
 
+    var buildConfigJs = grunt.option("buildConfig") || "buildConfig.js";
     var buildConfig;
     try {
-        buildConfig = require('./buildConfig.js');
-        grunt.verbose.writeln("buildConfig.js present - using it.");
+        buildConfig = require(path.resolve(buildConfigJs));
+        grunt.verbose.writeln("Using configuration from " + buildConfigJs);
     }
     catch (noBuildConfigFound) {
-        grunt.verbose.writeln("no buildConfig.js present - using the default configuration.");
+        grunt.verbose.writeln("Configuration file " + buildConfigJs + " not found - using the default configuration.");
         buildConfig = {
             platforms: [
                 "win32", "osx32", "linux32",
