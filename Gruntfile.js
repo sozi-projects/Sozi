@@ -8,8 +8,8 @@ module.exports = function(grunt) {
 
     require("load-grunt-tasks")(grunt);
 
-    var version = grunt.template.today("yy.mm.ddHHMM");
     var pkg = grunt.file.readJSON("package.json");
+    pkg.version = grunt.template.today("yy.mm.ddHHMM");
 
     var backends = {
         web: [
@@ -22,20 +22,25 @@ module.exports = function(grunt) {
     };
 
     var buildConfigJs = grunt.option("buildConfig") || "buildConfig.js";
-    var buildConfig;
+    var buildConfig = {
+        platforms: [
+            "win32", "osx32", "linux32",
+            "win64", "osx64", "linux64"
+        ],
+        nwOptions: {
+            toolbar: false
+        },
+        uglifyOptions:{}
+    };
     try {
-        buildConfig = require(path.resolve(buildConfigJs));
+        var customBuildConfig = require(path.resolve(buildConfigJs));
         grunt.verbose.writeln("Using configuration from " + buildConfigJs);
+        for (var key in customBuildConfig) {
+            buildConfig[key] = customBuildConfig[key];
+        }
     }
     catch (noBuildConfigFound) {
         grunt.verbose.writeln("Configuration file " + buildConfigJs + " not found - using the default configuration.");
-        buildConfig = {
-            platforms: [
-                "win32", "osx32", "linux32",
-                "win64", "osx64", "linux64"
-            ],
-            uglifyOptions:{}
-        };
     }
 
     grunt.verbose.write("Checking for bower_components...");
@@ -47,21 +52,10 @@ module.exports = function(grunt) {
         process.exit();
     }
 
+    pkg.window.toolbar = buildConfig.nwOptions.toolbar;
+
     grunt.initConfig({
         pkg: pkg,
-
-        /*
-         * Update the version number in package.json
-         * each time the project is rebuilt.
-         */
-        modify_json: {
-            options: {
-                fields: {
-                    version: version
-                }
-            },
-            all: [ "package.json" ]
-        },
 
         /*
          * Check JavaScript and CSS source files.
@@ -200,7 +194,6 @@ module.exports = function(grunt) {
                         expand: true,
                         src: [
                             "index.html",
-                            "package.json",
                             "css/**/*",
                             "vendor/**/*",
                             "bower_components/**/*"
@@ -238,7 +231,7 @@ module.exports = function(grunt) {
             media: {
                 options: {
                     mode: "zip",
-                    archive: "build/Sozi-extras-media-" + version + ".zip"
+                    archive: "build/Sozi-extras-media-<%= pkg.version %>.zip"
                 },
                 expand: true,
                 cwd: "extras/media",
@@ -297,7 +290,7 @@ module.exports = function(grunt) {
      */
     for (var targetName in targetConfig) {
         if (grunt.config(["nodewebkit", "options", "platforms"]).indexOf(targetName) >= 0) {
-            var prefix = "Sozi-" + version + "-" + targetName;
+            var prefix = "Sozi-" + pkg.version + "-" + targetName;
 
             grunt.config(["rename", targetName], {
                 src: "build/Sozi/" + targetName,
@@ -316,6 +309,10 @@ module.exports = function(grunt) {
             });
         }
     }
+
+    grunt.registerTask("write_package_json", function () {
+        grunt.file.write("build/app/package.json", JSON.stringify(pkg));
+    });
 
     grunt.registerMultiTask("nunjucks_render", function () {
         this.files.forEach(function (file) {
@@ -341,7 +338,6 @@ module.exports = function(grunt) {
     grunt.registerTask("lint", ["jshint", "csslint"]);
 
     grunt.registerTask("build", [
-        "modify_json",
         "babel",
         "browserify:player",
         "uglify:player",
@@ -350,7 +346,8 @@ module.exports = function(grunt) {
         "po2json",
         "browserify:editor",
         "uglify:editor",
-        "copy:editor"
+        "copy:editor",
+        "write_package_json"
     ]);
 
     grunt.registerTask("nw-build",  ["backends-nw", "build"]);
