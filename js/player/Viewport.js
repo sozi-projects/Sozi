@@ -36,10 +36,11 @@ export var Viewport = Object.create(EventEmitter.prototype);
  * Returns:
  *    - The current viewport.
  */
-Viewport.init = function (presentation) {
+Viewport.init = function (presentation, editMode) {
     EventEmitter.call(this);
     
     this.presentation = presentation;
+    this.editMode = !!editMode;
     this.cameras = [];
     this.mouseDragX = 0;
     this.mouseDragY = 0;

@@ -17,35 +17,9 @@ Camera.init = function (viewport, layer) {
     this.viewport = viewport;
     this.layer = layer;
     this.selected = true;
-    this.maskValue = 0;
-
-    // The clipping rectangle of this camera
-    this.svgMaskRect = document.createElementNS(SVG_NS, "rect");
-    this.svgClipRect = document.createElementNS(SVG_NS, "rect");
-    this.svgClipRect.setAttribute("fill", "white");
-
-    this.svgClipOutlineRect1 = document.createElementNS(SVG_NS, "rect");
-    this.svgClipOutlineRect1.setAttribute("stroke", "black");
-    this.svgClipOutlineRect1.setAttribute("fill", "none");
-
-    this.svgClipOutlineRect2 = document.createElementNS(SVG_NS, "rect");
-    this.svgClipOutlineRect2.setAttribute("stroke", "white");
-    this.svgClipOutlineRect2.setAttribute("fill", "none");
-    this.svgClipOutlineRect2.setAttribute("stroke-dasharray", "2,2");
-
-    // The clipping path of this camera
-    var svgMask = document.createElementNS(SVG_NS, "mask");
-    var svgMaskId = viewport.makeUniqueId("sozi-mask-");
-    svgMask.setAttribute("id", svgMaskId);
-    svgMask.appendChild(this.svgMaskRect);
-    svgMask.appendChild(this.svgClipRect);
-    viewport.svgRoot.appendChild(svgMask);
-    viewport.svgRoot.appendChild(this.svgClipOutlineRect1);
-    viewport.svgRoot.appendChild(this.svgClipOutlineRect2);
 
     // The group that will support the clipping operation
     var svgClippedGroup = document.createElementNS(SVG_NS, "g");
-    svgClippedGroup.setAttribute("mask", "url(#" + svgMaskId + ")");
     viewport.svgRoot.appendChild(svgClippedGroup);
 
     // The groups that will support transformations
@@ -56,7 +30,53 @@ Camera.init = function (viewport, layer) {
         return svgGroup;
     });
 
-    this.concealClipping();
+    // The clipping rectangle of this camera
+    this.svgClipRect = document.createElementNS(SVG_NS, "rect");
+
+    if (viewport.editMode) {
+        // In edit mode, we set up a mask outside the clipping rectangle.
+        // This value allows to set the opacity of the mask.
+        this.maskValue = 0;
+
+        var svgMask = document.createElementNS(SVG_NS, "mask");
+        var svgMaskId = viewport.makeUniqueId("sozi-mask-");
+        svgMask.setAttribute("id", svgMaskId);
+        viewport.svgRoot.appendChild(svgMask);
+
+        this.svgMaskRect = document.createElementNS(SVG_NS, "rect");
+        svgMask.appendChild(this.svgMaskRect);
+
+        this.svgClipRect.setAttribute("fill", "white");
+        svgMask.appendChild(this.svgClipRect);
+
+        svgClippedGroup.setAttribute("mask", "url(#" + svgMaskId + ")");
+
+        // We also define two rectangles that will show the outline
+        // of the clipped region in alternating white and black dashes.
+        this.svgClipOutlineRect1 = document.createElementNS(SVG_NS, "rect");
+        this.svgClipOutlineRect1.setAttribute("stroke", "black");
+        this.svgClipOutlineRect1.setAttribute("fill", "none");
+        viewport.svgRoot.appendChild(this.svgClipOutlineRect1);
+
+        this.svgClipOutlineRect2 = document.createElementNS(SVG_NS, "rect");
+        this.svgClipOutlineRect2.setAttribute("stroke", "white");
+        this.svgClipOutlineRect2.setAttribute("fill", "none");
+        this.svgClipOutlineRect2.setAttribute("stroke-dasharray", "2,2");
+        viewport.svgRoot.appendChild(this.svgClipOutlineRect2);
+
+        this.concealClipping();
+    }
+    else {
+        // When playing the presentation, we use the default SVG
+        // clipping technique.
+        var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
+        var svgClipPathId = viewport.makeUniqueId("sozi-clip-path-");
+        svgClipPath.setAttribute("id", svgClipPathId);
+        svgClipPath.appendChild(this.svgClipRect);
+        viewport.svgRoot.appendChild(svgClipPath);
+
+        svgClippedGroup.setAttribute("clip-path", "url(#" + svgClipPathId + ")");
+    }
 
     return this;
 };
@@ -206,27 +226,29 @@ Object.defineProperty(Camera, "clipRect", {
 
 Camera.update = function () {
     // Adjust the location and size of the clipping rectangle
-    this.svgMaskRect.setAttribute("fill", "rgb(" + this.maskValue + "," + this.maskValue + "," + this.maskValue + ")");
-    this.svgMaskRect.setAttribute("x", 0);
-    this.svgMaskRect.setAttribute("y", 0);
-    this.svgMaskRect.setAttribute("width",  this.viewport.width);
-    this.svgMaskRect.setAttribute("height", this.viewport.height);
-
     var rect = this.clipRect;
     this.svgClipRect.setAttribute("x", rect.x);
     this.svgClipRect.setAttribute("y", rect.y);
     this.svgClipRect.setAttribute("width",  rect.width);
     this.svgClipRect.setAttribute("height", rect.height);
 
-    this.svgClipOutlineRect1.setAttribute("x", rect.x);
-    this.svgClipOutlineRect1.setAttribute("y", rect.y);
-    this.svgClipOutlineRect1.setAttribute("width",  rect.width);
-    this.svgClipOutlineRect1.setAttribute("height", rect.height);
+    if (this.viewport.editMode) {
+        this.svgMaskRect.setAttribute("fill", "rgb(" + this.maskValue + "," + this.maskValue + "," + this.maskValue + ")");
+        this.svgMaskRect.setAttribute("x", 0);
+        this.svgMaskRect.setAttribute("y", 0);
+        this.svgMaskRect.setAttribute("width",  this.viewport.width);
+        this.svgMaskRect.setAttribute("height", this.viewport.height);
 
-    this.svgClipOutlineRect2.setAttribute("x", rect.x);
-    this.svgClipOutlineRect2.setAttribute("y", rect.y);
-    this.svgClipOutlineRect2.setAttribute("width",  rect.width);
-    this.svgClipOutlineRect2.setAttribute("height", rect.height);
+        this.svgClipOutlineRect1.setAttribute("x", rect.x);
+        this.svgClipOutlineRect1.setAttribute("y", rect.y);
+        this.svgClipOutlineRect1.setAttribute("width",  rect.width);
+        this.svgClipOutlineRect1.setAttribute("height", rect.height);
+
+        this.svgClipOutlineRect2.setAttribute("x", rect.x);
+        this.svgClipOutlineRect2.setAttribute("y", rect.y);
+        this.svgClipOutlineRect2.setAttribute("width",  rect.width);
+        this.svgClipOutlineRect2.setAttribute("height", rect.height);
+    }
 
     // Compute and apply the geometrical transformation to the layer group
     var scale = this.scale;

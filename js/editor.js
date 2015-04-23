@@ -21,7 +21,7 @@ window.addEventListener("load", () => {
     nunjucks.configure({watch: false});
     
     Selection.init(Presentation);
-    Viewport.init(Presentation);
+    Viewport.init(Presentation, true);
 
     Controller.init(Storage, Presentation, Selection, Viewport);
 

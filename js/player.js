@@ -15,7 +15,7 @@ import * as FrameURL from "./player/FrameURL";
 window.addEventListener("load", function () {
 
     Presentation.init(document.querySelector("svg"));
-    Viewport.init(Presentation).onLoad();
+    Viewport.init(Presentation, false).onLoad();
 
     Presentation.fromStorable(window.soziPresentationData);
     Player.init(Viewport, Presentation);
