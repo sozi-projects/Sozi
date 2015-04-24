@@ -261,6 +261,7 @@ Camera.update = function () {
             "translate(" + translateX + "," + translateY + ")" +
             "rotate(" + (-this.angle) + ',' + this.cx + "," + this.cy + ")"
         );
+        svgGroup.setAttribute("opacity", this.opacity);
     });
 
     return this;

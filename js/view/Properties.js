@@ -65,6 +65,9 @@ Properties.render = function () {
         ]),
         this.renderTextField("referenceElementId", referenceElementIdDisabled, this.getLayerProperty, c.setLayerProperty, true),
 
+        h("label", {for: "field-opacity"}, _("Layer opacity")),
+        this.renderRangeField("opacity", this.getCameraProperty, c.setCameraProperty, 0, 1, 0.1),
+
         h("h1", _("Transition")),
 
         h("label", {for: "field-transitionDurationMs"}, _("Duration (seconds)")),
@@ -98,7 +101,7 @@ Properties.renderTextField = function (property, disabled, getter, setter, accep
 
     var values = getter.call(this, property);
     var className = values.length > 1 ? "multiple" : undefined;
-    var value = values.length != 1 ? "" : values[0];
+    var value = values.length >= 1 ? values[0] : "";
 
     return h("input", {
         id: "field-" + property,
@@ -120,7 +123,7 @@ Properties.renderNumberField = function (property, disabled, getter, setter, sig
 
     var values = getter.call(this, property);
     var className = values.length > 1 ? "multiple" : undefined;
-    var value = values.length != 1 ? 0 : values[0] / factor;
+    var value = values.length >= 1 ? values[0] / factor : 0; // TODO use default value
 
     return h("input", {
         id: "field-" + property,
@@ -140,12 +143,37 @@ Properties.renderNumberField = function (property, disabled, getter, setter, sig
     });
 };
 
+Properties.renderRangeField = function (property, getter, setter, min, max, step) {
+    var c = this.controller;
+
+    var values = getter.call(this, property);
+    var className = values.length > 1 ? "multiple" : undefined;
+    var value = values.length >= 1 ? values[0] : (min + max) / 2; // TODO use default value
+
+    return h("input", {
+        id: "field-" + property,
+        type: "range",
+        title: value,
+        min,
+        max,
+        step,
+        value,
+        className,
+        onchange() {
+            var value = parseFloat(this.value);
+            if (!isNaN(value) && value >= min && value <= max) {
+                setter.call(c, property, value);
+            }
+        }
+    });
+};
+
 Properties.renderToggleField = function (label, title, property, getter, setter) {
     var c = this.controller;
 
     var values = getter.call(this, property);
     var className = values.length > 1 ? "multiple" : "";
-    var value = values.length != 1 ? undefined : values[0];
+    var value = values.length >= 1 ? values[0] : false; // TODO use default value
     if (value) {
         className += " active";
     }
@@ -164,7 +192,7 @@ Properties.renderSelectField = function (property, getter, setter, options) {
 
     var values = getter.call(this, property);
     var className = values.length > 1 ? "multiple" : undefined;
-    var value = values.length != 1 ? options[0] : values[0];
+    var value = values.length >= 1 ? values[0] : options[0];
 
     return h("select", {
             id: "field-" + property,

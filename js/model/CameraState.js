@@ -4,7 +4,20 @@
 
 "use strict";
 
+function copyIfSet(dest, src, prop) {
+    if (src.hasOwnProperty(prop)) {
+        dest[prop] = src[prop];
+    }
+}
+
 export var CameraState = {
+    opacity: 1.0,
+    angle: 0,
+    clipped: false,
+    clipXOffset: 0,
+    clipYOffset: 0,
+    clipWidthFactor: 1,
+    clipHeightFactor: 1,
 
     init(svgRoot) {
         this.svgRoot = svgRoot;
@@ -19,16 +32,6 @@ export var CameraState = {
         this.width = initialBBox.width;
         this.height = initialBBox.height;
 
-        // Rotation angle, in degrees
-        this.angle = 0;
-
-        // Clipping properties
-        this.clipped = false;
-        this.clipXOffset = 0;
-        this.clipYOffset = 0;
-        this.clipWidthFactor = 1;
-        this.clipHeightFactor = 1;
-
         return this;
     },
 
@@ -38,6 +41,7 @@ export var CameraState = {
         this.cy = state.cy;
         this.width = state.width;
         this.height = state.height;
+        this.opacity = state.opacity;
         this.angle = state.angle;
         this.clipped = state.clipped;
         this.clipXOffset = state.clipXOffset;
@@ -53,6 +57,7 @@ export var CameraState = {
             cy: this.cy,
             width: this.width,
             height: this.height,
+            opacity: this.opacity,
             angle: this.angle,
             clipped: this.clipped,
             clipXOffset: this.clipXOffset,
@@ -67,16 +72,17 @@ export var CameraState = {
     },
 
     fromStorable(storable) {
-        this.cx = storable.cx;
-        this.cy = storable.cy;
-        this.width = storable.width;
-        this.height = storable.height;
-        this.angle = storable.angle;
-        this.clipped = storable.clipped;
-        this.clipXOffset = storable.clipXOffset;
-        this.clipYOffset = storable.clipYOffset;
-        this.clipWidthFactor = storable.clipWidthFactor;
-        this.clipHeightFactor = storable.clipHeightFactor;
+        copyIfSet(this, storable, "cx");
+        copyIfSet(this, storable, "cy");
+        copyIfSet(this, storable, "width");
+        copyIfSet(this, storable, "height");
+        copyIfSet(this, storable, "opacity");
+        copyIfSet(this, storable, "angle");
+        copyIfSet(this, storable, "clipped");
+        copyIfSet(this, storable, "clipXOffset");
+        copyIfSet(this, storable, "clipYOffset");
+        copyIfSet(this, storable, "clipWidthFactor");
+        copyIfSet(this, storable, "clipHeightFactor");
         return this;
     },
 
@@ -195,6 +201,9 @@ export var CameraState = {
             this.cx = linear(initialState.cx, finalState.cx);
             this.cy = linear(initialState.cy, finalState.cy);
         }
+
+        // Interpolate opacity
+        this.opacity = linear(initialState.opacity, finalState.opacity);
 
         // Interpolate camera angle
         // Keep the smallest angle between the initial and final states
