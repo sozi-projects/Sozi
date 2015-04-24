@@ -44,11 +44,14 @@ function convertTimingFunction(str) {
     }
 }
 
-function importAttribute(elt, name, value, fn) {
+function importAttribute(obj, propName, elts, attrName, fn) {
     fn = fn || function (x) { return x; };
-    return elt && elt.hasAttribute(name) ?
-        fn(elt.getAttribute(name)) :
-        value;
+    for (var i = 0; i < elts.length; i ++) {
+        if (elts[i] && elts[i].hasAttribute(attrName)) {
+            obj[propName] = fn(elts[i].getAttribute(attrName));
+            return;
+        }
+    }
 }
 
 Presentation.upgrade = function () {
@@ -80,12 +83,10 @@ Presentation.upgrade = function () {
         // Create a new frame with default camera states
         var frame = Object.create(Frame).init(this);
         this.frames.splice(frameIndex, 0, frame);
-        var refFrame = frame;
 
         // If this is not the first frame, the state is cloned from the previous frame.
         if (frameIndex) {
-            refFrame = this.frames[frameIndex - 1];
-            frame.setAtStates(refFrame.cameraStates);
+            frame.initFrom(this.frames[frameIndex - 1]);
         }
 
         // Collect layer elements inside the current frame element
@@ -97,11 +98,7 @@ Presentation.upgrade = function () {
 
         this.layers.forEach((layer, layerIndex) => {
             var layerElt = null;
-            if (layer.auto) {
-                // The "auto" layer is managed by the current <frame> element
-                layerElt = frameElt;
-            }
-            else {
+            if (!layer.auto) {
                 // If the current layer has a corresponding <layer> element, use it
                 // and consider that the layer is no longer in the "default" pool.
                 // Else, if the layer is in the "default" pool, then it is managed
@@ -115,43 +112,40 @@ Presentation.upgrade = function () {
                         defaultLayers.splice(defaultLayerIndex, 1);
                     }
                 }
-                else if (defaultLayerIndex >= 0) {
-                    layerElt = frameElt;
-                }
             }
+
+            var layerProperties = frame.layerProperties[layerIndex];
+            var cameraState = frame.cameraStates[layerIndex];
 
             // It the current layer is managed by a <frame> or <layer> element,
             // update the camera state for this layer.
+            var refElt;
             if (layerElt && layerElt.hasAttribute(soziPrefix + "refid")) {
-                var refElt = this.svgRoot.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
-                if (!refElt) {
-                    console.log("Element not found: #" + layerElt.getAttribute(soziPrefix + "refid"));
-                    return;
-                }
-
-                frame.cameraStates[layerIndex].setAtElement(refElt);
-                frame.layerProperties[layerIndex].link = false;
+                refElt = this.svgRoot.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
+            }
+            else if (defaultLayers.indexOf(layer) >= 0) {
+                refElt = this.svgRoot.getElementById(frameElt.getAttribute(soziPrefix + "refid"));
+            }
+            if (refElt) {
+                layerProperties.referenceElementId = refElt.getAttribute("id");
+                layerProperties.link = false;
+                cameraState.setAtElement(refElt);
             }
 
-            var refLayerProperties = refFrame.layerProperties[layerIndex];
-            var refCameraState = refFrame.cameraStates[layerIndex];
-            var layerProperties = frame.layerProperties[layerIndex];
-            var cameraState = frame.cameraStates[layerIndex];
-            cameraState.clipped = importAttribute(layerElt, soziPrefix + "clip", refCameraState.clipped, parseBoolean);
-            layerProperties.referenceElementId = importAttribute(layerElt, soziPrefix + "refid", refLayerProperties.referenceElementId);
+            importAttribute(cameraState, "clipped", [layerElt, frameElt], soziPrefix + "clip", parseBoolean);
             layerProperties.referenceElementAuto = false;
-            layerProperties.referenceElementHide = importAttribute(layerElt, soziPrefix + "hide", refLayerProperties.referenceElementHide, parseBoolean);
-            layerProperties.transitionTimingFunction = importAttribute(layerElt, soziPrefix + "transition-profile", refLayerProperties.transitionTimingFunction, convertTimingFunction);
-            layerProperties.transitionRelativeZoom = importAttribute(layerElt, soziPrefix + "transition-zoom-percent", refLayerProperties.transitionRelativeZoom, z => parseFloat(z) / 100);
-            layerProperties.transitionPathId = importAttribute(layerElt, soziPrefix + "transition-path", refLayerProperties.transitionPathId);
-            layerProperties.transitionPathHide = importAttribute(layerElt, soziPrefix + "transition-path-hide", refLayerProperties.transitionPathHide, parseBoolean);
+            importAttribute(layerProperties, "referenceElementHide", [layerElt, frameElt], soziPrefix + "hide", parseBoolean);
+            importAttribute(layerProperties, "transitionTimingFunction", [layerElt, frameElt], soziPrefix + "transition-profile", convertTimingFunction);
+            importAttribute(layerProperties, "transitionRelativeZoom", [layerElt, frameElt], soziPrefix + "transition-zoom-percent", z => parseFloat(z) / 100);
+            importAttribute(layerProperties, "transitionPathId", [layerElt, frameElt], soziPrefix + "transition-path");
+            importAttribute(layerProperties, "transitionPathHide", [layerElt, frameElt], soziPrefix + "transition-path-hide", parseBoolean);
         });
 
-        frame.frameId = importAttribute(frameElt, "id", refFrame.frameId);
-        frame.title = importAttribute(frameElt, soziPrefix + "title", refFrame.title);
-        frame.transitionDurationMs = importAttribute(frameElt, soziPrefix + "transition-duration-ms", refFrame.transitionDurationMs, parseFloat);
-        frame.timeoutMs = importAttribute(frameElt, soziPrefix + "timeout-ms", refFrame.timeoutMs, parseFloat);
-        frame.timeoutEnable = importAttribute(frameElt, soziPrefix + "timeout-enable", refFrame.timeoutEnable, parseBoolean);
-        frame.showInFrameList = importAttribute(frameElt, soziPrefix + "show-in-frame-list", refFrame.showInFrameList, parseBoolean);
+        importAttribute(frame, "frameId", [frameElt], "id");
+        importAttribute(frame, "title", [frameElt], soziPrefix + "title");
+        importAttribute(frame, "transitionDurationMs", [frameElt], soziPrefix + "transition-duration-ms", parseFloat);
+        importAttribute(frame, "timeoutMs", [frameElt], soziPrefix + "timeout-ms", parseFloat);
+        importAttribute(frame, "timeoutEnable", [frameElt], soziPrefix + "timeout-enable", parseBoolean);
+        importAttribute(frame, "showInFrameList", [frameElt], soziPrefix + "show-in-frame-list", parseBoolean);
     });
 };
