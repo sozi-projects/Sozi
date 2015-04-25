@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-25 01:26:+0000\n"
+"POT-Creation-Date: 2015-04-25 09:10:+0000\n"
 "PO-Revision-Date: 2014-02-07 08:21+0000\n"
 "Last-Translator: Jurgen Gaeremyn <Unknown>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -71,7 +71,7 @@ msgstr "Toon frame in lijst"
 msgid "Link to previous frame"
 msgstr ""
 
-#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:82
+#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:86
 msgid "Clip"
 msgstr "Clip"
 
@@ -140,80 +140,88 @@ msgstr "Pad"
 msgid "Hide path"
 msgstr "Verberg"
 
-#: build/js/view/Timeline.js:253
+#: build/js/view/Timeline.js:251
 #, fuzzy
 msgid "Delete the selected frames"
 msgstr "Verwijder het geselecteerde frame"
 
-#: build/js/view/Timeline.js:259
+#: build/js/view/Timeline.js:257
 msgid "Create a new frame"
 msgstr "Nieuw frame aanmaken"
 
-#: build/js/view/Timeline.js:269
+#: build/js/view/Timeline.js:267
 #, fuzzy
 msgid "Add layer"
 msgstr "Laag '{0}' toevoegen"
 
-#: build/js/view/Timeline.js:274 build/js/view/Timeline.js:286
+#: build/js/view/Timeline.js:272 build/js/view/Timeline.js:284
 msgid "This layer is visible. Click to hide it."
 msgstr ""
 
-#: build/js/view/Timeline.js:277 build/js/view/Timeline.js:289
+#: build/js/view/Timeline.js:275 build/js/view/Timeline.js:287
 msgid "This layer is hidden. Click to show it."
 msgstr ""
 
-#: build/js/view/Timeline.js:282 build/js/view/Timeline.js:298
+#: build/js/view/Timeline.js:280 build/js/view/Timeline.js:296
 msgid "Default"
 msgstr ""
 
-#: build/js/view/Timeline.js:292
+#: build/js/view/Timeline.js:290
 #, fuzzy
 msgid "Remove this layer"
 msgstr "Verwijder de geselecteerde laag"
 
-#: build/js/view/Timeline.js:303
+#: build/js/view/Timeline.js:301
 #, fuzzy
 msgid "Insert selection before frame %d"
 msgstr "Geselecteerde frame omlaag verplaatsen"
 
-#: build/js/view/Timeline.js:309
+#: build/js/view/Timeline.js:307
 #, fuzzy
 msgid "Insert selection after frame %d"
 msgstr "Geselecteerde frame omlaag verplaatsen"
 
-#: build/js/view/Toolbar.js:37
+#: build/js/view/Toolbar.js:41
 msgid "Aspect ratio: "
 msgstr ""
 
-#: build/js/view/Toolbar.js:64
+#: build/js/view/Toolbar.js:68
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:70
+#: build/js/view/Toolbar.js:74
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:76
+#: build/js/view/Toolbar.js:80
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:88
+#: build/js/view/Toolbar.js:92
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: build/js/view/Toolbar.js:95
+#: build/js/view/Toolbar.js:99
 msgid "Redo"
 msgstr "Opnieuw uitvoeren"
 
-#: build/js/view/Toolbar.js:102
+#: build/js/view/Toolbar.js:106
+msgid "Disable full-screen mode"
+msgstr ""
+
+#: build/js/view/Toolbar.js:106
+msgid "Enable full-screen mode"
+msgstr ""
+
+#: build/js/view/Toolbar.js:113
 #, fuzzy
 msgid "Save the presentation"
 msgstr "Presentatie"
 
-#: build/js/view/Toolbar.js:109
+#: build/js/view/Toolbar.js:120
 msgid "Reload the SVG document"
 msgstr ""
 
