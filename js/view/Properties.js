@@ -48,7 +48,7 @@ Properties.render = function () {
 
         h("label", {for: "field-timeoutMs"}, [
             _("Timeout (seconds)"),
-            this.renderToggleField(h("i.fa.fa-check"), _("Timeout enable"), "timeoutEnable", this.getFrameProperty, c.setFrameProperty)
+            this.renderToggleField(h("i.fa.fa-check-square-o"), _("Timeout enable"), "timeoutEnable", this.getFrameProperty, c.setFrameProperty)
         ]),
         this.renderNumberField("timeoutMs", timeoutMsDisabled, this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
 

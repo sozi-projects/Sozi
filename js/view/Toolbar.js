@@ -6,7 +6,7 @@
 
 import h from "virtual-dom/h";
 import {VirtualDOMView} from "./VirtualDOMView";
-
+import screenfull from "screenfull";
 export var Toolbar = Object.create(VirtualDOMView);
 
 Toolbar.init = function (container, storage, presentation, viewport, controller, locale) {
@@ -91,6 +91,17 @@ Toolbar.render = function () {
                 onclick() { c.redo(); }
             }, h("i.fa.fa-share")) // "share" icon preferred to the official "redo" icon
         ]),
+        h("span.group",
+            h("button", {
+                title: screenfull.isFullscreen ? _("Disable full-screen mode") : _("Enable full-screen mode"),
+                className: screenfull.isFullscreen ? "active" : undefined,
+                disabled: !screenfull.enabled,
+                onclick: (evt) => {
+                    screenfull.toggle(document.documentElement);
+                    this.repaint(); // TODO repaint on fullscreen events
+                }
+            }, h("i.fa.fa-desktop"))
+        ),
         h("span.group.btn-group", [
             h("button", {
                 title: _("Save the presentation"),
@@ -104,4 +115,3 @@ Toolbar.render = function () {
         ])
     ]);
 };
-
