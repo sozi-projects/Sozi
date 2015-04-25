@@ -106,6 +106,12 @@ option {
     background: rgb(220, 220, 220);
 }
 
+
+input:disabled {
+    background: rgb(220, 220, 220);
+}
+
+input:disabled,
 button:disabled {
     color: rgb(150, 150, 150);
 }

@@ -6,9 +6,13 @@
     text-align: center;
 }
 
+.properties > div {
+    text-align: center;
+}
+
 .properties label {
     display: block;
-    margin-top: 0.3em;
+    margin-top: 0.5em;
     margin-bottom: 0.3em;
 }
 

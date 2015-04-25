@@ -27,8 +27,9 @@ Properties.render = function () {
     var referenceElementIdDisabled = this.getLayerProperty("referenceElementAuto").every(value => value);
 
     return h("div.properties", [
-        h("h1", [
-            _("Frame"),
+        h("h1", _("Frame")),
+
+        h("div", [
             h("span.btn-group", [
                 this.renderToggleField(h("i.fa.fa-list"), _("Show in frame list"), "showInFrameList", this.getFrameProperty, c.setFrameProperty),
                 this.renderToggleField("#", _("Show frame number"), "showFrameNumber", this.getFrameProperty, c.setFrameProperty)
@@ -36,9 +37,9 @@ Properties.render = function () {
             h("span.btn-group", [
                 this.renderToggleField(h("i.fa.fa-link"), _("Link to previous frame"), "link", this.getLayerProperty, c.setLayerProperty),
                 this.renderToggleField(h("i.fa.fa-crop"), _("Clip"), "clipped", this.getCameraProperty, c.setCameraProperty)
-            ]),
+            ])
         ]),
-
+        
         h("label", {for: "field-title"}, _("Title")),
         this.renderTextField("title", false, this.getFrameProperty, c.setFrameProperty, true),
 
