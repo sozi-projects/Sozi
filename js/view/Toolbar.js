@@ -96,10 +96,7 @@ Toolbar.render = function () {
                 title: screenfull.isFullscreen ? _("Disable full-screen mode") : _("Enable full-screen mode"),
                 className: screenfull.isFullscreen ? "active" : undefined,
                 disabled: !screenfull.enabled,
-                onclick: (evt) => {
-                    screenfull.toggle(document.documentElement);
-                    this.repaint(); // TODO repaint on fullscreen events
-                }
+                onclick() { screenfull.toggle(document.documentElement); }
             }, h("i.fa.fa-desktop"))
         ),
         h("span.group.btn-group", [

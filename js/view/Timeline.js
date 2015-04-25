@@ -44,13 +44,12 @@ Timeline.init = function (container, presentation, selection, controller, locale
     this.editableLayers = [];
     this.defaultLayers = [];
 
-    controller.once("ready", this.onReady.bind(this));
 
     return this;
 };
 
 Timeline.onReady = function () {
-    $(window).resize(this.repaint.bind(this));
+    VirtualDOMView.onReady.call(this);
 
     this.presentation.layers.forEach(layer => {
         if (this.editableLayers.indexOf(layer) < 0) {
