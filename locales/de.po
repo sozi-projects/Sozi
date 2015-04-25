@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-11 01:52:+0000\n"
+"POT-Creation-Date: 2015-04-25 01:26:+0000\n"
 "PO-Revision-Date: 2015-04-11 23:11+0100\n"
 "Last-Translator: Julian Oster <julian@jlnostr.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -18,195 +18,203 @@ msgstr ""
 "X-Launchpad-Export-Date: 2015-04-11 13:36+0000\n"
 "X-Generator: Poedit 1.7.5\n"
 
-#: build/js/Storage.js:76
+#: build/js/Storage.js:83
 msgid "File %s could not be loaded."
 msgstr "Die Datei %s konnte nicht geladen werden."
 
-#: build/js/Storage.js:97
+#: build/js/Storage.js:104
 msgid "Document was changed. Reloading."
 msgstr "Dokument wurde geändert. Aktualisiere."
 
-#: build/js/Storage.js:118
+#: build/js/Storage.js:125
 msgid "Document is not valid SVG."
 msgstr "Das Dokument ist kein gültiges SVG."
 
-#: build/js/Storage.js:158
+#: build/js/Storage.js:165
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Dokument wurde aus Sozi 13 oder früher importiert."
 
-#: build/js/Storage.js:243
+#: build/js/Storage.js:250
 msgid "Saved %s."
 msgstr "%s gespeichert."
 
-#: build/js/backend/FileReader.js:20
+#: build/js/backend/FileReader.js:19
 msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
 msgstr "Lade lokale Datei (<i class=\"fa fa-warning\"></i> schreibgeschützt)"
 
-#: build/js/backend/GoogleDrive.js:22
+#: build/js/backend/GoogleDrive.js:21
 msgid "Load from Google Drive"
 msgstr "Von Google Drive laden"
 
-#: build/js/backend/NodeWebkit.js:43
+#: build/js/backend/NodeWebkit.js:51
 msgid "Load local file"
 msgstr "Lokale Datei laden"
 
-#: build/js/backend/NodeWebkit.js:80
+#: build/js/backend/NodeWebkit.js:88
 msgid "File not found: %s."
 msgstr "Datei nicht gefunden: %s."
 
-#: build/js/view/Properties.js:32
+#: build/js/view/Properties.js:43
 msgid "Frame"
 msgstr "Frame"
 
-#: build/js/view/Properties.js:32
-msgid "Title"
-msgstr "Titel"
-
-#: build/js/view/Properties.js:32
-msgid "Id"
-msgstr "ID"
-
-#: build/js/view/Properties.js:32
+#: build/js/view/Properties.js:43
 msgid "Show in frame list"
 msgstr "In Liste der Frames anzeigen"
 
-#: build/js/view/Properties.js:32
+#: build/js/view/Properties.js:43
 msgid "Show frame number"
 msgstr "Frame-Nummer anzeigen"
 
-#: build/js/view/Properties.js:32
-msgid "Timeout (seconds)"
-msgstr "Zeitraum bis zum Auslösen (Timeout) (Sekunden)"
-
-#: build/js/view/Properties.js:32
-msgid "Timeout enable"
-msgstr "Timeout aktivieren"
-
-#: build/js/view/Properties.js:32
+#: build/js/view/Properties.js:43
 msgid "Link to previous frame"
 msgstr "Link zu vorherigem Frame"
 
-#: build/js/view/Properties.js:32 build/js/view/Toolbar.js:87
+#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:82
 msgid "Clip"
 msgstr "Nicht sichtbare Elemente ausschneiden"
 
-#: build/js/view/Properties.js:32
+#: build/js/view/Properties.js:43
+msgid "Title"
+msgstr "Titel"
+
+#: build/js/view/Properties.js:43
+msgid "Id"
+msgstr "ID"
+
+#: build/js/view/Properties.js:43
+msgid "Timeout (seconds)"
+msgstr "Zeitraum bis zum Auslösen (Timeout) (Sekunden)"
+
+#: build/js/view/Properties.js:43
+msgid "Timeout enable"
+msgstr "Timeout aktivieren"
+
+#: build/js/view/Properties.js:43
 msgid "Reference element Id"
 msgstr "ID des Referenz-Elements"
 
-#: build/js/view/Properties.js:34
-msgid "Fit to element"
-msgstr "An SVG-Element anpassen"
-
-#: build/js/view/Properties.js:36
+#: build/js/view/Properties.js:45
 msgid "Autoselect element"
 msgstr "Element automatisch auswählen"
 
-#: build/js/view/Properties.js:36
+#: build/js/view/Properties.js:45
 msgid "Hide element"
 msgstr "Element verstecken"
 
-#: build/js/view/Properties.js:36
+#: build/js/view/Properties.js:46
+msgid "Fit to element"
+msgstr "An SVG-Element anpassen"
+
+#: build/js/view/Properties.js:50
+msgid "Layer opacity"
+msgstr ""
+
+#: build/js/view/Properties.js:50
 msgid "Transition"
 msgstr "Übergang"
 
-#: build/js/view/Properties.js:36
+#: build/js/view/Properties.js:50
 msgid "Duration (seconds)"
 msgstr "Dauer (Sekunden)"
 
-#: build/js/view/Properties.js:36
+#: build/js/view/Properties.js:50
 msgid "Timing function"
 msgstr "Timing-Funktion"
 
-#: build/js/view/Properties.js:45
+#: build/js/view/Properties.js:59
 msgid "Relative zoom (%)"
 msgstr "Relativer Zoom(%)"
 
-#: build/js/view/Properties.js:45
+#: build/js/view/Properties.js:59
 msgid "Path Id"
 msgstr "Pfad-ID"
 
-#: build/js/view/Properties.js:45
+#: build/js/view/Properties.js:59
 msgid "Hide path"
 msgstr "Pfad verbergen"
 
-#: build/js/view/Timeline.js:246
+#: build/js/view/Timeline.js:253
 msgid "Delete the selected frames"
 msgstr "Den ausgewählten Frame löschen"
 
-#: build/js/view/Timeline.js:250
+#: build/js/view/Timeline.js:259
 msgid "Create a new frame"
 msgstr "Neuen Frame erstellen"
 
-#: build/js/view/Timeline.js:258
+#: build/js/view/Timeline.js:269
 msgid "Add layer"
 msgstr "Ebene hinzufügen"
 
-#: build/js/view/Timeline.js:263 build/js/view/Timeline.js:275
+#: build/js/view/Timeline.js:274 build/js/view/Timeline.js:286
 msgid "This layer is visible. Click to hide it."
 msgstr "Diese Ebene ist sichtbar. Klicken, um sie zu verstecken."
 
-#: build/js/view/Timeline.js:266 build/js/view/Timeline.js:278
+#: build/js/view/Timeline.js:277 build/js/view/Timeline.js:289
 msgid "This layer is hidden. Click to show it."
 msgstr "Diese Ebene ist versteckt. Klicken, um sie zu zeigen."
 
-#: build/js/view/Timeline.js:271 build/js/view/Timeline.js:287
+#: build/js/view/Timeline.js:282 build/js/view/Timeline.js:298
 msgid "Default"
 msgstr "Standard"
 
-#: build/js/view/Timeline.js:281
+#: build/js/view/Timeline.js:292
 msgid "Remove this layer"
 msgstr "Die ausgewählte Ebene löschen"
 
-#: build/js/view/Timeline.js:292
+#: build/js/view/Timeline.js:303
 msgid "Insert selection before frame %d"
 msgstr "Den ausgewählten Frame nach unten absenken"
 
-#: build/js/view/Timeline.js:298
+#: build/js/view/Timeline.js:309
 msgid "Insert selection after frame %d"
 msgstr "Den ausgewählten Frame nach unten absenken"
 
-#: build/js/view/Toolbar.js:34
+#: build/js/view/Toolbar.js:37
 msgid "Aspect ratio: "
 msgstr "Seitenverhältnis: "
 
-#: build/js/view/Toolbar.js:63
+#: build/js/view/Toolbar.js:64
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
-msgstr "Ausgewählte Ebenen verschieben (halte Alt zum zoomen, Shift zum rotieren)"
-
-#: build/js/view/Toolbar.js:71
-msgid "Zoom in/out on the selected layers (you can also hold the Alt key in Move mode)"
 msgstr ""
-"In den gewählten Ebenen hinein- oder hinauszoomen (du kannst alternativ auch die Alt-Taste während des "
-"Verschiebens halten)"
+"Ausgewählte Ebenen verschieben (halte Alt zum zoomen, Shift zum rotieren)"
 
-#: build/js/view/Toolbar.js:79
-msgid "Rotate the selected layers (you can also hold the Shift key in Move mode)"
-msgstr "Ausgewählte Ebenen rotieren (du kannst alternativ auch die Shift-Taste während des Verschiebens halten)"
+#: build/js/view/Toolbar.js:70
+msgid ""
+"Zoom in/out on the selected layers (you can also hold the Alt key in Move "
+"mode)"
+msgstr ""
+"In den gewählten Ebenen hinein- oder hinauszoomen (du kannst alternativ auch "
+"die Alt-Taste während des Verschiebens halten)"
 
-#: build/js/view/Toolbar.js:93
+#: build/js/view/Toolbar.js:76
+msgid ""
+"Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgstr ""
+"Ausgewählte Ebenen rotieren (du kannst alternativ auch die Shift-Taste "
+"während des Verschiebens halten)"
+
+#: build/js/view/Toolbar.js:88
 msgid "Undo"
 msgstr "Rückgängig machen"
 
-#: build/js/view/Toolbar.js:97
+#: build/js/view/Toolbar.js:95
 msgid "Redo"
 msgstr "Wiederholen"
 
-#: build/js/view/Toolbar.js:101
+#: build/js/view/Toolbar.js:102
 msgid "Save the presentation"
 msgstr "Präsentation speichern"
 
-#: build/js/view/Toolbar.js:104
-msgid "Save"
-msgstr "Speichern"
-
-#: build/js/view/Toolbar.js:105
+#: build/js/view/Toolbar.js:109
 msgid "Reload the SVG document"
 msgstr "SVG-Dokument neu laden"
 
-#: build/js/view/Toolbar.js:107
-msgid "Reload"
-msgstr "Neu laden"
+#~ msgid "Save"
+#~ msgstr "Speichern"
+
+#~ msgid "Reload"
+#~ msgstr "Neu laden"
 
 #~ msgid "Restore '{0}' in frame {1}"
 #~ msgstr "'{0}' in Frame {1} wiederherstellen"
