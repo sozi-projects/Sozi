@@ -5,7 +5,6 @@
 "use strict";
 
 import {Presentation} from "./model/Presentation";
-import "./model/Presentation.upgrade";
 import {Selection} from "./model/Selection";
 import {Storage} from "./Storage";
 import {Viewport} from "./player/Viewport";

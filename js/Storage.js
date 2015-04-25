@@ -8,6 +8,7 @@ import {backendList} from "./backend/AbstractBackend";
 import {EventEmitter} from "events";
 import nunjucks from "nunjucks";
 import Jed from "jed";
+import {upgrade} from "./upgrade";
 
 export var Storage = Object.create(EventEmitter.prototype);
 
@@ -141,7 +142,7 @@ Storage.openJSONFile = function (name, location) {
             // presentation data from the SVG document, assuming
             // it has been generated from Sozi 13 or earlier.
             // Then save the extracted data to a JSON file.
-            this.presentation.upgrade();
+            upgrade(this.presentation, this.timeline);
 
             // Select the first frame
             if (this.presentation.frames.length) {

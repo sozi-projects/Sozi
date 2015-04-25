@@ -4,7 +4,7 @@
 
 "use strict";
 
-import {Presentation, Frame} from "./Presentation";
+import {Frame} from "./model/Presentation";
 
 var SOZI_NS = "http://sozi.baierouge.fr";
 
@@ -54,7 +54,7 @@ function importAttribute(obj, propName, elts, attrName, fn) {
     }
 }
 
-Presentation.upgrade = function () {
+export function upgrade(pres, timeline) {
     // In the inlined SVG, DOM accessors fail to get elements with explicit XML namespaces.
     // getElementsByTagNameNS, getAttributeNS do not work for elements with the Sozi namespace.
     // We need to use an explicit namespace prefix ("ns:attr") and use methods
@@ -63,30 +63,30 @@ Presentation.upgrade = function () {
     // (ns1, ns2, ...). We first need to identify which one corresponds to the Sozi namespace.
 
     // Get the xmlns for the Sozi namespace
-    var soziNsAttrs = toArray(this.svgRoot.attributes).filter(a => a.value === SOZI_NS);
+    var soziNsAttrs = toArray(pres.svgRoot.attributes).filter(a => a.value === SOZI_NS);
     if (!soziNsAttrs.length) {
         return;
     }
     var soziPrefix = soziNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
 
     // Get an ordered array of sozi:frame elements
-    var frameElts = toArray(this.svgRoot.getElementsByTagName(soziPrefix + "frame"));
+    var frameElts = toArray(pres.svgRoot.getElementsByTagName(soziPrefix + "frame"));
     frameElts.sort((a, b) => parseInt(a.getAttribute(soziPrefix + "sequence")) - parseInt(b.getAttribute(soziPrefix + "sequence")));
 
     // The "default" pool contains all layers that have no corresponding
     // <layer> element in any frame. The properties for these layers are
     // set in the <frame> elements. This array is updated as we process
     // the sequence of frames.
-    var defaultLayers = this.layers.slice();
+    var defaultLayers = pres.layers.slice();
 
     frameElts.forEach((frameElt, frameIndex) => {
         // Create a new frame with default camera states
-        var frame = Object.create(Frame).init(this);
-        this.frames.splice(frameIndex, 0, frame);
+        var frame = Object.create(Frame).init(pres);
+        pres.frames.splice(frameIndex, 0, frame);
 
         // If this is not the first frame, the state is cloned from the previous frame.
         if (frameIndex) {
-            frame.initFrom(this.frames[frameIndex - 1]);
+            frame.initFrom(pres.frames[frameIndex - 1]);
         }
 
         // Collect layer elements inside the current frame element
@@ -96,7 +96,7 @@ Presentation.upgrade = function () {
             layerEltsByGroupId[layerElt.getAttribute(soziPrefix + "group")] = layerElt;
         });
 
-        this.layers.forEach((layer, layerIndex) => {
+        pres.layers.forEach((layer, layerIndex) => {
             var layerElt = null;
             if (!layer.auto) {
                 // If the current layer has a corresponding <layer> element, use it
@@ -110,6 +110,7 @@ Presentation.upgrade = function () {
                     layerElt = layerEltsByGroupId[groupId];
                     if (defaultLayerIndex >= 0) {
                         defaultLayers.splice(defaultLayerIndex, 1);
+                        timeline.editableLayers.push(layer);
                     }
                 }
             }
@@ -121,10 +122,10 @@ Presentation.upgrade = function () {
             // update the camera state for this layer.
             var refElt;
             if (layerElt && layerElt.hasAttribute(soziPrefix + "refid")) {
-                refElt = this.svgRoot.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
+                refElt = pres.svgRoot.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
             }
             else if (defaultLayers.indexOf(layer) >= 0) {
-                refElt = this.svgRoot.getElementById(frameElt.getAttribute(soziPrefix + "refid"));
+                refElt = pres.svgRoot.getElementById(frameElt.getAttribute(soziPrefix + "refid"));
             }
             if (refElt) {
                 layerProperties.referenceElementId = refElt.getAttribute("id");
@@ -148,4 +149,4 @@ Presentation.upgrade = function () {
         importAttribute(frame, "timeoutEnable", [frameElt], soziPrefix + "timeout-enable", parseBoolean);
         importAttribute(frame, "showInFrameList", [frameElt], soziPrefix + "show-in-frame-list", parseBoolean);
     });
-};
+}
