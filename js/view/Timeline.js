@@ -225,6 +225,8 @@ Timeline.render = function () {
 
     var defaultLayerIsNotEmpty = this.defaultLayers.length > 1 || this.defaultLayers[0].svgNodes.length;
 
+    var c = this.controller;
+
     return h("div", [
         h("div.timeline-top-left", [
             h("table.timeline", [
@@ -233,18 +235,18 @@ Timeline.render = function () {
                         h("button", {
                             title: _("Delete the selected frames"),
                             disabled: this.selection.selectedFrames.length ? undefined : "disabled",
-                            onclick: this.controller.deleteFrames.bind(this.controller)
+                            onclick() { c.deleteFrames(); }
                         },
                             h("i.fa.fa-trash"))),
                     h("th",
                         h("button", {
                             title: _("Create a new frame"),
-                            onclick: this.controller.addFrame.bind(this.controller)
+                            onclick() { c.addFrame(); }
                         },
                             h("i.fa.fa-plus"))),
                 ]),
                 h("tr",
-                    h("th", {colspan: 2},
+                    h("th", {attributes: {colspan: 2}},
                         h("select", {
                             onchange: (evt) => {
                                 var value = evt.target.value;
@@ -324,15 +326,15 @@ Timeline.render = function () {
                     }, [
                         h("i.insert-before.fa.fa-arrow-circle-down", {
                             title: Jed.sprintf(_("Insert selection before frame %d"), frameIndex + 1),
-                            onclick: (evt) => {
-                                this.controller.moveFrames(frameIndex);
+                            onclick(evt) {
+                                c.moveFrames(frameIndex);
                                 evt.stopPropagation();
                             }
                         }),
                         h("i.insert-after.fa.fa-arrow-circle-down", {
                             title: Jed.sprintf(_("Insert selection after frame %d"), frameIndex + 1),
-                            onclick: (evt) => {
-                                this.controller.moveFrames(frameIndex + 1);
+                            onclick(evt) {
+                                c.moveFrames(frameIndex + 1);
                                 evt.stopPropagation();
                             }
                         }),

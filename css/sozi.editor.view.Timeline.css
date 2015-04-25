@@ -86,6 +86,8 @@
     text-overflow: ellipsis;
     width: 8em;
     max-width: 8em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 .timeline th.layer-icons {
@@ -96,8 +98,6 @@
 
 .timeline .layer-label {
     text-align: left;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
     border-bottom-left-radius: 0.5em;
     border-top-left-radius: 0.5em;
 }

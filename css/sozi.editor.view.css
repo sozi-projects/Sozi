@@ -46,42 +46,12 @@ body {
     cursor: ew-resize;
 }
 
-.hsplitter, .vsplitter {
-    background: rgb(64, 64, 64);
-}
-
-.hsplitter:hover, .vsplitter:hover {
-    background: rgb(80, 80, 80);
-}
-
 .right {
-    background: rgb(64, 64, 64);
     overflow: auto;
 }
 
-.properties {
-    margin: 0.5em 1em;
-}
-
-.properties h1 {
-    text-align: center;
-}
-
-.properties label {
-    display: block;
-    margin-top: 0.3em;
-    margin-bottom: 0.3em;
-}
-
-.properties input[type=text],
-.properties input[type=number],
-.properties select {
-    width: 100%;
-}
-
-.properties .btn-group,
-.properties label > button {
-    margin-left: 1em;
+.btn-group {
+    white-space: nowrap;
 }
 
 /* ------------------------------------------------------------------------- *
@@ -95,13 +65,21 @@ body {
     background-size: 1em 1em;
 }
 
+.right {
+    background: rgb(64, 64, 64);
+}
+
+.hsplitter, .vsplitter {
+    background: rgb(64, 64, 64);
+}
+
+.hsplitter:hover, .vsplitter:hover {
+    background: rgb(80, 80, 80);
+}
+
 /*
  * Form elements
  */
-
-.properties {
-    color: white;
-}
 
 input[type=text],
 input[type=number],
@@ -123,6 +101,10 @@ button {
     background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(180, 180, 180) 100%);
 }
 
+option {
+    background: rgb(220, 220, 220);
+}
+
 button:disabled {
     color: rgb(150, 150, 150);
 }
@@ -136,10 +118,6 @@ button:disabled {
         rgb(150, 200, 200) 25%, rgb(220, 220, 220) 25%, rgb(220, 220, 220) 50%,
         rgb(150, 200, 200) 50%, rgb(150, 200, 200) 75%, rgb(220, 220, 220) 75%, rgb(220, 220, 220));
     background-size: 1em 1em;
-}
-
-.btn-group {
-    white-space: nowrap;
 }
 
 .btn-group button:first-child:not(:last-child) {
@@ -191,8 +169,4 @@ body {
 .top-left p {
     font-size: 200%;
     text-align: center;
-}
-
-.properties h1 {
-    font-size: 120%;
 }
