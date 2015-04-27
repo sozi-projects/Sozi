@@ -226,9 +226,9 @@ Timeline.render = function () {
 
     var c = this.controller;
     var even = true;
-    function updateEven(frame, layer, frameIndex, layerIndex) {
+    function updateEven(frame, layer, layerEvenOddIndex) {
         if (frame.index === 0) {
-            even = layer.index % 2 === 0;
+            even = layerEvenOddIndex % 2 === 0;
         }
         else if (!frame.layerProperties[layer.index].link) {
             even = !even;
@@ -373,20 +373,21 @@ Timeline.render = function () {
                     this.presentation.frames.map((frame, frameIndex) => h("td", {
                         className:
                             (this.defaultLayersAreSelected && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
-                            (frame === this.selection.currentFrame ? " current" : ""),
+                            (frame === this.selection.currentFrame ? " current" : "") +
+                            (updateEven(frame, this.defaultLayers[0], -1) ? " even" : " odd"),
                         onclick: this.updateLayerAndFrameSelection.bind(this, -1, frameIndex)
                     }))
                 )
             ] : []).concat(
                 this.presentation.layers.slice().reverse()
                     .filter(layer => this.editableLayers.indexOf(layer) >= 0)
-                    .map(layer => h("tr",
+                    .map((layer, layerEvenOddIndex) => h("tr",
                         this.presentation.frames.map((frame, frameIndex) => h("td", {
                             className:
                                 (this.selection.selectedLayers.indexOf(layer) >= 0 && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
                                 (frame === this.selection.currentFrame ? " current" : "") +
                                 (frame.layerProperties[layer.index].link ? " link" : "") +
-                                (updateEven(frame, layer) ? " even" : " odd"),
+                                (updateEven(frame, layer, layerEvenOddIndex) ? " even" : " odd"),
                             onclick: this.updateLayerAndFrameSelection.bind(this, layer.index, frameIndex)
                         })
                     )))
