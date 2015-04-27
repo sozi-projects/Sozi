@@ -68,7 +68,7 @@
 
 .timeline {
     border-collapse: separate;
-    border-spacing: 2px;
+    border-spacing: 0px 2px;
 }
 
 .timeline input,
@@ -140,17 +140,30 @@
     display: inline;
 }
 
+.timeline tr.collapse {
+    visibility: collapse;
+}
+
 /*
  * Colors
  */
 
-.timeline td {
+.timeline td,
+.timeline th.frame-index,
+.timeline th.frame-title {
+    border-left: 2px solid rgb(80, 80, 80);
+}
+
+.timeline .even {
     background: rgb(200, 200, 200);
-    color: black;
+}
+
+.timeline .odd {
+    background: rgb(230, 230, 230);
 }
 
 .timeline .link {
-    background: rgb(220, 220, 200);
+    border-left: none;
 }
 
 .timeline .selected {

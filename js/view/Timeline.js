@@ -225,6 +225,16 @@ Timeline.render = function () {
     var defaultLayerIsNotEmpty = this.defaultLayers.length > 1 || this.defaultLayers[0].svgNodes.length;
 
     var c = this.controller;
+    var even = true;
+    function updateEven(frame, layer, frameIndex, layerIndex) {
+        if (frame.index === 0) {
+            even = layer.index % 2 === 0;
+        }
+        else if (!frame.layerProperties[layer.index].link) {
+            even = !even;
+        }
+        return even;
+    }
 
     return h("div", [
         h("div.timeline-top-left", [
@@ -374,12 +384,14 @@ Timeline.render = function () {
                         this.presentation.frames.map((frame, frameIndex) => h("td", {
                             className:
                                 (this.selection.selectedLayers.indexOf(layer) >= 0 && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
-                                (frame === this.selection.currentFrame ? " current" : ""),
+                                (frame === this.selection.currentFrame ? " current" : "") +
+                                (frame.layerProperties[layer.index].link ? " link" : "") +
+                                (updateEven(frame, layer) ? " even" : " odd"),
                             onclick: this.updateLayerAndFrameSelection.bind(this, layer.index, frameIndex)
-                        }, frame.layerProperties[layer.index].link ? h("i.fa.fa-link") : []))
-                    ))
+                        })
+                    )))
             ).concat([
-                h("tr", {style: {visibility: "collapse"}},
+                h("tr.collapse",
                     this.presentation.frames.map(frame => h("td", frame.title))
                 )
             ]))
