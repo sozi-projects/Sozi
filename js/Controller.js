@@ -5,6 +5,7 @@
 "use strict";
 
 import {Frame, LayerProperties} from "./model/Presentation";
+import {CameraState} from "./model/CameraState";
 import {EventEmitter} from "events";
 
 export var Controller = Object.create(EventEmitter.prototype);
@@ -400,6 +401,16 @@ Controller.setLayerProperty = function (propertyName, propertyValue) {
         )
     );
 
+    var link = propertyName === "link" && propertyValue;
+
+    if (link) {
+        var savedCameraStates = selectedFrames.map(
+            frame => selectedLayers.map(
+                layer => Object.create(CameraState).initFrom(frame.cameraStates[layer.index])
+            )
+        );
+    }
+
     this.perform(
         function onDo() {
             selectedFrames.forEach(frame => {
@@ -414,6 +425,9 @@ Controller.setLayerProperty = function (propertyName, propertyValue) {
             selectedFrames.forEach((frame, frameIndex) => {
                 selectedLayers.forEach((layer, layerIndex) => {
                     frame.layerProperties[layer.index][propertyName] = savedValues[frameIndex][layerIndex];
+                    if (link) {
+                        frame.cameraStates[layer.index].initFrom(savedCameraStates[frameIndex][layerIndex]);
+                    }
                 });
             });
 
@@ -427,6 +441,7 @@ Controller.setLayerProperty = function (propertyName, propertyValue) {
 Controller.setCameraProperty = function (propertyName, propertyValue) {
     var selectedFrames = this.selection.selectedFrames.slice();
     var selectedLayers = this.selection.selectedLayers.slice();
+
     var savedValues = selectedFrames.map(
         frame => selectedLayers.map(
             layer => frame.cameraStates[layer.index][propertyName]
