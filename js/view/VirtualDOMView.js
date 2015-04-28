@@ -19,14 +19,10 @@ export var VirtualDOMView = {
         this.rootNode = createElement(this.vtree, {document});
         container.appendChild(this.rootNode);
 
-        controller.once("ready", this.onReady.bind(this));
         controller.addListener("repaint", this.repaint.bind(this));
+        $(window).resize(this.repaint.bind(this));
 
         return this;
-    },
-
-    onReady() {
-        $(window).resize(this.repaint.bind(this));
     },
 
     repaint() {

@@ -16,7 +16,13 @@ export var Preview = {
         this.controller = controller;
 
         controller.addListener("loadSVG", this.onLoadSVG.bind(this));
-        controller.once("ready", this.onReady.bind(this));
+        viewport.addListener("click", this.onClick.bind(this));
+        viewport.addListener("userChangeState", this.controller.updateCameraStates.bind(this.controller));
+        controller.addListener("repaint", this.repaint.bind(this));
+        container.addEventListener("mouseenter", this.onMouseEnter.bind(this), false);
+        container.addEventListener("mouseleave", this.onMouseLeave.bind(this), false);
+
+        $(window).resize(this.repaint.bind(this));
 
         return this;
     },
@@ -25,16 +31,6 @@ export var Preview = {
         $("html head title").text(this.presentation.title);
         $(this.container).html(this.presentation.svgRoot);
         this.viewport.onLoad();
-    },
-
-    onReady() {
-        var repaintHandler = this.repaint.bind(this);
-        $(window).resize(repaintHandler);
-        this.viewport.addListener("click", this.onClick.bind(this));
-        this.viewport.addListener("userChangeState", this.controller.updateCameraStates.bind(this.controller));
-        this.controller.addListener("repaint", repaintHandler);
-        this.container.addEventListener("mouseenter", this.onMouseEnter.bind(this), false);
-        this.container.addEventListener("mouseleave", this.onMouseLeave.bind(this), false);
     },
 
     repaint() {

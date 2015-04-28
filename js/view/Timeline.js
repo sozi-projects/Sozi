@@ -44,12 +44,13 @@ Timeline.init = function (container, presentation, selection, controller, locale
     this.editableLayers = [];
     this.defaultLayers = [];
 
+    controller.addListener("ready", this.onReady.bind(this));
 
     return this;
 };
 
 Timeline.onReady = function () {
-    VirtualDOMView.onReady.call(this);
+    this.defaultLayers = [];
 
     this.presentation.layers.forEach(layer => {
         if (this.editableLayers.indexOf(layer) < 0) {
@@ -65,6 +66,8 @@ Timeline.toStorable = function () {
 };
 
 Timeline.fromStorable = function (storable) {
+    this.editableLayers = [];
+
     if (storable.hasOwnProperty("editableLayers")) {
         storable.editableLayers.forEach(groupId => {
             var layer = this.presentation.getLayerWithId(groupId);
