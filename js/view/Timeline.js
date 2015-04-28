@@ -229,9 +229,9 @@ Timeline.render = function () {
 
     var c = this.controller;
     var even = true;
-    function updateEven(frame, layer, layerEvenOddIndex) {
+    function updateEven(frame, layer) {
         if (frame.index === 0) {
-            even = layerEvenOddIndex % 2 === 0;
+            even = true;
         }
         else if (!frame.layerProperties[layer.index].link) {
             even = !even;
@@ -377,20 +377,20 @@ Timeline.render = function () {
                         className:
                             (this.defaultLayersAreSelected && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
                             (frame === this.selection.currentFrame ? " current" : "") +
-                            (updateEven(frame, this.defaultLayers[0], -1) ? " even" : " odd"),
+                            (updateEven(frame, this.defaultLayers[0]) ? " even" : " odd"),
                         onclick: this.updateLayerAndFrameSelection.bind(this, -1, frameIndex)
                     }))
                 )
             ] : []).concat(
                 this.presentation.layers.slice().reverse()
                     .filter(layer => this.editableLayers.indexOf(layer) >= 0)
-                    .map((layer, layerEvenOddIndex) => h("tr",
+                    .map(layer => h("tr",
                         this.presentation.frames.map((frame, frameIndex) => h("td", {
                             className:
                                 (this.selection.selectedLayers.indexOf(layer) >= 0 && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
                                 (frame === this.selection.currentFrame ? " current" : "") +
                                 (frame.layerProperties[layer.index].link ? " link" : "") +
-                                (updateEven(frame, layer, layerEvenOddIndex) ? " even" : " odd"),
+                                (updateEven(frame, layer) ? " even" : " odd"),
                             onclick: this.updateLayerAndFrameSelection.bind(this, layer.index, frameIndex)
                         })
                     )))
