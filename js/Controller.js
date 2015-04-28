@@ -444,7 +444,10 @@ Controller.setCameraProperty = function (propertyName, propertyValue) {
 
     var savedValues = selectedFrames.map(
         frame => selectedLayers.map(
-            layer => frame.cameraStates[layer.index][propertyName]
+            layer => ({
+                prop: frame.cameraStates[layer.index][propertyName],
+                link: frame.layerProperties[layer.index].link
+            })
         )
     );
 
@@ -453,6 +456,7 @@ Controller.setCameraProperty = function (propertyName, propertyValue) {
             selectedFrames.forEach(frame => {
                 selectedLayers.forEach(layer => {
                     frame.cameraStates[layer.index][propertyName] = propertyValue;
+                    frame.layerProperties[layer.index].link = false;
                 });
             });
 
@@ -461,7 +465,8 @@ Controller.setCameraProperty = function (propertyName, propertyValue) {
         function onUndo() {
             selectedFrames.forEach((frame, frameIndex) => {
                 selectedLayers.forEach((layer, layerIndex) => {
-                    frame.cameraStates[layer.index][propertyName] = savedValues[frameIndex][layerIndex];
+                    frame.cameraStates[layer.index][propertyName] = savedValues[frameIndex][layerIndex].prop;
+                    frame.layerProperties[layer.index].link = savedValues[frameIndex][layerIndex].link;
                 });
             });
 
