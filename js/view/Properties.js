@@ -23,59 +23,59 @@ Properties.render = function () {
     
     var c = this.controller;
 
-    var timeoutMsDisabled = this.getFrameProperty("timeoutEnable").every(value => !value);
-    var referenceElementIdDisabled = this.getLayerProperty("referenceElementAuto").every(value => value);
+    var timeoutMsDisabled = c.getFrameProperty("timeoutEnable").every(value => !value);
+    var referenceElementIdDisabled = c.getLayerProperty("referenceElementAuto").every(value => value);
 
     return h("div.properties", [
         h("h1", _("Frame")),
 
         h("div", [
             h("span.btn-group", [
-                this.renderToggleField(h("i.fa.fa-list"), _("Show in frame list"), "showInFrameList", this.getFrameProperty, c.setFrameProperty),
-                this.renderToggleField("#", _("Show frame number"), "showFrameNumber", this.getFrameProperty, c.setFrameProperty)
+                this.renderToggleField(h("i.fa.fa-list"), _("Show in frame list"), "showInFrameList", c.getFrameProperty, c.setFrameProperty),
+                this.renderToggleField("#", _("Show frame number"), "showFrameNumber", c.getFrameProperty, c.setFrameProperty)
             ]),
             h("span.btn-group", [
-                this.renderToggleField(h("i.fa.fa-link"), _("Link to previous frame"), "link", this.getLayerProperty, c.setLayerProperty),
-                this.renderToggleField(h("i.fa.fa-crop"), _("Clip"), "clipped", this.getCameraProperty, c.setCameraProperty)
+                this.renderToggleField(h("i.fa.fa-link"), _("Link to previous frame"), "link", c.getLayerProperty, c.setLayerProperty),
+                this.renderToggleField(h("i.fa.fa-crop"), _("Clip"), "clipped", c.getCameraProperty, c.setCameraProperty)
             ])
         ]),
         
         h("label", {for: "field-title"}, _("Title")),
-        this.renderTextField("title", false, this.getFrameProperty, c.setFrameProperty, true),
+        this.renderTextField("title", false, c.getFrameProperty, c.setFrameProperty, true),
 
         h("label", {for: "field-frameId"}, _("Id")),
-        this.renderTextField("frameId", false, this.getFrameProperty, c.setFrameProperty, false),
+        this.renderTextField("frameId", false, c.getFrameProperty, c.setFrameProperty, false),
 
         h("label", {for: "field-timeoutMs"}, [
             _("Timeout (seconds)"),
-            this.renderToggleField(h("i.fa.fa-check-square-o"), _("Timeout enable"), "timeoutEnable", this.getFrameProperty, c.setFrameProperty)
+            this.renderToggleField(h("i.fa.fa-check-square-o"), _("Timeout enable"), "timeoutEnable", c.getFrameProperty, c.setFrameProperty)
         ]),
-        this.renderNumberField("timeoutMs", timeoutMsDisabled, this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
+        this.renderNumberField("timeoutMs", timeoutMsDisabled, c.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
 
         h("label", {for: "field-referenceElementId"}, [
             _("Reference element Id"),
             h("span.btn-group", [
                 // TODO: onclick, update reference element immediately
-                this.renderToggleField(h("i.fa.fa-magic"), _("Autoselect element"), "referenceElementAuto", this.getLayerProperty, c.setLayerProperty),
-                this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide element"), "referenceElementHide", this.getLayerProperty, c.setLayerProperty),
+                this.renderToggleField(h("i.fa.fa-magic"), _("Autoselect element"), "referenceElementAuto", c.getLayerProperty, c.setLayerProperty),
+                this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide element"), "referenceElementHide", c.getLayerProperty, c.setLayerProperty),
                 h("button", {
                     title: _("Fit to element"),
                     onclick() { c.fitElement(); }
                 }, h("i.fa.fa-arrows-alt"))
             ])
         ]),
-        this.renderTextField("referenceElementId", referenceElementIdDisabled, this.getLayerProperty, c.setLayerProperty, true),
+        this.renderTextField("referenceElementId", referenceElementIdDisabled, c.getLayerProperty, c.setLayerProperty, true),
 
         h("label", {for: "field-opacity"}, _("Layer opacity")),
-        this.renderRangeField("opacity", this.getCameraProperty, c.setCameraProperty, 0, 1, 0.1),
+        this.renderRangeField("opacity", c.getCameraProperty, c.setCameraProperty, 0, 1, 0.1),
 
         h("h1", _("Transition")),
 
         h("label", {for: "field-transitionDurationMs"}, _("Duration (seconds)")),
-        this.renderNumberField("transitionDurationMs", false, this.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
+        this.renderNumberField("transitionDurationMs", false, c.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
 
         h("label", {for: "field-transitionTimingFunction"}, _("Timing function")),
-        this.renderSelectField("transitionTimingFunction", this.getLayerProperty, c.setLayerProperty, {
+        this.renderSelectField("transitionTimingFunction", c.getLayerProperty, c.setLayerProperty, {
             "linear": "Linear",
             "ease": "Ease",
             "easeIn": "Ease in",
@@ -87,13 +87,13 @@ Properties.render = function () {
         }),
 
         h("label", {for: "field-transitionRelativeZoom"}, _("Relative zoom (%)")),
-        this.renderNumberField("transitionRelativeZoom", false, this.getLayerProperty, c.setLayerProperty, true, 1, 0.01),
+        this.renderNumberField("transitionRelativeZoom", false, c.getLayerProperty, c.setLayerProperty, true, 1, 0.01),
 
         h("label", {for: "field-transitionPathId"}, [
             _("Path Id"),
-            this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide path"), "transitionPathHide", this.getLayerProperty, c.setLayerProperty)
+            this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide path"), "transitionPathHide", c.getLayerProperty, c.setLayerProperty)
         ]),
-        this.renderTextField("transitionPathId", false, this.getLayerProperty, c.setLayerProperty, true)
+        this.renderTextField("transitionPathId", false, c.getLayerProperty, c.setLayerProperty, true)
     ]);
 };
 
@@ -207,49 +207,4 @@ Properties.renderSelectField = function (property, getter, setter, options) {
             }, options[optionValue])
         )
     );
-};
-
-// TODO: move these methods to Controller
-
-Properties.getFrameProperty = function (property) {
-    var values = [];
-
-    this.selection.selectedFrames.forEach(frame => {
-        var current = frame[property];
-        if (values.indexOf(current) < 0) {
-            values.push(current);
-        }
-    });
-
-    return values;
-};
-
-Properties.getLayerProperty = function (property) {
-    var values = [];
-
-    this.selection.selectedFrames.forEach(frame => {
-        this.selection.selectedLayers.forEach(layer => {
-            var current = frame.layerProperties[layer.index][property];
-            if (values.indexOf(current) < 0) {
-                values.push(current);
-            }
-        });
-    });
-
-    return values;
-};
-
-Properties.getCameraProperty = function (property) {
-    var values = [];
-
-    this.selection.selectedFrames.forEach(frame => {
-        this.selection.selectedLayers.forEach(layer => {
-            var current = frame.cameraStates[layer.index][property];
-            if (values.indexOf(current) < 0) {
-                values.push(current);
-            }
-        });
-    });
-
-    return values;
 };

@@ -372,6 +372,19 @@ Controller.fitElement = function () {
     }
 };
 
+Controller.getFrameProperty = function (property) {
+    var values = [];
+
+    this.selection.selectedFrames.forEach(frame => {
+        var current = frame[property];
+        if (values.indexOf(current) < 0) {
+            values.push(current);
+        }
+    });
+
+    return values;
+};
+
 Controller.setFrameProperty = function (propertyName, propertyValue) {
     var selectedFrames = this.selection.selectedFrames.slice();
     var savedValues = selectedFrames.map(frame => frame[propertyName]);
@@ -390,6 +403,21 @@ Controller.setFrameProperty = function (propertyName, propertyValue) {
         false,
         ["presentationChange", "repaint"]
     );
+};
+
+Controller.getLayerProperty = function (property) {
+    var values = [];
+
+    this.selection.selectedFrames.forEach(frame => {
+        this.selection.selectedLayers.forEach(layer => {
+            var current = frame.layerProperties[layer.index][property];
+            if (values.indexOf(current) < 0) {
+                values.push(current);
+            }
+        });
+    });
+
+    return values;
 };
 
 Controller.setLayerProperty = function (propertyName, propertyValue) {
@@ -436,6 +464,21 @@ Controller.setLayerProperty = function (propertyName, propertyValue) {
         false,
         ["presentationChange", "repaint"]
     );
+};
+
+Controller.getCameraProperty = function (property) {
+    var values = [];
+
+    this.selection.selectedFrames.forEach(frame => {
+        this.selection.selectedLayers.forEach(layer => {
+            var current = frame.cameraStates[layer.index][property];
+            if (values.indexOf(current) < 0) {
+                values.push(current);
+            }
+        });
+    });
+
+    return values;
 };
 
 Controller.setCameraProperty = function (propertyName, propertyValue) {

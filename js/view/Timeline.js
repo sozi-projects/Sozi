@@ -377,6 +377,7 @@ Timeline.render = function () {
                         className:
                             (this.defaultLayersAreSelected && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
                             (frame === this.selection.currentFrame ? " current" : "") +
+                            (frameIndex > 0 && frame.layerProperties[this.defaultLayers[0].index].link ? " link" : "") +
                             (updateEven(frame, this.defaultLayers[0]) ? " even" : " odd"),
                         onclick: this.updateLayerAndFrameSelection.bind(this, -1, frameIndex)
                     }))
@@ -389,7 +390,7 @@ Timeline.render = function () {
                             className:
                                 (this.selection.selectedLayers.indexOf(layer) >= 0 && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
                                 (frame === this.selection.currentFrame ? " current" : "") +
-                                (frame.layerProperties[layer.index].link ? " link" : "") +
+                                (frameIndex > 0 && frame.layerProperties[layer.index].link ? " link" : "") +
                                 (updateEven(frame, layer) ? " even" : " odd"),
                             onclick: this.updateLayerAndFrameSelection.bind(this, layer.index, frameIndex)
                         })
