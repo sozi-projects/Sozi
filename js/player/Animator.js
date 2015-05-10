@@ -114,7 +114,7 @@ Animator.init = function () {
  * The "step" event is fired once before starting the animation.
  */
 Animator.start = function (durationMs) {
-    this.durationMs = durationMs || 500;
+    this.durationMs = durationMs;
     this.initialTime = perf.now();
     this.emit("step", 0);
     if (!this.running) {
