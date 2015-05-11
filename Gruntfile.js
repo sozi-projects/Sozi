@@ -27,6 +27,7 @@ module.exports = function(grunt) {
             "win32", "osx32", "linux32",
             "win64", "osx64", "linux64"
         ],
+        nwVersion: "0.12.1",
         nwOptions: {
             toolbar: false
         },
@@ -213,13 +214,13 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: "cache/0.12.1/linux32/locales",
+                        cwd: "cache/" + buildConfig.nwVersion + "/linux32/locales",
                         src: ["*.pak"],
                         dest: "build/Sozi/linux32/locales"
                     },
                     {
                         expand: true,
-                        cwd: "cache/0.12.1/linux64/locales",
+                        cwd: "cache/" + buildConfig.nwVersion + "/linux64/locales",
                         src: ["*.pak"],
                         dest: "build/Sozi/linux64/locales"
                     },
@@ -247,6 +248,7 @@ module.exports = function(grunt) {
 
         nodewebkit: {
             options: {
+                version: buildConfig.nwVersion,
                 buildDir: "build",
                 platforms: buildConfig.platforms
             },
