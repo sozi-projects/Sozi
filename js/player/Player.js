@@ -326,16 +326,16 @@ Player.moveToFrame = function (index) {
     var useTransitionPath = false;
     var backwards = false;
 
-    if (index === this.previousFrameIndex) {
+    if (index === this.nextFrameIndex) {
+        durationMs = this.targetFrame.transitionDurationMs;
+        layerProperties = this.targetFrame.layerProperties;
+        useTransitionPath = true;
+    }
+    else if (index === this.previousFrameIndex) {
         durationMs = this.currentFrame.transitionDurationMs;
         layerProperties = this.currentFrame.layerProperties;
         useTransitionPath = true;
         backwards = true;
-    }
-    else if (index === this.nextFrameIndex) {
-        durationMs = this.targetFrame.transitionDurationMs;
-        layerProperties = this.targetFrame.layerProperties;
-        useTransitionPath = true;
     }
 
     this.playing = true;
