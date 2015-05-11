@@ -14,8 +14,10 @@
    height="1062.9921"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="sozi-transition-path-tutorial-base.svg">
+   inkscape:version="0.91 r"
+   sodipodi:docname="transition-path.svg">
+  <title
+     id="title3377">Sozi: transition path</title>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -23,16 +25,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="524.05681"
-     inkscape:cy="764.71017"
+     inkscape:zoom="0.7"
+     inkscape:cx="480.73761"
+     inkscape:cy="805.61303"
      inkscape:document-units="px"
      inkscape:current-layer="svg2"
      showgrid="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="965"
+     inkscape:window-width="1360"
+     inkscape:window-height="713"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="30"
      inkscape:window-maximized="1"
      units="mm"
      showguides="true"
@@ -179,8 +181,31 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title>Sozi: transition path</dc:title>
+        <dc:date>2015-05-11</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Guillaume Savaton</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
       </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
     </rdf:RDF>
   </metadata>
   <g
@@ -197,7 +222,7 @@
        sodipodi:cy="352.36218"
        sodipodi:rx="130"
        sodipodi:ry="130"
-       d="m 580,352.36218 c 0,71.79702 -58.20298,130 -130,130 -71.79702,0 -130,-58.20298 -130,-130 0,-71.79701 58.20298,-130 130,-130 71.79702,0 130,58.20299 130,130 z"
+       d="m 580,352.36218 a 130,130 0 0 1 -130,130 130,130 0 0 1 -130,-130 130,130 0 0 1 130,-130 130,130 0 0 1 130,130 z"
        transform="matrix(-2.1607043,2.7603215,-2.7603215,-2.1607043,2491.3785,-12.003524)" />
     <path
        sodipodi:type="arc"
@@ -207,7 +232,7 @@
        sodipodi:cy="307.36218"
        sodipodi:rx="15"
        sodipodi:ry="15"
-       d="m 250,307.36218 c 0,8.28427 -6.71573,15 -15,15 -8.28427,0 -15,-6.71573 -15,-15 0,-8.28427 6.71573,-15 15,-15 8.28427,0 15,6.71573 15,15 z"
+       d="m 250,307.36218 a 15,15 0 0 1 -15,15 15,15 0 0 1 -15,-15 15,15 0 0 1 15,-15 15,15 0 0 1 15,15 z"
        transform="matrix(2.1437741e-4,-0.99999998,0.99999998,2.1437741e-4,503.44137,415.43914)" />
     <path
        style="fill:#f9f9f9;fill-opacity:0.99610895;fill-rule:nonzero;stroke:none;display:inline;filter:url(#filter3787)"
@@ -397,7 +422,7 @@
        inkscape:transform-center-y="0.24152449" />
     <path
        transform="matrix(2.2675013,0,0,2.2675013,-445.60316,-369.68091)"
-       d="m 543.57143,369.77777 c 0,58.58163 -47.4898,106.07143 -106.07143,106.07143 -58.58163,0 -106.07143,-47.4898 -106.07143,-106.07143 0,-58.58163 47.4898,-106.07143 106.07143,-106.07143 58.58163,0 106.07143,47.4898 106.07143,106.07143 z"
+       d="M 543.57143,369.77777 A 106.07143,106.07143 0 0 1 437.5,475.8492 106.07143,106.07143 0 0 1 331.42857,369.77777 106.07143,106.07143 0 0 1 437.5,263.70634 106.07143,106.07143 0 0 1 543.57143,369.77777 Z"
        sodipodi:ry="106.07143"
        sodipodi:rx="106.07143"
        sodipodi:cy="369.77777"
