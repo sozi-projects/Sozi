@@ -82,9 +82,11 @@ Controller.addFrame = function () {
     }
 
     // Set the 'link' flag to all layers in the new frame.
-    frame.layerProperties.forEach(layer => {
-        layer.link = true;
-    });
+    if (frameIndex > 0) {
+        frame.layerProperties.forEach(layer => {
+            layer.link = true;
+        });
+    }
 
     this.perform(
         function onDo() {

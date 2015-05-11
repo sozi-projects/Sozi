@@ -129,7 +129,6 @@ export function upgrade(pres, timeline) {
             }
             if (refElt) {
                 layerProperties.referenceElementId = refElt.getAttribute("id");
-                layerProperties.link = false;
                 cameraState.setAtElement(refElt);
             }
 
