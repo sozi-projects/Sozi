@@ -2,6 +2,7 @@ module.exports = function(grunt) {
     "use strict";
 
     var path = require("path");
+    var fs = require("fs");
 
     var nunjucks = require("nunjucks");
     nunjucks.configure({watch: false});
@@ -272,6 +273,19 @@ module.exports = function(grunt) {
                 }
             }
         },
+
+        newer: {
+            options: {
+                override: function (details, include) {
+                    if (details.task === "nunjucks_render" && details.target === "player") {
+                        include(fs.statSync("build/js/player.min.js").mtime > details.time);
+                    }
+                    else {
+                        include(false);
+                    }
+                }
+            }
+        }
     });
 
     /*
@@ -340,15 +354,15 @@ module.exports = function(grunt) {
     grunt.registerTask("lint", ["jshint", "csslint"]);
 
     grunt.registerTask("build", [
-        "babel",
-        "browserify:player",
-        "uglify:player",
-        "nunjucks_render",
-        "nunjucks",
-        "po2json",
-        "browserify:editor",
-        "uglify:editor",
-        "copy:editor",
+        "newer:babel",
+        "browserify:player", // Cannot use 'newer' here due to imports
+        "newer:uglify:player",
+        "newer:nunjucks_render",
+        "newer:nunjucks",
+        "newer:po2json",
+        "browserify:editor", // Cannot use 'newer' here due to imports
+        "newer:uglify:editor",
+        "newer:copy:editor",
         "write_package_json"
     ]);
 
@@ -358,17 +372,20 @@ module.exports = function(grunt) {
     grunt.registerTask("nw-bundle", [
         "nw-build",
         "nodewebkit",
-        "copy:nw_locales",
-        "rename",
-        "compress"
+        "newer:copy:nw_locales",
+        "rename",  // Cannot use 'newer' here since the generated file name includes the version
+        "compress" // Cannot use 'newer' here since the generated file name includes the version
     ]);
 
     grunt.registerTask("web-demo", [
         "web-build",
-        "rsync"
+        "rsync" // Cannot use 'newer' here since 'dest' is not a generated file
     ]);
 
-    grunt.registerTask("pot", ["babel", "jspot"]);
+    grunt.registerTask("pot", [
+        "newer:babel",
+        "jspot" // Cannot use 'newer' here since 'dest' is not a generated file
+    ]);
 
     grunt.registerTask("default", ["nw-bundle"]);
 };
