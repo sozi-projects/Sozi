@@ -7,6 +7,8 @@
 import h from "virtual-dom/h";
 import {VirtualDOMView} from "./VirtualDOMView";
 import screenfull from "screenfull";
+import pkg from "../../package.json";
+
 export var Toolbar = Object.create(VirtualDOMView);
 
 Toolbar.init = function (container, storage, presentation, viewport, controller, locale) {
@@ -109,6 +111,12 @@ Toolbar.render = function () {
                 title: _("Reload the SVG document"),
                 onclick() { c.reload(); }
             }, h("i.fa.fa-refresh"))
-        ])
+        ]),
+        h("span.group",
+            h("button", {
+                title: _("Information"),
+                onclick() { $.notify(`Sozi ${pkg.version}`, "info"); }
+            }, h("i.fa.fa-info"))
+        )
     ]);
 };

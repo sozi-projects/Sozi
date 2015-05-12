@@ -196,6 +196,7 @@ module.exports = function(grunt) {
                         expand: true,
                         src: [
                             "index.html",
+                            "build/package.json",
                             "css/**/*",
                             "vendor/**/*",
                             "bower_components/**/*"
@@ -327,7 +328,7 @@ module.exports = function(grunt) {
     }
 
     grunt.registerTask("write_package_json", function () {
-        grunt.file.write("build/app/package.json", JSON.stringify(pkg));
+        grunt.file.write("build/package.json", JSON.stringify(pkg));
     });
 
     grunt.registerMultiTask("nunjucks_render", function () {
@@ -354,6 +355,7 @@ module.exports = function(grunt) {
     grunt.registerTask("lint", ["jshint", "csslint"]);
 
     grunt.registerTask("build", [
+        "write_package_json",
         "newer:babel",
         "browserify:player", // Cannot use 'newer' here due to imports
         "newer:uglify:player",
@@ -362,8 +364,7 @@ module.exports = function(grunt) {
         "newer:po2json",
         "browserify:editor", // Cannot use 'newer' here due to imports
         "newer:uglify:editor",
-        "newer:copy:editor",
-        "write_package_json"
+        "newer:copy:editor"
     ]);
 
     grunt.registerTask("nw-build",  ["backends-nw", "build"]);
