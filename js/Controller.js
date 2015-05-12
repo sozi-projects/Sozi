@@ -259,7 +259,7 @@ Controller.updateLayerSelection = function (single, sequence, layers) {
         });
     }
     else if (sequence) {
-        // TODO toggle from last selected to current
+        // TODO toggle from last selected layer to current
     }
     else {
         this.selection.selectedLayers = layers.slice();
@@ -301,7 +301,18 @@ Controller.updateLayerAndFrameSelection = function (single, sequence, layers, fr
         }
     }
     else if (sequence) {
-        // TODO toggle from last selected to current
+        if (!this.selection.selectedFrames.length) {
+            this.selection.addFrame(frame);
+        }
+        else {
+            var endIndex = frame.index;
+            var startIndex = this.selection.currentFrame.index;
+            var inc = startIndex <= endIndex ? 1 : -1;
+            for (var i = startIndex + inc; startIndex <= endIndex ? i <= endIndex : i >= endIndex; i += inc) {
+                this.selection.toggleFrameSelection(this.presentation.frames[i]);
+            }
+        }
+        // TODO toggle from last selected layer to current
     }
     else {
         this.selection.selectedLayers = layers.slice();
