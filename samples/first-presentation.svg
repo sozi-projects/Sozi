@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r"
+   sodipodi:docname="first-presentation.svg">
+  <title
+     id="title3357">Sozi: Your First Presentation</title>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="458.7641"
+     inkscape:cy="377.20487"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1360"
+     inkscape:window-height="713"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1" />
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Sozi: Your First Presentation</dc:title>
+        <dc:date>2015-05-10</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Guillaume Savaton</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title></dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/3.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-308.2677)"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Calque 1">
+    <path
+       sodipodi:nodetypes="zzsz"
+       inkscape:connector-curvature="0"
+       id="path3771"
+       d="M 173.14125,586.51952 C 206.4339,550.0583 365.501,571.22123 370.71812,620.93004 375.93524,670.63884 258.87946,793.89559 203.10482,744.56609 148.93187,696.65318 139.8486,622.98074 173.14125,586.51952 z"
+       style="fill:#ff6600;fill-opacity:1;stroke:none" />
+    <path
+       style="fill:#ddafe9;fill-opacity:1;stroke:none"
+       d="m 217.38309,415.2988 c 28.47157,-2.47072 87.9016,68.90909 70.63251,92.11978 -17.26909,23.2107 -115.43735,29.79447 -119.84344,-13.07795 -4.27956,-41.64124 20.73936,-76.5711 49.21093,-79.04183 z"
+       id="path3775"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzsz" />
+    <path
+       style="fill:#ffcc00;fill-opacity:1;stroke:none"
+       d="M 319.77681,866.84905 C 298.37492,800.86951 434.69706,621.3215 499.02302,649.4754 c 64.32597,28.1539 133.54216,256.70485 34.56505,290.55323 -96.13475,32.87643 -192.40937,-7.20005 -213.81126,-73.17958 z"
+       id="path3777"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zzsz" />
+    <path
+       sodipodi:nodetypes="zzsz"
+       inkscape:connector-curvature="0"
+       id="path3779"
+       d="M 834.28679,816.06853 C 754.45448,836.55725 551.63476,661.57982 589.79195,587.3827 627.94914,513.18557 904.12098,448.04711 936.92352,567.93424 968.78415,684.37855 914.1191,795.57982 834.28679,816.06853 z"
+       style="fill:#00ccff;fill-opacity:1;stroke:none" />
+    <g
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64.84471893px;line-height:125%;font-family:'DejaVu Serif';-inkscape-font-specification:'DejaVu Serif';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       id="text3781">
+      <path
+         d="m 225.83636,497.36218 0,-44.74285 -3.76099,0 c -3.56646,4.08521 -7.78137,7.58683 -12.45019,10.31031 l 0,2.72348 c 3.95553,-1.8805 7.65168,-4.08522 11.1533,-6.74386 l 0,38.45292 5.05788,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Iwona;-inkscape-font-specification:Iwona"
+         id="path3355" />
+    </g>
+    <g
+       transform="matrix(0.2957047,0.9552794,-0.9552794,0.2957047,0,0)"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:119.58699799px;line-height:125%;font-family:'DejaVu Serif';-inkscape-font-specification:'DejaVu Serif';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       id="text3785">
+      <path
+         d="m 725.1643,-13.250226 0,-7.414394 -42.21421,0 22.00401,-21.764834 c 9.80613,-9.806133 19.01433,-21.286485 19.01433,-35.158577 0,-11.719526 -11.59994,-19.373094 -24.15658,-19.373094 -9.44737,0 -18.41639,4.305132 -24.27616,11.599939 l 0,5.022654 c 6.09894,-7.055633 14.94838,-11.121591 24.27616,-11.121591 8.01233,0 14.82879,5.97935 14.82879,13.872092 0,11.839113 -5.501,22.841117 -13.63292,31.331794 l -26.6679,27.385422 0,5.620589 50.82448,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Iwona;-inkscape-font-specification:Iwona"
+         id="path3352" />
+    </g>
+    <g
+       transform="matrix(0.23949193,-0.97089835,0.97089835,0.23949193,0,0)"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:183.23104858px;line-height:125%;font-family:'DejaVu Serif';-inkscape-font-specification:'DejaVu Serif';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       id="text3789">
+      <path
+         d="m -646.34776,675.93378 c 0,-16.12433 -11.36032,-30.04989 -27.11819,-34.8139 13.92556,-4.03108 22.53741,-14.47525 22.53741,-28.40081 0,-18.13987 -14.65848,-30.23312 -36.64621,-30.23312 -11.91001,0 -23.45357,4.03108 -32.79835,11.36032 l 0,7.69571 c 9.34478,-7.32925 20.88834,-11.36033 32.79835,-11.36033 13.37587,0 22.35419,8.97832 22.35419,22.53742 0,21.80449 -10.0777,27.48466 -32.98159,27.48466 l 0,6.77955 c 24.7362,0 35.73006,5.86339 35.73006,28.9505 0,15.9411 -10.26094,28.95051 -22.72065,28.95051 -13.92556,0 -27.48466,-4.03109 -39.02821,-11.36033 l 0,7.69571 c 11.54355,7.32924 25.10265,11.36032 39.02821,11.36032 21.2548,0 38.84498,-16.49079 38.84498,-36.64621 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Iwona;-inkscape-font-specification:Iwona"
+         id="path3349" />
+    </g>
+    <g
+       transform="matrix(0.98592388,-0.16719483,0.16719483,0.98592388,0,0)"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:253.0272522px;line-height:125%;font-family:'DejaVu Serif';-inkscape-font-specification:'DejaVu Serif';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       id="text3793">
+      <path
+         d="m 714.44124,804.66189 0,-11.63926 -18.97704,0 0,-102.22301 -19.73613,0 -68.82341,102.22301 0,11.63926 68.82341,0 0,60.72654 19.73613,0 0,-60.72654 18.97704,0 z m -38.71317,-11.63926 -55.91902,0 55.91902,-83.24596 0,83.24596 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Iwona;-inkscape-font-specification:Iwona"
+         id="path3346" />
+    </g>
+  </g>
+</svg>

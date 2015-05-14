@@ -1,0 +1,35 @@
+.properties {
+    margin: 0.5em 1em;
+}
+
+.properties h1 {
+    text-align: center;
+}
+
+.properties > div {
+    text-align: center;
+}
+
+.properties label {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.3em;
+}
+
+.properties input,
+.properties select {
+    width: 100%;
+}
+
+.properties .btn-group,
+.properties label > button {
+    margin-left: 1em;
+}
+
+.properties {
+    color: white;
+}
+
+.properties h1 {
+    font-size: 120%;
+}

@@ -1,0 +1,179 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/* ------------------------------------------------------------------------- *
+ * Layout
+ * ------------------------------------------------------------------------- */
+
+/*
+ * Apply a natural box layout model to all elements:
+ * http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+ */
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: rgb(80, 80, 80);
+}
+
+.top    { position: absolute; left:  0; top:    0; width: 100%;             height: calc(70% - 2px); }
+.bottom { position: absolute; left:  0; bottom: 0; width: 100%;             height: calc(30% - 2px); }
+.left   { position: absolute; left:  0; top:    0; width: calc(70% - 2px);  height: 100%; }
+.right  { position: absolute; right: 0; top:    0; width: calc(30% - 2px);  height: 100%; }
+
+.hsplitter {
+    position: absolute;
+    left: 0;
+    top: calc(70% - 3px);
+    width: 100%;
+    height: 6px;
+    cursor: ns-resize;
+}
+
+.vsplitter {
+    position: absolute;
+    left: calc(70% - 3px);
+    top: 0;
+    width: 6px;
+    height: 100%;
+    cursor: ew-resize;
+}
+
+.right {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.btn-group {
+    white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------------- *
+ * Colors
+ * ------------------------------------------------------------------------- */
+
+.top .left {
+    background-image: linear-gradient(-45deg,
+        rgb(80, 80, 80) 25%, rgb(64, 64, 64) 25%, rgb(64, 64, 64) 50%,
+        rgb(80, 80, 80) 50%, rgb(80, 80, 80) 75%, rgb(64, 64, 64) 75%, rgb(64, 64, 64));
+    background-size: 1em 1em;
+}
+
+.right {
+    background: rgb(64, 64, 64);
+}
+
+.hsplitter, .vsplitter {
+    background: rgb(64, 64, 64);
+}
+
+.hsplitter:hover, .vsplitter:hover {
+    background: rgb(80, 80, 80);
+}
+
+/*
+ * Form elements
+ */
+
+input[type=text],
+input[type=number],
+select,
+button {
+    border-radius: 0.5em;
+    border: none;
+    padding: 0.3em 0.5em;
+}
+
+input[type=text],
+input[type=number] {
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5) inset;
+}
+
+select,
+button {
+    color: black;
+    background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(180, 180, 180) 100%);
+}
+
+option {
+    background: rgb(220, 220, 220);
+}
+
+
+input:disabled {
+    background: rgb(220, 220, 220);
+}
+
+input:disabled,
+button:disabled {
+    color: rgb(150, 150, 150);
+}
+
+.active {
+    background: linear-gradient(to bottom, rgb(150, 200, 200), rgb(180, 220, 220) 100%);
+}
+
+.multiple {
+    background-image: linear-gradient(-45deg,
+        rgb(150, 200, 200) 25%, rgb(220, 220, 220) 25%, rgb(220, 220, 220) 50%,
+        rgb(150, 200, 200) 50%, rgb(150, 200, 200) 75%, rgb(220, 220, 220) 75%, rgb(220, 220, 220));
+    background-size: 1em 1em;
+}
+
+.btn-group button:first-child:not(:last-child) {
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 1px solid rgb(80, 80, 80);
+}
+
+.btn-group button:last-child:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+.btn-group button:not(:first-child):not(:last-child) {
+    border-radius: 0;
+    border-right: 1px solid rgb(80, 80, 80);
+}
+
+/* ------------------------------------------------------------------------- *
+ * Fonts
+ * ------------------------------------------------------------------------- */
+
+/*
+ * Using bulletproof @font-face syntax:
+ * http://www.paulirish.com/2009/bulletproof-font-face-implementation-syntax/
+ */
+@font-face {
+    font-family: "Droid Sans";
+    src: url("../vendor/DroidSans/DroidSans.eot?") format("embedded-opentype"),
+         url("../vendor/DroidSans/DroidSans.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Droid Sans";
+    src: url("../vendor/DroidSans/DroidSans-Bold.eot?") format("embedded-opentype"),
+         url("../vendor/DroidSans/DroidSans-Bold.ttf") format("truetype");
+    font-weight: bold;
+}
+
+body {
+    font-size: small;
+    font-family: "Droid Sans", serif;
+}
+
+.top-left p {
+    font-size: 200%;
+    text-align: center;
+}

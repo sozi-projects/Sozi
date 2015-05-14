@@ -1,0 +1,401 @@
+# Polish translation for sozi
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the sozi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sozi\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2015-05-14 09:10:+0000\n"
+"PO-Revision-Date: 2014-10-08 07:48+0000\n"
+"Last-Translator: Hubert Maciejewicz <hu2bert@interia.pl>\n"
+"Language-Team: Polish <pl@li.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2015-04-11 13:36+0000\n"
+"X-Generator: Launchpad (build 17423)\n"
+
+#: build/js/Storage.js:83
+msgid "File %s could not be loaded."
+msgstr ""
+
+#: build/js/Storage.js:104
+msgid "Document was changed. Reloading."
+msgstr ""
+
+#: build/js/Storage.js:125
+msgid "Document is not valid SVG."
+msgstr ""
+
+#: build/js/Storage.js:165
+msgid "Document was imported from Sozi 13 or earlier."
+msgstr ""
+
+#: build/js/Storage.js:250
+msgid "Saved %s."
+msgstr ""
+
+#: build/js/backend/FileReader.js:19
+msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
+msgstr ""
+
+#: build/js/backend/GoogleDrive.js:21
+msgid "Load from Google Drive"
+msgstr ""
+
+#: build/js/backend/NodeWebkit.js:51
+msgid "Load local file"
+msgstr ""
+
+#: build/js/backend/NodeWebkit.js:88
+msgid "File not found: %s."
+msgstr ""
+
+#: build/js/view/Properties.js:43
+msgid "Frame"
+msgstr ""
+
+#: build/js/view/Properties.js:43
+msgid "Show in frame list"
+msgstr "Pokarz w spisie"
+
+#: build/js/view/Properties.js:43
+#, fuzzy
+msgid "Show frame number"
+msgstr "Pokarz w spisie"
+
+#: build/js/view/Properties.js:43
+msgid "Link to previous frame"
+msgstr ""
+
+#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:90
+msgid "Clip"
+msgstr "Klip"
+
+#: build/js/view/Properties.js:43
+msgid "Title"
+msgstr "Tytuł"
+
+#: build/js/view/Properties.js:43
+msgid "Id"
+msgstr "Identyfikator"
+
+#: build/js/view/Properties.js:43
+msgid "Timeout (seconds)"
+msgstr "Limit czasu (w sekundach)"
+
+#: build/js/view/Properties.js:43
+#, fuzzy
+msgid "Timeout enable"
+msgstr "Limit czasu (w sekundach)"
+
+#: build/js/view/Properties.js:43
+msgid "Reference element Id"
+msgstr ""
+
+#: build/js/view/Properties.js:45
+msgid "Autoselect element"
+msgstr ""
+
+#: build/js/view/Properties.js:45
+#, fuzzy
+msgid "Hide element"
+msgstr "Element SVG"
+
+#: build/js/view/Properties.js:46
+#, fuzzy
+msgid "Fit to element"
+msgstr "Element SVG"
+
+#: build/js/view/Properties.js:50
+msgid "Layer opacity"
+msgstr ""
+
+#: build/js/view/Properties.js:50
+msgid "Transition"
+msgstr ""
+
+#: build/js/view/Properties.js:50
+msgid "Duration (seconds)"
+msgstr "Czas trwania (sekundy)"
+
+#: build/js/view/Properties.js:50
+msgid "Timing function"
+msgstr ""
+
+#: build/js/view/Properties.js:59
+msgid "Relative zoom (%)"
+msgstr ""
+
+#: build/js/view/Properties.js:59
+#, fuzzy
+msgid "Path Id"
+msgstr "Ścieżka"
+
+#: build/js/view/Properties.js:59
+#, fuzzy
+msgid "Hide path"
+msgstr "Ukryj"
+
+#: build/js/view/Timeline.js:264
+#, fuzzy
+msgid "Delete the selected frames"
+msgstr "Usuń wybraną ramkę"
+
+#: build/js/view/Timeline.js:270
+msgid "Create a new frame"
+msgstr "Stwórz nową ramkę"
+
+#: build/js/view/Timeline.js:280
+#, fuzzy
+msgid "Add layer"
+msgstr "Dodaj warstwę '{0}'"
+
+#: build/js/view/Timeline.js:285 build/js/view/Timeline.js:297
+msgid "This layer is visible. Click to hide it."
+msgstr ""
+
+#: build/js/view/Timeline.js:288 build/js/view/Timeline.js:300
+msgid "This layer is hidden. Click to show it."
+msgstr ""
+
+#: build/js/view/Timeline.js:293 build/js/view/Timeline.js:309
+msgid "Default"
+msgstr ""
+
+#: build/js/view/Timeline.js:303
+#, fuzzy
+msgid "Remove this layer"
+msgstr "Usuń wybraną warstwę"
+
+#: build/js/view/Timeline.js:314
+#, fuzzy
+msgid "Insert selection before frame %d"
+msgstr "Przesuń wybraną ramkę w dół"
+
+#: build/js/view/Timeline.js:320
+#, fuzzy
+msgid "Insert selection after frame %d"
+msgstr "Przesuń wybraną ramkę w dół"
+
+#: build/js/view/Toolbar.js:45
+msgid "Aspect ratio: "
+msgstr ""
+
+#: build/js/view/Toolbar.js:72
+msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:78
+msgid ""
+"Zoom in/out on the selected layers (you can also hold the Alt key in Move "
+"mode)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:84
+msgid ""
+"Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:96
+msgid "Undo (Ctrl-Z)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:103
+msgid "Redo (Ctrl-Y)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:110
+msgid "Disable full-screen mode"
+msgstr ""
+
+#: build/js/view/Toolbar.js:110
+msgid "Enable full-screen mode"
+msgstr ""
+
+#: build/js/view/Toolbar.js:117
+#, fuzzy
+msgid "Save the presentation"
+msgstr "Prezentacja"
+
+#: build/js/view/Toolbar.js:124
+msgid "Reload the SVG document"
+msgstr ""
+
+#: build/js/view/Toolbar.js:129
+msgid "Information"
+msgstr ""
+
+#~ msgid "Undo"
+#~ msgstr "Conij"
+
+#~ msgid "Redo"
+#~ msgstr "Ponów"
+
+#~ msgid "Restore '{0}' in frame {1}"
+#~ msgstr "Przywróć '{0}' w  ramce {1}"
+
+#~ msgid "Change '{0}' in frame {1}"
+#~ msgstr "Zmień '{0}' w ramce {1}"
+
+#~ msgid "Restore '{0}' in layer '{1}' of frame {2}"
+#~ msgstr "Przywróć '{0}' w warstwie '{1}' ramki {2}"
+
+#~ msgid "Change '{0}' in layer '{1}' of frame {2}"
+#~ msgstr "Zmień '{0}' w warstwie '{1}' ramki {2}"
+
+#~ msgid "Delete the new frame {0}"
+#~ msgstr "Usuń nową ramkę {0}"
+
+#~ msgid "Create a new frame at {0}"
+#~ msgstr "Stwórz nową ramkę {0}"
+
+#~ msgid "Remove the layer '{0}' from frame {1}"
+#~ msgstr "Usuń warstwę '{0}' z ramki {1}"
+
+#~ msgid "Add layer '{0}' to frame {1}"
+#~ msgstr "Dodaj warstwę '{0}' do ramki {1}"
+
+#~ msgid "Restore deleted frame {0}"
+#~ msgstr "Przywróć usuniętą ramkę {0}"
+
+#~ msgid "Delete frame {0}"
+#~ msgstr "Usuń ramkę {0}"
+
+#~ msgid "Restore deleted layer '{0}' in frame {1}"
+#~ msgstr "Przywróć usuniętą warstwę '{0}' w ramce {1}"
+
+#~ msgid "Remove layer '{0}' from frame {1}"
+#~ msgstr "Usuń warstwę '{0}' z ramki {1}"
+
+#~ msgid "Delete duplicated frame {0}"
+#~ msgstr "Usuń zdublowaną ramkę {0}"
+
+#~ msgid "Duplicate frame {0}"
+#~ msgstr "Zdubluj ramkę {0}"
+
+#~ msgid "Move frame {0} up"
+#~ msgstr "Przesuń ramkę {0} w górę"
+
+#~ msgid "Move frame {0} down"
+#~ msgstr "Przesuń ramkę {0} w dół"
+
+#~ msgid "Untitled"
+#~ msgstr "Bez tytułu"
+
+#~ msgid "Create a new frame or add a layer"
+#~ msgstr "Stwórz nową ramkę albo dodaj warstwę"
+
+#~ msgid "New frame"
+#~ msgstr "Nowa ramka"
+
+#~ msgid "Enabled"
+#~ msgstr "Włączone"
+
+#~ msgid "Disabled"
+#~ msgstr "Wyłączone"
+
+#~ msgid "Constant speed"
+#~ msgstr "Stała prędkość"
+
+#~ msgid "Speed up"
+#~ msgstr "Przyspiesz"
+
+#~ msgid "Speed up (strong)"
+#~ msgstr "Przyspiesz (bardzo)"
+
+#~ msgid "Speed down"
+#~ msgstr "Zwolnij"
+
+#~ msgid "Speed down (strong)"
+#~ msgstr "Zwolnij (bardzo)"
+
+#~ msgid "Speed up, then down"
+#~ msgstr "Przyspiesz, następnie zwolnij"
+
+#~ msgid "Speed up, then down (strong)"
+#~ msgstr "Przyspiesz, następnie zwolnij (bardzo)"
+
+#~ msgid "Speed down, then up"
+#~ msgstr "Zwolnij, nastepnie przyspiesz"
+
+#~ msgid "Speed down, then up (strong)"
+#~ msgstr "Zwolnij, nastepnie przyspiesz (bardzo)"
+
+#~ msgid "Immediate (beginning)"
+#~ msgstr "Natychmiast (początek)"
+
+#~ msgid "Immediate (end)"
+#~ msgstr "Natychmiast (koniec)"
+
+#~ msgid "Immediate (middle)"
+#~ msgstr "Natychmiast (środek)"
+
+#~ msgid "No action to undo"
+#~ msgstr "Brak akcji do cofnięcia"
+
+#~ msgid "No action to redo"
+#~ msgstr "Brak akcji do ponowienia"
+
+#~ msgid "Seq."
+#~ msgstr "Sekwencja"
+
+#~ msgid "New"
+#~ msgstr "Nowy"
+
+#~ msgid "Duplicate the selected frame"
+#~ msgstr "Powiel wybraną ramkę"
+
+#~ msgid "Duplicate"
+#~ msgstr "Powiel"
+
+#~ msgid "Delete"
+#~ msgstr "Usuń"
+
+#~ msgid "Move the selected frame up"
+#~ msgstr "Przesuń wybraną ramkę w górę"
+
+#~ msgid "Move frame up"
+#~ msgstr "Przesuń ramkę w górę"
+
+#~ msgid "Move frame down"
+#~ msgstr "Przesuń ramkę w dół"
+
+#~ msgid "Set the reference to a selected SVG element"
+#~ msgstr "Ustaw odnośnik do wybranego elementu SVG"
+
+#~ msgid "Remove the reference to this SVG element"
+#~ msgstr "Usuń odnośnik do wybranego elementu SVG"
+
+#~ msgid "<b>Frame properties</b>"
+#~ msgstr "<b>Właściwości ramki</b>"
+
+#~ msgid "Zoom (%)"
+#~ msgstr "Zbliżenie (%)"
+
+#~ msgid "Profile"
+#~ msgstr "Profil"
+
+#~ msgid "Set the reference to a selected SVG path"
+#~ msgstr "Ustaw odnośnik do wybranej ścieżki SVG"
+
+#~ msgid "Remove the reference to this SVG path"
+#~ msgstr "Usuń odnośnik do wybranej ścieżki SVG"
+
+#~ msgid "<b>Transition to this frame</b>"
+#~ msgstr "<b>Przejście do tej ramki</b>"
+
+#~ msgid "Apply changes and go back to Inkscape"
+#~ msgstr "Zastosuj zmiany i wróć do Inkscape"
+
+#~ msgid "Cancel all changes and go back to Inkscape"
+#~ msgstr "Anuluj wszystkie zmiany i wróć do Inkscape"
+
+#~ msgid "Modules list"
+#~ msgstr "Lista modułów"
+
+#~ msgid "Settings"
+#~ msgstr "Ustawiania"
