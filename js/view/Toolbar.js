@@ -83,12 +83,12 @@ Toolbar.render = function () {
         ]),
         h("span.group.btn-group", [
             h("button", {
-                title: _("Undo"),
+                title: _("Undo (Ctrl-Z)"),
                 disabled: c.undoStack.length ? undefined : "disabled",
                 onclick() { c.undo(); }
             }, h("i.fa.fa-reply")), // "reply" icon preferred to the official "undo" icon
             h("button", {
-                title: _("Redo"),
+                title: _("Redo (Ctrl-Y)"),
                 disabled: c.redoStack.length ? undefined : "disabled",
                 onclick() { c.redo(); }
             }, h("i.fa.fa-share")) // "share" icon preferred to the official "redo" icon

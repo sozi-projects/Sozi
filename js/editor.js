@@ -69,4 +69,24 @@ window.addEventListener("load", () => {
             body.off("mouseup");
         });
     });
+
+    window.addEventListener("keydown", (evt) => {
+        if (evt.ctrlKey) {
+            switch (evt.keyCode) {
+                case 89: // Ctrl-y
+                    Controller.redo();
+                    break;
+                case 90: // Ctrl-z
+                    Controller.undo();
+                    break;
+                default:
+                    return;
+            }
+        }
+        else {
+            return;
+        }
+        // Chrome already supports undo/redo in input elements
+        evt.preventDefault();
+    }, false);
 }, false);

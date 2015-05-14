@@ -119,6 +119,8 @@ Player.onKeyDown = function (evt) {
  *
  * Parameters:
  *    - evt: The DOM event object
+ *
+ * TODO use keydown event
  */
 Player.onKeyPress = function (evt) {
     // Keys with modifiers are ignored
