@@ -133,7 +133,7 @@ Animator.stop = function () {
     if (this.running) {
         this.running = false;
         runningAnimators --;
-        this.emit("done");
+        this.emit("stop");
     }
 };
 
@@ -148,7 +148,9 @@ Animator.step = function () {
     var elapsedTime = perf.now() - this.initialTime;
     if (elapsedTime >= this.durationMs) {
         this.emit("step", 1);
-        this.stop();
+        this.running = false;
+        runningAnimators --;
+        this.emit("done");
     } else {
         this.emit("step", elapsedTime / this.durationMs);
     }

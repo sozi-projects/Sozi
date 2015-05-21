@@ -12,7 +12,7 @@ import {EventEmitter} from "events";
 // Constants: default animation properties
 // for out-of-sequence transitions
 var DEFAULT_TRANSITION_DURATION_MS = 500;
-var DEFAULT_RELATIVE_ZOOM = -0.1;
+var DEFAULT_RELATIVE_ZOOM = 0;
 var DEFAULT_TIMING_FUNCTION = "ease";
 
 // Zoom factor for user zoom action (keyboard and mouse wheel)
@@ -46,13 +46,13 @@ Player.setupEventHandlers = function () {
     window.addEventListener("keydown", this.onKeyDown.bind(this), false);
     window.addEventListener("keypress", this.onKeyPress.bind(this), false);
     this.animator.addListener("step", this.onAnimatorStep.bind(this));
+    this.animator.addListener("stop", this.onAnimatorStop.bind(this));
     this.animator.addListener("done", this.onAnimatorDone.bind(this));
 };
 
 Player.onClick = function (button) {
     switch (button) {
         case 0: this.moveToNext(); break;
-        case 1: /* TODO show table of contents */ break;
         case 2: this.moveToPrevious(); break;
     }
 };
@@ -250,9 +250,8 @@ Player.resume = function () {
 Player.waitTimeout = function () {
     if (this.currentFrame.timeoutEnable) {
         this.waitingTimeout = true;
-        var nextIndex = this.nextFrameIndex;
         this.timeoutHandle = window.setTimeout(
-            () => { this.moveToFrame(nextIndex); },
+            this.moveToFrame.bind(this, this.nextFrameIndex),
             this.currentFrame.timeoutMs
         );
     }
@@ -455,6 +454,12 @@ Player.onAnimatorStep = function (progress) {
         transition.camera.interpolate(transition.initialState, transition.finalState, progress, transition.timingFunction, transition.relativeZoom, transition.svgPath, transition.reverse);
         transition.camera.update();
     });
+};
+
+Player.onAnimatorStop = function () {
+    this.transitions = [];
+    this.currentFrameIndex = this.targetFrameIndex;
+    this.emit("frameChange");
 };
 
 Player.onAnimatorDone = function () {
