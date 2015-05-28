@@ -7,65 +7,65 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-05-14 09:10:+0000\n"
-"PO-Revision-Date: 2014-12-28 18:26+0000\n"
-"Last-Translator: desus <deesus@gmail.com>\n"
+"POT-Creation-Date: 2015-05-15 08:51+0000\n"
+"PO-Revision-Date: 2015-05-15 19:00+0000\n"
+"Last-Translator: Stefan <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
-"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-04-11 13:36+0000\n"
-"X-Generator: Launchpad (build 17423)\n"
+"X-Launchpad-Export-Date: 2015-05-28 19:36+0000\n"
+"X-Generator: Launchpad (build 17532)\n"
+"Language: pt_BR\n"
 
 #: build/js/Storage.js:83
 msgid "File %s could not be loaded."
-msgstr ""
+msgstr "Não pude carregar o arquivo %s."
 
 #: build/js/Storage.js:104
 msgid "Document was changed. Reloading."
-msgstr ""
+msgstr "Arquivo foi mudado. Carregando de novo."
 
 #: build/js/Storage.js:125
 msgid "Document is not valid SVG."
-msgstr ""
+msgstr "Não é um arquivo SVG válido."
 
 #: build/js/Storage.js:165
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr ""
+msgstr "Arquivo foi importado de Sozi 13 ou anterior."
 
 #: build/js/Storage.js:250
 msgid "Saved %s."
-msgstr ""
+msgstr "Salvei %s."
 
 #: build/js/backend/FileReader.js:19
 msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
 msgstr ""
+"Carrega arquivo local (<i class=\"fa fa-warning\"></i> só para mostrar)"
 
 #: build/js/backend/GoogleDrive.js:21
 msgid "Load from Google Drive"
-msgstr ""
+msgstr "Carrega de Google Drive"
 
 #: build/js/backend/NodeWebkit.js:51
 msgid "Load local file"
-msgstr ""
+msgstr "Carrega arquivo local."
 
 #: build/js/backend/NodeWebkit.js:88
 msgid "File not found: %s."
-msgstr ""
+msgstr "Arquivo não encontrado: %s."
 
 #: build/js/view/Properties.js:43
 msgid "Frame"
-msgstr ""
+msgstr "Frame"
 
 #: build/js/view/Properties.js:43
 msgid "Show in frame list"
 msgstr "Exibir frames como lista"
 
 #: build/js/view/Properties.js:43
-#, fuzzy
 msgid "Show frame number"
-msgstr "Exibir frames como lista"
+msgstr "Exibir número do frame"
 
 #: build/js/view/Properties.js:43
 msgid "Link to previous frame"
@@ -77,7 +77,7 @@ msgstr "Cortar"
 
 #: build/js/view/Properties.js:43
 msgid "Title"
-msgstr "Título"
+msgstr "nome do frame"
 
 #: build/js/view/Properties.js:43
 msgid "Id"
@@ -88,35 +88,32 @@ msgid "Timeout (seconds)"
 msgstr "Tempo de espera (segundos)"
 
 #: build/js/view/Properties.js:43
-#, fuzzy
 msgid "Timeout enable"
-msgstr "Tempo de espera (segundos)"
+msgstr "ativar o tempo de espera"
 
 #: build/js/view/Properties.js:43
 msgid "Reference element Id"
-msgstr ""
+msgstr "ID do elemento referencial"
 
 #: build/js/view/Properties.js:45
 msgid "Autoselect element"
-msgstr ""
+msgstr "selecionar elemento automaticamente"
 
 #: build/js/view/Properties.js:45
-#, fuzzy
 msgid "Hide element"
-msgstr "Elemento SVG"
+msgstr "Ocultar elemento"
 
 #: build/js/view/Properties.js:46
-#, fuzzy
 msgid "Fit to element"
-msgstr "Elemento SVG"
+msgstr "Ajuste tamanho ao elemento"
 
 #: build/js/view/Properties.js:50
 msgid "Layer opacity"
-msgstr ""
+msgstr "Opacidade da camada"
 
 #: build/js/view/Properties.js:50
 msgid "Transition"
-msgstr ""
+msgstr "Transição"
 
 #: build/js/view/Properties.js:50
 msgid "Duration (seconds)"
@@ -124,62 +121,55 @@ msgstr "Duração (segundos)"
 
 #: build/js/view/Properties.js:50
 msgid "Timing function"
-msgstr ""
+msgstr "jeito temporal de transição"
 
 #: build/js/view/Properties.js:59
 msgid "Relative zoom (%)"
-msgstr ""
+msgstr "ampliação relativa (%)"
 
 #: build/js/view/Properties.js:59
-#, fuzzy
 msgid "Path Id"
-msgstr "Caminho"
+msgstr "ID do caminho"
 
 #: build/js/view/Properties.js:59
-#, fuzzy
 msgid "Hide path"
-msgstr "Ocultar"
+msgstr "Esconde caminho"
 
 #: build/js/view/Timeline.js:264
-#, fuzzy
 msgid "Delete the selected frames"
-msgstr "Remover o quadro selecionado"
+msgstr "Excluir frames selecionados"
 
 #: build/js/view/Timeline.js:270
 msgid "Create a new frame"
 msgstr "Criar um novo quadro"
 
 #: build/js/view/Timeline.js:280
-#, fuzzy
 msgid "Add layer"
-msgstr "Adicionar camada '{0}'"
+msgstr "Adicionar camada"
 
 #: build/js/view/Timeline.js:285 build/js/view/Timeline.js:297
 msgid "This layer is visible. Click to hide it."
-msgstr ""
+msgstr "Essa camada é visível. Clique para esconder."
 
 #: build/js/view/Timeline.js:288 build/js/view/Timeline.js:300
 msgid "This layer is hidden. Click to show it."
-msgstr ""
+msgstr "Essa camada é invisível. Clique para revelar."
 
 #: build/js/view/Timeline.js:293 build/js/view/Timeline.js:309
 msgid "Default"
-msgstr ""
+msgstr "Padrão"
 
 #: build/js/view/Timeline.js:303
-#, fuzzy
 msgid "Remove this layer"
-msgstr "Remover a camada selecionada"
+msgstr "Excluir essa camada."
 
 #: build/js/view/Timeline.js:314
-#, fuzzy
 msgid "Insert selection before frame %d"
-msgstr "Mover o quadro selecionado para baixo"
+msgstr "Inserir a seleção antes de frame %d"
 
 #: build/js/view/Timeline.js:320
-#, fuzzy
 msgid "Insert selection after frame %d"
-msgstr "Mover o quadro selecionado para baixo"
+msgstr "Inserir a seleção após de frame %d"
 
 #: build/js/view/Toolbar.js:45
 msgid "Aspect ratio: "
@@ -188,17 +178,21 @@ msgstr ""
 #: build/js/view/Toolbar.js:72
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
+"Mova as camadas selecionadas (pressione ALT para ampliar, SHIFT para girar)"
 
 #: build/js/view/Toolbar.js:78
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
+"Amplie/diminua as camadas selecionadas (pode pressionar ALT no modo "
+"\"mover\")"
 
 #: build/js/view/Toolbar.js:84
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
+"gire as camadas selecionadas (pode pressionar SHIFT no modo \"mover\")"
 
 #: build/js/view/Toolbar.js:96
 msgid "Undo (Ctrl-Z)"
@@ -217,185 +211,13 @@ msgid "Enable full-screen mode"
 msgstr ""
 
 #: build/js/view/Toolbar.js:117
-#, fuzzy
 msgid "Save the presentation"
-msgstr "Apresentação"
+msgstr "Salve a presentação"
 
 #: build/js/view/Toolbar.js:124
 msgid "Reload the SVG document"
-msgstr ""
+msgstr "Recarregue o arquivo SVG"
 
 #: build/js/view/Toolbar.js:129
 msgid "Information"
-msgstr ""
-
-#~ msgid "Undo"
-#~ msgstr "Desfazer"
-
-#~ msgid "Redo"
-#~ msgstr "Refazer"
-
-#~ msgid "Restore '{0}' in frame {1}"
-#~ msgstr "Restaurar '{0}' no quadro {1}"
-
-#~ msgid "Change '{0}' in frame {1}"
-#~ msgstr "Alterar '{0}' no quadro {1}"
-
-#~ msgid "Restore '{0}' in layer '{1}' of frame {2}"
-#~ msgstr "Restaurar '{0}' na  camada {1} do quadro {2}"
-
-#~ msgid "Change '{0}' in layer '{1}' of frame {2}"
-#~ msgstr "Alterar '{0}' na camada '{1}' do quadro {2}"
-
-#~ msgid "Delete the new frame {0}"
-#~ msgstr "Remover o novo quadro {0}"
-
-#~ msgid "Create a new frame at {0}"
-#~ msgstr "Criar um novo quadro em {0}"
-
-#~ msgid "Remove the layer '{0}' from frame {1}"
-#~ msgstr "Remover a camada '{0}' do quadro {1}"
-
-#~ msgid "Add layer '{0}' to frame {1}"
-#~ msgstr "Adicionar a camada '{0}' no quadro {1}"
-
-#~ msgid "Restore deleted frame {0}"
-#~ msgstr "Restaurar o quadro removido {0}"
-
-#~ msgid "Delete frame {0}"
-#~ msgstr "Remover quadro {0}"
-
-#~ msgid "Restore deleted layer '{0}' in frame {1}"
-#~ msgstr "Restaurar camada  '{0}' removida  do quadro {1}"
-
-#~ msgid "Remove layer '{0}' from frame {1}"
-#~ msgstr "Remover camada '{0}' do quadro {1}"
-
-#~ msgid "Delete duplicated frame {0}"
-#~ msgstr "Excluir quadro duplicado {0}"
-
-#~ msgid "Duplicate frame {0}"
-#~ msgstr "Duplicar quadro {0}"
-
-#~ msgid "Move frame {0} up"
-#~ msgstr "Mover o quadro {0} para cima"
-
-#~ msgid "Move frame {0} down"
-#~ msgstr "Mover o quadro {0} para baixo"
-
-#~ msgid "Untitled"
-#~ msgstr "Sem título"
-
-#~ msgid "Create a new frame or add a layer"
-#~ msgstr "Criar um novo quadro ou adicionar uma camada"
-
-#~ msgid "New frame"
-#~ msgstr "Novo quadro"
-
-#~ msgid "Enabled"
-#~ msgstr "Ativado"
-
-#~ msgid "Disabled"
-#~ msgstr "Desativado(a)"
-
-#~ msgid "Constant speed"
-#~ msgstr "Velocidade Constante"
-
-#~ msgid "Speed up"
-#~ msgstr "Aumentar Velocidade"
-
-#~ msgid "Speed up (strong)"
-#~ msgstr "Aumentar velocidade (rapidamente)"
-
-#~ msgid "Speed down"
-#~ msgstr "Diminuir velocidade"
-
-#~ msgid "Speed down (strong)"
-#~ msgstr "Diminuir velocidade (rapidamente)"
-
-#~ msgid "Speed up, then down"
-#~ msgstr "Aumentar e então diminuir a velocidade"
-
-#~ msgid "Speed up, then down (strong)"
-#~ msgstr "Aumentar e então diminuir a velocidade (rapidamente)"
-
-#~ msgid "Speed down, then up"
-#~ msgstr "Diminuir velocidade e então aumentar"
-
-#~ msgid "Speed down, then up (strong)"
-#~ msgstr "Diminuir velocidade e então aumentar (rapidamente)"
-
-#~ msgid "Immediate (beginning)"
-#~ msgstr "Imediatamente (Início)"
-
-#~ msgid "Immediate (end)"
-#~ msgstr "Imediatamente (Fim)"
-
-#~ msgid "Immediate (middle)"
-#~ msgstr "Imediatamente (meio)"
-
-#~ msgid "No action to undo"
-#~ msgstr "Não há ações para serem desfeitas"
-
-#~ msgid "No action to redo"
-#~ msgstr "Não há ações para serem refeitas"
-
-#~ msgid "Seq."
-#~ msgstr "Seq."
-
-#~ msgid "New"
-#~ msgstr "Novo"
-
-#~ msgid "Duplicate the selected frame"
-#~ msgstr "Duplicar o quadro selecionado"
-
-#~ msgid "Duplicate"
-#~ msgstr "Duplicar"
-
-#~ msgid "Delete"
-#~ msgstr "Remover"
-
-#~ msgid "Move the selected frame up"
-#~ msgstr "Mover o quadro selecionado para cima"
-
-#~ msgid "Move frame up"
-#~ msgstr "Mover quadro para cima"
-
-#~ msgid "Move frame down"
-#~ msgstr "Mover quadro para baixo"
-
-#~ msgid "Set the reference to a selected SVG element"
-#~ msgstr "Referenciar um objeto SVG"
-
-#~ msgid "Remove the reference to this SVG element"
-#~ msgstr "Remover referência de um objeto SVG"
-
-#~ msgid "<b>Frame properties</b>"
-#~ msgstr "<b>Propriedades do quadro</b>"
-
-#~ msgid "Zoom (%)"
-#~ msgstr "Zoom (%)"
-
-#~ msgid "Profile"
-#~ msgstr "Perfil"
-
-#~ msgid "Set the reference to a selected SVG path"
-#~ msgstr "Estabelecer a referência para um caminho SVG"
-
-#~ msgid "Remove the reference to this SVG path"
-#~ msgstr "Remover a referência para um caminho SVG"
-
-#~ msgid "<b>Transition to this frame</b>"
-#~ msgstr "<b>Transições para esse quadro</b>"
-
-#~ msgid "Apply changes and go back to Inkscape"
-#~ msgstr "Aplicar mudanças e voltar para o Inkscape"
-
-#~ msgid "Cancel all changes and go back to Inkscape"
-#~ msgstr "Cancelar todas as alterações e voltar para o Inkscape"
-
-#~ msgid "Modules list"
-#~ msgstr "Lista de Módulos"
-
-#~ msgid "Settings"
-#~ msgstr "Preferências"
+msgstr "Informação"
