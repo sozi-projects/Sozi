@@ -305,27 +305,24 @@ module.exports = function(grunt) {
      * Compress enabled node-webkit applications
      * for various platforms.
      */
-    for (var targetName in targetConfig) {
-        if (grunt.config(["nodewebkit", "options", "platforms"]).indexOf(targetName) >= 0) {
-            var prefix = "Sozi-" + pkg.version + "-" + targetName;
+    buildConfig.platforms.forEach(function (targetName) {
+        var prefix = "Sozi-" + pkg.version + "-" + targetName;
 
-            grunt.config(["rename", targetName], {
-                src: "build/Sozi/" + targetName,
-                dest: "build/Sozi/" + prefix
-            });
+        grunt.config(["rename", targetName], {
+            src: "build/Sozi/" + targetName,
+            dest: "build/Sozi/" + prefix
+        });
 
-            grunt.config(["compress", targetName], {
-                options: {
-                    // TODO preserve permissions for Linux executables
-                    mode: targetConfig[targetName],
-                    archive: "build/" + prefix + "." + targetConfig[targetName]
-                },
-                expand: true,
-                cwd: "build/Sozi/",
-                src: [prefix + "/**/*"]
-            });
-        }
-    }
+        grunt.config(["compress", targetName], {
+            options: {
+                mode: targetConfig[targetName],
+                archive: "build/" + prefix + "." + targetConfig[targetName]
+            },
+            expand: true,
+            cwd: "build/Sozi/",
+            src: [prefix + "/**/*"]
+        });
+    });
 
     grunt.registerTask("write_package_json", function () {
         grunt.file.write("build/package.json", JSON.stringify(pkg));

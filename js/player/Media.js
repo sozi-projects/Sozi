@@ -10,7 +10,7 @@ var xhtmlNs = "http://www.w3.org/1999/xhtml";
 
 var player;
 
-function clickHandler(evt) {
+function defaultEventHandler(evt) {
     evt.stopPropagation();
 }
 
@@ -88,8 +88,11 @@ export function init(aPlayer) {
                 htmlMedia.setAttribute("width", rect.getAttribute("width"));
                 htmlMedia.setAttribute("height", rect.getAttribute("height"));
             }
-            htmlMedia.addEventListener("click", clickHandler, false);
-            htmlMedia.addEventListener("contextmenu", clickHandler, false);
+            htmlMedia.addEventListener("click", defaultEventHandler, false);
+            htmlMedia.addEventListener("mousedown", defaultEventHandler, false);
+            htmlMedia.addEventListener("mouseup", defaultEventHandler, false);
+            htmlMedia.addEventListener("mousemove", defaultEventHandler, false);
+            htmlMedia.addEventListener("contextmenu", defaultEventHandler, false);
 
             // Create HTML root element
             var html = document.createElementNS(xhtmlNs, "html");
