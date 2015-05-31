@@ -18,18 +18,6 @@ Camera.init = function (viewport, layer) {
     this.layer = layer;
     this.selected = true;
 
-    // The group that will support the clipping operation
-    var svgClippedGroup = document.createElementNS(SVG_NS, "g");
-    viewport.svgRoot.appendChild(svgClippedGroup);
-
-    // The groups that will support transformations
-    this.svgTransformGroups = layer.svgNodes.map(svgNode => {
-        var svgGroup = document.createElementNS(SVG_NS, "g");
-        svgGroup.appendChild(svgNode);
-        svgClippedGroup.appendChild(svgGroup);
-        return svgGroup;
-    });
-
     // The clipping rectangle of this camera
     this.svgClipRect = document.createElementNS(SVG_NS, "rect");
 
@@ -48,8 +36,6 @@ Camera.init = function (viewport, layer) {
 
         this.svgClipRect.setAttribute("fill", "white");
         svgMask.appendChild(this.svgClipRect);
-
-        svgClippedGroup.setAttribute("mask", "url(#" + svgMaskId + ")");
 
         // We also define two rectangles that will show the outline
         // of the clipped region in alternating white and black dashes.
@@ -74,9 +60,26 @@ Camera.init = function (viewport, layer) {
         svgClipPath.setAttribute("id", svgClipPathId);
         svgClipPath.appendChild(this.svgClipRect);
         viewport.svgRoot.appendChild(svgClipPath);
-
-        svgClippedGroup.setAttribute("clip-path", "url(#" + svgClipPathId + ")");
     }
+
+    // The groups that will support transformations
+    this.svgTransformGroups = layer.svgNodes.map(svgNode => {
+        // The group that will support the clipping operation
+        var svgClippedGroup = document.createElementNS(SVG_NS, "g");
+        viewport.svgRoot.insertBefore(svgClippedGroup, svgNode);
+
+        if (viewport.editMode) {
+            svgClippedGroup.setAttribute("mask", "url(#" + svgMaskId + ")");
+        }
+        else {
+            svgClippedGroup.setAttribute("clip-path", "url(#" + svgClipPathId + ")");
+        }
+
+        var svgGroup = document.createElementNS(SVG_NS, "g");
+        svgGroup.appendChild(svgNode);
+        svgClippedGroup.appendChild(svgGroup);
+        return svgGroup;
+    });
 
     return this;
 };
