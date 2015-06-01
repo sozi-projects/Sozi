@@ -12,15 +12,15 @@ import {upgrade} from "./upgrade";
 
 export var Storage = Object.create(EventEmitter.prototype);
 
-Storage.init = function (controller, presentation, selection, timeline, locale) {
+Storage.init = function (controller, document, presentation, selection, timeline, locale) {
     EventEmitter.call(this);
 
     this.controller = controller;
+    this.document = document;
     this.presentation = presentation;
     this.selection = selection;
     this.timeline = timeline;
     this.backend = null;
-    this.svgData = "";
     this.svgFileDescriptor = null;
     this.jsonNeedsSaving = false;
     this.htmlNeedsSaving = false;
@@ -67,12 +67,17 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
     }
     else if (/\.svg$/.test(name)) {
         this.reloading = fileDescriptor === this.svgFileDescriptor;
-        if (this.loadSVG(data)) {
+        this.document.import(data);
+        if (this.document.isValidSVG) {
+            this.controller.setSVGDocument(this.document);
             this.svgFileDescriptor = fileDescriptor;
             this.openJSONFile(name.replace(/\.svg$/, ".sozi.json"), location);
             this.controller.once("ready", () => {
                 this.createHTMLFile(name.replace(/\.svg$/, ".sozi.html"), location);
             });
+        }
+        else {
+            $.notify(_("Document is not valid SVG."), "error");
         }
     }
     else if (/\.sozi\.json$/.test(name)) {
@@ -89,40 +94,6 @@ Storage.onBackendChange = function (fileDescriptor) {
         $.notify(_("Document was changed. Reloading."), "info");
         this.reload();
     }
-};
-
-/*
- * Create an SVG DOM tree from the given textual data
- * and add it to the editor "preview" area.
- *
- * Return true on success, false on failure.
- */
-Storage.loadSVG = function (data) {
-    var _ = this.gettext;
-
-    // Create a DOM tree from the given textual data
-    var div = document.createElement("div");
-    div.innerHTML = data;
-
-    // Check that the root of is an SVG element
-    var svgRoot = div.firstElementChild;
-    if (!(svgRoot instanceof SVGSVGElement)) {
-        $.notify(_("Document is not valid SVG."), "error");
-        return false;
-    }
-
-    // Remove any existing script inside the SVG DOM tree
-    var scripts = Array.prototype.slice.call(svgRoot.getElementsByTagName("script"));
-    scripts.forEach(script => {
-        script.parentNode.removeChild(script);
-    });
-
-    this.svgData = div.innerHTML;
-
-    // TODO Transform xlink:href attributes to replace relative URLs with absolute URLs
-
-    this.controller.setSVGRoot(svgRoot);
-    return true;
 };
 
 /*
@@ -248,7 +219,7 @@ Storage.getJSONData = function () {
  */
 Storage.exportHTML = function () {
     return nunjucks.render("build/templates/player.html", {
-        svg: this.svgData,
+        svg: this.document.asText,
         pres: this.presentation,
         json: JSON.stringify(this.presentation.toMinimalStorable())
     });

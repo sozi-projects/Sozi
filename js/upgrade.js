@@ -63,14 +63,14 @@ export function upgrade(pres, timeline) {
     // (ns1, ns2, ...). We first need to identify which one corresponds to the Sozi namespace.
 
     // Get the xmlns for the Sozi namespace
-    var soziNsAttrs = toArray(pres.svgRoot.attributes).filter(a => a.value === SOZI_NS);
+    var soziNsAttrs = toArray(pres.document.root.attributes).filter(a => a.value === SOZI_NS);
     if (!soziNsAttrs.length) {
         return;
     }
     var soziPrefix = soziNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
 
     // Get an ordered array of sozi:frame elements
-    var frameElts = toArray(pres.svgRoot.getElementsByTagName(soziPrefix + "frame"));
+    var frameElts = toArray(pres.document.root.getElementsByTagName(soziPrefix + "frame"));
     frameElts.sort((a, b) => parseInt(a.getAttribute(soziPrefix + "sequence")) - parseInt(b.getAttribute(soziPrefix + "sequence")));
 
     // The "default" pool contains all layers that have no corresponding
@@ -122,10 +122,10 @@ export function upgrade(pres, timeline) {
             // update the camera state for this layer.
             var refElt;
             if (layerElt && layerElt.hasAttribute(soziPrefix + "refid")) {
-                refElt = pres.svgRoot.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
+                refElt = pres.document.root.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
             }
             else if (defaultLayers.indexOf(layer) >= 0) {
-                refElt = pres.svgRoot.getElementById(frameElt.getAttribute(soziPrefix + "refid"));
+                refElt = pres.document.root.getElementById(frameElt.getAttribute(soziPrefix + "refid"));
             }
             if (refElt) {
                 layerProperties.referenceElementId = refElt.getAttribute("id");

@@ -29,7 +29,7 @@ export var Preview = {
 
     onLoadSVG() {
         $("html head title").text(this.presentation.title);
-        $(this.container).html(this.presentation.svgRoot);
+        $(this.container).html(this.presentation.document.root);
         this.viewport.onLoad();
     },
 

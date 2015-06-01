@@ -71,11 +71,11 @@ export var LayerProperties = {
     },
 
     get referenceElement() {
-        return this.frame.presentation.svgRoot.getElementById(this.referenceElementId);
+        return this.frame.presentation.document.root.getElementById(this.referenceElementId);
     },
 
     get transitionPath() {
-        return this.frame.presentation.svgRoot.getElementById(this.transitionPathId);
+        return this.frame.presentation.document.root.getElementById(this.transitionPathId);
     },
 
     get referenceElementHide() {
@@ -129,7 +129,7 @@ export var Frame = {
         this.presentation = presentation;
         this.frameId = presentation.makeFrameId();
         this.layerProperties = presentation.layers.map(lp => Object.create(LayerProperties).init(this));
-        this.cameraStates = presentation.layers.map(cs => Object.create(CameraState).init(presentation.svgRoot));
+        this.cameraStates = presentation.layers.map(cs => Object.create(CameraState).init(presentation.document.root));
         return this;
     },
 
@@ -283,13 +283,6 @@ export var Layer = {
 // Constant: the SVG namespace
 var SVG_NS = "http://www.w3.org/2000/svg";
 
-// Constant: the Inkscape namespace
-// var INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
-
-// Constant: The SVG element names that can be found in layers
-var DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
-    "ellipse", "line", "polyline", "polygon", "text", "clippath" ];
-
 export var Presentation = {
 
     aspectWidth: 4,
@@ -301,78 +294,32 @@ export var Presentation = {
      * Returns:
      *    - The current presentation object.
      */
-    init(svgRoot) {
-        this.svgRoot = svgRoot;
+    init(svgDocument) {
+        this.document = svgDocument;
         this.frames = [];
         this.layers = [];
         this.elementsToHide = [];
 
-        // Remove attributes that prevent correct rendering
-        svgRoot.removeAttribute("viewBox");
-        svgRoot.style.width = svgRoot.style.height = "auto";
-
         // Create an empty wrapper layer for elements that do not belong to a valid layer
         var autoLayer = Object.create(Layer).init(this, "auto", true);
 
-        var svgWrapper = document.createElementNS(SVG_NS, "g");
-
-        // Get all child nodes of the SVG root.
-        // Make a copy of svgRoot.childNodes before modifying the document.
-        var svgNodeList = Array.prototype.slice.call(svgRoot.childNodes);
-
+        var svgNodeList = Array.prototype.slice.call(this.document.root.childNodes);
         svgNodeList.forEach(svgNode => {
-            // Remove text nodes and comments
-            if (svgNode.tagName === undefined) {
-                svgRoot.removeChild(svgNode);
-            }
-            // Reorganize SVG elements
-            else {
-                var nodeName = svgNode.localName.toLowerCase();
+            if (svgNode.localName.toLowerCase() === "g") {
                 var nodeId = svgNode.getAttribute("id");
-
-                if (DRAWABLE_TAGS.indexOf(nodeName) >= 0) {
-                    // The current node is a valid layer if it has the following characteristics:
-                    //    - it is an SVG group element
-                    //    - it has an id that has not been met before
-                    if (nodeName === "g" && nodeId !== null &&
-                        this.layers.every(layer => layer.nodeId !== nodeId)) {
-                        // If the current wrapper layer contains elements,
-                        // add it to the document and to the list of layers.
-                        if (svgWrapper.firstChild) {
-                            svgRoot.insertBefore(svgWrapper, svgNode);
-                            autoLayer.svgNodes.push(svgWrapper);
-
-                            // Create a new empty wrapper layer
-                            svgWrapper = document.createElementNS(SVG_NS, "g");
-                        }
-
-                        // Add the current node as a new layer.
-                        var layer = Object.create(Layer).init(this, svgNode.hasAttribute("inkscape:label") ? svgNode.getAttribute("inkscape:label") : ("#" + nodeId), false);
-                        layer.svgNodes.push(svgNode);
-                        this.layers.push(layer);
-                    }
-                    else {
-                        svgWrapper.appendChild(svgNode);
-                    }
+                if (nodeId === null) {
+                    autoLayer.svgNodes.push(svgNode);
+                }
+                else {
+                    // Add the current node as a new layer.
+                    var layer = Object.create(Layer).init(this, this.document.handler.getLabel(svgNode) || ("#" + nodeId), false);
+                    layer.svgNodes.push(svgNode);
+                    this.layers.push(layer);
                 }
             }
         });
 
-        // If the current wrapper layer contains elements,
-        // add it to the document and to the list of layers.
-        if (svgWrapper.firstChild) {
-            svgRoot.appendChild(svgWrapper);
-            autoLayer.svgNodes.push(svgWrapper);
-        }
-
         this.layers.push(autoLayer);
-
-        // Prevent event propagation on hyperlinks
-        var links = Array.prototype.slice.call(svgRoot.getElementsByTagName("a"));
-
-        links.forEach(link => {
-            link.addEventListener("mousedown", evt => evt.stopPropagation(), false);
-        });
 
         return this;
     },
@@ -407,7 +354,7 @@ export var Presentation = {
     },
 
     get title() {
-        var svgTitles = this.svgRoot.getElementsByTagNameNS(SVG_NS, "title");
+        var svgTitles = this.document.root.getElementsByTagNameNS(SVG_NS, "title");
         return svgTitles.length ? svgTitles[0].firstChild.wholeText.trim() : "Untitled";
     },
 

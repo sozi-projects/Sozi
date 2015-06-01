@@ -41,7 +41,7 @@ export function init(aPlayer) {
     // Find namespace prefix for Sozi.
     // Inlining SVG inside HTML does not allow to use
     // namespace-aware DOM methods.
-    var svgRoot = player.presentation.svgRoot;
+    var svgRoot = player.presentation.document.root;
     var svgAttributes = svgRoot.attributes;
     var soziPrefix;
     for (var attrIndex = 0; attrIndex < svgAttributes.length; attrIndex ++) {

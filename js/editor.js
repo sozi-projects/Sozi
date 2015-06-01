@@ -4,6 +4,7 @@
 
 "use strict";
 
+import {SVGDocument} from "./svg/SVGDocument";
 import {Presentation} from "./model/Presentation";
 import {Selection} from "./model/Selection";
 import {Storage} from "./Storage";
@@ -30,7 +31,7 @@ window.addEventListener("load", () => {
     Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, locale);
     Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, locale);
     Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, locale);
-    Storage.init(Controller, Presentation, Selection, Timeline, locale);
+    Storage.init(Controller, SVGDocument, Presentation, Selection, Timeline, locale);
 
     var body = $("body");
     var left = $(".left");

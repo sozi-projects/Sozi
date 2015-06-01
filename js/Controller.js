@@ -50,8 +50,8 @@ Controller.reload = function () {
     this.storage.reload();
 };
 
-Controller.setSVGRoot = function (svgRoot) {
-    this.presentation.init(svgRoot);
+Controller.setSVGDocument = function (svgDocument) {
+    this.presentation.init(svgDocument);
     this.emit("loadSVG");
 };
 
@@ -361,7 +361,7 @@ Controller.fitElement = function () {
         var hasReferenceElement = false;
         this.selection.selectedLayers.forEach(layer => {
             var id = currentFrame.layerProperties[layer.index].referenceElementId;
-            var elt = this.presentation.svgRoot.getElementById(id);
+            var elt = this.presentation.document.root.getElementById(id);
             if (elt) {
                 hasReferenceElement = true;
                 modifiedFrame.cameraStates[layer.index].setAtElement(elt);

@@ -100,7 +100,8 @@ module.exports = function(grunt) {
                     "es6.arrowFunctions",
                     "es6.properties.shorthand",
                     "es6.modules",
-                    "es6.templateLiterals"
+                    "es6.templateLiterals",
+                    "es6.destructuring"
                 ]
             },
             all: {
@@ -141,6 +142,7 @@ module.exports = function(grunt) {
                     external: ["nw.gui", "fs", "path", "process"]
                 },
                 src: [
+                    "build/js/svg/*Handler.js",
                     "<%= nunjucks.player.dest %>",
                     "build/js/editor.js"
                 ],
