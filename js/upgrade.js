@@ -4,13 +4,10 @@
 
 "use strict";
 
+import {toArray} from "./utils";
 import {Frame} from "./model/Presentation";
 
 var SOZI_NS = "http://sozi.baierouge.fr";
-
-function toArray(coll) {
-    return Array.prototype.slice.call(coll);
-}
 
 function parseBoolean(str) {
     return str === "true";

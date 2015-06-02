@@ -4,6 +4,8 @@
 
 "use strict";
 
+import {toArray} from "../utils";
+
 var	svgNs = "http://www.w3.org/2000/svg";
 var soziNs = "http://sozi.baierouge.fr";
 var xhtmlNs = "http://www.w3.org/1999/xhtml";
@@ -27,10 +29,6 @@ function onFrameChange() {
     if (mediaToStop) {
         mediaToStop.pause();
     }
-}
-
-function toArray(collection) {
-    return Array.prototype.slice.call(collection);
 }
 
 export function init(aPlayer) {
@@ -59,7 +57,7 @@ export function init(aPlayer) {
     var videoSources = svgRoot.getElementsByTagName(soziPrefix + ":video");
     var audioSources = svgRoot.getElementsByTagName(soziPrefix + ":audio");
 
-    var mediaSources = Array.prototype.slice.call(videoSources).concat(Array.prototype.slice.call(audioSources));
+    var mediaSources = toArray(videoSources).concat(toArray(audioSources));
 
     // Replace them with HTML5 audio and video elements
     var mediaList = [];

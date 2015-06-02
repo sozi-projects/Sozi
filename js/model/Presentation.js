@@ -4,6 +4,7 @@
 
 "use strict";
 
+import {toArray} from "../utils";
 import {CameraState} from "./CameraState";
 
 function copyIfSet(dest, src, prop) {
@@ -303,16 +304,17 @@ export var Presentation = {
         // Create an empty wrapper layer for elements that do not belong to a valid layer
         var autoLayer = Object.create(Layer).init(this, "auto", true);
 
-        var svgNodeList = Array.prototype.slice.call(this.document.root.childNodes);
-        svgNodeList.forEach(svgNode => {
-            if (svgNode.localName.toLowerCase() === "g") {
+        toArray(this.document.root.childNodes).forEach(svgNode => {
+            if (svgNode.localName === "g") {
                 var nodeId = svgNode.getAttribute("id");
                 if (nodeId === null) {
                     autoLayer.svgNodes.push(svgNode);
                 }
                 else {
                     // Add the current node as a new layer.
-                    var layer = Object.create(Layer).init(this, this.document.handler.getLabel(svgNode) || ("#" + nodeId), false);
+                    var layer = Object.create(Layer).init(this,
+                        this.document.handler.getLabel(svgNode) || ("#" + nodeId),
+                        false);
                     layer.svgNodes.push(svgNode);
                     this.layers.push(layer);
                 }

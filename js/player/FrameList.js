@@ -4,6 +4,7 @@
 
 "use strict";
 
+import {toArray} from "../utils";
 import {Animator} from "./Animator";
 import * as Timing from "./Timing";
 
@@ -23,7 +24,7 @@ export function init(aPlayer) {
 
     frameList = document.querySelector(".sozi-frame-list");
 
-    links = Array.prototype.slice.call(frameList.querySelectorAll("li a"));
+    links = toArray(frameList.querySelectorAll("li a"));
     links.forEach(link => {
         link.addEventListener("click", evt => {
             if (evt.button === 0) {

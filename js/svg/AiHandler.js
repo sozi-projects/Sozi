@@ -4,46 +4,43 @@
 
 "use strict";
 
-import {handlers} from "./SVGDocument";
+import {toArray} from "../utils";
+import {registerHandler, DefaultHandler} from "./SVGDocument";
 
 // Constant: the Inkscape namespace
 var INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
 
-handlers.push({
-    name: "Adobe Illustrator",
+var AiHandler = Object.create(DefaultHandler);
 
-    canProcess(svgRoot) {
-        return /^http:\/\/ns.adobe.com\/AdobeIllustrator/.test(svgRoot.getAttribute("xmlns:i"));
-    },
+AiHandler.matches = function (svgRoot) {
+    return /^http:\/\/ns.adobe.com\/AdobeIllustrator/.test(svgRoot.getAttribute("xmlns:i"));
+};
 
-    transform(svgRoot) {
-        Array.prototype.slice.call(svgRoot.childNodes).forEach(svgNode => {
-            if (svgNode.localName === "switch") {
-                // Remove first foreignObject child node
-                var foreignObject = svgNode.firstElementChild;
-                if (foreignObject && foreignObject.localName === "foreignObject") {
-                    svgNode.removeChild(foreignObject);
-                }
-                // Unwrap main group
-                var mainGroup = svgNode.firstElementChild;
-                if (!mainGroup || mainGroup.localName !== "g" || mainGroup.getAttribute("i:extraneous") !== "self") {
-                    mainGroup = svgNode;
-                }
-                Array.prototype.slice.call(mainGroup.childNodes).forEach(childNode => {
-                    svgRoot.insertBefore(childNode, svgNode);
-                });
-                // Remove switch element
-                svgRoot.removeChild(svgNode);
+AiHandler.transform = function (svgRoot) {
+    toArray(svgRoot.childNodes).forEach(svgNode => {
+        if (svgNode.localName === "switch") {
+            // Remove first foreignObject child node
+            var foreignObject = svgNode.firstElementChild;
+            if (foreignObject && foreignObject.localName === "foreignObject") {
+                svgNode.removeChild(foreignObject);
             }
-        });
-        return this;
-    },
+            // Unwrap main group
+            var mainGroup = svgNode.firstElementChild;
+            if (!mainGroup || mainGroup.localName !== "g" || mainGroup.getAttribute("i:extraneous") !== "self") {
+                mainGroup = svgNode;
+            }
+            toArray(mainGroup.childNodes).forEach(childNode => {
+                svgRoot.insertBefore(childNode, svgNode);
+            });
+            // Remove switch element
+            svgRoot.removeChild(svgNode);
+        }
+    });
+    return this;
+};
 
-    isLayer(svgElement) {
-        return svgElement.getAttribute("i:layer") === "yes";
-    },
+AiHandler.isLayer = function (svgElement) {
+    return svgElement.getAttribute("i:layer") === "yes";
+};
 
-    getLabel(svgElement) {
-        return null;
-    }
-});
+registerHandler("Adobe Illustrator", AiHandler);

@@ -4,6 +4,8 @@
 
 "use strict";
 
+import {toArray} from "../utils";
+
 // Constant: the SVG namespace
 var SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -11,12 +13,14 @@ var SVG_NS = "http://www.w3.org/2000/svg";
 var DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
     "ellipse", "line", "polyline", "polygon", "text", "clippath" ];
 
-export var handlers = [];
+var handlers = {};
 
-var DefaultHandler = {
-    name: "Default",
+export function registerHandler(name, handler) {
+    handlers[name] = handler;
+}
 
-    canProcess(svgRoot) {
+export var DefaultHandler = {
+    matches(svgRoot) {
         return true;
     },
 
@@ -41,12 +45,13 @@ export var SVGDocument = {
     init(svgRoot) {
         this.root = svgRoot;
         this.handler = DefaultHandler;
-        handlers.forEach(h => {
-            if (h.canProcess(svgRoot)) {
-                this.handler = h;
+        for (var name in handlers) {
+            if (handlers[name].matches(svgRoot)) {
+                console.log(`Using handler: ${name}`);
+                this.handler = handlers[name];
+                break;
             }
-        });
-        console.log(`Using handler: ${this.handler.name}`);
+        }
         return this;
     },
 
@@ -74,13 +79,13 @@ export var SVGDocument = {
             this.root.style.width = this.root.style.height = "auto";
 
             // Remove any existing script inside the SVG DOM tree
-            var scripts = Array.prototype.slice.call(this.root.getElementsByTagName("script"));
+            var scripts = toArray(this.root.getElementsByTagName("script"));
             scripts.forEach(script => {
                 script.parentNode.removeChild(script);
             });
 
             // Prevent event propagation on hyperlinks
-            var links = Array.prototype.slice.call(this.root.getElementsByTagName("a"));
+            var links = toArray(this.root.getElementsByTagName("a"));
             links.forEach(link => {
                 link.addEventListener("mousedown", evt => evt.stopPropagation(), false);
             });
@@ -92,7 +97,7 @@ export var SVGDocument = {
 
             // Get all child nodes of the SVG root.
             // Make a copy of root.childNodes before modifying the document.
-            Array.prototype.slice.call(this.root.childNodes).forEach(svgNode => {
+            toArray(this.root.childNodes).forEach(svgNode => {
                 // Remove text nodes and comments
                 if (svgNode.tagName === undefined) {
                     this.root.removeChild(svgNode);

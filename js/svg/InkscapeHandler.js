@@ -4,27 +4,23 @@
 
 "use strict";
 
-import {handlers} from "./SVGDocument";
+import {registerHandler, DefaultHandler} from "./SVGDocument";
 
 // Constant: the Inkscape namespace
 var INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
 
-handlers.push({
-    name: "Inkscape",
+var InkscapeHandler = Object.create(DefaultHandler);
 
-    canProcess(svgRoot) {
-        return svgRoot.getAttribute("xmlns:inkscape") === INKSCAPE_NS;
-    },
+InkscapeHandler.matches = function (svgRoot) {
+    return svgRoot.getAttribute("xmlns:inkscape") === INKSCAPE_NS;
+};
 
-    transform(svgRoot) {
-        return this;
-    },
+InkscapeHandler.isLayer = function (svgElement) {
+    return svgElement.getAttribute("inkscape:groupmode") === "layer";
+};
 
-    isLayer(svgElement) {
-        return svgElement.getAttribute("inkscape:groupmode") === "layer";
-    },
+InkscapeHandler.getLabel = function (svgElement) {
+    return svgElement.getAttribute("inkscape:label");
+};
 
-    getLabel(svgElement) {
-        return svgElement.getAttribute("inkscape:label");
-    }
-});
+registerHandler("Inkscape", InkscapeHandler);

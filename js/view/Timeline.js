@@ -4,6 +4,7 @@
 
 "use strict";
 
+import {toArray} from "../utils";
 import h from "virtual-dom/h";
 import {VirtualDOMView} from "./VirtualDOMView";
 import Jed from "jed";
@@ -211,8 +212,8 @@ Timeline.repaint = function () {
     bottomLeft.style.height = bottomRight.style.height = bottomHeight + "px";
 
     // Corresponding rows in left and right tables must have the same height
-    var leftRows  = Array.prototype.slice.call(topLeft.querySelectorAll("tr")).concat(Array.prototype.slice.call(bottomLeft.querySelectorAll("tr")));
-    var rightRows = Array.prototype.slice.call(topRight.querySelectorAll("tr")).concat(Array.prototype.slice.call(bottomRight.querySelectorAll("tr")));
+    var leftRows  = toArray(topLeft.querySelectorAll("tr")).concat(toArray(bottomLeft.querySelectorAll("tr")));
+    var rightRows = toArray(topRight.querySelectorAll("tr")).concat(toArray(bottomRight.querySelectorAll("tr")));
     leftRows.forEach((leftRow, rowIndex) => {
         var rightRow = rightRows[rowIndex];
         var maxHeight = Math.max(leftRow.clientHeight, rightRow.clientHeight);
