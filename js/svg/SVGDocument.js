@@ -59,6 +59,18 @@ export var SVGDocument = {
         return this.root instanceof SVGSVGElement;
     },
 
+    /*
+     * The given node is a valid layer if it has the following characteristics:
+     *    - it is an SVG group element
+     *    - it has an id that has not been met before
+     *    - it is recognized as a layer by the current SVG handler
+     */
+    isLayer(svgNode) {
+        return svgNode instanceof SVGGElement &&
+            svgNode.hasAttribute("id") &&
+            this.handler.isLayer(svgNode);
+    },
+
     import(data) {
         this.asText = "";
         this.root = undefined;
@@ -67,9 +79,15 @@ export var SVGDocument = {
         var div = document.createElement("div");
         div.innerHTML = data;
 
-        this.init(div.firstElementChild);
+        // Remove everything before the first element
+        while (div.firstChild !== div.firstElementChild) {
+            div.removeChild(div.firstChild);
+        }
 
-        // Check that the root of is an SVG element
+        // Now, the first child of the div is the SVG root
+        this.init(div.firstChild);
+
+        // Check that the root is an SVG element
         if (this.isValidSVG) {
             // Apply handler-specific transformations
             this.handler.transform(this.root);
@@ -102,33 +120,25 @@ export var SVGDocument = {
                 if (svgNode.tagName === undefined) {
                     this.root.removeChild(svgNode);
                 }
-                // Reorganize SVG elements
-                else {
-                    var nodeName = svgNode.localName.toLowerCase();
-
-                    if (DRAWABLE_TAGS.indexOf(nodeName) >= 0) {
-                        // The current node is a valid layer if it has the following characteristics:
-                        //    - it is an SVG group element
-                        //    - it has an id that has not been met before
-                        if (nodeName === "g" && svgNode.hasAttribute("id") && this.handler.isLayer(svgNode)) {
-                            // If the current wrapper layer contains elements,
-                            // add it to the document and to the list of layers.
-                            if (svgWrapper.firstChild) {
-                                this.root.insertBefore(svgWrapper, svgNode);
-
-                                // Create a new empty wrapper layer
-                                svgWrapper = document.createElementNS(SVG_NS, "g");
-                            }
-                        }
-                        else {
-                            svgWrapper.appendChild(svgNode);
-                        }
+                // Reorganize drawable SVG elements into top-level groups
+                else if (DRAWABLE_TAGS.indexOf(svgNode.localName) >= 0) {
+                    // If the current node is not a layer,
+                    // add it to the current wrapper.
+                    if (!this.isLayer(svgNode)) {
+                        svgWrapper.appendChild(svgNode);
+                    }
+                    // If the current node is a layer and the current
+                    // wrapper contains elements, insert the wrapper
+                    // into the document and create a new empty wrapper.
+                    else if (svgWrapper.firstChild) {
+                        this.root.insertBefore(svgWrapper, svgNode);
+                        svgWrapper = document.createElementNS(SVG_NS, "g");
                     }
                 }
             });
 
             // If the current wrapper layer contains elements,
-            // add it to the document and to the list of layers.
+            // add it to the document.
             if (svgWrapper.firstChild) {
                 this.root.appendChild(svgWrapper);
             }
