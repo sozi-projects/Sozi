@@ -198,12 +198,15 @@ module.exports = function(grunt) {
                         expand: true,
                         src: [
                             "index.html",
-                            "build/package.json",
                             "css/**/*",
                             "vendor/**/*",
                             "bower_components/**/*"
                         ],
                         dest: "build/app"
+                    },
+                    {
+                        src: "build/package.json",
+                        dest: "build/app/package.json"
                     },
                     {
                         src: "<%= uglify.editor.dest %>",
