@@ -271,12 +271,12 @@ export var Layer = {
     },
 
     get isVisible() {
-        return this.svgNodes.some(node => window.getComputedStyle(node).visibility === "visible");
+        return this.svgNodes.some(node => window.getComputedStyle(node).display !== "none");
     },
 
     set isVisible(visible) {
         this.svgNodes.forEach(node => {
-            node.style.visibility = visible ? "visible" : "hidden";
+            node.style.display = visible ? "inline" : "none";
         });
     }
 };
