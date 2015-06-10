@@ -21,13 +21,15 @@ var mediaToStopByFrameId = {};
 
 function onFrameChange() {
     var frameId = player.currentFrame.frameId;
-    var mediaToStart = mediaToStartByFrameId[frameId];
-    if (mediaToStart) {
-        mediaToStart.play();
+    if (frameId in mediaToStartByFrameId) {
+        mediaToStartByFrameId[frameId].forEach(m => {
+            m.play();
+        });
     }
-    var mediaToStop = mediaToStopByFrameId[frameId];
-    if (mediaToStop) {
-        mediaToStop.pause();
+    if (frameId in mediaToStopByFrameId) {
+        mediaToStopByFrameId[frameId].forEach(m => {
+            m.pause();
+        });
     }
 }
 
@@ -107,8 +109,20 @@ export function init(aPlayer) {
             rect.parentNode.insertBefore(foreignObject, rect.nextSibling);
 
             if (source.hasAttribute(soziPrefix + ":start-frame")) {
-                mediaToStartByFrameId[source.getAttribute(soziPrefix + ":start-frame")] = htmlMedia;
-                mediaToStopByFrameId[source.getAttribute(soziPrefix + ":stop-frame")] = htmlMedia;
+                var startFrameId = source.getAttribute(soziPrefix + ":start-frame");
+                var stopFrameId = source.getAttribute(soziPrefix + ":stop-frame");
+                if (!(startFrameId in mediaToStartByFrameId)) {
+                    mediaToStartByFrameId[startFrameId] = [];
+                }
+                if (!(stopFrameId in mediaToStopByFrameId)) {
+                    mediaToStopByFrameId[stopFrameId] = [];
+                }
+                mediaToStartByFrameId[startFrameId].push(htmlMedia);
+                mediaToStopByFrameId[stopFrameId].push(htmlMedia);
+            }
+
+            if (source.getAttribute(soziPrefix + ":loop") === "true") {
+                htmlMedia.setAttribute("loop", "true");
             }
 
             mediaList.push({
