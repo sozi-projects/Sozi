@@ -7,10 +7,12 @@
 import Jed from "jed";
 import locales from "./locales";
 
-export function init() {
-    var lang = window.navigator.languages && window.navigator.languages.length ?
-        window.navigator.languages[0] :
-        (window.navigator.language || window.navigator.userLanguage || "en");
+export function init(lang) {
+    if (!lang) {
+        lang = window.navigator.languages && window.navigator.languages.length ?
+            window.navigator.languages[0] :
+            (window.navigator.language || window.navigator.userLanguage || "en");
+    }
 
     var langShort = lang.split(/[-_]/)[0];
 
