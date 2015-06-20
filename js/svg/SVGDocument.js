@@ -108,8 +108,6 @@ export var SVGDocument = {
                 link.addEventListener("mousedown", evt => evt.stopPropagation(), false);
             });
 
-            // TODO Transform xlink:href attributes to replace relative URLs with absolute URLs
-
             // Wrap isolated elements into groups
             var svgWrapper = document.createElementNS(SVG_NS, "g");
 

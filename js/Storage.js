@@ -9,6 +9,7 @@ import {EventEmitter} from "events";
 import nunjucks from "nunjucks";
 import Jed from "jed";
 import {upgrade} from "./upgrade";
+import {toArray} from "./utils";
 
 export var Storage = Object.create(EventEmitter.prototype);
 
@@ -69,6 +70,7 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
         this.reloading = fileDescriptor === this.svgFileDescriptor;
         this.document.import(data);
         if (this.document.isValidSVG) {
+            this.resolveRelativeURLs(location);
             this.controller.setSVGDocument(this.document);
             this.svgFileDescriptor = fileDescriptor;
             this.openJSONFile(name.replace(/\.svg$/, ".sozi.json"), location);
@@ -85,6 +87,26 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
         this.loadJSONData(data);
         this.autosaveJSON(fileDescriptor);
     }
+};
+
+/*
+ * Fix the href attribute of linked images when the given URL is relative.
+ *
+ * In linked images, the href attribute can be either an absolute URL
+ * or a path relative to the location of the SVG file.
+ * But in the presentation editor, URLs are relative to the location of
+ * the index.html file of the application.
+ * For this reason, we modify image URLs by prefixing all relative URLs
+ * with the actual location of the SVG file.
+ */
+Storage.resolveRelativeURLs = function (location) {
+    var images = toArray(this.document.root.getElementsByTagName("image"));
+    images.forEach(img => {
+        var href = img.getAttribute("xlink:href");
+        if (!/^[a-z]+:|^[/#]/.test(href)) {
+            img.setAttribute("xlink:href", `${location}/${href}`);
+        }
+    });
 };
 
 Storage.onBackendChange = function (fileDescriptor) {
