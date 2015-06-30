@@ -1,7 +1,0 @@
-
-env = Environment(tools = ["default", "minifycss"])
-
-css_files = env.MinifyCSS("sozi")
-
-Return("css_files")
-

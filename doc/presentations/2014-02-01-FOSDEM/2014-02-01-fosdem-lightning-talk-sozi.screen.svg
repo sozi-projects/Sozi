@@ -2,7 +2,6 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:ns1="http://sozi.baierouge.fr"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -12,7 +11,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    sodipodi:docname="2014-02-01-fosdem-lightning-talk-sozi.screen.svg"
-   inkscape:version="0.48.3.1 r9886"
+   inkscape:version="0.91 r"
    version="1.1"
    id="svg2"
    height="1344.1044"
@@ -24,16 +23,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="13.756104"
-     inkscape:cx="2781.6008"
-     inkscape:cy="114.88733"
+     inkscape:zoom="0.8597565"
+     inkscape:cx="2189.4778"
+     inkscape:cy="407.37653"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="746"
+     inkscape:window-width="1360"
+     inkscape:window-height="713"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="30"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -20862,8 +20861,7 @@
            sodipodi:cy="64.380997"
            sodipodi:rx="67.792999"
            sodipodi:ry="34.82"
-           style="fill:#ea7598;stroke:#ffffff;stroke-width:0"
-           d="m 482.923,64.380997 c 0,19.230555 -30.35196,34.819999 -67.793,34.819999 -37.44103,0 -67.79299,-15.589444 -67.79299,-34.819999 0,-19.230555 30.35196,-34.82 67.79299,-34.82 37.44104,0 67.793,15.589445 67.793,34.82 z" />
+           style="fill:#ea7598;stroke:#ffffff;stroke-width:0" />
         <path
            d="m 212.07,166.05 c -8.5,47 36.25,103.75 99.25,96.75 l -152.5,53.25 53.25,-150 z"
            id="svg_4"
@@ -21133,7 +21131,7 @@
       <path
          transform="matrix(0.9748185,0,0,0.9747935,22.600005,18.289394)"
          id="path8295"
-         d="m 72.008907,88.007004 c 0,17.675266 -14.328637,32.003906 -32.003906,32.003906 -17.675269,0 -32.0039062,-14.32864 -32.0039062,-32.003906 0,-17.67527 14.3286372,-32.003906 32.0039062,-32.003906 17.675269,0 32.003906,14.328636 32.003906,32.003906 z"
+         d="M 72.008907,88.007004 A 32.003906,32.003906 0 0 1 40.005001,120.01091 32.003906,32.003906 0 0 1 8.0010948,88.007004 32.003906,32.003906 0 0 1 40.005001,56.003098 32.003906,32.003906 0 0 1 72.008907,88.007004 Z"
          style="fill:url(#linearGradient73432);fill-rule:nonzero;stroke:none"
          sodipodi:ry="32.003906"
          sodipodi:rx="32.003906"
@@ -21681,7 +21679,7 @@
          inkscape:connector-curvature="0" />
       <path
          transform="matrix(0.7585419,0.4379444,-0.4379444,0.7585419,54.467066,-3.7695739)"
-         d="m 29.895513,31 c 0,1.046863 -0.84865,1.895513 -1.895513,1.895513 -1.046863,0 -1.895513,-0.84865 -1.895513,-1.895513 0,-1.046863 0.84865,-1.895513 1.895513,-1.895513 1.046863,0 1.895513,0.84865 1.895513,1.895513 z"
+         d="M 29.895513,31 A 1.8955128,1.8955128 0 0 1 28,32.895513 1.8955128,1.8955128 0 0 1 26.104487,31 1.8955128,1.8955128 0 0 1 28,29.104487 1.8955128,1.8955128 0 0 1 29.895513,31 Z"
          sodipodi:ry="1.8955128"
          sodipodi:rx="1.8955128"
          sodipodi:cy="31"
@@ -21698,7 +21696,7 @@
          sodipodi:cy="31"
          sodipodi:rx="1.8955128"
          sodipodi:ry="1.8955128"
-         d="m 29.895513,31 c 0,1.046863 -0.84865,1.895513 -1.895513,1.895513 -1.046863,0 -1.895513,-0.84865 -1.895513,-1.895513 0,-1.046863 0.84865,-1.895513 1.895513,-1.895513 1.046863,0 1.895513,0.84865 1.895513,1.895513 z" />
+         d="M 29.895513,31 A 1.8955128,1.8955128 0 0 1 28,32.895513 1.8955128,1.8955128 0 0 1 26.104487,31 1.8955128,1.8955128 0 0 1 28,29.104487 1.8955128,1.8955128 0 0 1 29.895513,31 Z" />
       <rect
          style="fill:#000000;fill-opacity:1;stroke:none"
          id="rect3337-0"
@@ -21801,7 +21799,7 @@
          inkscape:connector-curvature="0" />
       <path
          transform="translate(0,15)"
-         d="m 116,10.059614 c 0,0.276143 -0.22386,0.5 -0.5,0.5 -0.27614,0 -0.5,-0.223857 -0.5,-0.5 0,-0.2761422 0.22386,-0.4999998 0.5,-0.4999998 0.27614,0 0.5,0.2238576 0.5,0.4999998 z"
+         d="m 116,10.059614 a 0.5,0.5 0 0 1 -0.5,0.5 0.5,0.5 0 0 1 -0.5,-0.5 0.5,0.5 0 0 1 0.5,-0.4999998 0.5,0.5 0 0 1 0.5,0.4999998 z"
          sodipodi:ry="0.5"
          sodipodi:rx="0.5"
          sodipodi:cy="10.059614"
@@ -22295,8 +22293,7 @@
          r="83.805"
          cy="85.712997"
          cx="85.314003"
-         id="circle47_1_"
-         d="m 169.119,85.712997 c 0,46.284223 -37.52077,83.805003 -83.804997,83.805003 -46.284224,0 -83.8050003,-37.52078 -83.8050003,-83.805003 0,-46.284223 37.5207763,-83.8049999 83.8050003,-83.8049999 46.284227,0 83.804997,37.5207769 83.804997,83.8049999 z" />
+         id="circle47_1_" />
       <path
          style="fill-opacity:0.1"
          inkscape:connector-curvature="0"
@@ -22312,8 +22309,7 @@
          r="28.951"
          cy="96.378998"
          cx="89.123001"
-         id="circle51_1_"
-         d="m 118.074,96.378998 c 0,15.989192 -12.9618,28.951002 -28.950999,28.951002 -15.989196,0 -28.951,-12.96181 -28.951,-28.951002 0,-15.989196 12.961804,-28.951 28.951,-28.951 15.989199,0 28.950999,12.961804 28.950999,28.951 z" />
+         id="circle51_1_" />
       <circle
          transform="translate(503.14982,208.6071)"
          style="fill:url(#linearGradient34439)"
@@ -22324,8 +22320,7 @@
          r="31.236"
          cy="85.711998"
          cx="85.314003"
-         id="circle53_1_"
-         d="m 116.55,85.711998 c 0,17.251162 -13.98483,31.236002 -31.235997,31.236002 -17.251166,0 -31.236,-13.98484 -31.236,-31.236002 0,-17.251166 13.984834,-31.236 31.236,-31.236 17.251167,0 31.235997,13.984834 31.235997,31.236 z" />
+         id="circle53_1_" />
       <path
          style="fill:url(#linearGradient34441)"
          inkscape:connector-curvature="0"
@@ -22381,8 +22376,7 @@
          sodipodi:rx="74.075996"
          sodipodi:ry="104"
          style="opacity:0.01000001;fill:#ffffff;fill-rule:evenodd"
-         transform="translate(570.47244,268.40943)"
-         d="m 202.074,126 c 0,57.43761 -33.16496,104 -74.076,104 -40.911042,0 -74.075995,-46.56239 -74.075995,-104 0,-57.437614 33.164953,-104 74.075995,-104 40.91104,0 74.076,46.562386 74.076,104 z" />
+         transform="translate(570.47244,268.40943)" />
       <g
          id="g20241"
          style="opacity:0.85"
@@ -23069,7 +23063,6 @@
         <g
            id="g107">
           <circle
-             d="m 365.82039,249.099 c 0,13.84213 -11.22127,25.0634 -25.0634,25.0634 -13.84214,0 -25.0634,-11.22127 -25.0634,-25.0634 0,-13.84213 11.22126,-25.0634 25.0634,-25.0634 13.84213,0 25.0634,11.22127 25.0634,25.0634 z"
              sodipodi:ry="25.0634"
              sodipodi:rx="25.0634"
              sodipodi:cy="249.099"
@@ -23080,7 +23073,6 @@
              style="fill:#ff9900"
              id="_151139416" />
           <circle
-             d="M 1658.51,0 C 1658.51,915.96979 915.96979,1658.51 0,1658.51 -915.96979,1658.51 -1658.51,915.96979 -1658.51,0 c 0,-915.96979 742.54021,-1658.51 1658.51,-1658.51 915.96979,0 1658.51,742.54021 1658.51,1658.51 z"
              sodipodi:ry="1658.51"
              sodipodi:rx="1658.51"
              sodipodi:cy="0"
@@ -23092,7 +23084,6 @@
              style="fill:#ff9900"
              id="_151137016" />
           <circle
-             d="M 1658.51,0 C 1658.51,915.96979 915.96979,1658.51 0,1658.51 -915.96979,1658.51 -1658.51,915.96979 -1658.51,0 c 0,-915.96979 742.54021,-1658.51 1658.51,-1658.51 915.96979,0 1658.51,742.54021 1658.51,1658.51 z"
              sodipodi:ry="1658.51"
              sodipodi:rx="1658.51"
              sodipodi:cy="0"
@@ -23104,7 +23095,6 @@
              style="fill:#ff9900"
              id="_151136448" />
           <circle
-             d="M 1658.51,0 C 1658.51,915.96979 915.96979,1658.51 0,1658.51 -915.96979,1658.51 -1658.51,915.96979 -1658.51,0 c 0,-915.96979 742.54021,-1658.51 1658.51,-1658.51 915.96979,0 1658.51,742.54021 1658.51,1658.51 z"
              sodipodi:ry="1658.51"
              sodipodi:rx="1658.51"
              sodipodi:cy="0"
@@ -23116,7 +23106,6 @@
              style="fill:#ff9900"
              id="_151135880" />
           <circle
-             d="m 451.9124,249.099 c 0,13.84213 -11.22127,25.0634 -25.0634,25.0634 -13.84213,0 -25.0634,-11.22127 -25.0634,-25.0634 0,-13.84213 11.22127,-25.0634 25.0634,-25.0634 13.84213,0 25.0634,11.22127 25.0634,25.0634 z"
              sodipodi:ry="25.0634"
              sodipodi:rx="25.0634"
              sodipodi:cy="249.099"
@@ -23127,7 +23116,6 @@
              style="fill:#ff9900"
              id="_151135312" />
           <circle
-             d="M 1658.51,0 C 1658.51,915.96979 915.96979,1658.51 0,1658.51 -915.96979,1658.51 -1658.51,915.96979 -1658.51,0 c 0,-915.96979 742.54021,-1658.51 1658.51,-1658.51 915.96979,0 1658.51,742.54021 1658.51,1658.51 z"
              sodipodi:ry="1658.51"
              sodipodi:rx="1658.51"
              sodipodi:cy="0"
@@ -23139,7 +23127,6 @@
              style="fill:#ff9900"
              id="_151134744" />
           <circle
-             d="M 1658.51,0 C 1658.51,915.96979 915.96979,1658.51 0,1658.51 -915.96979,1658.51 -1658.51,915.96979 -1658.51,0 c 0,-915.96979 742.54021,-1658.51 1658.51,-1658.51 915.96979,0 1658.51,742.54021 1658.51,1658.51 z"
              sodipodi:ry="1658.51"
              sodipodi:rx="1658.51"
              sodipodi:cy="0"
@@ -23151,7 +23138,6 @@
              style="fill:#ff9900"
              id="_151134176" />
           <circle
-             d="M 1658.51,0 C 1658.51,915.96979 915.96979,1658.51 0,1658.51 -915.96979,1658.51 -1658.51,915.96979 -1658.51,0 c 0,-915.96979 742.54021,-1658.51 1658.51,-1658.51 915.96979,0 1658.51,742.54021 1658.51,1658.51 z"
              sodipodi:ry="1658.51"
              sodipodi:rx="1658.51"
              sodipodi:cy="0"
@@ -25754,7 +25740,7 @@
          inkscape:connector-curvature="0" />
       <path
          transform="matrix(1.0705394,0,0,1.0705394,-187.95686,-26.014888)"
-         d="m 2659.091,323.69711 c 0,9.05323 -7.339,16.39231 -16.3923,16.39231 -9.0532,0 -16.3923,-7.33908 -16.3923,-16.39231 0,-9.05322 7.3391,-16.39231 16.3923,-16.39231 9.0533,0 16.3923,7.33909 16.3923,16.39231 z"
+         d="m 2659.091,323.69711 a 16.392309,16.392309 0 0 1 -16.3923,16.39231 16.392309,16.392309 0 0 1 -16.3923,-16.39231 16.392309,16.392309 0 0 1 16.3923,-16.39231 16.392309,16.392309 0 0 1 16.3923,16.39231 z"
          sodipodi:ry="16.392309"
          sodipodi:rx="16.392309"
          sodipodi:cy="323.69711"
@@ -25773,7 +25759,7 @@
          inkscape:connector-curvature="0" />
       <path
          transform="translate(-4.004507,-4.2703896)"
-         d="m 3036.9679,240.60788 c 0,11.95319 -9.69,21.64316 -21.6432,21.64316 -11.9532,0 -21.6432,-9.68997 -21.6432,-21.64316 0,-11.95319 9.69,-21.64316 21.6432,-21.64316 11.9532,0 21.6432,9.68997 21.6432,21.64316 z"
+         d="m 3036.9679,240.60788 a 21.643158,21.643158 0 0 1 -21.6432,21.64316 21.643158,21.643158 0 0 1 -21.6432,-21.64316 21.643158,21.643158 0 0 1 21.6432,-21.64316 21.643158,21.643158 0 0 1 21.6432,21.64316 z"
          sodipodi:ry="21.643158"
          sodipodi:rx="21.643158"
          sodipodi:cy="240.60788"
@@ -26226,412 +26212,4 @@
        x="34.589878"
        y="-44.291374" />
   </g>
-  <script
-     ns1:version="13.11-12104710"
-     id="sozi-script">function namespace(globals,path,body){&quot;use strict&quot;;var current=globals;path.split(&quot;.&quot;).forEach(function(name){if(typeof current[name]===&quot;undefined&quot;){current[name]={}}current=current[name]});if(body){body(current,globals)}return current}namespace(this,&quot;sozi.events&quot;,function(exports){&quot;use strict&quot;;var listenerRegistry={};exports.listen=function(key,handler){if(!listenerRegistry.hasOwnProperty(key)){listenerRegistry[key]=[]}listenerRegistry[key].push(handler)};exports.fire=function(key){var args=Array.prototype.slice.call(arguments,1);if(listenerRegistry.hasOwnProperty(key)){listenerRegistry[key].forEach(function(listener){listener.apply(null,args)})}}});namespace(this,&quot;sozi.proto&quot;,function(exports){&quot;use strict&quot;;exports.Object={installConstructors:function(){function InstanceConstructor(){}InstanceConstructor.prototype=this;this.instance=function(){var result=new InstanceConstructor;result.construct.apply(result,arguments);return result};this.subtype=function(anObject){var result=new InstanceConstructor;result.augment(anObject);result.installConstructors();return result}},construct:function(){},augment:function(anObject){for(var attr in anObject){if(anObject.hasOwnProperty(attr)){this[attr]=anObject[attr]}}return this},bind:function(aFunction){var self=this;return function(){return aFunction.apply(self,arguments)}}};exports.Object.installConstructors()});namespace(this,&quot;sozi.actions&quot;,function(exports,window){&quot;use strict&quot;;var player=namespace(window,&quot;sozi.player&quot;);var display=namespace(window,&quot;sozi.display&quot;);var document=window.document;var DRAG_BUTTON=0;var TOC_BUTTON=1;var SCALE_FACTOR=1.05;var ROTATE_STEP=5;var DRAG_THRESHOLD_PX=5;var mouseDragged=false;var mouseLastX=0;var mouseLastY=0;function zoom(direction,x,y){player.stop();display.viewPorts[&quot;player&quot;].zoom(direction&gt;0?SCALE_FACTOR:1/SCALE_FACTOR,x,y)}function rotate(direction){player.stop();display.viewPorts[&quot;player&quot;].rotate(direction&gt;0?ROTATE_STEP:-ROTATE_STEP)}function toggleFrameList(){if(sozi.framelist.isVisible()){sozi.framelist.hide();player.restart()}else{player.stop();sozi.framelist.show()}}function isPlayerEvent(evt){return display.viewPorts[&quot;player&quot;].contains(evt.clientX,evt.clientY)}function onMouseDown(evt){if(!isPlayerEvent(evt)){return}if(evt.button===DRAG_BUTTON){document.documentElement.addEventListener(&quot;mousemove&quot;,onMouseDrag,false);mouseDragged=false;mouseLastX=evt.clientX;mouseLastY=evt.clientY}else if(evt.button===TOC_BUTTON){toggleFrameList()}evt.stopPropagation();evt.preventDefault()}function onMouseDrag(evt){if(!isPlayerEvent(evt)){return}player.stop();if(!mouseDragged&amp;&amp;(Math.abs(evt.clientX-mouseLastX)&gt;DRAG_THRESHOLD_PX||Math.abs(evt.clientY-mouseLastY)&gt;DRAG_THRESHOLD_PX)){mouseDragged=true}if(mouseDragged){sozi.events.fire(&quot;sozi.player.cleanup&quot;);display.viewPorts[&quot;player&quot;].drag(evt.clientX-mouseLastX,evt.clientY-mouseLastY);mouseLastX=evt.clientX;mouseLastY=evt.clientY}evt.stopPropagation()}function onMouseUp(evt){if(!isPlayerEvent(evt)){return}if(evt.button===DRAG_BUTTON){document.documentElement.removeEventListener(&quot;mousemove&quot;,onMouseDrag,false)}evt.stopPropagation();evt.preventDefault()}function onContextMenu(evt){if(!isPlayerEvent(evt)){return}player.moveToPrevious();evt.stopPropagation();evt.preventDefault()}function onClick(evt){if(!isPlayerEvent(evt)){return}if(!mouseDragged&amp;&amp;evt.button!==TOC_BUTTON){player.moveToNext()}evt.stopPropagation();evt.preventDefault()}function onWheel(evt){if(!isPlayerEvent(evt)){return}if(!evt){evt=window.event}var delta=0;if(evt.wheelDelta){delta=evt.wheelDelta}else if(evt.detail){delta=-evt.detail}if(delta!==0){if(evt.shiftKey){rotate(delta)}else{zoom(delta,evt.clientX,evt.clientY)}}evt.stopPropagation();evt.preventDefault()}function onKeyPress(evt){if(evt.altKey||evt.ctrlKey||evt.metaKey){return}switch(evt.charCode||evt.which){case 43:zoom(1,window.innerWidth/2,window.innerHeight/2);break;case 45:zoom(-1,window.innerWidth/2,window.innerHeight/2);break;case 61:player.moveToCurrent();break;case 70:case 102:player.showAll();break;case 84:case 116:toggleFrameList();break;case 82:rotate(-1);break;case 114:rotate(1);break;default:return}evt.stopPropagation();evt.preventDefault()}function onKeyDown(evt){if(evt.altKey||evt.ctrlKey||evt.metaKey){return}switch(evt.keyCode){case 36:if(evt.shiftKey){player.jumpToFirst()}else{player.moveToFirst()}break;case 35:if(evt.shiftKey){player.jumpToLast()}else{player.moveToLast()}break;case 38:case 33:case 37:if(evt.shiftKey){player.jumpToPrevious()}else{player.moveToPrevious()}break;case 40:case 34:case 39:case 13:case 32:if(evt.shiftKey){player.jumpToNext()}else{player.moveToNext()}break;default:return}evt.stopPropagation()}function stopEvent(evt){evt.stopPropagation()}function onDisplayReady(){var links=document.getElementsByTagName(&quot;a&quot;);for(var i=0;i&lt;links.length;i+=1){links[i].addEventListener(&quot;click&quot;,stopEvent,false);links[i].addEventListener(&quot;contextmenu&quot;,stopEvent,false)}var svgRoot=document.documentElement;svgRoot.addEventListener(&quot;click&quot;,onClick,false);svgRoot.addEventListener(&quot;mousedown&quot;,onMouseDown,false);svgRoot.addEventListener(&quot;mouseup&quot;,onMouseUp,false);svgRoot.addEventListener(&quot;contextmenu&quot;,onContextMenu,false);svgRoot.addEventListener(&quot;DOMMouseScroll&quot;,onWheel,false);window.onmousewheel=onWheel;svgRoot.addEventListener(&quot;keypress&quot;,onKeyPress,false);svgRoot.addEventListener(&quot;keydown&quot;,onKeyDown,false)}sozi.events.listen(&quot;sozi.display.ready&quot;,onDisplayReady)});namespace(this,&quot;sozi.animation&quot;,function(exports,window){&quot;use strict&quot;;var requestAnimationFrame=window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame||window.oRequestAnimationFrame;var getCurrentTime=function(){return window.performance&amp;&amp;window.performance.now?window.performance.now():Date.now()};exports.setAnimationFrameHandlers=function(requestAnimationFrameFunction,getCurrentTimeFunction){requestAnimationFrame=requestAnimationFrameFunction;getCurrentTime=getCurrentTimeFunction};var TIME_STEP_MS=40;var timer;var animatorList=[];function loop(){if(animatorList.length&gt;0){if(requestAnimationFrame){requestAnimationFrame(loop)}animatorList.forEach(function(animator){animator.step(getCurrentTime())})}else{if(!requestAnimationFrame){window.clearInterval(timer)}}}function start(){if(requestAnimationFrame){requestAnimationFrame(loop)}else{timer=window.setInterval(function(){loop(getCurrentTime())},TIME_STEP_MS)}}function addAnimator(animator){animatorList.push(animator);if(animatorList.length===1){start()}}function removeAnimator(animator){animatorList.splice(animatorList.indexOf(animator),1)}exports.Animator=sozi.proto.Object.subtype({construct:function(){this.durationMs=0;this.data=null;this.initialTime=0;this.started=false},start:function(durationMs,data){this.durationMs=durationMs;this.data=data;this.initialTime=getCurrentTime();this.onStep(0);if(!this.started){this.started=true;addAnimator(this)}},stop:function(){if(this.started){removeAnimator(this);this.started=false}},step:function(currentTime){var elapsedTime=currentTime-this.initialTime;if(elapsedTime&gt;=this.durationMs){this.stop();this.onStep(1);this.onDone()}else{this.onStep(elapsedTime/this.durationMs)}},onStep:function(progress){},onDone:function(){}});exports.profiles={linear:function(x){return x},accelerate:function(x){return Math.pow(x,3)},&quot;strong-accelerate&quot;:function(x){return Math.pow(x,5)},decelerate:function(x){return 1-Math.pow(1-x,3)},&quot;strong-decelerate&quot;:function(x){return 1-Math.pow(1-x,5)},&quot;accelerate-decelerate&quot;:function(x){var xs=x&lt;=.5?x:1-x,y=Math.pow(2*xs,3)/2;return x&lt;=.5?y:1-y},&quot;strong-accelerate-decelerate&quot;:function(x){var xs=x&lt;=.5?x:1-x,y=Math.pow(2*xs,5)/2;return x&lt;=.5?y:1-y},&quot;decelerate-accelerate&quot;:function(x){var xs=x&lt;=.5?x:1-x,y=(1-Math.pow(1-2*xs,2))/2;return x&lt;=.5?y:1-y},&quot;strong-decelerate-accelerate&quot;:function(x){var xs=x&lt;=.5?x:1-x,y=(1-Math.pow(1-2*xs,3))/2;return x&lt;=.5?y:1-y},&quot;immediate-beginning&quot;:function(x){return 1},&quot;immediate-end&quot;:function(x){return x===1?1:0},&quot;immediate-middle&quot;:function(x){return x&gt;=.5?1:0}}});namespace(this,&quot;sozi.display&quot;,function(exports,window){&quot;use strict&quot;;var SVG_NS=&quot;http://www.w3.org/2000/svg&quot;;var XLINK_NS=&quot;http://www.w3.org/1999/xlink&quot;;var document=window.document;var initialBBox;var lastWindowWidth;var lastWindowHeight;exports.viewPorts={};var primaryViewport;exports.CameraState=sozi.proto.Object.subtype({construct:function(){this.cx=this.cy=0;this.width=this.height=1;this.angle=0;this.clipped=true;this.transitionZoomPercent=0;this.transitionProfile=sozi.animation.profiles.linear;this.transitionPath=null},setCenter:function(cx,cy){this.cx=cx;this.cy=cy;return this},setSize:function(width,height){this.width=width;this.height=height;return this},setClipped:function(clipped){this.clipped=clipped;return this},setAngle:function(angle){this.angle=(angle+180)%360-180;return this},setRawAngle:function(angle){this.angle=angle;return this},setTransitionZoomPercent:function(zoomPercent){this.transitionZoomPercent=zoomPercent;return this},setTransitionProfile:function(profile){this.transitionProfile=profile;return this},setTransitionPath:function(svgPath){this.transitionPath=svgPath;return this},setAtElement:function(svgElement){var x,y,w,h;if(svgElement.nodeName===&quot;rect&quot;){x=svgElement.x.baseVal.value;y=svgElement.y.baseVal.value;w=svgElement.width.baseVal.value;h=svgElement.height.baseVal.value}else{var b=svgElement.getBBox();x=b.x;y=b.y;w=b.width;h=b.height}var c=document.documentElement.createSVGPoint();c.x=x+w/2;c.y=y+h/2;var matrix=svgElement.getCTM();c=c.matrixTransform(matrix);var scale=Math.sqrt(matrix.a*matrix.a+matrix.b*matrix.b);return this.setCenter(c.x,c.y).setSize(w*scale,h*scale).setAngle(Math.atan2(matrix.b,matrix.a)*180/Math.PI)},setAtState:function(other){return this.setCenter(other.cx,other.cy).setSize(other.width,other.height).setAngle(other.angle).setClipped(other.clipped).setTransitionZoomPercent(other.transitionZoomPercent).setTransitionProfile(other.transitionProfile).setTransitionPath(other.transitionPath)},interpolatableAttributes:[&quot;width&quot;,&quot;height&quot;,&quot;angle&quot;],interpolate:function(initialState,finalState,ratio,useTransitionPath,reverseTransitionPath){var remaining=1-ratio;for(var i=0;i&lt;this.interpolatableAttributes.length;i+=1){var attr=this.interpolatableAttributes[i];this[attr]=finalState[attr]*ratio+initialState[attr]*remaining}var svgPath=reverseTransitionPath?initialState.transitionPath:finalState.transitionPath;if(useTransitionPath&amp;&amp;svgPath){var pathLength=svgPath.getTotalLength();if(reverseTransitionPath){var startPoint=svgPath.getPointAtLength(pathLength);var endPoint=svgPath.getPointAtLength(0);var currentPoint=svgPath.getPointAtLength(pathLength*remaining)}else{var startPoint=svgPath.getPointAtLength(0);var endPoint=svgPath.getPointAtLength(pathLength);var currentPoint=svgPath.getPointAtLength(pathLength*ratio)}this.cx=currentPoint.x+(finalState.cx-endPoint.x)*ratio+(initialState.cx-startPoint.x)*remaining;this.cy=currentPoint.y+(finalState.cy-endPoint.y)*ratio+(initialState.cy-startPoint.y)*remaining}else{this.cx=finalState.cx*ratio+initialState.cx*remaining;this.cy=finalState.cy*ratio+initialState.cy*remaining}}});exports.Camera=exports.CameraState.subtype({construct:function(viewPort,idLayer){exports.CameraState.construct.call(this);this.viewPort=viewPort;this.svgClipRect=document.createElementNS(SVG_NS,&quot;rect&quot;);var svgClipPath=document.createElementNS(SVG_NS,&quot;clipPath&quot;);svgClipPath.setAttribute(&quot;id&quot;,&quot;sozi-clip-path-&quot;+viewPort.id+&quot;-&quot;+idLayer);svgClipPath.appendChild(this.svgClipRect);viewPort.svgGroup.appendChild(svgClipPath);var svgClippedGroup=document.createElementNS(SVG_NS,&quot;g&quot;);svgClippedGroup.setAttribute(&quot;clip-path&quot;,&quot;url(#sozi-clip-path-&quot;+viewPort.id+&quot;-&quot;+idLayer+&quot;)&quot;);viewPort.svgGroup.appendChild(svgClippedGroup);if(viewPort.isPrimary){this.svgLayer=document.createElementNS(SVG_NS,&quot;g&quot;);this.svgLayer.appendChild(document.getElementById(idLayer))}else{this.svgLayer=document.createElementNS(SVG_NS,&quot;use&quot;);this.svgLayer.setAttributeNS(XLINK_NS,&quot;href&quot;,&quot;#&quot;+idLayer)}svgClippedGroup.appendChild(this.svgLayer)},setAtState:function(other){return exports.CameraState.setAtState.call(this,other).update()},getScale:function(){return Math.min(this.viewPort.width/this.width,this.viewPort.height/this.height)},rotate:function(angle){return this.setAngle(this.angle+angle).update()},zoom:function(factor,x,y){return this.setSize(this.width/factor,this.height/factor).drag((1-factor)*(x-this.viewPort.width/2),(1-factor)*(y-this.viewPort.height/2))},drag:function(deltaX,deltaY){var scale=this.getScale();var angleRad=this.angle*Math.PI/180;var si=Math.sin(angleRad);var co=Math.cos(angleRad);return this.setCenter(this.cx-(deltaX*co-deltaY*si)/scale,this.cy-(deltaX*si+deltaY*co)/scale).setClipped(false).update()},update:function(){var scale=this.getScale();var width=this.width*scale;var height=this.height*scale;var x=(this.viewPort.width-width)/2;var y=(this.viewPort.height-height)/2;this.svgClipRect.setAttribute(&quot;x&quot;,this.clipped?x:0);this.svgClipRect.setAttribute(&quot;y&quot;,this.clipped?y:0);this.svgClipRect.setAttribute(&quot;width&quot;,this.clipped?width:this.viewPort.width);this.svgClipRect.setAttribute(&quot;height&quot;,this.clipped?height:this.viewPort.height);var translateX=-this.cx+this.width/2+x/scale;var translateY=-this.cy+this.height/2+y/scale;this.svgLayer.setAttribute(&quot;transform&quot;,&quot;scale(&quot;+scale+&quot;)&quot;+&quot;translate(&quot;+translateX+&quot;,&quot;+translateY+&quot;)&quot;+&quot;rotate(&quot;+-this.angle+&quot;,&quot;+this.cx+&quot;,&quot;+this.cy+&quot;)&quot;);return this}});exports.ViewPort=sozi.proto.Object.subtype({construct:function(id,idLayerList,primary){this.id=id;exports.viewPorts[id]=this;this.isPrimary=!!primary;if(this.isPrimary){if(primaryViewport){throw&quot;Failed to create a primary viewport. A primary viewport already exists.&quot;}else{primaryViewport=this}}this.svgGroup=document.createElementNS(SVG_NS,&quot;g&quot;);this.svgGroup.setAttribute(&quot;class&quot;,&quot;sozi-viewport&quot;);this.svgGroup.setAttribute(&quot;id&quot;,&quot;sozi-viewport-&quot;+id);document.documentElement.appendChild(this.svgGroup);this.setLocation(0,0).setSize(window.innerWidth,window.innerHeight);this.cameras={};idLayerList.forEach(function(idLayer){this.cameras[idLayer]=exports.Camera.instance(this,idLayer)},this)},setSize:function(width,height){this.width=width;this.height=height;return this},setLocation:function(x,y){this.x=x;this.y=y;return this},contains:function(x,y){return x&gt;=this.x&amp;&amp;x&lt;this.x+this.width&amp;&amp;y&gt;=this.y&amp;&amp;y&lt;this.y+this.height},getDocumentState:function(){var camera=exports.CameraState.instance().setCenter(initialBBox.x+initialBBox.width/2,initialBBox.y+initialBBox.height/2).setSize(initialBBox.width,initialBBox.height).setClipped(false);var result={};for(var idLayer in this.cameras){result[idLayer]=camera}return result},update:function(){this.svgGroup.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+this.x+&quot;,&quot;+this.y+&quot;)&quot;);for(var idLayer in this.cameras){this.cameras[idLayer].update()}return this},showFrame:function(frame){for(var idLayer in frame.states){this.cameras[idLayer].setAtState(frame.states[idLayer])}return this},drag:function(deltaX,deltaY){for(var idLayer in this.cameras){this.cameras[idLayer].drag(deltaX,deltaY)}return this},zoom:function(factor,x,y){for(var idLayer in this.cameras){this.cameras[idLayer].zoom(factor,x,y)}return this},rotate:function(angle){for(var idLayer in this.cameras){this.cameras[idLayer].rotate(angle)}return this},onWindowResize:function(widthRatio,heightRatio){this.setLocation(this.x*widthRatio,this.y*heightRatio).setSize(this.width*widthRatio,this.height*heightRatio).update()}});function onDocumentReady(){var svgRoot=document.documentElement;initialBBox=svgRoot.getBBox();lastWindowWidth=window.innerWidth;lastWindowHeight=window.innerHeight;svgRoot.setAttribute(&quot;width&quot;,lastWindowWidth);svgRoot.setAttribute(&quot;height&quot;,lastWindowHeight);sozi.events.fire(&quot;sozi.display.ready&quot;)}function resize(){var svgRoot=document.documentElement;svgRoot.setAttribute(&quot;width&quot;,window.innerWidth);svgRoot.setAttribute(&quot;height&quot;,window.innerHeight);for(var vp in exports.viewPorts){exports.viewPorts[vp].onWindowResize(window.innerWidth/lastWindowWidth,window.innerHeight/lastWindowHeight)}lastWindowWidth=window.innerWidth;lastWindowHeight=window.innerHeight}sozi.events.listen(&quot;sozi.document.ready&quot;,onDocumentReady);window.addEventListener(&quot;resize&quot;,resize,false)});namespace(this,&quot;sozi.document&quot;,function(exports,window){&quot;use strict&quot;;var document=window.document;var SOZI_NS=&quot;http://sozi.baierouge.fr&quot;;var DEFAULTS={title:&quot;Untitled&quot;,sequence:&quot;0&quot;,hide:&quot;true&quot;,clip:&quot;true&quot;,&quot;show-in-frame-list&quot;:&quot;true&quot;,&quot;timeout-enable&quot;:&quot;false&quot;,&quot;timeout-ms&quot;:&quot;5000&quot;,&quot;transition-duration-ms&quot;:&quot;1000&quot;,&quot;transition-zoom-percent&quot;:&quot;0&quot;,&quot;transition-profile&quot;:&quot;linear&quot;,&quot;transition-path-hide&quot;:&quot;true&quot;};var DRAWABLE_TAGS=[&quot;g&quot;,&quot;image&quot;,&quot;path&quot;,&quot;rect&quot;,&quot;circle&quot;,&quot;ellipse&quot;,&quot;line&quot;,&quot;polyline&quot;,&quot;polygon&quot;,&quot;text&quot;,&quot;clippath&quot;];exports.frames=[];exports.idLayerList=[];function readAttribute(soziElement,attr){return soziElement.getAttributeNS(SOZI_NS,attr)||DEFAULTS[attr]}function readStateForLayer(frame,idLayer,soziElement){var state=frame.states[idLayer]=frame.states[idLayer]||sozi.display.CameraState.instance();if(typeof state.transitionZoomPercent===&quot;undefined&quot;||soziElement.hasAttributeNS(SOZI_NS,&quot;transition-zoom-percent&quot;)){state.setTransitionZoomPercent(parseInt(readAttribute(soziElement,&quot;transition-zoom-percent&quot;),10))}if(typeof state.transitionProfile===&quot;undefined&quot;||soziElement.hasAttributeNS(SOZI_NS,&quot;transition-profile&quot;)){state.setTransitionProfile(sozi.animation.profiles[readAttribute(soziElement,&quot;transition-profile&quot;)])}if(typeof state.transitionPath===&quot;undefined&quot;||soziElement.hasAttributeNS(SOZI_NS,&quot;transition-path&quot;)){var svgPath=document.getElementById(soziElement.getAttributeNS(SOZI_NS,&quot;transition-path&quot;));if(svgPath&amp;&amp;svgPath.nodeName===&quot;path&quot;){state.setTransitionPath(svgPath);if(readAttribute(soziElement,&quot;transition-path-hide&quot;)===&quot;true&quot;){svgPath.style.visibility=&quot;hidden&quot;}}}if(soziElement.hasAttributeNS(SOZI_NS,&quot;refid&quot;)){var svgElement=document.getElementById(soziElement.getAttributeNS(SOZI_NS,&quot;refid&quot;));if(svgElement){state.setAtElement(svgElement);if(readAttribute(soziElement,&quot;hide&quot;)===&quot;true&quot;){svgElement.style.visibility=&quot;hidden&quot;}}}if(soziElement.hasAttributeNS(SOZI_NS,&quot;clip&quot;)){state.setClipped(readAttribute(soziElement,&quot;clip&quot;)===&quot;true&quot;)}}function readFrames(){var idLayerRefList=[];var soziLayerList=document.getElementsByTagNameNS(SOZI_NS,&quot;layer&quot;);for(var i=0;i&lt;soziLayerList.length;i+=1){var idLayer=soziLayerList[i].getAttributeNS(SOZI_NS,&quot;group&quot;);if(idLayer&amp;&amp;idLayerRefList.indexOf(idLayer)===-1){idLayerRefList.push(idLayer)}}var svgRoot=document.documentElement;var SVG_NS=&quot;http://www.w3.org/2000/svg&quot;;var svgWrapper=document.createElementNS(SVG_NS,&quot;g&quot;);var svgElementList=Array.prototype.slice.call(svgRoot.childNodes);svgElementList.forEach(function(svgElement,index){if(!svgElement.getAttribute){svgRoot.removeChild(svgElement)}else if(idLayerRefList.indexOf(svgElement.getAttribute(&quot;id&quot;))!==-1){if(svgWrapper.firstChild){svgWrapper.setAttribute(&quot;id&quot;,&quot;sozi-wrapper-&quot;+index);exports.idLayerList.push(&quot;sozi-wrapper-&quot;+index);svgRoot.insertBefore(svgWrapper,svgElement);svgWrapper=document.createElementNS(SVG_NS,&quot;g&quot;)}exports.idLayerList.push(svgElement.getAttribute(&quot;id&quot;))}else if(DRAWABLE_TAGS.indexOf(svgElement.localName.toLowerCase())!==-1){svgRoot.removeChild(svgElement);svgWrapper.appendChild(svgElement)}});if(svgWrapper.firstChild){svgWrapper.setAttribute(&quot;id&quot;,&quot;sozi-wrapper-&quot;+svgElementList.length);exports.idLayerList.push(&quot;sozi-wrapper-&quot;+svgElementList.length);svgRoot.appendChild(svgWrapper)}var soziFrameList=Array.prototype.slice.call(document.getElementsByTagNameNS(SOZI_NS,&quot;frame&quot;));soziFrameList.sort(function(a,b){var seqA=parseInt(readAttribute(a,&quot;sequence&quot;),10);var seqB=parseInt(readAttribute(b,&quot;sequence&quot;),10);return seqA-seqB});soziFrameList.forEach(function(soziFrame,indexFrame){var newFrame={id:soziFrame.getAttribute(&quot;id&quot;),title:readAttribute(soziFrame,&quot;title&quot;),showInFrameList:readAttribute(soziFrame,&quot;show-in-frame-list&quot;)===&quot;true&quot;,sequence:parseInt(readAttribute(soziFrame,&quot;sequence&quot;),10),timeoutEnable:readAttribute(soziFrame,&quot;timeout-enable&quot;)===&quot;true&quot;,timeoutMs:parseInt(readAttribute(soziFrame,&quot;timeout-ms&quot;),10),transitionDurationMs:parseInt(readAttribute(soziFrame,&quot;transition-duration-ms&quot;),10),states:{}};exports.idLayerList.forEach(function(idLayer){if(indexFrame===0||idLayer.search(&quot;sozi-wrapper-[0-9]+&quot;)!==-1){readStateForLayer(newFrame,idLayer,soziFrame)}else{var currentState=newFrame.states[idLayer]=sozi.display.CameraState.instance();var previousState=exports.frames[exports.frames.length-1].states[idLayer];currentState.setAtState(previousState)}});var soziLayerList=Array.prototype.slice.call(soziFrame.getElementsByTagNameNS(SOZI_NS,&quot;layer&quot;));soziLayerList.forEach(function(soziLayer){var idLayer=soziLayer.getAttributeNS(SOZI_NS,&quot;group&quot;);if(idLayer&amp;&amp;exports.idLayerList.indexOf(idLayer)!==-1){readStateForLayer(newFrame,idLayer,soziLayer)}});for(var idLayer in newFrame.states){if(newFrame.states.hasOwnProperty(idLayer)){exports.frames.push(newFrame);break}}})}exports.getFrameIndexForId=function(idFrame){for(var indexFrame=0;indexFrame&lt;exports.frames.length;indexFrame+=1){if(exports.frames[indexFrame].id===idFrame){return indexFrame}}return-1};function onLoad(){document.documentElement.removeAttribute(&quot;viewBox&quot;);readFrames();sozi.events.fire(&quot;sozi.document.ready&quot;)}window.addEventListener(&quot;load&quot;,onLoad,false)});namespace(this,&quot;sozi.framelist&quot;,function(exports,window){&quot;use strict&quot;;var document=window.document;var MARGIN=5;var svgTocGroup;var svgTitlesGroup;var tocHeight=0;var translateXHidden;var translateXVisible;var translateXStart;var translateXEnd;var translateX;var animator;var ANIMATION_TIME_MS=300;var ANIMATION_PROFILE=&quot;decelerate&quot;;var SVG_NS=&quot;http://www.w3.org/2000/svg&quot;;function onMouseOut(evt){var rel=evt.relatedTarget,svgRoot=document.documentElement;while(rel&amp;&amp;rel!==svgTocGroup&amp;&amp;rel!==svgRoot){rel=rel.parentNode}if(rel!==svgTocGroup){exports.hide();sozi.player.restart();evt.stopPropagation()}}function onClickArrowUp(evt){var ty=svgTitlesGroup.getCTM().f;if(ty&lt;=-window.innerHeight/2){ty+=window.innerHeight/2}else if(ty&lt;0){ty=0}svgTitlesGroup.setAttribute(&quot;transform&quot;,&quot;translate(0,&quot;+ty+&quot;)&quot;);evt.stopPropagation()}function onClickArrowDown(evt){var ty=svgTitlesGroup.getCTM().f;if(ty+tocHeight&gt;=window.innerHeight*3/2){ty-=window.innerHeight/2}else if(ty+tocHeight&gt;window.innerHeight+2*MARGIN){ty=window.innerHeight-tocHeight-4*MARGIN}svgTitlesGroup.setAttribute(&quot;transform&quot;,&quot;translate(0,&quot;+ty+&quot;)&quot;);evt.stopPropagation()}function makeClickHandler(index){return function(evt){sozi.player.previewFrame(index);evt.stopPropagation()}}function defaultEventHandler(evt){evt.stopPropagation()}function onPlayerReady(){svgTocGroup=document.createElementNS(SVG_NS,&quot;g&quot;);svgTocGroup.setAttribute(&quot;id&quot;,&quot;sozi-toc&quot;);document.documentElement.appendChild(svgTocGroup);svgTitlesGroup=document.createElementNS(SVG_NS,&quot;g&quot;);svgTocGroup.appendChild(svgTitlesGroup);var tocBackground=document.createElementNS(SVG_NS,&quot;rect&quot;);tocBackground.setAttribute(&quot;id&quot;,&quot;sozi-toc-background&quot;);tocBackground.setAttribute(&quot;x&quot;,MARGIN);tocBackground.setAttribute(&quot;y&quot;,MARGIN);tocBackground.setAttribute(&quot;rx&quot;,MARGIN);tocBackground.setAttribute(&quot;ry&quot;,MARGIN);tocBackground.addEventListener(&quot;click&quot;,defaultEventHandler,false);tocBackground.addEventListener(&quot;mousedown&quot;,defaultEventHandler,false);tocBackground.addEventListener(&quot;mouseout&quot;,onMouseOut,false);svgTitlesGroup.appendChild(tocBackground);var tocWidth=0;sozi.document.frames.forEach(function(frame,frameIndex){if(frame.showInFrameList){var text=document.createElementNS(SVG_NS,&quot;text&quot;);text.appendChild(document.createTextNode(frame.title));text.setAttribute(&quot;id&quot;,&quot;sozi-toc-&quot;+frame.id);svgTitlesGroup.appendChild(text);if(frameIndex===sozi.player.currentFrameIndex){text.setAttribute(&quot;class&quot;,&quot;sozi-toc-current&quot;)}var textWidth=text.getBBox().width;tocHeight+=text.getBBox().height;if(textWidth&gt;tocWidth){tocWidth=textWidth}text.setAttribute(&quot;x&quot;,2*MARGIN);text.setAttribute(&quot;y&quot;,tocHeight+MARGIN);text.addEventListener(&quot;click&quot;,makeClickHandler(frameIndex),false);text.addEventListener(&quot;mousedown&quot;,defaultEventHandler,false)}});var tocUp=document.createElementNS(SVG_NS,&quot;path&quot;);tocUp.setAttribute(&quot;class&quot;,&quot;sozi-toc-arrow&quot;);tocUp.setAttribute(&quot;d&quot;,&quot;M&quot;+(tocWidth+3*MARGIN)+&quot;,&quot;+5*MARGIN+&quot; l&quot;+4*MARGIN+&quot;,0&quot;+&quot; l-&quot;+2*MARGIN+&quot;,-&quot;+3*MARGIN+&quot; z&quot;);tocUp.addEventListener(&quot;click&quot;,onClickArrowUp,false);tocUp.addEventListener(&quot;mousedown&quot;,defaultEventHandler,false);svgTocGroup.appendChild(tocUp);var tocDown=document.createElementNS(SVG_NS,&quot;path&quot;);tocDown.setAttribute(&quot;class&quot;,&quot;sozi-toc-arrow&quot;);tocDown.setAttribute(&quot;d&quot;,&quot;M&quot;+(tocWidth+3*MARGIN)+&quot;,&quot;+7*MARGIN+&quot; l&quot;+4*MARGIN+&quot;,0&quot;+&quot; l-&quot;+2*MARGIN+&quot;,&quot;+3*MARGIN+&quot; z&quot;);tocDown.addEventListener(&quot;click&quot;,onClickArrowDown,false);tocDown.addEventListener(&quot;mousedown&quot;,defaultEventHandler,false);svgTocGroup.appendChild(tocDown);tocBackground.setAttribute(&quot;width&quot;,tocWidth+7*MARGIN);tocBackground.setAttribute(&quot;height&quot;,tocHeight+2*MARGIN);translateXHidden=-tocWidth-9*MARGIN;translateXVisible=0;translateX=translateXEnd=translateXHidden;svgTocGroup.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+translateXHidden+&quot;,0)&quot;);animator=sozi.animation.Animator.instance().augment({onStep:function(progress){var profileProgress=sozi.animation.profiles[ANIMATION_PROFILE](progress),remaining=1-profileProgress;translateX=translateXEnd*profileProgress+translateXStart*remaining;svgTocGroup.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+translateX+&quot;,0)&quot;)}})}function onFrameChange(index){var currentElementList=Array.prototype.slice.call(document.getElementsByClassName(&quot;sozi-toc-current&quot;));currentElementList.forEach(function(svgElement){svgElement.removeAttribute(&quot;class&quot;)});var frame=sozi.document.frames[index];if(frame.showInFrameList){document.getElementById(&quot;sozi-toc-&quot;+frame.id).setAttribute(&quot;class&quot;,&quot;sozi-toc-current&quot;)}}exports.show=function(){document.documentElement.appendChild(svgTocGroup);translateXStart=translateX;translateXEnd=translateXVisible;animator.start(ANIMATION_TIME_MS)};exports.hide=function(){translateXStart=translateX;translateXEnd=translateXHidden;animator.start(ANIMATION_TIME_MS)};exports.isVisible=function(){return translateXEnd===translateXVisible};sozi.events.listen(&quot;sozi.player.ready&quot;,onPlayerReady);sozi.events.listen(&quot;sozi.player.cleanup&quot;,exports.hide);sozi.events.listen(&quot;sozi.player.framechange&quot;,onFrameChange)});namespace(this,&quot;sozi.framenumber&quot;,function(exports,window){&quot;use strict&quot;;var document=window.document;var svgGroup;var svgText,svgTextNode;var svgCircle;var SVG_NS=&quot;http://www.w3.org/2000/svg&quot;;function adjust(){var textBBox=svgText.getBBox(),d=Math.max(textBBox.width,textBBox.height)*.75,t=d*1.25;svgCircle.setAttribute(&quot;r&quot;,d);svgGroup.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+t+&quot;,&quot;+t+&quot;)&quot;)}function onPlayerReady(){svgGroup=document.createElementNS(SVG_NS,&quot;g&quot;);svgText=document.createElementNS(SVG_NS,&quot;text&quot;);svgCircle=document.createElementNS(SVG_NS,&quot;circle&quot;);svgGroup.setAttribute(&quot;id&quot;,&quot;sozi-framenumber&quot;);svgCircle.setAttribute(&quot;cx&quot;,0);svgCircle.setAttribute(&quot;cy&quot;,0);svgGroup.appendChild(svgCircle);svgTextNode=document.createTextNode(sozi.player.currentFrameIndex+1);svgText.setAttribute(&quot;text-anchor&quot;,&quot;middle&quot;);svgText.setAttribute(&quot;dominant-baseline&quot;,&quot;central&quot;);svgText.setAttribute(&quot;x&quot;,0);svgText.setAttribute(&quot;y&quot;,0);svgText.appendChild(svgTextNode);svgGroup.appendChild(svgText);document.documentElement.appendChild(svgGroup);adjust()}function onFrameChange(index){svgTextNode.nodeValue=index+1}sozi.events.listen(&quot;sozi.player.ready&quot;,onPlayerReady);sozi.events.listen(&quot;sozi.player.framechange&quot;,onFrameChange)});namespace(this,&quot;sozi.links&quot;,function(exports,window){&quot;use strict&quot;;var SVG_NS=&quot;http://www.w3.org/2000/svg&quot;;var XLINK_NS=&quot;http://www.w3.org/1999/xlink&quot;;function getClickHandler(index){return function(evt){sozi.player.moveToFrame(index);evt.preventDefault();evt.stopPropagation()}}function onDocumentReady(){var links=window.document.getElementsByTagNameNS(SVG_NS,&quot;a&quot;);for(var i=0;i&lt;links.length;i+=1){var href=links[i].getAttributeNS(XLINK_NS,&quot;href&quot;);if(href&amp;&amp;href[0]===&quot;#&quot;){links[i].addEventListener(&quot;click&quot;,getClickHandler(sozi.location.getFrameIndexForHash(href)),false)}}}sozi.events.listen(&quot;sozi.document.ready&quot;,onDocumentReady)});namespace(this,&quot;sozi.location&quot;,function(exports,window){&quot;use strict&quot;;var changedFromWithin=false;exports.getFrameIndex=function(){return exports.getFrameIndexForHash(window.location.hash)};exports.getFrameIndexForHash=function(hash){var indexOrId=hash?hash.slice(1):&quot;1&quot;;var index;if(/^[0-9]+$/.test(indexOrId)){index=parseInt(indexOrId,10)-1}else{index=sozi.document.getFrameIndexForId(indexOrId)}if(index&lt;0){return 0}else if(index&gt;=sozi.document.frames.length){return sozi.document.frames.length-1}else{return index}};function onHashChange(){var index=exports.getFrameIndex();if(!changedFromWithin){sozi.player.moveToFrame(index)}changedFromWithin=false}function onFrameChange(index){changedFromWithin=true;window.location.hash=&quot;#&quot;+sozi.document.frames[index].id}window.addEventListener(&quot;hashchange&quot;,onHashChange,false);sozi.events.listen(&quot;sozi.player.framechange&quot;,onFrameChange)});namespace(this,&quot;sozi.player&quot;,function(exports,window){&quot;use strict&quot;;var viewPort;var animator;var nextFrameTimeout;var DEFAULT_DURATION_MS=500;var DEFAULT_ZOOM_PERCENT=-10;var DEFAULT_PROFILE=&quot;linear&quot;;var sourceFrameIndex=0;exports.currentFrameIndex=0;var playing=false;var waiting=false;function waitTimeout(){if(sozi.document.frames[exports.currentFrameIndex].timeoutEnable){waiting=true;var index=(exports.currentFrameIndex+1)%sozi.document.frames.length;nextFrameTimeout=window.setTimeout(function(){exports.moveToFrame(index)},sozi.document.frames[exports.currentFrameIndex].timeoutMs)}}exports.startFromIndex=function(index){playing=true;waiting=false;sourceFrameIndex=index;exports.currentFrameIndex=index;viewPort.showFrame(sozi.document.frames[index]);waitTimeout()};exports.restart=function(){exports.startFromIndex(exports.currentFrameIndex)};exports.stop=function(){animator.stop();if(waiting){window.clearTimeout(nextFrameTimeout);waiting=false}playing=false;sourceFrameIndex=exports.currentFrameIndex};function getZoomData(zoomPercent,s0,s1){var result={ss:(zoomPercent&lt;0?Math.max(s0,s1):Math.min(s0,s1))*(100-zoomPercent)/100,ts:.5,k:0};if(zoomPercent!==0){var a=s0-s1;var b=s0-result.ss;var c=s1-result.ss;if(a!==0){var d=Math.sqrt(b*c);var u=(b-d)/a;var v=(b+d)/a;result.ts=u&gt;0&amp;&amp;u&lt;=1?u:v}result.k=b/result.ts/result.ts}return result}exports.jumpToFrame=function(index){exports.stop();sozi.events.fire(&quot;sozi.player.cleanup&quot;);sourceFrameIndex=index;exports.currentFrameIndex=index;viewPort.showFrame(sozi.document.frames[index]);sozi.events.fire(&quot;sozi.player.framechange&quot;,index)};exports.getAnimationData=function(initialState,finalState,zoomPercent,profile,useTransitionPath,reverseTransitionPath){var data={};for(var idLayer in initialState){data[idLayer]={initialState:sozi.display.CameraState.instance(),finalState:sozi.display.CameraState.instance(),useTransitionPath:useTransitionPath,reverseTransitionPath:reverseTransitionPath};data[idLayer].profile=profile||finalState[idLayer].transitionProfile;data[idLayer].initialState.setAtState(initialState[idLayer]);if(finalState.hasOwnProperty(idLayer)){data[idLayer].finalState.setAtState(finalState[idLayer])}else{data[idLayer].finalState.setAtState(initialState[idLayer])}if(data[idLayer].finalState.angle-data[idLayer].initialState.angle&gt;180){data[idLayer].finalState.setRawAngle(data[idLayer].finalState.angle-360)}else if(data[idLayer].finalState.angle-data[idLayer].initialState.angle&lt;-180){data[idLayer].initialState.setRawAngle(data[idLayer].initialState.angle-360)}var zp=zoomPercent||finalState[idLayer].transitionZoomPercent;if(zp&amp;&amp;finalState.hasOwnProperty(idLayer)){data[idLayer].zoomWidth=getZoomData(zp,initialState[idLayer].width,finalState[idLayer].width);data[idLayer].zoomHeight=getZoomData(zp,initialState[idLayer].height,finalState[idLayer].height)}}return data};exports.previewFrame=function(index){exports.currentFrameIndex=index;animator.start(DEFAULT_DURATION_MS,exports.getAnimationData(viewPort.cameras,sozi.document.frames[index].states,DEFAULT_ZOOM_PERCENT,sozi.animation.profiles[DEFAULT_PROFILE]),false,false);
-sozi.events.fire(&quot;sozi.player.framechange&quot;,index)};exports.moveToFrame=function(index){if(waiting){window.clearTimeout(nextFrameTimeout);waiting=false}var durationMs,zoomPercent,profile,useTransitionPath,reverseTransitionPath;if(index===(exports.currentFrameIndex-1)%sozi.document.frames.length){durationMs=sozi.document.frames[exports.currentFrameIndex].transitionDurationMs;zoomPercent=undefined;profile=undefined;useTransitionPath=true;reverseTransitionPath=true}else if(index===(exports.currentFrameIndex+1)%sozi.document.frames.length){durationMs=sozi.document.frames[index].transitionDurationMs;zoomPercent=undefined;profile=undefined;useTransitionPath=true;reverseTransitionPath=false}else{durationMs=DEFAULT_DURATION_MS;zoomPercent=DEFAULT_ZOOM_PERCENT;profile=sozi.animation.profiles[DEFAULT_PROFILE];useTransitionPath=false;reverseTransitionPath=false}sozi.events.fire(&quot;sozi.player.cleanup&quot;);playing=true;exports.currentFrameIndex=index;animator.start(durationMs,exports.getAnimationData(viewPort.cameras,sozi.document.frames[index].states,zoomPercent,profile,useTransitionPath,reverseTransitionPath));sozi.events.fire(&quot;sozi.player.framechange&quot;,index)};exports.jumpToFirst=function(){exports.jumpToFrame(0)};exports.moveToFirst=function(){exports.moveToFrame(0)};exports.jumpToPrevious=function(){var index=exports.currentFrameIndex;if(!animator.started||sourceFrameIndex&lt;=exports.currentFrameIndex){index-=1}if(index&gt;=0){exports.jumpToFrame(index)}};exports.moveToPrevious=function(){for(var index=exports.currentFrameIndex-1;index&gt;=0;index-=1){var frame=sozi.document.frames[index];if(!frame.timeoutEnable||frame.timeoutMs!==0){exports.moveToFrame(index);break}}};exports.jumpToNext=function(){var index=exports.currentFrameIndex;if(!animator.started||sourceFrameIndex&gt;=exports.currentFrameIndex){index+=1}if(index&lt;sozi.document.frames.length){exports.jumpToFrame(index)}};exports.moveToNext=function(){if(exports.currentFrameIndex&lt;sozi.document.frames.length-1||sozi.document.frames[exports.currentFrameIndex].timeoutEnable){exports.moveToFrame((exports.currentFrameIndex+1)%sozi.document.frames.length)}};exports.jumpToLast=function(){exports.jumpToFrame(sozi.document.frames.length-1)};exports.moveToLast=function(){exports.moveToFrame(sozi.document.frames.length-1)};exports.moveToCurrent=function(){exports.moveToFrame(exports.currentFrameIndex)};exports.showAll=function(){exports.stop();sozi.events.fire(&quot;sozi.player.cleanup&quot;);animator.start(DEFAULT_DURATION_MS,exports.getAnimationData(viewPort.cameras,viewPort.getDocumentState(),DEFAULT_ZOOM_PERCENT,sozi.animation.profiles[DEFAULT_PROFILE],false,false))};function onDisplayReady(){viewPort=sozi.display.ViewPort.instance(&quot;player&quot;,sozi.document.idLayerList,true);exports.startFromIndex(sozi.location.getFrameIndex());window.setTimeout(viewPort.bind(viewPort.update),1);sozi.events.fire(&quot;sozi.player.ready&quot;)}exports.onAnimationStep=function(progress,data){for(var idLayer in data){var camera=viewPort.cameras[idLayer];camera.interpolate(data[idLayer].initialState,data[idLayer].finalState,data[idLayer].profile(progress),data[idLayer].useTransitionPath,data[idLayer].reverseTransitionPath);var ps;if(data[idLayer].zoomWidth&amp;&amp;data[idLayer].zoomWidth.k!==0){ps=progress-data[idLayer].zoomWidth.ts;camera.width=data[idLayer].zoomWidth.k*ps*ps+data[idLayer].zoomWidth.ss}if(data[idLayer].zoomHeight&amp;&amp;data[idLayer].zoomHeight.k!==0){ps=progress-data[idLayer].zoomHeight.ts;camera.height=data[idLayer].zoomHeight.k*ps*ps+data[idLayer].zoomHeight.ss}camera.setClipped(data[idLayer].finalState.clipped)}viewPort.update()};animator=sozi.animation.Animator.instance().augment({onStep:function(progress){exports.onAnimationStep(progress,this.data)},onDone:function(){for(var idLayer in this.data){viewPort.cameras[idLayer].setAtState(this.data[idLayer].finalState)}viewPort.update();sourceFrameIndex=exports.currentFrameIndex;if(playing){waitTimeout()}}});sozi.events.listen(&quot;sozi.display.ready&quot;,onDisplayReady)});</script>
-  <style
-     ns1:version="13.11-12104710"
-     id="sozi-style">#sozi-toc text{fill:#eff;font-family:Verdana,sans-serif;font-size:12pt}#sozi-toc text:hover{fill:#0cf;cursor:pointer}#sozi-toc text.sozi-toc-current{fill:#fa4}#sozi-toc-background{stroke:#222;stroke-opacity:.1;stroke-width:10;fill:#222;fill-opacity:.9}.sozi-toc-arrow{fill:#eff;fill-opacity:.75;stroke:none}.sozi-toc-arrow:hover{fill:#0cf}#sozi-framenumber circle{stroke:#222;stroke-opacity:.1;stroke-width:4;fill:#222;fill-opacity:.9}#sozi-framenumber text{fill:#eff;font-family:Verdana,sans-serif;font-size:12pt}</style>
-  <ns1:frame
-     id="frame7719"
-     ns1:transition-path-hide="true"
-     ns1:transition-profile="linear"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:timeout-ms="5000.0"
-     ns1:timeout-enable="false"
-     ns1:show-in-frame-list="true"
-     ns1:clip="true"
-     ns1:hide="true"
-     ns1:sequence="1"
-     ns1:title="Main title"
-     ns1:refid="rect3138" />
-  <ns1:frame
-     id="frame7720"
-     ns1:refid="g19174"
-     ns1:title="New slide"
-     ns1:sequence="2"
-     ns1:hide="true"
-     ns1:clip="true"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="500.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-path-hide="true">
-    <ns1:layer
-       ns1:transition-path-hide="true"
-       ns1:transition-profile="strong-accelerate-decelerate"
-       ns1:transition-zoom-percent="0.0"
-       ns1:clip="true"
-       ns1:hide="true"
-       ns1:refid="rect3166"
-       ns1:group="layer3" />
-    <ns1:layer
-       ns1:group="layer4"
-       ns1:refid="g19174"
-       ns1:hide="true"
-       ns1:clip="true"
-       ns1:transition-zoom-percent="0.0"
-       ns1:transition-profile="immediate-beginning"
-       ns1:transition-path-hide="true" />
-  </ns1:frame>
-  <ns1:frame
-     id="frame7721"
-     ns1:refid="g31354"
-     ns1:title="Screen"
-     ns1:sequence="3"
-     ns1:hide="true"
-     ns1:clip="true"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="500.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-path-hide="true">
-    <ns1:layer
-       ns1:transition-path-hide="true"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-zoom-percent="0.0"
-       ns1:clip="true"
-       ns1:hide="true"
-       ns1:refid="g19589"
-       ns1:group="layer2" />
-    <ns1:layer
-       ns1:transition-path-hide="true"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-zoom-percent="0.0"
-       ns1:clip="true"
-       ns1:hide="true"
-       ns1:refid="g31354"
-       ns1:group="layer4" />
-  </ns1:frame>
-  <ns1:frame
-     id="frame7722"
-     ns1:transition-path-hide="true"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-duration-ms="500.0"
-     ns1:timeout-ms="5000.0"
-     ns1:timeout-enable="false"
-     ns1:show-in-frame-list="true"
-     ns1:clip="true"
-     ns1:hide="true"
-     ns1:sequence="4"
-     ns1:title="Screen with speaker (overlapping)"
-     ns1:refid="g19396">
-    <ns1:layer
-       ns1:group="layer2"
-       ns1:refid="g19488"
-       ns1:hide="true"
-       ns1:clip="true"
-       ns1:transition-zoom-percent="0.0"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-path-hide="true" />
-    <ns1:layer
-       ns1:group="layer4"
-       ns1:refid="g19396"
-       ns1:hide="true"
-       ns1:clip="true"
-       ns1:transition-zoom-percent="0.0"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-path-hide="true" />
-  </ns1:frame>
-  <ns1:frame
-     id="frame7723"
-     ns1:refid="g19480"
-     ns1:title="Screen with speaker (non overlapping)"
-     ns1:sequence="5"
-     ns1:hide="true"
-     ns1:clip="true"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="500.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-path-hide="true">
-    <ns1:layer
-       ns1:group="layer2"
-       ns1:refid="g19889"
-       ns1:hide="true"
-       ns1:clip="true"
-       ns1:transition-zoom-percent="0.0"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-path-hide="true" />
-    <ns1:layer
-       ns1:transition-path-hide="true"
-       ns1:transition-profile="immediate-middle"
-       ns1:transition-zoom-percent="0.0"
-       ns1:clip="true"
-       ns1:hide="true"
-       ns1:refid="g3912"
-       ns1:group="layer4" />
-  </ns1:frame>
-  <ns1:frame
-     id="frame7724"
-     ns1:refid="g178474"
-     ns1:title="Final"
-     ns1:sequence="17"
-     ns1:hide="true"
-     ns1:clip="true"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="500.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-path-hide="true">
-    <ns1:layer
-       ns1:transition-path-hide="true"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-zoom-percent="0.0"
-       ns1:clip="true"
-       ns1:hide="true"
-       ns1:refid="rect178480"
-       ns1:group="layer3" />
-  </ns1:frame>
-  <ns1:frame
-     id="frame7725"
-     ns1:refid="g5310"
-     ns1:title="Zooming"
-     ns1:sequence="6"
-     ns1:hide="true"
-     ns1:clip="false"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-path-hide="true">
-    <ns1:layer
-       ns1:transition-path-hide="true"
-       ns1:transition-profile="linear"
-       ns1:transition-zoom-percent="0.0"
-       ns1:clip="true"
-       ns1:hide="true"
-       ns1:refid="g21229"
-       ns1:group="layer2" />
-    <ns1:layer
-       ns1:transition-path-hide="true"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-zoom-percent="0.0"
-       ns1:clip="false"
-       ns1:hide="true"
-       ns1:refid="g5520"
-       ns1:group="layer4" />
-  </ns1:frame>
-  <ns1:frame
-     id="frame7726"
-     ns1:transition-path-hide="true"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:timeout-ms="5000.0"
-     ns1:timeout-enable="false"
-     ns1:show-in-frame-list="true"
-     ns1:clip="true"
-     ns1:hide="true"
-     ns1:sequence="7"
-     ns1:title="Sosies"
-     ns1:refid="g8150">
-    <ns1:layer
-       ns1:transition-path-hide="true"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-zoom-percent="0.0"
-       ns1:clip="false"
-       ns1:hide="true"
-       ns1:refid="g8144"
-       ns1:group="layer4" />
-  </ns1:frame>
-  <ns1:frame
-     ns1:refid="g34549"
-     ns1:title="SVG"
-     ns1:sequence="8"
-     ns1:hide="true"
-     ns1:clip="true"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="500.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-path-hide="true"
-     id="frame9410" />
-  <ns1:frame
-     ns1:refid="rect54030"
-     ns1:title="Vector drawing software"
-     ns1:sequence="9"
-     ns1:hide="true"
-     ns1:clip="true"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="500.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-path-hide="true"
-     id="frame9723" />
-  <ns1:frame
-     id="frame9830"
-     ns1:transition-path-hide="true"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-duration-ms="500.0"
-     ns1:timeout-ms="5000.0"
-     ns1:timeout-enable="false"
-     ns1:show-in-frame-list="true"
-     ns1:clip="true"
-     ns1:hide="true"
-     ns1:sequence="10"
-     ns1:title="Web browsers"
-     ns1:refid="g63722" />
-  <ns1:frame
-     ns1:refid="g73882"
-     ns1:title="Delimiting views"
-     ns1:sequence="12"
-     ns1:hide="true"
-     ns1:clip="true"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="500.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-path-hide="true"
-     id="frame4789">
-    <ns1:layer
-       ns1:group="layer6"
-       ns1:refid="g73882"
-       ns1:hide="true"
-       ns1:clip="true"
-       ns1:transition-zoom-percent="0.0"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-path-hide="true" />
-  </ns1:frame>
-  <ns1:frame
-     ns1:refid="g73882"
-     ns1:title="Creating a presentation"
-     ns1:sequence="11"
-     ns1:hide="true"
-     ns1:clip="true"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="500.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-path-hide="true"
-     id="frame4751">
-    <ns1:layer
-       ns1:transition-path-hide="true"
-       ns1:transition-profile="immediate-end"
-       ns1:transition-zoom-percent="0.0"
-       ns1:clip="true"
-       ns1:hide="true"
-       ns1:refid="g84008"
-       ns1:group="layer6" />
-    <ns1:layer
-       ns1:group="layer7"
-       ns1:refid="g84008"
-       ns1:hide="true"
-       ns1:clip="true"
-       ns1:transition-zoom-percent="0.0"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-path-hide="true" />
-  </ns1:frame>
-  <ns1:frame
-     ns1:refid="g154133"
-     ns1:title="Adding presentation data and script"
-     ns1:sequence="13"
-     ns1:hide="true"
-     ns1:clip="true"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="500.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-path-hide="true"
-     id="frame5326">
-    <ns1:layer
-       ns1:group="layer7"
-       ns1:refid="g154133"
-       ns1:hide="true"
-       ns1:clip="true"
-       ns1:transition-zoom-percent="0.0"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-path-hide="true" />
-    <ns1:layer
-       ns1:group="layer6"
-       ns1:refid="g154133"
-       ns1:hide="true"
-       ns1:clip="true"
-       ns1:transition-zoom-percent="0.0"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-path-hide="true" />
-  </ns1:frame>
-  <ns1:frame
-     id="frame6425"
-     ns1:transition-path-hide="true"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:timeout-ms="5000.0"
-     ns1:timeout-enable="false"
-     ns1:show-in-frame-list="true"
-     ns1:clip="true"
-     ns1:hide="false"
-     ns1:sequence="14"
-     ns1:title="Opening"
-     ns1:refid="rect74110">
-    <ns1:layer
-       ns1:transition-path-hide="true"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-zoom-percent="0.0"
-       ns1:clip="true"
-       ns1:hide="true"
-       ns1:refid="g84008"
-       ns1:group="layer6" />
-    <ns1:layer
-       ns1:transition-path-hide="true"
-       ns1:transition-profile="accelerate-decelerate"
-       ns1:transition-zoom-percent="0.0"
-       ns1:clip="true"
-       ns1:hide="true"
-       ns1:refid="g84008"
-       ns1:group="layer7" />
-  </ns1:frame>
-  <ns1:frame
-     id="frame6778"
-     ns1:transition-path-hide="true"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:timeout-ms="5000.0"
-     ns1:timeout-enable="false"
-     ns1:show-in-frame-list="true"
-     ns1:clip="true"
-     ns1:hide="true"
-     ns1:sequence="15"
-     ns1:title="From Sozi 13"
-     ns1:refid="g213777" />
-  <ns1:frame
-     id="frame1560"
-     ns1:transition-path-hide="true"
-     ns1:transition-profile="accelerate-decelerate"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-duration-ms="500"
-     ns1:timeout-ms="5000.0"
-     ns1:timeout-enable="false"
-     ns1:show-in-frame-list="true"
-     ns1:clip="true"
-     ns1:hide="true"
-     ns1:sequence="16"
-     ns1:title="To Sozi 14"
-     ns1:refid="g37852" />
 </svg>

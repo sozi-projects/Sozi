@@ -1,0 +1,222 @@
+# Polish translation for sozi
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the sozi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sozi\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2015-05-15 08:51+0000\n"
+"PO-Revision-Date: 2015-06-11 08:40+0000\n"
+"Last-Translator: Tomasz <glowacki.thomas@gmail.com>\n"
+"Language-Team: Polish <pl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2015-06-30 18:56+0000\n"
+"X-Generator: Launchpad (build 17578)\n"
+"Language: pl\n"
+
+#: build/js/Storage.js:83
+msgid "File %s could not be loaded."
+msgstr "Nie można załadować pliku %s."
+
+#: build/js/Storage.js:104
+msgid "Document was changed. Reloading."
+msgstr "Dokument uległ zmianie. Trwa odświeżanie."
+
+#: build/js/Storage.js:125
+msgid "Document is not valid SVG."
+msgstr "Niepoprawny format pliku SVG."
+
+#: build/js/Storage.js:165
+msgid "Document was imported from Sozi 13 or earlier."
+msgstr ""
+
+#: build/js/Storage.js:250
+msgid "Saved %s."
+msgstr "Zapisano %s."
+
+#: build/js/backend/FileReader.js:19
+msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
+msgstr ""
+"Otwórz plik lokalny(<i class=\"fa fa-warning\"></i> tylko do odczytu)"
+
+#: build/js/backend/GoogleDrive.js:21
+msgid "Load from Google Drive"
+msgstr "Otwórz z Google Drive"
+
+#: build/js/backend/NodeWebkit.js:51
+msgid "Load local file"
+msgstr "Otwórz plik lokalny"
+
+#: build/js/backend/NodeWebkit.js:88
+msgid "File not found: %s."
+msgstr "Nie można odnaleźć pliku: %s."
+
+#: build/js/view/Properties.js:43
+msgid "Frame"
+msgstr "Ramka"
+
+#: build/js/view/Properties.js:43
+msgid "Show in frame list"
+msgstr "Pokarz w spisie"
+
+#: build/js/view/Properties.js:43
+msgid "Show frame number"
+msgstr "Pokaż numer ramki"
+
+#: build/js/view/Properties.js:43
+msgid "Link to previous frame"
+msgstr "Odnośnik do poprzedniej ramki"
+
+#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:90
+msgid "Clip"
+msgstr "Klip"
+
+#: build/js/view/Properties.js:43
+msgid "Title"
+msgstr "Tytuł"
+
+#: build/js/view/Properties.js:43
+msgid "Id"
+msgstr "Identyfikator"
+
+#: build/js/view/Properties.js:43
+msgid "Timeout (seconds)"
+msgstr "Limit czasu (w sekundach)"
+
+#: build/js/view/Properties.js:43
+msgid "Timeout enable"
+msgstr "Włącz odliczanie"
+
+#: build/js/view/Properties.js:43
+msgid "Reference element Id"
+msgstr ""
+
+#: build/js/view/Properties.js:45
+msgid "Autoselect element"
+msgstr ""
+
+#: build/js/view/Properties.js:45
+msgid "Hide element"
+msgstr "Ukryj element"
+
+#: build/js/view/Properties.js:46
+msgid "Fit to element"
+msgstr "Dopasuj do obiektu"
+
+#: build/js/view/Properties.js:50
+msgid "Layer opacity"
+msgstr ""
+
+#: build/js/view/Properties.js:50
+msgid "Transition"
+msgstr "Przejście"
+
+#: build/js/view/Properties.js:50
+msgid "Duration (seconds)"
+msgstr "Czas trwania (sekundy)"
+
+#: build/js/view/Properties.js:50
+msgid "Timing function"
+msgstr "Funkcja czasu"
+
+#: build/js/view/Properties.js:59
+msgid "Relative zoom (%)"
+msgstr ""
+
+#: build/js/view/Properties.js:59
+msgid "Path Id"
+msgstr ""
+
+#: build/js/view/Properties.js:59
+msgid "Hide path"
+msgstr "Ukryj ścieżkę"
+
+#: build/js/view/Timeline.js:264
+msgid "Delete the selected frames"
+msgstr "Usuń zaznaczone ramki"
+
+#: build/js/view/Timeline.js:270
+msgid "Create a new frame"
+msgstr "Stwórz nową ramkę"
+
+#: build/js/view/Timeline.js:280
+msgid "Add layer"
+msgstr "Dodaj warstwę"
+
+#: build/js/view/Timeline.js:285 build/js/view/Timeline.js:297
+msgid "This layer is visible. Click to hide it."
+msgstr "Ta warstwa jest widoczna. Kliknij by ją ukryć."
+
+#: build/js/view/Timeline.js:288 build/js/view/Timeline.js:300
+msgid "This layer is hidden. Click to show it."
+msgstr "Ta warstwa jest ukryta. Kliknij by ją pokazać."
+
+#: build/js/view/Timeline.js:293 build/js/view/Timeline.js:309
+msgid "Default"
+msgstr "Domyślny"
+
+#: build/js/view/Timeline.js:303
+msgid "Remove this layer"
+msgstr "Usuń tą warstwę"
+
+#: build/js/view/Timeline.js:314
+msgid "Insert selection before frame %d"
+msgstr "Wstaw zaznaczone przed ramką %d"
+
+#: build/js/view/Timeline.js:320
+msgid "Insert selection after frame %d"
+msgstr "Wstaw zaznaczone za ramką %d"
+
+#: build/js/view/Toolbar.js:45
+msgid "Aspect ratio: "
+msgstr "Proporcje obrazu "
+
+#: build/js/view/Toolbar.js:72
+msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
+msgstr ""
+
+#: build/js/view/Toolbar.js:78
+msgid ""
+"Zoom in/out on the selected layers (you can also hold the Alt key in Move "
+"mode)"
+msgstr ""
+"Przybliż/oddal  zaznaczone warstwy (możesz też przytrzymać Alt w trybie "
+"przesuwania)"
+
+#: build/js/view/Toolbar.js:84
+msgid ""
+"Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgstr ""
+"Obróć zaznaczone warstwy (możesz też przytrzymać Shift w trybie przesuwania)"
+
+#: build/js/view/Toolbar.js:96
+msgid "Undo (Ctrl-Z)"
+msgstr "Cofnij (Ctrl-Z)"
+
+#: build/js/view/Toolbar.js:103
+msgid "Redo (Ctrl-Y)"
+msgstr "Ponów (Ctrl-Y)"
+
+#: build/js/view/Toolbar.js:110
+msgid "Disable full-screen mode"
+msgstr "Wyłącz tryb pełnoekranowy"
+
+#: build/js/view/Toolbar.js:110
+msgid "Enable full-screen mode"
+msgstr "Włącz tryb pełnoekranowy"
+
+#: build/js/view/Toolbar.js:117
+msgid "Save the presentation"
+msgstr "Zapisz prezentacje"
+
+#: build/js/view/Toolbar.js:124
+msgid "Reload the SVG document"
+msgstr ""
+
+#: build/js/view/Toolbar.js:129
+msgid "Information"
+msgstr ""

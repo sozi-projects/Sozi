@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <_name>Add video or audio</_name>
+  <id>sozi.extras.media</id>
+  <dependency type="executable" location="extensions">inkex.py</dependency>
+  <dependency type="executable" location="extensions">sozi_extras_media.py</dependency>
+  <param name="element" type="enum" _gui-text="Media element">
+  	<item value="video">video</item>
+  	<item value="audio">audio</item>
+  </param>
+  <param name="width"       type="int" min="1" max="10000" _gui-text="Width">640</param>
+  <param name="height"      type="int" min="1" max="10000" _gui-text="Height">480</param>
+  <param name="type"        type="string"  _gui-text="MIME type">video/ogg</param>
+  <param name="src"         type="string"  _gui-text="File name or URL">filename.ogv</param>
+  <param name="auto"        type="boolean" _gui-text="Play automatically in Sozi frame">false</param>
+  <param name="start-frame" type="string"  _gui-text="Start playing when entering frame (id)">undefined</param>
+  <param name="stop-frame"  type="string"  _gui-text="Stop playing when entering frame (id)">undefined</param>
+  <param name="loop"        type="boolean" _gui-text="Loop">false</param>
+  <effect>
+    <object-type>all</object-type>
+    <effects-menu>
+      <submenu _name="Sozi extras"/>
+    </effects-menu>
+  </effect>
+  <script>
+    <command reldir="extensions" interpreter="python">sozi_extras_media.py</command>
+  </script>
+</inkscape-extension>
+
+

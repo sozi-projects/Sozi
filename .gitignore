@@ -1,9 +1,9 @@
-release
+*~
 node_modules
-CMakeCache.txt
-CMakeFiles
-*.pyc
-
-.sconsign.dblite
+vendor
+bower_components
 build
-
+cache
+/js/backend/GoogleDrive.config.js
+npm-debug.log
+buildConfig*.js

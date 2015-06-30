@@ -1,0 +1,15 @@
+{
+    "strict": false,
+    "esnext": true,
+    "undef": true,
+    "unused": false,
+    "newcap": false,
+    "loopfunc": true,
+
+    "browser": true,
+    "devel": true,
+    "jquery": true,
+    "node": true,
+
+	"predef": ["gapi", "google", "unescape"]
+}

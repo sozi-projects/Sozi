@@ -1,0 +1,41 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sozi</title>
+
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/sozi.editor.view.css">
+        <link rel="stylesheet" href="css/sozi.editor.view.Properties.css">
+        <link rel="stylesheet" href="css/sozi.editor.view.Preview.css">
+        <link rel="stylesheet" href="css/sozi.editor.view.Timeline.css">
+        <link rel="stylesheet" href="css/sozi.editor.view.Toolbar.css">
+
+        <script src="https://apis.google.com/js/client.js" defer></script>
+
+        <script src="bower_components/jquery/dist/jquery.min.js" defer></script>
+        <script src="bower_components/notifyjs/dist/notify-combined.min.js" defer></script>
+
+        <script src="js/editor.min.js" defer></script>
+    </head>
+    <body>
+        <div class="top">
+            <div class="left">
+                <div id="sozi-editor-view-preview">
+                    <ul></ul>
+                </div>
+            </div>
+            <div class="vsplitter"></div>
+            <div id="sozi-editor-view-properties" class="right"></div>
+        </div>
+        <div class="hsplitter"></div>
+        <div class="bottom">
+            <div id="sozi-editor-view-toolbar"></div>
+            <div id="sozi-editor-view-timeline">&nbsp;</div>
+        </div>
+    </body>
+</html>
