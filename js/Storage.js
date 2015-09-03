@@ -100,18 +100,25 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
  * with the actual location of the SVG file.
  */
 Storage.resolveRelativeURLs = function (location) {
+    const XLINK_NS = "http://www.w3.org/1999/xlink";
+    var xlinkNsAttrs = toArray(this.document.root.attributes).filter(a => a.value === XLINK_NS);
+    if (!xlinkNsAttrs.length) {
+        return;
+    }
+    var xlinkPrefix = xlinkNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
+
     var images = toArray(this.document.root.getElementsByTagName("image"));
     images.forEach(img => {
-        var href = img.getAttribute("xlink:href");
+        var href = img.getAttribute(xlinkPrefix + "href");
         if (!/^[a-z]+:|^[/#]/.test(href)) {
-            img.setAttribute("xlink:href", `${location}/${href}`);
+            img.setAttribute(xlinkPrefix + "href", `${location}/${href}`);
         }
     });
 };
 
 Storage.onBackendChange = function (fileDescriptor) {
     var _ = this.gettext;
-    
+
     if (fileDescriptor === this.svgFileDescriptor) {
         $.notify(_("Document was changed. Reloading."), "info");
         this.reload();
