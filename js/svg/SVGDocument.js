@@ -44,6 +44,7 @@ export var SVGDocument = {
 
     init(svgRoot) {
         this.root = svgRoot;
+
         this.handler = DefaultHandler;
         for (var name in handlers) {
             if (handlers[name].matches(svgRoot)) {
@@ -52,6 +53,13 @@ export var SVGDocument = {
                 break;
             }
         }
+
+        // Prevent event propagation on hyperlinks
+        var links = toArray(this.root.getElementsByTagName("a"));
+        links.forEach(link => {
+            link.addEventListener("mousedown", evt => { evt.stopPropagation(); }, false);
+        });
+
         return this;
     },
 
@@ -100,12 +108,6 @@ export var SVGDocument = {
             var scripts = toArray(this.root.getElementsByTagName("script"));
             scripts.forEach(script => {
                 script.parentNode.removeChild(script);
-            });
-
-            // Prevent event propagation on hyperlinks
-            var links = toArray(this.root.getElementsByTagName("a"));
-            links.forEach(link => {
-                link.addEventListener("mousedown", evt => evt.stopPropagation(), false);
             });
 
             // Wrap isolated elements into groups

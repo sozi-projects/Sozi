@@ -25,13 +25,13 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="326.46674"
+     inkscape:zoom="2.9695312"
+     inkscape:cx="268.37676"
      inkscape:cy="263.19272"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1360"
+     inkscape:window-width="1366"
      inkscape:window-height="713"
      inkscape:window-x="0"
      inkscape:window-y="30"
@@ -207,5 +207,16 @@
        inkscape:randomized="0"
        d="m 608.7508,431.43593 -35.43309,24.80314 15.55704,37.98697 -34.53861,-26.03429 -31.32036,26.53425 14.08706,-40.89321 -34.9141,-21.5879 43.2449,0.76089 9.74226,-39.8763 12.63976,41.36346 z"
        transform="matrix(1.2897079,0.42499666,-0.49735998,1.102062,39.145285,-292.06077)" />
+    <a
+       id="a3354"
+       xlink:href="http://sozi.baierouge.fr"
+       target="_new">
+      <circle
+         r="15.153907"
+         cy="287.86658"
+         cx="348.76602"
+         id="path3352"
+         style="opacity:1;fill:#0066ff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 2;stroke-dashoffset:0;stroke-opacity:1" />
+    </a>
   </g>
 </svg>
