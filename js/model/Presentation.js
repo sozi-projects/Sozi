@@ -357,7 +357,17 @@ export var Presentation = {
 
     get title() {
         var svgTitles = this.document.root.getElementsByTagNameNS(SVG_NS, "title");
-        return svgTitles.length ? svgTitles[0].firstChild.wholeText.trim() : "Untitled";
+        if (svgTitles.length) {
+            return svgTitles[0].firstChild.wholeText.trim();
+        }
+        else {
+            var svgElem = this.document.root.getElementsByTagNameNS(SVG_NS, "svg");
+            if (svgElem.length) {
+                var docName = svgElem.firstChild.getAttributeNode("sodipodi:docname").value.trim();
+                return docName.replace(/\.[^/.]+$/, "");
+            }
+        }
+        return svgTitles.length ?  : "Untitled";
     },
 
     makeFrameId() {
