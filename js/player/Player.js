@@ -48,6 +48,8 @@ Player.setupEventHandlers = function () {
     this.animator.addListener("step", this.onAnimatorStep.bind(this));
     this.animator.addListener("stop", this.onAnimatorStop.bind(this));
     this.animator.addListener("done", this.onAnimatorDone.bind(this));
+    window.addEventListener("message", this.receiveMessage.bind(this), false)
+    this.addListener("frameChange", this.sendFrameChange.bind(this));
 };
 
 Player.onClick = function (button) {
@@ -153,6 +155,10 @@ Player.onKeyPress = function (evt) {
             else {
                 this.resume();
             }
+            break;
+        case 67: // C
+        case 99: // c
+            this.openRemoteControl();
             break;
         default:
             return;
@@ -470,3 +476,69 @@ Player.onAnimatorDone = function () {
         this.waitTimeout();
     }
 };
+
+Player.openRemoteControl = function () {
+    if (typeof(this.remoteControl) == 'undefined' || this.remoteControl.closed) {
+        this.remoteControl = window.open('', 'soziRemoteControl', 'width=300, height=500');
+        var source = document.getElementById('sozi-remote-control-source');
+        this.remoteControl.document.write(source.value);
+
+        var frameList = document.getElementsByClassName('sozi-frame-list')[0];
+        this.remoteControl.document.write(frameList.outerHTML);
+
+        this.remoteControl.postMessage(JSON.stringify({action: "init"}), "*");
+
+    }
+    else {    
+        this.remoteControl.focus(); 
+    }
+}
+
+Player.receiveMessage = function (event) {
+    data = JSON.parse(event.data);
+    switch (data.action) {
+        case "moveToNext":
+            this.moveToNext(); 
+            break;
+        case "moveToPrevious":
+            this.moveToPrevious();
+            break;
+        case "keypress":
+            this.triggerKey(data.keyCode, 'keypress', data.shiftKey);
+            break;
+        case "keydown":
+            this.triggerKey(data.keyCode, 'keydown', data.shiftKey);
+            break;
+        case "moveToFrame":
+            this.moveToFrame(data.frame);
+            break;
+    }
+}
+
+Player.sendFrameChange = function () {
+    if (typeof(this.remoteControl) != 'undefined' && !this.remoteControl.closed) {
+        var json = JSON.stringify({
+            action: "frameChange",
+            previousFrameIndex: this.previousFrameIndex,
+            currentFrameIndex: this.currentFrameIndex,
+            nextFrameIndex: this.nextFrameIndex
+        });
+        this.remoteControl.postMessage(json, "*");
+    }
+}
+
+Player.triggerKey = function (keyCode, event, shiftKey) {
+    var el = document.body;
+    var eventObj = document.createEventObject ?
+        document.createEventObject() : document.createEvent("Events");
+  
+    if(eventObj.initEvent){
+      eventObj.initEvent(event, true, true);
+    }
+  
+    eventObj.keyCode = keyCode;
+    eventObj.which = keyCode;
+    eventObj.shiftKey = shiftKey;
+    
+    el.dispatchEvent ? el.dispatchEvent(eventObj) : el.fireEvent("on" + event, eventObj); 
+} 
