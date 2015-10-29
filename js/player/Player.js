@@ -160,6 +160,9 @@ Player.onKeyPress = function (evt) {
         case 99: // c
             this.openRemoteControl();
             break;
+        case 46: // .
+            this.toggleBlankScreen();
+            break;
         default:
             return;
     }
@@ -542,3 +545,15 @@ Player.triggerKey = function (keyCode, event, shiftKey) {
     
     el.dispatchEvent ? el.dispatchEvent(eventObj) : el.fireEvent("on" + event, eventObj); 
 } 
+
+Player.toggleBlankScreen = function () {
+    var blankScreen = document.getElementById("sozi-blank-screen");
+    if (blankScreen.style.opacity == 0) {
+        blankScreen.style.visibility = 'visible';
+        blankScreen.style.opacity = 1;
+    }
+    else {
+        blankScreen.style.opacity = 0;
+        blankScreen.style.visibility = 'hidden';
+    }
+}

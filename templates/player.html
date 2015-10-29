@@ -81,11 +81,25 @@
                 top: 1em;
                 right: 1em;
             }
+
+            #sozi-blank-screen {
+                background: black;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                visibility: hidden;
+                z-index: 999;
+                transition: opacity 0.5s, visibility 0.5s;
+            }
         </style>
     </head>
     <body>
         {{ svg }}
         <div class="sozi-frame-number" title="Click to show the frame list">1</div>
+        <div id="sozi-blank-screen"></div>
         <ol class="sozi-frame-list">
                     
             <a href="#" onClick="sozi.player.openRemoteControl();sozi.player.triggerKey(84, 'keypress');" title="Open remote control">
