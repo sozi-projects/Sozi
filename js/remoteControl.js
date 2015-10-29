@@ -53,10 +53,7 @@ window.addEventListener("keypress", function (ev) {
 
 window.addEventListener("message", function (event) {
     data = JSON.parse(event.data);
-    console.log(data.action);
     if (data.action == "frameChange") {
-console.log("changed!");
-console.log(links.length);
         links.forEach(link => {
             link.className = parseInt(link.dataset.frameIndex) === data.currentFrameIndex ?
                 "current" :
