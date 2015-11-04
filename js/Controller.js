@@ -355,8 +355,8 @@ Controller.updateLayerVisibility = function (layers) {
 Controller.fitElement = function () {
     var currentFrame = this.selection.currentFrame;
     if (currentFrame) {
-        var savedFrame = Object.create(Frame).initFrom(currentFrame);
-        var modifiedFrame = Object.create(Frame).initFrom(currentFrame);
+        var savedFrame = Object.create(Frame).initFrom(currentFrame, true);
+        var modifiedFrame = Object.create(Frame).initFrom(currentFrame, true);
 
         var hasReferenceElement = false;
         this.selection.selectedLayers.forEach(layer => {
@@ -372,10 +372,13 @@ Controller.fitElement = function () {
             this.perform(
                 function onDo() {
                     currentFrame.setAtStates(modifiedFrame.cameraStates);
+                    this.selection.selectedLayers.forEach(layer => {
+                        currentFrame.layerProperties[layer.index].link = false;
+                    });
                     this.presentation.updateLinkedLayers();
                 },
                 function onUndo() {
-                    currentFrame.setAtStates(savedFrame.cameraStates);
+                    currentFrame.initFrom(savedFrame);
                     this.presentation.updateLinkedLayers();
                 },
                 false,
