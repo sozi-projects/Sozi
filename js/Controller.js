@@ -364,7 +364,7 @@ Controller.fitElement = function () {
             var elt = this.presentation.document.root.getElementById(id);
             if (elt) {
                 hasReferenceElement = true;
-                modifiedFrame.cameraStates[layer.index].setAtElement(elt);
+                modifiedFrame.cameraStates[layer.index].setAtElement(elt).resetClipping();
             }
         });
 

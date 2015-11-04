@@ -147,6 +147,12 @@ export var CameraState = {
         return this;
     },
 
+    resetClipping() {
+        this.clipXOffset = this.clipYOffset = 0;
+        this.clipWidthFactor = this.clipHeightFactor = 1;
+        return this;
+    },
+
     offsetFromElement(svgElement) {
         var cam = Object.create(CameraState).init(this.svgRoot).setAtElement(svgElement);
         return {
