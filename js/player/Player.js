@@ -487,6 +487,13 @@ Player.onAnimatorDone = function () {
 Player.openRemoteControl = function () {
     if (typeof(this.remoteControl) == 'undefined' || this.remoteControl.closed) {
         this.remoteControl = window.open('', 'soziRemoteControl', 'width=300, height=600');
+        try {
+            this.remoteControl.focus(); 
+        }
+        catch (e) {
+            alert("The remote control couldn't be opened, please allow popups for this site and refresh page");
+            return;
+        }
         var source = document.getElementById('sozi-remote-control-source').value;
         var frameList = document.getElementsByClassName('sozi-frame-list')[0].outerHTML;
         source = source.replace("<!-- (( frameList )) -->", frameList); // This part feels a little bit hacky...
