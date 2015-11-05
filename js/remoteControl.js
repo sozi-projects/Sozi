@@ -8,17 +8,40 @@ import * as Stopwatch from "./player/Stopwatch";
 import {toArray} from "./utils";
 
 var links;
+var previewIframes = {
+    current: null,
+    next: null,
+    previous: null
+};
+var delayedUpdate;
+var windowOpener;
 
-function pm(data) {
+function pm(data, winRef) {
     var json = JSON.stringify(data);
-    parent.window.opener.postMessage(json, '*'); 
+    winRef.postMessage(json, '*'); 
 }
 
-function init() {
+function init(url) {
     Stopwatch.init();
 
-    document.getElementById("sozi-previous-button").onclick = function() {pm({action: 'moveToPrevious'})};
-    document.getElementById("sozi-next-button").onclick = function() {pm({action: 'moveToNext'})};
+    windowOpener = parent.window.opener;
+    document.querySelector(".clickable").onclick = function() {pm({action: 'moveToNext'}, windowOpener)};
+    document.querySelector(".clickable").oncontextmenu = function() {
+        pm({action: 'moveToPrevious'}, windowOpener);
+        return false;
+    };
+    document.querySelector("#sozi-preview-next-frame .sozi-invisible-layer").onclick = function() {
+        pm({action: 'moveToNext'}, windowOpener)
+    };
+    document.querySelector("#sozi-preview-previous-frame .sozi-invisible-layer").onclick = function() {
+        pm({action: 'moveToPrevious'}, windowOpener)
+    };
+
+    for (var state in previewIframes) {
+        previewIframes[state] = document.querySelector("#sozi-preview-" + state + "-frame iframe");
+        previewIframes[state].src = url.replace(/#[^\/].*/, "#sozi-preview");
+        previewIframes[state] = previewIframes[state].contentWindow;
+    }
 
     links = toArray(document.querySelectorAll(".sozi-frame-list li a"));
     links.forEach(link => {
@@ -28,11 +51,20 @@ function init() {
                 pm({
                     action: 'moveToFrame',
                     frame: index
-                });
+                }, windowOpener);
                 evt.preventDefault();
             }
         });
     });
+}
+
+function updateIframes(data) {
+    for (var state in previewIframes) {
+        pm({
+            action: 'jumpToFrame',
+            frame: data[state + 'FrameIndex']
+        }, previewIframes[state]);
+    }
 }
 
 window.addEventListener("keydown", function (ev) {
@@ -40,7 +72,7 @@ window.addEventListener("keydown", function (ev) {
         action: 'keydown',
         keyCode: ev.keyCode,
         shiftKey: ev.shiftKey
-    });
+    }, windowOpener);
 }, false);
 
 window.addEventListener("keypress", function (ev) {
@@ -48,7 +80,7 @@ window.addEventListener("keypress", function (ev) {
         action: 'keypress',
         keyCode: ev.charCode || ev.which,
         shiftKey: ev.shiftKey
-    });
+    }, windowOpener);
 }, false);
 
 window.addEventListener("message", function (event) {
@@ -59,8 +91,10 @@ window.addEventListener("message", function (event) {
                 "current" :
                 "";
         });
+        updateIframes(data);
     }
     else if (data.action == "init") {
-       init(); 
+        init(data.url);
+        delayedUpdate = setTimeout(updateIframes, 1000, data);
     }
 }, false);

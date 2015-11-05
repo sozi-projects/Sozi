@@ -7,14 +7,16 @@
 var	startAt = 0;
 var lapTime = 0;	// Time of last start / resume. (0 if not running)
 var isRunning = false;
-var $time
+var $time;
+var $pauseButton;
 var clocktimer;
-var stopButton = document.getElementById("sozi-stop-stopwatch");
 
 export function init() {
-    stopButton.onclick = function() {toggle()};
-    document.getElementById("sozi-reset-stopwatch").onclick = function() {reset()};
-    show();
+    $time = document.getElementById('time');
+    $pauseButton = document.querySelector(".sozi-button-pause");
+    $pauseButton.onclick = function() {toggle()};
+    document.querySelector(".sozi-button-reset").onclick = function() {reset();};
+    update();
     start();
 }
 
@@ -25,8 +27,8 @@ function now() {
 export function start() {
     startAt	= startAt ? startAt : now();
     isRunning = true;
-    stopButton.firstChild.innerHTML = "Stop";
-    stopButton.setAttribute("title", "Stop stopwatch");
+    $pauseButton.innerHTML = "Pause";
+    $pauseButton.setAttribute("title", "Pause stopwatch");
     clocktimer = setInterval(update, 100);
 }
 
@@ -34,8 +36,8 @@ export function stop() {
     lapTime	= startAt ? lapTime + now() - startAt : lapTime;
     startAt	= 0; // Paused
     isRunning = false;
-    stopButton.firstChild.innerHTML = "Start";
-    stopButton.setAttribute("title", "Start stopwatch");
+    $pauseButton.innerHTML = "Resume";
+    $pauseButton.setAttribute("title", "Resume stopwatch");
     clearInterval(clocktimer);
 }
 
@@ -64,11 +66,6 @@ function formattedTime() {
     secs = Math.floor( time / 1000 );
     newTime = pad(hours) + ':' + pad(mins) + ':' + pad(secs);
     return newTime;
-}
-
-function show() {
-    $time = document.getElementById('time');
-    update();
 }
 
 export function update() {

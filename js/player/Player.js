@@ -36,6 +36,10 @@ Player.init = function (viewport, presentation) {
     this.transitions = [];
 
     this.setupEventHandlers();
+
+    if (window.location.hash == "#sozi-preview") {
+        document.querySelector(".sozi-frame-list").style.display = "none";
+    }
     return this;
 };
 
@@ -482,15 +486,20 @@ Player.onAnimatorDone = function () {
 
 Player.openRemoteControl = function () {
     if (typeof(this.remoteControl) == 'undefined' || this.remoteControl.closed) {
-        this.remoteControl = window.open('', 'soziRemoteControl', 'width=300, height=500');
-        var source = document.getElementById('sozi-remote-control-source');
-        this.remoteControl.document.write(source.value);
+        this.remoteControl = window.open('', 'soziRemoteControl', 'width=300, height=600');
+        var source = document.getElementById('sozi-remote-control-source').value;
+        var frameList = document.getElementsByClassName('sozi-frame-list')[0].outerHTML;
+        source = source.replace("<!-- (( frameList )) -->", frameList); // This part feels a little bit hacky...
+        this.remoteControl.document.write(source);
 
-        var frameList = document.getElementsByClassName('sozi-frame-list')[0];
-        this.remoteControl.document.write(frameList.outerHTML);
-
-        this.remoteControl.postMessage(JSON.stringify({action: "init"}), "*");
-
+        var json = JSON.stringify({
+            action: "init",
+            url: window.location.href,
+            previousFrameIndex: this.previousFrameIndex,
+            currentFrameIndex: this.currentFrameIndex,
+            nextFrameIndex: this.nextFrameIndex
+        });
+        this.remoteControl.postMessage(json, "*");
     }
     else {    
         this.remoteControl.focus(); 
@@ -506,14 +515,17 @@ Player.receiveMessage = function (event) {
         case "moveToPrevious":
             this.moveToPrevious();
             break;
+        case "moveToFrame":
+            this.moveToFrame(data.frame);
+            break;
+        case "jumpToFrame":
+            this.jumpToFrame(data.frame);
+            break;
         case "keypress":
             this.triggerKey(data.keyCode, 'keypress', data.shiftKey);
             break;
         case "keydown":
             this.triggerKey(data.keyCode, 'keydown', data.shiftKey);
-            break;
-        case "moveToFrame":
-            this.moveToFrame(data.frame);
             break;
     }
 }
