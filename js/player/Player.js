@@ -570,9 +570,11 @@ Player.toggleBlankScreen = function () {
     if (blankScreen.style.opacity == 0) {
         blankScreen.style.visibility = 'visible';
         blankScreen.style.opacity = 1;
+        this.pause();
     }
     else {
         blankScreen.style.opacity = 0;
         blankScreen.style.visibility = 'hidden';
+        this.resume();
     }
 }
