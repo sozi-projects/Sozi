@@ -28,7 +28,7 @@ module.exports = function(grunt) {
             "win32", "osx32", "linux32",
             "win64", "osx64", "linux64"
         ],
-        nwVersion: "0.12.1",
+        nwVersion: "0.12.3",
         nwOptions: {
             toolbar: false
         },
