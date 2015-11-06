@@ -160,7 +160,7 @@ Camera.restoreAspectRatio = function () {
 
 Camera.getCandidateReferenceElement = function () {
     // getIntersectionList is not supported in Gecko
-    if (!this.svgRoot.getIntersectionList) {
+    if (!this.svgRoot.getIntersectionList || !this.layer.svgNodes.length) {
         return this.svgRoot;
     }
 
