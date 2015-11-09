@@ -7,6 +7,11 @@
 import Jed from "jed";
 import locales from "./locales";
 
+// Convert a language tag to a dash-separated lowercase string
+function normalize(tag) {
+    return tag.replace(/_/g, "-").toLowerCase();
+}
+
 export function init(lang) {
     if (!lang) {
         lang = window.navigator.languages && window.navigator.languages.length ?
@@ -14,11 +19,18 @@ export function init(lang) {
             (window.navigator.language || window.navigator.userLanguage || "en");
     }
 
-    var langShort = lang.split(/[-_]/)[0];
+    // Normalize the given language tag and extract the language code alone
+    lang = normalize(lang);
+    var langShort = lang.split("-")[0];
 
-    var localeData = locales[lang] || locales[langShort] || {};
+    // Find the user language in the available locales
+    var allLanguages = Object.keys(locales).map(normalize);
+    var langIndex = allLanguages.indexOf(lang);
+    if (langIndex < 0) {
+        langIndex = allLanguages.indexOf(langShort);
+    }
 
-    console.log(`User languages: ${lang}, ${langShort}. Using ${locales[lang] ? lang : locales[langShort] ? langShort : "en (default)"}`);
+    var localeData = langIndex >= 0 ? locales[Object.keys(locales)[langIndex]] : {};
 
     return new Jed(localeData);
 }
