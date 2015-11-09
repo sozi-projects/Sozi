@@ -18,5 +18,7 @@ export function init(lang) {
 
     var localeData = locales[lang] || locales[langShort] || {};
 
+    console.log(`User languages: ${lang}, ${langShort}. Using ${locales[lang] ? lang : locales[langShort] ? langShort : "en (default)"}`);
+
     return new Jed(localeData);
 }
