@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-05-15 08:51+0000\n"
-"PO-Revision-Date: 2015-07-14 16:40+0000\n"
-"Last-Translator: Antonio Sánchez <introlinux@gmail.com>\n"
+"PO-Revision-Date: 2015-10-11 20:21+0000\n"
+"Last-Translator: Adolfo Jayme <fitoschido@gmail.com>\n"
 "Language-Team: Vaslibre <info@vaslibre.org.ve>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-08-04 10:08+0000\n"
-"X-Generator: Launchpad (build 17656)\n"
+"X-Launchpad-Export-Date: 2015-11-12 19:08+0000\n"
+"X-Generator: Launchpad (build 17843)\n"
 "Language: \n"
 
 #: build/js/Storage.js:83
@@ -32,7 +32,7 @@ msgstr "No es un documento SVG válido"
 
 #: build/js/Storage.js:165
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr "El documento de la versión Sozi13 o anterior fue importado."
+msgstr "El documento se importó desde Sozi13 o una versión anterior."
 
 #: build/js/Storage.js:250
 msgid "Saved %s."

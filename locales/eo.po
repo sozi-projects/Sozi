@@ -7,68 +7,68 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-05-14 09:10:+0000\n"
-"PO-Revision-Date: 2012-09-10 16:20+0000\n"
+"POT-Creation-Date: 2015-05-15 08:51+0000\n"
+"PO-Revision-Date: 2015-10-21 20:09+0000\n"
 "Last-Translator: Guillaume Savaton <guillaume.savaton@gmail.com>\n"
 "Language-Team: Esperanto <eo@li.org>\n"
-"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-04-11 13:36+0000\n"
-"X-Generator: Launchpad (build 17423)\n"
+"X-Launchpad-Export-Date: 2015-11-12 19:04+0000\n"
+"X-Generator: Launchpad (build 17843)\n"
+"Language: eo\n"
 
 #: build/js/Storage.js:83
 msgid "File %s could not be loaded."
-msgstr ""
+msgstr "Ne eblis malfermi la dosieron %s."
 
 #: build/js/Storage.js:104
 msgid "Document was changed. Reloading."
-msgstr ""
+msgstr "La dokumento estas ŝanĝita. Remalfermantas."
 
 #: build/js/Storage.js:125
 msgid "Document is not valid SVG."
-msgstr ""
+msgstr "La dokumento ne estas valida SVG."
 
 #: build/js/Storage.js:165
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr ""
+msgstr "La dokumento estas importita el Sozi 13 aŭ antaŭa versio."
 
 #: build/js/Storage.js:250
 msgid "Saved %s."
-msgstr ""
+msgstr "Konservis %s."
 
 #: build/js/backend/FileReader.js:19
 msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
-msgstr ""
+msgstr "Malfermi lokan dosieron (<i class=\"fa fa-warning\"></i> nurlege)"
 
 #: build/js/backend/GoogleDrive.js:21
 msgid "Load from Google Drive"
-msgstr ""
+msgstr "Malfermi el Google Drive"
 
 #: build/js/backend/NodeWebkit.js:51
 msgid "Load local file"
-msgstr ""
+msgstr "Malfermi lokan dosieron"
 
 #: build/js/backend/NodeWebkit.js:88
 msgid "File not found: %s."
-msgstr ""
+msgstr "Ne trovis la dosieron: %s"
 
 #: build/js/view/Properties.js:43
 msgid "Frame"
-msgstr ""
+msgstr "Kadro"
 
 #: build/js/view/Properties.js:43
 msgid "Show in frame list"
-msgstr ""
+msgstr "Montri en la listo de kadroj"
 
 #: build/js/view/Properties.js:43
 msgid "Show frame number"
-msgstr ""
+msgstr "Montri la numeron de la kadro"
 
 #: build/js/view/Properties.js:43
 msgid "Link to previous frame"
-msgstr ""
+msgstr "Ligi al la antaŭa kadro"
 
 #: build/js/view/Properties.js:43 build/js/view/Toolbar.js:90
 msgid "Clip"
@@ -80,210 +80,143 @@ msgstr "Titolo"
 
 #: build/js/view/Properties.js:43
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 #: build/js/view/Properties.js:43
 msgid "Timeout (seconds)"
-msgstr ""
+msgstr "Tempolimo (sekundoj)"
 
 #: build/js/view/Properties.js:43
 msgid "Timeout enable"
-msgstr ""
+msgstr "Ebligi la tempolimon"
 
 #: build/js/view/Properties.js:43
 msgid "Reference element Id"
-msgstr ""
+msgstr "Id de la referenca elemento"
 
 #: build/js/view/Properties.js:45
 msgid "Autoselect element"
-msgstr ""
+msgstr "Selekti la elementon aŭtomate"
 
 #: build/js/view/Properties.js:45
 msgid "Hide element"
-msgstr ""
+msgstr "Kaŝi la elementon"
 
 #: build/js/view/Properties.js:46
 msgid "Fit to element"
-msgstr ""
+msgstr "Adapti al la elemento"
 
 #: build/js/view/Properties.js:50
 msgid "Layer opacity"
-msgstr ""
+msgstr "Opakeco de la tavolo"
 
 #: build/js/view/Properties.js:50
 msgid "Transition"
-msgstr ""
+msgstr "Transpaso"
 
 #: build/js/view/Properties.js:50
 msgid "Duration (seconds)"
-msgstr ""
+msgstr "Daŭro (sekundoj)"
 
 #: build/js/view/Properties.js:50
 msgid "Timing function"
-msgstr ""
+msgstr "Tempofunkcio"
 
 #: build/js/view/Properties.js:59
 msgid "Relative zoom (%)"
-msgstr ""
+msgstr "Zomfaktoro (%)"
 
 #: build/js/view/Properties.js:59
 msgid "Path Id"
-msgstr ""
+msgstr "Id de la vojo"
 
 #: build/js/view/Properties.js:59
-#, fuzzy
 msgid "Hide path"
-msgstr "Kaŝi"
+msgstr "Kaŝi la vojon"
 
 #: build/js/view/Timeline.js:264
-#, fuzzy
 msgid "Delete the selected frames"
-msgstr "Forviŝi la selektitan kadron"
+msgstr "Forviŝi la selektitajn kadrojn"
 
 #: build/js/view/Timeline.js:270
 msgid "Create a new frame"
 msgstr "Krei novan kadron"
 
 #: build/js/view/Timeline.js:280
-#, fuzzy
 msgid "Add layer"
-msgstr "Aldoni la tavolon '{0}'"
+msgstr "Aldoni tavolon"
 
 #: build/js/view/Timeline.js:285 build/js/view/Timeline.js:297
 msgid "This layer is visible. Click to hide it."
-msgstr ""
+msgstr "Tiu tavolo estas videbla. Klaku por kaŝi ĝin."
 
 #: build/js/view/Timeline.js:288 build/js/view/Timeline.js:300
 msgid "This layer is hidden. Click to show it."
-msgstr ""
+msgstr "Tiu tavolo estas kaŝita. Klaku por montri ĝin."
 
 #: build/js/view/Timeline.js:293 build/js/view/Timeline.js:309
 msgid "Default"
-msgstr ""
+msgstr "Defaŭlta"
 
 #: build/js/view/Timeline.js:303
-#, fuzzy
 msgid "Remove this layer"
-msgstr "Forigi la selektitan tavolon"
+msgstr "Forigi tiun tavolon"
 
 #: build/js/view/Timeline.js:314
 msgid "Insert selection before frame %d"
-msgstr ""
+msgstr "Enmeti la selektaĵon antaŭ la kadron %d"
 
 #: build/js/view/Timeline.js:320
 msgid "Insert selection after frame %d"
-msgstr ""
+msgstr "Enmeti la selektaĵon post la kadron %d"
 
 #: build/js/view/Toolbar.js:45
 msgid "Aspect ratio: "
-msgstr ""
+msgstr "Ekranformato: "
 
 #: build/js/view/Toolbar.js:72
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
-msgstr ""
+msgstr "Movi la selektitajn tavolojn (tenu Alt por zomi, Shift por rotacii)"
 
 #: build/js/view/Toolbar.js:78
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
+"Zomi/malzomi en la selektitaj tavoloj (vi ankaŭ povas teni la Alt-klavon en "
+"Mov-reĝimo)"
 
 #: build/js/view/Toolbar.js:84
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
+"Rotacii la selektitajn tavolojn (vi ankaŭ povas teni la Shift-klavon en Mov-"
+"reĝimo)"
 
 #: build/js/view/Toolbar.js:96
 msgid "Undo (Ctrl-Z)"
-msgstr ""
+msgstr "Malfari (Ctrl-Z)"
 
 #: build/js/view/Toolbar.js:103
 msgid "Redo (Ctrl-Y)"
-msgstr ""
+msgstr "Refari (Ctrl-Y)"
 
 #: build/js/view/Toolbar.js:110
 msgid "Disable full-screen mode"
-msgstr ""
+msgstr "Malebligi la tutekranan reĝimon"
 
 #: build/js/view/Toolbar.js:110
 msgid "Enable full-screen mode"
-msgstr ""
+msgstr "Ebligi la tutekranan reĝimon"
 
 #: build/js/view/Toolbar.js:117
-#, fuzzy
 msgid "Save the presentation"
-msgstr "Prezentaĵo"
+msgstr "Konservi la prezentaĵon"
 
 #: build/js/view/Toolbar.js:124
 msgid "Reload the SVG document"
-msgstr ""
+msgstr "Reŝargi la SVG-dokumenton"
 
 #: build/js/view/Toolbar.js:129
 msgid "Information"
-msgstr ""
-
-#~ msgid "Undo"
-#~ msgstr "Malfari"
-
-#~ msgid "Redo"
-#~ msgstr "Refari"
-
-#~ msgid "Change '{0}' in frame {1}"
-#~ msgstr "Modifi '{0}' en la kadro {1}"
-
-#~ msgid "Change '{0}' in layer '{1}' of frame {2}"
-#~ msgstr "Modifi '{0}' en la tavolo '{1}' de la kadro {2}"
-
-#~ msgid "Delete the new frame {0}"
-#~ msgstr "Forviŝi la novan kadron {0}"
-
-#~ msgid "Create a new frame at {0}"
-#~ msgstr "Krei novan kadron en {0}"
-
-#~ msgid "Remove the layer '{0}' from frame {1}"
-#~ msgstr "Forigi la tavolon '{0}' el la kadro {1}"
-
-#~ msgid "Add layer '{0}' to frame {1}"
-#~ msgstr "Aldoni la tavolon '{0}' al la kadro {1}"
-
-#~ msgid "Delete frame {0}"
-#~ msgstr "Forviŝi la kadron {0}"
-
-#~ msgid "Remove layer '{0}' from frame {1}"
-#~ msgstr "Forigi la tavolon '{0}' el la kadro {1}"
-
-#~ msgid "Delete duplicated frame {0}"
-#~ msgstr "Forviŝi la duobligitan kadron {0}"
-
-#~ msgid "Duplicate frame {0}"
-#~ msgstr "Duobligi la kadron {0}"
-
-#~ msgid "Untitled"
-#~ msgstr "Sentitola"
-
-#~ msgid "New frame"
-#~ msgstr "Nova kadro"
-
-#~ msgid "Enabled"
-#~ msgstr "Ebligita"
-
-#~ msgid "Disabled"
-#~ msgstr "Malebligita"
-
-#~ msgid "New"
-#~ msgstr "Nova"
-
-#~ msgid "Duplicate the selected frame"
-#~ msgstr "Duobligi la selektitan kadron"
-
-#~ msgid "Duplicate"
-#~ msgstr "Duobligi"
-
-#~ msgid "Delete"
-#~ msgstr "Forviŝi"
-
-#~ msgid "Profile"
-#~ msgstr "Profilo"
-
-#~ msgid "Settings"
-#~ msgstr "Agordoj"
+msgstr "Informoj"

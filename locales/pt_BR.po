@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-05-15 08:51+0000\n"
-"PO-Revision-Date: 2015-06-27 21:04+0000\n"
-"Last-Translator: André Lage <prof.alage@gmail.com>\n"
+"PO-Revision-Date: 2015-10-05 10:29+0000\n"
+"Last-Translator: Rafael Fontenelle <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-06-30 18:56+0000\n"
-"X-Generator: Launchpad (build 17578)\n"
+"X-Launchpad-Export-Date: 2015-11-12 19:08+0000\n"
+"X-Generator: Launchpad (build 17843)\n"
 "Language: pt_BR\n"
 
 #: build/js/Storage.js:83
@@ -200,7 +200,7 @@ msgstr "Desfazer (Ctrl-Z)"
 
 #: build/js/view/Toolbar.js:103
 msgid "Redo (Ctrl-Y)"
-msgstr ""
+msgstr "Refazer (Ctrl-Y)"
 
 #: build/js/view/Toolbar.js:110
 msgid "Disable full-screen mode"
