@@ -103,7 +103,7 @@
                 height: 100%;
             }
 
-            .sozi-middle-column, .sozi-right-column {
+            .sozi-left-column, .sozi-right-column {
                 position: relative;
                 background: #ccc;
             }
@@ -138,84 +138,117 @@
                 opacity: 0.9;
             }
 
-            .sozi-left-container-div {
+            #sozi-preview-current-container {
+                width: 100%;
+                float: left;
+            }
+
+            #sozi-preview-previous-container, 
+            #sozi-preview-next-container {
                 width: 50%;
                 float: left;
             }
+            
+            #sozi-notes {
+                display: none;
+                font-size: 200%;
+                padding: 15px;
+                font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+            }
+
+            #sozi-notes * {
+                overflow: hidden;
+                word-wrap: break-word;
+            }
+
+            #sozi-notes div {
+                margin-top: 1em;
+            }
+
             .clearing {
                 height: 0;
                 clear: both;
             }
 
+            #sozi-resize-handle {
+                display: none;
+            }
+
             @media all and ( max-width: 550px ) {
-                #sozi-middle-column, #sozi-right-column {
+                #sozi-left-column, #sozi-right-column {
                    width: 100%;
                    float: none;
                 }
             }
             @media all and ( min-width: 551px )  {
-                #sozi-middle-column {
+                #sozi-left-column {
                     width: 100%;
                     float: left;
                     margin-right: -305px;
                 }
-                #sozi-middle-content {
+                #sozi-left-content {
                     margin-right: 305px;
                 }
                 #sozi-right-column {
                     float: right;
                     width: 300px;
                 }
+                #sozi-notes {
+                    width: auto;
+                    display: block;
+                }
+            }
+            @media all and ( max-width: 999px) {
+                #sozi-left-resizable {
+                    width: auto !important;
+                    resize: none;
+                }
             }
 
             @media all and ( min-width: 1000px ) {
-                .sozi-left-container-div {
-                    width: 100%;
-                }
-                #sozi-left-column {
-                    width: 100%;
+                #sozi-left-resizable {
                     float: left;
-                    margin-right: -605px;
+                    width: 30%;
+                    resize: horizontal;
+                    overflow: auto;
+                    min-height: 95%;
+                    margin-right: 20px;
                 }
-                #sozi-left-content {
-                    margin-right: 605px;
-                }
-                #sozi-middle-big {
-                    float: right;
-                    width: 600px;
+                #sozi-resize-handle {
+                    display: block;
                 }
             }
         </style>
     </head>
     <body>
         <div id="wrapper">
-            <div id="sozi-middle-column">
-                <div id="sozi-middle-content">
-                    <div id="sozi-middle-big">
-                        <div id="sozi-preview-current-frame" class="sozi-iframe-container">
-                            <iframe src="#" frameborder="0" class="sozi-fill"></iframe>
-                            <div class="sozi-invisible-layer sozi-fill clickable"></div>
-                        </div>
-                    </div>
-                    <div id="sozi-left-column">
-                        <div id="sozi-left-content">
-                            <div class="sozi-left-container-div">
-                                <div id="sozi-preview-previous-frame" class="sozi-iframe-container">
-                                    <iframe src="#" frameborder="0" class="sozi-fill"></iframe>
-                                    <div class="sozi-invisible-layer sozi-fill"></div>
-                                    <div class="sozi-button">Previous</div>
-                                </div>
-                            </div>
-                            <div class="sozi-left-container-div">
-                                <div id="sozi-preview-next-frame" class="sozi-iframe-container">
-                                    <iframe src="#" frameborder="0" class="sozi-fill"></iframe>
-                                    <div class="sozi-invisible-layer sozi-fill"></div>
-                                    <div class="sozi-button">Next</div>
-                                </div>
+            <div id="sozi-left-column">
+                <div id="sozi-left-content">
+                    <div id="sozi-left-resizable">
+                        <div id="sozi-preview-current-container">
+                            <div id="sozi-preview-current-frame" class="sozi-iframe-container">
+                                <iframe src="#" frameborder="0" class="sozi-fill"></iframe>
+                                <div class="sozi-invisible-layer sozi-fill clickable"></div>
                             </div>
                         </div>
+                        <div id="sozi-preview-previous-container">
+                            <div id="sozi-preview-previous-frame" class="sozi-iframe-container">
+                                <iframe src="#" frameborder="0" class="sozi-fill"></iframe>
+                                <div class="sozi-invisible-layer sozi-fill"></div>
+                                <div class="sozi-button">Previous</div>
+                            </div>
+                        </div>
+                        <div id="sozi-preview-next-container">
+                            <div id="sozi-preview-next-frame" class="sozi-iframe-container">
+                                <iframe src="#" frameborder="0" class="sozi-fill"></iframe>
+                                <div class="sozi-invisible-layer sozi-fill"></div>
+                                <div class="sozi-button">Next</div>
+                            </div>
+                        </div>
+                        <div id="sozi-resize-handle"></div>
+                        <div class="clearing"></div>
                     </div>
-                    <div class="clearing"></div>
+                    <div id="sozi-notes"></div>
                 </div>
             </div>
             <div id="sozi-right-column">

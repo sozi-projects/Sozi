@@ -21,8 +21,8 @@ function pm(data, winRef) {
     winRef.postMessage(json, '*'); 
 }
 
-function init(url) {
-    Stopwatch.init();
+function init(data) {
+    Stopwatch.init(data.startTime);
 
     windowOpener = parent.window.opener;
     document.querySelector(".clickable").onclick = function() {pm({action: 'moveToNext'}, windowOpener)};
@@ -39,9 +39,10 @@ function init(url) {
 
     for (var state in previewIframes) {
         previewIframes[state] = document.querySelector("#sozi-preview-" + state + "-frame iframe");
-        previewIframes[state].src = url.replace(/#[^\/].*/, "#sozi-preview");
+        previewIframes[state].src = data.url.replace(/#[^\/].*/, "#sozi-preview");
         previewIframes[state] = previewIframes[state].contentWindow;
     }
+    delayedUpdate = setTimeout(updateIframes, 1000, data);
 
     links = toArray(document.querySelectorAll(".sozi-frame-list li a"));
     links.forEach(link => {
@@ -56,6 +57,9 @@ function init(url) {
             }
         });
     });
+
+    delayedUpdate = setTimeout(updateIframes, 1000, data);
+    document.getElementById("sozi-notes").innerHTML = data.notes;
 }
 
 function updateIframes(data) {
@@ -92,9 +96,9 @@ window.addEventListener("message", function (event) {
                 "";
         });
         updateIframes(data);
+        document.getElementById("sozi-notes").innerHTML = data.notes;
     }
     else if (data.action == "init") {
-        init(data.url);
-        delayedUpdate = setTimeout(updateIframes, 1000, data);
+        init(data);
     }
 }, false);

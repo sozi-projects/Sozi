@@ -11,7 +11,8 @@ var $time;
 var $pauseButton;
 var clocktimer;
 
-export function init() {
+export function init(startTime) {
+    startAt = startTime ? startTime : 0;
     $time = document.getElementById('time');
     $pauseButton = document.querySelector(".sozi-button-pause");
     $pauseButton.onclick = function() {toggle()};

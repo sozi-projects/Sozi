@@ -26,6 +26,20 @@ Properties.render = function () {
     var timeoutMsDisabled = c.getFrameProperty("timeoutEnable").every(value => !value);
     var referenceElementIdDisabled = c.getLayerProperty("referenceElementAuto").every(value => value);
 
+    var notesInformation = [
+        _("Basic formatting supported:"),
+        "",
+        _("Ctrl+b: Bold"),
+        _("Ctrl+i: Italic"),
+        _("Ctrl+u: Underline"),
+        _("Ctrl+0: Paragraph"),
+        _("Ctrl+1: Big header"),
+        _("Ctrl+2: Medium header"),
+        _("Ctrl+3: Small header"),
+        _("Ctrl+l: List"),
+        _("Ctrl+n: Numbered list")
+    ];
+
     return h("div.properties", [
         h("h1", _("Frame")),
 
@@ -93,7 +107,30 @@ Properties.render = function () {
             _("Path Id"),
             this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide path"), "transitionPathHide", c.getLayerProperty, c.setLayerProperty)
         ]),
-        this.renderTextField("transitionPathId", false, c.getLayerProperty, c.setLayerProperty, true)
+        this.renderTextField("transitionPathId", false, c.getLayerProperty, c.setLayerProperty, true),
+
+        h("h1", _("Notes")),
+        h("div", [
+            h("span.btn-group", [
+                this.renderFormatButton("formatDelete", _("Delete notes"), "delete", null, h("i.fa.fa-trash")),
+                /*this.renderFormatButton("formatBold", _("Bold"), "bold", null, h("i.fa.fa-bold")),
+                this.renderFormatButton("formatItalic", _("Italic"), "italic", null, h("i.fa.fa-italic")),
+                this.renderFormatButton("formatUnderline", _("Underline"), "underline", null, h("i.fa.fa-underline")),
+                this.renderFormatButton("formatInsertUnorderedList", _("Insert unordered list"), "insertUnorderedList", null, h("i.fa.fa-list-ul")),
+                this.renderFormatButton("formatInsertOrderedList", _("Insert ordered list"), "insertOrderedList", null, h("i.fa.fa-list-ol")),
+                this.renderFormatButton("formatAlignLeft", _("Align left"), "justifyLeft", null, h("i.fa.fa-align-left")),
+                this.renderFormatButton("formatAlignCenter", _("Align center"), "justifyCenter", null, h("i.fa.fa-align-center")),
+                this.renderFormatButton("formatAlignRight", _("Align right"), "justifyRight", null, h("i.fa.fa-align-right")),
+                this.renderFormatButton("formatHeading", _("Header"), "heading", "H1", "H1"),
+                this.renderFormatButton("formatParagraph", _("Paragraph"), "paragraph", "P", "P")
+                */
+                h("button", {
+                    title: _("Notes information"),
+                    onclick() { $.notify(notesInformation.join("\n"), "info"); }
+                }, h("i.fa.fa-info"))
+            ])
+        ]),
+        this.renderRichTextField("notes", "", false, c.getFrameProperty, c.setFrameProperty, true),
     ]);
 };
 
@@ -207,4 +244,82 @@ Properties.renderSelectField = function (property, getter, setter, options) {
             }, options[optionValue])
         )
     );
+};
+
+Properties.renderRichTextField = function (property, title, disabled, getter, setter, acceptsEmpty) {
+    var c = this.controller;
+
+    var values = getter.call(this, property);
+    var className = values.length > 1 ? "multiple" : undefined;
+    var innerHTML = values.length >= 1 ? values[0] : "";
+
+    return h("section", {
+        id: "field-" + property,
+        contentEditable: true,
+        innerHTML,
+        className,
+        title,
+        disabled,
+        onblur() {
+            var value = this.innerHTML;
+            if ( acceptsEmpty || value.length) {
+                setter.call(c, property, value);
+            }
+        },
+        // Mapping buttons to perform text formatting is problematic, since the
+        // RichTextEditor loses focus and emits the onblur event. Mapping 
+        // keyboard commands works nice though.
+        onkeydown(e) {
+            if (e.ctrlKey) {
+                switch(e.keyCode) {
+                    case 48: // Ctrl + 0
+                        document.execCommand('formatBlock', false, '<DIV>');
+                        break;
+                    case 49: // Ctrl + 1
+                        document.execCommand('formatBlock', false, '<H1>');
+                        break;
+                    case 50: // Ctrl + 2
+                        document.execCommand('formatBlock', false, '<H2>');
+                        break;
+                    case 51: // Ctrl + 3
+                        document.execCommand('formatBlock', false, '<H3>');
+                        break;
+                    case 76: // Ctrl + l 
+                        document.execCommand('insertUnorderedList', false, null);
+                        break;
+                    case 78: // Ctrl + n
+                        document.execCommand('insertOrderedList', false, null);
+                        break;
+                    // Ctrl + (b|i|u|c|x|v) works automatically
+                }
+            }
+        }
+    });
+};
+
+Properties.renderFormatButton = function (property, title, dataCommand, dataValue, label) {
+    return h("button", {
+        id: "field-" + property,
+        title,
+        class: "format-button",
+        onclick(e) {
+            var fieldNotes = document.querySelector("#field-notes");
+            switch(dataCommand)
+            {
+                case 'delete':
+                    fieldNotes.innerHTML = "";
+                    break;
+                case 'heading':
+                case 'paragraph':
+                    document.execCommand('formatBlock', false, '<'+dataValue+'>');
+                    break;
+                                
+                default:
+                    document.execCommand(dataCommand, false, dataValue);
+            }
+            fieldNotes.focus();
+            e.preventDefault();
+            return false; // To prevent focus
+        }
+    }, label);
 };

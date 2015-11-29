@@ -34,6 +34,7 @@ Player.init = function (viewport, presentation) {
     this.targetFrameIndex = 0;
     this.timeoutHandle = null;
     this.transitions = [];
+    this.startTime = (new Date()).getTime();
 
     this.setupEventHandlers();
 
@@ -504,7 +505,9 @@ Player.openRemoteControl = function () {
             url: window.location.href,
             previousFrameIndex: this.previousFrameIndex,
             currentFrameIndex: this.currentFrameIndex,
-            nextFrameIndex: this.nextFrameIndex
+            nextFrameIndex: this.nextFrameIndex,
+            startTime: this.startTime,
+            notes: this.currentFrame.notes
         });
         this.remoteControl.postMessage(json, "*");
     }
@@ -543,7 +546,8 @@ Player.sendFrameChange = function () {
             action: "frameChange",
             previousFrameIndex: this.previousFrameIndex,
             currentFrameIndex: this.currentFrameIndex,
-            nextFrameIndex: this.nextFrameIndex
+            nextFrameIndex: this.nextFrameIndex,
+            notes: this.currentFrame.notes
         });
         this.remoteControl.postMessage(json, "*");
     }

@@ -125,6 +125,7 @@ export var Frame = {
     transitionDurationMs: 1000,
     showInFrameList: true,
     showFrameNumber: true,
+    notes: '',
 
     init(presentation) {
         this.presentation = presentation;
@@ -147,6 +148,7 @@ export var Frame = {
         this.showFrameNumber = other.showFrameNumber;
         this.layerProperties = other.layerProperties.map(lp => Object.create(LayerProperties).initFrom(lp));
         this.cameraStates = other.cameraStates.map(cs => Object.create(CameraState).initFrom(cs));
+        this.notes = other.notes;
         return this;
     },
 
@@ -176,6 +178,7 @@ export var Frame = {
             transitionDurationMs: this.transitionDurationMs,
             showInFrameList: this.showInFrameList,
             showFrameNumber: this.showFrameNumber,
+            notes: this.notes,
             layerProperties,
             cameraStates,
             cameraOffsets
@@ -203,6 +206,7 @@ export var Frame = {
             transitionDurationMs: this.transitionDurationMs,
             showInFrameList: this.showInFrameList,
             showFrameNumber: this.showFrameNumber,
+            notes: this.notes,
             layerProperties,
             cameraStates
         };
@@ -216,6 +220,7 @@ export var Frame = {
         copyIfSet(this, storable, "transitionDurationMs");
         copyIfSet(this, storable, "showInFrameList");
         copyIfSet(this, storable, "showFrameNumber");
+        copyIfSet(this, storable, "notes");
 
         // TODO if storable.layerProperties has keys not in layers, create fake layers marked as "deleted"
         this.presentation.layers.forEach((layer, index) => {
