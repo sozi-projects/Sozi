@@ -150,8 +150,20 @@ Controller.moveFrames = function (toFrameIndex) {
         }
     });
 
+    // Save layer properties for first selected frame
+    var firstFrameLinkValues = [];
+    framesByIndex[0].layerProperties.forEach(layer => {
+        firstFrameLinkValues.push(layer.link);
+    });
+
+
     this.perform(
         function onDo() {
+            // Unlink first selected frame before moving it
+            framesByIndex[0].layerProperties.forEach(layer => {
+                layer.link = false;
+            });
+
             // Move the selected frames to the given index.
             framesByIndex.forEach(frame => {
                 this.presentation.frames.splice(frame.index, 1);
@@ -162,6 +174,10 @@ Controller.moveFrames = function (toFrameIndex) {
             this.presentation.updateLinkedLayers();
         },
         function onUndo() {
+            // Restore layer properties for the first selected frame
+            framesByIndex[0].layerProperties.forEach((layer, i) => {
+                layer.link = firstFrameLinkValues[i];
+            });
             // Move the selected frames to their original locations.
             framesByIndex.forEach(frame => {
                 this.presentation.frames.splice(frame.index, 1);
