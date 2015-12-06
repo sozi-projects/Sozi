@@ -144,31 +144,52 @@ Controller.moveFrames = function (toFrameIndex) {
     // Sort the selected frames by presentation order.
     var framesByIndex = this.selection.selectedFrames.slice().sort((a, b) => a.index - b.index);
     var frameIndices = framesByIndex.map(frame => frame.index);
+
+    // Compute the new target frame index after the selection has been removed.
     framesByIndex.forEach(frame => {
         if (frame.index < toFrameIndex) {
             toFrameIndex --;
         }
     });
 
+    // Keep a copy of the current frame list for the Undo operation.
+    var savedFrames = this.presentation.frames.slice();
+
+    // Create a new frame list by removing the selected frames
+    // and inserting them at the target frame index.
+    var reorderedFrames = this.presentation.frames.filter(frame => !this.selection.hasFrames([frame]));
+    Array.prototype.splice.apply(reorderedFrames, [toFrameIndex, 0].concat(framesByIndex));
+
+    // Identify the frames and layers that must be unlinked after the move operation.
+    // If a linked frame is moved after a frame to which it was not previously linked,
+    // then it will be unlinked.
+    var unlink = reorderedFrames.map((frame, frameIndex) =>
+        frame.layerProperties.map((layer, layerIndex) =>
+            layer.link && (frameIndex === 0 || !frame.isLinkedTo(reorderedFrames[frameIndex - 1], layerIndex))
+        )
+    );
+
     this.perform(
         function onDo() {
-            // Move the selected frames to the given index.
-            framesByIndex.forEach(frame => {
-                this.presentation.frames.splice(frame.index, 1);
-            });
-            framesByIndex.forEach((frame, i) => {
-                this.presentation.frames.splice(toFrameIndex + i, 0, frame);
+            this.presentation.frames = reorderedFrames;
+            this.presentation.frames.forEach((frame, frameIndex) => {
+                frame.layerProperties.forEach((layer, layerIndex) => {
+                    if (unlink[frameIndex][layerIndex]) {
+                        layer.link = false;
+                    }
+                });
             });
             this.presentation.updateLinkedLayers();
         },
         function onUndo() {
-            // Move the selected frames to their original locations.
-            framesByIndex.forEach(frame => {
-                this.presentation.frames.splice(frame.index, 1);
+            this.presentation.frames.forEach((frame, frameIndex) => {
+                frame.layerProperties.forEach((layer, layerIndex) => {
+                    if (unlink[frameIndex][layerIndex]) {
+                        layer.link = true;
+                    }
+                });
             });
-            framesByIndex.forEach((frame, i) => {
-                this.presentation.frames.splice(frameIndices[i], 0, frame);
-            });
+            this.presentation.frames = savedFrames;
             this.presentation.updateLinkedLayers();
         },
         false,

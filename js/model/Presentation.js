@@ -249,6 +249,22 @@ export var Frame = {
         states.forEach((state, index) => {
             this.cameraStates[index].initFrom(state);
         });
+    },
+
+    /*
+     * Check whether the current frame is linked to the given frame
+     * at the given layer index.
+     *
+     * Returns true if there is a sequence of frames, between the first
+     * and the last of the two frames, where the link attribute is set
+     * in the layer at the given index.
+     */
+    isLinkedTo(frame, layerIndex) {
+        var [first, second] = this.index < frame.index ? [this, frame] : [frame, this];
+        return second.layerProperties[layerIndex].link &&
+               (second.index === first.index + 1 ||
+                second.index > first.index &&
+                this.presentation.frames[second.index - 1].isLinkedTo(first, layerIndex));
     }
 };
 
@@ -288,7 +304,7 @@ export var Presentation = {
 
     aspectWidth: 4,
     aspectHeight: 3,
-    
+
     /*
      * Initialize a Sozi document object.
      *
