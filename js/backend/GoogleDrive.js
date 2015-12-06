@@ -64,7 +64,6 @@ GoogleDrive.createPicker = function () {
     this.picker = new google.picker.PickerBuilder().
         addView(view).
         setOAuthToken(this.accessToken).
-        setDeveloperKey(this.apiKey).
         setCallback(data => {
             if (data[google.picker.Response.ACTION] === google.picker.Action.PICKED) {
                 gapi.client.drive.files.get({fileId: data.docs[0].id}).execute(response => {
