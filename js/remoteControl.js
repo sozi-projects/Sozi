@@ -19,6 +19,10 @@ var windowOpener;
 function pm(data, winRef) {
     var json = JSON.stringify(data);
     winRef.postMessage(json, '*'); 
+    if (winRef == windowOpener) {
+        // Preview transitions etc.
+        previewIframes['current'].postMessage(json, '*');
+    }
 }
 
 function init(data) {
