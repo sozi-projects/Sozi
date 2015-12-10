@@ -267,7 +267,7 @@ Properties.renderRichTextField = function (property, title, disabled, getter, se
             }
         },
         // Mapping buttons to perform text formatting is problematic, since the
-        // RichTextEditor loses focus and emits the onblur event. Mapping 
+        // RichTextField loses focus and emits the onblur event. Mapping 
         // keyboard commands works nice though.
         onkeydown(e) {
             if (e.ctrlKey) {
@@ -297,6 +297,10 @@ Properties.renderRichTextField = function (property, title, disabled, getter, se
     });
 };
 
+// This function is redundant unless we add some more formatting buttons. Doing 
+// that turns out to be a bit problematic since the RichTextField loses focus 
+// and saves the content. The selected text is affected in a negative way. It's 
+// kept just in case for now.
 Properties.renderFormatButton = function (property, title, dataCommand, dataValue, label) {
     return h("button", {
         id: "field-" + property,

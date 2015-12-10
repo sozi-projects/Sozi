@@ -38,6 +38,8 @@ Player.init = function (viewport, presentation) {
 
     this.setupEventHandlers();
 
+    // If the document is opened in the remote control to act as preview - hide 
+    // the frame list.
     if (window.location.hash == "#sozi-preview") {
         document.querySelector(".sozi-frame-list").style.display = "none";
     }
@@ -486,6 +488,8 @@ Player.onAnimatorDone = function () {
 };
 
 Player.openRemoteControl = function () {
+    // Only open the remote control if no other instance is found, otherwise 
+    // give the current instance focus.
     if (typeof(this.remoteControl) == 'undefined' || this.remoteControl.closed) {
         this.remoteControl = window.open('', 'soziRemoteControl', 'width=300, height=600');
         try {
@@ -495,11 +499,15 @@ Player.openRemoteControl = function () {
             alert("The remote control couldn't be opened, please allow popups for this site and refresh page");
             return;
         }
+        // Extract the source code from #sozi-remote-control-source
         var source = document.getElementById('sozi-remote-control-source').value;
+        // Extract the frame list source code and insert
         var frameList = document.getElementsByClassName('sozi-frame-list')[0].outerHTML;
         source = source.replace("<!-- (( frameList )) -->", frameList); // This part feels a little bit hacky...
         this.remoteControl.document.write(source);
 
+        // Since we can't use the event onload for new popups, send 
+        // a postMessage instead with some variables to initialize
         var json = JSON.stringify({
             action: "init",
             url: window.location.href,
@@ -516,6 +524,8 @@ Player.openRemoteControl = function () {
     }
 }
 
+// To get around the same origin policy we use postMessage and receiveMessage to 
+// safely communicate between the remote control and the base document
 Player.receiveMessage = function (event) {
     data = JSON.parse(event.data);
     switch (data.action) {
@@ -540,6 +550,7 @@ Player.receiveMessage = function (event) {
     }
 }
 
+// When frames changes, update the remote control
 Player.sendFrameChange = function () {
     if (typeof(this.remoteControl) != 'undefined' && !this.remoteControl.closed) {
         var json = JSON.stringify({
@@ -553,6 +564,8 @@ Player.sendFrameChange = function () {
     }
 }
 
+// When keys are pressed in the remote control, they're passed on and triggered 
+// in this function
 Player.triggerKey = function (keyCode, event, shiftKey) {
     var el = document.body;
     var eventObj = document.createEventObject ?

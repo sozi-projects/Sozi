@@ -16,6 +16,8 @@ var previewIframes = {
 var delayedUpdate;
 var windowOpener;
 
+// Use postMessage to safely communicate with the base document without same 
+// origin policy complaints
 function pm(data, winRef) {
     var json = JSON.stringify(data);
     winRef.postMessage(json, '*'); 
@@ -29,6 +31,7 @@ function init(data) {
     Stopwatch.init(data.startTime);
 
     windowOpener = parent.window.opener;
+    // Set up all clickable elements
     document.querySelector(".clickable").onclick = function() {pm({action: 'moveToNext'}, windowOpener)};
     document.querySelector(".clickable").oncontextmenu = function() {
         pm({action: 'moveToPrevious'}, windowOpener);
@@ -41,6 +44,7 @@ function init(data) {
         pm({action: 'moveToPrevious'}, windowOpener)
     };
 
+    // Set the correct url in all preview iframes
     for (var state in previewIframes) {
         previewIframes[state] = document.querySelector("#sozi-preview-" + state + "-frame iframe");
         previewIframes[state].src = data.url.replace(/#[^\/].*/, "#sozi-preview");
@@ -48,6 +52,7 @@ function init(data) {
     }
     delayedUpdate = setTimeout(updateIframes, 1000, data);
 
+    // Set links in frame list
     links = toArray(document.querySelectorAll(".sozi-frame-list li a"));
     links.forEach(link => {
         link.addEventListener("click", evt => {
@@ -62,10 +67,10 @@ function init(data) {
         });
     });
 
-    delayedUpdate = setTimeout(updateIframes, 1000, data);
     document.getElementById("sozi-notes").innerHTML = data.notes;
 }
 
+// Update the current, previous and next preview to the corresponsing frames
 function updateIframes(data) {
     for (var state in previewIframes) {
         pm({
@@ -75,6 +80,7 @@ function updateIframes(data) {
     }
 }
 
+// Catch key presses and forward to the base document
 window.addEventListener("keydown", function (ev) {
     pm({
         action: 'keydown',
@@ -91,6 +97,7 @@ window.addEventListener("keypress", function (ev) {
     }, windowOpener);
 }, false);
 
+// Listen for messages from the base document
 window.addEventListener("message", function (event) {
     data = JSON.parse(event.data);
     if (data.action == "frameChange") {
