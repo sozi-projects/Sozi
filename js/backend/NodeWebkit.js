@@ -10,6 +10,7 @@ import fs from "fs";
 import path from "path";
 import process from "process";
 import Jed from "jed";
+import screenfull from "screenfull";
 
 var win = gui.Window.get();
 
@@ -26,6 +27,8 @@ export var NodeWebkit = Object.create(AbstractBackend);
 NodeWebkit.init = function (container, _) {
     AbstractBackend.init.call(this, container, "sozi-editor-backend-NodeWebkit-input", _("Load local file"));
 
+    this.loadConfiguration();
+
     $(container).append('<input style="display:none;" id="sozi-editor-backend-NodeWebkit-file" type="file">');
 
     $("#sozi-editor-backend-NodeWebkit-input").click(this.openFileChooser.bind(this));
@@ -37,24 +40,25 @@ NodeWebkit.init = function (container, _) {
         }
     });
 
-    var autosaveCallback = this.doAutosave.bind(this);
-
     // Save automatically when the window loses focus
-//            win.on("blur", autosaveCallback);
+//            win.on("blur", this.doAutosave.bind(this));
 
     // Workaround for issue #1720 in node-webkit for Windows
     // https://github.com/rogerwang/node-webkit/issues/1720
-    $(window).blur(autosaveCallback);
+    $(window).blur(this.doAutosave.bind(this));
 
     // Save automatically when closing the window
     win.on("close", () => {
         $(window).off("blur");
-        autosaveCallback();
+        this.doAutosave();
+        this.saveConfiguration();
         win.close(true);
     });
 
     // If a file name was provided on the command line,
     // check that the file exists and load it.
+    // Open a file chooser if no file name was provided or
+    // the file does not exist.
     if (gui.App.argv.length > 0) {
         var fileName = path.resolve(cwd, gui.App.argv[0]);
         try {
@@ -63,7 +67,11 @@ NodeWebkit.init = function (container, _) {
         }
         catch (err) {
             $.notify(Jed.sprintf(_("File not found: %s."), fileName), "error");
+            this.openFileChooser();
         }
+    }
+    else {
+        this.openFileChooser();
     }
 
     return this;
@@ -124,6 +132,26 @@ NodeWebkit.save = function (fileDescriptor, data) {
     // TODO use async file write
     var err = fs.writeFileSync(fileDescriptor, data, { encoding: "utf-8" });
     this.emit("save", fileDescriptor, err);
+};
+
+NodeWebkit.loadConfiguration = function () {
+    function getItem(key, val) {
+        var result = localStorage.getItem(key);
+        return result !== null ? JSON.parse(result) : val;
+    }
+    win.moveTo(getItem("windowX", win.x), getItem("windowY", win.y));
+    win.resizeTo(getItem("windowWidth", win.width), getItem("windowHeight", win.height));
+    if (getItem("windowFullscreen", false)) {
+        screenfull.request(document.documentElement);
+    }
+};
+
+NodeWebkit.saveConfiguration = function () {
+    localStorage.windowX = win.x;
+    localStorage.windowY = win.y;
+    localStorage.windowWidth = win.width;
+    localStorage.windowHeight = win.height;
+    localStorage.windowFullscreen = screenfull.isFullscreen;
 };
 
 addBackend(NodeWebkit);
