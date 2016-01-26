@@ -3,6 +3,19 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
 {% raw %}
+{% macro frameList() %}
+    <ol class="sozi-frame-list">
+                
+        <a href="#" onClick="sozi.player.openRemoteControl();sozi.player.triggerKey(84, 'keypress');" title="Open remote control">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAARCAYAAADDjbwNAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAHiwAAB4sBho2bNAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABfSURBVDiN7ZUhDoBAEANnyYUXIEDxJX5PzuH4BEkxEAg5WYHYUZuKjtuGJF5UYL7uAHpMhKSxkR/AAKwuUQH2Rl6BxSUB6JxlKUpRilL0U1EBpkZ+f28b8dmjjWePrJyqABBR5yH14QAAAABJRU5ErkJggg==" alt="Remote control"/>
+        </a>   
+        {% for frame in pres.frames %}
+            {% if frame.showInFrameList %}
+                <li value="{{ loop.index }}"><a data-frame-index="{{ loop.index0 }}" href="#{{ frame.frameId }}" title="{{ frame.title }}">{{ frame.title }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+{% endmacro %}
 <!doctype html>
 <html>
     <head>
@@ -100,17 +113,7 @@
         {{ svg }}
         <div id="sozi-blank-screen"></div>
         <div class="sozi-frame-number" title="Click to show the frame list">1</div>
-        <ol class="sozi-frame-list">
-                    
-            <a href="#" onClick="sozi.player.openRemoteControl();sozi.player.triggerKey(84, 'keypress');" title="Open remote control">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAARCAYAAADDjbwNAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAHiwAAB4sBho2bNAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABfSURBVDiN7ZUhDoBAEANnyYUXIEDxJX5PzuH4BEkxEAg5WYHYUZuKjtuGJF5UYL7uAHpMhKSxkR/AAKwuUQH2Rl6BxSUB6JxlKUpRilL0U1EBpkZ+f28b8dmjjWePrJyqABBR5yH14QAAAABJRU5ErkJggg==" alt="Remote control"/>
-            </a>   
-            {% for frame in pres.frames %}
-                {% if frame.showInFrameList %}
-                    <li value="{{ loop.index }}"><a data-frame-index="{{ loop.index0 }}" href="#{{ frame.frameId }}" title="{{ frame.title }}">{{ frame.title }}</a></li>
-                {% endif %}
-            {% endfor %}
-        </ol>
+        {{ frameList() }}
         <script>var soziPresentationData = {{ json }};</script>
 {% endraw %}
         <script>{{ playerJs }}</script>

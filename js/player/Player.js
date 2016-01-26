@@ -501,9 +501,6 @@ Player.openRemoteControl = function () {
         }
         // Extract the source code from #sozi-remote-control-source
         var source = document.getElementById('sozi-remote-control-source').value;
-        // Extract the frame list source code and insert
-        var frameList = document.getElementsByClassName('sozi-frame-list')[0].outerHTML;
-        source = source.replace("<!-- (( frameList )) -->", frameList); // This part feels a little bit hacky...
         this.remoteControl.document.write(source);
 
         // Since we can't use the event onload for new popups, send 
