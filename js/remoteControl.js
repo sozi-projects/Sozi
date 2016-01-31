@@ -67,6 +67,21 @@ function init(data) {
         });
     });
 
+    // Bind options
+    document.querySelector("#sozi-options-toggle-previous-frame").onclick = function() {
+        if (this.checked) {
+            document.querySelector("#sozi-preview-previous-container").style.display = "block";
+            document.querySelector("#sozi-preview-next-container").style.width = "50%";
+        }
+        else {
+            document.querySelector("#sozi-preview-previous-container").style.display = "none";
+            document.querySelector("#sozi-preview-next-container").style.width = "100%";
+        }
+    }
+    document.querySelector("#sozi-options-font-size").onchange = function() {
+        document.querySelector("#sozi-notes").style.fontSize = this.value * 2 + '%';
+    }
+
     document.getElementById("sozi-notes").innerHTML = data.notes;
 }
 

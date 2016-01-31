@@ -10,6 +10,10 @@
                 padding: 0;
                 margin: 0;
             }
+            * {
+                font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+            }
+            #sozi-options,
             .sozi-frame-list {
                 width: 90%;
                 margin: 30px 0 0 0;
@@ -18,13 +22,16 @@
 
                 list-style: decimal inside;
 
-                font-family: "Droid Sans", Helvetica, Arial, sans-serif;
                 font-size: 12pt;
 
                 color: rgb(240, 255, 255);
                 background-color: rgba(34, 34, 34, 0.9);
                 clear: both;
                 float: left;
+            }
+
+            #sozi-options {
+                margin-top: 0;
             }
 
             .sozi-frame-list li {
@@ -58,7 +65,6 @@
 
                 cursor: pointer;
 
-                font-family: "Droid Sans", Helvetica, Arial, sans-serif;
                 font-size: 12pt;
                 color: rgb(240, 255, 255);
                 background-color: rgba(34, 34, 34, 0.9);
@@ -75,7 +81,6 @@
                 width: 100%;
                 text-align: center;
                 font-size: 50pt;
-                font-family: "Droid Sans", Helvetica, Arial, sans-serif;
                 margin-top: 0.5em;
                 clear: both;
                 float: left;
@@ -117,7 +122,6 @@
                 left: 0;
                 height: 3em;
 
-                font-family: "Droid Sans", Helvetica, Arial, sans-serif;
                 font-size: 18pt;
 
                 text-align: center;
@@ -153,7 +157,6 @@
                 display: none;
                 font-size: 200%;
                 padding: 15px;
-                font-family: "Droid Sans", Helvetica, Arial, sans-serif;
             }
 
             #sozi-notes * {
@@ -165,19 +168,31 @@
                 margin-top: 1em;
             }
 
+            #sozi-extended-options {
+                display: none;
+            }
+
+            #sozi-options-font-size {
+                float: right;
+                width: 50px;
+            }
+
+            #sozi-options-toggle-previous-frame {
+                float: right;
+            }
+            
             .clearing {
                 height: 0;
                 clear: both;
-            }
-
-            #sozi-resize-handle {
-                display: none;
             }
 
             @media all and ( max-width: 550px ) {
                 #sozi-left-column, #sozi-right-column {
                    width: 100%;
                    float: none;
+                }
+                #sozi-options {
+                    padding: 0.5em 5%;
                 }
             }
             @media all and ( min-width: 551px )  {
@@ -197,6 +212,9 @@
                     width: auto;
                     display: block;
                 }
+                #sozi-extended-options {
+                    display: block;
+                }
             }
             @media all and ( max-width: 999px) {
                 #sozi-left-resizable {
@@ -211,11 +229,8 @@
                     width: 30%;
                     resize: horizontal;
                     overflow: auto;
-                    min-height: 95%;
                     margin-right: 20px;
-                }
-                #sozi-resize-handle {
-                    display: block;
+                    padding-bottom: 20px;
                 }
             }
         </style>
@@ -245,7 +260,22 @@
                                 <div class="sozi-button">Next</div>
                             </div>
                         </div>
-                        <div id="sozi-resize-handle">&nbsp;</div>
+                        <div id="sozi-options">
+                            <div>
+                                <label>
+                                    Preview previous frame
+                                    <input type="checkbox" checked="checked" id="sozi-options-toggle-previous-frame">
+                                </label>
+                                <div class="clearing"></div>
+                            </div>
+                            <div id="sozi-extended-options">
+                                <div>
+                                    Font size of notes (%)
+                                    <input type="number" id="sozi-options-font-size" value="100" step="10">
+                                    <div class="clearing"></div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="clearing"></div>
                     </div>
                     <div id="sozi-notes"></div>
