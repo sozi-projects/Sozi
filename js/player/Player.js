@@ -491,7 +491,7 @@ Player.openRemoteControl = function () {
     // Only open the remote control if no other instance is found, otherwise 
     // give the current instance focus.
     if (typeof(this.remoteControl) == 'undefined' || this.remoteControl.closed) {
-        this.remoteControl = window.open('', 'soziRemoteControl', 'width=300, height=600');
+        this.remoteControl = window.open('', 'soziRemoteControl', 'width=300, height=600, scrollbars=yes');
         try {
             this.remoteControl.focus(); 
         }
