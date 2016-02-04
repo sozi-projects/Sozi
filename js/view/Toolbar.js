@@ -95,7 +95,8 @@ Toolbar.render = function () {
         ]),
         h("span.group",
             h("button", {
-                title: screenfull.isFullscreen ? _("Disable full-screen mode") : _("Enable full-screen mode"),
+                title: screenfull.isFullscreen ? _("Disable full-screen mode (F11)") : _("Enable full-screen mode (F11)"),
+                id: "btn-fullscreen",
                 className: screenfull.isFullscreen ? "active" : undefined,
                 disabled: !screenfull.enabled,
                 onclick() { screenfull.toggle(document.documentElement); }
@@ -108,7 +109,7 @@ Toolbar.render = function () {
                 onclick() { c.save(); }
             }, h("i.fa.fa-download")), // "download" icon preferred to the official "save" icon
             h("button", {
-                title: _("Reload the SVG document"),
+                title: _("Reload the SVG document (F5)"),
                 onclick() { c.reload(); }
             }, h("i.fa.fa-refresh"))
         ]),
