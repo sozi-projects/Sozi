@@ -74,6 +74,9 @@ window.addEventListener("load", () => {
     window.addEventListener("keydown", (evt) => {
         if (evt.ctrlKey) {
             switch (evt.keyCode) {
+                case 83: // Ctrl-s
+                    Controller.save();
+                    break;
                 case 89: // Ctrl-y
                     Controller.redo();
                     break;
@@ -108,6 +111,9 @@ window.addEventListener("load", () => {
                         var target = selection.currentFrame.index +1;
                         target = target > pres.frames.length -1 ? pres.frames.length -1 : target;
                         Controller.updateLayerAndFrameSelection(false, false, layers, target);
+                        break;
+                    case 46: // Delete
+                        Controller.deleteFrames();
                         break;
                 }
             }
