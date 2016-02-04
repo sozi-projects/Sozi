@@ -84,8 +84,37 @@ window.addEventListener("load", () => {
                     return;
             }
         }
-        else {
+        else if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) {
+            // Don't catch keys when in focus is in input elements
             return;
+        }
+        else {
+            var pres = Controller.presentation;
+            var selection = Controller.selection;
+            var layers = selection.selectedLayers; 
+            switch (evt.keyCode) {
+                case 35: // End
+                    var lastFrame = pres.frames.length -1;
+                    Controller.updateLayerAndFrameSelection(false, false, layers, lastFrame);
+                    break;
+                case 36: // Home
+                    Controller.updateLayerAndFrameSelection(false, false, layers, 0);
+                    break;
+                case 37: // Left
+                case 38: // Up
+                    var target = selection.currentFrame.index -1;
+                    target = target < 0 ? 0 : target;
+                    Controller.updateLayerAndFrameSelection(false, false, layers, target);
+                    break;
+                case 39: // Right
+                case 40: // Down
+                    var target = selection.currentFrame.index +1;
+                    target = target > pres.frames.length -1 ? pres.frames.length -1 : target;
+                    Controller.updateLayerAndFrameSelection(false, false, layers, target);
+                    break;
+                default:
+                    return;
+            }
         }
         // Chrome already supports undo/redo in input elements
         evt.preventDefault();
