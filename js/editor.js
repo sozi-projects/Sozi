@@ -89,28 +89,20 @@ window.addEventListener("load", () => {
         }
         else {
             if (!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) {
-                var pres = Controller.presentation;
-                var selection = Controller.selection;
-                var layers = selection.selectedLayers; 
                 switch (evt.keyCode) {
                     case 35: // End
-                        var lastFrame = pres.frames.length -1;
-                        Controller.updateLayerAndFrameSelection(false, false, layers, lastFrame);
+                        Controller.selectFrame(0, -1);
                         break;
                     case 36: // Home
-                        Controller.updateLayerAndFrameSelection(false, false, layers, 0);
+                        Controller.selectFrame(0, 0);
                         break;
                     case 37: // Left
                     case 38: // Up
-                        var target = selection.currentFrame.index -1;
-                        target = target < 0 ? 0 : target;
-                        Controller.updateLayerAndFrameSelection(false, false, layers, target);
+                        Controller.selectFrame(-1, 0);
                         break;
                     case 39: // Right
                     case 40: // Down
-                        var target = selection.currentFrame.index +1;
-                        target = target > pres.frames.length -1 ? pres.frames.length -1 : target;
-                        Controller.updateLayerAndFrameSelection(false, false, layers, target);
+                        Controller.selectFrame(1, 0);
                         break;
                     case 46: // Delete
                         Controller.deleteFrames();
