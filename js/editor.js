@@ -74,6 +74,9 @@ window.addEventListener("load", () => {
     window.addEventListener("keydown", (evt) => {
         if (evt.ctrlKey) {
             switch (evt.keyCode) {
+                case 83: // Ctrl-s
+                    Controller.save();
+                    break;
                 case 89: // Ctrl-y
                     Controller.redo();
                     break;
@@ -85,8 +88,40 @@ window.addEventListener("load", () => {
             }
         }
         else {
-            return;
+            if (!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) {
+                switch (evt.keyCode) {
+                    case 35: // End
+                        Controller.selectFrame(0, -1);
+                        break;
+                    case 36: // Home
+                        Controller.selectFrame(0, 0);
+                        break;
+                    case 37: // Left
+                    case 38: // Up
+                        Controller.selectFrame(-1, 0);
+                        break;
+                    case 39: // Right
+                    case 40: // Down
+                        Controller.selectFrame(1, 0);
+                        break;
+                    case 46: // Delete
+                        Controller.deleteFrames();
+                        break;
+                }
+            }
+            switch (evt.keyCode) {
+                case 113: // F2
+                    document.getElementById('field-title').select();
+                    break;
+                case 116: // F5
+                    Controller.reload();
+                    break;
+                case 122: // F11
+                    document.getElementById('btn-fullscreen').click();
+                    break;
+            }
         }
+        return;
         // Chrome already supports undo/redo in input elements
         evt.preventDefault();
     }, false);
