@@ -7,50 +7,50 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-05-15 08:51+0000\n"
-"PO-Revision-Date: 2015-06-10 11:13+0000\n"
-"Last-Translator: RonB <Unknown>\n"
+"POT-Creation-Date: 2016-02-13 05:24:+0000\n"
+"PO-Revision-Date: 2016-02-13 18:57+0100\n"
+"Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2015-06-30 18:56+0000\n"
-"X-Generator: Launchpad (build 17578)\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: build/js/Storage.js:83
+#: build/js/Storage.js:85
 msgid "File %s could not be loaded."
 msgstr "Súbor %s sa nepodarilo načítať."
 
-#: build/js/Storage.js:104
-msgid "Document was changed. Reloading."
-msgstr "Dokument sa zmenil. Znova načítavam."
-
-#: build/js/Storage.js:125
+#: build/js/Storage.js:98
 msgid "Document is not valid SVG."
 msgstr "Dokument nie je platný súbor SVG."
 
-#: build/js/Storage.js:165
+#: build/js/Storage.js:140
+msgid "Document was changed. Reloading."
+msgstr "Dokument sa zmenil. Znova načítavam."
+
+#: build/js/Storage.js:167
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Dokument bol importovaný z verzie Sozi 13 alebo staršej."
 
-#: build/js/Storage.js:250
+#: build/js/Storage.js:252
 msgid "Saved %s."
 msgstr "%s uložené."
 
 #: build/js/backend/FileReader.js:19
 msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
-msgstr ""
-"Načítať lokálny súbor  (<i class=\"fa fa-warning\"></i>len na čítanie)"
+msgstr "Načítať lokálny súbor  (<i class=\"fa fa-warning\"></i>len na čítanie)"
 
 #: build/js/backend/GoogleDrive.js:21
 msgid "Load from Google Drive"
 msgstr "Načítať z Disku Google."
 
-#: build/js/backend/NodeWebkit.js:51
+#: build/js/backend/NodeWebkit.js:55
 msgid "Load local file"
 msgstr "Načítať lokálny súbor"
 
-#: build/js/backend/NodeWebkit.js:88
+#: build/js/backend/NodeWebkit.js:95
 msgid "File not found: %s."
 msgstr "Súbor sa nenašiel: %s."
 
@@ -134,39 +134,39 @@ msgstr "Id cesty"
 msgid "Hide path"
 msgstr "Skryť cestu"
 
-#: build/js/view/Timeline.js:264
+#: build/js/view/Timeline.js:266
 msgid "Delete the selected frames"
 msgstr "Zmazať vybrané rámčeky"
 
-#: build/js/view/Timeline.js:270
+#: build/js/view/Timeline.js:272
 msgid "Create a new frame"
 msgstr "Vytvoriť nový rámček"
 
-#: build/js/view/Timeline.js:280
+#: build/js/view/Timeline.js:282
 msgid "Add layer"
 msgstr "Pridať vrstvu"
 
-#: build/js/view/Timeline.js:285 build/js/view/Timeline.js:297
+#: build/js/view/Timeline.js:287 build/js/view/Timeline.js:299
 msgid "This layer is visible. Click to hide it."
 msgstr "Táto vrstva je odkrytá. Kliknutím vrstvu skryť."
 
-#: build/js/view/Timeline.js:288 build/js/view/Timeline.js:300
+#: build/js/view/Timeline.js:290 build/js/view/Timeline.js:302
 msgid "This layer is hidden. Click to show it."
 msgstr "Táto vrstva je skrytá. Kliknutím vrstvu odkryť."
 
-#: build/js/view/Timeline.js:293 build/js/view/Timeline.js:309
+#: build/js/view/Timeline.js:295 build/js/view/Timeline.js:311
 msgid "Default"
 msgstr "Predvolené"
 
-#: build/js/view/Timeline.js:303
+#: build/js/view/Timeline.js:305
 msgid "Remove this layer"
 msgstr "Odstrániť túto vrstvu"
 
-#: build/js/view/Timeline.js:314
+#: build/js/view/Timeline.js:316
 msgid "Insert selection before frame %d"
 msgstr "Vložiť výber pred rámček %d"
 
-#: build/js/view/Timeline.js:320
+#: build/js/view/Timeline.js:322
 msgid "Insert selection after frame %d"
 msgstr "Vložiť výber za rámček %d"
 
@@ -203,21 +203,21 @@ msgid "Redo (Ctrl-Y)"
 msgstr "Zopakovať (Ctrl-Y)"
 
 #: build/js/view/Toolbar.js:110
-msgid "Disable full-screen mode"
-msgstr "Zakázať režim zobrazenia na celú obrazovku"
+msgid "Disable full-screen mode (F11)"
+msgstr "Zakázať režim zobrazenia na celú obrazovku (F11)"
 
 #: build/js/view/Toolbar.js:110
-msgid "Enable full-screen mode"
-msgstr "Zapnúť režim zobrazenia na celú obrazovku"
+msgid "Enable full-screen mode (F11)"
+msgstr "Zapnúť režim zobrazenia na celú obrazovku (F11)"
 
-#: build/js/view/Toolbar.js:117
-msgid "Save the presentation"
-msgstr "Uložiť prezentáciu"
+#: build/js/view/Toolbar.js:118
+msgid "Save the presentation (Ctrl-S)"
+msgstr "Uložiť prezentáciu (Ctrl-S)"
 
-#: build/js/view/Toolbar.js:124
-msgid "Reload the SVG document"
-msgstr "Znova načítať dokument SVG"
+#: build/js/view/Toolbar.js:125
+msgid "Reload the SVG document (F5)"
+msgstr "Znova načítať dokument SVG (F5)"
 
-#: build/js/view/Toolbar.js:129
+#: build/js/view/Toolbar.js:130
 msgid "Information"
 msgstr "Informácie"

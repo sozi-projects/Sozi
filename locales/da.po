@@ -7,69 +7,68 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-05-14 09:10:+0000\n"
-"PO-Revision-Date: 2014-02-06 08:40+0000\n"
-"Last-Translator: ejvindh <ejvindh@gmail.com>\n"
+"POT-Creation-Date: 2016-02-13 05:24:+0000\n"
+"PO-Revision-Date: 2016-02-13 18:39+0100\n"
+"Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Danish <da@li.org>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-04-11 13:36+0000\n"
-"X-Generator: Launchpad (build 17423)\n"
+"X-Launchpad-Export-Date: 2016-02-13 17:36+0000\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: build/js/Storage.js:83
+#: build/js/Storage.js:85
 msgid "File %s could not be loaded."
-msgstr ""
+msgstr "Kunne ikke hente filen %s."
 
-#: build/js/Storage.js:104
-msgid "Document was changed. Reloading."
-msgstr ""
-
-#: build/js/Storage.js:125
+#: build/js/Storage.js:98
 msgid "Document is not valid SVG."
-msgstr ""
+msgstr "Dokumentet er ikke gyldig SVG."
 
-#: build/js/Storage.js:165
+#: build/js/Storage.js:140
+msgid "Document was changed. Reloading."
+msgstr "Dokumentet blev ændret. Henter igen."
+
+#: build/js/Storage.js:167
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr ""
+msgstr "Dokument blev importeret fra Sozi 13 eller tidligere."
 
-#: build/js/Storage.js:250
+#: build/js/Storage.js:252
 msgid "Saved %s."
-msgstr ""
+msgstr "Gemte %s"
 
 #: build/js/backend/FileReader.js:19
 msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
-msgstr ""
+msgstr "Hent den lokale fil (<i class=\"fa fa-warning\"></i> som read-only)"
 
 #: build/js/backend/GoogleDrive.js:21
 msgid "Load from Google Drive"
-msgstr ""
+msgstr "Hent fra Google Drive"
 
-#: build/js/backend/NodeWebkit.js:51
+#: build/js/backend/NodeWebkit.js:55
 msgid "Load local file"
-msgstr ""
+msgstr "Hent lokal fil"
 
-#: build/js/backend/NodeWebkit.js:88
+#: build/js/backend/NodeWebkit.js:95
 msgid "File not found: %s."
-msgstr ""
+msgstr "Fil ikke fundet: %s."
 
 #: build/js/view/Properties.js:43
 msgid "Frame"
-msgstr ""
+msgstr "Ramme"
 
 #: build/js/view/Properties.js:43
 msgid "Show in frame list"
 msgstr "Vis ramme liste"
 
 #: build/js/view/Properties.js:43
-#, fuzzy
 msgid "Show frame number"
-msgstr "Vis ramme liste"
+msgstr "Vis ramme nummer"
 
 #: build/js/view/Properties.js:43
 msgid "Link to previous frame"
-msgstr ""
+msgstr "Link til forrige ramme"
 
 #: build/js/view/Properties.js:43 build/js/view/Toolbar.js:90
 msgid "Clip"
@@ -77,7 +76,7 @@ msgstr "Klip"
 
 #: build/js/view/Properties.js:43
 msgid "Title"
-msgstr "Position"
+msgstr "Titel"
 
 #: build/js/view/Properties.js:43
 msgid "Id"
@@ -88,9 +87,8 @@ msgid "Timeout (seconds)"
 msgstr "Timeout (sekunder)"
 
 #: build/js/view/Properties.js:43
-#, fuzzy
 msgid "Timeout enable"
-msgstr "Timeout (sekunder)"
+msgstr "Aktiver timeout"
 
 #: build/js/view/Properties.js:43
 msgid "Reference element Id"
@@ -101,26 +99,24 @@ msgid "Autoselect element"
 msgstr ""
 
 #: build/js/view/Properties.js:45
-#, fuzzy
 msgid "Hide element"
-msgstr "SVG element"
+msgstr "Skjul element"
 
 #: build/js/view/Properties.js:46
-#, fuzzy
 msgid "Fit to element"
-msgstr "SVG element"
+msgstr "Tilpas til element"
 
 #: build/js/view/Properties.js:50
 msgid "Layer opacity"
-msgstr ""
+msgstr "Lag gennemsigtighed"
 
 #: build/js/view/Properties.js:50
 msgid "Transition"
-msgstr ""
+msgstr "Overgang"
 
 #: build/js/view/Properties.js:50
 msgid "Duration (seconds)"
-msgstr "Varighed"
+msgstr "Varighed (sekunder)"
 
 #: build/js/view/Properties.js:50
 msgid "Timing function"
@@ -128,58 +124,51 @@ msgstr ""
 
 #: build/js/view/Properties.js:59
 msgid "Relative zoom (%)"
-msgstr ""
+msgstr "Relativ zoom (%)"
 
 #: build/js/view/Properties.js:59
-#, fuzzy
 msgid "Path Id"
-msgstr "Sti"
+msgstr "Sti id"
 
 #: build/js/view/Properties.js:59
-#, fuzzy
 msgid "Hide path"
-msgstr "Skjul"
+msgstr "Skjul sti"
 
-#: build/js/view/Timeline.js:264
-#, fuzzy
+#: build/js/view/Timeline.js:266
 msgid "Delete the selected frames"
-msgstr "Slet den markerede ramme"
+msgstr "Slet valgte rammer"
 
-#: build/js/view/Timeline.js:270
+#: build/js/view/Timeline.js:272
 msgid "Create a new frame"
 msgstr "Dan ny ramme"
 
-#: build/js/view/Timeline.js:280
-#, fuzzy
+#: build/js/view/Timeline.js:282
 msgid "Add layer"
-msgstr "Tilføj lag '{0}'"
+msgstr "Tilføj lag"
 
-#: build/js/view/Timeline.js:285 build/js/view/Timeline.js:297
+#: build/js/view/Timeline.js:287 build/js/view/Timeline.js:299
 msgid "This layer is visible. Click to hide it."
-msgstr ""
+msgstr "Dette lag er synligt. Klik for at skjule det."
 
-#: build/js/view/Timeline.js:288 build/js/view/Timeline.js:300
+#: build/js/view/Timeline.js:290 build/js/view/Timeline.js:302
 msgid "This layer is hidden. Click to show it."
-msgstr ""
+msgstr "Dette lag er skjult. Klik for at vise det."
 
-#: build/js/view/Timeline.js:293 build/js/view/Timeline.js:309
+#: build/js/view/Timeline.js:295 build/js/view/Timeline.js:311
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
-#: build/js/view/Timeline.js:303
-#, fuzzy
+#: build/js/view/Timeline.js:305
 msgid "Remove this layer"
-msgstr "Fjern det valgte lag"
+msgstr "Fjern dette lag"
 
-#: build/js/view/Timeline.js:314
-#, fuzzy
+#: build/js/view/Timeline.js:316
 msgid "Insert selection before frame %d"
-msgstr "Flyt den valgte ramme ned"
+msgstr "Indsæt det valgte før ramme %d"
 
-#: build/js/view/Timeline.js:320
-#, fuzzy
+#: build/js/view/Timeline.js:322
 msgid "Insert selection after frame %d"
-msgstr "Flyt den valgte ramme ned"
+msgstr "Indsæt det valgte efter ramme %d"
 
 #: build/js/view/Toolbar.js:45
 msgid "Aspect ratio: "
@@ -187,215 +176,44 @@ msgstr ""
 
 #: build/js/view/Toolbar.js:72
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
-msgstr ""
+msgstr "Flyt de valgte lag (tryk Alt for at zoome, Shift for at rotere)"
 
 #: build/js/view/Toolbar.js:78
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
+"Zoom ind/ud på de valgte lag (du kan også trykke på Alt-tasten i Flytte mode)"
 
 #: build/js/view/Toolbar.js:84
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
-msgstr ""
+msgstr "Rotér de valgte lag (du kan også trykke Shift-tasten i Flytte mode)"
 
 #: build/js/view/Toolbar.js:96
 msgid "Undo (Ctrl-Z)"
-msgstr ""
+msgstr "Fortryd (Ctrl-Z)"
 
 #: build/js/view/Toolbar.js:103
 msgid "Redo (Ctrl-Y)"
-msgstr ""
+msgstr "Gendan (Ctrl-Y)"
 
 #: build/js/view/Toolbar.js:110
-msgid "Disable full-screen mode"
-msgstr ""
+msgid "Disable full-screen mode (F11)"
+msgstr "Afbryd Fuldskærm mode (F11)"
 
 #: build/js/view/Toolbar.js:110
-msgid "Enable full-screen mode"
-msgstr ""
+msgid "Enable full-screen mode (F11)"
+msgstr "Aktivér Fuldskærm mode (F11)"
 
-#: build/js/view/Toolbar.js:117
-#, fuzzy
-msgid "Save the presentation"
-msgstr "Præsentation"
+#: build/js/view/Toolbar.js:118
+msgid "Save the presentation (Ctrl-S)"
+msgstr "Gem præsentation (Ctrl-S)"
 
-#: build/js/view/Toolbar.js:124
-msgid "Reload the SVG document"
-msgstr ""
+#: build/js/view/Toolbar.js:125
+msgid "Reload the SVG document (F5)"
+msgstr "Genindlæs SVG-dokument (F5)"
 
-#: build/js/view/Toolbar.js:129
+#: build/js/view/Toolbar.js:130
 msgid "Information"
-msgstr ""
-
-#~ msgid "Undo"
-#~ msgstr "Fortryd"
-
-#~ msgid "Redo"
-#~ msgstr "Omgør"
-
-#~ msgid "Restore '{0}' in frame {1}"
-#~ msgstr "Gendan '{0}' i ramme {1}"
-
-#~ msgid "Change '{0}' in frame {1}"
-#~ msgstr "Skift '{0}' i ramme {1}"
-
-#~ msgid "Restore '{0}' in layer '{1}' of frame {2}"
-#~ msgstr "Gendan '{0}' i lag '{1}' af ramme {2}"
-
-#~ msgid "Change '{0}' in layer '{1}' of frame {2}"
-#~ msgstr "Skift '{0}' i lag '{1}' af ramme {2}"
-
-#~ msgid "Delete the new frame {0}"
-#~ msgstr "Slet den nye ramme {0}"
-
-#~ msgid "Create a new frame at {0}"
-#~ msgstr "Opret en ny ramme ved {0}"
-
-#~ msgid "Remove the layer '{0}' from frame {1}"
-#~ msgstr "Fjern lag '{0}' fra ramme {1}"
-
-#~ msgid "Add layer '{0}' to frame {1}"
-#~ msgstr "TIlføj lag '{0}' til ramme {1}"
-
-#~ msgid "Restore deleted frame {0}"
-#~ msgstr "Gendan slettet ramme {0}"
-
-#~ msgid "Delete frame {0}"
-#~ msgstr "Slet ramme {0}"
-
-#~ msgid "Restore deleted layer '{0}' in frame {1}"
-#~ msgstr "Gendan slettet lag '{0}' i ramme {1}"
-
-#~ msgid "Remove layer '{0}' from frame {1}"
-#~ msgstr "Fjern lag '{0}' fra ramme {1}"
-
-#~ msgid "Delete duplicated frame {0}"
-#~ msgstr "Slet duplikeret ramme {0}"
-
-#~ msgid "Duplicate frame {0}"
-#~ msgstr "Dupliker ramme {0}"
-
-#~ msgid "Move frame {0} up"
-#~ msgstr "Flyt ramme {0} op"
-
-#~ msgid "Move frame {0} down"
-#~ msgstr "Flyt ramme {0} ned"
-
-#~ msgid "Untitled"
-#~ msgstr "Unavngivet"
-
-#~ msgid "Create a new frame or add a layer"
-#~ msgstr "Opret en nye ramme eller tilføj et lag"
-
-#~ msgid "New frame"
-#~ msgstr "Ny ramme"
-
-#~ msgid "Enabled"
-#~ msgstr "Aktiveret"
-
-#~ msgid "Disabled"
-#~ msgstr "Deaktiveret"
-
-#~ msgid "Constant speed"
-#~ msgstr "Konstant tempo"
-
-#~ msgid "Speed up"
-#~ msgstr "Øg tempo"
-
-#~ msgid "Speed up (strong)"
-#~ msgstr "Øg tempo (meget)"
-
-#~ msgid "Speed down"
-#~ msgstr "Sænk tempo"
-
-#~ msgid "Speed down (strong)"
-#~ msgstr "Sænk tempo (meget)"
-
-#~ msgid "Speed up, then down"
-#~ msgstr "Øg tempo, sænk det derefter"
-
-#~ msgid "Speed up, then down (strong)"
-#~ msgstr "Øg tempo, sænk det derefter (meget)"
-
-#~ msgid "Speed down, then up"
-#~ msgstr "Sænk tempoet, øg derefter"
-
-#~ msgid "Speed down, then up (strong)"
-#~ msgstr "Sænk tempoet, øg derefter (meget)"
-
-#~ msgid "Immediate (beginning)"
-#~ msgstr "Straks (start)"
-
-#~ msgid "Immediate (end)"
-#~ msgstr "Straks (slut)"
-
-#~ msgid "Immediate (middle)"
-#~ msgstr "Straks (midte)"
-
-#~ msgid "No action to undo"
-#~ msgstr "Ingen handling at fortryde"
-
-#~ msgid "No action to redo"
-#~ msgstr "Ingen handling at omgøre"
-
-#~ msgid "Seq."
-#~ msgstr "Sekv."
-
-#~ msgid "New"
-#~ msgstr "Opret"
-
-#~ msgid "Duplicate the selected frame"
-#~ msgstr "Dupliker valgt ramme"
-
-#~ msgid "Duplicate"
-#~ msgstr "Dobbeltgænger"
-
-#~ msgid "Delete"
-#~ msgstr "Del"
-
-#~ msgid "Move the selected frame up"
-#~ msgstr "Flyt den valgte ramme op"
-
-#~ msgid "Move frame up"
-#~ msgstr "Flyt ramme op"
-
-#~ msgid "Move frame down"
-#~ msgstr "Flyt ramme ned"
-
-#~ msgid "Set the reference to a selected SVG element"
-#~ msgstr "Sæt referencen til et valgt SVG element"
-
-#~ msgid "Remove the reference to this SVG element"
-#~ msgstr "Fjern referencen til dette SVG element"
-
-#~ msgid "<b>Frame properties</b>"
-#~ msgstr "<b>Egenskaber for ramme</b>"
-
-#~ msgid "Zoom (%)"
-#~ msgstr "Zoom (%)"
-
-#~ msgid "Profile"
-#~ msgstr "Profil"
-
-#~ msgid "Set the reference to a selected SVG path"
-#~ msgstr "Sæt referencen til en valgt SVG sti"
-
-#~ msgid "Remove the reference to this SVG path"
-#~ msgstr "Fjern referencen til denne SVG sti"
-
-#~ msgid "<b>Transition to this frame</b>"
-#~ msgstr "<b>Overgang til denne ramme</b>"
-
-#~ msgid "Apply changes and go back to Inkscape"
-#~ msgstr "Gem ændringer og gå tilbage til Inkscape"
-
-#~ msgid "Cancel all changes and go back to Inkscape"
-#~ msgstr "Fjern alle ændringer og gå tilbage til Inkscape"
-
-#~ msgid "Modules list"
-#~ msgstr "Modul liste"
-
-#~ msgid "Settings"
-#~ msgstr "Indstillinger"
+msgstr "Oplysninger"

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2015-05-14 09:10:+0000\n"
+"POT-Creation-Date: 2016-02-13 05:24:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -9,23 +9,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 
-#: build/js/Storage.js:83
+#: build/js/Storage.js:85
 msgid "File %s could not be loaded."
 msgstr ""
 
-#: build/js/Storage.js:104
-msgid "Document was changed. Reloading."
-msgstr ""
-
-#: build/js/Storage.js:125
+#: build/js/Storage.js:98
 msgid "Document is not valid SVG."
 msgstr ""
 
-#: build/js/Storage.js:165
+#: build/js/Storage.js:140
+msgid "Document was changed. Reloading."
+msgstr ""
+
+#: build/js/Storage.js:167
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr ""
 
-#: build/js/Storage.js:250
+#: build/js/Storage.js:252
 msgid "Saved %s."
 msgstr ""
 
@@ -37,11 +37,11 @@ msgstr ""
 msgid "Load from Google Drive"
 msgstr ""
 
-#: build/js/backend/NodeWebkit.js:51
+#: build/js/backend/NodeWebkit.js:55
 msgid "Load local file"
 msgstr ""
 
-#: build/js/backend/NodeWebkit.js:88
+#: build/js/backend/NodeWebkit.js:95
 msgid "File not found: %s."
 msgstr ""
 
@@ -125,39 +125,39 @@ msgstr ""
 msgid "Hide path"
 msgstr ""
 
-#: build/js/view/Timeline.js:264
+#: build/js/view/Timeline.js:266
 msgid "Delete the selected frames"
 msgstr ""
 
-#: build/js/view/Timeline.js:270
+#: build/js/view/Timeline.js:272
 msgid "Create a new frame"
 msgstr ""
 
-#: build/js/view/Timeline.js:280
+#: build/js/view/Timeline.js:282
 msgid "Add layer"
 msgstr ""
 
-#: build/js/view/Timeline.js:285 build/js/view/Timeline.js:297
+#: build/js/view/Timeline.js:287 build/js/view/Timeline.js:299
 msgid "This layer is visible. Click to hide it."
 msgstr ""
 
-#: build/js/view/Timeline.js:288 build/js/view/Timeline.js:300
+#: build/js/view/Timeline.js:290 build/js/view/Timeline.js:302
 msgid "This layer is hidden. Click to show it."
 msgstr ""
 
-#: build/js/view/Timeline.js:293 build/js/view/Timeline.js:309
+#: build/js/view/Timeline.js:295 build/js/view/Timeline.js:311
 msgid "Default"
 msgstr ""
 
-#: build/js/view/Timeline.js:303
+#: build/js/view/Timeline.js:305
 msgid "Remove this layer"
 msgstr ""
 
-#: build/js/view/Timeline.js:314
+#: build/js/view/Timeline.js:316
 msgid "Insert selection before frame %d"
 msgstr ""
 
-#: build/js/view/Timeline.js:320
+#: build/js/view/Timeline.js:322
 msgid "Insert selection after frame %d"
 msgstr ""
 
@@ -188,21 +188,21 @@ msgid "Redo (Ctrl-Y)"
 msgstr ""
 
 #: build/js/view/Toolbar.js:110
-msgid "Disable full-screen mode"
+msgid "Disable full-screen mode (F11)"
 msgstr ""
 
 #: build/js/view/Toolbar.js:110
-msgid "Enable full-screen mode"
+msgid "Enable full-screen mode (F11)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:117
-msgid "Save the presentation"
+#: build/js/view/Toolbar.js:118
+msgid "Save the presentation (Ctrl-S)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:124
-msgid "Reload the SVG document"
+#: build/js/view/Toolbar.js:125
+msgid "Reload the SVG document (F5)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:129
+#: build/js/view/Toolbar.js:130
 msgid "Information"
 msgstr ""

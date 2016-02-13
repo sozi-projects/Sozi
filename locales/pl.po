@@ -7,51 +7,50 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-05-15 08:51+0000\n"
-"PO-Revision-Date: 2015-10-05 07:55+0000\n"
-"Last-Translator: Hubert Maciejewicz <hu2bert@interia.pl>\n"
+"POT-Creation-Date: 2016-02-13 05:24:+0000\n"
+"PO-Revision-Date: 2016-02-13 18:53+0100\n"
+"Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2015-11-12 19:08+0000\n"
-"X-Generator: Launchpad (build 17843)\n"
-"Language: pl\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: build/js/Storage.js:83
+#: build/js/Storage.js:85
 msgid "File %s could not be loaded."
 msgstr "Nie można załadować pliku %s."
 
-#: build/js/Storage.js:104
-msgid "Document was changed. Reloading."
-msgstr "Dokument uległ zmianie. Trwa odświeżanie."
-
-#: build/js/Storage.js:125
+#: build/js/Storage.js:98
 msgid "Document is not valid SVG."
 msgstr "Niepoprawny format pliku SVG."
 
-#: build/js/Storage.js:165
+#: build/js/Storage.js:140
+msgid "Document was changed. Reloading."
+msgstr "Dokument uległ zmianie. Trwa odświeżanie."
+
+#: build/js/Storage.js:167
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Dokument został zaimportowany z Sozi w wersji 13 lub wcześniejszej."
 
-#: build/js/Storage.js:250
+#: build/js/Storage.js:252
 msgid "Saved %s."
 msgstr "Zapisano %s."
 
 #: build/js/backend/FileReader.js:19
 msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
-msgstr ""
-"Otwórz plik lokalny(<i class=\"fa fa-warning\"></i> tylko do odczytu)"
+msgstr "Otwórz plik lokalny(<i class=\"fa fa-warning\"></i> tylko do odczytu)"
 
 #: build/js/backend/GoogleDrive.js:21
 msgid "Load from Google Drive"
 msgstr "Otwórz z Google Drive"
 
-#: build/js/backend/NodeWebkit.js:51
+#: build/js/backend/NodeWebkit.js:55
 msgid "Load local file"
 msgstr "Otwórz plik lokalny"
 
-#: build/js/backend/NodeWebkit.js:88
+#: build/js/backend/NodeWebkit.js:95
 msgid "File not found: %s."
 msgstr "Nie można odnaleźć pliku: %s."
 
@@ -135,39 +134,39 @@ msgstr "Identyfikator ścieżki"
 msgid "Hide path"
 msgstr "Ukryj ścieżkę"
 
-#: build/js/view/Timeline.js:264
+#: build/js/view/Timeline.js:266
 msgid "Delete the selected frames"
 msgstr "Usuń zaznaczone ramki"
 
-#: build/js/view/Timeline.js:270
+#: build/js/view/Timeline.js:272
 msgid "Create a new frame"
 msgstr "Stwórz nową ramkę"
 
-#: build/js/view/Timeline.js:280
+#: build/js/view/Timeline.js:282
 msgid "Add layer"
 msgstr "Dodaj warstwę"
 
-#: build/js/view/Timeline.js:285 build/js/view/Timeline.js:297
+#: build/js/view/Timeline.js:287 build/js/view/Timeline.js:299
 msgid "This layer is visible. Click to hide it."
 msgstr "Ta warstwa jest widoczna. Kliknij by ją ukryć."
 
-#: build/js/view/Timeline.js:288 build/js/view/Timeline.js:300
+#: build/js/view/Timeline.js:290 build/js/view/Timeline.js:302
 msgid "This layer is hidden. Click to show it."
 msgstr "Ta warstwa jest ukryta. Kliknij by ją pokazać."
 
-#: build/js/view/Timeline.js:293 build/js/view/Timeline.js:309
+#: build/js/view/Timeline.js:295 build/js/view/Timeline.js:311
 msgid "Default"
 msgstr "Domyślny"
 
-#: build/js/view/Timeline.js:303
+#: build/js/view/Timeline.js:305
 msgid "Remove this layer"
 msgstr "Usuń tę warstwę"
 
-#: build/js/view/Timeline.js:314
+#: build/js/view/Timeline.js:316
 msgid "Insert selection before frame %d"
 msgstr "Wstaw zaznaczone przed ramką %d"
 
-#: build/js/view/Timeline.js:320
+#: build/js/view/Timeline.js:322
 msgid "Insert selection after frame %d"
 msgstr "Wstaw zaznaczone za ramką %d"
 
@@ -203,21 +202,21 @@ msgid "Redo (Ctrl-Y)"
 msgstr "Ponów (Ctrl-Y)"
 
 #: build/js/view/Toolbar.js:110
-msgid "Disable full-screen mode"
-msgstr "Wyłącz tryb pełnoekranowy"
+msgid "Disable full-screen mode (F11)"
+msgstr "Wyłącz tryb pełnoekranowy (F11)"
 
 #: build/js/view/Toolbar.js:110
-msgid "Enable full-screen mode"
-msgstr "Włącz tryb pełnoekranowy"
+msgid "Enable full-screen mode (F11)"
+msgstr "Włącz tryb pełnoekranowy (F11)"
 
-#: build/js/view/Toolbar.js:117
-msgid "Save the presentation"
-msgstr "Zapisz prezentację"
+#: build/js/view/Toolbar.js:118
+msgid "Save the presentation (Ctrl-S)"
+msgstr "Zapisz prezentację (Ctrl-S)"
 
-#: build/js/view/Toolbar.js:124
-msgid "Reload the SVG document"
-msgstr "Otwórz plik SVG ponownie"
+#: build/js/view/Toolbar.js:125
+msgid "Reload the SVG document (F5)"
+msgstr "Otwórz plik SVG ponownie (F5)"
 
-#: build/js/view/Toolbar.js:129
+#: build/js/view/Toolbar.js:130
 msgid "Information"
 msgstr "Informacje"
