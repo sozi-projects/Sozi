@@ -104,7 +104,7 @@ Toolbar.render = function () {
         ),
         h("span.group.btn-group", [
             h("button", {
-                title: _("Save the presentation"),
+                title: _("Save the presentation (Ctrl-S)"),
                 disabled: this.storage.htmlNeedsSaving ? undefined : "disabled",
                 onclick() { c.save(); }
             }, h("i.fa.fa-download")), // "download" icon preferred to the official "save" icon
