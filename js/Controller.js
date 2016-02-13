@@ -237,8 +237,8 @@ Controller.removeLayerFromSelection = function (layer) {
  *           A negative number counts backwards from the end
  */
 Controller.selectFrame = function (relativeIndex, index) {
-    var layers = this.selection.selectedLayers; 
-    if (relativeIndex != 0) {
+    var layers = this.selection.selectedLayers;
+    if (relativeIndex !== 0) {
         var target = this.selection.currentFrame.index + relativeIndex;
         var lastIndex = this.presentation.frames.length - 1;
         target = target < 0 ? 0 : (target > lastIndex ? lastIndex : target);
@@ -249,7 +249,7 @@ Controller.selectFrame = function (relativeIndex, index) {
             index = this.presentation.frames.length + index;
         this.updateLayerAndFrameSelection(false, false, layers, index);
     }
-}
+};
 
 /*
  * Update the selection for a given frame.

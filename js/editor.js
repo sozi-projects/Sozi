@@ -19,7 +19,7 @@ import * as i18n from "./i18n";
 
 window.addEventListener("load", () => {
     nunjucks.configure({watch: false});
-    
+
     Selection.init(Presentation);
     Viewport.init(Presentation, true);
 
@@ -79,9 +79,13 @@ window.addEventListener("load", () => {
                     break;
                 case 89: // Ctrl-y
                     Controller.redo();
+                    // Chrome already supports undo/redo in input elements
+                    evt.preventDefault();
                     break;
                 case 90: // Ctrl-z
                     Controller.undo();
+                    // Chrome already supports undo/redo in input elements
+                    evt.preventDefault();
                     break;
                 default:
                     return;
@@ -121,8 +125,5 @@ window.addEventListener("load", () => {
                     break;
             }
         }
-        return;
-        // Chrome already supports undo/redo in input elements
-        evt.preventDefault();
     }, false);
 }, false);
