@@ -79,34 +79,28 @@ window.addEventListener("load", () => {
                     break;
                 case 89: // Ctrl-y
                     Controller.redo();
-                    // Chrome already supports undo/redo in input elements
-                    evt.preventDefault();
                     break;
                 case 90: // Ctrl-z
                     Controller.undo();
-                    // Chrome already supports undo/redo in input elements
-                    evt.preventDefault();
                     break;
-                default:
-                    return;
             }
         }
         else {
             if (!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) {
                 switch (evt.keyCode) {
                     case 35: // End
-                        Controller.selectFrame(0, -1);
+                        Controller.selectFrame(-1);
                         break;
                     case 36: // Home
-                        Controller.selectFrame(0, 0);
+                        Controller.selectFrame(0);
                         break;
                     case 37: // Left
                     case 38: // Up
-                        Controller.selectFrame(-1, 0);
+                        Controller.selectRelativeFrame(-1);
                         break;
                     case 39: // Right
                     case 40: // Down
-                        Controller.selectFrame(1, 0);
+                        Controller.selectRelativeFrame(1);
                         break;
                     case 46: // Delete
                         Controller.deleteFrames();
@@ -125,5 +119,6 @@ window.addEventListener("load", () => {
                     break;
             }
         }
+        evt.preventDefault();
     }, false);
 }, false);

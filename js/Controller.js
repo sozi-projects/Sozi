@@ -232,22 +232,28 @@ Controller.removeLayerFromSelection = function (layer) {
  * Select a specific frame.
  *
  * Parameters:
- *  - relativeIndex: select frame relative to current selection.
- *  - index: select this particular index
+ *  - index: select the frame at this particular index
  *           A negative number counts backwards from the end
  */
-Controller.selectFrame = function (relativeIndex, index) {
-    var layers = this.selection.selectedLayers;
-    if (relativeIndex !== 0) {
-        var target = this.selection.currentFrame.index + relativeIndex;
-        var lastIndex = this.presentation.frames.length - 1;
-        target = target < 0 ? 0 : (target > lastIndex ? lastIndex : target);
-        this.updateLayerAndFrameSelection(false, false, layers, target);
+Controller.selectFrame = function (index) {
+    if (index < 0) {
+        index = this.presentation.frames.length + index;
     }
-    else {
-        if (index < 0)
-            index = this.presentation.frames.length + index;
-        this.updateLayerAndFrameSelection(false, false, layers, index);
+    this.updateLayerAndFrameSelection(false, false, this.selection.selectedLayers, index);
+};
+
+/*
+ * Select a specific frame.
+ *
+ * Parameters:
+ *  - relativeIndex: select the frame at this offset relative to the current frame
+ */
+Controller.selectRelativeFrame = function (relativeIndex) {
+    if (this.selection.currentFrame) {
+        var targetIndex = this.selection.currentFrame.index + relativeIndex;
+        var lastIndex = this.presentation.frames.length - 1;
+        targetIndex = targetIndex < 0 ? 0 : (targetIndex > lastIndex ? lastIndex : targetIndex);
+        this.updateLayerAndFrameSelection(false, false, this.selection.selectedLayers, targetIndex);
     }
 };
 
