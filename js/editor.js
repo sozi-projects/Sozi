@@ -83,6 +83,8 @@ window.addEventListener("load", () => {
                 case 90: // Ctrl-z
                     Controller.undo();
                     break;
+                default:
+                    return;
             }
         }
         else {
@@ -117,6 +119,8 @@ window.addEventListener("load", () => {
                 case 122: // F11
                     document.getElementById('btn-fullscreen').click();
                     break;
+                default:
+                    return;
             }
         }
         evt.preventDefault();
