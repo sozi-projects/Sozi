@@ -23,10 +23,11 @@ var ROTATE_STEP = 5;
 
 export var Player = Object.create(EventEmitter.prototype);
 
-Player.init = function (viewport, presentation) {
+Player.init = function (viewport, presentation, editMode) {
     EventEmitter.call(this);
     this.viewport = viewport;
     this.presentation = presentation;
+    this.editMode = !!editMode;
     this.animator = Object.create(Animator).init();
     this.playing = false;
     this.waitingTimeout = false;
@@ -40,11 +41,13 @@ Player.init = function (viewport, presentation) {
 };
 
 Player.setupEventHandlers = function () {
-    this.viewport.addListener("click", this.onClick.bind(this));
-    this.viewport.addListener("dragStart", this.pause.bind(this));
-    this.viewport.addListener("userChangeState", this.pause.bind(this));
-    window.addEventListener("keydown", this.onKeyDown.bind(this), false);
-    window.addEventListener("keypress", this.onKeyPress.bind(this), false);
+    if (!this.editMode) {
+        this.viewport.addListener("click", this.onClick.bind(this));
+        this.viewport.addListener("dragStart", this.pause.bind(this));
+        this.viewport.addListener("userChangeState", this.pause.bind(this));
+        window.addEventListener("keydown", this.onKeyDown.bind(this), false);
+        window.addEventListener("keypress", this.onKeyPress.bind(this), false);
+    }
     this.animator.addListener("step", this.onAnimatorStep.bind(this));
     this.animator.addListener("stop", this.onAnimatorStop.bind(this));
     this.animator.addListener("done", this.onAnimatorDone.bind(this));

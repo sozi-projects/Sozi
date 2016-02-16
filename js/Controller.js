@@ -193,7 +193,7 @@ Controller.moveFrames = function (toFrameIndex) {
             this.presentation.updateLinkedLayers();
         },
         false,
-        ["presentationChange", "editorStateChange", "repaint"]
+        ["presentationChange", "editorStateChange", "frameChange", "repaint"]
     );
 };
 
@@ -207,6 +207,7 @@ Controller.selectLayers = function (layers) {
     this.selection.selectedLayers = layers.slice();
     this.updateCameraSelection();
     this.emit("editorStateChange");
+    this.emit("frameChange");
     this.emit("repaint");
 };
 
@@ -291,6 +292,7 @@ Controller.updateFrameSelection = function (single, sequence, frameIndex) {
 
     // Trigger a repaint of the editor views.
     this.emit("editorStateChange");
+    this.emit("frameChange");
     this.emit("repaint");
 };
 
@@ -373,6 +375,7 @@ Controller.updateLayerAndFrameSelection = function (single, sequence, layers, fr
 
     // Trigger a repaint of the editor views.
     this.emit("editorStateChange");
+    this.emit("frameChange");
     this.emit("repaint");
 };
 
@@ -741,3 +744,4 @@ Controller.redo = function () {
     action.onDo.call(this);
     action.events.forEach(evt => { this.emit(evt); });
 };
+

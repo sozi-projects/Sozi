@@ -9,6 +9,7 @@ import {Presentation} from "./model/Presentation";
 import {Selection} from "./model/Selection";
 import {Storage} from "./Storage";
 import {Viewport} from "./player/Viewport";
+import {Player} from "./player/Player";
 import {Controller} from "./Controller";
 import {Preview} from "./view/Preview";
 import {Properties} from "./view/Properties";
@@ -22,10 +23,11 @@ window.addEventListener("load", () => {
 
     Selection.init(Presentation);
     Viewport.init(Presentation, true);
+    Player.init(Viewport, Presentation, true);
 
     Controller.init(Storage, Presentation, Selection, Viewport);
 
-    Preview.init(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller);
+    Preview.init(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller, Player);
 
     var locale = i18n.init();
     Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, locale);
