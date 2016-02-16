@@ -35,6 +35,7 @@ Player.init = function (viewport, presentation, editMode) {
     this.targetFrameIndex = 0;
     this.timeoutHandle = null;
     this.transitions = [];
+    this.previewTransitions = false;
 
     this.setupEventHandlers();
     return this;
@@ -228,6 +229,7 @@ Player.pause = function () {
         this.waitingTimeout = false;
     }
     this.playing = false;
+    this.previewTransitions = false;
     this.targetFrameIndex = this.currentFrameIndex;
     return this;
 };
@@ -236,6 +238,7 @@ Player.pause = function () {
  * Resume playing from the current frame.
  */
 Player.resume = function () {
+    this.previewTransitions = true;
     this.playFromIndex(this.currentFrameIndex);
     return this;
 };

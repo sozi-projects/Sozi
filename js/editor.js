@@ -31,7 +31,7 @@ window.addEventListener("load", () => {
 
     var locale = i18n.init();
     Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, locale);
-    Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, locale);
+    Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, locale, Player);
     Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, locale);
     Storage.init(Controller, SVGDocument, Presentation, Selection, Timeline, locale);
 
@@ -108,6 +108,9 @@ window.addEventListener("load", () => {
                         break;
                     case 46: // Delete
                         Controller.deleteFrames();
+                        break;
+                    case 80: // P
+                        document.getElementById('btn-preview-transitions').click();
                         break;
                 }
             }

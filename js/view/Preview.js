@@ -98,11 +98,15 @@ export var Preview = {
         });
         this.viewport.showHiddenElements = false;
         this.viewport.repaint();
-    }
+    },
 
     onFrameChange() {
-        // TODO: optional transition!
-        this.player.moveToFrame(this.selection.currentFrame.index);
+        if (this.player.previewTransitions) {
+            this.player.moveToFrame(this.selection.currentFrame.index);
+        }
+        else {
+            this.player.jumpToFrame(this.selection.currentFrame.index);
+        }
     },
 
     onAnimatorDone() {
@@ -111,5 +115,5 @@ export var Preview = {
         }
         this.controller.emit("editorStateChange");
         this.controller.emit("repaint");
-    },
+    }
 };
