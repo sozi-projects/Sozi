@@ -15,17 +15,19 @@ export function init(startTime) {
     startAt = startTime ? startTime : 0;
     $time = document.getElementById('time');
     $pauseButton = document.querySelector(".sozi-button-pause");
-    $pauseButton.onclick = function() {toggle()};
-    document.querySelector(".sozi-button-reset").onclick = function() {reset();};
+    $pauseButton.onclick = toggle;
+    document.querySelector(".sozi-button-reset").onclick = reset;
     update();
     start();
 }
 
+// TODO remove this function
 function now() {
-    return (new Date()).getTime(); 
-} 
+    return (new Date()).getTime();
+}
 
 export function start() {
+    // TODO change to Date.now()
     startAt	= startAt ? startAt : now();
     isRunning = true;
     $pauseButton.innerHTML = "Pause";
@@ -34,6 +36,7 @@ export function start() {
 }
 
 export function stop() {
+    // TODO change to Date.now()
     lapTime	= startAt ? lapTime + now() - startAt : lapTime;
     startAt	= 0; // Paused
     isRunning = false;
@@ -46,7 +49,12 @@ export function reset() {
     lapTime = 0;
     startAt = 0;
     update();
-    isRunning ? start() : stop();
+    if (isRunning) {
+        start();
+    }
+    else {
+        stop();
+    }
 }
 
 function pad(num) {
@@ -55,6 +63,7 @@ function pad(num) {
 }
 
 function formattedTime() {
+    // TODO change to Date.now()
     var time = lapTime + (startAt ? now() - startAt : 0);
     var hours = 0;
     var mins = 0;
@@ -74,6 +83,11 @@ export function update() {
 }
 
 export function toggle() {
-    isRunning ? stop() : start();
+    if (isRunning) {
+        stop();
+    }
+    else {
+        start();
+    }
 }
 
