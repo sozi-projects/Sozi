@@ -1,0 +1,299 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<html>
+    <head>
+        <title>Sozi remote control</title>
+        <style type="text/css">
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            * {
+                font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+            }
+            #sozi-options,
+            .sozi-frame-list {
+                width: 90%;
+                margin: 30px 0 0 0;
+                padding: 1em 5%;
+                overflow-y: auto;
+
+                list-style: decimal inside;
+
+                font-size: 12pt;
+
+                color: rgb(240, 255, 255);
+                background-color: rgba(34, 34, 34, 0.9);
+                clear: both;
+                float: left;
+            }
+
+            #sozi-options {
+                margin-top: 0;
+            }
+
+            .sozi-frame-list li {
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .sozi-frame-list a {
+                color: inherit;
+                text-decoration: none;
+            }
+
+            .sozi-frame-list a:hover {
+                color: rgb(0, 204, 255);
+                text-decoration: underline;
+            }
+            
+            .sozi-frame-list a.current {
+                color: rgb(255, 170, 68);
+            }
+
+            .sozi-frame-number {
+                position: absolute;
+                top: 0;
+                left: 1em;
+                text-align: center;
+                padding: 0.3em 0.6em;
+
+                cursor: pointer;
+
+                font-size: 12pt;
+                color: rgb(240, 255, 255);
+                background-color: rgba(34, 34, 34, 0.9);
+            }
+
+            .sozi-frame-list img {
+                display: none;
+            }
+            #sozi-time-container {
+                position: relative;
+            }
+
+            #time {
+                width: 100%;
+                text-align: center;
+                font-size: 50pt;
+                margin-top: 0.5em;
+                clear: both;
+                float: left;
+            }
+
+            .sozi-iframe-container {
+                position: relative;
+                padding-bottom: 75%;
+                width: 100%;
+                height: 0;
+                overflow: hidden;)
+            }
+
+            .sozi-invisible-layer {
+                opacity: 0;
+                visibility: visible;
+                z-index: 10;
+            }
+
+            .sozi-fill {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            .sozi-left-column, .sozi-right-column {
+                position: relative;
+                background: #ccc;
+            }
+            [class*="sozi-button"] {
+                background-color: rgb(34, 34, 34);
+                color: white;
+                opacity: 0;
+                transition: opacity 0.5s;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                height: 3em;
+
+                font-size: 18pt;
+
+                text-align: center;
+                vertical-align: middle;
+                line-height: 3em;
+                width: 100%;
+            }
+            .sozi-button-pause {
+                width: 49% !important;
+            }
+            .sozi-button-reset {
+                width: 49% !important;
+                left: auto !important;
+                right: 0;
+            }
+            .sozi-iframe-container:hover [class*="sozi-button"],
+            #sozi-time-container:hover [class*="sozi-button"] {
+                opacity: 0.9;
+            }
+
+            #sozi-preview-current-container {
+                width: 100%;
+                float: left;
+            }
+
+            #sozi-preview-previous-container, 
+            #sozi-preview-next-container {
+                width: 50%;
+                float: left;
+            }
+            
+            #sozi-notes {
+                display: none;
+                font-size: 200%;
+                padding: 15px;
+            }
+
+            #sozi-notes * {
+                overflow: hidden;
+                word-wrap: break-word;
+            }
+
+            #sozi-notes div {
+                margin-top: 1em;
+            }
+
+            #sozi-extended-options {
+                display: none;
+            }
+
+            #sozi-options-font-size {
+                float: right;
+                width: 50px;
+            }
+
+            #sozi-options-toggle-previous-frame {
+                float: right;
+            }
+            
+            .clearing {
+                height: 0;
+                clear: both;
+            }
+
+            @media all and ( max-width: 550px ) {
+                #sozi-left-column, #sozi-right-column {
+                   width: 100%;
+                   float: none;
+                }
+                #sozi-options {
+                    padding: 0.5em 5%;
+                }
+            }
+            @media all and ( min-width: 551px )  {
+                #sozi-left-column {
+                    width: 100%;
+                    float: left;
+                    margin-right: -305px;
+                }
+                #sozi-left-content {
+                    margin-right: 305px;
+                }
+                #sozi-right-column {
+                    float: right;
+                    width: 300px;
+                }
+                #sozi-notes {
+                    width: auto;
+                    display: block;
+                }
+                #sozi-extended-options {
+                    display: block;
+                }
+            }
+            @media all and ( max-width: 999px) {
+                #sozi-left-resizable {
+                    width: auto !important;
+                    resize: none;
+                }
+            }
+
+            @media all and ( min-width: 1000px ) {
+                #sozi-left-resizable {
+                    float: left;
+                    width: 30%;
+                    resize: horizontal;
+                    overflow: auto;
+                    margin-right: 20px;
+                    padding-bottom: 20px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="sozi-left-column">
+                <div id="sozi-left-content">
+                    <div id="sozi-left-resizable">
+                        <div id="sozi-preview-current-container">
+                            <div id="sozi-preview-current-frame" class="sozi-iframe-container">
+                                <iframe src="#" frameborder="0" class="sozi-fill"></iframe>
+                                <div class="sozi-invisible-layer sozi-fill clickable"></div>
+                            </div>
+                        </div>
+                        <div id="sozi-preview-previous-container">
+                            <div id="sozi-preview-previous-frame" class="sozi-iframe-container">
+                                <iframe src="#" frameborder="0" class="sozi-fill"></iframe>
+                                <div class="sozi-invisible-layer sozi-fill"></div>
+                                <div class="sozi-button">Previous</div>
+                            </div>
+                        </div>
+                        <div id="sozi-preview-next-container">
+                            <div id="sozi-preview-next-frame" class="sozi-iframe-container">
+                                <iframe src="#" frameborder="0" class="sozi-fill"></iframe>
+                                <div class="sozi-invisible-layer sozi-fill"></div>
+                                <div class="sozi-button">Next</div>
+                            </div>
+                        </div>
+                        <div id="sozi-options">
+                            <div>
+                                <label>
+                                    Preview previous frame
+                                    <input type="checkbox" checked="checked" id="sozi-options-toggle-previous-frame">
+                                </label>
+                                <div class="clearing"></div>
+                            </div>
+                            <div id="sozi-extended-options">
+                                <div>
+                                    Font size of notes (%)
+                                    <input type="number" id="sozi-options-font-size" value="100" step="10">
+                                    <div class="clearing"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearing"></div>
+                    </div>
+                    <div id="sozi-notes"></div>
+                </div>
+            </div>
+            <div id="sozi-right-column">
+                <div id="sozi-time-container">
+                    <span id="time"></span>
+                    <div class="sozi-button-pause">Pause</div>
+                    <div class="sozi-button-reset">Reset</div>
+                    <div class="clearing"></div>
+                </div>
+                {% raw %}
+                {{ frameList() }}
+                {% endraw %}
+            </div>
+            <div class="clearing">&nbsp;</div>
+        </div>
+        <script type="text/javascript">{{ remoteControlJs }}</script>
+    </body>
+</html>

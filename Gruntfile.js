@@ -153,6 +153,12 @@ module.exports = function(grunt) {
                     "build/js/player.js"
                 ],
                 dest: "build/js/player.bundle.js"
+            },
+            remoteControl: {
+                src: [
+                    "build/js/remoteControl.js"
+                ],
+                dest: "build/js/remoteControl.bundle.js"
             }
         },
 
@@ -168,6 +174,10 @@ module.exports = function(grunt) {
             player: {
                 src: "<%= browserify.player.dest %>",
                 dest: "build/js/player.min.js"
+            },
+            remoteControl: {
+                src: "<%= browserify.remoteControl.dest %>",
+                dest: "build/js/remoteControl.min.js"
             }
         },
 
@@ -179,7 +189,8 @@ module.exports = function(grunt) {
                 src: "templates/player.html",
                 dest: "build/templates/player.html",
                 context: {
-                    playerJs: "<%= grunt.file.read('build/js/player.min.js') %>"
+                    playerJs: "<%= grunt.file.read('build/js/player.min.js') %>",
+                    remoteControlJs: "<%= grunt.file.read('build/js/remoteControl.min.js') %>"
                 }
             }
         },
@@ -360,7 +371,9 @@ module.exports = function(grunt) {
         "write_package_json",
         "newer:babel",
         "browserify:player", // Cannot use 'newer' here due to imports
+        "browserify:remoteControl", 
         "newer:uglify:player",
+        "newer:uglify:remoteControl",
         "newer:nunjucks_render",
         "newer:nunjucks",
         "newer:po2json",
