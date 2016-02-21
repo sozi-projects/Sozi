@@ -88,7 +88,8 @@ window.addEventListener("load", () => {
             }
         }
         else {
-            if (!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) {
+            if (!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName) &&
+                document.activeElement.contentEditable !== "true") {
                 switch (evt.keyCode) {
                     case 35: // End
                         Controller.selectFrame(-1);
