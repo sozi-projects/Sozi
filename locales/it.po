@@ -1,6 +1,6 @@
 # Italian translation for sozi
 # This file is distributed under the same license as the sozi package.
-# FIRST AUTHOR <javialamo+git@gmail.com>, 2016.
+# FIRST AUTHOR <javialamo+github@gmail.com>, 2016.
 #
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2016-04-10 22:31:+0000\n"
-"Last-Translator: Francisco Javier del Álamo <javialamo+git@gmail.com>\n"
+"Last-Translator: Francisco Javier del Álamo <javialamo+github@gmail.com>\n"
 
 #: build/js/Storage.js:85
 msgid "File %s could not be loaded."
