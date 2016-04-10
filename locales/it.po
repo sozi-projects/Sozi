@@ -1,127 +1,122 @@
-# Spanish translation for sozi
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Italian translation for sozi
 # This file is distributed under the same license as the sozi package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <javialamo+git@gmail.com>, 2016.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: sozi\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-02-13 05:24:+0000\n"
-"PO-Revision-Date: 2016-02-13 18:42+0100\n"
-"Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
-"Language-Team: Vaslibre <info@vaslibre.org.ve>\n"
+"Project-Id-Version: sozi\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-11-12 19:08+0000\n"
-"X-Generator: Poedit 1.5.4\n"
-"Language: es\n"
+"PO-Revision-Date: 2016-04-10 22:31:+0000\n"
+"Last-Translator: Francisco Javier del Álamo <javialamo+git@gmail.com>\n"
 
 #: build/js/Storage.js:85
 msgid "File %s could not be loaded."
-msgstr "No fue posible cargar el archivo %s"
+msgstr "Impossibile caricare il file %s"
 
 #: build/js/Storage.js:98
 msgid "Document is not valid SVG."
-msgstr "No es un documento SVG válido"
+msgstr "Non è un documento SVG valido"
 
 #: build/js/Storage.js:140
 msgid "Document was changed. Reloading."
-msgstr "Se ha modificado el documento. Recargándo de nuevo."
+msgstr "Il documento è stato modificato. Ricaricamento di nuovo."
 
 #: build/js/Storage.js:167
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr "El documento se importó desde Sozi13 o una versión anterior."
+msgstr "Il documento è stato importato da Sozi13 o precedente."
 
 #: build/js/Storage.js:252
 msgid "Saved %s."
-msgstr "%s guardado."
+msgstr "%s salvato."
 
 #: build/js/backend/FileReader.js:19
 msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
-msgstr ""
-"Cargar archivo local (<i class=\"fa fa-warning\"></i> sólo para lectura)"
+msgstr "Caricare file locale (<i class = \ "fa fa-warning \"> </ i> di sola lettura)"
 
 #: build/js/backend/GoogleDrive.js:21
 msgid "Load from Google Drive"
-msgstr "Importar desde Google Drive"
+msgstr "Importa da Google Drive"
 
 #: build/js/backend/NodeWebkit.js:55
 msgid "Load local file"
-msgstr "Cargar un archivo local"
+msgstr "Caricare un file locale"
 
 #: build/js/backend/NodeWebkit.js:95
 msgid "File not found: %s."
-msgstr "No se encontró el archivo: %s"
+msgstr "File non trovato: %s"
 
 #: build/js/view/Properties.js:43
 msgid "Frame"
-msgstr "Fotograma"
+msgstr "Fotogramma"
 
 #: build/js/view/Properties.js:43
 msgid "Show in frame list"
-msgstr "Mostrar en la lista de fotogramas"
+msgstr "Mostra sulla lista dei fotogrammi"
 
 #: build/js/view/Properties.js:43
 msgid "Show frame number"
-msgstr "Mostrar el número de fotograma"
+msgstr "Mostra il numero di fotogramma"
 
 #: build/js/view/Properties.js:43
 msgid "Link to previous frame"
-msgstr "Enlazar al fotograma anterior"
+msgstr "Collegamento al fotogramma precedente"
 
 #: build/js/view/Properties.js:43 build/js/view/Toolbar.js:90
 msgid "Clip"
-msgstr "Recortar"
+msgstr "Tagliare"
 
 #: build/js/view/Properties.js:43
 msgid "Title"
-msgstr "Título"
+msgstr "Titolo"
 
 #: build/js/view/Properties.js:43
 msgid "Id"
-msgstr "Id."
+msgstr "Id"
 
 #: build/js/view/Properties.js:43
 msgid "Timeout (seconds)"
-msgstr "Intervalo de espera (segundos)"
+msgstr "Timeout (secondi)"
 
 #: build/js/view/Properties.js:43
 msgid "Timeout enable"
-msgstr "Activar el tiempo de espera"
+msgstr "Abilita timeout"
 
 #: build/js/view/Properties.js:43
 msgid "Reference element Id"
-msgstr "Referencia ID del elemento"
+msgstr "Riferimento ID del elemento"
 
 #: build/js/view/Properties.js:45
 msgid "Autoselect element"
-msgstr "Autoseleccionar elemento"
+msgstr "Auto-selezione del elemento"
 
 #: build/js/view/Properties.js:45
 msgid "Hide element"
-msgstr "Ocultar elemento"
+msgstr "Nascondi elemento"
 
 #: build/js/view/Properties.js:46
 msgid "Fit to element"
-msgstr "Ajustar el elemento"
+msgstr "Regolare il elemento"
 
 #: build/js/view/Properties.js:50
 msgid "Layer opacity"
-msgstr "Opacidad de la capa"
+msgstr "Opacità del strato"
 
 #: build/js/view/Properties.js:50
 msgid "Transition"
-msgstr "Transición"
+msgstr "Transizione"
 
 #: build/js/view/Properties.js:50
 msgid "Duration (seconds)"
-msgstr "Duración (segundos)"
+msgstr "Durata (secondi)"
 
 #: build/js/view/Properties.js:50
 msgid "Timing function"
-msgstr "Función de temporización"
+msgstr "Funzione di temporizzazione"
 
 #: build/js/view/Properties.js:59
 msgid "Relative zoom (%)"
@@ -129,93 +124,90 @@ msgstr "Zoom relativo (%)"
 
 #: build/js/view/Properties.js:59
 msgid "Path Id"
-msgstr "ID del recorrido"
+msgstr "Percorso ID"
 
 #: build/js/view/Properties.js:59
 msgid "Hide path"
-msgstr "Esconder el recorrido"
+msgstr "Nascondere il percorso"
 
 #: build/js/view/Timeline.js:266
 msgid "Delete the selected frames"
-msgstr "Borrar los fotogramas seleccionados"
+msgstr "Eliminare i fotogrammi selezionati"
 
 #: build/js/view/Timeline.js:272
 msgid "Create a new frame"
-msgstr "Crear un nuevo fotograma"
+msgstr "Creare un nuovo fotogramma"
 
 #: build/js/view/Timeline.js:282
 msgid "Add layer"
-msgstr "Añadir capa"
+msgstr "Aggiungi strato"
 
 #: build/js/view/Timeline.js:287 build/js/view/Timeline.js:299
 msgid "This layer is visible. Click to hide it."
-msgstr "Esta capa es visible. Presione para esconderla."
+msgstr "Questo strato è visibile. Premere per nascondere."
 
 #: build/js/view/Timeline.js:290 build/js/view/Timeline.js:302
 msgid "This layer is hidden. Click to show it."
-msgstr "Esta capa está escondida. Presione para mostrarla."
+msgstr "Questo strato è nascosto. Premere per visualizzare."
 
 #: build/js/view/Timeline.js:295 build/js/view/Timeline.js:311
 msgid "Default"
-msgstr "Predeterminada"
+msgstr "Predeterminato"
 
 #: build/js/view/Timeline.js:305
 msgid "Remove this layer"
-msgstr "Borrar esta capa"
+msgstr "Rimuovere questo strato"
 
 #: build/js/view/Timeline.js:316
 msgid "Insert selection before frame %d"
-msgstr "Insertar la selección antes del fotograma %d"
+msgstr "Inserire la selezione prima del fotogramma %d"
 
 #: build/js/view/Timeline.js:322
 msgid "Insert selection after frame %d"
-msgstr "Insertar la sección después del fotograma %d"
+msgstr "Inserire la selezione dopo il fotogramma% d"
 
 #: build/js/view/Toolbar.js:45
 msgid "Aspect ratio: "
-msgstr "Proporciones de tamaño: "
+msgstr "Proporzione di aspetto:"
 
 #: build/js/view/Toolbar.js:72
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
-msgstr ""
-"Mover las capas seleccionadas (presione ALT para ampliar, MAYUS para girar)"
+msgstr "Spostare i strati selezionati (premere ALT per espandere, SHIFT per ruotare)"
 
 #: build/js/view/Toolbar.js:78
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
-msgstr ""
-"Ampliar/alejar las capas seleccionadas (puede presionar ALT en «modo mover»)"
+msgstr "Zoom in / out strati selezionati (è possibile premere ALT in "modalità di movimento")"
 
 #: build/js/view/Toolbar.js:84
-msgid ""
-"Rotate the selected layers (you can also hold the Shift key in Move mode)"
-msgstr "Girar las capas seleccionadas (puede presionar MAYUS en «modo mover»)"
+msgid "Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgstr "Ruota i strati selezionati (è possibile premere SHIFT in "modalità di movimento")"
 
 #: build/js/view/Toolbar.js:96
 msgid "Undo (Ctrl-Z)"
-msgstr "Deshacer (Ctrl-Z)"
+msgstr "Annulla (Ctrl-Z)"
 
 #: build/js/view/Toolbar.js:103
 msgid "Redo (Ctrl-Y)"
-msgstr "Rehacer (Ctrl-Y)"
+msgstr "Rifai (Ctrl-Y)"
 
 #: build/js/view/Toolbar.js:110
 msgid "Disable full-screen mode (F11)"
-msgstr "Desactivar el modo de pantalla completa (F11)"
+msgstr "Disattivare la modalità a schermo intero (F11)"
 
 #: build/js/view/Toolbar.js:110
 msgid "Enable full-screen mode (F11)"
-msgstr "Activar el modo de pantalla completa (F11)"
+msgstr "Attivare la modalità a schermo intero (F11)"
 
 #: build/js/view/Toolbar.js:118
 msgid "Save the presentation (Ctrl-S)"
-msgstr "Guardar la presentacion (Ctrl-S)"
+msgstr "Salvare la presentazione (Ctrl-S)"
 
 #: build/js/view/Toolbar.js:125
 msgid "Reload the SVG document (F5)"
-msgstr "Volver a cargar el documento SVG (F5)"
+msgstr "Ricaricare il documento SVG (F5)"
 
 #: build/js/view/Toolbar.js:130
 msgid "Information"
-msgstr "Información"
+msgstr "Informazione"
