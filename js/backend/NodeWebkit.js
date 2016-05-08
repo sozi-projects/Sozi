@@ -25,11 +25,11 @@ console.log("Current working dir: " + cwd);
 export var NodeWebkit = Object.create(AbstractBackend);
 
 NodeWebkit.init = function (container, _) {
-    AbstractBackend.init.call(this, container, "sozi-editor-backend-NodeWebkit-input", _("Load local file"));
+    AbstractBackend.init.call(this, container, "sozi-editor-backend-NodeWebkit-input", _("Load an SVG file from your computer"));
 
     this.loadConfiguration();
 
-    $(container).append('<input style="display:none;" id="sozi-editor-backend-NodeWebkit-file" type="file">');
+    $(container).append('<input style="display:none;" id="sozi-editor-backend-NodeWebkit-file" type="file" accept="image/svg+xml">');
 
     $("#sozi-editor-backend-NodeWebkit-input").click(this.openFileChooser.bind(this));
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-02-13 05:24:+0000\n"
+"POT-Creation-Date: 2016-05-08 11:59:+0000\n"
 "PO-Revision-Date: 2016-02-13 18:30+0100\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
@@ -39,16 +39,20 @@ msgid "Saved %s."
 msgstr "Запазен %s."
 
 #: build/js/backend/FileReader.js:19
-msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
+#, fuzzy
+msgid ""
+"Load an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
+"only)"
 msgstr "Зареди локален файл (<i class=\"fa fa-warning\"></i> read-only)"
 
 #: build/js/backend/GoogleDrive.js:21
-msgid "Load from Google Drive"
+#, fuzzy
+msgid "Load an SVG file from Google Drive"
 msgstr "Зареди от Google Диск"
 
 #: build/js/backend/NodeWebkit.js:55
-msgid "Load local file"
-msgstr "Зареди локален файл"
+msgid "Load an SVG file from your computer"
+msgstr ""
 
 #: build/js/backend/NodeWebkit.js:95
 msgid "File not found: %s."
@@ -220,3 +224,6 @@ msgstr "Презареди SVG документа (F5)"
 #: build/js/view/Toolbar.js:130
 msgid "Information"
 msgstr "Информация"
+
+#~ msgid "Load local file"
+#~ msgstr "Зареди локален файл"

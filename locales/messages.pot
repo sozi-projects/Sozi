@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2016-02-13 05:24:+0000\n"
+"POT-Creation-Date: 2016-05-08 11:59:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -30,15 +30,17 @@ msgid "Saved %s."
 msgstr ""
 
 #: build/js/backend/FileReader.js:19
-msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
+msgid ""
+"Load an SVG file from your computer (<i class=\"fa fa-warning\"></i> "
+"read-only)"
 msgstr ""
 
 #: build/js/backend/GoogleDrive.js:21
-msgid "Load from Google Drive"
+msgid "Load an SVG file from Google Drive"
 msgstr ""
 
 #: build/js/backend/NodeWebkit.js:55
-msgid "Load local file"
+msgid "Load an SVG file from your computer"
 msgstr ""
 
 #: build/js/backend/NodeWebkit.js:95

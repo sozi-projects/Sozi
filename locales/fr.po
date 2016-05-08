@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
-"POT-Creation-Date: 2016-02-13 05:24:+0000\n"
-"PO-Revision-Date: 2016-02-13 18:49+0100\n"
+"POT-Creation-Date: 2016-05-08 11:59:+0000\n"
+"PO-Revision-Date: 2016-05-08 14:08+0100\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Sozi translators\n"
 "Language: fr\n"
@@ -34,17 +34,20 @@ msgid "Saved %s."
 msgstr "Fichier %s enregistré."
 
 #: build/js/backend/FileReader.js:19
-msgid "Load local file (<i class=\"fa fa-warning\"></i> read-only)"
+msgid ""
+"Load an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
+"only)"
 msgstr ""
-"Charger un fichier local (<i class=\"fa fa-warning\"></i> en lecture seule)"
+"Charger un document SVG depuis votre ordinateur (<i class=\"fa fa-warning"
+"\"></i> en lecture seule)"
 
 #: build/js/backend/GoogleDrive.js:21
-msgid "Load from Google Drive"
-msgstr "Charger depuis Google Drive"
+msgid "Load an SVG file from Google Drive"
+msgstr "Charger un document SVG depuis Google Drive"
 
 #: build/js/backend/NodeWebkit.js:55
-msgid "Load local file"
-msgstr "Charger un fichier local"
+msgid "Load an SVG file from your computer"
+msgstr "Charger un document SVG depuis votre ordinateur"
 
 #: build/js/backend/NodeWebkit.js:95
 msgid "File not found: %s."
@@ -218,6 +221,9 @@ msgstr "Recharger le document SVG (F5)"
 #: build/js/view/Toolbar.js:130
 msgid "Information"
 msgstr "Information"
+
+#~ msgid "Load local file"
+#~ msgstr "Charger un fichier local"
 
 #~ msgid "Undo"
 #~ msgstr "Annuler"

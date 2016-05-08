@@ -9,9 +9,9 @@ import {AbstractBackend, addBackend} from "./AbstractBackend";
 export var FileReaderBackend = Object.create(AbstractBackend);
 
 FileReaderBackend.init = function (container, _) {
-    AbstractBackend.init.call(this, container, "sozi-editor-backend-FileReader-input", _('Load local file (<i class="fa fa-warning"></i> read-only)'));
+    AbstractBackend.init.call(this, container, "sozi-editor-backend-FileReader-input", _('Load an SVG file from your computer (<i class="fa fa-warning"></i> read-only)'));
 
-    $(container).append('<input style="display:none;" id="sozi-editor-backend-FileReader-file" type="file">');
+    $(container).append('<input style="display:none;" id="sozi-editor-backend-FileReader-file" type="file" accept="image/svg+xml">');
 
     $("#sozi-editor-backend-FileReader-input").click(this.openFileChooser.bind(this));
 
