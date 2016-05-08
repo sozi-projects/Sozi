@@ -253,7 +253,7 @@ module.exports = function(grunt) {
          * defined later.
          */
 
-        nodewebkit: {
+        nwjs: {
             options: {
                 version: buildConfig.nwVersion,
                 buildDir: "build",
@@ -295,7 +295,7 @@ module.exports = function(grunt) {
     });
 
     /*
-     * Compress options for target OS in nodewebkit task.
+     * Compress options for target OS in nwjs task.
      */
     var targetConfig = {
         linux32: "tgz",
@@ -374,7 +374,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask("nw-bundle", [
         "nw-build",
-        "nodewebkit",
+        "nwjs",
         "newer:copy:nw_locales",
         "rename",  // Cannot use 'newer' here since the generated file name includes the version
         "compress" // Cannot use 'newer' here since the generated file name includes the version
