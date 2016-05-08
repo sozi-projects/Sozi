@@ -35,7 +35,7 @@ or
 Install the build tools and dependencies
 ----------------------------------------
 
-Install [Node.js](http://nodejs.org/), [Bower](http://bower.io/)
+Install [Node.js](http://nodejs.org/) (< 6.0.0), [Bower](http://bower.io/)
 and the [Grunt](http://gruntjs.com/) CLI.
 In Debian/Ubuntu and their derivatives, you can type the following commands.
 
