@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-05-08 11:59:+0000\n"
-"PO-Revision-Date: 2016-05-08 14:09+0100\n"
-"Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
+"POT-Creation-Date: 2016-05-08 12:23:+0000\n"
+"PO-Revision-Date: 2016-05-08 14:25+0100\n"
+"Last-Translator: \n"
 "Language-Team: Esperanto <eo@li.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -40,18 +40,18 @@ msgstr "Konservis %s."
 
 #: build/js/backend/FileReader.js:19
 msgid ""
-"Load an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
+"Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
 "only)"
 msgstr ""
 "Malfermi SVG dosieron el via komputilo (<i class=\"fa fa-warning\"></i> "
 "nurlege)"
 
 #: build/js/backend/GoogleDrive.js:21
-msgid "Load an SVG file from Google Drive"
+msgid "Open an SVG file from Google Drive"
 msgstr "Malfermi SVG dosieron el Google Drive"
 
 #: build/js/backend/NodeWebkit.js:55
-msgid "Load an SVG file from your computer"
+msgid "Open an SVG file from your computer"
 msgstr "Malfermi SVG dosieron el via komputilo"
 
 #: build/js/backend/NodeWebkit.js:95

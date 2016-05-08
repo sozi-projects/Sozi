@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-05-08 11:59:+0000\n"
+"POT-Creation-Date: 2016-05-08 12:23:+0000\n"
 "PO-Revision-Date: 2016-02-13 19:06+0100\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
@@ -41,18 +41,19 @@ msgstr "貯存檔案 %s"
 #: build/js/backend/FileReader.js:19
 #, fuzzy
 msgid ""
-"Load an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
+"Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
 "only)"
 msgstr "讀取本地檔案 (<i class=\"fa fa-warning\"></i> 唯讀)"
 
 #: build/js/backend/GoogleDrive.js:21
 #, fuzzy
-msgid "Load an SVG file from Google Drive"
+msgid "Open an SVG file from Google Drive"
 msgstr "從GOOGLE Drive讀取"
 
 #: build/js/backend/NodeWebkit.js:55
-msgid "Load an SVG file from your computer"
-msgstr ""
+#, fuzzy
+msgid "Open an SVG file from your computer"
+msgstr "從GOOGLE Drive讀取"
 
 #: build/js/backend/NodeWebkit.js:95
 msgid "File not found: %s."

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
-"POT-Creation-Date: 2016-05-08 11:59:+0000\n"
+"POT-Creation-Date: 2016-05-08 12:23:+0000\n"
 "PO-Revision-Date: 2016-04-10 22:31:+0000\n"
 "Last-Translator: Francisco Javier del Álamo <javialamo+github@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,19 +37,20 @@ msgstr "%s salvato."
 #: build/js/backend/FileReader.js:19
 #, fuzzy
 msgid ""
-"Load an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
+"Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
 "only)"
 msgstr ""
 "Caricare file locale (<i class = \"fa fa-warning \"> </ i> di sola lettura)"
 
 #: build/js/backend/GoogleDrive.js:21
 #, fuzzy
-msgid "Load an SVG file from Google Drive"
+msgid "Open an SVG file from Google Drive"
 msgstr "Importa da Google Drive"
 
 #: build/js/backend/NodeWebkit.js:55
-msgid "Load an SVG file from your computer"
-msgstr ""
+#, fuzzy
+msgid "Open an SVG file from your computer"
+msgstr "Importa da Google Drive"
 
 #: build/js/backend/NodeWebkit.js:95
 msgid "File not found: %s."

@@ -13,7 +13,7 @@ GoogleDrive.clientId = "Your OAuth client Id";
 GoogleDrive.apiKey = "Your developer API key";
 
 GoogleDrive.init = function (container, _) {
-    AbstractBackend.init.call(this, container, "sozi-editor-backend-GoogleDrive-input", _("Load an SVG file from Google Drive"));
+    AbstractBackend.init.call(this, container, "sozi-editor-backend-GoogleDrive-input", _("Open an SVG file from Google Drive"));
 
     $(window).blur(this.doAutosave.bind(this));
 

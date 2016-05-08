@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
-"POT-Creation-Date: 2016-05-08 11:59:+0000\n"
-"PO-Revision-Date: 2016-05-08 14:08+0100\n"
-"Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
+"POT-Creation-Date: 2016-05-08 12:23:+0000\n"
+"PO-Revision-Date: 2016-05-08 14:24+0100\n"
+"Last-Translator: \n"
 "Language-Team: Sozi translators\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -35,19 +35,19 @@ msgstr "Fichier %s enregistré."
 
 #: build/js/backend/FileReader.js:19
 msgid ""
-"Load an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
+"Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
 "only)"
 msgstr ""
-"Charger un document SVG depuis votre ordinateur (<i class=\"fa fa-warning"
-"\"></i> en lecture seule)"
+"Ouvrir un document SVG depuis votre ordinateur (<i class=\"fa fa-warning\"></"
+"i> en lecture seule)"
 
 #: build/js/backend/GoogleDrive.js:21
-msgid "Load an SVG file from Google Drive"
-msgstr "Charger un document SVG depuis Google Drive"
+msgid "Open an SVG file from Google Drive"
+msgstr "Ouvrir un document SVG depuis Google Drive"
 
 #: build/js/backend/NodeWebkit.js:55
-msgid "Load an SVG file from your computer"
-msgstr "Charger un document SVG depuis votre ordinateur"
+msgid "Open an SVG file from your computer"
+msgstr "Ouvrir un document SVG depuis votre ordinateur"
 
 #: build/js/backend/NodeWebkit.js:95
 msgid "File not found: %s."
