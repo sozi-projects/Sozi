@@ -213,25 +213,6 @@ module.exports = function(grunt) {
                         dest: "build/app/js/editor.min.js"
                     }
                 ]
-            },
-            // This is a temporary workaround to force NW.js to apply
-            // correct localization.
-            // See: https://github.com/mllrsohn/node-webkit-builder/pull/213
-            nw_locales: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: "cache/" + buildConfig.nwVersion + "/linux32/locales",
-                        src: ["*.pak"],
-                        dest: "build/Sozi/linux32/locales"
-                    },
-                    {
-                        expand: true,
-                        cwd: "cache/" + buildConfig.nwVersion + "/linux64/locales",
-                        src: ["*.pak"],
-                        dest: "build/Sozi/linux64/locales"
-                    },
-                ]
             }
         },
 
@@ -375,7 +356,6 @@ module.exports = function(grunt) {
     grunt.registerTask("nw-bundle", [
         "nw-build",
         "nwjs",
-        "newer:copy:nw_locales",
         "rename",  // Cannot use 'newer' here since the generated file name includes the version
         "compress" // Cannot use 'newer' here since the generated file name includes the version
     ]);
