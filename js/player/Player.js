@@ -178,6 +178,7 @@ Object.defineProperty(Player, "previousFrameIndex", {
     get() {
         var index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
         
+        // Returns the previous non-hidden frame
         var prevFrame = index;
         while((prevFrame = (prevFrame + this.presentation.frames.length - 1) % this.presentation.frames.length) != index) {
             if (this.presentation.frames[prevFrame].showInFrameList)
@@ -189,7 +190,14 @@ Object.defineProperty(Player, "previousFrameIndex", {
 Object.defineProperty(Player, "nextFrameIndex", {
     get() {
         var index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
-        
+
+        // Check first if this is a sub-frame.
+        // If it is, the next frame should be its parent
+        var parent = this.parentFrameIndex(index);
+        if (parent > -1)
+            return parent;
+
+        // Not a sub-frame, returns the next non-hidden frame
         var nextFrame = index;
         while((nextFrame = (nextFrame + 1) % this.presentation.frames.length) != index) {
             console.dir(this.presentation.frames[nextFrame]);
@@ -198,6 +206,24 @@ Object.defineProperty(Player, "nextFrameIndex", {
         }
     }
 });
+
+/*
+ * Returns the parent frame of the frame at index if it is a sub-frame.
+ * Otherwise, returns -1.
+ *
+ * Sub-frames are identified by their id of the form parentFrameId/subFrameId
+ */
+Player.parentFrameIndex = function(index) {
+    var frameId = this.presentation.frames[index].frameId;
+    var pos = frameId.lastIndexOf("/");
+    if (pos === -1) // Not a sub-frame
+        return -1;
+
+    var parentFrameId = frameId.substring(0, pos);
+    return this.presentation.frames.findIndex(frame => {
+        return frame.frameId === parentFrameId;
+    });
+};
 
 Player.showCurrentFrame = function () {
     this.viewport.setAtStates(this.currentFrame.cameraStates).update();
