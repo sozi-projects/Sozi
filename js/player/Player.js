@@ -177,14 +177,25 @@ Object.defineProperty(Player, "targetFrame", {
 Object.defineProperty(Player, "previousFrameIndex", {
     get() {
         var index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
-        return (index + this.presentation.frames.length - 1) % this.presentation.frames.length;
+        
+        var prevFrame = index;
+        while((prevFrame = (prevFrame + this.presentation.frames.length - 1) % this.presentation.frames.length) != index) {
+            if (this.presentation.frames[prevFrame].showInFrameList)
+                return prevFrame;
+        }
     }
 });
 
 Object.defineProperty(Player, "nextFrameIndex", {
     get() {
         var index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
-        return (index + 1) % this.presentation.frames.length;
+        
+        var nextFrame = index;
+        while((nextFrame = (nextFrame + 1) % this.presentation.frames.length) != index) {
+            console.dir(this.presentation.frames[nextFrame]);
+            if (this.presentation.frames[nextFrame].showInFrameList)
+                return nextFrame;
+        }
     }
 });
 
