@@ -240,7 +240,7 @@ Storage.getJSONData = function () {
             storable[key] = partial[key];
         }
     });
-    return JSON.stringify(storable);
+    return JSON.stringify(storable, null, "  ");
 };
 
 /*
