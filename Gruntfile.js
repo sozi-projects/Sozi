@@ -17,21 +17,20 @@ module.exports = function(grunt) {
             "build/js/backend/FileReader.js",
             "build/js/backend/GoogleDrive.config.js"
         ],
-        nw: [
-            "build/js/backend/NodeWebkit.js"
+        electron: [
+            "build/js/backend/Electron.js"
         ]
     };
 
     var buildConfigJs = grunt.option("buildConfig") || "buildConfig.js";
     var buildConfig = {
         platforms: [
-            "win32", "osx32", "linux32",
-            "win64", "osx64", "linux64"
+            "darwin", "linux", "mas", "win32"
         ],
-        nwVersion: "0.12.3",
-        nwOptions: {
-            toolbar: false
-        },
+        archs: [
+            "ia32", "x64"
+        ],
+        electronVersion: "1.2.0",
         uglifyOptions:{}
     };
     try {
@@ -53,8 +52,6 @@ module.exports = function(grunt) {
         grunt.log.error("bower_components not found! Please run `bower install`.");
         process.exit();
     }
-
-    pkg.window.toolbar = buildConfig.nwOptions.toolbar;
 
     grunt.initConfig({
         pkg: pkg,
@@ -139,7 +136,7 @@ module.exports = function(grunt) {
         browserify: {
             editor: {
                 options: {
-                    external: ["nw.gui", "fs", "path", "process"]
+                    external: ["electron", "fs", "path", "process"]
                 },
                 src: [
                     "build/js/svg/*Handler.js",
@@ -209,6 +206,10 @@ module.exports = function(grunt) {
                         dest: "build/app/package.json"
                     },
                     {
+                        src: "build/js/electron.js",
+                        dest: "build/app/electron.js"
+                    },
+                    {
                         src: "<%= uglify.editor.dest %>",
                         dest: "build/app/js/editor.min.js"
                     }
@@ -234,13 +235,18 @@ module.exports = function(grunt) {
          * defined later.
          */
 
-        nwjs: {
-            options: {
-                version: buildConfig.nwVersion,
-                buildDir: "build",
-                platforms: buildConfig.platforms
-            },
-            editor: ["build/app/**/*"]
+        electron: {
+            editor: {
+                options: {
+                    name: "Sozi",
+                    dir: "build/app",
+                    out: "dist",
+                    overwrite: true,
+                    version: buildConfig.electronVersion,
+                    platform: buildConfig.platforms.join(","),
+                    arch: buildConfig.archs.join(",")
+                }
+            }
         },
 
         /*
@@ -275,41 +281,6 @@ module.exports = function(grunt) {
         }
     });
 
-    /*
-     * Compress options for target OS in nwjs task.
-     */
-    var targetConfig = {
-        linux32: "tgz",
-        linux64: "tgz",
-        win32: "zip",
-        win64: "zip",
-        osx32: "zip",
-        osx64: "zip"
-    };
-
-    /*
-     * Compress enabled node-webkit applications
-     * for various platforms.
-     */
-    buildConfig.platforms.forEach(function (targetName) {
-        var prefix = "Sozi-" + pkg.version + "-" + targetName;
-
-        grunt.config(["rename", targetName], {
-            src: "build/Sozi/" + targetName,
-            dest: "build/Sozi/" + prefix
-        });
-
-        grunt.config(["compress", targetName], {
-            options: {
-                mode: targetConfig[targetName],
-                archive: "build/" + prefix + "." + targetConfig[targetName]
-            },
-            expand: true,
-            cwd: "build/Sozi/",
-            src: [prefix + "/**/*"]
-        });
-    });
-
     grunt.registerTask("write_package_json", function () {
         grunt.file.write("build/package.json", JSON.stringify(pkg));
     });
@@ -328,10 +299,10 @@ module.exports = function(grunt) {
         );
     });
 
-    grunt.registerTask("backends-nw", function () {
+    grunt.registerTask("backends-electron", function () {
         // grunt.config.merge does not work for this
         grunt.config.set("browserify.editor.src",
-            grunt.config.get("browserify.editor.src").concat(backends.nw)
+            grunt.config.get("browserify.editor.src").concat(backends.electron)
         );
     });
 
@@ -350,14 +321,12 @@ module.exports = function(grunt) {
         "newer:copy:editor"
     ]);
 
-    grunt.registerTask("nw-build",  ["backends-nw", "build"]);
+    grunt.registerTask("electron-build",  ["backends-electron", "build"]);
     grunt.registerTask("web-build", ["backends-web", "build"]);
 
-    grunt.registerTask("nw-bundle", [
-        "nw-build",
-        "nwjs",
-        "rename",  // Cannot use 'newer' here since the generated file name includes the version
-        "compress" // Cannot use 'newer' here since the generated file name includes the version
+    grunt.registerTask("electron-bundle", [
+        "electron-build",
+        "electron"
     ]);
 
     grunt.registerTask("web-demo", [
@@ -370,5 +339,5 @@ module.exports = function(grunt) {
         "jspot" // Cannot use 'newer' here since 'dest' is not a generated file
     ]);
 
-    grunt.registerTask("default", ["nw-bundle"]);
+    grunt.registerTask("default", ["electron-bundle", "compress"]);
 };
