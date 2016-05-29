@@ -28,16 +28,7 @@ Electron.init = function (container, _) {
 
     this.loadConfiguration();
 
-    $(container).append('<input style="display:none;" id="sozi-editor-backend-Electron-file" type="file" accept="image/svg+xml">');
-
     $("#sozi-editor-backend-Electron-input").click(this.openFileChooser.bind(this));
-
-    // Load the SVG document selected in the file input
-    $("#sozi-editor-backend-Electron-file").change(evt => {
-        if (evt.target.files.length) {
-            this.load(evt.target.files[0].path);
-        }
-    });
 
     // Save automatically when the window loses focus
     $(window).on("blur", this.doAutosave.bind(this));
@@ -61,18 +52,25 @@ Electron.init = function (container, _) {
         }
         catch (err) {
             $.notify(Jed.sprintf(_("File not found: %s."), fileName), "error");
-            this.openFileChooser();
+            this.openFileChooser(_);
         }
     }
     else {
-        this.openFileChooser();
+        this.openFileChooser(_);
     }
 
     return this;
 };
 
-Electron.openFileChooser = function () {
-    $("#sozi-editor-backend-Electron-file").click();
+Electron.openFileChooser = function (_) {
+    var files = remote.dialog.showOpenDialog({
+        title: _("Choose an SVG file"),
+        filters: [{name: _("SVG documents"), extensions: ["svg"]}],
+        properties: ["openFile"]
+    });
+    if (files) {
+        this.load(files[0]);
+    }
 };
 
 Electron.getName = function (fileDescriptor) {
