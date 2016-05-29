@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-05-08 12:23:+0000\n"
+"POT-Creation-Date: 2016-05-29 04:51:+0000\n"
 "PO-Revision-Date: 2016-02-13 18:37+0100\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -38,6 +38,23 @@ msgstr "Dokument wurde aus Sozi 13 oder früher importiert."
 msgid "Saved %s."
 msgstr "%s gespeichert."
 
+#: build/js/backend/Electron.js:54 build/js/backend/NodeWebkit.js:55
+#, fuzzy
+msgid "Open an SVG file from your computer"
+msgstr "Von Google Drive laden"
+
+#: build/js/backend/Electron.js:80 build/js/backend/NodeWebkit.js:95
+msgid "File not found: %s."
+msgstr "Datei nicht gefunden: %s."
+
+#: build/js/backend/Electron.js:92
+msgid "Choose an SVG file"
+msgstr ""
+
+#: build/js/backend/Electron.js:93
+msgid "SVG files"
+msgstr ""
+
 #: build/js/backend/FileReader.js:19
 #, fuzzy
 msgid ""
@@ -49,15 +66,6 @@ msgstr "Lade lokale Datei (<i class=\"fa fa-warning\"></i> schreibgeschützt)"
 #, fuzzy
 msgid "Open an SVG file from Google Drive"
 msgstr "Von Google Drive laden"
-
-#: build/js/backend/NodeWebkit.js:55
-#, fuzzy
-msgid "Open an SVG file from your computer"
-msgstr "Von Google Drive laden"
-
-#: build/js/backend/NodeWebkit.js:95
-msgid "File not found: %s."
-msgstr "Datei nicht gefunden: %s."
 
 #: build/js/view/Properties.js:43
 msgid "Frame"

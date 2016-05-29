@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2016-05-08 12:23:+0000\n"
+"POT-Creation-Date: 2016-05-29 04:51:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -29,6 +29,22 @@ msgstr ""
 msgid "Saved %s."
 msgstr ""
 
+#: build/js/backend/Electron.js:54 build/js/backend/NodeWebkit.js:55
+msgid "Open an SVG file from your computer"
+msgstr ""
+
+#: build/js/backend/Electron.js:80 build/js/backend/NodeWebkit.js:95
+msgid "File not found: %s."
+msgstr ""
+
+#: build/js/backend/Electron.js:92
+msgid "Choose an SVG file"
+msgstr ""
+
+#: build/js/backend/Electron.js:93
+msgid "SVG files"
+msgstr ""
+
 #: build/js/backend/FileReader.js:19
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> "
@@ -37,14 +53,6 @@ msgstr ""
 
 #: build/js/backend/GoogleDrive.js:21
 msgid "Open an SVG file from Google Drive"
-msgstr ""
-
-#: build/js/backend/NodeWebkit.js:55
-msgid "Open an SVG file from your computer"
-msgstr ""
-
-#: build/js/backend/NodeWebkit.js:95
-msgid "File not found: %s."
 msgstr ""
 
 #: build/js/view/Properties.js:43

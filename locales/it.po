@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
-"POT-Creation-Date: 2016-05-08 12:23:+0000\n"
+"POT-Creation-Date: 2016-05-29 04:51:+0000\n"
 "PO-Revision-Date: 2016-04-10 22:31:+0000\n"
 "Last-Translator: Francisco Javier del Álamo <javialamo+github@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,6 +34,23 @@ msgstr "Il documento è stato importato da Sozi13 o precedente."
 msgid "Saved %s."
 msgstr "%s salvato."
 
+#: build/js/backend/Electron.js:54 build/js/backend/NodeWebkit.js:55
+#, fuzzy
+msgid "Open an SVG file from your computer"
+msgstr "Importa da Google Drive"
+
+#: build/js/backend/Electron.js:80 build/js/backend/NodeWebkit.js:95
+msgid "File not found: %s."
+msgstr "File non trovato: %s"
+
+#: build/js/backend/Electron.js:92
+msgid "Choose an SVG file"
+msgstr ""
+
+#: build/js/backend/Electron.js:93
+msgid "SVG files"
+msgstr ""
+
 #: build/js/backend/FileReader.js:19
 #, fuzzy
 msgid ""
@@ -46,15 +63,6 @@ msgstr ""
 #, fuzzy
 msgid "Open an SVG file from Google Drive"
 msgstr "Importa da Google Drive"
-
-#: build/js/backend/NodeWebkit.js:55
-#, fuzzy
-msgid "Open an SVG file from your computer"
-msgstr "Importa da Google Drive"
-
-#: build/js/backend/NodeWebkit.js:95
-msgid "File not found: %s."
-msgstr "File non trovato: %s"
 
 #: build/js/view/Properties.js:43
 msgid "Frame"

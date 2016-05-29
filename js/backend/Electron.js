@@ -65,7 +65,7 @@ Electron.init = function (container, _) {
 Electron.openFileChooser = function (_) {
     var files = remote.dialog.showOpenDialog({
         title: _("Choose an SVG file"),
-        filters: [{name: _("SVG documents"), extensions: ["svg"]}],
+        filters: [{name: _("SVG files"), extensions: ["svg"]}],
         properties: ["openFile"]
     });
     if (files) {

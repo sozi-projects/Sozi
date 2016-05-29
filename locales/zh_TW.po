@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-05-08 12:23:+0000\n"
+"POT-Creation-Date: 2016-05-29 04:51:+0000\n"
 "PO-Revision-Date: 2016-02-13 19:06+0100\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
@@ -38,6 +38,23 @@ msgstr "文件是從Sozi 13或更早以前的版本匯入"
 msgid "Saved %s."
 msgstr "貯存檔案 %s"
 
+#: build/js/backend/Electron.js:54 build/js/backend/NodeWebkit.js:55
+#, fuzzy
+msgid "Open an SVG file from your computer"
+msgstr "從GOOGLE Drive讀取"
+
+#: build/js/backend/Electron.js:80 build/js/backend/NodeWebkit.js:95
+msgid "File not found: %s."
+msgstr "找不到檔案：%s"
+
+#: build/js/backend/Electron.js:92
+msgid "Choose an SVG file"
+msgstr ""
+
+#: build/js/backend/Electron.js:93
+msgid "SVG files"
+msgstr ""
+
 #: build/js/backend/FileReader.js:19
 #, fuzzy
 msgid ""
@@ -49,15 +66,6 @@ msgstr "讀取本地檔案 (<i class=\"fa fa-warning\"></i> 唯讀)"
 #, fuzzy
 msgid "Open an SVG file from Google Drive"
 msgstr "從GOOGLE Drive讀取"
-
-#: build/js/backend/NodeWebkit.js:55
-#, fuzzy
-msgid "Open an SVG file from your computer"
-msgstr "從GOOGLE Drive讀取"
-
-#: build/js/backend/NodeWebkit.js:95
-msgid "File not found: %s."
-msgstr "找不到檔案：%s"
 
 #: build/js/view/Properties.js:43
 msgid "Frame"
