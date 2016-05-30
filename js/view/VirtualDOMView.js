@@ -8,6 +8,7 @@ import h from "virtual-dom/h";
 import createElement from "virtual-dom/create-element";
 import diff from "virtual-dom/diff";
 import patch from "virtual-dom/patch";
+import $ from "jquery";
 
 export var VirtualDOMView = {
 

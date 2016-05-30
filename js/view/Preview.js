@@ -4,6 +4,8 @@
 
 "use strict";
 
+import $ from "jquery";
+
 var PREVIEW_MARGIN = 15;
 
 export var Preview = {

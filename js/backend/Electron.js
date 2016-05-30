@@ -11,6 +11,7 @@ import process from "process";
 import Jed from "jed";
 import screenfull from "screenfull";
 import {remote} from "electron";
+import $ from "jquery";
 
 var win = remote.getCurrentWindow();
 
@@ -28,7 +29,7 @@ Electron.init = function (container, _) {
 
     this.loadConfiguration();
 
-    $("#sozi-editor-backend-Electron-input").click(this.openFileChooser.bind(this));
+    $("#sozi-editor-backend-Electron-input").click(this.openFileChooser.bind(this, _));
 
     // Save automatically when the window loses focus
     $(window).on("blur", this.doAutosave.bind(this));
@@ -51,7 +52,7 @@ Electron.init = function (container, _) {
             this.load(fileName);
         }
         catch (err) {
-            $.notify(Jed.sprintf(_("File not found: %s."), fileName), "error");
+            new Notification(_("Sozi (Error)"), {body: Jed.sprintf(_("File not found: %s."), fileName)});
             this.openFileChooser(_);
         }
     }

@@ -10,6 +10,7 @@ import nunjucks from "nunjucks";
 import Jed from "jed";
 import {upgrade} from "./upgrade";
 import {toArray} from "./utils";
+import $ from "jquery";
 
 export var Storage = Object.create(EventEmitter.prototype);
 
@@ -64,7 +65,7 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
     var location = backend.getLocation(fileDescriptor);
 
     if (err) {
-        $.notify(Jed.sprintf(_("File %s could not be loaded."), name), "error");
+        new Notification(_("Sozi (Error)"), {body: Jed.sprintf(_("File %s could not be loaded."), name)});
     }
     else if (/\.svg$/.test(name)) {
         this.reloading = fileDescriptor === this.svgFileDescriptor;
@@ -79,13 +80,16 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
             });
         }
         else {
-            $.notify(_("Document is not valid SVG."), "error");
+            new Notification(_("Sozi (Error)"), {body: _("Document is not valid SVG.")});
         }
     }
     else if (/\.sozi\.json$/.test(name)) {
         // Load presentation data and editor state from JSON file.
         this.loadJSONData(data);
         this.autosaveJSON(fileDescriptor);
+    }
+    else {
+        new Notification(_("Sozi (Error)"), {body: _("Document is not valid SVG.")});
     }
 };
 
@@ -120,7 +124,7 @@ Storage.onBackendChange = function (fileDescriptor) {
     var _ = this.gettext;
 
     if (fileDescriptor === this.svgFileDescriptor) {
-        $.notify(_("Document was changed. Reloading."), "info");
+        new Notification(_("Sozi (Information)"), {body: _("Document was changed. Reloading.")});
         this.reload();
     }
 };
@@ -146,7 +150,7 @@ Storage.openJSONFile = function (name, location) {
 
             // Select the first frame
             if (this.presentation.frames.length) {
-                $.notify(_("Document was imported from Sozi 13 or earlier."), "success");
+                new Notification(_("Sozi (Information)"), {body: _("Document was imported from Sozi 13 or earlier.")});
             }
 
             this.backend.create(name, location, "application/json", this.getJSONData(), fileDescriptor => {
@@ -196,12 +200,14 @@ Storage.autosaveJSON = function (fileDescriptor) {
         return;
     }
 
+    var _ = this.gettext;
+
     this.backend.autosave(fileDescriptor, () => this.jsonNeedsSaving, this.getJSONData.bind(this));
 
     this.backend.addListener("save", savedFileDescriptor => {
         if (fileDescriptor === savedFileDescriptor) {
             this.jsonNeedsSaving = false;
-            $.notify("Saved " + this.backend.getName(fileDescriptor), "info");
+            new Notification(_("Sozi (Information)"), {body: Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor))});
         }
     });
 };
@@ -222,7 +228,7 @@ Storage.autosaveHTML = function (fileDescriptor) {
         if (fileDescriptor === savedFileDescriptor) {
             this.htmlNeedsSaving = false;
             this.controller.emit("repaint"); // TODO move this to controller
-            $.notify(Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)), "info");
+            new Notification(_("Sozi (Information)"), {body: Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor))});
         }
     });
 };

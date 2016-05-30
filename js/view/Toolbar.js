@@ -8,6 +8,7 @@ import h from "virtual-dom/h";
 import {VirtualDOMView} from "./VirtualDOMView";
 import screenfull from "screenfull";
 import pkg from "../../package.json";
+import $ from "jquery";
 
 export var Toolbar = Object.create(VirtualDOMView);
 
@@ -116,7 +117,7 @@ Toolbar.render = function () {
         h("span.group",
             h("button", {
                 title: _("Information"),
-                onclick() { $.notify(`Sozi ${pkg.version}`, "info"); }
+                onclick() { new Notification(_("Sozi (Information)"), {body: `Sozi ${pkg.version}`}); }
             }, h("i.fa.fa-info"))
         )
     ]);

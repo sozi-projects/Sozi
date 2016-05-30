@@ -281,6 +281,30 @@ module.exports = function(grunt) {
         }
     });
 
+    /*
+     * Compress electron bundles for each platform
+     */
+    buildConfig.platforms.forEach(function (platform) {
+        buildConfig.archs.forEach(function (arch) {
+            var targetName = platform + "-" + arch;
+            var destName = "Sozi-" + pkg.version + "-" + targetName;
+            grunt.config(["rename", targetName], {
+                src: "dist/Sozi-" + targetName,
+                dest: "dist/" + destName
+            });
+
+            grunt.config(["compress", targetName], {
+                options: {
+                    mode: "tgz",
+                    archive: "dist/" + destName + ".tgz"
+                },
+                expand: true,
+                cwd: "dist/",
+                src: [destName + "/**/*"]
+            });
+        });
+    });
+    
     grunt.registerTask("write_package_json", function () {
         grunt.file.write("build/package.json", JSON.stringify(pkg));
     });
@@ -326,7 +350,9 @@ module.exports = function(grunt) {
 
     grunt.registerTask("electron-bundle", [
         "electron-build",
-        "electron"
+        "electron",
+        "rename",
+        "compress"
     ]);
 
     grunt.registerTask("web-demo", [

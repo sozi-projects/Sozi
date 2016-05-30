@@ -2,7 +2,5 @@
   "name": "Sozi",
   "dependencies": {
     "font-awesome": "~4.2.0",
-    "jquery": "~2.1.1",
-    "notifyjs": "~0.3.2"
   }
 }
