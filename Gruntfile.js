@@ -25,10 +25,9 @@ module.exports = function(grunt) {
     var buildConfigJs = grunt.option("buildConfig") || "buildConfig.js";
     var buildConfig = {
         platforms: [
-            "darwin", "linux", "mas", "win32"
-        ],
-        archs: [
-            "ia32", "x64"
+            "darwin-x64",
+            "linux-x64", "linux-ia32",
+            "win32-x64", "win32-ia32"
         ],
         electronVersion: "1.2.0",
         uglifyOptions:{}
@@ -53,6 +52,11 @@ module.exports = function(grunt) {
         process.exit();
     }
 
+    function dedup(arr) {
+        return arr.filter(function (x, pos) {
+            return arr.indexOf(x) === pos;
+        });
+    }
     grunt.initConfig({
         pkg: pkg,
 
@@ -243,8 +247,8 @@ module.exports = function(grunt) {
                     out: "dist",
                     overwrite: true,
                     version: buildConfig.electronVersion,
-                    platform: buildConfig.platforms.join(","),
-                    arch: buildConfig.archs.join(",")
+                    platform: dedup(buildConfig.platforms.map(p => p.split("-")[0])).join(","),
+                    arch:     dedup(buildConfig.platforms.map(p => p.split("-")[1])).join(",")
                 }
             }
         },
@@ -285,26 +289,25 @@ module.exports = function(grunt) {
      * Compress electron bundles for each platform
      */
     buildConfig.platforms.forEach(function (platform) {
-        buildConfig.archs.forEach(function (arch) {
-            var targetName = platform + "-" + arch;
-            var destName = "Sozi-" + pkg.version + "-" + targetName;
-            grunt.config(["rename", targetName], {
-                src: "dist/Sozi-" + targetName,
-                dest: "dist/" + destName
-            });
+        var destName = "Sozi-" + pkg.version + "-" + platform;
+        grunt.config(["rename", platform], {
+            src: "dist/Sozi-" + platform,
+            dest: "dist/" + destName
+        });
 
-            grunt.config(["compress", targetName], {
-                options: {
-                    mode: "tgz",
-                    archive: "dist/" + destName + ".tgz"
-                },
-                expand: true,
-                cwd: "dist/",
-                src: [destName + "/**/*"]
-            });
+        var mode = platform.startsWith("win") ? "zip" : "tgz";
+
+        grunt.config(["compress", platform], {
+            options: {
+                mode: mode,
+                archive: "dist/" + destName + "." + mode
+            },
+            expand: true,
+            cwd: "dist/",
+            src: [destName + "/**/*"]
         });
     });
-    
+
     grunt.registerTask("write_package_json", function () {
         grunt.file.write("build/package.json", JSON.stringify(pkg));
     });
@@ -365,5 +368,5 @@ module.exports = function(grunt) {
         "jspot" // Cannot use 'newer' here since 'dest' is not a generated file
     ]);
 
-    grunt.registerTask("default", ["electron-bundle", "compress"]);
+    grunt.registerTask("default", ["electron-bundle"]);
 };

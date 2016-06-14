@@ -1,6 +1,6 @@
 {
-  "name": "Sozi",
+  "name": "sozi",
   "dependencies": {
-    "font-awesome": "~4.2.0",
+    "font-awesome": "^4.6.0"
   }
 }
