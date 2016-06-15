@@ -12,22 +12,14 @@ module.exports = function(grunt) {
     var pkg = grunt.file.readJSON("package.json");
     pkg.version = grunt.template.today("yy.mm.ddHHMM");
 
-    var backends = {
-        web: [
-            "build/js/backend/FileReader.js",
-            "build/js/backend/GoogleDrive.config.js"
-        ],
-        electron: [
-            "build/js/backend/Electron.js"
-        ]
-    };
-
     var buildConfigJs = grunt.option("buildConfig") || "buildConfig.js";
     var buildConfig = {
         platforms: [
-            "darwin-x64",
-            "linux-x64", "linux-ia32",
-            "win32-x64", "win32-ia32"
+            // "darwin-x64",
+            "linux-x64"//,
+            // "linux-ia32",
+            // "win32-x64",
+            // "win32-ia32"
         ],
         electronVersion: "1.2.0",
         uglifyOptions:{}
@@ -57,6 +49,7 @@ module.exports = function(grunt) {
             return arr.indexOf(x) === pos;
         });
     }
+
     grunt.initConfig({
         pkg: pkg,
 
@@ -109,7 +102,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     src: "js/**/*.js",
-                    dest: "build"
+                    dest: "build/app"
                 }]
             }
         },
@@ -119,8 +112,7 @@ module.exports = function(grunt) {
                 keyword: "_"
             },
             all: {
-                // Exclude *.bundle.js and *.min.js
-                src: ["build/js/**/*.js", "!build/js/*.*.js"],
+                src: ["build/app/js/**/*.js"],
                 dest: "locales"
             }
         },
@@ -133,7 +125,7 @@ module.exports = function(grunt) {
             },
             all: {
                 src: ["locales/*.po"],
-                dest: "build/js/locales.js",
+                dest: "build/app/js/locales.js",
             }
         },
 
@@ -142,18 +134,12 @@ module.exports = function(grunt) {
                 options: {
                     external: ["electron", "fs", "path", "process"]
                 },
-                src: [
-                    "build/js/svg/*Handler.js",
-                    "<%= nunjucks.player.dest %>",
-                    "build/js/editor.js"
-                ],
-                dest: "build/js/editor.bundle.js"
+                src: ["build/app/js/editor.js"],
+                dest: "build/tmp/js/editor.bundle.js"
             },
             player: {
-                src: [
-                    "build/js/player.js"
-                ],
-                dest: "build/js/player.bundle.js"
+                src: ["build/app/js/player.js"],
+                dest: "build/tmp/js/player.bundle.js"
             }
         },
 
@@ -164,11 +150,11 @@ module.exports = function(grunt) {
             options: buildConfig.uglifyOptions,
             editor: {
                 src: "<%= browserify.editor.dest %>",
-                dest: "build/js/editor.min.js"
+                dest: "build/webapp/js/editor.min.js"
             },
             player: {
                 src: "<%= browserify.player.dest %>",
-                dest: "build/js/player.min.js"
+                dest: "build/tmp/js/player.min.js"
             }
         },
 
@@ -178,17 +164,22 @@ module.exports = function(grunt) {
         nunjucks_render: {
             player: {
                 src: "templates/player.html",
-                dest: "build/templates/player.html",
+                dest: "build/tmp/templates/player.html",
                 context: {
-                    playerJs: "<%= grunt.file.read('build/js/player.min.js') %>"
+                    playerJs: "<%= grunt.file.read('build/tmp/js/player.min.js') %>"
                 }
             }
         },
 
         nunjucks: {
+            options: {
+                name: function (filepath) {
+                    return path.basename(filepath);
+                }
+            },
             player: {
                 src: ["<%= nunjucks_render.player.dest %>"],
-                dest: "build/templates/player.templates.js"
+                dest: "build/app/js/templates/player.js"
             }
         },
 
@@ -204,20 +195,19 @@ module.exports = function(grunt) {
                             "bower_components/**/*"
                         ],
                         dest: "build/app"
-                    },
-                    {
-                        src: "build/package.json",
-                        dest: "build/app/package.json"
-                    },
-                    {
-                        src: "build/js/electron.js",
-                        dest: "build/app/electron.js"
-                    },
-                    {
-                        src: "<%= uglify.editor.dest %>",
-                        dest: "build/app/js/editor.min.js"
                     }
                 ]
+            }
+        },
+
+        rename: {
+            webapp: {
+                src: ["build/app/js/backend/index-webapp.js"],
+                dest: "build/app/js/backend/index.js"
+            },
+            electron: {
+                src: ["build/app/js/backend/index-electron.js"],
+                dest: "build/app/js/backend/index.js"
             }
         },
 
@@ -234,10 +224,16 @@ module.exports = function(grunt) {
         },
 
         /*
-         * Build node-webkit applications for various platforms.
+         * Build electron applications for various platforms.
          * The options take precedence over the targets variable
          * defined later.
          */
+
+        "install-dependencies": {
+            options: {
+                cwd: "build/app"
+            }
+        },
 
         electron: {
             editor: {
@@ -275,7 +271,7 @@ module.exports = function(grunt) {
             options: {
                 override: function (details, include) {
                     if (details.task === "nunjucks_render" && details.target === "player") {
-                        include(fs.statSync("build/js/player.min.js").mtime > details.time);
+                        include(fs.statSync("build/tmp/js/player.min.js").mtime > details.time);
                     }
                     else {
                         include(false);
@@ -309,7 +305,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask("write_package_json", function () {
-        grunt.file.write("build/package.json", JSON.stringify(pkg));
+        grunt.file.write("build/app/package.json", JSON.stringify(pkg));
     });
 
     grunt.registerMultiTask("nunjucks_render", function () {
@@ -317,20 +313,6 @@ module.exports = function(grunt) {
             grunt.file.write(file.dest, nunjucks.render(file.src[0], this.data.context));
             grunt.log.writeln("File " + file.dest + " created.");
         }, this);
-    });
-
-    grunt.registerTask("backends-web", function () {
-        // grunt.config.merge does not work for this
-        grunt.config.set("browserify.editor.src",
-            grunt.config.get("browserify.editor.src").concat(backends.web)
-        );
-    });
-
-    grunt.registerTask("backends-electron", function () {
-        // grunt.config.merge does not work for this
-        grunt.config.set("browserify.editor.src",
-            grunt.config.get("browserify.editor.src").concat(backends.electron)
-        );
     });
 
     grunt.registerTask("lint", ["jshint", "csslint"]);
@@ -343,17 +325,25 @@ module.exports = function(grunt) {
         "newer:nunjucks_render",
         "newer:nunjucks",
         "newer:po2json",
-        "browserify:editor", // Cannot use 'newer' here due to imports
-        "newer:uglify:editor",
         "newer:copy:editor"
     ]);
 
-    grunt.registerTask("electron-build",  ["backends-electron", "build"]);
-    grunt.registerTask("web-build", ["backends-web", "build"]);
+    grunt.registerTask("electron-build",  [
+        "build",
+        "rename:electron",
+        "install-dependencies",
+        "electron"
+    ]);
+
+    grunt.registerTask("web-build", [
+        "build",
+        "rename:webapp",
+        "browserify:editor", // Cannot use 'newer' here due to imports
+        "newer:uglify:editor"
+    ]);
 
     grunt.registerTask("electron-bundle", [
         "electron-build",
-        "electron",
         "rename",
         "compress"
     ]);

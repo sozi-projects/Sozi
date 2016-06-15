@@ -11,6 +11,7 @@ import Jed from "jed";
 import {upgrade} from "./upgrade";
 import {toArray} from "./utils";
 import $ from "jquery";
+import "./templates/player";
 
 export var Storage = Object.create(EventEmitter.prototype);
 
@@ -253,10 +254,9 @@ Storage.getJSONData = function () {
  * Generate the content of the exported HTML file.
  */
 Storage.exportHTML = function () {
-    return nunjucks.render("build/templates/player.html", {
+    return nunjucks.render("player.html", {
         svg: this.document.asText,
         pres: this.presentation,
         json: JSON.stringify(this.presentation.toMinimalStorable())
     });
 };
-

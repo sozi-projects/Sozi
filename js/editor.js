@@ -4,6 +4,7 @@
 
 "use strict";
 
+import "./backend";
 import {SVGDocument} from "./svg/SVGDocument";
 import {Presentation} from "./model/Presentation";
 import {Selection} from "./model/Selection";
@@ -22,7 +23,7 @@ window.addEventListener("load", () => {
     nunjucks.configure({watch: false});
 
     Notification.requestPermission();
-    
+
     Selection.init(Presentation);
     Viewport.init(Presentation, true);
 
