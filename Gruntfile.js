@@ -15,11 +15,11 @@ module.exports = function(grunt) {
     var buildConfigJs = grunt.option("buildConfig") || "buildConfig.js";
     var buildConfig = {
         platforms: [
-            // "darwin-x64",
-            "linux-x64"//,
-            // "linux-ia32",
-            // "win32-x64",
-            // "win32-ia32"
+            "darwin-x64",
+            "linux-x64",
+            "linux-ia32",
+            "win32-x64",
+            "win32-ia32"
         ],
         electronVersion: "1.2.0",
         uglifyOptions:{}
@@ -304,6 +304,10 @@ module.exports = function(grunt) {
         });
     });
 
+    grunt.registerTask("electron-platforms", buildConfig.platforms.reduce(function (prev, platform) {
+        return prev.concat(["rename:" + platform, "compress:" + platform]);
+    }, []));
+
     grunt.registerTask("write_package_json", function () {
         grunt.file.write("build/app/package.json", JSON.stringify(pkg));
     });
@@ -344,8 +348,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask("electron-bundle", [
         "electron-build",
-        "rename",
-        "compress"
+        "electron-platforms"
     ]);
 
     grunt.registerTask("web-demo", [
