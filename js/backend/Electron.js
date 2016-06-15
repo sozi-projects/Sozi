@@ -132,8 +132,10 @@ Electron.loadConfiguration = function () {
         var result = localStorage.getItem(key);
         return result !== null ? JSON.parse(result) : val;
     }
-    win.setPosition(getItem("windowX", win.x), getItem("windowY", win.y));
-    win.setSize(getItem("windowWidth", win.width), getItem("windowHeight", win.height));
+    let [x, y] = win.getPosition();
+    let [w, h] = win.getSize();
+    win.setPosition(getItem("windowX", x), getItem("windowY", y));
+    win.setSize(getItem("windowWidth", w), getItem("windowHeight", h));
     if (getItem("windowFullscreen", false)) {
         screenfull.request(document.documentElement);
     }
