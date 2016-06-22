@@ -164,13 +164,14 @@ module.exports = function(grunt) {
         nunjucks_render: {
             player: {
                 src: "templates/player.html",
-                dest: "build/tmp/templates/player.html",
+                dest: "build/app/templates/player.html",
                 context: {
                     playerJs: "<%= grunt.file.read('build/tmp/js/player.min.js') %>"
                 }
             }
         },
 
+        // OBSOLETE Not used in electron app
         nunjucks: {
             options: {
                 name: function (filepath) {
@@ -327,7 +328,6 @@ module.exports = function(grunt) {
         "browserify:player", // Cannot use 'newer' here due to imports
         "newer:uglify:player",
         "newer:nunjucks_render",
-        "newer:nunjucks",
         "newer:po2json",
         "newer:copy:editor"
     ]);

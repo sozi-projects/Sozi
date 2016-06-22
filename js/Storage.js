@@ -11,7 +11,7 @@ import Jed from "jed";
 import {upgrade} from "./upgrade";
 import {toArray} from "./utils";
 import $ from "jquery";
-import "./templates/player";
+import path from "path";
 
 export var Storage = Object.create(EventEmitter.prototype);
 
@@ -29,6 +29,11 @@ Storage.init = function (controller, document, presentation, selection, timeline
     this.htmlNeedsSaving = false;
     this.reloading = false;
     this.gettext = locale.gettext.bind(locale);
+
+    nunjucks.configure(path.join(__dirname, "..", "templates"), {
+        watch: false,
+        autoescape: false
+    });
 
     controller.addListener("presentationChange", () => {
         this.jsonNeedsSaving = this.htmlNeedsSaving = true;
