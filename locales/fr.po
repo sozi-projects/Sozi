@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
 "POT-Creation-Date: 2016-05-30 08:06:+0000\n"
-"PO-Revision-Date: 2016-05-30 22:08+0100\n"
+"PO-Revision-Date: 2016-05-30 22:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: Sozi translators\n"
 "Language: fr\n"
@@ -12,6 +12,7 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+"X-Launchpad-Export-Date: 2016-06-25 07:48+0000\n"
 
 #: build/js/Storage.js:89 build/js/Storage.js:102 build/js/Storage.js:109
 #: build/js/backend/Electron.js:84

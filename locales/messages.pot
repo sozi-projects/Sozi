@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2016-06-15 05:59:+0000\n"
+"POT-Creation-Date: 2016-06-25 07:25:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -9,31 +9,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 
-#: build/app/js/Storage.js:89 build/app/js/Storage.js:102 build/app/js/Storage.js:109 build/app/js/backend/Electron.js:84
+#: build/app/js/Storage.js:98 build/app/js/Storage.js:111 build/app/js/Storage.js:118 build/app/js/backend/Electron.js:84
 msgid "Sozi (Error)"
 msgstr ""
 
-#: build/app/js/Storage.js:89
+#: build/app/js/Storage.js:98
 msgid "File %s could not be loaded."
 msgstr ""
 
-#: build/app/js/Storage.js:102 build/app/js/Storage.js:109
+#: build/app/js/Storage.js:111 build/app/js/Storage.js:118
 msgid "Document is not valid SVG."
 msgstr ""
 
-#: build/app/js/Storage.js:146 build/app/js/Storage.js:173 build/app/js/Storage.js:235 build/app/js/Storage.js:260 build/app/js/view/Toolbar.js:136
+#: build/app/js/Storage.js:155 build/app/js/Storage.js:182 build/app/js/Storage.js:244 build/app/js/Storage.js:269 build/app/js/view/Toolbar.js:136
 msgid "Sozi (Information)"
 msgstr ""
 
-#: build/app/js/Storage.js:146
+#: build/app/js/Storage.js:155
 msgid "Document was changed. Reloading."
 msgstr ""
 
-#: build/app/js/Storage.js:173
+#: build/app/js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr ""
 
-#: build/app/js/Storage.js:235 build/app/js/Storage.js:260
+#: build/app/js/Storage.js:244 build/app/js/Storage.js:269
 msgid "Saved %s."
 msgstr ""
 
