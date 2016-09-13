@@ -5,6 +5,7 @@
 "use strict";
 
 import "./backend";
+import "./svg";
 import {SVGDocument} from "./svg/SVGDocument";
 import {Presentation} from "./model/Presentation";
 import {Selection} from "./model/Selection";
