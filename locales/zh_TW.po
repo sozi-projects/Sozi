@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-05-08 12:23:+0000\n"
+"POT-Creation-Date: 2016-05-30 08:06:+0000\n"
 "PO-Revision-Date: 2016-02-13 19:06+0100\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
@@ -18,46 +18,65 @@ msgstr ""
 "X-Launchpad-Export-Date: 2016-02-13 18:01+0000\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: build/js/Storage.js:85
+#: build/js/Storage.js:89 build/js/Storage.js:102 build/js/Storage.js:109
+#: build/js/backend/Electron.js:84
+msgid "Sozi (Error)"
+msgstr ""
+
+#: build/js/Storage.js:89
 msgid "File %s could not be loaded."
 msgstr "檔案 %s 無法讀取"
 
-#: build/js/Storage.js:98
+#: build/js/Storage.js:102 build/js/Storage.js:109
 msgid "Document is not valid SVG."
 msgstr "文件不是合法的SVG檔案"
 
-#: build/js/Storage.js:140
+#: build/js/Storage.js:146 build/js/Storage.js:173 build/js/Storage.js:233
+#: build/js/Storage.js:258 build/js/view/Toolbar.js:136
+#, fuzzy
+msgid "Sozi (Information)"
+msgstr "資訊"
+
+#: build/js/Storage.js:146
 msgid "Document was changed. Reloading."
 msgstr "文件被改變了。重新讀取"
 
-#: build/js/Storage.js:167
+#: build/js/Storage.js:173
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "文件是從Sozi 13或更早以前的版本匯入"
 
-#: build/js/Storage.js:252
+#: build/js/Storage.js:233 build/js/Storage.js:258
 msgid "Saved %s."
 msgstr "貯存檔案 %s"
 
-#: build/js/backend/FileReader.js:19
+#: build/js/backend/Electron.js:58 build/js/backend/NodeWebkit.js:55
+#, fuzzy
+msgid "Open an SVG file from your computer"
+msgstr "從GOOGLE Drive讀取"
+
+#: build/js/backend/Electron.js:84 build/js/backend/NodeWebkit.js:95
+msgid "File not found: %s."
+msgstr "找不到檔案：%s"
+
+#: build/js/backend/Electron.js:96
+msgid "Choose an SVG file"
+msgstr ""
+
+#: build/js/backend/Electron.js:97
+msgid "SVG files"
+msgstr ""
+
+#: build/js/backend/FileReader.js:25
 #, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
 "only)"
 msgstr "讀取本地檔案 (<i class=\"fa fa-warning\"></i> 唯讀)"
 
-#: build/js/backend/GoogleDrive.js:21
+#: build/js/backend/GoogleDrive.js:27
 #, fuzzy
 msgid "Open an SVG file from Google Drive"
 msgstr "從GOOGLE Drive讀取"
-
-#: build/js/backend/NodeWebkit.js:55
-#, fuzzy
-msgid "Open an SVG file from your computer"
-msgstr "從GOOGLE Drive讀取"
-
-#: build/js/backend/NodeWebkit.js:95
-msgid "File not found: %s."
-msgstr "找不到檔案：%s"
 
 #: build/js/view/Properties.js:43
 msgid "Frame"
@@ -75,7 +94,7 @@ msgstr "顯示影格編號"
 msgid "Link to previous frame"
 msgstr "連結到上一個影格"
 
-#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:90
+#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:94
 msgid "Clip"
 msgstr "裁剪"
 
@@ -175,50 +194,50 @@ msgstr "插入選取物件於 %d 影格之前"
 msgid "Insert selection after frame %d"
 msgstr "插入選取物件於 %d 影格之後"
 
-#: build/js/view/Toolbar.js:45
+#: build/js/view/Toolbar.js:49
 msgid "Aspect ratio: "
 msgstr "畫面比例： "
 
-#: build/js/view/Toolbar.js:72
+#: build/js/view/Toolbar.js:76
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr "移動選取的圖層（按住Alt來縮放、Shift來旋轉）"
 
-#: build/js/view/Toolbar.js:78
+#: build/js/view/Toolbar.js:82
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr "縮放選取的圖層（也可以同時在移動模式時按住Alt進行縮放）"
 
-#: build/js/view/Toolbar.js:84
+#: build/js/view/Toolbar.js:88
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr "旋轉所選取的圖層（也可以同時在移動模式時按住Shift旋轉）"
 
-#: build/js/view/Toolbar.js:96
+#: build/js/view/Toolbar.js:100
 msgid "Undo (Ctrl-Z)"
 msgstr "復原(Ctrl-Z)"
 
-#: build/js/view/Toolbar.js:103
+#: build/js/view/Toolbar.js:107
 msgid "Redo (Ctrl-Y)"
 msgstr "重作 (Ctrl-Y)"
 
-#: build/js/view/Toolbar.js:110
+#: build/js/view/Toolbar.js:114
 msgid "Disable full-screen mode (F11)"
 msgstr "取消全螢幕模式 (F11)"
 
-#: build/js/view/Toolbar.js:110
+#: build/js/view/Toolbar.js:114
 msgid "Enable full-screen mode (F11)"
 msgstr "啟動全螢幕模式 (F11)"
 
-#: build/js/view/Toolbar.js:118
+#: build/js/view/Toolbar.js:122
 msgid "Save the presentation (Ctrl-S)"
 msgstr "保存簡報 (Ctrl-S)"
 
-#: build/js/view/Toolbar.js:125
+#: build/js/view/Toolbar.js:129
 msgid "Reload the SVG document (F5)"
 msgstr "重新讀取SVG文件 (F5)"
 
-#: build/js/view/Toolbar.js:130
+#: build/js/view/Toolbar.js:134
 msgid "Information"
 msgstr "資訊"
 

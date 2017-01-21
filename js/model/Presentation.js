@@ -219,7 +219,9 @@ export var Frame = {
 
         // TODO if storable.layerProperties has keys not in layers, create fake layers marked as "deleted"
         this.presentation.layers.forEach((layer, index) => {
-            var key = layer.groupId;
+            // If the current layer has been added to the SVG after the frame
+            // was created, copy the properties of the "auto" layer.
+            var key = layer.groupId in storable.layerProperties ? layer.groupId : "__sozi_auto__";
             if (key in storable.layerProperties) {
                 var lp = this.layerProperties[index];
                 lp.fromStorable(storable.layerProperties[key]);
@@ -235,7 +237,6 @@ export var Frame = {
                     // If different, mark the current layer as "dirty".
                 }
             }
-            // TODO else, link to "auto" layer
         });
 
         return this;

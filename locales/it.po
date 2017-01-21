@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
-"POT-Creation-Date: 2016-05-08 12:23:+0000\n"
+"POT-Creation-Date: 2016-05-30 08:06:+0000\n"
 "PO-Revision-Date: 2016-04-10 22:31:+0000\n"
 "Last-Translator: Francisco Javier del Álamo <javialamo+github@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,27 +14,55 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: build/js/Storage.js:85
+#: build/js/Storage.js:89 build/js/Storage.js:102 build/js/Storage.js:109
+#: build/js/backend/Electron.js:84
+msgid "Sozi (Error)"
+msgstr ""
+
+#: build/js/Storage.js:89
 msgid "File %s could not be loaded."
 msgstr "Impossibile caricare il file %s"
 
-#: build/js/Storage.js:98
+#: build/js/Storage.js:102 build/js/Storage.js:109
 msgid "Document is not valid SVG."
 msgstr "Non è un documento SVG valido"
 
-#: build/js/Storage.js:140
+#: build/js/Storage.js:146 build/js/Storage.js:173 build/js/Storage.js:233
+#: build/js/Storage.js:258 build/js/view/Toolbar.js:136
+#, fuzzy
+msgid "Sozi (Information)"
+msgstr "Informazione"
+
+#: build/js/Storage.js:146
 msgid "Document was changed. Reloading."
 msgstr "Il documento è stato modificato. Ricaricamento di nuovo."
 
-#: build/js/Storage.js:167
+#: build/js/Storage.js:173
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Il documento è stato importato da Sozi13 o precedente."
 
-#: build/js/Storage.js:252
+#: build/js/Storage.js:233 build/js/Storage.js:258
 msgid "Saved %s."
 msgstr "%s salvato."
 
-#: build/js/backend/FileReader.js:19
+#: build/js/backend/Electron.js:58 build/js/backend/NodeWebkit.js:55
+#, fuzzy
+msgid "Open an SVG file from your computer"
+msgstr "Importa da Google Drive"
+
+#: build/js/backend/Electron.js:84 build/js/backend/NodeWebkit.js:95
+msgid "File not found: %s."
+msgstr "File non trovato: %s"
+
+#: build/js/backend/Electron.js:96
+msgid "Choose an SVG file"
+msgstr ""
+
+#: build/js/backend/Electron.js:97
+msgid "SVG files"
+msgstr ""
+
+#: build/js/backend/FileReader.js:25
 #, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
@@ -42,19 +70,10 @@ msgid ""
 msgstr ""
 "Caricare file locale (<i class = \"fa fa-warning \"> </ i> di sola lettura)"
 
-#: build/js/backend/GoogleDrive.js:21
+#: build/js/backend/GoogleDrive.js:27
 #, fuzzy
 msgid "Open an SVG file from Google Drive"
 msgstr "Importa da Google Drive"
-
-#: build/js/backend/NodeWebkit.js:55
-#, fuzzy
-msgid "Open an SVG file from your computer"
-msgstr "Importa da Google Drive"
-
-#: build/js/backend/NodeWebkit.js:95
-msgid "File not found: %s."
-msgstr "File non trovato: %s"
 
 #: build/js/view/Properties.js:43
 msgid "Frame"
@@ -72,7 +91,7 @@ msgstr "Mostra il numero di fotogramma"
 msgid "Link to previous frame"
 msgstr "Collegamento al fotogramma precedente"
 
-#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:90
+#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:94
 msgid "Clip"
 msgstr "Tagliare"
 
@@ -172,16 +191,16 @@ msgstr "Inserire la selezione prima del fotogramma %d"
 msgid "Insert selection after frame %d"
 msgstr "Inserire la selezione dopo il fotogramma% d"
 
-#: build/js/view/Toolbar.js:45
+#: build/js/view/Toolbar.js:49
 msgid "Aspect ratio: "
 msgstr "Proporzione di aspetto:"
 
-#: build/js/view/Toolbar.js:72
+#: build/js/view/Toolbar.js:76
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
 "Spostare i strati selezionati (premere ALT per espandere, SHIFT per ruotare)"
 
-#: build/js/view/Toolbar.js:78
+#: build/js/view/Toolbar.js:82
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
@@ -189,38 +208,38 @@ msgstr ""
 "Zoom in / out strati selezionati (è possibile premere ALT in \"modalità di "
 "movimento\")"
 
-#: build/js/view/Toolbar.js:84
+#: build/js/view/Toolbar.js:88
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 "Ruota i strati selezionati (è possibile premere SHIFT in \"modalità di "
 "movimento\")"
 
-#: build/js/view/Toolbar.js:96
+#: build/js/view/Toolbar.js:100
 msgid "Undo (Ctrl-Z)"
 msgstr "Annulla (Ctrl-Z)"
 
-#: build/js/view/Toolbar.js:103
+#: build/js/view/Toolbar.js:107
 msgid "Redo (Ctrl-Y)"
 msgstr "Rifai (Ctrl-Y)"
 
-#: build/js/view/Toolbar.js:110
+#: build/js/view/Toolbar.js:114
 msgid "Disable full-screen mode (F11)"
 msgstr "Disattivare la modalità a schermo intero (F11)"
 
-#: build/js/view/Toolbar.js:110
+#: build/js/view/Toolbar.js:114
 msgid "Enable full-screen mode (F11)"
 msgstr "Attivare la modalità a schermo intero (F11)"
 
-#: build/js/view/Toolbar.js:118
+#: build/js/view/Toolbar.js:122
 msgid "Save the presentation (Ctrl-S)"
 msgstr "Salvare la presentazione (Ctrl-S)"
 
-#: build/js/view/Toolbar.js:125
+#: build/js/view/Toolbar.js:129
 msgid "Reload the SVG document (F5)"
 msgstr "Ricaricare il documento SVG (F5)"
 
-#: build/js/view/Toolbar.js:130
+#: build/js/view/Toolbar.js:134
 msgid "Information"
 msgstr "Informazione"
 

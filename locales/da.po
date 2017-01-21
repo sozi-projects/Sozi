@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-05-08 12:23:+0000\n"
+"POT-Creation-Date: 2016-05-30 08:06:+0000\n"
 "PO-Revision-Date: 2016-02-13 18:39+0100\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Danish <da@li.org>\n"
@@ -18,46 +18,65 @@ msgstr ""
 "X-Launchpad-Export-Date: 2016-02-13 17:36+0000\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: build/js/Storage.js:85
+#: build/js/Storage.js:89 build/js/Storage.js:102 build/js/Storage.js:109
+#: build/js/backend/Electron.js:84
+msgid "Sozi (Error)"
+msgstr ""
+
+#: build/js/Storage.js:89
 msgid "File %s could not be loaded."
 msgstr "Kunne ikke hente filen %s."
 
-#: build/js/Storage.js:98
+#: build/js/Storage.js:102 build/js/Storage.js:109
 msgid "Document is not valid SVG."
 msgstr "Dokumentet er ikke gyldig SVG."
 
-#: build/js/Storage.js:140
+#: build/js/Storage.js:146 build/js/Storage.js:173 build/js/Storage.js:233
+#: build/js/Storage.js:258 build/js/view/Toolbar.js:136
+#, fuzzy
+msgid "Sozi (Information)"
+msgstr "Oplysninger"
+
+#: build/js/Storage.js:146
 msgid "Document was changed. Reloading."
 msgstr "Dokumentet blev ændret. Henter igen."
 
-#: build/js/Storage.js:167
+#: build/js/Storage.js:173
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Dokument blev importeret fra Sozi 13 eller tidligere."
 
-#: build/js/Storage.js:252
+#: build/js/Storage.js:233 build/js/Storage.js:258
 msgid "Saved %s."
 msgstr "Gemte %s"
 
-#: build/js/backend/FileReader.js:19
+#: build/js/backend/Electron.js:58 build/js/backend/NodeWebkit.js:55
+#, fuzzy
+msgid "Open an SVG file from your computer"
+msgstr "Hent fra Google Drive"
+
+#: build/js/backend/Electron.js:84 build/js/backend/NodeWebkit.js:95
+msgid "File not found: %s."
+msgstr "Fil ikke fundet: %s."
+
+#: build/js/backend/Electron.js:96
+msgid "Choose an SVG file"
+msgstr ""
+
+#: build/js/backend/Electron.js:97
+msgid "SVG files"
+msgstr ""
+
+#: build/js/backend/FileReader.js:25
 #, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
 "only)"
 msgstr "Hent den lokale fil (<i class=\"fa fa-warning\"></i> som read-only)"
 
-#: build/js/backend/GoogleDrive.js:21
+#: build/js/backend/GoogleDrive.js:27
 #, fuzzy
 msgid "Open an SVG file from Google Drive"
 msgstr "Hent fra Google Drive"
-
-#: build/js/backend/NodeWebkit.js:55
-#, fuzzy
-msgid "Open an SVG file from your computer"
-msgstr "Hent fra Google Drive"
-
-#: build/js/backend/NodeWebkit.js:95
-msgid "File not found: %s."
-msgstr "Fil ikke fundet: %s."
 
 #: build/js/view/Properties.js:43
 msgid "Frame"
@@ -75,7 +94,7 @@ msgstr "Vis ramme nummer"
 msgid "Link to previous frame"
 msgstr "Link til forrige ramme"
 
-#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:90
+#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:94
 msgid "Clip"
 msgstr "Klip"
 
@@ -175,51 +194,51 @@ msgstr "Indsæt det valgte før ramme %d"
 msgid "Insert selection after frame %d"
 msgstr "Indsæt det valgte efter ramme %d"
 
-#: build/js/view/Toolbar.js:45
+#: build/js/view/Toolbar.js:49
 msgid "Aspect ratio: "
 msgstr ""
 
-#: build/js/view/Toolbar.js:72
+#: build/js/view/Toolbar.js:76
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr "Flyt de valgte lag (tryk Alt for at zoome, Shift for at rotere)"
 
-#: build/js/view/Toolbar.js:78
+#: build/js/view/Toolbar.js:82
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
 "Zoom ind/ud på de valgte lag (du kan også trykke på Alt-tasten i Flytte mode)"
 
-#: build/js/view/Toolbar.js:84
+#: build/js/view/Toolbar.js:88
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr "Rotér de valgte lag (du kan også trykke Shift-tasten i Flytte mode)"
 
-#: build/js/view/Toolbar.js:96
+#: build/js/view/Toolbar.js:100
 msgid "Undo (Ctrl-Z)"
 msgstr "Fortryd (Ctrl-Z)"
 
-#: build/js/view/Toolbar.js:103
+#: build/js/view/Toolbar.js:107
 msgid "Redo (Ctrl-Y)"
 msgstr "Gendan (Ctrl-Y)"
 
-#: build/js/view/Toolbar.js:110
+#: build/js/view/Toolbar.js:114
 msgid "Disable full-screen mode (F11)"
 msgstr "Afbryd Fuldskærm mode (F11)"
 
-#: build/js/view/Toolbar.js:110
+#: build/js/view/Toolbar.js:114
 msgid "Enable full-screen mode (F11)"
 msgstr "Aktivér Fuldskærm mode (F11)"
 
-#: build/js/view/Toolbar.js:118
+#: build/js/view/Toolbar.js:122
 msgid "Save the presentation (Ctrl-S)"
 msgstr "Gem præsentation (Ctrl-S)"
 
-#: build/js/view/Toolbar.js:125
+#: build/js/view/Toolbar.js:129
 msgid "Reload the SVG document (F5)"
 msgstr "Genindlæs SVG-dokument (F5)"
 
-#: build/js/view/Toolbar.js:130
+#: build/js/view/Toolbar.js:134
 msgid "Information"
 msgstr "Oplysninger"
 

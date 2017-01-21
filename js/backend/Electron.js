@@ -5,96 +5,89 @@
 "use strict";
 
 import {AbstractBackend, addBackend} from "./AbstractBackend";
-import gui from "nw.gui";
 import fs from "fs";
 import path from "path";
 import process from "process";
 import Jed from "jed";
 import screenfull from "screenfull";
+import {remote} from "electron";
+import $ from "jquery";
 
-var win = gui.Window.get();
+var win = remote.getCurrentWindow();
 
 // Get the current working directory.
 // We use the PWD environment variable directly because
 // process.cwd() returns the installation path of Sozi.
 var cwd = process.env.PWD;
 
-console.log("Configuration in: " + gui.App.dataPath);
 console.log("Current working dir: " + cwd);
 
-export var NodeWebkit = Object.create(AbstractBackend);
+export var Electron = Object.create(AbstractBackend);
 
-NodeWebkit.init = function (container, _) {
-    AbstractBackend.init.call(this, container, "sozi-editor-backend-NodeWebkit-input", _("Open an SVG file from your computer"));
+Electron.init = function (container, _) {
+    AbstractBackend.init.call(this, container, "sozi-editor-backend-Electron-input", _("Open an SVG file from your computer"));
 
     this.loadConfiguration();
 
-    $(container).append('<input style="display:none;" id="sozi-editor-backend-NodeWebkit-file" type="file" accept="image/svg+xml">');
-
-    $("#sozi-editor-backend-NodeWebkit-input").click(this.openFileChooser.bind(this));
-
-    // Load the SVG document selected in the file input
-    $("#sozi-editor-backend-NodeWebkit-file").change(evt => {
-        if (evt.target.files.length) {
-            this.load(evt.target.files[0].path);
-        }
-    });
+    $("#sozi-editor-backend-Electron-input").click(this.openFileChooser.bind(this, _));
 
     // Save automatically when the window loses focus
-//            win.on("blur", this.doAutosave.bind(this));
-
-    // Workaround for issue #1720 in node-webkit for Windows
-    // https://github.com/rogerwang/node-webkit/issues/1720
-    $(window).blur(this.doAutosave.bind(this));
+    $(window).on("blur", this.doAutosave.bind(this));
 
     // Save automatically when closing the window
-    win.on("close", () => {
+    $(window).on("beforeunload", () => {
         $(window).off("blur");
         this.doAutosave();
         this.saveConfiguration();
-        win.close(true);
     });
 
     // If a file name was provided on the command line,
     // check that the file exists and load it.
     // Open a file chooser if no file name was provided or
     // the file does not exist.
-    if (gui.App.argv.length > 0) {
-        var fileName = path.resolve(cwd, gui.App.argv[0]);
+    if (remote.process.argv.length > 1) {
+        var fileName = path.resolve(cwd, remote.process.argv[1]);
         try {
             fs.accessSync(fileName);
             this.load(fileName);
         }
         catch (err) {
-            $.notify(Jed.sprintf(_("File not found: %s."), fileName), "error");
-            this.openFileChooser();
+            new Notification(_("Sozi (Error)"), {body: Jed.sprintf(_("File not found: %s."), fileName)});
+            this.openFileChooser(_);
         }
     }
     else {
-        this.openFileChooser();
+        this.openFileChooser(_);
     }
 
     return this;
 };
 
-NodeWebkit.openFileChooser = function () {
-    $("#sozi-editor-backend-NodeWebkit-file").click();
+Electron.openFileChooser = function (_) {
+    var files = remote.dialog.showOpenDialog({
+        title: _("Choose an SVG file"),
+        filters: [{name: _("SVG files"), extensions: ["svg"]}],
+        properties: ["openFile"]
+    });
+    if (files) {
+        this.load(files[0]);
+    }
 };
 
-NodeWebkit.getName = function (fileDescriptor) {
+Electron.getName = function (fileDescriptor) {
     return path.basename(fileDescriptor);
 };
 
-NodeWebkit.getLocation = function (fileDescriptor) {
+Electron.getLocation = function (fileDescriptor) {
     return path.dirname(fileDescriptor);
 };
 
-NodeWebkit.find = function (name, location, callback) {
+Electron.find = function (name, location, callback) {
     var fileName = path.join(location, name);
     fs.access(fileName, err => callback(err ? null : fileName));
 };
 
-NodeWebkit.load = function (fileDescriptor) {
+Electron.load = function (fileDescriptor) {
     // Read file asynchronously and fire the "load" event.
     fs.readFile(fileDescriptor, { encoding: "utf8" }, (err, data) => {
         if (!err) {
@@ -121,37 +114,37 @@ NodeWebkit.load = function (fileDescriptor) {
     });
 };
 
-NodeWebkit.create = function (name, location, mimeType, data, callback) {
+Electron.create = function (name, location, mimeType, data, callback) {
     var fileName = path.join(location, name);
     // TODO use async file write
     var err = fs.writeFileSync(fileName, data, { encoding: "utf-8" });
     callback(fileName, err);
 };
 
-NodeWebkit.save = function (fileDescriptor, data) {
+Electron.save = function (fileDescriptor, data) {
     // TODO use async file write
     var err = fs.writeFileSync(fileDescriptor, data, { encoding: "utf-8" });
     this.emit("save", fileDescriptor, err);
 };
 
-NodeWebkit.loadConfiguration = function () {
+Electron.loadConfiguration = function () {
     function getItem(key, val) {
         var result = localStorage.getItem(key);
         return result !== null ? JSON.parse(result) : val;
     }
-    win.moveTo(getItem("windowX", win.x), getItem("windowY", win.y));
-    win.resizeTo(getItem("windowWidth", win.width), getItem("windowHeight", win.height));
+    let [x, y] = win.getPosition();
+    let [w, h] = win.getSize();
+    win.setPosition(getItem("windowX", x), getItem("windowY", y));
+    win.setSize(getItem("windowWidth", w), getItem("windowHeight", h));
     if (getItem("windowFullscreen", false)) {
         screenfull.request(document.documentElement);
     }
 };
 
-NodeWebkit.saveConfiguration = function () {
-    localStorage.windowX = win.x;
-    localStorage.windowY = win.y;
-    localStorage.windowWidth = win.width;
-    localStorage.windowHeight = win.height;
+Electron.saveConfiguration = function () {
+    [localStorage.windowX, localStorage.windowY] = win.getPosition();
+    [localStorage.windowWidth, localStorage.windowHeight] = win.getSize();
     localStorage.windowFullscreen = screenfull.isFullscreen;
 };
 
-addBackend(NodeWebkit);
+addBackend(Electron);

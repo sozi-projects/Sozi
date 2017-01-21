@@ -4,6 +4,8 @@
 
 "use strict";
 
+import $ from "jquery";
+
 var PREVIEW_MARGIN = 15;
 
 export var Preview = {
@@ -55,7 +57,9 @@ export var Preview = {
             this.viewport.setAtStates(this.selection.currentFrame.cameraStates);
         }
 
-        this.viewport.repaint();
+        if (this.viewport.svgRoot) {
+            this.viewport.repaint();
+        }
     },
 
     onClick(button, evt) {

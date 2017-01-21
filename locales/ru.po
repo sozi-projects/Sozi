@@ -1,242 +1,243 @@
-# German translation for sozi
-# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# Russian translation for sozi
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
 # This file is distributed under the same license as the sozi package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2016-06-25 07:33+0000\n"
-"PO-Revision-Date: 2016-07-12 21:31+0000\n"
-"Last-Translator: Sascha A. Carlin <Unknown>\n"
-"Language-Team: German <de@li.org>\n"
+"PO-Revision-Date: 2016-08-08 11:13+0000\n"
+"Last-Translator: Dmitry Efimov <Unknown>\n"
+"Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2016-10-10 06:40+0000\n"
 "X-Generator: Launchpad (build 18227)\n"
-"Language: de\n"
+"Language: ru\n"
 
 #: build/app/js/Storage.js:98 build/app/js/Storage.js:111 build/app/js/Storage.js:118 build/app/js/backend/Electron.js:84
 msgid "Sozi (Error)"
-msgstr "Sozi (Fehler)"
+msgstr "Sozi (ошибка)"
 
 #: build/app/js/Storage.js:98
 msgid "File %s could not be loaded."
-msgstr "Die Datei %s konnte nicht geladen werden."
+msgstr "Файл %s не может быть загружен"
 
 #: build/app/js/Storage.js:111 build/app/js/Storage.js:118
 msgid "Document is not valid SVG."
-msgstr "Das Dokument ist kein gültiges SVG."
+msgstr "Документ не является допустимым файлом SVG"
 
 #: build/app/js/Storage.js:155 build/app/js/Storage.js:182 build/app/js/Storage.js:244 build/app/js/Storage.js:269 build/app/js/view/Toolbar.js:136
 msgid "Sozi (Information)"
-msgstr "Sozi (Information)"
+msgstr "Sozi (информация)"
 
 #: build/app/js/Storage.js:155
 msgid "Document was changed. Reloading."
-msgstr "Dokument wurde geändert. Aktualisiere."
+msgstr "Документ был изменен. Идет его перезагрузка."
 
 #: build/app/js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr "Dokument wurde aus Sozi 13 oder früher importiert."
+msgstr "Документ был импортирован из Sozi версии 13 или более ранней."
 
 #: build/app/js/Storage.js:244 build/app/js/Storage.js:269
 msgid "Saved %s."
-msgstr "%s gespeichert."
+msgstr "%s Сохранен."
 
 #: build/app/js/backend/Electron.js:58
 msgid "Open an SVG file from your computer"
-msgstr "Lade lokales SVG-Dokument hoch"
+msgstr "Откройте SVG файл на Вашем компьютере"
 
 #: build/app/js/backend/Electron.js:84
 msgid "File not found: %s."
-msgstr "Datei nicht gefunden: %s."
+msgstr "Файл не найден: %s."
 
 #: build/app/js/backend/Electron.js:96
 msgid "Choose an SVG file"
-msgstr "Wähle ein SVG-Dokument."
+msgstr "Выберите SVG файл"
 
 #: build/app/js/backend/Electron.js:97
 msgid "SVG files"
-msgstr "SVG-Dokumente"
+msgstr "SVG файлы"
 
 #: build/app/js/backend/FileReader.js:25
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
 "only)"
 msgstr ""
-"Lade lokales SVG-Dokument hoch (<i class=\"fa fa-warning\"></i> "
-"schreibgeschützt)"
+"Откройте SVG файл на Вашем компьютере (<i class=\"fa fa-warning\"></i> read-"
+"only)"
 
 #: build/app/js/backend/GoogleDrive.js:27
 msgid "Open an SVG file from Google Drive"
-msgstr "Lade SVG-Dokument aus Google Drive"
+msgstr "Открыть SVG файл из Google Drive"
 
 #: build/app/js/view/Properties.js:43
 msgid "Frame"
-msgstr "Frame"
+msgstr "Кадр"
 
 #: build/app/js/view/Properties.js:43
 msgid "Show in frame list"
-msgstr "In Liste der Frames anzeigen"
+msgstr "Показать в списке кадров"
 
 #: build/app/js/view/Properties.js:43
 msgid "Show frame number"
-msgstr "Frame-Nummer anzeigen"
+msgstr "Показать число кадров"
 
 #: build/app/js/view/Properties.js:43
 msgid "Link to previous frame"
-msgstr "Link zu vorherigem Frame"
+msgstr "Сделать ссылку на предыдущий кадр"
 
 #: build/app/js/view/Properties.js:43 build/app/js/view/Toolbar.js:94
 msgid "Clip"
-msgstr "Nicht sichtbare Elemente entfernen"
+msgstr "Обрезать"
 
 #: build/app/js/view/Properties.js:43
 msgid "Title"
-msgstr "Titel"
+msgstr "Название"
 
 #: build/app/js/view/Properties.js:43
 msgid "Id"
-msgstr "ID"
+msgstr "Id"
 
 #: build/app/js/view/Properties.js:43
 msgid "Timeout (seconds)"
-msgstr "Timeout (Sekunden)"
+msgstr "Временная задержка (секунды)"
 
 #: build/app/js/view/Properties.js:43
 msgid "Timeout enable"
-msgstr "Timeout aktivieren"
+msgstr "Включить временную задержку"
 
 #: build/app/js/view/Properties.js:43
 msgid "Reference element Id"
-msgstr "ID des Referenz-Elements"
+msgstr "Id элемента для ссылки"
 
 #: build/app/js/view/Properties.js:45
 msgid "Autoselect element"
-msgstr "Element automatisch auswählen"
+msgstr "Автовыбор элемента"
 
 #: build/app/js/view/Properties.js:45
 msgid "Hide element"
-msgstr "Element verstecken"
+msgstr "Скрывать элемент"
 
 #: build/app/js/view/Properties.js:46
 msgid "Fit to element"
-msgstr "An SVG-Element anpassen"
+msgstr "Подогнать под элемент"
 
 #: build/app/js/view/Properties.js:50
 msgid "Layer opacity"
-msgstr "Transparenz der Ebene"
+msgstr "Непрозрачность слоя"
 
 #: build/app/js/view/Properties.js:50
 msgid "Transition"
-msgstr "Übergang"
+msgstr "Переход"
 
 #: build/app/js/view/Properties.js:50
 msgid "Duration (seconds)"
-msgstr "Dauer (Sekunden)"
+msgstr "Продолжительность (секунды)"
 
 #: build/app/js/view/Properties.js:50
 msgid "Timing function"
-msgstr "Timing-Funktion"
+msgstr "Функция синхронизации"
 
 #: build/app/js/view/Properties.js:59
 msgid "Relative zoom (%)"
-msgstr "Relativer Zoom (%)"
+msgstr "Относительное увеличение"
 
 #: build/app/js/view/Properties.js:59
 msgid "Path Id"
-msgstr "Pfad-ID"
+msgstr "Id траектории"
 
 #: build/app/js/view/Properties.js:59
 msgid "Hide path"
-msgstr "Pfad verbergen"
+msgstr "Скрыть траекторию"
 
 #: build/app/js/view/Timeline.js:266
 msgid "Delete the selected frames"
-msgstr "Den ausgewählten Frame löschen"
+msgstr "Удалить выбранные кадры"
 
 #: build/app/js/view/Timeline.js:272
 msgid "Create a new frame"
-msgstr "Neuen Frame erstellen"
+msgstr "Создать новый кадр"
 
 #: build/app/js/view/Timeline.js:282
 msgid "Add layer"
-msgstr "Ebene hinzufügen"
+msgstr "Добавить слой"
 
 #: build/app/js/view/Timeline.js:287 build/app/js/view/Timeline.js:299
 msgid "This layer is visible. Click to hide it."
-msgstr "Diese Ebene ist sichtbar. Klicken, um sie zu verstecken."
+msgstr "Этот слой является видимым. Нажмите, чтобы скрыть его."
 
 #: build/app/js/view/Timeline.js:290 build/app/js/view/Timeline.js:302
 msgid "This layer is hidden. Click to show it."
-msgstr "Diese Ebene ist versteckt. Klicken, um sie zu zeigen."
+msgstr "Этот слой скрыт. Нажмите, чтобы сделать его видимым"
 
 #: build/app/js/view/Timeline.js:295 build/app/js/view/Timeline.js:311
 msgid "Default"
-msgstr "Standard"
+msgstr "По умолчанию"
 
 #: build/app/js/view/Timeline.js:305
 msgid "Remove this layer"
-msgstr "Die ausgewählte Ebene löschen"
+msgstr "Удалить этот слой"
 
 #: build/app/js/view/Timeline.js:316
 msgid "Insert selection before frame %d"
-msgstr "Auswahl vor Frame %d einfügen"
+msgstr "Вставить выбранное перед кадром %d"
 
 #: build/app/js/view/Timeline.js:322
 msgid "Insert selection after frame %d"
-msgstr "Auswahl nach Frame %d einfügen"
+msgstr "Вставить выбранное после кадра  %d"
 
 #: build/app/js/view/Toolbar.js:49
 msgid "Aspect ratio: "
-msgstr "Seitenverhältnis: "
+msgstr "Соотноешние сторон: "
 
 #: build/app/js/view/Toolbar.js:76
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
-msgstr "Ausgewählte Ebenen verschieben (Alt zum Zoomen, Shift zum Drehen)"
+msgstr ""
+"Перенести выбранные слои (удерживайте Alt для увеличения, Shift для поворота)"
 
 #: build/app/js/view/Toolbar.js:82
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
-"In die gewählten Ebenen hinein- oder hinauszoomen (Alternativ auch die Alt-"
-"Taste während des Verschiebens drücken)"
+"Увеличить/уменьшить на выбранном слое (Вы также можете удерживать клавишу "
+"Alt в режиме переноса)"
 
 #: build/app/js/view/Toolbar.js:88
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
-"Ausgewählte Ebenen rotieren (Alternativ auch die Shift-Taste während des "
-"Verschiebens drücken)"
+"Вращать выбранные слои (Вы также можете удерживать клавишу Shift в режиме "
+"переноса)"
 
 #: build/app/js/view/Toolbar.js:100
 msgid "Undo (Ctrl-Z)"
-msgstr "Rückgängig (Ctrl-Z)"
+msgstr "Отменить последнюю операцию (Ctrl-Z)"
 
 #: build/app/js/view/Toolbar.js:107
 msgid "Redo (Ctrl-Y)"
-msgstr "Wiederholen (Ctrl-Y)"
+msgstr "Переделать (Ctrl-Y)"
 
 #: build/app/js/view/Toolbar.js:114
 msgid "Disable full-screen mode (F11)"
-msgstr "Vollbild schließen (F11)"
+msgstr "Выйти из полноэкранного режима (F11)"
 
 #: build/app/js/view/Toolbar.js:114
 msgid "Enable full-screen mode (F11)"
-msgstr "Vollbild öffnen (F11)"
+msgstr "Полноэкранный режим (F11)"
 
 #: build/app/js/view/Toolbar.js:122
 msgid "Save the presentation (Ctrl-S)"
-msgstr "Änderungen Speichern (Ctrl-S)"
+msgstr "Сохранить презентацию (Ctrl-S)"
 
 #: build/app/js/view/Toolbar.js:129
 msgid "Reload the SVG document (F5)"
-msgstr "Aktualisiere das SVG-Dokument (F5)"
+msgstr "Загрузить вновь SVG окумент (F5)"
 
 #: build/app/js/view/Toolbar.js:134
 msgid "Information"
-msgstr "Information"
+msgstr "Информация"

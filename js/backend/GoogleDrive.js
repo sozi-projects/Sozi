@@ -5,6 +5,7 @@
 "use strict";
 
 import {AbstractBackend, addBackend} from "./AbstractBackend";
+import $ from "jquery";
 
 export var GoogleDrive = Object.create(AbstractBackend);
 

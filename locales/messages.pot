@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2016-05-08 12:23:+0000\n"
+"POT-Creation-Date: 2016-06-25 07:25:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -9,202 +9,218 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 
-#: build/js/Storage.js:85
+#: build/app/js/Storage.js:98 build/app/js/Storage.js:111 build/app/js/Storage.js:118 build/app/js/backend/Electron.js:84
+msgid "Sozi (Error)"
+msgstr ""
+
+#: build/app/js/Storage.js:98
 msgid "File %s could not be loaded."
 msgstr ""
 
-#: build/js/Storage.js:98
+#: build/app/js/Storage.js:111 build/app/js/Storage.js:118
 msgid "Document is not valid SVG."
 msgstr ""
 
-#: build/js/Storage.js:140
+#: build/app/js/Storage.js:155 build/app/js/Storage.js:182 build/app/js/Storage.js:244 build/app/js/Storage.js:269 build/app/js/view/Toolbar.js:136
+msgid "Sozi (Information)"
+msgstr ""
+
+#: build/app/js/Storage.js:155
 msgid "Document was changed. Reloading."
 msgstr ""
 
-#: build/js/Storage.js:167
+#: build/app/js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr ""
 
-#: build/js/Storage.js:252
+#: build/app/js/Storage.js:244 build/app/js/Storage.js:269
 msgid "Saved %s."
 msgstr ""
 
-#: build/js/backend/FileReader.js:19
+#: build/app/js/backend/Electron.js:58
+msgid "Open an SVG file from your computer"
+msgstr ""
+
+#: build/app/js/backend/Electron.js:84
+msgid "File not found: %s."
+msgstr ""
+
+#: build/app/js/backend/Electron.js:96
+msgid "Choose an SVG file"
+msgstr ""
+
+#: build/app/js/backend/Electron.js:97
+msgid "SVG files"
+msgstr ""
+
+#: build/app/js/backend/FileReader.js:25
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> "
 "read-only)"
 msgstr ""
 
-#: build/js/backend/GoogleDrive.js:21
+#: build/app/js/backend/GoogleDrive.js:27
 msgid "Open an SVG file from Google Drive"
 msgstr ""
 
-#: build/js/backend/NodeWebkit.js:55
-msgid "Open an SVG file from your computer"
-msgstr ""
-
-#: build/js/backend/NodeWebkit.js:95
-msgid "File not found: %s."
-msgstr ""
-
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:43
 msgid "Frame"
 msgstr ""
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:43
 msgid "Show in frame list"
 msgstr ""
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:43
 msgid "Show frame number"
 msgstr ""
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:43
 msgid "Link to previous frame"
 msgstr ""
 
-#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:90
+#: build/app/js/view/Properties.js:43 build/app/js/view/Toolbar.js:94
 msgid "Clip"
 msgstr ""
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:43
 msgid "Title"
 msgstr ""
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:43
 msgid "Id"
 msgstr ""
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:43
 msgid "Timeout (seconds)"
 msgstr ""
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:43
 msgid "Timeout enable"
 msgstr ""
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:43
 msgid "Reference element Id"
 msgstr ""
 
-#: build/js/view/Properties.js:45
+#: build/app/js/view/Properties.js:45
 msgid "Autoselect element"
 msgstr ""
 
-#: build/js/view/Properties.js:45
+#: build/app/js/view/Properties.js:45
 msgid "Hide element"
 msgstr ""
 
-#: build/js/view/Properties.js:46
+#: build/app/js/view/Properties.js:46
 msgid "Fit to element"
 msgstr ""
 
-#: build/js/view/Properties.js:50
+#: build/app/js/view/Properties.js:50
 msgid "Layer opacity"
 msgstr ""
 
-#: build/js/view/Properties.js:50
+#: build/app/js/view/Properties.js:50
 msgid "Transition"
 msgstr ""
 
-#: build/js/view/Properties.js:50
+#: build/app/js/view/Properties.js:50
 msgid "Duration (seconds)"
 msgstr ""
 
-#: build/js/view/Properties.js:50
+#: build/app/js/view/Properties.js:50
 msgid "Timing function"
 msgstr ""
 
-#: build/js/view/Properties.js:59
+#: build/app/js/view/Properties.js:59
 msgid "Relative zoom (%)"
 msgstr ""
 
-#: build/js/view/Properties.js:59
+#: build/app/js/view/Properties.js:59
 msgid "Path Id"
 msgstr ""
 
-#: build/js/view/Properties.js:59
+#: build/app/js/view/Properties.js:59
 msgid "Hide path"
 msgstr ""
 
-#: build/js/view/Timeline.js:266
+#: build/app/js/view/Timeline.js:266
 msgid "Delete the selected frames"
 msgstr ""
 
-#: build/js/view/Timeline.js:272
+#: build/app/js/view/Timeline.js:272
 msgid "Create a new frame"
 msgstr ""
 
-#: build/js/view/Timeline.js:282
+#: build/app/js/view/Timeline.js:282
 msgid "Add layer"
 msgstr ""
 
-#: build/js/view/Timeline.js:287 build/js/view/Timeline.js:299
+#: build/app/js/view/Timeline.js:287 build/app/js/view/Timeline.js:299
 msgid "This layer is visible. Click to hide it."
 msgstr ""
 
-#: build/js/view/Timeline.js:290 build/js/view/Timeline.js:302
+#: build/app/js/view/Timeline.js:290 build/app/js/view/Timeline.js:302
 msgid "This layer is hidden. Click to show it."
 msgstr ""
 
-#: build/js/view/Timeline.js:295 build/js/view/Timeline.js:311
+#: build/app/js/view/Timeline.js:295 build/app/js/view/Timeline.js:311
 msgid "Default"
 msgstr ""
 
-#: build/js/view/Timeline.js:305
+#: build/app/js/view/Timeline.js:305
 msgid "Remove this layer"
 msgstr ""
 
-#: build/js/view/Timeline.js:316
+#: build/app/js/view/Timeline.js:316
 msgid "Insert selection before frame %d"
 msgstr ""
 
-#: build/js/view/Timeline.js:322
+#: build/app/js/view/Timeline.js:322
 msgid "Insert selection after frame %d"
 msgstr ""
 
-#: build/js/view/Toolbar.js:45
+#: build/app/js/view/Toolbar.js:49
 msgid "Aspect ratio: "
 msgstr ""
 
-#: build/js/view/Toolbar.js:72
+#: build/app/js/view/Toolbar.js:76
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:78
+#: build/app/js/view/Toolbar.js:82
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:84
+#: build/app/js/view/Toolbar.js:88
 msgid "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:96
+#: build/app/js/view/Toolbar.js:100
 msgid "Undo (Ctrl-Z)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:103
+#: build/app/js/view/Toolbar.js:107
 msgid "Redo (Ctrl-Y)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:110
+#: build/app/js/view/Toolbar.js:114
 msgid "Disable full-screen mode (F11)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:110
+#: build/app/js/view/Toolbar.js:114
 msgid "Enable full-screen mode (F11)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:118
+#: build/app/js/view/Toolbar.js:122
 msgid "Save the presentation (Ctrl-S)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:125
+#: build/app/js/view/Toolbar.js:129
 msgid "Reload the SVG document (F5)"
 msgstr ""
 
-#: build/js/view/Toolbar.js:130
+#: build/app/js/view/Toolbar.js:134
 msgid "Information"
 msgstr ""

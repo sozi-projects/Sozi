@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
-"POT-Creation-Date: 2016-05-08 12:23:+0000\n"
-"PO-Revision-Date: 2016-05-08 14:24+0100\n"
+"POT-Creation-Date: 2016-05-30 08:06:+0000\n"
+"PO-Revision-Date: 2016-05-30 22:13+0100\n"
 "Last-Translator: \n"
 "Language-Team: Sozi translators\n"
 "Language: fr\n"
@@ -12,28 +12,55 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+"X-Launchpad-Export-Date: 2016-06-25 07:48+0000\n"
 
-#: build/js/Storage.js:85
+#: build/js/Storage.js:89 build/js/Storage.js:102 build/js/Storage.js:109
+#: build/js/backend/Electron.js:84
+msgid "Sozi (Error)"
+msgstr "Sozi (Erreur)"
+
+#: build/js/Storage.js:89
 msgid "File %s could not be loaded."
 msgstr "Le fichier %s n'a pas pu être chargé."
 
-#: build/js/Storage.js:98
+#: build/js/Storage.js:102 build/js/Storage.js:109
 msgid "Document is not valid SVG."
 msgstr "Le document n'est pas conforme au standard SVG."
 
-#: build/js/Storage.js:140
+#: build/js/Storage.js:146 build/js/Storage.js:173 build/js/Storage.js:233
+#: build/js/Storage.js:258 build/js/view/Toolbar.js:136
+msgid "Sozi (Information)"
+msgstr "Sozi (Information)"
+
+#: build/js/Storage.js:146
 msgid "Document was changed. Reloading."
 msgstr "Le document a été modifié. Rechargement."
 
-#: build/js/Storage.js:167
+#: build/js/Storage.js:173
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Le document a été importé depuis Sozi 13 ou une version antérieure."
 
-#: build/js/Storage.js:252
+#: build/js/Storage.js:233 build/js/Storage.js:258
 msgid "Saved %s."
 msgstr "Fichier %s enregistré."
 
-#: build/js/backend/FileReader.js:19
+#: build/js/backend/Electron.js:58 build/js/backend/NodeWebkit.js:55
+msgid "Open an SVG file from your computer"
+msgstr "Ouvrir un document SVG depuis votre ordinateur"
+
+#: build/js/backend/Electron.js:84 build/js/backend/NodeWebkit.js:95
+msgid "File not found: %s."
+msgstr "Fichier non trouvé : %s."
+
+#: build/js/backend/Electron.js:96
+msgid "Choose an SVG file"
+msgstr "Choisir un fichier SVG"
+
+#: build/js/backend/Electron.js:97
+msgid "SVG files"
+msgstr "Fichiers SVG"
+
+#: build/js/backend/FileReader.js:25
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
 "only)"
@@ -41,17 +68,9 @@ msgstr ""
 "Ouvrir un document SVG depuis votre ordinateur (<i class=\"fa fa-warning\"></"
 "i> en lecture seule)"
 
-#: build/js/backend/GoogleDrive.js:21
+#: build/js/backend/GoogleDrive.js:27
 msgid "Open an SVG file from Google Drive"
 msgstr "Ouvrir un document SVG depuis Google Drive"
-
-#: build/js/backend/NodeWebkit.js:55
-msgid "Open an SVG file from your computer"
-msgstr "Ouvrir un document SVG depuis votre ordinateur"
-
-#: build/js/backend/NodeWebkit.js:95
-msgid "File not found: %s."
-msgstr "Fichier non trouvé : %s."
 
 #: build/js/view/Properties.js:43
 msgid "Frame"
@@ -69,7 +88,7 @@ msgstr "Afficher le numéro de la vue"
 msgid "Link to previous frame"
 msgstr "Lier à la vue précédente"
 
-#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:90
+#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:94
 msgid "Clip"
 msgstr "Rogner"
 
@@ -169,17 +188,17 @@ msgstr "Insérer la sélection avant la vue %d"
 msgid "Insert selection after frame %d"
 msgstr "Insérer la sélection après la vue %d"
 
-#: build/js/view/Toolbar.js:45
+#: build/js/view/Toolbar.js:49
 msgid "Aspect ratio: "
 msgstr "Format : "
 
-#: build/js/view/Toolbar.js:72
+#: build/js/view/Toolbar.js:76
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
 "Déplacer les calques sélectionnés (pressez la touche Alt pour zoomer, Shift "
 "pour tourner)"
 
-#: build/js/view/Toolbar.js:78
+#: build/js/view/Toolbar.js:82
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
@@ -187,38 +206,38 @@ msgstr ""
 "Zoomer/dézoomer sur les calques sélectionnés (vous pouvez aussi presser la "
 "touche Alt en mode déplacement)"
 
-#: build/js/view/Toolbar.js:84
+#: build/js/view/Toolbar.js:88
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 "Tourner les calques sélectionnés (vous pouvez aussi presser la touche Shift "
 "en mode déplacement)"
 
-#: build/js/view/Toolbar.js:96
+#: build/js/view/Toolbar.js:100
 msgid "Undo (Ctrl-Z)"
 msgstr "Annuler (Ctrl-Z)"
 
-#: build/js/view/Toolbar.js:103
+#: build/js/view/Toolbar.js:107
 msgid "Redo (Ctrl-Y)"
 msgstr "Refaire (Ctrl-Y)"
 
-#: build/js/view/Toolbar.js:110
+#: build/js/view/Toolbar.js:114
 msgid "Disable full-screen mode (F11)"
 msgstr "Quitter le mode plein écran (F11)"
 
-#: build/js/view/Toolbar.js:110
+#: build/js/view/Toolbar.js:114
 msgid "Enable full-screen mode (F11)"
 msgstr "Activer le mode plein écran (F11)"
 
-#: build/js/view/Toolbar.js:118
+#: build/js/view/Toolbar.js:122
 msgid "Save the presentation (Ctrl-S)"
 msgstr "Enregistrer la présentation (Ctrl-S)"
 
-#: build/js/view/Toolbar.js:125
+#: build/js/view/Toolbar.js:129
 msgid "Reload the SVG document (F5)"
 msgstr "Recharger le document SVG (F5)"
 
-#: build/js/view/Toolbar.js:130
+#: build/js/view/Toolbar.js:134
 msgid "Information"
 msgstr "Information"
 
