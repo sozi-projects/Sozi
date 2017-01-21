@@ -10,12 +10,13 @@ var PREVIEW_MARGIN = 15;
 
 export var Preview = {
 
-    init(container, presentation, selection, viewport, controller) {
+    init(container, presentation, selection, viewport, controller, player) {
         this.container = container;
         this.presentation = presentation;
         this.selection = selection;
         this.viewport = viewport;
         this.controller = controller;
+        this.player = player;
 
         controller.addListener("loadSVG", this.onLoadSVG.bind(this));
         $(window).resize(this.repaint.bind(this));
@@ -27,8 +28,10 @@ export var Preview = {
         this.viewport.addListener("click", this.onClick.bind(this));
         this.viewport.addListener("userChangeState", this.controller.updateCameraStates.bind(this.controller));
         this.controller.addListener("repaint", this.repaint.bind(this));
+        this.controller.addListener("frameChange", this.onFrameChange.bind(this));
         this.container.addEventListener("mouseenter", this.onMouseEnter.bind(this), false);
         this.container.addEventListener("mouseleave", this.onMouseLeave.bind(this), false);
+        this.player.addListener("frameChange", this.onAnimatorDone.bind(this));
 
         $("html head title").text(this.presentation.title);
         $(this.container).html(this.presentation.document.root);
@@ -99,5 +102,22 @@ export var Preview = {
         });
         this.viewport.showHiddenElements = false;
         this.viewport.repaint();
+    },
+
+    onFrameChange() {
+        if (this.player.previewTransitions) {
+            this.player.moveToFrame(this.selection.currentFrame.index);
+        }
+        else {
+            this.player.jumpToFrame(this.selection.currentFrame.index);
+        }
+    },
+
+    onAnimatorDone() {
+        if (this.selection.currentFrame.index !== this.player.currentFrameIndex) {
+            this.controller.selectFrame(this.player.currentFrameIndex);
+        }
+        this.controller.emit("editorStateChange");
+        this.controller.emit("repaint");
     }
 };

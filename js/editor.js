@@ -11,6 +11,7 @@ import {Presentation} from "./model/Presentation";
 import {Selection} from "./model/Selection";
 import {Storage} from "./Storage";
 import {Viewport} from "./player/Viewport";
+import {Player} from "./player/Player";
 import {Controller} from "./Controller";
 import {Preview} from "./view/Preview";
 import {Properties} from "./view/Properties";
@@ -27,14 +28,15 @@ window.addEventListener("load", () => {
 
     Selection.init(Presentation);
     Viewport.init(Presentation, true);
+    Player.init(Viewport, Presentation, true);
 
     Controller.init(Storage, Presentation, Selection, Viewport);
 
-    Preview.init(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller);
+    Preview.init(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller, Player);
 
     var locale = i18n.init();
     Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, locale);
-    Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, locale);
+    Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, locale, Player);
     Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, locale);
     Storage.init(Controller, SVGDocument, Presentation, Selection, Timeline, locale);
 
@@ -111,6 +113,9 @@ window.addEventListener("load", () => {
                         break;
                     case 46: // Delete
                         Controller.deleteFrames();
+                        break;
+                    case 80: // P
+                        document.getElementById('btn-preview-transitions').click();
                         break;
                 }
             }
