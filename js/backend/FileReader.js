@@ -7,7 +7,7 @@
 import {AbstractBackend, addBackend} from "./AbstractBackend";
 import $ from "jquery";
 
-export var FileReaderBackend = Object.create(AbstractBackend);
+export const FileReaderBackend = Object.create(AbstractBackend);
 
 FileReaderBackend.init = function (container, _) {
     AbstractBackend.init.call(this, container, "sozi-editor-backend-FileReader-input", _('Open an SVG file from your computer (<i class="fa fa-warning"></i> read-only)'));
@@ -35,7 +35,7 @@ FileReaderBackend.getName = function (fileDescriptor) {
 };
 
 FileReaderBackend.load = function (fileDescriptor) {
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsText(fileDescriptor, "utf8");
     reader.onload = () => {
         this.emit("load", fileDescriptor, reader.result, reader.error && reader.error.name);

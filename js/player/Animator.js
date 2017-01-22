@@ -9,34 +9,34 @@ import {EventEmitter} from "events";
 /*
  * The browser-specific function to request an animation frame.
  */
-var requestAnimationFrame =
+const doRequestAnimationFrame =
         window.requestAnimationFrame ||
         window.mozRequestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
         window.msRequestAnimationFrame ||
         window.oRequestAnimationFrame;
 
-var perf = window.performance && window.performance.now ? window.performance : Date;
+const perf = window.performance && window.performance.now ? window.performance : Date;
 
 /*
  * The default time step.
  * For browsers that do not support animation frames.
  */
-var TIME_STEP_MS = 40;
+const TIME_STEP_MS = 40;
 
 /*
  * The handle provided by setInterval().
  * For browsers that do not support animation frames.
  */
-var timer;
+let timer;
 
 // The number of running animators.
-var runningAnimators = 0;
+let runningAnimators = 0;
 
 /*
  * The list of managed animators.
  */
-var animatorList = [];
+const animatorList = [];
 
 /*
  * The main animation loop.
@@ -47,7 +47,7 @@ var animatorList = [];
  * If all animators are removed from the list of running animators,
  * then the periodic calling is disabled.
  *
- * This function can be called either through requestAnimationFrame()
+ * This function can be called either through doRequestAnimationFrame()
  * or through setInterval().
  */
 function loop() {
@@ -55,8 +55,8 @@ function loop() {
         // If there is at least one animator,
         // and if the browser provides animation frames,
         // schedule this function to be called again in the next frame.
-        if (requestAnimationFrame) {
-            requestAnimationFrame(loop);
+        if (doRequestAnimationFrame) {
+            doRequestAnimationFrame(loop);
         }
 
         // Step all animators. We iterate over a copy of the animator list
@@ -67,7 +67,7 @@ function loop() {
             }
         });
     }
-    else if (!requestAnimationFrame) {
+    else if (!doRequestAnimationFrame) {
         // If all animators have been removed,
         // and if this function is called periodically
         // by setInterval(), disable the periodic calling.
@@ -79,12 +79,12 @@ function loop() {
  * Start the animation loop.
  *
  * This function delegates the periodic update of all animators
- * to the loop() function, either using requestAnimationFrame()
+ * to the loop() function, either using doRequestAnimationFrame()
  * if the browser supports it, or using setInterval().
  */
 function start() {
-    if (requestAnimationFrame) {
-        requestAnimationFrame(loop);
+    if (doRequestAnimationFrame) {
+        doRequestAnimationFrame(loop);
     }
     else {
         timer = window.setInterval(loop, TIME_STEP_MS);
@@ -97,7 +97,7 @@ function start() {
  * The main purpose of an animator is to schedule the update
  * operations in the animated objects.
  */
-export var Animator = Object.create(EventEmitter.prototype);
+export const Animator = Object.create(EventEmitter.prototype);
 
 Animator.init = function () {
     EventEmitter.call(this);
@@ -145,7 +145,7 @@ Animator.stop = function () {
  * If the animation duration has elapsed, the "done" event is fired.
  */
 Animator.step = function () {
-    var elapsedTime = perf.now() - this.initialTime;
+    const elapsedTime = perf.now() - this.initialTime;
     if (elapsedTime >= this.durationMs) {
         this.emit("step", 1);
         this.running = false;

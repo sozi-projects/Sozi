@@ -7,7 +7,7 @@
 import h from "virtual-dom/h";
 import {VirtualDOMView} from "./VirtualDOMView";
 
-export var Properties = Object.create(VirtualDOMView);
+export const Properties = Object.create(VirtualDOMView);
 
 Properties.init = function (container, selection, controller, locale) {
     VirtualDOMView.init.call(this, container, controller);
@@ -19,12 +19,12 @@ Properties.init = function (container, selection, controller, locale) {
 };
 
 Properties.render = function () {
-    var _ = this.gettext;
-    
-    var c = this.controller;
+    const _ = this.gettext;
 
-    var timeoutMsDisabled = c.getFrameProperty("timeoutEnable").every(value => !value);
-    var referenceElementIdDisabled = c.getLayerProperty("referenceElementAuto").every(value => value);
+    const c = this.controller;
+
+    const timeoutMsDisabled = c.getFrameProperty("timeoutEnable").every(value => !value);
+    const referenceElementIdDisabled = c.getLayerProperty("referenceElementAuto").every(value => value);
 
     return h("div.properties", [
         h("h1", _("Frame")),
@@ -39,7 +39,7 @@ Properties.render = function () {
                 this.renderToggleField(h("i.fa.fa-crop"), _("Clip"), "clipped", c.getCameraProperty, c.setCameraProperty)
             ])
         ]),
-        
+
         h("label", {for: "field-title"}, _("Title")),
         this.renderTextField("title", false, c.getFrameProperty, c.setFrameProperty, true),
 
@@ -98,11 +98,11 @@ Properties.render = function () {
 };
 
 Properties.renderTextField = function (property, disabled, getter, setter, acceptsEmpty) {
-    var c = this.controller;
+    const c = this.controller;
 
-    var values = getter.call(this, property);
-    var className = values.length > 1 ? "multiple" : undefined;
-    var value = values.length >= 1 ? values[0] : "";
+    const values = getter.call(this, property);
+    const className = values.length > 1 ? "multiple" : undefined;
+    const value = values.length >= 1 ? values[0] : "";
 
     return h("input", {
         id: "field-" + property,
@@ -111,7 +111,7 @@ Properties.renderTextField = function (property, disabled, getter, setter, accep
         className,
         disabled,
         onchange() {
-            var value = this.value;
+            const value = this.value;
             if (acceptsEmpty || value.length) {
                 setter.call(c, property, value);
             }
@@ -120,11 +120,11 @@ Properties.renderTextField = function (property, disabled, getter, setter, accep
 };
 
 Properties.renderNumberField = function (property, disabled, getter, setter, signed, step, factor) {
-    var c = this.controller;
+    const c = this.controller;
 
-    var values = getter.call(this, property);
-    var className = values.length > 1 ? "multiple" : undefined;
-    var value = values.length >= 1 ? values[0] / factor : 0; // TODO use default value
+    const values = getter.call(this, property);
+    const className = values.length > 1 ? "multiple" : undefined;
+    const value = values.length >= 1 ? values[0] / factor : 0; // TODO use default value
 
     return h("input", {
         id: "field-" + property,
@@ -136,7 +136,7 @@ Properties.renderNumberField = function (property, disabled, getter, setter, sig
         step,
         pattern: "[+-]?\\d+(\\.\\d+)?",
         onchange() {
-            var value = parseFloat(this.value);
+            const value = parseFloat(this.value);
             if (!isNaN(value) && (signed || value >= 0)) {
                 setter.call(c, property, value * factor);
             }
@@ -145,11 +145,11 @@ Properties.renderNumberField = function (property, disabled, getter, setter, sig
 };
 
 Properties.renderRangeField = function (property, getter, setter, min, max, step) {
-    var c = this.controller;
+    const c = this.controller;
 
-    var values = getter.call(this, property);
-    var className = values.length > 1 ? "multiple" : undefined;
-    var value = values.length >= 1 ? values[0] : (min + max) / 2; // TODO use default value
+    const values = getter.call(this, property);
+    const className = values.length > 1 ? "multiple" : undefined;
+    const value = values.length >= 1 ? values[0] : (min + max) / 2; // TODO use default value
 
     return h("input", {
         id: "field-" + property,
@@ -161,7 +161,7 @@ Properties.renderRangeField = function (property, getter, setter, min, max, step
         value,
         className,
         onchange() {
-            var value = parseFloat(this.value);
+            const value = parseFloat(this.value);
             if (!isNaN(value) && value >= min && value <= max) {
                 setter.call(c, property, value);
             }
@@ -170,11 +170,11 @@ Properties.renderRangeField = function (property, getter, setter, min, max, step
 };
 
 Properties.renderToggleField = function (label, title, property, getter, setter) {
-    var c = this.controller;
+    const c = this.controller;
 
-    var values = getter.call(this, property);
-    var className = values.length > 1 ? "multiple" : "";
-    var value = values.length >= 1 ? values[0] : false; // TODO use default value
+    const values = getter.call(this, property);
+    let className = values.length > 1 ? "multiple" : "";
+    const value = values.length >= 1 ? values[0] : false; // TODO use default value
     if (value) {
         className += " active";
     }
@@ -189,11 +189,11 @@ Properties.renderToggleField = function (label, title, property, getter, setter)
 };
 
 Properties.renderSelectField = function (property, getter, setter, options) {
-    var c = this.controller;
+    const c = this.controller;
 
-    var values = getter.call(this, property);
-    var className = values.length > 1 ? "multiple" : undefined;
-    var value = values.length >= 1 ? values[0] : options[0];
+    const values = getter.call(this, property);
+    const className = values.length > 1 ? "multiple" : undefined;
+    const value = values.length >= 1 ? values[0] : options[0];
 
     return h("select", {
             id: "field-" + property,

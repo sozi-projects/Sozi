@@ -21,7 +21,7 @@ import Jed from "jed";
  *  - create/delete/reorder frames
  *  - add/remove layers and frames to/from the selection
  */
-export var Timeline = Object.create(VirtualDOMView);
+export let Timeline = Object.create(VirtualDOMView);
 
 /*
  * Initialize a Timeline view.
@@ -71,7 +71,7 @@ Timeline.fromStorable = function (storable) {
 
     if (storable.hasOwnProperty("editableLayers")) {
         storable.editableLayers.forEach(groupId => {
-            var layer = this.presentation.getLayerWithId(groupId);
+            let layer = this.presentation.getLayerWithId(groupId);
             if (layer && this.editableLayers.indexOf(layer) < 0) {
                 this.editableLayers.push(layer);
             }
@@ -94,12 +94,12 @@ Timeline.fromStorable = function (storable) {
  *  - layerIndex: The index of a layer in the presentation
  */
 Timeline.addLayer = function (layerIndex) {
-    var layer = this.presentation.layers[layerIndex];
+    let layer = this.presentation.layers[layerIndex];
     if (this.editableLayers.indexOf(layer) < 0) {
         this.editableLayers.push(layer);
     }
 
-    var layerIndexInDefaults = this.defaultLayers.indexOf(layer);
+    let layerIndexInDefaults = this.defaultLayers.indexOf(layer);
     this.defaultLayers.splice(layerIndexInDefaults, 1);
 
     this.controller.addLayerToSelection(layer);
@@ -123,9 +123,9 @@ Timeline.addLayer = function (layerIndex) {
  *  - layerIndex: The index of a layer in the presentation
  */
 Timeline.removeLayer = function (layerIndex) {
-    var layer = this.presentation.layers[layerIndex];
+    let layer = this.presentation.layers[layerIndex];
 
-    var layerIndexInEditable = this.editableLayers.indexOf(layer);
+    let layerIndexInEditable = this.editableLayers.indexOf(layer);
     this.editableLayers.splice(layerIndexInEditable, 1);
 
     if (this.defaultLayersAreSelected) {
@@ -186,19 +186,19 @@ Timeline.updateLayerAndFrameSelection = function (layerIndex, frameIndex, evt) {
 Timeline.repaint = function () {
     VirtualDOMView.repaint.call(this);
 
-    var topLeft = this.rootNode.querySelector(".timeline-top-left");
-    var topRight = this.rootNode.querySelector(".timeline-top-right");
-    var bottomLeft = this.rootNode.querySelector(".timeline-bottom-left");
-    var bottomRight = this.rootNode.querySelector(".timeline-bottom-right");
+    let topLeft = this.rootNode.querySelector(".timeline-top-left");
+    let topRight = this.rootNode.querySelector(".timeline-top-right");
+    let bottomLeft = this.rootNode.querySelector(".timeline-bottom-left");
+    let bottomRight = this.rootNode.querySelector(".timeline-bottom-right");
 
-    var topLeftTable = topLeft.querySelector("table");
-    var topRightTable = topRight.querySelector("table");
-    var bottomLeftTable = bottomLeft.querySelector("table");
+    let topLeftTable = topLeft.querySelector("table");
+    let topRightTable = topRight.querySelector("table");
+    let bottomLeftTable = bottomLeft.querySelector("table");
 
-    var leftWidth = Math.max(topLeftTable.clientWidth, bottomLeftTable.clientWidth);
-    var rightWidth = this.rootNode.clientWidth - leftWidth;
-    var topHeight = Math.max(topLeftTable.clientHeight, topRightTable.clientHeight);
-    var bottomHeight = this.rootNode.clientHeight - topHeight;
+    let leftWidth = Math.max(topLeftTable.clientWidth, bottomLeftTable.clientWidth);
+    let rightWidth = this.rootNode.clientWidth - leftWidth;
+    let topHeight = Math.max(topLeftTable.clientHeight, topRightTable.clientHeight);
+    let bottomHeight = this.rootNode.clientHeight - topHeight;
 
     // Fit the width of the left tables,
     // allocate remaining width to the right tables
@@ -212,24 +212,24 @@ Timeline.repaint = function () {
     bottomLeft.style.height = bottomRight.style.height = bottomHeight + "px";
 
     // Corresponding rows in left and right tables must have the same height
-    var leftRows  = toArray(topLeft.querySelectorAll("tr")).concat(toArray(bottomLeft.querySelectorAll("tr")));
-    var rightRows = toArray(topRight.querySelectorAll("tr")).concat(toArray(bottomRight.querySelectorAll("tr")));
+    let leftRows  = toArray(topLeft.querySelectorAll("tr")).concat(toArray(bottomLeft.querySelectorAll("tr")));
+    let rightRows = toArray(topRight.querySelectorAll("tr")).concat(toArray(bottomRight.querySelectorAll("tr")));
     leftRows.forEach((leftRow, rowIndex) => {
-        var rightRow = rightRows[rowIndex];
-        var maxHeight = Math.max(leftRow.clientHeight, rightRow.clientHeight);
+        let rightRow = rightRows[rowIndex];
+        let maxHeight = Math.max(leftRow.clientHeight, rightRow.clientHeight);
         leftRow.style.height = rightRow.style.height = maxHeight + "px";
     });
 };
 
 Timeline.render = function () {
-    var _ = this.gettext;
+    let _ = this.gettext;
     
-    var defaultLayersAreVisible = this.defaultLayers.some(layer => layer.isVisible);
+    let defaultLayersAreVisible = this.defaultLayers.some(layer => layer.isVisible);
 
-    var defaultLayerIsNotEmpty = this.defaultLayers.length > 1 || this.defaultLayers[0].svgNodes.length;
+    let defaultLayerIsNotEmpty = this.defaultLayers.length > 1 || this.defaultLayers[0].svgNodes.length;
 
-    var c = this.controller;
-    var even = true;
+    let c = this.controller;
+    let even = true;
     function updateEven(frame, layer) {
         if (frame.index === 0) {
             even = true;
@@ -262,7 +262,7 @@ Timeline.render = function () {
                     h("th", {attributes: {colspan: 2}},
                         h("select", {
                             onchange: (evt) => {
-                                var value = evt.target.value;
+                                let value = evt.target.value;
                                 evt.target.value = "__add__";
                                 this.addLayer(value);
                             }

@@ -4,7 +4,7 @@
 
 "use strict";
 
-var player;
+let player;
 
 export function init(aPlayer) {
     player = aPlayer;
@@ -15,13 +15,13 @@ export function init(aPlayer) {
 
 export function getFrameIndex() {
     if (window.location.hash) {
-        var indexOrId = window.location.hash.slice(1);
-        var frame = player.presentation.getFrameWithId(indexOrId);
+        const indexOrId = window.location.hash.slice(1);
+        const frame = player.presentation.getFrameWithId(indexOrId);
         if (frame) {
             return frame.index;
         }
         else {
-            var index = parseInt(indexOrId);
+            const index = parseInt(indexOrId);
             return !isNaN(index) && index > 0 && index <= player.presentation.frames.length ?
                 index - 1 : player.currentFrameIndex;
         }
@@ -32,7 +32,7 @@ export function getFrameIndex() {
 }
 
 function onHashChange() {
-    var index = getFrameIndex();
+    const index = getFrameIndex();
     if (player.currentFrameIndex !== index) {
         player.moveToFrame(index);
     }

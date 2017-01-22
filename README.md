@@ -26,7 +26,7 @@ Clone the repository:
 If needed, switch to the branch that you want to build:
 
     git checkout preview
-    
+
 or
 
     git checkout dev
@@ -37,9 +37,10 @@ Install the build tools and dependencies
 
 Install [Node.js](http://nodejs.org/) (< 6.0.0), [Bower](http://bower.io/)
 and the [Grunt](http://gruntjs.com/) CLI.
+If you plan to build a Windows executable from Linux or OS X, also install wine.
 In Debian/Ubuntu and their derivatives, you can type the following commands.
 
-    sudo apt-get install nodejs
+    sudo apt install nodejs wine
     sudo npm install bower grunt-cli -g
 
 From the root of the source tree:

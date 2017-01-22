@@ -90,13 +90,7 @@ module.exports = function(grunt) {
          */
         babel: {
             options: {
-                whitelist: [
-                    "es6.arrowFunctions",
-                    "es6.properties.shorthand",
-                    "es6.modules",
-                    "es6.templateLiterals",
-                    "es6.destructuring"
-                ]
+                presets: ["es2015"]
             },
             all: {
                 files: [{
@@ -243,7 +237,7 @@ module.exports = function(grunt) {
                     dir: "build/app",
                     out: "dist",
                     overwrite: true,
-                    version: buildConfig.electronVersion,
+                    electronVersion: buildConfig.electronVersion,
                     platform: dedup(buildConfig.platforms.map(p => p.split("-")[0])).join(","),
                     arch:     dedup(buildConfig.platforms.map(p => p.split("-")[1])).join(",")
                 }
@@ -262,7 +256,7 @@ module.exports = function(grunt) {
                     src: ["build/app/*"],
                     dest: "/var/www/sozi.baierouge.fr/demo/",
                     host: "www-data@baierouge.fr",
-                    syncDest: true, // Delete files on destination
+                    deleteAll: true,
                     recursive: true
                 }
             }

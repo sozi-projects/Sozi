@@ -7,19 +7,19 @@
 import {toArray} from "../utils";
 
 // Constant: the SVG namespace
-var SVG_NS = "http://www.w3.org/2000/svg";
+const SVG_NS = "http://www.w3.org/2000/svg";
 
 // Constant: The SVG element names that can be found in layers
-var DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
+const DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
     "ellipse", "line", "polyline", "polygon", "text", "clippath" ];
 
-var handlers = {};
+const handlers = {};
 
 export function registerHandler(name, handler) {
     handlers[name] = handler;
 }
 
-export var DefaultHandler = {
+export const DefaultHandler = {
     matches(svgRoot) {
         return true;
     },
@@ -37,7 +37,7 @@ export var DefaultHandler = {
     }
 };
 
-export var SVGDocument = {
+export const SVGDocumentWrapper = {
     asText: "",
     root: undefined,
     handler: DefaultHandler,
@@ -46,7 +46,7 @@ export var SVGDocument = {
         this.root = svgRoot;
 
         this.handler = DefaultHandler;
-        for (var name in handlers) {
+        for (let name in handlers) {
             if (handlers[name].matches(svgRoot)) {
                 console.log(`Using handler: ${name}`);
                 this.handler = handlers[name];
@@ -55,7 +55,7 @@ export var SVGDocument = {
         }
 
         // Prevent event propagation on hyperlinks
-        var links = toArray(this.root.getElementsByTagName("a"));
+        const links = toArray(this.root.getElementsByTagName("a"));
         links.forEach(link => {
             link.addEventListener("mousedown", evt => { evt.stopPropagation(); }, false);
         });
@@ -84,7 +84,7 @@ export var SVGDocument = {
         this.root = undefined;
 
         // Create a DOM tree from the given textual data
-        var div = document.createElement("div");
+        const div = document.createElement("div");
         div.innerHTML = data;
 
         // Remove everything before the first element
@@ -105,13 +105,13 @@ export var SVGDocument = {
             this.root.style.width = this.root.style.height = "auto";
 
             // Remove any existing script inside the SVG DOM tree
-            var scripts = toArray(this.root.getElementsByTagName("script"));
+            const scripts = toArray(this.root.getElementsByTagName("script"));
             scripts.forEach(script => {
                 script.parentNode.removeChild(script);
             });
 
             // Wrap isolated elements into groups
-            var svgWrapper = document.createElementNS(SVG_NS, "g");
+            let svgWrapper = document.createElementNS(SVG_NS, "g");
 
             // Get all child nodes of the SVG root.
             // Make a copy of root.childNodes before modifying the document.

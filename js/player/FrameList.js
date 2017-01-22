@@ -10,14 +10,14 @@ import * as Timing from "./Timing";
 
 const DURATION_MS = 500;
 
-var frameList;
-var links;
-var player;
-var animator;
-var isOpen = false;
-var startOffset = -1;
-var endOffset = -1;
-var currentOffset = startOffset;
+let frameList;
+let links;
+let player;
+let animator;
+let isOpen = false;
+let startOffset = -1;
+let endOffset = -1;
+let currentOffset = startOffset;
 
 export function init(aPlayer) {
     player = aPlayer;
@@ -87,7 +87,7 @@ function onKeyPress(evt) {
 }
 
 function onAnimatorStep(progress) {
-    var p = Timing.ease(progress);
+    let p = Timing.ease(progress);
     setCurrentOffset(endOffset * p + startOffset * (1 - p));
 }
 
@@ -98,7 +98,7 @@ function onMouseDown(button) {
 }
 
 function onMouseOut(evt) {
-    var rel = evt.relatedTarget;
+    let rel = evt.relatedTarget;
     while (rel && rel !== frameList && rel !== document.documentElement) {
         rel = rel.parentNode;
     }

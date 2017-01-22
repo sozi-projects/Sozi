@@ -7,9 +7,9 @@
 import {CameraState} from "../model/CameraState";
 
 // Constant: the Sozi namespace
-var SVG_NS = "http://www.w3.org/2000/svg";
+const SVG_NS = "http://www.w3.org/2000/svg";
 
-export var Camera = Object.create(CameraState);
+export const Camera = Object.create(CameraState);
 
 Camera.init = function (viewport, layer) {
     CameraState.init.call(this, viewport.svgRoot);
@@ -21,14 +21,16 @@ Camera.init = function (viewport, layer) {
     // The clipping rectangle of this camera
     this.svgClipRect = document.createElementNS(SVG_NS, "rect");
 
+    let svgClipId;
+
     if (viewport.editMode) {
         // In edit mode, we set up a mask outside the clipping rectangle.
         // This value allows to set the opacity of the mask.
         this.maskValue = 0;
 
-        var svgMask = document.createElementNS(SVG_NS, "mask");
-        var svgMaskId = viewport.makeUniqueId("sozi-mask-");
-        svgMask.setAttribute("id", svgMaskId);
+        const svgMask = document.createElementNS(SVG_NS, "mask");
+        svgClipId = viewport.makeUniqueId("sozi-mask-");
+        svgMask.setAttribute("id", svgClipId);
         viewport.svgRoot.appendChild(svgMask);
 
         this.svgMaskRect = document.createElementNS(SVG_NS, "rect");
@@ -55,9 +57,9 @@ Camera.init = function (viewport, layer) {
     else {
         // When playing the presentation, we use the default SVG
         // clipping technique.
-        var svgClipPath = document.createElementNS(SVG_NS, "clipPath");
-        var svgClipPathId = viewport.makeUniqueId("sozi-clip-path-");
-        svgClipPath.setAttribute("id", svgClipPathId);
+        const svgClipPath = document.createElementNS(SVG_NS, "clipPath");
+        svgClipId = viewport.makeUniqueId("sozi-clip-path-");
+        svgClipPath.setAttribute("id", svgClipId);
         svgClipPath.appendChild(this.svgClipRect);
         viewport.svgRoot.appendChild(svgClipPath);
     }
@@ -65,17 +67,17 @@ Camera.init = function (viewport, layer) {
     // The groups that will support transformations
     this.svgTransformGroups = layer.svgNodes.map(svgNode => {
         // The group that will support the clipping operation
-        var svgClippedGroup = document.createElementNS(SVG_NS, "g");
+        const svgClippedGroup = document.createElementNS(SVG_NS, "g");
         viewport.svgRoot.insertBefore(svgClippedGroup, svgNode);
 
         if (viewport.editMode) {
-            svgClippedGroup.setAttribute("mask", "url(#" + svgMaskId + ")");
+            svgClippedGroup.setAttribute("mask", "url(#" + svgClipId + ")");
         }
         else {
-            svgClippedGroup.setAttribute("clip-path", "url(#" + svgClipPathId + ")");
+            svgClippedGroup.setAttribute("clip-path", "url(#" + svgClipId + ")");
         }
 
-        var svgGroup = document.createElementNS(SVG_NS, "g");
+        const svgGroup = document.createElementNS(SVG_NS, "g");
         svgGroup.appendChild(svgNode);
         svgClippedGroup.appendChild(svgGroup);
         return svgGroup;
@@ -118,10 +120,10 @@ Camera.zoom = function (factor, x, y) {
 };
 
 Camera.translate = function (deltaX, deltaY) {
-    var scale = this.scale;
-    var angleRad = this.angle * Math.PI / 180;
-    var si = Math.sin(angleRad);
-    var co = Math.cos(angleRad);
+    const scale = this.scale;
+    const angleRad = this.angle * Math.PI / 180;
+    const si = Math.sin(angleRad);
+    const co = Math.cos(angleRad);
     this.cx -= (deltaX * co - deltaY * si) / scale;
     this.cy -= (deltaX * si + deltaY * co) / scale;
     this.restoreAspectRatio();
@@ -130,9 +132,9 @@ Camera.translate = function (deltaX, deltaY) {
 
 Camera.clip = function (x0, y0, x1, y1) {
     this.clipped = true;
-    var scale = this.scale;
-    var clipWidth = Math.abs(x1 - x0) + 1;
-    var clipHeight = Math.abs(y1 - y0) + 1;
+    const scale = this.scale;
+    const clipWidth = Math.abs(x1 - x0) + 1;
+    const clipHeight = Math.abs(y1 - y0) + 1;
     this.clipXOffset = (Math.min(x0, x1) - (this.viewport.width  - clipWidth)  / 2) * this.width  / clipWidth;
     this.clipYOffset = (Math.min(y0, y1) - (this.viewport.height - clipHeight) / 2) * this.height / clipHeight;
     this.clipWidthFactor  = clipWidth  / this.width  / scale;
@@ -141,9 +143,9 @@ Camera.clip = function (x0, y0, x1, y1) {
 };
 
 Camera.restoreAspectRatio = function () {
-    var viewportRatio = this.viewport.width / this.viewport.height;
-    var camRatio = this.width / this.height;
-    var ratio = viewportRatio / camRatio;
+    const viewportRatio = this.viewport.width / this.viewport.height;
+    const camRatio = this.width / this.height;
+    const ratio = viewportRatio / camRatio;
     if (ratio > 1) {
         this.width *= ratio;
         if (this.clipped) {
@@ -165,38 +167,38 @@ Camera.getCandidateReferenceElement = function () {
     }
 
     // Get all elements that intersect with the viewport.
-    var viewportRect = this.svgRoot.createSVGRect();
+    const viewportRect = this.svgRoot.createSVGRect();
     viewportRect.x = 0;
     viewportRect.y = 0;
     viewportRect.width = this.viewport.width;
     viewportRect.height = this.viewport.height;
-    var viewportArea = this.viewport.width * this.viewport.height;
+    const viewportArea = this.viewport.width * this.viewport.height;
 
-    var intersectionList = this.svgRoot.getIntersectionList(viewportRect, this.layer.svgNodes[0]);
+    const intersectionList = this.svgRoot.getIntersectionList(viewportRect, this.layer.svgNodes[0]);
 
     // Find the element which bounding box best fits in the viewport.
-    var bestScore = -1;
-    var result;
+    let bestScore = -1;
+    let result;
 
-    for (var i = 0; i < intersectionList.length; i ++) {
-        var elt = intersectionList[i];
+    for (let i = 0; i < intersectionList.length; i ++) {
+        const elt = intersectionList[i];
         if (elt.hasAttribute("id")) {
             // TODO getBoundingClientRect returns bounding box of bounding box
-            var eltRect = elt.getBoundingClientRect();
-            var eltArea = eltRect.width * eltRect.height;
+            const eltRect = elt.getBoundingClientRect();
+            const eltArea = eltRect.width * eltRect.height;
 
             // Compute the intersection of the element'b bounding
             // box with the current viewport.
-            var l = Math.max(eltRect.left, this.viewport.x);
-            var t = Math.max(eltRect.top, this.viewport.y);
-            var r = Math.min(eltRect.right, this.viewport.x + this.viewport.width);
-            var b = Math.min(eltRect.bottom, this.viewport.y + this.viewport.height);
+            const l = Math.max(eltRect.left, this.viewport.x);
+            const t = Math.max(eltRect.top, this.viewport.y);
+            const r = Math.min(eltRect.right, this.viewport.x + this.viewport.width);
+            const b = Math.min(eltRect.bottom, this.viewport.y + this.viewport.height);
 
-            var intersectArea = (r - l) * (b - t);
+            const intersectArea = (r - l) * (b - t);
 
             // An element is selected if it has the biggest intersect area
             // and the smallest area outside the intersection.
-            var eltScore = viewportArea + eltArea - 2 * intersectArea;
+            const eltScore = viewportArea + eltArea - 2 * intersectArea;
             if (bestScore < 0 || eltScore < bestScore) {
                 bestScore = eltScore;
                 result = elt;
@@ -209,9 +211,9 @@ Camera.getCandidateReferenceElement = function () {
 
 Object.defineProperty(Camera, "clipRect", {
     get: function () {
-        var width, height, x, y;
+        let width, height, x, y;
         if (this.clipped) {
-            var scale = this.scale;
+            const scale = this.scale;
             width = Math.round(this.width  * this.clipWidthFactor  * scale);
             height = Math.round(this.height * this.clipHeightFactor * scale);
             x = Math.round((this.viewport.width  - width)  / 2 + this.clipXOffset * this.clipWidthFactor  * scale);
@@ -229,7 +231,7 @@ Object.defineProperty(Camera, "clipRect", {
 
 Camera.update = function () {
     // Adjust the location and size of the clipping rectangle
-    var rect = this.clipRect;
+    const rect = this.clipRect;
     this.svgClipRect.setAttribute("x", rect.x);
     this.svgClipRect.setAttribute("y", rect.y);
     this.svgClipRect.setAttribute("width",  rect.width);
@@ -254,9 +256,9 @@ Camera.update = function () {
     }
 
     // Compute and apply the geometrical transformation to the layer group
-    var scale = this.scale;
-    var translateX = this.viewport.width  / scale / 2 - this.cx;
-    var translateY = this.viewport.height / scale / 2 - this.cy;
+    const scale = this.scale;
+    const translateX = this.viewport.width  / scale / 2 - this.cx;
+    const translateY = this.viewport.height / scale / 2 - this.cy;
 
     this.svgTransformGroups.forEach(svgGroup => {
         svgGroup.setAttribute("transform",
@@ -271,21 +273,21 @@ Camera.update = function () {
 };
 
 Camera.interpolate = function (initialState, finalState, progress, timingFunction, relativeZoom, svgPath, reversePath) {
-    var tfProgress = timingFunction(progress);
-    var tfRemaining = 1 - tfProgress;
+    const tfProgress = timingFunction(progress);
+    const tfRemaining = 1 - tfProgress;
 
     function linear(initial, final) {
         return final * tfProgress + initial * tfRemaining;
     }
 
     function quadratic(u0, u1) {
-        var um = (relativeZoom > 0 ? Math.max(u0, u1) : Math.min(u0, u1)) * (1 - relativeZoom);
-        var du0 = u0 - um;
-        var du1 = u1 - um;
-        var r = Math.sqrt(du0 / du1);
-        var tm = r / (1 + r);
-        var k = du0 / tm / tm;
-        var dt = progress - tm;
+        const um = (relativeZoom > 0 ? Math.max(u0, u1) : Math.min(u0, u1)) * (1 - relativeZoom);
+        const du0 = u0 - um;
+        const du1 = u1 - um;
+        const r = Math.sqrt(du0 / du1);
+        const tm = r / (1 + r);
+        const k = du0 / tm / tm;
+        const dt = progress - tm;
         return k * dt * dt + um;
     }
 
@@ -301,10 +303,10 @@ Camera.interpolate = function (initialState, finalState, progress, timingFunctio
 
     // Interpolate camera location
     if (svgPath) {
-        var pathLength   = svgPath.getTotalLength();
-        var startPoint   = svgPath.getPointAtLength(reversePath ? pathLength : 0);
-        var endPoint     = svgPath.getPointAtLength(reversePath ? 0 : pathLength);
-        var currentPoint = svgPath.getPointAtLength(pathLength * (reversePath ? tfRemaining : tfProgress));
+        const pathLength   = svgPath.getTotalLength();
+        const startPoint   = svgPath.getPointAtLength(reversePath ? pathLength : 0);
+        const endPoint     = svgPath.getPointAtLength(reversePath ? 0 : pathLength);
+        const currentPoint = svgPath.getPointAtLength(pathLength * (reversePath ? tfRemaining : tfProgress));
 
         this.cx = currentPoint.x + linear(initialState.cx - startPoint.x, finalState.cx - endPoint.x);
         this.cy = currentPoint.y + linear(initialState.cy - startPoint.y, finalState.cy - endPoint.y);
@@ -331,16 +333,16 @@ Camera.interpolate = function (initialState, finalState, progress, timingFunctio
 
     // Interpolate clip rectangle
     this.clipped = true;
-    var scale = this.scale;
-    var clipDefaults = {
+    const scale = this.scale;
+    const clipDefaults = {
         clipXOffset: 0,
         clipYOffset: 0,
         clipWidthFactor:  this.viewport.width  / this.width  / scale,
         clipHeightFactor: this.viewport.height / this.height / scale
     };
-    var initialClipping = initialState.clipped ? initialState : clipDefaults;
-    var finalClipping   = finalState.clipped   ? finalState   : clipDefaults;
-    for (var clipProp in clipDefaults) {
+    const initialClipping = initialState.clipped ? initialState : clipDefaults;
+    const finalClipping   = finalState.clipped   ? finalState   : clipDefaults;
+    for (let clipProp in clipDefaults) {
         this[clipProp] = linear(initialClipping[clipProp], finalClipping[clipProp]);
     }
 };

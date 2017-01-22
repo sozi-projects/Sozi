@@ -4,24 +4,24 @@
 
 "use strict";
 
-import {registerHandler, DefaultHandler} from "./SVGDocument";
+import {registerHandler, DefaultHandler} from "./SVGDocumentWrapper";
 
 // Constant: the Inkscape namespace
-var INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
+const INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
 
-var InkscapeHandler = Object.create(DefaultHandler);
+const InkscapeHandler = Object.create(DefaultHandler);
 
 InkscapeHandler.matches = function (svgRoot) {
     return svgRoot.getAttribute("xmlns:inkscape") === INKSCAPE_NS;
 };
 
 InkscapeHandler.transform = function (svgRoot) {
-    var pageColor = "#ffffff";
-    var pageOpacity = "0";
+    let pageColor = "#ffffff";
+    let pageOpacity = "0";
 
     // Get page color and opacity from Inkscape document properties
-    var namedViews = svgRoot.getElementsByTagName("sodipodi:namedview");
-    for (var i = 0; i < namedViews.length; i ++) {
+    const namedViews = svgRoot.getElementsByTagName("sodipodi:namedview");
+    for (let i = 0; i < namedViews.length; i ++) {
         if (namedViews[i].hasAttribute("pagecolor")) {
             pageColor = namedViews[i].getAttribute("pagecolor");
             if (namedViews[i].hasAttribute("inkscape:pageopacity")) {
@@ -32,9 +32,9 @@ InkscapeHandler.transform = function (svgRoot) {
     }
 
     // Extract RGB assuming page color is in 6-digit hex format
-    var [, red, green, blue] = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(pageColor);
+    const [, red, green, blue] = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(pageColor);
 
-    var style = document.createElement("style");
+    const style = document.createElement("style");
     style.innerHTML = `svg {
         background: rgba(${parseInt(red, 16)}, ${parseInt(green, 16)}, ${parseInt(blue, 16)}, ${pageOpacity});
     }`;

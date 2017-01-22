@@ -4,7 +4,7 @@
 
 "use strict";
 
-import {SVGDocument} from "./svg/SVGDocument";
+import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
 import {Presentation} from "./model/Presentation";
 import {Viewport} from "./player/Viewport";
 import {Player} from "./player/Player";
@@ -15,8 +15,8 @@ import * as FrameURL from "./player/FrameURL";
 
 window.addEventListener("load", function () {
 
-    SVGDocument.init(document.querySelector("svg"));
-    Presentation.init(SVGDocument);
+    SVGDocumentWrapper.init(document.querySelector("svg"));
+    Presentation.init(SVGDocumentWrapper);
     Viewport.init(Presentation, false).onLoad();
 
     Presentation.fromStorable(window.soziPresentationData);

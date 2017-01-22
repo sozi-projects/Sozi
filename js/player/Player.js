@@ -11,17 +11,17 @@ import {EventEmitter} from "events";
 
 // Constants: default animation properties
 // for out-of-sequence transitions
-var DEFAULT_TRANSITION_DURATION_MS = 500;
-var DEFAULT_RELATIVE_ZOOM = 0;
-var DEFAULT_TIMING_FUNCTION = "ease";
+let DEFAULT_TRANSITION_DURATION_MS = 500;
+let DEFAULT_RELATIVE_ZOOM = 0;
+let DEFAULT_TIMING_FUNCTION = "ease";
 
 // Zoom factor for user zoom action (keyboard and mouse wheel)
-var SCALE_FACTOR = 1.05;
+let SCALE_FACTOR = 1.05;
 
 // Rotation step for user rotate action (keyboard and mouse wheel)
-var ROTATE_STEP = 5;
+let ROTATE_STEP = 5;
 
-export var Player = Object.create(EventEmitter.prototype);
+export let Player = Object.create(EventEmitter.prototype);
 
 Player.init = function (viewport, presentation) {
     EventEmitter.call(this);
@@ -176,14 +176,14 @@ Object.defineProperty(Player, "targetFrame", {
 
 Object.defineProperty(Player, "previousFrameIndex", {
     get() {
-        var index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
+        let index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
         return (index + this.presentation.frames.length - 1) % this.presentation.frames.length;
     }
 });
 
 Object.defineProperty(Player, "nextFrameIndex", {
     get() {
-        var index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
+        let index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
         return (index + 1) % this.presentation.frames.length;
     }
 });
@@ -322,10 +322,10 @@ Player.moveToFrame = function (index) {
 
     this.targetFrameIndex = index;
 
-    var layerProperties = null;
-    var durationMs = DEFAULT_TRANSITION_DURATION_MS;
-    var useTransitionPath = false;
-    var backwards = false;
+    let layerProperties = null;
+    let durationMs = DEFAULT_TRANSITION_DURATION_MS;
+    let useTransitionPath = false;
+    let backwards = false;
 
     if (index === this.nextFrameIndex) {
         durationMs = this.targetFrame.transitionDurationMs;
@@ -342,12 +342,12 @@ Player.moveToFrame = function (index) {
     this.playing = true;
 
     this.viewport.cameras.forEach(camera => {
-        var timingFunction = Timing[DEFAULT_TIMING_FUNCTION];
-        var relativeZoom = DEFAULT_RELATIVE_ZOOM;
-        var transitionPath = null;
+        let timingFunction = Timing[DEFAULT_TIMING_FUNCTION];
+        let relativeZoom = DEFAULT_RELATIVE_ZOOM;
+        let transitionPath = null;
 
         if (layerProperties) {
-            var lp = layerProperties[camera.layer.index];
+            let lp = layerProperties[camera.layer.index];
             relativeZoom = lp.transitionRelativeZoom;
             timingFunction = Timing[lp.transitionTimingFunction];
             if (useTransitionPath) {
@@ -386,8 +386,8 @@ Player.moveToLast = function () {
  * This method skips previous frames with 0 ms timeout.
  */
 Player.moveToPrevious = function () {
-    for (var index = this.previousFrameIndex; index >= 0; index --) {
-        var frame = this.presentation.frames[index];
+    for (let index = this.previousFrameIndex; index >= 0; index --) {
+        let frame = this.presentation.frames[index];
         if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
             this.moveToFrame(index);
             break;

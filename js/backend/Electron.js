@@ -13,16 +13,16 @@ import screenfull from "screenfull";
 import {remote} from "electron";
 import $ from "jquery";
 
-var win = remote.getCurrentWindow();
+const win = remote.getCurrentWindow();
 
 // Get the current working directory.
 // We use the PWD environment variable directly because
 // process.cwd() returns the installation path of Sozi.
-var cwd = process.env.PWD;
+const cwd = process.env.PWD;
 
 console.log("Current working dir: " + cwd);
 
-export var Electron = Object.create(AbstractBackend);
+export const Electron = Object.create(AbstractBackend);
 
 Electron.init = function (container, _) {
     AbstractBackend.init.call(this, container, "sozi-editor-backend-Electron-input", _("Open an SVG file from your computer"));
@@ -46,7 +46,7 @@ Electron.init = function (container, _) {
     // Open a file chooser if no file name was provided or
     // the file does not exist.
     if (remote.process.argv.length > 1) {
-        var fileName = path.resolve(cwd, remote.process.argv[1]);
+        const fileName = path.resolve(cwd, remote.process.argv[1]);
         try {
             fs.accessSync(fileName);
             this.load(fileName);
@@ -64,7 +64,7 @@ Electron.init = function (container, _) {
 };
 
 Electron.openFileChooser = function (_) {
-    var files = remote.dialog.showOpenDialog({
+    const files = remote.dialog.showOpenDialog({
         title: _("Choose an SVG file"),
         filters: [{name: _("SVG files"), extensions: ["svg"]}],
         properties: ["openFile"]
@@ -83,7 +83,7 @@ Electron.getLocation = function (fileDescriptor) {
 };
 
 Electron.find = function (name, location, callback) {
-    var fileName = path.join(location, name);
+    const fileName = path.join(location, name);
     fs.access(fileName, err => callback(err ? null : fileName));
 };
 
@@ -98,8 +98,8 @@ Electron.load = function (fileDescriptor) {
             // This includes a debouncing mechanism to ensure the file is in a stable
             // state when the "change" event is fired: the event is fired only if the
             // file has not changed for 100 ms.
-            var watcher = fs.watch(fileDescriptor);
-            var timer;
+            const watcher = fs.watch(fileDescriptor);
+            let timer;
             watcher.on("change", () => {
                 if (timer) {
                     clearTimeout(timer);
@@ -115,25 +115,25 @@ Electron.load = function (fileDescriptor) {
 };
 
 Electron.create = function (name, location, mimeType, data, callback) {
-    var fileName = path.join(location, name);
+    const fileName = path.join(location, name);
     // TODO use async file write
-    var err = fs.writeFileSync(fileName, data, { encoding: "utf-8" });
+    const err = fs.writeFileSync(fileName, data, { encoding: "utf-8" });
     callback(fileName, err);
 };
 
 Electron.save = function (fileDescriptor, data) {
     // TODO use async file write
-    var err = fs.writeFileSync(fileDescriptor, data, { encoding: "utf-8" });
+    const err = fs.writeFileSync(fileDescriptor, data, { encoding: "utf-8" });
     this.emit("save", fileDescriptor, err);
 };
 
 Electron.loadConfiguration = function () {
     function getItem(key, val) {
-        var result = localStorage.getItem(key);
+        const result = localStorage.getItem(key);
         return result !== null ? JSON.parse(result) : val;
     }
-    let [x, y] = win.getPosition();
-    let [w, h] = win.getSize();
+    const [x, y] = win.getPosition();
+    const [w, h] = win.getSize();
     win.setPosition(getItem("windowX", x), getItem("windowY", y));
     win.setSize(getItem("windowWidth", w), getItem("windowHeight", h));
     if (getItem("windowFullscreen", false)) {

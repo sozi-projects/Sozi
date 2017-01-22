@@ -7,7 +7,7 @@
 import {toArray} from "./utils";
 import {Frame} from "./model/Presentation";
 
-var SOZI_NS = "http://sozi.baierouge.fr";
+let SOZI_NS = "http://sozi.baierouge.fr";
 
 function parseBoolean(str) {
     return str === "true";
@@ -43,7 +43,7 @@ function convertTimingFunction(str) {
 
 function importAttribute(obj, propName, elts, attrName, fn) {
     fn = fn || function (x) { return x; };
-    for (var i = 0; i < elts.length; i ++) {
+    for (let i = 0; i < elts.length; i ++) {
         if (elts[i] && elts[i].hasAttribute(attrName)) {
             obj[propName] = fn(elts[i].getAttribute(attrName));
             return;
@@ -60,25 +60,25 @@ export function upgrade(pres, timeline) {
     // (ns1, ns2, ...). We first need to identify which one corresponds to the Sozi namespace.
 
     // Get the xmlns for the Sozi namespace
-    var soziNsAttrs = toArray(pres.document.root.attributes).filter(a => a.value === SOZI_NS);
+    let soziNsAttrs = toArray(pres.document.root.attributes).filter(a => a.value === SOZI_NS);
     if (!soziNsAttrs.length) {
         return;
     }
-    var soziPrefix = soziNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
+    let soziPrefix = soziNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
 
     // Get an ordered array of sozi:frame elements
-    var frameElts = toArray(pres.document.root.getElementsByTagName(soziPrefix + "frame"));
+    let frameElts = toArray(pres.document.root.getElementsByTagName(soziPrefix + "frame"));
     frameElts.sort((a, b) => parseInt(a.getAttribute(soziPrefix + "sequence")) - parseInt(b.getAttribute(soziPrefix + "sequence")));
 
     // The "default" pool contains all layers that have no corresponding
     // <layer> element in any frame. The properties for these layers are
     // set in the <frame> elements. This array is updated as we process
     // the sequence of frames.
-    var defaultLayers = pres.layers.slice();
+    let defaultLayers = pres.layers.slice();
 
     frameElts.forEach((frameElt, frameIndex) => {
         // Create a new frame with default camera states
-        var frame = Object.create(Frame).init(pres);
+        let frame = Object.create(Frame).init(pres);
         pres.frames.splice(frameIndex, 0, frame);
 
         // If this is not the first frame, the state is cloned from the previous frame.
@@ -87,22 +87,22 @@ export function upgrade(pres, timeline) {
         }
 
         // Collect layer elements inside the current frame element
-        var layerElts = toArray(frameElt.getElementsByTagName(soziPrefix + "layer"));
-        var layerEltsByGroupId = {};
+        let layerElts = toArray(frameElt.getElementsByTagName(soziPrefix + "layer"));
+        let layerEltsByGroupId = {};
         layerElts.forEach(layerElt => {
             layerEltsByGroupId[layerElt.getAttribute(soziPrefix + "group")] = layerElt;
         });
 
         pres.layers.forEach((layer, layerIndex) => {
-            var layerElt = null;
+            let layerElt = null;
             if (!layer.auto) {
                 // If the current layer has a corresponding <layer> element, use it
                 // and consider that the layer is no longer in the "default" pool.
                 // Else, if the layer is in the "default" pool, then it is managed
                 // by the <frame> element.
                 // Other frames are cloned from the predecessors.
-                var defaultLayerIndex = defaultLayers.indexOf(layer);
-                var groupId = layer.svgNodes[0].getAttribute("id");
+                let defaultLayerIndex = defaultLayers.indexOf(layer);
+                let groupId = layer.svgNodes[0].getAttribute("id");
                 if (groupId in layerEltsByGroupId) {
                     layerElt = layerEltsByGroupId[groupId];
                     if (defaultLayerIndex >= 0) {
@@ -112,12 +112,12 @@ export function upgrade(pres, timeline) {
                 }
             }
 
-            var layerProperties = frame.layerProperties[layerIndex];
-            var cameraState = frame.cameraStates[layerIndex];
+            let layerProperties = frame.layerProperties[layerIndex];
+            let cameraState = frame.cameraStates[layerIndex];
 
             // It the current layer is managed by a <frame> or <layer> element,
             // update the camera state for this layer.
-            var refElt;
+            let refElt;
             if (layerElt && layerElt.hasAttribute(soziPrefix + "refid")) {
                 refElt = pres.document.root.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
             }

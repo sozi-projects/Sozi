@@ -10,7 +10,7 @@ import diff from "virtual-dom/diff";
 import patch from "virtual-dom/patch";
 import $ from "jquery";
 
-export var VirtualDOMView = {
+export let VirtualDOMView = {
 
     init(container, controller) {
         this.container = container;
@@ -27,7 +27,7 @@ export var VirtualDOMView = {
     },
 
     repaint() {
-        var vtree = this.render();
+        let vtree = this.render();
         this.rootNode = patch(this.rootNode, diff(this.vtree, vtree));
         this.vtree = vtree;
     },

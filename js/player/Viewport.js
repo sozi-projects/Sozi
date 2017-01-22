@@ -8,24 +8,24 @@ import {Camera} from "./Camera";
 import {EventEmitter} from "events";
 
 // Use left mouse button to drag
-var DRAG_BUTTON = 0;
+const DRAG_BUTTON = 0;
 
 // Minimum distance to detect a drag action
-var DRAG_THRESHOLD_PX = 5;
+const DRAG_THRESHOLD_PX = 5;
 
 // Zoom factor for user zoom action (keyboard and mouse wheel)
-var SCALE_FACTOR = 1.05;
+const SCALE_FACTOR = 1.05;
 
 // Rotation step for user rotate action (keyboard and mouse wheel)
-var ROTATE_STEP = 5;
+const ROTATE_STEP = 5;
 
 // The delay after the last mouse wheel event
 // to consider that the wheel action is terminated
-var WHEEL_TIMEOUT_MS = 200;
+const WHEEL_TIMEOUT_MS = 200;
 
-var CLIP_BORDER = 3;
+const CLIP_BORDER = 3;
 
-export var Viewport = Object.create(EventEmitter.prototype);
+export const Viewport = Object.create(EventEmitter.prototype);
 
 /*
  * Initialize a new viewport for the given SVG root element.
@@ -38,7 +38,7 @@ export var Viewport = Object.create(EventEmitter.prototype);
  */
 Viewport.init = function (presentation, editMode) {
     EventEmitter.call(this);
-    
+
     this.presentation = presentation;
     this.editMode = !!editMode;
     this.cameras = [];
@@ -57,8 +57,8 @@ Viewport.init = function (presentation, editMode) {
 };
 
 Viewport.makeUniqueId = function (prefix) {
-    var suffix = Math.floor(1000 * (1 + 9 * Math.random()));
-    var id;
+    let suffix = Math.floor(1000 * (1 + 9 * Math.random()));
+    let id;
     do {
         id = prefix + suffix;
         suffix ++;
@@ -71,7 +71,7 @@ Viewport.onLoad = function () {
     this.svgRoot.addEventListener("mousemove", this.onMouseMove.bind(this), false);
     this.svgRoot.addEventListener("contextmenu", this.onContextMenu.bind(this), false);
 
-    var wheelEvent =
+    const wheelEvent =
         "onwheel" in document.createElement("div") ? "wheel" :  // Modern browsers support "wheel"
         document.onmousewheel !== undefined ? "mousewheel" :    // Webkit and IE support at least "mousewheel"
         "DOMMouseScroll";                                       // Firefox < 17
@@ -165,10 +165,10 @@ Viewport.onMouseDown = function (evt) {
 };
 
 Viewport.getClipMode = function (evt) {
-    var x = evt.clientX - this.x;
-    var y = evt.clientY - this.y;
+    const x = evt.clientX - this.x;
+    const y = evt.clientY - this.y;
 
-    var camerasByOperation = {
+    const camerasByOperation = {
         nw: [],
         sw: [],
         ne: [],
@@ -180,17 +180,17 @@ Viewport.getClipMode = function (evt) {
         move: []
     };
 
-    var selectedCameras = this.cameras.filter(camera => camera.selected);
+    const selectedCameras = this.cameras.filter(camera => camera.selected);
 
     selectedCameras.forEach(camera => {
-        var rect = camera.clipRect;
+        const rect = camera.clipRect;
         if (x >= rect.x - CLIP_BORDER && x <= rect.x + rect.width  + CLIP_BORDER &&
             y >= rect.y - CLIP_BORDER && y <= rect.y + rect.height + CLIP_BORDER) {
-            var w = x <= rect.x + CLIP_BORDER;
-            var e = x >= rect.x + rect.width - CLIP_BORDER - 1;
-            var n = y <= rect.y + CLIP_BORDER;
-            var s = y >= rect.y + rect.height - CLIP_BORDER - 1;
-            var operation =
+            const w = x <= rect.x + CLIP_BORDER;
+            const e = x >= rect.x + rect.width - CLIP_BORDER - 1;
+            const n = y <= rect.y + CLIP_BORDER;
+            const s = y >= rect.y + rect.height - CLIP_BORDER - 1;
+            const operation =
                 w || e || n || s ?
                     (n ? "n" : s ? "s" : "") +
                     (w ? "w" : e ? "e" : "") :
@@ -199,7 +199,7 @@ Viewport.getClipMode = function (evt) {
         }
     });
 
-    for (var operation in camerasByOperation) {
+    for (let operation in camerasByOperation) {
         if (camerasByOperation[operation].length) {
             return {
                 cameras: camerasByOperation[operation],
@@ -226,14 +226,14 @@ Viewport.getClipMode = function (evt) {
 Viewport.onDrag = function (evt) {
     evt.stopPropagation();
 
-    var xFromCenter = evt.clientX - this.x - this.width / 2;
-    var yFromCenter = evt.clientY - this.y - this.height / 2;
-    var angle = 180 * Math.atan2(yFromCenter, xFromCenter) / Math.PI;
-    var translateX = evt.clientX;
-    var translateY = evt.clientY;
-    var zoom = Math.sqrt(xFromCenter * xFromCenter + yFromCenter * yFromCenter);
-    var deltaX = evt.clientX - this.mouseDragX;
-    var deltaY = evt.clientY - this.mouseDragY;
+    const xFromCenter = evt.clientX - this.x - this.width / 2;
+    const yFromCenter = evt.clientY - this.y - this.height / 2;
+    let angle = 180 * Math.atan2(yFromCenter, xFromCenter) / Math.PI;
+    let translateX = evt.clientX;
+    let translateY = evt.clientY;
+    const zoom = Math.sqrt(xFromCenter * xFromCenter + yFromCenter * yFromCenter);
+    const deltaX = evt.clientX - this.mouseDragX;
+    const deltaY = evt.clientY - this.mouseDragY;
 
     // The drag action is confirmed when one of the mouse coordinates
     // has moved past the threshold
@@ -250,7 +250,7 @@ Viewport.onDrag = function (evt) {
     }
 
     if (this.mouseDragged) {
-        var mode = this.dragMode;
+        let mode = this.dragMode;
         if (mode == "translate") {
             if (evt.altKey) {
                 mode = "scale";
@@ -383,7 +383,7 @@ Viewport.onWheel = function (evt) {
     evt.stopPropagation();
     evt.preventDefault();
 
-    var delta = 0;
+    let delta = 0;
     if (evt.wheelDelta) {   // "mousewheel" event
         delta = evt.wheelDelta;
     }
@@ -483,14 +483,14 @@ Viewport.repaint = function () {
     this.svgRoot.setAttribute("height", this.height);
 
     this.update();
-    
+
     this.presentation.elementsToHide.forEach(id => {
-        var elt = document.getElementById(id);
+        const elt = document.getElementById(id);
         if (elt) {
             elt.style.visibility = this.showHiddenElements ? "visible" : "hidden";
         }
     });
-    
+
     return this;
 };
 
@@ -589,7 +589,7 @@ Viewport.clip = function (x0, y0, x1, y1) {
 
 Viewport.clipRel = function (w, n, e, s) {
     this.clipMode.cameras.forEach(camera => {
-        var rect = camera.clipRect;
+        const rect = camera.clipRect;
         if (w <= rect.width + e - 1 && n <= rect.height + s - 1) {
             camera.clip(rect.x + w,
                         rect.y + n,

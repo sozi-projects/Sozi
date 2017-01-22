@@ -11,7 +11,7 @@
  * Events:
  *  - change: when the content of the selection has changed
  */
-export var Selection = {
+export const Selection = {
 
     /*
      * Initialize a selection for a given presentation.
@@ -43,7 +43,7 @@ export var Selection = {
         if ("selectedFrames" in storable) {
             this.selectedFrames = [];
             storable.selectedFrames.forEach(frameId => {
-                var frame = this.presentation.getFrameWithId(frameId);
+                const frame = this.presentation.getFrameWithId(frameId);
                 if (frame) {
                     this.selectedFrames.push(frame);
                 }
@@ -53,7 +53,7 @@ export var Selection = {
         if ("selectedLayers" in storable) {
             this.selectedLayers = [];
             storable.selectedLayers.forEach(groupId => {
-                var layer = this.presentation.getLayerWithId(groupId);
+                const layer = this.presentation.getLayerWithId(groupId);
                 if (layer) {
                     this.selectedLayers.push(layer);
                 }
@@ -84,14 +84,14 @@ export var Selection = {
     },
 
     removeFrame(frame) {
-        var index = this.selectedFrames.indexOf(frame);
+        const index = this.selectedFrames.indexOf(frame);
         if (index >= 0) {
             this.selectedFrames.splice(index, 1);
         }
     },
 
     toggleFrameSelection(frame) {
-        var index = this.selectedFrames.indexOf(frame);
+        const index = this.selectedFrames.indexOf(frame);
         if (index >= 0) {
             this.selectedFrames.splice(index, 1);
         }
@@ -111,14 +111,14 @@ export var Selection = {
     },
 
     removeLayer(layer) {
-        var index = this.selectedLayers.indexOf(layer);
+        const index = this.selectedLayers.indexOf(layer);
         if (index >= 0) {
             this.selectedLayers.splice(index, 1);
         }
     },
 
     toggleLayerSelection(layer) {
-        var index = this.selectedLayers.indexOf(layer);
+        const index = this.selectedLayers.indexOf(layer);
         if (index >= 0) {
             this.selectedLayers.splice(index, 1);
         }

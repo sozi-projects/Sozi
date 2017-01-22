@@ -6,9 +6,9 @@
 
 import $ from "jquery";
 
-var PREVIEW_MARGIN = 15;
+const PREVIEW_MARGIN = 15;
 
-export var Preview = {
+export const Preview = {
 
     init(container, presentation, selection, viewport, controller) {
         this.container = container;
@@ -36,15 +36,15 @@ export var Preview = {
     },
 
     repaint() {
-        var parent = $(this.container).parent();
-        var parentWidth  = parent.innerWidth();
-        var parentHeight = parent.innerHeight();
+        const parent = $(this.container).parent();
+        const parentWidth  = parent.innerWidth();
+        const parentHeight = parent.innerHeight();
 
-        var maxWidth  = parentWidth  - 2 * PREVIEW_MARGIN;
-        var maxHeight = parentHeight - 2 * PREVIEW_MARGIN;
+        const maxWidth  = parentWidth  - 2 * PREVIEW_MARGIN;
+        const maxHeight = parentHeight - 2 * PREVIEW_MARGIN;
 
-        var width  = Math.min(maxWidth, maxHeight * this.presentation.aspectWidth / this.presentation.aspectHeight);
-        var height = Math.min(maxHeight, maxWidth * this.presentation.aspectHeight / this.presentation.aspectWidth);
+        const width  = Math.min(maxWidth, maxHeight * this.presentation.aspectWidth / this.presentation.aspectHeight);
+        const height = Math.min(maxHeight, maxWidth * this.presentation.aspectHeight / this.presentation.aspectWidth);
 
         $(this.container).css({
             left:   (parentWidth  - width)  / 2 + "px",
@@ -64,7 +64,7 @@ export var Preview = {
 
     onClick(button, evt) {
         if (button === 0 && evt.altKey) {
-            var referenceElement = evt.target;
+            const referenceElement = evt.target;
             if (referenceElement.hasAttribute("id") && referenceElement.getBBox) {
                 this.controller.setReferenceElement(referenceElement);
             }

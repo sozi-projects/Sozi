@@ -5,12 +5,9 @@
 "use strict";
 
 import {toArray} from "../utils";
-import {registerHandler, DefaultHandler} from "./SVGDocument";
+import {registerHandler, DefaultHandler} from "./SVGDocumentWrapper";
 
-// Constant: the Inkscape namespace
-var INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
-
-var AiHandler = Object.create(DefaultHandler);
+const AiHandler = Object.create(DefaultHandler);
 
 AiHandler.matches = function (svgRoot) {
     return /^http:\/\/ns.adobe.com\/AdobeIllustrator/.test(svgRoot.getAttribute("xmlns:i"));
@@ -20,12 +17,12 @@ AiHandler.transform = function (svgRoot) {
     toArray(svgRoot.childNodes).forEach(svgNode => {
         if (svgNode.localName === "switch") {
             // Remove first foreignObject child node
-            var foreignObject = svgNode.firstElementChild;
+            const foreignObject = svgNode.firstElementChild;
             if (foreignObject && foreignObject.localName === "foreignObject") {
                 svgNode.removeChild(foreignObject);
             }
             // Unwrap main group
-            var mainGroup = svgNode.firstElementChild;
+            let mainGroup = svgNode.firstElementChild;
             if (!mainGroup || mainGroup.localName !== "g" || mainGroup.getAttribute("i:extraneous") !== "self") {
                 mainGroup = svgNode;
             }

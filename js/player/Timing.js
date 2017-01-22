@@ -30,8 +30,8 @@ function bezierSlope(t, a, b, c) {
 }
 
 export function makeBezier(x1, y1, x2, y2) {
-    var ax = A(x1, x2), bx = B(x1, x2), cx = C(x1);
-    var ay = A(y1, y2), by = B(y1, y2), cy = C(y1);
+    const ax = A(x1, x2), bx = B(x1, x2), cx = C(x1);
+    const ay = A(y1, y2), by = B(y1, y2), cy = C(y1);
 
     if (x1 === y1 && x2 === y2) {
         // Linear
@@ -42,13 +42,13 @@ export function makeBezier(x1, y1, x2, y2) {
 
     return function(x) {
         // Newton raphson iteration
-        var t = x;
-        for (var i = 0; i < 4; i++) {
-            var currentSlope = bezierSlope(t, ax, bx, cx);
+        let t = x;
+        for (let i = 0; i < 4; i++) {
+            const currentSlope = bezierSlope(t, ax, bx, cx);
             if (currentSlope === 0.0) {
                 break;
             }
-            var currentX = bezier(t, ax, bx, cx) - x;
+            const currentX = bezier(t, ax, bx, cx) - x;
             t -= currentX / currentSlope;
         }
         return bezier(t, ay, by, cy);
@@ -56,28 +56,28 @@ export function makeBezier(x1, y1, x2, y2) {
 }
 
 export function makeSteps(n, direction) {
-    var trunc = direction === "start" ? Math.ceil : Math.floor;
+    const trunc = direction === "start" ? Math.ceil : Math.floor;
     return function (x) {
         return trunc(n * x) / n;
     };
 }
 
-export var linear = makeBezier(0.0,  0.0, 1.0,  1.0);
+export const linear = makeBezier(0.0,  0.0, 1.0,  1.0);
 linear.reverse = linear;
 
-export var ease = makeBezier(0.25, 0.1, 0.25, 1.0);
+export const ease = makeBezier(0.25, 0.1, 0.25, 1.0);
 ease.reverse = ease;
 
-export var easeIn = makeBezier(0.42, 0.0, 1.0,  1.0);
-export var easeOut = makeBezier(0.0,  0.0, 0.58, 1.0);
+export const easeIn = makeBezier(0.42, 0.0, 1.0,  1.0);
+export const easeOut = makeBezier(0.0,  0.0, 0.58, 1.0);
 easeIn.reverse = easeOut;
 easeOut.reverse = easeIn;
 
-export var easeInOut = makeBezier(0.42, 0.0, 0.58, 1.0);
+export const easeInOut = makeBezier(0.42, 0.0, 0.58, 1.0);
 easeInOut.reverse = easeInOut;
 
-export var stepStart = makeSteps(1, "start");
-export var stepEnd = makeSteps(1, "end");
+export const stepStart = makeSteps(1, "start");
+export const stepEnd = makeSteps(1, "end");
 stepStart.reverse = stepEnd;
 stepEnd.reverse = stepStart;
 

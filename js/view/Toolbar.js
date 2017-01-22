@@ -10,7 +10,7 @@ import screenfull from "screenfull";
 import pkg from "../../package.json";
 import $ from "jquery";
 
-export var Toolbar = Object.create(VirtualDOMView);
+export let Toolbar = Object.create(VirtualDOMView);
 
 Toolbar.init = function (container, storage, presentation, viewport, controller, locale) {
     VirtualDOMView.init.call(this, container, controller);
@@ -24,9 +24,9 @@ Toolbar.init = function (container, storage, presentation, viewport, controller,
 };
 
 Toolbar.render = function () {
-    var _ = this.gettext;
-    var c = this.controller;
-    var v = this.viewport;
+    let _ = this.gettext;
+    let c = this.controller;
+    let v = this.viewport;
     return h("div", [
         h("span.group", [
             _("Aspect ratio: "),
@@ -38,7 +38,7 @@ Toolbar.render = function () {
                 size: "3",
                 value: this.presentation.aspectWidth,
                 onchange() {
-                    var width = parseInt(this.value);
+                    let width = parseInt(this.value);
                     if (!width.isNaN) {
                         c.setAspectWidth(width);
                     }
@@ -53,7 +53,7 @@ Toolbar.render = function () {
                 size: "3",
                 value: this.presentation.aspectHeight,
                 onchange() {
-                    var height = parseInt(this.value);
+                    let height = parseInt(this.value);
                     if (!height.isNaN) {
                         c.setAspectHeight(height);
                     }

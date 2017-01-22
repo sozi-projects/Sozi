@@ -8,9 +8,9 @@ import {Frame, LayerProperties} from "./model/Presentation";
 import {CameraState} from "./model/CameraState";
 import {EventEmitter} from "events";
 
-export var Controller = Object.create(EventEmitter.prototype);
+export const Controller = Object.create(EventEmitter.prototype);
 
-var UNDO_STACK_LIMIT = 100;
+const UNDO_STACK_LIMIT = 100;
 
 Controller.init = function (storage, presentation, selection, viewport) {
     EventEmitter.call(this);
@@ -64,10 +64,10 @@ Controller.setSVGDocument = function (svgDocument) {
  * end of the presentation.
  */
 Controller.addFrame = function () {
-    var frameIndex;
-
     // Create a new frame
-    var frame = Object.create(Frame);
+    const frame = Object.create(Frame);
+
+    let frameIndex;
 
     if (this.selection.currentFrame) {
         // If a frame is selected, insert the new frame after.
@@ -108,8 +108,8 @@ Controller.addFrame = function () {
  */
 Controller.deleteFrames = function () {
     // Sort the selected frames by presentation order.
-    var framesByIndex = this.selection.selectedFrames.slice().sort((a, b) => a.index - b.index);
-    var frameIndices = framesByIndex.map(frame => frame.index);
+    const framesByIndex = this.selection.selectedFrames.slice().sort((a, b) => a.index - b.index);
+    const frameIndices = framesByIndex.map(frame => frame.index);
 
     this.perform(
         function onDo() {
@@ -142,8 +142,8 @@ Controller.deleteFrames = function () {
  */
 Controller.moveFrames = function (toFrameIndex) {
     // Sort the selected frames by presentation order.
-    var framesByIndex = this.selection.selectedFrames.slice().sort((a, b) => a.index - b.index);
-    var frameIndices = framesByIndex.map(frame => frame.index);
+    const framesByIndex = this.selection.selectedFrames.slice().sort((a, b) => a.index - b.index);
+    const frameIndices = framesByIndex.map(frame => frame.index);
 
     // Compute the new target frame index after the selection has been removed.
     framesByIndex.forEach(frame => {
@@ -153,17 +153,17 @@ Controller.moveFrames = function (toFrameIndex) {
     });
 
     // Keep a copy of the current frame list for the Undo operation.
-    var savedFrames = this.presentation.frames.slice();
+    const savedFrames = this.presentation.frames.slice();
 
     // Create a new frame list by removing the selected frames
     // and inserting them at the target frame index.
-    var reorderedFrames = this.presentation.frames.filter(frame => !this.selection.hasFrames([frame]));
+    const reorderedFrames = this.presentation.frames.filter(frame => !this.selection.hasFrames([frame]));
     Array.prototype.splice.apply(reorderedFrames, [toFrameIndex, 0].concat(framesByIndex));
 
     // Identify the frames and layers that must be unlinked after the move operation.
     // If a linked frame is moved after a frame to which it was not previously linked,
     // then it will be unlinked.
-    var unlink = reorderedFrames.map((frame, frameIndex) =>
+    const unlink = reorderedFrames.map((frame, frameIndex) =>
         frame.layerProperties.map((layer, layerIndex) =>
             layer.link && (frameIndex === 0 || !frame.isLinkedTo(reorderedFrames[frameIndex - 1], layerIndex))
         )
@@ -250,8 +250,8 @@ Controller.selectFrame = function (index) {
  */
 Controller.selectRelativeFrame = function (relativeIndex) {
     if (this.selection.currentFrame) {
-        var targetIndex = this.selection.currentFrame.index + relativeIndex;
-        var lastIndex = this.presentation.frames.length - 1;
+        const lastIndex = this.presentation.frames.length - 1;
+        let targetIndex = this.selection.currentFrame.index + relativeIndex;
         targetIndex = targetIndex < 0 ? 0 : (targetIndex > lastIndex ? lastIndex : targetIndex);
         this.updateLayerAndFrameSelection(false, false, this.selection.selectedLayers, targetIndex);
     }
@@ -266,7 +266,7 @@ Controller.selectRelativeFrame = function (relativeIndex) {
  *  - frameIndex: The index of a frame in the presentation
  */
 Controller.updateFrameSelection = function (single, sequence, frameIndex) {
-    var frame = this.presentation.frames[frameIndex];
+    const frame = this.presentation.frames[frameIndex];
     if (single) {
         this.selection.toggleFrameSelection(frame);
     }
@@ -275,10 +275,9 @@ Controller.updateFrameSelection = function (single, sequence, frameIndex) {
             this.selection.addFrame(frame);
         }
         else {
-            var endIndex = frame.index;
-            var startIndex = this.selection.currentFrame.index;
-            var inc = startIndex <= endIndex ? 1 : -1;
-            for (var i = startIndex + inc; startIndex <= endIndex ? i <= endIndex : i >= endIndex; i += inc) {
+            const startIndex = this.selection.currentFrame.index;
+            const inc = startIndex <= frameIndex ? 1 : -1;
+            for (let i = startIndex + inc; startIndex <= frameIndex ? i <= frameIndex : i >= frameIndex; i += inc) {
                 this.selection.toggleFrameSelection(this.presentation.frames[i]);
             }
         }
@@ -335,7 +334,7 @@ Controller.updateLayerSelection = function (single, sequence, layers) {
  *  - frameIndex: The index of a frame in the presentation
  */
 Controller.updateLayerAndFrameSelection = function (single, sequence, layers, frameIndex) {
-    var frame = this.presentation.frames[frameIndex];
+    const frame = this.presentation.frames[frameIndex];
     if (single) {
         if (this.selection.hasLayers(layers) && this.selection.hasFrames([frame])) {
             layers.forEach(layer => {
@@ -355,10 +354,9 @@ Controller.updateLayerAndFrameSelection = function (single, sequence, layers, fr
             this.selection.addFrame(frame);
         }
         else {
-            var endIndex = frame.index;
-            var startIndex = this.selection.currentFrame.index;
-            var inc = startIndex <= endIndex ? 1 : -1;
-            for (var i = startIndex + inc; startIndex <= endIndex ? i <= endIndex : i >= endIndex; i += inc) {
+            const startIndex = this.selection.currentFrame.index;
+            const inc = startIndex <= frameIndex ? 1 : -1;
+            for (let i = startIndex + inc; startIndex <= frameIndex ? i <= frameIndex : i >= frameIndex; i += inc) {
                 this.selection.toggleFrameSelection(this.presentation.frames[i]);
             }
         }
@@ -403,15 +401,15 @@ Controller.updateLayerVisibility = function (layers) {
 };
 
 Controller.fitElement = function () {
-    var currentFrame = this.selection.currentFrame;
+    const currentFrame = this.selection.currentFrame;
     if (currentFrame) {
-        var savedFrame = Object.create(Frame).initFrom(currentFrame, true);
-        var modifiedFrame = Object.create(Frame).initFrom(currentFrame, true);
+        const savedFrame = Object.create(Frame).initFrom(currentFrame, true);
+        const modifiedFrame = Object.create(Frame).initFrom(currentFrame, true);
 
-        var hasReferenceElement = false;
+        let hasReferenceElement = false;
         this.selection.selectedLayers.forEach(layer => {
-            var id = currentFrame.layerProperties[layer.index].referenceElementId;
-            var elt = this.presentation.document.root.getElementById(id);
+            const id = currentFrame.layerProperties[layer.index].referenceElementId;
+            const elt = this.presentation.document.root.getElementById(id);
             if (elt) {
                 hasReferenceElement = true;
                 modifiedFrame.cameraStates[layer.index].setAtElement(elt).resetClipping();
@@ -439,10 +437,10 @@ Controller.fitElement = function () {
 };
 
 Controller.getFrameProperty = function (property) {
-    var values = [];
+    const values = [];
 
     this.selection.selectedFrames.forEach(frame => {
-        var current = frame[property];
+        const current = frame[property];
         if (values.indexOf(current) < 0) {
             values.push(current);
         }
@@ -452,8 +450,8 @@ Controller.getFrameProperty = function (property) {
 };
 
 Controller.setFrameProperty = function (propertyName, propertyValue) {
-    var selectedFrames = this.selection.selectedFrames.slice();
-    var savedValues = selectedFrames.map(frame => frame[propertyName]);
+    const selectedFrames = this.selection.selectedFrames.slice();
+    const savedValues = selectedFrames.map(frame => frame[propertyName]);
 
     this.perform(
         function onDo() {
@@ -472,11 +470,11 @@ Controller.setFrameProperty = function (propertyName, propertyValue) {
 };
 
 Controller.getLayerProperty = function (property) {
-    var values = [];
+    const values = [];
 
     this.selection.selectedFrames.forEach(frame => {
         this.selection.selectedLayers.forEach(layer => {
-            var current = frame.layerProperties[layer.index][property];
+            const current = frame.layerProperties[layer.index][property];
             if (values.indexOf(current) < 0) {
                 values.push(current);
             }
@@ -487,23 +485,21 @@ Controller.getLayerProperty = function (property) {
 };
 
 Controller.setLayerProperty = function (propertyName, propertyValue) {
-    var selectedFrames = this.selection.selectedFrames.slice();
-    var selectedLayers = this.selection.selectedLayers.slice();
-    var savedValues = selectedFrames.map(
+    const selectedFrames = this.selection.selectedFrames.slice();
+    const selectedLayers = this.selection.selectedLayers.slice();
+    const savedValues = selectedFrames.map(
         frame => selectedLayers.map(
             layer => frame.layerProperties[layer.index][propertyName]
         )
     );
 
-    var link = propertyName === "link" && propertyValue;
+    const link = propertyName === "link" && propertyValue;
 
-    if (link) {
-        var savedCameraStates = selectedFrames.map(
-            frame => selectedLayers.map(
-                layer => Object.create(CameraState).initFrom(frame.cameraStates[layer.index])
-            )
-        );
-    }
+    const savedCameraStates = selectedFrames.map(
+        frame => selectedLayers.map(
+            layer => Object.create(CameraState).initFrom(frame.cameraStates[layer.index])
+        )
+    );
 
     this.perform(
         function onDo() {
@@ -533,11 +529,11 @@ Controller.setLayerProperty = function (propertyName, propertyValue) {
 };
 
 Controller.getCameraProperty = function (property) {
-    var values = [];
+    const values = [];
 
     this.selection.selectedFrames.forEach(frame => {
         this.selection.selectedLayers.forEach(layer => {
-            var current = frame.cameraStates[layer.index][property];
+            const current = frame.cameraStates[layer.index][property];
             if (values.indexOf(current) < 0) {
                 values.push(current);
             }
@@ -548,10 +544,10 @@ Controller.getCameraProperty = function (property) {
 };
 
 Controller.setCameraProperty = function (propertyName, propertyValue) {
-    var selectedFrames = this.selection.selectedFrames.slice();
-    var selectedLayers = this.selection.selectedLayers.slice();
+    const selectedFrames = this.selection.selectedFrames.slice();
+    const selectedLayers = this.selection.selectedLayers.slice();
 
-    var savedValues = selectedFrames.map(
+    const savedValues = selectedFrames.map(
         frame => selectedLayers.map(
             layer => ({
                 prop: frame.cameraStates[layer.index][propertyName],
@@ -587,15 +583,15 @@ Controller.setCameraProperty = function (propertyName, propertyValue) {
 };
 
 Controller.updateCameraStates = function () {
-    var currentFrame = this.selection.currentFrame;
+    const currentFrame = this.selection.currentFrame;
     if (currentFrame) {
-        var savedFrame = Object.create(Frame).initFrom(currentFrame);
-        var modifiedFrame = Object.create(Frame).initFrom(currentFrame);
+        const savedFrame = Object.create(Frame).initFrom(currentFrame);
+        const modifiedFrame = Object.create(Frame).initFrom(currentFrame);
 
         this.viewport.cameras.forEach(camera => {
             if (camera.selected) {
-                var cameraIndex = this.viewport.cameras.indexOf(camera);
-                var layerProperties = modifiedFrame.layerProperties[cameraIndex];
+                const cameraIndex = this.viewport.cameras.indexOf(camera);
+                const layerProperties = modifiedFrame.layerProperties[cameraIndex];
 
                 // Update the camera states of the current frame
                 modifiedFrame.cameraStates[cameraIndex].initFrom(camera);
@@ -605,7 +601,7 @@ Controller.updateCameraStates = function () {
 
                 // Choose reference SVG element for frame
                 if (layerProperties.referenceElementAuto) {
-                    var refElt = camera.getCandidateReferenceElement();
+                    const refElt = camera.getCandidateReferenceElement();
                     if (refElt) {
                         layerProperties.referenceElementId = refElt.getAttribute("id");
                     }
@@ -629,13 +625,13 @@ Controller.updateCameraStates = function () {
 };
 
 Controller.setReferenceElement = function (referenceElement) {
-    var currentFrame = this.selection.currentFrame;
+    const currentFrame = this.selection.currentFrame;
     if (currentFrame) {
-        var properties = this.viewport.cameras.map((camera, cameraIndex) => {
+        const properties = this.viewport.cameras.map((camera, cameraIndex) => {
             if (camera.selected) {
-                var layerProperties = currentFrame.layerProperties[cameraIndex];
-                var savedProperties = Object.create(LayerProperties).initFrom(layerProperties);
-                var modifiedProperties = Object.create(LayerProperties).initFrom(layerProperties);
+                const layerProperties = currentFrame.layerProperties[cameraIndex];
+                const savedProperties = Object.create(LayerProperties).initFrom(layerProperties);
+                const modifiedProperties = Object.create(LayerProperties).initFrom(layerProperties);
 
                 // Mark the modified layers as unlinked in the current frame
                 modifiedProperties.link = false;
@@ -671,7 +667,7 @@ Controller.setReferenceElement = function (referenceElement) {
 };
 
 Controller.setAspectWidth = function (width) {
-    var widthPrev = this.presentation.aspectWidth;
+    const widthPrev = this.presentation.aspectWidth;
     this.perform(
         function onDo() {
             this.presentation.aspectWidth = width;
@@ -685,7 +681,7 @@ Controller.setAspectWidth = function (width) {
 };
 
 Controller.setAspectHeight = function (height) {
-    var heightPrev = this.presentation.aspectHeight;
+    const heightPrev = this.presentation.aspectHeight;
     this.perform(
         function onDo() {
             this.presentation.aspectHeight = height;
@@ -704,7 +700,7 @@ Controller.setDragMode = function (dragMode) {
 };
 
 Controller.perform = function (onDo, onUndo, updateSelection, events) {
-    var action = {onDo, onUndo, updateSelection, events};
+    const action = {onDo, onUndo, updateSelection, events};
     if (updateSelection) {
         action.selectedFrames = this.selection.selectedFrames.slice();
         action.selectedLayers = this.selection.selectedLayers.slice();
@@ -722,7 +718,7 @@ Controller.undo = function () {
     if (!this.undoStack.length) {
         return;
     }
-    var action = this.undoStack.pop();
+    const action = this.undoStack.pop();
     this.redoStack.push(action);
     action.onUndo.call(this);
     if (action.updateSelection) {
@@ -736,7 +732,7 @@ Controller.redo = function () {
     if (!this.redoStack.length) {
         return;
     }
-    var action = this.redoStack.pop();
+    const action = this.redoStack.pop();
     this.undoStack.push(action);
     action.onDo.call(this);
     action.events.forEach(evt => { this.emit(evt); });

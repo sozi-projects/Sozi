@@ -10,7 +10,7 @@ function copyIfSet(dest, src, prop) {
     }
 }
 
-export var CameraState = {
+export const CameraState = {
     opacity: 1.0,
     angle: 0,
     clipped: false,
@@ -22,7 +22,7 @@ export var CameraState = {
     init(svgRoot) {
         this.svgRoot = svgRoot;
 
-        var initialBBox = svgRoot.getBBox();
+        const initialBBox = svgRoot.getBBox();
 
         // Center coordinates
         this.cx = initialBBox.x + initialBBox.width / 2;
@@ -113,35 +113,35 @@ export var CameraState = {
         deltaAngle = deltaAngle || 0;
 
         // Read the raw bounding box of the given SVG element
-        var b = svgElement.getBBox();
+        const bbox = svgElement.getBBox();
 
         // Compute the raw coordinates of the center
         // of the given SVG element
-        var c = this.svgRoot.createSVGPoint();
-        c.x = b.x + b.width  / 2;
-        c.y = b.y + b.height / 2;
+        let bboxCenter = this.svgRoot.createSVGPoint();
+        bboxCenter.x = bbox.x + bbox.width  / 2;
+        bboxCenter.y = bbox.y + bbox.height / 2;
 
         // Find the transform group corresponding to the layer
         // that contains the given element
-        var layerGroup = svgElement;
+        let layerGroup = svgElement;
         while (layerGroup.parentNode.parentNode !== this.svgRoot) {
             layerGroup = layerGroup.parentNode;
         }
 
         // Compute the coordinates of the center of the given SVG element
         // after its current transformation
-        var matrix = layerGroup.getCTM().inverse().multiply(svgElement.getCTM());
-        c = c.matrixTransform(matrix);
+        const matrix = layerGroup.getCTM().inverse().multiply(svgElement.getCTM());
+        bboxCenter = bboxCenter.matrixTransform(matrix);
 
         // Compute the scaling factor applied to the given SVG element
-        var scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
+        const scale = Math.sqrt(matrix.a * matrix.a + matrix.b * matrix.b);
 
         // Update the camera to match the bounding box information of the
         // given SVG element after its current transformation
-        this.cx     = c.x + deltaX;
-        this.cy     = c.y + deltaY;
-        this.width  = b.width  * scale * widthFactor;
-        this.height = b.height * scale * heightFactor;
+        this.cx     = bboxCenter.x + deltaX;
+        this.cy     = bboxCenter.y + deltaY;
+        this.width  = bbox.width  * scale * widthFactor;
+        this.height = bbox.height * scale * heightFactor;
         this.angle  = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI + deltaAngle;
 
         return this;
@@ -154,7 +154,7 @@ export var CameraState = {
     },
 
     offsetFromElement(svgElement) {
-        var cam = Object.create(CameraState).init(this.svgRoot).setAtElement(svgElement);
+        const cam = Object.create(CameraState).init(this.svgRoot).setAtElement(svgElement);
         return {
             deltaX: this.cx - cam.cx,
             deltaY: this.cy - cam.cy,

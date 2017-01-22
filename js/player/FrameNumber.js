@@ -7,7 +7,7 @@
 import * as FrameList from "./FrameList";
 
 export function init(player) {
-    var frameNumber = document.querySelector(".sozi-frame-number");
+    const frameNumber = document.querySelector(".sozi-frame-number");
 
     player.addListener("frameChange", () => {
         frameNumber.innerHTML = player.currentFrameIndex + 1;

@@ -6,7 +6,7 @@
 
 import "./backend";
 import "./svg";
-import {SVGDocument} from "./svg/SVGDocument";
+import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
 import {Presentation} from "./model/Presentation";
 import {Selection} from "./model/Selection";
 import {Storage} from "./Storage";
@@ -32,24 +32,24 @@ window.addEventListener("load", () => {
 
     Preview.init(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller);
 
-    var locale = i18n.init();
+    let locale = i18n.init();
     Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, locale);
     Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, locale);
     Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, locale);
-    Storage.init(Controller, SVGDocument, Presentation, Selection, Timeline, locale);
+    Storage.init(Controller, SVGDocumentWrapper, Presentation, Selection, Timeline, locale);
 
-    var body = $("body");
-    var left = $(".left");
-    var right = $(".right");
-    var top = $(".top");
-    var bottom = $(".bottom");
-    var hsplitter = $(".hsplitter");
-    var vsplitter = $(".vsplitter");
+    let body = $("body");
+    let left = $(".left");
+    let right = $(".right");
+    let top = $(".top");
+    let bottom = $(".bottom");
+    let hsplitter = $(".hsplitter");
+    let vsplitter = $(".vsplitter");
 
     hsplitter.mousedown((evt) => {
-        var startY = hsplitter.offset().top - evt.clientY;
+        let startY = hsplitter.offset().top - evt.clientY;
         body.mousemove((evt) => {
-            var topHeightPercent = 100 * (startY + evt.clientY) / $(window).height();
+            let topHeightPercent = 100 * (startY + evt.clientY) / $(window).height();
             top.css({ height: topHeightPercent + "%" });
             hsplitter.css({ top: topHeightPercent + "%" });
             bottom.css({height: `calc(${100 - topHeightPercent}% - ${hsplitter.height()}px)`});
@@ -62,9 +62,9 @@ window.addEventListener("load", () => {
     });
 
     vsplitter.mousedown((evt) => {
-        var startX = vsplitter.offset().left - evt.clientX;
+        let startX = vsplitter.offset().left - evt.clientX;
         body.mousemove((evt) => {
-            var leftWidthPercent = 100 * (startX + evt.clientX) / $(window).width();
+            let leftWidthPercent = 100 * (startX + evt.clientX) / $(window).width();
             left.css({ width: leftWidthPercent + "%" });
             vsplitter.css({ left: leftWidthPercent + "%" });
             right.css({width: `calc(${100 - leftWidthPercent}% - ${vsplitter.width()}px)` });

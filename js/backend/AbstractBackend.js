@@ -6,13 +6,13 @@
 
 import {EventEmitter} from "events";
 
-export var backendList = [];
+export const backendList = [];
 
 export function addBackend(backend) {
     backendList.push(backend);
 }
 
-export var AbstractBackend = Object.create(EventEmitter.prototype);
+export const AbstractBackend = Object.create(EventEmitter.prototype);
 
 AbstractBackend.init = function (container, buttonId, buttonLabel) {
     EventEmitter.call(this);

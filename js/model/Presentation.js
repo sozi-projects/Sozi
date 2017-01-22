@@ -13,7 +13,7 @@ function copyIfSet(dest, src, prop) {
     }
 }
 
-export var LayerProperties = {
+export const LayerProperties = {
 
     link: false,
     referenceElementId: "",
@@ -84,12 +84,12 @@ export var LayerProperties = {
     },
 
     set referenceElementHide(hide) {
-        var hidden = this.referenceElementHide;
+        const hidden = this.referenceElementHide;
         if (hide && !hidden) {
             this.frame.presentation.elementsToHide.push(this.referenceElementId);
         }
         else if (!hide && hidden) {
-            var index = this.frame.presentation.elementsToHide.indexOf(this.referenceElementId);
+            const index = this.frame.presentation.elementsToHide.indexOf(this.referenceElementId);
             this.frame.presentation.elementsToHide.splice(index, 1);
         }
         if (this.referenceElement) {
@@ -102,12 +102,12 @@ export var LayerProperties = {
     },
 
     set transitionPathHide(hide) {
-        var hidden = this.transitionPathHide;
+        const hidden = this.transitionPathHide;
         if (hide && !hidden) {
             this.frame.presentation.elementsToHide.push(this.transitionPathId);
         }
         else if (!hide && hidden) {
-            var index = this.frame.presentation.elementsToHide.indexOf(this.transitionPathId);
+            const index = this.frame.presentation.elementsToHide.indexOf(this.transitionPathId);
             this.frame.presentation.elementsToHide.splice(index, 1);
         }
         if (this.transitionPath) {
@@ -116,7 +116,7 @@ export var LayerProperties = {
     }
 };
 
-export var Frame = {
+export const Frame = {
 
     // Default values for new frames
     title: "New frame",
@@ -151,16 +151,16 @@ export var Frame = {
     },
 
     toStorable() {
-        var layerProperties = {};
-        var cameraStates = {};
-        var cameraOffsets = {};
+        const layerProperties = {};
+        const cameraStates = {};
+        const cameraOffsets = {};
 
         this.presentation.layers.forEach((layer, index) => {
-            var lp = this.layerProperties[index];
-            var cs = this.cameraStates[index];
-            var re = lp.referenceElement;
+            const lp = this.layerProperties[index];
+            const cs = this.cameraStates[index];
+            const re = lp.referenceElement;
 
-            var key = layer.groupId;
+            const key = layer.groupId;
             layerProperties[key] = lp.toStorable();
             cameraStates[key] = cs.toStorable();
             if (re) {
@@ -183,14 +183,14 @@ export var Frame = {
     },
 
     toMinimalStorable() {
-        var layerProperties = {};
-        var cameraStates = {};
+        const layerProperties = {};
+        const cameraStates = {};
 
         this.presentation.layers.forEach((layer, index) => {
-            var lp = this.layerProperties[index];
-            var cs = this.cameraStates[index];
+            const lp = this.layerProperties[index];
+            const cs = this.cameraStates[index];
 
-            var key = layer.groupId;
+            const key = layer.groupId;
             layerProperties[key] = lp.toMinimalStorable();
             cameraStates[key] = cs.toMinimalStorable();
         });
@@ -221,15 +221,15 @@ export var Frame = {
         this.presentation.layers.forEach((layer, index) => {
             // If the current layer has been added to the SVG after the frame
             // was created, copy the properties of the "auto" layer.
-            var key = layer.groupId in storable.layerProperties ? layer.groupId : "__sozi_auto__";
+            const key = layer.groupId in storable.layerProperties ? layer.groupId : "__sozi_auto__";
             if (key in storable.layerProperties) {
-                var lp = this.layerProperties[index];
+                const lp = this.layerProperties[index];
                 lp.fromStorable(storable.layerProperties[key]);
 
-                var cs = this.cameraStates[index].fromStorable(storable.cameraStates[key]);
-                var re = lp.referenceElement;
+                const cs = this.cameraStates[index].fromStorable(storable.cameraStates[key]);
+                const re = lp.referenceElement;
                 if (re) {
-                    var ofs = storable.cameraOffsets[key] || {};
+                    const ofs = storable.cameraOffsets[key] || {};
                     cs.setAtElement(re, ofs.deltaX, ofs.deltaY,
                                     ofs.widthFactor, ofs.heightFactor,
                                     ofs.deltaAngle);
@@ -261,7 +261,7 @@ export var Frame = {
      * in the layer at the given index.
      */
     isLinkedTo(frame, layerIndex) {
-        var [first, second] = this.index < frame.index ? [this, frame] : [frame, this];
+        const [first, second] = this.index < frame.index ? [this, frame] : [frame, this];
         return second.layerProperties[layerIndex].link &&
                (second.index === first.index + 1 ||
                 second.index > first.index &&
@@ -269,7 +269,7 @@ export var Frame = {
     }
 };
 
-export var Layer = {
+export const Layer = {
 
     init(presentation, label, auto) {
         this.presentation = presentation;
@@ -299,9 +299,9 @@ export var Layer = {
 };
 
 // Constant: the SVG namespace
-var SVG_NS = "http://www.w3.org/2000/svg";
+const SVG_NS = "http://www.w3.org/2000/svg";
 
-export var Presentation = {
+export const Presentation = {
 
     aspectWidth: 4,
     aspectHeight: 3,
@@ -319,17 +319,17 @@ export var Presentation = {
         this.elementsToHide = [];
 
         // Create an empty wrapper layer for elements that do not belong to a valid layer
-        var autoLayer = Object.create(Layer).init(this, "auto", true);
+        const autoLayer = Object.create(Layer).init(this, "auto", true);
 
         toArray(this.document.root.childNodes).forEach(svgNode => {
             if (svgNode.localName === "g") {
-                var nodeId = svgNode.getAttribute("id");
+                const nodeId = svgNode.getAttribute("id");
                 if (nodeId === null) {
                     autoLayer.svgNodes.push(svgNode);
                 }
                 else {
                     // Add the current node as a new layer.
-                    var layer = Object.create(Layer).init(this,
+                    const layer = Object.create(Layer).init(this,
                         this.document.handler.getLabel(svgNode) || ("#" + nodeId),
                         false);
                     layer.svgNodes.push(svgNode);
@@ -373,14 +373,14 @@ export var Presentation = {
     },
 
     get title() {
-        var svgTitles = this.document.root.getElementsByTagNameNS(SVG_NS, "title");
+        const svgTitles = this.document.root.getElementsByTagNameNS(SVG_NS, "title");
         return svgTitles.length ? svgTitles[0].firstChild.wholeText.trim() : "Untitled";
     },
 
     makeFrameId() {
-        var prefix = "frame";
-        var suffix = Math.floor(1000 * (1 + 9 * Math.random()));
-        var frameId;
+        const prefix = "frame";
+        let suffix = Math.floor(1000 * (1 + 9 * Math.random()));
+        let frameId;
         do {
             frameId = prefix + suffix;
             suffix ++;
@@ -389,7 +389,7 @@ export var Presentation = {
     },
 
     getFrameWithId(frameId) {
-        for (var i = 0; i < this.frames.length; i ++) {
+        for (let i = 0; i < this.frames.length; i ++) {
             if (this.frames[i].frameId === frameId) {
                 return this.frames[i];
             }
@@ -398,7 +398,7 @@ export var Presentation = {
     },
 
     getLayerWithId(groupId) {
-        for (var i = 0; i < this.layers.length; i ++) {
+        for (let i = 0; i < this.layers.length; i ++) {
             if (this.layers[i].groupId === groupId) {
                 return this.layers[i];
             }
@@ -411,11 +411,11 @@ export var Presentation = {
             return;
         }
 
-        var firstCameraStates = this.frames[0].cameraStates;
-        var defaultCameraState = firstCameraStates[firstCameraStates.length - 1];
+        const firstCameraStates = this.frames[0].cameraStates;
+        const defaultCameraState = firstCameraStates[firstCameraStates.length - 1];
 
         this.layers.forEach((layer, layerIndex) => {
-            var cameraState = defaultCameraState;
+            let cameraState = defaultCameraState;
 
             this.frames.forEach(frame => {
                 if (frame.layerProperties[layerIndex].link) {

@@ -13,7 +13,7 @@ import {toArray} from "./utils";
 import $ from "jquery";
 import path from "path";
 
-export var Storage = Object.create(EventEmitter.prototype);
+export const Storage = Object.create(EventEmitter.prototype);
 
 Storage.init = function (controller, document, presentation, selection, timeline, locale) {
     EventEmitter.call(this);
@@ -44,7 +44,7 @@ Storage.init = function (controller, document, presentation, selection, timeline
     });
 
     backendList.forEach(backend => {
-        var listItem = $("<li></li>");
+        const listItem = $("<li></li>");
         $("#sozi-editor-view-preview ul").append(listItem);
         backend.init(listItem, this.gettext)
             .addListener("load", this.onBackendLoad.bind(this, backend))
@@ -64,11 +64,11 @@ Storage.reload = function () {
 };
 
 Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
-    var _ = this.gettext;
+    const _ = this.gettext;
     this.backend = backend;
 
-    var name = backend.getName(fileDescriptor);
-    var location = backend.getLocation(fileDescriptor);
+    const name = backend.getName(fileDescriptor);
+    const location = backend.getLocation(fileDescriptor);
 
     if (err) {
         new Notification(_("Sozi (Error)"), {body: Jed.sprintf(_("File %s could not be loaded."), name)});
@@ -111,15 +111,15 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
  */
 Storage.resolveRelativeURLs = function (location) {
     const XLINK_NS = "http://www.w3.org/1999/xlink";
-    var xlinkNsAttrs = toArray(this.document.root.attributes).filter(a => a.value === XLINK_NS);
+    const xlinkNsAttrs = toArray(this.document.root.attributes).filter(a => a.value === XLINK_NS);
     if (!xlinkNsAttrs.length) {
         return;
     }
-    var xlinkPrefix = xlinkNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
+    const xlinkPrefix = xlinkNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
 
-    var images = toArray(this.document.root.getElementsByTagName("image"));
+    const images = toArray(this.document.root.getElementsByTagName("image"));
     images.forEach(img => {
-        var href = img.getAttribute(xlinkPrefix + "href");
+        const href = img.getAttribute(xlinkPrefix + "href");
         if (!/^[a-z]+:|^[/#]/.test(href)) {
             img.setAttribute(xlinkPrefix + "href", `${location}/${href}`);
         }
@@ -127,7 +127,7 @@ Storage.resolveRelativeURLs = function (location) {
 };
 
 Storage.onBackendChange = function (fileDescriptor) {
-    var _ = this.gettext;
+    const _ = this.gettext;
 
     if (fileDescriptor === this.svgFileDescriptor) {
         new Notification(_("Sozi (Information)"), {body: _("Document was changed. Reloading.")});
@@ -141,7 +141,7 @@ Storage.onBackendChange = function (fileDescriptor) {
  * It it does not exist, create it.
  */
 Storage.openJSONFile = function (name, location) {
-    var _ = this.gettext;
+    const _ = this.gettext;
 
     this.backend.find(name, location, fileDescriptor => {
         if (fileDescriptor) {
@@ -190,7 +190,7 @@ Storage.createHTMLFile = function (name, location) {
  * of the editor using the given JSON data.
  */
 Storage.loadJSONData = function (data) {
-    var storable = JSON.parse(data);
+    const storable = JSON.parse(data);
     this.presentation.fromStorable(storable);
     this.timeline.fromStorable(storable);
     this.selection.fromStorable(storable);
@@ -206,7 +206,7 @@ Storage.autosaveJSON = function (fileDescriptor) {
         return;
     }
 
-    var _ = this.gettext;
+    const _ = this.gettext;
 
     this.backend.autosave(fileDescriptor, () => this.jsonNeedsSaving, this.getJSONData.bind(this));
 
@@ -222,7 +222,7 @@ Storage.autosaveJSON = function (fileDescriptor) {
  * Configure autosaving for HTML export.
  */
 Storage.autosaveHTML = function (fileDescriptor) {
-    var _ = this.gettext;
+    const _ = this.gettext;
 
     if (this.reloading) {
         return;
@@ -245,10 +245,10 @@ Storage.autosaveHTML = function (fileDescriptor) {
  * Return it as a JSON string.
  */
 Storage.getJSONData = function () {
-    var storable = {};
+    const storable = {};
     [this.presentation, this.selection, this.timeline].forEach(object => {
-        var partial = object.toStorable();
-        for (var key in partial) {
+        const partial = object.toStorable();
+        for (let key in partial) {
             storable[key] = partial[key];
         }
     });

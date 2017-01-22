@@ -7,7 +7,7 @@
 import {AbstractBackend, addBackend} from "./AbstractBackend";
 import $ from "jquery";
 
-export var GoogleDrive = Object.create(AbstractBackend);
+export const GoogleDrive = Object.create(AbstractBackend);
 
 // Configure these settings in GoogleDrive.config.js
 GoogleDrive.clientId = "Your OAuth client Id";
@@ -36,7 +36,7 @@ GoogleDrive.authorize = function (onInit) {
 };
 
 GoogleDrive.onAuthResult = function (onInit, authResult) {
-    var inputButton = $("#sozi-editor-backend-GoogleDrive-input");
+    const inputButton = $("#sozi-editor-backend-GoogleDrive-input");
 
     if (authResult && !authResult.error) {
         this.accessToken = authResult.access_token;
@@ -59,7 +59,7 @@ GoogleDrive.onAuthResult = function (onInit, authResult) {
 };
 
 GoogleDrive.createPicker = function () {
-    var view = new google.picker.View(google.picker.ViewId.DOCS);
+    const view = new google.picker.View(google.picker.ViewId.DOCS);
     view.setMimeTypes("image/svg+xml");
 
     this.picker = new google.picker.PickerBuilder().
@@ -126,17 +126,17 @@ GoogleDrive.load = function (fileDescriptor) {
 };
 
 GoogleDrive.create = function (name, location, mimeType, data, callback) {
-    var boundary = "-------314159265358979323846";
-    var delimiter = "\r\n--" + boundary + "\r\n";
-    var closeDelimiter = "\r\n--" + boundary + "--";
+    const boundary = "-------314159265358979323846";
+    const delimiter = "\r\n--" + boundary + "\r\n";
+    const closeDelimiter = "\r\n--" + boundary + "--";
 
-    var metadata = {
+    const metadata = {
         title: name,
         parents: location,
         mimeType
     };
 
-    var multipartRequestBody =
+    const multipartRequestBody =
         delimiter +
         "Content-Type: application/json\r\n\r\n" + JSON.stringify(metadata) +
         delimiter +
@@ -166,7 +166,7 @@ GoogleDrive.create = function (name, location, mimeType, data, callback) {
 };
 
 GoogleDrive.save = function (fileDescriptor, data) {
-    var base64Data = toBase64(data); // Force UTF-8 encoding
+    const base64Data = toBase64(data); // Force UTF-8 encoding
     gapi.client.request({
         path: "/upload/drive/v2/files/" + fileDescriptor.id,
         method: "PUT",
