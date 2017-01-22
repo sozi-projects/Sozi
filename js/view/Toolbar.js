@@ -8,7 +8,6 @@ import h from "virtual-dom/h";
 import {VirtualDOMView} from "./VirtualDOMView";
 import screenfull from "screenfull";
 import pkg from "../../package.json";
-import $ from "jquery";
 
 export let Toolbar = Object.create(VirtualDOMView);
 
