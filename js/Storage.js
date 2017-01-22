@@ -10,16 +10,15 @@ import nunjucks from "nunjucks";
 import Jed from "jed";
 import {upgrade} from "./upgrade";
 import {toArray} from "./utils";
-import $ from "jquery";
 import path from "path";
 
 export const Storage = Object.create(EventEmitter.prototype);
 
-Storage.init = function (controller, document, presentation, selection, timeline, locale) {
+Storage.init = function (controller, svgDocument, presentation, selection, timeline, locale) {
     EventEmitter.call(this);
 
     this.controller = controller;
-    this.document = document;
+    this.document = svgDocument;
     this.presentation = presentation;
     this.selection = selection;
     this.timeline = timeline;
@@ -44,8 +43,8 @@ Storage.init = function (controller, document, presentation, selection, timeline
     });
 
     backendList.forEach(backend => {
-        const listItem = $("<li></li>");
-        $("#sozi-editor-view-preview ul").append(listItem);
+        const listItem = document.createElement("li");
+        document.querySelector("#sozi-editor-view-preview ul").appendChild(listItem);
         backend.init(listItem, this.gettext)
             .addListener("load", this.onBackendLoad.bind(this, backend))
             .addListener("change", this.onBackendChange.bind(this));

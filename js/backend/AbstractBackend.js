@@ -17,7 +17,7 @@ export const AbstractBackend = Object.create(EventEmitter.prototype);
 AbstractBackend.init = function (container, buttonId, buttonLabel) {
     EventEmitter.call(this);
     this.autosavedFiles = [];
-    container.html(`<button id="${buttonId}">${buttonLabel}</button>`);
+    container.innerHTML = `<button id="${buttonId}">${buttonLabel}</button>`;
     return this;
 };
 
