@@ -8,7 +8,6 @@ import h from "virtual-dom/h";
 import createElement from "virtual-dom/create-element";
 import diff from "virtual-dom/diff";
 import patch from "virtual-dom/patch";
-import $ from "jquery";
 
 export let VirtualDOMView = {
 
@@ -20,8 +19,9 @@ export let VirtualDOMView = {
         this.rootNode = createElement(this.vtree, {document});
         container.appendChild(this.rootNode);
 
-        controller.addListener("repaint", this.repaint.bind(this));
-        $(window).resize(this.repaint.bind(this));
+        const repaintHandler = this.repaint.bind(this);
+        controller.addListener("repaint", repaintHandler);
+        window.addEventListener("resize", repaintHandler);
 
         return this;
     },
