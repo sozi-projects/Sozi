@@ -4,8 +4,6 @@
 
 "use strict";
 
-import $ from "jquery";
-
 const PREVIEW_MARGIN = 15;
 
 export const Preview = {
@@ -17,8 +15,8 @@ export const Preview = {
         this.viewport = viewport;
         this.controller = controller;
 
-        controller.addListener("loadSVG", this.onLoadSVG.bind(this));
-        $(window).resize(this.repaint.bind(this));
+        controller.addListener("loadSVG", () => this.onLoadSVG());
+        window.addEventListener("resize", () => this.repaint());
 
         return this;
     },
@@ -30,15 +28,22 @@ export const Preview = {
         this.container.addEventListener("mouseenter", this.onMouseEnter.bind(this), false);
         this.container.addEventListener("mouseleave", this.onMouseLeave.bind(this), false);
 
-        $("html head title").text(this.presentation.title);
-        $(this.container).html(this.presentation.document.root);
+        // Set the window title to the presentation title
+        document.querySelector("html head title").innerHTML = this.presentation.title;
+
+        // Replace the content of the preview area with the SVG document
+        while(this.container.hasChildNodes()) {
+            this.container.removeChild(this.container.firstChild);
+        }
+        this.container.appendChild(this.presentation.document.root);
+
         this.viewport.onLoad();
     },
 
     repaint() {
-        const parent = $(this.container).parent();
-        const parentWidth  = parent.innerWidth();
-        const parentHeight = parent.innerHeight();
+        // this.container is assumed to have padding: 0
+        const parentWidth  = this.container.parentNode.clientWidth;
+        const parentHeight = this.container.parentNode.clientHeight;
 
         const maxWidth  = parentWidth  - 2 * PREVIEW_MARGIN;
         const maxHeight = parentHeight - 2 * PREVIEW_MARGIN;
@@ -46,12 +51,10 @@ export const Preview = {
         const width  = Math.min(maxWidth, maxHeight * this.presentation.aspectWidth / this.presentation.aspectHeight);
         const height = Math.min(maxHeight, maxWidth * this.presentation.aspectHeight / this.presentation.aspectWidth);
 
-        $(this.container).css({
-            left:   (parentWidth  - width)  / 2 + "px",
-            top:    (parentHeight - height) / 2 + "px",
-            width:  width + "px",
-            height: height + "px"
-        });
+        this.container.style.left   = (parentWidth  - width)  / 2 + "px";
+        this.container.style.top    = (parentHeight - height) / 2 + "px";
+        this.container.style.width  = width + "px";
+        this.container.style.height = height + "px";
 
         if (this.selection.currentFrame) {
             this.viewport.setAtStates(this.selection.currentFrame.cameraStates);
