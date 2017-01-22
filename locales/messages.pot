@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2016-06-25 07:25:+0000\n"
+"POT-Creation-Date: 2017-01-22 04:23:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -9,8 +9,34 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 
-#: build/app/js/Storage.js:98 build/app/js/Storage.js:111 build/app/js/Storage.js:118 build/app/js/backend/Electron.js:84
+#: build/app/js/backend/Electron.js:58
+msgid "Open an SVG file from your computer"
+msgstr ""
+
+#: build/app/js/backend/Electron.js:84 build/app/js/Storage.js:98 build/app/js/Storage.js:111 build/app/js/Storage.js:118
 msgid "Sozi (Error)"
+msgstr ""
+
+#: build/app/js/backend/Electron.js:84
+msgid "File not found: %s."
+msgstr ""
+
+#: build/app/js/backend/Electron.js:96
+msgid "Choose an SVG file"
+msgstr ""
+
+#: build/app/js/backend/Electron.js:97
+msgid "SVG files"
+msgstr ""
+
+#: build/app/js/backend/FileReader.js:25
+msgid ""
+"Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> "
+"read-only)"
+msgstr ""
+
+#: build/app/js/backend/GoogleDrive.js:27
+msgid "Open an SVG file from Google Drive"
 msgstr ""
 
 #: build/app/js/Storage.js:98
@@ -35,32 +61,6 @@ msgstr ""
 
 #: build/app/js/Storage.js:244 build/app/js/Storage.js:269
 msgid "Saved %s."
-msgstr ""
-
-#: build/app/js/backend/Electron.js:58
-msgid "Open an SVG file from your computer"
-msgstr ""
-
-#: build/app/js/backend/Electron.js:84
-msgid "File not found: %s."
-msgstr ""
-
-#: build/app/js/backend/Electron.js:96
-msgid "Choose an SVG file"
-msgstr ""
-
-#: build/app/js/backend/Electron.js:97
-msgid "SVG files"
-msgstr ""
-
-#: build/app/js/backend/FileReader.js:25
-msgid ""
-"Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> "
-"read-only)"
-msgstr ""
-
-#: build/app/js/backend/GoogleDrive.js:27
-msgid "Open an SVG file from Google Drive"
 msgstr ""
 
 #: build/app/js/view/Properties.js:43
