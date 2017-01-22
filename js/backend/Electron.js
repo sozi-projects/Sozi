@@ -11,7 +11,6 @@ import process from "process";
 import Jed from "jed";
 import screenfull from "screenfull";
 import {remote} from "electron";
-import $ from "jquery";
 
 const win = remote.getCurrentWindow();
 
@@ -29,14 +28,15 @@ Electron.init = function (container, _) {
 
     this.loadConfiguration();
 
-    $("#sozi-editor-backend-Electron-input").click(this.openFileChooser.bind(this, _));
+    document.getElementById("sozi-editor-backend-Electron-input").addEventListener("click", () => this.openFileChooser(_));
 
     // Save automatically when the window loses focus
-    $(window).on("blur", this.doAutosave.bind(this));
+    const onBlur = this.doAutosave.bind(this);
+    window.addEventListener("blur", onBlur);
 
     // Save automatically when closing the window
-    $(window).on("beforeunload", () => {
-        $(window).off("blur");
+    window.addEventListener("beforeunload", () => {
+        window.removeEventListener("blur", onBlur);
         this.doAutosave();
         this.saveConfiguration();
     });
