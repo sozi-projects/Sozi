@@ -5,19 +5,22 @@
 "use strict";
 
 import {AbstractBackend, addBackend} from "./AbstractBackend";
-import $ from "jquery";
 
 export const FileReaderBackend = Object.create(AbstractBackend);
 
 FileReaderBackend.init = function (container, _) {
     AbstractBackend.init.call(this, container, "sozi-editor-backend-FileReader-input", _('Open an SVG file from your computer (<i class="fa fa-warning"></i> read-only)'));
 
-    $(container).append('<input style="display:none;" id="sozi-editor-backend-FileReader-file" type="file" accept="image/svg+xml">');
+    document.getElementById("sozi-editor-backend-FileReader-input").addEventListener("click", () => this.openFileChooser());
 
-    $("#sozi-editor-backend-FileReader-input").click(this.openFileChooser.bind(this));
+    this.fileInput = document.createElement("input");
+    this.fileInput.style.display = "none";
+    this.fileInput.setAttribute("type", "file");
+    this.fileInput.setAttribute("accept", "image/svg+xml");
+    container.appendChild(this.fileInput);
 
     // Load the SVG document selected in the file input
-    $("#sozi-editor-backend-FileReader-file").change(evt => {
+    this.fileInput.addEventListener("change", evt => {
         if (evt.target.files.length) {
             this.load(evt.target.files[0]);
         }
@@ -27,7 +30,7 @@ FileReaderBackend.init = function (container, _) {
 };
 
 FileReaderBackend.openFileChooser = function () {
-    $("#sozi-editor-backend-FileReader-file").click();
+    this.fileInput.dispatchEvent(new MouseEvent("click"));
 };
 
 FileReaderBackend.getName = function (fileDescriptor) {

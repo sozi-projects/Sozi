@@ -5,7 +5,6 @@
 "use strict";
 
 import {AbstractBackend, addBackend} from "./AbstractBackend";
-import $ from "jquery";
 
 export const GoogleDrive = Object.create(AbstractBackend);
 
@@ -16,7 +15,10 @@ GoogleDrive.apiKey = "Your developer API key";
 GoogleDrive.init = function (container, _) {
     AbstractBackend.init.call(this, container, "sozi-editor-backend-GoogleDrive-input", _("Open an SVG file from Google Drive"));
 
-    $(window).blur(this.doAutosave.bind(this));
+    // Save automatically when the window loses focus
+    window.addEventListener("blur", () => this.doAutosave());
+
+    this.clickToAuth = this.authorize.bind(this, false);
 
     gapi.client.setApiKey(this.apiKey);
     this.authorize(true);
@@ -24,7 +26,7 @@ GoogleDrive.init = function (container, _) {
 };
 
 GoogleDrive.openFileChooser = function () {
-    $("#sozi-editor-backend-GoogleDrive-input").click();
+    this.picker.setVisible(true);
 };
 
 GoogleDrive.authorize = function (onInit) {
@@ -36,7 +38,7 @@ GoogleDrive.authorize = function (onInit) {
 };
 
 GoogleDrive.onAuthResult = function (onInit, authResult) {
-    const inputButton = $("#sozi-editor-backend-GoogleDrive-input");
+    const inputButton = document.getElementById("sozi-editor-backend-GoogleDrive-input");
 
     if (authResult && !authResult.error) {
         this.accessToken = authResult.access_token;
@@ -45,16 +47,17 @@ GoogleDrive.onAuthResult = function (onInit, authResult) {
         gapi.load("picker", {
             callback: () => {
                 this.createPicker();
-                inputButton.off("click").click(() => this.picker.setVisible(true));
+                inputButton.removeEventListener("click", this.clickToAuth);
+                inputButton.addEventListener("click", () => this.openFileChooser());
                 if (!onInit) {
-                    inputButton.click();
+                    this.openFileChooser();
                 }
             }
         });
     }
     else {
         // No access token could be retrieved, show the button to start the authorization flow.
-        inputButton.click(() => this.authorize(false));
+        inputButton.addEventListener("click", this.clickToAuth);
     }
 };
 
@@ -114,15 +117,21 @@ GoogleDrive.load = function (fileDescriptor) {
     // The data type is forced to "text" to prevent parsing it.
     // Emit the "load" event with the file content in case of success,
     // or with the error status in case of failure.
-    $.ajax(fileDescriptor.downloadUrl, {
-        contentType: fileDescriptor.mimeType,
-        dataType: "text",
-        headers: {
-            "Authorization": "Bearer " + this.accessToken
-        },
-        context: this
-    }).done(data => this.emit("load", fileDescriptor, data))
-      .fail((xhr, status) => this.emit("load", fileDescriptor, null, status));
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", fileDescriptor.downloadUrl);
+    xhr.setRequestHeader("Content-Type", fileDescriptor.mimeType);
+    xhr.setRequestHeader("Authorization", "Bearer " + this.accessToken);
+    xhr.addEventListener("readystatechange", () => {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                this.emit("load", fileDescriptor, xhr.responseText);
+            }
+            else {
+                this.emit("load", fileDescriptor, null, xhr.status)
+            }
+        }
+    });
+    xhr.send();
 };
 
 GoogleDrive.create = function (name, location, mimeType, data, callback) {
