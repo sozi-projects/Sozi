@@ -18,7 +18,6 @@ import {Toolbar} from "./view/Toolbar";
 import {Timeline} from "./view/Timeline";
 import nunjucks from "nunjucks";
 import * as i18n from "./i18n";
-import $ from "jquery";
 
 window.addEventListener("load", () => {
     nunjucks.configure({watch: false});
@@ -38,42 +37,57 @@ window.addEventListener("load", () => {
     Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, locale);
     Storage.init(Controller, SVGDocumentWrapper, Presentation, Selection, Timeline, locale);
 
-    let body = $("body");
-    let left = $(".left");
-    let right = $(".right");
-    let top = $(".top");
-    let bottom = $(".bottom");
-    let hsplitter = $(".hsplitter");
-    let vsplitter = $(".vsplitter");
+    let body      = document.querySelector("body");
+    let left      = document.querySelector(".left");
+    let right     = document.querySelector(".right");
+    let top       = document.querySelector(".top");
+    let bottom    = document.querySelector(".bottom");
+    let hsplitter = document.querySelector(".hsplitter");
+    let vsplitter = document.querySelector(".vsplitter");
 
-    hsplitter.mousedown((evt) => {
-        let startY = hsplitter.offset().top - evt.clientY;
-        body.mousemove((evt) => {
-            let topHeightPercent = 100 * (startY + evt.clientY) / $(window).height();
-            top.css({ height: topHeightPercent + "%" });
-            hsplitter.css({ top: topHeightPercent + "%" });
-            bottom.css({height: `calc(${100 - topHeightPercent}% - ${hsplitter.height()}px)`});
-            $(window).resize();
-            return false;
-        }).one("mouseup", evt => {
-            body.off("mousemove");
-            body.off("mouseup");
-        });
+    let hsplitterStartY, vsplitterStartX;
+
+    const hsplitterHeight = hsplitter.getBoundingClientRect().height;
+    const vsplitterWidth  = vsplitter.getBoundingClientRect().width;
+
+    function hsplitterOnMouseMove(evt) {
+        const topHeightPercent = 100 * (hsplitterStartY + evt.clientY) / window.innerHeight;
+        top.style.height    = topHeightPercent + "%";
+        hsplitter.style.top = topHeightPercent + "%";
+        bottom.style.height = `calc(${100 - topHeightPercent}% - ${hsplitterHeight}px)`;
+        window.dispatchEvent(new UIEvent("resize"));
+        return false;
+    }
+
+    function hsplitterOnMouseUp() {
+        body.removeEventListener("mousemove", hsplitterOnMouseMove);
+        body.removeEventListener("mouseup",   hsplitterOnMouseUp);
+    }
+
+    function vsplitterOnMouseMove(evt) {
+        const leftWidthPercent = 100 * (vsplitterStartX + evt.clientX) / window.innerWidth;
+        left.style.width     = leftWidthPercent + "%";
+        vsplitter.style.left = leftWidthPercent + "%";
+        right.style.width    = `calc(${100 - leftWidthPercent}% - ${vsplitterWidth}px)`;
+        window.dispatchEvent(new UIEvent("resize"));
+        return false;
+    }
+
+    function vsplitterOnMouseUp() {
+        body.removeEventListener("mousemove", vsplitterOnMouseMove);
+        body.removeEventListener("mouseup",   vsplitterOnMouseUp);
+    }
+
+    hsplitter.addEventListener("mousedown", evt => {
+        hsplitterStartY = hsplitter.getBoundingClientRect().top - evt.clientY;
+        body.addEventListener("mousemove", hsplitterOnMouseMove);
+        body.addEventListener("mouseup",   hsplitterOnMouseUp);
     });
 
-    vsplitter.mousedown((evt) => {
-        let startX = vsplitter.offset().left - evt.clientX;
-        body.mousemove((evt) => {
-            let leftWidthPercent = 100 * (startX + evt.clientX) / $(window).width();
-            left.css({ width: leftWidthPercent + "%" });
-            vsplitter.css({ left: leftWidthPercent + "%" });
-            right.css({width: `calc(${100 - leftWidthPercent}% - ${vsplitter.width()}px)` });
-            $(window).resize();
-            return false;
-        }).one("mouseup", evt => {
-            body.off("mousemove");
-            body.off("mouseup");
-        });
+    vsplitter.addEventListener("mousedown", evt => {
+        vsplitterStartX = vsplitter.getBoundingClientRect().left - evt.clientX;
+        body.addEventListener("mousemove", vsplitterOnMouseMove);
+        body.addEventListener("mouseup",   vsplitterOnMouseUp);
     });
 
     window.addEventListener("keydown", (evt) => {
