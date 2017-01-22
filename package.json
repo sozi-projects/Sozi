@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "jed": "^1.1.0",
-    "jquery": "^2.2.4",
     "nunjucks": "^1.3.0",
     "screenfull": "^2.0.0",
     "virtual-dom": "^2.0.0"
