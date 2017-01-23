@@ -11,17 +11,17 @@ import {EventEmitter} from "events";
 
 // Constants: default animation properties
 // for out-of-sequence transitions
-let DEFAULT_TRANSITION_DURATION_MS = 500;
-let DEFAULT_RELATIVE_ZOOM = 0;
-let DEFAULT_TIMING_FUNCTION = "ease";
+const DEFAULT_TRANSITION_DURATION_MS = 500;
+const DEFAULT_RELATIVE_ZOOM = 0;
+const DEFAULT_TIMING_FUNCTION = "ease";
 
 // Zoom factor for user zoom action (keyboard and mouse wheel)
-let SCALE_FACTOR = 1.05;
+const SCALE_FACTOR = 1.05;
 
 // Rotation step for user rotate action (keyboard and mouse wheel)
-let ROTATE_STEP = 5;
+const ROTATE_STEP = 5;
 
-export let Player = Object.create(EventEmitter.prototype);
+export const Player = Object.create(EventEmitter.prototype);
 
 Player.init = function (viewport, presentation) {
     EventEmitter.call(this);
@@ -40,14 +40,14 @@ Player.init = function (viewport, presentation) {
 };
 
 Player.setupEventHandlers = function () {
-    this.viewport.addListener("click", this.onClick.bind(this));
-    this.viewport.addListener("dragStart", this.pause.bind(this));
-    this.viewport.addListener("userChangeState", this.pause.bind(this));
-    window.addEventListener("keydown", this.onKeyDown.bind(this), false);
-    window.addEventListener("keypress", this.onKeyPress.bind(this), false);
-    this.animator.addListener("step", this.onAnimatorStep.bind(this));
-    this.animator.addListener("stop", this.onAnimatorStop.bind(this));
-    this.animator.addListener("done", this.onAnimatorDone.bind(this));
+    this.viewport.addListener("click", () => this.onClick());
+    this.viewport.addListener("dragStart", () => this.pause());
+    this.viewport.addListener("userChangeState", () => this.pause());
+    window.addEventListener("keydown", () => this.onKeyDown(), false);
+    window.addEventListener("keypress", () => this.onKeyPress(), false);
+    this.animator.addListener("step", () => this.onAnimatorStep());
+    this.animator.addListener("stop", () => this.onAnimatorStop());
+    this.animator.addListener("done", () => this.onAnimatorDone());
 };
 
 Player.onClick = function (button) {
@@ -176,14 +176,14 @@ Object.defineProperty(Player, "targetFrame", {
 
 Object.defineProperty(Player, "previousFrameIndex", {
     get() {
-        let index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
+        const index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
         return (index + this.presentation.frames.length - 1) % this.presentation.frames.length;
     }
 });
 
 Object.defineProperty(Player, "nextFrameIndex", {
     get() {
-        let index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
+        const index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
         return (index + 1) % this.presentation.frames.length;
     }
 });
@@ -251,7 +251,7 @@ Player.waitTimeout = function () {
     if (this.currentFrame.timeoutEnable) {
         this.waitingTimeout = true;
         this.timeoutHandle = window.setTimeout(
-            this.moveToFrame.bind(this, this.nextFrameIndex),
+            () => this.moveToFrame(this.nextFrameIndex),
             this.currentFrame.timeoutMs
         );
     }
@@ -347,7 +347,7 @@ Player.moveToFrame = function (index) {
         let transitionPath = null;
 
         if (layerProperties) {
-            let lp = layerProperties[camera.layer.index];
+            const lp = layerProperties[camera.layer.index];
             relativeZoom = lp.transitionRelativeZoom;
             timingFunction = Timing[lp.transitionTimingFunction];
             if (useTransitionPath) {
@@ -387,7 +387,7 @@ Player.moveToLast = function () {
  */
 Player.moveToPrevious = function () {
     for (let index = this.previousFrameIndex; index >= 0; index --) {
-        let frame = this.presentation.frames[index];
+        const frame = this.presentation.frames[index];
         if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
             this.moveToFrame(index);
             break;

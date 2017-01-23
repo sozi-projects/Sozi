@@ -21,16 +21,16 @@ export function init(lang) {
 
     // Normalize the given language tag and extract the language code alone
     lang = normalize(lang);
-    let langShort = lang.split("-")[0];
+    const langShort = lang.split("-")[0];
 
     // Find the user language in the available locales
-    let allLanguages = Object.keys(locales).map(normalize);
+    const allLanguages = Object.keys(locales).map(normalize);
     let langIndex = allLanguages.indexOf(lang);
     if (langIndex < 0) {
         langIndex = allLanguages.indexOf(langShort);
     }
 
-    let localeData = langIndex >= 0 ? locales[Object.keys(locales)[langIndex]] : {};
+    const localeData = langIndex >= 0 ? locales[Object.keys(locales)[langIndex]] : {};
 
     return new Jed(localeData);
 }

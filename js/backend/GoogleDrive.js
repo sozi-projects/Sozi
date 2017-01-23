@@ -18,7 +18,7 @@ GoogleDrive.init = function (container, _) {
     // Save automatically when the window loses focus
     window.addEventListener("blur", () => this.doAutosave());
 
-    this.clickToAuth = this.authorize.bind(this, false);
+    this.clickToAuth = () => this.authorize(false);
 
     gapi.client.setApiKey(this.apiKey);
     this.authorize(true);
@@ -34,7 +34,7 @@ GoogleDrive.authorize = function (onInit) {
         client_id: this.clientId,
         scope: "https://www.googleapis.com/auth/drive",
         immediate: onInit
-    }, this.onAuthResult.bind(this, onInit));
+    }, () => this.onAuthResult(onInit));
 };
 
 GoogleDrive.onAuthResult = function (onInit, authResult) {
@@ -127,7 +127,7 @@ GoogleDrive.load = function (fileDescriptor) {
                 this.emit("load", fileDescriptor, xhr.responseText);
             }
             else {
-                this.emit("load", fileDescriptor, null, xhr.status)
+                this.emit("load", fileDescriptor, null, xhr.status);
             }
         }
     });

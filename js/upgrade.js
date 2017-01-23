@@ -7,7 +7,7 @@
 import {toArray} from "./utils";
 import {Frame} from "./model/Presentation";
 
-let SOZI_NS = "http://sozi.baierouge.fr";
+const SOZI_NS = "http://sozi.baierouge.fr";
 
 function parseBoolean(str) {
     return str === "true";
@@ -60,25 +60,25 @@ export function upgrade(pres, timeline) {
     // (ns1, ns2, ...). We first need to identify which one corresponds to the Sozi namespace.
 
     // Get the xmlns for the Sozi namespace
-    let soziNsAttrs = toArray(pres.document.root.attributes).filter(a => a.value === SOZI_NS);
+    const soziNsAttrs = toArray(pres.document.root.attributes).filter(a => a.value === SOZI_NS);
     if (!soziNsAttrs.length) {
         return;
     }
-    let soziPrefix = soziNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
+    const soziPrefix = soziNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
 
     // Get an ordered array of sozi:frame elements
-    let frameElts = toArray(pres.document.root.getElementsByTagName(soziPrefix + "frame"));
+    const frameElts = toArray(pres.document.root.getElementsByTagName(soziPrefix + "frame"));
     frameElts.sort((a, b) => parseInt(a.getAttribute(soziPrefix + "sequence")) - parseInt(b.getAttribute(soziPrefix + "sequence")));
 
     // The "default" pool contains all layers that have no corresponding
     // <layer> element in any frame. The properties for these layers are
     // set in the <frame> elements. This array is updated as we process
     // the sequence of frames.
-    let defaultLayers = pres.layers.slice();
+    const defaultLayers = pres.layers.slice();
 
     frameElts.forEach((frameElt, frameIndex) => {
         // Create a new frame with default camera states
-        let frame = Object.create(Frame).init(pres);
+        const frame = Object.create(Frame).init(pres);
         pres.frames.splice(frameIndex, 0, frame);
 
         // If this is not the first frame, the state is cloned from the previous frame.
@@ -87,8 +87,8 @@ export function upgrade(pres, timeline) {
         }
 
         // Collect layer elements inside the current frame element
-        let layerElts = toArray(frameElt.getElementsByTagName(soziPrefix + "layer"));
-        let layerEltsByGroupId = {};
+        const layerElts = toArray(frameElt.getElementsByTagName(soziPrefix + "layer"));
+        const layerEltsByGroupId = {};
         layerElts.forEach(layerElt => {
             layerEltsByGroupId[layerElt.getAttribute(soziPrefix + "group")] = layerElt;
         });
@@ -101,8 +101,8 @@ export function upgrade(pres, timeline) {
                 // Else, if the layer is in the "default" pool, then it is managed
                 // by the <frame> element.
                 // Other frames are cloned from the predecessors.
-                let defaultLayerIndex = defaultLayers.indexOf(layer);
-                let groupId = layer.svgNodes[0].getAttribute("id");
+                const defaultLayerIndex = defaultLayers.indexOf(layer);
+                const groupId = layer.svgNodes[0].getAttribute("id");
                 if (groupId in layerEltsByGroupId) {
                     layerElt = layerEltsByGroupId[groupId];
                     if (defaultLayerIndex >= 0) {
@@ -112,8 +112,8 @@ export function upgrade(pres, timeline) {
                 }
             }
 
-            let layerProperties = frame.layerProperties[layerIndex];
-            let cameraState = frame.cameraStates[layerIndex];
+            const layerProperties = frame.layerProperties[layerIndex];
+            const cameraState = frame.cameraStates[layerIndex];
 
             // It the current layer is managed by a <frame> or <layer> element,
             // update the camera state for this layer.

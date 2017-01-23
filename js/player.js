@@ -42,7 +42,7 @@ window.addEventListener("load", function () {
         }
     });
 
-    window.addEventListener('resize', Viewport.repaint.bind(Viewport));
+    window.addEventListener('resize', () => Viewport.repaint());
 
     if (Presentation.frames.length) {
         Player.playFromIndex(FrameURL.getFrameIndex());

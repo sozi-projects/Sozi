@@ -87,7 +87,7 @@ function onKeyPress(evt) {
 }
 
 function onAnimatorStep(progress) {
-    let p = Timing.ease(progress);
+    const p = Timing.ease(progress);
     setCurrentOffset(endOffset * p + startOffset * (1 - p));
 }
 

@@ -9,7 +9,7 @@ import {VirtualDOMView} from "./VirtualDOMView";
 import screenfull from "screenfull";
 import pkg from "../../package.json";
 
-export let Toolbar = Object.create(VirtualDOMView);
+export const Toolbar = Object.create(VirtualDOMView);
 
 Toolbar.init = function (container, storage, presentation, viewport, controller, locale) {
     VirtualDOMView.init.call(this, container, controller);
@@ -17,15 +17,15 @@ Toolbar.init = function (container, storage, presentation, viewport, controller,
     this.storage = storage;
     this.presentation = presentation;
     this.viewport = viewport;
-    this.gettext = locale.gettext.bind(locale);
+    this.gettext = (s) => locale.gettext(s);
 
     return this;
 };
 
 Toolbar.render = function () {
-    let _ = this.gettext;
-    let c = this.controller;
-    let v = this.viewport;
+    const _ = this.gettext;
+    const c = this.controller;
+    const v = this.viewport;
     return h("div", [
         h("span.group", [
             _("Aspect ratio: "),
@@ -37,7 +37,7 @@ Toolbar.render = function () {
                 size: "3",
                 value: this.presentation.aspectWidth,
                 onchange() {
-                    let width = parseInt(this.value);
+                    const width = parseInt(this.value);
                     if (!width.isNaN) {
                         c.setAspectWidth(width);
                     }
@@ -52,7 +52,7 @@ Toolbar.render = function () {
                 size: "3",
                 value: this.presentation.aspectHeight,
                 onchange() {
-                    let height = parseInt(this.value);
+                    const height = parseInt(this.value);
                     if (!height.isNaN) {
                         c.setAspectHeight(height);
                     }

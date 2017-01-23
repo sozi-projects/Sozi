@@ -9,7 +9,7 @@ import createElement from "virtual-dom/create-element";
 import diff from "virtual-dom/diff";
 import patch from "virtual-dom/patch";
 
-export let VirtualDOMView = {
+export const VirtualDOMView = {
 
     init(container, controller) {
         this.container = container;
@@ -19,7 +19,7 @@ export let VirtualDOMView = {
         this.rootNode = createElement(this.vtree, {document});
         container.appendChild(this.rootNode);
 
-        const repaintHandler = this.repaint.bind(this);
+        const repaintHandler = () => this.repaint();
         controller.addListener("repaint", repaintHandler);
         window.addEventListener("resize", repaintHandler);
 
@@ -27,7 +27,7 @@ export let VirtualDOMView = {
     },
 
     repaint() {
-        let vtree = this.render();
+        const vtree = this.render();
         this.rootNode = patch(this.rootNode, diff(this.vtree, vtree));
         this.vtree = vtree;
     },

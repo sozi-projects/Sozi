@@ -21,7 +21,7 @@ import Jed from "jed";
  *  - create/delete/reorder frames
  *  - add/remove layers and frames to/from the selection
  */
-export let Timeline = Object.create(VirtualDOMView);
+export const Timeline = Object.create(VirtualDOMView);
 
 /*
  * Initialize a Timeline view.
@@ -40,12 +40,12 @@ Timeline.init = function (container, presentation, selection, controller, locale
 
     this.presentation = presentation;
     this.selection = selection;
-    this.gettext = locale.gettext.bind(locale);
-    
+    this.gettext = (s) => locale.gettext(s);
+
     this.editableLayers = [];
     this.defaultLayers = [];
 
-    controller.addListener("ready", this.onReady.bind(this));
+    controller.addListener("ready", () => this.onReady());
 
     return this;
 };
@@ -71,7 +71,7 @@ Timeline.fromStorable = function (storable) {
 
     if (storable.hasOwnProperty("editableLayers")) {
         storable.editableLayers.forEach(groupId => {
-            let layer = this.presentation.getLayerWithId(groupId);
+            const layer = this.presentation.getLayerWithId(groupId);
             if (layer && this.editableLayers.indexOf(layer) < 0) {
                 this.editableLayers.push(layer);
             }
@@ -94,12 +94,12 @@ Timeline.fromStorable = function (storable) {
  *  - layerIndex: The index of a layer in the presentation
  */
 Timeline.addLayer = function (layerIndex) {
-    let layer = this.presentation.layers[layerIndex];
+    const layer = this.presentation.layers[layerIndex];
     if (this.editableLayers.indexOf(layer) < 0) {
         this.editableLayers.push(layer);
     }
 
-    let layerIndexInDefaults = this.defaultLayers.indexOf(layer);
+    const layerIndexInDefaults = this.defaultLayers.indexOf(layer);
     this.defaultLayers.splice(layerIndexInDefaults, 1);
 
     this.controller.addLayerToSelection(layer);
@@ -123,9 +123,9 @@ Timeline.addLayer = function (layerIndex) {
  *  - layerIndex: The index of a layer in the presentation
  */
 Timeline.removeLayer = function (layerIndex) {
-    let layer = this.presentation.layers[layerIndex];
+    const layer = this.presentation.layers[layerIndex];
 
-    let layerIndexInEditable = this.editableLayers.indexOf(layer);
+    const layerIndexInEditable = this.editableLayers.indexOf(layer);
     this.editableLayers.splice(layerIndexInEditable, 1);
 
     if (this.defaultLayersAreSelected) {
@@ -186,19 +186,19 @@ Timeline.updateLayerAndFrameSelection = function (layerIndex, frameIndex, evt) {
 Timeline.repaint = function () {
     VirtualDOMView.repaint.call(this);
 
-    let topLeft = this.rootNode.querySelector(".timeline-top-left");
-    let topRight = this.rootNode.querySelector(".timeline-top-right");
-    let bottomLeft = this.rootNode.querySelector(".timeline-bottom-left");
-    let bottomRight = this.rootNode.querySelector(".timeline-bottom-right");
+    const topLeft = this.rootNode.querySelector(".timeline-top-left");
+    const topRight = this.rootNode.querySelector(".timeline-top-right");
+    const bottomLeft = this.rootNode.querySelector(".timeline-bottom-left");
+    const bottomRight = this.rootNode.querySelector(".timeline-bottom-right");
 
-    let topLeftTable = topLeft.querySelector("table");
-    let topRightTable = topRight.querySelector("table");
-    let bottomLeftTable = bottomLeft.querySelector("table");
+    const topLeftTable = topLeft.querySelector("table");
+    const topRightTable = topRight.querySelector("table");
+    const bottomLeftTable = bottomLeft.querySelector("table");
 
-    let leftWidth = Math.max(topLeftTable.clientWidth, bottomLeftTable.clientWidth);
-    let rightWidth = this.rootNode.clientWidth - leftWidth;
-    let topHeight = Math.max(topLeftTable.clientHeight, topRightTable.clientHeight);
-    let bottomHeight = this.rootNode.clientHeight - topHeight;
+    const leftWidth = Math.max(topLeftTable.clientWidth, bottomLeftTable.clientWidth);
+    const rightWidth = this.rootNode.clientWidth - leftWidth;
+    const topHeight = Math.max(topLeftTable.clientHeight, topRightTable.clientHeight);
+    const bottomHeight = this.rootNode.clientHeight - topHeight;
 
     // Fit the width of the left tables,
     // allocate remaining width to the right tables
@@ -212,23 +212,23 @@ Timeline.repaint = function () {
     bottomLeft.style.height = bottomRight.style.height = bottomHeight + "px";
 
     // Corresponding rows in left and right tables must have the same height
-    let leftRows  = toArray(topLeft.querySelectorAll("tr")).concat(toArray(bottomLeft.querySelectorAll("tr")));
-    let rightRows = toArray(topRight.querySelectorAll("tr")).concat(toArray(bottomRight.querySelectorAll("tr")));
+    const leftRows  = toArray(topLeft.querySelectorAll("tr")).concat(toArray(bottomLeft.querySelectorAll("tr")));
+    const rightRows = toArray(topRight.querySelectorAll("tr")).concat(toArray(bottomRight.querySelectorAll("tr")));
     leftRows.forEach((leftRow, rowIndex) => {
-        let rightRow = rightRows[rowIndex];
-        let maxHeight = Math.max(leftRow.clientHeight, rightRow.clientHeight);
+        const rightRow = rightRows[rowIndex];
+        const maxHeight = Math.max(leftRow.clientHeight, rightRow.clientHeight);
         leftRow.style.height = rightRow.style.height = maxHeight + "px";
     });
 };
 
 Timeline.render = function () {
-    let _ = this.gettext;
-    
-    let defaultLayersAreVisible = this.defaultLayers.some(layer => layer.isVisible);
+    const _ = this.gettext;
 
-    let defaultLayerIsNotEmpty = this.defaultLayers.length > 1 || this.defaultLayers[0].svgNodes.length;
+    const defaultLayersAreVisible = this.defaultLayers.some(layer => layer.isVisible);
 
-    let c = this.controller;
+    const defaultLayerIsNotEmpty = this.defaultLayers.length > 1 || this.defaultLayers[0].svgNodes.length;
+
+    const c = this.controller;
     let even = true;
     function updateEven(frame, layer) {
         if (frame.index === 0) {
@@ -262,7 +262,7 @@ Timeline.render = function () {
                     h("th", {attributes: {colspan: 2}},
                         h("select", {
                             onchange: (evt) => {
-                                let value = evt.target.value;
+                                const value = evt.target.value;
                                 evt.target.value = "__add__";
                                 this.addLayer(value);
                             }
@@ -284,17 +284,17 @@ Timeline.render = function () {
                         defaultLayersAreVisible ?
                             h("i.visibility.fa.fa-eye", {
                                 title: _("This layer is visible. Click to hide it."),
-                                onclick: this.toggleLayerVisibility.bind(this, -1)
+                                onclick: () => this.toggleLayerVisibility(-1)
                             }) :
                             h("i.visibility.fa.fa-eye-slash", {
                                 title: _("This layer is hidden. Click to show it."),
-                                onclick: this.toggleLayerVisibility.bind(this, -1)
+                                onclick: () => this.toggleLayerVisibility(-1)
                             }),
                         h("i.remove.fa.fa-times", {style: {visibility: "hidden"}})
                     ]),
                     h("th", {
                         className: "layer-label" + (this.defaultLayersAreSelected ? " selected" : ""),
-                        onclick: this.updateLayerSelection.bind(this, -1)
+                        onclick: () => this.updateLayerSelection(-1)
                     }, _("Default"))
                 ]),
             ] : []).concat(
@@ -305,20 +305,20 @@ Timeline.render = function () {
                                 layer.isVisible ?
                                     h("i.visibility.fa.fa-eye", {
                                         title: _("This layer is visible. Click to hide it."),
-                                        onclick: this.toggleLayerVisibility.bind(this, layer.index)
+                                        onclick: () => this.toggleLayerVisibility(layer.index)
                                     }) :
                                     h("i.visibility.fa.fa-eye-slash", {
                                         title: _("This layer is hidden. Click to show it."),
-                                        onclick: this.toggleLayerVisibility.bind(this, layer.index)
+                                        onclick: () => this.toggleLayerVisibility(layer.index)
                                     }),
                                 h("i.remove.fa.fa-times", {
                                     title: _("Remove this layer"),
-                                    onclick: this.removeLayer.bind(this, layer.index)
+                                    onclick: () => this.removeLayer(layer.index)
                                 })
                             ]),
                             h("th", {
                                 className: "layer-label" + (this.selection.selectedLayers.indexOf(layer) >= 0 ? " selected" : ""),
-                                onclick: this.updateLayerSelection.bind(this, layer.index)
+                                onclick: () => this.updateLayerSelection(layer.index)
                             }, layer.label)
                         ])
                     )
@@ -335,7 +335,7 @@ Timeline.render = function () {
                         className: "frame-index" +
                             (this.selection.selectedFrames.indexOf(frame) >= 0 ? " selected" : "") +
                             (frame === this.selection.currentFrame ? " current" : ""),
-                        onclick: this.updateFrameSelection.bind(this, frameIndex)
+                        onclick: () => this.updateFrameSelection(frameIndex)
                     }, [
                         h("i.insert-before.fa.fa-arrow-circle-down", {
                             title: Jed.sprintf(_("Insert selection before frame %d"), frameIndex + 1),
@@ -360,7 +360,7 @@ Timeline.render = function () {
                             className: "frame-title" +
                                 (this.selection.selectedFrames.indexOf(frame) >= 0 ? " selected" : "") +
                                 (frame === this.selection.currentFrame ? " current" : ""),
-                            onclick: this.updateFrameSelection.bind(this, frameIndex)
+                            onclick: () => this.updateFrameSelection(frameIndex)
                         }, frame.title)
                     )
                  )
@@ -380,7 +380,7 @@ Timeline.render = function () {
                             (frame === this.selection.currentFrame ? " current" : "") +
                             (frameIndex > 0 && frame.layerProperties[this.defaultLayers[0].index].link ? " link" : "") +
                             (updateEven(frame, this.defaultLayers[0]) ? " even" : " odd"),
-                        onclick: this.updateLayerAndFrameSelection.bind(this, -1, frameIndex)
+                        onclick: () => this.updateLayerAndFrameSelection(-1, frameIndex)
                     }))
                 )
             ] : []).concat(
@@ -393,7 +393,7 @@ Timeline.render = function () {
                                 (frame === this.selection.currentFrame ? " current" : "") +
                                 (frameIndex > 0 && frame.layerProperties[layer.index].link ? " link" : "") +
                                 (updateEven(frame, layer) ? " even" : " odd"),
-                            onclick: this.updateLayerAndFrameSelection.bind(this, layer.index, frameIndex)
+                            onclick: () => this.updateLayerAndFrameSelection(layer.index, frameIndex)
                         })
                     )))
             ).concat([

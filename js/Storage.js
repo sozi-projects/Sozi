@@ -27,7 +27,7 @@ Storage.init = function (controller, svgDocument, presentation, selection, timel
     this.jsonNeedsSaving = false;
     this.htmlNeedsSaving = false;
     this.reloading = false;
-    this.gettext = locale.gettext.bind(locale);
+    this.gettext = (s) => locale.gettext(s);
 
     nunjucks.configure(path.join(__dirname, "..", "templates"), {
         watch: false,
@@ -46,8 +46,8 @@ Storage.init = function (controller, svgDocument, presentation, selection, timel
         const listItem = document.createElement("li");
         document.querySelector("#sozi-editor-view-preview ul").appendChild(listItem);
         backend.init(listItem, this.gettext)
-            .addListener("load", this.onBackendLoad.bind(this, backend))
-            .addListener("change", this.onBackendChange.bind(this));
+            .addListener("load", () => this.onBackendLoad(backend))
+            .addListener("change", () => this.onBackendChange());
     });
 
     return this;
@@ -207,7 +207,7 @@ Storage.autosaveJSON = function (fileDescriptor) {
 
     const _ = this.gettext;
 
-    this.backend.autosave(fileDescriptor, () => this.jsonNeedsSaving, this.getJSONData.bind(this));
+    this.backend.autosave(fileDescriptor, () => this.jsonNeedsSaving, () => this.getJSONData());
 
     this.backend.addListener("save", savedFileDescriptor => {
         if (fileDescriptor === savedFileDescriptor) {
@@ -227,7 +227,7 @@ Storage.autosaveHTML = function (fileDescriptor) {
         return;
     }
 
-    this.backend.autosave(fileDescriptor, () => this.htmlNeedsSaving, this.exportHTML.bind(this));
+    this.backend.autosave(fileDescriptor, () => this.htmlNeedsSaving, () => this.exportHTML());
 
     this.backend.addListener("save", savedFileDescriptor => {
         if (fileDescriptor === savedFileDescriptor) {

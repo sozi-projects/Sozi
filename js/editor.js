@@ -31,19 +31,19 @@ window.addEventListener("load", () => {
 
     Preview.init(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller);
 
-    let locale = i18n.init();
+    const locale = i18n.init();
     Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, locale);
     Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, locale);
     Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, locale);
     Storage.init(Controller, SVGDocumentWrapper, Presentation, Selection, Timeline, locale);
 
-    let body      = document.querySelector("body");
-    let left      = document.querySelector(".left");
-    let right     = document.querySelector(".right");
-    let top       = document.querySelector(".top");
-    let bottom    = document.querySelector(".bottom");
-    let hsplitter = document.querySelector(".hsplitter");
-    let vsplitter = document.querySelector(".vsplitter");
+    const body      = document.querySelector("body");
+    const left      = document.querySelector(".left");
+    const right     = document.querySelector(".right");
+    const top       = document.querySelector(".top");
+    const bottom    = document.querySelector(".bottom");
+    const hsplitter = document.querySelector(".hsplitter");
+    const vsplitter = document.querySelector(".vsplitter");
 
     let hsplitterStartY, vsplitterStartX;
 

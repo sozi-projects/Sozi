@@ -22,11 +22,11 @@ export const Preview = {
     },
 
     onLoadSVG() {
-        this.viewport.addListener("click", this.onClick.bind(this));
-        this.viewport.addListener("userChangeState", this.controller.updateCameraStates.bind(this.controller));
-        this.controller.addListener("repaint", this.repaint.bind(this));
-        this.container.addEventListener("mouseenter", this.onMouseEnter.bind(this), false);
-        this.container.addEventListener("mouseleave", this.onMouseLeave.bind(this), false);
+        this.viewport.addListener("click", () => this.onClick());
+        this.viewport.addListener("userChangeState", () => this.controller.updateCameraStates());
+        this.controller.addListener("repaint", () => this.repaint());
+        this.container.addEventListener("mouseenter", () => this.onMouseEnter(), false);
+        this.container.addEventListener("mouseleave", () => this.onMouseLeave(), false);
 
         // Set the window title to the presentation title
         document.querySelector("html head title").innerHTML = this.presentation.title;
