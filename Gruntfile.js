@@ -95,7 +95,7 @@ module.exports = function(grunt) {
             all: {
                 files: [{
                     expand: true,
-                    src: ["index.js", "js/**/*.js"],
+                    src: ["index-webapp.js", "js/**/*.js"],
                     dest: "build/app"
                 }]
             }
@@ -126,9 +126,9 @@ module.exports = function(grunt) {
         browserify: {
             editor: {
                 options: {
-                    external: ["electron", "fs", "path", "process"]
+                    external: ["electron", "fs", "process"]
                 },
-                src: ["build/app/index.js"],
+                src: ["build/app/index-webapp.js"],
                 dest: "build/tmp/js/editor.bundle.js"
             },
             player: {
@@ -144,7 +144,7 @@ module.exports = function(grunt) {
             options: buildConfig.uglifyOptions,
             editor: {
                 src: "<%= browserify.editor.dest %>",
-                dest: "build/webapp/js/editor.min.js"
+                dest: "build/app/js/editor.min.js"
             },
             player: {
                 src: "<%= browserify.player.dest %>",
