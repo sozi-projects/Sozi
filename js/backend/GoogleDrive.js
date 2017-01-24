@@ -34,7 +34,7 @@ GoogleDrive.authorize = function (onInit) {
         client_id: this.clientId,
         scope: "https://www.googleapis.com/auth/drive",
         immediate: onInit
-    }, () => this.onAuthResult(onInit));
+    }, authResult => this.onAuthResult(onInit, authResult));
 };
 
 GoogleDrive.onAuthResult = function (onInit, authResult) {

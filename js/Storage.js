@@ -27,7 +27,7 @@ Storage.init = function (controller, svgDocument, presentation, selection, timel
     this.jsonNeedsSaving = false;
     this.htmlNeedsSaving = false;
     this.reloading = false;
-    this.gettext = (s) => locale.gettext(s);
+    this.gettext = s => locale.gettext(s);
 
     nunjucks.configure(path.join(__dirname, "..", "templates"), {
         watch: false,
@@ -46,8 +46,8 @@ Storage.init = function (controller, svgDocument, presentation, selection, timel
         const listItem = document.createElement("li");
         document.querySelector("#sozi-editor-view-preview ul").appendChild(listItem);
         backend.init(listItem, this.gettext)
-            .addListener("load", () => this.onBackendLoad(backend))
-            .addListener("change", () => this.onBackendChange());
+            .addListener("load", (...a) => this.onBackendLoad(backend, ...a))
+            .addListener("change", (...a) => this.onBackendChange(...a));
     });
 
     return this;

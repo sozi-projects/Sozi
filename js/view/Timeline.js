@@ -40,7 +40,7 @@ Timeline.init = function (container, presentation, selection, controller, locale
 
     this.presentation = presentation;
     this.selection = selection;
-    this.gettext = (s) => locale.gettext(s);
+    this.gettext = s => locale.gettext(s);
 
     this.editableLayers = [];
     this.defaultLayers = [];
@@ -261,7 +261,7 @@ Timeline.render = function () {
                 h("tr",
                     h("th", {attributes: {colspan: 2}},
                         h("select", {
-                            onchange: (evt) => {
+                            onchange: evt => {
                                 const value = evt.target.value;
                                 evt.target.value = "__add__";
                                 this.addLayer(value);
@@ -284,17 +284,17 @@ Timeline.render = function () {
                         defaultLayersAreVisible ?
                             h("i.visibility.fa.fa-eye", {
                                 title: _("This layer is visible. Click to hide it."),
-                                onclick: () => this.toggleLayerVisibility(-1)
+                                onclick: evt => this.toggleLayerVisibility(-1, evt)
                             }) :
                             h("i.visibility.fa.fa-eye-slash", {
                                 title: _("This layer is hidden. Click to show it."),
-                                onclick: () => this.toggleLayerVisibility(-1)
+                                onclick: evt => this.toggleLayerVisibility(-1, evt)
                             }),
                         h("i.remove.fa.fa-times", {style: {visibility: "hidden"}})
                     ]),
                     h("th", {
                         className: "layer-label" + (this.defaultLayersAreSelected ? " selected" : ""),
-                        onclick: () => this.updateLayerSelection(-1)
+                        onclick: evt => this.updateLayerSelection(-1, evt)
                     }, _("Default"))
                 ]),
             ] : []).concat(
@@ -305,11 +305,11 @@ Timeline.render = function () {
                                 layer.isVisible ?
                                     h("i.visibility.fa.fa-eye", {
                                         title: _("This layer is visible. Click to hide it."),
-                                        onclick: () => this.toggleLayerVisibility(layer.index)
+                                        onclick: evt => this.toggleLayerVisibility(layer.index, evt)
                                     }) :
                                     h("i.visibility.fa.fa-eye-slash", {
                                         title: _("This layer is hidden. Click to show it."),
-                                        onclick: () => this.toggleLayerVisibility(layer.index)
+                                        onclick: evt => this.toggleLayerVisibility(layer.index, evt)
                                     }),
                                 h("i.remove.fa.fa-times", {
                                     title: _("Remove this layer"),
@@ -318,7 +318,7 @@ Timeline.render = function () {
                             ]),
                             h("th", {
                                 className: "layer-label" + (this.selection.selectedLayers.indexOf(layer) >= 0 ? " selected" : ""),
-                                onclick: () => this.updateLayerSelection(layer.index)
+                                onclick: evt => this.updateLayerSelection(layer.index, evt)
                             }, layer.label)
                         ])
                     )
@@ -335,7 +335,7 @@ Timeline.render = function () {
                         className: "frame-index" +
                             (this.selection.selectedFrames.indexOf(frame) >= 0 ? " selected" : "") +
                             (frame === this.selection.currentFrame ? " current" : ""),
-                        onclick: () => this.updateFrameSelection(frameIndex)
+                        onclick: evt => this.updateFrameSelection(frameIndex, evt)
                     }, [
                         h("i.insert-before.fa.fa-arrow-circle-down", {
                             title: Jed.sprintf(_("Insert selection before frame %d"), frameIndex + 1),
@@ -360,14 +360,14 @@ Timeline.render = function () {
                             className: "frame-title" +
                                 (this.selection.selectedFrames.indexOf(frame) >= 0 ? " selected" : "") +
                                 (frame === this.selection.currentFrame ? " current" : ""),
-                            onclick: () => this.updateFrameSelection(frameIndex)
+                            onclick: evt => this.updateFrameSelection(frameIndex, evt)
                         }, frame.title)
                     )
                  )
             ])
         ]),
         h("div.timeline-bottom-right", {
-            onscroll: (evt) => {
+            onscroll: evt => {
                 this.rootNode.querySelector(".timeline-top-right").scrollLeft = evt.target.scrollLeft;
                 this.rootNode.querySelector(".timeline-bottom-left").scrollTop = evt.target.scrollTop;
             }
@@ -380,7 +380,7 @@ Timeline.render = function () {
                             (frame === this.selection.currentFrame ? " current" : "") +
                             (frameIndex > 0 && frame.layerProperties[this.defaultLayers[0].index].link ? " link" : "") +
                             (updateEven(frame, this.defaultLayers[0]) ? " even" : " odd"),
-                        onclick: () => this.updateLayerAndFrameSelection(-1, frameIndex)
+                        onclick: evt => this.updateLayerAndFrameSelection(-1, frameIndex, evt)
                     }))
                 )
             ] : []).concat(
@@ -393,7 +393,7 @@ Timeline.render = function () {
                                 (frame === this.selection.currentFrame ? " current" : "") +
                                 (frameIndex > 0 && frame.layerProperties[layer.index].link ? " link" : "") +
                                 (updateEven(frame, layer) ? " even" : " odd"),
-                            onclick: () => this.updateLayerAndFrameSelection(layer.index, frameIndex)
+                            onclick: evt => this.updateLayerAndFrameSelection(layer.index, frameIndex, evt)
                         })
                     )))
             ).concat([

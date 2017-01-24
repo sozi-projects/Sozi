@@ -22,7 +22,7 @@ export const Preview = {
     },
 
     onLoadSVG() {
-        this.viewport.addListener("click", () => this.onClick());
+        this.viewport.addListener("click", (btn, evt) => this.onClick(btn, evt));
         this.viewport.addListener("userChangeState", () => this.controller.updateCameraStates());
         this.controller.addListener("repaint", () => this.repaint());
         this.container.addEventListener("mouseenter", () => this.onMouseEnter(), false);

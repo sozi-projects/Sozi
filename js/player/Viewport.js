@@ -50,8 +50,8 @@ Viewport.init = function (presentation, editMode) {
     this.wheelTimeout = null;
 
     // Setup mouse and keyboard event handlers.
-    this.dragHandler = () => this.onDrag();
-    this.dragEndHandler = () => this.onDragEnd();
+    this.dragHandler = evt => this.onDrag(evt);
+    this.dragEndHandler = evt => this.onDragEnd(evt);
 
     return this;
 };
@@ -67,15 +67,15 @@ Viewport.makeUniqueId = function (prefix) {
 };
 
 Viewport.onLoad = function () {
-    this.svgRoot.addEventListener("mousedown", () => this.onMouseDown(), false);
-    this.svgRoot.addEventListener("mousemove", () => this.onMouseMove(), false);
-    this.svgRoot.addEventListener("contextmenu", () => this.onContextMenu(), false);
+    this.svgRoot.addEventListener("mousedown", evt => this.onMouseDown(evt), false);
+    this.svgRoot.addEventListener("mousemove", evt => this.onMouseMove(evt), false);
+    this.svgRoot.addEventListener("contextmenu", evt => this.onContextMenu(evt), false);
 
     const wheelEvent =
         "onwheel" in document.createElement("div") ? "wheel" :  // Modern browsers support "wheel"
         document.onmousewheel !== undefined ? "mousewheel" :    // Webkit and IE support at least "mousewheel"
         "DOMMouseScroll";                                       // Firefox < 17
-    this.svgRoot.addEventListener(wheelEvent, () => this.onWheel(), false);
+    this.svgRoot.addEventListener(wheelEvent, evt => this.onWheel(evt), false);
 
     this.cameras = this.presentation.layers.map(layer => Object.create(Camera).init(this, layer));
 

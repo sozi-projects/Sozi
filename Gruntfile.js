@@ -95,7 +95,7 @@ module.exports = function(grunt) {
             all: {
                 files: [{
                     expand: true,
-                    src: "js/**/*.js",
+                    src: ["index.js", "js/**/*.js"],
                     dest: "build/app"
                 }]
             }
@@ -128,7 +128,7 @@ module.exports = function(grunt) {
                 options: {
                     external: ["electron", "fs", "path", "process"]
                 },
-                src: ["build/app/js/editor.js"],
+                src: ["build/app/index.js"],
                 dest: "build/tmp/js/editor.bundle.js"
             },
             player: {
@@ -184,7 +184,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         src: [
-                            "index.html",
+                            "index-*.html",
                             "css/**/*",
                             "vendor/**/*",
                             "bower_components/**/*"
@@ -196,13 +196,21 @@ module.exports = function(grunt) {
         },
 
         rename: {
-            webapp: {
+            webapp_backend: {
                 src: ["build/app/js/backend/index-webapp.js"],
                 dest: "build/app/js/backend/index.js"
             },
-            electron: {
+            webapp_html: {
+                src: ["build/app/index-webapp.html"],
+                dest: "build/app/index.html"
+            },
+            electron_backend: {
                 src: ["build/app/js/backend/index-electron.js"],
                 dest: "build/app/js/backend/index.js"
+            },
+            electron_html: {
+                src: ["build/app/index-electron.html"],
+                dest: "build/app/index.html"
             }
         },
 
@@ -328,14 +336,16 @@ module.exports = function(grunt) {
 
     grunt.registerTask("electron-build",  [
         "build",
-        "rename:electron",
+        "rename:electron_backend",
+        "rename:electron_html",
         "install-dependencies",
         "electron"
     ]);
 
     grunt.registerTask("web-build", [
         "build",
-        "rename:webapp",
+        "rename:webapp_backend",
+        "rename:webapp_html",
         "browserify:editor", // Cannot use 'newer' here due to imports
         "newer:uglify:editor"
     ]);

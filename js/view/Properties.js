@@ -13,7 +13,7 @@ Properties.init = function (container, selection, controller, locale) {
     VirtualDOMView.init.call(this, container, controller);
 
     this.selection = selection;
-    this.gettext = (s) => locale.gettext(s);
+    this.gettext = s => locale.gettext(s);
 
     return this;
 };

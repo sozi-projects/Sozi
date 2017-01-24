@@ -90,7 +90,7 @@ window.addEventListener("load", () => {
         body.addEventListener("mouseup",   vsplitterOnMouseUp);
     });
 
-    window.addEventListener("keydown", (evt) => {
+    window.addEventListener("keydown", evt => {
         if (evt.ctrlKey) {
             switch (evt.keyCode) {
                 case 83: // Ctrl-s

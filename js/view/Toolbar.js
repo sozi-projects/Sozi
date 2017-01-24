@@ -17,7 +17,7 @@ Toolbar.init = function (container, storage, presentation, viewport, controller,
     this.storage = storage;
     this.presentation = presentation;
     this.viewport = viewport;
-    this.gettext = (s) => locale.gettext(s);
+    this.gettext = s => locale.gettext(s);
 
     return this;
 };
