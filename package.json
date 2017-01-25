@@ -2,7 +2,7 @@
   "name": "sozi",
   "description": "A zooming presentation editor",
   "author": "Guillaume Savaton",
-  "version": "16.09.13",
+  "version": "17.01.25",
   "license": "MPL-2.0",
   "main": "js/electron.js",
   "scripts": {
@@ -32,7 +32,6 @@
     "grunt-install-dependencies": "senshu/grunt-install-dependencies",
     "grunt-jspot": "senshu/grunt-jspot",
     "grunt-newer": "^1.1.0",
-    "grunt-nunjucks": "~0.1.4",
     "grunt-po2json": "rockykitamura/grunt-po2json",
     "grunt-rename": "senshu/grunt-rename",
     "grunt-rsync": "^2.0.0",

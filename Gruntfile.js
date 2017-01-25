@@ -168,19 +168,6 @@ module.exports = function(grunt) {
             }
         },
 
-        // OBSOLETE Not used in electron app
-        nunjucks: {
-            options: {
-                name: function (filepath) {
-                    return path.basename(filepath);
-                }
-            },
-            player: {
-                src: ["<%= nunjucks_render.player.dest %>"],
-                dest: "build/app/js/templates/player.js"
-            }
-        },
-
         copy: {
             editor: {
                 files: [
