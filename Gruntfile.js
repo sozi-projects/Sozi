@@ -126,7 +126,10 @@ module.exports = function(grunt) {
         browserify: {
             editor: {
                 options: {
-                    external: ["electron", "fs", "process"]
+                    external: ["electron", "fs", "process"],
+                    browserifyOptions: {
+                        basedir: "build/app"
+                    }
                 },
                 src: ["build/app/index-webapp.js"],
                 dest: "build/tmp/js/editor.bundle.js"
@@ -257,7 +260,7 @@ module.exports = function(grunt) {
          */
         rsync: {
             options: {
-                args: ["--verbose", "--update"]
+                args: ["--verbose", "--update", "--checksum"]
             },
             editor: {
                 options: {

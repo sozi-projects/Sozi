@@ -29,7 +29,12 @@ Storage.init = function (controller, svgDocument, presentation, selection, timel
     this.reloading = false;
     this.gettext = s => locale.gettext(s);
 
-    nunjucks.configure(path.join(__dirname, "..", "templates"), {
+    // Adjust the template path depending on the target platform.
+    // In the web browser, __dirname is set to "/js". The leading "/" will result
+    // in an incorrect URL if the app is not hosted at the root of its domain.
+    const templatePath = __dirname === "/js" ? "templates" : path.join(__dirname, "..", "templates");
+
+    nunjucks.configure(templatePath, {
         watch: false,
         autoescape: false
     });
