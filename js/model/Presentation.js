@@ -84,6 +84,9 @@ export const LayerProperties = {
     },
 
     set referenceElementHide(hide) {
+        if (this.referenceElement === this.frame.presentation.document.root) {
+            return;
+        }
         const hidden = this.referenceElementHide;
         if (hide && !hidden) {
             this.frame.presentation.elementsToHide.push(this.referenceElementId);
