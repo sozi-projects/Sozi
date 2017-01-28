@@ -10,27 +10,31 @@ import {registerHandler, DefaultHandler} from "./SVGDocumentWrapper";
 const AiHandler = Object.create(DefaultHandler);
 
 AiHandler.matches = function (svgRoot) {
-    return /^http:\/\/ns.adobe.com\/AdobeIllustrator/.test(svgRoot.getAttribute("xmlns:i"));
+    return /^http:\/\/ns.adobe.com\/AdobeIllustrator/.test(svgRoot.getAttribute("xmlns:i")) &&
+           toArray(svgRoot.childNodes).some(svgNode => svgNode instanceof SVGSwitchElement);
 };
 
 AiHandler.transform = function (svgRoot) {
-    toArray(svgRoot.childNodes).forEach(svgNode => {
-        if (svgNode.localName === "switch") {
-            // Remove first foreignObject child node
-            const foreignObject = svgNode.firstElementChild;
-            if (foreignObject && foreignObject.localName === "foreignObject") {
-                svgNode.removeChild(foreignObject);
-            }
+    toArray(svgRoot.getElementsByTagName("switch")).forEach(svgSwitch => {
+        // Remove first foreignObject child node
+        const svgForeignObject = svgSwitch.firstElementChild;
+        if (svgForeignObject && svgForeignObject instanceof SVGForeignObjectElement &&
+            svgForeignObject.hasAttribute("requiredExtensions") &&
+            svgForeignObject.getAttribute("requiredExtensions").startsWith("http://ns.adobe.com/AdobeIllustrator")) {
+            // Remove foreign objet element
+            svgSwitch.removeChild(svgForeignObject);
+
             // Unwrap main group
-            let mainGroup = svgNode.firstElementChild;
-            if (!mainGroup || mainGroup.localName !== "g" || mainGroup.getAttribute("i:extraneous") !== "self") {
-                mainGroup = svgNode;
+            let svgGroup = svgSwitch.firstElementChild;
+            if (!svgGroup || svgGroup instanceof SVGGElement || svgGroup.getAttribute("i:extraneous") !== "self") {
+                svgGroup = svgSwitch;
             }
-            toArray(mainGroup.childNodes).forEach(childNode => {
-                svgRoot.insertBefore(childNode, svgNode);
+            toArray(svgGroup.childNodes).forEach(childNode => {
+                svgSwitch.parentNode.insertBefore(childNode, svgSwitch);
             });
+
             // Remove switch element
-            svgRoot.removeChild(svgNode);
+            svgSwitch.parentNode.removeChild(svgSwitch);
         }
     });
     return this;

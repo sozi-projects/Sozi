@@ -79,7 +79,7 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
     }
     else if (/\.svg$/.test(name)) {
         this.reloading = fileDescriptor === this.svgFileDescriptor;
-        this.document.import(data);
+        this.document.convert(data);
         if (this.document.isValidSVG) {
             this.resolveRelativeURLs(location);
             this.controller.setSVGDocument(this.document);

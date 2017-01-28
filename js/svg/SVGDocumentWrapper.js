@@ -38,7 +38,6 @@ export const DefaultHandler = {
 };
 
 export const SVGDocumentWrapper = {
-    asText: "",
     root: undefined,
     handler: DefaultHandler,
 
@@ -79,21 +78,8 @@ export const SVGDocumentWrapper = {
             this.handler.isLayer(svgNode);
     },
 
-    import(data) {
-        this.asText = "";
-        this.root = undefined;
-
-        // Create a DOM tree from the given textual data
-        const div = document.createElement("div");
-        div.innerHTML = data;
-
-        // Remove everything before the first element
-        while (div.firstChild !== div.firstElementChild) {
-            div.removeChild(div.firstChild);
-        }
-
-        // Now, the first child of the div is the SVG root
-        this.init(div.firstChild);
+    convert(data) {
+        this.init(new DOMParser().parseFromString(data, "image/svg+xml").documentElement);
 
         // Check that the root is an SVG element
         if (this.isValidSVG) {
@@ -101,14 +87,16 @@ export const SVGDocumentWrapper = {
             this.handler.transform(this.root);
 
             // Remove attributes that prevent correct rendering
-            this.root.removeAttribute("viewBox");
-            this.root.style.width = this.root.style.height = "auto";
+            this.removeViewbox();
 
             // Remove any existing script inside the SVG DOM tree
-            const scripts = toArray(this.root.getElementsByTagName("script"));
-            scripts.forEach(script => {
-                script.parentNode.removeChild(script);
-            });
+            this.removeScripts();
+
+            // Fix <switch> elements from Adobe Illustrator
+            const aiHandler = handlers["Adobe Illustrator"];
+            if (aiHandler && this.handler !== aiHandler) {
+                aiHandler.transform(this.root);
+            }
 
             // Wrap isolated elements into groups
             let svgWrapper = document.createElementNS(SVG_NS, "g");
@@ -142,10 +130,24 @@ export const SVGDocumentWrapper = {
             if (svgWrapper.firstChild) {
                 this.root.appendChild(svgWrapper);
             }
-
-            this.asText = div.innerHTML;
-
-            return this;
         }
+
+        return this;
+    },
+
+    removeViewbox() {
+        this.root.removeAttribute("viewBox");
+        this.root.style.width = this.root.style.height = "auto";
+    },
+
+    removeScripts() {
+        const scripts = toArray(this.root.getElementsByTagName("script"));
+        scripts.forEach(script => {
+            script.parentNode.removeChild(script);
+        });
+    },
+
+    get asText() {
+        return this.root ? new XMLSerializer().serializeToString(this.root) : "";
     }
 };
