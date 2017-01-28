@@ -38,6 +38,7 @@ export const DefaultHandler = {
 };
 
 export const SVGDocumentWrapper = {
+    asText: "",
     root: undefined,
     handler: DefaultHandler,
 
@@ -135,6 +136,8 @@ export const SVGDocumentWrapper = {
             }
         }
 
+        this.asText = new XMLSerializer().serializeToString(this.root);
+
         return this;
     },
 
@@ -155,9 +158,5 @@ export const SVGDocumentWrapper = {
         links.forEach(link => {
             link.addEventListener("click", evt => evt.preventDefault(), false);
         });
-    },
-
-    get asText() {
-        return this.root ? new XMLSerializer().serializeToString(this.root) : "";
     }
 };
