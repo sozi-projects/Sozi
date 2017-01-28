@@ -44,19 +44,10 @@ export const SVGDocumentWrapper = {
     init(svgRoot) {
         this.root = svgRoot;
 
-        this.handler = DefaultHandler;
-        for (let name in handlers) {
-            if (handlers[name].matches(svgRoot)) {
-                console.log(`Using handler: ${name}`);
-                this.handler = handlers[name];
-                break;
-            }
-        }
-
         // Prevent event propagation on hyperlinks
         const links = toArray(this.root.getElementsByTagName("a"));
         links.forEach(link => {
-            link.addEventListener("mousedown", evt => { evt.stopPropagation(); }, false);
+            link.addEventListener("mousedown", evt => evt.stopPropagation(), false);
         });
 
         return this;
@@ -78,8 +69,17 @@ export const SVGDocumentWrapper = {
             this.handler.isLayer(svgNode);
     },
 
-    convert(data) {
-        this.init(new DOMParser().parseFromString(data, "image/svg+xml").documentElement);
+    initFromString(data) {
+        this.root = new DOMParser().parseFromString(data, "image/svg+xml").documentElement;
+
+        this.handler = DefaultHandler;
+        for (let name in handlers) {
+            if (handlers[name].matches(this.root)) {
+                console.log(`Using handler: ${name}`);
+                this.handler = handlers[name];
+                break;
+            }
+        }
 
         // Check that the root is an SVG element
         if (this.isValidSVG) {
@@ -91,6 +91,9 @@ export const SVGDocumentWrapper = {
 
             // Remove any existing script inside the SVG DOM tree
             this.removeScripts();
+
+            // Disable hyperlinks
+            this.disableHyperlinks();
 
             // Fix <switch> elements from Adobe Illustrator
             const aiHandler = handlers["Adobe Illustrator"];
@@ -144,6 +147,13 @@ export const SVGDocumentWrapper = {
         const scripts = toArray(this.root.getElementsByTagName("script"));
         scripts.forEach(script => {
             script.parentNode.removeChild(script);
+        });
+    },
+
+    disableHyperlinks() {
+        const links = toArray(this.root.getElementsByTagName("a"));
+        links.forEach(link => {
+            link.addEventListener("click", evt => evt.preventDefault(), false);
         });
     },
 

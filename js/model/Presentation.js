@@ -322,7 +322,7 @@ export const Presentation = {
         const autoLayer = Object.create(Layer).init(this, "auto", true);
 
         toArray(this.document.root.childNodes).forEach(svgNode => {
-            if (svgNode.localName === "g") {
+            if (svgNode instanceof SVGGElement) {
                 const nodeId = svgNode.getAttribute("id");
                 if (nodeId === null) {
                     autoLayer.svgNodes.push(svgNode);
