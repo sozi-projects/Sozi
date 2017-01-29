@@ -77,6 +77,19 @@
                 background-color: rgba(34, 34, 34, 0.9);
             }
 
+            .sozi-blank-screen {
+                background: black;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                visibility: hidden;
+                z-index: 999;
+                transition: opacity 0.5s, visibility 0.5s;
+            }
+
             svg a {
                 cursor: pointer;
             }
@@ -92,6 +105,7 @@
                 {% endif %}
             {% endfor %}
         </ol>
+        <div class="sozi-blank-screen"></div>
         <script>var soziPresentationData = {{ json }};</script>
 {% endraw %}
         <script>{{ playerJs }}</script>

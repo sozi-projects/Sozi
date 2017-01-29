@@ -154,6 +154,10 @@ Player.onKeyPress = function (evt) {
                 this.resume();
             }
             break;
+        case 46: // .
+        console.log("Blank");
+            this.toggleBlankScreen();
+            break;
         default:
             return;
     }
@@ -268,6 +272,8 @@ Player.waitTimeout = function () {
  * target frame, it will be ignored.
  */
 Player.jumpToFrame = function (index) {
+    this.disableBlankScreen();
+
     this.pause();
 
     this.targetFrameIndex = index;
@@ -315,6 +321,8 @@ Player.jumpToNext = function () {
  * Otherwise, default transition properties are used.
  */
 Player.moveToFrame = function (index) {
+    this.disableBlankScreen();
+
     if (this.waitingTimeout) {
         window.clearTimeout(this.timeoutHandle);
         this.waitingTimeout = false;
@@ -468,5 +476,33 @@ Player.onAnimatorDone = function () {
     this.emit("frameChange");
     if (this.playing) {
         this.waitTimeout();
+    }
+};
+
+Object.defineProperty(Player, "blankScreenIsVisible", {
+    get() {
+        return document.querySelector(".sozi-blank-screen").style.visibility === "visible";
+    }
+});
+
+Player.enableBlankScreen = function () {
+    const blankScreen = document.querySelector(".sozi-blank-screen");
+    this.pause();
+    blankScreen.style.visibility = "visible";
+    blankScreen.style.opacity = 1;
+};
+
+Player.disableBlankScreen = function () {
+    const blankScreen = document.querySelector(".sozi-blank-screen");
+    blankScreen.style.opacity = 0;
+    blankScreen.style.visibility = "hidden";
+};
+
+Player.toggleBlankScreen = function () {
+    if (this.blankScreenIsVisible) {
+        this.disableBlankScreen();
+    }
+    else {
+        this.enableBlankScreen();
     }
 };

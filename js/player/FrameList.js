@@ -76,6 +76,7 @@ function onKeyPress(evt) {
     switch (evt.charCode || evt.which) {
         case 84: // T
         case 116: // t
+            player.disableBlankScreen();
             toggle();
             break;
         default:
