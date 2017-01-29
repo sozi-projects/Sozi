@@ -588,23 +588,35 @@ Controller.updateCameraStates = function () {
         const savedFrame = Object.create(Frame).initFrom(currentFrame);
         const modifiedFrame = Object.create(Frame).initFrom(currentFrame);
 
+        // Find the best reference element in the visible area.
+        // We consider all layers regardless of whether they are selected or
+        // whether automatic reference element is enabled in them.
+        let refElt, refEltScore = null;
         this.viewport.cameras.forEach(camera => {
-            if (camera.selected) {
-                const cameraIndex = this.viewport.cameras.indexOf(camera);
-                const layerProperties = modifiedFrame.layerProperties[cameraIndex];
+            const {element, score} = camera.getCandidateReferenceElement();
+            if (refEltScore === null || score !== null && score < refEltScore) {
+                refElt = element;
+                refEltScore = score;
+            }
+        });
 
+        this.viewport.cameras.forEach((camera, cameraIndex) => {
+            if (camera.selected) {
                 // Update the camera states of the current frame
                 modifiedFrame.cameraStates[cameraIndex].initFrom(camera);
+
+                // We will update the layer properties corresponding to the
+                // current camera in the modified frame
+                const layerProperties = modifiedFrame.layerProperties[cameraIndex];
 
                 // Mark the modified layers as unlinked in the current frame
                 layerProperties.link = false;
 
-                // Choose reference SVG element for frame
-                if (layerProperties.referenceElementAuto) {
-                    const refElt = camera.getCandidateReferenceElement();
-                    if (refElt) {
-                        layerProperties.referenceElementId = refElt.getAttribute("id");
-                    }
+                // Update the reference SVG element if applicable.
+                // All selected layers with automatic reference element enabled
+                // will have the same reference element.
+                if (layerProperties.referenceElementAuto && refElt) {
+                    layerProperties.referenceElementId = refElt.getAttribute("id");
                 }
             }
         });
