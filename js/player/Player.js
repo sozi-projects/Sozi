@@ -155,7 +155,6 @@ Player.onKeyPress = function (evt) {
             }
             break;
         case 46: // .
-        console.log("Blank");
             this.toggleBlankScreen();
             break;
         default:
