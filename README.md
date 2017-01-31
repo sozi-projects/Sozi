@@ -35,12 +35,12 @@ or
 Install the build tools and dependencies
 ----------------------------------------
 
-Install [Node.js](http://nodejs.org/) (< 6.0.0), [Bower](http://bower.io/)
+Install [Node.js](http://nodejs.org/), [Bower](http://bower.io/)
 and the [Grunt](http://gruntjs.com/) CLI.
 If you plan to build a Windows executable from Linux or OS X, also install wine.
 In Debian/Ubuntu and their derivatives, you can type the following commands.
 
-    sudo apt install nodejs wine
+    sudo apt install nodejs nodejs-legacy npm wine
     sudo npm install bower grunt-cli -g
 
 From the root of the source tree:
@@ -55,22 +55,43 @@ Also install the following:
 Build
 -----
 
-To build the desktop application, run the following command from the root of the source tree:
+To build the desktop application for all platforms, run the following command from the root of the source tree:
 
     grunt
 
+You can customize the build by creating a custom configuration file.
+See `config.default.json` and `config.linux-x64.json` for examples.
+For instance, if you want to build 64-bit executables for OS X and Linux,
+the configuration file (`config.linux-darwin-x64.json`) will look like this:
+
+```json
+{
+    "platforms": [
+        "darwin-x64",
+        "linux-x64"
+    ]
+}
+```
+
+Then run Grunt with the `--config` option:
+
+    grunt --config=config.linux-darwin-x64.json
+
 Other Grunt tasks are available for developers:
 
-Command | Effect
---------|-------
-`grunt nw-build`            | Build the desktop application without creating executable bundles.
-`grunt web-build`           | Build the web application without uploading it.
-`grunt nw-bundle` (default) | Build the desktop application and create executable bundles for various platforms.
-`grunt web-demo`            | Build the web application and upload it to a server.
-`grunt pot`                 | Extract a template file (`locales/messages.pot`) for translation.
+Command                           | Effect
+----------------------------------|-------
+`grunt electron-build`            | Build the desktop application without creating executable bundles.
+`grunt web-build`                 | Build the web application without uploading it.
+`grunt electron-bundle` (default) | Build the desktop application and create executable bundles for various platforms.
+`grunt web-demo`                  | Build the web application and upload it to a server.
+`grunt pot`                       | Extract a template file (`locales/messages.pot`) for translation.
 
 
 Install
 -------
 
-TODO
+There is currently no installation procedure.
+Sozi is released as a zip archive that you can extract wherever you like.
+
+Open the extracted folder and run the `Sozi` executable.

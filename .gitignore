@@ -7,4 +7,3 @@ dist
 cache
 /js/backend/GoogleDrive.config.js
 npm-debug.log
-buildConfig*.js

@@ -12,27 +12,23 @@ module.exports = function(grunt) {
     var pkg = grunt.file.readJSON("package.json");
     pkg.version = grunt.template.today("yy.mm.ddHHMM");
 
-    var buildConfigJs = grunt.option("buildConfig") || "buildConfig.js";
-    var buildConfig = {
-        platforms: [
-            "darwin-x64",
-            "linux-x64",
-            "linux-ia32",
-            "win32-x64",
-            "win32-ia32"
-        ],
-        electronVersion: "1.2.0",
-        uglifyOptions:{}
-    };
-    try {
-        var customBuildConfig = require(path.resolve(buildConfigJs));
-        grunt.verbose.writeln("Using configuration from " + buildConfigJs);
-        for (var key in customBuildConfig) {
-            buildConfig[key] = customBuildConfig[key];
+    var buildConfig = grunt.file.readJSON("config.default.json");
+    var buildConfigJson = grunt.option("config");
+
+    if (buildConfigJson) {
+        try {
+            var customBuildConfig = grunt.file.readJSON(buildConfigJson);
+
+            grunt.verbose.writeln("Using configuration from " + buildConfigJson);
+
+            // Overwrite default config
+            for (var key in customBuildConfig) {
+                buildConfig[key] = customBuildConfig[key];
+            }
         }
-    }
-    catch (noBuildConfigFound) {
-        grunt.verbose.writeln("Configuration file " + buildConfigJs + " not found - using the default configuration.");
+        catch (noBuildConfigFound) {
+            grunt.log.error("Configuration file " + buildConfigJson + " not found.");
+        }
     }
 
     grunt.verbose.write("Checking for bower_components...");
@@ -144,7 +140,6 @@ module.exports = function(grunt) {
          * Compress the JavaScript code of the editor and player.
          */
         uglify: {
-            options: buildConfig.uglifyOptions,
             editor: {
                 src: "<%= browserify.editor.dest %>",
                 dest: "build/app/js/editor.min.js"
