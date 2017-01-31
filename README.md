@@ -6,13 +6,6 @@ It is free software distributed under the terms of the
 
 More details can be found on the official web site: <http://sozi.baierouge.fr>
 
-This repository is organized in three main branches:
-
-- master contains the latest stable version. It is updated when a new release is available or when an issue requires a hot fix.
-- preview contains the current release candidate of Sozi. It is a feature-frozen version that is still undergoing test and debug.
-- dev is the main development branch. Experimental features are added here.
-
-
 Building and installing Sozi from sources
 =========================================
 
@@ -22,14 +15,6 @@ Get the source files
 Clone the repository:
 
     git clone git://github.com/senshu/Sozi.git
-
-If needed, switch to the branch that you want to build:
-
-    git checkout preview
-
-or
-
-    git checkout dev
 
 
 Install the build tools and dependencies
