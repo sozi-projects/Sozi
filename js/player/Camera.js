@@ -161,9 +161,15 @@ Camera.restoreAspectRatio = function () {
 };
 
 Camera.getCandidateReferenceElement = function () {
+    if (!this.layer.svgNodes.length) {
+        return this.svgRoot;
+    }
+
+    let result = this.layer.svgNodes[0];
+
     // getIntersectionList is not supported in Gecko
-    if (!this.svgRoot.getIntersectionList || !this.layer.svgNodes.length) {
-        return {element: this.svgRoot, score: null};
+    if (!this.svgRoot.getIntersectionList) {
+        return result;
     }
 
     // Get all elements that intersect with the viewport.
@@ -178,7 +184,6 @@ Camera.getCandidateReferenceElement = function () {
 
     // Find the element which bounding box best fits in the viewport.
     let bestScore = null;
-    let result;
 
     for (let i = 0; i < intersectionList.length; i ++) {
         const elt = intersectionList[i];
@@ -206,7 +211,7 @@ Camera.getCandidateReferenceElement = function () {
         }
     }
 
-    return {element: result, score: bestScore};
+    return result;
 };
 
 Object.defineProperty(Camera, "clipRect", {
