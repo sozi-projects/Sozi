@@ -24,7 +24,7 @@ Properties.render = function () {
     const c = this.controller;
 
     const timeoutMsDisabled = c.getFrameProperty("timeoutEnable").every(value => !value);
-    const referenceElementIdDisabled = c.getLayerProperty("referenceElementAuto").every(value => value);
+    const outlineElementIdDisabled = c.getLayerProperty("outlineElementAuto").every(value => value);
 
     return h("div.properties", [
         h("h1", _("Frame")),
@@ -52,19 +52,19 @@ Properties.render = function () {
         ]),
         this.renderNumberField("timeoutMs", timeoutMsDisabled, c.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
 
-        h("label", {for: "field-referenceElementId"}, [
-            _("Reference element Id"),
+        h("label", {for: "field-outlineElementId"}, [
+            _("Outline element Id"),
             h("span.btn-group", [
                 // TODO: onclick, update reference element immediately
-                this.renderToggleField(h("i.fa.fa-magic"), _("Autoselect element"), "referenceElementAuto", c.getLayerProperty, c.setLayerProperty),
-                this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide element"), "referenceElementHide", c.getLayerProperty, c.setLayerProperty),
+                this.renderToggleField(h("i.fa.fa-magic"), _("Autoselect element"), "outlineElementAuto", c.getLayerProperty, c.setLayerProperty),
+                this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide element"), "outlineElementHide", c.getLayerProperty, c.setLayerProperty),
                 h("button", {
                     title: _("Fit to element"),
                     onclick() { c.fitElement(); }
                 }, h("i.fa.fa-arrows-alt"))
             ])
         ]),
-        this.renderTextField("referenceElementId", referenceElementIdDisabled, c.getLayerProperty, c.setLayerProperty, true),
+        this.renderTextField("outlineElementId", outlineElementIdDisabled, c.getLayerProperty, c.setLayerProperty, true),
 
         h("label", {for: "field-opacity"}, _("Layer opacity")),
         this.renderRangeField("opacity", c.getCameraProperty, c.setCameraProperty, 0, 1, 0.1),

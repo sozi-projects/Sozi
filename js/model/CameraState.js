@@ -105,13 +105,7 @@ export const CameraState = {
      * Parameters:
      *    - svgElement: an element from the SVG DOM
      */
-    setAtElement(svgElement, deltaX, deltaY, widthFactor, heightFactor, deltaAngle) {
-        deltaX = deltaX || 0;
-        deltaY = deltaY || 0;
-        widthFactor = widthFactor || 1;
-        heightFactor = heightFactor || 1;
-        deltaAngle = deltaAngle || 0;
-
+    setAtElement(svgElement, deltaX = 0, deltaY = 0, widthFactor = 1, heightFactor = 1, deltaAngle = 0) {
         // Read the raw bounding box of the given SVG element
         const bbox = svgElement.getBBox();
 
@@ -162,5 +156,14 @@ export const CameraState = {
             heightFactor: this.height / cam.height,
             deltaAngle: this.angle - cam.angle
         };
+    },
+
+    applyOffset({deltaX, deltaY, widthFactor, heightFactor, deltaAngle}) {
+        this.cx -= deltaX;
+        this.cy -= deltaY;
+        this.width /= widthFactor;
+        this.height /= heightFactor;
+        this.angle -= deltaAngle;
+        return this;
     }
 };

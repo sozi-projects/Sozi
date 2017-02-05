@@ -67,9 +67,9 @@ export const Preview = {
 
     onClick(button, evt) {
         if (button === 0 && evt.altKey) {
-            const referenceElement = evt.target;
-            if (referenceElement.hasAttribute("id") && referenceElement.getBBox) {
-                this.controller.setReferenceElement(referenceElement);
+            const outlineElement = evt.target;
+            if (outlineElement.hasAttribute("id") && outlineElement.getBBox) {
+                this.controller.setOutlineElement(outlineElement);
             }
         }
     },

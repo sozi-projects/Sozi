@@ -406,17 +406,25 @@ Controller.fitElement = function () {
         const savedFrame = Object.create(Frame).initFrom(currentFrame, true);
         const modifiedFrame = Object.create(Frame).initFrom(currentFrame, true);
 
-        let hasReferenceElement = false;
+        // Compute the offsets of each layer relative to the outline elements.
+        const offsets = {};
         this.selection.selectedLayers.forEach(layer => {
-            const id = currentFrame.layerProperties[layer.index].referenceElementId;
+            const id = currentFrame.layerProperties[layer.index].outlineElementId;
             const elt = this.presentation.document.root.getElementById(id);
-            if (elt) {
-                hasReferenceElement = true;
-                modifiedFrame.cameraStates[layer.index].setAtElement(elt).resetClipping();
+            if (elt && layer.contains(elt)) {
+                offsets[id] = modifiedFrame.cameraStates[layer.index].offsetFromElement(elt);
             }
         });
 
-        if (hasReferenceElement) {
+        // Apply the offsets to each layer
+        this.selection.selectedLayers.forEach(layer => {
+            const id = currentFrame.layerProperties[layer.index].outlineElementId;
+            if (offsets[id]) {
+                modifiedFrame.cameraStates[layer.index].applyOffset(offsets[id]).resetClipping();
+            }
+        });
+
+        if (Object.keys(offsets).length) {
             this.perform(
                 function onDo() {
                     currentFrame.setAtStates(modifiedFrame.cameraStates);
@@ -588,6 +596,8 @@ Controller.updateCameraStates = function () {
         const savedFrame = Object.create(Frame).initFrom(currentFrame);
         const modifiedFrame = Object.create(Frame).initFrom(currentFrame);
 
+        let outlineElt = null, outlineScore = null;
+
         this.viewport.cameras.forEach((camera, cameraIndex) => {
             if (camera.selected) {
                 // Update the camera states of the current frame
@@ -601,14 +611,27 @@ Controller.updateCameraStates = function () {
                 layerProperties.link = false;
 
                 // Update the reference SVG element if applicable.
-                if (layerProperties.referenceElementAuto) {
-                    const refElt = camera.getCandidateReferenceElement();
-                    if (refElt && refElt.hasAttribute("id")) {
-                        layerProperties.referenceElementId = refElt.getAttribute("id");
+                const {element, score} = camera.getCandidateReferenceElement();
+                if (element && element.hasAttribute("id")) {
+                    layerProperties.referenceElementId = element.getAttribute("id");
+                    if (outlineScore == null || score < outlineScore) {
+                        outlineElt = element;
+                        outlineScore = score;
                     }
                 }
             }
         });
+
+        if (outlineElt) {
+            this.viewport.cameras.forEach((camera, cameraIndex) => {
+                if (camera.selected) {
+                    const layerProperties = modifiedFrame.layerProperties[cameraIndex];
+                    if (layerProperties.outlineElementAuto) {
+                        layerProperties.outlineElementId = outlineElt.getAttribute("id");
+                    }
+                }
+            });
+        }
 
         this.perform(
             function onDo() {
@@ -625,7 +648,7 @@ Controller.updateCameraStates = function () {
     }
 };
 
-Controller.setReferenceElement = function (referenceElement) {
+Controller.setOutlineElement = function (outlineElement) {
     const currentFrame = this.selection.currentFrame;
     if (currentFrame) {
         const properties = this.viewport.cameras.map((camera, cameraIndex) => {
@@ -637,8 +660,8 @@ Controller.setReferenceElement = function (referenceElement) {
                 // Mark the modified layers as unlinked in the current frame
                 modifiedProperties.link = false;
 
-                modifiedProperties.referenceElementAuto = false;
-                modifiedProperties.referenceElementId = referenceElement.getAttribute("id");
+                modifiedProperties.outlineElementAuto = false;
+                modifiedProperties.outlineElementId = outlineElement.getAttribute("id");
 
                 return {layerProperties, savedProperties, modifiedProperties};
             }

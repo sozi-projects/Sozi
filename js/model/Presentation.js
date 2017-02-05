@@ -17,7 +17,8 @@ export const LayerProperties = {
 
     link: false,
     referenceElementId: "",
-    referenceElementAuto: true,
+    outlineElementId: "",
+    outlineElementAuto: true,
     transitionTimingFunction: "linear",
     transitionRelativeZoom: 0,
     transitionPathId: "",
@@ -31,7 +32,8 @@ export const LayerProperties = {
         this.frame = other.frame;
         this.link = other.link;
         this.referenceElementId = other.referenceElementId;
-        this.referenceElementAuto = other.referenceElementAuto;
+        this.outlineElementId = other.outlineElementId;
+        this.outlineElementAuto = other.outlineElementAuto;
         this.transitionTimingFunction = other.transitionTimingFunction;
         this.transitionRelativeZoom = other.transitionRelativeZoom;
         this.transitionPathId = other.transitionPathId;
@@ -42,7 +44,8 @@ export const LayerProperties = {
         return {
             link: this.link,
             referenceElementId: this.referenceElementId,
-            referenceElementAuto: this.referenceElementAuto,
+            outlineElementId: this.outlineElementId,
+            outlineElementAuto: this.outlineElementAuto,
             transitionTimingFunction: this.transitionTimingFunction,
             transitionRelativeZoom: this.transitionRelativeZoom,
             transitionPathId: this.transitionPathId
@@ -60,7 +63,8 @@ export const LayerProperties = {
     fromStorable(storable) {
         copyIfSet(this, storable, "link");
         copyIfSet(this, storable, "referenceElementId");
-        copyIfSet(this, storable, "referenceElementAuto");
+        copyIfSet(this, storable, "outlineElementId");
+        copyIfSet(this, storable, "outlineElementAuto");
         copyIfSet(this, storable, "transitionTimingFunction");
         copyIfSet(this, storable, "transitionRelativeZoom");
         copyIfSet(this, storable, "transitionPathId");
@@ -75,28 +79,32 @@ export const LayerProperties = {
         return this.frame.presentation.document.root.getElementById(this.referenceElementId);
     },
 
+    get outlineElement() {
+        return this.frame.presentation.document.root.getElementById(this.outlineElementId);
+    },
+
     get transitionPath() {
         return this.frame.presentation.document.root.getElementById(this.transitionPathId);
     },
 
-    get referenceElementHide() {
-        return this.frame.presentation.elementsToHide.indexOf(this.referenceElementId) >= 0;
+    get outlineElementHide() {
+        return this.frame.presentation.elementsToHide.indexOf(this.outlineElementId) >= 0;
     },
 
-    set referenceElementHide(hide) {
-        if (this.referenceElement === this.frame.presentation.document.root) {
+    set outlineElementHide(hide) {
+        if (this.outlineElement === this.frame.presentation.document.root) {
             return;
         }
-        const hidden = this.referenceElementHide;
+        const hidden = this.outlineElementHide;
         if (hide && !hidden) {
-            this.frame.presentation.elementsToHide.push(this.referenceElementId);
+            this.frame.presentation.elementsToHide.push(this.outlineElementId);
         }
         else if (!hide && hidden) {
-            const index = this.frame.presentation.elementsToHide.indexOf(this.referenceElementId);
+            const index = this.frame.presentation.elementsToHide.indexOf(this.outlineElementId);
             this.frame.presentation.elementsToHide.splice(index, 1);
         }
-        if (this.referenceElement) {
-            this.referenceElement.style.visibility = hide ? "hidden" : "visible";
+        if (this.outlineElement) {
+            this.outlineElement.style.visibility = hide ? "hidden" : "visible";
         }
     },
 
@@ -298,6 +306,10 @@ export const Layer = {
         this.svgNodes.forEach(node => {
             node.style.display = visible ? "inline" : "none";
         });
+    },
+
+    contains(svgElement) {
+        return this.svgNodes.some(node => node.contains(svgElement));
     }
 };
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-05-30 08:06:+0000\n"
+"POT-Creation-Date: 2017-02-05 02:57:+0000\n"
 "PO-Revision-Date: 2016-02-13 18:53+0100\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -18,192 +18,194 @@ msgstr ""
 "X-Launchpad-Export-Date: 2015-11-12 19:08+0000\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: build/js/Storage.js:89 build/js/Storage.js:102 build/js/Storage.js:109
-#: build/js/backend/Electron.js:84
-msgid "Sozi (Error)"
-msgstr ""
-
-#: build/js/Storage.js:89
-msgid "File %s could not be loaded."
-msgstr "Nie można załadować pliku %s."
-
-#: build/js/Storage.js:102 build/js/Storage.js:109
-msgid "Document is not valid SVG."
-msgstr "Niepoprawny format pliku SVG."
-
-#: build/js/Storage.js:146 build/js/Storage.js:173 build/js/Storage.js:233
-#: build/js/Storage.js:258 build/js/view/Toolbar.js:136
-#, fuzzy
-msgid "Sozi (Information)"
-msgstr "Informacje"
-
-#: build/js/Storage.js:146
-msgid "Document was changed. Reloading."
-msgstr "Dokument uległ zmianie. Trwa odświeżanie."
-
-#: build/js/Storage.js:173
-msgid "Document was imported from Sozi 13 or earlier."
-msgstr "Dokument został zaimportowany z Sozi w wersji 13 lub wcześniejszej."
-
-#: build/js/Storage.js:233 build/js/Storage.js:258
-msgid "Saved %s."
-msgstr "Zapisano %s."
-
-#: build/js/backend/Electron.js:58 build/js/backend/NodeWebkit.js:55
+#: build/app/js/backend/Electron.js:54
 #, fuzzy
 msgid "Open an SVG file from your computer"
 msgstr "Otwórz z Google Drive"
 
-#: build/js/backend/Electron.js:84 build/js/backend/NodeWebkit.js:95
+#: build/app/js/backend/Electron.js:85 build/app/js/Storage.js:109
+#: build/app/js/Storage.js:122 build/app/js/Storage.js:129
+msgid "Sozi (Error)"
+msgstr ""
+
+#: build/app/js/backend/Electron.js:85
 msgid "File not found: %s."
 msgstr "Nie można odnaleźć pliku: %s."
 
-#: build/js/backend/Electron.js:96
+#: build/app/js/backend/Electron.js:97
 msgid "Choose an SVG file"
 msgstr ""
 
-#: build/js/backend/Electron.js:97
+#: build/app/js/backend/Electron.js:98
 msgid "SVG files"
 msgstr ""
 
-#: build/js/backend/FileReader.js:25
+#: build/app/js/backend/FileReader.js:19
 #, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
 "only)"
 msgstr "Otwórz plik lokalny(<i class=\"fa fa-warning\"></i> tylko do odczytu)"
 
-#: build/js/backend/GoogleDrive.js:27
+#: build/app/js/backend/GoogleDrive.js:23
 #, fuzzy
 msgid "Open an SVG file from Google Drive"
 msgstr "Otwórz z Google Drive"
 
-#: build/js/view/Properties.js:43
+#: build/app/js/Storage.js:109
+msgid "File %s could not be loaded."
+msgstr "Nie można załadować pliku %s."
+
+#: build/app/js/Storage.js:122 build/app/js/Storage.js:129
+msgid "Document is not valid SVG."
+msgstr "Niepoprawny format pliku SVG."
+
+#: build/app/js/Storage.js:166 build/app/js/Storage.js:193
+#: build/app/js/Storage.js:258 build/app/js/Storage.js:285
+#: build/app/js/view/Toolbar.js:134
+#, fuzzy
+msgid "Sozi (Information)"
+msgstr "Informacje"
+
+#: build/app/js/Storage.js:166
+msgid "Document was changed. Reloading."
+msgstr "Dokument uległ zmianie. Trwa odświeżanie."
+
+#: build/app/js/Storage.js:193
+msgid "Document was imported from Sozi 13 or earlier."
+msgstr "Dokument został zaimportowany z Sozi w wersji 13 lub wcześniejszej."
+
+#: build/app/js/Storage.js:258 build/app/js/Storage.js:285
+msgid "Saved %s."
+msgstr "Zapisano %s."
+
+#: build/app/js/view/Properties.js:45
 msgid "Frame"
 msgstr "Ramka"
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:45
 msgid "Show in frame list"
 msgstr "Pokaż w spisie"
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:45
 msgid "Show frame number"
 msgstr "Pokaż numer ramki"
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:45
 msgid "Link to previous frame"
 msgstr "Odnośnik do poprzedniej ramki"
 
-#: build/js/view/Properties.js:43 build/js/view/Toolbar.js:94
+#: build/app/js/view/Properties.js:45 build/app/js/view/Toolbar.js:92
 msgid "Clip"
 msgstr "Przytnij"
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:45
 msgid "Title"
 msgstr "Tytuł"
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:45
 msgid "Id"
 msgstr "Identyfikator"
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:45
 msgid "Timeout (seconds)"
 msgstr "Limit czasu (w sekundach)"
 
-#: build/js/view/Properties.js:43
+#: build/app/js/view/Properties.js:45
 msgid "Timeout enable"
 msgstr "Włącz odliczanie"
 
-#: build/js/view/Properties.js:43
-msgid "Reference element Id"
+#: build/app/js/view/Properties.js:45
+#, fuzzy
+msgid "Outline element Id"
 msgstr "Identyfikator odnośnego elementu"
 
-#: build/js/view/Properties.js:45
+#: build/app/js/view/Properties.js:47
 msgid "Autoselect element"
 msgstr "Zaznacz element automatycznie"
 
-#: build/js/view/Properties.js:45
+#: build/app/js/view/Properties.js:47
 msgid "Hide element"
 msgstr "Ukryj element"
 
-#: build/js/view/Properties.js:46
+#: build/app/js/view/Properties.js:48
 msgid "Fit to element"
 msgstr "Dopasuj do obiektu"
 
-#: build/js/view/Properties.js:50
+#: build/app/js/view/Properties.js:52
 msgid "Layer opacity"
 msgstr "Przeźroczystość warstwy"
 
-#: build/js/view/Properties.js:50
+#: build/app/js/view/Properties.js:52
 msgid "Transition"
 msgstr "Przejście"
 
-#: build/js/view/Properties.js:50
+#: build/app/js/view/Properties.js:52
 msgid "Duration (seconds)"
 msgstr "Czas trwania (sekundy)"
 
-#: build/js/view/Properties.js:50
+#: build/app/js/view/Properties.js:52
 msgid "Timing function"
 msgstr "Funkcja czasu"
 
-#: build/js/view/Properties.js:59
+#: build/app/js/view/Properties.js:61
 msgid "Relative zoom (%)"
 msgstr "Przybliżenie względne (%)"
 
-#: build/js/view/Properties.js:59
+#: build/app/js/view/Properties.js:61
 msgid "Path Id"
 msgstr "Identyfikator ścieżki"
 
-#: build/js/view/Properties.js:59
+#: build/app/js/view/Properties.js:61
 msgid "Hide path"
 msgstr "Ukryj ścieżkę"
 
-#: build/js/view/Timeline.js:266
+#: build/app/js/view/Timeline.js:272
 msgid "Delete the selected frames"
 msgstr "Usuń zaznaczone ramki"
 
-#: build/js/view/Timeline.js:272
+#: build/app/js/view/Timeline.js:278
 msgid "Create a new frame"
 msgstr "Stwórz nową ramkę"
 
-#: build/js/view/Timeline.js:282
+#: build/app/js/view/Timeline.js:288
 msgid "Add layer"
 msgstr "Dodaj warstwę"
 
-#: build/js/view/Timeline.js:287 build/js/view/Timeline.js:299
+#: build/app/js/view/Timeline.js:293 build/app/js/view/Timeline.js:311
 msgid "This layer is visible. Click to hide it."
 msgstr "Ta warstwa jest widoczna. Kliknij by ją ukryć."
 
-#: build/js/view/Timeline.js:290 build/js/view/Timeline.js:302
+#: build/app/js/view/Timeline.js:298 build/app/js/view/Timeline.js:316
 msgid "This layer is hidden. Click to show it."
 msgstr "Ta warstwa jest ukryta. Kliknij by ją pokazać."
 
-#: build/js/view/Timeline.js:295 build/js/view/Timeline.js:311
+#: build/app/js/view/Timeline.js:307 build/app/js/view/Timeline.js:331
 msgid "Default"
 msgstr "Domyślny"
 
-#: build/js/view/Timeline.js:305
+#: build/app/js/view/Timeline.js:321
 msgid "Remove this layer"
 msgstr "Usuń tę warstwę"
 
-#: build/js/view/Timeline.js:316
+#: build/app/js/view/Timeline.js:338
 msgid "Insert selection before frame %d"
 msgstr "Wstaw zaznaczone przed ramką %d"
 
-#: build/js/view/Timeline.js:322
+#: build/app/js/view/Timeline.js:344
 msgid "Insert selection after frame %d"
 msgstr "Wstaw zaznaczone za ramką %d"
 
-#: build/js/view/Toolbar.js:49
+#: build/app/js/view/Toolbar.js:47
 msgid "Aspect ratio: "
 msgstr "Proporcje obrazu "
 
-#: build/js/view/Toolbar.js:76
+#: build/app/js/view/Toolbar.js:74
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
 "Przesuń zaznaczone warstwy (przytrzymaj Alt by przybliżyć, Shift by obrócić)"
 
-#: build/js/view/Toolbar.js:82
+#: build/app/js/view/Toolbar.js:80
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
@@ -211,37 +213,37 @@ msgstr ""
 "Przybliż/oddal  zaznaczone warstwy (możesz też przytrzymać Alt w trybie "
 "przesuwania)"
 
-#: build/js/view/Toolbar.js:88
+#: build/app/js/view/Toolbar.js:86
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 "Obróć zaznaczone warstwy (możesz też przytrzymać Shift w trybie przesuwania)"
 
-#: build/js/view/Toolbar.js:100
+#: build/app/js/view/Toolbar.js:98
 msgid "Undo (Ctrl-Z)"
 msgstr "Cofnij (Ctrl-Z)"
 
-#: build/js/view/Toolbar.js:107
+#: build/app/js/view/Toolbar.js:105
 msgid "Redo (Ctrl-Y)"
 msgstr "Ponów (Ctrl-Y)"
 
-#: build/js/view/Toolbar.js:114
+#: build/app/js/view/Toolbar.js:112
 msgid "Disable full-screen mode (F11)"
 msgstr "Wyłącz tryb pełnoekranowy (F11)"
 
-#: build/js/view/Toolbar.js:114
+#: build/app/js/view/Toolbar.js:112
 msgid "Enable full-screen mode (F11)"
 msgstr "Włącz tryb pełnoekranowy (F11)"
 
-#: build/js/view/Toolbar.js:122
+#: build/app/js/view/Toolbar.js:120
 msgid "Save the presentation (Ctrl-S)"
 msgstr "Zapisz prezentację (Ctrl-S)"
 
-#: build/js/view/Toolbar.js:129
+#: build/app/js/view/Toolbar.js:127
 msgid "Reload the SVG document (F5)"
 msgstr "Otwórz plik SVG ponownie (F5)"
 
-#: build/js/view/Toolbar.js:134
+#: build/app/js/view/Toolbar.js:132
 msgid "Information"
 msgstr "Informacje"
 

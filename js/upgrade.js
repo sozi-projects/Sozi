@@ -51,7 +51,7 @@ function importAttribute(obj, propName, elts, attrName, fn) {
     }
 }
 
-export function upgrade(pres, timeline) {
+export function upgradeFromSVG(pres, timeline) {
     // In the inlined SVG, DOM accessors fail to get elements with explicit XML namespaces.
     // getElementsByTagNameNS, getAttributeNS do not work for elements with the Sozi namespace.
     // We need to use an explicit namespace prefix ("ns:attr") and use methods
@@ -125,13 +125,13 @@ export function upgrade(pres, timeline) {
                 refElt = pres.document.root.getElementById(frameElt.getAttribute(soziPrefix + "refid"));
             }
             if (refElt) {
-                layerProperties.referenceElementId = refElt.getAttribute("id");
+                layerProperties.referenceElementId = layerProperties.outlineElementId = refElt.getAttribute("id");
                 cameraState.setAtElement(refElt);
             }
 
             importAttribute(cameraState, "clipped", [layerElt, frameElt], soziPrefix + "clip", parseBoolean);
-            layerProperties.referenceElementAuto = false;
-            importAttribute(layerProperties, "referenceElementHide", [layerElt, frameElt], soziPrefix + "hide", parseBoolean);
+            layerProperties.outlineElementAuto = false;
+            importAttribute(layerProperties, "outlineElementHide", [layerElt, frameElt], soziPrefix + "hide", parseBoolean);
             importAttribute(layerProperties, "transitionTimingFunction", [layerElt, frameElt], soziPrefix + "transition-profile", convertTimingFunction);
             importAttribute(layerProperties, "transitionRelativeZoom", [layerElt, frameElt], soziPrefix + "transition-zoom-percent", z => parseFloat(z) / 100);
             importAttribute(layerProperties, "transitionPathId", [layerElt, frameElt], soziPrefix + "transition-path");
@@ -144,5 +144,27 @@ export function upgrade(pres, timeline) {
         importAttribute(frame, "timeoutMs", [frameElt], soziPrefix + "timeout-ms", parseFloat);
         importAttribute(frame, "timeoutEnable", [frameElt], soziPrefix + "timeout-enable", parseBoolean);
         importAttribute(frame, "showInFrameList", [frameElt], soziPrefix + "show-in-frame-list", parseBoolean);
+    });
+}
+
+export function upgradeFromStorable(storable) {
+    // Sozi 17.02.05
+    // Replace referenceElementAuto with outlineElementAuto
+    // Replace referenceElementHide with outlineElementHide
+    storable.frames.forEach(frame => {
+        for (let layerId in frame.layerProperties) {
+            const layer = frame.layerProperties[layerId];
+            if (layer.hasOwnProperty("referenceElementAuto")) {
+                layer.outlineElementAuto = layer.referenceElementAuto;
+                delete layer.referenceElementAuto;
+            }
+            if (layer.hasOwnProperty("referenceElementHide")) {
+                layer.outlineElementHide = layer.referenceElementHide;
+                delete layer.referenceElementHide;
+            }
+            if (layer.hasOwnProperty("referenceElementId") && !layer.hasOwnProperty("outlineElementId")) {
+                layer.outlineElementId = layer.referenceElementId;
+            }
+        }
     });
 }

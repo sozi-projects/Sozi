@@ -161,15 +161,9 @@ Camera.restoreAspectRatio = function () {
 };
 
 Camera.getCandidateReferenceElement = function () {
-    if (!this.layer.svgNodes.length) {
-        return this.svgRoot;
-    }
-
-    let result = this.layer.svgNodes[0];
-
     // getIntersectionList is not supported in Gecko
-    if (!this.svgRoot.getIntersectionList) {
-        return result;
+    if (!this.layer.svgNodes.length || !this.svgRoot.getIntersectionList) {
+        return {element: null, score: null};
     }
 
     // Get all elements that intersect with the viewport.
@@ -183,7 +177,8 @@ Camera.getCandidateReferenceElement = function () {
     const intersectionList = this.svgRoot.getIntersectionList(viewportRect, this.layer.svgNodes[0]);
 
     // Find the element which bounding box best fits in the viewport.
-    let bestScore = null;
+    let element = null;
+    let score = null;
 
     for (let i = 0; i < intersectionList.length; i ++) {
         const elt = intersectionList[i];
@@ -192,7 +187,7 @@ Camera.getCandidateReferenceElement = function () {
             const eltRect = elt.getBoundingClientRect();
             const eltArea = eltRect.width * eltRect.height;
 
-            // Compute the intersection of the element'b bounding
+            // Compute the intersection of the element's bounding
             // box with the current viewport.
             const l = Math.max(eltRect.left, this.viewport.x);
             const t = Math.max(eltRect.top, this.viewport.y);
@@ -204,14 +199,14 @@ Camera.getCandidateReferenceElement = function () {
             // An element is selected if it has the biggest intersect area
             // and the smallest area outside the intersection.
             const eltScore = viewportArea + eltArea - 2 * intersectArea;
-            if (bestScore === null || eltScore < bestScore) {
-                bestScore = eltScore;
-                result = elt;
+            if (score === null || eltScore < score) {
+                score = eltScore;
+                element = elt;
             }
         }
     }
 
-    return result;
+    return {element, score};
 };
 
 Object.defineProperty(Camera, "clipRect", {
