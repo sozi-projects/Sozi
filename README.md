@@ -1,4 +1,7 @@
 
+![Github Downloads (latest)](https://img.shields.io/github/downloads/senshu/Sozi/latest/total.svg?style=flat-square)
+![Github Downloads (total)](https://img.shields.io/github/downloads/senshu/Sozi/total.svg?style=flat-square)
+
 Sozi is a presentation tool for SVG documents.
 
 It is free software distributed under the terms of the
