@@ -108,6 +108,6 @@
         <div class="sozi-blank-screen"></div>
         <script>var soziPresentationData = {{ json }};</script>
 {% endraw %}
-        <script>{{ playerJs }}</script>
+        <script>{{'{% raw %}'}}{{ playerJs|safe }}{{'{% endraw %}'}}</script>
     </body>
 </html>
