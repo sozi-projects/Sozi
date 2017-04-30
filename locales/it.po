@@ -191,7 +191,7 @@ msgstr "Inserire la selezione prima del fotogramma %d"
 
 #: build/app/js/view/Timeline.js:344
 msgid "Insert selection after frame %d"
-msgstr "Inserire la selezione dopo il fotogramma% d"
+msgstr "Inserire la selezione dopo il fotogramma %d"
 
 #: build/app/js/view/Toolbar.js:47
 msgid "Aspect ratio: "
