@@ -1,0 +1,243 @@
+# Lithuanian translation for sozi
+# Copyright (c) 2017 Rosetta Contributors and Canonical Ltd 2017
+# This file is distributed under the same license as the sozi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sozi\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2017-02-05 15:36+0000\n"
+"PO-Revision-Date: 2017-01-31 15:38+0000\n"
+"Last-Translator: Tauras <Unknown>\n"
+"Language-Team: Lithuanian <lt@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2017-05-03 19:48+0000\n"
+"X-Generator: Launchpad (build 18366)\n"
+
+#: build/app/js/backend/Electron.js:54
+msgid "Open an SVG file from your computer"
+msgstr "Atidaryti Jūsų kompiuteryje esantį SVG failą"
+
+#: build/app/js/backend/Electron.js:85 build/app/js/Storage.js:109 build/app/js/Storage.js:122 build/app/js/Storage.js:129
+msgid "Sozi (Error)"
+msgstr "Sozi (Klaida)"
+
+#: build/app/js/backend/Electron.js:85
+msgid "File not found: %s."
+msgstr "Failas nerastas: %s."
+
+#: build/app/js/backend/Electron.js:97
+msgid "Choose an SVG file"
+msgstr "Pasirinkite SVG failą"
+
+#: build/app/js/backend/Electron.js:98
+msgid "SVG files"
+msgstr "SVG failai"
+
+#: build/app/js/backend/FileReader.js:19
+msgid ""
+"Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
+"only)"
+msgstr ""
+"Atidaryti Jūsų kompiuteryje esantį SVG failą (<i class=\"fa fa-"
+"warning\">skaitymo režimu</i>)"
+
+#: build/app/js/backend/GoogleDrive.js:23
+msgid "Open an SVG file from Google Drive"
+msgstr "Atidaryti Google diske esantį SVG failą"
+
+#: build/app/js/Storage.js:109
+msgid "File %s could not be loaded."
+msgstr "Failas %s negali būti įkeltas."
+
+#: build/app/js/Storage.js:122 build/app/js/Storage.js:129
+msgid "Document is not valid SVG."
+msgstr "Šis dokumentas nėra priimtinas SVG"
+
+#: build/app/js/Storage.js:166 build/app/js/Storage.js:193 build/app/js/Storage.js:258 build/app/js/Storage.js:285 build/app/js/view/Toolbar.js:134
+msgid "Sozi (Information)"
+msgstr "Sozi (Informacija)"
+
+#: build/app/js/Storage.js:166
+msgid "Document was changed. Reloading."
+msgstr "Dokumentas buvo pakeistas. Įkeliama iš naujo."
+
+#: build/app/js/Storage.js:193
+msgid "Document was imported from Sozi 13 or earlier."
+msgstr "Dokumentas importuotas iš Sozi 13 ar ankstesnės versijos."
+
+#: build/app/js/Storage.js:258 build/app/js/Storage.js:285
+msgid "Saved %s."
+msgstr "Išsaugota %s."
+
+#: build/app/js/view/Properties.js:45
+msgid "Frame"
+msgstr "Kadras"
+
+#: build/app/js/view/Properties.js:45
+msgid "Show in frame list"
+msgstr "Rodyti kadrų sąraše"
+
+#: build/app/js/view/Properties.js:45
+msgid "Show frame number"
+msgstr "Rodyti kadro numerį"
+
+#: build/app/js/view/Properties.js:45
+msgid "Link to previous frame"
+msgstr "Susieti su ankstesniu kadru"
+
+#: build/app/js/view/Properties.js:45 build/app/js/view/Toolbar.js:92
+msgid "Clip"
+msgstr "Apkirpti"
+
+#: build/app/js/view/Properties.js:45
+msgid "Title"
+msgstr "Pavadinimas"
+
+#: build/app/js/view/Properties.js:45
+msgid "Id"
+msgstr "Id"
+
+#: build/app/js/view/Properties.js:45
+msgid "Timeout (seconds)"
+msgstr "Laukimo laikas (sek.)"
+
+#: build/app/js/view/Properties.js:45
+msgid "Timeout enable"
+msgstr "Laukimo laiko įjungimas"
+
+#: build/app/js/view/Properties.js:45
+msgid "Outline element Id"
+msgstr ""
+
+#: build/app/js/view/Properties.js:47
+msgid "Autoselect element"
+msgstr "Automatiškai žymėti elementą"
+
+#: build/app/js/view/Properties.js:47
+msgid "Hide element"
+msgstr "Slėpti elementą"
+
+#: build/app/js/view/Properties.js:48
+msgid "Fit to element"
+msgstr "Vaizduoti pagal elemento dydį"
+
+#: build/app/js/view/Properties.js:52
+msgid "Layer opacity"
+msgstr "Sluoksnio skaidrumas"
+
+#: build/app/js/view/Properties.js:52
+msgid "Transition"
+msgstr "Perėjimas"
+
+#: build/app/js/view/Properties.js:52
+msgid "Duration (seconds)"
+msgstr "Laikas (sek)"
+
+#: build/app/js/view/Properties.js:52
+msgid "Timing function"
+msgstr "Chronometražo funkcija"
+
+#: build/app/js/view/Properties.js:61
+msgid "Relative zoom (%)"
+msgstr "Santykinis mastelis (%)"
+
+#: build/app/js/view/Properties.js:61
+msgid "Path Id"
+msgstr "Perėjimo kelio Id"
+
+#: build/app/js/view/Properties.js:61
+msgid "Hide path"
+msgstr "Slėpti perėjimo kelią"
+
+#: build/app/js/view/Timeline.js:272
+msgid "Delete the selected frames"
+msgstr "Trinti pasirinktus kadrus"
+
+#: build/app/js/view/Timeline.js:278
+msgid "Create a new frame"
+msgstr "Sukurti naują kadrą"
+
+#: build/app/js/view/Timeline.js:288
+msgid "Add layer"
+msgstr "Pridėti sluoksnį"
+
+#: build/app/js/view/Timeline.js:293 build/app/js/view/Timeline.js:311
+msgid "This layer is visible. Click to hide it."
+msgstr "Šis sluoksnis yra matomas. Spragtelkite, kad paslėptumėt jį."
+
+#: build/app/js/view/Timeline.js:298 build/app/js/view/Timeline.js:316
+msgid "This layer is hidden. Click to show it."
+msgstr "Šis sluoksnis yra paslėptas. Spragtelkite, kad parodytumėt jį."
+
+#: build/app/js/view/Timeline.js:307 build/app/js/view/Timeline.js:331
+msgid "Default"
+msgstr "Numatytasis"
+
+#: build/app/js/view/Timeline.js:321
+msgid "Remove this layer"
+msgstr "Naikinti šį sluoksnį"
+
+#: build/app/js/view/Timeline.js:338
+msgid "Insert selection before frame %d"
+msgstr "Įterpti pasirinkimą prieš %s kadrą"
+
+#: build/app/js/view/Timeline.js:344
+msgid "Insert selection after frame %d"
+msgstr "Įterpti pasirinkimą po %s kadro"
+
+#: build/app/js/view/Toolbar.js:47
+msgid "Aspect ratio: "
+msgstr "Proporcijos: "
+
+#: build/app/js/view/Toolbar.js:74
+msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
+msgstr ""
+"Stumdyti pasirinktus sluoksnius (laikykite Alt, kad keisti mastelį; Shift, "
+"kad pasukti)"
+
+#: build/app/js/view/Toolbar.js:80
+msgid ""
+"Zoom in/out on the selected layers (you can also hold the Alt key in Move "
+"mode)"
+msgstr ""
+"Keisti pasirinktų sluoksnių mastelius (Jūs taip pat galite tai atlikti "
+"laikydami paspaudę Alt klavišą Stumdymo režime)"
+
+#: build/app/js/view/Toolbar.js:86
+msgid ""
+"Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgstr ""
+"Pasukti pasirinktus sluoksnius (Jūs taip pat galite tai atlikti laikydami "
+"paspaudę Shift klavišą Stumdymo režime)"
+
+#: build/app/js/view/Toolbar.js:98
+msgid "Undo (Ctrl-Z)"
+msgstr "Anuliuoti (Ctrl-Z)"
+
+#: build/app/js/view/Toolbar.js:105
+msgid "Redo (Ctrl-Y)"
+msgstr "Perdaryti (Ctrl-Y)"
+
+#: build/app/js/view/Toolbar.js:112
+msgid "Disable full-screen mode (F11)"
+msgstr "Išjungti viso ekrano režimą (F11)"
+
+#: build/app/js/view/Toolbar.js:112
+msgid "Enable full-screen mode (F11)"
+msgstr "Įjungti viso ekrano režimą (F11)"
+
+#: build/app/js/view/Toolbar.js:120
+msgid "Save the presentation (Ctrl-S)"
+msgstr "Išsaugoti prezentaciją (Ctrl-S)"
+
+#: build/app/js/view/Toolbar.js:127
+msgid "Reload the SVG document (F5)"
+msgstr "Perkrauti SVG dokumentą (F5)"
+
+#: build/app/js/view/Toolbar.js:132
+msgid "Information"
+msgstr "Informacija"
