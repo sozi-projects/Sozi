@@ -79,11 +79,7 @@ Command                           | Effect
 Install
 -------
 
-Sozi is released as a zip archive that you can extract wherever you like.
+Sozi is released as a zip/tgz archive that you can extract wherever you like.
 Open the extracted folder and run the `Sozi` executable.
 
-To be able to run it by typing `sozi` in any terminal, create a symbolic link from `/usr/bin/sozi` to the `/path/of/extracted/zip/file/Sozi` and to be able to run it graphically under Gnome, install its .desktop and icon files with the following commands.
-
-    sudo cp icons/icon-256.png /usr/share/pixmaps/sozi.png
-    sudo cp sozi.desktop /usr/share/applications/sozi.desktop
-    sudo update-desktop-database
+If installation on your specific platform is supported by Sozi, there will be an *install* folder in the extracted archive containing an installation script. Run it with admin privileges (e.g. in Linux, open a terminal in the *install* folder and type `sudo ./install.sh`) to install Sozi system-wide.

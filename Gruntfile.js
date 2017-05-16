@@ -279,6 +279,22 @@ module.exports = function(grunt) {
             dest: "dist/" + destName
         });
 
+        var platformType = platform.split("-")[0];
+        grunt.config(["copy", platform], {
+            "files": [{
+                expand: true,
+                flatten: true,
+                src: "installation-assets/" + platformType + "/*",
+                dest: "dist/Sozi-" + platform + "/install/"
+            }, {
+                src: "icons/icon-256.png",
+                dest: "dist/Sozi-" + platform + "/install/sozi.png"
+            }],
+            "options": {
+                mode: true
+            }
+        });
+
         var mode = platform.startsWith("win") ? "zip" : "tgz";
 
         grunt.config(["compress", platform], {
@@ -291,6 +307,12 @@ module.exports = function(grunt) {
             src: [destName + "/**/*"]
         });
     });
+
+    grunt.registerTask("add-installation-assets", buildConfig.platforms.reduce(function (prev, platform) {
+        var platformType = platform.split("-")[0];
+        var installationTask = buildConfig.installable.includes(platformType) ? ["copy:" + platform] : [];
+        return prev.concat(installationTask);
+    }, []));
 
     grunt.registerTask("electron-platforms", buildConfig.platforms.reduce(function (prev, platform) {
         return prev.concat(["rename:" + platform, "compress:" + platform]);
@@ -324,7 +346,8 @@ module.exports = function(grunt) {
         "rename:electron_backend",
         "rename:electron_html",
         "install-dependencies",
-        "electron"
+        "electron",
+        "add-installation-assets"
     ]);
 
     grunt.registerTask("web-build", [
