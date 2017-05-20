@@ -17,6 +17,7 @@ export const Preview = {
 
         controller.addListener("loadSVG", () => this.onLoadSVG());
         window.addEventListener("resize", () => this.repaint());
+        viewport.addListener("mouseDown", () => document.activeElement.blur());
 
         return this;
     },
