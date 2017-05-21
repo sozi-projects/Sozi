@@ -79,7 +79,7 @@ Command                           | Effect
 Install
 -------
 
-There is currently no installation procedure.
-Sozi is released as a zip archive that you can extract wherever you like.
-
+Sozi is released as a zip/tgz archive that you can extract wherever you like.
 Open the extracted folder and run the `Sozi` executable.
+
+If installation on your specific platform is supported by Sozi, there will be an *install* folder in the extracted archive containing an installation script. Run it with admin privileges (e.g. in Linux, open a terminal in the *install* folder and type `sudo ./install.sh`) to install Sozi system-wide.
