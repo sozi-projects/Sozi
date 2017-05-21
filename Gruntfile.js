@@ -273,18 +273,12 @@ module.exports = function(grunt) {
      * Compress electron bundles for each platform
      */
     buildConfig.platforms.forEach(function (platform) {
-        var destName = "Sozi-" + pkg.version + "-" + platform;
-        grunt.config(["rename", platform], {
-            src: "dist/Sozi-" + platform,
-            dest: "dist/" + destName
-        });
-
-        var platformType = platform.split("-")[0];
+        var platformOs = platform.split("-")[0];
         grunt.config(["copy", platform], {
             "files": [{
                 expand: true,
                 flatten: true,
-                src: "installation-assets/" + platformType + "/*",
+                src: "installation-assets/" + platformOs + "/*",
                 dest: "dist/Sozi-" + platform + "/install/"
             }, {
                 src: "icons/icon-256.png",
@@ -293,6 +287,12 @@ module.exports = function(grunt) {
             "options": {
                 mode: true
             }
+        });
+
+        var destName = "Sozi-" + pkg.version + "-" + platform;
+        grunt.config(["rename", platform], {
+            src: "dist/Sozi-" + platform,
+            dest: "dist/" + destName
         });
 
         var mode = platform.startsWith("win") ? "zip" : "tgz";
@@ -308,9 +308,9 @@ module.exports = function(grunt) {
         });
     });
 
-    grunt.registerTask("add-installation-assets", buildConfig.platforms.reduce(function (prev, platform) {
-        var platformType = platform.split("-")[0];
-        var installationTask = buildConfig.installable.includes(platformType) ? ["copy:" + platform] : [];
+    grunt.registerTask("copy-installation-assets", buildConfig.platforms.reduce(function (prev, platform) {
+        var platformOs = platform.split("-")[0];
+        var installationTask = buildConfig.installable.includes(platformOs) ? ["copy:" + platform] : [];
         return prev.concat(installationTask);
     }, []));
 
@@ -347,7 +347,7 @@ module.exports = function(grunt) {
         "rename:electron_html",
         "install-dependencies",
         "electron",
-        "add-installation-assets"
+        "copy-installation-assets"
     ]);
 
     grunt.registerTask("web-build", [
