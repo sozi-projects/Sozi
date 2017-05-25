@@ -147,4 +147,8 @@ Electron.saveConfiguration = function () {
     localStorage.windowFullscreen = screenfull.isFullscreen;
 };
 
+AbstractBackend.toggleDevTools = function () {
+    win.toggleDevTools();
+};
+
 addBackend(Electron);

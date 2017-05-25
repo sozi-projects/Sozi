@@ -138,6 +138,9 @@ window.addEventListener("load", () => {
                 case 122: // F11
                     document.getElementById('btn-fullscreen').click();
                     break;
+                case 123: // F12
+                    Storage.backend.toggleDevTools();
+                    break;
                 default:
                     return;
             }

@@ -156,3 +156,7 @@ AbstractBackend.doAutosave = function () {
         }
     });
 };
+
+AbstractBackend.toggleDevTools = function () {
+    // Not implemented
+};
