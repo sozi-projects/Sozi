@@ -99,16 +99,20 @@ module.exports = function(grunt) {
 
         jspot: {
             options: {
-                keyword: "_"
+                keyword: "_",
+                parserOptions: {
+                    sourceType: "module"
+                }
             },
             all: {
-                src: ["build/app/js/**/*.js"],
+                src: ["js/**/*.js"],
                 dest: "locales"
             }
         },
 
         po2json: {
             options: {
+                fuzzy: false,
                 singleFile: true,
                 nodeJs: true,
                 format: "jed1.x"

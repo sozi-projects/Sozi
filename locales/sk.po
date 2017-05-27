@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2017-02-05 02:57:+0000\n"
+"POT-Creation-Date: 2017-05-27 12:56:+0000\n"
 "PO-Revision-Date: 2016-02-13 18:57+0100\n"
 "Last-Translator: Guillaume Savaton <senshuapash@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -18,194 +18,210 @@ msgstr ""
 "X-Launchpad-Export-Date: 2015-06-30 18:56+0000\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: build/app/js/backend/Electron.js:54
+#: js/backend/Electron.js:27
 #, fuzzy
 msgid "Open an SVG file from your computer"
 msgstr "Načítať z Disku Google."
 
-#: build/app/js/backend/Electron.js:85 build/app/js/Storage.js:109
-#: build/app/js/Storage.js:122 build/app/js/Storage.js:129
+#: js/backend/Electron.js:55 js/Storage.js:78 js/Storage.js:93
+#: js/Storage.js:102
 msgid "Sozi (Error)"
 msgstr ""
 
-#: build/app/js/backend/Electron.js:85
+#: js/backend/Electron.js:55
 msgid "File not found: %s."
 msgstr "Súbor sa nenašiel: %s."
 
-#: build/app/js/backend/Electron.js:97
+#: js/backend/Electron.js:68
 msgid "Choose an SVG file"
 msgstr ""
 
-#: build/app/js/backend/Electron.js:98
+#: js/backend/Electron.js:69
 msgid "SVG files"
 msgstr ""
 
-#: build/app/js/backend/FileReader.js:19
+#: js/backend/FileReader.js:12
 #, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
 "only)"
 msgstr "Načítať lokálny súbor  (<i class=\"fa fa-warning\"></i>len na čítanie)"
 
-#: build/app/js/backend/GoogleDrive.js:23
+#: js/backend/GoogleDrive.js:16
 #, fuzzy
 msgid "Open an SVG file from Google Drive"
 msgstr "Načítať z Disku Google."
 
-#: build/app/js/Storage.js:109
+#: js/Storage.js:78
 msgid "File %s could not be loaded."
 msgstr "Súbor %s sa nepodarilo načítať."
 
-#: build/app/js/Storage.js:122 build/app/js/Storage.js:129
+#: js/Storage.js:93 js/Storage.js:102
 msgid "Document is not valid SVG."
 msgstr "Dokument nie je platný súbor SVG."
 
-#: build/app/js/Storage.js:166 build/app/js/Storage.js:193
-#: build/app/js/Storage.js:258 build/app/js/Storage.js:285
-#: build/app/js/view/Toolbar.js:134
+#: js/Storage.js:137 js/Storage.js:163 js/Storage.js:221 js/Storage.js:242
+#: js/view/Toolbar.js:119
 #, fuzzy
 msgid "Sozi (Information)"
 msgstr "Informácie"
 
-#: build/app/js/Storage.js:166
+#: js/Storage.js:137
 msgid "Document was changed. Reloading."
 msgstr "Dokument sa zmenil. Znova načítavam."
 
-#: build/app/js/Storage.js:193
+#: js/Storage.js:163
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Dokument bol importovaný z verzie Sozi 13 alebo staršej."
 
-#: build/app/js/Storage.js:258 build/app/js/Storage.js:285
+#: js/Storage.js:221 js/Storage.js:242
 msgid "Saved %s."
 msgstr "%s uložené."
 
-#: build/app/js/view/Properties.js:45
+#: js/view/Properties.js:31
+msgid "Select a layer to copy"
+msgstr ""
+
+#: js/view/Properties.js:34 js/view/Timeline.js:312 js/view/Timeline.js:342
+msgid "Default"
+msgstr "Predvolené"
+
+#: js/view/Properties.js:41
 msgid "Frame"
 msgstr "Rámček"
 
-#: build/app/js/view/Properties.js:45
+#: js/view/Properties.js:44
 msgid "Show in frame list"
 msgstr "Zobraziť na zozname rámčekov"
 
-#: build/app/js/view/Properties.js:45
+#: js/view/Properties.js:45
 msgid "Show frame number"
 msgstr "Zobraziť číslo rámčeka"
 
-#: build/app/js/view/Properties.js:45
-msgid "Link to previous frame"
-msgstr "Prepojiť s predchádzajúcim rámčekom"
-
-#: build/app/js/view/Properties.js:45 build/app/js/view/Toolbar.js:92
-msgid "Clip"
-msgstr "Orezanie"
-
-#: build/app/js/view/Properties.js:45
+#: js/view/Properties.js:48
 msgid "Title"
 msgstr "Názov"
 
-#: build/app/js/view/Properties.js:45
+#: js/view/Properties.js:51
 msgid "Id"
 msgstr "Id"
 
-#: build/app/js/view/Properties.js:45
+#: js/view/Properties.js:55
 msgid "Timeout (seconds)"
 msgstr "Čas vypršania (sekundy)"
 
-#: build/app/js/view/Properties.js:45
+#: js/view/Properties.js:56
 msgid "Timeout enable"
 msgstr "Zapnúť čas vypršania"
 
-#: build/app/js/view/Properties.js:45
+#: js/view/Properties.js:60
+msgid "Layer"
+msgstr ""
+
+#: js/view/Properties.js:63
+msgid "Link to previous frame"
+msgstr "Prepojiť s predchádzajúcim rámčekom"
+
+#: js/view/Properties.js:64 js/view/Toolbar.js:79
+msgid "Clip"
+msgstr "Orezanie"
+
+#: js/view/Properties.js:66
+msgid "Reset layer geometry"
+msgstr ""
+
+#: js/view/Properties.js:71
+#, fuzzy
+msgid "Copy layer"
+msgstr "Pridať vrstvu"
+
+#: js/view/Properties.js:78
 #, fuzzy
 msgid "Outline element Id"
 msgstr "Id referenčného prvku"
 
-#: build/app/js/view/Properties.js:47
+#: js/view/Properties.js:81
 msgid "Autoselect element"
 msgstr "Vyberať prvok automaticky"
 
-#: build/app/js/view/Properties.js:47
+#: js/view/Properties.js:82
 msgid "Hide element"
 msgstr "Skryť prvok"
 
-#: build/app/js/view/Properties.js:48
+#: js/view/Properties.js:84
 msgid "Fit to element"
 msgstr "Prispôsobiť na veľkosť prvku"
 
-#: build/app/js/view/Properties.js:52
+#: js/view/Properties.js:91
 msgid "Layer opacity"
 msgstr "Priesvitnosť vrstvy"
 
-#: build/app/js/view/Properties.js:52
+#: js/view/Properties.js:94
 msgid "Transition"
 msgstr "Prechod"
 
-#: build/app/js/view/Properties.js:52
+#: js/view/Properties.js:96
 msgid "Duration (seconds)"
 msgstr "Trvanie (v sekundách)"
 
-#: build/app/js/view/Properties.js:52
+#: js/view/Properties.js:99
 msgid "Timing function"
 msgstr "Časovanie"
 
-#: build/app/js/view/Properties.js:61
+#: js/view/Properties.js:111
 msgid "Relative zoom (%)"
 msgstr "Relatívne priblíženie (v %)"
 
-#: build/app/js/view/Properties.js:61
+#: js/view/Properties.js:115
 msgid "Path Id"
 msgstr "Id cesty"
 
-#: build/app/js/view/Properties.js:61
+#: js/view/Properties.js:116
 msgid "Hide path"
 msgstr "Skryť cestu"
 
-#: build/app/js/view/Timeline.js:272
+#: js/view/Timeline.js:263
 msgid "Delete the selected frames"
 msgstr "Zmazať vybrané rámčeky"
 
-#: build/app/js/view/Timeline.js:278
+#: js/view/Timeline.js:270
 msgid "Create a new frame"
 msgstr "Vytvoriť nový rámček"
 
-#: build/app/js/view/Timeline.js:288
+#: js/view/Timeline.js:284
 msgid "Add layer"
 msgstr "Pridať vrstvu"
 
-#: build/app/js/view/Timeline.js:293 build/app/js/view/Timeline.js:311
+#: js/view/Timeline.js:300 js/view/Timeline.js:321
 msgid "This layer is visible. Click to hide it."
 msgstr "Táto vrstva je odkrytá. Kliknutím vrstvu skryť."
 
-#: build/app/js/view/Timeline.js:298 build/app/js/view/Timeline.js:316
+#: js/view/Timeline.js:304 js/view/Timeline.js:325
 msgid "This layer is hidden. Click to show it."
 msgstr "Táto vrstva je skrytá. Kliknutím vrstvu odkryť."
 
-#: build/app/js/view/Timeline.js:307 build/app/js/view/Timeline.js:331
-msgid "Default"
-msgstr "Predvolené"
-
-#: build/app/js/view/Timeline.js:321
+#: js/view/Timeline.js:329
 msgid "Remove this layer"
 msgstr "Odstrániť túto vrstvu"
 
-#: build/app/js/view/Timeline.js:338
+#: js/view/Timeline.js:355
 msgid "Insert selection before frame %d"
 msgstr "Vložiť výber pred rámček %d"
 
-#: build/app/js/view/Timeline.js:344
+#: js/view/Timeline.js:362
 msgid "Insert selection after frame %d"
 msgstr "Vložiť výber za rámček %d"
 
-#: build/app/js/view/Toolbar.js:47
+#: js/view/Toolbar.js:31
 msgid "Aspect ratio: "
 msgstr "Pomer strán: "
 
-#: build/app/js/view/Toolbar.js:74
+#: js/view/Toolbar.js:64
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
 "Presunúť vybrané vrstvy (priblíženie podržaním Alt, otočenie podržaním Shift)"
 
-#: build/app/js/view/Toolbar.js:80
+#: js/view/Toolbar.js:69
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
@@ -213,38 +229,38 @@ msgstr ""
 "Priblížiť/oddialiť vybranú vrstvu (rovnaká funkcionalita podržaním Alt v "
 "režime presunu)"
 
-#: build/app/js/view/Toolbar.js:86
+#: js/view/Toolbar.js:74
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 "Otáčať vybrané vrstvy (rovnaká funkcionalita podržaním Shift v režime "
 "presunu)"
 
-#: build/app/js/view/Toolbar.js:98
+#: js/view/Toolbar.js:86
 msgid "Undo (Ctrl-Z)"
 msgstr "Späť (Ctrl-Z)"
 
-#: build/app/js/view/Toolbar.js:105
+#: js/view/Toolbar.js:91
 msgid "Redo (Ctrl-Y)"
 msgstr "Zopakovať (Ctrl-Y)"
 
-#: build/app/js/view/Toolbar.js:112
+#: js/view/Toolbar.js:98
 msgid "Disable full-screen mode (F11)"
 msgstr "Zakázať režim zobrazenia na celú obrazovku (F11)"
 
-#: build/app/js/view/Toolbar.js:112
+#: js/view/Toolbar.js:98
 msgid "Enable full-screen mode (F11)"
 msgstr "Zapnúť režim zobrazenia na celú obrazovku (F11)"
 
-#: build/app/js/view/Toolbar.js:120
+#: js/view/Toolbar.js:107
 msgid "Save the presentation (Ctrl-S)"
 msgstr "Uložiť prezentáciu (Ctrl-S)"
 
-#: build/app/js/view/Toolbar.js:127
+#: js/view/Toolbar.js:112
 msgid "Reload the SVG document (F5)"
 msgstr "Znova načítať dokument SVG (F5)"
 
-#: build/app/js/view/Toolbar.js:132
+#: js/view/Toolbar.js:118
 msgid "Information"
 msgstr "Informácie"
 
