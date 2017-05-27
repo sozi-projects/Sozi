@@ -143,7 +143,7 @@ export const SVGDocumentWrapper = {
 
     removeViewbox() {
         this.root.removeAttribute("viewBox");
-        this.root.style.width = this.root.style.height = "auto";
+        this.root.style.width = this.root.style.height = "100%";
     },
 
     removeScripts() {

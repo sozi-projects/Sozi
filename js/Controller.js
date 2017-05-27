@@ -12,12 +12,13 @@ export const Controller = Object.create(EventEmitter.prototype);
 
 const UNDO_STACK_LIMIT = 100;
 
-Controller.init = function (storage, presentation, selection, viewport) {
+Controller.init = function (storage, presentation, selection, timeline, viewport) {
     EventEmitter.call(this);
 
     this.storage = storage;
     this.presentation = presentation;
     this.selection = selection;
+    this.timeline = timeline;
     this.viewport = viewport;
 
     this.undoStack = [];
@@ -398,6 +399,94 @@ Controller.updateLayerVisibility = function (layers) {
     // Trigger a repaint of the editor views.
     this.emit("editorStateChange");
     this.emit("repaint");
+};
+
+Controller.resetLayer = function () {
+    const selectedFrames = this.selection.selectedFrames.slice();
+    const selectedLayers = this.selection.selectedLayers.slice();
+
+    const savedValues = selectedFrames.map(
+        frame => selectedLayers.map(
+            layer => ({
+                link: frame.layerProperties[layer.index].link
+            })
+        )
+    );
+
+    const savedCameraStates = selectedFrames.map(
+        frame => selectedLayers.map(
+            layer => Object.create(CameraState).initFrom(frame.cameraStates[layer.index])
+        )
+    );
+
+    this.perform(
+        function onDo() {
+            selectedFrames.forEach(frame => {
+                selectedLayers.forEach(layer => {
+                    frame.cameraStates[layer.index].initFrom(this.presentation.initialCameraState);
+                    frame.layerProperties[layer.index].link = false;
+                });
+
+                this.presentation.updateLinkedLayers();
+            });
+        },
+        function onUndo() {
+            selectedFrames.forEach((frame, frameIndex) => {
+                selectedLayers.forEach((layer, layerIndex) => {
+                    frame.cameraStates[layer.index].initFrom(savedCameraStates[frameIndex][layerIndex]);
+                    frame.layerProperties[layer.index].link = savedValues[frameIndex][layerIndex].link;
+                });
+
+                this.presentation.updateLinkedLayers();
+            });
+        },
+        false,
+        ["presentationChange", "repaint"]
+    );
+};
+
+Controller.copyLayer = function (groupId) {
+    const selectedFrames = this.selection.selectedFrames.slice();
+    const selectedLayers = this.selection.selectedLayers.slice();
+    const savedValues = selectedFrames.map(
+        frame => selectedLayers.map(
+            layer => Object.create(LayerProperties).initFrom(frame.layerProperties[layer.index])
+        )
+    );
+
+    const savedCameraStates = selectedFrames.map(
+        frame => selectedLayers.map(
+            layer => Object.create(CameraState).initFrom(frame.cameraStates[layer.index])
+        )
+    );
+
+    const layerToCopy = groupId == "__default__" ? this.timeline.refLayerInDefault : this.presentation.getLayerWithId(groupId);
+    if (!layerToCopy) {
+        return;
+    }
+
+    this.perform(
+        function onDo() {
+            selectedFrames.forEach(frame => {
+                selectedLayers.forEach(layer => {
+                    if (layer != layerToCopy) {
+                        frame.layerProperties[layer.index].initFrom(frame.layerProperties[layerToCopy.index]);
+                        frame.cameraStates[layer.index].initFrom(frame.cameraStates[layerToCopy.index]);
+                    }
+                });
+            });
+        },
+        function onUndo() {
+            selectedFrames.forEach((frame, frameIndex) => {
+                selectedLayers.forEach((layer, layerIndex) => {
+                    frame.layerProperties[layer.index].initFrom(savedValues[frameIndex][layerIndex]);
+                    frame.cameraStates[layer.index].initFrom(savedCameraStates[frameIndex][layerIndex]);
+                });
+            });
+        },
+        false,
+        ["presentationChange", "repaint"]
+    );
 };
 
 Controller.fitElement = function () {

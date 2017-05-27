@@ -9,11 +9,12 @@ import {VirtualDOMView} from "./VirtualDOMView";
 
 export const Properties = Object.create(VirtualDOMView);
 
-Properties.init = function (container, selection, controller, locale) {
+Properties.init = function (container, selection, controller, timeline, locale) {
     VirtualDOMView.init.call(this, container, controller);
 
     this.selection = selection;
     this.gettext = s => locale.gettext(s);
+    this.timeline = timeline;
 
     return this;
 };
@@ -26,18 +27,22 @@ Properties.render = function () {
     const timeoutMsDisabled = c.getFrameProperty("timeoutEnable").every(value => !value);
     const outlineElementIdDisabled = c.getLayerProperty("outlineElementAuto").every(value => value);
 
+    const layersToCopy = {
+        __select_a_layer__: _("Select a layer to copy")
+    };
+    if (this.timeline.hasDefaultLayer) {
+        layersToCopy.__default__ = _("Default");
+    }
+    this.timeline.editableLayers.forEach(l => {
+        layersToCopy[l.groupId] = l.label;
+    });
+
     return h("div.properties", [
         h("h1", _("Frame")),
 
-        h("div", [
-            h("span.btn-group", [
+        h("div.btn-group", [
                 this.renderToggleField(h("i.fa.fa-list"), _("Show in frame list"), "showInFrameList", c.getFrameProperty, c.setFrameProperty),
                 this.renderToggleField("#", _("Show frame number"), "showFrameNumber", c.getFrameProperty, c.setFrameProperty)
-            ]),
-            h("span.btn-group", [
-                this.renderToggleField(h("i.fa.fa-link"), _("Link to previous frame"), "link", c.getLayerProperty, c.setLayerProperty),
-                this.renderToggleField(h("i.fa.fa-crop"), _("Clip"), "clipped", c.getCameraProperty, c.setCameraProperty)
-            ])
         ]),
 
         h("label", {for: "field-title"}, _("Title")),
@@ -51,6 +56,23 @@ Properties.render = function () {
             this.renderToggleField(h("i.fa.fa-check-square-o"), _("Timeout enable"), "timeoutEnable", c.getFrameProperty, c.setFrameProperty)
         ]),
         this.renderNumberField("timeoutMs", timeoutMsDisabled, c.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
+
+        h("h1", _("Layer")),
+
+        h("div.btn-group", [
+            this.renderToggleField(h("i.fa.fa-link"), _("Link to previous frame"), "link", c.getLayerProperty, c.setLayerProperty),
+            this.renderToggleField(h("i.fa.fa-crop"), _("Clip"), "clipped", c.getCameraProperty, c.setCameraProperty),
+            h("button", {
+                title: _("Reset layer geometry"),
+                onclick() { c.resetLayer(); }
+            }, h("i.fa.fa-eraser"))
+        ]),
+
+        h("label", {for: "field-layerToCopy"}, _("Copy layer")),
+        this.renderSelectField("layerToCopy", () => ["__select_a_layer__"], (prop, groupId) => {
+            c.copyLayer(groupId);
+            document.getElementById("field-layerToCopy").firstChild.selected = true;
+        }, layersToCopy),
 
         h("label", {for: "field-outlineElementId"}, [
             _("Outline element Id"),
@@ -100,7 +122,7 @@ Properties.render = function () {
 Properties.renderTextField = function (property, disabled, getter, setter, acceptsEmpty) {
     const c = this.controller;
 
-    const values = getter.call(this, property);
+    const values = getter.call(c, property);
     const className = values.length > 1 ? "multiple" : undefined;
     const value = values.length >= 1 ? values[0] : "";
 
@@ -122,7 +144,7 @@ Properties.renderTextField = function (property, disabled, getter, setter, accep
 Properties.renderNumberField = function (property, disabled, getter, setter, signed, step, factor) {
     const c = this.controller;
 
-    const values = getter.call(this, property);
+    const values = getter.call(c, property);
     const className = values.length > 1 ? "multiple" : undefined;
     const value = values.length >= 1 ? values[0] / factor : 0; // TODO use default value
 
@@ -147,7 +169,7 @@ Properties.renderNumberField = function (property, disabled, getter, setter, sig
 Properties.renderRangeField = function (property, getter, setter, min, max, step) {
     const c = this.controller;
 
-    const values = getter.call(this, property);
+    const values = getter.call(c, property);
     const className = values.length > 1 ? "multiple" : undefined;
     const value = values.length >= 1 ? values[0] : (min + max) / 2; // TODO use default value
 
@@ -172,7 +194,7 @@ Properties.renderRangeField = function (property, getter, setter, min, max, step
 Properties.renderToggleField = function (label, title, property, getter, setter) {
     const c = this.controller;
 
-    const values = getter.call(this, property);
+    const values = getter.call(c, property);
     let className = values.length > 1 ? "multiple" : "";
     const value = values.length >= 1 ? values[0] : false; // TODO use default value
     if (value) {
@@ -191,7 +213,7 @@ Properties.renderToggleField = function (label, title, property, getter, setter)
 Properties.renderSelectField = function (property, getter, setter, options) {
     const c = this.controller;
 
-    const values = getter.call(this, property);
+    const values = getter.call(c, property);
     const className = values.length > 1 ? "multiple" : undefined;
     const value = values.length >= 1 ? values[0] : options[0];
 

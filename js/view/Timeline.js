@@ -221,12 +221,26 @@ Timeline.repaint = function () {
     });
 };
 
+Object.defineProperty(Timeline, "hasDefaultLayer", {
+    get() {
+        return this.defaultLayers.length > 1 || this.defaultLayers[0].svgNodes.length;
+    }
+});
+
+Object.defineProperty(Timeline, "refLayerInDefault", {
+    get() {
+        for (let i = 0; i < this.defaultLayers.length; i ++) {
+            if (this.defaultLayers[i].svgNodes.length) {
+                return this.defaultLayers[i];
+            }
+        }
+        return this.defaultLayers[0];
+    }
+})
 Timeline.render = function () {
     const _ = this.gettext;
 
     const defaultLayersAreVisible = this.defaultLayers.some(layer => layer.isVisible);
-
-    const defaultLayerIsNotEmpty = this.defaultLayers.length > 1 || this.defaultLayers[0].svgNodes.length;
 
     const c = this.controller;
     let even = true;
@@ -278,7 +292,7 @@ Timeline.render = function () {
             ])
         ]),
         h("div.timeline-bottom-left", [
-            h("table.timeline", (defaultLayerIsNotEmpty ? [
+            h("table.timeline", (this.hasDefaultLayer ? [
                 h("tr", [
                     h("th.layer-icons", [
                         defaultLayersAreVisible ?
@@ -372,7 +386,7 @@ Timeline.render = function () {
                 this.rootNode.querySelector(".timeline-bottom-left").scrollTop = evt.target.scrollTop;
             }
         }, [
-            h("table.timeline", (defaultLayerIsNotEmpty ? [
+            h("table.timeline", (this.hasDefaultLayer ? [
                 h("tr",
                     this.presentation.frames.map((frame, frameIndex) => h("td", {
                         className:

@@ -355,6 +355,8 @@ export const Presentation = {
 
         this.layers.push(autoLayer);
 
+        this.initialCameraState = Object.create(CameraState).init(svgDocument.root);
+
         return this;
     },
 

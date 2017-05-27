@@ -27,12 +27,12 @@ window.addEventListener("load", () => {
     Selection.init(Presentation);
     Viewport.init(Presentation, true);
 
-    Controller.init(Storage, Presentation, Selection, Viewport);
+    Controller.init(Storage, Presentation, Selection, Timeline, Viewport);
 
     Preview.init(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller);
 
     const locale = i18n.init();
-    Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, locale);
+    Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, Timeline, locale);
     Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, locale);
     Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, locale);
     Storage.init(Controller, SVGDocumentWrapper, Presentation, Selection, Timeline, locale);
