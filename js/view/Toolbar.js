@@ -6,6 +6,7 @@
 
 import h from "virtual-dom/h";
 import {VirtualDOMView} from "./VirtualDOMView";
+import {Properties} from "./Properties";
 import screenfull from "screenfull";
 import pkg from "../../package.json";
 
@@ -26,6 +27,8 @@ Toolbar.render = function () {
     const _ = this.gettext;
     const c = this.controller;
     const v = this.viewport;
+    const t = this;
+
     return h("div", [
         h("span.group", [
             _("Aspect ratio: "),
@@ -113,11 +116,16 @@ Toolbar.render = function () {
                 onclick() { c.reload(); }
             }, h("i.fa.fa-refresh"))
         ]),
-        h("span.group",
+        h("span.group.btn-group", [
+            h("button", {
+                title: _("Preferences"),
+                className: Properties.preferencesMode ? "active" : undefined,
+                onclick() { Properties.togglePreferencesMode(); t.repaint(); }
+            }, h("i.fa.fa-sliders")),
             h("button", {
                 title: _("Information"),
                 onclick() { new Notification(_("Sozi (Information)"), {body: `Sozi ${pkg.version}`}); }
             }, h("i.fa.fa-info"))
-        )
+        ])
     ]);
 };

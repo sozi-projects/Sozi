@@ -155,8 +155,25 @@ AbstractBackend.doAutosave = function () {
             this.save(file.descriptor, file.getData());
         }
     });
+    this.savePreferences();
 };
 
 AbstractBackend.toggleDevTools = function () {
     // Not implemented
+};
+
+AbstractBackend.loadPreferences = function (prefs) {
+    this.preferences = prefs;
+    Object.keys(prefs).forEach(key => {
+        const value = localStorage.getItem(key);
+        if (value !== null) {
+            prefs[key] = JSON.parse(value);
+        }
+    });
+};
+
+AbstractBackend.savePreferences = function () {
+    Object.keys(this.preferences).forEach(key => {
+        localStorage.setItem(key, JSON.stringify(this.preferences[key]));
+    });
 };

@@ -12,10 +12,11 @@ export const Controller = Object.create(EventEmitter.prototype);
 
 const UNDO_STACK_LIMIT = 100;
 
-Controller.init = function (storage, presentation, selection, timeline, viewport) {
+Controller.init = function (storage, preferences, presentation, selection, timeline, viewport) {
     EventEmitter.call(this);
 
     this.storage = storage;
+    this.preferences = preferences;
     this.presentation = presentation;
     this.selection = selection;
     this.timeline = timeline;
@@ -28,6 +29,8 @@ Controller.init = function (storage, presentation, selection, timeline, viewport
 };
 
 Controller.onLoad = function () {
+    this.storage.backend.loadPreferences(this.preferences);
+
     if (!this.selection.selectedFrames.length && this.presentation.frames.length) {
         this.selection.addFrame(this.presentation.frames[0]);
     }
@@ -38,8 +41,8 @@ Controller.onLoad = function () {
 
     this.emit("ready");
 
-    // Trigger a repaint of the editor views.
-    this.emit("repaint");
+    // Apply the preferences (will trigger a repaint of the editor views).
+    this.applyPreferences();
 };
 
 Controller.save = function () {
@@ -703,7 +706,7 @@ Controller.updateCameraStates = function () {
                 const {element, score} = camera.getCandidateReferenceElement();
                 if (element && element.hasAttribute("id")) {
                     layerProperties.referenceElementId = element.getAttribute("id");
-                    if (outlineScore == null || score < outlineScore) {
+                    if (outlineScore === null || score < outlineScore) {
                         outlineElt = element;
                         outlineScore = score;
                     }
@@ -809,6 +812,22 @@ Controller.setAspectHeight = function (height) {
 
 Controller.setDragMode = function (dragMode) {
     this.viewport.dragMode = dragMode;
+    this.emit("repaint");
+};
+
+Controller.getPreference = function (key) {
+    return this.preferences[key];
+};
+
+Controller.setPreference = function (key, value) {
+    this.preferences[key] = value;
+    this.applyPreferences();
+};
+
+Controller.applyPreferences = function () {
+    if (this.preferences.fontSize > 0) {
+        document.body.style.fontSize = this.preferences.fontSize + "pt";
+    }
     this.emit("repaint");
 };
 

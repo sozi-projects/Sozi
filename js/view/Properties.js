@@ -9,19 +9,43 @@ import {VirtualDOMView} from "./VirtualDOMView";
 
 export const Properties = Object.create(VirtualDOMView);
 
+function asArray(v) {
+    return v instanceof Array ? v : [v];
+}
+
 Properties.init = function (container, selection, controller, timeline, locale) {
     VirtualDOMView.init.call(this, container, controller);
 
     this.selection = selection;
     this.gettext = s => locale.gettext(s);
     this.timeline = timeline;
+    this.preferencesMode = false;
 
     return this;
 };
 
-Properties.render = function () {
-    const _ = this.gettext;
+Properties.togglePreferencesMode = function () {
+    this.preferencesMode = !this.preferencesMode;
+    this.repaint();
+};
 
+Properties.render = function () {
+    return this.preferencesMode ? this.renderPreferences() : this.renderPresentationProperties();
+};
+
+Properties.renderPreferences = function () {
+    const _ = this.gettext;
+    const c = this.controller;
+
+    return h("div.properties", [
+        h("h1", _("User interface")),
+        h("label", {for: "field-fontSize"}, _("Font size")),
+        this.renderNumberField("fontSize", false, c.getPreference, c.setPreference, false, 1, 1)
+    ]);
+};
+
+Properties.renderPresentationProperties = function () {
+    const _ = this.gettext;
     const c = this.controller;
 
     const timeoutMsDisabled = c.getFrameProperty("timeoutEnable").every(value => !value);
@@ -69,7 +93,7 @@ Properties.render = function () {
         ]),
 
         h("label", {for: "field-layerToCopy"}, _("Copy layer")),
-        this.renderSelectField("layerToCopy", () => ["__select_a_layer__"], (prop, groupId) => {
+        this.renderSelectField("layerToCopy", () => "__select_a_layer__", (prop, groupId) => {
             c.copyLayer(groupId);
             document.getElementById("field-layerToCopy").firstChild.selected = true;
         }, layersToCopy),
@@ -122,7 +146,7 @@ Properties.render = function () {
 Properties.renderTextField = function (property, disabled, getter, setter, acceptsEmpty) {
     const c = this.controller;
 
-    const values = getter.call(c, property);
+    const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
     const value = values.length >= 1 ? values[0] : "";
 
@@ -144,7 +168,7 @@ Properties.renderTextField = function (property, disabled, getter, setter, accep
 Properties.renderNumberField = function (property, disabled, getter, setter, signed, step, factor) {
     const c = this.controller;
 
-    const values = getter.call(c, property);
+    const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
     const value = values.length >= 1 ? values[0] / factor : 0; // TODO use default value
 
@@ -169,7 +193,7 @@ Properties.renderNumberField = function (property, disabled, getter, setter, sig
 Properties.renderRangeField = function (property, getter, setter, min, max, step) {
     const c = this.controller;
 
-    const values = getter.call(c, property);
+    const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
     const value = values.length >= 1 ? values[0] : (min + max) / 2; // TODO use default value
 
@@ -194,7 +218,7 @@ Properties.renderRangeField = function (property, getter, setter, min, max, step
 Properties.renderToggleField = function (label, title, property, getter, setter) {
     const c = this.controller;
 
-    const values = getter.call(c, property);
+    const values = asArray(getter.call(c, property));
     let className = values.length > 1 ? "multiple" : "";
     const value = values.length >= 1 ? values[0] : false; // TODO use default value
     if (value) {
@@ -213,7 +237,7 @@ Properties.renderToggleField = function (label, title, property, getter, setter)
 Properties.renderSelectField = function (property, getter, setter, options) {
     const c = this.controller;
 
-    const values = getter.call(c, property);
+    const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
     const value = values.length >= 1 ? values[0] : options[0];
 

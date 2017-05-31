@@ -9,6 +9,7 @@ import "./svg";
 import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
 import {Presentation} from "./model/Presentation";
 import {Selection} from "./model/Selection";
+import {Preferences} from "./model/Preferences";
 import {Storage} from "./Storage";
 import {Viewport} from "./player/Viewport";
 import {Controller} from "./Controller";
@@ -27,7 +28,7 @@ window.addEventListener("load", () => {
     Selection.init(Presentation);
     Viewport.init(Presentation, true);
 
-    Controller.init(Storage, Presentation, Selection, Timeline, Viewport);
+    Controller.init(Storage, Preferences, Presentation, Selection, Timeline, Viewport);
 
     Preview.init(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller);
 
