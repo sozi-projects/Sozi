@@ -106,6 +106,7 @@ Properties.renderPresentationProperties = function () {
                 this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide element"), "outlineElementHide", c.getLayerProperty, c.setLayerProperty),
                 h("button", {
                     title: _("Fit to element"),
+                    disabled: !c.canFitElement(),
                     onclick() { c.fitElement(); }
                 }, h("i.fa.fa-arrows-alt"))
             ])

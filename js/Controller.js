@@ -492,6 +492,16 @@ Controller.copyLayer = function (groupId) {
     );
 };
 
+Controller.canFitElement = function () {
+    return this.selection.selectedFrames.length === 1 &&
+           this.selection.selectedLayers.length >= 1 &&
+           this.selection.selectedLayers.every(layer => {
+               const id = this.selection.currentFrame.layerProperties[layer.index].outlineElementId;
+               const elt = this.presentation.document.root.getElementById(id);
+               return elt && this.selection.selectedLayers.some(l => l.contains(elt));
+           });
+};
+
 Controller.fitElement = function () {
     const currentFrame = this.selection.currentFrame;
     if (currentFrame) {
