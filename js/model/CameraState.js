@@ -19,6 +19,22 @@ export const CameraState = {
     clipWidthFactor: 1,
     clipHeightFactor: 1,
 
+    set width(w) {
+        this._width = !isNaN(w) && w >= 1 ? w : 1;
+    },
+
+    get width() {
+        return this._width;
+    },
+
+    set height(h) {
+        this._height = !isNaN(h) && h >= 1 ? h : 1;
+    },
+
+    get height() {
+        return this._height;
+    },
+
     init(svgRoot) {
         this.svgRoot = svgRoot;
 

@@ -475,9 +475,13 @@ Controller.copyLayer = function (groupId) {
                     if (layer != layerToCopy) {
                         frame.layerProperties[layer.index].initFrom(frame.layerProperties[layerToCopy.index]);
                         frame.cameraStates[layer.index].initFrom(frame.cameraStates[layerToCopy.index]);
+                        if (frame.index === 0 || !this.selection.hasFrames([this.presentation.frames[frame.index - 1]])) {
+                            frame.layerProperties[layer.index].link = false;
+                        }
                     }
                 });
             });
+            this.presentation.updateLinkedLayers();
         },
         function onUndo() {
             selectedFrames.forEach((frame, frameIndex) => {
@@ -486,6 +490,7 @@ Controller.copyLayer = function (groupId) {
                     frame.cameraStates[layer.index].initFrom(savedCameraStates[frameIndex][layerIndex]);
                 });
             });
+            this.presentation.updateLinkedLayers();
         },
         false,
         ["presentationChange", "repaint"]
