@@ -61,7 +61,7 @@ export const Preview = {
             this.viewport.setAtStates(this.selection.currentFrame.cameraStates);
         }
 
-        if (this.viewport.svgRoot) {
+        if (this.viewport.ready) {
             this.viewport.repaint();
         }
     },

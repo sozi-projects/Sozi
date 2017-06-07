@@ -327,11 +327,15 @@ export const Presentation = {
      * Returns:
      *    - The current presentation object.
      */
-    init(svgDocument) {
-        this.document = svgDocument;
+    init() {
         this.frames = [];
         this.layers = [];
         this.elementsToHide = [];
+        return this;
+    },
+
+    setSVGDocument(svgDocument) {
+        this.document = svgDocument;
 
         // Create an empty wrapper layer for elements that do not belong to a valid layer
         const autoLayer = Object.create(Layer).init(this, "auto", true);

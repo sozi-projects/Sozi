@@ -82,6 +82,12 @@ Viewport.onLoad = function () {
     return this;
 };
 
+Object.defineProperty(Viewport, "ready", {
+    get() {
+        return !!(this.presentation.document && this.presentation.document.root);
+    }
+});
+
 Object.defineProperty(Viewport, "svgRoot", {
     get() {
         return this.presentation.document.root;

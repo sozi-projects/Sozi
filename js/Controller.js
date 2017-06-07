@@ -55,7 +55,7 @@ Controller.reload = function () {
 };
 
 Controller.setSVGDocument = function (svgDocument) {
-    this.presentation.init(svgDocument);
+    this.presentation.setSVGDocument(svgDocument);
     this.emit("loadSVG");
 };
 

@@ -25,6 +25,7 @@ window.addEventListener("load", () => {
 
     Notification.requestPermission();
 
+    Presentation.init();
     Selection.init(Presentation);
     Viewport.init(Presentation, true);
 

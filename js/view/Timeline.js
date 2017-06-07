@@ -223,7 +223,8 @@ Timeline.repaint = function () {
 
 Object.defineProperty(Timeline, "hasDefaultLayer", {
     get() {
-        return this.defaultLayers.length > 1 || this.defaultLayers[0].svgNodes.length;
+        return this.defaultLayers.length > 1 ||
+               this.defaultLayers.length > 0 && this.defaultLayers[0].svgNodes.length;
     }
 });
 
