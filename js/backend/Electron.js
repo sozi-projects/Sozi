@@ -5,6 +5,7 @@
 "use strict";
 
 import {AbstractBackend, addBackend} from "./AbstractBackend";
+import {Controller} from "../Controller";
 import fs from "fs";
 import path from "path";
 import process from "process";
@@ -52,8 +53,9 @@ Electron.init = function (container, _) {
             this.load(fileName);
         }
         catch (err) {
-            new Notification(_("Sozi (Error)"), {body: Jed.sprintf(_("File not found: %s."), fileName)});
-            this.openFileChooser(_);
+            Controller.error(Jed.sprintf(_("File not found: %s."), fileName));
+            // Force the error notification to appear before the file chooser.
+            setTimeout(() => this.openFileChooser(_), 100);
         }
     }
     else {

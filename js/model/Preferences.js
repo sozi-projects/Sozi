@@ -6,5 +6,6 @@
 "use strict";
 
 export const Preferences = {
-    fontSize: 11
+    fontSize: 11,
+    enableNotifications: true
 };

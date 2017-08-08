@@ -124,7 +124,7 @@ Toolbar.render = function () {
             }, h("i.fa.fa-sliders")),
             h("button", {
                 title: _("Information"),
-                onclick() { new Notification(_("Sozi (Information)"), {body: `Sozi ${pkg.version}`, silent: true}); }
+                onclick() { c.info(`Sozi ${pkg.version}`, true); }
             }, h("i.fa.fa-info"))
         ])
     ]);

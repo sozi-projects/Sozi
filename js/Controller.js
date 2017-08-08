@@ -12,7 +12,7 @@ export const Controller = Object.create(EventEmitter.prototype);
 
 const UNDO_STACK_LIMIT = 100;
 
-Controller.init = function (storage, preferences, presentation, selection, timeline, viewport) {
+Controller.init = function (storage, preferences, presentation, selection, timeline, viewport, locale) {
     EventEmitter.call(this);
 
     this.storage = storage;
@@ -21,11 +21,24 @@ Controller.init = function (storage, preferences, presentation, selection, timel
     this.selection = selection;
     this.timeline = timeline;
     this.viewport = viewport;
+    this.gettext = s => locale.gettext(s);
 
     this.undoStack = [];
     this.redoStack = [];
 
     return this;
+};
+
+Controller.info = function (body, force=false) {
+    if (this.preferences.enableNotifications || force) {
+        const _ = this.gettext;
+        new Notification(_("Sozi (Information)"), {body, silent: true});
+    }
+};
+
+Controller.error = function (body) {
+    const _ = this.gettext;
+    new Notification(_("Sozi (Error)"), {body});
 };
 
 Controller.onLoad = function () {

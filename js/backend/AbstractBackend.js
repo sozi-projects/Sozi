@@ -173,7 +173,9 @@ AbstractBackend.loadPreferences = function (prefs) {
 };
 
 AbstractBackend.savePreferences = function () {
-    Object.keys(this.preferences).forEach(key => {
-        localStorage.setItem(key, JSON.stringify(this.preferences[key]));
-    });
+    if (this.preferences) {
+        Object.keys(this.preferences).forEach(key => {
+            localStorage.setItem(key, JSON.stringify(this.preferences[key]));
+        });
+    }
 };

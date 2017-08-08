@@ -40,7 +40,11 @@ Properties.renderPreferences = function () {
     return h("div.properties", [
         h("h1", _("User interface")),
         h("label", {for: "field-fontSize"}, _("Font size")),
-        this.renderNumberField("fontSize", false, c.getPreference, c.setPreference, false, 1, 1)
+        this.renderNumberField("fontSize", false, c.getPreference, c.setPreference, false, 1, 1),
+        h("label", {for: "field-enableNotifications"}, [
+            _("Enable notifications on save and reload"),
+            this.renderToggleField(h("i.fa.fa-check-square-o"), _("Enable notifications"), "enableNotifications", c.getPreference, c.setPreference)
+        ])
     ]);
 };
 

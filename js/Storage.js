@@ -75,7 +75,7 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
     const location = backend.getLocation(fileDescriptor);
 
     if (err) {
-        new Notification(_("Sozi (Error)"), {body: Jed.sprintf(_("File %s could not be loaded."), name)});
+        this.controller.error(Jed.sprintf(_("File %s could not be loaded."), name));
     }
     else if (/\.svg$/.test(name)) {
         this.reloading = fileDescriptor === this.svgFileDescriptor;
@@ -90,7 +90,7 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
             });
         }
         else {
-            new Notification(_("Sozi (Error)"), {body: _("Document is not valid SVG.")});
+            this.controller.error(_("Document is not valid SVG."));
         }
     }
     else if (/\.sozi\.json$/.test(name)) {
@@ -99,7 +99,7 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
         this.autosaveJSON(fileDescriptor);
     }
     else {
-        new Notification(_("Sozi (Error)"), {body: _("Document is not valid SVG.")});
+        this.controller.error(_("Document is not valid SVG."));
     }
 };
 
@@ -134,7 +134,7 @@ Storage.onBackendChange = function (fileDescriptor) {
     const _ = this.gettext;
 
     if (fileDescriptor === this.svgFileDescriptor) {
-        new Notification(_("Sozi (Information)"), {body: _("Document was changed. Reloading."), silent: true});
+        this.controller.info(_("Document was changed. Reloading."));
         this.reload();
     }
 };
@@ -160,7 +160,7 @@ Storage.openJSONFile = function (name, location) {
 
             // Select the first frame
             if (this.presentation.frames.length) {
-                new Notification(_("Sozi (Information)"), {body: _("Document was imported from Sozi 13 or earlier."), silent: true});
+                this.controller.info(_("Document was imported from Sozi 13 or earlier."));
             }
 
             this.backend.create(name, location, "application/json", this.getJSONData(), fileDescriptor => {
@@ -218,7 +218,7 @@ Storage.autosaveJSON = function (fileDescriptor) {
     this.backend.addListener("save", savedFileDescriptor => {
         if (fileDescriptor === savedFileDescriptor) {
             this.jsonNeedsSaving = false;
-            new Notification(_("Sozi (Information)"), {body: Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)), silent: true});
+            this.controller.info(Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)));
         }
     });
 };
@@ -239,7 +239,7 @@ Storage.autosaveHTML = function (fileDescriptor) {
         if (fileDescriptor === savedFileDescriptor) {
             this.htmlNeedsSaving = false;
             this.controller.emit("repaint"); // TODO move this to controller
-            new Notification(_("Sozi (Information)"), {body: Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)), silent: true});
+            this.controller.info(Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)));
         }
     });
 };

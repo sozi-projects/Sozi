@@ -29,11 +29,12 @@ window.addEventListener("load", () => {
     Selection.init(Presentation);
     Viewport.init(Presentation, true);
 
-    Controller.init(Storage, Preferences, Presentation, Selection, Timeline, Viewport);
+    const locale = i18n.init();
+
+    Controller.init(Storage, Preferences, Presentation, Selection, Timeline, Viewport, locale);
 
     Preview.init(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller);
 
-    const locale = i18n.init();
     Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, Timeline, locale);
     Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, locale);
     Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, locale);
