@@ -40,11 +40,13 @@ Player.init = function (viewport, presentation) {
 };
 
 Player.setupEventHandlers = function () {
-    this.viewport.addListener("click", btn => this.onClick(btn));
-    this.viewport.addListener("dragStart", () => this.pause());
-    this.viewport.addListener("userChangeState", () => this.pause());
-    window.addEventListener("keydown", evt => this.onKeyDown(evt), false);
-    window.addEventListener("keypress", evt => this.onKeyPress(evt), false);
+    if (this.presentation.enableUserActions) {
+        this.viewport.addListener("click", btn => this.onClick(btn));
+        this.viewport.addListener("dragStart", () => this.pause());
+        this.viewport.addListener("userChangeState", () => this.pause());
+        window.addEventListener("keydown", evt => this.onKeyDown(evt), false);
+        window.addEventListener("keypress", evt => this.onKeyPress(evt), false);
+    }
     this.animator.addListener("step", p => this.onAnimatorStep(p));
     this.animator.addListener("stop", () => this.onAnimatorStop());
     this.animator.addListener("done", () => this.onAnimatorDone());

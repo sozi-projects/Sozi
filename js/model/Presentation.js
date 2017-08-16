@@ -320,6 +320,7 @@ export const Presentation = {
 
     aspectWidth: 4,
     aspectHeight: 3,
+    enableUserActions: true,
 
     /*
      * Initialize a Sozi document object.
@@ -368,6 +369,7 @@ export const Presentation = {
         return {
             aspectWidth: this.aspectWidth,
             aspectHeight: this.aspectHeight,
+            enableUserActions: this.enableUserActions,
             frames: this.frames.map(frame => frame.toStorable()),
             elementsToHide: this.elementsToHide.slice()
         };
@@ -375,6 +377,7 @@ export const Presentation = {
 
     toMinimalStorable() {
         return {
+            enableUserActions: this.enableUserActions,
             frames: this.frames.map(frame => frame.toMinimalStorable()),
             elementsToHide: this.elementsToHide.slice()
         };
@@ -383,6 +386,7 @@ export const Presentation = {
     fromStorable(storable) {
         copyIfSet(this, storable, "aspectWidth");
         copyIfSet(this, storable, "aspectHeight");
+        copyIfSet(this, storable, "enableUserActions");
 
         this.frames = storable.frames.map(f => Object.create(Frame).init(this).fromStorable(f));
 

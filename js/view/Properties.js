@@ -66,6 +66,12 @@ Properties.renderPresentationProperties = function () {
     });
 
     return h("div.properties", [
+        h("h1", _("Presentation")),
+
+        h("div.btn-group", [
+                this.renderToggleField(h("i.fa.fa-keyboard-o"), _("Enable mouse/keyboard actions"), "enableUserActions", c.getPresentationProperty, c.setPresentationProperty)
+        ]),
+
         h("h1", _("Frame")),
 
         h("div.btn-group", [

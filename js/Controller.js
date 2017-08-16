@@ -564,6 +564,26 @@ Controller.fitElement = function () {
     }
 };
 
+Controller.getPresentationProperty = function (property) {
+    return this.presentation[property];
+};
+
+Controller.setPresentationProperty = function (propertyName, propertyValue) {
+    const pres = this.presentation;
+    const savedValue = pres[propertyName];
+
+    this.perform(
+        function onDo() {
+            pres[propertyName] = propertyValue;
+        },
+        function onUndo() {
+            pres[propertyName] = savedValue;
+        },
+        false,
+        ["presentationChange", "repaint"]
+    );
+};
+
 Controller.getFrameProperty = function (property) {
     const values = [];
 
