@@ -156,6 +156,7 @@ Viewport.onMouseDown = function (evt) {
 
     if (evt.button === DRAG_BUTTON) {
         this.mouseDragged = false;
+        this.mouseDragChangedState = false;
         this.mouseDragX = this.mouseDragStartX = evt.clientX;
         this.mouseDragY = this.mouseDragStartY = evt.clientY;
 
@@ -268,18 +269,26 @@ Viewport.onDrag = function (evt) {
 
         switch (mode) {
             case "scale":
-                if (this.zoomPrev !== 0) {
-                    this.zoom(zoom / this.zoomPrev, this.width / 2, this.height / 2);
+                if (this.editMode || this.presentation.enableMouseZoom) {
+                    if (this.zoomPrev !== 0) {
+                        this.zoom(zoom / this.zoomPrev, this.width / 2, this.height / 2);
+                        this.mouseDragChangedState = true;
+                    }
+                    this.zoomPrev = zoom;
                 }
-                this.zoomPrev = zoom;
                 break;
+
             case "rotate":
-                if (evt.ctrlKey) {
-                    angle = 10 * Math.round((angle - this.rotateStart) / 10) + this.rotateStart;
+                if (this.editMode || this.presentation.enableMouseRotation) {
+                    if (evt.ctrlKey) {
+                        angle = 10 * Math.round((angle - this.rotateStart) / 10) + this.rotateStart;
+                    }
+                    this.rotate(this.rotatePrev - angle);
+                    this.mouseDragChangedState = true;
+                    this.rotatePrev = angle;
                 }
-                this.rotate(this.rotatePrev - angle);
-                this.rotatePrev = angle;
                 break;
+
             case "clip":
                 switch (this.clipMode.operation) {
                     case "select":
@@ -315,18 +324,22 @@ Viewport.onDrag = function (evt) {
                         break;
                 }
                 break;
+
             default: // case "translate":
-                if (evt.ctrlKey) {
-                    if (Math.abs(translateX - this.translateStartX) >= Math.abs(translateY - this.translateStartY)) {
-                        translateY = this.translateStartY;
+                if (this.editMode || this.presentation.enableMouseTranslation) {
+                    if (evt.ctrlKey) {
+                        if (Math.abs(translateX - this.translateStartX) >= Math.abs(translateY - this.translateStartY)) {
+                            translateY = this.translateStartY;
+                        }
+                        else {
+                            translateX = this.translateStartX;
+                        }
                     }
-                    else {
-                        translateX = this.translateStartX;
-                    }
+                    this.translate(translateX - this.translateXPrev, translateY - this.translateYPrev);
+                    this.mouseDragChangedState = true;
+                    this.translateXPrev = translateX;
+                    this.translateYPrev = translateY;
                 }
-                this.translate(translateX - this.translateXPrev, translateY - this.translateYPrev);
-                this.translateXPrev = translateX;
-                this.translateYPrev = translateY;
         }
         this.mouseDragX = evt.clientX;
         this.mouseDragY = evt.clientY;
@@ -354,7 +367,9 @@ Viewport.onDragEnd = function (evt) {
     if (evt.button === DRAG_BUTTON) {
         if (this.mouseDragged) {
             this.emit("dragEnd");
-            this.emit("userChangeState");
+            if (this.mouseDragChangedState) {
+                this.emit("userChangeState");
+            }
         }
         else {
             this.emit("click", evt.button, evt);
@@ -400,20 +415,30 @@ Viewport.onWheel = function (evt) {
         delta = -evt.deltaY;
     }
 
+    let changed = false;
+
     if (delta !== 0) {
         if (evt.shiftKey) {
             // TODO rotate around mouse cursor
-            this.rotate(delta > 0 ? ROTATE_STEP : -ROTATE_STEP);
+            if (this.editMode || this.presentation.enableMouseRotation) {
+                this.rotate(delta > 0 ? ROTATE_STEP : -ROTATE_STEP);
+                changed = true;
+            }
         }
         else {
-            this.zoom(delta > 0 ? SCALE_FACTOR : 1/SCALE_FACTOR, evt.clientX - this.x, evt.clientY - this.y);
+            if (this.editMode || this.presentation.enableMouseZoom) {
+                this.zoom(delta > 0 ? SCALE_FACTOR : 1/SCALE_FACTOR, evt.clientX - this.x, evt.clientY - this.y);
+                changed = true;
+            }
         }
     }
 
-    this.wheelTimeout = window.setTimeout(() => {
-        this.wheelTimeout = null;
-        this.emit("userChangeState");
-    }, WHEEL_TIMEOUT_MS);
+    if (changed) {
+        this.wheelTimeout = window.setTimeout(() => {
+            this.wheelTimeout = null;
+            this.emit("userChangeState");
+        }, WHEEL_TIMEOUT_MS);
+    }
 };
 
 /*

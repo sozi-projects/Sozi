@@ -40,22 +40,24 @@ Player.init = function (viewport, presentation) {
 };
 
 Player.setupEventHandlers = function () {
-    if (this.presentation.enableUserActions) {
-        this.viewport.addListener("click", btn => this.onClick(btn));
+    this.viewport.addListener("click", btn => this.onClick(btn));
+    window.addEventListener("keydown", evt => this.onKeyDown(evt), false);
+    if (this.presentation.enableMouseTranslation) {
         this.viewport.addListener("dragStart", () => this.pause());
-        this.viewport.addListener("userChangeState", () => this.pause());
-        window.addEventListener("keydown", evt => this.onKeyDown(evt), false);
-        window.addEventListener("keypress", evt => this.onKeyPress(evt), false);
     }
+    this.viewport.addListener("userChangeState", () => this.pause());
+    window.addEventListener("keypress", evt => this.onKeyPress(evt), false);
     this.animator.addListener("step", p => this.onAnimatorStep(p));
     this.animator.addListener("stop", () => this.onAnimatorStop());
     this.animator.addListener("done", () => this.onAnimatorDone());
 };
 
 Player.onClick = function (button) {
-    switch (button) {
-        case 0: this.moveToNext(); break;
-        case 2: this.moveToPrevious(); break;
+    if (this.presentation.enableMouseNavigation) {
+        switch (button) {
+            case 0: this.moveToNext(); break;
+            case 2: this.moveToPrevious(); break;
+        }
     }
 };
 
@@ -67,43 +69,55 @@ Player.onKeyDown = function (evt) {
 
     switch (evt.keyCode) {
         case 36: // Home
-            if (evt.shiftKey) {
-                this.jumpToFirst();
-            }
-            else {
-                this.moveToFirst();
+            if (this.presentation.enableKeyboardNavigation) {
+                if (evt.shiftKey) {
+                    this.jumpToFirst();
+                }
+                else {
+                    this.moveToFirst();
+                }
             }
             break;
+
         case 35: // End
-            if (evt.shiftKey) {
-                this.jumpToLast();
-            }
-            else {
-                this.moveToLast();
+            if (this.presentation.enableKeyboardNavigation) {
+                if (evt.shiftKey) {
+                    this.jumpToLast();
+                }
+                else {
+                    this.moveToLast();
+                }
             }
             break;
+
         case 38: // Arrow up
         case 33: // Page up
         case 37: // Arrow left
-            if (evt.shiftKey) {
-                this.jumpToPrevious();
-            }
-            else {
-                this.moveToPrevious();
+            if (this.presentation.enableKeyboardNavigation) {
+                if (evt.shiftKey) {
+                    this.jumpToPrevious();
+                }
+                else {
+                    this.moveToPrevious();
+                }
             }
             break;
+
         case 40: // Arrow down
         case 34: // Page down
         case 39: // Arrow right
         case 13: // Enter
         case 32: // Space
-            if (evt.shiftKey) {
-                this.jumpToNext();
-            }
-            else {
-                this.moveToNext();
+            if (this.presentation.enableKeyboardNavigation) {
+                if (evt.shiftKey) {
+                    this.jumpToNext();
+                }
+                else {
+                    this.moveToNext();
+                }
             }
             break;
+
         default:
             return;
     }
@@ -132,21 +146,33 @@ Player.onKeyPress = function (evt) {
 
     switch (evt.charCode || evt.which) {
         case 43: // +
-            this.viewport.zoom(SCALE_FACTOR, this.viewport.width / 2, this.viewport.height / 2);
-            this.pause();
+            if (this.presentation.enableKeyboardZoom) {
+                this.viewport.zoom(SCALE_FACTOR, this.viewport.width / 2, this.viewport.height / 2);
+                this.pause();
+            }
             break;
+
         case 45: // -
-            this.viewport.zoom(1 / SCALE_FACTOR, this.viewport.width / 2, this.viewport.height / 2);
-            this.pause();
+            if (this.presentation.enableKeyboardZoom) {
+                this.viewport.zoom(1 / SCALE_FACTOR, this.viewport.width / 2, this.viewport.height / 2);
+                this.pause();
+            }
             break;
+
         case 82: // R
-            this.viewport.rotate(-ROTATE_STEP);
-            this.pause();
+            if (this.presentation.enableKeyboardRotation) {
+                this.viewport.rotate(-ROTATE_STEP);
+                this.pause();
+            }
             break;
+
         case 114: // r
-            this.viewport.rotate(ROTATE_STEP);
-            this.pause();
+            if (this.presentation.enableKeyboardRotation) {
+                this.viewport.rotate(ROTATE_STEP);
+                this.pause();
+            }
             break;
+
         case 80: // P
         case 112: //p
             if (this.playing) {
@@ -156,9 +182,13 @@ Player.onKeyPress = function (evt) {
                 this.resume();
             }
             break;
+
         case 46: // .
-            this.toggleBlankScreen();
+            if (this.presentation.enableKeyboardNavigation) {
+                this.toggleBlankScreen();
+            }
             break;
+
         default:
             return;
     }

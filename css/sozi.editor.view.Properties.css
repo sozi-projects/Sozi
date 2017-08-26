@@ -7,6 +7,11 @@
 }
 
 .properties > div {
+    margin-top: 0.5em;
+    margin-bottom: 0.3em;
+}
+
+.properties > div.btn-group {
     text-align: center;
 }
 

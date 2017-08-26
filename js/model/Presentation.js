@@ -320,7 +320,13 @@ export const Presentation = {
 
     aspectWidth: 4,
     aspectHeight: 3,
-    enableUserActions: true,
+    enableKeyboardZoom: true,
+    enableKeyboardRotation: true,
+    enableKeyboardNavigation: true,
+    enableMouseTranslation: true,
+    enableMouseZoom: true,
+    enableMouseRotation: true,
+    enableMouseNavigation: true,
 
     /*
      * Initialize a Sozi document object.
@@ -369,7 +375,13 @@ export const Presentation = {
         return {
             aspectWidth: this.aspectWidth,
             aspectHeight: this.aspectHeight,
-            enableUserActions: this.enableUserActions,
+            enableKeyboardZoom: this.enableKeyboardZoom,
+            enableKeyboardRotation: this.enableKeyboardRotation,
+            enableKeyboardNavigation: this.enableKeyboardNavigation,
+            enableMouseTranslation: this.enableMouseTranslation,
+            enableMouseZoom: this.enableMouseZoom,
+            enableMouseRotation: this.enableMouseRotation,
+            enableMouseNavigation: this.enableMouseNavigation,
             frames: this.frames.map(frame => frame.toStorable()),
             elementsToHide: this.elementsToHide.slice()
         };
@@ -377,7 +389,13 @@ export const Presentation = {
 
     toMinimalStorable() {
         return {
-            enableUserActions: this.enableUserActions,
+            enableKeyboardZoom: this.enableKeyboardZoom,
+            enableKeyboardRotation: this.enableKeyboardRotation,
+            enableKeyboardNavigation: this.enableKeyboardNavigation,
+            enableMouseTranslation: this.enableMouseTranslation,
+            enableMouseZoom: this.enableMouseZoom,
+            enableMouseRotation: this.enableMouseRotation,
+            enableMouseNavigation: this.enableMouseNavigation,
             frames: this.frames.map(frame => frame.toMinimalStorable()),
             elementsToHide: this.elementsToHide.slice()
         };
@@ -386,7 +404,13 @@ export const Presentation = {
     fromStorable(storable) {
         copyIfSet(this, storable, "aspectWidth");
         copyIfSet(this, storable, "aspectHeight");
-        copyIfSet(this, storable, "enableUserActions");
+        copyIfSet(this, storable, "enableKeyboardZoom");
+        copyIfSet(this, storable, "enableKeyboardRotation");
+        copyIfSet(this, storable, "enableKeyboardNavigation");
+        copyIfSet(this, storable, "enableMouseTranslation");
+        copyIfSet(this, storable, "enableMouseZoom");
+        copyIfSet(this, storable, "enableMouseRotation");
+        copyIfSet(this, storable, "enableMouseNavigation");
 
         this.frames = storable.frames.map(f => Object.create(Frame).init(this).fromStorable(f));
 
