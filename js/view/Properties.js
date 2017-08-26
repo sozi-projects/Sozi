@@ -66,39 +66,6 @@ Properties.renderPresentationProperties = function () {
     });
 
     return h("div.properties", [
-        h("h1", _("Presentation")),
-
-        h("div", [
-            _("User can control the presentation"),
-            h("span.btn-group", [
-                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseNavigation", c.getPresentationProperty, c.setPresentationProperty),
-                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardNavigation", c.getPresentationProperty, c.setPresentationProperty)
-            ])
-        ]),
-
-        h("div", [
-            _("User can move the camera"),
-            h("span.btn-group", [
-                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseTranslation", c.getPresentationProperty, c.setPresentationProperty)
-            ])
-        ]),
-
-        h("div", [
-            _("User can rotate the camera"),
-            h("span.btn-group", [
-                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseRotation", c.getPresentationProperty, c.setPresentationProperty),
-                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardRotation", c.getPresentationProperty, c.setPresentationProperty)
-            ])
-        ]),
-
-        h("div", [
-            _("User can zoom"),
-            h("span.btn-group", [
-                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseZoom", c.getPresentationProperty, c.setPresentationProperty),
-                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardZoom", c.getPresentationProperty, c.setPresentationProperty)
-            ])
-        ]),
-
         h("h1", _("Frame")),
 
         h("div.btn-group", [
@@ -177,7 +144,38 @@ Properties.renderPresentationProperties = function () {
             _("Path Id"),
             this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide path"), "transitionPathHide", c.getLayerProperty, c.setLayerProperty)
         ]),
-        this.renderTextField("transitionPathId", false, c.getLayerProperty, c.setLayerProperty, true)
+        this.renderTextField("transitionPathId", false, c.getLayerProperty, c.setLayerProperty, true),
+
+        h("h1", _("Player")),
+
+        h("div", [
+            _("Allow to control the presentation"),
+            h("span.btn-group", [
+                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseNavigation", c.getPresentationProperty, c.setPresentationProperty),
+                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardNavigation", c.getPresentationProperty, c.setPresentationProperty)
+            ])
+        ]),
+
+        h("div", [
+            _("Allow to move the camera"),
+            this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseTranslation", c.getPresentationProperty, c.setPresentationProperty)
+        ]),
+
+        h("div", [
+            _("Allow to rotate the camera"),
+            h("span.btn-group", [
+                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseRotation", c.getPresentationProperty, c.setPresentationProperty),
+                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardRotation", c.getPresentationProperty, c.setPresentationProperty)
+            ])
+        ]),
+
+        h("div", [
+            _("Allow to zoom"),
+            h("span.btn-group", [
+                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseZoom", c.getPresentationProperty, c.setPresentationProperty),
+                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardZoom", c.getPresentationProperty, c.setPresentationProperty)
+            ])
+        ])
     ]);
 };
 

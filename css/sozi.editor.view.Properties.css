@@ -26,8 +26,8 @@
     width: 100%;
 }
 
-.properties .btn-group,
-.properties label > button {
+.properties span.btn-group,
+.properties :not(.btn-group) > button {
     margin-left: 1em;
 }
 
