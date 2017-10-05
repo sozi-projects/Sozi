@@ -106,7 +106,8 @@ Object.defineProperty(Camera, "scale", {
 
 Camera.rotate = function (angle) {
     this.restoreAspectRatio();
-    return this.setAngle(this.angle + angle).update();
+    this.angle += angle;
+    return this.update();
 };
 
 Camera.zoom = function (factor, x, y) {

@@ -12,7 +12,6 @@ function copyIfSet(dest, src, prop) {
 
 export const CameraState = {
     opacity: 1.0,
-    angle: 0,
     clipped: false,
     clipXOffset: 0,
     clipYOffset: 0,
@@ -35,6 +34,25 @@ export const CameraState = {
         return this._height;
     },
 
+    /*
+     * Set the angle of the current camera state.
+     * The angle of the current state is normalized
+     * in the interval [-180 ; 180]
+     */
+    set angle(a) {
+        this._angle = !isNaN(a) ? (a + 180) % 360 : 180;
+        if (this._angle < 0) {
+            this._angle += 180;
+        }
+        else {
+            this._angle -= 180;
+        }
+    },
+
+    get angle() {
+        return this._angle;
+    },
+
     init(svgRoot) {
         this.svgRoot = svgRoot;
 
@@ -47,6 +65,8 @@ export const CameraState = {
         // Dimensions
         this.width = initialBBox.width;
         this.height = initialBBox.height;
+
+        this.angle = 0;
 
         return this;
     },
@@ -99,16 +119,6 @@ export const CameraState = {
         copyIfSet(this, storable, "clipYOffset");
         copyIfSet(this, storable, "clipWidthFactor");
         copyIfSet(this, storable, "clipHeightFactor");
-        return this;
-    },
-
-    /*
-     * Set the angle of the current camera state.
-     * The angle of the current state is normalized
-     * in the interval [-180 ; 180]
-     */
-    setAngle(angle) {
-        this.angle = (angle + 180) % 360 - 180;
         return this;
     },
 
