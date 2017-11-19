@@ -76,8 +76,10 @@ function onKeyPress(evt) {
     switch (evt.charCode || evt.which) {
         case 84: // T
         case 116: // t
-            player.disableBlankScreen();
-            toggle();
+            if (player.presentation.enableKeyboardNavigation) {
+                player.disableBlankScreen();
+                toggle();
+            }
             break;
         default:
             return;
@@ -93,7 +95,7 @@ function onAnimatorStep(progress) {
 }
 
 function onMouseDown(button) {
-    if (button === 1) {
+    if (player.presentation.enableMouseNavigation && button === 1) {
         toggle();
     }
 }
