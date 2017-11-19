@@ -207,7 +207,7 @@ module.exports = function(grunt) {
             media: {
                 options: {
                     mode: "zip",
-                    archive: "build/Sozi-extras-media-<%= pkg.version %>.zip"
+                    archive: "dist/Sozi-extras-media-<%= pkg.version %>.zip"
                 },
                 expand: true,
                 cwd: "extras/media",
@@ -342,7 +342,8 @@ module.exports = function(grunt) {
         "newer:uglify:player",
         "newer:nunjucks_render",
         "newer:po2json",
-        "newer:copy:editor"
+        "newer:copy:editor",
+        "compress:media"
     ]);
 
     grunt.registerTask("electron-build",  [
