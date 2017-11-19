@@ -5,49 +5,52 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
-"POT-Creation-Date: 2017-05-27 12:56:+0000\n"
-"PO-Revision-Date: 2016-04-10 22:31:+0000\n"
-"Last-Translator: Francisco Javier del Álamo <javialamo+github@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-19 09:55:+0000\n"
+"PO-Revision-Date: 2017-09-28 08:12+0000\n"
+"Last-Translator: Daniele Dondi <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
+"X-Generator: Launchpad (build 18505)\n"
 
-#: js/backend/Electron.js:27
-#, fuzzy
+#: js/backend/Electron.js:28
 msgid "Open an SVG file from your computer"
-msgstr "Importa da Google Drive"
+msgstr "Apri un file SVG dal tuo computer"
 
-#: js/backend/Electron.js:55 js/Storage.js:78 js/Storage.js:93
-#: js/Storage.js:102
-msgid "Sozi (Error)"
-msgstr ""
-
-#: js/backend/Electron.js:55
+#: js/backend/Electron.js:56
 msgid "File not found: %s."
 msgstr "File non trovato: %s"
 
-#: js/backend/Electron.js:68
+#: js/backend/Electron.js:70
 msgid "Choose an SVG file"
-msgstr ""
+msgstr "Scegli un file SVG"
 
-#: js/backend/Electron.js:69
+#: js/backend/Electron.js:71
 msgid "SVG files"
-msgstr ""
+msgstr "File SVG"
 
 #: js/backend/FileReader.js:12
-#, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
 "only)"
 msgstr ""
-"Caricare file locale (<i class = \"fa fa-warning \"> </ i> di sola lettura)"
+"Apri un file SVG dal tuo computer (<i class=\"fa fa-warning\"></i> read-only)"
 
 #: js/backend/GoogleDrive.js:16
-#, fuzzy
 msgid "Open an SVG file from Google Drive"
-msgstr "Importa da Google Drive"
+msgstr "Apri un file SVG da Google Drive"
+
+#: js/Controller.js:35
+msgid "Sozi (Information)"
+msgstr "Sozi (informazioni)"
+
+#: js/Controller.js:41
+msgid "Sozi (Error)"
+msgstr "Sozi (Errore)"
 
 #: js/Storage.js:78
 msgid "File %s could not be loaded."
@@ -57,15 +60,9 @@ msgstr "Impossibile caricare il file %s"
 msgid "Document is not valid SVG."
 msgstr "Non è un documento SVG valido"
 
-#: js/Storage.js:137 js/Storage.js:163 js/Storage.js:221 js/Storage.js:242
-#: js/view/Toolbar.js:119
-#, fuzzy
-msgid "Sozi (Information)"
-msgstr "Informazione"
-
 #: js/Storage.js:137
 msgid "Document was changed. Reloading."
-msgstr "Il documento è stato modificato. Ricaricamento di nuovo."
+msgstr "Il documento è stao modificato. Ricaricamento in corso."
 
 #: js/Storage.js:163
 msgid "Document was imported from Sozi 13 or earlier."
@@ -75,191 +72,234 @@ msgstr "Il documento è stato importato da Sozi13 o precedente."
 msgid "Saved %s."
 msgstr "%s salvato."
 
-#: js/view/Properties.js:31
-msgid "Select a layer to copy"
+#: js/view/Properties.js:41
+msgid "User interface"
 msgstr ""
 
-#: js/view/Properties.js:34 js/view/Timeline.js:312 js/view/Timeline.js:342
-msgid "Default"
-msgstr "Predeterminato"
+#: js/view/Properties.js:42
+msgid "Font size"
+msgstr ""
 
-#: js/view/Properties.js:41
+#: js/view/Properties.js:45
+msgid "Enable notifications on save and reload"
+msgstr ""
+
+#: js/view/Properties.js:46
+msgid "Enable notifications"
+msgstr ""
+
+#: js/view/Properties.js:59
+msgid "Select a layer to copy"
+msgstr "Seleziona un layer da copiare"
+
+#: js/view/Properties.js:62 js/view/Timeline.js:313 js/view/Timeline.js:343
+msgid "Default"
+msgstr "Predefinito"
+
+#: js/view/Properties.js:69
 msgid "Frame"
 msgstr "Fotogramma"
 
-#: js/view/Properties.js:44
+#: js/view/Properties.js:72
 msgid "Show in frame list"
 msgstr "Mostra sulla lista dei fotogrammi"
 
-#: js/view/Properties.js:45
+#: js/view/Properties.js:73
 msgid "Show frame number"
 msgstr "Mostra il numero di fotogramma"
 
-#: js/view/Properties.js:48
+#: js/view/Properties.js:76
 msgid "Title"
 msgstr "Titolo"
 
-#: js/view/Properties.js:51
+#: js/view/Properties.js:79
 msgid "Id"
 msgstr "Id"
 
-#: js/view/Properties.js:55
+#: js/view/Properties.js:83
 msgid "Timeout (seconds)"
 msgstr "Timeout (secondi)"
 
-#: js/view/Properties.js:56
+#: js/view/Properties.js:84
 msgid "Timeout enable"
 msgstr "Abilita timeout"
 
-#: js/view/Properties.js:60
+#: js/view/Properties.js:88
 msgid "Layer"
-msgstr ""
+msgstr "Layer"
 
-#: js/view/Properties.js:63
+#: js/view/Properties.js:91
 msgid "Link to previous frame"
 msgstr "Collegamento al fotogramma precedente"
 
-#: js/view/Properties.js:64 js/view/Toolbar.js:79
+#: js/view/Properties.js:92 js/view/Toolbar.js:82
 msgid "Clip"
 msgstr "Tagliare"
 
-#: js/view/Properties.js:66
+#: js/view/Properties.js:94
 msgid "Reset layer geometry"
-msgstr ""
+msgstr "Ripristina la geometria del layer"
 
-#: js/view/Properties.js:71
-#, fuzzy
+#: js/view/Properties.js:99
 msgid "Copy layer"
-msgstr "Aggiungi strato"
+msgstr "Copia layer"
 
-#: js/view/Properties.js:78
-#, fuzzy
+#: js/view/Properties.js:106
 msgid "Outline element Id"
-msgstr "Riferimento ID del elemento"
+msgstr "Contorno elemento Id"
 
-#: js/view/Properties.js:81
+#: js/view/Properties.js:109
 msgid "Autoselect element"
-msgstr "Auto-selezione del elemento"
+msgstr "Autoseleziona elemento"
 
-#: js/view/Properties.js:82
+#: js/view/Properties.js:110
 msgid "Hide element"
 msgstr "Nascondi elemento"
 
-#: js/view/Properties.js:84
+#: js/view/Properties.js:112
 msgid "Fit to element"
-msgstr "Regolare il elemento"
+msgstr "Adatta all'elemento"
 
-#: js/view/Properties.js:91
+#: js/view/Properties.js:120
 msgid "Layer opacity"
-msgstr "Opacità del strato"
+msgstr "Opacità del layer"
 
-#: js/view/Properties.js:94
+#: js/view/Properties.js:123
 msgid "Transition"
 msgstr "Transizione"
 
-#: js/view/Properties.js:96
+#: js/view/Properties.js:125
 msgid "Duration (seconds)"
 msgstr "Durata (secondi)"
 
-#: js/view/Properties.js:99
+#: js/view/Properties.js:128
 msgid "Timing function"
 msgstr "Funzione di temporizzazione"
 
-#: js/view/Properties.js:111
+#: js/view/Properties.js:140
 msgid "Relative zoom (%)"
 msgstr "Zoom relativo (%)"
 
-#: js/view/Properties.js:115
+#: js/view/Properties.js:144
 msgid "Path Id"
 msgstr "Percorso ID"
 
-#: js/view/Properties.js:116
+#: js/view/Properties.js:145
 msgid "Hide path"
 msgstr "Nascondere il percorso"
 
-#: js/view/Timeline.js:263
+#: js/view/Properties.js:149
+#, fuzzy
+msgid "Player"
+msgstr "Layer"
+
+#: js/view/Properties.js:152
+msgid "Allow to control the presentation"
+msgstr ""
+
+#: js/view/Properties.js:154 js/view/Properties.js:161
+#: js/view/Properties.js:167 js/view/Properties.js:175
+msgid "using the mouse"
+msgstr ""
+
+#: js/view/Properties.js:155 js/view/Properties.js:168
+#: js/view/Properties.js:176
+msgid "using the keyboard"
+msgstr ""
+
+#: js/view/Properties.js:160
+msgid "Allow to move the camera"
+msgstr ""
+
+#: js/view/Properties.js:165
+msgid "Allow to rotate the camera"
+msgstr ""
+
+#: js/view/Properties.js:173
+msgid "Allow to zoom"
+msgstr ""
+
+#: js/view/Timeline.js:264
 msgid "Delete the selected frames"
 msgstr "Eliminare i fotogrammi selezionati"
 
-#: js/view/Timeline.js:270
+#: js/view/Timeline.js:271
 msgid "Create a new frame"
 msgstr "Creare un nuovo fotogramma"
 
-#: js/view/Timeline.js:284
+#: js/view/Timeline.js:285
 msgid "Add layer"
-msgstr "Aggiungi strato"
+msgstr "aggiungi layer"
 
-#: js/view/Timeline.js:300 js/view/Timeline.js:321
+#: js/view/Timeline.js:301 js/view/Timeline.js:322
 msgid "This layer is visible. Click to hide it."
-msgstr "Questo strato è visibile. Premere per nascondere."
+msgstr "Questo layer è visibile. Premere per nascondere"
 
-#: js/view/Timeline.js:304 js/view/Timeline.js:325
+#: js/view/Timeline.js:305 js/view/Timeline.js:326
 msgid "This layer is hidden. Click to show it."
-msgstr "Questo strato è nascosto. Premere per visualizzare."
+msgstr "Questo layer è nascosto. Premere per visualizzare"
 
-#: js/view/Timeline.js:329
+#: js/view/Timeline.js:330
 msgid "Remove this layer"
-msgstr "Rimuovere questo strato"
+msgstr "Rimuovere questo layer"
 
-#: js/view/Timeline.js:355
+#: js/view/Timeline.js:356
 msgid "Insert selection before frame %d"
 msgstr "Inserire la selezione prima del fotogramma %d"
 
-#: js/view/Timeline.js:362
+#: js/view/Timeline.js:363
 msgid "Insert selection after frame %d"
-msgstr "Inserire la selezione dopo il fotogramma %d"
+msgstr "Inserire la selezione dopo il fotogramma% d"
 
-#: js/view/Toolbar.js:31
+#: js/view/Toolbar.js:34
 msgid "Aspect ratio: "
-msgstr "Proporzione di aspetto:"
+msgstr "Proporzione "
 
-#: js/view/Toolbar.js:64
+#: js/view/Toolbar.js:67
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
-msgstr ""
-"Spostare i strati selezionati (premere ALT per espandere, SHIFT per ruotare)"
+msgstr "Muovere i layer selezionati (premere ALT per zoom, SHIFT per ruotare)"
 
-#: js/view/Toolbar.js:69
+#: js/view/Toolbar.js:72
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
-msgstr ""
-"Zoom in / out strati selezionati (è possibile premere ALT in \"modalità di "
-"movimento\")"
+msgstr "Zoom in/out layer selezionati"
 
-#: js/view/Toolbar.js:74
+#: js/view/Toolbar.js:77
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
-"Ruota i strati selezionati (è possibile premere SHIFT in \"modalità di "
+"Ruota i layer selezionati (è possibile premere SHIFT in \"modalità di "
 "movimento\")"
 
-#: js/view/Toolbar.js:86
+#: js/view/Toolbar.js:89
 msgid "Undo (Ctrl-Z)"
 msgstr "Annulla (Ctrl-Z)"
 
-#: js/view/Toolbar.js:91
+#: js/view/Toolbar.js:94
 msgid "Redo (Ctrl-Y)"
 msgstr "Rifai (Ctrl-Y)"
 
-#: js/view/Toolbar.js:98
+#: js/view/Toolbar.js:101
 msgid "Disable full-screen mode (F11)"
-msgstr "Disattivare la modalità a schermo intero (F11)"
+msgstr "Disattiva la modalità a schermo intero (F11)"
 
-#: js/view/Toolbar.js:98
+#: js/view/Toolbar.js:101
 msgid "Enable full-screen mode (F11)"
-msgstr "Attivare la modalità a schermo intero (F11)"
+msgstr "Attiva la modalità a schermo intero (F11)"
 
-#: js/view/Toolbar.js:107
+#: js/view/Toolbar.js:110
 msgid "Save the presentation (Ctrl-S)"
-msgstr "Salvare la presentazione (Ctrl-S)"
+msgstr "Salva la presentazione"
 
-#: js/view/Toolbar.js:112
+#: js/view/Toolbar.js:115
 msgid "Reload the SVG document (F5)"
-msgstr "Ricaricare il documento SVG (F5)"
+msgstr "Ricarica il documento"
 
-#: js/view/Toolbar.js:118
+#: js/view/Toolbar.js:121
+msgid "Preferences"
+msgstr ""
+
+#: js/view/Toolbar.js:126
 msgid "Information"
-msgstr "Informazione"
-
-#~ msgid "Load local file"
-#~ msgstr "Caricare un file locale"
+msgstr "Informazioni"
