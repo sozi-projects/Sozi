@@ -12,7 +12,7 @@ export const Controller = Object.create(EventEmitter.prototype);
 
 const UNDO_STACK_LIMIT = 100;
 
-Controller.init = function (storage, preferences, presentation, selection, timeline, viewport, locale) {
+Controller.init = function (storage, preferences, presentation, selection, timeline, viewport, player, locale) {
     EventEmitter.call(this);
 
     this.storage = storage;
@@ -21,10 +21,13 @@ Controller.init = function (storage, preferences, presentation, selection, timel
     this.selection = selection;
     this.timeline = timeline;
     this.viewport = viewport;
+    this.player = player;
     this.gettext = s => locale.gettext(s);
 
     this.undoStack = [];
     this.redoStack = [];
+
+    this.addListener("repaint", () => this.onRepaint());
 
     return this;
 };
@@ -39,6 +42,17 @@ Controller.info = function (body, force=false) {
 Controller.error = function (body) {
     const _ = this.gettext;
     new Notification(_("Sozi (Error)"), {body});
+};
+
+Controller.onRepaint = function () {
+    if (this.selection.currentFrame && this.selection.currentFrame !== this.player.currentFrame) {
+        if (this.preferences.animateTransitions) {
+            this.player.moveToFrame(this.selection.currentFrame);
+        }
+        else {
+            this.player.jumpToFrame(this.selection.currentFrame);
+        }
+    }
 };
 
 Controller.onLoad = function () {

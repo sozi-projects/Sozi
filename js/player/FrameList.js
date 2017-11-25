@@ -28,7 +28,7 @@ export function init(aPlayer) {
     links.forEach(link => {
         link.addEventListener("click", evt => {
             if (evt.button === 0) {
-                player.previewFrame(parseInt(link.dataset.frameIndex));
+                player.previewFrame(link.hash.slice(1));
                 evt.preventDefault();
             }
         });
@@ -113,7 +113,7 @@ function onMouseOut(evt) {
 
 function onFrameChange() {
     links.forEach(link => {
-        link.className = parseInt(link.dataset.frameIndex) === player.currentFrameIndex ?
+        link.className = link.hash === "#" + player.currentFrame.frameId ?
             "current" :
             "";
     });

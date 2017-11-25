@@ -13,28 +13,29 @@ export function init(aPlayer) {
     player.addListener("frameChange", onFrameChange);
 }
 
-export function getFrameIndex() {
+export function getFrame() {
     if (window.location.hash) {
         const indexOrId = window.location.hash.slice(1);
         const frame = player.presentation.getFrameWithId(indexOrId);
         if (frame) {
-            return frame.index;
+            return frame;
         }
         else {
             const index = parseInt(indexOrId);
             return !isNaN(index) && index > 0 && index <= player.presentation.frames.length ?
-                index - 1 : player.currentFrameIndex;
+                player.presentation.frames[index - 1] :
+                player.currentFrame;
         }
     }
     else {
-        return player.currentFrameIndex;
+        return player.currentFrame;
     }
 }
 
 function onHashChange() {
-    const index = getFrameIndex();
-    if (player.currentFrameIndex !== index) {
-        player.moveToFrame(index);
+    const frame = getFrame();
+    if (player.currentFrame !== frame) {
+        player.moveToFrame(frame);
     }
 }
 

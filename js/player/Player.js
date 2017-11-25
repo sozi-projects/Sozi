@@ -7,6 +7,7 @@
 import {Animator} from "./Animator";
 import * as Timing from "./Timing";
 import {CameraState} from "../model/CameraState";
+import {Frame} from "../model/Presentation";
 import {EventEmitter} from "events";
 
 // Constants: default animation properties
@@ -23,15 +24,16 @@ const ROTATE_STEP = 5;
 
 export const Player = Object.create(EventEmitter.prototype);
 
-Player.init = function (viewport, presentation) {
+Player.init = function (viewport, presentation, editMode = false) {
     EventEmitter.call(this);
+    this.editMode = !!editMode;
     this.viewport = viewport;
     this.presentation = presentation;
     this.animator = Object.create(Animator).init();
     this.playing = false;
     this.waitingTimeout = false;
-    this.currentFrameIndex = 0;
-    this.targetFrameIndex = 0;
+    this.currentFrame = presentation.frames[0];
+    this.targetFrame = presentation.frames[0];
     this.timeoutHandle = null;
     this.transitions = [];
 
@@ -40,13 +42,15 @@ Player.init = function (viewport, presentation) {
 };
 
 Player.setupEventHandlers = function () {
-    this.viewport.addListener("click", btn => this.onClick(btn));
-    window.addEventListener("keydown", evt => this.onKeyDown(evt), false);
-    if (this.presentation.enableMouseTranslation) {
-        this.viewport.addListener("dragStart", () => this.pause());
+    if (!this.editMode) {
+        this.viewport.addListener("click", btn => this.onClick(btn));
+        window.addEventListener("keydown", evt => this.onKeyDown(evt), false);
+        if (this.presentation.enableMouseTranslation) {
+            this.viewport.addListener("dragStart", () => this.pause());
+        }
+        this.viewport.addListener("userChangeState", () => this.pause());
+        window.addEventListener("keypress", evt => this.onKeyPress(evt), false);
     }
-    this.viewport.addListener("userChangeState", () => this.pause());
-    window.addEventListener("keypress", evt => this.onKeyPress(evt), false);
     this.animator.addListener("step", p => this.onAnimatorStep(p));
     this.animator.addListener("stop", () => this.onAnimatorStop());
     this.animator.addListener("done", () => this.onAnimatorDone());
@@ -197,29 +201,32 @@ Player.onKeyPress = function (evt) {
     evt.preventDefault();
 };
 
-Object.defineProperty(Player, "currentFrame", {
+Player.findFrame = function (frame) {
+    if (Frame.isPrototypeOf(frame)) {
+        return frame;
+    }
+    if (typeof frame === "string") {
+        return this.presentation.getFrameWithId(frame);
+    }
+    if (typeof frame === "number") {
+        return this.presentation.frames[frame];
+    }
+    return null;
+};
+
+Object.defineProperty(Player, "previousFrame", {
     get() {
-        return this.presentation.frames[this.currentFrameIndex];
+        const frame = this.animator.running ? this.targetFrame : this.currentFrame;
+        const index = (frame.index + this.presentation.frames.length - 1) % this.presentation.frames.length;
+        return this.presentation.frames[index];
     }
 });
 
-Object.defineProperty(Player, "targetFrame", {
+Object.defineProperty(Player, "nextFrame", {
     get() {
-        return this.presentation.frames[this.targetFrameIndex];
-    }
-});
-
-Object.defineProperty(Player, "previousFrameIndex", {
-    get() {
-        const index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
-        return (index + this.presentation.frames.length - 1) % this.presentation.frames.length;
-    }
-});
-
-Object.defineProperty(Player, "nextFrameIndex", {
-    get() {
-        const index = this.animator.running ? this.targetFrameIndex : this.currentFrameIndex;
-        return (index + 1) % this.presentation.frames.length;
+        const frame = this.animator.running ? this.targetFrame : this.currentFrame;
+        const index = (frame.index + 1) % this.presentation.frames.length;
+        return this.presentation.frames[index];
     }
 });
 
@@ -230,16 +237,15 @@ Player.showCurrentFrame = function () {
 };
 
 /*
- * Start the presentation from the given frame index (0-based).
+ * Start the presentation from the given frame.
  *
  * This method sets the "playing" flag, shows the desired frame
  * and waits for the frame timeout if needed.
  */
-Player.playFromIndex = function (index) {
+Player.playFromFrame = function (frame) {
     this.playing = true;
     this.waitingTimeout = false;
-    this.targetFrameIndex = index;
-    this.currentFrameIndex = index;
+    this.targetFrame = this.currentFrame = this.findFrame(frame);
     this.showCurrentFrame();
     this.waitTimeout();
     return this;
@@ -260,7 +266,7 @@ Player.pause = function () {
         this.waitingTimeout = false;
     }
     this.playing = false;
-    this.targetFrameIndex = this.currentFrameIndex;
+    this.targetFrame = this.currentFrame;
     return this;
 };
 
@@ -268,7 +274,7 @@ Player.pause = function () {
  * Resume playing from the current frame.
  */
 Player.resume = function () {
-    this.playFromIndex(this.currentFrameIndex);
+    this.playFromFrame(this.currentFrame);
     return this;
 };
 
@@ -286,7 +292,7 @@ Player.waitTimeout = function () {
     if (this.currentFrame.timeoutEnable) {
         this.waitingTimeout = true;
         this.timeoutHandle = window.setTimeout(
-            () => this.moveToFrame(this.nextFrameIndex),
+            () => this.moveToNext(),
             this.currentFrame.timeoutMs
         );
     }
@@ -294,7 +300,7 @@ Player.waitTimeout = function () {
 };
 
 /*
- * Jump to a frame with the given index (0-based).
+ * Jump to a frame.
  *
  * This method does not animate the transition from the current
  * state of the viewport to the desired frame.
@@ -302,13 +308,12 @@ Player.waitTimeout = function () {
  * The presentation is stopped: if a timeout has been set for the
  * target frame, it will be ignored.
  */
-Player.jumpToFrame = function (index) {
+Player.jumpToFrame = function (frame) {
     this.disableBlankScreen();
 
     this.pause();
 
-    this.targetFrameIndex = index;
-    this.currentFrameIndex = index;
+    this.targetFrame = this.currentFrame = this.findFrame(frame);
     this.showCurrentFrame();
     return this;
 };
@@ -331,27 +336,27 @@ Player.jumpToLast = function () {
  * Jumps to the previous frame.
  */
 Player.jumpToPrevious = function () {
-    return this.jumpToFrame(this.previousFrameIndex);
+    return this.jumpToFrame(this.previousFrame);
 };
 
 /*
  * Jumps to the next frame.
  */
 Player.jumpToNext = function () {
-    return this.jumpToFrame(this.nextFrameIndex);
+    return this.jumpToFrame(this.nextFrame);
 };
 
 /*
- * Move to a frame with the given index (0-based).
+ * Move to a frame.
  *
  * This method animates the transition from the current
  * state of the viewport to the desired frame.
  *
- * If the given frame index corresponds to the next frame in the list,
+ * If the given frame corresponds to the next frame in the list,
  * the transition properties of the next frame are used.
  * Otherwise, default transition properties are used.
  */
-Player.moveToFrame = function (index) {
+Player.moveToFrame = function (frame) {
     this.disableBlankScreen();
 
     if (this.waitingTimeout) {
@@ -359,23 +364,25 @@ Player.moveToFrame = function (index) {
         this.waitingTimeout = false;
     }
 
-    this.targetFrameIndex = index;
+    this.targetFrame = this.findFrame(frame);
 
     let layerProperties = null;
     let durationMs = DEFAULT_TRANSITION_DURATION_MS;
     let useTransitionPath = false;
     let backwards = false;
 
-    if (index === this.nextFrameIndex) {
-        durationMs = this.targetFrame.transitionDurationMs;
-        layerProperties = this.targetFrame.layerProperties;
-        useTransitionPath = true;
-    }
-    else if (index === this.previousFrameIndex) {
-        durationMs = this.currentFrame.transitionDurationMs;
-        layerProperties = this.currentFrame.layerProperties;
-        useTransitionPath = true;
-        backwards = true;
+    if (this.currentFrame) {
+        if (this.targetFrame === this.nextFrame) {
+            durationMs = this.targetFrame.transitionDurationMs;
+            layerProperties = this.targetFrame.layerProperties;
+            useTransitionPath = true;
+        }
+        else if (this.targetFrame === this.previousFrame) {
+            durationMs = this.currentFrame.transitionDurationMs;
+            layerProperties = this.currentFrame.layerProperties;
+            useTransitionPath = true;
+            backwards = true;
+        }
     }
 
     this.playing = true;
@@ -425,10 +432,10 @@ Player.moveToLast = function () {
  * This method skips previous frames with 0 ms timeout.
  */
 Player.moveToPrevious = function () {
-    for (let index = this.previousFrameIndex; index >= 0; index --) {
+    for (let index = this.previousFrame.index; index >= 0; index --) {
         const frame = this.presentation.frames[index];
         if (!frame.timeoutEnable || frame.timeoutMs !== 0) {
-            this.moveToFrame(index);
+            this.moveToFrame(frame);
             break;
         }
     }
@@ -439,7 +446,7 @@ Player.moveToPrevious = function () {
  * Move to the next frame.
  */
 Player.moveToNext = function () {
-    return this.moveToFrame(this.nextFrameIndex);
+    return this.moveToFrame(this.nextFrame);
 };
 
 /*
@@ -449,18 +456,18 @@ Player.moveToNext = function () {
  * e.g. after the viewport has been zoomed or dragged.
  */
 Player.moveToCurrent = function () {
-    return this.moveToFrame(this.currentFrameIndex);
+    return this.moveToFrame(this.currentFrame);
 };
 
 /*
- * Move to a frame with the given index (0-based).
+ * Move to a frame.
  *
  * This method animates the transition from the current
  * state of the viewport to the desired frame, using
  * default transition settings.
  */
-Player.previewFrame = function (index) {
-    this.targetFrameIndex = index;
+Player.previewFrame = function (frame) {
+    this.targetFrame = this.findFrame(frame);
 
     this.viewport.cameras.forEach(camera => {
         this.setupTransition(camera, Timing[DEFAULT_TIMING_FUNCTION], DEFAULT_RELATIVE_ZOOM);
@@ -497,13 +504,13 @@ Player.onAnimatorStep = function (progress) {
 
 Player.onAnimatorStop = function () {
     this.transitions = [];
-    this.currentFrameIndex = this.targetFrameIndex;
+    this.currentFrame = this.targetFrame;
     this.emit("frameChange");
 };
 
 Player.onAnimatorDone = function () {
     this.transitions = [];
-    this.currentFrameIndex = this.targetFrameIndex;
+    this.currentFrame = this.targetFrame;
     this.emit("frameChange");
     if (this.playing) {
         this.waitTimeout();
@@ -517,16 +524,20 @@ Object.defineProperty(Player, "blankScreenIsVisible", {
 });
 
 Player.enableBlankScreen = function () {
-    const blankScreen = document.querySelector(".sozi-blank-screen");
     this.pause();
-    blankScreen.style.visibility = "visible";
-    blankScreen.style.opacity = 1;
+    const blankScreen = document.querySelector(".sozi-blank-screen");
+    if (blankScreen) {
+        blankScreen.style.opacity = 1;
+        blankScreen.style.visibility = "visible";
+    }
 };
 
 Player.disableBlankScreen = function () {
     const blankScreen = document.querySelector(".sozi-blank-screen");
-    blankScreen.style.opacity = 0;
-    blankScreen.style.visibility = "hidden";
+    if (blankScreen) {
+        blankScreen.style.opacity = 0;
+        blankScreen.style.visibility = "hidden";
+    }
 };
 
 Player.toggleBlankScreen = function () {

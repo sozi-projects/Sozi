@@ -45,7 +45,7 @@ window.addEventListener("load", function () {
     window.addEventListener('resize', () => Viewport.repaint());
 
     if (Presentation.frames.length) {
-        Player.playFromIndex(FrameURL.getFrameIndex());
+        Player.playFromFrame(FrameURL.getFrame());
     }
 
     Viewport.repaint();

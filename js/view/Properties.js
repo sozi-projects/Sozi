@@ -44,6 +44,11 @@ Properties.renderPreferences = function () {
         h("label", {for: "field-enableNotifications"}, [
             _("Enable notifications on save and reload"),
             this.renderToggleField(h("i.fa.fa-check-square-o"), _("Enable notifications"), "enableNotifications", c.getPreference, c.setPreference)
+        ]),
+        h("h1", _("Behavior")),
+        h("label", {for: "field-animateTransitions"}, [
+            _("Preview transition animations"),
+            this.renderToggleField(h("i.fa.fa-check-square-o"), _("Enable animated transitions"), "animateTransitions", c.getPreference, c.setPreference)
         ])
     ]);
 };

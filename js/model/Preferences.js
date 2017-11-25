@@ -7,5 +7,6 @@
 
 export const Preferences = {
     fontSize: 11,
-    enableNotifications: true
+    enableNotifications: true,
+    animateTransitions: true
 };

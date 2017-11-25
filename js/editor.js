@@ -12,11 +12,13 @@ import {Selection} from "./model/Selection";
 import {Preferences} from "./model/Preferences";
 import {Storage} from "./Storage";
 import {Viewport} from "./player/Viewport";
+import {Player} from "./player/Player";
 import {Controller} from "./Controller";
 import {Preview} from "./view/Preview";
 import {Properties} from "./view/Properties";
 import {Toolbar} from "./view/Toolbar";
 import {Timeline} from "./view/Timeline";
+
 import nunjucks from "nunjucks";
 import * as i18n from "./i18n";
 
@@ -28,10 +30,11 @@ window.addEventListener("load", () => {
     Presentation.init();
     Selection.init(Presentation);
     Viewport.init(Presentation, true);
+    Player.init(Viewport, Presentation, true);
 
     const locale = i18n.init();
 
-    Controller.init(Storage, Preferences, Presentation, Selection, Timeline, Viewport, locale);
+    Controller.init(Storage, Preferences, Presentation, Selection, Timeline, Viewport, Player, locale);
 
     Preview.init(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller);
 

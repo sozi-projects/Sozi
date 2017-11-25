@@ -101,7 +101,7 @@
         <ol class="sozi-frame-list">
             {% for frame in pres.frames %}
                 {% if frame.showInFrameList %}
-                    <li value="{{ loop.index }}"><a data-frame-index="{{ loop.index0 }}" href="#{{ frame.frameId }}" title="{{ frame.title }}">{{ frame.title }}</a></li>
+                    <li value="{{ loop.index }}"><a href="#{{ frame.frameId }}" title="{{ frame.title }}">{{ frame.title }}</a></li>
                 {% endif %}
             {% endfor %}
         </ol>
