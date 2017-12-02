@@ -28,10 +28,11 @@ const CLIP_BORDER = 3;
 export const Viewport = Object.create(EventEmitter.prototype);
 
 /*
- * Initialize a new viewport for the given SVG root element.
+ * Initialize a new viewport for the given presentation.
  *
  * Parameters:
- *    - svgRoot: The SVG root element
+ *    - presentation: The presentations to display.
+ *    - editMode: true if the presentation is opened in an editor.
  *
  * Returns:
  *    - The current viewport.
