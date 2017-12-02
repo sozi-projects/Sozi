@@ -64,6 +64,9 @@ Controller.onLoad = function () {
     if (!this.selection.selectedLayers.length) {
         this.selection.selectedLayers = this.presentation.layers.slice();
     }
+    if (this.selection.currentFrame) {
+        this.player.jumpToFrame(this.selection.currentFrame);
+    }
     this.updateCameraSelection();
 
     this.emit("ready");
@@ -82,6 +85,7 @@ Controller.reload = function () {
 };
 
 Controller.setSVGDocument = function (svgDocument) {
+    this.presentation.init();
     this.presentation.setSVGDocument(svgDocument);
     this.emit("loadSVG");
 };
