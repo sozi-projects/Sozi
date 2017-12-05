@@ -237,7 +237,8 @@ Object.defineProperty(Timeline, "refLayerInDefault", {
         }
         return this.defaultLayers[0];
     }
-})
+});
+
 Timeline.render = function () {
     const _ = this.gettext;
 
