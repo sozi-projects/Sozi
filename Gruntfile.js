@@ -314,7 +314,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask("copy-installation-assets", buildConfig.platforms.reduce(function (prev, platform) {
         var platformOs = platform.split("-")[0];
-        var installationTask = buildConfig.installable.includes(platformOs) ? ["copy:" + platform] : [];
+        var installationTask = buildConfig.installable.indexOf(platformOs) >= 0 ? ["copy:" + platform] : [];
         return prev.concat(installationTask);
     }, []));
 
