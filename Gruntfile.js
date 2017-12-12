@@ -40,10 +40,21 @@ module.exports = function(grunt) {
         process.exit();
     }
 
+    // Remove duplicates from an array.
     function dedup(arr) {
         return arr.filter(function (x, pos) {
             return arr.indexOf(x) === pos;
         });
+    }
+
+    // Get the OS part from a platform identifier.
+    function getPlatformOS(platform) {
+        return platform.split("-")[0];
+    }
+
+    // Get the architecture part from a platform identifier.
+    function getPlatformArch(platform) {
+        return platform.split("-")[1];
     }
 
     grunt.initConfig({
@@ -235,8 +246,8 @@ module.exports = function(grunt) {
                     out: "dist",
                     overwrite: true,
                     electronVersion: buildConfig.electronVersion,
-                    platform: dedup(buildConfig.platforms.map(p => p.split("-")[0])).join(","),
-                    arch:     dedup(buildConfig.platforms.map(p => p.split("-")[1])).join(",")
+                    platform: dedup(buildConfig.platforms.map(getPlatformOS)).join(","),
+                    arch:     dedup(buildConfig.platforms.map(getPlatformArch)).join(",")
                 }
             }
         },
@@ -274,52 +285,126 @@ module.exports = function(grunt) {
     });
 
     /*
-     * Compress electron bundles for each platform
+     * Generate installable bundles for each platform.
      */
+
+    var debianArchs = {
+        ia32: "i386",
+        x64: "amd64"
+    };
+
+    var debianDeps = "libasound2, libatk1.0-0, libavahi-client3, libavahi-common3, \
+        libc6 libcairo2, libcomerr2, libcups2, libdatrie1, libdbus-1-3, libdbus-glib-1-2, \
+        libexpat1, libffi6, libfontconfig1, libfreetype6, libgcc1, libgconf-2-4, \
+        libgcrypt20, libgdk-pixbuf2.0-0, libglib2.0-0, libgmp10, libgnutls30, libgpg-error0, \
+        libgraphite2-3, libgssapi-krb5-2, libgtk2.0-0, libharfbuzz0b, libhogweed4, \
+        libidn11, libk5crypto3, libkeyutils1, libkrb5-3, libkrb5support0, liblzma5, \
+        libnettle6, libnspr4, libnss3, libp11-kit0, libpango-1.0-0, libpangocairo-1.0-0, \
+        libpangoft2-1.0-0, libpcre3, libpixman-1-0, libpng12-0, libselinux1, libstdc++6, \
+        libsystemd0, libtasn1-6, libthai0, libx11-6, libx11-xcb1, libxau6, libxcb1, \
+        libxcb-render0, libxcb-shm0, libxcomposite1, libxcursor1, libxdamage1, libxdmcp6, \
+        libxext6, libxfixes3, libxi6, libxinerama1, libxrandr2, libxrender1, libxss1, \
+        libxtst6, zlib1g"
+
     buildConfig.platforms.forEach(function (platform) {
-        var platformOs = platform.split("-")[0];
+        // The folder for the current platform.
+        var distDir = "dist/Sozi-" + platform;
+        // The name of the target folder for the current platform in dist/.
+        var bundleName = "Sozi-" + pkg.version + "-" + platform;
+        // The renamed folder for the current platform.
+        var bundleDir = "dist/" + bundleName;
+        // Get the components of the platform.
+        var platformOS   = getPlatformOS(platform);
+        var platformArch = getPlatformArch(platform);
+
+        // Copy the installation assets for the target OS.
         grunt.config(["copy", platform], {
-            "files": [{
-                expand: true,
-                flatten: true,
-                src: "installation-assets/" + platformOs + "/*",
-                dest: "dist/Sozi-" + platform + "/install/"
-            }, {
-                src: "icons/icon-256.png",
-                dest: "dist/Sozi-" + platform + "/install/sozi.png"
-            }],
-            "options": {
+            options: {
                 mode: true
-            }
+            },
+            files: [
+                {
+                    expand: true,
+                    flatten: true,
+                    src: "installation-assets/" + platformOS + "/*",
+                    dest: distDir + "/install/"
+                },
+                {
+                    src: "icons/icon-256.png",
+                    dest: distDir + "/install/sozi.png"
+                }
+            ]
         });
 
-        var destName = "Sozi-" + pkg.version + "-" + platform;
+        // Rename the distribution folder to the bundle name.
         grunt.config(["rename", platform], {
-            src: "dist/Sozi-" + platform,
-            dest: "dist/" + destName
+            src: distDir,
+            dest: bundleDir
         });
 
-        var mode = platform.startsWith("win") ? "zip" : "tgz";
+        // Build zip files for Windows, tgz for other platforms.
+        var bundleFormat = platformOS.startsWith("win") ? "zip" : "tgz";
 
         grunt.config(["compress", platform], {
             options: {
-                mode: mode,
-                archive: "dist/" + destName + "." + mode
+                mode: bundleFormat,
+                archive: bundleDir + "." + bundleFormat
             },
             expand: true,
             cwd: "dist/",
-            src: [destName + "/**/*"]
+            src: [bundleName + "/**/*"]
         });
+
+        // Generate a Debian package for each Linux platform.
+        if (platformOS === "linux" && platformArch in debianArchs) {
+            grunt.config(["debian_package", platform], {
+                options: {
+                    maintainer: {
+                        name: "Guillaume Savaton",
+                        email: "guillaume@baierouge.fr"
+                    },
+                    name: "sozi",
+                    version: pkg.version,
+                    category: "graphics",
+                    target_architecture: debianArchs[platformArch],
+                    links: [{
+                        source: "/usr/bin/sozi",
+                        target: "/opt/sozi/Sozi"
+                    }],
+                    // dependencies: debianDeps,
+                    working_directory: "deb/"
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: bundleDir,
+                        src: ["**/*", "!install/**/*"],
+                        dest: "/opt/sozi"
+                    },
+                    {
+                        src: "icons/icon-256.png",
+                        dest: "/usr/share/pixmaps/sozi.png"
+                    },
+                    {
+                        src: "installation-assets/linux/sozi.desktop",
+                        dest: "/usr/share/applications/sozi.desktop"
+                    }
+                ]
+            });
+        }
     });
 
     grunt.registerTask("copy-installation-assets", buildConfig.platforms.reduce(function (prev, platform) {
-        var platformOs = platform.split("-")[0];
-        var installationTask = buildConfig.installable.indexOf(platformOs) >= 0 ? ["copy:" + platform] : [];
+        var installationTask = buildConfig.installable.indexOf(getPlatformOS(platform)) >= 0 ? ["copy:" + platform] : [];
         return prev.concat(installationTask);
     }, []));
 
-    grunt.registerTask("electron-platforms", buildConfig.platforms.reduce(function (prev, platform) {
-        return prev.concat(["rename:" + platform, "compress:" + platform]);
+    grunt.registerTask("rename-platforms", buildConfig.platforms.reduce(function (prev, platform) {
+        return prev.concat(["rename:" + platform]);
+    }, []));
+
+    grunt.registerTask("compress-platforms", buildConfig.platforms.reduce(function (prev, platform) {
+        return prev.concat(["compress:" + platform]);
     }, []));
 
     grunt.registerTask("write_package_json", function () {
@@ -365,7 +450,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask("electron-bundle", [
         "electron-build",
-        "electron-platforms"
+        "rename-platforms",
+        "compress-platforms"
     ]);
 
     grunt.registerTask("web-demo", [
@@ -377,6 +463,14 @@ module.exports = function(grunt) {
         "newer:babel",
         "jspot" // Cannot use 'newer' here since 'dest' is not a generated file
     ]);
+
+    if (buildConfig.platforms.some(p => getPlatformOS(p) === "linux")) {
+        grunt.registerTask("deb", [
+            "electron-build",
+            "rename-platforms",
+            "debian_package"
+        ]);
+    }
 
     grunt.registerTask("default", ["electron-bundle"]);
 };

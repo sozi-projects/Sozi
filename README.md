@@ -25,11 +25,15 @@ Install the build tools and dependencies
 
 Install [Node.js](http://nodejs.org/), [Bower](http://bower.io/)
 and the [Grunt](http://gruntjs.com/) CLI.
-If you plan to build a Windows executable from Linux or OS X, also install wine.
+If you plan to build a Windows executable from Linux or OS X, also install *wine*.
 In Debian/Ubuntu and their derivatives, you can type the following commands.
 
     sudo apt install nodejs nodejs-legacy npm wine
     sudo npm install bower grunt-cli -g
+
+If you plan to build Debian packages, also install the following packages:
+
+    sudo apt install devscripts debhelper
 
 From the root of the source tree:
 
@@ -72,6 +76,7 @@ Other Grunt tasks are available for developers:
 
 Command                           | Effect
 ----------------------------------|-------
+`grunt deb`                       | Build Debian packages.
 `grunt electron-build`            | Build the desktop application without creating bundles.
 `grunt web-build`                 | Build the web application without uploading it.
 `grunt electron-bundle` (default) | Build the desktop application and create executable bundles for various platforms.

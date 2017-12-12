@@ -4,6 +4,7 @@ vendor/DroidSans/DroidSans*
 bower_components
 build
 dist
+deb
 cache
 /js/backend/GoogleDrive.config.js
 npm-debug.log
