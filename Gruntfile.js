@@ -294,7 +294,7 @@ module.exports = function(grunt) {
     };
 
     var debianDeps = "libasound2, libatk1.0-0, libavahi-client3, libavahi-common3, \
-        libc6 libcairo2, libcomerr2, libcups2, libdatrie1, libdbus-1-3, libdbus-glib-1-2, \
+        libc6, libcairo2, libcomerr2, libcups2, libdatrie1, libdbus-1-3, libdbus-glib-1-2, \
         libexpat1, libffi6, libfontconfig1, libfreetype6, libgcc1, libgconf-2-4, \
         libgcrypt20, libgdk-pixbuf2.0-0, libglib2.0-0, libgmp10, libgnutls30, libgpg-error0, \
         libgraphite2-3, libgssapi-krb5-2, libgtk2.0-0, libharfbuzz0b, libhogweed4, \
@@ -304,7 +304,7 @@ module.exports = function(grunt) {
         libsystemd0, libtasn1-6, libthai0, libx11-6, libx11-xcb1, libxau6, libxcb1, \
         libxcb-render0, libxcb-shm0, libxcomposite1, libxcursor1, libxdamage1, libxdmcp6, \
         libxext6, libxfixes3, libxi6, libxinerama1, libxrandr2, libxrender1, libxss1, \
-        libxtst6, zlib1g"
+        libxtst6, zlib1g";
 
     buildConfig.platforms.forEach(function (platform) {
         // The folder for the current platform.
@@ -371,7 +371,7 @@ module.exports = function(grunt) {
                         source: "/usr/bin/sozi",
                         target: "/opt/sozi/Sozi"
                     }],
-                    // dependencies: debianDeps,
+                    dependencies: debianDeps,
                     working_directory: "deb/"
                 },
                 files: [

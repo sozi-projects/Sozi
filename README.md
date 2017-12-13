@@ -76,10 +76,10 @@ Other Grunt tasks are available for developers:
 
 Command                           | Effect
 ----------------------------------|-------
+`grunt electron-bundle` (default) | Build the desktop application and create zip bundles for various platforms.
 `grunt deb`                       | Build Debian packages.
 `grunt electron-build`            | Build the desktop application without creating bundles.
 `grunt web-build`                 | Build the web application without uploading it.
-`grunt electron-bundle` (default) | Build the desktop application and create executable bundles for various platforms.
 `grunt web-demo`                  | Build the web application and upload it to a server.
 `grunt pot`                       | Extract a template file (`locales/messages.pot`) for translation.
 
