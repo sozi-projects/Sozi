@@ -376,7 +376,7 @@ module.exports = function(grunt) {
                         target: "/opt/sozi/Sozi"
                     }],
                     dependencies: debianDeps,
-                    working_directory: "deb/"
+                    working_directory: "dist/deb-" + debianArchs[platformArch] + "/"
                 },
                 files: [
                     {
@@ -474,6 +474,14 @@ module.exports = function(grunt) {
             "rename-platforms",
             "debian_package"
         ]);
+
+        grunt.registerTask("dist", [
+            "electron-bundle",
+            "debian_package"
+        ]);
+    }
+    else {
+        grunt.registerTask("dist", ["electron-bundle"]);
     }
 
     grunt.registerTask("default", ["electron-bundle"]);
