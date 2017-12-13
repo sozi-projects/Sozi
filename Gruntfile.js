@@ -10,7 +10,11 @@ module.exports = function(grunt) {
     require("load-grunt-tasks")(grunt);
 
     var pkg = grunt.file.readJSON("package.json");
-    pkg.version = grunt.template.today("yy.mm.ddHHMM");
+
+    // Get version number from last commit date.
+    // Format: YY.MM.T (year.month.timestamp).
+    var rev = require("child_process").execSync("git show -s --format='%cI %ct'").toString().trim().split(" ");
+    pkg.version = rev[0].slice(2, 4) + "." + rev[0].slice(5, 7) + "." + rev[1];
 
     var buildConfig = grunt.file.readJSON("config.default.json");
     var buildConfigJson = grunt.option("config");
