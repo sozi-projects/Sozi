@@ -250,6 +250,7 @@ module.exports = function(grunt) {
                     dir: "build/app",
                     out: "dist",
                     overwrite: true,
+                    prune: false,
                     electronVersion: buildConfig.electronVersion,
                     platform: dedup(buildConfig.platforms.map(getPlatformOS)).join(","),
                     arch:     dedup(buildConfig.platforms.map(getPlatformArch)).join(",")
@@ -328,6 +329,11 @@ module.exports = function(grunt) {
             ]
         });
 
+        // Delete the distribution folder for this platform if it exists.
+        grunt.config(["clean", platform], {
+            src: bundleDir
+        });
+
         // Rename the distribution folder to the bundle name.
         grunt.config(["rename", platform], {
             src: distDir,
@@ -364,7 +370,7 @@ module.exports = function(grunt) {
     }, []));
 
     grunt.registerTask("rename-platforms", buildConfig.platforms.reduce(function (prev, platform) {
-        return prev.concat(["rename:" + platform]);
+        return prev.concat(["clean:" + platform, "rename:" + platform]);
     }, []));
 
     grunt.registerTask("compress-platforms", buildConfig.platforms.reduce(function (prev, platform) {
