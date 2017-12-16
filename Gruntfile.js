@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 
     var path = require("path");
     var fs = require("fs");
+    var execSync = require("child_process").execSync;
 
     var nunjucks = require("nunjucks");
     nunjucks.configure({watch: false});
@@ -13,8 +14,8 @@ module.exports = function(grunt) {
 
     // Get version number from last commit date.
     // Format: YY.MM.T (year.month.timestamp).
-    var rev = require("child_process").execSync("git show -s --format='%cI %ct'").toString().trim().split(" ");
-    pkg.version = rev[0].slice(2, 4) + "." + rev[0].slice(5, 7) + "." + rev[1];
+    var rev = execSync("git show -s --format='%cI %ct'").toString().trim().split(" ");
+    pkg.version = rev[0].slice(2, 4) + "." + rev[0].slice(5, 7) + "-" + rev[1];
 
     var buildConfig = grunt.file.readJSON("config.default.json");
     var buildConfigJson = grunt.option("config");
@@ -297,19 +298,6 @@ module.exports = function(grunt) {
         x64: "amd64"
     };
 
-    var debianDeps = "libasound2, libatk1.0-0, libavahi-client3, libavahi-common3, \
-        libc6, libcairo2, libcomerr2, libcups2, libdatrie1, libdbus-1-3, libdbus-glib-1-2, \
-        libexpat1, libffi6, libfontconfig1, libfreetype6, libgcc1, libgconf-2-4, \
-        libgcrypt20, libgdk-pixbuf2.0-0, libglib2.0-0, libgmp10, libgnutls30, libgpg-error0, \
-        libgraphite2-3, libgssapi-krb5-2, libgtk2.0-0, libharfbuzz0b, libhogweed4, \
-        libidn11, libk5crypto3, libkeyutils1, libkrb5-3, libkrb5support0, liblzma5, \
-        libnettle6, libnspr4, libnss3, libp11-kit0, libpango-1.0-0, libpangocairo-1.0-0, \
-        libpangoft2-1.0-0, libpcre3, libpixman-1-0, libpng12-0, libselinux1, libstdc++6, \
-        libsystemd0, libtasn1-6, libthai0, libx11-6, libx11-xcb1, libxau6, libxcb1, \
-        libxcb-render0, libxcb-shm0, libxcomposite1, libxcursor1, libxdamage1, libxdmcp6, \
-        libxext6, libxfixes3, libxi6, libxinerama1, libxrandr2, libxrender1, libxss1, \
-        libxtst6, zlib1g";
-
     buildConfig.platforms.forEach(function (platform) {
         // The folder for the current platform.
         var distDir = "dist/Sozi-" + platform;
@@ -362,38 +350,10 @@ module.exports = function(grunt) {
         // Generate a Debian package for each Linux platform.
         if (platformOS === "linux" && platformArch in debianArchs) {
             grunt.config(["debian_package", platform], {
-                options: {
-                    maintainer: {
-                        name: "Guillaume Savaton",
-                        email: "guillaume@baierouge.fr"
-                    },
-                    name: "sozi",
-                    version: pkg.version,
-                    category: "graphics",
-                    target_architecture: debianArchs[platformArch],
-                    links: [{
-                        source: "/usr/bin/sozi",
-                        target: "/opt/sozi/Sozi"
-                    }],
-                    dependencies: debianDeps,
-                    working_directory: "dist/deb-" + debianArchs[platformArch] + "/"
-                },
-                files: [
-                    {
-                        expand: true,
-                        cwd: bundleDir,
-                        src: ["**/*", "!install/**/*"],
-                        dest: "/opt/sozi"
-                    },
-                    {
-                        src: "icons/icon-256.png",
-                        dest: "/usr/share/pixmaps/sozi.png"
-                    },
-                    {
-                        src: "installation-assets/linux/sozi.desktop",
-                        dest: "/usr/share/applications/sozi.desktop"
-                    }
-                ]
+                version: pkg.version,
+                platform: platform,
+                arch: debianArchs[platformArch],
+                date: new Date().toUTCString().slice(0, -3) + "+0000"
             });
         }
     });
@@ -420,6 +380,17 @@ module.exports = function(grunt) {
             grunt.file.write(file.dest, nunjucks.render(file.src[0], this.data.context));
             grunt.log.writeln("File " + file.dest + " created.");
         }, this);
+    });
+
+    grunt.registerMultiTask("debian_package", function () {
+        var workDir = "dist/packaging-" + this.data.platform;
+        grunt.file.write(workDir + "/Makefile",  nunjucks.render("debian/Makefile", this.data));
+        grunt.file.write(workDir + "/debian/changelog", nunjucks.render("debian/changelog", this.data));
+        grunt.file.write(workDir + "/debian/compat", nunjucks.render("debian/compat", this.data));
+        grunt.file.write(workDir + "/debian/control", nunjucks.render("debian/control", this.data));
+        grunt.file.write(workDir + "/debian/links", nunjucks.render("debian/links", this.data));
+        grunt.file.write(workDir + "/debian/rules", nunjucks.render("debian/rules", this.data));
+        execSync("dpkg-buildpackage -a" + this.data.arch, {cwd: workDir});
     });
 
     grunt.registerTask("lint", ["jshint", "csslint"]);

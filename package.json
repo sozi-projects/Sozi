@@ -28,7 +28,6 @@
     "grunt-contrib-csslint": "^2.0.0",
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^3.2.0",
-    "grunt-debian-package": "^0.1.13",
     "grunt-electron": "^7.0.0",
     "grunt-install-dependencies": "senshu/grunt-install-dependencies",
     "grunt-jspot": "senshu/grunt-jspot",

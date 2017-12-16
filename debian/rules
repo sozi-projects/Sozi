@@ -1,0 +1,15 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE=1
+
+%:
+	dh $@
+
+# Disable the following targets to build packages for all architectures.
+override_dh_strip:
+
+override_dh_makeshlibs:
+
+override_dh_shlibdeps:
+
+clean:
