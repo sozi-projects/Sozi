@@ -43,9 +43,19 @@ function convertTimingFunction(str) {
 
 function importAttribute(obj, propName, elts, attrName, fn) {
     fn = fn || function (x) { return x; };
-    for (let i = 0; i < elts.length; i ++) {
-        if (elts[i] && elts[i].hasAttribute(attrName)) {
-            obj[propName] = fn(elts[i].getAttribute(attrName));
+    for (let e of elts) {
+        if (e && e.hasAttribute(attrName)) {
+            obj[propName] = fn(e.getAttribute(attrName));
+            return;
+        }
+    }
+}
+
+function importAttributeNS(obj, propName, elts, nsUri, attrName, fn) {
+    fn = fn || function (x) { return x; };
+    for (let e of elts) {
+        if (e && e.hasAttributeNS(nsUri, attrName)) {
+            obj[propName] = fn(e.getAttributeNS(nsUri, attrName));
             return;
         }
     }
@@ -54,8 +64,8 @@ function importAttribute(obj, propName, elts, attrName, fn) {
 export function upgradeFromSVG(pres, timeline) {
     // In the inlined SVG, DOM accessors fail to get elements with explicit XML namespaces.
     // getElementsByTagNameNS, getAttributeNS do not work for elements with the Sozi namespace.
-    // We need to use an explicit namespace prefix ("ns:attr") and use methods
-    // getElementsByTagName and getAttribute as if the prefix was part of the attribute name.
+    // We need to use an explicit namespace prefix ("ns:attr") and use method
+    // getAttribute as if the prefix was part of the attribute name.
     // With SVG documents from Inkscape, custom namespaces have an automatically generated prefix
     // (ns1, ns2, ...). We first need to identify which one corresponds to the Sozi namespace.
 
@@ -67,8 +77,8 @@ export function upgradeFromSVG(pres, timeline) {
     const soziPrefix = soziNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
 
     // Get an ordered array of sozi:frame elements
-    const frameElts = toArray(pres.document.root.getElementsByTagName(soziPrefix + "frame"));
-    frameElts.sort((a, b) => parseInt(a.getAttribute(soziPrefix + "sequence")) - parseInt(b.getAttribute(soziPrefix + "sequence")));
+    const frameElts = toArray(pres.document.root.getElementsByTagNameNS(SOZI_NS, "frame"));
+    frameElts.sort((a, b) => parseInt(a.getAttributeNS(SOZI_NS, "sequence")) - parseInt(b.getAttributeNS(SOZI_NS, "sequence")));
 
     // The "default" pool contains all layers that have no corresponding
     // <layer> element in any frame. The properties for these layers are
@@ -87,10 +97,10 @@ export function upgradeFromSVG(pres, timeline) {
         }
 
         // Collect layer elements inside the current frame element
-        const layerElts = toArray(frameElt.getElementsByTagName(soziPrefix + "layer"));
+        const layerElts = toArray(frameElt.getElementsByTagNameNS(SOZI_NS, "layer"));
         const layerEltsByGroupId = {};
         layerElts.forEach(layerElt => {
-            layerEltsByGroupId[layerElt.getAttribute(soziPrefix + "group")] = layerElt;
+            layerEltsByGroupId[layerElt.getAttributeNS(SOZI_NS, "group")] = layerElt;
         });
 
         pres.layers.forEach((layer, layerIndex) => {
@@ -118,32 +128,32 @@ export function upgradeFromSVG(pres, timeline) {
             // It the current layer is managed by a <frame> or <layer> element,
             // update the camera state for this layer.
             let refElt;
-            if (layerElt && layerElt.hasAttribute(soziPrefix + "refid")) {
-                refElt = pres.document.root.getElementById(layerElt.getAttribute(soziPrefix + "refid"));
+            if (layerElt && layerElt.hasAttributeNS(SOZI_NS, "refid")) {
+                refElt = pres.document.root.getElementById(layerElt.getAttributeNS(SOZI_NS, "refid"));
             }
             else if (defaultLayers.indexOf(layer) >= 0) {
-                refElt = pres.document.root.getElementById(frameElt.getAttribute(soziPrefix + "refid"));
+                refElt = pres.document.root.getElementById(frameElt.getAttributeNS(SOZI_NS, "refid"));
             }
             if (refElt) {
                 layerProperties.referenceElementId = layerProperties.outlineElementId = refElt.getAttribute("id");
                 cameraState.setAtElement(refElt);
             }
 
-            importAttribute(cameraState, "clipped", [layerElt, frameElt], soziPrefix + "clip", parseBoolean);
+            importAttributeNS(cameraState,     "clipped",                  [layerElt, frameElt], SOZI_NS, "clip",                    parseBoolean);
+            importAttributeNS(layerProperties, "outlineElementHide",       [layerElt, frameElt], SOZI_NS, "hide",                    parseBoolean);
+            importAttributeNS(layerProperties, "transitionTimingFunction", [layerElt, frameElt], SOZI_NS, "transition-profile",      convertTimingFunction);
+            importAttributeNS(layerProperties, "transitionRelativeZoom",   [layerElt, frameElt], SOZI_NS, "transition-zoom-percent", z => parseFloat(z) / 100);
+            importAttributeNS(layerProperties, "transitionPathId",         [layerElt, frameElt], SOZI_NS, "transition-path");
+            importAttributeNS(layerProperties, "transitionPathHide",       [layerElt, frameElt], SOZI_NS, "transition-path-hide",    parseBoolean);
             layerProperties.outlineElementAuto = false;
-            importAttribute(layerProperties, "outlineElementHide", [layerElt, frameElt], soziPrefix + "hide", parseBoolean);
-            importAttribute(layerProperties, "transitionTimingFunction", [layerElt, frameElt], soziPrefix + "transition-profile", convertTimingFunction);
-            importAttribute(layerProperties, "transitionRelativeZoom", [layerElt, frameElt], soziPrefix + "transition-zoom-percent", z => parseFloat(z) / 100);
-            importAttribute(layerProperties, "transitionPathId", [layerElt, frameElt], soziPrefix + "transition-path");
-            importAttribute(layerProperties, "transitionPathHide", [layerElt, frameElt], soziPrefix + "transition-path-hide", parseBoolean);
         });
 
-        importAttribute(frame, "frameId", [frameElt], "id");
-        importAttribute(frame, "title", [frameElt], soziPrefix + "title");
-        importAttribute(frame, "transitionDurationMs", [frameElt], soziPrefix + "transition-duration-ms", parseFloat);
-        importAttribute(frame, "timeoutMs", [frameElt], soziPrefix + "timeout-ms", parseFloat);
-        importAttribute(frame, "timeoutEnable", [frameElt], soziPrefix + "timeout-enable", parseBoolean);
-        importAttribute(frame, "showInFrameList", [frameElt], soziPrefix + "show-in-frame-list", parseBoolean);
+        importAttribute(  frame, "frameId",              [frameElt],          "id");
+        importAttributeNS(frame, "title",                [frameElt], SOZI_NS, "title");
+        importAttributeNS(frame, "transitionDurationMs", [frameElt], SOZI_NS, "transition-duration-ms", parseFloat);
+        importAttributeNS(frame, "timeoutMs",            [frameElt], SOZI_NS, "timeout-ms",             parseFloat);
+        importAttributeNS(frame, "timeoutEnable",        [frameElt], SOZI_NS, "timeout-enable",         parseBoolean);
+        importAttributeNS(frame, "showInFrameList",      [frameElt], SOZI_NS, "show-in-frame-list",     parseBoolean);
     });
 }
 
