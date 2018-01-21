@@ -87,10 +87,31 @@ Command                           | Effect
 Install
 -------
 
-Sozi is released as a zip/tgz archive that you can extract wherever you like.
-Open the extracted folder and run the `Sozi` executable.
+Since Sozi 18.01, a Debian package is available for users of Debian or Ubuntu-based distributions.
 
-If installation on your specific platform is supported by Sozi, there will be an *install* folder in the extracted archive containing an installation script. Run it with admin privileges (e.g. in Linux, open a terminal in the *install* folder and type `sudo ./install.sh`) to install Sozi system-wide.
+```
+sudo dpkg -i sozi_[...].deb
+```
+
+For other platforms, Sozi is released as a zip/tgz archive that you can extract wherever you like.
+
+* OS X users can drag the `Sozi.app` subfolder into their `Applications` folder.
+* Windows and Linux users can run the `Sozi` executable directly from the extracted folder.
+
+If installation on your specific platform is supported by Sozi, there will be an *install* folder in the extracted archive containing installation scripts.
+To install Sozi system-wide:
+
+```
+cd Sozi-[...]/install
+sudo ./install.sh
+```
+
+To install Sozi in your home folder:
+
+```
+cd Sozi-[...]/install
+./install-local.sh
+```
 
 In many situations, Sozi will not need additional software to be installed.
 If Sozi complains about missing libraries, here is the list of all the known
