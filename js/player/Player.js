@@ -385,7 +385,7 @@ Player.moveToFrame = function (frame) {
         }
     }
 
-    this.playing = true;
+    this.playing = !this.editMode;
 
     this.viewport.cameras.forEach(camera => {
         let timingFunction = Timing[DEFAULT_TIMING_FUNCTION];
