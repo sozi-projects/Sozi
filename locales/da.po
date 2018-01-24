@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2017-11-19 10:51+0000\n"
+"POT-Creation-Date: 2018-01-24 07:05:+0000\n"
 "PO-Revision-Date: 2017-11-21 09:13+0000\n"
 "Last-Translator: ejvindh <ejvindh@gmail.com>\n"
 "Language-Team: Danish <da@li.org>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-11-25 11:20+0000\n"
 "X-Generator: Launchpad (build 18509)\n"
-"Language: da\n"
 
 #: js/backend/Electron.js:28
 msgid "Open an SVG file from your computer"
@@ -46,11 +46,11 @@ msgstr ""
 msgid "Open an SVG file from Google Drive"
 msgstr "Åben en SVG fil fra Google Drev"
 
-#: js/Controller.js:35
+#: js/Controller.js:38
 msgid "Sozi (Information)"
 msgstr "Sozi (information)"
 
-#: js/Controller.js:41
+#: js/Controller.js:44
 msgid "Sozi (Error)"
 msgstr "Sozi (Fejl)"
 
@@ -90,163 +90,178 @@ msgstr "Aktivér beskeder ved gemning og genindlæsning"
 msgid "Enable notifications"
 msgstr "Aktivér beskeder"
 
-#: js/view/Properties.js:59
+#: js/view/Properties.js:48
+msgid "Behavior"
+msgstr ""
+
+#: js/view/Properties.js:50
+msgid "Preview transition animations"
+msgstr ""
+
+#: js/view/Properties.js:51
+#, fuzzy
+msgid "Enable animated transitions"
+msgstr "Aktivér beskeder"
+
+#: js/view/Properties.js:64
 msgid "Select a layer to copy"
 msgstr "Vælg et lag at kopiere"
 
-#: js/view/Properties.js:62 js/view/Timeline.js:313 js/view/Timeline.js:343
+#: js/view/Properties.js:67 js/view/Timeline.js:314 js/view/Timeline.js:344
 msgid "Default"
 msgstr "Standard"
 
-#: js/view/Properties.js:69
+#: js/view/Properties.js:74
 msgid "Frame"
 msgstr "Ramme"
 
-#: js/view/Properties.js:72
+#: js/view/Properties.js:77
 msgid "Show in frame list"
 msgstr "Vis ramme liste"
 
-#: js/view/Properties.js:73
+#: js/view/Properties.js:78
 msgid "Show frame number"
 msgstr "Vis ramme nummer"
 
-#: js/view/Properties.js:76
+#: js/view/Properties.js:81
 msgid "Title"
 msgstr "Titel"
 
-#: js/view/Properties.js:79
+#: js/view/Properties.js:84
 msgid "Id"
 msgstr "Id"
 
-#: js/view/Properties.js:83
+#: js/view/Properties.js:88
 msgid "Timeout (seconds)"
 msgstr "Timeout (sekunder)"
 
-#: js/view/Properties.js:84
+#: js/view/Properties.js:89
 msgid "Timeout enable"
 msgstr "Aktiver timeout"
 
-#: js/view/Properties.js:88
+#: js/view/Properties.js:93
 msgid "Layer"
 msgstr "Lag"
 
-#: js/view/Properties.js:91
+#: js/view/Properties.js:96
 msgid "Link to previous frame"
 msgstr "Link til forrige ramme"
 
-#: js/view/Properties.js:92 js/view/Toolbar.js:82
+#: js/view/Properties.js:97 js/view/Toolbar.js:82
 msgid "Clip"
 msgstr "Klip"
 
-#: js/view/Properties.js:94
+#: js/view/Properties.js:99
 msgid "Reset layer geometry"
 msgstr "Nulstil lag geometri"
 
-#: js/view/Properties.js:99
+#: js/view/Properties.js:104
 msgid "Copy layer"
 msgstr "Kopier lag"
 
-#: js/view/Properties.js:106
+#: js/view/Properties.js:111
 msgid "Outline element Id"
 msgstr "Skitser element id"
 
-#: js/view/Properties.js:109
+#: js/view/Properties.js:114
 msgid "Autoselect element"
 msgstr "Autovælg element"
 
-#: js/view/Properties.js:110
+#: js/view/Properties.js:115
 msgid "Hide element"
 msgstr "Skjul element"
 
-#: js/view/Properties.js:112
+#: js/view/Properties.js:117
 msgid "Fit to element"
 msgstr "Tilpas til element"
 
-#: js/view/Properties.js:120
+#: js/view/Properties.js:125
 msgid "Layer opacity"
 msgstr "Lag gennemsigtighed"
 
-#: js/view/Properties.js:123
+#: js/view/Properties.js:128
 msgid "Transition"
 msgstr "Overgang"
 
-#: js/view/Properties.js:125
+#: js/view/Properties.js:130
 msgid "Duration (seconds)"
 msgstr "Varighed (sekunder)"
 
-#: js/view/Properties.js:128
+#: js/view/Properties.js:133
 msgid "Timing function"
 msgstr "Tidsfunktion"
 
-#: js/view/Properties.js:140
+#: js/view/Properties.js:145
 msgid "Relative zoom (%)"
 msgstr "Relativ zoom (%)"
 
-#: js/view/Properties.js:144
+#: js/view/Properties.js:149
 msgid "Path Id"
 msgstr "Sti id"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:150
 msgid "Hide path"
 msgstr "Skjul sti"
 
-#: js/view/Properties.js:149
+#: js/view/Properties.js:154
 msgid "Player"
 msgstr "Afspiller"
 
-#: js/view/Properties.js:152
+#: js/view/Properties.js:157
 msgid "Allow to control the presentation"
 msgstr "Tillad at styre præsentationen"
 
-#: js/view/Properties.js:154 js/view/Properties.js:161 js/view/Properties.js:167 js/view/Properties.js:175
+#: js/view/Properties.js:159 js/view/Properties.js:166
+#: js/view/Properties.js:172 js/view/Properties.js:180
 msgid "using the mouse"
 msgstr "bruge mus"
 
-#: js/view/Properties.js:155 js/view/Properties.js:168 js/view/Properties.js:176
+#: js/view/Properties.js:160 js/view/Properties.js:173
+#: js/view/Properties.js:181
 msgid "using the keyboard"
 msgstr "bruge tastatur"
 
-#: js/view/Properties.js:160
+#: js/view/Properties.js:165
 msgid "Allow to move the camera"
 msgstr "Tillad at bevæge kameraet"
 
-#: js/view/Properties.js:165
+#: js/view/Properties.js:170
 msgid "Allow to rotate the camera"
 msgstr "Tillad at rotere kameraet"
 
-#: js/view/Properties.js:173
+#: js/view/Properties.js:178
 msgid "Allow to zoom"
 msgstr "Tillad at zoome"
 
-#: js/view/Timeline.js:264
+#: js/view/Timeline.js:265
 msgid "Delete the selected frames"
 msgstr "Slet valgte rammer"
 
-#: js/view/Timeline.js:271
+#: js/view/Timeline.js:272
 msgid "Create a new frame"
 msgstr "Dan ny ramme"
 
-#: js/view/Timeline.js:285
+#: js/view/Timeline.js:286
 msgid "Add layer"
 msgstr "Tilføj lag"
 
-#: js/view/Timeline.js:301 js/view/Timeline.js:322
+#: js/view/Timeline.js:302 js/view/Timeline.js:323
 msgid "This layer is visible. Click to hide it."
 msgstr "Dette lag er synligt. Klik for at skjule det."
 
-#: js/view/Timeline.js:305 js/view/Timeline.js:326
+#: js/view/Timeline.js:306 js/view/Timeline.js:327
 msgid "This layer is hidden. Click to show it."
 msgstr "Dette lag er skjult. Klik for at vise det."
 
-#: js/view/Timeline.js:330
+#: js/view/Timeline.js:331
 msgid "Remove this layer"
 msgstr "Fjern dette lag"
 
-#: js/view/Timeline.js:356
+#: js/view/Timeline.js:357
 msgid "Insert selection before frame %d"
 msgstr "Indsæt det valgte før ramme %d"
 
-#: js/view/Timeline.js:363
+#: js/view/Timeline.js:364
 msgid "Insert selection after frame %d"
 msgstr "Indsæt det valgte efter ramme %d"
 

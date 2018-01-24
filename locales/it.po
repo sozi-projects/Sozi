@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-19 09:55:+0000\n"
+"POT-Creation-Date: 2018-01-24 07:05:+0000\n"
 "PO-Revision-Date: 2017-09-28 08:12+0000\n"
 "Last-Translator: Daniele Dondi <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,11 +44,11 @@ msgstr ""
 msgid "Open an SVG file from Google Drive"
 msgstr "Apri un file SVG da Google Drive"
 
-#: js/Controller.js:35
+#: js/Controller.js:38
 msgid "Sozi (Information)"
 msgstr "Sozi (informazioni)"
 
-#: js/Controller.js:41
+#: js/Controller.js:44
 msgid "Sozi (Error)"
 msgstr "Sozi (Errore)"
 
@@ -88,166 +88,178 @@ msgstr ""
 msgid "Enable notifications"
 msgstr ""
 
-#: js/view/Properties.js:59
+#: js/view/Properties.js:48
+msgid "Behavior"
+msgstr ""
+
+#: js/view/Properties.js:50
+msgid "Preview transition animations"
+msgstr ""
+
+#: js/view/Properties.js:51
+msgid "Enable animated transitions"
+msgstr ""
+
+#: js/view/Properties.js:64
 msgid "Select a layer to copy"
 msgstr "Seleziona un layer da copiare"
 
-#: js/view/Properties.js:62 js/view/Timeline.js:313 js/view/Timeline.js:343
+#: js/view/Properties.js:67 js/view/Timeline.js:314 js/view/Timeline.js:344
 msgid "Default"
 msgstr "Predefinito"
 
-#: js/view/Properties.js:69
+#: js/view/Properties.js:74
 msgid "Frame"
 msgstr "Fotogramma"
 
-#: js/view/Properties.js:72
+#: js/view/Properties.js:77
 msgid "Show in frame list"
 msgstr "Mostra sulla lista dei fotogrammi"
 
-#: js/view/Properties.js:73
+#: js/view/Properties.js:78
 msgid "Show frame number"
 msgstr "Mostra il numero di fotogramma"
 
-#: js/view/Properties.js:76
+#: js/view/Properties.js:81
 msgid "Title"
 msgstr "Titolo"
 
-#: js/view/Properties.js:79
+#: js/view/Properties.js:84
 msgid "Id"
 msgstr "Id"
 
-#: js/view/Properties.js:83
+#: js/view/Properties.js:88
 msgid "Timeout (seconds)"
 msgstr "Timeout (secondi)"
 
-#: js/view/Properties.js:84
+#: js/view/Properties.js:89
 msgid "Timeout enable"
 msgstr "Abilita timeout"
 
-#: js/view/Properties.js:88
+#: js/view/Properties.js:93
 msgid "Layer"
 msgstr "Layer"
 
-#: js/view/Properties.js:91
+#: js/view/Properties.js:96
 msgid "Link to previous frame"
 msgstr "Collegamento al fotogramma precedente"
 
-#: js/view/Properties.js:92 js/view/Toolbar.js:82
+#: js/view/Properties.js:97 js/view/Toolbar.js:82
 msgid "Clip"
 msgstr "Tagliare"
 
-#: js/view/Properties.js:94
+#: js/view/Properties.js:99
 msgid "Reset layer geometry"
 msgstr "Ripristina la geometria del layer"
 
-#: js/view/Properties.js:99
+#: js/view/Properties.js:104
 msgid "Copy layer"
 msgstr "Copia layer"
 
-#: js/view/Properties.js:106
+#: js/view/Properties.js:111
 msgid "Outline element Id"
 msgstr "Contorno elemento Id"
 
-#: js/view/Properties.js:109
+#: js/view/Properties.js:114
 msgid "Autoselect element"
 msgstr "Autoseleziona elemento"
 
-#: js/view/Properties.js:110
+#: js/view/Properties.js:115
 msgid "Hide element"
 msgstr "Nascondi elemento"
 
-#: js/view/Properties.js:112
+#: js/view/Properties.js:117
 msgid "Fit to element"
 msgstr "Adatta all'elemento"
 
-#: js/view/Properties.js:120
+#: js/view/Properties.js:125
 msgid "Layer opacity"
 msgstr "Opacità del layer"
 
-#: js/view/Properties.js:123
+#: js/view/Properties.js:128
 msgid "Transition"
 msgstr "Transizione"
 
-#: js/view/Properties.js:125
+#: js/view/Properties.js:130
 msgid "Duration (seconds)"
 msgstr "Durata (secondi)"
 
-#: js/view/Properties.js:128
+#: js/view/Properties.js:133
 msgid "Timing function"
 msgstr "Funzione di temporizzazione"
 
-#: js/view/Properties.js:140
+#: js/view/Properties.js:145
 msgid "Relative zoom (%)"
 msgstr "Zoom relativo (%)"
 
-#: js/view/Properties.js:144
+#: js/view/Properties.js:149
 msgid "Path Id"
 msgstr "Percorso ID"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:150
 msgid "Hide path"
 msgstr "Nascondere il percorso"
 
-#: js/view/Properties.js:149
+#: js/view/Properties.js:154
 #, fuzzy
 msgid "Player"
 msgstr "Layer"
 
-#: js/view/Properties.js:152
+#: js/view/Properties.js:157
 msgid "Allow to control the presentation"
 msgstr ""
 
-#: js/view/Properties.js:154 js/view/Properties.js:161
-#: js/view/Properties.js:167 js/view/Properties.js:175
+#: js/view/Properties.js:159 js/view/Properties.js:166
+#: js/view/Properties.js:172 js/view/Properties.js:180
 msgid "using the mouse"
 msgstr ""
 
-#: js/view/Properties.js:155 js/view/Properties.js:168
-#: js/view/Properties.js:176
+#: js/view/Properties.js:160 js/view/Properties.js:173
+#: js/view/Properties.js:181
 msgid "using the keyboard"
 msgstr ""
 
-#: js/view/Properties.js:160
+#: js/view/Properties.js:165
 msgid "Allow to move the camera"
 msgstr ""
 
-#: js/view/Properties.js:165
+#: js/view/Properties.js:170
 msgid "Allow to rotate the camera"
 msgstr ""
 
-#: js/view/Properties.js:173
+#: js/view/Properties.js:178
 msgid "Allow to zoom"
 msgstr ""
 
-#: js/view/Timeline.js:264
+#: js/view/Timeline.js:265
 msgid "Delete the selected frames"
 msgstr "Eliminare i fotogrammi selezionati"
 
-#: js/view/Timeline.js:271
+#: js/view/Timeline.js:272
 msgid "Create a new frame"
 msgstr "Creare un nuovo fotogramma"
 
-#: js/view/Timeline.js:285
+#: js/view/Timeline.js:286
 msgid "Add layer"
 msgstr "aggiungi layer"
 
-#: js/view/Timeline.js:301 js/view/Timeline.js:322
+#: js/view/Timeline.js:302 js/view/Timeline.js:323
 msgid "This layer is visible. Click to hide it."
 msgstr "Questo layer è visibile. Premere per nascondere"
 
-#: js/view/Timeline.js:305 js/view/Timeline.js:326
+#: js/view/Timeline.js:306 js/view/Timeline.js:327
 msgid "This layer is hidden. Click to show it."
 msgstr "Questo layer è nascosto. Premere per visualizzare"
 
-#: js/view/Timeline.js:330
+#: js/view/Timeline.js:331
 msgid "Remove this layer"
 msgstr "Rimuovere questo layer"
 
-#: js/view/Timeline.js:356
+#: js/view/Timeline.js:357
 msgid "Insert selection before frame %d"
 msgstr "Inserire la selezione prima del fotogramma %d"
 
-#: js/view/Timeline.js:363
+#: js/view/Timeline.js:364
 msgid "Insert selection after frame %d"
 msgstr "Inserire la selezione dopo il fotogramma %d"
 

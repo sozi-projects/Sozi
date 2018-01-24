@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2017-11-19 09:55:+0000\n"
-"PO-Revision-Date: 2017-11-19 11:14+0100\n"
+"POT-Creation-Date: 2018-01-24 07:05:+0000\n"
+"PO-Revision-Date: 2018-01-24 21:59+0100\n"
 "Last-Translator: \n"
 "Language-Team: Esperanto <eo@li.org>\n"
 "Language: eo\n"
@@ -46,11 +46,11 @@ msgstr ""
 msgid "Open an SVG file from Google Drive"
 msgstr "Malfermi SVG dosieron el Google Drive"
 
-#: js/Controller.js:35
+#: js/Controller.js:38
 msgid "Sozi (Information)"
 msgstr "Sozi (Informo)"
 
-#: js/Controller.js:41
+#: js/Controller.js:44
 msgid "Sozi (Error)"
 msgstr "Sozi (Eraro)"
 
@@ -90,165 +90,177 @@ msgstr "Ebligi atentigojn post konservi kaj reŝargi"
 msgid "Enable notifications"
 msgstr "Ebligi atentigojn"
 
-#: js/view/Properties.js:59
+#: js/view/Properties.js:48
+msgid "Behavior"
+msgstr "Konduto"
+
+#: js/view/Properties.js:50
+msgid "Preview transition animations"
+msgstr "Antaŭrigardi la transpasajn movbildojn"
+
+#: js/view/Properties.js:51
+msgid "Enable animated transitions"
+msgstr "Ebligi la transpasajn movbildojn"
+
+#: js/view/Properties.js:64
 msgid "Select a layer to copy"
 msgstr "Elekti kopiotan tavolon"
 
-#: js/view/Properties.js:62 js/view/Timeline.js:313 js/view/Timeline.js:343
+#: js/view/Properties.js:67 js/view/Timeline.js:314 js/view/Timeline.js:344
 msgid "Default"
 msgstr "Defaŭlta"
 
-#: js/view/Properties.js:69
+#: js/view/Properties.js:74
 msgid "Frame"
 msgstr "Kadro"
 
-#: js/view/Properties.js:72
+#: js/view/Properties.js:77
 msgid "Show in frame list"
 msgstr "Montri en la listo de kadroj"
 
-#: js/view/Properties.js:73
+#: js/view/Properties.js:78
 msgid "Show frame number"
 msgstr "Montri la numeron de la kadro"
 
-#: js/view/Properties.js:76
+#: js/view/Properties.js:81
 msgid "Title"
 msgstr "Titolo"
 
-#: js/view/Properties.js:79
+#: js/view/Properties.js:84
 msgid "Id"
 msgstr "Id"
 
-#: js/view/Properties.js:83
+#: js/view/Properties.js:88
 msgid "Timeout (seconds)"
 msgstr "Tempolimo (sekundoj)"
 
-#: js/view/Properties.js:84
+#: js/view/Properties.js:89
 msgid "Timeout enable"
 msgstr "Ebligi la tempolimon"
 
-#: js/view/Properties.js:88
+#: js/view/Properties.js:93
 msgid "Layer"
 msgstr "Tavolo"
 
-#: js/view/Properties.js:91
+#: js/view/Properties.js:96
 msgid "Link to previous frame"
 msgstr "Ligi al la antaŭa kadro"
 
-#: js/view/Properties.js:92 js/view/Toolbar.js:82
+#: js/view/Properties.js:97 js/view/Toolbar.js:82
 msgid "Clip"
 msgstr "Eltondi"
 
-#: js/view/Properties.js:94
+#: js/view/Properties.js:99
 msgid "Reset layer geometry"
 msgstr "Repravalorizi la geometrion de la tavolo"
 
-#: js/view/Properties.js:99
+#: js/view/Properties.js:104
 msgid "Copy layer"
 msgstr "Kopii tavolon"
 
-#: js/view/Properties.js:106
+#: js/view/Properties.js:111
 msgid "Outline element Id"
 msgstr "Id de la elemento uzota kiel konturo"
 
-#: js/view/Properties.js:109
+#: js/view/Properties.js:114
 msgid "Autoselect element"
 msgstr "Selekti la elementon aŭtomate"
 
-#: js/view/Properties.js:110
+#: js/view/Properties.js:115
 msgid "Hide element"
 msgstr "Kaŝi la elementon"
 
-#: js/view/Properties.js:112
+#: js/view/Properties.js:117
 msgid "Fit to element"
 msgstr "Adapti al la elemento"
 
-#: js/view/Properties.js:120
+#: js/view/Properties.js:125
 msgid "Layer opacity"
 msgstr "Opakeco de la tavolo"
 
-#: js/view/Properties.js:123
+#: js/view/Properties.js:128
 msgid "Transition"
 msgstr "Transpaso"
 
-#: js/view/Properties.js:125
+#: js/view/Properties.js:130
 msgid "Duration (seconds)"
 msgstr "Daŭro (sekundoj)"
 
-#: js/view/Properties.js:128
+#: js/view/Properties.js:133
 msgid "Timing function"
 msgstr "Tempofunkcio"
 
-#: js/view/Properties.js:140
+#: js/view/Properties.js:145
 msgid "Relative zoom (%)"
 msgstr "Zomfaktoro (%)"
 
-#: js/view/Properties.js:144
+#: js/view/Properties.js:149
 msgid "Path Id"
 msgstr "Id de la vojo"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:150
 msgid "Hide path"
 msgstr "Kaŝi la vojon"
 
-#: js/view/Properties.js:149
+#: js/view/Properties.js:154
 msgid "Player"
 msgstr "Spektilo"
 
-#: js/view/Properties.js:152
+#: js/view/Properties.js:157
 msgid "Allow to control the presentation"
 msgstr "Permesi agojn je la prezentado"
 
-#: js/view/Properties.js:154 js/view/Properties.js:161
-#: js/view/Properties.js:167 js/view/Properties.js:175
+#: js/view/Properties.js:159 js/view/Properties.js:166
+#: js/view/Properties.js:172 js/view/Properties.js:180
 msgid "using the mouse"
 msgstr "per la muso"
 
-#: js/view/Properties.js:155 js/view/Properties.js:168
-#: js/view/Properties.js:176
+#: js/view/Properties.js:160 js/view/Properties.js:173
+#: js/view/Properties.js:181
 msgid "using the keyboard"
 msgstr "per la klavaro"
 
-#: js/view/Properties.js:160
+#: js/view/Properties.js:165
 msgid "Allow to move the camera"
 msgstr "Permesi movi la observadopunkton"
 
-#: js/view/Properties.js:165
+#: js/view/Properties.js:170
 msgid "Allow to rotate the camera"
 msgstr "Permesi rotacii la observadopunkton"
 
-#: js/view/Properties.js:173
+#: js/view/Properties.js:178
 msgid "Allow to zoom"
 msgstr "Permesi zomi"
 
-#: js/view/Timeline.js:264
+#: js/view/Timeline.js:265
 msgid "Delete the selected frames"
 msgstr "Forviŝi la selektitajn kadrojn"
 
-#: js/view/Timeline.js:271
+#: js/view/Timeline.js:272
 msgid "Create a new frame"
 msgstr "Krei novan kadron"
 
-#: js/view/Timeline.js:285
+#: js/view/Timeline.js:286
 msgid "Add layer"
 msgstr "Aldoni tavolon"
 
-#: js/view/Timeline.js:301 js/view/Timeline.js:322
+#: js/view/Timeline.js:302 js/view/Timeline.js:323
 msgid "This layer is visible. Click to hide it."
 msgstr "Tiu tavolo estas videbla. Klaku por kaŝi ĝin."
 
-#: js/view/Timeline.js:305 js/view/Timeline.js:326
+#: js/view/Timeline.js:306 js/view/Timeline.js:327
 msgid "This layer is hidden. Click to show it."
 msgstr "Tiu tavolo estas kaŝita. Klaku por montri ĝin."
 
-#: js/view/Timeline.js:330
+#: js/view/Timeline.js:331
 msgid "Remove this layer"
 msgstr "Forigi tiun tavolon"
 
-#: js/view/Timeline.js:356
+#: js/view/Timeline.js:357
 msgid "Insert selection before frame %d"
 msgstr "Enmeti la selektaĵon antaŭ la kadron %d"
 
-#: js/view/Timeline.js:363
+#: js/view/Timeline.js:364
 msgid "Insert selection after frame %d"
 msgstr "Enmeti la selektaĵon post la kadron %d"
 
