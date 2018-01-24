@@ -299,16 +299,24 @@ module.exports = function(grunt) {
         x64: "amd64"
     };
 
+    var renamedOS = {
+        darwin: "osx",
+        win32: "windows"
+    };
+
     buildConfig.platforms.forEach(function (platform) {
         // The folder for the current platform.
         var distDir = "dist/Sozi-" + platform;
-        // The name of the target folder for the current platform in dist/.
-        var bundleName = "Sozi-" + pkg.version + "-" + platform;
-        // The renamed folder for the current platform.
-        var bundleDir = "dist/" + bundleName;
         // Get the components of the platform.
         var platformOS   = getPlatformOS(platform);
+        if (platformOS in renamedOS) {
+            platformOS = renamedOS[platformOS];
+        }
         var platformArch = getPlatformArch(platform);
+        // The name of the target folder for the current platform in dist/.
+        var bundleName = "Sozi-" + pkg.version + "-" + platformOS + "-" + platformArch;
+        // The renamed folder for the current platform.
+        var bundleDir = "dist/" + bundleName;
 
         // Copy the installation assets for the target OS.
         grunt.config(["copy", platform], {
