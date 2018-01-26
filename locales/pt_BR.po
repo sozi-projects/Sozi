@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-01-24 07:05:+0000\n"
-"PO-Revision-Date: 2017-12-02 11:48+0000\n"
+"POT-Creation-Date: 2018-01-24 21:03+0000\n"
+"PO-Revision-Date: 2018-01-24 18:23+0000\n"
 "Last-Translator: marcelo <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
-"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-12-03 11:00+0000\n"
-"X-Generator: Launchpad (build 18511)\n"
+"X-Launchpad-Export-Date: 2018-01-26 16:48+0000\n"
+"X-Generator: Launchpad (build 18534)\n"
+"Language: pt_BR\n"
 
 #: js/backend/Electron.js:28
 msgid "Open an SVG file from your computer"
@@ -92,16 +92,15 @@ msgstr "Habilitar notificações"
 
 #: js/view/Properties.js:48
 msgid "Behavior"
-msgstr ""
+msgstr "Comportamento"
 
 #: js/view/Properties.js:50
 msgid "Preview transition animations"
-msgstr ""
+msgstr "Pré-visualizar animações de transição"
 
 #: js/view/Properties.js:51
-#, fuzzy
 msgid "Enable animated transitions"
-msgstr "Habilitar notificações"
+msgstr "Permitir transições animadas"
 
 #: js/view/Properties.js:64
 msgid "Select a layer to copy"
@@ -211,13 +210,11 @@ msgstr "Reprodutor"
 msgid "Allow to control the presentation"
 msgstr "Permitir controle da apresentação"
 
-#: js/view/Properties.js:159 js/view/Properties.js:166
-#: js/view/Properties.js:172 js/view/Properties.js:180
+#: js/view/Properties.js:159 js/view/Properties.js:166 js/view/Properties.js:172 js/view/Properties.js:180
 msgid "using the mouse"
 msgstr "pelo mouse"
 
-#: js/view/Properties.js:160 js/view/Properties.js:173
-#: js/view/Properties.js:181
+#: js/view/Properties.js:160 js/view/Properties.js:173 js/view/Properties.js:181
 msgid "using the keyboard"
 msgstr "pelo teclado"
 
@@ -279,13 +276,14 @@ msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
-"Amplie/diminua as camadas selecionadas (pode pressionar ALT no modo \"mover"
-"\")"
+"Amplie/diminua as camadas selecionadas (pode pressionar ALT no modo "
+"\"mover\")"
 
 #: js/view/Toolbar.js:77
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
-msgstr "gire as camadas selecionadas (pode pressionar SHIFT no modo \"mover\")"
+msgstr ""
+"gire as camadas selecionadas (pode pressionar SHIFT no modo \"mover\")"
 
 #: js/view/Toolbar.js:89
 msgid "Undo (Ctrl-Z)"
