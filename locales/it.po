@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-24 07:05:+0000\n"
-"PO-Revision-Date: 2017-09-28 08:12+0000\n"
-"Last-Translator: Daniele Dondi <Unknown>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2018-02-07 14:49+0100\n"
+"Last-Translator: Enrico Rivarola\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
-"X-Generator: Launchpad (build 18505)\n"
+"X-Generator: Poedit 1.8.11\n"
+"Language-Team: \n"
 
 #: js/backend/Electron.js:28
 msgid "Open an SVG file from your computer"
@@ -23,7 +23,7 @@ msgstr "Apri un file SVG dal tuo computer"
 
 #: js/backend/Electron.js:56
 msgid "File not found: %s."
-msgstr "File non trovato: %s"
+msgstr "File non trovato: %s."
 
 #: js/backend/Electron.js:70
 msgid "Choose an SVG file"
@@ -54,7 +54,7 @@ msgstr "Sozi (Errore)"
 
 #: js/Storage.js:78
 msgid "File %s could not be loaded."
-msgstr "Impossibile caricare il file %s"
+msgstr "Impossibile caricare il file %s."
 
 #: js/Storage.js:93 js/Storage.js:102
 msgid "Document is not valid SVG."
@@ -62,11 +62,11 @@ msgstr "Non è un documento SVG valido"
 
 #: js/Storage.js:137
 msgid "Document was changed. Reloading."
-msgstr "Il documento è stao modificato. Ricaricamento in corso."
+msgstr "Il documento è stato modificato. Ricaricamento in corso."
 
 #: js/Storage.js:163
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr "Il documento è stato importato da Sozi13 o precedente."
+msgstr "Il documento è stato importato da Sozi 13 o precedente."
 
 #: js/Storage.js:221 js/Storage.js:242
 msgid "Saved %s."
@@ -74,31 +74,31 @@ msgstr "%s salvato."
 
 #: js/view/Properties.js:41
 msgid "User interface"
-msgstr ""
+msgstr "Interfaccia utente"
 
 #: js/view/Properties.js:42
 msgid "Font size"
-msgstr ""
+msgstr "Dimensione carattere"
 
 #: js/view/Properties.js:45
 msgid "Enable notifications on save and reload"
-msgstr ""
+msgstr "Abilita notifiche per salvataggio e ricarica"
 
 #: js/view/Properties.js:46
 msgid "Enable notifications"
-msgstr ""
+msgstr "Abilita notifiche"
 
 #: js/view/Properties.js:48
 msgid "Behavior"
-msgstr ""
+msgstr "Comportamento"
 
 #: js/view/Properties.js:50
 msgid "Preview transition animations"
-msgstr ""
+msgstr "Anteprima transizioni animate"
 
 #: js/view/Properties.js:51
 msgid "Enable animated transitions"
-msgstr ""
+msgstr "Abilita transizioni animate"
 
 #: js/view/Properties.js:64
 msgid "Select a layer to copy"
@@ -207,29 +207,29 @@ msgstr "Layer"
 
 #: js/view/Properties.js:157
 msgid "Allow to control the presentation"
-msgstr ""
+msgstr "Permetti il controllo della presentazione"
 
 #: js/view/Properties.js:159 js/view/Properties.js:166
 #: js/view/Properties.js:172 js/view/Properties.js:180
 msgid "using the mouse"
-msgstr ""
+msgstr "usando il mouse"
 
 #: js/view/Properties.js:160 js/view/Properties.js:173
 #: js/view/Properties.js:181
 msgid "using the keyboard"
-msgstr ""
+msgstr "usando la tastiera"
 
 #: js/view/Properties.js:165
 msgid "Allow to move the camera"
-msgstr ""
+msgstr "Permetti di muovere lo scenario"
 
 #: js/view/Properties.js:170
 msgid "Allow to rotate the camera"
-msgstr ""
+msgstr "Permetti di ruotare lo scenario"
 
 #: js/view/Properties.js:178
 msgid "Allow to zoom"
-msgstr ""
+msgstr "Permetti di zoomare"
 
 #: js/view/Timeline.js:265
 msgid "Delete the selected frames"
@@ -241,15 +241,15 @@ msgstr "Creare un nuovo fotogramma"
 
 #: js/view/Timeline.js:286
 msgid "Add layer"
-msgstr "aggiungi layer"
+msgstr "Aggiungi layer"
 
 #: js/view/Timeline.js:302 js/view/Timeline.js:323
 msgid "This layer is visible. Click to hide it."
-msgstr "Questo layer è visibile. Premere per nascondere"
+msgstr "Questo layer è visibile. Premere per nascondere."
 
 #: js/view/Timeline.js:306 js/view/Timeline.js:327
 msgid "This layer is hidden. Click to show it."
-msgstr "Questo layer è nascosto. Premere per visualizzare"
+msgstr "Questo layer è nascosto. Premere per visualizzare."
 
 #: js/view/Timeline.js:331
 msgid "Remove this layer"
@@ -265,7 +265,7 @@ msgstr "Inserire la selezione dopo il fotogramma %d"
 
 #: js/view/Toolbar.js:34
 msgid "Aspect ratio: "
-msgstr "Proporzione "
+msgstr "Proporzione: "
 
 #: js/view/Toolbar.js:67
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
@@ -302,15 +302,15 @@ msgstr "Attiva la modalità a schermo intero (F11)"
 
 #: js/view/Toolbar.js:110
 msgid "Save the presentation (Ctrl-S)"
-msgstr "Salva la presentazione"
+msgstr "Salva la presentazione (Ctrl-S)"
 
 #: js/view/Toolbar.js:115
 msgid "Reload the SVG document (F5)"
-msgstr "Ricarica il documento"
+msgstr "Ricarica il documento (F5)"
 
 #: js/view/Toolbar.js:121
 msgid "Preferences"
-msgstr ""
+msgstr "Preferenze"
 
 #: js/view/Toolbar.js:126
 msgid "Information"
