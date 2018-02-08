@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-24 07:05:+0000\n"
-"PO-Revision-Date: 2018-02-07 14:49+0100\n"
+"PO-Revision-Date: 2018-02-08 15:11+0100\n"
 "Last-Translator: Enrico Rivarola\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -201,9 +201,8 @@ msgid "Hide path"
 msgstr "Nascondere il percorso"
 
 #: js/view/Properties.js:154
-#, fuzzy
 msgid "Player"
-msgstr "Layer"
+msgstr "Visualizzazione"
 
 #: js/view/Properties.js:157
 msgid "Allow to control the presentation"
