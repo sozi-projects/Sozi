@@ -5,4 +5,5 @@ Exec=sozi
 Icon=sozi.png
 Terminal=false
 Type=Application
+MimeType=image/svg+xml
 StartupNotify=false
