@@ -282,7 +282,7 @@ Camera.interpolate = function (initialState, finalState, progress, timingFunctio
     }
 
     function quadratic(u0, u1) {
-        const um = (relativeZoom > 0 ? Math.max(u0, u1) : Math.min(u0, u1)) * (1 - relativeZoom);
+        const um = (relativeZoom > 0 ? Math.min(u0, u1) : Math.max(u0, u1)) * (1 - relativeZoom);
         const du0 = u0 - um;
         const du1 = u1 - um;
         const r = Math.sqrt(du0 / du1);
