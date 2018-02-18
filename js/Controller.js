@@ -902,6 +902,38 @@ Controller.setPreference = function (key, value) {
     this.applyPreferences();
 };
 
+Controller.getShortcut = function (key) {
+    return this.preferences.keys[key];
+}
+
+Controller.setShortcut = function (key, value) {
+    // Find occurrences of modifier keys in the given value.
+    let ctrl  = /\bCtrl\s*\+/i.test(value);
+    let alt   = /\bAlt\s*\+/i.test(value);
+    let shift = /\bShift\s*\+/i.test(value);
+
+    // Remove all occurrences of modifier keys and spaces in the given value.
+    value = value.replace(/\bCtrl\s*\+\s*/gi, "");
+    value = value.replace(/\bAlt\s*\+\s*/gi, "");
+    value = value.replace(/\bShift\s*\+\s*/gi, "");
+    value = value.replace(/\s/g, "").toUpperCase();
+    if (value.length === 0) {
+        return;
+    }
+
+    // Rewrite the shortcut in standard order.
+    if (shift) {
+        value = "Shift+" + value;
+    }
+    if (alt) {
+        value = "Alt+" + value;
+    }
+    if (ctrl) {
+        value = "Ctrl+" + value;
+    }
+    this.preferences.keys[key] = value;
+}
+
 Controller.applyPreferences = function () {
     if (this.preferences.fontSize > 0) {
         document.body.style.fontSize = this.preferences.fontSize + "pt";

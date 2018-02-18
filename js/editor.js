@@ -97,14 +97,28 @@ window.addEventListener("load", () => {
     });
 
     window.addEventListener("keydown", evt => {
-        let key = evt.key;
+        let key = "";
         if (evt.ctrlKey) {
-            key = "C-" + key;
+            key += "Ctrl+";
+        }
+        if (evt.altKey) {
+            key += "Alt+";
+        }
+        if (evt.shiftKey) {
+            key += "Shift+"
+        }
+        key += evt.key.toUpperCase();
+
+        let actionFound = null;
+
+        for (let action in Preferences.keys) {
+            if (Preferences.keys[action] === key) {
+                actionFound = action;
+                break;
+            }
         }
 
-        let success = true;
-
-        switch (Preferences.keys[key]) {
+        switch (actionFound) {
             case "fitElement":
                 Controller.fitElement();
                 break;
@@ -135,13 +149,11 @@ window.addEventListener("load", () => {
             case "toggleDevTools":
                 Storage.backend.toggleDevTools();
                 break;
-            default:
-                success = false;
         }
 
         // Keyboard acctions that may collide with text inputs.
-        if (!success && !/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) {
-            success = true;
+        if (!actionFound && !/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) {
+            actionFound = true;
             switch (evt.key) {
                 case "End":
                     Controller.selectFrame(-1);
@@ -163,15 +175,15 @@ window.addEventListener("load", () => {
                         Controller.selectAllFrames();
                     }
                     else {
-                        success = false;
+                        actionFound = false;
                     }
                     break;
                 default:
-                    success = false;
+                    actionFound = false;
             }
         }
 
-        if (success) {
+        if (actionFound) {
             evt.preventDefault();
         }
     }, false);

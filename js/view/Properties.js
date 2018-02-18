@@ -37,6 +37,25 @@ Properties.renderPreferences = function () {
     const _ = this.gettext;
     const c = this.controller;
 
+    const ACTION_LABELS = {
+        fitElement: _("Fit to element"),
+        resetLayer: _("Reset layer geometry"),
+        addFrame: _("Create a new frame"),
+        save: _("Save the presentation"),
+        redo: _("Redo"),
+        undo: _("Undo"),
+        focusTitleField: _("Focus the frame title"),
+        reload: _("Reload the SVG document"),
+        toggleFullscreen: _("Toggle full-screen mode"),
+        toggleDevTools: _("Toggle the developer tools")
+    };
+
+    let shortcuts = [];
+    for (let action in ACTION_LABELS) {
+        shortcuts.push(h("label", {for: `field-${action}`}, ACTION_LABELS[action]));
+        shortcuts.push(this.renderTextField(action, false, c.getShortcut, c.setShortcut, true));
+    }
+
     return h("div.properties", [
         h("h1", _("User interface")),
         h("label", {for: "field-fontSize"}, _("Font size")),
@@ -49,8 +68,9 @@ Properties.renderPreferences = function () {
         h("label", {for: "field-animateTransitions"}, [
             _("Preview transition animations"),
             this.renderToggleField(h("i.fa.fa-check-square-o"), _("Enable animated transitions"), "animateTransitions", c.getPreference, c.setPreference)
-        ])
-    ]);
+        ]),
+        h("h1", _("Keyboard shortcuts"))
+    ].concat(shortcuts));
 };
 
 Properties.renderPresentationProperties = function () {

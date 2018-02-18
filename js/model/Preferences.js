@@ -10,15 +10,15 @@ export const Preferences = {
     enableNotifications: true,
     animateTransitions: true,
     keys: {
-        "C-e": "fitElement",
-        "C-r": "resetLayer",
-        "C-n": "addFrame",
-        "C-s": "save",
-        "C-y": "redo",
-        "C-z": "undo",
-        "F2" : "focusTitleField",
-        "F5" : "reload",
-        "F11": "toggleFullscreen",
-        "F12": "toggleDevTools"
+        fitElement: "Ctrl+E",
+        resetLayer: "Ctrl+R",
+        addFrame: "Ctrl+N",
+        save: "Ctrl+S",
+        redo: "Ctrl+Y",
+        undo: "Ctrl+Z",
+        focusTitleField: "F2",
+        reload: "F5",
+        toggleFullscreen: "F11",
+        toggleDevTools: "F12"
     }
 };
