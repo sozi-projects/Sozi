@@ -8,5 +8,17 @@
 export const Preferences = {
     fontSize: 11,
     enableNotifications: true,
-    animateTransitions: true
+    animateTransitions: true,
+    keys: {
+        "C-e": "fitElement",
+        "C-r": "resetLayer",
+        "C-n": "addFrame",
+        "C-s": "save",
+        "C-y": "redo",
+        "C-z": "undo",
+        "F2" : "focusTitleField",
+        "F5" : "reload",
+        "F11": "toggleFullscreen",
+        "F12": "toggleDevTools"
+    }
 };

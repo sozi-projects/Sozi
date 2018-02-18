@@ -97,60 +97,82 @@ window.addEventListener("load", () => {
     });
 
     window.addEventListener("keydown", evt => {
+        let key = evt.key;
         if (evt.ctrlKey) {
-            switch (evt.keyCode) {
-                case 83: // Ctrl-s
-                    Controller.save();
+            key = "C-" + key;
+        }
+
+        let success = true;
+
+        switch (Preferences.keys[key]) {
+            case "fitElement":
+                Controller.fitElement();
+                break;
+            case "resetLayer":
+                Controller.resetLayer();
+                break;
+            case "addFrame":
+                Controller.addFrame();
+                break;
+            case "save":
+                Controller.save();
+                break;
+            case "redo":
+                Controller.redo();
+                break;
+            case "undo":
+                Controller.undo();
+                break;
+            case "focusTitleField":
+                document.getElementById('field-title').select();
+                break;
+            case "reload":
+                Controller.reload();
+                break;
+            case "toggleFullscreen":
+                document.getElementById('btn-fullscreen').click();
+                break;
+            case "toggleDevTools":
+                Storage.backend.toggleDevTools();
+                break;
+            default:
+                success = false;
+        }
+
+        // Keyboard acctions that may collide with text inputs.
+        if (!success && !/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) {
+            success = true;
+            switch (evt.key) {
+                case "End":
+                    Controller.selectFrame(-1);
                     break;
-                case 89: // Ctrl-y
-                    Controller.redo();
+                case "Home":
+                    Controller.selectFrame(0);
                     break;
-                case 90: // Ctrl-z
-                    Controller.undo();
+                case "ArrowLeft":
+                    Controller.selectRelativeFrame(-1);
+                    break;
+                case "ArrowRight":
+                    Controller.selectRelativeFrame(1);
+                    break;
+                case "Delete":
+                    Controller.deleteFrames();
+                    break;
+                case "a":
+                    if (evt.ctrlKey) {
+                        Controller.selectAllFrames();
+                    }
+                    else {
+                        success = false;
+                    }
                     break;
                 default:
-                    return;
+                    success = false;
             }
         }
-        else {
-            if (!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) {
-                switch (evt.keyCode) {
-                    case 35: // End
-                        Controller.selectFrame(-1);
-                        break;
-                    case 36: // Home
-                        Controller.selectFrame(0);
-                        break;
-                    case 37: // Left
-                    case 38: // Up
-                        Controller.selectRelativeFrame(-1);
-                        break;
-                    case 39: // Right
-                    case 40: // Down
-                        Controller.selectRelativeFrame(1);
-                        break;
-                    case 46: // Delete
-                        Controller.deleteFrames();
-                        break;
-                }
-            }
-            switch (evt.keyCode) {
-                case 113: // F2
-                    document.getElementById('field-title').select();
-                    break;
-                case 116: // F5
-                    Controller.reload();
-                    break;
-                case 122: // F11
-                    document.getElementById('btn-fullscreen').click();
-                    break;
-                case 123: // F12
-                    Storage.backend.toggleDevTools();
-                    break;
-                default:
-                    return;
-            }
+
+        if (success) {
+            evt.preventDefault();
         }
-        evt.preventDefault();
     }, false);
 }, false);

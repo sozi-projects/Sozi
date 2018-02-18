@@ -278,6 +278,18 @@ Controller.selectFrame = function (index) {
 };
 
 /*
+ * Select all frames.
+ */
+Controller.selectAllFrames = function () {
+    this.selection.selectedFrames = this.presentation.frames.slice();
+    this.updateCameraSelection();
+
+    // Trigger a repaint of the editor views.
+    this.emit("editorStateChange");
+    this.emit("repaint");
+};
+
+/*
  * Select a specific frame.
  *
  * Parameters:
@@ -334,7 +346,7 @@ Controller.updateFrameSelection = function (single, sequence, frameIndex) {
  * Parameters:
  *  - single: toggle the selection status of the given layer
  *  - sequence: toggle a sequence of layers to the given layer
- *  - layerIndex: The index of a layer in the presentation
+ *  - layers: The layers to select
  */
 Controller.updateLayerSelection = function (single, sequence, layers) {
     if (single) {
