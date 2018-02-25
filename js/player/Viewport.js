@@ -324,6 +324,7 @@ Viewport.onDrag = function (evt) {
                         this.clipRel(0, 0, deltaX, deltaY);
                         break;
                 }
+                this.mouseDragChangedState = true;
                 break;
 
             default: // case "translate":
