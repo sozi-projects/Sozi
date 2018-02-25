@@ -88,6 +88,7 @@ Controller.setSVGDocument = function (svgDocument) {
     this.presentation.init();
     this.presentation.setSVGDocument(svgDocument);
     this.emit("loadSVG");
+    this.presentation.setInitialCameraState();
 };
 
 /*

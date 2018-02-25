@@ -15,14 +15,14 @@ export const Preview = {
         this.viewport = viewport;
         this.controller = controller;
 
-        controller.addListener("loadSVG", () => this.onLoadSVG());
+        controller.addListener("loadSVG", () => this.onLoad());
         window.addEventListener("resize", () => this.repaint());
         viewport.addListener("mouseDown", () => document.activeElement.blur());
 
         return this;
     },
 
-    onLoadSVG() {
+    onLoad() {
         this.viewport.addListener("click", (btn, evt) => this.onClick(btn, evt));
         this.viewport.addListener("userChangeState", () => this.controller.updateCameraStates());
         this.controller.addListener("repaint", () => this.repaint());
