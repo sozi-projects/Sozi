@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-01-24 07:05:+0000\n"
+"POT-Creation-Date: 2018-03-09 08:42:+0000\n"
 "PO-Revision-Date: 2017-10-09 08:54+0000\n"
 "Last-Translator: Bart <ionee@o2.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -73,172 +73,207 @@ msgstr "Dokument został zaimportowany z Sozi w wersji 13 lub wcześniejszej."
 msgid "Saved %s."
 msgstr "Zapisano %s."
 
-#: js/view/Properties.js:41
-msgid "User interface"
-msgstr ""
-
-#: js/view/Properties.js:42
-msgid "Font size"
-msgstr ""
-
-#: js/view/Properties.js:45
-msgid "Enable notifications on save and reload"
-msgstr ""
-
-#: js/view/Properties.js:46
-msgid "Enable notifications"
-msgstr ""
-
-#: js/view/Properties.js:48
-msgid "Behavior"
-msgstr ""
-
-#: js/view/Properties.js:50
-msgid "Preview transition animations"
-msgstr ""
-
-#: js/view/Properties.js:51
-msgid "Enable animated transitions"
-msgstr ""
-
-#: js/view/Properties.js:64
-msgid "Select a layer to copy"
-msgstr "Wybierz warstwę do skopiowania"
-
-#: js/view/Properties.js:67 js/view/Timeline.js:314 js/view/Timeline.js:344
-msgid "Default"
-msgstr "Domyślny"
-
-#: js/view/Properties.js:74
-msgid "Frame"
-msgstr "Ramka"
-
-#: js/view/Properties.js:77
-msgid "Show in frame list"
-msgstr "Pokaż w spisie"
-
-#: js/view/Properties.js:78
-msgid "Show frame number"
-msgstr "Pokaż numer ramki"
-
-#: js/view/Properties.js:81
-msgid "Title"
-msgstr "Tytuł"
-
-#: js/view/Properties.js:84
-msgid "Id"
-msgstr "Identyfikator"
-
-#: js/view/Properties.js:88
-msgid "Timeout (seconds)"
-msgstr "Limit czasu (w sekundach)"
-
-#: js/view/Properties.js:89
-msgid "Timeout enable"
-msgstr "Włącz odliczanie"
-
-#: js/view/Properties.js:93
-msgid "Layer"
-msgstr "Warstwa"
-
-#: js/view/Properties.js:96
-msgid "Link to previous frame"
-msgstr "Odnośnik do poprzedniej ramki"
-
-#: js/view/Properties.js:97 js/view/Toolbar.js:82
-msgid "Clip"
-msgstr "Przytnij"
-
-#: js/view/Properties.js:99
-msgid "Reset layer geometry"
-msgstr "Zresetuj geometrię warstwę"
-
-#: js/view/Properties.js:104
-msgid "Copy layer"
-msgstr "Skopiuj warstwę"
-
-#: js/view/Properties.js:111
-msgid "Outline element Id"
-msgstr "Id elementu obrysu"
-
-#: js/view/Properties.js:114
-msgid "Autoselect element"
-msgstr "Zaznacz element automatycznie"
-
-#: js/view/Properties.js:115
-msgid "Hide element"
-msgstr "Ukryj element"
-
-#: js/view/Properties.js:117
+#: js/view/Properties.js:41 js/view/Properties.js:137
 msgid "Fit to element"
 msgstr "Dopasuj do obiektu"
 
-#: js/view/Properties.js:125
+#: js/view/Properties.js:42 js/view/Properties.js:119
+msgid "Reset layer geometry"
+msgstr "Zresetuj geometrię warstwę"
+
+#: js/view/Properties.js:43 js/view/Timeline.js:272
+msgid "Create a new frame"
+msgstr "Stwórz nową ramkę"
+
+#: js/view/Properties.js:44 js/view/Toolbar.js:110
+#, fuzzy
+msgid "Save the presentation"
+msgstr "Zapisz prezentację"
+
+#: js/view/Properties.js:45 js/view/Toolbar.js:94
+msgid "Redo"
+msgstr "Ponów"
+
+#: js/view/Properties.js:46 js/view/Toolbar.js:89
+msgid "Undo"
+msgstr "Cofnij"
+
+#: js/view/Properties.js:47
+msgid "Focus the frame title"
+msgstr ""
+
+#: js/view/Properties.js:48 js/view/Toolbar.js:115
+#, fuzzy
+msgid "Reload the SVG document"
+msgstr "Otwórz plik SVG ponownie"
+
+#: js/view/Properties.js:49
+#, fuzzy
+msgid "Toggle full-screen mode"
+msgstr "Włącz tryb pełnoekranowy"
+
+#: js/view/Properties.js:50
+msgid "Toggle the developer tools"
+msgstr ""
+
+#: js/view/Properties.js:60
+msgid "User interface"
+msgstr ""
+
+#: js/view/Properties.js:61
+msgid "Font size"
+msgstr ""
+
+#: js/view/Properties.js:64
+msgid "Enable notifications on save and reload"
+msgstr ""
+
+#: js/view/Properties.js:65
+msgid "Enable notifications"
+msgstr ""
+
+#: js/view/Properties.js:67
+msgid "Behavior"
+msgstr ""
+
+#: js/view/Properties.js:69
+msgid "Preview transition animations"
+msgstr ""
+
+#: js/view/Properties.js:70
+msgid "Enable animated transitions"
+msgstr ""
+
+#: js/view/Properties.js:72
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: js/view/Properties.js:84
+msgid "Select a layer to copy"
+msgstr "Wybierz warstwę do skopiowania"
+
+#: js/view/Properties.js:87 js/view/Timeline.js:314 js/view/Timeline.js:344
+msgid "Default"
+msgstr "Domyślny"
+
+#: js/view/Properties.js:94
+msgid "Frame"
+msgstr "Ramka"
+
+#: js/view/Properties.js:97
+msgid "Show in frame list"
+msgstr "Pokaż w spisie"
+
+#: js/view/Properties.js:98
+msgid "Show frame number"
+msgstr "Pokaż numer ramki"
+
+#: js/view/Properties.js:101
+msgid "Title"
+msgstr "Tytuł"
+
+#: js/view/Properties.js:104
+msgid "Id"
+msgstr "Identyfikator"
+
+#: js/view/Properties.js:108
+msgid "Timeout (seconds)"
+msgstr "Limit czasu (w sekundach)"
+
+#: js/view/Properties.js:109
+msgid "Timeout enable"
+msgstr "Włącz odliczanie"
+
+#: js/view/Properties.js:113
+msgid "Layer"
+msgstr "Warstwa"
+
+#: js/view/Properties.js:116
+msgid "Link to previous frame"
+msgstr "Odnośnik do poprzedniej ramki"
+
+#: js/view/Properties.js:117 js/view/Toolbar.js:82
+msgid "Clip"
+msgstr "Przytnij"
+
+#: js/view/Properties.js:124
+msgid "Copy layer"
+msgstr "Skopiuj warstwę"
+
+#: js/view/Properties.js:131
+msgid "Outline element Id"
+msgstr "Id elementu obrysu"
+
+#: js/view/Properties.js:134
+msgid "Autoselect element"
+msgstr "Zaznacz element automatycznie"
+
+#: js/view/Properties.js:135
+msgid "Hide element"
+msgstr "Ukryj element"
+
+#: js/view/Properties.js:145
 msgid "Layer opacity"
 msgstr "Przeźroczystość warstwy"
 
-#: js/view/Properties.js:128
+#: js/view/Properties.js:148
 msgid "Transition"
 msgstr "Przejście"
 
-#: js/view/Properties.js:130
+#: js/view/Properties.js:150
 msgid "Duration (seconds)"
 msgstr "Czas trwania (sekundy)"
 
-#: js/view/Properties.js:133
+#: js/view/Properties.js:153
 msgid "Timing function"
 msgstr "Funkcja czasu"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:165
 msgid "Relative zoom (%)"
 msgstr "Przybliżenie względne (%)"
 
-#: js/view/Properties.js:149
+#: js/view/Properties.js:169
 msgid "Path Id"
 msgstr "Identyfikator ścieżki"
 
-#: js/view/Properties.js:150
+#: js/view/Properties.js:170
 msgid "Hide path"
 msgstr "Ukryj ścieżkę"
 
-#: js/view/Properties.js:154
+#: js/view/Properties.js:174
 #, fuzzy
 msgid "Player"
 msgstr "Warstwa"
 
-#: js/view/Properties.js:157
+#: js/view/Properties.js:177
 msgid "Allow to control the presentation"
 msgstr ""
 
-#: js/view/Properties.js:159 js/view/Properties.js:166
-#: js/view/Properties.js:172 js/view/Properties.js:180
+#: js/view/Properties.js:179 js/view/Properties.js:186
+#: js/view/Properties.js:192 js/view/Properties.js:200
 msgid "using the mouse"
 msgstr ""
 
-#: js/view/Properties.js:160 js/view/Properties.js:173
-#: js/view/Properties.js:181
+#: js/view/Properties.js:180 js/view/Properties.js:193
+#: js/view/Properties.js:201
 msgid "using the keyboard"
 msgstr ""
 
-#: js/view/Properties.js:165
+#: js/view/Properties.js:185
 msgid "Allow to move the camera"
 msgstr ""
 
-#: js/view/Properties.js:170
+#: js/view/Properties.js:190
 msgid "Allow to rotate the camera"
 msgstr ""
 
-#: js/view/Properties.js:178
+#: js/view/Properties.js:198
 msgid "Allow to zoom"
 msgstr ""
 
 #: js/view/Timeline.js:265
 msgid "Delete the selected frames"
 msgstr "Usuń zaznaczone ramki"
-
-#: js/view/Timeline.js:272
-msgid "Create a new frame"
-msgstr "Stwórz nową ramkę"
 
 #: js/view/Timeline.js:286
 msgid "Add layer"
@@ -287,29 +322,13 @@ msgid ""
 msgstr ""
 "Obróć zaznaczone warstwy (możesz też przytrzymać Shift w trybie przesuwania)"
 
-#: js/view/Toolbar.js:89
-msgid "Undo (Ctrl-Z)"
-msgstr "Cofnij (Ctrl-Z)"
-
-#: js/view/Toolbar.js:94
-msgid "Redo (Ctrl-Y)"
-msgstr "Ponów (Ctrl-Y)"
+#: js/view/Toolbar.js:101
+msgid "Disable full-screen mode"
+msgstr "Wyłącz tryb pełnoekranowy"
 
 #: js/view/Toolbar.js:101
-msgid "Disable full-screen mode (F11)"
-msgstr "Wyłącz tryb pełnoekranowy (F11)"
-
-#: js/view/Toolbar.js:101
-msgid "Enable full-screen mode (F11)"
-msgstr "Włącz tryb pełnoekranowy (F11)"
-
-#: js/view/Toolbar.js:110
-msgid "Save the presentation (Ctrl-S)"
-msgstr "Zapisz prezentację (Ctrl-S)"
-
-#: js/view/Toolbar.js:115
-msgid "Reload the SVG document (F5)"
-msgstr "Otwórz plik SVG ponownie (F5)"
+msgid "Enable full-screen mode"
+msgstr "Włącz tryb pełnoekranowy"
 
 #: js/view/Toolbar.js:121
 msgid "Preferences"

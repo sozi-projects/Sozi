@@ -86,19 +86,19 @@ Toolbar.render = function () {
         ]),
         h("span.group.btn-group", [
             h("button", {
-                title: _("Undo (Ctrl-Z)"),
+                title: _("Undo"),
                 disabled: c.undoStack.length ? undefined : "disabled",
                 onclick() { c.undo(); }
             }, h("i.fa.fa-reply")), // "reply" icon preferred to the official "undo" icon
             h("button", {
-                title: _("Redo (Ctrl-Y)"),
+                title: _("Redo"),
                 disabled: c.redoStack.length ? undefined : "disabled",
                 onclick() { c.redo(); }
             }, h("i.fa.fa-share")) // "share" icon preferred to the official "redo" icon
         ]),
         h("span.group",
             h("button", {
-                title: screenfull.isFullscreen ? _("Disable full-screen mode (F11)") : _("Enable full-screen mode (F11)"),
+                title: screenfull.isFullscreen ? _("Disable full-screen mode") : _("Enable full-screen mode"),
                 id: "btn-fullscreen",
                 className: screenfull.isFullscreen ? "active" : undefined,
                 disabled: !screenfull.enabled,
@@ -107,12 +107,12 @@ Toolbar.render = function () {
         ),
         h("span.group.btn-group", [
             h("button", {
-                title: _("Save the presentation (Ctrl-S)"),
+                title: _("Save the presentation"),
                 disabled: this.storage.htmlNeedsSaving ? undefined : "disabled",
                 onclick() { c.save(); }
             }, h("i.fa.fa-download")), // "download" icon preferred to the official "save" icon
             h("button", {
-                title: _("Reload the SVG document (F5)"),
+                title: _("Reload the SVG document"),
                 onclick() { c.reload(); }
             }, h("i.fa.fa-refresh"))
         ]),

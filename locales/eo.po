@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-01-24 07:05:+0000\n"
+"POT-Creation-Date: 2018-03-09 08:42:+0000\n"
 "PO-Revision-Date: 2018-01-24 21:59+0100\n"
 "Last-Translator: \n"
 "Language-Team: Esperanto <eo@li.org>\n"
@@ -74,171 +74,205 @@ msgstr "La dokumento estas importita el Sozi 13 aŭ antaŭa versio."
 msgid "Saved %s."
 msgstr "Konservis %s."
 
-#: js/view/Properties.js:41
-msgid "User interface"
-msgstr "Uzantinterfaco"
-
-#: js/view/Properties.js:42
-msgid "Font size"
-msgstr "Grando de la tiparo"
-
-#: js/view/Properties.js:45
-msgid "Enable notifications on save and reload"
-msgstr "Ebligi atentigojn post konservi kaj reŝargi"
-
-#: js/view/Properties.js:46
-msgid "Enable notifications"
-msgstr "Ebligi atentigojn"
-
-#: js/view/Properties.js:48
-msgid "Behavior"
-msgstr "Konduto"
-
-#: js/view/Properties.js:50
-msgid "Preview transition animations"
-msgstr "Antaŭrigardi la transpasajn movbildojn"
-
-#: js/view/Properties.js:51
-msgid "Enable animated transitions"
-msgstr "Ebligi la transpasajn movbildojn"
-
-#: js/view/Properties.js:64
-msgid "Select a layer to copy"
-msgstr "Elekti kopiotan tavolon"
-
-#: js/view/Properties.js:67 js/view/Timeline.js:314 js/view/Timeline.js:344
-msgid "Default"
-msgstr "Defaŭlta"
-
-#: js/view/Properties.js:74
-msgid "Frame"
-msgstr "Kadro"
-
-#: js/view/Properties.js:77
-msgid "Show in frame list"
-msgstr "Montri en la listo de kadroj"
-
-#: js/view/Properties.js:78
-msgid "Show frame number"
-msgstr "Montri la numeron de la kadro"
-
-#: js/view/Properties.js:81
-msgid "Title"
-msgstr "Titolo"
-
-#: js/view/Properties.js:84
-msgid "Id"
-msgstr "Id"
-
-#: js/view/Properties.js:88
-msgid "Timeout (seconds)"
-msgstr "Tempolimo (sekundoj)"
-
-#: js/view/Properties.js:89
-msgid "Timeout enable"
-msgstr "Ebligi la tempolimon"
-
-#: js/view/Properties.js:93
-msgid "Layer"
-msgstr "Tavolo"
-
-#: js/view/Properties.js:96
-msgid "Link to previous frame"
-msgstr "Ligi al la antaŭa kadro"
-
-#: js/view/Properties.js:97 js/view/Toolbar.js:82
-msgid "Clip"
-msgstr "Eltondi"
-
-#: js/view/Properties.js:99
-msgid "Reset layer geometry"
-msgstr "Repravalorizi la geometrion de la tavolo"
-
-#: js/view/Properties.js:104
-msgid "Copy layer"
-msgstr "Kopii tavolon"
-
-#: js/view/Properties.js:111
-msgid "Outline element Id"
-msgstr "Id de la elemento uzota kiel konturo"
-
-#: js/view/Properties.js:114
-msgid "Autoselect element"
-msgstr "Selekti la elementon aŭtomate"
-
-#: js/view/Properties.js:115
-msgid "Hide element"
-msgstr "Kaŝi la elementon"
-
-#: js/view/Properties.js:117
+#: js/view/Properties.js:41 js/view/Properties.js:137
 msgid "Fit to element"
 msgstr "Adapti al la elemento"
 
-#: js/view/Properties.js:125
+#: js/view/Properties.js:42 js/view/Properties.js:119
+msgid "Reset layer geometry"
+msgstr "Repravalorizi la geometrion de la tavolo"
+
+#: js/view/Properties.js:43 js/view/Timeline.js:272
+msgid "Create a new frame"
+msgstr "Krei novan kadron"
+
+#: js/view/Properties.js:44 js/view/Toolbar.js:110
+#, fuzzy
+msgid "Save the presentation"
+msgstr "Konservi la prezentaĵon"
+
+#: js/view/Properties.js:45 js/view/Toolbar.js:94
+msgid "Redo"
+msgstr "Refari"
+
+#: js/view/Properties.js:46 js/view/Toolbar.js:89
+msgid "Undo"
+msgstr "Malfari"
+
+#: js/view/Properties.js:47
+msgid "Focus the frame title"
+msgstr ""
+
+#: js/view/Properties.js:48 js/view/Toolbar.js:115
+#, fuzzy
+msgid "Reload the SVG document"
+msgstr "Reŝargi la SVG-dokumenton"
+
+#: js/view/Properties.js:49
+msgid "Toggle full-screen mode"
+msgstr "Baskuli la tutekranan reĝimon"
+
+#: js/view/Properties.js:50
+msgid "Toggle the developer tools"
+msgstr ""
+
+#: js/view/Properties.js:60
+msgid "User interface"
+msgstr "Uzantinterfaco"
+
+#: js/view/Properties.js:61
+msgid "Font size"
+msgstr "Grando de la tiparo"
+
+#: js/view/Properties.js:64
+msgid "Enable notifications on save and reload"
+msgstr "Ebligi atentigojn post konservi kaj reŝargi"
+
+#: js/view/Properties.js:65
+msgid "Enable notifications"
+msgstr "Ebligi atentigojn"
+
+#: js/view/Properties.js:67
+msgid "Behavior"
+msgstr "Konduto"
+
+#: js/view/Properties.js:69
+msgid "Preview transition animations"
+msgstr "Antaŭrigardi la transpasajn movbildojn"
+
+#: js/view/Properties.js:70
+msgid "Enable animated transitions"
+msgstr "Ebligi la transpasajn movbildojn"
+
+#: js/view/Properties.js:72
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: js/view/Properties.js:84
+msgid "Select a layer to copy"
+msgstr "Elekti kopiotan tavolon"
+
+#: js/view/Properties.js:87 js/view/Timeline.js:314 js/view/Timeline.js:344
+msgid "Default"
+msgstr "Defaŭlta"
+
+#: js/view/Properties.js:94
+msgid "Frame"
+msgstr "Kadro"
+
+#: js/view/Properties.js:97
+msgid "Show in frame list"
+msgstr "Montri en la listo de kadroj"
+
+#: js/view/Properties.js:98
+msgid "Show frame number"
+msgstr "Montri la numeron de la kadro"
+
+#: js/view/Properties.js:101
+msgid "Title"
+msgstr "Titolo"
+
+#: js/view/Properties.js:104
+msgid "Id"
+msgstr "Id"
+
+#: js/view/Properties.js:108
+msgid "Timeout (seconds)"
+msgstr "Tempolimo (sekundoj)"
+
+#: js/view/Properties.js:109
+msgid "Timeout enable"
+msgstr "Ebligi la tempolimon"
+
+#: js/view/Properties.js:113
+msgid "Layer"
+msgstr "Tavolo"
+
+#: js/view/Properties.js:116
+msgid "Link to previous frame"
+msgstr "Ligi al la antaŭa kadro"
+
+#: js/view/Properties.js:117 js/view/Toolbar.js:82
+msgid "Clip"
+msgstr "Eltondi"
+
+#: js/view/Properties.js:124
+msgid "Copy layer"
+msgstr "Kopii tavolon"
+
+#: js/view/Properties.js:131
+msgid "Outline element Id"
+msgstr "Id de la elemento uzota kiel konturo"
+
+#: js/view/Properties.js:134
+msgid "Autoselect element"
+msgstr "Selekti la elementon aŭtomate"
+
+#: js/view/Properties.js:135
+msgid "Hide element"
+msgstr "Kaŝi la elementon"
+
+#: js/view/Properties.js:145
 msgid "Layer opacity"
 msgstr "Opakeco de la tavolo"
 
-#: js/view/Properties.js:128
+#: js/view/Properties.js:148
 msgid "Transition"
 msgstr "Transpaso"
 
-#: js/view/Properties.js:130
+#: js/view/Properties.js:150
 msgid "Duration (seconds)"
 msgstr "Daŭro (sekundoj)"
 
-#: js/view/Properties.js:133
+#: js/view/Properties.js:153
 msgid "Timing function"
 msgstr "Tempofunkcio"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:165
 msgid "Relative zoom (%)"
 msgstr "Zomfaktoro (%)"
 
-#: js/view/Properties.js:149
+#: js/view/Properties.js:169
 msgid "Path Id"
 msgstr "Id de la vojo"
 
-#: js/view/Properties.js:150
+#: js/view/Properties.js:170
 msgid "Hide path"
 msgstr "Kaŝi la vojon"
 
-#: js/view/Properties.js:154
+#: js/view/Properties.js:174
 msgid "Player"
 msgstr "Spektilo"
 
-#: js/view/Properties.js:157
+#: js/view/Properties.js:177
 msgid "Allow to control the presentation"
 msgstr "Permesi agojn je la prezentado"
 
-#: js/view/Properties.js:159 js/view/Properties.js:166
-#: js/view/Properties.js:172 js/view/Properties.js:180
+#: js/view/Properties.js:179 js/view/Properties.js:186
+#: js/view/Properties.js:192 js/view/Properties.js:200
 msgid "using the mouse"
 msgstr "per la muso"
 
-#: js/view/Properties.js:160 js/view/Properties.js:173
-#: js/view/Properties.js:181
+#: js/view/Properties.js:180 js/view/Properties.js:193
+#: js/view/Properties.js:201
 msgid "using the keyboard"
 msgstr "per la klavaro"
 
-#: js/view/Properties.js:165
+#: js/view/Properties.js:185
 msgid "Allow to move the camera"
 msgstr "Permesi movi la observadopunkton"
 
-#: js/view/Properties.js:170
+#: js/view/Properties.js:190
 msgid "Allow to rotate the camera"
 msgstr "Permesi rotacii la observadopunkton"
 
-#: js/view/Properties.js:178
+#: js/view/Properties.js:198
 msgid "Allow to zoom"
 msgstr "Permesi zomi"
 
 #: js/view/Timeline.js:265
 msgid "Delete the selected frames"
 msgstr "Forviŝi la selektitajn kadrojn"
-
-#: js/view/Timeline.js:272
-msgid "Create a new frame"
-msgstr "Krei novan kadron"
 
 #: js/view/Timeline.js:286
 msgid "Add layer"
@@ -287,29 +321,13 @@ msgstr ""
 "Rotacii la selektitajn tavolojn (vi ankaŭ povas teni la Shift-klavon en Mov-"
 "reĝimo)"
 
-#: js/view/Toolbar.js:89
-msgid "Undo (Ctrl-Z)"
-msgstr "Malfari (Ctrl-Z)"
-
-#: js/view/Toolbar.js:94
-msgid "Redo (Ctrl-Y)"
-msgstr "Refari (Ctrl-Y)"
+#: js/view/Toolbar.js:101
+msgid "Disable full-screen mode"
+msgstr "Malebligi la tutekranan reĝimon"
 
 #: js/view/Toolbar.js:101
-msgid "Disable full-screen mode (F11)"
-msgstr "Malebligi la tutekranan reĝimon (F11)"
-
-#: js/view/Toolbar.js:101
-msgid "Enable full-screen mode (F11)"
-msgstr "Ebligi la tutekranan reĝimon (F11)"
-
-#: js/view/Toolbar.js:110
-msgid "Save the presentation (Ctrl-S)"
-msgstr "Konservi la prezentaĵon (Ctrl-S)"
-
-#: js/view/Toolbar.js:115
-msgid "Reload the SVG document (F5)"
-msgstr "Reŝargi la SVG-dokumenton (F5)"
+msgid "Enable full-screen mode"
+msgstr "Ebligi la tutekranan reĝimon"
 
 #: js/view/Toolbar.js:121
 msgid "Preferences"
@@ -318,6 +336,3 @@ msgstr "Agordoj "
 #: js/view/Toolbar.js:126
 msgid "Information"
 msgstr "Informoj"
-
-#~ msgid "Load local file"
-#~ msgstr "Malfermi lokan dosieron"

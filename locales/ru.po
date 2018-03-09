@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-01-24 07:05:+0000\n"
+"POT-Creation-Date: 2018-03-09 08:42:+0000\n"
 "PO-Revision-Date: 2016-08-08 11:13+0000\n"
 "Last-Translator: Dmitry Efimov <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -74,174 +74,209 @@ msgstr "Документ был импортирован из Sozi версии 
 msgid "Saved %s."
 msgstr "%s Сохранен."
 
-#: js/view/Properties.js:41
-msgid "User interface"
-msgstr ""
+#: js/view/Properties.js:41 js/view/Properties.js:137
+msgid "Fit to element"
+msgstr "Подогнать под элемент"
 
-#: js/view/Properties.js:42
-msgid "Font size"
-msgstr ""
-
-#: js/view/Properties.js:45
-msgid "Enable notifications on save and reload"
-msgstr ""
-
-#: js/view/Properties.js:46
-msgid "Enable notifications"
-msgstr ""
-
-#: js/view/Properties.js:48
-msgid "Behavior"
-msgstr ""
-
-#: js/view/Properties.js:50
-msgid "Preview transition animations"
-msgstr ""
-
-#: js/view/Properties.js:51
-msgid "Enable animated transitions"
-msgstr ""
-
-#: js/view/Properties.js:64
-msgid "Select a layer to copy"
-msgstr ""
-
-#: js/view/Properties.js:67 js/view/Timeline.js:314 js/view/Timeline.js:344
-msgid "Default"
-msgstr "По умолчанию"
-
-#: js/view/Properties.js:74
-msgid "Frame"
-msgstr "Кадр"
-
-#: js/view/Properties.js:77
-msgid "Show in frame list"
-msgstr "Показать в списке кадров"
-
-#: js/view/Properties.js:78
-msgid "Show frame number"
-msgstr "Показать число кадров"
-
-#: js/view/Properties.js:81
-msgid "Title"
-msgstr "Название"
-
-#: js/view/Properties.js:84
-msgid "Id"
-msgstr "Id"
-
-#: js/view/Properties.js:88
-msgid "Timeout (seconds)"
-msgstr "Временная задержка (секунды)"
-
-#: js/view/Properties.js:89
-msgid "Timeout enable"
-msgstr "Включить временную задержку"
-
-#: js/view/Properties.js:93
-msgid "Layer"
-msgstr ""
-
-#: js/view/Properties.js:96
-msgid "Link to previous frame"
-msgstr "Сделать ссылку на предыдущий кадр"
-
-#: js/view/Properties.js:97 js/view/Toolbar.js:82
-msgid "Clip"
-msgstr "Обрезать"
-
-#: js/view/Properties.js:99
+#: js/view/Properties.js:42 js/view/Properties.js:119
 msgid "Reset layer geometry"
 msgstr ""
 
+#: js/view/Properties.js:43 js/view/Timeline.js:272
+msgid "Create a new frame"
+msgstr "Создать новый кадр"
+
+#: js/view/Properties.js:44 js/view/Toolbar.js:110
+#, fuzzy
+msgid "Save the presentation"
+msgstr "Сохранить презентацию"
+
+#: js/view/Properties.js:45 js/view/Toolbar.js:94
+msgid "Redo"
+msgstr "Переделать"
+
+#: js/view/Properties.js:46 js/view/Toolbar.js:89
+msgid "Undo"
+msgstr "Отменить последнюю операцию"
+
+#: js/view/Properties.js:47
+msgid "Focus the frame title"
+msgstr ""
+
+#: js/view/Properties.js:48 js/view/Toolbar.js:115
+#, fuzzy
+msgid "Reload the SVG document"
+msgstr "Загрузить вновь SVG окумент"
+
+#: js/view/Properties.js:49
+#, fuzzy
+msgid "Toggle full-screen mode"
+msgstr "Полноэкранный режим"
+
+#: js/view/Properties.js:50
+msgid "Toggle the developer tools"
+msgstr ""
+
+#: js/view/Properties.js:60
+msgid "User interface"
+msgstr ""
+
+#: js/view/Properties.js:61
+msgid "Font size"
+msgstr ""
+
+#: js/view/Properties.js:64
+msgid "Enable notifications on save and reload"
+msgstr ""
+
+#: js/view/Properties.js:65
+msgid "Enable notifications"
+msgstr ""
+
+#: js/view/Properties.js:67
+msgid "Behavior"
+msgstr ""
+
+#: js/view/Properties.js:69
+msgid "Preview transition animations"
+msgstr ""
+
+#: js/view/Properties.js:70
+msgid "Enable animated transitions"
+msgstr ""
+
+#: js/view/Properties.js:72
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: js/view/Properties.js:84
+msgid "Select a layer to copy"
+msgstr ""
+
+#: js/view/Properties.js:87 js/view/Timeline.js:314 js/view/Timeline.js:344
+msgid "Default"
+msgstr "По умолчанию"
+
+#: js/view/Properties.js:94
+msgid "Frame"
+msgstr "Кадр"
+
+#: js/view/Properties.js:97
+msgid "Show in frame list"
+msgstr "Показать в списке кадров"
+
+#: js/view/Properties.js:98
+msgid "Show frame number"
+msgstr "Показать число кадров"
+
+#: js/view/Properties.js:101
+msgid "Title"
+msgstr "Название"
+
 #: js/view/Properties.js:104
+msgid "Id"
+msgstr "Id"
+
+#: js/view/Properties.js:108
+msgid "Timeout (seconds)"
+msgstr "Временная задержка (секунды)"
+
+#: js/view/Properties.js:109
+msgid "Timeout enable"
+msgstr "Включить временную задержку"
+
+#: js/view/Properties.js:113
+msgid "Layer"
+msgstr ""
+
+#: js/view/Properties.js:116
+msgid "Link to previous frame"
+msgstr "Сделать ссылку на предыдущий кадр"
+
+#: js/view/Properties.js:117 js/view/Toolbar.js:82
+msgid "Clip"
+msgstr "Обрезать"
+
+#: js/view/Properties.js:124
 #, fuzzy
 msgid "Copy layer"
 msgstr "Добавить слой"
 
-#: js/view/Properties.js:111
+#: js/view/Properties.js:131
 #, fuzzy
 msgid "Outline element Id"
 msgstr "Id элемента для ссылки"
 
-#: js/view/Properties.js:114
+#: js/view/Properties.js:134
 msgid "Autoselect element"
 msgstr "Автовыбор элемента"
 
-#: js/view/Properties.js:115
+#: js/view/Properties.js:135
 msgid "Hide element"
 msgstr "Скрывать элемент"
 
-#: js/view/Properties.js:117
-msgid "Fit to element"
-msgstr "Подогнать под элемент"
-
-#: js/view/Properties.js:125
+#: js/view/Properties.js:145
 msgid "Layer opacity"
 msgstr "Непрозрачность слоя"
 
-#: js/view/Properties.js:128
+#: js/view/Properties.js:148
 msgid "Transition"
 msgstr "Переход"
 
-#: js/view/Properties.js:130
+#: js/view/Properties.js:150
 msgid "Duration (seconds)"
 msgstr "Продолжительность (секунды)"
 
-#: js/view/Properties.js:133
+#: js/view/Properties.js:153
 msgid "Timing function"
 msgstr "Функция синхронизации"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:165
 msgid "Relative zoom (%)"
 msgstr "Относительное увеличение"
 
-#: js/view/Properties.js:149
+#: js/view/Properties.js:169
 msgid "Path Id"
 msgstr "Id траектории"
 
-#: js/view/Properties.js:150
+#: js/view/Properties.js:170
 msgid "Hide path"
 msgstr "Скрыть траекторию"
 
-#: js/view/Properties.js:154
+#: js/view/Properties.js:174
 #, fuzzy
 msgid "Player"
 msgstr "Добавить слой"
 
-#: js/view/Properties.js:157
+#: js/view/Properties.js:177
 msgid "Allow to control the presentation"
 msgstr ""
 
-#: js/view/Properties.js:159 js/view/Properties.js:166
-#: js/view/Properties.js:172 js/view/Properties.js:180
+#: js/view/Properties.js:179 js/view/Properties.js:186
+#: js/view/Properties.js:192 js/view/Properties.js:200
 msgid "using the mouse"
 msgstr ""
 
-#: js/view/Properties.js:160 js/view/Properties.js:173
-#: js/view/Properties.js:181
+#: js/view/Properties.js:180 js/view/Properties.js:193
+#: js/view/Properties.js:201
 msgid "using the keyboard"
 msgstr ""
 
-#: js/view/Properties.js:165
+#: js/view/Properties.js:185
 msgid "Allow to move the camera"
 msgstr ""
 
-#: js/view/Properties.js:170
+#: js/view/Properties.js:190
 msgid "Allow to rotate the camera"
 msgstr ""
 
-#: js/view/Properties.js:178
+#: js/view/Properties.js:198
 msgid "Allow to zoom"
 msgstr ""
 
 #: js/view/Timeline.js:265
 msgid "Delete the selected frames"
 msgstr "Удалить выбранные кадры"
-
-#: js/view/Timeline.js:272
-msgid "Create a new frame"
-msgstr "Создать новый кадр"
 
 #: js/view/Timeline.js:286
 msgid "Add layer"
@@ -291,29 +326,13 @@ msgstr ""
 "Вращать выбранные слои (Вы также можете удерживать клавишу Shift в режиме "
 "переноса)"
 
-#: js/view/Toolbar.js:89
-msgid "Undo (Ctrl-Z)"
-msgstr "Отменить последнюю операцию (Ctrl-Z)"
-
-#: js/view/Toolbar.js:94
-msgid "Redo (Ctrl-Y)"
-msgstr "Переделать (Ctrl-Y)"
+#: js/view/Toolbar.js:101
+msgid "Disable full-screen mode"
+msgstr "Выйти из полноэкранного режима"
 
 #: js/view/Toolbar.js:101
-msgid "Disable full-screen mode (F11)"
-msgstr "Выйти из полноэкранного режима (F11)"
-
-#: js/view/Toolbar.js:101
-msgid "Enable full-screen mode (F11)"
-msgstr "Полноэкранный режим (F11)"
-
-#: js/view/Toolbar.js:110
-msgid "Save the presentation (Ctrl-S)"
-msgstr "Сохранить презентацию (Ctrl-S)"
-
-#: js/view/Toolbar.js:115
-msgid "Reload the SVG document (F5)"
-msgstr "Загрузить вновь SVG окумент (F5)"
+msgid "Enable full-screen mode"
+msgstr "Полноэкранный режим"
 
 #: js/view/Toolbar.js:121
 msgid "Preferences"

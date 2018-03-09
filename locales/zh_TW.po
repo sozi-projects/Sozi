@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-01-24 07:05:+0000\n"
+"POT-Creation-Date: 2018-03-09 08:42:+0000\n"
 "PO-Revision-Date: 2017-11-25 02:56+0000\n"
 "Last-Translator: BigELK176 ≡ <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
@@ -72,172 +72,207 @@ msgstr "文件匯入來自 Sozi 13 或更舊版本"
 msgid "Saved %s."
 msgstr "完成儲存 %s"
 
-#: js/view/Properties.js:41
+#: js/view/Properties.js:41 js/view/Properties.js:137
+msgid "Fit to element"
+msgstr "符合元件大小"
+
+#: js/view/Properties.js:42 js/view/Properties.js:119
+msgid "Reset layer geometry"
+msgstr "重設圖層"
+
+#: js/view/Properties.js:43 js/view/Timeline.js:272
+msgid "Create a new frame"
+msgstr "新建框格"
+
+#: js/view/Properties.js:44 js/view/Toolbar.js:110
+#, fuzzy
+msgid "Save the presentation"
+msgstr "儲存簡報"
+
+#: js/view/Properties.js:45 js/view/Toolbar.js:94
+msgid "Redo"
+msgstr "再次動作"
+
+#: js/view/Properties.js:46 js/view/Toolbar.js:89
+msgid "Undo"
+msgstr "取消動作"
+
+#: js/view/Properties.js:47
+msgid "Focus the frame title"
+msgstr ""
+
+#: js/view/Properties.js:48 js/view/Toolbar.js:115
+#, fuzzy
+msgid "Reload the SVG document"
+msgstr "重新載入 SVG 文件"
+
+#: js/view/Properties.js:49
+#, fuzzy
+msgid "Toggle full-screen mode"
+msgstr "啟用全螢幕模式"
+
+#: js/view/Properties.js:50
+msgid "Toggle the developer tools"
+msgstr ""
+
+#: js/view/Properties.js:60
 msgid "User interface"
 msgstr "使用者介面"
 
-#: js/view/Properties.js:42
+#: js/view/Properties.js:61
 msgid "Font size"
 msgstr "字型大小"
 
-#: js/view/Properties.js:45
+#: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
 msgstr "啟用存檔及重新載入通知"
 
-#: js/view/Properties.js:46
+#: js/view/Properties.js:65
 msgid "Enable notifications"
 msgstr "啟用通知"
 
-#: js/view/Properties.js:48
+#: js/view/Properties.js:67
 msgid "Behavior"
 msgstr ""
 
-#: js/view/Properties.js:50
+#: js/view/Properties.js:69
 msgid "Preview transition animations"
 msgstr ""
 
-#: js/view/Properties.js:51
+#: js/view/Properties.js:70
 #, fuzzy
 msgid "Enable animated transitions"
 msgstr "啟用通知"
 
-#: js/view/Properties.js:64
+#: js/view/Properties.js:72
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: js/view/Properties.js:84
 msgid "Select a layer to copy"
 msgstr "選擇圖層進行複製"
 
-#: js/view/Properties.js:67 js/view/Timeline.js:314 js/view/Timeline.js:344
+#: js/view/Properties.js:87 js/view/Timeline.js:314 js/view/Timeline.js:344
 msgid "Default"
 msgstr "預設圖層"
 
-#: js/view/Properties.js:74
+#: js/view/Properties.js:94
 msgid "Frame"
 msgstr "框格"
 
-#: js/view/Properties.js:77
+#: js/view/Properties.js:97
 msgid "Show in frame list"
 msgstr "顯示於框格列表"
 
-#: js/view/Properties.js:78
+#: js/view/Properties.js:98
 msgid "Show frame number"
 msgstr "顯示框格編號"
 
-#: js/view/Properties.js:81
+#: js/view/Properties.js:101
 msgid "Title"
 msgstr "標題"
 
-#: js/view/Properties.js:84
+#: js/view/Properties.js:104
 msgid "Id"
 msgstr "ID"
 
-#: js/view/Properties.js:88
+#: js/view/Properties.js:108
 msgid "Timeout (seconds)"
 msgstr "停格 (秒)"
 
-#: js/view/Properties.js:89
+#: js/view/Properties.js:109
 msgid "Timeout enable"
 msgstr "啟用停格功能"
 
-#: js/view/Properties.js:93
+#: js/view/Properties.js:113
 msgid "Layer"
 msgstr "圖層"
 
-#: js/view/Properties.js:96
+#: js/view/Properties.js:116
 msgid "Link to previous frame"
 msgstr "連結到前一個框格"
 
-#: js/view/Properties.js:97 js/view/Toolbar.js:82
+#: js/view/Properties.js:117 js/view/Toolbar.js:82
 msgid "Clip"
 msgstr "剪裁"
 
-#: js/view/Properties.js:99
-msgid "Reset layer geometry"
-msgstr "重設圖層"
-
-#: js/view/Properties.js:104
+#: js/view/Properties.js:124
 msgid "Copy layer"
 msgstr "複製圖層"
 
-#: js/view/Properties.js:111
+#: js/view/Properties.js:131
 msgid "Outline element Id"
 msgstr "大綱元件 ID"
 
-#: js/view/Properties.js:114
+#: js/view/Properties.js:134
 msgid "Autoselect element"
 msgstr "自動選擇元件"
 
-#: js/view/Properties.js:115
+#: js/view/Properties.js:135
 msgid "Hide element"
 msgstr "隱藏元件"
 
-#: js/view/Properties.js:117
-msgid "Fit to element"
-msgstr "符合元件大小"
-
-#: js/view/Properties.js:125
+#: js/view/Properties.js:145
 msgid "Layer opacity"
 msgstr "圖層透明度"
 
-#: js/view/Properties.js:128
+#: js/view/Properties.js:148
 msgid "Transition"
 msgstr "轉場"
 
-#: js/view/Properties.js:130
+#: js/view/Properties.js:150
 msgid "Duration (seconds)"
 msgstr "動態時間 (秒)"
 
-#: js/view/Properties.js:133
+#: js/view/Properties.js:153
 msgid "Timing function"
 msgstr "動態變速"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:165
 msgid "Relative zoom (%)"
 msgstr "相對縮放 (％)"
 
-#: js/view/Properties.js:149
+#: js/view/Properties.js:169
 msgid "Path Id"
 msgstr "路徑 ID"
 
-#: js/view/Properties.js:150
+#: js/view/Properties.js:170
 msgid "Hide path"
 msgstr "隱藏路徑"
 
-#: js/view/Properties.js:154
+#: js/view/Properties.js:174
 msgid "Player"
 msgstr "播放操控"
 
-#: js/view/Properties.js:157
+#: js/view/Properties.js:177
 msgid "Allow to control the presentation"
 msgstr "允許控制簡報"
 
-#: js/view/Properties.js:159 js/view/Properties.js:166
-#: js/view/Properties.js:172 js/view/Properties.js:180
+#: js/view/Properties.js:179 js/view/Properties.js:186
+#: js/view/Properties.js:192 js/view/Properties.js:200
 msgid "using the mouse"
 msgstr "使用滑鼠"
 
-#: js/view/Properties.js:160 js/view/Properties.js:173
-#: js/view/Properties.js:181
+#: js/view/Properties.js:180 js/view/Properties.js:193
+#: js/view/Properties.js:201
 msgid "using the keyboard"
 msgstr "使用鍵盤"
 
-#: js/view/Properties.js:165
+#: js/view/Properties.js:185
 msgid "Allow to move the camera"
 msgstr "允許移動攝影"
 
-#: js/view/Properties.js:170
+#: js/view/Properties.js:190
 msgid "Allow to rotate the camera"
 msgstr "允許旋轉攝影"
 
-#: js/view/Properties.js:178
+#: js/view/Properties.js:198
 msgid "Allow to zoom"
 msgstr "允許放大"
 
 #: js/view/Timeline.js:265
 msgid "Delete the selected frames"
 msgstr "刪除所選框格"
-
-#: js/view/Timeline.js:272
-msgid "Create a new frame"
-msgstr "新建框格"
 
 #: js/view/Timeline.js:286
 msgid "Add layer"
@@ -282,29 +317,13 @@ msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr "旋轉所選圖層 (也可以在移動模式下按 Shift 旋轉)"
 
-#: js/view/Toolbar.js:89
-msgid "Undo (Ctrl-Z)"
-msgstr "取消動作 (Ctrl-Z)"
-
-#: js/view/Toolbar.js:94
-msgid "Redo (Ctrl-Y)"
-msgstr "再次動作 (Ctrl-Y)"
+#: js/view/Toolbar.js:101
+msgid "Disable full-screen mode"
+msgstr "關閉全螢幕模式"
 
 #: js/view/Toolbar.js:101
-msgid "Disable full-screen mode (F11)"
-msgstr "關閉全螢幕模式 ((F11)"
-
-#: js/view/Toolbar.js:101
-msgid "Enable full-screen mode (F11)"
-msgstr "啟用全螢幕模式 (F11)"
-
-#: js/view/Toolbar.js:110
-msgid "Save the presentation (Ctrl-S)"
-msgstr "儲存簡報 (Ctrl-S)"
-
-#: js/view/Toolbar.js:115
-msgid "Reload the SVG document (F5)"
-msgstr "重新載入 SVG 文件 (F5)"
+msgid "Enable full-screen mode"
+msgstr "啟用全螢幕模式"
 
 #: js/view/Toolbar.js:121
 msgid "Preferences"

@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-24 07:05:+0000\n"
+"POT-Creation-Date: 2018-03-09 08:42:+0000\n"
 "PO-Revision-Date: 2018-02-08 15:11+0100\n"
 "Last-Translator: Enrico Rivarola\n"
+"Language-Team: \n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
 "X-Generator: Poedit 1.8.11\n"
-"Language-Team: \n"
 
 #: js/backend/Electron.js:28
 msgid "Open an SVG file from your computer"
@@ -72,171 +72,206 @@ msgstr "Il documento è stato importato da Sozi 13 o precedente."
 msgid "Saved %s."
 msgstr "%s salvato."
 
-#: js/view/Properties.js:41
-msgid "User interface"
-msgstr "Interfaccia utente"
-
-#: js/view/Properties.js:42
-msgid "Font size"
-msgstr "Dimensione carattere"
-
-#: js/view/Properties.js:45
-msgid "Enable notifications on save and reload"
-msgstr "Abilita notifiche per salvataggio e ricarica"
-
-#: js/view/Properties.js:46
-msgid "Enable notifications"
-msgstr "Abilita notifiche"
-
-#: js/view/Properties.js:48
-msgid "Behavior"
-msgstr "Comportamento"
-
-#: js/view/Properties.js:50
-msgid "Preview transition animations"
-msgstr "Anteprima transizioni animate"
-
-#: js/view/Properties.js:51
-msgid "Enable animated transitions"
-msgstr "Abilita transizioni animate"
-
-#: js/view/Properties.js:64
-msgid "Select a layer to copy"
-msgstr "Seleziona un layer da copiare"
-
-#: js/view/Properties.js:67 js/view/Timeline.js:314 js/view/Timeline.js:344
-msgid "Default"
-msgstr "Predefinito"
-
-#: js/view/Properties.js:74
-msgid "Frame"
-msgstr "Fotogramma"
-
-#: js/view/Properties.js:77
-msgid "Show in frame list"
-msgstr "Mostra sulla lista dei fotogrammi"
-
-#: js/view/Properties.js:78
-msgid "Show frame number"
-msgstr "Mostra il numero di fotogramma"
-
-#: js/view/Properties.js:81
-msgid "Title"
-msgstr "Titolo"
-
-#: js/view/Properties.js:84
-msgid "Id"
-msgstr "Id"
-
-#: js/view/Properties.js:88
-msgid "Timeout (seconds)"
-msgstr "Timeout (secondi)"
-
-#: js/view/Properties.js:89
-msgid "Timeout enable"
-msgstr "Abilita timeout"
-
-#: js/view/Properties.js:93
-msgid "Layer"
-msgstr "Layer"
-
-#: js/view/Properties.js:96
-msgid "Link to previous frame"
-msgstr "Collegamento al fotogramma precedente"
-
-#: js/view/Properties.js:97 js/view/Toolbar.js:82
-msgid "Clip"
-msgstr "Tagliare"
-
-#: js/view/Properties.js:99
-msgid "Reset layer geometry"
-msgstr "Ripristina la geometria del layer"
-
-#: js/view/Properties.js:104
-msgid "Copy layer"
-msgstr "Copia layer"
-
-#: js/view/Properties.js:111
-msgid "Outline element Id"
-msgstr "Contorno elemento Id"
-
-#: js/view/Properties.js:114
-msgid "Autoselect element"
-msgstr "Autoseleziona elemento"
-
-#: js/view/Properties.js:115
-msgid "Hide element"
-msgstr "Nascondi elemento"
-
-#: js/view/Properties.js:117
+#: js/view/Properties.js:41 js/view/Properties.js:137
 msgid "Fit to element"
 msgstr "Adatta all'elemento"
 
-#: js/view/Properties.js:125
+#: js/view/Properties.js:42 js/view/Properties.js:119
+msgid "Reset layer geometry"
+msgstr "Ripristina la geometria del layer"
+
+#: js/view/Properties.js:43 js/view/Timeline.js:272
+msgid "Create a new frame"
+msgstr "Creare un nuovo fotogramma"
+
+#: js/view/Properties.js:44 js/view/Toolbar.js:110
+#, fuzzy
+msgid "Save the presentation"
+msgstr "Salva la presentazione"
+
+#: js/view/Properties.js:45 js/view/Toolbar.js:94
+msgid "Redo"
+msgstr "Rifai"
+
+#: js/view/Properties.js:46 js/view/Toolbar.js:89
+msgid "Undo"
+msgstr "Annulla"
+
+#: js/view/Properties.js:47
+msgid "Focus the frame title"
+msgstr ""
+
+#: js/view/Properties.js:48 js/view/Toolbar.js:115
+#, fuzzy
+msgid "Reload the SVG document"
+msgstr "Ricarica il documento"
+
+#: js/view/Properties.js:49
+#, fuzzy
+msgid "Toggle full-screen mode"
+msgstr "Attiva la modalità a schermo intero"
+
+#: js/view/Properties.js:50
+msgid "Toggle the developer tools"
+msgstr ""
+
+#: js/view/Properties.js:60
+msgid "User interface"
+msgstr "Interfaccia utente"
+
+#: js/view/Properties.js:61
+msgid "Font size"
+msgstr "Dimensione carattere"
+
+#: js/view/Properties.js:64
+msgid "Enable notifications on save and reload"
+msgstr "Abilita notifiche per salvataggio e ricarica"
+
+#: js/view/Properties.js:65
+msgid "Enable notifications"
+msgstr "Abilita notifiche"
+
+#: js/view/Properties.js:67
+msgid "Behavior"
+msgstr "Comportamento"
+
+#: js/view/Properties.js:69
+msgid "Preview transition animations"
+msgstr "Anteprima transizioni animate"
+
+#: js/view/Properties.js:70
+msgid "Enable animated transitions"
+msgstr "Abilita transizioni animate"
+
+#: js/view/Properties.js:72
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: js/view/Properties.js:84
+msgid "Select a layer to copy"
+msgstr "Seleziona un layer da copiare"
+
+#: js/view/Properties.js:87 js/view/Timeline.js:314 js/view/Timeline.js:344
+msgid "Default"
+msgstr "Predefinito"
+
+#: js/view/Properties.js:94
+msgid "Frame"
+msgstr "Fotogramma"
+
+#: js/view/Properties.js:97
+msgid "Show in frame list"
+msgstr "Mostra sulla lista dei fotogrammi"
+
+#: js/view/Properties.js:98
+msgid "Show frame number"
+msgstr "Mostra il numero di fotogramma"
+
+#: js/view/Properties.js:101
+msgid "Title"
+msgstr "Titolo"
+
+#: js/view/Properties.js:104
+msgid "Id"
+msgstr "Id"
+
+#: js/view/Properties.js:108
+msgid "Timeout (seconds)"
+msgstr "Timeout (secondi)"
+
+#: js/view/Properties.js:109
+msgid "Timeout enable"
+msgstr "Abilita timeout"
+
+#: js/view/Properties.js:113
+msgid "Layer"
+msgstr "Layer"
+
+#: js/view/Properties.js:116
+msgid "Link to previous frame"
+msgstr "Collegamento al fotogramma precedente"
+
+#: js/view/Properties.js:117 js/view/Toolbar.js:82
+msgid "Clip"
+msgstr "Tagliare"
+
+#: js/view/Properties.js:124
+msgid "Copy layer"
+msgstr "Copia layer"
+
+#: js/view/Properties.js:131
+msgid "Outline element Id"
+msgstr "Contorno elemento Id"
+
+#: js/view/Properties.js:134
+msgid "Autoselect element"
+msgstr "Autoseleziona elemento"
+
+#: js/view/Properties.js:135
+msgid "Hide element"
+msgstr "Nascondi elemento"
+
+#: js/view/Properties.js:145
 msgid "Layer opacity"
 msgstr "Opacità del layer"
 
-#: js/view/Properties.js:128
+#: js/view/Properties.js:148
 msgid "Transition"
 msgstr "Transizione"
 
-#: js/view/Properties.js:130
+#: js/view/Properties.js:150
 msgid "Duration (seconds)"
 msgstr "Durata (secondi)"
 
-#: js/view/Properties.js:133
+#: js/view/Properties.js:153
 msgid "Timing function"
 msgstr "Funzione di temporizzazione"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:165
 msgid "Relative zoom (%)"
 msgstr "Zoom relativo (%)"
 
-#: js/view/Properties.js:149
+#: js/view/Properties.js:169
 msgid "Path Id"
 msgstr "Percorso ID"
 
-#: js/view/Properties.js:150
+#: js/view/Properties.js:170
 msgid "Hide path"
 msgstr "Nascondere il percorso"
 
-#: js/view/Properties.js:154
+#: js/view/Properties.js:174
 msgid "Player"
 msgstr "Visualizzazione"
 
-#: js/view/Properties.js:157
+#: js/view/Properties.js:177
 msgid "Allow to control the presentation"
 msgstr "Permetti il controllo della presentazione"
 
-#: js/view/Properties.js:159 js/view/Properties.js:166
-#: js/view/Properties.js:172 js/view/Properties.js:180
+#: js/view/Properties.js:179 js/view/Properties.js:186
+#: js/view/Properties.js:192 js/view/Properties.js:200
 msgid "using the mouse"
 msgstr "usando il mouse"
 
-#: js/view/Properties.js:160 js/view/Properties.js:173
-#: js/view/Properties.js:181
+#: js/view/Properties.js:180 js/view/Properties.js:193
+#: js/view/Properties.js:201
 msgid "using the keyboard"
 msgstr "usando la tastiera"
 
-#: js/view/Properties.js:165
+#: js/view/Properties.js:185
 msgid "Allow to move the camera"
 msgstr "Permetti di muovere lo scenario"
 
-#: js/view/Properties.js:170
+#: js/view/Properties.js:190
 msgid "Allow to rotate the camera"
 msgstr "Permetti di ruotare lo scenario"
 
-#: js/view/Properties.js:178
+#: js/view/Properties.js:198
 msgid "Allow to zoom"
 msgstr "Permetti di zoomare"
 
 #: js/view/Timeline.js:265
 msgid "Delete the selected frames"
 msgstr "Eliminare i fotogrammi selezionati"
-
-#: js/view/Timeline.js:272
-msgid "Create a new frame"
-msgstr "Creare un nuovo fotogramma"
 
 #: js/view/Timeline.js:286
 msgid "Add layer"
@@ -283,29 +318,13 @@ msgstr ""
 "Ruota i layer selezionati (è possibile premere SHIFT in \"modalità di "
 "movimento\")"
 
-#: js/view/Toolbar.js:89
-msgid "Undo (Ctrl-Z)"
-msgstr "Annulla (Ctrl-Z)"
-
-#: js/view/Toolbar.js:94
-msgid "Redo (Ctrl-Y)"
-msgstr "Rifai (Ctrl-Y)"
+#: js/view/Toolbar.js:101
+msgid "Disable full-screen mode"
+msgstr "Disattiva la modalità a schermo intero"
 
 #: js/view/Toolbar.js:101
-msgid "Disable full-screen mode (F11)"
-msgstr "Disattiva la modalità a schermo intero (F11)"
-
-#: js/view/Toolbar.js:101
-msgid "Enable full-screen mode (F11)"
-msgstr "Attiva la modalità a schermo intero (F11)"
-
-#: js/view/Toolbar.js:110
-msgid "Save the presentation (Ctrl-S)"
-msgstr "Salva la presentazione (Ctrl-S)"
-
-#: js/view/Toolbar.js:115
-msgid "Reload the SVG document (F5)"
-msgstr "Ricarica il documento (F5)"
+msgid "Enable full-screen mode"
+msgstr "Attiva la modalità a schermo intero"
 
 #: js/view/Toolbar.js:121
 msgid "Preferences"
