@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-01-24 21:59+0100\n"
+"PO-Revision-Date: 2018-03-10 10:53+0100\n"
 "Last-Translator: \n"
 "Language-Team: Esperanto <eo@li.org>\n"
 "Language: eo\n"
@@ -87,7 +87,6 @@ msgid "Create a new frame"
 msgstr "Krei novan kadron"
 
 #: js/view/Properties.js:44 js/view/Toolbar.js:110
-#, fuzzy
 msgid "Save the presentation"
 msgstr "Konservi la prezentaĵon"
 
@@ -101,10 +100,9 @@ msgstr "Malfari"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr ""
+msgstr "Enfokusigi la titolon de la kadro"
 
 #: js/view/Properties.js:48 js/view/Toolbar.js:115
-#, fuzzy
 msgid "Reload the SVG document"
 msgstr "Reŝargi la SVG-dokumenton"
 
@@ -114,7 +112,7 @@ msgstr "Baskuli la tutekranan reĝimon"
 
 #: js/view/Properties.js:50
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "Baskuli la programadilojn"
 
 #: js/view/Properties.js:60
 msgid "User interface"
@@ -146,7 +144,7 @@ msgstr "Ebligi la transpasajn movbildojn"
 
 #: js/view/Properties.js:72
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Klavarokomandoj"
 
 #: js/view/Properties.js:84
 msgid "Select a layer to copy"

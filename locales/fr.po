@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
 "POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-01-24 21:54+0100\n"
+"PO-Revision-Date: 2018-03-10 10:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: Sozi translators\n"
 "Language: fr\n"
@@ -83,7 +83,6 @@ msgid "Create a new frame"
 msgstr "Créer une nouvelle vue"
 
 #: js/view/Properties.js:44 js/view/Toolbar.js:110
-#, fuzzy
 msgid "Save the presentation"
 msgstr "Enregistrer la présentation"
 
@@ -97,7 +96,7 @@ msgstr "Annuler"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr ""
+msgstr "Focaliser sur le titre de la vue"
 
 #: js/view/Properties.js:48 js/view/Toolbar.js:115
 msgid "Reload the SVG document"
@@ -109,7 +108,7 @@ msgstr "Basculer le mode plein écran"
 
 #: js/view/Properties.js:50
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "Basculer l'affichage des outils de développement"
 
 #: js/view/Properties.js:60
 msgid "User interface"
@@ -141,7 +140,7 @@ msgstr "Activer l'animation des transitions"
 
 #: js/view/Properties.js:72
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Raccourcis clavier"
 
 #: js/view/Properties.js:84
 msgid "Select a layer to copy"
