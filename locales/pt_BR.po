@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-01-24 18:23+0000\n"
+"PO-Revision-Date: 2018-03-10 16:16+0100\n"
 "Last-Translator: marcelo <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "Language: pt_BR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2018-01-26 16:48+0000\n"
-"X-Generator: Launchpad (build 18534)\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: js/backend/Electron.js:28
 msgid "Open an SVG file from your computer"
@@ -87,7 +87,6 @@ msgid "Create a new frame"
 msgstr "Criar um novo quadro"
 
 #: js/view/Properties.js:44 js/view/Toolbar.js:110
-#, fuzzy
 msgid "Save the presentation"
 msgstr "Salve a presentação"
 
@@ -104,7 +103,6 @@ msgid "Focus the frame title"
 msgstr ""
 
 #: js/view/Properties.js:48 js/view/Toolbar.js:115
-#, fuzzy
 msgid "Reload the SVG document"
 msgstr "Recarregue o arquivo SVG"
 
