@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-03-10 16:14+0100\n"
+"PO-Revision-Date: 2018-03-17 11:06+0100\n"
 "Last-Translator: Enrico Rivarola\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: js/backend/Electron.js:28
 msgid "Open an SVG file from your computer"
@@ -82,7 +82,7 @@ msgstr "Ripristina la geometria del layer"
 
 #: js/view/Properties.js:43 js/view/Timeline.js:272
 msgid "Create a new frame"
-msgstr "Creare un nuovo fotogramma"
+msgstr "Crea un nuovo fotogramma"
 
 #: js/view/Properties.js:44 js/view/Toolbar.js:110
 msgid "Save the presentation"
@@ -98,20 +98,19 @@ msgstr "Annulla"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr ""
+msgstr "Focus sul titolo del fotogramma"
 
 #: js/view/Properties.js:48 js/view/Toolbar.js:115
 msgid "Reload the SVG document"
 msgstr "Ricarica il documento"
 
 #: js/view/Properties.js:49
-#, fuzzy
 msgid "Toggle full-screen mode"
-msgstr "Attiva la modalità a schermo intero"
+msgstr "Attiva/disattiva la modalità a schermo intero"
 
 #: js/view/Properties.js:50
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "Attiva/disattiva gli strumenti di sviluppo"
 
 #: js/view/Properties.js:60
 msgid "User interface"
@@ -143,7 +142,7 @@ msgstr "Abilita transizioni animate"
 
 #: js/view/Properties.js:72
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Scorciatoie da tastiera"
 
 #: js/view/Properties.js:84
 msgid "Select a layer to copy"
