@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-03-17 11:06+0100\n"
+"PO-Revision-Date: 2018-03-17 18:38+0100\n"
 "Last-Translator: Enrico Rivarola\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -58,11 +58,11 @@ msgstr "Impossibile caricare il file %s."
 
 #: js/Storage.js:93 js/Storage.js:102
 msgid "Document is not valid SVG."
-msgstr "Non è un documento SVG valido"
+msgstr "Il documento non è conforme allo standard SVG."
 
 #: js/Storage.js:137
 msgid "Document was changed. Reloading."
-msgstr "Il documento è stato modificato. Ricaricamento in corso."
+msgstr "Il documento è stato modificato. Ricaricamento."
 
 #: js/Storage.js:163
 msgid "Document was imported from Sozi 13 or earlier."
@@ -70,7 +70,7 @@ msgstr "Il documento è stato importato da Sozi 13 o precedente."
 
 #: js/Storage.js:221 js/Storage.js:242
 msgid "Saved %s."
-msgstr "%s salvato."
+msgstr "File %s salvato."
 
 #: js/view/Properties.js:41 js/view/Properties.js:137
 msgid "Fit to element"
@@ -102,7 +102,7 @@ msgstr "Focus sul titolo del fotogramma"
 
 #: js/view/Properties.js:48 js/view/Toolbar.js:115
 msgid "Reload the SVG document"
-msgstr "Ricarica il documento"
+msgstr "Ricarica il documento SVG"
 
 #: js/view/Properties.js:49
 msgid "Toggle full-screen mode"
@@ -186,11 +186,11 @@ msgstr "Layer"
 
 #: js/view/Properties.js:116
 msgid "Link to previous frame"
-msgstr "Collegamento al fotogramma precedente"
+msgstr "Link al fotogramma precedente"
 
 #: js/view/Properties.js:117 js/view/Toolbar.js:82
 msgid "Clip"
-msgstr "Tagliare"
+msgstr "Taglia"
 
 #: js/view/Properties.js:124
 msgid "Copy layer"
@@ -198,11 +198,11 @@ msgstr "Copia layer"
 
 #: js/view/Properties.js:131
 msgid "Outline element Id"
-msgstr "Contorno elemento Id"
+msgstr "Id dell'elemento da utilizzare come contorno"
 
 #: js/view/Properties.js:134
 msgid "Autoselect element"
-msgstr "Autoseleziona elemento"
+msgstr "Auto-seleziona elemento"
 
 #: js/view/Properties.js:135
 msgid "Hide element"
@@ -210,7 +210,7 @@ msgstr "Nascondi elemento"
 
 #: js/view/Properties.js:145
 msgid "Layer opacity"
-msgstr "Opacità del layer"
+msgstr "Opacità layer"
 
 #: js/view/Properties.js:148
 msgid "Transition"
@@ -230,11 +230,11 @@ msgstr "Zoom relativo (%)"
 
 #: js/view/Properties.js:169
 msgid "Path Id"
-msgstr "Percorso ID"
+msgstr "Id percorso"
 
 #: js/view/Properties.js:170
 msgid "Hide path"
-msgstr "Nascondere il percorso"
+msgstr "Nascondi percorso"
 
 #: js/view/Properties.js:174
 msgid "Player"
@@ -256,7 +256,7 @@ msgstr "usando la tastiera"
 
 #: js/view/Properties.js:185
 msgid "Allow to move the camera"
-msgstr "Permetti di muovere lo scenario"
+msgstr "Permetti di spostare lo scenario"
 
 #: js/view/Properties.js:190
 msgid "Allow to rotate the camera"
@@ -268,7 +268,7 @@ msgstr "Permetti di zoomare"
 
 #: js/view/Timeline.js:265
 msgid "Delete the selected frames"
-msgstr "Eliminare i fotogrammi selezionati"
+msgstr "Elimina i fotogrammi selezionati"
 
 #: js/view/Timeline.js:286
 msgid "Add layer"
@@ -276,15 +276,15 @@ msgstr "Aggiungi layer"
 
 #: js/view/Timeline.js:302 js/view/Timeline.js:323
 msgid "This layer is visible. Click to hide it."
-msgstr "Questo layer è visibile. Premere per nascondere."
+msgstr "Questo layer è visibile. Clicca per nasconderlo."
 
 #: js/view/Timeline.js:306 js/view/Timeline.js:327
 msgid "This layer is hidden. Click to show it."
-msgstr "Questo layer è nascosto. Premere per visualizzare."
+msgstr "Questo layer è nascosto. Clicca per renderlo visibile."
 
 #: js/view/Timeline.js:331
 msgid "Remove this layer"
-msgstr "Rimuovere questo layer"
+msgstr "Rimuovi questo layer"
 
 #: js/view/Timeline.js:357
 msgid "Insert selection before frame %d"
@@ -300,20 +300,22 @@ msgstr "Proporzione: "
 
 #: js/view/Toolbar.js:67
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
-msgstr "Muovere i layer selezionati (premere ALT per zoom, SHIFT per ruotare)"
+msgstr ""
+"Sposta i layer selezionati (premere Alt per zoomare, Shift per ruotare)"
 
 #: js/view/Toolbar.js:72
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
-msgstr "Zoom in/out layer selezionati"
+msgstr ""
+"Zoom in/out sui layer selezionati (è possibile premere Alt in modalità "
+"spostamento)"
 
 #: js/view/Toolbar.js:77
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
-"Ruota i layer selezionati (è possibile premere SHIFT in \"modalità di "
-"movimento\")"
+"Ruota i layer selezionati (è possibile premere Shift in modalità spostamento)"
 
 #: js/view/Toolbar.js:101
 msgid "Disable full-screen mode"
