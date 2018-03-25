@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-03-10 16:18+0100\n"
+"POT-Creation-Date: 2018-03-09 21:15+0000\n"
+"PO-Revision-Date: 2018-03-24 04:28+0000\n"
 "Last-Translator: BigELK176 ≡ <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
-"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-11-25 11:20+0000\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
+"X-Generator: Launchpad (build 18573)\n"
+"Language: zh_TW\n"
 
 #: js/backend/Electron.js:28
 msgid "Open an SVG file from your computer"
@@ -46,15 +46,15 @@ msgstr "開啟 SVG 檔案來自 Google 雲端硬碟"
 
 #: js/Controller.js:38
 msgid "Sozi (Information)"
-msgstr "Sozi (資訊)"
+msgstr "Sozi (軟體資訊)"
 
 #: js/Controller.js:44
 msgid "Sozi (Error)"
-msgstr "Sozi (錯誤)"
+msgstr ""
 
 #: js/Storage.js:78
 msgid "File %s could not be loaded."
-msgstr "檔案 %s 無法載入"
+msgstr "無法載入檔案 %s"
 
 #: js/Storage.js:93 js/Storage.js:102
 msgid "Document is not valid SVG."
@@ -90,28 +90,27 @@ msgstr "儲存簡報"
 
 #: js/view/Properties.js:45 js/view/Toolbar.js:94
 msgid "Redo"
-msgstr "再次動作"
+msgstr "再次操作"
 
 #: js/view/Properties.js:46 js/view/Toolbar.js:89
 msgid "Undo"
-msgstr "取消動作"
+msgstr "取消操作"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr ""
+msgstr "前往框格標題"
 
 #: js/view/Properties.js:48 js/view/Toolbar.js:115
 msgid "Reload the SVG document"
 msgstr "重新載入 SVG 文件"
 
 #: js/view/Properties.js:49
-#, fuzzy
 msgid "Toggle full-screen mode"
-msgstr "啟用全螢幕模式"
+msgstr "切換全螢幕模式"
 
 #: js/view/Properties.js:50
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "切換開發者模式"
 
 #: js/view/Properties.js:60
 msgid "User interface"
@@ -131,20 +130,19 @@ msgstr "啟用通知"
 
 #: js/view/Properties.js:67
 msgid "Behavior"
-msgstr ""
+msgstr "動作效果"
 
 #: js/view/Properties.js:69
 msgid "Preview transition animations"
-msgstr ""
+msgstr "預覽轉場動態效果"
 
 #: js/view/Properties.js:70
-#, fuzzy
 msgid "Enable animated transitions"
-msgstr "啟用通知"
+msgstr "啟用動態的轉場效果"
 
 #: js/view/Properties.js:72
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "鍵盤操作快捷鍵"
 
 #: js/view/Properties.js:84
 msgid "Select a layer to copy"
@@ -168,19 +166,19 @@ msgstr "顯示框格編號"
 
 #: js/view/Properties.js:101
 msgid "Title"
-msgstr "標題"
+msgstr "標題名稱"
 
 #: js/view/Properties.js:104
 msgid "Id"
-msgstr "ID"
+msgstr "ID (識別編號)"
 
 #: js/view/Properties.js:108
 msgid "Timeout (seconds)"
-msgstr "停格 (秒)"
+msgstr "停格計時 (秒)"
 
 #: js/view/Properties.js:109
 msgid "Timeout enable"
-msgstr "啟用停格功能"
+msgstr "停格計時功能啟用"
 
 #: js/view/Properties.js:113
 msgid "Layer"
@@ -192,7 +190,7 @@ msgstr "連結到前一個框格"
 
 #: js/view/Properties.js:117 js/view/Toolbar.js:82
 msgid "Clip"
-msgstr "剪裁"
+msgstr "裁剪畫面"
 
 #: js/view/Properties.js:124
 msgid "Copy layer"
@@ -246,13 +244,11 @@ msgstr "播放操控"
 msgid "Allow to control the presentation"
 msgstr "允許控制簡報"
 
-#: js/view/Properties.js:179 js/view/Properties.js:186
-#: js/view/Properties.js:192 js/view/Properties.js:200
+#: js/view/Properties.js:179 js/view/Properties.js:186 js/view/Properties.js:192 js/view/Properties.js:200
 msgid "using the mouse"
 msgstr "使用滑鼠"
 
-#: js/view/Properties.js:180 js/view/Properties.js:193
-#: js/view/Properties.js:201
+#: js/view/Properties.js:180 js/view/Properties.js:193 js/view/Properties.js:201
 msgid "using the keyboard"
 msgstr "使用鍵盤"
 
@@ -329,4 +325,4 @@ msgstr "偏好設定"
 
 #: js/view/Toolbar.js:126
 msgid "Information"
-msgstr "資訊"
+msgstr "軟體資訊"
