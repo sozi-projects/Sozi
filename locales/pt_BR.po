@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-03-09 21:15+0000\n"
-"PO-Revision-Date: 2018-03-24 16:38+0000\n"
+"PO-Revision-Date: 2018-03-27 14:47+0000\n"
 "Last-Translator: Marcelo Vaz Pupo <Unknown>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2018-03-25 08:08+0000\n"
-"X-Generator: Launchpad (build 18573)\n"
+"X-Launchpad-Export-Date: 2018-04-06 19:08+0000\n"
+"X-Generator: Launchpad (build 18599)\n"
 "Language: pt_BR\n"
 
 #: js/backend/Electron.js:28
@@ -76,7 +76,7 @@ msgstr "Salvei %s."
 
 #: js/view/Properties.js:41 js/view/Properties.js:137
 msgid "Fit to element"
-msgstr "Ajuste tamanho ao elemento"
+msgstr "Ajustar tamanho ao elemento"
 
 #: js/view/Properties.js:42 js/view/Properties.js:119
 msgid "Reset layer geometry"
@@ -172,7 +172,7 @@ msgstr "Título"
 
 #: js/view/Properties.js:104
 msgid "Id"
-msgstr "Id"
+msgstr "Identidade (Id)"
 
 #: js/view/Properties.js:108
 msgid "Timeout (seconds)"
@@ -200,7 +200,7 @@ msgstr "Copiar camada"
 
 #: js/view/Properties.js:131
 msgid "Outline element Id"
-msgstr "Exposição do elemento Id"
+msgstr "Exibição do elemento identificado (Id)"
 
 #: js/view/Properties.js:134
 msgid "Autoselect element"
@@ -236,7 +236,7 @@ msgstr "Id do caminho"
 
 #: js/view/Properties.js:170
 msgid "Hide path"
-msgstr "Esconde caminho"
+msgstr "Esconder caminho"
 
 #: js/view/Properties.js:174
 msgid "Player"
@@ -276,11 +276,11 @@ msgstr "Adicionar camada"
 
 #: js/view/Timeline.js:302 js/view/Timeline.js:323
 msgid "This layer is visible. Click to hide it."
-msgstr "Essa camada é visível. Clique para esconder."
+msgstr "Camada visível. Clique para ocultar."
 
 #: js/view/Timeline.js:306 js/view/Timeline.js:327
 msgid "This layer is hidden. Click to show it."
-msgstr "Essa camada é invisível. Clique para revelar."
+msgstr "Camada oculta. Clique para exibir."
 
 #: js/view/Timeline.js:331
 msgid "Remove this layer"
@@ -308,22 +308,23 @@ msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
-"Amplie/diminua as camadas selecionadas (pode pressionar ALT no modo "
+"Ampliar/Diminuir camadas selecionadas (ou pressione ALT durante ação no modo "
 "\"mover\")"
 
 #: js/view/Toolbar.js:77
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
-"gire as camadas selecionadas (pode pressionar SHIFT no modo \"mover\")"
+"Girar camadas selecionadas (ou pressione SHIFT durante ação no modo "
+"\"mover\")"
 
 #: js/view/Toolbar.js:101
 msgid "Disable full-screen mode"
-msgstr "Desativar o modo de tela cheia"
+msgstr "Desativar modo de tela cheia"
 
 #: js/view/Toolbar.js:101
 msgid "Enable full-screen mode"
-msgstr "Ativar o modo de tela cheia"
+msgstr "Ativar modo de tela cheia"
 
 #: js/view/Toolbar.js:121
 msgid "Preferences"
