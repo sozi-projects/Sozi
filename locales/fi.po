@@ -1,337 +1,331 @@
-# Spanish translation for sozi
-# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# Finnish translation for sozi
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
 # This file is distributed under the same license as the sozi package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-03-26 14:01+0000\n"
-"Last-Translator: Gustavo Fiorentini <huakanaum@yahoo.es>\n"
-"Language-Team: Vaslibre <info@vaslibre.org.ve>\n"
-"Language: es\n"
+"PO-Revision-Date: 2015-11-27 10:57+0000\n"
+"Last-Translator: Jiri Grönroos <Unknown>\n"
+"Language-Team: Finnish <fi@li.org>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2018-04-06 19:08+0000\n"
+"X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 "X-Generator: Launchpad (build 18599)\n"
 
 #: js/backend/Electron.js:28
 msgid "Open an SVG file from your computer"
-msgstr "Abrir archivo SVG desde tu computadora"
+msgstr ""
 
 #: js/backend/Electron.js:56
 msgid "File not found: %s."
-msgstr "Archivo no encontrado: %s."
+msgstr "Tiedostoa ei löydy: %s"
 
 #: js/backend/Electron.js:70
 msgid "Choose an SVG file"
-msgstr "Elige un archivo SVG"
+msgstr ""
 
 #: js/backend/Electron.js:71
 msgid "SVG files"
-msgstr "Archivos SVG"
+msgstr ""
 
 #: js/backend/FileReader.js:12
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
 "only)"
 msgstr ""
-"Abre un archivo SVG desde tu computadora (<i class=\"fa fa-warning\"></i> "
-"sólo para lectura)"
 
 #: js/backend/GoogleDrive.js:16
 msgid "Open an SVG file from Google Drive"
-msgstr "Abre un archivo SVG desde Google Drive"
+msgstr ""
 
 #: js/Controller.js:38
 msgid "Sozi (Information)"
-msgstr "Sozi (información)"
+msgstr ""
 
 #: js/Controller.js:44
 msgid "Sozi (Error)"
-msgstr "Sozi (Error)"
+msgstr ""
 
 #: js/Storage.js:78
 msgid "File %s could not be loaded."
-msgstr "El archivo %s no pudo ser cargado."
+msgstr "Tiedostoa %s ei voitu ladata."
 
 #: js/Storage.js:93 js/Storage.js:102
 msgid "Document is not valid SVG."
-msgstr "Documento SVG no es válido."
+msgstr "Dokumentti ei ole kelvollista SVG:tä."
 
 #: js/Storage.js:137
 msgid "Document was changed. Reloading."
-msgstr "Se ha modificado el documento. Recargando."
+msgstr "Dokumenttia muutettiin. Ladataan uudelleen."
 
 #: js/Storage.js:163
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr "El documento se importó desde Sozi 13 o una versión anterior."
+msgstr "Dokumentti tuotiin Sozin versiosta 13 tai aiemasta."
 
 #: js/Storage.js:221 js/Storage.js:242
 msgid "Saved %s."
-msgstr "%s guardado."
+msgstr "Tallennettu %s."
 
 #: js/view/Properties.js:41 js/view/Properties.js:137
 msgid "Fit to element"
-msgstr "Ajustar al elemento"
+msgstr "Sovita elementtiin"
 
 #: js/view/Properties.js:42 js/view/Properties.js:119
 msgid "Reset layer geometry"
-msgstr "Reinicia la geometría de la capa"
+msgstr ""
 
 #: js/view/Properties.js:43 js/view/Timeline.js:272
 msgid "Create a new frame"
-msgstr "Crear un nuevo fotograma"
+msgstr "Luo uusi kehys"
 
 #: js/view/Properties.js:44 js/view/Toolbar.js:110
 msgid "Save the presentation"
-msgstr "Guardar la presentación"
+msgstr ""
 
 #: js/view/Properties.js:45 js/view/Toolbar.js:94
 msgid "Redo"
-msgstr "Rehacer"
+msgstr ""
 
 #: js/view/Properties.js:46 js/view/Toolbar.js:89
 msgid "Undo"
-msgstr "Deshacer"
+msgstr ""
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr "Enfocar título del fotograma"
+msgstr ""
 
 #: js/view/Properties.js:48 js/view/Toolbar.js:115
 msgid "Reload the SVG document"
-msgstr "Volver a cargar el documento SVG"
+msgstr ""
 
 #: js/view/Properties.js:49
 msgid "Toggle full-screen mode"
-msgstr "Cambiar a modo de pantalla completa"
+msgstr ""
 
 #: js/view/Properties.js:50
 msgid "Toggle the developer tools"
-msgstr "Cambiar a herramientas de desarrollador"
+msgstr ""
 
 #: js/view/Properties.js:60
 msgid "User interface"
-msgstr "Interfaz de usuario"
+msgstr ""
 
 #: js/view/Properties.js:61
 msgid "Font size"
-msgstr "Tamaño de letra"
+msgstr ""
 
 #: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
-msgstr "Habilitar las notificaciones al grabar y recargar"
+msgstr ""
 
 #: js/view/Properties.js:65
 msgid "Enable notifications"
-msgstr "Habilitar notificaciones"
+msgstr ""
 
 #: js/view/Properties.js:67
 msgid "Behavior"
-msgstr "Comportamiento"
+msgstr ""
 
 #: js/view/Properties.js:69
 msgid "Preview transition animations"
-msgstr "Vista previa de animaciones en transiciones"
+msgstr ""
 
 #: js/view/Properties.js:70
 msgid "Enable animated transitions"
-msgstr "Habilitar transiciones animadas"
+msgstr ""
 
 #: js/view/Properties.js:72
 msgid "Keyboard shortcuts"
-msgstr "Atajos de teclado"
+msgstr ""
 
 #: js/view/Properties.js:84
 msgid "Select a layer to copy"
-msgstr "Seleccione una capa para copiar"
+msgstr ""
 
 #: js/view/Properties.js:87 js/view/Timeline.js:314 js/view/Timeline.js:344
 msgid "Default"
-msgstr "Predeterminada"
+msgstr "Oletus"
 
 #: js/view/Properties.js:94
 msgid "Frame"
-msgstr "Fotograma"
+msgstr "Kehys"
 
 #: js/view/Properties.js:97
 msgid "Show in frame list"
-msgstr "Mostrar en la lista de fotogramas"
+msgstr "Näytä kehyslistassa"
 
 #: js/view/Properties.js:98
 msgid "Show frame number"
-msgstr "Mostrar el número del fotograma"
+msgstr "Näytä kehyksen numero"
 
 #: js/view/Properties.js:101
 msgid "Title"
-msgstr "Título"
+msgstr "Otsikko"
 
 #: js/view/Properties.js:104
 msgid "Id"
-msgstr "Id"
+msgstr "Tunniste"
 
 #: js/view/Properties.js:108
 msgid "Timeout (seconds)"
-msgstr "Tiempo de espera (segundos)"
+msgstr "Aikakatkaisu (sekuntia)"
 
 #: js/view/Properties.js:109
 msgid "Timeout enable"
-msgstr "Activar el tiempo de espera"
+msgstr ""
 
 #: js/view/Properties.js:113
 msgid "Layer"
-msgstr "Capa"
+msgstr ""
 
 #: js/view/Properties.js:116
 msgid "Link to previous frame"
-msgstr "Enlazar al fotograma anterior"
+msgstr "Linkki edelliseen kehykseen"
 
 #: js/view/Properties.js:117 js/view/Toolbar.js:82
 msgid "Clip"
-msgstr "Recortar"
+msgstr ""
 
 #: js/view/Properties.js:124
 msgid "Copy layer"
-msgstr "Copiar capa"
+msgstr ""
 
 #: js/view/Properties.js:131
 msgid "Outline element Id"
-msgstr "Id del elemento trazado"
+msgstr ""
 
 #: js/view/Properties.js:134
 msgid "Autoselect element"
-msgstr "Autoseleccionar elemento"
+msgstr ""
 
 #: js/view/Properties.js:135
 msgid "Hide element"
-msgstr "Ocultar elemento"
+msgstr "Piilota elementti"
 
 #: js/view/Properties.js:145
 msgid "Layer opacity"
-msgstr "Opacidad de la capa"
+msgstr "Tason peittokyky"
 
 #: js/view/Properties.js:148
 msgid "Transition"
-msgstr "Transición"
+msgstr "Siirtymä"
 
 #: js/view/Properties.js:150
 msgid "Duration (seconds)"
-msgstr "Duración (segundos)"
+msgstr "Kesto (sekunneissa)"
 
 #: js/view/Properties.js:153
 msgid "Timing function"
-msgstr "Función de temporización"
+msgstr ""
 
 #: js/view/Properties.js:165
 msgid "Relative zoom (%)"
-msgstr "Zoom relativo (%)"
+msgstr ""
 
 #: js/view/Properties.js:169
 msgid "Path Id"
-msgstr "Id del recorrido"
+msgstr "Polun tunniste"
 
 #: js/view/Properties.js:170
 msgid "Hide path"
-msgstr "Ocultar el recorrido"
+msgstr "Piilota polku"
 
 #: js/view/Properties.js:174
 msgid "Player"
-msgstr "Reproductor"
+msgstr ""
 
 #: js/view/Properties.js:177
 msgid "Allow to control the presentation"
-msgstr "Permitir controlar la presentación"
+msgstr ""
 
 #: js/view/Properties.js:179 js/view/Properties.js:186
 #: js/view/Properties.js:192 js/view/Properties.js:200
 msgid "using the mouse"
-msgstr "usar el mouse"
+msgstr ""
 
 #: js/view/Properties.js:180 js/view/Properties.js:193
 #: js/view/Properties.js:201
 msgid "using the keyboard"
-msgstr "usar el teclado"
+msgstr ""
 
 #: js/view/Properties.js:185
 msgid "Allow to move the camera"
-msgstr "Permitir mover la cámara"
+msgstr ""
 
 #: js/view/Properties.js:190
 msgid "Allow to rotate the camera"
-msgstr "Permitir rotar la cámara"
+msgstr ""
 
 #: js/view/Properties.js:198
 msgid "Allow to zoom"
-msgstr "Permitir hacer zoom"
+msgstr ""
 
 #: js/view/Timeline.js:265
 msgid "Delete the selected frames"
-msgstr "Borrar los fotogramas seleccionados"
+msgstr "Poista valitut kehykset"
 
 #: js/view/Timeline.js:286
 msgid "Add layer"
-msgstr "Añadir capa"
+msgstr "Lisää taso"
 
 #: js/view/Timeline.js:302 js/view/Timeline.js:323
 msgid "This layer is visible. Click to hide it."
-msgstr "Esta capa es visible. Presione para ocultarla."
+msgstr "Tämä taso on näkyvissä. Napsauta piilottaaksesi se."
 
 #: js/view/Timeline.js:306 js/view/Timeline.js:327
 msgid "This layer is hidden. Click to show it."
-msgstr "Esta capa está oculta. Presione para mostrarla."
+msgstr "Tämä taso on piilotettu. Napsauta tuodaksesi sen näkyviin."
 
 #: js/view/Timeline.js:331
 msgid "Remove this layer"
-msgstr "Borrar esta capa"
+msgstr "Poista tämä taso"
 
 #: js/view/Timeline.js:357
 msgid "Insert selection before frame %d"
-msgstr "Insertar la selección antes del fotograma %d"
+msgstr "Syötä valinta ennen kehystä %d"
 
 #: js/view/Timeline.js:364
 msgid "Insert selection after frame %d"
-msgstr "Insertar la sección después del fotograma %d"
+msgstr "Syötä valinta kehyksen %d jälkeen"
 
 #: js/view/Toolbar.js:34
 msgid "Aspect ratio: "
-msgstr "Proporción de tamaño: "
+msgstr "Kuvasuhde: "
 
 #: js/view/Toolbar.js:67
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
-"Mover las capas seleccionadas (presione ALT para ampliar, MAYUS para girar)"
+"Siirrä valitut tasot (pidä pohjassa Alt zoomataksesi, Shift kääntääksesi)"
 
 #: js/view/Toolbar.js:72
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
-"Acercar/alejar las capas seleccionadas (también puede presionar ALT en "
-"\"Modo mover\")"
 
 #: js/view/Toolbar.js:77
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
-"Girar las capas seleccionadas (también puede presionar MAYÚS en \"Modo mover"
-"\")"
 
 #: js/view/Toolbar.js:101
 msgid "Disable full-screen mode"
-msgstr "Desactivar el modo de pantalla completa"
+msgstr ""
 
 #: js/view/Toolbar.js:101
 msgid "Enable full-screen mode"
-msgstr "Activar el modo de pantalla completa"
+msgstr ""
 
 #: js/view/Toolbar.js:121
 msgid "Preferences"
-msgstr "Preferencias"
+msgstr ""
 
 #: js/view/Toolbar.js:126
 msgid "Information"
-msgstr "Información"
+msgstr "Tiedot"

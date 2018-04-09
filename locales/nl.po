@@ -28,7 +28,7 @@ msgstr "Bestand niet gevonden: %s."
 
 #: js/backend/Electron.js:70
 msgid "Choose an SVG file"
-msgstr "Kies een SVG bestand."
+msgstr "Kies een SVG bestand"
 
 #: js/backend/Electron.js:71
 msgid "SVG files"
@@ -215,7 +215,7 @@ msgstr "Element verbergen"
 
 #: js/view/Properties.js:145
 msgid "Layer opacity"
-msgstr "Layer opacity"
+msgstr "Laag doorzichtigheid"
 
 #: js/view/Properties.js:148
 msgid "Transition"
