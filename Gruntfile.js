@@ -269,7 +269,7 @@ module.exports = function(grunt) {
                 options: {
                     src: ["build/app/*"],
                     dest: "/var/www/sozi.baierouge.fr/demo/",
-                    host: "www-data@baierouge.fr",
+                    host: "sozi@baierouge.fr",
                     deleteAll: true,
                     recursive: true
                 }
