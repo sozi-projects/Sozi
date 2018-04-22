@@ -33,12 +33,12 @@ window.addEventListener("load", function () {
         player: Player
     };
 
-    Player.addListener("change:playing", function (player, playing) {
-        if (playing) {
+    Player.addListener("stateChange", () => {
+        if (Player.playing) {
             document.title = Presentation.title;
         }
         else {
-            document.title = Presentation.title + "(Paused)";
+            document.title = Presentation.title + " (Paused)";
         }
     });
 

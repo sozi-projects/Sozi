@@ -243,7 +243,10 @@ Player.showCurrentFrame = function () {
  * and waits for the frame timeout if needed.
  */
 Player.playFromFrame = function (frame) {
-    this.playing = true;
+    if (!this.playing) {
+        this.playing = true;
+        this.emit("stateChange");
+    }
     this.waitingTimeout = false;
     this.targetFrame = this.currentFrame = this.findFrame(frame);
     this.showCurrentFrame();
@@ -265,7 +268,10 @@ Player.pause = function () {
         window.clearTimeout(this.timeoutHandle);
         this.waitingTimeout = false;
     }
-    this.playing = false;
+    if (this.playing) {
+        this.playing = false;
+        this.emit("stateChange");
+    }
     this.targetFrame = this.currentFrame;
     return this;
 };
@@ -385,7 +391,10 @@ Player.moveToFrame = function (frame) {
         }
     }
 
-    this.playing = !this.editMode;
+    if (!this.editMode && !this.playing) {
+        this.playing = true;
+        this.emit("stateChange");
+    }
 
     this.viewport.cameras.forEach(camera => {
         let timingFunction = Timing[DEFAULT_TIMING_FUNCTION];
