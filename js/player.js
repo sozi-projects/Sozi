@@ -14,8 +14,10 @@ import * as FrameNumber from "./player/FrameNumber";
 import * as FrameURL from "./player/FrameURL";
 
 window.addEventListener("load", function () {
+    const svgRoot = document.querySelector("svg");
+    svgRoot.style.display = "inline";
 
-    SVGDocumentWrapper.init(document.querySelector("svg"));
+    SVGDocumentWrapper.init(svgRoot);
     Presentation.init().setSVGDocument(SVGDocumentWrapper);
     Viewport.init(Presentation, false).onLoad();
 
@@ -49,4 +51,7 @@ window.addEventListener("load", function () {
     }
 
     Viewport.repaint();
+    Player.disableBlankScreen();
+
+    document.querySelector(".sozi-blank-screen .spinner").style.display = "none";
 });
