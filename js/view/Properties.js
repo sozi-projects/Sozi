@@ -57,7 +57,7 @@ Properties.render = function () {
         h("label", {for: "field-title"}, _("Title")),
         this.renderTextField("title", false, c.getFrameProperty, c.setFrameProperty, true),
 
-        h("label", {for: "field-frameId"}, _("Id")),
+        h("label", {for: "field-frameId"}, _("ID")),
         this.renderTextField("frameId", false, c.getFrameProperty, c.setFrameProperty, false),
 
         h("label", {for: "field-timeoutMs"}, [
@@ -67,7 +67,7 @@ Properties.render = function () {
         this.renderNumberField("timeoutMs", timeoutMsDisabled, c.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
 
         h("label", {for: "field-referenceElementId"}, [
-            _("Reference element Id"),
+            _("Reference element ID"),
             h("span.btn-group", [
                 // TODO: onclick, update reference element immediately
                 this.renderToggleField(h("i.fa.fa-magic"), _("Autoselect element"), "referenceElementAuto", c.getLayerProperty, c.setLayerProperty),
@@ -104,7 +104,7 @@ Properties.render = function () {
         this.renderNumberField("transitionRelativeZoom", false, c.getLayerProperty, c.setLayerProperty, true, 1, 0.01),
 
         h("label", {for: "field-transitionPathId"}, [
-            _("Path Id"),
+            _("Path ID"),
             this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide path"), "transitionPathHide", c.getLayerProperty, c.setLayerProperty)
         ]),
         this.renderTextField("transitionPathId", false, c.getLayerProperty, c.setLayerProperty, true),
