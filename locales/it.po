@@ -7,15 +7,17 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-03-17 18:38+0100\n"
-"Last-Translator: Enrico Rivarola\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2018-05-02 11:39+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/sozi/"
+"translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.0-dev\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
-"X-Generator: Poedit 1.8.11\n"
 
 #: js/backend/Electron.js:28
 msgid "Open an SVG file from your computer"
@@ -170,7 +172,7 @@ msgstr "Titolo"
 
 #: js/view/Properties.js:104
 msgid "Id"
-msgstr "Id"
+msgstr "ID"
 
 #: js/view/Properties.js:108
 msgid "Timeout (seconds)"
@@ -198,7 +200,7 @@ msgstr "Copia layer"
 
 #: js/view/Properties.js:131
 msgid "Outline element Id"
-msgstr "Id dell'elemento da utilizzare come contorno"
+msgstr "ID dell'elemento da utilizzare come contorno"
 
 #: js/view/Properties.js:134
 msgid "Autoselect element"
@@ -230,7 +232,7 @@ msgstr "Zoom relativo (%)"
 
 #: js/view/Properties.js:169
 msgid "Path Id"
-msgstr "Id percorso"
+msgstr "ID percorso"
 
 #: js/view/Properties.js:170
 msgid "Hide path"
