@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-05-02 11:41+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2018-05-05 23:19+0000\n"
+"Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/sozi/"
 "translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -58,7 +58,7 @@ msgstr "Sozi (Erro)"
 
 #: js/Storage.js:78
 msgid "File %s could not be loaded."
-msgstr "O arquivo %s não foi carregado"
+msgstr "O arquivo %s não foi carregado."
 
 #: js/Storage.js:93 js/Storage.js:102
 msgid "Document is not valid SVG."
@@ -288,7 +288,7 @@ msgstr "Camada oculta. Clique para exibir."
 
 #: js/view/Timeline.js:331
 msgid "Remove this layer"
-msgstr "Excluir essa camada."
+msgstr "Excluir essa camada"
 
 #: js/view/Timeline.js:357
 msgid "Insert selection before frame %d"
