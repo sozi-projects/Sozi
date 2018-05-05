@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-03-13 00:57+0000\n"
-"Last-Translator: heru setiawan <herusetiawan3@gmail.com>\n"
-"Language-Team: Indonesian <id@li.org>\n"
+"PO-Revision-Date: 2018-05-02 11:38+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/sozi/"
+"translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.0-dev\n"
 "X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
-"X-Generator: Launchpad (build 18573)\n"
 
 #: js/backend/Electron.js:28
 msgid "Open an SVG file from your computer"
@@ -170,7 +172,7 @@ msgstr "Judul"
 
 #: js/view/Properties.js:104
 msgid "Id"
-msgstr "Id"
+msgstr "ID"
 
 #: js/view/Properties.js:108
 msgid "Timeout (seconds)"
@@ -230,7 +232,7 @@ msgstr ""
 
 #: js/view/Properties.js:169
 msgid "Path Id"
-msgstr "Id Path"
+msgstr "ID Path"
 
 #: js/view/Properties.js:170
 msgid "Hide path"

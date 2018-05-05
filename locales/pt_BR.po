@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-04-10 16:49+0000\n"
-"Last-Translator: guripreto <guripreto@gmail.com>\n"
+"PO-Revision-Date: 2018-05-02 11:41+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/sozi/"
 "translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.20\n"
+"X-Generator: Weblate 3.0-dev\n"
 "X-Launchpad-Export-Date: 2018-04-06 19:08+0000\n"
 
 #: js/backend/Electron.js:28
@@ -174,7 +174,7 @@ msgstr "Título"
 
 #: js/view/Properties.js:104
 msgid "Id"
-msgstr "Identidade (Id)"
+msgstr "Identidade (ID)"
 
 #: js/view/Properties.js:108
 msgid "Timeout (seconds)"
@@ -202,7 +202,7 @@ msgstr "Copiar camada"
 
 #: js/view/Properties.js:131
 msgid "Outline element Id"
-msgstr "Exibição do elemento identificado (Id)"
+msgstr "Exibição do elemento identificado (ID)"
 
 #: js/view/Properties.js:134
 msgid "Autoselect element"
@@ -234,7 +234,7 @@ msgstr "Ampliação relativa (%)"
 
 #: js/view/Properties.js:169
 msgid "Path Id"
-msgstr "Id do caminho"
+msgstr "ID do caminho"
 
 #: js/view/Properties.js:170
 msgid "Hide path"
