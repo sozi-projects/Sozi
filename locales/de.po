@@ -8,19 +8,21 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-03-10 16:11+0100\n"
-"Last-Translator: Sascha A. Carlin <Unknown>\n"
-"Language-Team: German <de@li.org>\n"
+"PO-Revision-Date: 2018-05-14 17:38+0000\n"
+"Last-Translator: Jimmy <Hennderson@gmx.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/sozi/translations/"
+"de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.0-dev\n"
 "X-Launchpad-Export-Date: 2016-10-10 06:40+0000\n"
-"X-Generator: Poedit 1.8.7.1\n"
 
 #: js/backend/Electron.js:28
 msgid "Open an SVG file from your computer"
-msgstr "Lade lokales SVG-Dokument hoch"
+msgstr "Lade lokale SVG Datei hoch"
 
 #: js/backend/Electron.js:56
 msgid "File not found: %s."
@@ -28,23 +30,22 @@ msgstr "Datei nicht gefunden: %s."
 
 #: js/backend/Electron.js:70
 msgid "Choose an SVG file"
-msgstr "Wähle ein SVG-Dokument."
+msgstr "Wähle eine SVG Datei"
 
 #: js/backend/Electron.js:71
 msgid "SVG files"
-msgstr "SVG-Dokumente"
+msgstr "SVG Dateien"
 
 #: js/backend/FileReader.js:12
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
 "only)"
 msgstr ""
-"Lade lokales SVG-Dokument hoch (<i class=\"fa fa-warning\"></i> "
-"schreibgeschützt)"
+"Lade lokale SVG Datei hoch (<i class=\"fa fa-warning\"></i> schreibgeschützt)"
 
 #: js/backend/GoogleDrive.js:16
 msgid "Open an SVG file from Google Drive"
-msgstr "Lade SVG-Dokument aus Google Drive"
+msgstr "Lade SVG Datei aus Google Drive"
 
 #: js/Controller.js:38
 msgid "Sozi (Information)"
@@ -60,7 +61,7 @@ msgstr "Die Datei %s konnte nicht geladen werden."
 
 #: js/Storage.js:93 js/Storage.js:102
 msgid "Document is not valid SVG."
-msgstr "Das Dokument ist kein gültiges SVG."
+msgstr "Die Datei ist kein gültiges SVG."
 
 #: js/Storage.js:137
 msgid "Document was changed. Reloading."
@@ -80,7 +81,7 @@ msgstr "An SVG-Element anpassen"
 
 #: js/view/Properties.js:42 js/view/Properties.js:119
 msgid "Reset layer geometry"
-msgstr ""
+msgstr "Ebene zurücksetzen"
 
 #: js/view/Properties.js:43 js/view/Timeline.js:272
 msgid "Create a new frame"
@@ -88,7 +89,7 @@ msgstr "Neuen Frame erstellen"
 
 #: js/view/Properties.js:44 js/view/Toolbar.js:110
 msgid "Save the presentation"
-msgstr "Änderungen Speichern"
+msgstr "Präsentation speichern"
 
 #: js/view/Properties.js:45 js/view/Toolbar.js:94
 msgid "Redo"
@@ -104,7 +105,7 @@ msgstr ""
 
 #: js/view/Properties.js:48 js/view/Toolbar.js:115
 msgid "Reload the SVG document"
-msgstr "Aktualisiere das SVG-Dokument"
+msgstr "Aktualisiere die SVG Datei"
 
 #: js/view/Properties.js:49
 #, fuzzy
@@ -113,31 +114,31 @@ msgstr "Vollbild öffnen"
 
 #: js/view/Properties.js:50
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "Werkzeuge öffnen"
 
 #: js/view/Properties.js:60
 msgid "User interface"
-msgstr ""
+msgstr "Benutzer Schnittstelle"
 
 #: js/view/Properties.js:61
 msgid "Font size"
-msgstr ""
+msgstr "Schriftgröße"
 
 #: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
-msgstr ""
+msgstr "Benachrichtigung beim Speichern und Aktualisieren"
 
 #: js/view/Properties.js:65
 msgid "Enable notifications"
-msgstr ""
+msgstr "Benachrichtigung einschalten"
 
 #: js/view/Properties.js:67
 msgid "Behavior"
-msgstr ""
+msgstr "Verhalten"
 
 #: js/view/Properties.js:69
 msgid "Preview transition animations"
-msgstr ""
+msgstr "Präsentationsvorschau"
 
 #: js/view/Properties.js:70
 msgid "Enable animated transitions"
@@ -145,11 +146,11 @@ msgstr ""
 
 #: js/view/Properties.js:72
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Tastenkombinationen"
 
 #: js/view/Properties.js:84
 msgid "Select a layer to copy"
-msgstr ""
+msgstr "Wähle zu kopierenden Layer"
 
 #: js/view/Properties.js:87 js/view/Timeline.js:314 js/view/Timeline.js:344
 msgid "Default"
@@ -185,7 +186,7 @@ msgstr "Timeout aktivieren"
 
 #: js/view/Properties.js:113
 msgid "Layer"
-msgstr ""
+msgstr "Ebene"
 
 #: js/view/Properties.js:116
 msgid "Link to previous frame"
@@ -248,17 +249,17 @@ msgstr "Ebene hinzufügen"
 
 #: js/view/Properties.js:177
 msgid "Allow to control the presentation"
-msgstr ""
+msgstr "Präsentation steuern"
 
 #: js/view/Properties.js:179 js/view/Properties.js:186
 #: js/view/Properties.js:192 js/view/Properties.js:200
 msgid "using the mouse"
-msgstr ""
+msgstr "Maus verwenden"
 
 #: js/view/Properties.js:180 js/view/Properties.js:193
 #: js/view/Properties.js:201
 msgid "using the keyboard"
-msgstr ""
+msgstr "Tastatur verwenden"
 
 #: js/view/Properties.js:185
 msgid "Allow to move the camera"
