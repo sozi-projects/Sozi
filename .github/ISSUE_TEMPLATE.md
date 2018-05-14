@@ -3,7 +3,7 @@ and especially the [installation instructions](http://sozi.baierouge.fr/pages/20
 and the [frequently asked questions](http://sozi.baierouge.fr/pages/faq.html)
 before reporting an issue.
 Remember that this is not a place to ask questions.
-If you want to get help on Sozi, you can join the [sozi-users discussion group](http://groups.google.com/group/sozi-users).
+If you want to get help on Sozi, you can join the [Sozi community forum](http://sozi.baierouge.fr/community/).
 
 Describe your problem or propose a new feature in the following sections.
 Keep the headings and replace the paragraphs with your own text.
