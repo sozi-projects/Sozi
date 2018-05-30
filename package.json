@@ -2,7 +2,7 @@
   "name": "sozi",
   "description": "A zooming presentation editor",
   "author": "Guillaume Savaton",
-  "version": "18.05",
+  "version": "18.05.28",
   "license": "MPL-2.0",
   "main": "js/electron.js",
   "scripts": {
@@ -19,6 +19,7 @@
     "virtual-dom": "^2.0.0"
   },
   "devDependencies": {
+    "babel-core": "^6.0.0",
     "babel-preset-es2015": "^6.22.0",
     "grunt": "~1.0.0",
     "grunt-babel": "^7.0.0",
