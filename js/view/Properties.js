@@ -78,6 +78,7 @@ Properties.renderPresentationProperties = function () {
     const c = this.controller;
 
     const timeoutMsDisabled = c.getFrameProperty("timeoutEnable").every(value => !value);
+    const showInFrameListDisabled = c.getFrameProperty("showInFrameList").every(value => !value);
     const outlineElementIdDisabled = c.getLayerProperty("outlineElementAuto").every(value => value);
 
     const layersToCopy = {
@@ -100,6 +101,9 @@ Properties.renderPresentationProperties = function () {
 
         h("label", {for: "field-title"}, _("Title")),
         this.renderTextField("title", false, c.getFrameProperty, c.setFrameProperty, true),
+
+        h("label", {for: "field-titleLevel"}, _("Title level in frame list")),
+        this.renderRangeField("titleLevel", showInFrameListDisabled, c.getFrameProperty, c.setFrameProperty, 0, 4, 1),
 
         h("label", {for: "field-frameId"}, _("Id")),
         this.renderTextField("frameId", false, c.getFrameProperty, c.setFrameProperty, false),
@@ -143,7 +147,7 @@ Properties.renderPresentationProperties = function () {
         this.renderTextField("outlineElementId", outlineElementIdDisabled, c.getLayerProperty, c.setLayerProperty, true),
 
         h("label", {for: "field-opacity"}, _("Layer opacity")),
-        this.renderRangeField("opacity", c.getCameraProperty, c.setCameraProperty, 0, 1, 0.1),
+        this.renderRangeField("opacity", false, c.getCameraProperty, c.setCameraProperty, 0, 1, 0.1),
 
         h("h1", _("Transition")),
 
@@ -209,7 +213,7 @@ Properties.renderTextField = function (property, disabled, getter, setter, accep
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    const value = values.length >= 1 ? values[0] : "";
+    const value = values.length >= 1 ? values[values.length - 1] : "";
 
     return h("input", {
         id: "field-" + property,
@@ -231,7 +235,7 @@ Properties.renderNumberField = function (property, disabled, getter, setter, sig
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    const value = values.length >= 1 ? values[0] / factor : 0; // TODO use default value
+    const value = values.length >= 1 ? values[values.length - 1] / factor : 0; // TODO use default value
 
     return h("input", {
         id: "field-" + property,
@@ -251,12 +255,12 @@ Properties.renderNumberField = function (property, disabled, getter, setter, sig
     });
 };
 
-Properties.renderRangeField = function (property, getter, setter, min, max, step) {
+Properties.renderRangeField = function (property, disabled, getter, setter, min, max, step) {
     const c = this.controller;
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    const value = values.length >= 1 ? values[0] : (min + max) / 2; // TODO use default value
+    const value = values.length >= 1 ? values[values.length - 1] : (min + max) / 2; // TODO use default value
 
     return h("input", {
         id: "field-" + property,
@@ -267,6 +271,7 @@ Properties.renderRangeField = function (property, getter, setter, min, max, step
         step,
         value,
         className,
+        disabled,
         onchange() {
             const value = parseFloat(this.value);
             if (!isNaN(value) && value >= min && value <= max) {
@@ -281,7 +286,7 @@ Properties.renderToggleField = function (label, title, property, getter, setter)
 
     const values = asArray(getter.call(c, property));
     let className = values.length > 1 ? "multiple" : "";
-    const value = values.length >= 1 ? values[0] : false; // TODO use default value
+    const value = values.length >= 1 ? values[values.length - 1] : false; // TODO use default value
     if (value) {
         className += " active";
     }
@@ -300,7 +305,7 @@ Properties.renderSelectField = function (property, getter, setter, options) {
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    const value = values.length >= 1 ? values[0] : options[0];
+    const value = values.length >= 1 ? values[values.length - 1] : options[0];
 
     return h("select", {
             id: "field-" + property,

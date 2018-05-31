@@ -52,6 +52,11 @@
                 text-overflow: ellipsis;
             }
 
+            li.sozi-title-level-1:before { content: '. . ';             color: rgb(100, 100, 100); }
+            li.sozi-title-level-2:before { content: '. . . . ';         color: rgb(100, 100, 100); }
+            li.sozi-title-level-3:before { content: '. . . . . . ';     color: rgb(100, 100, 100); }
+            li.sozi-title-level-4:before { content: '. . . . . . . . '; color: rgb(100, 100, 100); }
+
             .sozi-frame-list a {
                 color: inherit;
                 text-decoration: none;
@@ -125,7 +130,7 @@
         <ol class="sozi-frame-list">
             {% for frame in pres.frames %}
                 {% if frame.showInFrameList %}
-                    <li value="{{ loop.index }}"><a href="#{{ frame.frameId }}" title="{{ frame.title }}">{{ frame.title }}</a></li>
+                    <li class="sozi-title-level-{{ frame.titleLevel }}" value="{{ loop.index }}"><a href="#{{ frame.frameId }}" title="{{ frame.title }}">{{ frame.title }}</a></li>
                 {% endif %}
             {% endfor %}
         </ol>
