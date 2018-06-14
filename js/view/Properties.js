@@ -91,6 +91,8 @@ Properties.renderPresentationProperties = function () {
         layersToCopy[l.groupId] = l.label;
     });
 
+    console.log(c.setFrameProperty, c.getFrameProperty, c.setPresentationProperty, c.getPresentationProperty);
+
     return h("div.properties", [
         h("h1", _("Frame")),
 
@@ -204,7 +206,13 @@ Properties.renderPresentationProperties = function () {
                     this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseZoom", c.getPresentationProperty, c.setPresentationProperty),
                     this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardZoom", c.getPresentationProperty, c.setPresentationProperty)
             ])
-        ])
+        ]),
+
+        h("h1", _("Video/Audio")),
+
+        h("label", {for: "field-video"}, _("Video")),
+        this.renderFileField("video", false, c.getFrameProperty, c.setFrameProperty, true)
+
     ]);
 };
 
@@ -319,4 +327,28 @@ Properties.renderSelectField = function (property, getter, setter, options) {
             }, options[optionValue])
         )
     );
+};
+
+Properties.renderFileField = function (property, disabled, getter, setter, acceptsEmpty) {
+    const c = this.controller;
+
+    const values = asArray(getter.call(c, property));
+    const className = values.length > 1 ? "multiple" : undefined;
+    const value = values.length >= 1 ? values[values.length - 1] : "";
+
+    return h("input", {
+        id: "field-" + property,
+        type: "file",
+        value,
+        className,
+        disabled,
+        onchange() {
+            const value = this.value;
+            if (acceptsEmpty || value.length) {
+                // decidir si leemos el video y guardamos el binario en el JSON o guardamos la URL
+                // para que lo cargue cada vez que se inicie la presentacion. Ahora hace lo 2o
+                setter.call(c, property, value);
+            }
+        }
+    });
 };
