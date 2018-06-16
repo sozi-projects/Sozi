@@ -143,7 +143,6 @@ export const Frame = {
         this.frameId = presentation.makeFrameId();
         this.layerProperties = presentation.layers.map(lp => Object.create(LayerProperties).init(this));
         this.cameraStates = presentation.layers.map(cs => Object.create(CameraState).init(presentation.document.root));
-        this.video = null;
         return this;
     },
 
@@ -193,8 +192,7 @@ export const Frame = {
             showFrameNumber: this.showFrameNumber,
             layerProperties,
             cameraStates,
-            cameraOffsets,
-            video
+            cameraOffsets
         };
     },
 
