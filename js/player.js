@@ -5,6 +5,7 @@
 "use strict";
 
 import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
+import {VideoDocumentWrapper} from "./svg/VideoDocumentWrapper";
 import {Presentation} from "./model/Presentation";
 import {Viewport} from "./player/Viewport";
 import {Player} from "./player/Player";
@@ -15,10 +16,13 @@ import * as FrameURL from "./player/FrameURL";
 
 window.addEventListener("load", function () {
     const svgRoot = document.querySelector("svg");
+    const videoRoot = document.querySelector("video");
     svgRoot.style.display = "inline";
+    //svgRoot.style.display = "absolute"; ??
 
     SVGDocumentWrapper.init(svgRoot);
-    Presentation.init().setSVGDocument(SVGDocumentWrapper);
+    VideoDocumentWrapper.init(videoRoot);
+    Presentation.init().setSVGDocument(SVGDocumentWrapper).setVideoDocument(VideoDocumentWrapper);
     Viewport.init(Presentation, false).onLoad();
 
     Presentation.fromStorable(window.soziPresentationData);
