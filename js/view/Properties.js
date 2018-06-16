@@ -91,7 +91,6 @@ Properties.renderPresentationProperties = function () {
         layersToCopy[l.groupId] = l.label;
     });
 
-    console.log(c.setFrameProperty, c.getFrameProperty, c.setPresentationProperty, c.getPresentationProperty);
 
     return h("div.properties", [
         h("h1", _("Frame")),
@@ -211,7 +210,20 @@ Properties.renderPresentationProperties = function () {
         h("h1", _("Video/Audio")),
 
         h("label", {for: "field-video"}, _("Video")),
-        this.renderFileField("video", false, c.getFrameProperty, c.setFrameProperty, true)
+        this.renderFileField("video", false, c.getFrameProperty, c.setFrameProperty, false),
+        h("label", {for: "field-select-video-position"}, _("Select video position")),
+        this.renderSelectField("select-video-position", c.getLayerProperty, c.setLayerProperty, {
+            "0" : "Top Right",
+            "1" : "Top Left",
+            "2" : "Bottom Right",
+            "3" : "Bottom Left"
+        }),
+
+        h("label", {for: "field-video-width"}, _("Video width")),
+        this.renderNumberField("video-width", true, c.getPreference, c.setPreference, false, 1, 1),
+
+        h("label", {for: "field-video-height"}, _("Video height")),
+        this.renderNumberField("video-height", true, c.getPreference, c.setPreference, false, 1, 1),
 
     ]);
 };
@@ -347,7 +359,15 @@ Properties.renderFileField = function (property, disabled, getter, setter, accep
             if (acceptsEmpty || value.length) {
                 // decidir si leemos el video y guardamos el binario en el JSON o guardamos la URL
                 // para que lo cargue cada vez que se inicie la presentacion. Ahora hace lo 2o
+                const extension = value.split(".");
+                if(extension[extension.length - 1] == 'svg'){ //PARA LIMITAR LOS FORMATOS ACEPTADOS
+                    console.log("aaa");
+                }
                 setter.call(c, property, value);
+                document.getElementById("field-video-width").disabled = false;
+                document.getElementById("field-video-height").disabled = false;
+                document.getElementById("field-video-width").value = 0;
+                document.getElementById("field-video-height").value = 0;
             }
         }
     });
