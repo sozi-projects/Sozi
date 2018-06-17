@@ -346,7 +346,7 @@ export const Presentation = {
         this.video = "";
         this.videoWidth = "";
         this.videoHeight = "";
-        this.videoPosition = "";
+        this.videoPosition = 0;
         return this;
     },
 

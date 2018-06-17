@@ -6,6 +6,7 @@
 
 import h from "virtual-dom/h";
 import {VirtualDOMView} from "./VirtualDOMView";
+import {remote} from "electron";
 
 export const Properties = Object.create(VirtualDOMView);
 
@@ -348,24 +349,58 @@ Properties.renderFileField = function (property, disabled, getter, setter, accep
     const className = values.length > 1 ? "multiple" : undefined;
     const value = values.length >= 1 ? values[values.length - 1] : "";
 
-    return h("input", {
+    return h("button", {
         id: "field-" + property,
-        type: "file",
-        value,
+        // type: "file",
+        // value,
         className,
-        disabled,
-        onchange() {
-            const value = this.value;
-            if (acceptsEmpty || value.length) {
+        onclick() {
+            let files = remote.dialog.showOpenDialog({
+                title: "Choose video lol",
+                filters: [{name: "Video file lol", extensions: ["mp4"], multiSelections: false}],
+                properties: ["openFile"]
+            });
+
+            files = files[0].split('/');
+
+            const file = files[files.length - 1];
+
+            if (file) {
                 // decidir si leemos el video y guardamos el binario en el JSON o guardamos la URL
                 // para que lo cargue cada vez que se inicie la presentacion. Ahora hace lo 2o
-                const extension = value.split(".");
-                if(extension[extension.length - 1] == 'mp4'){ //PARA LIMITAR LOS FORMATOS ACEPTADOS
-                    setter.call(c, property, value);
-                    document.getElementById("field-videoWidth").disabled = false;
-                    document.getElementById("field-videoHeight").disabled = false;
-                }
+                setter.call(c, property, file);
+                document.getElementById("field-videoWidth").disabled = false;
+                document.getElementById("field-videoHeight").disabled = false;
             }
         }
+        // onchange() {
+        //     const files = remote.dialog.showOpenDialog({
+        //         title: _("Choose video lol"),
+        //         filters: [{name: _("Video file lol"), extensions: ["mp4"], multiSelections: false}],
+        //         properties: ["openFile"]
+        //     });
+        //     // if (files) {
+        //     //     this.load(files[0]);
+        //     // }
+        //     if (files.length > 1) {
+        //         // only 1
+        //     }
+
+        //     const file = files[0];
+
+        //     if (file.type !== "video/mp4") {
+        //         // type supported
+        //     }
+
+        //     const value = file.name;
+
+        //     if (acceptsEmpty || file.size) {
+        //         // decidir si leemos el video y guardamos el binario en el JSON o guardamos la URL
+        //         // para que lo cargue cada vez que se inicie la presentacion. Ahora hace lo 2o
+        //         setter.call(c, property, value);
+        //         document.getElementById("field-videoWidth").disabled = false;
+        //         document.getElementById("field-videoHeight").disabled = false;
+        //     }
+        // }
     });
 };

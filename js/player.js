@@ -59,26 +59,33 @@ window.addEventListener("load", function () {
     Player.disableBlankScreen();
 
     document.querySelector(".sozi-blank-screen .spinner").style.display = "none";
-    if(window.sozi.presentation.video){
-        document.querySelector("#sozi-video").style.display = "block";
-        document.querySelector("#sozi-video").style.position = "absolute";
-        document.querySelector("#sozi-video").style.width = window.sozi.presentation.videoWidth+"px";
-        document.querySelector("#sozi-video").style.height = window.sozi.presentation.videoHeight+"px";
+    let videoUrl = window.sozi.presentation.video;
+    if (videoUrl) {
+        let videoElement = document.querySelector("#sozi-video");
+        videoElement.querySelector("source").setAttribute("src", videoUrl);
+        videoElement.load();
+        videoElement.play();
+        videoElement.addEventListener("pause", () => window.sozi.player.pause());
+        videoElement.addEventListener("play", () => window.sozi.player.resume());
+        videoElement.style.display = "block";
+        videoElement.style.position = "absolute";
+        videoElement.style.width = window.sozi.presentation.videoWidth+"px";
+        videoElement.style.height = window.sozi.presentation.videoHeight+"px";
         if(window.sozi.presentation.videoPosition == '0'){
-            document.querySelector("#sozi-video").style.top = "0px";
-            document.querySelector("#sozi-video").style.left = "0px";
+            videoElement.style.top = "0px";
+            videoElement.style.left = "0px";
         }
         if(window.sozi.presentation.videoPosition == '1'){
-            document.querySelector("#sozi-video").style.top = "0px";
-            document.querySelector("#sozi-video").style.left = "0px";
+            videoElement.style.top = "0px";
+            videoElement.style.left = "0px";
         }
         if(window.sozi.presentation.videoPosition == '2'){
-            document.querySelector("#sozi-video").style.bottom = "0px";
-            document.querySelector("#sozi-video").style.right = "0px";
+            videoElement.style.bottom = "0px";
+            videoElement.style.right = "0px";
         }
         if(window.sozi.presentation.videoPosition == '3'){
-            document.querySelector("#sozi-video").style.bottom = "0px";
-            document.querySelector("#sozi-video").style.right = "0px";
+            videoElement.style.bottom = "0px";
+            videoElement.style.right = "0px";
         }
     }
 });
