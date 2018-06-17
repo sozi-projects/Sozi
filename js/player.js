@@ -18,7 +18,8 @@ window.addEventListener("load", function () {
     const svgRoot = document.querySelector("svg");
     const videoRoot = document.querySelector("video");
     svgRoot.style.display = "inline";
-    //svgRoot.style.display = "absolute"; ??
+    // svgRoot.style.display = "absolute"; ??
+    console.log("player window addEventListener", videoRoot);
 
     SVGDocumentWrapper.init(svgRoot);
     VideoDocumentWrapper.init(videoRoot);

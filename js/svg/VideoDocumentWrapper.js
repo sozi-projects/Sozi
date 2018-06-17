@@ -6,18 +6,18 @@
 
 import {toArray} from "../utils";
 
-// Constant: the SVG namespace
-const SVG_NS = "http://www.w3.org/2000/svg";
+// // Constant: the SVG namespace
+// const SVG_NS = "http://www.w3.org/2000/svg";
 
-// Constant: The SVG element names that can be found in layers
-const DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
-    "ellipse", "line", "polyline", "polygon", "text", "clippath" ];
+// // Constant: The SVG element names that can be found in layers
+// const DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
+//     "ellipse", "line", "polyline", "polygon", "text", "clippath" ];
 
-const handlers = {};
+// const handlers = {};
 
-export function registerHandler(name, handler) {
-    handlers[name] = handler;
-}
+// export function registerHandler(name, handler) {
+//     handlers[name] = handler;
+// }
 
 export const DefaultHandler = {
     matches(videoRoot) {
@@ -38,7 +38,7 @@ export const DefaultHandler = {
 };
 
 export const VideoDocumentWrapper = {
-    asText: "",
+    // asText: "",
     root: undefined,
     handler: DefaultHandler,
 
@@ -46,17 +46,18 @@ export const VideoDocumentWrapper = {
         this.root = videoRoot;
 
         // Prevent event propagation on hyperlinks
-        const links = toArray(this.root.getElementsByTagName("a"));
-        links.forEach(link => {
-            link.addEventListener("mousedown", evt => evt.stopPropagation(), false);
-        });
+        // const links = toArray(this.root.getElementsByTagName("a"));
+        // links.forEach(link => {
+        //     link.addEventListener("mousedown", evt => evt.stopPropagation(), false);
+        // });
 
         return this;
-    },
+    }
+    // ,
 
-    get isValidVideo() {
-        return this.root instanceof SVGSVGElement; //????
-    },
+    // get isValidVideo() {
+        // return this.root instanceof SVGSVGElement; //????
+    // },
 
     /*
      * The given node is a valid layer if it has the following characteristics:
@@ -64,99 +65,99 @@ export const VideoDocumentWrapper = {
      *    - it has an id that has not been met before
      *    - it is recognized as a layer by the current SVG handler
      */
-    isLayer(videoNode) {
-        return videoNode instanceof SVGGElement &&
-            videoNode.hasAttribute("id") &&
-            this.handler.isLayer(videoNode);
-    },
+    // isLayer(videoNode) {
+    //     return videoNode instanceof SVGGElement &&
+    //         videoNode.hasAttribute("id") &&
+    //         this.handler.isLayer(videoNode);
+    // },
 
-    initFromString(data) { //WONT IMPLEMENT FOR NOW
-        this.root = new DOMParser().parseFromString(data, "image/svg+xml").documentElement;
+    // initFromString(data) { //WONT IMPLEMENT FOR NOW
+    //     this.root = new DOMParser().parseFromString(data, "image/svg+xml").documentElement;
 
-        this.handler = DefaultHandler;
-        for (let name in handlers) {
-            if (handlers[name].matches(this.root)) {
-                console.log(`Using handler: ${name}`);
-                this.handler = handlers[name];
-                break;
-            }
-        }
+    //     this.handler = DefaultHandler;
+    //     for (let name in handlers) {
+    //         if (handlers[name].matches(this.root)) {
+    //             console.log(`Using handler: ${name}`);
+    //             this.handler = handlers[name];
+    //             break;
+    //         }
+    //     }
 
-        // Check that the root is an SVG element
-        if (this.isValidSVG) {
-            // Apply handler-specific transformations
-            this.handler.transform(this.root);
+    //     // Check that the root is an SVG element
+    //     if (this.isValidSVG) {
+    //         // Apply handler-specific transformations
+    //         this.handler.transform(this.root);
 
-            // Remove attributes that prevent correct rendering
-            this.removeViewbox();
+    //         // Remove attributes that prevent correct rendering
+    //         this.removeViewbox();
 
-            // Remove any existing script inside the SVG DOM tree
-            this.removeScripts();
+    //         // Remove any existing script inside the SVG DOM tree
+    //         this.removeScripts();
 
-            // Disable hyperlinks
-            this.disableHyperlinks();
+    //         // Disable hyperlinks
+    //         this.disableHyperlinks();
 
-            // Fix <switch> elements from Adobe Illustrator
-            const aiHandler = handlers["Adobe Illustrator"];
-            if (aiHandler && this.handler !== aiHandler) {
-                aiHandler.transform(this.root);
-            }
+    //         // Fix <switch> elements from Adobe Illustrator
+    //         const aiHandler = handlers["Adobe Illustrator"];
+    //         if (aiHandler && this.handler !== aiHandler) {
+    //             aiHandler.transform(this.root);
+    //         }
 
-            // Wrap isolated elements into groups
-            let svgWrapper = document.createElementNS(SVG_NS, "g");
+    //         // Wrap isolated elements into groups
+    //         let svgWrapper = document.createElementNS(SVG_NS, "g");
 
-            // Get all child nodes of the SVG root.
-            // Make a copy of root.childNodes before modifying the document.
-            toArray(this.root.childNodes).forEach(svgNode => {
-                // Remove text nodes and comments
-                if (svgNode.tagName === undefined) {
-                    this.root.removeChild(svgNode);
-                }
-                // Reorganize drawable SVG elements into top-level groups
-                else if (DRAWABLE_TAGS.indexOf(svgNode.localName) >= 0) {
-                    // If the current node is not a layer,
-                    // add it to the current wrapper.
-                    if (!this.isLayer(svgNode)) {
-                        svgWrapper.appendChild(svgNode);
-                    }
-                    // If the current node is a layer and the current
-                    // wrapper contains elements, insert the wrapper
-                    // into the document and create a new empty wrapper.
-                    else if (svgWrapper.firstChild) {
-                        this.root.insertBefore(svgWrapper, svgNode);
-                        svgWrapper = document.createElementNS(SVG_NS, "g");
-                    }
-                }
-            });
+    //         // Get all child nodes of the SVG root.
+    //         // Make a copy of root.childNodes before modifying the document.
+    //         toArray(this.root.childNodes).forEach(svgNode => {
+    //             // Remove text nodes and comments
+    //             if (svgNode.tagName === undefined) {
+    //                 this.root.removeChild(svgNode);
+    //             }
+    //             // Reorganize drawable SVG elements into top-level groups
+    //             else if (DRAWABLE_TAGS.indexOf(svgNode.localName) >= 0) {
+    //                 // If the current node is not a layer,
+    //                 // add it to the current wrapper.
+    //                 if (!this.isLayer(svgNode)) {
+    //                     svgWrapper.appendChild(svgNode);
+    //                 }
+    //                 // If the current node is a layer and the current
+    //                 // wrapper contains elements, insert the wrapper
+    //                 // into the document and create a new empty wrapper.
+    //                 else if (svgWrapper.firstChild) {
+    //                     this.root.insertBefore(svgWrapper, svgNode);
+    //                     svgWrapper = document.createElementNS(SVG_NS, "g");
+    //                 }
+    //             }
+    //         });
 
-            // If the current wrapper layer contains elements,
-            // add it to the document.
-            if (svgWrapper.firstChild) {
-                this.root.appendChild(svgWrapper);
-            }
-        }
+    //         // If the current wrapper layer contains elements,
+    //         // add it to the document.
+    //         if (svgWrapper.firstChild) {
+    //             this.root.appendChild(svgWrapper);
+    //         }
+    //     }
 
-        this.asText = new XMLSerializer().serializeToString(this.root);
+    //     this.asText = new XMLSerializer().serializeToString(this.root);
 
-        return this;
-    },
+    //     return this;
+    // },
 
-    removeViewbox() {
-        this.root.removeAttribute("viewBox");
-        this.root.style.width = this.root.style.height = "100%";
-    },
+    // removeViewbox() {
+    //     this.root.removeAttribute("viewBox");
+    //     this.root.style.width = this.root.style.height = "100%";
+    // },
 
-    removeScripts() {
-        const scripts = toArray(this.root.getElementsByTagName("script"));
-        scripts.forEach(script => {
-            script.parentNode.removeChild(script);
-        });
-    },
+    // removeScripts() {
+    //     const scripts = toArray(this.root.getElementsByTagName("script"));
+    //     scripts.forEach(script => {
+    //         script.parentNode.removeChild(script);
+    //     });
+    // },
 
-    disableHyperlinks() {
-        const links = toArray(this.root.getElementsByTagName("a"));
-        links.forEach(link => {
-            link.addEventListener("click", evt => evt.preventDefault(), false);
-        });
-    }
+    // disableHyperlinks() {
+    //     const links = toArray(this.root.getElementsByTagName("a"));
+    //     links.forEach(link => {
+    //         link.addEventListener("click", evt => evt.preventDefault(), false);
+    //     });
+    // }
 };

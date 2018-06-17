@@ -343,6 +343,7 @@ export const Presentation = {
         this.frames = [];
         this.layers = [];
         this.elementsToHide = [];
+        this.video = "";
         return this;
     },
 
@@ -375,10 +376,12 @@ export const Presentation = {
     },
 
     setVideoDocument(videoDocument) {
-        this.document = videoDocument;
+        // this.document = videoDocument;
 
+        this.videoDocument = videoDocument;
+        console.log("setVideoDocument", this.videoDocument);
         // Create an empty wrapper layer for elements that do not belong to a valid layer
-        const autoLayer = Object.create(Layer).init(this, "auto", true);
+        //const autoLayer = Object.create(Layer).init(this, "auto", true);
 
         /*toArray(this.document.root.childNodes).forEach(svgNode => {
             if (svgNode instanceof SVGGElement) {
@@ -418,7 +421,8 @@ export const Presentation = {
             enableMouseRotation: this.enableMouseRotation,
             enableMouseNavigation: this.enableMouseNavigation,
             frames: this.frames.map(frame => frame.toStorable()),
-            elementsToHide: this.elementsToHide.slice()
+            elementsToHide: this.elementsToHide.slice(),
+            video: this.video
         };
     },
 
@@ -432,7 +436,8 @@ export const Presentation = {
             enableMouseRotation: this.enableMouseRotation,
             enableMouseNavigation: this.enableMouseNavigation,
             frames: this.frames.map(frame => frame.toMinimalStorable()),
-            elementsToHide: this.elementsToHide.slice()
+            elementsToHide: this.elementsToHide.slice(),
+            video: this.video
         };
     },
 
@@ -446,6 +451,7 @@ export const Presentation = {
         copyIfSet(this, storable, "enableMouseZoom");
         copyIfSet(this, storable, "enableMouseRotation");
         copyIfSet(this, storable, "enableMouseNavigation");
+        copyIfSet(this, storable, "video");
 
         this.frames = storable.frames.map(f => Object.create(Frame).init(this).fromStorable(f));
 

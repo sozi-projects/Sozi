@@ -210,7 +210,7 @@ Properties.renderPresentationProperties = function () {
         h("h1", _("Video/Audio")),
 
         h("label", {for: "field-video"}, _("Video")),
-        this.renderFileField("video", false, c.getFrameProperty, c.setFrameProperty, false),
+        this.renderFileField("video", false, c.getPresentationProperty, c.setPresentationProperty, false),
         h("label", {for: "field-select-video-position"}, _("Select video position")),
         this.renderSelectField("select-video-position", c.getLayerProperty, c.setLayerProperty, {
             "0" : "Top Right",
