@@ -346,6 +346,7 @@ export const Presentation = {
         this.video = "";
         this.videoWidth = "";
         this.videoHeight = "";
+        this.videoPosition = "";
         return this;
     },
 
@@ -427,6 +428,7 @@ export const Presentation = {
             video: this.video,
             videoWidth: this.videoWidth,
             videoHeight: this.videoHeight,
+            videoPosition: this.videoPosition
         };
     },
 
@@ -444,6 +446,7 @@ export const Presentation = {
             video: this.video,
             videoWidth: this.videoWidth,
             videoHeight: this.videoHeight,
+            videoPosition: this.videoPosition
         };
     },
 
@@ -460,6 +463,7 @@ export const Presentation = {
         copyIfSet(this, storable, "video");
         copyIfSet(this, storable, "videoHeight");
         copyIfSet(this, storable, "videoWidth");
+        copyIfSet(this, storable, "videoPosition");
 
         this.frames = storable.frames.map(f => Object.create(Frame).init(this).fromStorable(f));
 

@@ -64,5 +64,21 @@ window.addEventListener("load", function () {
         document.querySelector("#sozi-video").style.position = "absolute";
         document.querySelector("#sozi-video").style.width = window.sozi.presentation.videoWidth+"px";
         document.querySelector("#sozi-video").style.height = window.sozi.presentation.videoHeight+"px";
+        if(window.sozi.presentation.videoPosition == '0'){
+            document.querySelector("#sozi-video").style.top = "0px";
+            document.querySelector("#sozi-video").style.left = "0px";
+        }
+        if(window.sozi.presentation.videoPosition == '1'){
+            document.querySelector("#sozi-video").style.top = "0px";
+            document.querySelector("#sozi-video").style.left = "0px";
+        }
+        if(window.sozi.presentation.videoPosition == '2'){
+            document.querySelector("#sozi-video").style.bottom = "0px";
+            document.querySelector("#sozi-video").style.right = "0px";
+        }
+        if(window.sozi.presentation.videoPosition == '3'){
+            document.querySelector("#sozi-video").style.bottom = "0px";
+            document.querySelector("#sozi-video").style.right = "0px";
+        }
     }
 });
