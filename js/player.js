@@ -59,4 +59,10 @@ window.addEventListener("load", function () {
     Player.disableBlankScreen();
 
     document.querySelector(".sozi-blank-screen .spinner").style.display = "none";
+    if(window.sozi.presentation.video){
+        document.querySelector("#sozi-video").style.display = "block";
+        document.querySelector("#sozi-video").style.position = "absolute";
+        document.querySelector("#sozi-video").style.width = window.sozi.presentation.videoWidth+"px";
+        document.querySelector("#sozi-video").style.height = window.sozi.presentation.videoHeight+"px";
+    }
 });

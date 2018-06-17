@@ -211,19 +211,19 @@ Properties.renderPresentationProperties = function () {
 
         h("label", {for: "field-video"}, _("Video")),
         this.renderFileField("video", false, c.getPresentationProperty, c.setPresentationProperty, false),
-        h("label", {for: "field-select-video-position"}, _("Select video position")),
-        this.renderSelectField("select-video-position", c.getLayerProperty, c.setLayerProperty, {
+        h("label", {for: "field-videoPosition"}, _("Select video position")),
+        this.renderSelectField("videoPosition", c.getPresentationProperty, c.setPresentationProperty, {
             "0" : "Top Right",
             "1" : "Top Left",
             "2" : "Bottom Right",
             "3" : "Bottom Left"
         }),
 
-        h("label", {for: "field-video-width"}, _("Video width")),
-        this.renderNumberField("video-width", true, c.getPreference, c.setPreference, false, 1, 1),
+        h("label", {for: "field-videoWidth"}, _("Video width")),
+        this.renderNumberField("videoWidth", true, c.getPresentationProperty, c.setPresentationProperty, false, 1, 1),
 
-        h("label", {for: "field-video-height"}, _("Video height")),
-        this.renderNumberField("video-height", true, c.getPreference, c.setPreference, false, 1, 1),
+        h("label", {for: "field-videoHeight"}, _("Video height")),
+        this.renderNumberField("videoHeight", true, c.getPresentationProperty, c.setPresentationProperty, false, 1, 1),
 
     ]);
 };
@@ -360,14 +360,11 @@ Properties.renderFileField = function (property, disabled, getter, setter, accep
                 // decidir si leemos el video y guardamos el binario en el JSON o guardamos la URL
                 // para que lo cargue cada vez que se inicie la presentacion. Ahora hace lo 2o
                 const extension = value.split(".");
-                if(extension[extension.length - 1] == 'svg'){ //PARA LIMITAR LOS FORMATOS ACEPTADOS
-                    console.log("aaa");
+                if(extension[extension.length - 1] == 'mp4'){ //PARA LIMITAR LOS FORMATOS ACEPTADOS
+                    setter.call(c, property, value);
+                    document.getElementById("field-videoWidth").disabled = false;
+                    document.getElementById("field-videoHeight").disabled = false;
                 }
-                setter.call(c, property, value);
-                document.getElementById("field-video-width").disabled = false;
-                document.getElementById("field-video-height").disabled = false;
-                document.getElementById("field-video-width").value = 0;
-                document.getElementById("field-video-height").value = 0;
             }
         }
     });

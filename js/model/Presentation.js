@@ -344,6 +344,8 @@ export const Presentation = {
         this.layers = [];
         this.elementsToHide = [];
         this.video = "";
+        this.videoWidth = "";
+        this.videoHeight = "";
         return this;
     },
 
@@ -422,7 +424,9 @@ export const Presentation = {
             enableMouseNavigation: this.enableMouseNavigation,
             frames: this.frames.map(frame => frame.toStorable()),
             elementsToHide: this.elementsToHide.slice(),
-            video: this.video
+            video: this.video,
+            videoWidth: this.videoWidth,
+            videoHeight: this.videoHeight,
         };
     },
 
@@ -437,7 +441,9 @@ export const Presentation = {
             enableMouseNavigation: this.enableMouseNavigation,
             frames: this.frames.map(frame => frame.toMinimalStorable()),
             elementsToHide: this.elementsToHide.slice(),
-            video: this.video
+            video: this.video,
+            videoWidth: this.videoWidth,
+            videoHeight: this.videoHeight,
         };
     },
 
@@ -452,6 +458,8 @@ export const Presentation = {
         copyIfSet(this, storable, "enableMouseRotation");
         copyIfSet(this, storable, "enableMouseNavigation");
         copyIfSet(this, storable, "video");
+        copyIfSet(this, storable, "videoHeight");
+        copyIfSet(this, storable, "videoWidth");
 
         this.frames = storable.frames.map(f => Object.create(Frame).init(this).fromStorable(f));
 
