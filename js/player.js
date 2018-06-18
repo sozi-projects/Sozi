@@ -64,13 +64,13 @@ window.addEventListener("load", function () {
         let videoElement = document.querySelector("#sozi-video");
         videoElement.querySelector("source").setAttribute("src", videoUrl);
         videoElement.load();
-        videoElement.play();
         videoElement.addEventListener("pause", () => window.sozi.player.pause());
         videoElement.addEventListener("play", () => window.sozi.player.resume());
         videoElement.style.display = "block";
         videoElement.style.position = "absolute";
         videoElement.style.width = window.sozi.presentation.videoWidth+"px";
         videoElement.style.height = window.sozi.presentation.videoHeight+"px";
+        window.sozi.player.pause();
         if(window.sozi.presentation.videoPosition == '0'){
             videoElement.style.top = "0px";
             videoElement.style.left = "0px";

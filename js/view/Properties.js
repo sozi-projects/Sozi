@@ -92,7 +92,6 @@ Properties.renderPresentationProperties = function () {
         layersToCopy[l.groupId] = l.label;
     });
 
-
     return h("div.properties", [
         h("h1", _("Frame")),
 
@@ -211,7 +210,7 @@ Properties.renderPresentationProperties = function () {
         h("h1", _("Video/Audio")),
 
         h("label", {for: "field-video"}, _("Video (mp4)")),
-        this.renderFileField("video", false, c.getPresentationProperty, c.setPresentationProperty, false),
+        this.renderFileField("video", false, c.getPresentationProperty, c.setPresentationProperty, false, _("Add video")),
         h("label", {for: "field-videoPosition"}, _("Select video position")),
         this.renderSelectField("videoPosition", c.getPresentationProperty, c.setPresentationProperty, {
             "0" : "Top Left",
@@ -342,22 +341,21 @@ Properties.renderSelectField = function (property, getter, setter, options) {
     );
 };
 
-Properties.renderFileField = function (property, disabled, getter, setter, acceptsEmpty) {
+Properties.renderFileField = function (property, disabled, getter, setter, acceptsEmpty, title) {
     const c = this.controller;
-
+console.log(title);
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
     const value = values.length >= 1 ? values[values.length - 1] : "";
 
     return h("button", {
         id: "field-" + property,
-        // type: "file",
-        // value,
         className,
+        title,
         onclick() {
             let files = remote.dialog.showOpenDialog({
-                title: "Choose video lol",
-                filters: [{name: "Video file lol", extensions: ["mp4"], multiSelections: false}],
+                title: "Choose video",
+                filters: [{name: "Video file", extensions: ["mp4"], multiSelections: false}],
                 properties: ["openFile"]
             });
 
