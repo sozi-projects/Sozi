@@ -400,5 +400,5 @@ console.log(title);
         //         document.getElementById("field-videoHeight").disabled = false;
         //     }
         // }
-    });
+    }, h("i.fa.fa-folder-open-o"));
 };

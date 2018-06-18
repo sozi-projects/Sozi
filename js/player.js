@@ -81,7 +81,7 @@ window.addEventListener("load", function () {
         }
         if(window.sozi.presentation.videoPosition == '2'){
             videoElement.style.bottom = "0px";
-            videoElement.style.right = "0px";
+            videoElement.style.left = "0px";
         }
         if(window.sozi.presentation.videoPosition == '3'){
             videoElement.style.bottom = "0px";
