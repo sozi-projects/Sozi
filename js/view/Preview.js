@@ -58,11 +58,11 @@ export const Preview = {
         this.container.style.height = height + "px";
 
         if (this.selection.currentFrame) {
-            //this.viewport.setAtStates(this.selection.currentFrame.cameraStates);
+            this.viewport.setAtStates(this.selection.currentFrame.cameraStates);
         }
 
         if (this.viewport.ready) {
-            //this.viewport.repaint();
+            this.viewport.repaint();
         }
     },
 
