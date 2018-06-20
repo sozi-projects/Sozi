@@ -38,6 +38,17 @@ export const Preview = {
         }
         this.container.appendChild(this.presentation.document.root);
 
+        var videoElement = document.createElement("video");
+        var sourceElement = document.createElement("source");
+        sourceElement.setAttribute("type", "video/mp4");
+        sourceElement.setAttribute("controls", "");
+        sourceElement.setAttribute("src", "/home/rod/Documents/mov_bbb.mp4");
+        videoElement.setAttribute("id", "sozi-video");
+        videoElement.appendChild(sourceElement);
+        this.container.appendChild(videoElement);
+        videoElement.load();
+        videoElement.play();
+
         this.viewport.onLoad();
     },
 
