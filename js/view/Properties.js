@@ -343,7 +343,7 @@ Properties.renderSelectField = function (property, getter, setter, options) {
 
 Properties.renderFileField = function (property, disabled, getter, setter, acceptsEmpty, title) {
     const c = this.controller;
-console.log(title);
+
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
     const value = values.length >= 1 ? values[values.length - 1] : "";
@@ -371,34 +371,5 @@ console.log(title);
                 document.getElementById("field-videoHeight").disabled = false;
             }
         }
-        // onchange() {
-        //     const files = remote.dialog.showOpenDialog({
-        //         title: _("Choose video lol"),
-        //         filters: [{name: _("Video file lol"), extensions: ["mp4"], multiSelections: false}],
-        //         properties: ["openFile"]
-        //     });
-        //     // if (files) {
-        //     //     this.load(files[0]);
-        //     // }
-        //     if (files.length > 1) {
-        //         // only 1
-        //     }
-
-        //     const file = files[0];
-
-        //     if (file.type !== "video/mp4") {
-        //         // type supported
-        //     }
-
-        //     const value = file.name;
-
-        //     if (acceptsEmpty || file.size) {
-        //         // decidir si leemos el video y guardamos el binario en el JSON o guardamos la URL
-        //         // para que lo cargue cada vez que se inicie la presentacion. Ahora hace lo 2o
-        //         setter.call(c, property, value);
-        //         document.getElementById("field-videoWidth").disabled = false;
-        //         document.getElementById("field-videoHeight").disabled = false;
-        //     }
-        // }
     });
 };
