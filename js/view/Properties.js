@@ -343,7 +343,7 @@ Properties.renderSelectField = function (property, getter, setter, options) {
 
 Properties.renderFileField = function (property, disabled, getter, setter, acceptsEmpty, title) {
     const c = this.controller;
-
+console.log(title);
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
     const value = values.length >= 1 ? values[values.length - 1] : "";
@@ -371,9 +371,6 @@ Properties.renderFileField = function (property, disabled, getter, setter, accep
                 document.getElementById("field-videoHeight").disabled = false;
             }
         }
-<<<<<<< HEAD
-    });
-=======
         // onchange() {
         //     const files = remote.dialog.showOpenDialog({
         //         title: _("Choose video lol"),
@@ -404,5 +401,4 @@ Properties.renderFileField = function (property, disabled, getter, setter, accep
         //     }
         // }
     }, h("i.fa.fa-folder-open-o"));
->>>>>>> 9b1492d609a00b974bc1cbc736db075afd52fe42
 };
