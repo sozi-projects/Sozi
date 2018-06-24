@@ -15,7 +15,6 @@ import * as FrameURL from "./player/FrameURL";
 
 window.addEventListener("load", function () {
     const svgRoot = document.querySelector("svg");
-    const videoRoot = document.querySelector("video");
     svgRoot.style.display = "inline";
 
     SVGDocumentWrapper.init(svgRoot);
@@ -56,6 +55,7 @@ window.addEventListener("load", function () {
 
     document.querySelector(".sozi-blank-screen .spinner").style.display = "none";
     
+    // Set video in presentation if it's defined
     let videoUrl = window.sozi.presentation.video;
 
     if (videoUrl) {

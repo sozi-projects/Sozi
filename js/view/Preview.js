@@ -42,6 +42,7 @@ export const Preview = {
         this.viewport.onLoad();
     },
 
+    // Creates the video element and sets the its size and position
     onLoadVideo(location) {
         let path = this.presentation.video;
         let width = this.presentation.videoWidth;
