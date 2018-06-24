@@ -84,11 +84,13 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 8em;
-    max-width: 8em;
+    width: 18em;
+    max-width: 18em;
     padding-left: 0.5em;
     padding-right: 0.5em;
 }
+
+
 
 .timeline th.layer-icons {
     width: auto;
