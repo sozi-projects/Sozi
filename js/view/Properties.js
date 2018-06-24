@@ -220,10 +220,10 @@ Properties.renderPresentationProperties = function () {
         }),
 
         h("label", {for: "field-videoWidth"}, _("Video width")),
-        this.renderNumberField("videoWidth", true, c.getPresentationProperty, c.setPresentationProperty, false, 1, 1),
+        this.renderNumberField("videoWidth", false, c.getPresentationProperty, c.setPresentationProperty, false, 1, 1),
 
         h("label", {for: "field-videoHeight"}, _("Video height")),
-        this.renderNumberField("videoHeight", true, c.getPresentationProperty, c.setPresentationProperty, false, 1, 1),
+        this.renderNumberField("videoHeight", false, c.getPresentationProperty, c.setPresentationProperty, false, 1, 1),
 
     ]);
 };
@@ -343,7 +343,7 @@ Properties.renderSelectField = function (property, getter, setter, options) {
 
 Properties.renderFileField = function (property, disabled, getter, setter, acceptsEmpty, title) {
     const c = this.controller;
-console.log(title);
+
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
     const value = values.length >= 1 ? values[values.length - 1] : "";
@@ -367,8 +367,6 @@ console.log(title);
                 // decidir si leemos el video y guardamos el binario en el JSON o guardamos la URL
                 // para que lo cargue cada vez que se inicie la presentacion. Ahora hace lo 2o
                 setter.call(c, property, file);
-                document.getElementById("field-videoWidth").disabled = false;
-                document.getElementById("field-videoHeight").disabled = false;
             }
         }
         // onchange() {

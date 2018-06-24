@@ -97,6 +97,8 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
         // Load presentation data and editor state from JSON file.
         this.loadJSONData(data);
         this.autosaveJSON(fileDescriptor);
+        this.controller.setVideoDocument(location);
+
     }
     else {
         this.controller.error(_("Document is not valid SVG."));

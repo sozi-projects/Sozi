@@ -378,36 +378,6 @@ export const Presentation = {
         return this;
     },
 
-    setVideoDocument(videoDocument) {
-        // this.document = videoDocument;
-
-        this.videoDocument = videoDocument;
-        console.log("setVideoDocument", this.videoDocument);
-        // Create an empty wrapper layer for elements that do not belong to a valid layer
-        //const autoLayer = Object.create(Layer).init(this, "auto", true);
-
-        /*toArray(this.document.root.childNodes).forEach(svgNode => {
-            if (svgNode instanceof SVGGElement) {
-                const nodeId = svgNode.getAttribute("id");
-                if (nodeId === null) {
-                    autoLayer.svgNodes.push(svgNode);
-                }
-                else {
-                    // Add the current node as a new layer.
-                    const layer = Object.create(Layer).init(this,
-                        this.document.handler.getLabel(svgNode) || ("#" + nodeId),
-                        false);
-                    layer.svgNodes.push(svgNode);
-                    this.layers.push(layer);
-                }
-            }
-        });
-
-        this.layers.push(autoLayer);*/
-
-        return this;
-    },
-
     setInitialCameraState() {
         this.initialCameraState = Object.create(CameraState).init(this.document.root);
     },
