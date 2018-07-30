@@ -6,6 +6,7 @@
 
 import h from "virtual-dom/h";
 import {VirtualDOMView} from "./VirtualDOMView";
+import {remote} from "electron";
 
 export const Properties = Object.create(VirtualDOMView);
 
@@ -204,7 +205,27 @@ Properties.renderPresentationProperties = function () {
                     this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseZoom", c.getPresentationProperty, c.setPresentationProperty),
                     this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardZoom", c.getPresentationProperty, c.setPresentationProperty)
             ])
-        ])
+        ]),
+
+        // New options for video and audio integration
+        h("h1", _("Video/Audio")),
+
+        h("label", {for: "field-video"}, _("Video (mp4)")),
+        this.renderFileField("video", false, c.getPresentationProperty, c.setPresentationProperty, false, _("Add video")),
+        h("label", {for: "field-videoPosition"}, _("Select video position")),
+        this.renderSelectField("videoPosition", c.getPresentationProperty, c.setPresentationProperty, {
+            "0" : "Top Left",
+            "1" : "Top Right",
+            "2" : "Bottom Left",
+            "3" : "Bottom Right"
+        }),
+
+        h("label", {for: "field-videoWidth"}, _("Video width")),
+        this.renderNumberField("videoWidth", false, c.getPresentationProperty, c.setPresentationProperty, false, 1, 1),
+
+        h("label", {for: "field-videoHeight"}, _("Video height")),
+        this.renderNumberField("videoHeight", false, c.getPresentationProperty, c.setPresentationProperty, false, 1, 1),
+
     ]);
 };
 
@@ -319,4 +340,33 @@ Properties.renderSelectField = function (property, getter, setter, options) {
             }, options[optionValue])
         )
     );
+};
+
+Properties.renderFileField = function (property, disabled, getter, setter, acceptsEmpty, title) {
+    const c = this.controller;
+
+    const values = asArray(getter.call(c, property));
+    const className = values.length > 1 ? "multiple" : undefined;
+    const value = values.length >= 1 ? values[values.length - 1] : "";
+
+    return h("button", {
+        id: "field-" + property,
+        className,
+        title,
+        onclick() {
+            let files = remote.dialog.showOpenDialog({
+                title: "Choose video",
+                filters: [{name: "Video file", extensions: ["mp4"], multiSelections: false}],
+                properties: ["openFile"]
+            });
+
+            files = files[0].split('/');
+
+            const file = files[files.length - 1];
+
+            if (file) {
+                setter.call(c, property, file);
+            }
+        }
+    }, h("i.fa.fa-folder-open-o"));
 };

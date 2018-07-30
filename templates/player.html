@@ -127,6 +127,9 @@
     <body>
         {{ svg }}
         <div class="sozi-frame-number" title="Click to show the frame list">1</div>
+        <video id="sozi-video" style="display: none; position: absolute;" controls playsinline> 
+            <source src="" type="video/mp4">
+        </video>
         <ol class="sozi-frame-list">
             {% for frame in pres.frames %}
                 {% if frame.showInFrameList %}

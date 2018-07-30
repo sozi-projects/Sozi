@@ -18,6 +18,10 @@
     height: 100%;
 }
 
+#sozi-editor-view-preview video {
+    position: absolute;
+}
+
 #sozi-editor-view-preview p,
 #sozi-editor-view-preview ul {
     margin: 2em;

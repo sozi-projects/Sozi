@@ -16,6 +16,7 @@ export const Preview = {
         this.controller = controller;
 
         controller.addListener("loadSVG", () => this.onLoad());
+        controller.addListener("loadVideo", this.onLoadVideo);
         window.addEventListener("resize", () => this.repaint());
         viewport.addListener("mouseDown", () => document.activeElement.blur());
 
@@ -39,6 +40,48 @@ export const Preview = {
         this.container.appendChild(this.presentation.document.root);
 
         this.viewport.onLoad();
+    },
+
+    // Creates the video element and sets the its size and position
+    onLoadVideo(location) {
+        let path = this.presentation.video;
+        let width = this.presentation.videoWidth;
+        let height = this.presentation.videoHeight;
+        let position = this.presentation.videoPosition;
+
+        if (!path) {
+            return;
+        }
+
+        var videoElement = document.createElement("video");
+        var sourceElement = document.createElement("source");
+
+        if (position == 0) {
+            videoElement.style.top = "0px";
+            videoElement.style.left = "0px";
+        } else if (position == 1) {
+            videoElement.style.top = "0px";
+            videoElement.style.right = "0px";
+        } else if (position == 2) {
+            videoElement.style.bottom = "0px";
+            videoElement.style.left = "0px";
+        } else if (position == 3) {
+            videoElement.style.bottom = "0px";
+            videoElement.style.right = "0px";
+        }
+
+        videoElement.style.width = width + "px";
+        videoElement.style.height = height + "px";
+
+        sourceElement.setAttribute("type", "video/mp4");
+        sourceElement.setAttribute("controls", "");
+        sourceElement.setAttribute("src", location + '/' + path);
+        videoElement.setAttribute("id", "sozi-video");
+        videoElement.setAttribute("controls", "");
+        videoElement.appendChild(sourceElement);
+        document.getElementById("sozi-editor-view-preview").appendChild(videoElement);
+        videoElement.load();
+
     },
 
     repaint() {

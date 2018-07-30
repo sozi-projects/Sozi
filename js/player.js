@@ -54,4 +54,37 @@ window.addEventListener("load", function () {
     Player.disableBlankScreen();
 
     document.querySelector(".sozi-blank-screen .spinner").style.display = "none";
+    
+    // Set video in presentation if it's defined
+    let videoUrl = window.sozi.presentation.video;
+
+    if (videoUrl) {
+        let presentation = window.sozi.presentation;
+        let player = window.sozi.player;
+        let videoElement = document.querySelector("#sozi-video");
+
+        videoElement.querySelector("source").setAttribute("src", videoUrl);
+        videoElement.load();
+        videoElement.addEventListener("pause", () => player.pause());
+        videoElement.addEventListener("play", () => player.resume());
+        videoElement.style.width = presentation.videoWidth + "px";
+        videoElement.style.height = presentation.videoHeight + "px";
+        videoElement.style.position = "absolute";
+        videoElement.style.display = "block";
+        player.pause();
+
+        if (presentation.videoPosition == 0) { 
+            videoElement.style.top = "0px";
+            videoElement.style.left = "0px";
+        } else if(presentation.videoPosition == 1) {
+            videoElement.style.top = "0px";
+            videoElement.style.right = "0px";
+        } else if(presentation.videoPosition == 2) {
+            videoElement.style.bottom = "0px";
+            videoElement.style.left = "0px";
+        } else if(presentation.videoPosition == 3) {
+            videoElement.style.bottom = "0px";
+            videoElement.style.right = "0px";
+        }
+    }
 });

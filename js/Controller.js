@@ -91,6 +91,10 @@ Controller.setSVGDocument = function (svgDocument) {
     this.presentation.setInitialCameraState();
 };
 
+Controller.setVideoDocument = function (location) {
+    this.emit("loadVideo", location);
+};
+
 /*
  * Add a frame to the presentation.
  *
