@@ -391,11 +391,30 @@ Timeline.render = function () {
             h("table.timeline", (this.hasDefaultLayer ? [
                 h("tr",
                     this.presentation.frames.map((frame, frameIndex) => h("td", {
+                        innerHTML: html2canvas(document.getElementById('sozi-editor-view-preview')).then(function(canvas) {
+                          //delete unnecessary stuff
+                          var frameCell = document.getElementById(frame.frameId);
+                          if(frameCell.childNodes[0].nodeValue == "[object Object]"){
+                            frameCell.removeChild(frameCell.childNodes[0]);
+                          }
+
+                          if(!document.getElementById(frame.frameId).childNodes.length){
+                            canvas.style = "width:100%; height:140px";
+                            frameCell.appendChild(canvas);
+                          }
+                          //update if the selected frame has been updated
+                          else if(document.getElementsByClassName("selected current" + " " + frameIndex).length){
+                            canvas.style = "width:100%; height:140px";
+                            frameCell.replaceChild(canvas, frameCell.childNodes[0]);
+                          }
+                        }),
                         className:
                             (this.defaultLayersAreSelected && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
                             (frame === this.selection.currentFrame ? " current" : "") +
                             (frameIndex > 0 && frame.layerProperties[this.defaultLayers[0].index].link ? " link" : "") +
-                            (updateEven(frame, this.defaultLayers[0]) ? " even" : " odd"),
+                            (updateEven(frame, this.defaultLayers[0]) ? " even" : " odd") + " " + frameIndex,
+
+                        id: frame.frameId,
                         onclick: evt => this.updateLayerAndFrameSelection(-1, frameIndex, evt)
                     }))
                 )
