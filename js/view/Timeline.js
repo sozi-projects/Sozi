@@ -8,6 +8,7 @@ import {toArray} from "../utils";
 import h from "virtual-dom/h";
 import {VirtualDOMView} from "./VirtualDOMView";
 import Jed from "jed";
+import html2canvas from "html2canvas";
 
 /*
  * The Timeline view shows a table where columns represent frames
