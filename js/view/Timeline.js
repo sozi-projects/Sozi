@@ -291,7 +291,8 @@ Timeline.render = function () {
                                 .map(layer => h("option", {value: layer.index}, layer.label))
                         ))
                     )
-                )
+                ),
+                h("tr.frame-thumbnails")
             ])
         ]),
         h("div.timeline-bottom-left", [
@@ -380,7 +381,40 @@ Timeline.render = function () {
                             onclick: evt => this.updateFrameSelection(frameIndex, evt)
                         }, frame.title)
                     )
-                 )
+                ),
+                h("tr",
+                    this.presentation.frames.map((frame, frameIndex) => h("th", {
+                            title: frame.title,
+                            innerHTML: html2canvas(document.getElementById('sozi-editor-view-preview')).then(function(canvas) {
+                                //delete unnecessary stuff
+                                var frameCell = document.getElementById(frame.frameId);
+                                if (frameCell.firstChild.nodeValue == "[object Object]") {
+                                    frameCell.removeChild(frameCell.firstChild);
+                                }
+
+                                const style  = getComputedStyle(frameCell);
+                                const width  = frameCell.clientWidth  - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+                                const height = frameCell.clientHeight - parseFloat(style.paddingTop)  - parseFloat(style.paddingBottom);
+
+                                canvas.style = `max-width:${width}px; max-height:${height}px`;
+
+                                if (!document.getElementById(frame.frameId).childNodes.length) {
+                                    frameCell.appendChild(canvas);
+                                }
+                                //update if the selected frame has been updated
+                                else if (document.getElementsByClassName("selected current" + " " + frameIndex).length) {
+                                    frameCell.replaceChild(canvas, frameCell.firstChild);
+                                }
+                            }),
+                            className: "frame-thumbnail" +
+                                (this.selection.selectedFrames.indexOf(frame) >= 0 ? " selected" : "") +
+                                (frame === this.selection.currentFrame ? " current" : "") +
+                                " " + frameIndex,
+                            id: frame.frameId,
+                            onclick: evt => this.updateFrameSelection(frameIndex, evt)
+                        })
+                    )
+                )
             ])
         ]),
         h("div.timeline-bottom-right", {
@@ -392,30 +426,11 @@ Timeline.render = function () {
             h("table.timeline", (this.hasDefaultLayer ? [
                 h("tr",
                     this.presentation.frames.map((frame, frameIndex) => h("td", {
-                        innerHTML: html2canvas(document.getElementById('sozi-editor-view-preview')).then(function(canvas) {
-                          //delete unnecessary stuff
-                          var frameCell = document.getElementById(frame.frameId);
-                          if(frameCell.childNodes[0].nodeValue == "[object Object]"){
-                            frameCell.removeChild(frameCell.childNodes[0]);
-                          }
-
-                          if(!document.getElementById(frame.frameId).childNodes.length){
-                            canvas.style = "width:100%; height:140px";
-                            frameCell.appendChild(canvas);
-                          }
-                          //update if the selected frame has been updated
-                          else if(document.getElementsByClassName("selected current" + " " + frameIndex).length){
-                            canvas.style = "width:100%; height:140px";
-                            frameCell.replaceChild(canvas, frameCell.childNodes[0]);
-                          }
-                        }),
                         className:
                             (this.defaultLayersAreSelected && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
                             (frame === this.selection.currentFrame ? " current" : "") +
                             (frameIndex > 0 && frame.layerProperties[this.defaultLayers[0].index].link ? " link" : "") +
-                            (updateEven(frame, this.defaultLayers[0]) ? " even" : " odd") + " " + frameIndex,
-
-                        id: frame.frameId,
+                            (updateEven(frame, this.defaultLayers[0]) ? " even" : " odd"),
                         onclick: evt => this.updateLayerAndFrameSelection(-1, frameIndex, evt)
                     }))
                 )

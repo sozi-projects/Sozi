@@ -41,12 +41,24 @@
     top: 0;
 }
 
+.timeline-top-left .timeline,
+.timeline-top-right .timeline {
+    border-collapse: separate;
+    border-spacing: 0px 0px;
+}
+
 .timeline-bottom-left,
 .timeline-bottom-right {
     bottom: 0;
     /* Always-visible horizontal scrollbar in left and right bottom tables.
      * Required for alignment between rows. */
     overflow-x: scroll;
+}
+
+.timeline-bottom-left .timeline,
+.timeline-bottom-right .timeline {
+    border-collapse: separate;
+    border-spacing: 0px 2px;
 }
 
 .timeline-top-left,
@@ -66,11 +78,6 @@
     overflow-y: scroll;
 }
 
-.timeline {
-    border-collapse: separate;
-    border-spacing: 0px 2px;
-}
-
 .timeline input,
 .timeline button,
 .timeline select {
@@ -80,17 +87,20 @@
 .timeline td,
 .timeline th.frame-index,
 .timeline th.frame-title,
+.timeline th.frame-thumbnail,
 .timeline th.layer-label {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 18em;
-    max-width: 18em;
+    width: 12em;
+    max-width: 12em;
     padding-left: 0.5em;
     padding-right: 0.5em;
 }
 
-
+.timeline th.frame-thumbnail {
+    height: 9em;
+}
 
 .timeline th.layer-icons {
     width: auto;
@@ -152,6 +162,7 @@
 
 .timeline td,
 .timeline th.frame-index,
+.timeline th.frame-thumbnail,
 .timeline th.frame-title {
     border-left: 2px solid rgb(80, 80, 80);
 }
