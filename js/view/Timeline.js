@@ -187,6 +187,26 @@ Timeline.updateLayerAndFrameSelection = function (layerIndex, frameIndex, evt) {
 Timeline.repaint = function () {
     VirtualDOMView.repaint.call(this);
 
+    // Update the thumbnail of the current frame.
+    const currentThumbnailContainer = document.querySelector(".frame-thumbnail.current");
+
+    if (currentThumbnailContainer) {
+        html2canvas(document.getElementById("sozi-editor-view-preview")).then(canvas => {
+            const style  = getComputedStyle(currentThumbnailContainer);
+            const width  = currentThumbnailContainer.clientWidth  - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+            const height = currentThumbnailContainer.clientHeight - parseFloat(style.paddingTop)  - parseFloat(style.paddingBottom);
+
+            canvas.style = `max-width:${width}px; max-height:${height}px`;
+
+            if (currentThumbnailContainer.firstChild) {
+                currentThumbnailContainer.replaceChild(canvas, currentThumbnailContainer.firstChild);
+            }
+            else {
+                currentThumbnailContainer.appendChild(canvas);
+            }
+        });
+    }
+
     const topLeft = this.rootNode.querySelector(".timeline-top-left");
     const topRight = this.rootNode.querySelector(".timeline-top-right");
     const bottomLeft = this.rootNode.querySelector(".timeline-bottom-left");
@@ -292,7 +312,7 @@ Timeline.render = function () {
                         ))
                     )
                 ),
-                h("tr.frame-thumbnails")
+                h("tr")
             ])
         ]),
         h("div.timeline-bottom-left", [
@@ -385,32 +405,9 @@ Timeline.render = function () {
                 h("tr",
                     this.presentation.frames.map((frame, frameIndex) => h("th", {
                             title: frame.title,
-                            innerHTML: html2canvas(document.getElementById('sozi-editor-view-preview')).then(function(canvas) {
-                                //delete unnecessary stuff
-                                var frameCell = document.getElementById(frame.frameId);
-                                if (frameCell.firstChild.nodeValue == "[object Object]") {
-                                    frameCell.removeChild(frameCell.firstChild);
-                                }
-
-                                const style  = getComputedStyle(frameCell);
-                                const width  = frameCell.clientWidth  - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
-                                const height = frameCell.clientHeight - parseFloat(style.paddingTop)  - parseFloat(style.paddingBottom);
-
-                                canvas.style = `max-width:${width}px; max-height:${height}px`;
-
-                                if (!document.getElementById(frame.frameId).childNodes.length) {
-                                    frameCell.appendChild(canvas);
-                                }
-                                //update if the selected frame has been updated
-                                else if (document.getElementsByClassName("selected current" + " " + frameIndex).length) {
-                                    frameCell.replaceChild(canvas, frameCell.firstChild);
-                                }
-                            }),
                             className: "frame-thumbnail" +
                                 (this.selection.selectedFrames.indexOf(frame) >= 0 ? " selected" : "") +
-                                (frame === this.selection.currentFrame ? " current" : "") +
-                                " " + frameIndex,
-                            id: frame.frameId,
+                                (frame === this.selection.currentFrame ? " current" : ""),
                             onclick: evt => this.updateFrameSelection(frameIndex, evt)
                         })
                     )
