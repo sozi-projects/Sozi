@@ -304,12 +304,11 @@ Timeline.render = function () {
                                 this.addLayer(value);
                             }
                         }, [
-                            h("option", {value: "__add__", selected: "selected"}, _("Add layer"))
-                        ].concat(
+                            h("option", {value: "__add__", selected: "selected"}, _("Add layer")),
                             this.presentation.layers.slice().reverse()
                                 .filter(layer => !layer.auto && this.defaultLayers.indexOf(layer) >= 0)
                                 .map(layer => h("option", {value: layer.index}, layer.label))
-                        ))
+                        ])
                     )
                 ),
             ].concat(
@@ -317,8 +316,8 @@ Timeline.render = function () {
             ))
         ]),
         h("div.timeline-bottom-left", [
-            h("table.timeline", (this.hasDefaultLayer ? [
-                h("tr", [
+            h("table.timeline", [
+                this.hasDefaultLayer ? h("tr", [
                     h("th.layer-icons", [
                         defaultLayersAreVisible ?
                             h("i.visibility.fa.fa-eye", {
@@ -335,8 +334,7 @@ Timeline.render = function () {
                         className: "layer-label" + (this.defaultLayersAreSelected ? " selected" : ""),
                         onclick: evt => this.updateLayerSelection(-1, evt)
                     }, _("Default"))
-                ]),
-            ] : []).concat(
+                ]) : null,
                 this.presentation.layers.slice().reverse()
                     .filter(layer => this.editableLayers.indexOf(layer) >= 0)
                     .map(layer => h("tr", [
@@ -360,13 +358,12 @@ Timeline.render = function () {
                                 onclick: evt => this.updateLayerSelection(layer.index, evt)
                             }, layer.label)
                         ])
-                    )
-            ).concat([
+                    ),
                 h("tr", {style: {visibility: "collapse"}}, [
                     h("th.layer-icons"),
                     h("th.layer-label", _("Default"))
                 ])
-            ]))
+            ])
         ]),
         h("div.timeline-top-right", [
             h("table.timeline", [
@@ -424,8 +421,8 @@ Timeline.render = function () {
                 this.rootNode.querySelector(".timeline-bottom-left").scrollTop = evt.target.scrollTop;
             }
         }, [
-            h("table.timeline", (this.hasDefaultLayer ? [
-                h("tr",
+            h("table.timeline", [
+                this.hasDefaultLayer ? h("tr",
                     this.presentation.frames.map((frame, frameIndex) => h("td", {
                         className:
                             (this.defaultLayersAreSelected && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
@@ -434,8 +431,7 @@ Timeline.render = function () {
                             (updateEven(frame, this.defaultLayers[0]) ? " even" : " odd"),
                         onclick: evt => this.updateLayerAndFrameSelection(-1, frameIndex, evt)
                     }))
-                )
-            ] : []).concat(
+                ) : null,
                 this.presentation.layers.slice().reverse()
                     .filter(layer => this.editableLayers.indexOf(layer) >= 0)
                     .map(layer => h("tr",
@@ -447,12 +443,11 @@ Timeline.render = function () {
                                 (updateEven(frame, layer) ? " even" : " odd"),
                             onclick: evt => this.updateLayerAndFrameSelection(layer.index, frameIndex, evt)
                         })
-                    )))
-            ).concat([
+                    ))),
                 h("tr.collapse",
                     this.presentation.frames.map(frame => h("td", frame.title))
                 )
-            ]))
+            ])
         ])
     ]);
 };
