@@ -312,8 +312,9 @@ Timeline.render = function () {
                         ))
                     )
                 ),
-                h("tr")
-            ])
+            ].concat(
+                c.getPreference("showThumbnails") ? [ h("tr") ] : []
+            ))
         ]),
         h("div.timeline-bottom-left", [
             h("table.timeline", (this.hasDefaultLayer ? [
@@ -401,18 +402,21 @@ Timeline.render = function () {
                             onclick: evt => this.updateFrameSelection(frameIndex, evt)
                         }, frame.title)
                     )
-                ),
-                h("tr",
-                    this.presentation.frames.map((frame, frameIndex) => h("th", {
-                            title: frame.title,
-                            className: "frame-thumbnail" +
-                                (this.selection.selectedFrames.indexOf(frame) >= 0 ? " selected" : "") +
-                                (frame === this.selection.currentFrame ? " current" : ""),
-                            onclick: evt => this.updateFrameSelection(frameIndex, evt)
-                        })
-                    )
                 )
-            ])
+            ].concat(
+                c.getPreference("showThumbnails") ? [
+                    h("tr",
+                        this.presentation.frames.map((frame, frameIndex) => h("th", {
+                                title: frame.title,
+                                className: "frame-thumbnail" +
+                                    (this.selection.selectedFrames.indexOf(frame) >= 0 ? " selected" : "") +
+                                    (frame === this.selection.currentFrame ? " current" : ""),
+                                onclick: evt => this.updateFrameSelection(frameIndex, evt)
+                            })
+                        )
+                    )
+                ] : []
+            ))
         ]),
         h("div.timeline-bottom-right", {
             onscroll: evt => {

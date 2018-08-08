@@ -64,6 +64,10 @@ Properties.renderPreferences = function () {
             _("Enable notifications on save and reload"),
             this.renderToggleField(h("i.fa.fa-check-square-o"), _("Enable notifications"), "enableNotifications", c.getPreference, c.setPreference)
         ]),
+        h("label", {for: "field-showThumbnails"}, [
+            _("Show thumbnails in timeline"),
+            this.renderToggleField(h("i.fa.fa-check-square-o"), _("Show thumbnails"), "showThumbnails", c.getPreference, c.setPreference)
+        ]),
         h("h1", _("Behavior")),
         h("label", {for: "field-animateTransitions"}, [
             _("Preview transition animations"),
