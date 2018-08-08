@@ -6,7 +6,9 @@ import {app, BrowserWindow} from "electron";
 let mainWindow;
 
 function createWindow () {
-    // TODO set width and height from local storage
+    // This sets the initial window size.
+    // If Sozi has been opened before, the size and location will be
+    // loaded from local storage in backend/Electron.js.
     mainWindow = new BrowserWindow({width: 800, height: 600});
     mainWindow.loadURL(`file://${__dirname}/../index.html`);
 
