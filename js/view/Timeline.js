@@ -311,9 +311,8 @@ Timeline.render = function () {
                         ])
                     )
                 ),
-            ].concat(
-                c.getPreference("showThumbnails") ? [ h("tr") ] : []
-            ))
+                c.getPreference("showThumbnails") ? h("tr") : null
+            ])
         ]),
         h("div.timeline-bottom-left", [
             h("table.timeline", [
@@ -399,21 +398,18 @@ Timeline.render = function () {
                             onclick: evt => this.updateFrameSelection(frameIndex, evt)
                         }, frame.title)
                     )
-                )
-            ].concat(
-                c.getPreference("showThumbnails") ? [
-                    h("tr",
-                        this.presentation.frames.map((frame, frameIndex) => h("th", {
-                                title: frame.title,
-                                className: "frame-thumbnail" +
-                                    (this.selection.selectedFrames.indexOf(frame) >= 0 ? " selected" : "") +
-                                    (frame === this.selection.currentFrame ? " current" : ""),
-                                onclick: evt => this.updateFrameSelection(frameIndex, evt)
-                            })
-                        )
+                ),
+                c.getPreference("showThumbnails") ? h("tr",
+                    this.presentation.frames.map((frame, frameIndex) => h("th", {
+                            title: frame.title,
+                            className: "frame-thumbnail" +
+                                (this.selection.selectedFrames.indexOf(frame) >= 0 ? " selected" : "") +
+                                (frame === this.selection.currentFrame ? " current" : ""),
+                            onclick: evt => this.updateFrameSelection(frameIndex, evt)
+                        })
                     )
-                ] : []
-            ))
+                ) : null
+            ])
         ]),
         h("div.timeline-bottom-right", {
             onscroll: evt => {
