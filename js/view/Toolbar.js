@@ -4,7 +4,7 @@
 
 "use strict";
 
-import h from "virtual-dom/h";
+import {h} from "inferno-hyperscript";
 import {VirtualDOMView} from "./VirtualDOMView";
 import {Properties} from "./Properties";
 import screenfull from "screenfull";
@@ -96,7 +96,7 @@ Toolbar.render = function () {
                 onclick() { c.redo(); }
             }, h("i.fa.fa-share")) // "share" icon preferred to the official "redo" icon
         ]),
-        h("span.group",
+        h("span.group", [
             h("button", {
                 title: screenfull.isFullscreen ? _("Disable full-screen mode") : _("Enable full-screen mode"),
                 id: "btn-fullscreen",
@@ -104,7 +104,7 @@ Toolbar.render = function () {
                 disabled: !screenfull.enabled,
                 onclick() { screenfull.toggle(document.documentElement); }
             }, h("i.fa.fa-desktop"))
-        ),
+        ]),
         h("span.group.btn-group", [
             h("button", {
                 title: _("Save the presentation"),

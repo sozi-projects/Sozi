@@ -4,7 +4,7 @@
 
 "use strict";
 
-import h from "virtual-dom/h";
+import {h} from "inferno-hyperscript";
 import {VirtualDOMView} from "./VirtualDOMView";
 
 export const Properties = Object.create(VirtualDOMView);
