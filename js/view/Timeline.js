@@ -5,7 +5,7 @@
 "use strict";
 
 import {toArray} from "../utils";
-import h from "virtual-dom/h";
+import {h} from "inferno-hyperscript";
 import {VirtualDOMView} from "./VirtualDOMView";
 import Jed from "jed";
 
@@ -186,19 +186,19 @@ Timeline.updateLayerAndFrameSelection = function (layerIndex, frameIndex, evt) {
 Timeline.repaint = function () {
     VirtualDOMView.repaint.call(this);
 
-    const topLeft = this.rootNode.querySelector(".timeline-top-left");
-    const topRight = this.rootNode.querySelector(".timeline-top-right");
-    const bottomLeft = this.rootNode.querySelector(".timeline-bottom-left");
-    const bottomRight = this.rootNode.querySelector(".timeline-bottom-right");
+    const topLeft = this.container.querySelector(".timeline-top-left");
+    const topRight = this.container.querySelector(".timeline-top-right");
+    const bottomLeft = this.container.querySelector(".timeline-bottom-left");
+    const bottomRight = this.container.querySelector(".timeline-bottom-right");
 
     const topLeftTable = topLeft.querySelector("table");
     const topRightTable = topRight.querySelector("table");
     const bottomLeftTable = bottomLeft.querySelector("table");
 
     const leftWidth = Math.max(topLeftTable.clientWidth, bottomLeftTable.clientWidth);
-    const rightWidth = this.rootNode.clientWidth - leftWidth;
+    const rightWidth = this.container.clientWidth - leftWidth;
     const topHeight = Math.max(topLeftTable.clientHeight, topRightTable.clientHeight);
-    const bottomHeight = this.rootNode.clientHeight - topHeight;
+    const bottomHeight = this.container.clientHeight - topHeight;
 
     // Fit the width of the left tables,
     // allocate remaining width to the right tables
@@ -260,22 +260,22 @@ Timeline.render = function () {
         h("div.timeline-top-left", [
             h("table.timeline", [
                 h("tr", [
-                    h("th",
+                    h("th", [
                         h("button", {
                             title: _("Delete the selected frames"),
                             disabled: this.selection.selectedFrames.length ? undefined : "disabled",
                             onclick() { c.deleteFrames(); }
-                        },
-                            h("i.fa.fa-trash"))),
-                    h("th",
+                        }, h("i.fa.fa-trash"))
+                    ]),
+                    h("th", [
                         h("button", {
                             title: _("Create a new frame"),
                             onclick() { c.addFrame(); }
-                        },
-                            h("i.fa.fa-plus"))),
+                        }, h("i.fa.fa-plus"))
+                    ]),
                 ]),
-                h("tr",
-                    h("th", {attributes: {colspan: 2}},
+                h("tr", [
+                    h("th", {colspan: 2},
                         h("select", {
                             onchange: evt => {
                                 const value = evt.target.value;
@@ -289,7 +289,7 @@ Timeline.render = function () {
                                 .map(layer => h("option", {value: layer.index}, layer.label))
                         ])
                     )
-                )
+                ])
             ])
         ]),
         h("div.timeline-bottom-left", [
@@ -381,11 +381,10 @@ Timeline.render = function () {
         ]),
         h("div.timeline-bottom-right", {
             onscroll: evt => {
-                this.rootNode.querySelector(".timeline-top-right").scrollLeft = evt.target.scrollLeft;
-                this.rootNode.querySelector(".timeline-bottom-left").scrollTop = evt.target.scrollTop;
+                this.container.querySelector(".timeline-top-right").scrollLeft = evt.target.scrollLeft;
+                this.container.querySelector(".timeline-bottom-left").scrollTop = evt.target.scrollTop;
             }
-        }, [
-            h("table.timeline", [
+        }, h("table.timeline", [
                 this.hasDefaultLayer ? h("tr",
                     this.presentation.frames.map((frame, frameIndex) => h("td", {
                         className:
@@ -412,6 +411,6 @@ Timeline.render = function () {
                     this.presentation.frames.map(frame => h("td", frame.title))
                 )
             ])
-        ])
+        )
     ]);
 };

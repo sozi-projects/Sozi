@@ -4,10 +4,8 @@
 
 "use strict";
 
-import h from "virtual-dom/h";
-import createElement from "virtual-dom/create-element";
-import diff from "virtual-dom/diff";
-import patch from "virtual-dom/patch";
+import {render} from "inferno";
+import {h} from "inferno-hyperscript";
 
 export const VirtualDOMView = {
 
@@ -15,21 +13,19 @@ export const VirtualDOMView = {
         this.container = container;
         this.controller = controller;
 
-        this.vtree = h("div");
-        this.rootNode = createElement(this.vtree, {document});
-        container.appendChild(this.rootNode);
-
         const repaintHandler = () => this.repaint();
         controller.addListener("repaint", repaintHandler);
         window.addEventListener("resize", repaintHandler);
 
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+        
         return this;
     },
 
     repaint() {
-        const vtree = this.render();
-        this.rootNode = patch(this.rootNode, diff(this.vtree, vtree));
-        this.vtree = vtree;
+        render(this.render(), this.container);
     },
 
     render() {
