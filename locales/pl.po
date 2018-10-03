@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-05-02 11:40+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2018-10-04 08:34+0000\n"
+"Last-Translator: WaldiS <admin@sto.ugu.pl>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/sozi/translations/"
 "pl/>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.2-dev\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
 
 #: js/backend/Electron.js:28
@@ -102,52 +102,51 @@ msgstr "Cofnij"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr ""
+msgstr "Ustaw tytuł ramki"
 
 #: js/view/Properties.js:48 js/view/Toolbar.js:115
 msgid "Reload the SVG document"
 msgstr "Otwórz plik SVG ponownie"
 
 #: js/view/Properties.js:49
-#, fuzzy
 msgid "Toggle full-screen mode"
 msgstr "Włącz tryb pełnoekranowy"
 
 #: js/view/Properties.js:50
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "Przełącz narzędzia programistyczne"
 
 #: js/view/Properties.js:60
 msgid "User interface"
-msgstr ""
+msgstr "Interfejs użytkownika"
 
 #: js/view/Properties.js:61
 msgid "Font size"
-msgstr ""
+msgstr "Rozmiar czcionki"
 
 #: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
-msgstr ""
+msgstr "Włącz powiadomienia o zapisywaniu i ponownym ładowaniu"
 
 #: js/view/Properties.js:65
 msgid "Enable notifications"
-msgstr ""
+msgstr "Włącz powiadomienia"
 
 #: js/view/Properties.js:67
 msgid "Behavior"
-msgstr ""
+msgstr "Zachowanie"
 
 #: js/view/Properties.js:69
 msgid "Preview transition animations"
-msgstr ""
+msgstr "Podgląd animacji przejścia"
 
 #: js/view/Properties.js:70
 msgid "Enable animated transitions"
-msgstr ""
+msgstr "Włącz animowane przejścia"
 
 #: js/view/Properties.js:72
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Skróty klawiszowe"
 
 #: js/view/Properties.js:84
 msgid "Select a layer to copy"
@@ -242,35 +241,34 @@ msgid "Hide path"
 msgstr "Ukryj ścieżkę"
 
 #: js/view/Properties.js:174
-#, fuzzy
 msgid "Player"
-msgstr "Warstwa"
+msgstr "Odtwarzaj"
 
 #: js/view/Properties.js:177
 msgid "Allow to control the presentation"
-msgstr ""
+msgstr "Pozwól kontrolować prezentację"
 
 #: js/view/Properties.js:179 js/view/Properties.js:186
 #: js/view/Properties.js:192 js/view/Properties.js:200
 msgid "using the mouse"
-msgstr ""
+msgstr "za pomocą myszy"
 
 #: js/view/Properties.js:180 js/view/Properties.js:193
 #: js/view/Properties.js:201
 msgid "using the keyboard"
-msgstr ""
+msgstr "za pomocą klawiatury"
 
 #: js/view/Properties.js:185
 msgid "Allow to move the camera"
-msgstr ""
+msgstr "Pozwól przesuwać kamerę"
 
 #: js/view/Properties.js:190
 msgid "Allow to rotate the camera"
-msgstr ""
+msgstr "Pozwól, aby obrócić kamerę"
 
 #: js/view/Properties.js:198
 msgid "Allow to zoom"
-msgstr ""
+msgstr "Zezwalaj na powiększanie"
 
 #: js/view/Timeline.js:265
 msgid "Delete the selected frames"
@@ -333,7 +331,7 @@ msgstr "Włącz tryb pełnoekranowy"
 
 #: js/view/Toolbar.js:121
 msgid "Preferences"
-msgstr ""
+msgstr "Preferencje"
 
 #: js/view/Toolbar.js:126
 msgid "Information"
