@@ -33,11 +33,11 @@ Electron.init = function (container, _) {
 
     // Save automatically when the window loses focus
     const onBlur = () => this.doAutosave();
-    window.addEventListener("blur", onBlur);
+    this.addListener("blur", onBlur);
 
     // Save automatically when closing the window
     window.addEventListener("beforeunload", () => {
-        window.removeEventListener("blur", onBlur);
+        this.removeListener("blur", onBlur);
         this.doAutosave();
         this.saveConfiguration();
     });

@@ -134,8 +134,25 @@ Storage.onBackendChange = function (fileDescriptor) {
     const _ = this.gettext;
 
     if (fileDescriptor === this.svgFileDescriptor) {
-        this.controller.info(_("Document was changed. Reloading."));
-        this.reload();
+        switch (this.controller.getPreference("reload")) {
+            case "auto":
+                this.controller.info(_("Document was changed. Reloading."));
+                this.reload();
+                break;
+
+            case "onfocus":
+                if (this.backend.hasFocus) {
+                    this.controller.info(_("Document was changed. Reloading."));
+                    this.reload();
+                }
+                else {
+                    this.backend.once("focus", () => this.reload());
+                }
+                break;
+
+            default:
+                this.controller.info(_("Document was changed."));
+        }
     }
 };
 

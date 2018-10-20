@@ -16,7 +16,7 @@ GoogleDrive.init = function (container, _) {
     AbstractBackend.init.call(this, container, "sozi-editor-backend-GoogleDrive-input", _("Open an SVG file from Google Drive"));
 
     // Save automatically when the window loses focus
-    window.addEventListener("blur", () => this.doAutosave());
+    this.addListener("blur", () => this.doAutosave());
 
     this.clickToAuth = () => this.authorize(false);
 

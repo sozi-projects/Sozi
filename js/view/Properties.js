@@ -64,6 +64,12 @@ Properties.renderPreferences = function () {
             _("Enable notifications on save and reload"),
             this.renderToggleField(h("i.fa.fa-check-square-o"), _("Enable notifications"), "enableNotifications", c.getPreference, c.setPreference)
         ]),
+        h("label", {for: "field-reload"}, _("Reload the SVG document")),
+        this.renderSelectField("reload", c.getPreference, c.setPreference, {
+            "auto": _("Automatically"),
+            "onfocus": _("When Sozi gets the focus"),
+            "manual": _("Manually")
+        }),
         h("h1", _("Behavior")),
         h("label", {for: "field-animateTransitions"}, [
             _("Preview transition animations"),

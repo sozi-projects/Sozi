@@ -20,5 +20,6 @@ export const Preferences = {
         reload: "F5",
         toggleFullscreen: "F11",
         toggleDevTools: "F12"
-    }
+    },
+    reload: "auto"
 };
