@@ -84,10 +84,10 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
             this.resolveRelativeURLs(location);
             this.controller.setSVGDocument(this.document);
             this.svgFileDescriptor = fileDescriptor;
-            this.openJSONFile(name.replace(/\.svg$/, ".sozi.json"), location);
             this.controller.once("ready", () => {
                 this.createHTMLFile(name.replace(/\.svg$/, ".sozi.html"), location);
             });
+            this.openJSONFile(name.replace(/\.svg$/, ".sozi.json"), location);
         }
         else {
             this.controller.error(_("Document is not valid SVG."));
