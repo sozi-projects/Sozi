@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-10-20 04:34:+0000\n"
-"PO-Revision-Date: 2018-10-04 08:34+0000\n"
-"Last-Translator: WaldiS <admin@sto.ugu.pl>\n"
+"PO-Revision-Date: 2018-10-22 13:33+0000\n"
+"Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/sozi/translations/"
 "pl/>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.2-dev\n"
+"X-Generator: Weblate 3.3-dev\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
 
 #: js/backend/Electron.js:28
@@ -69,9 +69,8 @@ msgid "Document was changed. Reloading."
 msgstr "Dokument uległ zmianie. Trwa odświeżanie."
 
 #: js/Storage.js:154
-#, fuzzy
 msgid "Document was changed."
-msgstr "Dokument uległ zmianie. Trwa odświeżanie."
+msgstr "Dokument uległ zmianie."
 
 #: js/Storage.js:180
 msgid "Document was imported from Sozi 13 or earlier."
