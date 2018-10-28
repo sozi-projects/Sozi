@@ -29,16 +29,19 @@ Toolbar.render = function () {
     const v = this.viewport;
     const t = this;
 
+    this.state["aspect-width"]  = this.presentation.aspectWidth;
+    this.state["aspect-height"] = this.presentation.aspectHeight;
+
     return h("div", [
         h("span.group", [
             _("Aspect ratio: "),
             h("input.aspect", {
+                id: "field-aspect-width",
                 type: "number",
                 pattern: "\\d+",
                 min: "1",
                 step: "1",
                 size: "3",
-                value: this.presentation.aspectWidth,
                 onchange() {
                     const width = parseInt(this.value);
                     if (!width.isNaN) {
@@ -48,12 +51,12 @@ Toolbar.render = function () {
             }),
             " : ",
             h("input.aspect", {
+                id: "field-aspect-height",
                 type: "number",
                 pattern: "\\d+",
                 min: "1",
                 step: "1",
                 size: "3",
-                value: this.presentation.aspectHeight,
                 onchange() {
                     const height = parseInt(this.value);
                     if (!height.isNaN) {

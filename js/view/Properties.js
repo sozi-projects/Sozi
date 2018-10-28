@@ -219,12 +219,11 @@ Properties.renderTextField = function (property, disabled, getter, setter, accep
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    const value = values.length >= 1 ? values[values.length - 1] : "";
+    this.state[property] = values.length >= 1 ? values[values.length - 1] : "";
 
     return h("input", {
         id: "field-" + property,
         type: "text",
-        value,
         className,
         disabled,
         onchange() {
@@ -241,12 +240,11 @@ Properties.renderNumberField = function (property, disabled, getter, setter, sig
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    const value = values.length >= 1 ? values[values.length - 1] / factor : 0; // TODO use default value
+    this.state[property] = values.length >= 1 ? values[values.length - 1] / factor : 0; // TODO use default value
 
     return h("input", {
         id: "field-" + property,
         type: "number",
-        value,
         className,
         disabled,
         min: signed ? undefined : 0,
@@ -266,16 +264,15 @@ Properties.renderRangeField = function (property, disabled, getter, setter, min,
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    const value = values.length >= 1 ? values[values.length - 1] : (min + max) / 2; // TODO use default value
+    this.state[property] = values.length >= 1 ? values[values.length - 1] : (min + max) / 2; // TODO use default value
 
     return h("input", {
         id: "field-" + property,
         type: "range",
-        title: value,
+        title: this.state[property],
         min,
         max,
         step,
-        value,
         className,
         disabled,
         onchange() {

@@ -12,6 +12,7 @@ export const VirtualDOMView = {
     init(container, controller) {
         this.container = container;
         this.controller = controller;
+        this.state = {};
 
         const repaintHandler = () => this.repaint();
         controller.addListener("repaint", repaintHandler);
@@ -20,12 +21,16 @@ export const VirtualDOMView = {
         while (container.firstChild) {
             container.removeChild(container.firstChild);
         }
-        
+
         return this;
     },
 
     repaint() {
-        render(this.render(), this.container);
+        render(this.render(), this.container, () => {
+            Object.keys(this.state).forEach(key => {
+                document.getElementById("field-" + key).value = this.state[key];
+            });
+        });
     },
 
     render() {
