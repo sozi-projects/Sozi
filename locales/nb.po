@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-10-20 04:34:+0000\n"
-"PO-Revision-Date: 2018-05-01 10:55+0000\n"
+"PO-Revision-Date: 2018-10-22 14:32+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/sozi/"
 "translations/nb/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.3-dev\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 
 #: js/backend/Electron.js:28
@@ -139,15 +139,15 @@ msgstr "Skru på merknader"
 
 #: js/view/Properties.js:69
 msgid "Automatically"
-msgstr ""
+msgstr "Automatisk"
 
 #: js/view/Properties.js:70
 msgid "When Sozi gets the focus"
-msgstr ""
+msgstr "Når Sozi er ute av fokus"
 
 #: js/view/Properties.js:71
 msgid "Manually"
-msgstr ""
+msgstr "Manuelt"
 
 #: js/view/Properties.js:73
 msgid "Behavior"
