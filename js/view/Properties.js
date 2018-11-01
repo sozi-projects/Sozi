@@ -181,6 +181,10 @@ Properties.renderPresentationProperties = function () {
         ]),
         this.renderTextField("transitionPathId", false, c.getLayerProperty, c.setLayerProperty, true),
 
+        h("h1", _("Notes")),
+
+        this.renderRichTextField("notes", false, c.getFrameProperty, c.setFrameProperty, true),
+
         h("h1", _("Player")),
 
         h("div", [
@@ -219,7 +223,7 @@ Properties.renderTextField = function (property, disabled, getter, setter, accep
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    this.state[property] = values.length >= 1 ? values[values.length - 1] : "";
+    this.state[property] = {value: values.length >= 1 ? values[values.length - 1] : ""};
 
     return h("input", {
         id: "field-" + property,
@@ -235,12 +239,33 @@ Properties.renderTextField = function (property, disabled, getter, setter, accep
     });
 };
 
+Properties.renderRichTextField = function (property, disabled, getter, setter, acceptsEmpty) {
+    const c = this.controller;
+
+    const values = asArray(getter.call(c, property));
+    const className = values.length > 1 ? "multiple" : undefined;
+    this.state[property] = {innerHTML: values.length >= 1 ? values[values.length - 1] : ""};
+
+    return h("section", {
+        id: "field-" + property,
+        contentEditable: true,
+        className,
+        disabled,
+        onblur() {
+            const value = this.innerHTML;
+            if (acceptsEmpty || value.length) {
+                setter.call(c, property, value);
+            }
+        }
+    });
+};
+
 Properties.renderNumberField = function (property, disabled, getter, setter, signed, step, factor) {
     const c = this.controller;
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    this.state[property] = values.length >= 1 ? values[values.length - 1] / factor : 0; // TODO use default value
+    this.state[property] = {value: values.length >= 1 ? values[values.length - 1] / factor : 0}; // TODO use default value
 
     return h("input", {
         id: "field-" + property,
@@ -264,12 +289,12 @@ Properties.renderRangeField = function (property, disabled, getter, setter, min,
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    this.state[property] = values.length >= 1 ? values[values.length - 1] : (min + max) / 2; // TODO use default value
+    this.state[property] = {value: values.length >= 1 ? values[values.length - 1] : (min + max) / 2}; // TODO use default value
 
     return h("input", {
         id: "field-" + property,
         type: "range",
-        title: this.state[property],
+        title: this.state[property].value,
         min,
         max,
         step,

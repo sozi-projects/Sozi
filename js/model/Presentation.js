@@ -132,6 +132,7 @@ export const Frame = {
     // Default values for new frames
     title: "New frame",
     titleLevel: 0,
+    notes: "",
     timeoutMs: 0,
     timeoutEnable: false,
     transitionDurationMs: 1000,
@@ -153,6 +154,7 @@ export const Frame = {
         }
         this.title = other.title;
         this.titleLevel = other.titleLevel;
+        this.notes = other.notes;
         this.timeoutMs = other.timeoutMs;
         this.timeoutEnable = other.timeoutEnable;
         this.transitionDurationMs = other.transitionDurationMs;
@@ -185,6 +187,7 @@ export const Frame = {
             frameId: this.frameId,
             title: this.title,
             titleLevel: this.titleLevel,
+            notes: this.notes,
             timeoutMs: this.timeoutMs,
             timeoutEnable: this.timeoutEnable,
             transitionDurationMs: this.transitionDurationMs,
@@ -213,6 +216,7 @@ export const Frame = {
             frameId: this.frameId,
             title: this.title,
             titleLevel: this.titleLevel,
+            notes: this.notes,
             timeoutMs: this.timeoutMs,
             timeoutEnable: this.timeoutEnable,
             transitionDurationMs: this.transitionDurationMs,
@@ -227,6 +231,7 @@ export const Frame = {
         copyIfSet(this, storable, "frameId");
         copyIfSet(this, storable, "title");
         copyIfSet(this, storable, "titleLevel");
+        copyIfSet(this, storable, "notes");
         copyIfSet(this, storable, "timeoutMs");
         copyIfSet(this, storable, "timeoutEnable");
         copyIfSet(this, storable, "transitionDurationMs");

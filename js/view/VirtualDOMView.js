@@ -27,10 +27,10 @@ export const VirtualDOMView = {
 
     repaint() {
         render(this.render(), this.container, () => {
-            Object.keys(this.state).forEach(key => {
-                const elt = document.getElementById("field-" + key);
+            Object.keys(this.state).forEach(prop => {
+                const elt = document.getElementById("field-" + prop);
                 if (elt) {
-                    elt.value = this.state[key];
+                    Object.keys(this.state[prop]).forEach(attr => elt[attr] = this.state[prop][attr]);
                 }
             });
         });

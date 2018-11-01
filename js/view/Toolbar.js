@@ -29,8 +29,8 @@ Toolbar.render = function () {
     const v = this.viewport;
     const t = this;
 
-    this.state["aspect-width"]  = this.presentation.aspectWidth;
-    this.state["aspect-height"] = this.presentation.aspectHeight;
+    this.state["aspect-width"]  = {value: this.presentation.aspectWidth};
+    this.state["aspect-height"] = {value: this.presentation.aspectHeight};
 
     return h("div", [
         h("span.group", [
