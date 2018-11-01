@@ -198,7 +198,7 @@ Properties.renderPresentationProperties = function () {
         h("h1", [
             _("Notes"),
             h("button", {
-                title: _("Formatting shorcuts"),
+                title: _("Formatting shortcuts"),
                 onclick() { c.info(NOTES_HELP.join("\n"), true); }
             }, h("i.fa.fa-question"))
         ]),
