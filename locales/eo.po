@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-03-09 08:42:+0000\n"
+"POT-Creation-Date: 2018-10-20 04:34:+0000\n"
 "PO-Revision-Date: 2018-05-05 23:19+0000\n"
 "Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/sozi/"
@@ -24,15 +24,15 @@ msgstr ""
 msgid "Open an SVG file from your computer"
 msgstr "Malfermi SVG dosieron el via komputilo"
 
-#: js/backend/Electron.js:56
+#: js/backend/Electron.js:58
 msgid "File not found: %s."
 msgstr "Ne trovis la dosieron: %s."
 
-#: js/backend/Electron.js:70
+#: js/backend/Electron.js:72
 msgid "Choose an SVG file"
 msgstr "Elekti SVG dosieron"
 
-#: js/backend/Electron.js:71
+#: js/backend/Electron.js:73
 msgid "SVG files"
 msgstr "SVG dosieroj"
 
@@ -64,23 +64,28 @@ msgstr "Ne eblis malfermi la dosieron %s."
 msgid "Document is not valid SVG."
 msgstr "La dokumento ne estas valida SVG."
 
-#: js/Storage.js:137
+#: js/Storage.js:139 js/Storage.js:145
 msgid "Document was changed. Reloading."
 msgstr "La dokumento estas ŝanĝita. Remalfermantas."
 
-#: js/Storage.js:163
+#: js/Storage.js:154
+#, fuzzy
+msgid "Document was changed."
+msgstr "La dokumento estas ŝanĝita. Remalfermantas."
+
+#: js/Storage.js:180
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "La dokumento estas importita el Sozi 13 aŭ antaŭa versio."
 
-#: js/Storage.js:221 js/Storage.js:242
+#: js/Storage.js:238 js/Storage.js:259
 msgid "Saved %s."
 msgstr "Konservis %s."
 
-#: js/view/Properties.js:41 js/view/Properties.js:137
+#: js/view/Properties.js:41 js/view/Properties.js:147
 msgid "Fit to element"
 msgstr "Adapti al la elemento"
 
-#: js/view/Properties.js:42 js/view/Properties.js:119
+#: js/view/Properties.js:42 js/view/Properties.js:129
 msgid "Reset layer geometry"
 msgstr "Repravalorizi la geometrion de la tavolo"
 
@@ -104,7 +109,7 @@ msgstr "Malfari"
 msgid "Focus the frame title"
 msgstr "Enfokusigi la titolon de la kadro"
 
-#: js/view/Properties.js:48 js/view/Toolbar.js:115
+#: js/view/Properties.js:48 js/view/Properties.js:67 js/view/Toolbar.js:115
 msgid "Reload the SVG document"
 msgstr "Reŝargi la SVG-dokumenton"
 
@@ -132,141 +137,158 @@ msgstr "Ebligi atentigojn post konservi kaj reŝargi"
 msgid "Enable notifications"
 msgstr "Ebligi atentigojn"
 
-#: js/view/Properties.js:67
+#: js/view/Properties.js:69
+msgid "Automatically"
+msgstr ""
+
+#: js/view/Properties.js:70
+msgid "When Sozi gets the focus"
+msgstr ""
+
+#: js/view/Properties.js:71
+msgid "Manually"
+msgstr ""
+
+#: js/view/Properties.js:73
 msgid "Behavior"
 msgstr "Konduto"
 
-#: js/view/Properties.js:69
+#: js/view/Properties.js:75
 msgid "Preview transition animations"
 msgstr "Antaŭrigardi la transpasajn movbildojn"
 
-#: js/view/Properties.js:70
+#: js/view/Properties.js:76
 msgid "Enable animated transitions"
 msgstr "Ebligi la transpasajn movbildojn"
 
-#: js/view/Properties.js:72
+#: js/view/Properties.js:78
 msgid "Keyboard shortcuts"
 msgstr "Klavarokomandoj"
 
-#: js/view/Properties.js:84
+#: js/view/Properties.js:91
 msgid "Select a layer to copy"
 msgstr "Elekti kopiotan tavolon"
 
-#: js/view/Properties.js:87 js/view/Timeline.js:314 js/view/Timeline.js:344
+#: js/view/Properties.js:94 js/view/Timeline.js:313 js/view/Timeline.js:341
 msgid "Default"
 msgstr "Defaŭlta"
 
-#: js/view/Properties.js:94
+#: js/view/Properties.js:101
 msgid "Frame"
 msgstr "Kadro"
 
-#: js/view/Properties.js:97
+#: js/view/Properties.js:104
 msgid "Show in frame list"
 msgstr "Montri en la listo de kadroj"
 
-#: js/view/Properties.js:98
+#: js/view/Properties.js:105
 msgid "Show frame number"
 msgstr "Montri la numeron de la kadro"
 
-#: js/view/Properties.js:101
+#: js/view/Properties.js:108
 msgid "Title"
 msgstr "Titolo"
 
-#: js/view/Properties.js:104
+#: js/view/Properties.js:111
+#, fuzzy
+msgid "Title level in frame list"
+msgstr "Montri en la listo de kadroj"
+
+#: js/view/Properties.js:114
 msgid "Id"
 msgstr "ID"
 
-#: js/view/Properties.js:108
+#: js/view/Properties.js:118
 msgid "Timeout (seconds)"
 msgstr "Tempolimo (sekundoj)"
 
-#: js/view/Properties.js:109
+#: js/view/Properties.js:119
 msgid "Timeout enable"
 msgstr "Ebligi la tempolimon"
 
-#: js/view/Properties.js:113
+#: js/view/Properties.js:123
 msgid "Layer"
 msgstr "Tavolo"
 
-#: js/view/Properties.js:116
+#: js/view/Properties.js:126
 msgid "Link to previous frame"
 msgstr "Ligi al la antaŭa kadro"
 
-#: js/view/Properties.js:117 js/view/Toolbar.js:82
+#: js/view/Properties.js:127 js/view/Toolbar.js:82
 msgid "Clip"
 msgstr "Eltondi"
 
-#: js/view/Properties.js:124
+#: js/view/Properties.js:134
 msgid "Copy layer"
 msgstr "Kopii tavolon"
 
-#: js/view/Properties.js:131
+#: js/view/Properties.js:141
 msgid "Outline element Id"
 msgstr "ID de la elemento uzota kiel konturo"
 
-#: js/view/Properties.js:134
+#: js/view/Properties.js:144
 msgid "Autoselect element"
 msgstr "Selekti la elementon aŭtomate"
 
-#: js/view/Properties.js:135
+#: js/view/Properties.js:145
 msgid "Hide element"
 msgstr "Kaŝi la elementon"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:155
 msgid "Layer opacity"
 msgstr "Opakeco de la tavolo"
 
-#: js/view/Properties.js:148
+#: js/view/Properties.js:158
 msgid "Transition"
 msgstr "Transpaso"
 
-#: js/view/Properties.js:150
+#: js/view/Properties.js:160
 msgid "Duration (seconds)"
 msgstr "Daŭro (sekundoj)"
 
-#: js/view/Properties.js:153
+#: js/view/Properties.js:163
 msgid "Timing function"
 msgstr "Tempofunkcio"
 
-#: js/view/Properties.js:165
+#: js/view/Properties.js:175
 msgid "Relative zoom (%)"
 msgstr "Zomfaktoro (%)"
 
-#: js/view/Properties.js:169
+#: js/view/Properties.js:179
 msgid "Path Id"
 msgstr "ID de la vojo"
 
-#: js/view/Properties.js:170
+#: js/view/Properties.js:180
 msgid "Hide path"
 msgstr "Kaŝi la vojon"
 
-#: js/view/Properties.js:174
+#: js/view/Properties.js:184
 msgid "Player"
 msgstr "Spektilo"
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:187
 msgid "Allow to control the presentation"
 msgstr "Permesi agojn je la prezentado"
 
-#: js/view/Properties.js:179 js/view/Properties.js:186
-#: js/view/Properties.js:192 js/view/Properties.js:200
+#: js/view/Properties.js:189 js/view/Properties.js:196
+#: js/view/Properties.js:202 js/view/Properties.js:210
 msgid "using the mouse"
 msgstr "per la muso"
 
-#: js/view/Properties.js:180 js/view/Properties.js:193
-#: js/view/Properties.js:201
+#: js/view/Properties.js:190 js/view/Properties.js:203
+#: js/view/Properties.js:211
 msgid "using the keyboard"
 msgstr "per la klavaro"
 
-#: js/view/Properties.js:185
+#: js/view/Properties.js:195
 msgid "Allow to move the camera"
 msgstr "Permesi movi la observadopunkton"
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:200
 msgid "Allow to rotate the camera"
 msgstr "Permesi rotacii la observadopunkton"
 
-#: js/view/Properties.js:198
+#: js/view/Properties.js:208
 msgid "Allow to zoom"
 msgstr "Permesi zomi"
 
@@ -278,23 +300,23 @@ msgstr "Forviŝi la selektitajn kadrojn"
 msgid "Add layer"
 msgstr "Aldoni tavolon"
 
-#: js/view/Timeline.js:302 js/view/Timeline.js:323
+#: js/view/Timeline.js:301 js/view/Timeline.js:321
 msgid "This layer is visible. Click to hide it."
 msgstr "Tiu tavolo estas videbla. Klaku por kaŝi ĝin."
 
-#: js/view/Timeline.js:306 js/view/Timeline.js:327
+#: js/view/Timeline.js:305 js/view/Timeline.js:325
 msgid "This layer is hidden. Click to show it."
 msgstr "Tiu tavolo estas kaŝita. Klaku por montri ĝin."
 
-#: js/view/Timeline.js:331
+#: js/view/Timeline.js:329
 msgid "Remove this layer"
 msgstr "Forigi tiun tavolon"
 
-#: js/view/Timeline.js:357
+#: js/view/Timeline.js:354
 msgid "Insert selection before frame %d"
 msgstr "Enmeti la selektaĵon antaŭ la kadron %d"
 
-#: js/view/Timeline.js:364
+#: js/view/Timeline.js:361
 msgid "Insert selection after frame %d"
 msgstr "Enmeti la selektaĵon post la kadron %d"
 
@@ -336,3 +358,7 @@ msgstr "Agordoj"
 #: js/view/Toolbar.js:126
 msgid "Information"
 msgstr "Informoj"
+
+#, fuzzy
+#~ msgid "Document was changed. Use the reload button."
+#~ msgstr "La dokumento estas ŝanĝita. Remalfermantas."

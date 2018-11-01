@@ -8,6 +8,7 @@ import {registerHandler, DefaultHandler} from "./SVGDocumentWrapper";
 
 // Constant: the Inkscape namespace
 const INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
+const SODIPODI_NS = "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd";
 
 const InkscapeHandler = Object.create(DefaultHandler);
 
@@ -20,12 +21,12 @@ InkscapeHandler.transform = function (svgRoot) {
     let pageOpacity = "0";
 
     // Get page color and opacity from Inkscape document properties
-    const namedViews = svgRoot.getElementsByTagName("sodipodi:namedview");
+    const namedViews = svgRoot.getElementsByTagNameNS(SODIPODI_NS, "namedview");
     for (let i = 0; i < namedViews.length; i ++) {
         if (namedViews[i].hasAttribute("pagecolor")) {
             pageColor = namedViews[i].getAttribute("pagecolor");
-            if (namedViews[i].hasAttribute("inkscape:pageopacity")) {
-                pageOpacity = namedViews[i].getAttribute("inkscape:pageopacity");
+            if (namedViews[i].hasAttributeNS(INKSCAPE_NS, "pageopacity")) {
+                pageOpacity = namedViews[i].getAttributeNS(INKSCAPE_NS, "pageopacity");
             }
             break;
         }

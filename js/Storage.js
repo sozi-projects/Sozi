@@ -84,10 +84,10 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
             this.resolveRelativeURLs(location);
             this.controller.setSVGDocument(this.document);
             this.svgFileDescriptor = fileDescriptor;
-            this.openJSONFile(name.replace(/\.svg$/, ".sozi.json"), location);
             this.controller.once("ready", () => {
                 this.createHTMLFile(name.replace(/\.svg$/, ".sozi.html"), location);
             });
+            this.openJSONFile(name.replace(/\.svg$/, ".sozi.json"), location);
         }
         else {
             this.controller.error(_("Document is not valid SVG."));
@@ -134,8 +134,25 @@ Storage.onBackendChange = function (fileDescriptor) {
     const _ = this.gettext;
 
     if (fileDescriptor === this.svgFileDescriptor) {
-        this.controller.info(_("Document was changed. Reloading."));
-        this.reload();
+        switch (this.controller.getPreference("reload")) {
+            case "auto":
+                this.controller.info(_("Document was changed. Reloading."));
+                this.reload();
+                break;
+
+            case "onfocus":
+                if (this.backend.hasFocus) {
+                    this.controller.info(_("Document was changed. Reloading."));
+                    this.reload();
+                }
+                else {
+                    this.backend.once("focus", () => this.reload());
+                }
+                break;
+
+            default:
+                this.controller.info(_("Document was changed."));
+        }
     }
 };
 

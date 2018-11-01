@@ -64,6 +64,12 @@ Properties.renderPreferences = function () {
             _("Enable notifications on save and reload"),
             this.renderToggleField(h("i.fa.fa-check-square-o"), _("Enable notifications"), "enableNotifications", c.getPreference, c.setPreference)
         ]),
+        h("label", {for: "field-reload"}, _("Reload the SVG document")),
+        this.renderSelectField("reload", c.getPreference, c.setPreference, {
+            "auto": _("Automatically"),
+            "onfocus": _("When Sozi gets the focus"),
+            "manual": _("Manually")
+        }),
         h("label", {for: "field-showThumbnails"}, [
             _("Show thumbnails in timeline"),
             this.renderToggleField(h("i.fa.fa-check-square-o"), _("Show thumbnails"), "showThumbnails", c.getPreference, c.setPreference)
@@ -217,12 +223,11 @@ Properties.renderTextField = function (property, disabled, getter, setter, accep
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    const value = values.length >= 1 ? values[values.length - 1] : "";
+    this.state[property] = values.length >= 1 ? values[values.length - 1] : "";
 
     return h("input", {
         id: "field-" + property,
         type: "text",
-        value,
         className,
         disabled,
         onchange() {
@@ -239,12 +244,11 @@ Properties.renderNumberField = function (property, disabled, getter, setter, sig
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    const value = values.length >= 1 ? values[values.length - 1] / factor : 0; // TODO use default value
+    this.state[property] = values.length >= 1 ? values[values.length - 1] / factor : 0; // TODO use default value
 
     return h("input", {
         id: "field-" + property,
         type: "number",
-        value,
         className,
         disabled,
         min: signed ? undefined : 0,
@@ -264,16 +268,15 @@ Properties.renderRangeField = function (property, disabled, getter, setter, min,
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    const value = values.length >= 1 ? values[values.length - 1] : (min + max) / 2; // TODO use default value
+    this.state[property] = values.length >= 1 ? values[values.length - 1] : (min + max) / 2; // TODO use default value
 
     return h("input", {
         id: "field-" + property,
         type: "range",
-        title: value,
+        title: this.state[property],
         min,
         max,
         step,
-        value,
         className,
         disabled,
         onchange() {

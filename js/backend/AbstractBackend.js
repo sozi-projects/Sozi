@@ -18,6 +18,16 @@ AbstractBackend.init = function (container, buttonId, buttonLabel) {
     EventEmitter.call(this);
     this.autosavedFiles = [];
     container.innerHTML = `<button id="${buttonId}">${buttonLabel}</button>`;
+
+    this.hasFocus = false;
+    window.addEventListener("focus", () => {
+        this.hasFocus = true;
+        this.emit("focus");
+    });
+    window.addEventListener("blur", () => {
+        this.hasFocus = false
+        this.emit("blur");
+    });
     return this;
 };
 

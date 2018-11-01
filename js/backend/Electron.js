@@ -33,14 +33,16 @@ Electron.init = function (container, _) {
 
     // Save automatically when the window loses focus
     const onBlur = () => this.doAutosave();
-    window.addEventListener("blur", onBlur);
+    this.addListener("blur", onBlur);
 
     // Save automatically when closing the window
     window.addEventListener("beforeunload", () => {
-        window.removeEventListener("blur", onBlur);
+        this.removeListener("blur", onBlur);
         this.doAutosave();
         this.saveConfiguration();
     });
+
+    this.watchers = {};
 
     // If a file name was provided on the command line,
     // check that the file exists and load it.
@@ -94,23 +96,25 @@ Electron.load = function (fileDescriptor) {
     fs.readFile(fileDescriptor, { encoding: "utf8" }, (err, data) => {
         if (!err) {
             // Watch for changes in the loaded file and fire the "change" event.
-            // The "change" event is fired only once if the the file is modified
+            // The "change" event is fired only once if the file is modified
             // after being loaded. It will not be fired again until the file is
             // loaded again.
             // This includes a debouncing mechanism to ensure the file is in a stable
             // state when the "change" event is fired: the event is fired only if the
             // file has not changed for 100 ms.
-            const watcher = fs.watch(fileDescriptor);
-            let timer;
-            watcher.on("change", () => {
-                if (timer) {
-                    clearTimeout(timer);
-                }
-                timer = setTimeout(() => {
-                    watcher.close();
-                    this.emit("change", fileDescriptor);
-                }, 100);
-            });
+            if (!(fileDescriptor in this.watchers)) {
+                const watcher = this.watchers[fileDescriptor] = fs.watch(fileDescriptor);
+                let timer;
+                watcher.on("change", () => {
+                    if (timer) {
+                        clearTimeout(timer);
+                    }
+                    timer = setTimeout(() => {
+                        timer = 0;
+                        this.emit("change", fileDescriptor);
+                    }, 100);
+                });
+            }
         }
         this.emit("load", fileDescriptor, data, err);
     });
@@ -118,15 +122,11 @@ Electron.load = function (fileDescriptor) {
 
 Electron.create = function (name, location, mimeType, data, callback) {
     const fileName = path.join(location, name);
-    // TODO use async file write
-    const err = fs.writeFileSync(fileName, data, { encoding: "utf-8" });
-    callback(fileName, err);
+    fs.writeFile(fileName, data, { encoding: "utf-8" }, (err) => callback(fileName, err));
 };
 
 Electron.save = function (fileDescriptor, data) {
-    // TODO use async file write
-    const err = fs.writeFileSync(fileDescriptor, data, { encoding: "utf-8" });
-    this.emit("save", fileDescriptor, err);
+    fs.writeFile(fileDescriptor, data, { encoding: "utf-8" }, (err) => this.emit("save", fileDescriptor, err));
 };
 
 Electron.loadConfiguration = function () {
