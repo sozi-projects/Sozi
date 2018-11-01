@@ -4,6 +4,15 @@
 
 .properties h1 {
     text-align: center;
+    font-size: 120%;
+}
+
+.properties h2 {
+    font-size: 110%;
+}
+
+.properties h3 {
+    font-size: 100%;
 }
 
 .properties > div {
@@ -33,8 +42,4 @@
 
 .properties {
     color: white;
-}
-
-.properties h1 {
-    font-size: 120%;
 }

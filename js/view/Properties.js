@@ -83,6 +83,20 @@ Properties.renderPresentationProperties = function () {
     const _ = this.gettext;
     const c = this.controller;
 
+    const NOTES_HELP = [
+        _("Basic formatting supported:"),
+        "",
+        _("Ctrl+B: Bold"),
+        _("Ctrl+I: Italic"),
+        _("Ctrl+U: Underline"),
+        _("Ctrl+0: Paragraph"),
+        _("Ctrl+1: Big header"),
+        _("Ctrl+2: Medium header"),
+        _("Ctrl+3: Small header"),
+        _("Ctrl+L: List"),
+        _("Ctrl+N: Numbered list")
+    ];
+
     const timeoutMsDisabled = c.getFrameProperty("timeoutEnable").every(value => !value);
     const showInFrameListDisabled = c.getFrameProperty("showInFrameList").every(value => !value);
     const outlineElementIdDisabled = c.getLayerProperty("outlineElementAuto").every(value => value);
@@ -181,7 +195,13 @@ Properties.renderPresentationProperties = function () {
         ]),
         this.renderTextField("transitionPathId", false, c.getLayerProperty, c.setLayerProperty, true),
 
-        h("h1", _("Notes")),
+        h("h1", [
+            _("Notes"),
+            h("button", {
+                title: _("Formatting shorcuts"),
+                onclick() { c.info(NOTES_HELP.join("\n"), true); }
+            }, h("i.fa.fa-question"))
+        ]),
 
         this.renderRichTextField("notes", false, c.getFrameProperty, c.setFrameProperty, true),
 
@@ -255,6 +275,37 @@ Properties.renderRichTextField = function (property, disabled, getter, setter, a
             const value = this.innerHTML;
             if (acceptsEmpty || value.length) {
                 setter.call(c, property, value);
+            }
+        },
+        onkeydown(evt) {
+            if (evt.ctrlKey) {
+                switch(evt.keyCode) {
+                    case 48: // Ctrl+0
+                        document.execCommand("formatBlock", false, "<P>");
+                        break;
+                    case 49: // Ctrl+1
+                        document.execCommand("formatBlock", false, "<H1>");
+                        break;
+                    case 50: // Ctrl+2
+                        document.execCommand("formatBlock", false, "<H2>");
+                        break;
+                    case 51: // Ctrl+3
+                        document.execCommand("formatBlock", false, "<H3>");
+                        break;
+                    case 76: // Ctrl+L
+                        document.execCommand("insertUnorderedList", false, null);
+                        break;
+                    case 78: // Ctrl+N
+                        document.execCommand("insertOrderedList", false, null);
+                        break;
+                    default:
+                        return;
+                    // Natively supported shortcuts:
+                    // Ctrl+B|I|U : Bold, Italic, Underline
+                    // Ctrl+A     : Select all
+                    // Ctrl+C|X|V : Copy, Cut, Paste
+                }
+                evt.stopPropagation();
             }
         }
     });
