@@ -53,6 +53,9 @@ class SoziExtrasMedia(inkex.Effect):
         self.OptionParser.add_option('-L', '--loop', action = 'store',
             type = 'string', dest = 'loop', default = 'false',
             help = 'Loop')
+        self.OptionParser.add_option('-C', '--controls', action = 'store',
+            type = 'string', dest = 'controls', default = 'false',
+            help = 'Show controls')
         inkex.NSS[u"sozi"] = SoziExtrasMedia.NS_URI
 
 
@@ -87,6 +90,7 @@ class SoziExtrasMedia(inkex.Effect):
         v.set(inkex.addNS("type", "sozi"), self.options.type.decode("utf-8"))
         v.set(inkex.addNS("src", "sozi"), self.options.src.decode("utf-8"))
         v.set(inkex.addNS("loop", "sozi"), self.options.loop.decode("utf-8"))
+        v.set(inkex.addNS("controls", "sozi"), self.options.controls.decode("utf-8"))
 
         # If the media is set to autoplay, add "start-frame" and "stop-frame" attributes
         if self.options.auto == "true":
@@ -99,5 +103,3 @@ class SoziExtrasMedia(inkex.Effect):
 # Create effect instance
 effect = SoziExtrasMedia()
 effect.affect()
-
-

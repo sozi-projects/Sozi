@@ -6,7 +6,7 @@
 
 import {toArray} from "../utils";
 
-const	svgNs = "http://www.w3.org/2000/svg";
+const svgNs = "http://www.w3.org/2000/svg";
 const soziNs = "http://sozi.baierouge.fr";
 const xhtmlNs = "http://www.w3.org/1999/xhtml";
 
@@ -84,7 +84,9 @@ export function init(aPlayer) {
 
             // Create HTML media element
             const htmlMedia = document.createElementNS(xhtmlNs, tagName);
-            htmlMedia.setAttribute("controls", "controls");
+            if (source.getAttribute(soziPrefix + ":controls") === "true") {
+                htmlMedia.setAttribute("controls", "controls");
+            }
             if (tagName === "video") {
                 htmlMedia.setAttribute("width", rect.getAttribute("width"));
                 htmlMedia.setAttribute("height", rect.getAttribute("height"));
