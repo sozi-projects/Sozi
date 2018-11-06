@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-10-20 04:34:+0000\n"
-"PO-Revision-Date: 2018-11-04 21:43+0000\n"
+"PO-Revision-Date: 2018-11-07 16:08+0000\n"
 "Last-Translator: Csizmazia-Darab István <i.csizmazia@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/sozi/"
 "translations/hu/>\n"
@@ -49,7 +49,7 @@ msgstr "SVG fájl megnyitása Google Drive-ról"
 
 #: js/Controller.js:38
 msgid "Sozi (Information)"
-msgstr "Sozi (Információk)"
+msgstr "Sozi (Verzió információ)"
 
 #: js/Controller.js:44
 msgid "Sozi (Error)"
@@ -77,7 +77,7 @@ msgstr "Az állomány a Sozi 13 vagy korábbi verzióból lett importálva."
 
 #: js/Storage.js:238 js/Storage.js:259
 msgid "Saved %s."
-msgstr "Elmentve %s."
+msgstr "%s elmentve ."
 
 #: js/view/Properties.js:41 js/view/Properties.js:147
 msgid "Fit to element"
@@ -153,7 +153,7 @@ msgstr "Viselkedés"
 
 #: js/view/Properties.js:75
 msgid "Preview transition animations"
-msgstr "Az animációs átmenet előnézete"
+msgstr "Animációs átmenet előnézete"
 
 #: js/view/Properties.js:76
 msgid "Enable animated transitions"
@@ -177,11 +177,11 @@ msgstr "Képkocka"
 
 #: js/view/Properties.js:104
 msgid "Show in frame list"
-msgstr "Képkockák listájának megjelenítése"
+msgstr "Képkocka lista megjelenítése"
 
 #: js/view/Properties.js:105
 msgid "Show frame number"
-msgstr "Képkocka sorszámának megjelenítése"
+msgstr "Képkocka sorszám megjelenítése"
 
 #: js/view/Properties.js:108
 msgid "Title"
@@ -225,7 +225,7 @@ msgstr "Elem ID állapota"
 
 #: js/view/Properties.js:144
 msgid "Autoselect element"
-msgstr "Elem automatikus kiválasztása"
+msgstr "Automatikus elemkiválasztás"
 
 #: js/view/Properties.js:145
 msgid "Hide element"
@@ -241,7 +241,7 @@ msgstr "Átmenet"
 
 #: js/view/Properties.js:160
 msgid "Duration (seconds)"
-msgstr "Időtartam (másodpercek)"
+msgstr "Időtartam (másodperc)"
 
 #: js/view/Properties.js:163
 msgid "Timing function"
@@ -261,7 +261,7 @@ msgstr "Útvonal rejtése"
 
 #: js/view/Properties.js:184
 msgid "Player"
-msgstr "Lejátszó"
+msgstr "Lejátszás"
 
 #: js/view/Properties.js:187
 msgid "Allow to control the presentation"
@@ -353,4 +353,4 @@ msgstr "Beállítások"
 
 #: js/view/Toolbar.js:126
 msgid "Information"
-msgstr "Információk"
+msgstr "Információ"
