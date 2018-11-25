@@ -12,8 +12,8 @@ export const GoogleDrive = Object.create(AbstractBackend);
 GoogleDrive.clientId = "Your OAuth client Id";
 GoogleDrive.apiKey = "Your developer API key";
 
-GoogleDrive.init = function (container, _) {
-    AbstractBackend.init.call(this, container, "sozi-editor-backend-GoogleDrive-input", _("Open an SVG file from Google Drive"));
+GoogleDrive.init = function (controller, container, _) {
+    AbstractBackend.init.call(this, controller, container, "sozi-editor-backend-GoogleDrive-input", _("Open an SVG file from Google Drive"));
 
     // Save automatically when the window loses focus
     this.addListener("blur", () => this.doAutosave());

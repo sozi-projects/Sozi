@@ -50,7 +50,7 @@ Storage.init = function (controller, svgDocument, presentation, selection, timel
     backendList.forEach(backend => {
         const listItem = document.createElement("li");
         document.querySelector("#sozi-editor-view-preview ul").appendChild(listItem);
-        backend.init(listItem, this.gettext)
+        backend.init(controller, listItem, this.gettext)
             .addListener("load", (...a) => this.onBackendLoad(backend, ...a))
             .addListener("change", (...a) => this.onBackendChange(...a));
     });
@@ -134,7 +134,7 @@ Storage.onBackendChange = function (fileDescriptor) {
     const _ = this.gettext;
 
     if (fileDescriptor === this.svgFileDescriptor) {
-        switch (this.controller.getPreference("reload")) {
+        switch (this.controller.getPreference("reloadMode")) {
             case "auto":
                 this.controller.info(_("Document was changed. Reloading."));
                 this.reload();

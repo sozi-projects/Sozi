@@ -21,5 +21,6 @@ export const Preferences = {
         toggleFullscreen: "F11",
         toggleDevTools: "F12"
     },
-    reload: "auto"
+    saveMode: "onblur",
+    reloadMode: "auto"
 };

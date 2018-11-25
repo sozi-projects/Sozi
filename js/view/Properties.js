@@ -64,11 +64,16 @@ Properties.renderPreferences = function () {
             _("Enable notifications on save and reload"),
             this.renderToggleField(h("i.fa.fa-check-square-o"), _("Enable notifications"), "enableNotifications", c.getPreference, c.setPreference)
         ]),
-        h("label", {for: "field-reload"}, _("Reload the SVG document")),
-        this.renderSelectField("reload", c.getPreference, c.setPreference, {
-            "auto": _("Automatically"),
-            "onfocus": _("When Sozi gets the focus"),
-            "manual": _("Manually")
+        h("label", {for: "field-saveMode"}, _("Save the presentation")),
+        this.renderSelectField("saveMode", c.getPreference, c.setPreference, {
+            onblur: _("When Sozi loses the focus"),
+            manual: _("Manually")
+        }),
+        h("label", {for: "field-reloadMode"}, _("Reload the SVG document")),
+        this.renderSelectField("reloadMode", c.getPreference, c.setPreference, {
+            auto:    _("Automatically"),
+            onfocus: _("When Sozi gets the focus"),
+            manual:  _("Manually")
         }),
         h("h1", _("Behavior")),
         h("label", {for: "field-animateTransitions"}, [
@@ -176,14 +181,14 @@ Properties.renderPresentationProperties = function () {
 
         h("label", {for: "field-transitionTimingFunction"}, _("Timing function")),
         this.renderSelectField("transitionTimingFunction", c.getLayerProperty, c.setLayerProperty, {
-            "linear": "Linear",
-            "ease": "Ease",
-            "easeIn": "Ease in",
-            "easeOut": "Ease out",
-            "easeInOut": "Ease in-out",
-            "stepStart": "Step start",
-            "stepEnd": "Step end",
-            "stepMiddle": "Step middle"
+            "linear":     _("Linear"),
+            "ease":       _("Ease"),
+            "easeIn":     _("Ease in"),
+            "easeOut":    _("Ease out"),
+            "easeInOut":  _("Ease in-out"),
+            "stepStart":  _("Step start"),
+            "stepEnd":    _("Step end"),
+            "stepMiddle": _("Step middle")
         }),
 
         h("label", {for: "field-transitionRelativeZoom"}, _("Relative zoom (%)")),

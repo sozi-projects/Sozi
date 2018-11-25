@@ -5,7 +5,6 @@
 "use strict";
 
 import {AbstractBackend, addBackend} from "./AbstractBackend";
-import {Controller} from "../Controller";
 import fs from "fs";
 import path from "path";
 import process from "process";
@@ -13,7 +12,7 @@ import Jed from "jed";
 import screenfull from "screenfull";
 import {remote} from "electron";
 
-const win = remote.getCurrentWindow();
+const browserWindow = remote.getCurrentWindow();
 
 // Get the current working directory.
 // We use the PWD environment variable directly because
@@ -24,22 +23,49 @@ console.log("Current working dir: " + cwd);
 
 export const Electron = Object.create(AbstractBackend);
 
-Electron.init = function (container, _) {
-    AbstractBackend.init.call(this, container, "sozi-editor-backend-Electron-input", _("Open an SVG file from your computer"));
+Electron.init = function (controller, container, _) {
+    AbstractBackend.init.call(this, controller, container, "sozi-editor-backend-Electron-input", _("Open an SVG file from your computer"));
 
     this.loadConfiguration();
 
     document.getElementById("sozi-editor-backend-Electron-input").addEventListener("click", () => this.openFileChooser(_));
 
     // Save automatically when the window loses focus
-    const onBlur = () => this.doAutosave();
+    const onBlur = () => {
+        if (this.controller.getPreference("saveMode") === "onblur") {
+            this.doAutosave();
+        }
+    }
     this.addListener("blur", onBlur);
 
-    // Save automatically when closing the window
-    window.addEventListener("beforeunload", () => {
+    // Save files when closing the window
+    let closing = false;
+
+    window.addEventListener("beforeunload", (evt) => {
+        // Workaround for a bug in Electron where the window closes after a few
+        // seconds even when calling dialog.showMessageBox() synchronously.
+        if (closing) {
+            return;
+        }
+        closing = true;
+        evt.returnValue = false;
+
         this.removeListener("blur", onBlur);
-        this.doAutosave();
-        this.saveConfiguration();
+
+        if (this.controller.getPreference("saveMode") === "onblur") {
+            window.setTimeout(() => this.quit(true));
+        }
+        else if (this.hasOutdatedFiles()) {
+            // If autosave is disabled and some files are outdated,
+            // ask user confirmation.
+            remote.dialog.showMessageBox(browserWindow, {
+                type: "question",
+                message: _("Do you want to save the presentation before closing?"),
+                buttons: [_("Yes"), _("No")],
+                defaultId: 0,
+                cancelId: 1
+            }, (index) => this.quit(index === 0));
+        }
     });
 
     this.watchers = {};
@@ -55,7 +81,7 @@ Electron.init = function (container, _) {
             this.load(fileName);
         }
         catch (err) {
-            Controller.error(Jed.sprintf(_("File not found: %s."), fileName));
+            this.controller.error(Jed.sprintf(_("File not found: %s."), fileName));
             // Force the error notification to appear before the file chooser.
             setTimeout(() => this.openFileChooser(_), 100);
         }
@@ -65,6 +91,25 @@ Electron.init = function (container, _) {
     }
 
     return this;
+};
+
+Electron.quit = function (confirmSave) {
+    // Always save the window settings and the preferences.
+    this.saveConfiguration();
+    this.savePreferences();
+
+    if (confirmSave && this.hasOutdatedFiles()) {
+        // Close the window only when all files have been saved.
+        this.addListener("save", () => {
+            if (!this.hasOutdatedFiles()) {
+                browserWindow.close();
+            }
+        });
+        this.saveOutdatedFiles();
+    }
+    else {
+        browserWindow.close();
+    }
 };
 
 Electron.openFileChooser = function (_) {
@@ -134,23 +179,23 @@ Electron.loadConfiguration = function () {
         const result = localStorage.getItem(key);
         return result !== null ? JSON.parse(result) : val;
     }
-    const [x, y] = win.getPosition();
-    const [w, h] = win.getSize();
-    win.setPosition(getItem("windowX", x), getItem("windowY", y));
-    win.setSize(getItem("windowWidth", w), getItem("windowHeight", h));
+    const [x, y] = browserWindow.getPosition();
+    const [w, h] = browserWindow.getSize();
+    browserWindow.setPosition(getItem("windowX", x), getItem("windowY", y));
+    browserWindow.setSize(getItem("windowWidth", w), getItem("windowHeight", h));
     if (getItem("windowFullscreen", false)) {
         screenfull.request(document.documentElement);
     }
 };
 
 Electron.saveConfiguration = function () {
-    [localStorage.windowX, localStorage.windowY] = win.getPosition();
-    [localStorage.windowWidth, localStorage.windowHeight] = win.getSize();
+    [localStorage.windowX, localStorage.windowY] = browserWindow.getPosition();
+    [localStorage.windowWidth, localStorage.windowHeight] = browserWindow.getSize();
     localStorage.windowFullscreen = screenfull.isFullscreen;
 };
 
 Electron.toggleDevTools = function () {
-    win.toggleDevTools();
+    browserWindow.toggleDevTools();
 };
 
 addBackend(Electron);
