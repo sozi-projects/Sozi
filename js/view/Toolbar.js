@@ -82,7 +82,7 @@ Toolbar.render = function () {
                 onclick() { c.setDragMode("rotate"); }
             }, h("i.fa.fa-rotate-left")),
             h("button", {
-                title: _("Clip"),
+                title: _("Edit the clipping area"),
                 className: v.dragMode === "clip" ? "active" : "",
                 onclick() { c.setDragMode("clip"); }
             }, h("i.fa.fa-crop"))
