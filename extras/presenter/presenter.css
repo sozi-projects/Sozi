@@ -1,0 +1,27 @@
+
+iframe {
+    border: 1px solid rgb(128, 128, 128);
+}
+
+#sozi-presenter {
+    display: none;
+}
+
+#sozi-frame-preview, #sozi-controls {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+#sozi-previous-frame, #sozi-next-frame {
+    width: 40vh;
+    height: 30vh;
+}
+
+#sozi-current-frame {
+    width: 56vh;
+    height: 42vh
+}
+
+#sozi-notes {
+    margin: 0 25vw;
+}

@@ -1,0 +1,31 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sozi presenter console</title>
+        <link rel="stylesheet" href="presenter.css">
+        <script src="presenter.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <div id="sozi-file-chooser">
+            Choose a presentation to open: <input type="file" accept=".sozi.html">
+        </div>
+        <div id="sozi-presenter">
+            <div id="sozi-frame-preview">
+                <iframe id="sozi-previous-frame"></iframe>
+                <iframe id="sozi-current-frame"></iframe>
+                <iframe id="sozi-next-frame"></iframe>
+            </div>
+            <div id="sozi-controls">
+                <input type="button" id="sozi-previous-btn" value="Prev">
+                <input type="button" id="sozi-next-btn" value="Next">
+            </div>
+            <div id="sozi-notes">
+            </div>
+        </div>
+    </body>
+</body>
