@@ -1,32 +1,25 @@
 
 let currentFrameIndex = 0;
-let previews = {
-    "previous": { index: -1 },
-    "current":  { index:  0 },
-    "next":     { index:  1 }
-};
+let previews = [
+    { index: -1 },
+    { index:  0 },
+    { index:  1 }
+]
 let mainSozi;
 
-function updatePreview(key) {
-    if (previews[key].index >= 0 && previews[key].index < previews[key].sozi.presentation.frames.length) {
-        previews[key].sozi.player.jumpToFrame(previews[key].index);
+function updatePreview(p) {
+    if (p.index >= 0 && p.index < p.sozi.presentation.frames.length) {
+        p.sozi.player.jumpToFrame(p.index);
     }
     else {
-        previews[key].sozi.player.enableBlankScreen();
-    }
-
-    if (key === "current") {
-        updateNotes();
+        p.sozi.player.enableBlankScreen();
     }
 }
 
 function updateNotes() {
-    document.getElementById("sozi-notes").innerHTML = previews.current.sozi.player.currentFrame.notes;
-}
-
-function updateAll() {
-    for (let key of Object.keys(previews)) {
-        updatePreview(key);
+    const notes = previews[1].sozi.player.currentFrame.notes;
+    if (typeof notes === "string") {
+        document.querySelector(".sozi-notes").innerHTML = notes;
     }
 }
 
@@ -43,25 +36,22 @@ function onSoziLoaded(win, fn) {
 }
 
 function load(url) {
-    // Initialize the iframes that show the previous, current, and next frames.
-    for (let key of Object.keys(previews)) {
-        const iframe = document.getElementById(`sozi-${key}-frame`);
-        iframe.style.display = "inline";
-        iframe.src = url;
+    const iframes = document.querySelectorAll("iframe");
 
-        onSoziLoaded(iframe.contentWindow, (sozi) => {
-            previews[key].sozi = sozi;
+    // Initialize the iframes that show the previous, current, and next frames.
+    previews.forEach((p, i) => {
+        onSoziLoaded(iframes[i].contentWindow, (sozi) => {
+            p.sozi = sozi;
             sozi.player.pause();
             sozi.viewport.svgRoot.addEventListener("mousedown", (evt) => {
                 evt.stopPropagation();
             }, true);
-            updatePreview(key);
+            updatePreview(p);
+            if (i === 1) {
+                updateNotes();
+            }
         });
-    }
-
-    // Hide the file button and show the iframes.
-    document.getElementById("sozi-file-chooser").style.display = "none";
-    document.getElementById("sozi-presenter").style.display    = "block";
+    });
 
     // Open a new window for the main presentation view.
     const presWindow = window.open(url, "sozi-presentation", "width=600, height=400, scrollbars=yes");
@@ -80,10 +70,11 @@ function load(url) {
 }
 
 function onFrameChange() {
-    previews.current.index  = mainSozi.player.currentFrame.index;
-    previews.previous.index = previews.current.index - 1;
-    previews.next.index     = previews.current.index + 1;
-    updateAll();
+    previews[1].index = mainSozi.player.currentFrame.index;
+    previews[0].index = previews[1].index - 1;
+    previews[2].index = previews[1].index + 1;
+    previews.forEach(updatePreview);
+    updateNotes();
 }
 
 function next() {
@@ -95,9 +86,7 @@ function previous() {
 }
 
 window.addEventListener("load", () => {
-    document.querySelector("#sozi-file-chooser input").addEventListener("change", (evt) => {
-        load(window.URL.createObjectURL(evt.target.files[0]));
-    }, false);
+    load(document.querySelector("iframe").src);
     document.getElementById("sozi-previous-btn").addEventListener("click", previous, false);
     document.getElementById("sozi-next-btn").addEventListener("click", next, false);
 }, false);

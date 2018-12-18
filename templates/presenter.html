@@ -1,0 +1,51 @@
+{# This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/. #}
+
+{% raw %}
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{ pres.title }}</title>
+        <style>
+            iframe {
+                border: 1px solid rgb(128, 128, 128);
+            }
+
+            .sozi-frame-preview, .sozi-controls {
+                text-align: center;
+                margin: 1rem 0;
+            }
+
+            iframe:first-child, iframe:last-child {
+                width: 40vh;
+                height: 30vh;
+            }
+
+            iframe:nth-child(2) {
+                width: 56vh;
+                height: 42vh
+            }
+
+            .sozi-notes {
+                margin: 0 25vw;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="sozi-frame-preview">
+            <iframe src="{{ soziHtml }}"></iframe>
+            <iframe src="{{ soziHtml }}"></iframe>
+            <iframe src="{{ soziHtml }}"></iframe>
+        </div>
+        <div class="sozi-controls">
+            <input type="button" id="sozi-previous-btn" value="Prev">
+            <input type="button" id="sozi-next-btn"     value="Next">
+        </div>
+        <div class="sozi-notes"></div>
+{% endraw %}
+        <script>{{'{% raw %}'}}{{ presenterJs|safe }}{{'{% endraw %}'}}</script>
+    </body>
+</body>

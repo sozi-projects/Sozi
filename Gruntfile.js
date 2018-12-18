@@ -157,7 +157,7 @@ module.exports = function(grunt) {
         },
 
         /*
-         * Compress the JavaScript code of the editor and player.
+         * Compress the JavaScript code of the editor, player, and presenter.
          */
         uglify: {
             editor: {
@@ -167,6 +167,10 @@ module.exports = function(grunt) {
             player: {
                 src: "<%= browserify.player.dest %>",
                 dest: "build/tmp/js/player.min.js"
+            },
+            presenter: {
+                src: "build/app/js/presenter.js",
+                dest: "build/tmp/js/presenter.min.js"
             }
         },
 
@@ -179,6 +183,13 @@ module.exports = function(grunt) {
                 dest: "build/app/templates/player.html",
                 context: {
                     playerJs: "<%= grunt.file.read('build/tmp/js/player.min.js') %>"
+                }
+            },
+            presenter: {
+                src: "templates/presenter.html",
+                dest: "build/app/templates/presenter.html",
+                context: {
+                    presenterJs: "<%= grunt.file.read('build/tmp/js/presenter.min.js') %>"
                 }
             }
         },
@@ -279,8 +290,8 @@ module.exports = function(grunt) {
         newer: {
             options: {
                 override: function (details, include) {
-                    if (details.task === "nunjucks_render" && details.target === "player") {
-                        include(fs.statSync("build/tmp/js/player.min.js").mtime > details.time);
+                    if (details.task === "nunjucks_render") {
+                        include(fs.statSync(`build/tmp/js/${details.target}.min.js`).mtime > details.time);
                     }
                     else {
                         include(false);
@@ -414,6 +425,7 @@ module.exports = function(grunt) {
         "newer:babel",
         "browserify:player", // Cannot use 'newer' here due to imports
         "newer:uglify:player",
+        "newer:uglify:presenter",
         "newer:nunjucks_render",
         "newer:po2json",
         "newer:copy:editor",

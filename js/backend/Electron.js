@@ -165,7 +165,7 @@ Electron.load = function (fileDescriptor) {
     });
 };
 
-Electron.create = function (name, location, mimeType, data, callback) {
+Electron.create = function (name, location, mimeType, data, callback = () => {}) {
     const fileName = path.join(location, name);
     fs.writeFile(fileName, data, { encoding: "utf-8" }, (err) => callback(fileName, err));
 };
