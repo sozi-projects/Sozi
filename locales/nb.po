@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-11-25 04:15:+0000\n"
-"PO-Revision-Date: 2018-10-22 14:32+0000\n"
+"PO-Revision-Date: 2018-12-25 18:09+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/sozi/"
-"translations/nb/>\n"
+"translations/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.3-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 
 #: js/backend/Electron.js:27
@@ -26,15 +26,15 @@ msgstr "Åpne ei SVG-fil fra datamaskinen din"
 
 #: js/backend/Electron.js:63
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "Ønsker du å lagre denne presentasjonen før du lukker den?"
 
 #: js/backend/Electron.js:64
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: js/backend/Electron.js:64
 msgid "No"
-msgstr ""
+msgstr "Nei"
 
 #: js/backend/Electron.js:84
 msgid "File not found: %s."
@@ -184,43 +184,43 @@ msgstr "Tastatursnarveier"
 
 #: js/view/Properties.js:92
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "Enkel formatering støttes:"
 
 #: js/view/Properties.js:94
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: Fet"
 
 #: js/view/Properties.js:95
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: Kursiv"
 
 #: js/view/Properties.js:96
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: Understrek"
 
 #: js/view/Properties.js:97
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0: Avsnitt"
 
 #: js/view/Properties.js:98
 msgid "Ctrl+1: Big header"
-msgstr ""
+msgstr "Ctrl+1: Stor overskrift"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+2: Medium header"
-msgstr ""
+msgstr "Ctrl: Middels overskrift"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+3: Small header"
-msgstr ""
+msgstr "Ctrl+3: Liten overskrift"
 
 #: js/view/Properties.js:101
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl+L: Liste"
 
 #: js/view/Properties.js:102
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl+N: Nummerert liste"
 
 #: js/view/Properties.js:110
 msgid "Select a layer to copy"
@@ -309,35 +309,37 @@ msgstr "Tidsfunksjon"
 
 #: js/view/Properties.js:184
 msgid "Linear"
-msgstr ""
+msgstr "Lineær"
 
 #: js/view/Properties.js:185
 msgid "Ease"
-msgstr ""
+msgstr "Mykgjør"
 
 #: js/view/Properties.js:186
 msgid "Ease in"
-msgstr ""
+msgstr "Myk inn"
 
 #: js/view/Properties.js:187
+#, fuzzy
 msgid "Ease out"
-msgstr ""
+msgstr "Myk ut"
 
 #: js/view/Properties.js:188
+#, fuzzy
 msgid "Ease in-out"
-msgstr ""
+msgstr "Mykgjør inn-ut"
 
 #: js/view/Properties.js:189
 msgid "Step start"
-msgstr ""
+msgstr "Stegstart"
 
 #: js/view/Properties.js:190
 msgid "Step end"
-msgstr ""
+msgstr "Stegslutt"
 
 #: js/view/Properties.js:191
 msgid "Step middle"
-msgstr ""
+msgstr "Midtsteg"
 
 #: js/view/Properties.js:194
 msgid "Relative zoom (%)"
@@ -353,7 +355,7 @@ msgstr "Skjul sti"
 
 #: js/view/Properties.js:204
 msgid "Notes"
-msgstr ""
+msgstr "Merknader"
 
 #: js/view/Properties.js:206
 #, fuzzy
@@ -439,8 +441,9 @@ msgid ""
 msgstr "Roter valgt lag (du kan også holde Shift-tasten i flyttemodus)"
 
 #: js/view/Toolbar.js:85
+#, fuzzy
 msgid "Edit the clipping area"
-msgstr ""
+msgstr "Rediger klippeområdet"
 
 #: js/view/Toolbar.js:104
 msgid "Disable full-screen mode"
