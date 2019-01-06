@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-11-25 04:15:+0000\n"
+"POT-Creation-Date: 2019-01-06 04:53:+0000\n"
 "PO-Revision-Date: 2018-05-05 23:19+0000\n"
 "Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/sozi/"
@@ -72,32 +72,32 @@ msgstr "Sozi (Erro)"
 msgid "File %s could not be loaded."
 msgstr "O arquivo %s não foi carregado."
 
-#: js/Storage.js:93 js/Storage.js:102
+#: js/Storage.js:95 js/Storage.js:104
 msgid "Document is not valid SVG."
 msgstr "Não é um arquivo SVG válido."
 
-#: js/Storage.js:139 js/Storage.js:145
+#: js/Storage.js:141 js/Storage.js:147
 msgid "Document was changed. Reloading."
 msgstr "Arquivo alterado. Carregando novamente."
 
-#: js/Storage.js:154
+#: js/Storage.js:156
 #, fuzzy
 msgid "Document was changed."
 msgstr "Arquivo alterado. Carregando novamente."
 
-#: js/Storage.js:180
+#: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Arquivo importado de Sozi 13 ou anterior."
 
-#: js/Storage.js:238 js/Storage.js:259
+#: js/Storage.js:254 js/Storage.js:275
 msgid "Saved %s."
 msgstr "Salvei %s."
 
-#: js/view/Properties.js:41 js/view/Properties.js:166
+#: js/view/Properties.js:41 js/view/Properties.js:170
 msgid "Fit to element"
 msgstr "Ajustar tamanho ao elemento"
 
-#: js/view/Properties.js:42 js/view/Properties.js:148
+#: js/view/Properties.js:42 js/view/Properties.js:152
 msgid "Reset layer geometry"
 msgstr "Reiniciar geometria da camada"
 
@@ -181,211 +181,215 @@ msgstr "Permitir transições animadas"
 msgid "Keyboard shortcuts"
 msgstr "Teclas de atalho"
 
-#: js/view/Properties.js:92
+#: js/view/Properties.js:96
 msgid "Basic formatting supported:"
 msgstr ""
 
-#: js/view/Properties.js:94
+#: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
 msgstr ""
 
-#: js/view/Properties.js:95
+#: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
 msgstr ""
 
-#: js/view/Properties.js:96
+#: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
 msgstr ""
 
-#: js/view/Properties.js:97
+#: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
 msgstr ""
 
-#: js/view/Properties.js:98
+#: js/view/Properties.js:102
 msgid "Ctrl+1: Big header"
 msgstr ""
 
-#: js/view/Properties.js:99
+#: js/view/Properties.js:103
 msgid "Ctrl+2: Medium header"
 msgstr ""
 
-#: js/view/Properties.js:100
+#: js/view/Properties.js:104
 msgid "Ctrl+3: Small header"
 msgstr ""
 
-#: js/view/Properties.js:101
+#: js/view/Properties.js:105
 msgid "Ctrl+L: List"
 msgstr ""
 
-#: js/view/Properties.js:102
+#: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
 msgstr ""
 
-#: js/view/Properties.js:110
+#: js/view/Properties.js:114
 msgid "Select a layer to copy"
 msgstr "Selecione uma camada para copiar"
 
-#: js/view/Properties.js:113 js/view/Timeline.js:313 js/view/Timeline.js:341
+#: js/view/Properties.js:117 js/view/Timeline.js:313 js/view/Timeline.js:341
 msgid "Default"
 msgstr "Padrão"
 
-#: js/view/Properties.js:120
+#: js/view/Properties.js:124
 msgid "Frame"
 msgstr "Quadro"
 
-#: js/view/Properties.js:123
+#: js/view/Properties.js:127
 msgid "Show in frame list"
 msgstr "Exibir na lista de quadros"
 
-#: js/view/Properties.js:124
+#: js/view/Properties.js:128
 msgid "Show frame number"
 msgstr "Exibir número do quadro"
 
-#: js/view/Properties.js:127
+#: js/view/Properties.js:131
 msgid "Title"
 msgstr "Título"
 
-#: js/view/Properties.js:130
+#: js/view/Properties.js:134
 #, fuzzy
 msgid "Title level in frame list"
 msgstr "Exibir na lista de quadros"
 
-#: js/view/Properties.js:133
+#: js/view/Properties.js:137
 msgid "Id"
 msgstr "Identidade (ID)"
 
-#: js/view/Properties.js:137
+#: js/view/Properties.js:141
 msgid "Timeout (seconds)"
 msgstr "Tempo de espera (segundos)"
 
-#: js/view/Properties.js:138
+#: js/view/Properties.js:142
 msgid "Timeout enable"
 msgstr "Ativar tempo de espera"
 
-#: js/view/Properties.js:142
+#: js/view/Properties.js:146
 msgid "Layer"
 msgstr "Camada"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:149
 msgid "Link to previous frame"
 msgstr "Link para o frame anterior"
 
-#: js/view/Properties.js:146
+#: js/view/Properties.js:150
 msgid "Clip"
 msgstr "Cortar"
 
-#: js/view/Properties.js:153
+#: js/view/Properties.js:157
 msgid "Copy layer"
 msgstr "Copiar camada"
 
-#: js/view/Properties.js:160
+#: js/view/Properties.js:164
 msgid "Outline element Id"
 msgstr "Exibição do elemento identificado (ID)"
 
-#: js/view/Properties.js:163
+#: js/view/Properties.js:167
 msgid "Autoselect element"
 msgstr "Selecionar elemento automaticamente"
 
-#: js/view/Properties.js:164
+#: js/view/Properties.js:168
 msgid "Hide element"
 msgstr "Ocultar elemento"
 
-#: js/view/Properties.js:174
+#: js/view/Properties.js:178
 msgid "Layer opacity"
 msgstr "Opacidade da camada"
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:181
 msgid "Transition"
 msgstr "Transição"
 
-#: js/view/Properties.js:179
+#: js/view/Properties.js:181
+msgid "Configure the animation when moving to the selected frames."
+msgstr ""
+
+#: js/view/Properties.js:183
 msgid "Duration (seconds)"
 msgstr "Duração (segundos)"
 
-#: js/view/Properties.js:182
+#: js/view/Properties.js:186
 msgid "Timing function"
 msgstr "Tipo de transição"
 
-#: js/view/Properties.js:184
+#: js/view/Properties.js:188
 msgid "Linear"
 msgstr ""
 
-#: js/view/Properties.js:185
+#: js/view/Properties.js:189
 msgid "Ease"
 msgstr ""
 
-#: js/view/Properties.js:186
+#: js/view/Properties.js:190
 msgid "Ease in"
 msgstr ""
 
-#: js/view/Properties.js:187
+#: js/view/Properties.js:191
 msgid "Ease out"
 msgstr ""
 
-#: js/view/Properties.js:188
+#: js/view/Properties.js:192
 msgid "Ease in-out"
 msgstr ""
 
-#: js/view/Properties.js:189
+#: js/view/Properties.js:193
 msgid "Step start"
 msgstr ""
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:194
 msgid "Step end"
 msgstr ""
 
-#: js/view/Properties.js:191
+#: js/view/Properties.js:195
 msgid "Step middle"
 msgstr ""
 
-#: js/view/Properties.js:194
+#: js/view/Properties.js:198
 msgid "Relative zoom (%)"
 msgstr "Ampliação relativa (%)"
 
-#: js/view/Properties.js:198
+#: js/view/Properties.js:202
 msgid "Path Id"
 msgstr "ID do caminho"
 
-#: js/view/Properties.js:199
+#: js/view/Properties.js:203
 msgid "Hide path"
 msgstr "Esconder caminho"
 
-#: js/view/Properties.js:204
+#: js/view/Properties.js:207
 msgid "Notes"
 msgstr ""
 
-#: js/view/Properties.js:206
-#, fuzzy
-msgid "Formatting shortcuts"
-msgstr "Teclas de atalho"
+#: js/view/Properties.js:207
+msgid ""
+"Edit presenter notes. Click here to show the list of formatting shortcuts."
+msgstr ""
 
-#: js/view/Properties.js:213
+#: js/view/Properties.js:211
 msgid "Player"
 msgstr "Reprodutor"
 
-#: js/view/Properties.js:216
+#: js/view/Properties.js:214
 msgid "Allow to control the presentation"
 msgstr "Permitir controle da apresentação"
 
-#: js/view/Properties.js:218 js/view/Properties.js:225
-#: js/view/Properties.js:231 js/view/Properties.js:239
+#: js/view/Properties.js:216 js/view/Properties.js:223
+#: js/view/Properties.js:229 js/view/Properties.js:237
 msgid "using the mouse"
 msgstr "pelo mouse"
 
-#: js/view/Properties.js:219 js/view/Properties.js:232
-#: js/view/Properties.js:240
+#: js/view/Properties.js:217 js/view/Properties.js:230
+#: js/view/Properties.js:238
 msgid "using the keyboard"
 msgstr "pelo teclado"
 
-#: js/view/Properties.js:224
+#: js/view/Properties.js:222
 msgid "Allow to move the camera"
 msgstr "Permitir movimento da câmera"
 
-#: js/view/Properties.js:229
+#: js/view/Properties.js:227
 msgid "Allow to rotate the camera"
 msgstr "Permitir rotação da câmera"
 
-#: js/view/Properties.js:237
+#: js/view/Properties.js:235
 msgid "Allow to zoom"
 msgstr "Permitir zoom"
 
@@ -460,6 +464,10 @@ msgstr "Preferências"
 #: js/view/Toolbar.js:129
 msgid "Information"
 msgstr "Informação"
+
+#, fuzzy
+#~ msgid "Formatting shortcuts"
+#~ msgstr "Teclas de atalho"
 
 #, fuzzy
 #~ msgid "Document was changed. Use the reload button."

@@ -84,6 +84,10 @@ Properties.renderPreferences = function () {
     ].concat(shortcuts));
 };
 
+Properties.renderHelp = function (text, onclick) {
+    return h("span.help", {title: text, onclick}, h("i.fa.fa-question-circle"));
+};
+
 Properties.renderPresentationProperties = function () {
     const _ = this.gettext;
     const c = this.controller;
@@ -174,7 +178,7 @@ Properties.renderPresentationProperties = function () {
         h("label", {for: "field-opacity"}, _("Layer opacity")),
         this.renderRangeField("opacity", false, c.getCameraProperty, c.setCameraProperty, 0, 1, 0.1),
 
-        h("h1", _("Transition")),
+        h("h1", [_("Transition"), this.renderHelp(_("Configure the animation when moving to the selected frames."))]),
 
         h("label", {for: "field-transitionDurationMs"}, _("Duration (seconds)")),
         this.renderNumberField("transitionDurationMs", false, c.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
@@ -200,13 +204,7 @@ Properties.renderPresentationProperties = function () {
         ]),
         this.renderTextField("transitionPathId", false, c.getLayerProperty, c.setLayerProperty, true),
 
-        h("h1", [
-            _("Notes"),
-            h("button", {
-                title: _("Formatting shortcuts"),
-                onclick() { c.info(NOTES_HELP.join("\n"), true); }
-            }, h("i.fa.fa-question"))
-        ]),
+        h("h1", [_("Notes"), this.renderHelp(_("Edit presenter notes. Click here to show the list of formatting shortcuts."), () => c.info(NOTES_HELP.join("\n"), true))]),
 
         this.renderRichTextField("notes", false, c.getFrameProperty, c.setFrameProperty, true),
 

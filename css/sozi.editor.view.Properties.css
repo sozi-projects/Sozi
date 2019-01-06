@@ -43,3 +43,7 @@
 .properties {
     color: white;
 }
+
+.properties .help {
+    margin-left: 1em;
+}
