@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-01-06 04:53:+0000\n"
-"PO-Revision-Date: 2018-12-25 18:09+0000\n"
+"PO-Revision-Date: 2019-01-07 19:07+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/sozi/"
 "translations/nb_NO/>\n"
@@ -300,8 +300,9 @@ msgid "Transition"
 msgstr "Overgang"
 
 #: js/view/Properties.js:181
+#, fuzzy
 msgid "Configure the animation when moving to the selected frames."
-msgstr ""
+msgstr "Sett opp animasjon ved flytting til valgte rammer."
 
 #: js/view/Properties.js:183
 msgid "Duration (seconds)"
@@ -360,9 +361,12 @@ msgid "Notes"
 msgstr "Merknader"
 
 #: js/view/Properties.js:207
+#, fuzzy
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
+"Rediger presentørnotiser. Klikk her for å vise en liste over "
+"formateringssnarveier."
 
 #: js/view/Properties.js:211
 msgid "Player"
