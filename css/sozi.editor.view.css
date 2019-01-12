@@ -84,21 +84,24 @@ body {
 
 input[type=text],
 input[type=number],
+section[contenteditable=true],
 select,
 button {
     border-radius: 0.5em;
     border: none;
     padding: 0.3em 0.5em;
+    color: black;
 }
 
 input[type=text],
-input[type=number] {
+input[type=number],
+section[contenteditable=true] {
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5) inset;
+    background-color: white;
 }
 
 select,
 button {
-    color: black;
     background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(180, 180, 180) 100%);
 }
 

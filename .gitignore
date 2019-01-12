@@ -1,7 +1,6 @@
 *~
 node_modules
 vendor/DroidSans/DroidSans*
-bower_components
 build
 dist
 deb

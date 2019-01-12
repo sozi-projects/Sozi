@@ -286,13 +286,13 @@ Timeline.render = function () {
                             title: _("Delete the selected frames"),
                             disabled: this.selection.selectedFrames.length ? undefined : "disabled",
                             onclick() { c.deleteFrames(); }
-                        }, h("i.fa.fa-trash"))
+                        }, h("i.fas.fa-trash"))
                     ]),
                     h("th", [
                         h("button", {
                             title: _("Create a new frame"),
                             onclick() { c.addFrame(); }
-                        }, h("i.fa.fa-plus"))
+                        }, h("i.fas.fa-plus"))
                     ]),
                 ]),
                 h("tr", [
@@ -319,15 +319,15 @@ Timeline.render = function () {
                 this.hasDefaultLayer ? h("tr", [
                     h("th.layer-icons", [
                         defaultLayersAreVisible ?
-                            h("i.visibility.fa.fa-eye", {
+                            h("i.visibility.far.fa-eye", {
                                 title: _("This layer is visible. Click to hide it."),
                                 onclick: evt => this.toggleLayerVisibility(-1, evt)
                             }) :
-                            h("i.visibility.fa.fa-eye-slash", {
+                            h("i.visibility.far.fa-eye-slash", {
                                 title: _("This layer is hidden. Click to show it."),
                                 onclick: evt => this.toggleLayerVisibility(-1, evt)
                             }),
-                        h("i.remove.fa.fa-times", {style: {visibility: "hidden"}})
+                        h("i.remove.fas.fa-times", {style: {visibility: "hidden"}})
                     ]),
                     h("th", {
                         className: "layer-label" + (this.defaultLayersAreSelected ? " selected" : ""),
@@ -339,15 +339,15 @@ Timeline.render = function () {
                     .map(layer => h("tr", [
                             h("th.layer-icons", [
                                 layer.isVisible ?
-                                    h("i.visibility.fa.fa-eye", {
+                                    h("i.visibility.far.fa-eye", {
                                         title: _("This layer is visible. Click to hide it."),
                                         onclick: evt => this.toggleLayerVisibility(layer.index, evt)
                                     }) :
-                                    h("i.visibility.fa.fa-eye-slash", {
+                                    h("i.visibility.far.fa-eye-slash", {
                                         title: _("This layer is hidden. Click to show it."),
                                         onclick: evt => this.toggleLayerVisibility(layer.index, evt)
                                     }),
-                                h("i.remove.fa.fa-times", {
+                                h("i.remove.fas.fa-times", {
                                     title: _("Remove this layer"),
                                     onclick: () => this.removeLayer(layer.index)
                                 })
@@ -372,14 +372,14 @@ Timeline.render = function () {
                             (frame === this.selection.currentFrame ? " current" : ""),
                         onclick: evt => this.updateFrameSelection(frameIndex, evt)
                     }, [
-                        h("i.insert-before.fa.fa-arrow-circle-down", {
+                        h("i.insert-before.fas.fa-arrow-circle-down", {
                             title: Jed.sprintf(_("Insert selection before frame %d"), frameIndex + 1),
                             onclick(evt) {
                                 c.moveFrames(frameIndex);
                                 evt.stopPropagation();
                             }
                         }),
-                        h("i.insert-after.fa.fa-arrow-circle-down", {
+                        h("i.insert-after.fas.fa-arrow-circle-down", {
                             title: Jed.sprintf(_("Insert selection after frame %d"), frameIndex + 1),
                             onclick(evt) {
                                 c.moveFrames(frameIndex + 1);

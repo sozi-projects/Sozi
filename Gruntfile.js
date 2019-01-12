@@ -36,15 +36,6 @@ module.exports = function(grunt) {
         }
     }
 
-    grunt.verbose.write("Checking for bower_components...");
-    if (grunt.file.isDir("bower_components")) {
-        grunt.verbose.ok();
-    }
-    else {
-        grunt.log.error("bower_components not found! Please run `bower install`.");
-        process.exit();
-    }
-
     // Remove duplicates from an array.
     function dedup(arr) {
         return arr.filter(function (x, pos) {
@@ -102,7 +93,7 @@ module.exports = function(grunt) {
          */
         babel: {
             options: {
-                presets: ["es2015"]
+                presets: ["env"]
             },
             all: {
                 files: [{
@@ -157,7 +148,7 @@ module.exports = function(grunt) {
         },
 
         /*
-         * Compress the JavaScript code of the editor and player.
+         * Compress the JavaScript code of the editor, player, and presenter.
          */
         uglify: {
             editor: {
@@ -167,6 +158,10 @@ module.exports = function(grunt) {
             player: {
                 src: "<%= browserify.player.dest %>",
                 dest: "build/tmp/js/player.min.js"
+            },
+            presenter: {
+                src: "build/app/js/presenter.js",
+                dest: "build/tmp/js/presenter.min.js"
             }
         },
 
@@ -180,6 +175,13 @@ module.exports = function(grunt) {
                 context: {
                     playerJs: "<%= grunt.file.read('build/tmp/js/player.min.js') %>"
                 }
+            },
+            presenter: {
+                src: "templates/presenter.html",
+                dest: "build/app/templates/presenter.html",
+                context: {
+                    presenterJs: "<%= grunt.file.read('build/tmp/js/presenter.min.js') %>"
+                }
             }
         },
 
@@ -191,8 +193,7 @@ module.exports = function(grunt) {
                         src: [
                             "index-*.html",
                             "css/**/*",
-                            "vendor/**/*",
-                            "bower_components/**/*"
+                            "vendor/**/*"
                         ],
                         dest: "build/app"
                     }
@@ -279,8 +280,8 @@ module.exports = function(grunt) {
         newer: {
             options: {
                 override: function (details, include) {
-                    if (details.task === "nunjucks_render" && details.target === "player") {
-                        include(fs.statSync("build/tmp/js/player.min.js").mtime > details.time);
+                    if (details.task === "nunjucks_render") {
+                        include(fs.statSync(`build/tmp/js/${details.target}.min.js`).mtime > details.time);
                     }
                     else {
                         include(false);
@@ -414,6 +415,7 @@ module.exports = function(grunt) {
         "newer:babel",
         "browserify:player", // Cannot use 'newer' here due to imports
         "newer:uglify:player",
+        "newer:uglify:presenter",
         "newer:nunjucks_render",
         "newer:po2json",
         "newer:copy:editor",

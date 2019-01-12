@@ -14,7 +14,9 @@ export function addBackend(backend) {
 
 export const AbstractBackend = Object.create(EventEmitter.prototype);
 
-AbstractBackend.init = function (container, buttonId, buttonLabel) {
+AbstractBackend.init = function (controller, container, buttonId, buttonLabel) {
+    this.controller = controller;
+
     EventEmitter.call(this);
     this.autosavedFiles = [];
     container.innerHTML = `<button id="${buttonId}">${buttonLabel}</button>`;
@@ -154,18 +156,32 @@ AbstractBackend.autosave = function (descriptor, needsSaving, getData) {
 };
 
 /*
+ * Check whether at least one file needs saving.
+ */
+AbstractBackend.hasOutdatedFiles = function () {
+    return this.autosavedFiles.some(file => file.needsSaving());
+};
+
+/*
+ * Save all outdated files.
+ */
+AbstractBackend.saveOutdatedFiles = function () {
+    this.autosavedFiles.forEach(file => {
+        if (file.needsSaving()) {
+            this.save(file.descriptor, file.getData());
+        }
+    });
+};
+
+/*
  * Save all files previously added to the list of files to save automatically.
  *
  * Typically, we want to call this method each time the editor loses focus
  * and when the editor closes.
  */
 AbstractBackend.doAutosave = function () {
-    this.autosavedFiles.forEach(file => {
-        if (file.needsSaving()) {
-            this.save(file.descriptor, file.getData());
-        }
-    });
     this.savePreferences();
+    this.saveOutdatedFiles();
 };
 
 AbstractBackend.toggleDevTools = function () {

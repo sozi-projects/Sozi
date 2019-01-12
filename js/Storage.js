@@ -50,7 +50,7 @@ Storage.init = function (controller, svgDocument, presentation, selection, timel
     backendList.forEach(backend => {
         const listItem = document.createElement("li");
         document.querySelector("#sozi-editor-view-preview ul").appendChild(listItem);
-        backend.init(listItem, this.gettext)
+        backend.init(controller, listItem, this.gettext)
             .addListener("load", (...a) => this.onBackendLoad(backend, ...a))
             .addListener("change", (...a) => this.onBackendChange(...a));
     });
@@ -85,7 +85,9 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
             this.controller.setSVGDocument(this.document);
             this.svgFileDescriptor = fileDescriptor;
             this.controller.once("ready", () => {
-                this.createHTMLFile(name.replace(/\.svg$/, ".sozi.html"), location);
+                const htmlFileName = name.replace(/\.svg$/, ".sozi.html");
+                this.createHTMLFile(htmlFileName, location);
+                this.createPresenterHTMLFile(name.replace(/\.svg$/, "-presenter.sozi.html"), location, htmlFileName);
             });
             this.openJSONFile(name.replace(/\.svg$/, ".sozi.json"), location);
         }
@@ -134,7 +136,7 @@ Storage.onBackendChange = function (fileDescriptor) {
     const _ = this.gettext;
 
     if (fileDescriptor === this.svgFileDescriptor) {
-        switch (this.controller.getPreference("reload")) {
+        switch (this.controller.getPreference("reloadMode")) {
             case "auto":
                 this.controller.info(_("Document was changed. Reloading."));
                 this.reload();
@@ -207,6 +209,20 @@ Storage.createHTMLFile = function (name, location) {
 };
 
 /*
+ * Create the presenter HTML file if it does not exist.
+ */
+Storage.createPresenterHTMLFile = function (name, location, htmlFileName) {
+    this.backend.find(name, location, fileDescriptor => {
+        if (fileDescriptor) {
+            this.backend.save(fileDescriptor, this.exportPresenterHTML(htmlFileName));
+        }
+        else {
+            this.backend.create(name, location, "text/html", this.exportPresenterHTML(htmlFileName));
+        }
+    });
+};
+
+/*
  * Load the presentation and set the initial state
  * of the editor using the given JSON data.
  */
@@ -228,9 +244,9 @@ Storage.autosaveJSON = function (fileDescriptor) {
         return;
     }
 
-    const _ = this.gettext;
-
     this.backend.autosave(fileDescriptor, () => this.jsonNeedsSaving, () => this.getJSONData());
+
+    const _ = this.gettext;
 
     this.backend.addListener("save", savedFileDescriptor => {
         if (fileDescriptor === savedFileDescriptor) {
@@ -244,13 +260,13 @@ Storage.autosaveJSON = function (fileDescriptor) {
  * Configure autosaving for HTML export.
  */
 Storage.autosaveHTML = function (fileDescriptor) {
-    const _ = this.gettext;
-
     if (this.reloading) {
         return;
     }
 
     this.backend.autosave(fileDescriptor, () => this.htmlNeedsSaving, () => this.exportHTML());
+
+    const _ = this.gettext;
 
     this.backend.addListener("save", savedFileDescriptor => {
         if (fileDescriptor === savedFileDescriptor) {
@@ -285,5 +301,15 @@ Storage.exportHTML = function () {
         svg: this.document.asText,
         pres: this.presentation,
         json: JSON.stringify(this.presentation.toMinimalStorable())
+    });
+};
+
+/*
+ * Generate the content of the presenter HTML file.
+ */
+Storage.exportPresenterHTML = function (htmlFileName) {
+    return nunjucks.render("presenter.html", {
+        pres: this.presentation,
+        soziHtml: htmlFileName
     });
 };

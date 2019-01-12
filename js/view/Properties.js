@@ -62,13 +62,18 @@ Properties.renderPreferences = function () {
         this.renderNumberField("fontSize", false, c.getPreference, c.setPreference, false, 1, 1),
         h("label", {for: "field-enableNotifications"}, [
             _("Enable notifications on save and reload"),
-            this.renderToggleField(h("i.fa.fa-check-square-o"), _("Enable notifications"), "enableNotifications", c.getPreference, c.setPreference)
+            this.renderToggleField(h("i.far.fa-check-square"), _("Enable notifications"), "enableNotifications", c.getPreference, c.setPreference)
         ]),
-        h("label", {for: "field-reload"}, _("Reload the SVG document")),
-        this.renderSelectField("reload", c.getPreference, c.setPreference, {
-            "auto": _("Automatically"),
-            "onfocus": _("When Sozi gets the focus"),
-            "manual": _("Manually")
+        h("label", {for: "field-saveMode"}, _("Save the presentation")),
+        this.renderSelectField("saveMode", c.getPreference, c.setPreference, {
+            onblur: _("When Sozi loses the focus"),
+            manual: _("Manually")
+        }),
+        h("label", {for: "field-reloadMode"}, _("Reload the SVG document")),
+        this.renderSelectField("reloadMode", c.getPreference, c.setPreference, {
+            auto:    _("Automatically"),
+            onfocus: _("When Sozi gets the focus"),
+            manual:  _("Manually")
         }),
         h("label", {for: "field-showThumbnails"}, [
             _("Show thumbnails in timeline"),
@@ -77,15 +82,33 @@ Properties.renderPreferences = function () {
         h("h1", _("Behavior")),
         h("label", {for: "field-animateTransitions"}, [
             _("Preview transition animations"),
-            this.renderToggleField(h("i.fa.fa-check-square-o"), _("Enable animated transitions"), "animateTransitions", c.getPreference, c.setPreference)
+            this.renderToggleField(h("i.far.fa-check-square"), _("Enable animated transitions"), "animateTransitions", c.getPreference, c.setPreference)
         ]),
         h("h1", _("Keyboard shortcuts"))
     ].concat(shortcuts));
 };
 
+Properties.renderHelp = function (text, onclick) {
+    return h("span.help", {title: text, onclick}, h("i.fas.fa-question-circle"));
+};
+
 Properties.renderPresentationProperties = function () {
     const _ = this.gettext;
     const c = this.controller;
+
+    const NOTES_HELP = [
+        _("Basic formatting supported:"),
+        "",
+        _("Ctrl+B: Bold"),
+        _("Ctrl+I: Italic"),
+        _("Ctrl+U: Underline"),
+        _("Ctrl+0: Paragraph"),
+        _("Ctrl+1: Big header"),
+        _("Ctrl+2: Medium header"),
+        _("Ctrl+3: Small header"),
+        _("Ctrl+L: List"),
+        _("Ctrl+N: Numbered list")
+    ];
 
     const timeoutMsDisabled = c.getFrameProperty("timeoutEnable").every(value => !value);
     const showInFrameListDisabled = c.getFrameProperty("showInFrameList").every(value => !value);
@@ -105,8 +128,8 @@ Properties.renderPresentationProperties = function () {
         h("h1", _("Frame")),
 
         h("div.btn-group", [
-                this.renderToggleField(h("i.fa.fa-list"), _("Show in frame list"), "showInFrameList", c.getFrameProperty, c.setFrameProperty),
-                this.renderToggleField("#", _("Show frame number"), "showFrameNumber", c.getFrameProperty, c.setFrameProperty)
+                this.renderToggleField(h("i.fas.fa-list"), _("Show in frame list"), "showInFrameList", c.getFrameProperty, c.setFrameProperty),
+                this.renderToggleField(h("i.fas.fa-hashtag"), _("Show frame number"), "showFrameNumber", c.getFrameProperty, c.setFrameProperty)
         ]),
 
         h("label", {for: "field-title"}, _("Title")),
@@ -120,19 +143,19 @@ Properties.renderPresentationProperties = function () {
 
         h("label", {for: "field-timeoutMs"}, [
             _("Timeout (seconds)"),
-            this.renderToggleField(h("i.fa.fa-check-square-o"), _("Timeout enable"), "timeoutEnable", c.getFrameProperty, c.setFrameProperty)
+            this.renderToggleField(h("i.far.fa-check-square"), _("Timeout enable"), "timeoutEnable", c.getFrameProperty, c.setFrameProperty)
         ]),
         this.renderNumberField("timeoutMs", timeoutMsDisabled, c.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
 
         h("h1", _("Layer")),
 
         h("div.btn-group", [
-            this.renderToggleField(h("i.fa.fa-link"), _("Link to previous frame"), "link", c.getLayerProperty, c.setLayerProperty),
-            this.renderToggleField(h("i.fa.fa-crop"), _("Clip"), "clipped", c.getCameraProperty, c.setCameraProperty),
+            this.renderToggleField(h("i.fas.fa-link"), _("Link to previous frame"), "link", c.getLayerProperty, c.setLayerProperty),
+            this.renderToggleField(h("i.fas.fa-crop"), _("Clip"), "clipped", c.getCameraProperty, c.setCameraProperty),
             h("button", {
                 title: _("Reset layer geometry"),
                 onclick() { c.resetLayer(); }
-            }, h("i.fa.fa-eraser"))
+            }, h("i.fas.fa-eraser"))
         ]),
 
         h("label", {for: "field-layerToCopy"}, _("Copy layer")),
@@ -145,13 +168,13 @@ Properties.renderPresentationProperties = function () {
             _("Outline element Id"),
             h("span.btn-group", [
                 // TODO: onclick, update reference element immediately
-                this.renderToggleField(h("i.fa.fa-magic"), _("Autoselect element"), "outlineElementAuto", c.getLayerProperty, c.setLayerProperty),
-                this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide element"), "outlineElementHide", c.getLayerProperty, c.setLayerProperty),
+                this.renderToggleField(h("i.fas.fa-magic"), _("Autoselect element"), "outlineElementAuto", c.getLayerProperty, c.setLayerProperty),
+                this.renderToggleField(h("i.far.fa-eye-slash"), _("Hide element"), "outlineElementHide", c.getLayerProperty, c.setLayerProperty),
                 h("button", {
                     title: _("Fit to element"),
                     disabled: !c.canFitElement(),
                     onclick() { c.fitElement(); }
-                }, h("i.fa.fa-arrows-alt"))
+                }, h("i.fas.fa-arrows-alt"))
             ])
         ]),
         this.renderTextField("outlineElementId", outlineElementIdDisabled, c.getLayerProperty, c.setLayerProperty, true),
@@ -159,21 +182,21 @@ Properties.renderPresentationProperties = function () {
         h("label", {for: "field-opacity"}, _("Layer opacity")),
         this.renderRangeField("opacity", false, c.getCameraProperty, c.setCameraProperty, 0, 1, 0.1),
 
-        h("h1", _("Transition")),
+        h("h1", [_("Transition"), this.renderHelp(_("Configure the animation when moving to the selected frames."))]),
 
         h("label", {for: "field-transitionDurationMs"}, _("Duration (seconds)")),
         this.renderNumberField("transitionDurationMs", false, c.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
 
         h("label", {for: "field-transitionTimingFunction"}, _("Timing function")),
         this.renderSelectField("transitionTimingFunction", c.getLayerProperty, c.setLayerProperty, {
-            "linear": "Linear",
-            "ease": "Ease",
-            "easeIn": "Ease in",
-            "easeOut": "Ease out",
-            "easeInOut": "Ease in-out",
-            "stepStart": "Step start",
-            "stepEnd": "Step end",
-            "stepMiddle": "Step middle"
+            "linear":     _("Linear"),
+            "ease":       _("Ease"),
+            "easeIn":     _("Ease in"),
+            "easeOut":    _("Ease out"),
+            "easeInOut":  _("Ease in-out"),
+            "stepStart":  _("Step start"),
+            "stepEnd":    _("Step end"),
+            "stepMiddle": _("Step middle")
         }),
 
         h("label", {for: "field-transitionRelativeZoom"}, _("Relative zoom (%)")),
@@ -181,38 +204,42 @@ Properties.renderPresentationProperties = function () {
 
         h("label", {for: "field-transitionPathId"}, [
             _("Path Id"),
-            this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide path"), "transitionPathHide", c.getLayerProperty, c.setLayerProperty)
+            this.renderToggleField(h("i.far.fa-eye-slash"), _("Hide path"), "transitionPathHide", c.getLayerProperty, c.setLayerProperty)
         ]),
         this.renderTextField("transitionPathId", false, c.getLayerProperty, c.setLayerProperty, true),
+
+        h("h1", [_("Notes"), this.renderHelp(_("Edit presenter notes. Click here to show the list of formatting shortcuts."), () => c.info(NOTES_HELP.join("\n"), true))]),
+
+        this.renderRichTextField("notes", false, c.getFrameProperty, c.setFrameProperty, true),
 
         h("h1", _("Player")),
 
         h("div", [
             _("Allow to control the presentation"),
             h("span.btn-group", [
-                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseNavigation", c.getPresentationProperty, c.setPresentationProperty),
-                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardNavigation", c.getPresentationProperty, c.setPresentationProperty)
+                    this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseNavigation", c.getPresentationProperty, c.setPresentationProperty),
+                    this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardNavigation", c.getPresentationProperty, c.setPresentationProperty)
             ])
         ]),
 
         h("div", [
             _("Allow to move the camera"),
-            this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseTranslation", c.getPresentationProperty, c.setPresentationProperty)
+            this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseTranslation", c.getPresentationProperty, c.setPresentationProperty)
         ]),
 
         h("div", [
             _("Allow to rotate the camera"),
             h("span.btn-group", [
-                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseRotation", c.getPresentationProperty, c.setPresentationProperty),
-                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardRotation", c.getPresentationProperty, c.setPresentationProperty)
+                    this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseRotation", c.getPresentationProperty, c.setPresentationProperty),
+                    this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardRotation", c.getPresentationProperty, c.setPresentationProperty)
             ])
         ]),
 
         h("div", [
             _("Allow to zoom"),
             h("span.btn-group", [
-                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseZoom", c.getPresentationProperty, c.setPresentationProperty),
-                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardZoom", c.getPresentationProperty, c.setPresentationProperty)
+                    this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseZoom", c.getPresentationProperty, c.setPresentationProperty),
+                    this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardZoom", c.getPresentationProperty, c.setPresentationProperty)
             ])
         ])
     ]);
@@ -223,7 +250,7 @@ Properties.renderTextField = function (property, disabled, getter, setter, accep
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    this.state[property] = values.length >= 1 ? values[values.length - 1] : "";
+    this.state[property] = {value: values.length >= 1 ? values[values.length - 1] : ""};
 
     return h("input", {
         id: "field-" + property,
@@ -239,12 +266,64 @@ Properties.renderTextField = function (property, disabled, getter, setter, accep
     });
 };
 
+Properties.renderRichTextField = function (property, disabled, getter, setter, acceptsEmpty) {
+    const c = this.controller;
+
+    const values = asArray(getter.call(c, property));
+    const className = values.length > 1 ? "multiple" : undefined;
+    this.state[property] = {innerHTML: values.length >= 1 ? values[values.length - 1] : ""};
+
+    return h("section", {
+        id: "field-" + property,
+        contentEditable: true,
+        className,
+        disabled,
+        onblur() {
+            const value = this.innerHTML;
+            if (acceptsEmpty || value.length) {
+                setter.call(c, property, value);
+            }
+        },
+        onkeydown(evt) {
+            if (evt.ctrlKey) {
+                switch(evt.keyCode) {
+                    case 48: // Ctrl+0
+                        document.execCommand("formatBlock", false, "<P>");
+                        break;
+                    case 49: // Ctrl+1
+                        document.execCommand("formatBlock", false, "<H1>");
+                        break;
+                    case 50: // Ctrl+2
+                        document.execCommand("formatBlock", false, "<H2>");
+                        break;
+                    case 51: // Ctrl+3
+                        document.execCommand("formatBlock", false, "<H3>");
+                        break;
+                    case 76: // Ctrl+L
+                        document.execCommand("insertUnorderedList", false, null);
+                        break;
+                    case 78: // Ctrl+N
+                        document.execCommand("insertOrderedList", false, null);
+                        break;
+                    default:
+                        return;
+                    // Natively supported shortcuts:
+                    // Ctrl+B|I|U : Bold, Italic, Underline
+                    // Ctrl+A     : Select all
+                    // Ctrl+C|X|V : Copy, Cut, Paste
+                }
+                evt.stopPropagation();
+            }
+        }
+    });
+};
+
 Properties.renderNumberField = function (property, disabled, getter, setter, signed, step, factor) {
     const c = this.controller;
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    this.state[property] = values.length >= 1 ? values[values.length - 1] / factor : 0; // TODO use default value
+    this.state[property] = {value: values.length >= 1 ? values[values.length - 1] / factor : 0}; // TODO use default value
 
     return h("input", {
         id: "field-" + property,
@@ -268,12 +347,12 @@ Properties.renderRangeField = function (property, disabled, getter, setter, min,
 
     const values = asArray(getter.call(c, property));
     const className = values.length > 1 ? "multiple" : undefined;
-    this.state[property] = values.length >= 1 ? values[values.length - 1] : (min + max) / 2; // TODO use default value
+    this.state[property] = {value: values.length >= 1 ? values[values.length - 1] : (min + max) / 2}; // TODO use default value
 
     return h("input", {
         id: "field-" + property,
         type: "range",
-        title: this.state[property],
+        title: this.state[property].value,
         min,
         max,
         step,

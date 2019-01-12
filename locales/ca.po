@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-10-20 04:34:+0000\n"
+"POT-Creation-Date: 2019-01-06 04:53:+0000\n"
 "PO-Revision-Date: 2015-10-11 20:14+0000\n"
 "Last-Translator: Adolfo Jayme <Unknown>\n"
 "Language-Team: Catalan <ca@li.org>\n"
@@ -18,19 +18,31 @@ msgstr ""
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 "X-Generator: Launchpad (build 18599)\n"
 
-#: js/backend/Electron.js:28
+#: js/backend/Electron.js:27
 msgid "Open an SVG file from your computer"
 msgstr ""
 
-#: js/backend/Electron.js:58
+#: js/backend/Electron.js:63
+msgid "Do you want to save the presentation before closing?"
+msgstr ""
+
+#: js/backend/Electron.js:64
+msgid "Yes"
+msgstr ""
+
+#: js/backend/Electron.js:64
+msgid "No"
+msgstr ""
+
+#: js/backend/Electron.js:84
 msgid "File not found: %s."
 msgstr "No s’ha trobat el fitxer: %s."
 
-#: js/backend/Electron.js:72
+#: js/backend/Electron.js:117
 msgid "Choose an SVG file"
 msgstr ""
 
-#: js/backend/Electron.js:73
+#: js/backend/Electron.js:118
 msgid "SVG files"
 msgstr ""
 
@@ -56,32 +68,32 @@ msgstr ""
 msgid "File %s could not be loaded."
 msgstr "No s’ha pogut carregar el fitxer %s."
 
-#: js/Storage.js:93 js/Storage.js:102
+#: js/Storage.js:95 js/Storage.js:104
 msgid "Document is not valid SVG."
 msgstr "El document no és un SVG vàlid."
 
-#: js/Storage.js:139 js/Storage.js:145
+#: js/Storage.js:141 js/Storage.js:147
 msgid "Document was changed. Reloading."
 msgstr "El document s’ha modificat. S’està recarregant."
 
-#: js/Storage.js:154
+#: js/Storage.js:156
 #, fuzzy
 msgid "Document was changed."
 msgstr "El document s’ha modificat. S’està recarregant."
 
-#: js/Storage.js:180
+#: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr ""
 
-#: js/Storage.js:238 js/Storage.js:259
+#: js/Storage.js:254 js/Storage.js:275
 msgid "Saved %s."
 msgstr ""
 
-#: js/view/Properties.js:41 js/view/Properties.js:147
+#: js/view/Properties.js:41 js/view/Properties.js:170
 msgid "Fit to element"
 msgstr ""
 
-#: js/view/Properties.js:42 js/view/Properties.js:129
+#: js/view/Properties.js:42 js/view/Properties.js:152
 msgid "Reset layer geometry"
 msgstr ""
 
@@ -89,15 +101,15 @@ msgstr ""
 msgid "Create a new frame"
 msgstr ""
 
-#: js/view/Properties.js:44 js/view/Toolbar.js:110
+#: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:113
 msgid "Save the presentation"
 msgstr ""
 
-#: js/view/Properties.js:45 js/view/Toolbar.js:94
+#: js/view/Properties.js:45 js/view/Toolbar.js:97
 msgid "Redo"
 msgstr ""
 
-#: js/view/Properties.js:46 js/view/Toolbar.js:89
+#: js/view/Properties.js:46 js/view/Toolbar.js:92
 msgid "Undo"
 msgstr ""
 
@@ -105,7 +117,7 @@ msgstr ""
 msgid "Focus the frame title"
 msgstr ""
 
-#: js/view/Properties.js:48 js/view/Properties.js:67 js/view/Toolbar.js:115
+#: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:118
 msgid "Reload the SVG document"
 msgstr ""
 
@@ -134,156 +146,245 @@ msgid "Enable notifications"
 msgstr ""
 
 #: js/view/Properties.js:69
-msgid "Automatically"
+msgid "When Sozi loses the focus"
 msgstr ""
 
-#: js/view/Properties.js:70
-msgid "When Sozi gets the focus"
-msgstr ""
-
-#: js/view/Properties.js:71
+#: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
 msgstr ""
 
-#: js/view/Properties.js:73
-msgid "Behavior"
+#: js/view/Properties.js:74
+msgid "Automatically"
 msgstr ""
 
 #: js/view/Properties.js:75
-msgid "Preview transition animations"
-msgstr ""
-
-#: js/view/Properties.js:76
-msgid "Enable animated transitions"
+msgid "When Sozi gets the focus"
 msgstr ""
 
 #: js/view/Properties.js:78
+msgid "Behavior"
+msgstr ""
+
+#: js/view/Properties.js:80
+msgid "Preview transition animations"
+msgstr ""
+
+#: js/view/Properties.js:81
+msgid "Enable animated transitions"
+msgstr ""
+
+#: js/view/Properties.js:83
 msgid "Keyboard shortcuts"
 msgstr ""
 
-#: js/view/Properties.js:91
-msgid "Select a layer to copy"
+#: js/view/Properties.js:96
+msgid "Basic formatting supported:"
 msgstr ""
 
-#: js/view/Properties.js:94 js/view/Timeline.js:313 js/view/Timeline.js:341
-msgid "Default"
-msgstr "Per defecte"
+#: js/view/Properties.js:98
+msgid "Ctrl+B: Bold"
+msgstr ""
+
+#: js/view/Properties.js:99
+msgid "Ctrl+I: Italic"
+msgstr ""
+
+#: js/view/Properties.js:100
+msgid "Ctrl+U: Underline"
+msgstr ""
 
 #: js/view/Properties.js:101
-msgid "Frame"
+msgid "Ctrl+0: Paragraph"
+msgstr ""
+
+#: js/view/Properties.js:102
+msgid "Ctrl+1: Big header"
+msgstr ""
+
+#: js/view/Properties.js:103
+msgid "Ctrl+2: Medium header"
 msgstr ""
 
 #: js/view/Properties.js:104
-msgid "Show in frame list"
+msgid "Ctrl+3: Small header"
 msgstr ""
 
 #: js/view/Properties.js:105
-msgid "Show frame number"
+msgid "Ctrl+L: List"
 msgstr ""
 
-#: js/view/Properties.js:108
-msgid "Title"
-msgstr "Títol"
-
-#: js/view/Properties.js:111
-msgid "Title level in frame list"
+#: js/view/Properties.js:106
+msgid "Ctrl+N: Numbered list"
 msgstr ""
 
 #: js/view/Properties.js:114
+msgid "Select a layer to copy"
+msgstr ""
+
+#: js/view/Properties.js:117 js/view/Timeline.js:313 js/view/Timeline.js:341
+msgid "Default"
+msgstr "Per defecte"
+
+#: js/view/Properties.js:124
+msgid "Frame"
+msgstr ""
+
+#: js/view/Properties.js:127
+msgid "Show in frame list"
+msgstr ""
+
+#: js/view/Properties.js:128
+msgid "Show frame number"
+msgstr ""
+
+#: js/view/Properties.js:131
+msgid "Title"
+msgstr "Títol"
+
+#: js/view/Properties.js:134
+msgid "Title level in frame list"
+msgstr ""
+
+#: js/view/Properties.js:137
 msgid "Id"
 msgstr ""
 
-#: js/view/Properties.js:118
+#: js/view/Properties.js:141
 msgid "Timeout (seconds)"
 msgstr ""
 
-#: js/view/Properties.js:119
+#: js/view/Properties.js:142
 msgid "Timeout enable"
 msgstr ""
 
-#: js/view/Properties.js:123
+#: js/view/Properties.js:146
 msgid "Layer"
 msgstr ""
 
-#: js/view/Properties.js:126
+#: js/view/Properties.js:149
 msgid "Link to previous frame"
 msgstr ""
 
-#: js/view/Properties.js:127 js/view/Toolbar.js:82
+#: js/view/Properties.js:150
 msgid "Clip"
 msgstr ""
 
-#: js/view/Properties.js:134
+#: js/view/Properties.js:157
 msgid "Copy layer"
 msgstr ""
 
-#: js/view/Properties.js:141
+#: js/view/Properties.js:164
 msgid "Outline element Id"
 msgstr ""
 
-#: js/view/Properties.js:144
+#: js/view/Properties.js:167
 msgid "Autoselect element"
 msgstr ""
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:168
 msgid "Hide element"
 msgstr "Amaga l’element"
 
-#: js/view/Properties.js:155
+#: js/view/Properties.js:178
 msgid "Layer opacity"
 msgstr ""
 
-#: js/view/Properties.js:158
+#: js/view/Properties.js:181
 msgid "Transition"
 msgstr "Transició"
 
-#: js/view/Properties.js:160
+#: js/view/Properties.js:181
+msgid "Configure the animation when moving to the selected frames."
+msgstr ""
+
+#: js/view/Properties.js:183
 msgid "Duration (seconds)"
 msgstr "Durada (segons)"
 
-#: js/view/Properties.js:163
+#: js/view/Properties.js:186
 msgid "Timing function"
 msgstr ""
 
-#: js/view/Properties.js:175
-msgid "Relative zoom (%)"
+#: js/view/Properties.js:188
+msgid "Linear"
 msgstr ""
 
-#: js/view/Properties.js:179
-msgid "Path Id"
+#: js/view/Properties.js:189
+msgid "Ease"
 msgstr ""
 
-#: js/view/Properties.js:180
-msgid "Hide path"
+#: js/view/Properties.js:190
+msgid "Ease in"
 msgstr ""
 
-#: js/view/Properties.js:184
-msgid "Player"
+#: js/view/Properties.js:191
+msgid "Ease out"
 msgstr ""
 
-#: js/view/Properties.js:187
-msgid "Allow to control the presentation"
+#: js/view/Properties.js:192
+msgid "Ease in-out"
 msgstr ""
 
-#: js/view/Properties.js:189 js/view/Properties.js:196
-#: js/view/Properties.js:202 js/view/Properties.js:210
-msgid "using the mouse"
+#: js/view/Properties.js:193
+msgid "Step start"
 msgstr ""
 
-#: js/view/Properties.js:190 js/view/Properties.js:203
-#: js/view/Properties.js:211
-msgid "using the keyboard"
+#: js/view/Properties.js:194
+msgid "Step end"
 msgstr ""
 
 #: js/view/Properties.js:195
+msgid "Step middle"
+msgstr ""
+
+#: js/view/Properties.js:198
+msgid "Relative zoom (%)"
+msgstr ""
+
+#: js/view/Properties.js:202
+msgid "Path Id"
+msgstr ""
+
+#: js/view/Properties.js:203
+msgid "Hide path"
+msgstr ""
+
+#: js/view/Properties.js:207
+msgid "Notes"
+msgstr ""
+
+#: js/view/Properties.js:207
+msgid ""
+"Edit presenter notes. Click here to show the list of formatting shortcuts."
+msgstr ""
+
+#: js/view/Properties.js:211
+msgid "Player"
+msgstr ""
+
+#: js/view/Properties.js:214
+msgid "Allow to control the presentation"
+msgstr ""
+
+#: js/view/Properties.js:216 js/view/Properties.js:223
+#: js/view/Properties.js:229 js/view/Properties.js:237
+msgid "using the mouse"
+msgstr ""
+
+#: js/view/Properties.js:217 js/view/Properties.js:230
+#: js/view/Properties.js:238
+msgid "using the keyboard"
+msgstr ""
+
+#: js/view/Properties.js:222
 msgid "Allow to move the camera"
 msgstr ""
 
-#: js/view/Properties.js:200
+#: js/view/Properties.js:227
 msgid "Allow to rotate the camera"
 msgstr ""
 
-#: js/view/Properties.js:208
+#: js/view/Properties.js:235
 msgid "Allow to zoom"
 msgstr ""
 
@@ -315,38 +416,42 @@ msgstr ""
 msgid "Insert selection after frame %d"
 msgstr ""
 
-#: js/view/Toolbar.js:34
+#: js/view/Toolbar.js:37
 msgid "Aspect ratio: "
 msgstr "Relació d’aspecte: "
 
-#: js/view/Toolbar.js:67
+#: js/view/Toolbar.js:70
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
 
-#: js/view/Toolbar.js:72
+#: js/view/Toolbar.js:75
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
 
-#: js/view/Toolbar.js:77
+#: js/view/Toolbar.js:80
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 
-#: js/view/Toolbar.js:101
+#: js/view/Toolbar.js:85
+msgid "Edit the clipping area"
+msgstr ""
+
+#: js/view/Toolbar.js:104
 msgid "Disable full-screen mode"
 msgstr ""
 
-#: js/view/Toolbar.js:101
+#: js/view/Toolbar.js:104
 msgid "Enable full-screen mode"
 msgstr ""
 
-#: js/view/Toolbar.js:121
+#: js/view/Toolbar.js:124
 msgid "Preferences"
 msgstr ""
 
-#: js/view/Toolbar.js:126
+#: js/view/Toolbar.js:129
 msgid "Information"
 msgstr "Informació"
 
