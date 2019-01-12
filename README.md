@@ -23,13 +23,13 @@ Clone the repository:
 Install the build tools and dependencies
 ----------------------------------------
 
-Install [Node.js](http://nodejs.org/), [Bower](http://bower.io/)
-and the [Grunt](http://gruntjs.com/) CLI.
+Install [Node.js](http://nodejs.org/) and the [Grunt](http://gruntjs.com/) CLI.
+Sozi is known to work with Node.js 8 from [Nodesource](https://github.com/nodesource/distributions).
 If you plan to build a Windows executable from Linux or OS X, also install *wine*.
 In Debian/Ubuntu and their derivatives, you can type the following commands.
 
-    sudo apt install nodejs nodejs-legacy npm wine
-    sudo npm install bower grunt-cli -g
+    sudo apt install nodejs wine
+    sudo npm install grunt-cli -g
 
 If you plan to build Debian packages, also install the following packages:
 
@@ -38,7 +38,6 @@ If you plan to build Debian packages, also install the following packages:
 From the root of the source tree:
 
     npm install
-    bower install
 
 Also install the following:
 

@@ -36,15 +36,6 @@ module.exports = function(grunt) {
         }
     }
 
-    grunt.verbose.write("Checking for bower_components...");
-    if (grunt.file.isDir("bower_components")) {
-        grunt.verbose.ok();
-    }
-    else {
-        grunt.log.error("bower_components not found! Please run `bower install`.");
-        process.exit();
-    }
-
     // Remove duplicates from an array.
     function dedup(arr) {
         return arr.filter(function (x, pos) {
@@ -202,8 +193,7 @@ module.exports = function(grunt) {
                         src: [
                             "index-*.html",
                             "css/**/*",
-                            "vendor/**/*",
-                            "bower_components/**/*"
+                            "vendor/**/*"
                         ],
                         dest: "build/app"
                     }

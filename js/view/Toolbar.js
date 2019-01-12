@@ -70,34 +70,34 @@ Toolbar.render = function () {
                 title: _("Move the selected layers (hold Alt to zoom, Shift to rotate)"),
                 className: v.dragMode === "translate" ? "active" : "",
                 onclick() { c.setDragMode("translate"); }
-            }, h("i.fa.fa-arrows")),
+            }, h("i.fas.fa-arrows-alt")),
             h("button", {
                 title: _("Zoom in/out on the selected layers (you can also hold the Alt key in Move mode)"),
                 className: v.dragMode === "scale" ? "active" : "",
                 onclick() { c.setDragMode("scale"); }
-            }, h("i.fa.fa-expand")),
+            }, h("i.fas.fa-expand")),
             h("button", {
                 title: _("Rotate the selected layers (you can also hold the Shift key in Move mode)"),
                 className: v.dragMode === "rotate" ? "active" : "",
                 onclick() { c.setDragMode("rotate"); }
-            }, h("i.fa.fa-rotate-left")),
+            }, h("i.fas.fa-undo")), // "undo" icon shows a counter-clockwise circular arrow
             h("button", {
                 title: _("Edit the clipping area"),
                 className: v.dragMode === "clip" ? "active" : "",
                 onclick() { c.setDragMode("clip"); }
-            }, h("i.fa.fa-crop"))
+            }, h("i.fas.fa-crop"))
         ]),
         h("span.group.btn-group", [
             h("button", {
                 title: _("Undo"),
                 disabled: c.undoStack.length ? undefined : "disabled",
                 onclick() { c.undo(); }
-            }, h("i.fa.fa-reply")), // "reply" icon preferred to the official "undo" icon
+            }, h("i.fas.fa-reply")), // "reply" icon preferred to the official "undo" icon
             h("button", {
                 title: _("Redo"),
                 disabled: c.redoStack.length ? undefined : "disabled",
                 onclick() { c.redo(); }
-            }, h("i.fa.fa-share")) // "share" icon preferred to the official "redo" icon
+            }, h("i.fas.fa-share")) // "share" icon preferred to the official "redo" icon
         ]),
         h("span.group", [
             h("button", {
@@ -106,29 +106,29 @@ Toolbar.render = function () {
                 className: screenfull.isFullscreen ? "active" : undefined,
                 disabled: !screenfull.enabled,
                 onclick() { screenfull.toggle(document.documentElement); }
-            }, h("i.fa.fa-desktop"))
+            }, h("i.fas.fa-desktop"))
         ]),
         h("span.group.btn-group", [
             h("button", {
                 title: _("Save the presentation"),
                 disabled: this.storage.htmlNeedsSaving ? undefined : "disabled",
                 onclick() { c.save(); }
-            }, h("i.fa.fa-download")), // "download" icon preferred to the official "save" icon
+            }, h("i.fas.fa-download")), // "download" icon preferred to the official "save" icon
             h("button", {
                 title: _("Reload the SVG document"),
                 onclick() { c.reload(); }
-            }, h("i.fa.fa-refresh"))
+            }, h("i.fas.fa-sync"))
         ]),
         h("span.group.btn-group", [
             h("button", {
                 title: _("Preferences"),
                 className: Properties.preferencesMode ? "active" : undefined,
                 onclick() { Properties.togglePreferencesMode(); t.repaint(); }
-            }, h("i.fa.fa-sliders")),
+            }, h("i.fas.fa-sliders-h")),
             h("button", {
                 title: _("Information"),
                 onclick() { c.info(`Sozi ${pkg.version}`, true); }
-            }, h("i.fa.fa-info"))
+            }, h("i.fas.fa-info"))
         ])
     ]);
 };

@@ -62,7 +62,7 @@ Properties.renderPreferences = function () {
         this.renderNumberField("fontSize", false, c.getPreference, c.setPreference, false, 1, 1),
         h("label", {for: "field-enableNotifications"}, [
             _("Enable notifications on save and reload"),
-            this.renderToggleField(h("i.fa.fa-check-square-o"), _("Enable notifications"), "enableNotifications", c.getPreference, c.setPreference)
+            this.renderToggleField(h("i.far.fa-check-square"), _("Enable notifications"), "enableNotifications", c.getPreference, c.setPreference)
         ]),
         h("label", {for: "field-saveMode"}, _("Save the presentation")),
         this.renderSelectField("saveMode", c.getPreference, c.setPreference, {
@@ -78,14 +78,14 @@ Properties.renderPreferences = function () {
         h("h1", _("Behavior")),
         h("label", {for: "field-animateTransitions"}, [
             _("Preview transition animations"),
-            this.renderToggleField(h("i.fa.fa-check-square-o"), _("Enable animated transitions"), "animateTransitions", c.getPreference, c.setPreference)
+            this.renderToggleField(h("i.far.fa-check-square"), _("Enable animated transitions"), "animateTransitions", c.getPreference, c.setPreference)
         ]),
         h("h1", _("Keyboard shortcuts"))
     ].concat(shortcuts));
 };
 
 Properties.renderHelp = function (text, onclick) {
-    return h("span.help", {title: text, onclick}, h("i.fa.fa-question-circle"));
+    return h("span.help", {title: text, onclick}, h("i.fas.fa-question-circle"));
 };
 
 Properties.renderPresentationProperties = function () {
@@ -124,8 +124,8 @@ Properties.renderPresentationProperties = function () {
         h("h1", _("Frame")),
 
         h("div.btn-group", [
-                this.renderToggleField(h("i.fa.fa-list"), _("Show in frame list"), "showInFrameList", c.getFrameProperty, c.setFrameProperty),
-                this.renderToggleField("#", _("Show frame number"), "showFrameNumber", c.getFrameProperty, c.setFrameProperty)
+                this.renderToggleField(h("i.fas.fa-list"), _("Show in frame list"), "showInFrameList", c.getFrameProperty, c.setFrameProperty),
+                this.renderToggleField(h("i.fas.fa-hashtag"), _("Show frame number"), "showFrameNumber", c.getFrameProperty, c.setFrameProperty)
         ]),
 
         h("label", {for: "field-title"}, _("Title")),
@@ -139,19 +139,19 @@ Properties.renderPresentationProperties = function () {
 
         h("label", {for: "field-timeoutMs"}, [
             _("Timeout (seconds)"),
-            this.renderToggleField(h("i.fa.fa-check-square-o"), _("Timeout enable"), "timeoutEnable", c.getFrameProperty, c.setFrameProperty)
+            this.renderToggleField(h("i.far.fa-check-square"), _("Timeout enable"), "timeoutEnable", c.getFrameProperty, c.setFrameProperty)
         ]),
         this.renderNumberField("timeoutMs", timeoutMsDisabled, c.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
 
         h("h1", _("Layer")),
 
         h("div.btn-group", [
-            this.renderToggleField(h("i.fa.fa-link"), _("Link to previous frame"), "link", c.getLayerProperty, c.setLayerProperty),
-            this.renderToggleField(h("i.fa.fa-crop"), _("Clip"), "clipped", c.getCameraProperty, c.setCameraProperty),
+            this.renderToggleField(h("i.fas.fa-link"), _("Link to previous frame"), "link", c.getLayerProperty, c.setLayerProperty),
+            this.renderToggleField(h("i.fas.fa-crop"), _("Clip"), "clipped", c.getCameraProperty, c.setCameraProperty),
             h("button", {
                 title: _("Reset layer geometry"),
                 onclick() { c.resetLayer(); }
-            }, h("i.fa.fa-eraser"))
+            }, h("i.fas.fa-eraser"))
         ]),
 
         h("label", {for: "field-layerToCopy"}, _("Copy layer")),
@@ -164,13 +164,13 @@ Properties.renderPresentationProperties = function () {
             _("Outline element Id"),
             h("span.btn-group", [
                 // TODO: onclick, update reference element immediately
-                this.renderToggleField(h("i.fa.fa-magic"), _("Autoselect element"), "outlineElementAuto", c.getLayerProperty, c.setLayerProperty),
-                this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide element"), "outlineElementHide", c.getLayerProperty, c.setLayerProperty),
+                this.renderToggleField(h("i.fas.fa-magic"), _("Autoselect element"), "outlineElementAuto", c.getLayerProperty, c.setLayerProperty),
+                this.renderToggleField(h("i.far.fa-eye-slash"), _("Hide element"), "outlineElementHide", c.getLayerProperty, c.setLayerProperty),
                 h("button", {
                     title: _("Fit to element"),
                     disabled: !c.canFitElement(),
                     onclick() { c.fitElement(); }
-                }, h("i.fa.fa-arrows-alt"))
+                }, h("i.fas.fa-arrows-alt"))
             ])
         ]),
         this.renderTextField("outlineElementId", outlineElementIdDisabled, c.getLayerProperty, c.setLayerProperty, true),
@@ -200,7 +200,7 @@ Properties.renderPresentationProperties = function () {
 
         h("label", {for: "field-transitionPathId"}, [
             _("Path Id"),
-            this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide path"), "transitionPathHide", c.getLayerProperty, c.setLayerProperty)
+            this.renderToggleField(h("i.far.fa-eye-slash"), _("Hide path"), "transitionPathHide", c.getLayerProperty, c.setLayerProperty)
         ]),
         this.renderTextField("transitionPathId", false, c.getLayerProperty, c.setLayerProperty, true),
 
@@ -213,29 +213,29 @@ Properties.renderPresentationProperties = function () {
         h("div", [
             _("Allow to control the presentation"),
             h("span.btn-group", [
-                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseNavigation", c.getPresentationProperty, c.setPresentationProperty),
-                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardNavigation", c.getPresentationProperty, c.setPresentationProperty)
+                    this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseNavigation", c.getPresentationProperty, c.setPresentationProperty),
+                    this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardNavigation", c.getPresentationProperty, c.setPresentationProperty)
             ])
         ]),
 
         h("div", [
             _("Allow to move the camera"),
-            this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseTranslation", c.getPresentationProperty, c.setPresentationProperty)
+            this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseTranslation", c.getPresentationProperty, c.setPresentationProperty)
         ]),
 
         h("div", [
             _("Allow to rotate the camera"),
             h("span.btn-group", [
-                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseRotation", c.getPresentationProperty, c.setPresentationProperty),
-                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardRotation", c.getPresentationProperty, c.setPresentationProperty)
+                    this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseRotation", c.getPresentationProperty, c.setPresentationProperty),
+                    this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardRotation", c.getPresentationProperty, c.setPresentationProperty)
             ])
         ]),
 
         h("div", [
             _("Allow to zoom"),
             h("span.btn-group", [
-                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseZoom", c.getPresentationProperty, c.setPresentationProperty),
-                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardZoom", c.getPresentationProperty, c.setPresentationProperty)
+                    this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseZoom", c.getPresentationProperty, c.setPresentationProperty),
+                    this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardZoom", c.getPresentationProperty, c.setPresentationProperty)
             ])
         ])
     ]);
