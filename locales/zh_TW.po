@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-01-06 04:53:+0000\n"
-"PO-Revision-Date: 2019-01-13 14:02+0000\n"
+"PO-Revision-Date: 2019-01-14 14:21+0000\n"
 "Last-Translator: Louies <louies0623@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "sozi/translations/zh_Hant/>\n"
@@ -34,7 +34,7 @@ msgstr "是"
 
 #: js/backend/Electron.js:64
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: js/backend/Electron.js:84
 msgid "File not found: %s."
@@ -79,9 +79,8 @@ msgid "Document was changed. Reloading."
 msgstr "文件已有改變。重新載入中。"
 
 #: js/Storage.js:156
-#, fuzzy
 msgid "Document was changed."
-msgstr "文件已有改變。重新載入中。"
+msgstr "文件已更改。"
 
 #: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
@@ -149,19 +148,19 @@ msgstr "啟用通知"
 
 #: js/view/Properties.js:69
 msgid "When Sozi loses the focus"
-msgstr ""
+msgstr "當 Sozi 失去焦點時"
 
 #: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
-msgstr ""
+msgstr "手動"
 
 #: js/view/Properties.js:74
 msgid "Automatically"
-msgstr ""
+msgstr "自動"
 
 #: js/view/Properties.js:75
 msgid "When Sozi gets the focus"
-msgstr ""
+msgstr "當 Sozi 得到焦點時"
 
 #: js/view/Properties.js:78
 msgid "Behavior"
@@ -181,43 +180,43 @@ msgstr "鍵盤操作快捷鍵"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "支援的基本格式："
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: 粗體"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: 斜體"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: 底線"
 
 #: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0: 段落"
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big header"
-msgstr ""
+msgstr "Ctrl+1: 大標題"
 
 #: js/view/Properties.js:103
 msgid "Ctrl+2: Medium header"
-msgstr ""
+msgstr "Ctrl+2: 中標題"
 
 #: js/view/Properties.js:104
 msgid "Ctrl+3: Small header"
-msgstr ""
+msgstr "Ctrl+3: 小標題"
 
 #: js/view/Properties.js:105
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl+L: 列表"
 
 #: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl+N: 編號列表"
 
 #: js/view/Properties.js:114
 msgid "Select a layer to copy"
@@ -244,9 +243,8 @@ msgid "Title"
 msgstr "標題名稱"
 
 #: js/view/Properties.js:134
-#, fuzzy
 msgid "Title level in frame list"
-msgstr "顯示於框格列表"
+msgstr "框格列表的標題大小"
 
 #: js/view/Properties.js:137
 msgid "Id"
@@ -298,7 +296,7 @@ msgstr "轉場"
 
 #: js/view/Properties.js:181
 msgid "Configure the animation when moving to the selected frames."
-msgstr ""
+msgstr "移動到選定的幀時配置動畫。"
 
 #: js/view/Properties.js:183
 msgid "Duration (seconds)"
@@ -310,35 +308,35 @@ msgstr "動態變速"
 
 #: js/view/Properties.js:188
 msgid "Linear"
-msgstr ""
+msgstr "線性"
 
 #: js/view/Properties.js:189
 msgid "Ease"
-msgstr ""
+msgstr "淡化"
 
 #: js/view/Properties.js:190
 msgid "Ease in"
-msgstr ""
+msgstr "淡化進入"
 
 #: js/view/Properties.js:191
 msgid "Ease out"
-msgstr ""
+msgstr "淡化進入"
 
 #: js/view/Properties.js:192
 msgid "Ease in-out"
-msgstr ""
+msgstr "淡化進出"
 
 #: js/view/Properties.js:193
 msgid "Step start"
-msgstr ""
+msgstr "步驟啟動"
 
 #: js/view/Properties.js:194
 msgid "Step end"
-msgstr ""
+msgstr "步驟結束"
 
 #: js/view/Properties.js:195
 msgid "Step middle"
-msgstr ""
+msgstr "中間的步驟"
 
 #: js/view/Properties.js:198
 msgid "Relative zoom (%)"
@@ -354,12 +352,12 @@ msgstr "隱藏路徑"
 
 #: js/view/Properties.js:207
 msgid "Notes"
-msgstr ""
+msgstr "筆記"
 
 #: js/view/Properties.js:207
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
-msgstr ""
+msgstr "編輯簡報者備註。點擊此處顯示格式快捷方式清單。"
 
 #: js/view/Properties.js:211
 msgid "Player"
@@ -440,7 +438,7 @@ msgstr "旋轉所選圖層 (也可以在移動模式下按 Shift 旋轉)"
 
 #: js/view/Toolbar.js:85
 msgid "Edit the clipping area"
-msgstr ""
+msgstr "編輯剪輯區域"
 
 #: js/view/Toolbar.js:104
 msgid "Disable full-screen mode"
