@@ -2,258 +2,264 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2019-01-06 04:53:+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2019-02-17 07:33+0000\n"
+"Last-Translator: Kemal Oktay Aktoğan <oktay454@disroot.org>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/sozi/"
+"translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.5-dev\n"
 
 #: js/backend/Electron.js:27
 msgid "Open an SVG file from your computer"
-msgstr ""
+msgstr "Bilgisayarınızdan bir SVG dosyası açın"
 
 #: js/backend/Electron.js:63
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "Sunumu kapatmadan önce kaydetmek ister misiniz?"
 
 #: js/backend/Electron.js:64
 msgid "Yes"
-msgstr ""
+msgstr "Evet"
 
 #: js/backend/Electron.js:64
 msgid "No"
-msgstr ""
+msgstr "Hayır"
 
 #: js/backend/Electron.js:84
 msgid "File not found: %s."
-msgstr ""
+msgstr "Dosya bulunamadı: %s."
 
 #: js/backend/Electron.js:117
 msgid "Choose an SVG file"
-msgstr ""
+msgstr "Bir SVG dosyası seçin"
 
 #: js/backend/Electron.js:118
 msgid "SVG files"
-msgstr ""
+msgstr "SVG dosyaları"
 
 #: js/backend/FileReader.js:12
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> "
 "read-only)"
 msgstr ""
+"Bilgisayarınızdan bir SVG dosyası açın (<i class=\"fa fa-warning\"> </i> "
+"salt okunur)"
 
 #: js/backend/GoogleDrive.js:16
 msgid "Open an SVG file from Google Drive"
-msgstr ""
+msgstr "Google Drive'dan bir SVG dosyası açın"
 
 #: js/Controller.js:38
 msgid "Sozi (Information)"
-msgstr ""
+msgstr "Sozi (Bilgi)"
 
 #: js/Controller.js:44
 msgid "Sozi (Error)"
-msgstr ""
+msgstr "Sozi (Hata)"
 
 #: js/Storage.js:78
 msgid "File %s could not be loaded."
-msgstr ""
+msgstr "%s dosyası yüklenemedi."
 
 #: js/Storage.js:95 js/Storage.js:104
 msgid "Document is not valid SVG."
-msgstr ""
+msgstr "Belge geçerli bir SVG değil."
 
 #: js/Storage.js:141 js/Storage.js:147
 msgid "Document was changed. Reloading."
-msgstr ""
+msgstr "Belge değiştirildi. Yeniden yükleniyor."
 
 #: js/Storage.js:156
 msgid "Document was changed."
-msgstr ""
+msgstr "Belge değiştirildi."
 
 #: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr ""
+msgstr "Belge, Sozi 13'ten veya daha öncesinden ithal edildi."
 
 #: js/Storage.js:254 js/Storage.js:275
 msgid "Saved %s."
-msgstr ""
+msgstr "%s kaydedildi."
 
 #: js/view/Properties.js:41 js/view/Properties.js:170
 msgid "Fit to element"
-msgstr ""
+msgstr "Öğeye sığdır"
 
 #: js/view/Properties.js:42 js/view/Properties.js:152
 msgid "Reset layer geometry"
-msgstr ""
+msgstr "Katman geometrisini sıfırla"
 
 #: js/view/Properties.js:43 js/view/Timeline.js:272
 msgid "Create a new frame"
-msgstr ""
+msgstr "Yeni bir çerçeve oluştur"
 
 #: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:113
 msgid "Save the presentation"
-msgstr ""
+msgstr "Sunumu kaydet"
 
 #: js/view/Properties.js:45 js/view/Toolbar.js:97
 msgid "Redo"
-msgstr ""
+msgstr "Yeniden yap"
 
 #: js/view/Properties.js:46 js/view/Toolbar.js:92
 msgid "Undo"
-msgstr ""
+msgstr "Geri al"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr ""
+msgstr "Çerçeve başlığını odakla"
 
 #: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:118
 msgid "Reload the SVG document"
-msgstr ""
+msgstr "SVG belgesini yeniden yükleyin"
 
 #: js/view/Properties.js:49
 msgid "Toggle full-screen mode"
-msgstr ""
+msgstr "Tam ekran modunu değiştir"
 
 #: js/view/Properties.js:50
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "Geliştirici araçlarını değiştir"
 
 #: js/view/Properties.js:60
 msgid "User interface"
-msgstr ""
+msgstr "Kullanıcı arayüzü"
 
 #: js/view/Properties.js:61
 msgid "Font size"
-msgstr ""
+msgstr "Yazı boyutu"
 
 #: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
-msgstr ""
+msgstr "Kaydet ve yeniden yükle ile ilgili bildirimleri etkinleştir"
 
 #: js/view/Properties.js:65
 msgid "Enable notifications"
-msgstr ""
+msgstr "Bildirimleri etkinleştir"
 
 #: js/view/Properties.js:69
 msgid "When Sozi loses the focus"
-msgstr ""
+msgstr "Sozi odağı kaybettiğinde"
 
 #: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
-msgstr ""
+msgstr "Elle"
 
 #: js/view/Properties.js:74
 msgid "Automatically"
-msgstr ""
+msgstr "Otomatik"
 
 #: js/view/Properties.js:75
 msgid "When Sozi gets the focus"
-msgstr ""
+msgstr "Sozi odağı aldığında"
 
 #: js/view/Properties.js:78
 msgid "Behavior"
-msgstr ""
+msgstr "Davranış"
 
 #: js/view/Properties.js:80
 msgid "Preview transition animations"
-msgstr ""
+msgstr "Geçiş animasyonlarını önizleme"
 
 #: js/view/Properties.js:81
 msgid "Enable animated transitions"
-msgstr ""
+msgstr "Animasyonlu geçişleri etkinleştir"
 
 #: js/view/Properties.js:83
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Klavye kısayolları"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "Temel biçimlendirme desteklenir:"
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: Kalın"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: Eğik"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: Altı Çizili"
 
 #: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0: Paragraf"
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big header"
-msgstr ""
+msgstr "Ctrl+1: Büyük başlık"
 
 #: js/view/Properties.js:103
 msgid "Ctrl+2: Medium header"
-msgstr ""
+msgstr "Ctrl+2: Orta başlık"
 
 #: js/view/Properties.js:104
 msgid "Ctrl+3: Small header"
-msgstr ""
+msgstr "Ctrl+3: Küçük başlık"
 
 #: js/view/Properties.js:105
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl+L: Liste"
 
 #: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl+N: Numaralı liste"
 
 #: js/view/Properties.js:114
 msgid "Select a layer to copy"
-msgstr ""
+msgstr "Kopyalanacak bir katman seçin"
 
 #: js/view/Properties.js:117 js/view/Timeline.js:313 js/view/Timeline.js:341
 msgid "Default"
-msgstr ""
+msgstr "Varsayılan"
 
 #: js/view/Properties.js:124
 msgid "Frame"
-msgstr ""
+msgstr "Çerçeve"
 
 #: js/view/Properties.js:127
 msgid "Show in frame list"
-msgstr ""
+msgstr "Çerçeve listesinde göster"
 
 #: js/view/Properties.js:128
 msgid "Show frame number"
-msgstr ""
+msgstr "Çerçeve numarasını göster"
 
 #: js/view/Properties.js:131
 msgid "Title"
-msgstr ""
+msgstr "Başlık"
 
 #: js/view/Properties.js:134
 msgid "Title level in frame list"
-msgstr ""
+msgstr "Çerçeve listesindeki başlık seviyesi"
 
 #: js/view/Properties.js:137
 msgid "Id"
-msgstr ""
+msgstr "Kimlik"
 
 #: js/view/Properties.js:141
 msgid "Timeout (seconds)"
-msgstr ""
+msgstr "Zaman aşımı (saniye)"
 
 #: js/view/Properties.js:142
 msgid "Timeout enable"
-msgstr ""
+msgstr "Zaman aşımı etkin"
 
 #: js/view/Properties.js:146
 msgid "Layer"
-msgstr ""
+msgstr "Katman"
 
 #: js/view/Properties.js:149
 msgid "Link to previous frame"
-msgstr ""
+msgstr "Önceki çerçeveye bağla"
 
 #: js/view/Properties.js:150
 msgid "Clip"
