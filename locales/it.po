@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-06 04:53:+0000\n"
-"PO-Revision-Date: 2018-05-02 11:39+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2019-02-24 12:17+0000\n"
+"Last-Translator: André A. Peixoto <alfonso.peixoto@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/sozi/"
 "translations/it/>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.5-dev\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
 
 #: js/backend/Electron.js:27
@@ -25,15 +25,15 @@ msgstr "Apri un file SVG dal tuo computer"
 
 #: js/backend/Electron.js:63
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "Vuoi salvare la presentazione prima della chiusura?"
 
 #: js/backend/Electron.js:64
 msgid "Yes"
-msgstr ""
+msgstr "Sì"
 
 #: js/backend/Electron.js:64
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: js/backend/Electron.js:84
 msgid "File not found: %s."
@@ -79,9 +79,8 @@ msgid "Document was changed. Reloading."
 msgstr "Il documento è stato modificato. Ricaricamento."
 
 #: js/Storage.js:156
-#, fuzzy
 msgid "Document was changed."
-msgstr "Il documento è stato modificato. Ricaricamento."
+msgstr "Il documento è stato modificato."
 
 #: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
@@ -153,11 +152,11 @@ msgstr ""
 
 #: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
-msgstr ""
+msgstr "Manualmente"
 
 #: js/view/Properties.js:74
 msgid "Automatically"
-msgstr ""
+msgstr "Automaticamente"
 
 #: js/view/Properties.js:75
 msgid "When Sozi gets the focus"
@@ -181,35 +180,35 @@ msgstr "Scorciatoie da tastiera"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "Formattazione di base supportata:"
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: Grassetto"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: Corsivo"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: Sottolineato"
 
 #: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0: Paragrafo"
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big header"
-msgstr ""
+msgstr "Ctrl+1: Intestazione grande"
 
 #: js/view/Properties.js:103
 msgid "Ctrl+2: Medium header"
-msgstr ""
+msgstr "Ctrl+2: Intestazione media"
 
 #: js/view/Properties.js:104
 msgid "Ctrl+3: Small header"
-msgstr ""
+msgstr "Ctrl+3: Intestazione piccola"
 
 #: js/view/Properties.js:105
 msgid "Ctrl+L: List"

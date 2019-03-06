@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-01-06 04:53:+0000\n"
-"PO-Revision-Date: 2018-05-05 23:19+0000\n"
-"Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
+"PO-Revision-Date: 2019-02-25 06:18+0000\n"
+"Last-Translator: André A. Peixoto <alfonso.peixoto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/sozi/"
 "translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.5-dev\n"
 "X-Launchpad-Export-Date: 2018-04-06 19:08+0000\n"
 
 #: js/backend/Electron.js:27
@@ -26,15 +26,15 @@ msgstr "Abrir arquivo SVG do seu computador"
 
 #: js/backend/Electron.js:63
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "Gostaria de salvar a apresentação antes de fechá-la?"
 
 #: js/backend/Electron.js:64
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 #: js/backend/Electron.js:64
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: js/backend/Electron.js:84
 msgid "File not found: %s."
@@ -81,9 +81,8 @@ msgid "Document was changed. Reloading."
 msgstr "Arquivo alterado. Carregando novamente."
 
 #: js/Storage.js:156
-#, fuzzy
 msgid "Document was changed."
-msgstr "Arquivo alterado. Carregando novamente."
+msgstr "Arquivo alterado."
 
 #: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
@@ -151,19 +150,19 @@ msgstr "Habilitar notificações"
 
 #: js/view/Properties.js:69
 msgid "When Sozi loses the focus"
-msgstr ""
+msgstr "Quando Sozi perde o foco"
 
 #: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
-msgstr ""
+msgstr "Manualmente"
 
 #: js/view/Properties.js:74
 msgid "Automatically"
-msgstr ""
+msgstr "Automaticamente"
 
 #: js/view/Properties.js:75
 msgid "When Sozi gets the focus"
-msgstr ""
+msgstr "Quando Sozi foca"
 
 #: js/view/Properties.js:78
 msgid "Behavior"
@@ -183,43 +182,43 @@ msgstr "Teclas de atalho"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "Formatação básica suportada:"
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: Negrito"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: Itálico"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: Sublinhado"
 
 #: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0: Parágrafo"
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big header"
-msgstr ""
+msgstr "Ctrl+1: Cabeçalho grande"
 
 #: js/view/Properties.js:103
 msgid "Ctrl+2: Medium header"
-msgstr ""
+msgstr "Ctrl+2: Cabeçalho médio"
 
 #: js/view/Properties.js:104
 msgid "Ctrl+3: Small header"
-msgstr ""
+msgstr "Ctrl+3: Cabeçalho pequeno"
 
 #: js/view/Properties.js:105
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl+L: Listar"
 
 #: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl+N: Listar numericamente"
 
 #: js/view/Properties.js:114
 msgid "Select a layer to copy"
@@ -246,9 +245,8 @@ msgid "Title"
 msgstr "Título"
 
 #: js/view/Properties.js:134
-#, fuzzy
 msgid "Title level in frame list"
-msgstr "Exibir na lista de quadros"
+msgstr "Nível de título na lista de quadros"
 
 #: js/view/Properties.js:137
 msgid "Id"
@@ -301,6 +299,7 @@ msgstr "Transição"
 #: js/view/Properties.js:181
 msgid "Configure the animation when moving to the selected frames."
 msgstr ""
+"Configurar a animação quando estiver movendo para os quadros selecionados."
 
 #: js/view/Properties.js:183
 msgid "Duration (seconds)"
@@ -312,35 +311,35 @@ msgstr "Tipo de transição"
 
 #: js/view/Properties.js:188
 msgid "Linear"
-msgstr ""
+msgstr "Linear"
 
 #: js/view/Properties.js:189
 msgid "Ease"
-msgstr ""
+msgstr "Suavizado"
 
 #: js/view/Properties.js:190
 msgid "Ease in"
-msgstr ""
+msgstr "Suavizado ao iniciar"
 
 #: js/view/Properties.js:191
 msgid "Ease out"
-msgstr ""
+msgstr "Suavizado ao terminar"
 
 #: js/view/Properties.js:192
 msgid "Ease in-out"
-msgstr ""
+msgstr "Suavizado ao iniciar e ao terminar"
 
 #: js/view/Properties.js:193
 msgid "Step start"
-msgstr ""
+msgstr "Passo inicial"
 
 #: js/view/Properties.js:194
 msgid "Step end"
-msgstr ""
+msgstr "Passo final"
 
 #: js/view/Properties.js:195
 msgid "Step middle"
-msgstr ""
+msgstr "Passo intermediário"
 
 #: js/view/Properties.js:198
 msgid "Relative zoom (%)"
@@ -356,12 +355,14 @@ msgstr "Esconder caminho"
 
 #: js/view/Properties.js:207
 msgid "Notes"
-msgstr ""
+msgstr "Anotações"
 
 #: js/view/Properties.js:207
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
+"Editar anotações de apresentador. Clique aqui para mostrar a lista de "
+"atalhos de formatação."
 
 #: js/view/Properties.js:211
 msgid "Player"
@@ -447,7 +448,7 @@ msgstr ""
 
 #: js/view/Toolbar.js:85
 msgid "Edit the clipping area"
-msgstr ""
+msgstr "Editar a área de recorte"
 
 #: js/view/Toolbar.js:104
 msgid "Disable full-screen mode"
