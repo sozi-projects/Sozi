@@ -37,11 +37,6 @@ Player.init = function (viewport, presentation, editMode = false) {
     this.timeoutHandle = null;
     this.transitions = [];
 
-    this.setupEventHandlers();
-    return this;
-};
-
-Player.setupEventHandlers = function () {
     if (!this.editMode) {
         this.viewport.addListener("click", btn => this.onClick(btn));
         window.addEventListener("keydown", evt => this.onKeyDown(evt), false);
@@ -54,6 +49,8 @@ Player.setupEventHandlers = function () {
     this.animator.addListener("step", p => this.onAnimatorStep(p));
     this.animator.addListener("stop", () => this.onAnimatorStop());
     this.animator.addListener("done", () => this.onAnimatorDone());
+
+    return this;
 };
 
 Player.onClick = function (button) {
