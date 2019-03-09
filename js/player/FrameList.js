@@ -37,6 +37,7 @@ export function init(aPlayer) {
     animator = Object.create(Animator).init();
     animator.addListener("step", onAnimatorStep);
     window.addEventListener("keypress", onKeyPress, false);
+    window.addEventListener("resize", () => setCurrentOffset(currentOffset));
     player.viewport.addListener("mouseDown", onMouseDown);
     frameList.addEventListener("mouseout", onMouseOut, false);
     aPlayer.addListener("frameChange", onFrameChange);
@@ -45,7 +46,7 @@ export function init(aPlayer) {
 
 function setCurrentOffset(offset) {
     currentOffset = offset;
-    frameList.style.left = currentOffset * frameList.clientWidth + "px";
+    frameList.style.left = currentOffset * frameList.offsetWidth + "px";
 }
 
 function moveTo(offset) {
