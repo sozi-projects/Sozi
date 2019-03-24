@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-01-06 04:53:+0000\n"
-"PO-Revision-Date: 2019-03-24 10:56+0000\n"
+"PO-Revision-Date: 2019-03-25 11:39+0000\n"
 "Last-Translator: Rui Mendes <xz9@protonmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/sozi/"
 "translations/pt_BR/>\n"
@@ -416,15 +416,15 @@ msgstr "Excluir essa camada"
 
 #: js/view/Timeline.js:354
 msgid "Insert selection before frame %d"
-msgstr "Inserir a seleção antes de frame %d"
+msgstr "Inserir a seleção antes do quadro %d"
 
 #: js/view/Timeline.js:361
 msgid "Insert selection after frame %d"
-msgstr "Inserir a seleção após de frame %d"
+msgstr "Inserir a seleção após o quadro %d"
 
 #: js/view/Toolbar.js:37
 msgid "Aspect ratio: "
-msgstr "Proporção de tela "
+msgstr "Proporção de tela: "
 
 #: js/view/Toolbar.js:70
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
