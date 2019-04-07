@@ -9,6 +9,7 @@ import * as Timing from "./Timing";
 import {CameraState} from "../model/CameraState";
 import {Frame} from "../model/Presentation";
 import {EventEmitter} from "events";
+import * as Media from "./Media";
 
 // Constants: default animation properties
 // for out-of-sequence transitions
@@ -553,4 +554,8 @@ Player.toggleBlankScreen = function () {
     else {
         this.enableBlankScreen();
     }
+};
+
+Player.disableMedia = function () {
+    Media.disable();
 };

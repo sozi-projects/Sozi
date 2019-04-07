@@ -138,3 +138,14 @@ export function init(aPlayer) {
         mediaList[j].htmlMedia.appendChild(htmlSource);
     });
 }
+
+export function disable() {
+    player.removeListener("frameChange", onFrameChange);
+
+    const frameId = player.currentFrame.frameId;
+    if (frameId in mediaToStartByFrameId) {
+        mediaToStartByFrameId[frameId].forEach(m => {
+            m.pause();
+        });
+    }
+}

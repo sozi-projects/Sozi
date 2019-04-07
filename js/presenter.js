@@ -42,10 +42,16 @@ function load(url) {
     previews.forEach((p, i) => {
         onSoziLoaded(iframes[i].contentWindow, (sozi) => {
             p.sozi = sozi;
+            
+            sozi.player.disableMedia();
             sozi.player.pause();
-            sozi.viewport.svgRoot.addEventListener("mousedown", (evt) => {
-                evt.stopPropagation();
-            }, true);
+
+            sozi.presentation.enableMouseTranslation =
+            sozi.presentation.enableMouseNavigation =
+            sozi.presentation.enableKeyboardZoom =
+            sozi.presentation.enableKeyboardRotation =
+            sozi.presentation.enableKeyboardNavigation = false;
+
             updatePreview(p);
             if (i === 1) {
                 updateNotes();
