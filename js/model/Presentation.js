@@ -140,10 +140,10 @@ export const Frame = {
     showFrameNumber: true,
 
     init(presentation) {
-        this.presentation = presentation;
-        this.frameId = presentation.makeFrameId();
+        this.presentation    = presentation;
+        this.frameId         = presentation.makeFrameId();
         this.layerProperties = presentation.layers.map(lp => Object.create(LayerProperties).init(this));
-        this.cameraStates = presentation.layers.map(cs => Object.create(CameraState).init(presentation.document.root));
+        this.cameraStates    = presentation.layers.map(cs => Object.create(CameraState).init(presentation.document.root));
         return this;
     },
 
@@ -152,16 +152,16 @@ export const Frame = {
         if (!preserveId) {
             this.frameId = other.presentation.makeFrameId();
         }
-        this.title = other.title;
-        this.titleLevel = other.titleLevel;
-        this.notes = other.notes;
-        this.timeoutMs = other.timeoutMs;
-        this.timeoutEnable = other.timeoutEnable;
+        this.title                = other.title;
+        this.titleLevel           = other.titleLevel;
+        this.notes                = other.notes;
+        this.timeoutMs            = other.timeoutMs;
+        this.timeoutEnable        = other.timeoutEnable;
         this.transitionDurationMs = other.transitionDurationMs;
-        this.showInFrameList = other.showInFrameList;
-        this.showFrameNumber = other.showFrameNumber;
-        this.layerProperties = other.layerProperties.map(lp => Object.create(LayerProperties).initFrom(lp));
-        this.cameraStates = other.cameraStates.map(cs => Object.create(CameraState).initFrom(cs));
+        this.showInFrameList      = other.showInFrameList;
+        this.showFrameNumber      = other.showFrameNumber;
+        this.layerProperties      = other.layerProperties.map(lp => Object.create(LayerProperties).initFrom(lp));
+        this.cameraStates         = other.cameraStates.map(cs => Object.create(CameraState).initFrom(cs));
         return this;
     },
 
@@ -472,18 +472,25 @@ export const Presentation = {
             return;
         }
 
-        const firstCameraStates = this.frames[0].cameraStates;
-        const defaultCameraState = firstCameraStates[firstCameraStates.length - 1];
+        const firstCameraStates      = this.frames[0].cameraStates;
+        const defaultCameraState     = firstCameraStates[firstCameraStates.length - 1];
+
+        const firstLayerProperties   = this.frames[0].layerProperties;
+        const defaultLayerProperties = firstLayerProperties[firstLayerProperties.length - 1];
 
         this.layers.forEach((layer, layerIndex) => {
-            let cameraState = defaultCameraState;
+            let cameraState     = defaultCameraState;
+            let layerProperties = defaultLayerProperties;
 
             this.frames.forEach(frame => {
                 if (frame.layerProperties[layerIndex].link) {
                     frame.cameraStates[layerIndex].initFrom(cameraState);
+                    frame.layerProperties[layerIndex].referenceElementId = layerProperties.referenceElementId;
+                    frame.layerProperties[layerIndex].outlineElementId   = layerProperties.outlineElementId;
                 }
                 else {
-                    cameraState = frame.cameraStates[layerIndex];
+                    cameraState     = frame.cameraStates[layerIndex];
+                    layerProperties = frame.layerProperties[layerIndex];
                 }
             });
         });
