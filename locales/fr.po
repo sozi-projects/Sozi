@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
 "POT-Creation-Date: 2019-01-06 04:53:+0000\n"
-"PO-Revision-Date: 2019-03-27 17:04+0000\n"
+"PO-Revision-Date: 2019-04-14 15:05+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/sozi/translations/"
 "fr/>\n"
@@ -57,7 +57,7 @@ msgstr "Ouvrir un document SVG depuis Google Drive"
 
 #: js/Controller.js:38
 msgid "Sozi (Information)"
-msgstr "Sozi (Information)"
+msgstr "Sozi (Informations)"
 
 #: js/Controller.js:44
 msgid "Sozi (Error)"
@@ -310,31 +310,31 @@ msgstr "Linéaire"
 
 #: js/view/Properties.js:189
 msgid "Ease"
-msgstr ""
+msgstr "Ease"
 
 #: js/view/Properties.js:190
 msgid "Ease in"
-msgstr ""
+msgstr "Ease in"
 
 #: js/view/Properties.js:191
 msgid "Ease out"
-msgstr ""
+msgstr "Ease out"
 
 #: js/view/Properties.js:192
 msgid "Ease in-out"
-msgstr ""
+msgstr "Ease in-out"
 
 #: js/view/Properties.js:193
 msgid "Step start"
-msgstr ""
+msgstr "Départ de l’étape"
 
 #: js/view/Properties.js:194
 msgid "Step end"
-msgstr ""
+msgstr "Fin de l’étape"
 
 #: js/view/Properties.js:195
 msgid "Step middle"
-msgstr ""
+msgstr "Étape intermédiaire"
 
 #: js/view/Properties.js:198
 msgid "Relative zoom (%)"
