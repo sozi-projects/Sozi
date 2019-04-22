@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
 "POT-Creation-Date: 2019-01-06 04:53:+0000\n"
-"PO-Revision-Date: 2019-03-27 17:04+0000\n"
+"PO-Revision-Date: 2019-04-22 16:55+0200\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/sozi/translations/"
 "fr/>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.6-dev\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Launchpad-Export-Date: 2016-06-25 07:48+0000\n"
 
@@ -310,31 +310,31 @@ msgstr "Linéaire"
 
 #: js/view/Properties.js:189
 msgid "Ease"
-msgstr ""
+msgstr "Accélérer puis ralentir (ease)"
 
 #: js/view/Properties.js:190
 msgid "Ease in"
-msgstr ""
+msgstr "Accélérer (ease in)"
 
 #: js/view/Properties.js:191
 msgid "Ease out"
-msgstr ""
+msgstr "Ralentir (ease out)"
 
 #: js/view/Properties.js:192
 msgid "Ease in-out"
-msgstr ""
+msgstr "Accélérer puis ralentir (ease in-out)"
 
 #: js/view/Properties.js:193
 msgid "Step start"
-msgstr ""
+msgstr "Instantanée au début (step start)"
 
 #: js/view/Properties.js:194
 msgid "Step end"
-msgstr ""
+msgstr "Instantanée à la fin (step end)"
 
 #: js/view/Properties.js:195
 msgid "Step middle"
-msgstr ""
+msgstr "Instantanée au milieu (step middle)"
 
 #: js/view/Properties.js:198
 msgid "Relative zoom (%)"
