@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
 "POT-Creation-Date: 2019-01-06 04:53:+0000\n"
-"PO-Revision-Date: 2019-04-14 15:05+0000\n"
+"PO-Revision-Date: 2019-04-22 16:55+0200\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/sozi/translations/"
 "fr/>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.6-dev\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Launchpad-Export-Date: 2016-06-25 07:48+0000\n"
 
@@ -57,7 +57,7 @@ msgstr "Ouvrir un document SVG depuis Google Drive"
 
 #: js/Controller.js:38
 msgid "Sozi (Information)"
-msgstr "Sozi (Informations)"
+msgstr "Sozi (Information)"
 
 #: js/Controller.js:44
 msgid "Sozi (Error)"
@@ -310,31 +310,31 @@ msgstr "Linéaire"
 
 #: js/view/Properties.js:189
 msgid "Ease"
-msgstr "Ease"
+msgstr "Accélérer puis ralentir (ease)"
 
 #: js/view/Properties.js:190
 msgid "Ease in"
-msgstr "Ease in"
+msgstr "Accélérer (ease in)"
 
 #: js/view/Properties.js:191
 msgid "Ease out"
-msgstr "Ease out"
+msgstr "Ralentir (ease out)"
 
 #: js/view/Properties.js:192
 msgid "Ease in-out"
-msgstr "Ease in-out"
+msgstr "Accélérer puis ralentir (ease in-out)"
 
 #: js/view/Properties.js:193
 msgid "Step start"
-msgstr "Départ de l’étape"
+msgstr "Instantanée au début (step start)"
 
 #: js/view/Properties.js:194
 msgid "Step end"
-msgstr "Fin de l’étape"
+msgstr "Instantanée à la fin (step end)"
 
 #: js/view/Properties.js:195
 msgid "Step middle"
-msgstr "Étape intermédiaire"
+msgstr "Instantanée au milieu (step middle)"
 
 #: js/view/Properties.js:198
 msgid "Relative zoom (%)"
