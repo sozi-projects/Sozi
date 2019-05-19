@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-01-06 04:53:+0000\n"
 "PO-Revision-Date: 2019-05-20 20:49+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
+"Last-Translator: Jimmy <Hennderson@gmx.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/sozi/translations/"
 "de/>\n"
 "Language: de\n"
@@ -390,7 +390,7 @@ msgstr "Erlauben die Kamera zu drehen"
 
 #: js/view/Properties.js:235
 msgid "Allow to zoom"
-msgstr ""
+msgstr "Zoom zulassen"
 
 #: js/view/Timeline.js:265
 msgid "Delete the selected frames"
