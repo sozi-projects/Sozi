@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-01-06 04:53:+0000\n"
-"PO-Revision-Date: 2018-05-02 11:41+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2019-08-01 05:13+0000\n"
+"Last-Translator: Schwonder Reismus <schw0reismus@protonmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/sozi/"
 "translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.8-dev\n"
 "X-Launchpad-Export-Date: 2016-10-10 06:40+0000\n"
 
 #: js/backend/Electron.js:27
@@ -27,15 +27,15 @@ msgstr "Откройте SVG файл на Вашем компьютере"
 
 #: js/backend/Electron.js:63
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "Вы хотите сохранить презентацию перед закрытием?"
 
 #: js/backend/Electron.js:64
 msgid "Yes"
-msgstr ""
+msgstr "Да"
 
 #: js/backend/Electron.js:64
 msgid "No"
-msgstr ""
+msgstr "Нет"
 
 #: js/backend/Electron.js:84
 msgid "File not found: %s."
@@ -137,11 +137,11 @@ msgstr ""
 
 #: js/view/Properties.js:60
 msgid "User interface"
-msgstr ""
+msgstr "Интерфейс пользователя"
 
 #: js/view/Properties.js:61
 msgid "Font size"
-msgstr ""
+msgstr "Размер шрифта"
 
 #: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
@@ -149,7 +149,7 @@ msgstr ""
 
 #: js/view/Properties.js:65
 msgid "Enable notifications"
-msgstr ""
+msgstr "Включить уведомления"
 
 #: js/view/Properties.js:69
 msgid "When Sozi loses the focus"
@@ -157,11 +157,11 @@ msgstr ""
 
 #: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
-msgstr ""
+msgstr "Вручную"
 
 #: js/view/Properties.js:74
 msgid "Automatically"
-msgstr ""
+msgstr "Автоматически"
 
 #: js/view/Properties.js:75
 msgid "When Sozi gets the focus"
@@ -169,7 +169,7 @@ msgstr ""
 
 #: js/view/Properties.js:78
 msgid "Behavior"
-msgstr ""
+msgstr "Поведение"
 
 #: js/view/Properties.js:80
 msgid "Preview transition animations"
@@ -177,11 +177,11 @@ msgstr ""
 
 #: js/view/Properties.js:81
 msgid "Enable animated transitions"
-msgstr ""
+msgstr "Включить анимированные переходы"
 
 #: js/view/Properties.js:83
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Сочетания клавиш"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
@@ -189,15 +189,15 @@ msgstr ""
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: Полужирный"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: Курсив"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: Подчёркнутый"
 
 #: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
@@ -205,27 +205,27 @@ msgstr ""
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big header"
-msgstr ""
+msgstr "Ctrl+1: Большой заголовок"
 
 #: js/view/Properties.js:103
 msgid "Ctrl+2: Medium header"
-msgstr ""
+msgstr "Ctrl+2: Средний заголовок"
 
 #: js/view/Properties.js:104
 msgid "Ctrl+3: Small header"
-msgstr ""
+msgstr "Ctrl+3: Маленький заголовок"
 
 #: js/view/Properties.js:105
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl+L: Список"
 
 #: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl+N: Нумерованный список"
 
 #: js/view/Properties.js:114
 msgid "Select a layer to copy"
-msgstr ""
+msgstr "Выберите слой для копирования"
 
 #: js/view/Properties.js:117 js/view/Timeline.js:313 js/view/Timeline.js:341
 msgid "Default"
@@ -266,7 +266,7 @@ msgstr "Включить временную задержку"
 
 #: js/view/Properties.js:146
 msgid "Layer"
-msgstr ""
+msgstr "Слой"
 
 #: js/view/Properties.js:149
 msgid "Link to previous frame"
@@ -304,7 +304,7 @@ msgstr "Переход"
 
 #: js/view/Properties.js:181
 msgid "Configure the animation when moving to the selected frames."
-msgstr ""
+msgstr "Настройте анимацию при переходе к выбранным кадрам."
 
 #: js/view/Properties.js:183
 msgid "Duration (seconds)"
@@ -360,7 +360,7 @@ msgstr "Скрыть траекторию"
 
 #: js/view/Properties.js:207
 msgid "Notes"
-msgstr ""
+msgstr "Примечания"
 
 #: js/view/Properties.js:207
 msgid ""
@@ -379,12 +379,12 @@ msgstr ""
 #: js/view/Properties.js:216 js/view/Properties.js:223
 #: js/view/Properties.js:229 js/view/Properties.js:237
 msgid "using the mouse"
-msgstr ""
+msgstr "с помощью мыши"
 
 #: js/view/Properties.js:217 js/view/Properties.js:230
 #: js/view/Properties.js:238
 msgid "using the keyboard"
-msgstr ""
+msgstr "с помощью клавиатуры"
 
 #: js/view/Properties.js:222
 msgid "Allow to move the camera"
@@ -464,7 +464,7 @@ msgstr "Полноэкранный режим"
 
 #: js/view/Toolbar.js:124
 msgid "Preferences"
-msgstr ""
+msgstr "Настройки"
 
 #: js/view/Toolbar.js:129
 msgid "Information"
