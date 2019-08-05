@@ -52,12 +52,8 @@ Electron.init = function (controller, container, _) {
 
         this.removeListener("blur", onBlur);
 
-        if (this.controller.getPreference("saveMode") === "onblur") {
-            window.setTimeout(() => this.quit(true));
-        }
-        else if (this.hasOutdatedFiles()) {
-            // If autosave is disabled and some files are outdated,
-            // ask user confirmation.
+        if (this.hasOutdatedFiles() && this.controller.getPreference("saveMode") !== "onblur") {
+            // If autosave is disabled and some files are outdated, ask user confirmation.
             remote.dialog.showMessageBox(browserWindow, {
                 type: "question",
                 message: _("Do you want to save the presentation before closing?"),
@@ -65,6 +61,9 @@ Electron.init = function (controller, container, _) {
                 defaultId: 0,
                 cancelId: 1
             }, (index) => this.quit(index === 0));
+        }
+        else {
+            window.setTimeout(() => this.quit(true));
         }
     });
 
