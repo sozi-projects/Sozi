@@ -2,7 +2,7 @@
     "platforms": [
         "linux-x64"
     ],
-    "electronVersion": "3.0.2",
+    "electronVersion": "6.0.0",
     "installable": [
         "linux"
     ]

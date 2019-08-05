@@ -33,7 +33,7 @@
     "grunt-contrib-csslint": "^2.0.0",
     "grunt-contrib-jshint": "^2.1.0",
     "grunt-contrib-uglify": "^4.0.1",
-    "grunt-electron": "^9.0.0",
+    "grunt-electron": "^11.0.0",
     "grunt-install-dependencies": "github:senshu/grunt-install-dependencies",
     "grunt-jspot": "github:senshu/grunt-jspot",
     "grunt-newer": "^1.1.0",
