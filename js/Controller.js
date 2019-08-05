@@ -905,7 +905,7 @@ Controller.setPreference = function (key, value) {
 
 Controller.getShortcut = function (key) {
     return this.preferences.keys[key];
-}
+};
 
 Controller.setShortcut = function (key, value) {
     // Find occurrences of modifier keys in the given value.
@@ -933,7 +933,7 @@ Controller.setShortcut = function (key, value) {
         value = "Ctrl+" + value;
     }
     this.preferences.keys[key] = value;
-}
+};
 
 Controller.applyPreferences = function () {
     if (this.preferences.fontSize > 0) {

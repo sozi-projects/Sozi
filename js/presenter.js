@@ -4,7 +4,7 @@ let previews = [
     { index: -1 },
     { index:  0 },
     { index:  1 }
-]
+];
 let mainSozi;
 
 function updatePreview(p) {
@@ -42,7 +42,7 @@ function load(url) {
     previews.forEach((p, i) => {
         onSoziLoaded(iframes[i].contentWindow, (sozi) => {
             p.sozi = sozi;
-            
+
             sozi.player.disableMedia();
             sozi.player.pause();
 
@@ -71,7 +71,7 @@ function load(url) {
         });
     }
     catch (e) {
-        alert("Could not open presentation window. Please allow popups for this site and refresh this page.")
+        alert("Could not open presentation window. Please allow popups for this site and refresh this page.");
     }
 }
 

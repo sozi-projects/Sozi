@@ -35,7 +35,7 @@ Electron.init = function (controller, container, _) {
         if (this.controller.getPreference("saveMode") === "onblur") {
             this.doAutosave();
         }
-    }
+    };
     this.addListener("blur", onBlur);
 
     // Save files when closing the window

@@ -27,7 +27,7 @@ AbstractBackend.init = function (controller, container, buttonId, buttonLabel) {
         this.emit("focus");
     });
     window.addEventListener("blur", () => {
-        this.hasFocus = false
+        this.hasFocus = false;
         this.emit("blur");
     });
     return this;

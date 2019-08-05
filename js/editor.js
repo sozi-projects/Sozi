@@ -105,7 +105,7 @@ window.addEventListener("load", () => {
             key += "Alt+";
         }
         if (evt.shiftKey) {
-            key += "Shift+"
+            key += "Shift+";
         }
         key += evt.key.toUpperCase();
 
