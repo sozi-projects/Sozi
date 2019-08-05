@@ -105,7 +105,7 @@ Toolbar.render = function () {
                 id: "btn-fullscreen",
                 className: screenfull.isFullscreen ? "active" : undefined,
                 disabled: !screenfull.enabled,
-                onclick() { screenfull.toggle(document.documentElement); }
+                onclick() { screenfull.toggle(document.documentElement).then(() => t.repaint()); }
             }, h("i.fas.fa-desktop"))
         ]),
         h("span.group.btn-group", [

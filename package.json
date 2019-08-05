@@ -19,7 +19,7 @@
     "inferno-hyperscript": "^5.6.1",
     "jed": "^1.1.0",
     "nunjucks": "^3.2.0",
-    "screenfull": "^3.3.0"
+    "screenfull": "^4.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -41,6 +41,6 @@
     "grunt-rename": "github:senshu/grunt-rename",
     "grunt-rsync": "^3.0.0",
     "grunt-simple-mocha": "^0.4.0",
-    "load-grunt-tasks": "^3.1.0"
+    "load-grunt-tasks": "^5.1.0"
   }
 }
