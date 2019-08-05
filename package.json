@@ -13,12 +13,12 @@
     "url": "http://github.com/senshu/Sozi.git"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.6.3",
-    "html2canvas": "^1.0.0-alpha.12",
+    "@fortawesome/fontawesome-free": "^5.10.1",
+    "html2canvas": "^1.0.0-rc.3",
     "inferno": "^5.6.1",
     "inferno-hyperscript": "^5.6.1",
     "jed": "^1.1.0",
-    "nunjucks": "^3.0.0",
+    "nunjucks": "^3.2.0",
     "screenfull": "^3.3.0"
   },
   "devDependencies": {
@@ -28,18 +28,18 @@
     "grunt-babel": "^7.0.0",
     "grunt-browserify": "^5.2.0",
     "grunt-contrib-clean": "^1.1.0",
-    "grunt-contrib-compress": "^1.4.0",
+    "grunt-contrib-compress": "^1.5.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-csslint": "^2.0.0",
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^3.2.0",
     "grunt-electron": "^9.0.0",
-    "grunt-install-dependencies": "senshu/grunt-install-dependencies",
-    "grunt-jspot": "senshu/grunt-jspot",
+    "grunt-install-dependencies": "github:senshu/grunt-install-dependencies",
+    "grunt-jspot": "github:senshu/grunt-jspot",
     "grunt-newer": "^1.1.0",
-    "grunt-po2json": "rockykitamura/grunt-po2json",
-    "grunt-rename": "senshu/grunt-rename",
-    "grunt-rsync": "^2.0.0",
+    "grunt-po2json": "github:rockykitamura/grunt-po2json",
+    "grunt-rename": "github:senshu/grunt-rename",
+    "grunt-rsync": "^3.0.0",
     "grunt-simple-mocha": "^0.4.0",
     "load-grunt-tasks": "^3.1.0"
   }
