@@ -51,6 +51,11 @@ Player.init = function (viewport, presentation, editMode = false) {
     this.animator.addListener("stop", () => this.onAnimatorStop());
     this.animator.addListener("done", () => this.onAnimatorDone());
 
+    this.addListener("frameChange", () => {
+        // TODO Only if frame is not transient.
+        document.title = this.presentation.title + " \u2014 " + this.currentFrame.title;
+    });
+
     return this;
 };
 
@@ -516,9 +521,7 @@ Player.onAnimatorStop = function () {
 };
 
 Player.onAnimatorDone = function () {
-    this.transitions = [];
-    this.currentFrame = this.targetFrame;
-    this.emit("frameChange");
+    this.onAnimatorStop();
     if (this.playing) {
         this.waitTimeout();
     }
