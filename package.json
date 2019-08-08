@@ -15,8 +15,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.10.1",
     "html2canvas": "^1.0.0-rc.3",
-    "inferno": "^5.6.1",
-    "inferno-hyperscript": "^5.6.1",
+    "inferno": "^7.2.1",
+    "inferno-hyperscript": "^7.2.1",
     "jed": "^1.1.0",
     "nunjucks": "^3.2.0",
     "screenfull": "^4.2.1"
