@@ -32,10 +32,8 @@
                 width: 33%;
                 height: 100%;
                 margin: 0;
-                padding: 0.5em 1em;
+                padding: 0.5em 1em 0.5em 0.25em;
                 overflow-y: auto;
-
-                list-style: decimal inside;
 
                 font-family: "Droid Sans", Helvetica, Arial, sans-serif;
                 font-size: 12pt;
@@ -44,12 +42,13 @@
                 background-color: rgba(34, 34, 34, 0.9);
             }
 
-            .sozi-frame-list li {
+            .sozi-frame-list ol {
                 margin: 0;
-                padding: 0;
-                overflow: hidden;
+                overflow-x: hidden;
+            }
+
+            .sozi-frame-list li {
                 white-space: nowrap;
-                text-overflow: ellipsis;
             }
 
             li.sozi-title-level-1:before { content: '. . ';             color: rgb(100, 100, 100); }
@@ -127,13 +126,15 @@
     <body>
         {{ svg }}
         <div class="sozi-frame-number" title="Click to show the frame list">1</div>
-        <ol class="sozi-frame-list">
-            {% for frame in pres.frames %}
-                {% if frame.showInFrameList %}
-                    <li class="sozi-title-level-{{ frame.titleLevel }}" value="{{ loop.index }}"><a href="#{{ frame.frameId }}" title="{{ frame.title }}">{{ frame.title }}</a></li>
-                {% endif %}
-            {% endfor %}
-        </ol>
+        <div class="sozi-frame-list">
+            <ol>
+                {% for frame in pres.frames %}
+                    {% if frame.showInFrameList %}
+                        <li class="sozi-title-level-{{ frame.titleLevel }}" value="{{ loop.index }}"><a href="#{{ frame.frameId }}" title="{{ frame.title }}">{{ frame.title }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ol>
+        </div>
         <div class="sozi-blank-screen">
             <span class="spinner"></span>
         </div>
