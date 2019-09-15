@@ -100,9 +100,40 @@ Timeline.addLayer = function (layerIndex) {
     }
 
     const layerIndexInDefaults = this.defaultLayers.indexOf(layer);
-    this.defaultLayers.splice(layerIndexInDefaults, 1);
+    if (layerIndexInDefaults >= 0) {
+        this.defaultLayers.splice(layerIndexInDefaults, 1);
+    }
 
     this.controller.addLayerToSelection(layer);
+
+    // Force a repaint even if the controller
+    // did not modify the selection
+    this.repaint();
+};
+
+/*
+ * Action: Add all layers to the current view.
+ *
+ * This method is called as a result of a user action
+ * in the current view.
+ *
+ * All layers are added to the current view
+ * and to the selection.
+ * The current view is updated.
+ */
+Timeline.addAllLayers = function () {
+    this.defaultLayers.slice().forEach(layer => {
+        if (layer.auto) {
+            return;
+        }
+
+        this.editableLayers.push(layer);
+
+        const layerIndexInDefaults = this.defaultLayers.indexOf(layer);
+        this.defaultLayers.splice(layerIndexInDefaults, 1);
+
+        this.controller.addLayerToSelection(layer);
+    });
 
     // Force a repaint even if the controller
     // did not modify the selection
@@ -279,11 +310,17 @@ Timeline.render = function () {
                         h("select", {
                             onchange: evt => {
                                 const value = evt.target.value;
-                                evt.target.value = "__add__";
-                                this.addLayer(value);
+                                evt.target.value = "__sozi_add__";
+                                if (value === "__sozi_add_all__") {
+                                    this.addAllLayers();
+                                }
+                                else {
+                                    this.addLayer(value);
+                                }
                             }
                         }, [
-                            h("option", {value: "__add__", selected: "selected"}, _("Add layer")),
+                            h("option", {value: "__sozi_add__", selected: "selected"}, _("Add layer")),
+                            h("option", {value: "__sozi_add_all__"}, _("Add all layers")),
                             this.presentation.layers.slice().reverse()
                                 .filter(layer => !layer.auto && this.defaultLayers.indexOf(layer) >= 0)
                                 .map(layer => h("option", {value: layer.index}, layer.label))
