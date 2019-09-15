@@ -139,7 +139,7 @@ Properties.renderPresentationProperties = function () {
 
         h("label", {for: "field-timeoutMs"}, [
             _("Timeout (seconds)"),
-            this.renderToggleField(h("i.far.fa-check-square"), _("Timeout enable"), "timeoutEnable", c.getFrameProperty, c.setFrameProperty)
+            this.renderToggleField(h("i.far.fa-clock"), _("Timeout enable"), "timeoutEnable", c.getFrameProperty, c.setFrameProperty)
         ]),
         this.renderNumberField("timeoutMs", timeoutMsDisabled, c.getFrameProperty, c.setFrameProperty, false, 0.1, 1000),
 
@@ -209,6 +209,12 @@ Properties.renderPresentationProperties = function () {
         this.renderRichTextField("notes", false, c.getFrameProperty, c.setFrameProperty, true),
 
         h("h1", _("Player")),
+
+        h("div", [
+            _("Support the \"back\" button to move back in the presentation"),
+            this.renderHelp(_("When enabled, moving from one frame to another changes the content of the location bar automatically")),
+            this.renderToggleField(h("i.fas.fa-history"), _("Support the back button"), "updateURLOnFrameChange", c.getPresentationProperty, c.setPresentationProperty)
+        ]),
 
         h("div", [
             _("Allow to control the presentation"),

@@ -337,6 +337,7 @@ export const Presentation = {
     enableMouseZoom: true,
     enableMouseRotation: true,
     enableMouseNavigation: true,
+    updateURLOnFrameChange: true,
 
     /*
      * Initialize a Sozi document object.
@@ -394,6 +395,7 @@ export const Presentation = {
             enableMouseZoom: this.enableMouseZoom,
             enableMouseRotation: this.enableMouseRotation,
             enableMouseNavigation: this.enableMouseNavigation,
+            updateURLOnFrameChange: this.updateURLOnFrameChange,
             frames: this.frames.map(frame => frame.toStorable()),
             elementsToHide: this.elementsToHide.slice()
         };
@@ -408,6 +410,7 @@ export const Presentation = {
             enableMouseZoom: this.enableMouseZoom,
             enableMouseRotation: this.enableMouseRotation,
             enableMouseNavigation: this.enableMouseNavigation,
+            updateURLOnFrameChange: this.updateURLOnFrameChange,
             frames: this.frames.map(frame => frame.toMinimalStorable()),
             elementsToHide: this.elementsToHide.slice()
         };
@@ -423,6 +426,7 @@ export const Presentation = {
         copyIfSet(this, storable, "enableMouseZoom");
         copyIfSet(this, storable, "enableMouseRotation");
         copyIfSet(this, storable, "enableMouseNavigation");
+        copyIfSet(this, storable, "updateURLOnFrameChange");
 
         this.frames = storable.frames.map(f => Object.create(Frame).init(this).fromStorable(f));
 
