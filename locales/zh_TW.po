@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-01-06 04:53:+0000\n"
+"POT-Creation-Date: 2019-09-15 03:01:+0000\n"
 "PO-Revision-Date: 2019-01-14 14:21+0000\n"
 "Last-Translator: Louies <louies0623@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -24,35 +24,35 @@ msgstr ""
 msgid "Open an SVG file from your computer"
 msgstr "開啟 SVG 檔案來自電腦"
 
-#: js/backend/Electron.js:63
+#: js/backend/Electron.js:59
 msgid "Do you want to save the presentation before closing?"
 msgstr "是否要在關閉之前保存演示文稿嗎？"
 
-#: js/backend/Electron.js:64
+#: js/backend/Electron.js:60
 msgid "Yes"
 msgstr "是"
 
-#: js/backend/Electron.js:64
+#: js/backend/Electron.js:60
 msgid "No"
 msgstr "否"
 
-#: js/backend/Electron.js:84
+#: js/backend/Electron.js:83
 msgid "File not found: %s."
 msgstr "找不到檔案：%s."
 
-#: js/backend/Electron.js:117
+#: js/backend/Electron.js:116
 msgid "Choose an SVG file"
 msgstr "選擇 SVG 檔案"
 
-#: js/backend/Electron.js:118
+#: js/backend/Electron.js:117
 msgid "SVG files"
 msgstr "SVG 檔案"
 
 #: js/backend/FileReader.js:12
 msgid ""
-"Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
-"only)"
-msgstr "開啟 SVG 檔案來自電腦  (<i class=\"fa fa-warning\"></i> 唯讀)"
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
+msgstr "開啟 SVG 檔案來自電腦  (<i class=\"fas fa-exclamation-triangle\"></i> 唯讀)"
 
 #: js/backend/GoogleDrive.js:16
 msgid "Open an SVG file from Google Drive"
@@ -98,7 +98,7 @@ msgstr "符合元件大小"
 msgid "Reset layer geometry"
 msgstr "重設圖層"
 
-#: js/view/Properties.js:43 js/view/Timeline.js:272
+#: js/view/Properties.js:43 js/view/Timeline.js:303
 msgid "Create a new frame"
 msgstr "新建框格"
 
@@ -222,7 +222,7 @@ msgstr "Ctrl+N: 編號列表"
 msgid "Select a layer to copy"
 msgstr "選擇圖層進行複製"
 
-#: js/view/Properties.js:117 js/view/Timeline.js:313 js/view/Timeline.js:341
+#: js/view/Properties.js:117 js/view/Timeline.js:350 js/view/Timeline.js:378
 msgid "Default"
 msgstr "預設圖層"
 
@@ -364,56 +364,75 @@ msgid "Player"
 msgstr "播放操控"
 
 #: js/view/Properties.js:214
+msgid "Support the browser's \"Back\" button to move back in the presentation"
+msgstr ""
+
+#: js/view/Properties.js:215
+msgid ""
+"When enabled, moving from one frame to another changes the content of the "
+"location bar automatically"
+msgstr ""
+
+#: js/view/Properties.js:216
+msgid "Support the \"Back\" button"
+msgstr ""
+
+#: js/view/Properties.js:220
 msgid "Allow to control the presentation"
 msgstr "允許控制簡報"
 
-#: js/view/Properties.js:216 js/view/Properties.js:223
-#: js/view/Properties.js:229 js/view/Properties.js:237
+#: js/view/Properties.js:222 js/view/Properties.js:229
+#: js/view/Properties.js:235 js/view/Properties.js:243
 msgid "using the mouse"
 msgstr "使用滑鼠"
 
-#: js/view/Properties.js:217 js/view/Properties.js:230
-#: js/view/Properties.js:238
+#: js/view/Properties.js:223 js/view/Properties.js:236
+#: js/view/Properties.js:244
 msgid "using the keyboard"
 msgstr "使用鍵盤"
 
-#: js/view/Properties.js:222
+#: js/view/Properties.js:228
 msgid "Allow to move the camera"
 msgstr "允許移動攝影"
 
-#: js/view/Properties.js:227
+#: js/view/Properties.js:233
 msgid "Allow to rotate the camera"
 msgstr "允許旋轉攝影"
 
-#: js/view/Properties.js:235
+#: js/view/Properties.js:241
 msgid "Allow to zoom"
 msgstr "允許放大"
 
-#: js/view/Timeline.js:265
+#: js/view/Timeline.js:296
 msgid "Delete the selected frames"
 msgstr "刪除所選框格"
 
-#: js/view/Timeline.js:286
+#: js/view/Timeline.js:322
 msgid "Add layer"
 msgstr "加上圖層"
 
-#: js/view/Timeline.js:301 js/view/Timeline.js:321
+#: js/view/Timeline.js:323
+#, fuzzy
+msgid "Add all layers"
+msgstr "加上圖層"
+
+#: js/view/Timeline.js:338 js/view/Timeline.js:358
 msgid "This layer is visible. Click to hide it."
 msgstr "此為可見圖層。點按它即可隱藏。"
 
-#: js/view/Timeline.js:305 js/view/Timeline.js:325
+#: js/view/Timeline.js:342 js/view/Timeline.js:362
 msgid "This layer is hidden. Click to show it."
 msgstr "此為隱藏圖層。點按它即可顯示。"
 
-#: js/view/Timeline.js:329
+#: js/view/Timeline.js:366
 msgid "Remove this layer"
 msgstr "移除此一圖層"
 
-#: js/view/Timeline.js:354
+#: js/view/Timeline.js:391
 msgid "Insert selection before frame %d"
 msgstr "在框格 %d 之前插入所選項目"
 
-#: js/view/Timeline.js:361
+#: js/view/Timeline.js:398
 msgid "Insert selection after frame %d"
 msgstr "在框格 %d 之後插入所選項目"
 

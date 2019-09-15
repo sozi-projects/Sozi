@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-01-06 04:53:+0000\n"
+"POT-Creation-Date: 2019-09-15 03:01:+0000\n"
 "PO-Revision-Date: 2018-10-22 13:33+0000\n"
 "Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/sozi/translations/"
@@ -25,36 +25,36 @@ msgstr ""
 msgid "Open an SVG file from your computer"
 msgstr "Otwórz plik SVG z komputera"
 
-#: js/backend/Electron.js:63
+#: js/backend/Electron.js:59
 msgid "Do you want to save the presentation before closing?"
 msgstr ""
 
-#: js/backend/Electron.js:64
+#: js/backend/Electron.js:60
 msgid "Yes"
 msgstr ""
 
-#: js/backend/Electron.js:64
+#: js/backend/Electron.js:60
 msgid "No"
 msgstr ""
 
-#: js/backend/Electron.js:84
+#: js/backend/Electron.js:83
 msgid "File not found: %s."
 msgstr "Nie można odnaleźć pliku: %s."
 
-#: js/backend/Electron.js:117
+#: js/backend/Electron.js:116
 msgid "Choose an SVG file"
 msgstr "Wybierz plik SVG"
 
-#: js/backend/Electron.js:118
+#: js/backend/Electron.js:117
 msgid "SVG files"
 msgstr "Pliki SVG"
 
 #: js/backend/FileReader.js:12
 msgid ""
-"Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
-"only)"
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
 msgstr ""
-"Otwórz plik SVG z komputera (<i class=\"fa fa-warning\"></i> read-only)"
+"Otwórz plik SVG z komputera (<i class=\"fas fa-exclamation-triangle\"></i> read-only)"
 
 #: js/backend/GoogleDrive.js:16
 msgid "Open an SVG file from Google Drive"
@@ -100,7 +100,7 @@ msgstr "Dopasuj do obiektu"
 msgid "Reset layer geometry"
 msgstr "Zresetuj geometrię warstwę"
 
-#: js/view/Properties.js:43 js/view/Timeline.js:272
+#: js/view/Properties.js:43 js/view/Timeline.js:303
 msgid "Create a new frame"
 msgstr "Stwórz nową ramkę"
 
@@ -224,7 +224,7 @@ msgstr ""
 msgid "Select a layer to copy"
 msgstr "Wybierz warstwę do skopiowania"
 
-#: js/view/Properties.js:117 js/view/Timeline.js:313 js/view/Timeline.js:341
+#: js/view/Properties.js:117 js/view/Timeline.js:350 js/view/Timeline.js:378
 msgid "Default"
 msgstr "Domyślny"
 
@@ -367,56 +367,75 @@ msgid "Player"
 msgstr "Odtwarzaj"
 
 #: js/view/Properties.js:214
+msgid "Support the browser's \"Back\" button to move back in the presentation"
+msgstr ""
+
+#: js/view/Properties.js:215
+msgid ""
+"When enabled, moving from one frame to another changes the content of the "
+"location bar automatically"
+msgstr ""
+
+#: js/view/Properties.js:216
+msgid "Support the \"Back\" button"
+msgstr ""
+
+#: js/view/Properties.js:220
 msgid "Allow to control the presentation"
 msgstr "Pozwól kontrolować prezentację"
 
-#: js/view/Properties.js:216 js/view/Properties.js:223
-#: js/view/Properties.js:229 js/view/Properties.js:237
+#: js/view/Properties.js:222 js/view/Properties.js:229
+#: js/view/Properties.js:235 js/view/Properties.js:243
 msgid "using the mouse"
 msgstr "za pomocą myszy"
 
-#: js/view/Properties.js:217 js/view/Properties.js:230
-#: js/view/Properties.js:238
+#: js/view/Properties.js:223 js/view/Properties.js:236
+#: js/view/Properties.js:244
 msgid "using the keyboard"
 msgstr "za pomocą klawiatury"
 
-#: js/view/Properties.js:222
+#: js/view/Properties.js:228
 msgid "Allow to move the camera"
 msgstr "Pozwól przesuwać kamerę"
 
-#: js/view/Properties.js:227
+#: js/view/Properties.js:233
 msgid "Allow to rotate the camera"
 msgstr "Pozwól, aby obrócić kamerę"
 
-#: js/view/Properties.js:235
+#: js/view/Properties.js:241
 msgid "Allow to zoom"
 msgstr "Zezwalaj na powiększanie"
 
-#: js/view/Timeline.js:265
+#: js/view/Timeline.js:296
 msgid "Delete the selected frames"
 msgstr "Usuń zaznaczone ramki"
 
-#: js/view/Timeline.js:286
+#: js/view/Timeline.js:322
 msgid "Add layer"
 msgstr "Dodaj warstwę"
 
-#: js/view/Timeline.js:301 js/view/Timeline.js:321
+#: js/view/Timeline.js:323
+#, fuzzy
+msgid "Add all layers"
+msgstr "Dodaj warstwę"
+
+#: js/view/Timeline.js:338 js/view/Timeline.js:358
 msgid "This layer is visible. Click to hide it."
 msgstr "Ta warstwa jest widoczna. Kliknij by ją ukryć."
 
-#: js/view/Timeline.js:305 js/view/Timeline.js:325
+#: js/view/Timeline.js:342 js/view/Timeline.js:362
 msgid "This layer is hidden. Click to show it."
 msgstr "Ta warstwa jest ukryta. Kliknij by ją pokazać."
 
-#: js/view/Timeline.js:329
+#: js/view/Timeline.js:366
 msgid "Remove this layer"
 msgstr "Usuń tę warstwę"
 
-#: js/view/Timeline.js:354
+#: js/view/Timeline.js:391
 msgid "Insert selection before frame %d"
 msgstr "Wstaw zaznaczone przed ramką %d"
 
-#: js/view/Timeline.js:361
+#: js/view/Timeline.js:398
 msgid "Insert selection after frame %d"
 msgstr "Wstaw zaznaczone za ramką %d"
 

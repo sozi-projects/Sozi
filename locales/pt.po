@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-01-06 04:53:+0000\n"
+"POT-Creation-Date: 2019-09-15 03:01:+0000\n"
 "PO-Revision-Date: 2019-03-25 11:39+0000\n"
 "Last-Translator: Rui Mendes <xz9@protonmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/sozi/"
 "translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 3.6-dev\n"
@@ -17,36 +17,36 @@ msgstr ""
 msgid "Open an SVG file from your computer"
 msgstr "Abrir ficheiro SVG no seu computador"
 
-#: js/backend/Electron.js:63
+#: js/backend/Electron.js:59
 msgid "Do you want to save the presentation before closing?"
 msgstr "Quer guardar a apresentação antes de sair?"
 
-#: js/backend/Electron.js:64
+#: js/backend/Electron.js:60
 msgid "Yes"
 msgstr "Sim"
 
-#: js/backend/Electron.js:64
+#: js/backend/Electron.js:60
 msgid "No"
 msgstr "Não"
 
-#: js/backend/Electron.js:84
+#: js/backend/Electron.js:83
 msgid "File not found: %s."
 msgstr "Ficheiro não encontrado: %s."
 
-#: js/backend/Electron.js:117
+#: js/backend/Electron.js:116
 msgid "Choose an SVG file"
 msgstr "Escolher ficheiro SVG"
 
-#: js/backend/Electron.js:118
+#: js/backend/Electron.js:117
 msgid "SVG files"
 msgstr "Ficheiros SVG"
 
 #: js/backend/FileReader.js:12
 msgid ""
-"Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> "
-"read-only)"
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
 msgstr ""
-"Abrir ficheiro SVG no seu computador (<i class=\"fa fa-warning\"></i> apenas "
+"Abrir ficheiro SVG no seu computador (<i class=\"fas fa-exclamation-triangle\"></i> apenas "
 "no modo leitura)"
 
 #: js/backend/GoogleDrive.js:16
@@ -93,7 +93,7 @@ msgstr "Enquadrar elemento"
 msgid "Reset layer geometry"
 msgstr "Reiniciar geometria da camada"
 
-#: js/view/Properties.js:43 js/view/Timeline.js:272
+#: js/view/Properties.js:43 js/view/Timeline.js:303
 msgid "Create a new frame"
 msgstr "Criar um novo quadro"
 
@@ -217,7 +217,7 @@ msgstr "Ctrl+N: Lista numérica"
 msgid "Select a layer to copy"
 msgstr "Selecione uma camada para copiar"
 
-#: js/view/Properties.js:117 js/view/Timeline.js:313 js/view/Timeline.js:341
+#: js/view/Properties.js:117 js/view/Timeline.js:350 js/view/Timeline.js:378
 msgid "Default"
 msgstr "Padrão"
 
@@ -350,7 +350,8 @@ msgid "Notes"
 msgstr "Notas"
 
 #: js/view/Properties.js:207
-msgid "Edit presenter notes. Click here to show the list of formatting shortcuts."
+msgid ""
+"Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 "Editar notas de apresentador. Clique aqui para mostrar a lista de atalhos de "
 "formatar."
@@ -360,54 +361,75 @@ msgid "Player"
 msgstr "Reprodutor"
 
 #: js/view/Properties.js:214
+msgid "Support the browser's \"Back\" button to move back in the presentation"
+msgstr ""
+
+#: js/view/Properties.js:215
+msgid ""
+"When enabled, moving from one frame to another changes the content of the "
+"location bar automatically"
+msgstr ""
+
+#: js/view/Properties.js:216
+msgid "Support the \"Back\" button"
+msgstr ""
+
+#: js/view/Properties.js:220
 msgid "Allow to control the presentation"
 msgstr "Permitir controlo da apresentação"
 
-#: js/view/Properties.js:216 js/view/Properties.js:223 js/view/Properties.js:229 js/view/Properties.js:237
+#: js/view/Properties.js:222 js/view/Properties.js:229
+#: js/view/Properties.js:235 js/view/Properties.js:243
 msgid "using the mouse"
 msgstr "utilizando o rato"
 
-#: js/view/Properties.js:217 js/view/Properties.js:230 js/view/Properties.js:238
+#: js/view/Properties.js:223 js/view/Properties.js:236
+#: js/view/Properties.js:244
 msgid "using the keyboard"
 msgstr "utilizando o teclado"
 
-#: js/view/Properties.js:222
+#: js/view/Properties.js:228
 msgid "Allow to move the camera"
 msgstr "Permitir mover a câmara"
 
-#: js/view/Properties.js:227
+#: js/view/Properties.js:233
 msgid "Allow to rotate the camera"
 msgstr "Permitir rodar a câmara"
 
-#: js/view/Properties.js:235
+#: js/view/Properties.js:241
 msgid "Allow to zoom"
 msgstr "Permitir ampliar"
 
-#: js/view/Timeline.js:265
+#: js/view/Timeline.js:296
 msgid "Delete the selected frames"
 msgstr "Eliminar os quadros selecionados"
 
-#: js/view/Timeline.js:286
+#: js/view/Timeline.js:322
 msgid "Add layer"
 msgstr "Adicionar camada"
 
-#: js/view/Timeline.js:301 js/view/Timeline.js:321
+#: js/view/Timeline.js:323
+#, fuzzy
+msgid "Add all layers"
+msgstr "Adicionar camada"
+
+#: js/view/Timeline.js:338 js/view/Timeline.js:358
 msgid "This layer is visible. Click to hide it."
 msgstr "Camada visível. Clique para ocultar."
 
-#: js/view/Timeline.js:305 js/view/Timeline.js:325
+#: js/view/Timeline.js:342 js/view/Timeline.js:362
 msgid "This layer is hidden. Click to show it."
 msgstr "Camada oculta. Clique para mostrar."
 
-#: js/view/Timeline.js:329
+#: js/view/Timeline.js:366
 msgid "Remove this layer"
 msgstr "Eliminar esta camada"
 
-#: js/view/Timeline.js:354
+#: js/view/Timeline.js:391
 msgid "Insert selection before frame %d"
 msgstr "Inserir a seleção antes do quadro %d"
 
-#: js/view/Timeline.js:361
+#: js/view/Timeline.js:398
 msgid "Insert selection after frame %d"
 msgstr "Inserir a seleção após o quadro %d"
 
@@ -429,7 +451,8 @@ msgstr ""
 "no modo Mover)"
 
 #: js/view/Toolbar.js:80
-msgid "Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgid ""
+"Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 "Rodar camadas selecionadas (ou pressionar SHIFT durante ação no modo Mover)"
 
