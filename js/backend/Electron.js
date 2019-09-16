@@ -112,7 +112,7 @@ Electron.quit = function (confirmSave) {
 };
 
 Electron.openFileChooser = function (_) {
-    const files = remote.dialog.showOpenDialog({
+    const files = remote.dialog.showOpenDialogSync({
         title: _("Choose an SVG file"),
         filters: [{name: _("SVG files"), extensions: ["svg"]}],
         properties: ["openFile"]
