@@ -21,8 +21,6 @@ export const Preview = {
         viewport.addListener("click", (btn, evt) => this.onClick(btn, evt));
         viewport.addListener("userChangeState", () => controller.updateCameraStates());
         controller.addListener("repaint", () => this.repaint());
-        container.addEventListener("mouseenter", () => this.onMouseEnter(), false);
-        container.addEventListener("mouseleave", () => this.onMouseLeave(), false);
 
         return this;
     },
@@ -38,6 +36,9 @@ export const Preview = {
         this.container.appendChild(this.presentation.document.root);
 
         this.viewport.onLoad();
+
+        this.container.addEventListener("mouseenter", () => this.onMouseEnter(), false);
+        this.container.addEventListener("mouseleave", () => this.onMouseLeave(), false);
     },
 
     repaint() {
