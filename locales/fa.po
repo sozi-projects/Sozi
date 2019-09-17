@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-09-15 03:01:+0000\n"
+"POT-Creation-Date: 2019-09-17 08:12:+0000\n"
 "PO-Revision-Date: 2017-02-19 18:08+0000\n"
 "Last-Translator: Ehsan <Unknown>\n"
 "Language-Team: Persian <fa@li.org>\n"
@@ -51,7 +51,8 @@ msgid ""
 "Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"یک فایل اس‌وی‌جی از کامپیوتر باز کن (<i class=\"fas fa-exclamation-triangle\"></i> read-only)"
+"یک فایل اس‌وی‌جی از کامپیوتر باز کن (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
 
 #: js/backend/GoogleDrive.js:16
 msgid "Open an SVG file from Google Drive"
@@ -363,42 +364,38 @@ msgid "Player"
 msgstr ""
 
 #: js/view/Properties.js:214
-msgid "Support the browser's \"Back\" button to move back in the presentation"
+msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
 msgstr ""
 
 #: js/view/Properties.js:215
 msgid ""
-"When enabled, moving from one frame to another changes the content of the "
-"location bar automatically"
+"Moving from one frame to another will change the content of the location bar "
+"automatically."
 msgstr ""
 
-#: js/view/Properties.js:216
-msgid "Support the \"Back\" button"
-msgstr ""
-
-#: js/view/Properties.js:220
+#: js/view/Properties.js:219
 msgid "Allow to control the presentation"
 msgstr ""
 
-#: js/view/Properties.js:222 js/view/Properties.js:229
-#: js/view/Properties.js:235 js/view/Properties.js:243
+#: js/view/Properties.js:221 js/view/Properties.js:228
+#: js/view/Properties.js:234 js/view/Properties.js:242
 msgid "using the mouse"
 msgstr ""
 
-#: js/view/Properties.js:223 js/view/Properties.js:236
-#: js/view/Properties.js:244
+#: js/view/Properties.js:222 js/view/Properties.js:235
+#: js/view/Properties.js:243
 msgid "using the keyboard"
 msgstr ""
 
-#: js/view/Properties.js:228
+#: js/view/Properties.js:227
 msgid "Allow to move the camera"
 msgstr ""
 
-#: js/view/Properties.js:233
+#: js/view/Properties.js:232
 msgid "Allow to rotate the camera"
 msgstr ""
 
-#: js/view/Properties.js:241
+#: js/view/Properties.js:240
 msgid "Allow to zoom"
 msgstr ""
 

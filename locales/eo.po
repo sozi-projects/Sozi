@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-09-15 03:01:+0000\n"
+"POT-Creation-Date: 2019-09-17 08:12:+0000\n"
 "PO-Revision-Date: 2019-01-06 17:55+0100\n"
 "Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/sozi/"
@@ -53,8 +53,8 @@ msgid ""
 "Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Malfermi SVG dosieron el via komputilo (<i class=\"fas fa-exclamation-triangle\"></i> "
-"nurlege)"
+"Malfermi SVG dosieron el via komputilo (<i class=\"fas fa-exclamation-"
+"triangle\"></i> nurlege)"
 
 #: js/backend/GoogleDrive.js:16
 msgid "Open an SVG file from Google Drive"
@@ -367,42 +367,38 @@ msgid "Player"
 msgstr "Spektilo"
 
 #: js/view/Properties.js:214
-msgid "Support the browser's \"Back\" button to move back in the presentation"
+msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
 msgstr ""
 
 #: js/view/Properties.js:215
 msgid ""
-"When enabled, moving from one frame to another changes the content of the "
-"location bar automatically"
+"Moving from one frame to another will change the content of the location bar "
+"automatically."
 msgstr ""
 
-#: js/view/Properties.js:216
-msgid "Support the \"Back\" button"
-msgstr ""
-
-#: js/view/Properties.js:220
+#: js/view/Properties.js:219
 msgid "Allow to control the presentation"
 msgstr "Permesi agojn je la prezentado"
 
-#: js/view/Properties.js:222 js/view/Properties.js:229
-#: js/view/Properties.js:235 js/view/Properties.js:243
+#: js/view/Properties.js:221 js/view/Properties.js:228
+#: js/view/Properties.js:234 js/view/Properties.js:242
 msgid "using the mouse"
 msgstr "per la muso"
 
-#: js/view/Properties.js:223 js/view/Properties.js:236
-#: js/view/Properties.js:244
+#: js/view/Properties.js:222 js/view/Properties.js:235
+#: js/view/Properties.js:243
 msgid "using the keyboard"
 msgstr "per la klavaro"
 
-#: js/view/Properties.js:228
+#: js/view/Properties.js:227
 msgid "Allow to move the camera"
 msgstr "Permesi movi la observadopunkton"
 
-#: js/view/Properties.js:233
+#: js/view/Properties.js:232
 msgid "Allow to rotate the camera"
 msgstr "Permesi rotacii la observadopunkton"
 
-#: js/view/Properties.js:241
+#: js/view/Properties.js:240
 msgid "Allow to zoom"
 msgstr "Permesi zomi"
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
-"POT-Creation-Date: 2019-09-15 03:01:+0000\n"
-"PO-Revision-Date: 2019-09-15 17:02+0200\n"
+"POT-Creation-Date: 2019-09-17 08:12:+0000\n"
+"PO-Revision-Date: 2019-09-17 22:13+0200\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/sozi/translations/"
 "fr/>\n"
@@ -364,46 +364,42 @@ msgid "Player"
 msgstr "Visionnage"
 
 #: js/view/Properties.js:214
-msgid "Support the browser's \"Back\" button to move back in the presentation"
+msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
 msgstr ""
-"Prendre en charge le bouton \"Retour\" du navigateur pour revenir à la vue "
-"précédente"
+"Prendre en charge le bouton \"Retour\" (🡰) du navigateur pour revenir à la "
+"vue précédente"
 
 #: js/view/Properties.js:215
 msgid ""
-"When enabled, moving from one frame to another changes the content of the "
-"location bar automatically"
+"Moving from one frame to another will change the content of the location bar "
+"automatically."
 msgstr ""
-"Lorsque cette option est activée, un déplacement d'une vue à une autre "
-"modifie le contenu de la barre d'adresse automatiquement"
+"Un déplacement d'une vue à une autre modifiera le contenu de la barre "
+"d'adresse automatiquement."
 
-#: js/view/Properties.js:216
-msgid "Support the \"Back\" button"
-msgstr "Prendre en charge le bouton \"Retour\""
-
-#: js/view/Properties.js:220
+#: js/view/Properties.js:219
 msgid "Allow to control the presentation"
 msgstr "Autoriser les actions sur le déroulement de la présentation"
 
-#: js/view/Properties.js:222 js/view/Properties.js:229
-#: js/view/Properties.js:235 js/view/Properties.js:243
+#: js/view/Properties.js:221 js/view/Properties.js:228
+#: js/view/Properties.js:234 js/view/Properties.js:242
 msgid "using the mouse"
 msgstr "avec la souris"
 
-#: js/view/Properties.js:223 js/view/Properties.js:236
-#: js/view/Properties.js:244
+#: js/view/Properties.js:222 js/view/Properties.js:235
+#: js/view/Properties.js:243
 msgid "using the keyboard"
 msgstr "avec le clavier"
 
-#: js/view/Properties.js:228
+#: js/view/Properties.js:227
 msgid "Allow to move the camera"
 msgstr "Autoriser le déplacement de la caméra"
 
-#: js/view/Properties.js:233
+#: js/view/Properties.js:232
 msgid "Allow to rotate the camera"
 msgstr "Autoriser la rotation de la caméra"
 
-#: js/view/Properties.js:241
+#: js/view/Properties.js:240
 msgid "Allow to zoom"
 msgstr "Autoriser le zoom"
 
@@ -483,6 +479,9 @@ msgstr "Préférences"
 #: js/view/Toolbar.js:129
 msgid "Information"
 msgstr "Information"
+
+#~ msgid "Support the \"Back\" button"
+#~ msgstr "Prendre en charge le bouton \"Retour\""
 
 #~ msgid "Formatting shortcuts"
 #~ msgstr "Raccourcis clavier de mise en forme"
