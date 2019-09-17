@@ -211,9 +211,9 @@ Properties.renderPresentationProperties = function () {
         h("h1", _("Player")),
 
         h("div", [
-            _("Support the browser's \"Back\" button to move back in the presentation"),
-            this.renderHelp(_("When enabled, moving from one frame to another changes the content of the location bar automatically")),
-            this.renderToggleField(h("i.fas.fa-history"), _("Support the \"Back\" button"), "updateURLOnFrameChange", c.getPresentationProperty, c.setPresentationProperty)
+            _("Support the browser's \"←\" button to go to a previous slide in a presentation"),
+            this.renderHelp(_("Moving from one slide to another changes the content of the location bar automatically")),
+            this.renderToggleField(h("i.fas.fa-history"), _("Support the \"←\" button"), "updateURLOnFrameChange", c.getPresentationProperty, c.setPresentationProperty)
         ]),
 
         h("div", [
