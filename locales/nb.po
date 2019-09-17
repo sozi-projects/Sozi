@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-09-15 03:01:+0000\n"
-"PO-Revision-Date: 2019-01-07 19:07+0000\n"
+"PO-Revision-Date: 2019-09-18 00:24+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/sozi/"
 "translations/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 3.9-dev\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 
 #: js/backend/Electron.js:27
@@ -375,16 +375,20 @@ msgstr "Avspiller"
 #: js/view/Properties.js:214
 msgid "Support the browser's \"Back\" button to move back in the presentation"
 msgstr ""
+"Støtte for nettleserens \"Tilbake\"-knapp for å gå tilbake i presentasjonen"
 
 #: js/view/Properties.js:215
+#, fuzzy
 msgid ""
 "When enabled, moving from one frame to another changes the content of the "
 "location bar automatically"
 msgstr ""
+"Flytting av én ramme til en annen endrer innholdet i plasseringsfeltet "
+"automatisk"
 
 #: js/view/Properties.js:216
 msgid "Support the \"Back\" button"
-msgstr ""
+msgstr "Støtte for \"Tilbake\"-knapp"
 
 #: js/view/Properties.js:220
 msgid "Allow to control the presentation"
