@@ -92,14 +92,24 @@ module.exports = function(grunt) {
          * Transpile JavaScript source files from ES6 to ES5
          */
         babel: {
-            options: {
-                presets: ["@babel/preset-env"]
-            },
-            all: {
+            electron: {
+                options: {
+                    presets: [["@babel/preset-env", {targets: {node: "12"}}]]
+                },
                 files: [{
                     expand: true,
                     src: ["js/**/*.js"],
-                    dest: "build/app"
+                    dest: "build/electron"
+                }]
+            },
+            browser: {
+                options: {
+                    presets: ["@babel/preset-env"]
+                },
+                files: [{
+                    expand: true,
+                    src: ["js/**/*.js"],
+                    dest: "build/browser"
                 }]
             }
         },
@@ -124,9 +134,13 @@ module.exports = function(grunt) {
                 nodeJs: true,
                 format: "jed1.x"
             },
-            all: {
+            electron: {
                 src: ["locales/*.po"],
-                dest: "build/app/js/locales.js",
+                dest: "build/electron/js/locales.js",
+            },
+            browser: {
+                src: ["locales/*.po"],
+                dest: "build/browser/js/locales.js",
             }
         },
 
@@ -135,14 +149,14 @@ module.exports = function(grunt) {
                 options: {
                     external: ["electron", "fs", "process"],
                     browserifyOptions: {
-                        basedir: "build/app"
+                        basedir: "build/browser"
                     }
                 },
-                src: ["build/app/js/editor.js"],
+                src: ["build/browser/js/editor.js"],
                 dest: "build/tmp/js/editor.bundle.js"
             },
             player: {
-                src: ["build/app/js/player.js"],
+                src: ["build/browser/js/player.js"],
                 dest: "build/tmp/js/player.bundle.js"
             }
         },
@@ -153,14 +167,14 @@ module.exports = function(grunt) {
         uglify: {
             editor: {
                 src: "<%= browserify.editor.dest %>",
-                dest: "build/app/js/editor.min.js"
+                dest: "build/browser/js/editor.min.js"
             },
             player: {
                 src: "<%= browserify.player.dest %>",
                 dest: "build/tmp/js/player.min.js"
             },
             presenter: {
-                src: "build/app/js/presenter.js",
+                src: "build/browser/js/presenter.js",
                 dest: "build/tmp/js/presenter.min.js"
             }
         },
@@ -171,14 +185,14 @@ module.exports = function(grunt) {
         nunjucks_render: {
             player: {
                 src: "templates/player.html",
-                dest: "build/app/templates/player.html",
+                dest: "build/browser/templates/player.html",
                 context: {
                     playerJs: "<%= grunt.file.read('build/tmp/js/player.min.js') %>"
                 }
             },
             presenter: {
                 src: "templates/presenter.html",
-                dest: "build/app/templates/presenter.html",
+                dest: "build/browser/templates/presenter.html",
                 context: {
                     presenterJs: "<%= grunt.file.read('build/tmp/js/presenter.min.js') %>"
                 }
@@ -191,11 +205,29 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         src: [
-                            "index-*.html",
+                            "index-electron.html",
                             "css/**/*",
                             "vendor/**/*"
                         ],
-                        dest: "build/app"
+                        dest: "build/electron/"
+                    },
+                    {
+                        expand: true,
+                        src: [
+                            "index-webapp.html",
+                            "css/**/*",
+                            "vendor/**/*"
+                        ],
+                        dest: "build/browser/"
+                    },
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: [
+                            "<%= nunjucks_render.player.dest %>",
+                            "<%= nunjucks_render.presenter.dest %>"
+                        ],
+                        dest: "build/electron/templates/"
                     }
                 ]
             }
@@ -203,20 +235,20 @@ module.exports = function(grunt) {
 
         rename: {
             webapp_backend: {
-                src: ["build/app/js/backend/index-webapp.js"],
-                dest: "build/app/js/backend/index.js"
+                src: ["build/browser/js/backend/index-webapp.js"],
+                dest: "build/browser/js/backend/index.js"
             },
             webapp_html: {
-                src: ["build/app/index-webapp.html"],
-                dest: "build/app/index.html"
+                src: ["build/browser/index-webapp.html"],
+                dest: "build/browser/index.html"
             },
             electron_backend: {
-                src: ["build/app/js/backend/index-electron.js"],
-                dest: "build/app/js/backend/index.js"
+                src: ["build/electron/js/backend/index-electron.js"],
+                dest: "build/electron/js/backend/index.js"
             },
             electron_html: {
-                src: ["build/app/index-electron.html"],
-                dest: "build/app/index.html"
+                src: ["build/electron/index-electron.html"],
+                dest: "build/electron/index.html"
             }
         },
 
@@ -232,15 +264,16 @@ module.exports = function(grunt) {
             }
         },
 
-        /*
-         * Build electron applications for various platforms.
-         * The options take precedence over the targets variable
-         * defined later.
-         */
-
         "install-dependencies": {
-            options: {
-                cwd: "build/app"
+            electron: {
+                options: {
+                    cwd: "build/electron"
+                }
+            },
+            browser: {
+                options: {
+                    cwd: "build/browser"
+                }
             }
         },
 
@@ -248,7 +281,7 @@ module.exports = function(grunt) {
             editor: {
                 options: {
                     name: "Sozi",
-                    dir: "build/app",
+                    dir: "build/electron",
                     out: "dist",
                     overwrite: true,
                     prune: false,
@@ -268,7 +301,7 @@ module.exports = function(grunt) {
             },
             editor: {
                 options: {
-                    src: ["build/app/*"],
+                    src: ["build/browser/*"],
                     dest: "/var/www/sozi.baierouge.fr/demo/",
                     host: "sozi@baierouge.fr",
                     deleteAll: true,
@@ -387,7 +420,8 @@ module.exports = function(grunt) {
     }, []));
 
     grunt.registerTask("write_package_json", function () {
-        grunt.file.write("build/app/package.json", JSON.stringify(pkg));
+        grunt.file.write("build/electron/package.json", JSON.stringify(pkg));
+        grunt.file.write("build/browser/package.json", JSON.stringify(pkg));
     });
 
     grunt.registerMultiTask("nunjucks_render", function () {

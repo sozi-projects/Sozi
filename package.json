@@ -2,7 +2,7 @@
   "name": "sozi",
   "description": "A zooming presentation editor",
   "author": "Guillaume Savaton",
-  "version": "19.09.16",
+  "version": "19.10.19",
   "license": "MPL-2.0",
   "main": "js/electron.js",
   "scripts": {
@@ -13,17 +13,17 @@
     "url": "http://github.com/senshu/Sozi.git"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.10.1",
-    "html2canvas": "^1.0.0-rc.3",
-    "inferno": "^7.2.1",
-    "inferno-hyperscript": "^7.2.1",
+    "@fortawesome/fontawesome-free": "^5.11.2",
+    "html2canvas": "^1.0.0-rc.5",
+    "inferno": "^7.3.2",
+    "inferno-hyperscript": "^7.3.2",
     "jed": "^1.1.0",
     "nunjucks": "^3.2.0",
     "screenfull": "^4.2.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
     "grunt": "^1.0.4",
     "grunt-babel": "^8.0.0",
     "grunt-browserify": "^5.2.0",
