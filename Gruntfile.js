@@ -4,6 +4,7 @@ module.exports = function(grunt) {
     var path = require("path");
     var fs = require("fs");
     var execSync = require("child_process").execSync;
+    var envify = require("envify/custom");
 
     var nunjucks = require("nunjucks");
     nunjucks.configure({watch: false});
@@ -150,7 +151,8 @@ module.exports = function(grunt) {
                     external: ["electron", "fs", "process"],
                     browserifyOptions: {
                         basedir: "build/browser"
-                    }
+                    },
+                    configure: b => b.transform({global: true}, envify({NODE_ENV: "production"}))
                 },
                 src: ["build/browser/js/editor.js"],
                 dest: "build/tmp/js/editor.bundle.js"

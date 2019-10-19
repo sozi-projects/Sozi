@@ -24,6 +24,7 @@
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
+    "envify": "^4.1.0",
     "grunt": "^1.0.4",
     "grunt-babel": "^8.0.0",
     "grunt-browserify": "^5.2.0",
