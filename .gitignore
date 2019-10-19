@@ -7,3 +7,5 @@ deb
 cache
 /js/backend/GoogleDrive.config.js
 npm-debug.log
+*.mo
+
