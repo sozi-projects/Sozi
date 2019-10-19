@@ -98,7 +98,7 @@ module.exports = function(grunt) {
             all: {
                 files: [{
                     expand: true,
-                    src: ["index-webapp.js", "js/**/*.js"],
+                    src: ["js/**/*.js"],
                     dest: "build/app"
                 }]
             }
@@ -138,7 +138,7 @@ module.exports = function(grunt) {
                         basedir: "build/app"
                     }
                 },
-                src: ["build/app/index-webapp.js"],
+                src: ["build/app/js/editor.js"],
                 dest: "build/tmp/js/editor.bundle.js"
             },
             player: {
