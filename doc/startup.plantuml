@@ -1,0 +1,172 @@
+
+@startuml
+
+activate editor
+editor -> Presentation : init
+
+editor -> Selection : init
+
+editor -> Viewport : init
+
+editor -> Player : init
+activate Player
+    Player -> Viewport : addListener("click", "dragStart", "userChangeState")
+    Player --> editor
+deactivate Player
+
+editor -> Controller : init
+activate Controller
+    Controller -> Controller : addListener("repaint")
+    Controller --> editor
+deactivate Controller
+
+editor -> Preview : init
+activate Preview
+    Preview -> Controller : addListener("loadSVG")
+    Preview -> Viewport : addListener("mouseDown")
+    Preview --> editor
+deactivate Preview
+
+editor -> Properties : init
+activate Properties
+    Properties -> Controller : addListener("repaint")
+    Properties --> editor
+deactivate Properties
+
+editor -> Toolbar : init
+activate Toolbar
+    Toolbar -> Controller : addListener("repaint")
+    Toolbar --> editor
+deactivate Toolbar
+
+editor -> Timeline : init
+activate Timeline
+    Timeline -> Controller : addListener("repaint", "ready")
+    Timeline --> editor
+deactivate Timeline
+
+editor -> Storage : init
+activate Storage
+    Storage -> Controller : addListener("presentationChange", "editorStateChange")
+    Storage -> Electron : init
+    activate Electron
+        Electron -> Electron : loadConfiguration
+        opt No file argument or file cannot be opened
+        Electron -> Electron : openFileChooser
+        end
+        Electron -> Electron : load(svgFileName)
+        activate Electron
+            Electron -> fs : readFile(svgFileName)
+            activate fs
+        deactivate Electron
+        Electron --> Storage
+    deactivate Electron
+    Storage -> Electron : addListener("load", "change")
+    Storage --> editor
+deactivate Storage
+deactivate editor
+
+fs --> Electron : [callback]
+deactivate fs
+activate Electron
+    Electron -> fs : watcher(svgFileName)
+    activate fs
+        create svgWatcher
+        fs -> svgWatcher : new
+        fs --> Electron
+    deactivate fs
+    Electron -> svgWatcher : addListener("change")
+
+    Electron -> Storage : emit("load", svgFileName, svgData)
+deactivate Electron
+
+activate Storage
+    Storage -> SVGDocumentWrapper : initFromString(svgData)
+    Storage -> Controller : setSVGDocument(SVGDocumentWrapper)
+    activate Controller
+        Controller -> Presentation : init
+        Controller -> Presentation : setSVGDocument(SVGDocumentWrapper)
+        Controller -> Preview : emit("loadSVG")
+        activate Preview
+            Preview -> Viewport : addListener("click", "userChangeState")
+            Preview -> Controller : addListener("repaint")
+            Preview -> Viewport : onLoad
+        deactivate Preview
+        Controller -> Presentation : setInitialCameraState
+        Controller --> Storage
+    deactivate Controller
+    Storage -> Controller : once("ready")
+    Storage -> Storage : openJSONFile(jsonFileName)
+    activate Storage
+        Storage -> Electron : find(jsonFileName)
+    deactivate Storage
+deactivate Storage
+
+activate Electron
+Electron --> Storage : [callback]
+deactivate Electron
+
+activate Storage
+    alt File was found
+        Storage -> Electron : load(jsonFileName)
+        activate Electron
+            Electron -> fs : readFile(jsonFileName)
+            activate fs
+        deactivate Electron
+
+        fs --> Electron : [callback]
+        activate Electron
+            Electron -> fs : watcher(jsonFileName)
+            activate fs
+                create jsonWatcher
+                fs -> jsonWatcher : new
+            deactivate fs
+            Electron -> jsonWatcher : addListener("change")
+            Electron -> Storage : emit("load", jsonFileName, jsonData)
+            activate Storage
+                Storage -> Storage : loadJSONData(jsonData)
+                activate Storage
+                    Storage -> Presentation : fromStorable(jsonData)
+                    Storage -> Timeline : fromStorable(jsonData)
+                    Storage -> Selection : fromStorable(jsonData)
+                    Storage -> Controller : onLoad
+                    activate Controller
+                        Controller -> Electron : loadPreferences
+                        Controller -> Selection : addFrame
+                        Controller -> Player : jumpToFrame
+                        Controller -> Controller : updateCameraSelection
+                        Controller -> Timeline : emit("ready")
+                        Controller -> Storage : emit("ready")
+                        activate Storage
+                            Storage -> Storage : createHTMLFile(htmlFileName)
+                            Storage --> Controller
+                        deactivate Storage
+                        Controller -> Controller : applyPreferences
+                        Controller --> Storage
+                    deactivate Controller
+                deactivate Storage
+                Storage -> Storage : autosaveJSON(jsonFileName)
+                activate Storage
+                    Storage -> Electron : autosave(jsonFileName)
+                    Storage -> Electron : addListener("save")
+                deactivate Storage
+            deactivate Storage
+        deactivate Electron
+
+    else File was not found
+        Storage -> Electron : create(jsonFileName)
+        activate Electron
+            Electron -> Storage : [callback]
+            activate Storage
+                Storage -> Storage : autosaveJSON(jsonFileName)
+                    Storage -> Electron : autosave(jsonFileName)
+                    Storage -> Electron : addListener("save")
+                Storage --> Electron
+            deactivate Storage
+            Storage --> Electron
+        deactivate Electron
+        Storage -> Controller : onLoad
+    end
+deactivate Storage
+
+@enduml
