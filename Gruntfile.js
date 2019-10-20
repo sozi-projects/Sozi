@@ -426,7 +426,7 @@ module.exports = function(grunt) {
             execSync("tar cJf "+ path.relative(cwd, dest) + " " + src, {cwd});
         }
         else if (dest.endsWith(".zip")) {
-            execSync("zip -y " + path.relative(cwd, dest) + " " + src, {cwd});
+            execSync("zip -ry " + path.relative(cwd, dest) + " " + src, {cwd});
         }
     });
 
