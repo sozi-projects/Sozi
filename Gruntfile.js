@@ -167,6 +167,10 @@ module.exports = function(grunt) {
          * Compress the JavaScript code of the editor, player, and presenter.
          */
         uglify: {
+            options: {
+                // mangle: false,
+                // compress: false
+            },
             editor: {
                 src: "<%= browserify.editor.dest %>",
                 dest: "build/browser/js/editor.min.js"

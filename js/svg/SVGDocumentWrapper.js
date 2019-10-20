@@ -4,7 +4,6 @@
 
 "use strict";
 
-import {AiHandler} from "./AiHandler";
 import {toArray} from "../utils";
 
 // Constant: the SVG namespace
@@ -92,7 +91,9 @@ export class SVGDocumentWrapper {
             // Disable hyperlinks
             doc.disableHyperlinks();
 
-            // Fix <switch> elements from Adobe Illustrator
+            // Fix <switch> elements from Adobe Illustrator.
+            // We do not import AiHandler in this module to avoid a circular dependency.
+            const AiHandler = handlers["Adobe Illustrator"];
             if (doc.handler !== AiHandler) {
                 AiHandler.transform(svgRoot);
             }
