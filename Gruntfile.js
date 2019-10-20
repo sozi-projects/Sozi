@@ -155,11 +155,11 @@ module.exports = function(grunt) {
                     configure: b => b.transform({global: true}, envify({NODE_ENV: "production"}))
                 },
                 src: ["build/browser/js/editor.js"],
-                dest: "build/tmp/js/editor.bundle.js"
+                dest: "build/tmp/js/editor.archive.js"
             },
             player: {
                 src: ["build/browser/js/player.js"],
-                dest: "build/tmp/js/player.bundle.js"
+                dest: "build/tmp/js/player.archive.js"
             }
         },
 
@@ -256,13 +256,10 @@ module.exports = function(grunt) {
 
         compress: {
             media: {
-                options: {
-                    mode: "zip",
-                    archive: "dist/Sozi-extras-media-<%= pkg.version %>.zip"
-                },
                 expand: true,
                 cwd: "extras/media",
-                src: ["**/*"]
+                src: ["**/*"],
+                dest: "dist/Sozi-extras-media-<%= pkg.version %>.zip"
             }
         },
 
@@ -327,7 +324,7 @@ module.exports = function(grunt) {
     });
 
     /*
-     * Generate installable bundles for each platform.
+     * Generate installable archives for each platform.
      */
 
     var debianArchs = {
@@ -350,9 +347,9 @@ module.exports = function(grunt) {
         }
         var platformArch = getPlatformArch(platform);
         // The name of the target folder for the current platform in dist/.
-        var bundleName = "Sozi-" + pkg.version + "-" + platformOS + "-" + platformArch;
+        var archiveName = "Sozi-" + pkg.version + "-" + platformOS + "-" + platformArch;
         // The renamed folder for the current platform.
-        var bundleDir = "dist/" + bundleName;
+        var archiveDir = "dist/" + archiveName;
 
         // Copy the installation assets for the target OS.
         grunt.config(["copy", platform], {
@@ -375,26 +372,23 @@ module.exports = function(grunt) {
 
         // Delete the distribution folder for this platform if it exists.
         grunt.config(["clean", platform], {
-            src: bundleDir
+            src: archiveDir
         });
 
-        // Rename the distribution folder to the bundle name.
+        // Rename the distribution folder to the archive name.
         grunt.config(["rename", platform], {
             src: distDir,
-            dest: bundleDir
+            dest: archiveDir
         });
 
         // Build zip files for Windows, tgz for other platforms.
-        var bundleFormat = platformOS.startsWith("win") ? "zip" : "tgz";
+        var archiveFormat = platformOS.startsWith("win") ? "zip" : "tar.xz";
 
         grunt.config(["compress", platform], {
-            options: {
-                mode: bundleFormat,
-                archive: bundleDir + "." + bundleFormat
-            },
             expand: true,
             cwd: "dist/",
-            src: [bundleName + "/**/*"]
+            src: [archiveName + "/**/*"],
+            dest: archiveDir + "." + archiveFormat
         });
 
         // Generate a Debian package for each Linux platform.
@@ -416,6 +410,17 @@ module.exports = function(grunt) {
     grunt.registerTask("rename-platforms", buildConfig.platforms.reduce(function (prev, platform) {
         return prev.concat(["clean:" + platform, "rename:" + platform]);
     }, []));
+
+    grunt.registerMultiTask("compress", function () {
+        this.files.forEach(function (file) {
+            if (file.dest.endsWith(".tar.xz")) {
+                execSync("tar cJf " + file.dest + " " + files.src[0]);
+            }
+            else if (file.dest.endsWith(".zip")) {
+                execSync("zip -ry " + file.dest + " " + files.src[0]);
+            }
+        });
+    });
 
     grunt.registerTask("compress-platforms", buildConfig.platforms.reduce(function (prev, platform) {
         return prev.concat(["compress:" + platform]);
@@ -475,7 +480,7 @@ module.exports = function(grunt) {
         "newer:uglify:editor"
     ]);
 
-    grunt.registerTask("electron-bundle", [
+    grunt.registerTask("electron-archive", [
         "electron-build",
         "rename-platforms",
         "compress-platforms"
@@ -499,13 +504,13 @@ module.exports = function(grunt) {
         ]);
 
         grunt.registerTask("dist", [
-            "electron-bundle",
+            "electron-archive",
             "debian_package"
         ]);
     }
     else {
-        grunt.registerTask("dist", ["electron-bundle"]);
+        grunt.registerTask("dist", ["electron-archive"]);
     }
 
-    grunt.registerTask("default", ["electron-bundle"]);
+    grunt.registerTask("default", ["electron-archive"]);
 };

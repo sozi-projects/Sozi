@@ -51,7 +51,7 @@ To build the desktop application for all platforms, run the following command fr
     grunt
 
 After a successful build, you will get a `dist` folder that will contain the
-generated application bundles for each platform.
+generated application archives for each platform.
 
 You can customize the build by creating a custom configuration file.
 See `config.default.json` and `config.linux-x64.json` for examples.
@@ -73,14 +73,14 @@ Then run Grunt with the `--config` option:
 
 Other Grunt tasks are available for developers:
 
-| Command                           | Effect                                                                      |
-|:----------------------------------|:----------------------------------------------------------------------------|
-| `grunt electron-bundle` (default) | Build the desktop application and create zip bundles for various platforms. |
-| `grunt deb`                       | Build Debian packages.                                                      |
-| `grunt electron-build`            | Build the desktop application without creating bundles.                     |
-| `grunt web-build`                 | Build the web application without uploading it.                             |
-| `grunt web-demo`                  | Build the web application and upload it to a server.                        |
-| `grunt pot`                       | Extract a template file (`locales/messages.pot`) for translation.           |
+| Command                            | Effect                                                                       |
+|:-----------------------------------|:-----------------------------------------------------------------------------|
+| `grunt electron-archive` (default) | Build the desktop application and create zip archives for various platforms. |
+| `grunt deb`                        | Build Debian packages.                                                       |
+| `grunt electron-build`             | Build the desktop application without creating archives.                     |
+| `grunt web-build`                  | Build the web application without uploading it.                              |
+| `grunt web-demo`                   | Build the web application and upload it to a server.                         |
+| `grunt pot`                        | Extract a template file (`locales/messages.pot`) for translation.            |
 
 
 Install
