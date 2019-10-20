@@ -423,7 +423,7 @@ module.exports = function(grunt) {
 
         grunt.log.writeln("Compressing " + dest);
         if (dest.endsWith(".tar.xz")) {
-            execSync("tar cJf " + " " + dest + " -C " + cwd + " " + src);
+            execSync("tar cJf "+ path.relative(cwd, dest) + " " + src, {cwd});
         }
         else if (dest.endsWith(".zip")) {
             execSync("zip -y " + path.relative(cwd, dest) + " " + src, {cwd});
