@@ -256,10 +256,14 @@ module.exports = function(grunt) {
 
         compress: {
             media: {
-                expand: true,
-                cwd: "extras/media",
-                src: ["**/*"],
-                dest: "dist/Sozi-extras-media-<%= pkg.version %>.zip"
+                options: {
+                    archive: "dist/Sozi-extras-media-<%= pkg.version %>.zip",
+                    cwd: "extras/media"
+                },
+                src: [
+                    "extras/media/sozi_extras_media.inx",
+                    "extras/media/sozi_extras_media.py"
+                ]
             }
         },
 
@@ -385,10 +389,11 @@ module.exports = function(grunt) {
         var archiveFormat = platformOS.startsWith("win") ? "zip" : "tar.xz";
 
         grunt.config(["compress", platform], {
-            expand: true,
-            cwd: "dist/",
-            src: [archiveName + "/**/*"],
-            dest: archiveDir + "." + archiveFormat
+            options: {
+                archive: archiveDir + "." + archiveFormat,
+                cwd: "dist/"
+            },
+            src: [archiveDir]
         });
 
         // Generate a Debian package for each Linux platform.
@@ -412,14 +417,17 @@ module.exports = function(grunt) {
     }, []));
 
     grunt.registerMultiTask("compress", function () {
-        this.files.forEach(function (file) {
-            if (file.dest.endsWith(".tar.xz")) {
-                execSync("tar cJf " + file.dest + " " + files.src[0]);
-            }
-            else if (file.dest.endsWith(".zip")) {
-                execSync("zip -ry " + file.dest + " " + files.src[0]);
-            }
-        });
+        const dest = this.options().archive;
+        const cwd = this.options().cwd;
+        const src = this.files.map(f => f.src).flat().map(p => path.relative(cwd, p)).join(" ");
+
+        grunt.log.writeln("Compressing " + dest);
+        if (dest.endsWith(".tar.xz")) {
+            execSync("tar cJf " + " " + dest + " -C " + cwd + " " + src);
+        }
+        else if (dest.endsWith(".zip")) {
+            execSync("zip -y " + path.relative(cwd, dest) + " " + src, {cwd});
+        }
     });
 
     grunt.registerTask("compress-platforms", buildConfig.platforms.reduce(function (prev, platform) {
