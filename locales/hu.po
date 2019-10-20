@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.3-dev\n"
+"X-Generator: Weblate 3.9\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 
 #: js/backend/Electron.js:27
@@ -27,15 +27,15 @@ msgstr "Helyi SVG állomány megnyitása"
 
 #: js/backend/Electron.js:59
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "El szeretnéd menteni a prezentációt bezárás előtt?"
 
 #: js/backend/Electron.js:60
 msgid "Yes"
-msgstr ""
+msgstr "Igen"
 
 #: js/backend/Electron.js:60
 msgid "No"
-msgstr ""
+msgstr "Nem"
 
 #: js/backend/Electron.js:83
 msgid "File not found: %s."
@@ -43,7 +43,7 @@ msgstr "Hiányzó fájl: %s."
 
 #: js/backend/Electron.js:116
 msgid "Choose an SVG file"
-msgstr "Válassz egy SVG fájlt"
+msgstr "Válassz ki egy SVG fájlt"
 
 #: js/backend/Electron.js:117
 msgid "SVG files"
@@ -63,7 +63,7 @@ msgstr "SVG fájl megnyitása Google Drive-ról"
 
 #: js/Controller.js:38
 msgid "Sozi (Information)"
-msgstr "Sozi (Verzió információ)"
+msgstr "Sozi (információ)"
 
 #: js/Controller.js:44
 msgid "Sozi (Error)"
@@ -87,15 +87,15 @@ msgstr "Az állomány megváltozott."
 
 #: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr "Az állomány a Sozi 13 vagy korábbi verzióból lett importálva."
+msgstr "Az állomány Sozi 13 vagy korábbi verzióból lett importálva."
 
 #: js/Storage.js:254 js/Storage.js:275
 msgid "Saved %s."
-msgstr "%s elmentve ."
+msgstr "A %s elmentve ."
 
 #: js/view/Properties.js:41 js/view/Properties.js:170
 msgid "Fit to element"
-msgstr "Elemek illeszkedése"
+msgstr "Elemhez illesztés"
 
 #: js/view/Properties.js:42 js/view/Properties.js:152
 msgid "Reset layer geometry"
@@ -103,7 +103,7 @@ msgstr "A réteg geometriájának visszaállítása"
 
 #: js/view/Properties.js:43 js/view/Timeline.js:303
 msgid "Create a new frame"
-msgstr "Új képkocka létrehozása"
+msgstr "Új keret létrehozása"
 
 #: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:113
 msgid "Save the presentation"
@@ -119,7 +119,7 @@ msgstr "Visszavonás"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr "Fókusz a képkocka címére"
+msgstr "Fókusz a keret címére"
 
 #: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:118
 msgid "Reload the SVG document"
@@ -139,7 +139,7 @@ msgstr "Felhasználói felület"
 
 #: js/view/Properties.js:61
 msgid "Font size"
-msgstr "Betű méret"
+msgstr "Betűméret"
 
 #: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
@@ -150,21 +150,20 @@ msgid "Enable notifications"
 msgstr "Üzenetek engedélyezése"
 
 #: js/view/Properties.js:69
-#, fuzzy
 msgid "When Sozi loses the focus"
-msgstr "Amikor a Sozi kerül a fókuszba"
+msgstr "Amikor a Sozi fókuszt veszít"
 
 #: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
-msgstr "Kézi végrehajtás"
+msgstr "Kézileg"
 
 #: js/view/Properties.js:74
 msgid "Automatically"
-msgstr "Automatikus"
+msgstr "Automatikusan"
 
 #: js/view/Properties.js:75
 msgid "When Sozi gets the focus"
-msgstr "Amikor a Sozi kerül a fókuszba"
+msgstr "Amikor a Sozi fókuszba kerül"
 
 #: js/view/Properties.js:78
 msgid "Behavior"
@@ -172,7 +171,7 @@ msgstr "Viselkedés"
 
 #: js/view/Properties.js:80
 msgid "Preview transition animations"
-msgstr "Animációs átmenet előnézete"
+msgstr "Áttűnési animáció előnézete"
 
 #: js/view/Properties.js:81
 msgid "Enable animated transitions"
@@ -184,43 +183,43 @@ msgstr "Billentyű parancsok"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "A következő formázási beállítások támogatottak:"
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: Félkövér"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl + I: Dőlt"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl + U:  Aláhúzott"
 
 #: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0:  Új bekezdés"
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big header"
-msgstr ""
+msgstr "Ctrl+1: Vastag fejléc"
 
 #: js/view/Properties.js:103
 msgid "Ctrl+2: Medium header"
-msgstr ""
+msgstr "Ctrl + 2: Közepes fejléc"
 
 #: js/view/Properties.js:104
 msgid "Ctrl+3: Small header"
-msgstr ""
+msgstr "Ctrl+3: Vékony fejléc"
 
 #: js/view/Properties.js:105
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl+L: Felsorolás"
 
 #: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl+N: Számozott felsorolás"
 
 #: js/view/Properties.js:114
 msgid "Select a layer to copy"
@@ -300,7 +299,7 @@ msgstr "Átmenet"
 
 #: js/view/Properties.js:181
 msgid "Configure the animation when moving to the selected frames."
-msgstr ""
+msgstr "Animáció beállítása a kiválasztott képkockára mozgáskor."
 
 #: js/view/Properties.js:183
 msgid "Duration (seconds)"
@@ -312,35 +311,35 @@ msgstr "Időzítés funkció"
 
 #: js/view/Properties.js:188
 msgid "Linear"
-msgstr ""
+msgstr "Lineáris"
 
 #: js/view/Properties.js:189
 msgid "Ease"
-msgstr ""
+msgstr "Lebegés"
 
 #: js/view/Properties.js:190
 msgid "Ease in"
-msgstr ""
+msgstr "Belebegés"
 
 #: js/view/Properties.js:191
 msgid "Ease out"
-msgstr ""
+msgstr "Kilebegés"
 
 #: js/view/Properties.js:192
 msgid "Ease in-out"
-msgstr ""
+msgstr "Be-kilebegés"
 
 #: js/view/Properties.js:193
 msgid "Step start"
-msgstr ""
+msgstr "Lépés kezdete"
 
 #: js/view/Properties.js:194
 msgid "Step end"
-msgstr ""
+msgstr "Lépés vége"
 
 #: js/view/Properties.js:195
 msgid "Step middle"
-msgstr ""
+msgstr "Középre lépés"
 
 #: js/view/Properties.js:198
 msgid "Relative zoom (%)"
@@ -356,12 +355,14 @@ msgstr "Útvonal rejtése"
 
 #: js/view/Properties.js:207
 msgid "Notes"
-msgstr ""
+msgstr "Jegyzetek"
 
 #: js/view/Properties.js:207
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
+"Előadói jegyzetek szerkesztése. Kattints ide a formázási parancsok "
+"listájának megjelenítéséhez."
 
 #: js/view/Properties.js:211
 msgid "Player"
@@ -370,12 +371,16 @@ msgstr "Lejátszás"
 #: js/view/Properties.js:214
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
 msgstr ""
+"A böngésző „Vissza” gombjának engedélyezése a prezentáció visszafelé történő "
+"léptetéséhez"
 
 #: js/view/Properties.js:215
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr ""
+"Ha engedélyezve van, az egyik képkockából a másikba történő mozgás "
+"automatikusan módosítja a címsáv tartalmát"
 
 #: js/view/Properties.js:219
 msgid "Allow to control the presentation"
@@ -412,9 +417,8 @@ msgid "Add layer"
 msgstr "Réteg hozzáadása"
 
 #: js/view/Timeline.js:323
-#, fuzzy
 msgid "Add all layers"
-msgstr "Réteg hozzáadása"
+msgstr "Az összes réteg hozzáadása"
 
 #: js/view/Timeline.js:338 js/view/Timeline.js:358
 msgid "This layer is visible. Click to hide it."
@@ -460,7 +464,7 @@ msgstr "Kiválasztott réteg forgatása (a Shift billentyű is tudja forgatni)"
 
 #: js/view/Toolbar.js:85
 msgid "Edit the clipping area"
-msgstr ""
+msgstr "A  zoomolási terület átméretezése"
 
 #: js/view/Toolbar.js:104
 msgid "Disable full-screen mode"

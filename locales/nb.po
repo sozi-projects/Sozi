@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 3.9-dev\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 
 #: js/backend/Electron.js:27
@@ -375,12 +375,16 @@ msgstr "Avspiller"
 #: js/view/Properties.js:214
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
 msgstr ""
+"Støtte for nettleserens \"Tilbake\"-knapp for å gå tilbake i presentasjonen"
 
 #: js/view/Properties.js:215
+#, fuzzy
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr ""
+"Flytting av én ramme til en annen endrer innholdet i plasseringsfeltet "
+"automatisk"
 
 #: js/view/Properties.js:219
 msgid "Allow to control the presentation"
