@@ -12,196 +12,195 @@ export function addBackend(backend) {
     backendList.push(backend);
 }
 
-export const AbstractBackend = Object.create(EventEmitter.prototype);
+export class AbstractBackend extends EventEmitter {
+    constructor(controller, container, buttonId, buttonLabel) {
+        super();
 
-AbstractBackend.init = function (controller, container, buttonId, buttonLabel) {
-    this.controller = controller;
+        this.controller = controller;
+        this.autosavedFiles = [];
+        container.innerHTML = `<button id="${buttonId}">${buttonLabel}</button>`;
 
-    EventEmitter.call(this);
-    this.autosavedFiles = [];
-    container.innerHTML = `<button id="${buttonId}">${buttonLabel}</button>`;
-
-    this.hasFocus = false;
-    window.addEventListener("focus", () => {
-        this.hasFocus = true;
-        this.emit("focus");
-    });
-    window.addEventListener("blur", () => {
         this.hasFocus = false;
-        this.emit("blur");
-    });
-    return this;
-};
-
-AbstractBackend.openFileChooser = function () {
-    // Not implemented
-    return this;
-};
-
-/*
- * Return the base name of the file
- * represented by the given descriptor.
- *
- * Parameters:
- *  - fileDescriptor (backend-dependent)
- *
- * Returns:
- *  - The file name (string)
- */
-AbstractBackend.getName = function (fileDescriptor) {
-    // Not implemented
-    return "";
-};
-
-/*
- * Return the location of the file
- * represented by the given descriptor.
- *
- * Parameters:
- *  - fileDescriptor (backend-dependent)
- *
- * Returns:
- *  - The file location (backend-dependent)
- */
-AbstractBackend.getLocation = function (fileDescriptor) {
-    // Not implemented
-    return null;
-};
-
-/*
- * Find a file.
- *
- * Parameters
- *  - name (string) The base name of the file
- *  - location (backend-dependent)
- *  - callback (function) The function to call when the operation completes
- *
- * The callback function accepts the following parameters:
- *  - fileDescriptor (backend-dependent), null if no file was found
- */
-AbstractBackend.find = function (name, location, callback) {
-    // Not implemented
-    callback(null);
-};
-
-/*
- * Load a file.
- *
- * This method loads a file and fires the "load" event. This event
- * must be fired even if loading failed.
- *
- * If the file was successfully loaded and if the backend supports it,
- * a "change" event can be fired when the file is modified after being
- * loaded. The "change" event must be fired only on the first modification
- * after the file has been loaded.
- *
- * Parameters
- *  - fileDescriptor (backend-dependent)
- *
- * Events
- *  - load(fileDescriptor, data, err)
- *  - change(fileDescriptor)
- */
-AbstractBackend.load = function (fileDescriptor) {
-    // Not implemented
-    this.emit("load", fileDescriptor, "", "Not implemented");
-};
-
-/*
- * Create a new file.
- *
- * Parameters:
- *  - name (string)
- *  - location (backend-dependent)
- *  - mimeType (string)
- *  - data (string)
- *  - callback (function) The function to call when the operation completes
- *
- * The callback function accepts the following parameters:
- *  - fileDescriptor (backend-dependent)
- *  - err (string)
- */
-AbstractBackend.create = function (name, location, mimeType, data, callback) {
-    // Not implemented
-    callback(null, "Not implemented");
-};
-
-/*
- * Save data to an existing file.
- *
- * Parameters:
- *  - fileDescriptor (backend-dependent)
- *  - data (string)
- *
- * Events:
- *  - save(fileDescriptor, err)
- *
- * TODO use a callback instead of an event
- */
-AbstractBackend.save = function (fileDescriptor, data) {
-    // Not implemented
-    this.emit("save", fileDescriptor, "Not implemented");
-};
-
-/*
- * Add the given file to the list of files to save automatically.
- *
- * Parameters:
- *  - descriptor (backend-dependent)
- *  - needsSaving (function) A function that returns true if the file needs saving
- *  - getData (function) A function that returns the data to save.
- */
-AbstractBackend.autosave = function (descriptor, needsSaving, getData) {
-    this.autosavedFiles.push({descriptor, needsSaving, getData});
-};
-
-/*
- * Check whether at least one file needs saving.
- */
-AbstractBackend.hasOutdatedFiles = function () {
-    return this.autosavedFiles.some(file => file.needsSaving());
-};
-
-/*
- * Save all outdated files.
- */
-AbstractBackend.saveOutdatedFiles = function () {
-    this.autosavedFiles.forEach(file => {
-        if (file.needsSaving()) {
-            this.save(file.descriptor, file.getData());
-        }
-    });
-};
-
-/*
- * Save all files previously added to the list of files to save automatically.
- *
- * Typically, we want to call this method each time the editor loses focus
- * and when the editor closes.
- */
-AbstractBackend.doAutosave = function () {
-    this.savePreferences();
-    this.saveOutdatedFiles();
-};
-
-AbstractBackend.toggleDevTools = function () {
-    // Not implemented
-};
-
-AbstractBackend.loadPreferences = function (prefs) {
-    this.preferences = prefs;
-    Object.keys(prefs).forEach(key => {
-        const value = localStorage.getItem(key);
-        if (value !== null) {
-            prefs[key] = JSON.parse(value);
-        }
-    });
-};
-
-AbstractBackend.savePreferences = function () {
-    if (this.preferences) {
-        Object.keys(this.preferences).forEach(key => {
-            localStorage.setItem(key, JSON.stringify(this.preferences[key]));
+        window.addEventListener("focus", () => {
+            this.hasFocus = true;
+            this.emit("focus");
+        });
+        window.addEventListener("blur", () => {
+            this.hasFocus = false;
+            this.emit("blur");
         });
     }
-};
+
+    openFileChooser() {
+        // Not implemented
+        return this;
+    }
+
+    /*
+     * Return the base name of the file
+     * represented by the given descriptor.
+     *
+     * Parameters:
+     *  - fileDescriptor (backend-dependent)
+     *
+     * Returns:
+     *  - The file name (string)
+     */
+    getName(fileDescriptor) {
+        // Not implemented
+        return "";
+    }
+
+    /*
+     * Return the location of the file
+     * represented by the given descriptor.
+     *
+     * Parameters:
+     *  - fileDescriptor (backend-dependent)
+     *
+     * Returns:
+     *  - The file location (backend-dependent)
+     */
+    getLocation(fileDescriptor) {
+        // Not implemented
+        return null;
+    }
+
+    /*
+     * Find a file.
+     *
+     * Parameters
+     *  - name (string) The base name of the file
+     *  - location (backend-dependent)
+     *  - callback (function) The function to call when the operation completes
+     *
+     * The callback function accepts the following parameters:
+     *  - fileDescriptor (backend-dependent), null if no file was found
+     */
+    find(name, location, callback) {
+        // Not implemented
+        callback(null);
+    }
+
+    /*
+     * Load a file.
+     *
+     * This method loads a file and fires the "load" event. This event
+     * must be fired even if loading failed.
+     *
+     * If the file was successfully loaded and if the backend supports it,
+     * a "change" event can be fired when the file is modified after being
+     * loaded. The "change" event must be fired only on the first modification
+     * after the file has been loaded.
+     *
+     * Parameters
+     *  - fileDescriptor (backend-dependent)
+     *
+     * Events
+     *  - load(fileDescriptor, data, err)
+     *  - change(fileDescriptor)
+     */
+    load(fileDescriptor) {
+        // Not implemented
+        this.emit("load", fileDescriptor, "", "Not implemented");
+    }
+
+    /*
+     * Create a new file.
+     *
+     * Parameters:
+     *  - name (string)
+     *  - location (backend-dependent)
+     *  - mimeType (string)
+     *  - data (string)
+     *  - callback (function) The function to call when the operation completes
+     *
+     * The callback function accepts the following parameters:
+     *  - fileDescriptor (backend-dependent)
+     *  - err (string)
+     */
+    create(name, location, mimeType, data, callback) {
+        // Not implemented
+        callback(null, "Not implemented");
+    }
+
+    /*
+     * Save data to an existing file.
+     *
+     * Parameters:
+     *  - fileDescriptor (backend-dependent)
+     *  - data (string)
+     *
+     * Events:
+     *  - save(fileDescriptor, err)
+     *
+     * TODO use a callback instead of an event
+     */
+    save(fileDescriptor, data) {
+        // Not implemented
+        this.emit("save", fileDescriptor, "Not implemented");
+    }
+
+    /*
+     * Add the given file to the list of files to save automatically.
+     *
+     * Parameters:
+     *  - descriptor (backend-dependent)
+     *  - needsSaving (function) A function that returns true if the file needs saving
+     *  - getData (function) A function that returns the data to save.
+     */
+    autosave(descriptor, needsSaving, getData) {
+        this.autosavedFiles.push({descriptor, needsSaving, getData});
+    }
+
+    /*
+     * Check whether at least one file needs saving.
+     */
+    hasOutdatedFiles() {
+        return this.autosavedFiles.some(file => file.needsSaving());
+    }
+
+    /*
+     * Save all outdated files.
+     */
+    saveOutdatedFiles() {
+        this.autosavedFiles.forEach(file => {
+            if (file.needsSaving()) {
+                this.save(file.descriptor, file.getData());
+            }
+        });
+    }
+
+    /*
+     * Save all files previously added to the list of files to save automatically.
+     *
+     * Typically, we want to call this method each time the editor loses focus
+     * and when the editor closes.
+     */
+    doAutosave() {
+        this.savePreferences();
+        this.saveOutdatedFiles();
+    }
+
+    toggleDevTools() {
+        // Not implemented
+    }
+
+    loadPreferences(prefs) {
+        this.preferences = prefs;
+        Object.keys(prefs).forEach(key => {
+            const value = localStorage.getItem(key);
+            if (value !== null) {
+                prefs[key] = JSON.parse(value);
+            }
+        });
+    }
+
+    savePreferences() {
+        if (this.preferences) {
+            Object.keys(this.preferences).forEach(key => {
+                localStorage.setItem(key, JSON.stringify(this.preferences[key]));
+            });
+        }
+    }
+}

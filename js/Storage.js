@@ -50,9 +50,10 @@ Storage.init = function (controller, svgDocument, presentation, selection, timel
     backendList.forEach(backend => {
         const listItem = document.createElement("li");
         document.querySelector("#sozi-editor-view-preview ul").appendChild(listItem);
-        backend.init(controller, listItem, this.gettext)
-            .addListener("load", (...a) => this.onBackendLoad(backend, ...a))
-            .addListener("change", (...a) => this.onBackendChange(...a));
+        
+        const backendInstance = new backend(controller, listItem, this.gettext);
+        backendInstance.addListener("load", (...a) => this.onBackendLoad(backendInstance, ...a));
+        backendInstance.addListener("change", (...a) => this.onBackendChange(...a));
     });
 
     return this;
