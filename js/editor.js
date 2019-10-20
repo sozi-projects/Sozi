@@ -6,7 +6,6 @@
 
 import "./backend";
 import "./svg";
-import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
 import {Presentation} from "./model/Presentation";
 import {Selection} from "./model/Selection";
 import {Preferences} from "./model/Preferences";
@@ -41,7 +40,7 @@ window.addEventListener("load", () => {
     Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, Timeline, locale);
     Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, locale);
     Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, locale);
-    Storage.init(Controller, SVGDocumentWrapper, Presentation, Selection, Timeline, locale);
+    Storage.init(Controller, Presentation, Selection, Timeline, locale);
 
     const body      = document.querySelector("body");
     const left      = document.querySelector(".left");

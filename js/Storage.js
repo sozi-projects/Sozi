@@ -4,6 +4,7 @@
 
 "use strict";
 
+import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
 import {backendList} from "./backend/AbstractBackend";
 import {EventEmitter} from "events";
 import nunjucks from "nunjucks";
@@ -14,11 +15,11 @@ import path from "path";
 
 export const Storage = Object.create(EventEmitter.prototype);
 
-Storage.init = function (controller, svgDocument, presentation, selection, timeline, locale) {
+Storage.init = function (controller, presentation, selection, timeline, locale) {
     EventEmitter.call(this);
 
     this.controller = controller;
-    this.document = svgDocument;
+    this.document = null;
     this.presentation = presentation;
     this.selection = selection;
     this.timeline = timeline;
@@ -50,7 +51,7 @@ Storage.init = function (controller, svgDocument, presentation, selection, timel
     backendList.forEach(backend => {
         const listItem = document.createElement("li");
         document.querySelector("#sozi-editor-view-preview ul").appendChild(listItem);
-        
+
         const backendInstance = new backend(controller, listItem, this.gettext);
         backendInstance.addListener("load", (...a) => this.onBackendLoad(backendInstance, ...a));
         backendInstance.addListener("change", (...a) => this.onBackendChange(...a));
@@ -80,7 +81,7 @@ Storage.onBackendLoad = function (backend, fileDescriptor, data, err) {
     }
     else if (/\.svg$/.test(name)) {
         this.reloading = fileDescriptor === this.svgFileDescriptor;
-        this.document.initFromString(data);
+        this.document = SVGDocumentWrapper.fromString(data);
         if (this.document.isValidSVG) {
             this.resolveRelativeURLs(location);
             this.controller.setSVGDocument(this.document);

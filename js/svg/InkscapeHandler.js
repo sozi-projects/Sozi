@@ -10,44 +10,45 @@ import {registerHandler, DefaultHandler} from "./SVGDocumentWrapper";
 const INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
 const SODIPODI_NS = "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd";
 
-const InkscapeHandler = Object.create(DefaultHandler);
+export class InkscapeHandler extends DefaultHandler {
 
-InkscapeHandler.matches = function (svgRoot) {
-    return svgRoot.getAttribute("xmlns:inkscape") === INKSCAPE_NS;
-};
-
-InkscapeHandler.transform = function (svgRoot) {
-    let pageColor = "#ffffff";
-    let pageOpacity = "0";
-
-    // Get page color and opacity from Inkscape document properties
-    const namedViews = svgRoot.getElementsByTagNameNS(SODIPODI_NS, "namedview");
-    for (let i = 0; i < namedViews.length; i ++) {
-        if (namedViews[i].hasAttribute("pagecolor")) {
-            pageColor = namedViews[i].getAttribute("pagecolor");
-            if (namedViews[i].hasAttributeNS(INKSCAPE_NS, "pageopacity")) {
-                pageOpacity = namedViews[i].getAttributeNS(INKSCAPE_NS, "pageopacity");
-            }
-            break;
-        }
+    static matches(svgRoot) {
+        return svgRoot.getAttribute("xmlns:inkscape") === INKSCAPE_NS;
     }
 
-    // Extract RGB assuming page color is in 6-digit hex format
-    const [, red, green, blue] = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(pageColor);
+    static transform(svgRoot) {
+        let pageColor = "#ffffff";
+        let pageOpacity = "0";
 
-    const style = document.createElement("style");
-    style.innerHTML = `svg {
-        background: rgba(${parseInt(red, 16)}, ${parseInt(green, 16)}, ${parseInt(blue, 16)}, ${pageOpacity});
-    }`;
-    svgRoot.insertBefore(style, svgRoot.firstChild);
-};
+        // Get page color and opacity from Inkscape document properties
+        const namedViews = svgRoot.getElementsByTagNameNS(SODIPODI_NS, "namedview");
+        for (let i = 0; i < namedViews.length; i ++) {
+            if (namedViews[i].hasAttribute("pagecolor")) {
+                pageColor = namedViews[i].getAttribute("pagecolor");
+                if (namedViews[i].hasAttributeNS(INKSCAPE_NS, "pageopacity")) {
+                    pageOpacity = namedViews[i].getAttributeNS(INKSCAPE_NS, "pageopacity");
+                }
+                break;
+            }
+        }
 
-InkscapeHandler.isLayer = function (svgElement) {
-    return svgElement.getAttribute("inkscape:groupmode") === "layer";
-};
+        // Extract RGB assuming page color is in 6-digit hex format
+        const [, red, green, blue] = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(pageColor);
 
-InkscapeHandler.getLabel = function (svgElement) {
-    return svgElement.getAttribute("inkscape:label");
-};
+        const style = document.createElement("style");
+        style.innerHTML = `svg {
+            background: rgba(${parseInt(red, 16)}, ${parseInt(green, 16)}, ${parseInt(blue, 16)}, ${pageOpacity});
+        }`;
+        svgRoot.insertBefore(style, svgRoot.firstChild);
+    }
+
+    static isLayer(svgElement) {
+        return svgElement.getAttribute("inkscape:groupmode") === "layer";
+    }
+
+    static getLabel(svgElement) {
+        return svgElement.getAttribute("inkscape:label");
+    }
+}
 
 registerHandler("Inkscape", InkscapeHandler);

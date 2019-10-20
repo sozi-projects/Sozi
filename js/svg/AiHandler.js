@@ -7,41 +7,41 @@
 import {toArray} from "../utils";
 import {registerHandler, DefaultHandler} from "./SVGDocumentWrapper";
 
-const AiHandler = Object.create(DefaultHandler);
+export class AiHandler extends DefaultHandler {
 
-AiHandler.matches = function (svgRoot) {
-    return /^http:\/\/ns.adobe.com\/AdobeIllustrator/.test(svgRoot.getAttribute("xmlns:i")) &&
-           toArray(svgRoot.childNodes).some(svgNode => svgNode instanceof SVGSwitchElement);
-};
+    static matches(svgRoot) {
+        return /^http:\/\/ns.adobe.com\/AdobeIllustrator/.test(svgRoot.getAttribute("xmlns:i")) &&
+               toArray(svgRoot.childNodes).some(svgNode => svgNode instanceof SVGSwitchElement);
+    }
 
-AiHandler.transform = function (svgRoot) {
-    toArray(svgRoot.getElementsByTagName("switch")).forEach(svgSwitch => {
-        // Remove first foreignObject child node
-        const svgForeignObject = svgSwitch.firstElementChild;
-        if (svgForeignObject && svgForeignObject instanceof SVGForeignObjectElement &&
-            svgForeignObject.hasAttribute("requiredExtensions") &&
-            svgForeignObject.getAttribute("requiredExtensions").startsWith("http://ns.adobe.com/AdobeIllustrator")) {
-            // Remove foreign objet element
-            svgSwitch.removeChild(svgForeignObject);
+    static transform(svgRoot) {
+        toArray(svgRoot.getElementsByTagName("switch")).forEach(svgSwitch => {
+            // Remove first foreignObject child node
+            const svgForeignObject = svgSwitch.firstElementChild;
+            if (svgForeignObject && svgForeignObject instanceof SVGForeignObjectElement &&
+                svgForeignObject.hasAttribute("requiredExtensions") &&
+                svgForeignObject.getAttribute("requiredExtensions").startsWith("http://ns.adobe.com/AdobeIllustrator")) {
+                // Remove foreign objet element
+                svgSwitch.removeChild(svgForeignObject);
 
-            // Unwrap main group
-            let svgGroup = svgSwitch.firstElementChild;
-            if (!svgGroup || svgGroup instanceof SVGGElement || svgGroup.getAttribute("i:extraneous") !== "self") {
-                svgGroup = svgSwitch;
+                // Unwrap main group
+                let svgGroup = svgSwitch.firstElementChild;
+                if (!svgGroup || svgGroup instanceof SVGGElement || svgGroup.getAttribute("i:extraneous") !== "self") {
+                    svgGroup = svgSwitch;
+                }
+                toArray(svgGroup.childNodes).forEach(childNode => {
+                    svgSwitch.parentNode.insertBefore(childNode, svgSwitch);
+                });
+
+                // Remove switch element
+                svgSwitch.parentNode.removeChild(svgSwitch);
             }
-            toArray(svgGroup.childNodes).forEach(childNode => {
-                svgSwitch.parentNode.insertBefore(childNode, svgSwitch);
-            });
+        });
+    }
 
-            // Remove switch element
-            svgSwitch.parentNode.removeChild(svgSwitch);
-        }
-    });
-    return this;
-};
-
-AiHandler.isLayer = function (svgElement) {
-    return svgElement.getAttribute("i:layer") === "yes";
-};
+    static isLayer(svgElement) {
+        return svgElement.getAttribute("i:layer") === "yes";
+    }
+}
 
 registerHandler("Adobe Illustrator", AiHandler);

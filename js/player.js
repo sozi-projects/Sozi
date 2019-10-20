@@ -17,8 +17,7 @@ window.addEventListener("load", function () {
     const svgRoot = document.querySelector("svg");
     svgRoot.style.display = "inline";
 
-    SVGDocumentWrapper.init(svgRoot);
-    Presentation.init().setSVGDocument(SVGDocumentWrapper);
+    Presentation.init().setSVGDocument(new SVGDocumentWrapper(svgRoot));
     Viewport.init(Presentation, false).onLoad();
 
     Presentation.fromStorable(window.soziPresentationData);

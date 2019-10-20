@@ -4,6 +4,7 @@
 
 "use strict";
 
+import {AiHandler} from "./AiHandler";
 import {toArray} from "../utils";
 
 // Constant: the SVG namespace
@@ -19,44 +20,39 @@ export function registerHandler(name, handler) {
     handlers[name] = handler;
 }
 
-export const DefaultHandler = {
-    matches(svgRoot) {
+export class DefaultHandler {
+    static matches(svgRoot) {
         return true;
-    },
+    }
 
-    transform(svgRoot) {
-        return this;
-    },
+    static transform(svgRoot) {
+    }
 
-    isLayer(svgElement) {
+    static isLayer(svgElement) {
         return true;
-    },
+    }
 
-    getLabel(svgElement) {
+    static getLabel(svgElement) {
         return null;
     }
-};
+}
 
-export const SVGDocumentWrapper = {
-    asText: "",
-    root: undefined,
-    handler: DefaultHandler,
-
-    init(svgRoot) {
-        this.root = svgRoot;
+export class SVGDocumentWrapper {
+    constructor(svgRoot) {
+        this.asText  = "";
+        this.handler = DefaultHandler;
+        this.root    = svgRoot;
 
         // Prevent event propagation on hyperlinks
         const links = toArray(this.root.getElementsByTagName("a"));
         links.forEach(link => {
             link.addEventListener("mousedown", evt => evt.stopPropagation(), false);
         });
-
-        return this;
-    },
+    }
 
     get isValidSVG() {
         return this.root instanceof SVGSVGElement;
-    },
+    }
 
     /*
      * The given node is a valid layer if it has the following characteristics:
@@ -68,38 +64,37 @@ export const SVGDocumentWrapper = {
         return svgNode instanceof SVGGElement &&
             svgNode.hasAttribute("id") &&
             this.handler.isLayer(svgNode);
-    },
+    }
 
-    initFromString(data) {
-        this.root = new DOMParser().parseFromString(data, "image/svg+xml").documentElement;
+    static fromString(data) {
+        const svgRoot = new DOMParser().parseFromString(data, "image/svg+xml").documentElement;
+        const doc = new SVGDocumentWrapper(svgRoot);
 
-        this.handler = DefaultHandler;
         for (let name in handlers) {
-            if (handlers[name].matches(this.root)) {
+            if (handlers[name].matches(svgRoot)) {
                 console.log(`Using handler: ${name}`);
-                this.handler = handlers[name];
+                doc.handler = handlers[name];
                 break;
             }
         }
 
         // Check that the root is an SVG element
-        if (this.isValidSVG) {
+        if (doc.isValidSVG) {
             // Apply handler-specific transformations
-            this.handler.transform(this.root);
+            doc.handler.transform(svgRoot);
 
             // Remove attributes that prevent correct rendering
-            this.removeViewbox();
+            doc.removeViewbox();
 
             // Remove any existing script inside the SVG DOM tree
-            this.removeScripts();
+            doc.removeScripts();
 
             // Disable hyperlinks
-            this.disableHyperlinks();
+            doc.disableHyperlinks();
 
             // Fix <switch> elements from Adobe Illustrator
-            const aiHandler = handlers["Adobe Illustrator"];
-            if (aiHandler && this.handler !== aiHandler) {
-                aiHandler.transform(this.root);
+            if (doc.handler !== AiHandler) {
+                AiHandler.transform(svgRoot);
             }
 
             // Wrap isolated elements into groups
@@ -107,23 +102,23 @@ export const SVGDocumentWrapper = {
 
             // Get all child nodes of the SVG root.
             // Make a copy of root.childNodes before modifying the document.
-            toArray(this.root.childNodes).forEach(svgNode => {
+            toArray(svgRoot.childNodes).forEach(svgNode => {
                 // Remove text nodes and comments
                 if (svgNode.tagName === undefined) {
-                    this.root.removeChild(svgNode);
+                    svgRoot.removeChild(svgNode);
                 }
                 // Reorganize drawable SVG elements into top-level groups
                 else if (DRAWABLE_TAGS.indexOf(svgNode.localName) >= 0) {
                     // If the current node is not a layer,
                     // add it to the current wrapper.
-                    if (!this.isLayer(svgNode)) {
+                    if (!doc.isLayer(svgNode)) {
                         svgWrapper.appendChild(svgNode);
                     }
                     // If the current node is a layer and the current
                     // wrapper contains elements, insert the wrapper
                     // into the document and create a new empty wrapper.
                     else if (svgWrapper.firstChild) {
-                        this.root.insertBefore(svgWrapper, svgNode);
+                        svgRoot.insertBefore(svgWrapper, svgNode);
                         svgWrapper = document.createElementNS(SVG_NS, "g");
                     }
                 }
@@ -132,26 +127,26 @@ export const SVGDocumentWrapper = {
             // If the current wrapper layer contains elements,
             // add it to the document.
             if (svgWrapper.firstChild) {
-                this.root.appendChild(svgWrapper);
+                svgRoot.appendChild(svgWrapper);
             }
         }
 
-        this.asText = new XMLSerializer().serializeToString(this.root);
+        doc.asText = new XMLSerializer().serializeToString(svgRoot);
 
-        return this;
-    },
+        return doc;
+    }
 
     removeViewbox() {
         this.root.removeAttribute("viewBox");
         this.root.style.width = this.root.style.height = "100%";
-    },
+    }
 
     removeScripts() {
         const scripts = toArray(this.root.getElementsByTagName("script"));
         scripts.forEach(script => {
             script.parentNode.removeChild(script);
         });
-    },
+    }
 
     disableHyperlinks() {
         const links = toArray(this.root.getElementsByTagName("a"));
@@ -159,4 +154,4 @@ export const SVGDocumentWrapper = {
             link.addEventListener("click", evt => evt.preventDefault(), false);
         });
     }
-};
+}
