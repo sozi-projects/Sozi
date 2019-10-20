@@ -1,34 +1,34 @@
 module.exports = function(grunt) {
     "use strict";
 
-    var path = require("path");
-    var fs = require("fs");
-    var execSync = require("child_process").execSync;
-    var envify = require("envify/custom");
+    const path = require("path");
+    const fs = require("fs");
+    const execSync = require("child_process").execSync;
+    const envify = require("envify/custom");
 
-    var nunjucks = require("nunjucks");
+    const nunjucks = require("nunjucks");
     nunjucks.configure({watch: false});
 
     require("load-grunt-tasks")(grunt);
 
-    var pkg = grunt.file.readJSON("package.json");
+    const pkg = grunt.file.readJSON("package.json");
 
     // Get version number from last commit date.
     // Format: YY.MM.T (year.month.timestamp).
-    var rev = execSync("git show -s --format='%cI %ct'").toString().trim().split(" ");
+    const rev = execSync("git show -s --format='%cI %ct'").toString().trim().split(" ");
     pkg.version = rev[0].slice(2, 4) + "." + rev[0].slice(5, 7) + "." + rev[0].slice(8, 10) + "-" + rev[1];
 
-    var buildConfig = grunt.file.readJSON("config.default.json");
-    var buildConfigJson = grunt.option("config");
+    const buildConfig = grunt.file.readJSON("config.default.json");
+    const buildConfigJson = grunt.option("config");
 
     if (buildConfigJson) {
         try {
-            var customBuildConfig = grunt.file.readJSON(buildConfigJson);
+            const customBuildConfig = grunt.file.readJSON(buildConfigJson);
 
             grunt.verbose.writeln("Using configuration from " + buildConfigJson);
 
             // Overwrite default config
-            for (var key in customBuildConfig) {
+            for (let key in customBuildConfig) {
                 buildConfig[key] = customBuildConfig[key];
             }
         }
@@ -39,9 +39,7 @@ module.exports = function(grunt) {
 
     // Remove duplicates from an array.
     function dedup(arr) {
-        return arr.filter(function (x, pos) {
-            return arr.indexOf(x) === pos;
-        });
+        return Array.from(new Set(arr));
     }
 
     // Get the OS part from a platform identifier.
@@ -152,7 +150,9 @@ module.exports = function(grunt) {
                     browserifyOptions: {
                         basedir: "build/browser"
                     },
-                    configure: b => b.transform({global: true}, envify({NODE_ENV: "production"}))
+                    configure(b) {
+                        b.transform({global: true}, envify({NODE_ENV: "production"}));
+                    }
                 },
                 src: ["build/browser/js/editor.js"],
                 dest: "build/tmp/js/editor.archive.js"
@@ -315,7 +315,7 @@ module.exports = function(grunt) {
 
         newer: {
             options: {
-                override: function (details, include) {
+                override(details, include) {
                     if (details.task === "nunjucks_render") {
                         include(fs.statSync(`build/tmp/js/${details.target}.min.js`).mtime > details.time);
                     }
@@ -331,29 +331,29 @@ module.exports = function(grunt) {
      * Generate installable archives for each platform.
      */
 
-    var debianArchs = {
+    const debianArchs = {
         ia32: "i386",
         x64: "amd64"
     };
 
-    var renamedOS = {
+    const renamedOS = {
         darwin: "osx",
         win32: "windows"
     };
 
-    buildConfig.platforms.forEach(function (platform) {
+    for (let platform of buildConfig.platforms) {
         // The folder for the current platform.
-        var distDir = "dist/Sozi-" + platform;
+        const distDir = "dist/Sozi-" + platform;
         // Get the components of the platform.
-        var platformOS   = getPlatformOS(platform);
+        let platformOS   = getPlatformOS(platform);
         if (platformOS in renamedOS) {
             platformOS = renamedOS[platformOS];
         }
-        var platformArch = getPlatformArch(platform);
+        const platformArch = getPlatformArch(platform);
         // The name of the target folder for the current platform in dist/.
-        var archiveName = "Sozi-" + pkg.version + "-" + platformOS + "-" + platformArch;
+        const archiveName = "Sozi-" + pkg.version + "-" + platformOS + "-" + platformArch;
         // The renamed folder for the current platform.
-        var archiveDir = "dist/" + archiveName;
+        const archiveDir = "dist/" + archiveName;
 
         // Copy the installation assets for the target OS.
         grunt.config(["copy", platform], {
@@ -386,7 +386,7 @@ module.exports = function(grunt) {
         });
 
         // Build zip files for Windows, tgz for other platforms.
-        var archiveFormat = platformOS.startsWith("win") ? "zip" : "tar.xz";
+        const archiveFormat = platformOS.startsWith("win") ? "zip" : "tar.xz";
 
         grunt.config(["compress", platform], {
             options: {
@@ -405,16 +405,15 @@ module.exports = function(grunt) {
                 date: new Date().toUTCString().slice(0, -3) + "+0000"
             });
         }
-    });
+    }
 
-    grunt.registerTask("copy-installation-assets", buildConfig.platforms.reduce(function (prev, platform) {
-        var installationTask = buildConfig.installable.indexOf(getPlatformOS(platform)) >= 0 ? ["copy:" + platform] : [];
-        return prev.concat(installationTask);
-    }, []));
+    grunt.registerTask("copy-installation-assets", buildConfig.platforms.flatMap(platform => {
+        return buildConfig.installable.indexOf(getPlatformOS(platform)) >= 0 ? ["copy:" + platform] : [];
+    }));
 
-    grunt.registerTask("rename-platforms", buildConfig.platforms.reduce(function (prev, platform) {
-        return prev.concat(["clean:" + platform, "rename:" + platform]);
-    }, []));
+    grunt.registerTask("rename-platforms", buildConfig.platforms.flatMap(platform => {
+        return ["clean:" + platform, "rename:" + platform];
+    }));
 
     grunt.registerMultiTask("compress", function () {
         const dest = this.options().archive;
@@ -430,9 +429,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask("compress-platforms", buildConfig.platforms.reduce(function (prev, platform) {
-        return prev.concat(["compress:" + platform]);
-    }, []));
+    grunt.registerTask("compress-platforms", buildConfig.platforms.map(platform => "compress:" + platform));
 
     grunt.registerTask("write_package_json", function () {
         grunt.file.write("build/electron/package.json", JSON.stringify(pkg));
@@ -440,14 +437,14 @@ module.exports = function(grunt) {
     });
 
     grunt.registerMultiTask("nunjucks_render", function () {
-        this.files.forEach(function (file) {
+        for (let file of this.files) {
             grunt.file.write(file.dest, nunjucks.render(file.src[0], this.data.context));
             grunt.log.writeln("File " + file.dest + " created.");
-        }, this);
+        }
     });
 
     grunt.registerMultiTask("debian_package", function () {
-        var workDir = "dist/packaging-" + this.data.platform;
+        const workDir = "dist/packaging-" + this.data.platform;
         grunt.file.write(workDir + "/Makefile",  nunjucks.render("debian/Makefile", this.data));
         grunt.file.write(workDir + "/debian/changelog", nunjucks.render("debian/changelog", this.data));
         grunt.file.write(workDir + "/debian/compat", nunjucks.render("debian/compat", this.data));
