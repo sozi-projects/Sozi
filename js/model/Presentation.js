@@ -455,18 +455,18 @@ export class Presentation {
     }
 
     getFrameWithId(frameId) {
-        for (let i = 0; i < this.frames.length; i ++) {
-            if (this.frames[i].frameId === frameId) {
-                return this.frames[i];
+        for (let frame of this.frames) {
+            if (frame.frameId === frameId) {
+                return frame;
             }
         }
         return null;
     }
 
     getLayerWithId(groupId) {
-        for (let i = 0; i < this.layers.length; i ++) {
-            if (this.layers[i].groupId === groupId) {
-                return this.layers[i];
+        for (let layer of this.layers) {
+            if (layer.groupId === groupId) {
+                return layer;
             }
         }
         return null;
