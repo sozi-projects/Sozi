@@ -61,7 +61,7 @@ function importAttributeNS(obj, propName, elts, nsUri, attrName, fn) {
     }
 }
 
-export function upgradeFromSVG(pres, timeline) {
+export function upgradeFromSVG(pres, controller) {
     // In the inlined SVG, DOM accessors fail to get elements with explicit XML namespaces.
     // getElementsByTagNameNS, getAttributeNS do not work for elements with the Sozi namespace.
     // We need to use an explicit namespace prefix ("ns:attr") and use method
@@ -117,7 +117,7 @@ export function upgradeFromSVG(pres, timeline) {
                     layerElt = layerEltsByGroupId[groupId];
                     if (defaultLayerIndex >= 0) {
                         defaultLayers.splice(defaultLayerIndex, 1);
-                        timeline.editableLayers.push(layer);
+                        controller.editableLayers.push(layer);
                     }
                 }
             }

@@ -12,25 +12,46 @@ export const Controller = Object.create(EventEmitter.prototype);
 
 const UNDO_STACK_LIMIT = 100;
 
-Controller.init = function (storage, preferences, presentation, selection, timeline, viewport, player, locale) {
+Controller.init = function (storage, preferences, presentation, selection, viewport, player, locale) {
     EventEmitter.call(this);
 
-    this.storage = storage;
-    this.preferences = preferences;
-    this.presentation = presentation;
-    this.selection = selection;
-    this.timeline = timeline;
-    this.viewport = viewport;
-    this.player = player;
-    this.gettext = s => locale.gettext(s);
+    this.storage        = storage;
+    this.preferences    = preferences;
+    this.presentation   = presentation;
+    this.selection      = selection;
+    this.viewport       = viewport;
+    this.player         = player;
+    this.gettext        = s => locale.gettext(s);
+    this.editableLayers = [];
+    this.defaultLayers  = [];
 
-    this.undoStack = [];
-    this.redoStack = [];
+    this.undoStack      = [];
+    this.redoStack      = [];
 
     this.addListener("repaint", () => this.onRepaint());
 
     return this;
 };
+
+Controller.toStorable = function () {
+    return {
+        editableLayers: this.editableLayers.map(layer => layer.groupId)
+    };
+}
+
+Controller.fromStorable = function (storable) {
+    this.editableLayers = [];
+
+    if (storable.hasOwnProperty("editableLayers")) {
+        storable.editableLayers.forEach(groupId => {
+            const layer = this.presentation.getLayerWithId(groupId);
+            if (layer && this.editableLayers.indexOf(layer) < 0) {
+                this.editableLayers.push(layer);
+            }
+        });
+    }
+    return this;
+}
 
 Controller.info = function (body, force=false) {
     if (this.preferences.enableNotifications || force) {
@@ -68,6 +89,14 @@ Controller.onLoad = function () {
         this.player.jumpToFrame(this.selection.currentFrame);
     }
     this.updateCameraSelection();
+
+    this.defaultLayers = [];
+
+    this.presentation.layers.forEach(layer => {
+        if (this.editableLayers.indexOf(layer) < 0) {
+            this.defaultLayers.push(layer);
+        }
+    });
 
     this.emit("ready");
 
@@ -238,6 +267,99 @@ Controller.updateCameraSelection = function () {
         camera.selected = this.selection.hasLayers([camera.layer]);
     });
 };
+
+Controller.addLayer = function (layerIndex) {
+    const layer = this.presentation.layers[layerIndex];
+    if (this.editableLayers.indexOf(layer) < 0) {
+        this.editableLayers.push(layer);
+    }
+
+    const layerIndexInDefaults = this.defaultLayers.indexOf(layer);
+    if (layerIndexInDefaults >= 0) {
+        this.defaultLayers.splice(layerIndexInDefaults, 1);
+    }
+
+    this.addLayerToSelection(layer);
+
+    // Force a repaint even if the controller
+    // did not modify the selection
+    this.emit("editorStateChange");
+    this.emit("repaint");
+};
+
+Controller.addAllLayers = function () {
+    this.defaultLayers.slice().forEach(layer => {
+        if (layer.auto) {
+            return;
+        }
+
+        this.editableLayers.push(layer);
+
+        const layerIndexInDefaults = this.defaultLayers.indexOf(layer);
+        this.defaultLayers.splice(layerIndexInDefaults, 1);
+
+        this.addLayerToSelection(layer);
+    });
+
+    // Force a repaint even if the controller
+    // did not modify the selection
+    this.emit("editorStateChange");
+    this.emit("repaint");
+};
+
+Controller.removeLayer = function (layerIndex) {
+    const layer = this.presentation.layers[layerIndex];
+
+    const layerIndexInEditable = this.editableLayers.indexOf(layer);
+    this.editableLayers.splice(layerIndexInEditable, 1);
+
+    if (this.defaultLayersAreSelected) {
+        this.addLayerToSelection(layer);
+    }
+    else if (this.selection.selectedLayers.length > 1) {
+        this.removeLayerFromSelection(layer);
+    }
+    else {
+        this.selectLayers(this.defaultLayers);
+    }
+
+    this.defaultLayers.push(layer);
+
+    // Force a repaint even if the controller
+    // did not modify the selection
+    this.emit("editorStateChange");
+    this.emit("repaint");
+};
+
+Controller.getLayersAtIndex = function (layerIndex) {
+    return layerIndex >= 0 ?
+        [this.presentation.layers[layerIndex]] :
+        this.defaultLayers;
+};
+
+Object.defineProperty(Controller, "defaultLayersAreSelected", {
+    get() {
+        return this.defaultLayers.every(layer => this.selection.selectedLayers.indexOf(layer) >= 0);
+    }
+});
+
+Object.defineProperty(Controller, "hasDefaultLayer", {
+    get() {
+        return this.defaultLayers.length > 1 ||
+               this.defaultLayers.length > 0 && this.defaultLayers[0].svgNodes.length;
+    }
+});
+
+Object.defineProperty(Controller, "refLayerInDefault", {
+    get() {
+        for (let i = 0; i < this.defaultLayers.length; i ++) {
+            if (this.defaultLayers[i].svgNodes.length) {
+                return this.defaultLayers[i];
+            }
+        }
+        return this.defaultLayers[0];
+    }
+});
 
 Controller.selectLayers = function (layers) {
     this.selection.selectedLayers = layers.slice();
@@ -507,7 +629,7 @@ Controller.copyLayer = function (groupId) {
         )
     );
 
-    const layerToCopy = groupId == "__default__" ? this.timeline.refLayerInDefault : this.presentation.getLayerWithId(groupId);
+    const layerToCopy = groupId == "__default__" ? this.refLayerInDefault : this.presentation.getLayerWithId(groupId);
     if (!layerToCopy) {
         return;
     }

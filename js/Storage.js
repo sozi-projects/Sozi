@@ -15,14 +15,13 @@ import path from "path";
 
 export const Storage = Object.create(EventEmitter.prototype);
 
-Storage.init = function (controller, presentation, selection, timeline, locale) {
+Storage.init = function (controller, presentation, selection, locale) {
     EventEmitter.call(this);
 
     this.controller = controller;
     this.document = null;
     this.presentation = presentation;
     this.selection = selection;
-    this.timeline = timeline;
     this.backend = backendList[0];
     this.svgFileDescriptor = null;
     this.jsonNeedsSaving = false;
@@ -177,7 +176,7 @@ Storage.openJSONFile = function (name, location) {
             // presentation data from the SVG document, assuming
             // it has been generated from Sozi 13 or earlier.
             // Then save the extracted data to a JSON file.
-            upgradeFromSVG(this.presentation, this.timeline);
+            upgradeFromSVG(this.presentation, this.controller);
 
             // Select the first frame
             if (this.presentation.frames.length) {
@@ -232,7 +231,7 @@ Storage.loadJSONData = function (data) {
     const storable = JSON.parse(data);
     upgradeFromStorable(storable);
     this.presentation.fromStorable(storable);
-    this.timeline.fromStorable(storable);
+    this.controller.fromStorable(storable);
     this.selection.fromStorable(storable);
     this.controller.onLoad();
 };
@@ -286,7 +285,7 @@ Storage.autosaveHTML = function (fileDescriptor) {
  */
 Storage.getJSONData = function () {
     const storable = {};
-    [this.presentation, this.selection, this.timeline].forEach(object => {
+    [this.presentation, this.selection, this.controller].forEach(object => {
         const partial = object.toStorable();
         for (let key in partial) {
             storable[key] = partial[key];

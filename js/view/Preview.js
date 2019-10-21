@@ -6,9 +6,9 @@
 
 const PREVIEW_MARGIN = 15;
 
-export const Preview = {
+export class Preview {
 
-    init(container, presentation, selection, viewport, controller) {
+    constructor(container, presentation, selection, viewport, controller) {
         this.container = container;
         this.presentation = presentation;
         this.selection = selection;
@@ -21,9 +21,7 @@ export const Preview = {
         viewport.addListener("click", (btn, evt) => this.onClick(btn, evt));
         viewport.addListener("userChangeState", () => controller.updateCameraStates());
         controller.addListener("repaint", () => this.repaint());
-
-        return this;
-    },
+    }
 
     onLoad() {
         // Set the window title to the presentation title
@@ -39,7 +37,7 @@ export const Preview = {
 
         this.container.addEventListener("mouseenter", () => this.onMouseEnter(), false);
         this.container.addEventListener("mouseleave", () => this.onMouseLeave(), false);
-    },
+    }
 
     repaint() {
         // this.container is assumed to have padding: 0
@@ -64,7 +62,7 @@ export const Preview = {
         if (this.viewport.ready) {
             this.viewport.repaint();
         }
-    },
+    }
 
     onClick(button, evt) {
         if (button === 0 && evt.altKey) {
@@ -73,7 +71,7 @@ export const Preview = {
                 this.controller.setOutlineElement(outlineElement);
             }
         }
-    },
+    }
 
     /*
      * When the mouse enters the preview area,
@@ -88,7 +86,7 @@ export const Preview = {
         });
         this.viewport.showHiddenElements = true;
         this.viewport.repaint();
-    },
+    }
 
     /*
      * When the mouse leaves the preview area,
@@ -104,4 +102,4 @@ export const Preview = {
         this.viewport.showHiddenElements = false;
         this.viewport.repaint();
     }
-};
+}

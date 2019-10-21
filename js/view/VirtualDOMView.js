@@ -7,9 +7,9 @@
 import {render} from "inferno";
 import {h} from "inferno-hyperscript";
 
-export const VirtualDOMView = {
+export class VirtualDOMView {
 
-    init(container, controller) {
+    constructor(container, controller) {
         this.container = container;
         this.controller = controller;
         this.state = {};
@@ -21,9 +21,7 @@ export const VirtualDOMView = {
         while (container.firstChild) {
             container.removeChild(container.firstChild);
         }
-
-        return this;
-    },
+    }
 
     repaint() {
         render(this.render(), this.container, () => {
@@ -34,9 +32,9 @@ export const VirtualDOMView = {
                 }
             });
         });
-    },
+    }
 
     render() {
         return h("div");
     }
-};
+}
