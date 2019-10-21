@@ -82,8 +82,6 @@ export class Camera extends CameraState {
             svgClippedGroup.appendChild(svgGroup);
             return svgGroup;
         });
-
-        return this;
     }
 
     revealClipping() {
@@ -105,14 +103,14 @@ export class Camera extends CameraState {
     rotate(angle) {
         this.restoreAspectRatio();
         this.angle += angle;
-        return this.update();
+        this.update();
     }
 
     zoom(factor, x, y) {
         this.width /= factor;
         this.height /= factor;
         this.restoreAspectRatio();
-        return this.translate(
+        this.translate(
             (1 - factor) * (x - this.viewport.width  / 2),
             (1 - factor) * (y - this.viewport.height / 2)
         );
@@ -126,7 +124,7 @@ export class Camera extends CameraState {
         this.cx -= (deltaX * co - deltaY * si) / scale;
         this.cy -= (deltaX * si + deltaY * co) / scale;
         this.restoreAspectRatio();
-        return this.update();
+        this.update();
     }
 
     clip(x0, y0, x1, y1) {
@@ -138,7 +136,7 @@ export class Camera extends CameraState {
         this.clipYOffset = (Math.min(y0, y1) - (this.viewport.height - clipHeight) / 2) * this.height / clipHeight;
         this.clipWidthFactor  = clipWidth  / this.width  / scale;
         this.clipHeightFactor = clipHeight / this.height / scale;
-        return this.update();
+        this.update();
     }
 
     restoreAspectRatio() {
@@ -265,8 +263,6 @@ export class Camera extends CameraState {
             );
             svgGroup.setAttribute("opacity", this.opacity);
         });
-
-        return this;
     }
 
     interpolate(initialState, finalState, progress, timingFunction, relativeZoom, svgPath, reversePath) {

@@ -48,7 +48,6 @@ export class Controller extends EventEmitter {
                 }
             });
         }
-        return this;
     }
 
     info(body, force=false) {

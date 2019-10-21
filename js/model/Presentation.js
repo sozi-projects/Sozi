@@ -40,7 +40,6 @@ export class LayerProperties {
         this.transitionTimingFunction = other.transitionTimingFunction;
         this.transitionRelativeZoom   = other.transitionRelativeZoom;
         this.transitionPathId         = other.transitionPathId;
-        return this;
     }
 
     toStorable() {
@@ -71,7 +70,6 @@ export class LayerProperties {
         copyIfSet(this, storable, "transitionTimingFunction");
         copyIfSet(this, storable, "transitionRelativeZoom");
         copyIfSet(this, storable, "transitionPathId");
-        return this;
     }
 
     get index() {
@@ -167,7 +165,6 @@ export class Frame {
         this.showFrameNumber      = other.showFrameNumber;
         this.layerProperties      = other.layerProperties.map(lp => new LayerProperties(lp));
         this.cameraStates         = other.cameraStates.map(cs => new CameraState(cs));
-        return this;
     }
 
     toStorable() {
@@ -252,7 +249,9 @@ export class Frame {
                 const lp = this.layerProperties[index];
                 lp.fromStorable(storable.layerProperties[key]);
 
-                const cs = this.cameraStates[index].fromStorable(storable.cameraStates[key]);
+                const cs = this.cameraStates[index]
+                cs.fromStorable(storable.cameraStates[key]);
+
                 const re = lp.referenceElement;
                 if (re) {
                     const ofs = storable.cameraOffsets[key] || {};
@@ -264,8 +263,6 @@ export class Frame {
                 }
             }
         });
-
-        return this;
     }
 
     get index() {
@@ -430,13 +427,15 @@ export class Presentation {
         copyIfSet(this, storable, "enableMouseNavigation");
         copyIfSet(this, storable, "updateURLOnFrameChange");
 
-        this.frames = storable.frames.map(f => new Frame(this).fromStorable(f));
+        this.frames = storable.frames.map(f => {
+            const res = new Frame(this);
+            res.fromStorable(f);
+            return res;
+        });
 
         if (storable.elementsToHide) {
             this.elementsToHide = storable.elementsToHide.slice();
         }
-
-        return this;
     }
 
     get title() {

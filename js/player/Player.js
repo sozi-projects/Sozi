@@ -232,7 +232,6 @@ export class Player extends EventEmitter {
         this.viewport.setAtStates(this.currentFrame.cameraStates);
         this.viewport.update();
         this.emit("frameChange");
-        return this;
     }
 
     /*
@@ -250,7 +249,6 @@ export class Player extends EventEmitter {
         this.targetFrame = this.currentFrame = this.findFrame(frame);
         this.showCurrentFrame();
         this.waitTimeout();
-        return this;
     }
 
     /*
@@ -272,7 +270,6 @@ export class Player extends EventEmitter {
             this.emit("stateChange");
         }
         this.targetFrame = this.currentFrame;
-        return this;
     }
 
     /*
@@ -280,7 +277,6 @@ export class Player extends EventEmitter {
      */
     resume() {
         this.playFromFrame(this.currentFrame);
-        return this;
     }
 
     /*
@@ -301,7 +297,6 @@ export class Player extends EventEmitter {
                 this.currentFrame.timeoutMs
             );
         }
-        return this;
     }
 
     /*
@@ -320,35 +315,34 @@ export class Player extends EventEmitter {
 
         this.targetFrame = this.currentFrame = this.findFrame(frame);
         this.showCurrentFrame();
-        return this;
     }
 
     /*
      * Jumps to the first frame of the presentation.
      */
     jumpToFirst() {
-        return this.jumpToFrame(0);
+        this.jumpToFrame(0);
     }
 
     /*
      * Jump to the last frame of the presentation.
      */
     jumpToLast() {
-        return this.jumpToFrame(this.presentation.frames.length - 1);
+        this.jumpToFrame(this.presentation.frames.length - 1);
     }
 
     /*
      * Jumps to the previous frame.
      */
     jumpToPrevious() {
-        return this.jumpToFrame(this.previousFrame);
+        this.jumpToFrame(this.previousFrame);
     }
 
     /*
      * Jumps to the next frame.
      */
     jumpToNext() {
-        return this.jumpToFrame(this.nextFrame);
+        this.jumpToFrame(this.nextFrame);
     }
 
     /*
@@ -416,22 +410,20 @@ export class Player extends EventEmitter {
         });
 
         this.animator.start(durationMs);
-
-        return this;
     }
 
     /*
      * Move to the first frame of the presentation.
      */
     moveToFirst() {
-        return this.moveToFrame(0);
+        this.moveToFrame(0);
     }
 
     /*
      * Move to the last frame of the presentation.
      */
     moveToLast() {
-        return this.moveToFrame(this.presentation.frames.length - 1);
+        this.moveToFrame(this.presentation.frames.length - 1);
     }
 
     /*
@@ -447,14 +439,13 @@ export class Player extends EventEmitter {
                 break;
             }
         }
-        return this;
     }
 
     /*
      * Move to the next frame.
      */
     moveToNext() {
-        return this.moveToFrame(this.nextFrame);
+        this.moveToFrame(this.nextFrame);
     }
 
     /*
@@ -464,7 +455,7 @@ export class Player extends EventEmitter {
      * e.g. after the viewport has been zoomed or dragged.
      */
     moveToCurrent() {
-        return this.moveToFrame(this.currentFrame);
+        this.moveToFrame(this.currentFrame);
     }
 
     /*
@@ -482,7 +473,6 @@ export class Player extends EventEmitter {
         });
 
         this.animator.start(DEFAULT_TRANSITION_DURATION_MS);
-        return this;
     }
 
     setupTransition(camera, timingFunction, relativeZoom, svgPath, reverse) {
@@ -499,8 +489,6 @@ export class Player extends EventEmitter {
             svgPath,
             reverse
         });
-
-        return this;
     }
 
     onAnimatorStep(progress) {

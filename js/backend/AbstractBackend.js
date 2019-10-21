@@ -33,7 +33,6 @@ export class AbstractBackend extends EventEmitter {
 
     openFileChooser() {
         // Not implemented
-        return this;
     }
 
     /*

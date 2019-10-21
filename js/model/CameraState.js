@@ -45,7 +45,6 @@ export class CameraState {
         this.clipYOffset      = state.clipYOffset;
         this.clipWidthFactor  = state.clipWidthFactor;
         this.clipHeightFactor = state.clipHeightFactor;
-        return this;
     }
 
     set width(w) {
@@ -115,7 +114,6 @@ export class CameraState {
         copyIfSet(this, storable, "clipYOffset");
         copyIfSet(this, storable, "clipWidthFactor");
         copyIfSet(this, storable, "clipHeightFactor");
-        return this;
     }
 
     /*

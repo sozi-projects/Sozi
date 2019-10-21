@@ -77,8 +77,6 @@ export class Viewport extends EventEmitter {
         this.svgRoot.addEventListener(wheelEvent, evt => this.onWheel(evt), false);
 
         this.cameras = this.presentation.layers.map(layer => new Camera(this, layer));
-
-        return this;
     }
 
     get ready() {
@@ -509,15 +507,12 @@ export class Viewport extends EventEmitter {
                 elt.style.visibility = this.showHiddenElements ? "visible" : "hidden";
             }
         });
-
-        return this;
     }
 
     update() {
         this.cameras.forEach(camera => {
             camera.update();
         });
-        return this;
     }
 
     /*
@@ -550,7 +545,6 @@ export class Viewport extends EventEmitter {
                 camera.translate(deltaX, deltaY);
             }
         });
-        return this;
     }
 
     /*
@@ -573,7 +567,6 @@ export class Viewport extends EventEmitter {
                 camera.zoom(factor, x, y);
             }
         });
-        return this;
     }
 
     /*
@@ -595,14 +588,12 @@ export class Viewport extends EventEmitter {
                 camera.rotate(angle);
             }
         });
-        return this;
     }
 
     clip(x0, y0, x1, y1) {
         this.clipMode.cameras.forEach(camera => {
             camera.clip(x0, y0, x1, y1);
         });
-        return this;
     }
 
     clipRel(w, n, e, s) {
@@ -615,6 +606,5 @@ export class Viewport extends EventEmitter {
                             rect.y + rect.height + s - 1);
             }
         });
-        return this;
     }
 }
