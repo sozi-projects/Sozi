@@ -5,9 +5,9 @@
 "use strict";
 
 import {toArray} from "../utils";
-import {registerHandler, DefaultHandler} from "./SVGDocumentWrapper";
+import {addSVGHandler, DefaultSVGHandler} from "./SVGDocumentWrapper";
 
-export class AiHandler extends DefaultHandler {
+export class AiHandler extends DefaultSVGHandler {
 
     static matches(svgRoot) {
         return /^http:\/\/ns.adobe.com\/AdobeIllustrator/.test(svgRoot.getAttribute("xmlns:i")) &&
@@ -44,4 +44,4 @@ export class AiHandler extends DefaultHandler {
     }
 }
 
-registerHandler("Adobe Illustrator", AiHandler);
+addSVGHandler("Adobe Illustrator", AiHandler);

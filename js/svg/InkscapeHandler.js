@@ -4,13 +4,13 @@
 
 "use strict";
 
-import {registerHandler, DefaultHandler} from "./SVGDocumentWrapper";
+import {addSVGHandler, DefaultSVGHandler} from "./SVGDocumentWrapper";
 
 // Constant: the Inkscape namespace
 const INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
 const SODIPODI_NS = "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd";
 
-export class InkscapeHandler extends DefaultHandler {
+export class InkscapeHandler extends DefaultSVGHandler {
 
     static matches(svgRoot) {
         return svgRoot.getAttribute("xmlns:inkscape") === INKSCAPE_NS;
@@ -51,4 +51,4 @@ export class InkscapeHandler extends DefaultHandler {
     }
 }
 
-registerHandler("Inkscape", InkscapeHandler);
+addSVGHandler("Inkscape", InkscapeHandler);

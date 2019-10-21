@@ -15,11 +15,11 @@ const DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
 
 const handlers = {};
 
-export function registerHandler(name, handler) {
+export function addSVGHandler(name, handler) {
     handlers[name] = handler;
 }
 
-export class DefaultHandler {
+export class DefaultSVGHandler {
     static matches(svgRoot) {
         return true;
     }
@@ -39,7 +39,7 @@ export class DefaultHandler {
 export class SVGDocumentWrapper {
     constructor(svgRoot) {
         this.asText  = "";
-        this.handler = DefaultHandler;
+        this.handler = DefaultSVGHandler;
         this.root    = svgRoot;
 
         // Prevent event propagation on hyperlinks
