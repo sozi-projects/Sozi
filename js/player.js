@@ -17,40 +17,43 @@ window.addEventListener("load", function () {
     const svgRoot = document.querySelector("svg");
     svgRoot.style.display = "inline";
 
-    Presentation.init().setSVGDocument(new SVGDocumentWrapper(svgRoot));
-    Viewport.init(Presentation, false).onLoad();
+    const presentation = new Presentation();
+    presentation.setSVGDocument(new SVGDocumentWrapper(svgRoot));
 
-    Presentation.fromStorable(window.soziPresentationData);
-    Player.init(Viewport, Presentation);
+    const viewport = new Viewport(presentation, false);
+    viewport.onLoad();
 
-    Media.init(Player);
-    FrameList.init(Player);
-    FrameNumber.init(Player);
-    FrameURL.init(Player);
+    presentation.fromStorable(window.soziPresentationData);
+    const player = new Player(viewport, presentation);
+
+    Media.init(player);
+    FrameList.init(player);
+    FrameNumber.init(player);
+    FrameURL.init(player);
 
     window.sozi = {
-        presentation: Presentation,
-        viewport: Viewport,
-        player: Player
+        presentation,
+        viewport,
+        player
     };
 
-    Player.addListener("stateChange", () => {
-        if (Player.playing) {
-            document.title = Presentation.title;
+    player.addListener("stateChange", () => {
+        if (player.playing) {
+            document.title = presentation.title;
         }
         else {
-            document.title = Presentation.title + " (Paused)";
+            document.title = presentation.title + " (Paused)";
         }
     });
 
-    window.addEventListener("resize", () => Viewport.repaint());
+    window.addEventListener("resize", () => viewport.repaint());
 
-    if (Presentation.frames.length) {
-        Player.playFromFrame(FrameURL.getFrame());
+    if (presentation.frames.length) {
+        player.playFromFrame(FrameURL.getFrame());
     }
 
-    Viewport.repaint();
-    Player.disableBlankScreen();
+    viewport.repaint();
+    player.disableBlankScreen();
 
     document.querySelector(".sozi-blank-screen .spinner").style.display = "none";
 });

@@ -5,13 +5,13 @@
 "use strict";
 
 /*
- * The Selection object holds the currently selected
+ * A Selection instance holds the currently selected
  * frames and layers of the presentation.
  *
  * Events:
  *  - change: when the content of the selection has changed
  */
-export const Selection = {
+export class Selection {
 
     /*
      * Initialize a selection for a given presentation.
@@ -25,19 +25,18 @@ export const Selection = {
      * Returns:
      *  - The current selection object
      */
-    init(presentation) {
+    constructor(presentation) {
         this.presentation = presentation;
         this.selectedFrames = [];
         this.selectedLayers = [];
-        return this;
-    },
+    }
 
     toStorable() {
         return {
             selectedFrames: this.selectedFrames.map(frame => frame.frameId),
             selectedLayers: this.selectedLayers.map(layer => layer.groupId)
         };
-    },
+    }
 
     fromStorable(storable) {
         if ("selectedFrames" in storable) {
@@ -59,7 +58,7 @@ export const Selection = {
                 }
             });
         }
-    },
+    }
 
     /*
      * Get the last selected frame.
@@ -71,24 +70,24 @@ export const Selection = {
         return this.selectedFrames.length ?
             this.selectedFrames[this.selectedFrames.length - 1] :
             null;
-    },
+    }
 
     hasFrames(frames) {
         return frames.every(frame => this.selectedFrames.indexOf(frame) >= 0);
-    },
+    }
 
     addFrame(frame) {
         if (this.selectedFrames.indexOf(frame) < 0) {
             this.selectedFrames.push(frame);
         }
-    },
+    }
 
     removeFrame(frame) {
         const index = this.selectedFrames.indexOf(frame);
         if (index >= 0) {
             this.selectedFrames.splice(index, 1);
         }
-    },
+    }
 
     toggleFrameSelection(frame) {
         const index = this.selectedFrames.indexOf(frame);
@@ -98,24 +97,24 @@ export const Selection = {
         else {
             this.selectedFrames.push(frame);
         }
-    },
+    }
 
     hasLayers(layers) {
         return layers.every(layer => this.selectedLayers.indexOf(layer) >= 0);
-    },
+    }
 
     addLayer(layer) {
         if (this.selectedLayers.indexOf(layer) < 0) {
             this.selectedLayers.push(layer);
         }
-    },
+    }
 
     removeLayer(layer) {
         const index = this.selectedLayers.indexOf(layer);
         if (index >= 0) {
             this.selectedLayers.splice(index, 1);
         }
-    },
+    }
 
     toggleLayerSelection(layer) {
         const index = this.selectedLayers.indexOf(layer);
@@ -126,4 +125,4 @@ export const Selection = {
             this.selectedLayers.push(layer);
         }
     }
-};
+}

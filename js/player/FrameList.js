@@ -34,7 +34,7 @@ export function init(aPlayer) {
         });
     });
 
-    animator = Object.create(Animator).init();
+    animator = new Animator();
     animator.addListener("step", onAnimatorStep);
     window.addEventListener("keypress", onKeyPress, false);
     window.addEventListener("resize", () => setCurrentOffset(currentOffset));

@@ -26,26 +26,26 @@ window.addEventListener("load", () => {
 
     Notification.requestPermission();
 
-    Presentation.init();
-    Selection.init(Presentation);
-    Viewport.init(Presentation, true);
-    Player.init(Viewport, Presentation, true);
+    const presentation = new Presentation();
+    const selection    = new Selection(presentation);
+    const viewport     = new Viewport(presentation, true);
+    const player       = new Player(viewport, presentation, true);
 
-    const locale     = i18n.init();
-    const controller = new Controller(Storage, Preferences, Presentation, Selection, Viewport, Player, locale);
-    const preview    = new Preview(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, controller);
-    const properties = new Properties(document.getElementById("sozi-editor-view-properties"), Selection, controller, locale);
-    const toolbar    = new Toolbar(document.getElementById("sozi-editor-view-toolbar"), properties, Storage, Presentation, Viewport, controller, locale);
-    const timeline   = new Timeline(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, controller, locale);
-    Storage.init(controller, Presentation, Selection, locale);
+    const locale       = i18n.init();
+    const controller   = new Controller(Preferences, presentation, selection, viewport, player, locale);
+    const preview      = new Preview(document.getElementById("sozi-editor-view-preview"), presentation, selection, viewport, controller);
+    const properties   = new Properties(document.getElementById("sozi-editor-view-properties"), selection, controller, locale);
+    const toolbar      = new Toolbar(document.getElementById("sozi-editor-view-toolbar"), properties, presentation, viewport, controller, locale);
+    const timeline     = new Timeline(document.getElementById("sozi-editor-view-timeline"), presentation, selection, controller, locale);
+    const storage      = new Storage(controller, presentation, selection, locale);
 
-    const body      = document.querySelector("body");
-    const left      = document.querySelector(".left");
-    const right     = document.querySelector(".right");
-    const top       = document.querySelector(".top");
-    const bottom    = document.querySelector(".bottom");
-    const hsplitter = document.querySelector(".hsplitter");
-    const vsplitter = document.querySelector(".vsplitter");
+    const body         = document.querySelector("body");
+    const left         = document.querySelector(".left");
+    const right        = document.querySelector(".right");
+    const top          = document.querySelector(".top");
+    const bottom       = document.querySelector(".bottom");
+    const hsplitter    = document.querySelector(".hsplitter");
+    const vsplitter    = document.querySelector(".vsplitter");
 
     let hsplitterStartY, vsplitterStartX;
 
@@ -143,7 +143,7 @@ window.addEventListener("load", () => {
                 document.getElementById('btn-fullscreen').click();
                 break;
             case "toggleDevTools":
-                Storage.backend.toggleDevTools();
+                storage.backend.toggleDevTools();
                 break;
         }
 

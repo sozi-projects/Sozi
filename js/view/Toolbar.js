@@ -11,11 +11,10 @@ import pkg from "../../package.json";
 
 export class Toolbar extends VirtualDOMView {
 
-    constructor(container, properties, storage, presentation, viewport, controller, locale) {
+    constructor(container, properties, presentation, viewport, controller, locale) {
         super(container, controller);
 
         this.properties   = properties;
-        this.storage      = storage;
         this.presentation = presentation;
         this.viewport     = viewport;
         this.gettext      = s => locale.gettext(s);
@@ -109,7 +108,7 @@ export class Toolbar extends VirtualDOMView {
             h("span.group.btn-group", [
                 h("button", {
                     title: _("Save the presentation"),
-                    disabled: this.storage.htmlNeedsSaving ? undefined : "disabled",
+                    disabled: c.storage && c.storage.htmlNeedsSaving ? undefined : "disabled",
                     onclick() { c.save(); }
                 }, h("i.fas.fa-download")), // "download" icon preferred to the official "save" icon
                 h("button", {

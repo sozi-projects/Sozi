@@ -12,10 +12,10 @@ const UNDO_STACK_LIMIT = 100;
 
 export class Controller extends EventEmitter {
 
-    constructor(storage, preferences, presentation, selection, viewport, player, locale) {
+    constructor(preferences, presentation, selection, viewport, player, locale) {
         super();
 
-        this.storage        = storage;
+        this.storage        = null; // Set in onLoad()
         this.preferences    = preferences;
         this.presentation   = presentation;
         this.selection      = selection;
@@ -74,8 +74,10 @@ export class Controller extends EventEmitter {
         }
     }
 
-    onLoad() {
-        this.storage.backend.loadPreferences(this.preferences);
+    onLoad(storage) {
+        this.storage = storage;
+
+        storage.backend.loadPreferences(this.preferences);
 
         if (!this.selection.selectedFrames.length && this.presentation.frames.length) {
             this.selection.addFrame(this.presentation.frames[0]);
@@ -112,7 +114,6 @@ export class Controller extends EventEmitter {
     }
 
     setSVGDocument(svgDocument) {
-        this.presentation.init();
         this.presentation.setSVGDocument(svgDocument);
         this.emit("loadSVG");
         this.presentation.setInitialCameraState();
@@ -127,20 +128,18 @@ export class Controller extends EventEmitter {
      * end of the presentation.
      */
     addFrame() {
-        // Create a new frame
-        const frame = Object.create(Frame);
-
-        let frameIndex;
+        let frame, frameIndex;
 
         if (this.selection.currentFrame) {
             // If a frame is selected, insert the new frame after.
-            frame.initFrom(this.selection.currentFrame);
+            frame = new Frame(this.selection.currentFrame);
             frameIndex = this.selection.currentFrame.index + 1;
         }
         else {
             // If no frame is selected, copy the state of the current viewport
             // and add the new frame at the end of the presentation.
-            frame.init(this.presentation).setAtStates(this.viewport.cameras);
+            frame = new Frame(this.presentation);
+            frame.setAtStates(this.viewport.cameras);
             frameIndex = this.presentation.frames.length;
         }
 
@@ -576,7 +575,7 @@ export class Controller extends EventEmitter {
 
         const savedCameraStates = selectedFrames.map(
             frame => selectedLayers.map(
-                layer => Object.create(CameraState).initFrom(frame.cameraStates[layer.index])
+                layer => new CameraState(frame.cameraStates[layer.index])
             )
         );
 
@@ -584,7 +583,7 @@ export class Controller extends EventEmitter {
             function onDo() {
                 selectedFrames.forEach(frame => {
                     selectedLayers.forEach(layer => {
-                        frame.cameraStates[layer.index].initFrom(this.presentation.initialCameraState);
+                        frame.cameraStates[layer.index].copy(this.presentation.initialCameraState);
                         frame.layerProperties[layer.index].link = false;
                     });
 
@@ -594,7 +593,7 @@ export class Controller extends EventEmitter {
             function onUndo() {
                 selectedFrames.forEach((frame, frameIndex) => {
                     selectedLayers.forEach((layer, layerIndex) => {
-                        frame.cameraStates[layer.index].initFrom(savedCameraStates[frameIndex][layerIndex]);
+                        frame.cameraStates[layer.index].copy(savedCameraStates[frameIndex][layerIndex]);
                         frame.layerProperties[layer.index].link = savedValues[frameIndex][layerIndex].link;
                     });
 
@@ -611,13 +610,13 @@ export class Controller extends EventEmitter {
         const selectedLayers = this.selection.selectedLayers.slice();
         const savedValues = selectedFrames.map(
             frame => selectedLayers.map(
-                layer => Object.create(LayerProperties).initFrom(frame.layerProperties[layer.index])
+                layer => new LayerProperties(frame.layerProperties[layer.index])
             )
         );
 
         const savedCameraStates = selectedFrames.map(
             frame => selectedLayers.map(
-                layer => Object.create(CameraState).initFrom(frame.cameraStates[layer.index])
+                layer => new CameraState(frame.cameraStates[layer.index])
             )
         );
 
@@ -631,8 +630,8 @@ export class Controller extends EventEmitter {
                 selectedFrames.forEach(frame => {
                     selectedLayers.forEach(layer => {
                         if (layer != layerToCopy) {
-                            frame.layerProperties[layer.index].initFrom(frame.layerProperties[layerToCopy.index]);
-                            frame.cameraStates[layer.index].initFrom(frame.cameraStates[layerToCopy.index]);
+                            frame.layerProperties[layer.index].copy(frame.layerProperties[layerToCopy.index]);
+                            frame.cameraStates[layer.index].copy(frame.cameraStates[layerToCopy.index]);
                             if (frame.index === 0 || !this.selection.hasFrames([this.presentation.frames[frame.index - 1]])) {
                                 frame.layerProperties[layer.index].link = false;
                             }
@@ -644,8 +643,8 @@ export class Controller extends EventEmitter {
             function onUndo() {
                 selectedFrames.forEach((frame, frameIndex) => {
                     selectedLayers.forEach((layer, layerIndex) => {
-                        frame.layerProperties[layer.index].initFrom(savedValues[frameIndex][layerIndex]);
-                        frame.cameraStates[layer.index].initFrom(savedCameraStates[frameIndex][layerIndex]);
+                        frame.layerProperties[layer.index].copy(savedValues[frameIndex][layerIndex]);
+                        frame.cameraStates[layer.index].copy(savedCameraStates[frameIndex][layerIndex]);
                     });
                 });
                 this.presentation.updateLinkedLayers();
@@ -668,8 +667,8 @@ export class Controller extends EventEmitter {
     fitElement() {
         const currentFrame = this.selection.currentFrame;
         if (currentFrame) {
-            const savedFrame = Object.create(Frame).initFrom(currentFrame, true);
-            const modifiedFrame = Object.create(Frame).initFrom(currentFrame, true);
+            const savedFrame    = new Frame(currentFrame, true);
+            const modifiedFrame = new Frame(currentFrame, true);
 
             // Compute the offsets of each layer relative to the outline elements.
             const offsets = {};
@@ -699,7 +698,7 @@ export class Controller extends EventEmitter {
                         this.presentation.updateLinkedLayers();
                     },
                     function onUndo() {
-                        currentFrame.initFrom(savedFrame);
+                        currentFrame.copy(savedFrame);
                         this.presentation.updateLinkedLayers();
                     },
                     false,
@@ -790,7 +789,7 @@ export class Controller extends EventEmitter {
 
         const savedCameraStates = selectedFrames.map(
             frame => selectedLayers.map(
-                layer => Object.create(CameraState).initFrom(frame.cameraStates[layer.index])
+                layer => new CameraState(frame.cameraStates[layer.index])
             )
         );
 
@@ -809,7 +808,7 @@ export class Controller extends EventEmitter {
                     selectedLayers.forEach((layer, layerIndex) => {
                         frame.layerProperties[layer.index][propertyName] = savedValues[frameIndex][layerIndex];
                         if (link) {
-                            frame.cameraStates[layer.index].initFrom(savedCameraStates[frameIndex][layerIndex]);
+                            frame.cameraStates[layer.index].copy(savedCameraStates[frameIndex][layerIndex]);
                         }
                     });
                 });
@@ -878,15 +877,15 @@ export class Controller extends EventEmitter {
     updateCameraStates() {
         const currentFrame = this.selection.currentFrame;
         if (currentFrame) {
-            const savedFrame = Object.create(Frame).initFrom(currentFrame);
-            const modifiedFrame = Object.create(Frame).initFrom(currentFrame);
+            const savedFrame    = new Frame(currentFrame, true);
+            const modifiedFrame = new Frame(currentFrame, true);
 
             let outlineElt = null, outlineScore = null;
 
             this.viewport.cameras.forEach((camera, cameraIndex) => {
                 if (camera.selected) {
                     // Update the camera states of the current frame
-                    modifiedFrame.cameraStates[cameraIndex].initFrom(camera);
+                    modifiedFrame.cameraStates[cameraIndex].copy(camera);
 
                     // We will update the layer properties corresponding to the
                     // current camera in the modified frame
@@ -920,11 +919,11 @@ export class Controller extends EventEmitter {
 
             this.perform(
                 function onDo() {
-                    currentFrame.initFrom(modifiedFrame, true);
+                    currentFrame.copy(modifiedFrame, true);
                     this.presentation.updateLinkedLayers();
                 },
                 function onUndo() {
-                    currentFrame.initFrom(savedFrame, true);
+                    currentFrame.copy(savedFrame, true);
                     this.presentation.updateLinkedLayers();
                 },
                 false,
@@ -938,9 +937,9 @@ export class Controller extends EventEmitter {
         if (currentFrame) {
             const properties = this.viewport.cameras.map((camera, cameraIndex) => {
                 if (camera.selected) {
-                    const layerProperties = currentFrame.layerProperties[cameraIndex];
-                    const savedProperties = Object.create(LayerProperties).initFrom(layerProperties);
-                    const modifiedProperties = Object.create(LayerProperties).initFrom(layerProperties);
+                    const layerProperties    = currentFrame.layerProperties[cameraIndex];
+                    const savedProperties    = new LayerProperties(layerProperties);
+                    const modifiedProperties = new LayerProperties(layerProperties);
 
                     // Mark the modified layers as unlinked in the current frame
                     modifiedProperties.link = false;
@@ -956,7 +955,7 @@ export class Controller extends EventEmitter {
                 function onDo() {
                     properties.forEach(p => {
                         if (p) {
-                            p.layerProperties.initFrom(p.modifiedProperties);
+                            p.layerProperties.copy(p.modifiedProperties);
                         }
                     });
                     this.presentation.updateLinkedLayers();
@@ -964,7 +963,7 @@ export class Controller extends EventEmitter {
                 function onUndo() {
                     properties.forEach(p => {
                         if (p) {
-                            p.layerProperties.initFrom(p.savedProperties);
+                            p.layerProperties.copy(p.savedProperties);
                         }
                     });
                     this.presentation.updateLinkedLayers();

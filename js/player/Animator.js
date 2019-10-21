@@ -97,61 +97,61 @@ function start() {
  * The main purpose of an animator is to schedule the update
  * operations in the animated objects.
  */
-export const Animator = Object.create(EventEmitter.prototype);
+export class Animator extends EventEmitter {
 
-Animator.init = function () {
-    EventEmitter.call(this);
-    this.durationMs = 500;
-    this.initialTime = 0;
-    this.running = false;
-    animatorList.push(this);
-    return this;
-};
+    constructor() {
+        super();
+        this.durationMs = 500;
+        this.initialTime = 0;
+        this.running = false;
+        animatorList.push(this);
+    }
 
-/*
- * Start the current animator.
- *
- * The "step" event is fired once before starting the animation.
- */
-Animator.start = function (durationMs) {
-    this.durationMs = durationMs;
-    this.initialTime = perf.now();
-    this.emit("step", 0);
-    if (!this.running) {
-        this.running = true;
-        runningAnimators ++;
-        if (runningAnimators === 1) {
-            start();
+    /*
+     * Start the current animator.
+     *
+     * The "step" event is fired once before starting the animation.
+     */
+    start(durationMs) {
+        this.durationMs = durationMs;
+        this.initialTime = perf.now();
+        this.emit("step", 0);
+        if (!this.running) {
+            this.running = true;
+            runningAnimators ++;
+            if (runningAnimators === 1) {
+                start();
+            }
         }
     }
-};
 
-/*
- * Stop the current animator.
- */
-Animator.stop = function () {
-    if (this.running) {
-        this.running = false;
-        runningAnimators --;
-        this.emit("stop");
+    /*
+     * Stop the current animator.
+     */
+    stop() {
+        if (this.running) {
+            this.running = false;
+            runningAnimators --;
+            this.emit("stop");
+        }
     }
-};
 
-/*
- * Perform one animation step.
- *
- * This function is called automatically by the loop() function.
- * It fires the "step" event with the current progress (elapsed time / duration).
- * If the animation duration has elapsed, the "done" event is fired.
- */
-Animator.step = function () {
-    const elapsedTime = perf.now() - this.initialTime;
-    if (elapsedTime >= this.durationMs) {
-        this.emit("step", 1);
-        this.running = false;
-        runningAnimators --;
-        this.emit("done");
-    } else {
-        this.emit("step", elapsedTime / this.durationMs);
+    /*
+     * Perform one animation step.
+     *
+     * This function is called automatically by the loop() function.
+     * It fires the "step" event with the current progress (elapsed time / duration).
+     * If the animation duration has elapsed, the "done" event is fired.
+     */
+    step() {
+        const elapsedTime = perf.now() - this.initialTime;
+        if (elapsedTime >= this.durationMs) {
+            this.emit("step", 1);
+            this.running = false;
+            runningAnimators --;
+            this.emit("done");
+        } else {
+            this.emit("step", elapsedTime / this.durationMs);
+        }
     }
-};
+}

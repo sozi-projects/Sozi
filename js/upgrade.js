@@ -88,12 +88,12 @@ export function upgradeFromSVG(pres, controller) {
 
     frameElts.forEach((frameElt, frameIndex) => {
         // Create a new frame with default camera states
-        const frame = Object.create(Frame).init(pres);
+        const frame = new Frame(pres);
         pres.frames.splice(frameIndex, 0, frame);
 
         // If this is not the first frame, the state is cloned from the previous frame.
         if (frameIndex) {
-            frame.initFrom(pres.frames[frameIndex - 1]);
+            frame.copy(pres.frames[frameIndex - 1]);
         }
 
         // Collect layer elements inside the current frame element
