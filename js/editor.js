@@ -31,15 +31,13 @@ window.addEventListener("load", () => {
     Viewport.init(Presentation, true);
     Player.init(Viewport, Presentation, true);
 
-    const locale = i18n.init();
-
-    Controller.init(Storage, Preferences, Presentation, Selection, Viewport, Player, locale);
-
-    const preview    = new Preview(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller);
-    const properties = new Properties(document.getElementById("sozi-editor-view-properties"), Selection, Controller, locale);
-    const toolbar    = new Toolbar(document.getElementById("sozi-editor-view-toolbar"), properties, Storage, Presentation, Viewport, Controller, locale);
-    const timeline   = new Timeline(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, locale);
-    Storage.init(Controller, Presentation, Selection, locale);
+    const locale     = i18n.init();
+    const controller = new Controller(Storage, Preferences, Presentation, Selection, Viewport, Player, locale);
+    const preview    = new Preview(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, controller);
+    const properties = new Properties(document.getElementById("sozi-editor-view-properties"), Selection, controller, locale);
+    const toolbar    = new Toolbar(document.getElementById("sozi-editor-view-toolbar"), properties, Storage, Presentation, Viewport, controller, locale);
+    const timeline   = new Timeline(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, controller, locale);
+    Storage.init(controller, Presentation, Selection, locale);
 
     const body      = document.querySelector("body");
     const left      = document.querySelector(".left");
@@ -118,28 +116,28 @@ window.addEventListener("load", () => {
 
         switch (actionFound) {
             case "fitElement":
-                Controller.fitElement();
+                controller.fitElement();
                 break;
             case "resetLayer":
-                Controller.resetLayer();
+                controller.resetLayer();
                 break;
             case "addFrame":
-                Controller.addFrame();
+                controller.addFrame();
                 break;
             case "save":
-                Controller.save();
+                controller.save();
                 break;
             case "redo":
-                Controller.redo();
+                controller.redo();
                 break;
             case "undo":
-                Controller.undo();
+                controller.undo();
                 break;
             case "focusTitleField":
                 document.getElementById('field-title').select();
                 break;
             case "reload":
-                Controller.reload();
+                controller.reload();
                 break;
             case "toggleFullscreen":
                 document.getElementById('btn-fullscreen').click();
@@ -154,23 +152,23 @@ window.addEventListener("load", () => {
             actionFound = true;
             switch (evt.key) {
                 case "End":
-                    Controller.selectFrame(-1);
+                    controller.selectFrame(-1);
                     break;
                 case "Home":
-                    Controller.selectFrame(0);
+                    controller.selectFrame(0);
                     break;
                 case "ArrowLeft":
-                    Controller.selectRelativeFrame(-1);
+                    controller.selectRelativeFrame(-1);
                     break;
                 case "ArrowRight":
-                    Controller.selectRelativeFrame(1);
+                    controller.selectRelativeFrame(1);
                     break;
                 case "Delete":
-                    Controller.deleteFrames();
+                    controller.deleteFrames();
                     break;
                 case "a":
                     if (evt.ctrlKey) {
-                        Controller.selectAllFrames();
+                        controller.selectAllFrames();
                     }
                     else {
                         actionFound = false;
