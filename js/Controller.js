@@ -169,13 +169,14 @@ export class Controller extends EventEmitter {
      */
     deleteFrames() {
         // Sort the selected frames by presentation order.
-        const framesByIndex = this.selection.selectedFrames.slice().sort((a, b) => a.index - b.index);
-        const frameIndices = framesByIndex.map(frame => frame.index);
+        const framesByIndex = this.selection.selectedFrames.map(f => [f, f.index]).sort((a, b) => a[1] - b[1]);
 
         this.perform(
             function onDo() {
                 // Remove the selected frames and clear the selection.
-                for (let frame of framesByIndex) {
+                // We don't use the saved index here because the actual index
+                // will change as frames are deleted.
+                for (let [frame, index] of framesByIndex) {
                     this.presentation.frames.splice(frame.index, 1);
                 }
                 this.selection.selectedFrames = [];
@@ -183,9 +184,9 @@ export class Controller extends EventEmitter {
             },
             function onUndo() {
                 // Restore the deleted frames to their original locations.
-                framesByIndex.forEach((frame, i) => {
-                    this.presentation.frames.splice(frameIndices[i], 0, frame);
-                });
+                for (let [frame, index] of framesByIndex) {
+                    this.presentation.frames.splice(index, 0, frame);
+                }
                 this.presentation.updateLinkedLayers();
             },
             true,
@@ -224,8 +225,8 @@ export class Controller extends EventEmitter {
         // Identify the frames and layers that must be unlinked after the move operation.
         // If a linked frame is moved after a frame to which it was not previously linked,
         // then it will be unlinked.
-        const unlink = reorderedFrames.map((frame, frameIndex) =>
-            frame.layerProperties.map((layer, layerIndex) =>
+        const unlink = reorderedFrames.flatMap((frame, frameIndex) =>
+            frame.layerProperties.filter((layer, layerIndex) =>
                 layer.link && (frameIndex === 0 || !frame.isLinkedTo(reorderedFrames[frameIndex - 1], layerIndex))
             )
         );
@@ -233,23 +234,15 @@ export class Controller extends EventEmitter {
         this.perform(
             function onDo() {
                 this.presentation.frames = reorderedFrames;
-                this.presentation.frames.forEach((frame, frameIndex) => {
-                    frame.layerProperties.forEach((layer, layerIndex) => {
-                        if (unlink[frameIndex][layerIndex]) {
-                            layer.link = false;
-                        }
-                    });
-                });
+                for (let layer of unlink) {
+                    layer.link = false;
+                }
                 this.presentation.updateLinkedLayers();
             },
             function onUndo() {
-                this.presentation.frames.forEach((frame, frameIndex) => {
-                    frame.layerProperties.forEach((layer, layerIndex) => {
-                        if (unlink[frameIndex][layerIndex]) {
-                            layer.link = true;
-                        }
-                    });
-                });
+                for (let layer of unlink) {
+                    layer.link = true;
+                }
                 this.presentation.frames = savedFrames;
                 this.presentation.updateLinkedLayers();
             },
@@ -741,19 +734,18 @@ export class Controller extends EventEmitter {
     }
 
     setFrameProperty(propertyName, propertyValue) {
-        const selectedFrames = this.selection.selectedFrames.slice();
-        const savedValues = selectedFrames.map(frame => frame[propertyName]);
+        const savedValues = this.selection.selectedFrames.map(frame => [frame, frame[propertyName]]);
 
         this.perform(
             function onDo() {
-                for (let frame of selectedFrames) {
+                for (let [frame, value] of savedValues) {
                     frame[propertyName] = propertyValue;
                 }
             },
             function onUndo() {
-                selectedFrames.forEach((frame, frameIndex) => {
-                    frame[propertyName] = savedValues[frameIndex];
-                });
+                for (let [frame, value] of savedValues) {
+                    frame[propertyName] = value;
+                }
             },
             false,
             ["presentationChange", "repaint"]
