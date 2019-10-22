@@ -46,7 +46,7 @@ function importAttribute(obj, propName, elts, attrName, fn) {
     for (let e of elts) {
         if (e && e.hasAttribute(attrName)) {
             obj[propName] = fn(e.getAttribute(attrName));
-            return;
+            break;
         }
     }
 }
@@ -56,7 +56,7 @@ function importAttributeNS(obj, propName, elts, nsUri, attrName, fn) {
     for (let e of elts) {
         if (e && e.hasAttributeNS(nsUri, attrName)) {
             obj[propName] = fn(e.getAttributeNS(nsUri, attrName));
-            return;
+            break;
         }
     }
 }
@@ -99,9 +99,9 @@ export function upgradeFromSVG(pres, controller) {
         // Collect layer elements inside the current frame element
         const layerElts = toArray(frameElt.getElementsByTagNameNS(SOZI_NS, "layer"));
         const layerEltsByGroupId = {};
-        layerElts.forEach(layerElt => {
+        for (let layerElt of layerElts) {
             layerEltsByGroupId[layerElt.getAttributeNS(SOZI_NS, "group")] = layerElt;
-        });
+        }
 
         pres.layers.forEach((layer, layerIndex) => {
             let layerElt = null;
@@ -161,7 +161,7 @@ export function upgradeFromStorable(storable) {
     // Sozi 17.02.05
     // Replace referenceElementAuto with outlineElementAuto
     // Replace referenceElementHide with outlineElementHide
-    storable.frames.forEach(frame => {
+    for (let frame of storable.frames) {
         for (let layerId in frame.layerProperties) {
             const layer = frame.layerProperties[layerId];
             if (layer.hasOwnProperty("referenceElementAuto")) {
@@ -176,5 +176,5 @@ export function upgradeFromStorable(storable) {
                 layer.outlineElementId = layer.referenceElementId;
             }
         }
-    });
+    }
 }

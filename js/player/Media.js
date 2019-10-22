@@ -63,7 +63,7 @@ export function init(aPlayer) {
 
     // Replace them with HTML5 audio and video elements
     const mediaList = [];
-    mediaSources.forEach(source => {
+    for (let source of mediaSources) {
         const rect = source.parentNode;
         const tagName = source.localName.slice(soziPrefix.length + 1);
 
@@ -136,7 +136,7 @@ export function init(aPlayer) {
 
         // Append HTML source element to current HTML media element
         mediaList[j].htmlMedia.appendChild(htmlSource);
-    });
+    }
 }
 
 export function disable() {

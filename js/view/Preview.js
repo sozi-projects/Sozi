@@ -79,11 +79,11 @@ export class Preview {
      * and show the hidden SVG elements.
      */
     onMouseEnter() {
-        this.viewport.cameras.forEach(camera => {
+        for (let camera of this.viewport.cameras) {
             if (camera.selected) {
                 camera.revealClipping();
             }
-        });
+        }
         this.viewport.showHiddenElements = true;
         this.viewport.repaint();
     }
@@ -94,11 +94,11 @@ export class Preview {
      * and hide the hidden SVG elements.
      */
     onMouseLeave() {
-        this.viewport.cameras.forEach(camera => {
+        for (let camera of this.viewport.cameras) {
             if (camera.selected) {
                 camera.concealClipping();
             }
-        });
+        }
         this.viewport.showHiddenElements = false;
         this.viewport.repaint();
     }

@@ -255,14 +255,14 @@ export class Camera extends CameraState {
         const translateX = this.viewport.width  / scale / 2 - this.cx;
         const translateY = this.viewport.height / scale / 2 - this.cy;
 
-        this.svgTransformGroups.forEach(svgGroup => {
+        for (let svgGroup of this.svgTransformGroups) {
             svgGroup.setAttribute("transform",
                 "scale(" + scale + ")" +
                 "translate(" + translateX + "," + translateY + ")" +
                 "rotate(" + (-this.angle) + ',' + this.cx + "," + this.cy + ")"
             );
             svgGroup.setAttribute("opacity", this.opacity);
-        });
+        }
     }
 
     interpolate(initialState, finalState, progress, timingFunction, relativeZoom, svgPath, reversePath) {

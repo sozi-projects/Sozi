@@ -389,7 +389,7 @@ export class Player extends EventEmitter {
             this.emit("stateChange");
         }
 
-        this.viewport.cameras.forEach(camera => {
+        for (let camera of this.viewport.cameras) {
             let timingFunction = Timing[DEFAULT_TIMING_FUNCTION];
             let relativeZoom = DEFAULT_RELATIVE_ZOOM;
             let transitionPath = null;
@@ -407,7 +407,7 @@ export class Player extends EventEmitter {
             }
 
             this.setupTransition(camera, timingFunction, relativeZoom, transitionPath, backwards);
-        });
+        }
 
         this.animator.start(durationMs);
     }
@@ -468,9 +468,9 @@ export class Player extends EventEmitter {
     previewFrame(frame) {
         this.targetFrame = this.findFrame(frame);
 
-        this.viewport.cameras.forEach(camera => {
+        for (let camera of this.viewport.cameras) {
             this.setupTransition(camera, Timing[DEFAULT_TIMING_FUNCTION], DEFAULT_RELATIVE_ZOOM);
-        });
+        }
 
         this.animator.start(DEFAULT_TRANSITION_DURATION_MS);
     }
@@ -492,10 +492,10 @@ export class Player extends EventEmitter {
     }
 
     onAnimatorStep(progress) {
-        this.transitions.forEach(transition => {
+        for (let transition of this.transitions) {
             transition.camera.interpolate(transition.initialState, transition.finalState, progress, transition.timingFunction, transition.relativeZoom, transition.svgPath, transition.reverse);
             transition.camera.update();
-        });
+        }
     }
 
     onAnimatorStop() {

@@ -41,22 +41,22 @@ export class Selection {
     fromStorable(storable) {
         if ("selectedFrames" in storable) {
             this.selectedFrames = [];
-            storable.selectedFrames.forEach(frameId => {
+            for (let frameId of storable.selectedFrames) {
                 const frame = this.presentation.getFrameWithId(frameId);
                 if (frame) {
                     this.selectedFrames.push(frame);
                 }
-            });
+            }
         }
 
         if ("selectedLayers" in storable) {
             this.selectedLayers = [];
-            storable.selectedLayers.forEach(groupId => {
+            for (let groupId of storable.selectedLayers) {
                 const layer = this.presentation.getLayerWithId(groupId);
                 if (layer) {
                     this.selectedLayers.push(layer);
                 }
-            });
+            }
         }
     }
 

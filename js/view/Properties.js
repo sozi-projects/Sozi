@@ -113,9 +113,9 @@ export class Properties extends VirtualDOMView {
         if (this.controller.hasDefaultLayer) {
             layersToCopy.__default__ = _("Default");
         }
-        this.controller.editableLayers.forEach(l => {
-            layersToCopy[l.groupId] = l.label;
-        });
+        for (let layer of this.controller.editableLayers) {
+            layersToCopy[layer.groupId] = layer.label;
+        }
 
         return h("div.properties", [
             h("h1", _("Frame")),

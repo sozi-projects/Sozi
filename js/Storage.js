@@ -47,14 +47,14 @@ export class Storage extends EventEmitter {
             this.jsonNeedsSaving = true;
         });
 
-        backendList.forEach(backend => {
+        for (let backend of backendList) {
             const listItem = document.createElement("li");
             document.querySelector("#sozi-editor-view-preview ul").appendChild(listItem);
 
             const backendInstance = new backend(controller, listItem, this.gettext);
             backendInstance.addListener("load", (...a) => this.onBackendLoad(backendInstance, ...a));
             backendInstance.addListener("change", (...a) => this.onBackendChange(...a));
-        });
+        }
     }
 
     save() {
@@ -123,12 +123,12 @@ export class Storage extends EventEmitter {
         const xlinkPrefix = xlinkNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
 
         const images = toArray(this.document.root.getElementsByTagName("image"));
-        images.forEach(img => {
+        for (let img of images) {
             const href = img.getAttribute(xlinkPrefix + "href");
             if (!/^[a-z]+:|^[/#]/.test(href)) {
                 img.setAttribute(xlinkPrefix + "href", `${location}/${href}`);
             }
-        });
+        }
     }
 
     onBackendChange(fileDescriptor) {

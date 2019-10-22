@@ -182,7 +182,7 @@ export class Viewport extends EventEmitter {
 
         const selectedCameras = this.cameras.filter(camera => camera.selected);
 
-        selectedCameras.forEach(camera => {
+        for (let camera of selectedCameras) {
             const rect = camera.clipRect;
             if (x >= rect.x - CLIP_BORDER && x <= rect.x + rect.width  + CLIP_BORDER &&
                 y >= rect.y - CLIP_BORDER && y <= rect.y + rect.height + CLIP_BORDER) {
@@ -197,7 +197,7 @@ export class Viewport extends EventEmitter {
                         "move";
                 camerasByOperation[operation].push(camera);
             }
-        });
+        }
 
         for (let operation in camerasByOperation) {
             if (camerasByOperation[operation].length) {
@@ -501,18 +501,18 @@ export class Viewport extends EventEmitter {
 
         this.update();
 
-        this.presentation.elementsToHide.forEach(id => {
+        for (let id of this.presentation.elementsToHide) {
             const elt = document.getElementById(id);
             if (elt) {
                 elt.style.visibility = this.showHiddenElements ? "visible" : "hidden";
             }
-        });
+        }
     }
 
     update() {
-        this.cameras.forEach(camera => {
+        for (let camera of this.cameras) {
             camera.update();
-        });
+        }
     }
 
     /*
@@ -540,11 +540,11 @@ export class Viewport extends EventEmitter {
      *    - The current viewport.
      */
     translate(deltaX, deltaY) {
-        this.cameras.forEach(camera => {
+        for (let camera of this.cameras) {
             if (camera.selected) {
                 camera.translate(deltaX, deltaY);
             }
-        });
+        }
     }
 
     /*
@@ -562,11 +562,11 @@ export class Viewport extends EventEmitter {
      *    - The current viewport.
      */
     zoom(factor, x, y) {
-        this.cameras.forEach(camera => {
+        for (let camera of this.cameras) {
             if (camera.selected) {
                 camera.zoom(factor, x, y);
             }
-        });
+        }
     }
 
     /*
@@ -583,21 +583,21 @@ export class Viewport extends EventEmitter {
      *    - The current viewport.
      */
     rotate(angle) {
-        this.cameras.forEach(camera => {
+        for (let camera of this.cameras) {
             if (camera.selected) {
                 camera.rotate(angle);
             }
-        });
+        }
     }
 
     clip(x0, y0, x1, y1) {
-        this.clipMode.cameras.forEach(camera => {
+        for (let camera of this.clipMode.cameras) {
             camera.clip(x0, y0, x1, y1);
-        });
+        }
     }
 
     clipRel(w, n, e, s) {
-        this.clipMode.cameras.forEach(camera => {
+        for (let camera of this.clipMode.cameras) {
             const rect = camera.clipRect;
             if (w <= rect.width + e - 1 && n <= rect.height + s - 1) {
                 camera.clip(rect.x + w,
@@ -605,6 +605,6 @@ export class Viewport extends EventEmitter {
                             rect.x + rect.width + e - 1,
                             rect.y + rect.height + s - 1);
             }
-        });
+        }
     }
 }

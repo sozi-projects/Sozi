@@ -25,14 +25,14 @@ export function init(aPlayer) {
     frameList = document.querySelector(".sozi-frame-list");
 
     links = toArray(frameList.querySelectorAll("li a"));
-    links.forEach(link => {
+    for (let link of links) {
         link.addEventListener("click", evt => {
             if (evt.button === 0) {
                 player.previewFrame(link.hash.slice(1));
                 evt.preventDefault();
             }
         });
-    });
+    }
 
     animator = new Animator();
     animator.addListener("step", onAnimatorStep);
@@ -113,9 +113,9 @@ function onMouseOut(evt) {
 }
 
 function onFrameChange() {
-    links.forEach(link => {
+    for (let link of links) {
         link.className = link.hash === "#" + player.currentFrame.frameId ?
             "current" :
             "";
-    });
+    }
 }

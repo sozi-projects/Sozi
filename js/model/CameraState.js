@@ -183,4 +183,4 @@ export class CameraState {
         this.height /= heightFactor;
         this.angle -= deltaAngle;
     }
-};
+}

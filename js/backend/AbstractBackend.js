@@ -155,7 +155,7 @@ export class AbstractBackend extends EventEmitter {
     /*
      * Check whether at least one file needs saving.
      */
-    hasOutdatedFiles() {
+    get hasOutdatedFiles() {
         return this.autosavedFiles.some(file => file.needsSaving());
     }
 
@@ -163,11 +163,11 @@ export class AbstractBackend extends EventEmitter {
      * Save all outdated files.
      */
     saveOutdatedFiles() {
-        this.autosavedFiles.forEach(file => {
+        for (let file of this.autosavedFiles) {
             if (file.needsSaving()) {
                 this.save(file.descriptor, file.getData());
             }
-        });
+        }
     }
 
     /*

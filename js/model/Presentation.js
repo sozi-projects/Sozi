@@ -126,7 +126,7 @@ export class LayerProperties {
             this.transitionPath.style.visibility = hide ? "hidden" : "visible";
         }
     }
-};
+}
 
 export class Frame {
 
@@ -249,7 +249,7 @@ export class Frame {
                 const lp = this.layerProperties[index];
                 lp.fromStorable(storable.layerProperties[key]);
 
-                const cs = this.cameraStates[index]
+                const cs = this.cameraStates[index];
                 cs.fromStorable(storable.cameraStates[key]);
 
                 const re = lp.referenceElement;
@@ -314,9 +314,9 @@ export class Layer {
     }
 
     set isVisible(visible) {
-        this.svgNodes.forEach(node => {
+        for (let node of this.svgNodes) {
             node.style.display = visible ? "inline" : "none";
-        });
+        }
     }
 
     contains(svgElement) {
@@ -487,7 +487,7 @@ export class Presentation {
             let cameraState     = defaultCameraState;
             let layerProperties = defaultLayerProperties;
 
-            this.frames.forEach(frame => {
+            for (let frame of this.frames) {
                 if (frame.layerProperties[layerIndex].link) {
                     frame.cameraStates[layerIndex].copy(cameraState);
                     frame.layerProperties[layerIndex].referenceElementId = layerProperties.referenceElementId;
@@ -497,7 +497,7 @@ export class Presentation {
                     cameraState     = frame.cameraStates[layerIndex];
                     layerProperties = frame.layerProperties[layerIndex];
                 }
-            });
+            }
         });
     }
 }

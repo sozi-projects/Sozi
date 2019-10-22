@@ -44,9 +44,9 @@ export class SVGDocumentWrapper {
 
         // Prevent event propagation on hyperlinks
         const links = toArray(this.root.getElementsByTagName("a"));
-        links.forEach(link => {
+        for (let link of links) {
             link.addEventListener("mousedown", evt => evt.stopPropagation(), false);
-        });
+        }
     }
 
     get isValidSVG() {
@@ -144,15 +144,15 @@ export class SVGDocumentWrapper {
 
     removeScripts() {
         const scripts = toArray(this.root.getElementsByTagName("script"));
-        scripts.forEach(script => {
+        for (let script of scripts) {
             script.parentNode.removeChild(script);
-        });
+        }
     }
 
     disableHyperlinks() {
         const links = toArray(this.root.getElementsByTagName("a"));
-        links.forEach(link => {
+        for (let link of links) {
             link.addEventListener("click", evt => evt.preventDefault(), false);
-        });
+        }
     }
 }

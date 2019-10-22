@@ -61,11 +61,11 @@ function loop() {
 
         // Step all animators. We iterate over a copy of the animator list
         // in case the step() method removes an animator from the list.
-        animatorList.forEach(animator => {
+        for (let animator of animatorList) {
             if (animator.running) {
                 animator.step();
             }
-        });
+        }
     }
     else if (!doRequestAnimationFrame) {
         // If all animators have been removed,

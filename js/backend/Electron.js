@@ -52,7 +52,7 @@ export class Electron extends AbstractBackend {
 
             this.removeListener("blur", onBlur);
 
-            if (this.hasOutdatedFiles() && this.controller.getPreference("saveMode") !== "onblur") {
+            if (this.hasOutdatedFiles && this.controller.getPreference("saveMode") !== "onblur") {
                 // If autosave is disabled and some files are outdated, ask user confirmation.
                 remote.dialog.showMessageBox(browserWindow, {
                     type: "question",
@@ -95,10 +95,10 @@ export class Electron extends AbstractBackend {
         this.saveConfiguration();
         this.savePreferences();
 
-        if (confirmSave && this.hasOutdatedFiles()) {
+        if (confirmSave && this.hasOutdatedFiles) {
             // Close the window only when all files have been saved.
             this.addListener("save", () => {
-                if (!this.hasOutdatedFiles()) {
+                if (!this.hasOutdatedFiles) {
                     browserWindow.close();
                 }
             });
