@@ -4,7 +4,6 @@
 
 "use strict";
 
-import {toArray} from "../utils";
 import {CameraState} from "./CameraState";
 
 function copyIfSet(dest, src, prop) {
@@ -359,8 +358,7 @@ export class Presentation {
         const autoLayer = new Layer(this, "auto", true);
 
         this.layers = [];
-        const nodes = toArray(this.document.root.childNodes);
-        for (let svgNode of nodes) {
+        for (let svgNode of this.document.root.childNodes) {
             if (svgNode instanceof SVGGElement) {
                 const nodeId = svgNode.getAttribute("id");
                 if (nodeId === null) {

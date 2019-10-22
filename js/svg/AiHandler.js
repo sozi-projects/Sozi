@@ -4,18 +4,17 @@
 
 "use strict";
 
-import {toArray} from "../utils";
 import {addSVGHandler, DefaultSVGHandler} from "./SVGDocumentWrapper";
 
 export class AiHandler extends DefaultSVGHandler {
 
     static matches(svgRoot) {
         return /^http:\/\/ns.adobe.com\/AdobeIllustrator/.test(svgRoot.getAttribute("xmlns:i")) &&
-               toArray(svgRoot.childNodes).some(svgNode => svgNode instanceof SVGSwitchElement);
+               Array.from(svgRoot.childNodes).some(svgNode => svgNode instanceof SVGSwitchElement);
     }
 
     static transform(svgRoot) {
-        for (let svgSwitch of toArray(svgRoot.getElementsByTagName("switch"))) {
+        for (let svgSwitch of Array.from(svgRoot.getElementsByTagName("switch"))) {
             // Remove first foreignObject child node
             const svgForeignObject = svgSwitch.firstElementChild;
             if (svgForeignObject && svgForeignObject instanceof SVGForeignObjectElement &&
@@ -29,7 +28,8 @@ export class AiHandler extends DefaultSVGHandler {
                 if (!svgGroup || svgGroup instanceof SVGGElement || svgGroup.getAttribute("i:extraneous") !== "self") {
                     svgGroup = svgSwitch;
                 }
-                for (let childNode of toArray(svgGroup.childNodes)) {
+                // Make a copy of svgGroup.childNodes before modifying the document.
+                for (let childNode of Array.from(svgGroup.childNodes)) {
                     svgSwitch.parentNode.insertBefore(childNode, svgSwitch);
                 }
 

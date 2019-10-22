@@ -10,7 +10,6 @@ import {EventEmitter} from "events";
 import nunjucks from "nunjucks";
 import Jed from "jed";
 import {upgradeFromSVG, upgradeFromStorable} from "./upgrade";
-import {toArray} from "./utils";
 import path from "path";
 
 export class Storage extends EventEmitter {
@@ -116,14 +115,13 @@ export class Storage extends EventEmitter {
      */
     resolveRelativeURLs(location) {
         const XLINK_NS = "http://www.w3.org/1999/xlink";
-        const xlinkNsAttrs = toArray(this.document.root.attributes).filter(a => a.value === XLINK_NS);
+        const xlinkNsAttrs = Array.from(this.document.root.attributes).filter(a => a.value === XLINK_NS);
         if (!xlinkNsAttrs.length) {
             return;
         }
         const xlinkPrefix = xlinkNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
 
-        const images = toArray(this.document.root.getElementsByTagName("image"));
-        for (let img of images) {
+        for (let img of this.document.root.getElementsByTagName("image")) {
             const href = img.getAttribute(xlinkPrefix + "href");
             if (!/^[a-z]+:|^[/#]/.test(href)) {
                 img.setAttribute(xlinkPrefix + "href", `${location}/${href}`);

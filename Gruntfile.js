@@ -168,8 +168,8 @@ module.exports = function(grunt) {
          */
         uglify: {
             options: {
-                // mangle: false,
-                // compress: false
+                mangle: false,
+                compress: false
             },
             editor: {
                 src: "<%= browserify.editor.dest %>",

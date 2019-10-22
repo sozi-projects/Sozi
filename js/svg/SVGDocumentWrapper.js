@@ -4,8 +4,6 @@
 
 "use strict";
 
-import {toArray} from "../utils";
-
 // Constant: the SVG namespace
 const SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -43,8 +41,7 @@ export class SVGDocumentWrapper {
         this.root    = svgRoot;
 
         // Prevent event propagation on hyperlinks
-        const links = toArray(this.root.getElementsByTagName("a"));
-        for (let link of links) {
+        for (let link of this.root.getElementsByTagName("a")) {
             link.addEventListener("mousedown", evt => evt.stopPropagation(), false);
         }
     }
@@ -102,8 +99,8 @@ export class SVGDocumentWrapper {
             let svgWrapper = document.createElementNS(SVG_NS, "g");
 
             // Get all child nodes of the SVG root.
-            // Make a copy of root.childNodes before modifying the document.
-            for (let svgNode of toArray(svgRoot.childNodes)) {
+            // Make a copy of svgRoot.childNodes before modifying the document.
+            for (let svgNode of Array.from(svgRoot.childNodes)) {
                 // Remove text nodes and comments
                 if (svgNode.tagName === undefined) {
                     svgRoot.removeChild(svgNode);
@@ -143,15 +140,15 @@ export class SVGDocumentWrapper {
     }
 
     removeScripts() {
-        const scripts = toArray(this.root.getElementsByTagName("script"));
+        // Make a copy of root.childNodes before modifying the document.
+        const scripts = Array.from(this.root.getElementsByTagName("script"));
         for (let script of scripts) {
             script.parentNode.removeChild(script);
         }
     }
 
     disableHyperlinks() {
-        const links = toArray(this.root.getElementsByTagName("a"));
-        for (let link of links) {
+        for (let link of this.root.getElementsByTagName("a")) {
             link.addEventListener("click", evt => evt.preventDefault(), false);
         }
     }

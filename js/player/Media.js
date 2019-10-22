@@ -4,8 +4,6 @@
 
 "use strict";
 
-import {toArray} from "../utils";
-
 const svgNs = "http://www.w3.org/2000/svg";
 const soziNs = "http://sozi.baierouge.fr";
 const xhtmlNs = "http://www.w3.org/1999/xhtml";
@@ -56,14 +54,12 @@ export function init(aPlayer) {
     }
 
     // Get custom video and audio elements
-    const videoSources = svgRoot.getElementsByTagName(soziPrefix + ":video");
-    const audioSources = svgRoot.getElementsByTagName(soziPrefix + ":audio");
-
-    const mediaSources = toArray(videoSources).concat(toArray(audioSources));
+    const videoSources = Array.from(svgRoot.getElementsByTagName(soziPrefix + ":video"));
+    const audioSources = Array.from(svgRoot.getElementsByTagName(soziPrefix + ":audio"));
 
     // Replace them with HTML5 audio and video elements
     const mediaList = [];
-    for (let source of mediaSources) {
+    for (let source of videoSources.concat(audioSources)) {
         const rect = source.parentNode;
         const tagName = source.localName.slice(soziPrefix.length + 1);
 

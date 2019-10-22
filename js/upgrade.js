@@ -4,7 +4,6 @@
 
 "use strict";
 
-import {toArray} from "./utils";
 import {Frame} from "./model/Presentation";
 
 const SOZI_NS = "http://sozi.baierouge.fr";
@@ -70,14 +69,14 @@ export function upgradeFromSVG(pres, controller) {
     // (ns1, ns2, ...). We first need to identify which one corresponds to the Sozi namespace.
 
     // Get the xmlns for the Sozi namespace
-    const soziNsAttrs = toArray(pres.document.root.attributes).filter(a => a.value === SOZI_NS);
+    const soziNsAttrs = Array.from(pres.document.root.attributes).filter(a => a.value === SOZI_NS);
     if (!soziNsAttrs.length) {
         return;
     }
     const soziPrefix = soziNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
 
     // Get an ordered array of sozi:frame elements
-    const frameElts = toArray(pres.document.root.getElementsByTagNameNS(SOZI_NS, "frame"));
+    const frameElts = Array.from(pres.document.root.getElementsByTagNameNS(SOZI_NS, "frame"));
     frameElts.sort((a, b) => parseInt(a.getAttributeNS(SOZI_NS, "sequence")) - parseInt(b.getAttributeNS(SOZI_NS, "sequence")));
 
     // The "default" pool contains all layers that have no corresponding
@@ -97,9 +96,8 @@ export function upgradeFromSVG(pres, controller) {
         }
 
         // Collect layer elements inside the current frame element
-        const layerElts = toArray(frameElt.getElementsByTagNameNS(SOZI_NS, "layer"));
         const layerEltsByGroupId = {};
-        for (let layerElt of layerElts) {
+        for (let layerElt of frameElt.getElementsByTagNameNS(SOZI_NS, "layer")) {
             layerEltsByGroupId[layerElt.getAttributeNS(SOZI_NS, "group")] = layerElt;
         }
 

@@ -4,7 +4,6 @@
 
 "use strict";
 
-import {toArray} from "../utils";
 import {h} from "inferno-hyperscript";
 import {VirtualDOMView} from "./VirtualDOMView";
 import Jed from "jed";
@@ -92,8 +91,8 @@ export class Timeline extends VirtualDOMView {
         bottomLeft.style.height = bottomRight.style.height = bottomHeight + "px";
 
         // Corresponding rows in left and right tables must have the same height
-        const leftRows  = toArray(topLeft.querySelectorAll("tr")).concat(toArray(bottomLeft.querySelectorAll("tr")));
-        const rightRows = toArray(topRight.querySelectorAll("tr")).concat(toArray(bottomRight.querySelectorAll("tr")));
+        const leftRows  = document.querySelectorAll(".timeline-top-left tr,  .timeline-bottom-left tr");
+        const rightRows = document.querySelectorAll(".timeline-top-right tr, .timeline-bottom-right tr");
         leftRows.forEach((leftRow, rowIndex) => {
             const rightRow = rightRows[rowIndex];
             const maxHeight = Math.max(leftRow.clientHeight, rightRow.clientHeight);
