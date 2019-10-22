@@ -15,7 +15,7 @@ export class AiHandler extends DefaultSVGHandler {
     }
 
     static transform(svgRoot) {
-        toArray(svgRoot.getElementsByTagName("switch")).forEach(svgSwitch => {
+        for (let svgSwitch of toArray(svgRoot.getElementsByTagName("switch"))) {
             // Remove first foreignObject child node
             const svgForeignObject = svgSwitch.firstElementChild;
             if (svgForeignObject && svgForeignObject instanceof SVGForeignObjectElement &&
@@ -29,14 +29,14 @@ export class AiHandler extends DefaultSVGHandler {
                 if (!svgGroup || svgGroup instanceof SVGGElement || svgGroup.getAttribute("i:extraneous") !== "self") {
                     svgGroup = svgSwitch;
                 }
-                toArray(svgGroup.childNodes).forEach(childNode => {
+                for (let childNode of toArray(svgGroup.childNodes)) {
                     svgSwitch.parentNode.insertBefore(childNode, svgSwitch);
-                });
+                }
 
                 // Remove switch element
                 svgSwitch.parentNode.removeChild(svgSwitch);
             }
-        });
+        }
     }
 
     static isLayer(svgElement) {

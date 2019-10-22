@@ -283,12 +283,12 @@ export class Storage extends EventEmitter {
      */
     getJSONData() {
         const storable = {};
-        [this.presentation, this.selection, this.controller].forEach(object => {
+        for (let object of [this.presentation, this.selection, this.controller]) {
             const partial = object.toStorable();
             for (let key in partial) {
                 storable[key] = partial[key];
             }
-        });
+        }
         return JSON.stringify(storable, null, "  ");
     }
 

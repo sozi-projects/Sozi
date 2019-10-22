@@ -22,14 +22,14 @@ const mediaToStopByFrameId = {};
 function onFrameChange() {
     const frameId = player.currentFrame.frameId;
     if (frameId in mediaToStartByFrameId) {
-        mediaToStartByFrameId[frameId].forEach(m => {
+        for (let m of mediaToStartByFrameId[frameId]) {
             m.play();
-        });
+        }
     }
     if (frameId in mediaToStopByFrameId) {
-        mediaToStopByFrameId[frameId].forEach(m => {
+        for (let m of mediaToStopByFrameId[frameId]) {
             m.pause();
-        });
+        }
     }
 }
 
@@ -144,8 +144,8 @@ export function disable() {
 
     const frameId = player.currentFrame.frameId;
     if (frameId in mediaToStartByFrameId) {
-        mediaToStartByFrameId[frameId].forEach(m => {
+        for (let m of mediaToStartByFrameId[frameId]) {
             m.pause();
-        });
+        }
     }
 }

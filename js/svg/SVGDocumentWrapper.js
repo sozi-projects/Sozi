@@ -103,7 +103,7 @@ export class SVGDocumentWrapper {
 
             // Get all child nodes of the SVG root.
             // Make a copy of root.childNodes before modifying the document.
-            toArray(svgRoot.childNodes).forEach(svgNode => {
+            for (let svgNode of toArray(svgRoot.childNodes)) {
                 // Remove text nodes and comments
                 if (svgNode.tagName === undefined) {
                     svgRoot.removeChild(svgNode);
@@ -123,7 +123,7 @@ export class SVGDocumentWrapper {
                         svgWrapper = document.createElementNS(SVG_NS, "g");
                     }
                 }
-            });
+            }
 
             // If the current wrapper layer contains elements,
             // add it to the document.

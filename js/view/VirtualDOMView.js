@@ -25,12 +25,14 @@ export class VirtualDOMView {
 
     repaint() {
         render(this.render(), this.container, () => {
-            Object.keys(this.state).forEach(prop => {
+            for (let prop in this.state) {
                 const elt = document.getElementById("field-" + prop);
                 if (elt) {
-                    Object.keys(this.state[prop]).forEach(attr => elt[attr] = this.state[prop][attr]);
+                    for (let attr in this.state[prop]) {
+                        elt[attr] = this.state[prop][attr];
+                    }
                 }
-            });
+            }
         });
     }
 

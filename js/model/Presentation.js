@@ -359,7 +359,8 @@ export class Presentation {
         const autoLayer = new Layer(this, "auto", true);
 
         this.layers = [];
-        toArray(this.document.root.childNodes).forEach(svgNode => {
+        const nodes = toArray(this.document.root.childNodes);
+        for (let svgNode of nodes) {
             if (svgNode instanceof SVGGElement) {
                 const nodeId = svgNode.getAttribute("id");
                 if (nodeId === null) {
@@ -374,7 +375,7 @@ export class Presentation {
                     this.layers.push(layer);
                 }
             }
-        });
+        }
 
         this.layers.push(autoLayer);
     }

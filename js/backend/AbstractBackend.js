@@ -187,19 +187,19 @@ export class AbstractBackend extends EventEmitter {
 
     loadPreferences(prefs) {
         this.preferences = prefs;
-        Object.keys(prefs).forEach(key => {
+        for (let key in prefs) {
             const value = localStorage.getItem(key);
             if (value !== null) {
                 prefs[key] = JSON.parse(value);
             }
-        });
+        }
     }
 
     savePreferences() {
         if (this.preferences) {
-            Object.keys(this.preferences).forEach(key => {
+            for (let key in this.preferences) {
                 localStorage.setItem(key, JSON.stringify(this.preferences[key]));
-            });
+            }
         }
     }
 }
