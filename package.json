@@ -35,12 +35,12 @@
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-electron": "^11.0.0",
     "grunt-install-dependencies": "github:senshu/grunt-install-dependencies",
+    "grunt-jsdoc": "^2.4.0",
     "grunt-jspot": "github:senshu/grunt-jspot",
     "grunt-newer": "^1.1.0",
     "grunt-po2json": "github:rockykitamura/grunt-po2json",
     "grunt-rename": "github:senshu/grunt-rename",
     "grunt-rsync": "^3.0.0",
-    "grunt-simple-mocha": "^0.4.0",
     "load-grunt-tasks": "^5.1.0"
   }
 }
