@@ -31,6 +31,10 @@ export class Selection {
         this.selectedLayers = [];
     }
 
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * @return A plain object with the properties that need to be saved.
+     */
     toStorable() {
         return {
             selectedFrames: this.selectedFrames.map(frame => frame.frameId),
@@ -38,6 +42,10 @@ export class Selection {
         };
     }
 
+    /** Copy the properties of the given object into this instance.
+     *
+     * @param {Object} storable A plain object with the properties to copy.
+     */
     fromStorable(storable) {
         if ("selectedFrames" in storable) {
             this.selectedFrames = [];

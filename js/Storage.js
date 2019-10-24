@@ -80,7 +80,7 @@ export class Storage extends EventEmitter {
             this.document = SVGDocumentWrapper.fromString(data);
             if (this.document.isValidSVG) {
                 this.resolveRelativeURLs(location);
-                this.controller.setSVGDocument(this.document);
+                this.presentation.setSVGDocument(this.document);
                 this.svgFileDescriptor = fileDescriptor;
                 this.controller.once("ready", () => {
                     const htmlFileName = name.replace(/\.svg$/, ".sozi.html");

@@ -15,7 +15,7 @@ export class Preview {
         this.viewport = viewport;
         this.controller = controller;
 
-        controller.addListener("loadSVG", () => this.onLoad());
+        presentation.addListener("svgChange", () => this.onLoad());
         window.addEventListener("resize", () => this.repaint());
         viewport.addListener("mouseDown", () => document.activeElement.blur());
         viewport.addListener("click", (btn, evt) => this.onClick(btn, evt));

@@ -25,6 +25,7 @@ const WHEEL_TIMEOUT_MS = 200;
 
 const CLIP_BORDER = 3;
 
+/** Viewing area for Sozi presentations. */
 export class Viewport extends EventEmitter {
 
     /*

@@ -10,33 +10,91 @@ import {EventEmitter} from "events";
 
 const UNDO_STACK_LIMIT = 100;
 
+/** Sozi editor UI controller.
+ *
+ * A Controller instance manages the user interface of the editor and updates
+ * the presentation data in reaction to user actions.
+ */
 export class Controller extends EventEmitter {
 
+    /** Construct a new Sozi editor UI controller.
+     *
+     * @param {Preferences} preferences The object that holds the user settings of the editor.
+     * @param {Presentation} presentation The Sozi presentation opened in the editor.
+     * @param {Selection} selection The object that represents the selection in the timeline.
+     * @param {Viewport} viewport The object that displays a preview of the presentation.
+     * @param {Player} player The object that animates the presentation.
+     * @param locale The object that manages the translations.
+     */
     constructor(preferences, presentation, selection, viewport, player, locale) {
         super();
 
-        this.storage        = null; // Set in onLoad()
-        this.preferences    = preferences;
-        this.presentation   = presentation;
-        this.selection      = selection;
-        this.viewport       = viewport;
-        this.player         = player;
-        this.gettext        = s => locale.gettext(s);
-        this.editableLayers = [];
-        this.defaultLayers  = [];
+        /** The object that manages the file I/O, set in onLoad().
+         * @member {Storage} */
+        this.storage = null;
 
-        this.undoStack      = [];
-        this.redoStack      = [];
+        /** The object that holds the user settings of the editor.
+         * @member {Preferences} */
+        this.preferences = preferences;
+
+        /** The Sozi presentation opened in the editor.
+         * @member {Presentation} */
+        this.presentation = presentation;
+
+        /** The object that represents the selection in the timeline.
+         * @member {Selection} */
+        this.selection = selection;
+
+        /** The object that displays a preview of the presentation.
+         * @member {Viewport} */
+        this.viewport = viewport;
+
+        /** The object that animates the presentation.
+         * @member {Player} */
+        this.player = player;
+
+        /** The function that returns translated text in the current language.
+         * @member {Function} */
+        this.gettext = s => locale.gettext(s);
+
+        /** The layers that have been added to the timeline.
+         * @member {Array} */
+        this.editableLayers = [];
+
+        /** The layers that fall in the "default" row of the timeline.
+         * @member {Array} */
+        this.defaultLayers = [];
+
+        /** The stack of operations that can be undone.
+         * @member {Array} */
+        this.undoStack = [];
+
+        /** The stack of operations that can be redone.
+         * @member {Array} */
+        this.redoStack = [];
 
         this.addListener("repaint", () => this.onRepaint());
     }
 
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * This method will save the ids of the editable layers managed by this controller.
+     *
+     * @return {Object} A plain object with the properties that need to be saved.
+     */
     toStorable() {
         return {
             editableLayers: this.editableLayers.map(layer => layer.groupId)
         };
     }
 
+    /** Copy the properties of the given object into this instance.
+     *
+     * This method will build the list of editable layers managed by this controller,
+     * from a list of group ids provided by the given object.
+     *
+     * @param {Object} storable A plain object with the properties to copy.
+     */
     fromStorable(storable) {
         this.editableLayers = [];
 
@@ -50,6 +108,11 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Show a notification with an information message.
+     *
+     * @param {String} body The message to display.
+     * @param {Boolean} force Ignore the user preferences for notifications.
+     */
     info(body, force=false) {
         if (this.preferences.enableNotifications || force) {
             const _ = this.gettext;
@@ -57,11 +120,23 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Show a notification with an error message.
+     *
+     * @param {String} body The message to display.
+     */
     error(body) {
         const _ = this.gettext;
         new Notification(_("Sozi (Error)"), {body});
     }
 
+    /** Update the visible frame on repaint.
+     *
+     * This method is called each time this controller emits the "repaint" event.
+     * If the currently selected frame is different from the currently visible frame,
+     * it will move to the selected frame.
+     *
+     * @listens Controller#repaint
+     */
     onRepaint() {
         if (this.selection.currentFrame && this.selection.currentFrame !== this.player.currentFrame) {
             if (this.preferences.animateTransitions) {
@@ -73,53 +148,81 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Finalize the loading of a presentation.
+     *
+     * This method is called by a Storage instance when the SVG and JSON files
+     * of a presentation have been loaded.
+     * It sets a default selection if needed, shows the current frame, loads
+     * and applies the user preferences.
+     *
+     * @param {Storage} storage A storage management object.
+     * @fires Controller#ready
+     */
     onLoad(storage) {
         this.storage = storage;
 
+        // Load the preferences.
         storage.backend.loadPreferences(this.preferences);
 
+        // If no frame is selected, select the first frame.
         if (!this.selection.selectedFrames.length && this.presentation.frames.length) {
             this.selection.addFrame(this.presentation.frames[0]);
         }
+
+        // If no layer is selected, select all layers.
         if (!this.selection.selectedLayers.length) {
             this.selection.selectedLayers = this.presentation.layers.slice();
         }
+
+        // Show the currently selected frame, if applicable.
         if (this.selection.currentFrame) {
             this.player.jumpToFrame(this.selection.currentFrame);
         }
+
+        // Mark the cameras as selected for the selected frames.
         this.updateCameraSelection();
 
+        // Collect all layers that are not in the editable list
+        // into the "default" layer list.
         this.defaultLayers = [];
-
         for (let layer of this.presentation.layers) {
             if (this.editableLayers.indexOf(layer) < 0) {
                 this.defaultLayers.push(layer);
             }
         }
 
+        /** Notify that the editor is ready.
+         * @event Controller#ready */
         this.emit("ready");
 
         // Apply the preferences (will trigger a repaint of the editor views).
         this.applyPreferences();
     }
 
+    /** Save the presentation.
+     *
+     * This method delegates the operation to a Storage instance and triggers
+     * a repaint so that the UI shows the correct "saved" status.
+     *
+     * @fires Controller#repaint
+     */
     save() {
         this.storage.save();
+
+        /** Notify that the editor UI needs to be repainted.
+         * @event Controller#repaint */
         this.emit("repaint");
     }
 
+    /** Reload the presentation.
+     *
+     * This method delegates the operation to a Storage instance.
+     */
     reload() {
         this.storage.reload();
     }
 
-    setSVGDocument(svgDocument) {
-        this.presentation.setSVGDocument(svgDocument);
-        this.emit("loadSVG");
-        this.presentation.setInitialCameraState();
-    }
-
-    /*
-     * Add a frame to the presentation.
+    /** Add a new frame to the presentation.
      *
      * A new frame is added to the presentation after the
      * currently selected frame (see Selection.currentFrame).

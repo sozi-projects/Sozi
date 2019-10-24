@@ -23,6 +23,7 @@ const SCALE_FACTOR = 1.05;
 // Rotation step for user rotate action (keyboard and mouse wheel)
 const ROTATE_STEP = 5;
 
+/** Sozi presentation player */
 export class Player extends EventEmitter {
 
     constructor(viewport, presentation, editMode = false) {

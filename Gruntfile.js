@@ -74,7 +74,9 @@ module.exports = function(grunt) {
         // Generate JavaScript API documentation.
         jsdoc: {
             options: {
-                destination: "dist/doc"
+                destination: "dist/doc",
+                template: "node_modules/jsdoc-baseline",
+                configure: "jsdoc.json"
             },
             all: [ "js/**/*.js" ]
         },

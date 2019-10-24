@@ -82,18 +82,22 @@ export class CameraState {
         return this._angle;
     }
 
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * @return A plain object with the properties that need to be saved.
+     */
     toStorable() {
         return {
-            cx: this.cx,
-            cy: this.cy,
-            width: this.width,
-            height: this.height,
-            opacity: this.opacity,
-            angle: this.angle,
-            clipped: this.clipped,
-            clipXOffset: this.clipXOffset,
-            clipYOffset: this.clipYOffset,
-            clipWidthFactor: this.clipWidthFactor,
+            cx              : this.cx,
+            cy              : this.cy,
+            width           : this.width,
+            height          : this.height,
+            opacity         : this.opacity,
+            angle           : this.angle,
+            clipped         : this.clipped,
+            clipXOffset     : this.clipXOffset,
+            clipYOffset     : this.clipYOffset,
+            clipWidthFactor : this.clipWidthFactor,
             clipHeightFactor: this.clipHeightFactor
         };
     }
@@ -102,6 +106,10 @@ export class CameraState {
         return this.toStorable();
     }
 
+    /** Copy the properties of the given object into this instance.
+     *
+     * @param {Object} storable A plain object with the properties to copy.
+     */
     fromStorable(storable) {
         copyIfSet(this, storable, "cx");
         copyIfSet(this, storable, "cy");

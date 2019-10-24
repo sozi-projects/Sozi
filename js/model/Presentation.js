@@ -4,6 +4,7 @@
 
 "use strict";
 
+import {EventEmitter} from "events";
 import {CameraState} from "./CameraState";
 
 function copyIfSet(dest, src, prop) {
@@ -41,26 +42,34 @@ export class LayerProperties {
         this.transitionPathId         = other.transitionPathId;
     }
 
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * @return A plain object with the properties that need to be saved.
+     */
     toStorable() {
         return {
-            link: this.link,
-            referenceElementId: this.referenceElementId,
-            outlineElementId: this.outlineElementId,
-            outlineElementAuto: this.outlineElementAuto,
+            link                    : this.link,
+            referenceElementId      : this.referenceElementId,
+            outlineElementId        : this.outlineElementId,
+            outlineElementAuto      : this.outlineElementAuto,
             transitionTimingFunction: this.transitionTimingFunction,
-            transitionRelativeZoom: this.transitionRelativeZoom,
-            transitionPathId: this.transitionPathId
+            transitionRelativeZoom  : this.transitionRelativeZoom,
+            transitionPathId        : this.transitionPathId
         };
     }
 
     toMinimalStorable() {
         return {
             transitionTimingFunction: this.transitionTimingFunction,
-            transitionRelativeZoom: this.transitionRelativeZoom,
-            transitionPathId: this.transitionPathId
+            transitionRelativeZoom  : this.transitionRelativeZoom,
+            transitionPathId        : this.transitionPathId
         };
     }
 
+    /** Copy the properties of the given object into this instance.
+     *
+     * @param {Object} storable A plain object with the properties to copy.
+     */
     fromStorable(storable) {
         copyIfSet(this, storable, "link");
         copyIfSet(this, storable, "referenceElementId");
@@ -166,6 +175,10 @@ export class Frame {
         this.cameraStates         = other.cameraStates.map(cs => new CameraState(cs));
     }
 
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * @return A plain object with the properties that need to be saved.
+     */
     toStorable() {
         const layerProperties = {};
         const cameraStates = {};
@@ -185,15 +198,15 @@ export class Frame {
         });
 
         return {
-            frameId: this.frameId,
-            title: this.title,
-            titleLevel: this.titleLevel,
-            notes: this.notes,
-            timeoutMs: this.timeoutMs,
-            timeoutEnable: this.timeoutEnable,
+            frameId             : this.frameId,
+            title               : this.title,
+            titleLevel          : this.titleLevel,
+            notes               : this.notes,
+            timeoutMs           : this.timeoutMs,
+            timeoutEnable       : this.timeoutEnable,
             transitionDurationMs: this.transitionDurationMs,
-            showInFrameList: this.showInFrameList,
-            showFrameNumber: this.showFrameNumber,
+            showInFrameList     : this.showInFrameList,
+            showFrameNumber     : this.showFrameNumber,
             layerProperties,
             cameraStates,
             cameraOffsets
@@ -228,6 +241,10 @@ export class Frame {
         };
     }
 
+    /** Copy the properties of the given object into this instance.
+     *
+     * @param {Object} storable A plain object with the properties to copy.
+     */
     fromStorable(storable) {
         copyIfSet(this, storable, "frameId");
         copyIfSet(this, storable, "title");
@@ -326,7 +343,7 @@ export class Layer {
 // Constant: the SVG namespace
 const SVG_NS = "http://www.w3.org/2000/svg";
 
-export class Presentation {
+export class Presentation extends EventEmitter {
 
     /*
      * Initialize a Sozi document object.
@@ -335,6 +352,8 @@ export class Presentation {
      *    - The current presentation object.
      */
     constructor() {
+        super();
+        
         this.document                 = null;
         this.frames                   = [];
         this.layers                   = [];
@@ -376,12 +395,14 @@ export class Presentation {
         }
 
         this.layers.push(autoLayer);
-    }
-
-    setInitialCameraState() {
         this.initialCameraState = new CameraState(this.document.root);
+        this.emit("svgChange");
     }
 
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * @return A plain object with the properties that need to be saved.
+     */
     toStorable() {
         return {
             aspectWidth             : this.aspectWidth,
@@ -414,6 +435,10 @@ export class Presentation {
         };
     }
 
+    /** Copy the properties of the given object into this instance.
+     *
+     * @param {Object} storable A plain object with the properties to copy.
+     */
     fromStorable(storable) {
         copyIfSet(this, storable, "aspectWidth");
         copyIfSet(this, storable, "aspectHeight");

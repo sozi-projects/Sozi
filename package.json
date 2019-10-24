@@ -41,6 +41,7 @@
     "grunt-po2json": "github:rockykitamura/grunt-po2json",
     "grunt-rename": "github:senshu/grunt-rename",
     "grunt-rsync": "^3.0.0",
+    "jsdoc-baseline": "^0.1.5",
     "load-grunt-tasks": "^5.1.0"
   }
 }
