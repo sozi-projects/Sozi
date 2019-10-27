@@ -69,11 +69,11 @@ export class Controller extends EventEmitter {
         this.defaultLayers = [];
 
         /** The stack of operations that can be undone.
-         * @type {Function[]} */
+         * @type {Array} */
         this.undoStack = [];
 
         /** The stack of operations that can be redone.
-         * @type {Function[]} */
+         * @type {Array} */
         this.redoStack = [];
 
         this.addListener("repaint", () => this.onRepaint());
@@ -775,7 +775,18 @@ export class Controller extends EventEmitter {
         this.emit("repaint");
     }
 
-    // TODO documentation
+    /** Reset the selected layers to their initial state.
+     *
+     * This method puts all selected layers, in all selected frames,
+     * in the same state as if the SVG was just opened.
+     * Users can perform this operation to recover from a sequence of transformations
+     * that resulted in an undesired layer state.
+     *
+     * This operation can be undone.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#repaint
+     */
     resetLayer() {
         const selectedFrames = this.selection.selectedFrames.slice();
         const selectedLayers = this.selection.selectedLayers.slice();
@@ -820,6 +831,19 @@ export class Controller extends EventEmitter {
         );
     }
 
+    /** Copy the properties of a given layer into the selected layers.
+     *
+     * This method copies the layer properties and geometrical transformations
+     * for the given layer in the selected frames, into the selected layers
+     * in the same frames.
+     *
+     * This operation can be undone.
+     *
+     * @param {number} groupId - The ID of the SVG group for the layer to copy.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#repaint
+     */
     copyLayer(groupId) {
         const selectedFrames = this.selection.selectedFrames.slice();
         const selectedLayers = this.selection.selectedLayers.slice();
@@ -875,7 +899,13 @@ export class Controller extends EventEmitter {
         );
     }
 
-    canFitElement() {
+    /** `true` if the "Fit Element" function is available.
+     *
+     * This property is `true` when the outline element of each selected layer belongs to this layer.
+     *
+     * @type {boolean}
+     */
+    get canFitElement() {
         return this.selection.selectedFrames.length === 1 &&
                this.selection.selectedLayers.length >= 1 &&
                this.selection.selectedLayers.every(layer => {
@@ -885,6 +915,15 @@ export class Controller extends EventEmitter {
                });
     }
 
+    /** Fit each layer so that its outline element fills the viewport.
+     *
+     * This method applies a transformation to each selected layer in the
+     * {@link Selection#currentFrame|current frame} so that the outline element
+     * of each layer fills the current viewport.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#repaint
+     */
     fitElement() {
         const currentFrame = this.selection.currentFrame;
         if (currentFrame) {
@@ -929,26 +968,55 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Get a property of the current presentation.
+     *
+     * This method is used in the {@link Properties} view to assign getters
+     * to HTML fields that represent presentation properties.
+     *
+     * @param {string} property - The name of the property to get.
+     * @return The value of the property.
+     */
     getPresentationProperty(property) {
         return this.presentation[property];
     }
 
-    setPresentationProperty(propertyName, propertyValue) {
+    /** Set a property of the current presentation.
+     *
+     * This method is used in the {@link Properties} view to assign setters
+     * to HTML fields that represent presentation properties.
+     *
+     * This operation can be undone.
+     *
+     * @param {string} property - The name of the property to set.
+     * @param propertyValue - The new value of the property.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#repaint
+     */
+    setPresentationProperty(property, propertyValue) {
         const pres = this.presentation;
-        const savedValue = pres[propertyName];
+        const savedValue = pres[property];
 
         this.perform(
             function onDo() {
-                pres[propertyName] = propertyValue;
+                pres[property] = propertyValue;
             },
             function onUndo() {
-                pres[propertyName] = savedValue;
+                pres[property] = savedValue;
             },
             false,
             ["presentationChange", "repaint"]
         );
     }
 
+    /** Get a property of the selected frames.
+     *
+     * This method is used in the {@link Properties} view to assign getters
+     * to HTML fields that represent frame properties.
+     *
+     * @param {string} property - The name of the property to get.
+     * @return {Array} The values of the property in the selected frames.
+     */
     getFrameProperty(property) {
         const values = [];
 
@@ -962,18 +1030,31 @@ export class Controller extends EventEmitter {
         return values;
     }
 
-    setFrameProperty(propertyName, propertyValue) {
-        const savedValues = this.selection.selectedFrames.map(frame => [frame, frame[propertyName]]);
+    /** Set a property of the selected frames.
+     *
+     * This method is used in the {@link Properties} view to assign setters
+     * to HTML fields that represent frame properties.
+     *
+     * This operation can be undone.
+     *
+     * @param {string} property - The name of the property to set.
+     * @param propertyValue - The new value of the property.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#repaint
+     */
+    setFrameProperty(property, propertyValue) {
+        const savedValues = this.selection.selectedFrames.map(frame => [frame, frame[property]]);
 
         this.perform(
             function onDo() {
                 for (let [frame, value] of savedValues) {
-                    frame[propertyName] = propertyValue;
+                    frame[property] = propertyValue;
                 }
             },
             function onUndo() {
                 for (let [frame, value] of savedValues) {
-                    frame[propertyName] = value;
+                    frame[property] = value;
                 }
             },
             false,
@@ -981,6 +1062,14 @@ export class Controller extends EventEmitter {
         );
     }
 
+    /** Get a property of the selected layers in the selected frames.
+     *
+     * This method is used in the {@link Properties} view to assign getters
+     * to HTML fields that represent layer properties.
+     *
+     * @param {string} property - The name of the property to get.
+     * @return {Array} The values of the property in the selected layers.
+     */
     getLayerProperty(property) {
         const values = [];
 
@@ -996,16 +1085,29 @@ export class Controller extends EventEmitter {
         return values;
     }
 
-    setLayerProperty(propertyName, propertyValue) {
+    /** Set a property of the selected layers in the selected frames.
+     *
+     * This method is used in the {@link Properties} view to assign setters
+     * to HTML fields that represent layer properties.
+     *
+     * This operation can be undone.
+     *
+     * @param {string} property - The name of the property to set.
+     * @param propertyValue - The new value of the property.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#repaint
+     */
+    setLayerProperty(property, propertyValue) {
         const selectedFrames = this.selection.selectedFrames.slice();
         const selectedLayers = this.selection.selectedLayers.slice();
         const savedValues = selectedFrames.map(
             frame => selectedLayers.map(
-                layer => frame.layerProperties[layer.index][propertyName]
+                layer => frame.layerProperties[layer.index][property]
             )
         );
 
-        const link = propertyName === "link" && propertyValue;
+        const link = property === "link" && propertyValue;
 
         const savedCameraStates = selectedFrames.map(
             frame => selectedLayers.map(
@@ -1017,7 +1119,7 @@ export class Controller extends EventEmitter {
             function onDo() {
                 for (let frame of selectedFrames) {
                     for (let layer of selectedLayers) {
-                        frame.layerProperties[layer.index][propertyName] = propertyValue;
+                        frame.layerProperties[layer.index][property] = propertyValue;
                     }
                 }
 
@@ -1026,7 +1128,7 @@ export class Controller extends EventEmitter {
             function onUndo() {
                 selectedFrames.forEach((frame, frameIndex) => {
                     selectedLayers.forEach((layer, layerIndex) => {
-                        frame.layerProperties[layer.index][propertyName] = savedValues[frameIndex][layerIndex];
+                        frame.layerProperties[layer.index][property] = savedValues[frameIndex][layerIndex];
                         if (link) {
                             frame.cameraStates[layer.index].copy(savedCameraStates[frameIndex][layerIndex]);
                         }
@@ -1040,6 +1142,14 @@ export class Controller extends EventEmitter {
         );
     }
 
+    /** Get a property of the selected cameras in the selected frames.
+     *
+     * This method is used in the {@link Properties} view to assign getters
+     * to HTML fields that represent camera properties.
+     *
+     * @param {string} property - The name of the property to get.
+     * @return {Array} The values of the property in the selected cameras.
+     */
     getCameraProperty(property) {
         const values = [];
 
@@ -1055,14 +1165,27 @@ export class Controller extends EventEmitter {
         return values;
     }
 
-    setCameraProperty(propertyName, propertyValue) {
+    /** Set a property of the selected cameras in the selected frames.
+     *
+     * This method is used in the {@link Properties} view to assign setters
+     * to HTML fields that represent camera properties.
+     *
+     * This operation can be undone.
+     *
+     * @param {string} property - The name of the property to set.
+     * @param propertyValue - The new value of the property.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#repaint
+     */
+    setCameraProperty(property, propertyValue) {
         const selectedFrames = this.selection.selectedFrames.slice();
         const selectedLayers = this.selection.selectedLayers.slice();
 
         const savedValues = selectedFrames.map(
             frame => selectedLayers.map(
                 layer => ({
-                    prop: frame.cameraStates[layer.index][propertyName],
+                    prop: frame.cameraStates[layer.index][property],
                     link: frame.layerProperties[layer.index].link
                 })
             )
@@ -1072,7 +1195,7 @@ export class Controller extends EventEmitter {
             function onDo() {
                 for (let frame of selectedFrames) {
                     for (let layer of selectedLayers) {
-                        frame.cameraStates[layer.index][propertyName] = propertyValue;
+                        frame.cameraStates[layer.index][property] = propertyValue;
                         frame.layerProperties[layer.index].link = false;
                     }
                 }
@@ -1082,7 +1205,7 @@ export class Controller extends EventEmitter {
             function onUndo() {
                 selectedFrames.forEach((frame, frameIndex) => {
                     selectedLayers.forEach((layer, layerIndex) => {
-                        frame.cameraStates[layer.index][propertyName] = savedValues[frameIndex][layerIndex].prop;
+                        frame.cameraStates[layer.index][property] = savedValues[frameIndex][layerIndex].prop;
                         frame.layerProperties[layer.index].link = savedValues[frameIndex][layerIndex].link;
                     });
                 });
@@ -1094,6 +1217,17 @@ export class Controller extends EventEmitter {
         );
     }
 
+    /** Update the cameras in the current selection based on the current viewport state.
+     *
+     * This method is called after a user action that modifies the cameras in the
+     * viewport. It copies the camera states of the viewport to the camera states
+     * of the selected layers of the presentation.
+     *
+     * This operation can be undone.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#repaint
+     */
     updateCameraStates() {
         const currentFrame = this.selection.currentFrame;
         if (currentFrame) {
@@ -1152,23 +1286,30 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Set the given element as the outline element of the selected layers in the current frame.
+     *
+     * This operation can be undone.
+     *
+     * @param {SVGElement} outlineElement - The element to use as an outline of the selected layers.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#repaint
+     */
     setOutlineElement(outlineElement) {
         const currentFrame = this.selection.currentFrame;
         if (currentFrame) {
-            const properties = this.viewport.cameras.map((camera, cameraIndex) => {
-                if (camera.selected) {
-                    const layerProperties    = currentFrame.layerProperties[cameraIndex];
-                    const savedProperties    = new LayerProperties(layerProperties);
-                    const modifiedProperties = new LayerProperties(layerProperties);
+            const properties = this.selection.selectedLayers.map(layer => {
+                const layerProperties    = currentFrame.layerProperties[layer.index];
+                const savedProperties    = new LayerProperties(layerProperties);
+                const modifiedProperties = new LayerProperties(layerProperties);
 
-                    // Mark the modified layers as unlinked in the current frame
-                    modifiedProperties.link = false;
+                // Mark the modified layers as unlinked in the current frame
+                modifiedProperties.link = false;
 
-                    modifiedProperties.outlineElementAuto = false;
-                    modifiedProperties.outlineElementId = outlineElement.getAttribute("id");
+                modifiedProperties.outlineElementAuto = false;
+                modifiedProperties.outlineElementId = outlineElement.getAttribute("id");
 
-                    return {layerProperties, savedProperties, modifiedProperties};
-                }
+                return {layerProperties, savedProperties, modifiedProperties};
             });
 
             this.perform(
@@ -1194,6 +1335,15 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Set the width component (numerator) of the current aspect ratio of the preview area.
+     *
+     * This operation can be undone.
+     *
+     * @param {number} width - The desired width.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#repaint
+     */
     setAspectWidth(width) {
         const widthPrev = this.presentation.aspectWidth;
         this.perform(
@@ -1208,6 +1358,15 @@ export class Controller extends EventEmitter {
         );
     }
 
+    /** Set the height component (denominator) of the current aspect ratio of the preview area.
+     *
+     * This operation can be undone.
+     *
+     * @param {number} height - The desired height.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#repaint
+     */
     setAspectHeight(height) {
         const heightPrev = this.presentation.aspectHeight;
         this.perform(
@@ -1222,25 +1381,71 @@ export class Controller extends EventEmitter {
         );
     }
 
+    /** Set the effect of dragging in the preview area.
+     *
+     * @see Viewport#dragMode
+     *
+     * @param {string} dragMode - The new drag mode.
+     *
+     * @fires Controller#repaint
+     */
     setDragMode(dragMode) {
         this.viewport.dragMode = dragMode;
         this.emit("repaint");
     }
 
+    /** Get a property of the preferences object.
+     *
+     * This method is used in the {@link Properties} view to assign getters
+     * to HTML fields that represent preferences.
+     *
+     * @param {string} property - The name of the property to get.
+     * @return The values of the property in the preferences.
+     */
     getPreference(key) {
         return this.preferences[key];
     }
 
+    /** Set a property of the preferences object.
+     *
+     * This method is used in the {@link Properties} view to assign setters
+     * to HTML fields that represent preferences.
+     *
+     * This operation cannot be undone.
+     *
+     * @param {string} property - The name of the property to set.
+     * @param propertyValue - The new value of the property.
+     *
+     * @fires Controller#repaint
+     */
     setPreference(key, value) {
         this.preferences[key] = value;
         this.applyPreferences();
     }
 
-    getShortcut(key) {
-        return this.preferences.keys[key];
+    /** Get the keyboard shortcut for a given action.
+     *
+     * This method is used in the {@link Properties} view to assign getters
+     * to HTML fields that represent keyboard shortcut preferences.
+     *
+     * @param {string} action - A supported keyboard action name.
+     * @return {string} A shortcut definition.
+     */
+    getShortcut(action) {
+        return this.preferences.keys[action];
     }
 
-    setShortcut(key, value) {
+    /** Set a keyboard shortcut for a given action.
+     *
+     * This method is used in the {@link Properties} view to assign setters
+     * to HTML fields that represent keyboard shortcut preferences.
+     *
+     * This operation cannot be undone.
+     *
+     * @param {string} action - A supported keyboard action name.
+     * @param value - A shortcut definition.
+     */
+    setShortcut(action, value) {
         // Find occurrences of modifier keys in the given value.
         let ctrl  = /\bCtrl\s*\+/i.test(value);
         let alt   = /\bAlt\s*\+/i.test(value);
@@ -1265,9 +1470,13 @@ export class Controller extends EventEmitter {
         if (ctrl) {
             value = "Ctrl+" + value;
         }
-        this.preferences.keys[key] = value;
+        this.preferences.keys[action] = value;
     }
 
+    /** Update the user interface after modifying the preferences.
+     *
+     * @fires Controller#repaint
+     */
     applyPreferences() {
         if (this.preferences.fontSize > 0) {
             document.body.style.fontSize = this.preferences.fontSize + "pt";
@@ -1275,6 +1484,17 @@ export class Controller extends EventEmitter {
         this.emit("repaint");
     }
 
+    /** Perform an operation with undo/redo support.
+     *
+     * This method call `onDo`, adds an operation record to the
+     * {@link Controller#undoStack|undo stack}, and clears the
+     * {@link Controller#undoStack|redo stack}.
+     *
+     * @param {Function} onDo - The function that performs the operation.
+     * @param {Function} onUndo - The function that undoes the operation.
+     * @param {boolean} updateSelection - If `true`, restore the selection when undoing.
+     * @param {string[]} events - Emit the given events when performing of undoing the operation.
+     */
     perform(onDo, onUndo, updateSelection, events) {
         const action = {onDo, onUndo, updateSelection, events};
         if (updateSelection) {
@@ -1292,6 +1512,13 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Undo an operation.
+     *
+     * This method pops and executes an operation from the {@link Controller#undoStack|undo stack}.
+     * It updates the selection and emits events as specified in the corresponding
+     * call to {@link Controller#peform}.
+     * The operation record is pushed to the {@link Controller#redoStack|redo stack}
+     */
     undo() {
         if (!this.undoStack.length) {
             return;
@@ -1308,6 +1535,13 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Redo an operation.
+     *
+     * This method pops and executes an operation from the {@link Controller#undoStack|redo stack}.
+     * It updates the selection and emits events as specified in the corresponding
+     * call to {@link Controller#peform}.
+     * The operation record is pushed to the {@link Controller#redoStack|undo stack}
+     */
     redo() {
         if (!this.redoStack.length) {
             return;

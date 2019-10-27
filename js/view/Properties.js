@@ -170,7 +170,7 @@ export class Properties extends VirtualDOMView {
                     this.renderToggleField(h("i.far.fa-eye-slash"), _("Hide element"), "outlineElementHide", c.getLayerProperty, c.setLayerProperty),
                     h("button", {
                         title: _("Fit to element"),
-                        disabled: !c.canFitElement(),
+                        disabled: !c.canFitElement,
                         onclick() { c.fitElement(); }
                     }, h("i.fas.fa-arrows-alt"))
                 ])

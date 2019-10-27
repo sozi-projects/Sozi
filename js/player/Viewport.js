@@ -50,7 +50,11 @@ export class Viewport extends EventEmitter {
         this.cameras = [];
         this.mouseDragX = 0;
         this.mouseDragY = 0;
+
+        /** The effect of dragging in this viewport (`"scale"`, `"translate"`, `"rotate"`, `"clip"`).
+         * @type {string} */
         this.dragMode = "translate";
+        
         this.clipMode = {cameras: [], operation: "select"};
         this.showHiddenElements = false;
         this.wheelTimeout = null;

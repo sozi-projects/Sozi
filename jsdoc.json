@@ -24,7 +24,7 @@
         }
     },
     "tags": {
-        "allowUnknownTags": ["category"] //or true
+        "allowUnknownTags": ["category"]
     },
     "plugins": [
         "plugins/markdown",
