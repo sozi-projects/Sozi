@@ -182,29 +182,11 @@ export class AbstractBackend extends EventEmitter {
      * and when the editor closes.
      */
     doAutosave() {
-        this.savePreferences();
+        this.controller.preferences.save();
         this.saveOutdatedFiles();
     }
 
     toggleDevTools() {
         // Not implemented
-    }
-
-    loadPreferences(prefs) {
-        this.preferences = prefs;
-        for (let key in prefs) {
-            const value = localStorage.getItem(key);
-            if (value !== null) {
-                prefs[key] = JSON.parse(value);
-            }
-        }
-    }
-
-    savePreferences() {
-        if (this.preferences) {
-            for (let key in this.preferences) {
-                localStorage.setItem(key, JSON.stringify(this.preferences[key]));
-            }
-        }
     }
 }

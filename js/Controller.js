@@ -168,7 +168,7 @@ export class Controller extends EventEmitter {
         this.storage = storage;
 
         // Load the preferences.
-        storage.backend.loadPreferences(this.preferences);
+        this.preferences.load();
 
         // If no frame is selected, select the first frame.
         if (!this.selection.selectedFrames.length && this.presentation.frames.length) {

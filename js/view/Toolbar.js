@@ -27,9 +27,8 @@ export class Toolbar extends VirtualDOMView {
 
     render() {
         const _ = this.gettext;
-        const c = this.controller;
-        const v = this.viewport;
-        const t = this;
+        const controller = this.controller;
+        const thisView = this;
 
         this.state["aspect-width"]  = {value: this.presentation.aspectWidth};
         this.state["aspect-height"] = {value: this.presentation.aspectHeight};
@@ -47,7 +46,7 @@ export class Toolbar extends VirtualDOMView {
                     onchange() {
                         const width = parseInt(this.value);
                         if (!width.isNaN) {
-                            c.setAspectWidth(width);
+                            controller.setAspectWidth(width);
                         }
                     }
                 }),
@@ -62,7 +61,7 @@ export class Toolbar extends VirtualDOMView {
                     onchange() {
                         const height = parseInt(this.value);
                         if (!height.isNaN) {
-                            c.setAspectHeight(height);
+                            controller.setAspectHeight(height);
                         }
                     }
                 })
@@ -70,35 +69,35 @@ export class Toolbar extends VirtualDOMView {
             h("span.group.btn-group", [
                 h("button", {
                     title: _("Move the selected layers (hold Alt to zoom, Shift to rotate)"),
-                    className: v.dragMode === "translate" ? "active" : "",
-                    onclick() { c.setDragMode("translate"); }
+                    className: this.viewport.dragMode === "translate" ? "active" : "",
+                    onclick() { controller.setDragMode("translate"); }
                 }, h("i.fas.fa-arrows-alt")),
                 h("button", {
                     title: _("Zoom in/out on the selected layers (you can also hold the Alt key in Move mode)"),
-                    className: v.dragMode === "scale" ? "active" : "",
-                    onclick() { c.setDragMode("scale"); }
+                    className: this.viewport.dragMode === "scale" ? "active" : "",
+                    onclick() { controller.setDragMode("scale"); }
                 }, h("i.fas.fa-expand")),
                 h("button", {
                     title: _("Rotate the selected layers (you can also hold the Shift key in Move mode)"),
-                    className: v.dragMode === "rotate" ? "active" : "",
-                    onclick() { c.setDragMode("rotate"); }
+                    className: this.viewport.dragMode === "rotate" ? "active" : "",
+                    onclick() { controller.setDragMode("rotate"); }
                 }, h("i.fas.fa-undo")), // "undo" icon shows a counter-clockwise circular arrow
                 h("button", {
                     title: _("Edit the clipping area"),
-                    className: v.dragMode === "clip" ? "active" : "",
-                    onclick() { c.setDragMode("clip"); }
+                    className: this.viewport.dragMode === "clip" ? "active" : "",
+                    onclick() { controller.setDragMode("clip"); }
                 }, h("i.fas.fa-crop"))
             ]),
             h("span.group.btn-group", [
                 h("button", {
                     title: _("Undo"),
-                    disabled: c.undoStack.length ? undefined : "disabled",
-                    onclick() { c.undo(); }
+                    disabled: controller.undoStack.length ? undefined : "disabled",
+                    onclick() { controller.undo(); }
                 }, h("i.fas.fa-reply")), // "reply" icon preferred to the official "undo" icon
                 h("button", {
                     title: _("Redo"),
-                    disabled: c.redoStack.length ? undefined : "disabled",
-                    onclick() { c.redo(); }
+                    disabled: controller.redoStack.length ? undefined : "disabled",
+                    onclick() { controller.redo(); }
                 }, h("i.fas.fa-share")) // "share" icon preferred to the official "redo" icon
             ]),
             h("span.group", [
@@ -107,29 +106,29 @@ export class Toolbar extends VirtualDOMView {
                     id: "btn-fullscreen",
                     className: screenfull.isFullscreen ? "active" : undefined,
                     disabled: !screenfull.enabled,
-                    onclick() { screenfull.toggle(document.documentElement).then(() => t.repaint()); }
+                    onclick() { screenfull.toggle(document.documentElement).then(() => thisView.repaint()); }
                 }, h("i.fas.fa-desktop"))
             ]),
             h("span.group.btn-group", [
                 h("button", {
                     title: _("Save the presentation"),
-                    disabled: c.storage && c.storage.htmlNeedsSaving ? undefined : "disabled",
-                    onclick() { c.save(); }
+                    disabled: controller.storage && controller.storage.htmlNeedsSaving ? undefined : "disabled",
+                    onclick() { controller.save(); }
                 }, h("i.fas.fa-download")), // "download" icon preferred to the official "save" icon
                 h("button", {
                     title: _("Reload the SVG document"),
-                    onclick() { c.reload(); }
+                    onclick() { controller.reload(); }
                 }, h("i.fas.fa-sync"))
             ]),
             h("span.group.btn-group", [
                 h("button", {
                     title: _("Preferences"),
                     className: this.properties.preferencesMode ? "active" : undefined,
-                    onclick() { this.properties.togglePreferencesMode(); t.repaint(); }
+                    onclick() { thisView.properties.togglePreferencesMode(); thisView.repaint(); }
                 }, h("i.fas.fa-sliders-h")),
                 h("button", {
                     title: _("Information"),
-                    onclick() { c.info(`Sozi ${pkg.version}`, true); }
+                    onclick() { controller.info(`Sozi ${pkg.version}`, true); }
                 }, h("i.fas.fa-info"))
             ])
         ]);

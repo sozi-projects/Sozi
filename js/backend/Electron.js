@@ -98,7 +98,7 @@ export class Electron extends AbstractBackend {
     quit(confirmSave) {
         // Always save the window settings and the preferences.
         this.saveConfiguration();
-        this.savePreferences();
+        this.controller.preferences.save();
 
         if (confirmSave && this.hasOutdatedFiles) {
             // Close the window only when all files have been saved.

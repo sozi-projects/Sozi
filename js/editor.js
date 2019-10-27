@@ -32,7 +32,8 @@ window.addEventListener("load", () => {
     const player       = new Player(viewport, presentation, true);
 
     const locale       = i18n.init();
-    const controller   = new Controller(Preferences, presentation, selection, viewport, player, locale);
+    const preferences  = new Preferences();
+    const controller   = new Controller(preferences, presentation, selection, viewport, player, locale);
     const preview      = new Preview(document.getElementById("sozi-editor-view-preview"), presentation, selection, viewport, controller);
     const properties   = new Properties(document.getElementById("sozi-editor-view-properties"), selection, controller, locale);
     const toolbar      = new Toolbar(document.getElementById("sozi-editor-view-toolbar"), properties, presentation, viewport, controller, locale);
@@ -107,8 +108,8 @@ window.addEventListener("load", () => {
 
         let actionFound = null;
 
-        for (let action in Preferences.keys) {
-            if (Preferences.keys[action] === key) {
+        for (let action in preferences.keys) {
+            if (preferences.keys[action] === key) {
                 actionFound = action;
                 break;
             }

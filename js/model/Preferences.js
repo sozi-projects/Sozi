@@ -8,25 +8,42 @@
 /** Sozi editor preferences.
  *
  * @category model
- * @todo Convert into a class and move load/save methods.
+ *
  * @todo Add documentation.
  */
-export const Preferences = {
-    fontSize: 11,
-    enableNotifications: true,
-    animateTransitions: true,
-    keys: {
-        fitElement: "Ctrl+E",
-        resetLayer: "Ctrl+R",
-        addFrame: "Ctrl+N",
-        save: "Ctrl+S",
-        redo: "Ctrl+Y",
-        undo: "Ctrl+Z",
-        focusTitleField: "F2",
-        reload: "F5",
-        toggleFullscreen: "F11",
-        toggleDevTools: "F12"
-    },
-    saveMode: "onblur",
-    reloadMode: "auto"
+export class Preferences {
+    constructor() {
+        this.fontSize = 11;
+        this.enableNotifications = true;
+        this.animateTransitions = true;
+        this.keys = {
+            fitElement: "Ctrl+E",
+            resetLayer: "Ctrl+R",
+            addFrame: "Ctrl+N",
+            save: "Ctrl+S",
+            redo: "Ctrl+Y",
+            undo: "Ctrl+Z",
+            focusTitleField: "F2",
+            reload: "F5",
+            toggleFullscreen: "F11",
+            toggleDevTools: "F12"
+        }
+        this.saveMode = "onblur";
+        this.reloadMode = "auto";
+    }
+
+    save() {
+        for (let key of Object.keys(this)) {
+            localStorage.setItem(key, JSON.stringify(this[key]));
+        }
+    }
+
+    load() {
+        for (let key of Object.keys(this)) {
+            const value = localStorage.getItem(key);
+            if (value !== null) {
+                this[key] = JSON.parse(value);
+            }
+        }
+    }
 };

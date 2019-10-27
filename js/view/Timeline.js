@@ -106,8 +106,8 @@ export class Timeline extends VirtualDOMView {
 
     render() {
         const _ = this.gettext;
-
-        const c = this.controller;
+        const controller = this.controller;
+        
         let even = true;
         function updateEven(frame, layer) {
             if (frame.index === 0) {
@@ -119,7 +119,7 @@ export class Timeline extends VirtualDOMView {
             return even;
         }
 
-        const defaultLayersAreVisible = c.defaultLayers.some(layer => layer.isVisible);
+        const defaultLayersAreVisible = controller.defaultLayers.some(layer => layer.isVisible);
 
         return h("div", [
             h("div.timeline-top-left", [
@@ -129,13 +129,13 @@ export class Timeline extends VirtualDOMView {
                             h("button", {
                                 title: _("Delete the selected frames"),
                                 disabled: this.selection.selectedFrames.length ? undefined : "disabled",
-                                onclick() { c.deleteFrames(); }
+                                onclick() { controller.deleteFrames(); }
                             }, h("i.fas.fa-trash"))
                         ]),
                         h("th", [
                             h("button", {
                                 title: _("Create a new frame"),
-                                onclick() { c.addFrame(); }
+                                onclick() { controller.addFrame(); }
                             }, h("i.fas.fa-plus"))
                         ]),
                     ]),
@@ -146,17 +146,17 @@ export class Timeline extends VirtualDOMView {
                                     const value = evt.target.value;
                                     evt.target.value = "__sozi_add__";
                                     if (value === "__sozi_add_all__") {
-                                        c.addAllLayers();
+                                        controller.addAllLayers();
                                     }
                                     else {
-                                        c.addLayer(value);
+                                        controller.addLayer(value);
                                     }
                                 }
                             }, [
                                 h("option", {value: "__sozi_add__", selected: "selected"}, _("Add layer")),
                                 h("option", {value: "__sozi_add_all__"}, _("Add all layers")),
                                 this.presentation.layers.slice().reverse()
-                                    .filter(layer => !layer.auto && c.defaultLayers.indexOf(layer) >= 0)
+                                    .filter(layer => !layer.auto && controller.defaultLayers.indexOf(layer) >= 0)
                                     .map(layer => h("option", {value: layer.index}, layer.label))
                             ])
                         )
@@ -165,7 +165,7 @@ export class Timeline extends VirtualDOMView {
             ]),
             h("div.timeline-bottom-left", [
                 h("table.timeline", [
-                    c.hasDefaultLayer ? h("tr", [
+                    controller.hasDefaultLayer ? h("tr", [
                         h("th.layer-icons", [
                             defaultLayersAreVisible ?
                                 h("i.visibility.far.fa-eye", {
@@ -179,12 +179,12 @@ export class Timeline extends VirtualDOMView {
                             h("i.remove.fas.fa-times", {style: {visibility: "hidden"}})
                         ]),
                         h("th", {
-                            className: "layer-label" + (c.defaultLayersAreSelected ? " selected" : ""),
+                            className: "layer-label" + (controller.defaultLayersAreSelected ? " selected" : ""),
                             onclick: evt => this.updateLayerSelection(-1, evt)
                         }, _("Default"))
                     ]) : null,
                     this.presentation.layers.slice().reverse()
-                        .filter(layer => c.editableLayers.indexOf(layer) >= 0)
+                        .filter(layer => controller.editableLayers.indexOf(layer) >= 0)
                         .map(layer => h("tr", [
                                 h("th.layer-icons", [
                                     layer.isVisible ?
@@ -198,7 +198,7 @@ export class Timeline extends VirtualDOMView {
                                         }),
                                     h("i.remove.fas.fa-times", {
                                         title: _("Remove this layer"),
-                                        onclick: () => c.removeLayer(layer.index)
+                                        onclick: () => controller.removeLayer(layer.index)
                                     })
                                 ]),
                                 h("th", {
@@ -224,14 +224,14 @@ export class Timeline extends VirtualDOMView {
                             h("i.insert-before.fas.fa-arrow-circle-down", {
                                 title: Jed.sprintf(_("Insert selection before frame %d"), frameIndex + 1),
                                 onclick(evt) {
-                                    c.moveFrames(frameIndex);
+                                    controller.moveFrames(frameIndex);
                                     evt.stopPropagation();
                                 }
                             }),
                             h("i.insert-after.fas.fa-arrow-circle-down", {
                                 title: Jed.sprintf(_("Insert selection after frame %d"), frameIndex + 1),
                                 onclick(evt) {
-                                    c.moveFrames(frameIndex + 1);
+                                    controller.moveFrames(frameIndex + 1);
                                     evt.stopPropagation();
                                 }
                             }),
@@ -256,18 +256,18 @@ export class Timeline extends VirtualDOMView {
                     this.container.querySelector(".timeline-bottom-left").scrollTop = evt.target.scrollTop;
                 }
             }, h("table.timeline", [
-                    c.hasDefaultLayer ? h("tr",
+                    controller.hasDefaultLayer ? h("tr",
                         this.presentation.frames.map((frame, frameIndex) => h("td", {
                             className:
-                                (c.defaultLayersAreSelected && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
+                                (controller.defaultLayersAreSelected && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
                                 (frame === this.selection.currentFrame ? " current" : "") +
-                                (frameIndex > 0 && frame.layerProperties[c.defaultLayers[0].index].link ? " link" : "") +
-                                (updateEven(frame, c.defaultLayers[0]) ? " even" : " odd"),
+                                (frameIndex > 0 && frame.layerProperties[controller.defaultLayers[0].index].link ? " link" : "") +
+                                (updateEven(frame, controller.defaultLayers[0]) ? " even" : " odd"),
                             onclick: evt => this.updateLayerAndFrameSelection(-1, frameIndex, evt)
                         }))
                     ) : null,
                     this.presentation.layers.slice().reverse()
-                        .filter(layer => c.editableLayers.indexOf(layer) >= 0)
+                        .filter(layer => controller.editableLayers.indexOf(layer) >= 0)
                         .map(layer => h("tr",
                             this.presentation.frames.map((frame, frameIndex) => h("td", {
                                 className:
