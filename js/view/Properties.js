@@ -11,6 +11,11 @@ function asArray(v) {
     return v instanceof Array ? v : [v];
 }
 
+/** Properties pane of the presentation editor.
+ *
+ * @category view
+ * @todo Add documentation.
+ */
 export class Properties extends VirtualDOMView {
 
     constructor(container, selection, controller, locale) {

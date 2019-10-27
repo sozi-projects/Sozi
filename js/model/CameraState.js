@@ -10,6 +10,11 @@ function copyIfSet(dest, src, prop) {
     }
 }
 
+/** Camera state.
+ *
+ * @category model
+ * @todo Add documentation.
+ */
 export class CameraState {
     constructor(obj) {
         if (obj instanceof CameraState) {

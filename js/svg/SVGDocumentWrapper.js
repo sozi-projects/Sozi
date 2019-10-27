@@ -17,6 +17,11 @@ export function addSVGHandler(name, handler) {
     handlers[name] = handler;
 }
 
+/** Base class for SVG handlers.
+ *
+ * @category svg
+ * @todo Add documentation.
+ */
 export class DefaultSVGHandler {
     static matches(svgRoot) {
         return true;
@@ -34,6 +39,11 @@ export class DefaultSVGHandler {
     }
 }
 
+/** SVG document wrapper.
+ *
+ * @category svg
+ * @todo Add documentation.
+ */
 export class SVGDocumentWrapper {
     constructor(svgRoot) {
         this.asText  = "";

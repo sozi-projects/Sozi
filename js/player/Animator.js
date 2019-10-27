@@ -91,11 +91,13 @@ function start() {
     }
 }
 
-/*
- * An animator provides the logic for animating other objects.
+/** An animator provides the logic for animating other objects.
  *
  * The main purpose of an animator is to schedule the update
  * operations in the animated objects.
+ *
+ * @category player
+ * @todo Add documentation
  */
 export class Animator extends EventEmitter {
 

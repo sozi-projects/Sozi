@@ -8,7 +8,8 @@ import {h} from "inferno-hyperscript";
 import {VirtualDOMView} from "./VirtualDOMView";
 import Jed from "jed";
 
-/*
+/** Timeline pane of the presentation editor.
+ *
  * The Timeline view shows a table where columns represent frames
  * and rows represent layers.
  * The user can choose to manipulate only a subset of the layers of the document.
@@ -19,6 +20,9 @@ import Jed from "jed";
  *  - show/hide layers
  *  - create/delete/reorder frames
  *  - add/remove layers and frames to/from the selection
+ *
+ * @category view
+ * @todo Add documentation
  */
 export class Timeline extends VirtualDOMView {
 

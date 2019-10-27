@@ -5,6 +5,12 @@
 
 "use strict";
 
+/** Sozi editor preferences.
+ *
+ * @category model
+ * @todo Convert into a class and move load/save methods.
+ * @todo Add documentation.
+ */
 export const Preferences = {
     fontSize: 11,
     enableNotifications: true,

@@ -21,6 +21,11 @@ const cwd = process.env.PWD;
 
 console.log("Current working dir: " + cwd);
 
+/** Electron backend.
+ *
+ * @category backend
+ * @todo Add documentation.
+ */
 export class Electron extends AbstractBackend {
 
     constructor(controller, container, _) {

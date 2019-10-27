@@ -7,6 +7,11 @@
 import {render} from "inferno";
 import {h} from "inferno-hyperscript";
 
+/** Base class for editor views using the virtual DOM.
+ *
+ * @category view
+ * @todo Add documentation.
+ */
 export class VirtualDOMView {
 
     constructor(container, controller) {

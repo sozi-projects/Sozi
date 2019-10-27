@@ -12,6 +12,11 @@ import Jed from "jed";
 import {upgradeFromSVG, upgradeFromStorable} from "./upgrade";
 import path from "path";
 
+/** File read/write manager.
+ *
+ * @category editor
+ * @todo Add documentation.
+ */
 export class Storage extends EventEmitter {
 
     constructor(controller, presentation, selection, locale) {

@@ -4,12 +4,16 @@
 
 "use strict";
 
-/*
+/** Selection in the timeline of the Sozi editor.
+ *
  * A Selection instance holds the currently selected
  * frames and layers of the presentation.
  *
  * Events:
  *  - change: when the content of the selection has changed
+ *
+ * @category model
+ * @todo Add documentation
  */
 export class Selection {
 

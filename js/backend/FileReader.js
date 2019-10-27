@@ -6,6 +6,11 @@
 
 import {AbstractBackend, addBackend} from "./AbstractBackend";
 
+/** Browser FileReader backend.
+ *
+ * @category backend
+ * @todo Add documentation.
+ */
 export class FileReaderBackend extends AbstractBackend {
 
     constructor(controller, container, _) {

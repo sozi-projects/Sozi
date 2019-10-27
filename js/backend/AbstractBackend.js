@@ -12,6 +12,11 @@ export function addBackend(backend) {
     backendList.push(backend);
 }
 
+/** Abstraction for the execution platform.
+ *
+ * @category backend
+ * @todo Add documentation.
+ */
 export class AbstractBackend extends EventEmitter {
     constructor(controller, container, buttonId, buttonLabel) {
         super();

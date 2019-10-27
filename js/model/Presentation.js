@@ -13,6 +13,11 @@ function copyIfSet(dest, src, prop) {
     }
 }
 
+/** Layer properties for a frame in a Sozi presentation.
+ *
+ * @category model
+ * @todo Add documentation.
+ */
 export class LayerProperties {
 
     constructor(obj) {
@@ -136,6 +141,11 @@ export class LayerProperties {
     }
 }
 
+/** A frame in a Sozi presentation.
+ *
+ * @category model
+ * @todo Add documentation.
+ */
 export class Frame {
 
     constructor(obj, preserveId=false) {
@@ -308,6 +318,11 @@ export class Frame {
     }
 }
 
+/** Layer in an SVG document.
+ *
+ * @category model
+ * @todo Add documentation.
+ */
 export class Layer {
 
     constructor(presentation, label, auto) {
@@ -343,6 +358,11 @@ export class Layer {
 // Constant: the SVG namespace
 const SVG_NS = "http://www.w3.org/2000/svg";
 
+/** Sozi presentation.
+ *
+ * @category model
+ * @todo Add documentation.
+ */
 export class Presentation extends EventEmitter {
 
     /*
@@ -353,7 +373,7 @@ export class Presentation extends EventEmitter {
      */
     constructor() {
         super();
-        
+
         this.document                 = null;
         this.frames                   = [];
         this.layers                   = [];

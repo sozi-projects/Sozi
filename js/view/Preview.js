@@ -6,6 +6,11 @@
 
 const PREVIEW_MARGIN = 15;
 
+/** Preview area in the presentation editor.
+ *
+ * @category view
+ * @todo Add documentation.
+ */
 export class Preview {
 
     constructor(container, presentation, selection, viewport, controller) {

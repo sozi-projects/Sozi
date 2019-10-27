@@ -9,6 +9,11 @@ import {VirtualDOMView} from "./VirtualDOMView";
 import screenfull from "screenfull";
 import pkg from "../../package.json";
 
+/** Toolbar in the presentation editor.
+ *
+ * @category view
+ * @todo Add documentation.
+ */
 export class Toolbar extends VirtualDOMView {
 
     constructor(container, properties, presentation, viewport, controller, locale) {

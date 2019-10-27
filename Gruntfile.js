@@ -74,8 +74,7 @@ module.exports = function(grunt) {
         // Generate JavaScript API documentation.
         jsdoc: {
             options: {
-                destination: "dist/doc",
-                template: "node_modules/jsdoc-baseline",
+                destination: "dist/api",
                 configure: "jsdoc.json"
             },
             all: [ "js/**/*.js" ]
@@ -310,6 +309,15 @@ module.exports = function(grunt) {
                     deleteAll: true,
                     recursive: true
                 }
+            },
+            api: {
+                options: {
+                    src: ["dist/api"],
+                    dest: "/var/www/sozi.baierouge.fr/",
+                    host: "sozi@baierouge.fr",
+                    deleteAll: true,
+                    recursive: true
+                }
             }
         },
 
@@ -507,7 +515,7 @@ module.exports = function(grunt) {
     // Build and upload the editor for the browser.
     grunt.registerTask("web-demo", [
         "web-build",
-        "rsync" // Cannot use 'newer' here since 'dest' is not a generated file
+        "rsync:editor" // Cannot use 'newer' here since 'dest' is not a generated file
     ]);
 
     // Generate a translation template (pot) file.
@@ -532,6 +540,8 @@ module.exports = function(grunt) {
     else {
         grunt.registerTask("dist", ["electron-archive"]);
     }
+
+    grunt.registerTask("api", ["jsdoc", "rsync:api"]);
 
     // Default task: build the Electron application, and generate zip archives
     grunt.registerTask("default", ["electron-archive"]);

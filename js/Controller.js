@@ -14,63 +14,66 @@ const UNDO_STACK_LIMIT = 100;
  *
  * A Controller instance manages the user interface of the editor and updates
  * the presentation data in reaction to user actions.
+ *
+ * @category editor
+ * @extends EventEmitter
  */
 export class Controller extends EventEmitter {
 
     /** Construct a new Sozi editor UI controller.
      *
-     * @param {Preferences} preferences The object that holds the user settings of the editor.
-     * @param {Presentation} presentation The Sozi presentation opened in the editor.
-     * @param {Selection} selection The object that represents the selection in the timeline.
-     * @param {Viewport} viewport The object that displays a preview of the presentation.
-     * @param {Player} player The object that animates the presentation.
-     * @param locale The object that manages the translations.
+     * @param {Preferences} preferences - The object that holds the user settings of the editor.
+     * @param {Presentation} presentation - The Sozi presentation opened in the editor.
+     * @param {Selection} selection - The object that represents the selection in the timeline.
+     * @param {Viewport} viewport - The object that displays a preview of the presentation.
+     * @param {Player} player - The object that animates the presentation.
+     * @param {Jed} locale - The object that manages the translations.
      */
     constructor(preferences, presentation, selection, viewport, player, locale) {
         super();
 
-        /** The object that manages the file I/O, set in onLoad().
-         * @member {Storage} */
+        /** The object that manages the file I/O, set in {@linkcode Controller#onLoad|onLoad}.
+         * @type {Storage} */
         this.storage = null;
 
         /** The object that holds the user settings of the editor.
-         * @member {Preferences} */
+         * @type {Preferences} */
         this.preferences = preferences;
 
         /** The Sozi presentation opened in the editor.
-         * @member {Presentation} */
+         * @type {Presentation} */
         this.presentation = presentation;
 
         /** The object that represents the selection in the timeline.
-         * @member {Selection} */
+         * @type {Selection} */
         this.selection = selection;
 
         /** The object that displays a preview of the presentation.
-         * @member {Viewport} */
+         * @type {Viewport} */
         this.viewport = viewport;
 
         /** The object that animates the presentation.
-         * @member {Player} */
+         * @type {Player} */
         this.player = player;
 
         /** The function that returns translated text in the current language.
-         * @member {Function} */
+         * @type {Function} */
         this.gettext = s => locale.gettext(s);
 
         /** The layers that have been added to the timeline.
-         * @member {Array} */
+         * @type {Layer[]} */
         this.editableLayers = [];
 
         /** The layers that fall in the "default" row of the timeline.
-         * @member {Array} */
+         * @type {Layer[]} */
         this.defaultLayers = [];
 
         /** The stack of operations that can be undone.
-         * @member {Array} */
+         * @type {Function[]} */
         this.undoStack = [];
 
         /** The stack of operations that can be redone.
-         * @member {Array} */
+         * @type {Function[]} */
         this.redoStack = [];
 
         this.addListener("repaint", () => this.onRepaint());
@@ -78,7 +81,7 @@ export class Controller extends EventEmitter {
 
     /** Convert this instance to a plain object that can be stored as JSON.
      *
-     * This method will save the ids of the editable layers managed by this controller.
+     * This method will save the IDs of the editable layers managed by this controller.
      *
      * @return {Object} A plain object with the properties that need to be saved.
      */
@@ -91,9 +94,9 @@ export class Controller extends EventEmitter {
     /** Copy the properties of the given object into this instance.
      *
      * This method will build the list of editable layers managed by this controller,
-     * from a list of group ids provided by the given object.
+     * from a list of group IDs provided by the given object.
      *
-     * @param {Object} storable A plain object with the properties to copy.
+     * @param {Object} storable - A plain object with the properties to copy.
      */
     fromStorable(storable) {
         this.editableLayers = [];
@@ -110,8 +113,8 @@ export class Controller extends EventEmitter {
 
     /** Show a notification with an information message.
      *
-     * @param {String} body The message to display.
-     * @param {Boolean} force Ignore the user preferences for notifications.
+     * @param {string} body - The message to display.
+     * @param {boolean} force - Ignore the user preferences for notifications.
      */
     info(body, force=false) {
         if (this.preferences.enableNotifications || force) {
@@ -122,7 +125,7 @@ export class Controller extends EventEmitter {
 
     /** Show a notification with an error message.
      *
-     * @param {String} body The message to display.
+     * @param {string} body - The message to display.
      */
     error(body) {
         const _ = this.gettext;
@@ -132,7 +135,8 @@ export class Controller extends EventEmitter {
     /** Update the visible frame on repaint.
      *
      * This method is called each time this controller emits the "repaint" event.
-     * If the currently selected frame is different from the currently visible frame,
+     * If the {@link Selection#currentFrame|currently selected frame} is different
+     * from the {@link Player#currentFrame|currently visible frame},
      * it will move to the selected frame.
      *
      * @listens Controller#repaint
@@ -150,12 +154,14 @@ export class Controller extends EventEmitter {
 
     /** Finalize the loading of a presentation.
      *
-     * This method is called by a Storage instance when the SVG and JSON files
+     * This method is called by a {@linkcode Storage} instance when the SVG and JSON files
      * of a presentation have been loaded.
-     * It sets a default selection if needed, shows the current frame, loads
-     * and applies the user preferences.
+     * It sets a default {@link Controller#selection|selection} if needed,
+     * shows the {@link Selection#currentFrame|current frame}, loads
+     * and applies the user {@link Controller#preferences|preferences}.
      *
-     * @param {Storage} storage A storage management object.
+     * @param {Storage} storage - A storage management object.
+     *
      * @fires Controller#ready
      */
     onLoad(storage) {
@@ -182,8 +188,8 @@ export class Controller extends EventEmitter {
         // Mark the cameras as selected for the selected frames.
         this.updateCameraSelection();
 
-        // Collect all layers that are not in the editable list
-        // into the "default" layer list.
+        // Collect all layers that are not in the editable set
+        // into the "default" layer set.
         this.defaultLayers = [];
         for (let layer of this.presentation.layers) {
             if (this.editableLayers.indexOf(layer) < 0) {
@@ -201,7 +207,7 @@ export class Controller extends EventEmitter {
 
     /** Save the presentation.
      *
-     * This method delegates the operation to a Storage instance and triggers
+     * This method delegates the operation to its {@linkcode Storage} instance and triggers
      * a repaint so that the UI shows the correct "saved" status.
      *
      * @fires Controller#repaint
@@ -216,7 +222,7 @@ export class Controller extends EventEmitter {
 
     /** Reload the presentation.
      *
-     * This method delegates the operation to a Storage instance.
+     * This method delegates the operation to its {@linkcode Storage} instance.
      */
     reload() {
         this.storage.reload();
@@ -225,9 +231,15 @@ export class Controller extends EventEmitter {
     /** Add a new frame to the presentation.
      *
      * A new frame is added to the presentation after the
-     * currently selected frame (see Selection.currentFrame).
+     * {@link Selection#currentFrame|currently selected frame}.
      * If no frame is selected, the new frame is added at the
      * end of the presentation.
+     *
+     * This operation can be undone.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
      */
     addFrame() {
         let frame, frameIndex;
@@ -267,8 +279,13 @@ export class Controller extends EventEmitter {
         );
     }
 
-    /*
-     * Delete selected frames.
+    /** Delete the selected frames from the presentation.
+     *
+     * This operation can be undone.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
      */
     deleteFrames() {
         // Sort the selected frames by presentation order.
@@ -297,13 +314,15 @@ export class Controller extends EventEmitter {
         );
     }
 
-    /*
-     * Move frames.
+    /** Move the selected frames to the given location.
      *
-     * Move all selected frames to the given frame index.
+     * This operation can be undone.
      *
-     * Parameters:
-     *  - toFrameIndex: The index of the destination
+     * @param {number} toFrameIndex - The new index of the first frame in the selection.
+     *
+     * @fires Controller#presentationChange
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
      */
     moveFrames(toFrameIndex) {
         // Sort the selected frames by presentation order.
@@ -354,12 +373,30 @@ export class Controller extends EventEmitter {
         );
     }
 
+    /** Select the cameras corresponding to the selected layers.
+     *
+     * For each selected layer, this method sets the {@linkcode Camera#selected|selected} property of
+     * the corresponding camera in the current viewport.
+     */
     updateCameraSelection() {
         for (let camera of this.viewport.cameras) {
             camera.selected = this.selection.hasLayers([camera.layer]);
         }
     }
 
+    /** Add a layer to the timeline.
+     *
+     * This method takes a layers from the "default" layer set and moves it
+     * to the "editable" layer set.
+     *
+     * This operation modifies the editor state and does not affect the actual presentation.
+     * It does not provide an "Undo" action.
+     *
+     * @param {number} layerIndex - The index of the layer to add.
+     *
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
+     */
     addLayer(layerIndex) {
         const layer = this.presentation.layers[layerIndex];
         if (this.editableLayers.indexOf(layer) < 0) {
@@ -379,6 +416,17 @@ export class Controller extends EventEmitter {
         this.emit("repaint");
     }
 
+    /** Add all layers to the timeline.
+     *
+     * This method takes all layers from the "default" layer set and moves them
+     * to the "editable" layer set.
+     *
+     * This operation modifies the editor state and does not affect the actual presentation.
+     * It does not provide an "Undo" action.
+     *
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
+     */
     addAllLayers() {
         for (let layer of this.defaultLayers.slice()) {
             if (layer.auto) {
@@ -399,6 +447,19 @@ export class Controller extends EventEmitter {
         this.emit("repaint");
     }
 
+    /** Remove a layer from the timeline.
+     *
+     * This method takes a layers from the "editable" layer list and moves it
+     * to the "default" layer set.
+     *
+     * This operation modifies the editor state and does not affect the actual presentation.
+     * It does not provide an "Undo" action.
+     *
+     * @param {number} layerIndex - The index of the layer to remove.
+     *
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
+     */
     removeLayer(layerIndex) {
         const layer = this.presentation.layers[layerIndex];
 
@@ -423,30 +484,47 @@ export class Controller extends EventEmitter {
         this.emit("repaint");
     }
 
+    /** Get the layers at the given index.
+     *
+     * This method will return an array containing either a single layer,
+     * or the layers in the "default" set.
+     *
+     * @param {number} layerIndex - The index of the layer to get, or a negative number for the "default" layers.
+     * @return {Layer[]} The layer(s) at the given index.
+     */
     getLayersAtIndex(layerIndex) {
         return layerIndex >= 0 ?
             [this.presentation.layers[layerIndex]] :
             this.defaultLayers;
     }
 
+    /** `true` if all layers in the "default" set are selected.
+     *
+     * @type {boolean}
+     */
     get defaultLayersAreSelected() {
         return this.defaultLayers.every(layer => this.selection.selectedLayers.indexOf(layer) >= 0);
     }
 
+    /** `true` if there is at least one layer in the "default" set.
+     *
+     * @type {boolean}
+     */
     get hasDefaultLayer() {
         return this.defaultLayers.length > 1 ||
                this.defaultLayers.length > 0 && this.defaultLayers[0].svgNodes.length;
     }
 
-    get refLayerInDefault() {
-        for (let layer of this.defaultLayers) {
-            if (layer.svgNodes.length) {
-                return layer;
-            }
-        }
-        return this.defaultLayers[0];
-    }
-
+    /** Select the given layers.
+     *
+     * This methods adds the given layers to the selection and removes
+     * the other previously selected layers.
+     *
+     * @param {Layer[]} layers - The layers to select.
+     *
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
+     */
     selectLayers(layers) {
         this.selection.selectedLayers = layers.slice();
         this.updateCameraSelection();
@@ -454,6 +532,16 @@ export class Controller extends EventEmitter {
         this.emit("repaint");
     }
 
+    /** Add a layer to the selection.
+     *
+     * This method adds the given layer to the selection if it is not
+     * already present.
+     *
+     * @param {Layer} layer - The layer to select.
+     *
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
+     */
     addLayerToSelection(layer) {
         if (!this.selection.hasLayers([layer])) {
             this.selection.addLayer(layer);
@@ -463,6 +551,15 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Remove a layer from the selection.
+     *
+     * This method removes the given layer to the selection if it is present.
+     *
+     * @param {Layer} layer - The layer to deselect.
+     *
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
+     */
     removeLayerFromSelection(layer) {
         if (this.selection.hasLayers([layer])) {
             this.selection.removeLayer(layer);
@@ -472,12 +569,15 @@ export class Controller extends EventEmitter {
         }
     }
 
-    /*
-     * Select a specific frame.
+    /** Select a single frame.
      *
-     * Parameters:
-     *  - index: select the frame at this particular index
-     *           A negative number counts backwards from the end
+     * This method adds the frame at the given index to the selection,
+     * and removes the other previously selected frames.
+     *
+     * @param {number} index - The index of the frame to select. A negative number counts backwards from the end.
+     *
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
      */
     selectFrame(index) {
         if (index < 0) {
@@ -486,23 +586,29 @@ export class Controller extends EventEmitter {
         this.updateLayerAndFrameSelection(false, false, this.selection.selectedLayers, index);
     }
 
-    /*
-     * Select all frames.
+    /** Select all frames.
+     *
+     * This methods adds all the frames of the presentation to the selection.
+     *
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
      */
     selectAllFrames() {
         this.selection.selectedFrames = this.presentation.frames.slice();
         this.updateCameraSelection();
-
-        // Trigger a repaint of the editor views.
         this.emit("editorStateChange");
         this.emit("repaint");
     }
 
-    /*
-     * Select a specific frame.
+    /** Select a specific frame at a relative location from the {@link Selection#currentFrame|current frame}.
      *
-     * Parameters:
-     *  - relativeIndex: select the frame at this offset relative to the current frame
+     * The absolute index of the frame to select is the sum of the {@link Selection#currentFrame|current frame}
+     * index and the given relative index.
+     *
+     * @param {number} relativeIndex - The relative location of the frame to select with respect to the current frame.
+     *
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
      */
     selectRelativeFrame(relativeIndex) {
         if (this.selection.currentFrame) {
@@ -513,13 +619,18 @@ export class Controller extends EventEmitter {
         }
     }
 
-    /*
-     * Update the selection for a given frame.
+    /** Update the selection with the given frame.
      *
-     * Parameters:
-     *  - single: toggle the selection status of the given frame
-     *  - sequence: toggle a sequence of frames to the given frame
-     *  - frameIndex: The index of a frame in the presentation
+     * This method adds or removes frames to/from the selection depending on the
+     * selection mode specified by the parameters `single` and `sequence`.
+     * If `single` and `sequence` are false, select only the given frame and all layers.
+     *
+     * @param {boolean} single - If true, add or remove one frame to/from the selection.
+     * @param {boolean} sequence - If true, add or remove consecutive frames, starting from the {@link Selection#currentFrame|current frame} up/down to the given index.
+     * @param {number} frameIndex - The index of a frame in the presentation.
+     *
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
      */
     updateFrameSelection(single, sequence, frameIndex) {
         const frame = this.presentation.frames[frameIndex];
@@ -544,18 +655,24 @@ export class Controller extends EventEmitter {
             this.updateCameraSelection();
         }
 
-        // Trigger a repaint of the editor views.
         this.emit("editorStateChange");
         this.emit("repaint");
     }
 
-    /*
-     * Update the selection for a given layer.
+    /** Update the selection with the given layer.
      *
-     * Parameters:
-     *  - single: toggle the selection status of the given layer
-     *  - sequence: toggle a sequence of layers to the given layer
-     *  - layers: The layers to select
+     * This method adds or removes layers to/from the selection depending on the
+     * selection mode specified by the parameters `single` and `sequence`.
+     * If `single` and `sequence` are false, select only the given layers and all frames.
+     *
+     * @todo Sequence mode is not supported yet.
+
+     * @param {boolean} single - If true, add or remove the given layers to/from the selection.
+     * @param {boolean} sequence - If true, add or remove consecutive layers, starting from the current layer up/down to the given layers.
+     * @param {Layer[]} layers - The layers to select or deselect.
+     *
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
      */
     updateLayerSelection(single, sequence, layers) {
         if (single) {
@@ -573,21 +690,25 @@ export class Controller extends EventEmitter {
 
         this.updateCameraSelection();
 
-        // Trigger a repaint of the editor views.
         this.emit("editorStateChange");
         this.emit("repaint");
     }
 
-    /*
-     * Update the selection for a given layer and a given frame.
+    /** Update the selection with the given layers and a given frame.
      *
-     * Parameters:
-     *  - single: toggle the selection status of the given frame and layer.
-     *          If both are selected, they are removed from the selection.
-     *          If at least one is not selected, they are added to the selection.
-     *  - sequence: toggle a sequence of frames and layers to the given frame and layer.
-     *  - layers: A set of layers
-     *  - frameIndex: The index of a frame in the presentation
+     * This method adds or removes frames and layers to/from the selection depending
+     * on the selection mode specified by the parameters `single` and `sequence`.
+     * If `single` and `sequence` are false, select only the given frame and layers.
+     *
+     * @todo Sequence mode is not supported for layers.
+     *
+     * @param {boolean} single - If true, add or remove the given layers and frame to/from the selection.
+     * @param {boolean} sequence - If true, add or remove consevutive frames and layers starting from the {@link Selection#currentFrame|current frame} and layer.
+     * @param {Layer[]} layers - The layers to select or deselect.
+     * @param {number} frameIndex - The index of the frame in the presentation
+     *
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
      */
     updateLayerAndFrameSelection(single, sequence, layers, frameIndex) {
         const frame = this.presentation.frames[frameIndex];
@@ -625,20 +746,19 @@ export class Controller extends EventEmitter {
 
         this.updateCameraSelection();
 
-        // Trigger a repaint of the editor views.
         this.emit("editorStateChange");
         this.emit("repaint");
     }
 
-    /*
-     * Change the visibility of the given layer.
+    /** Toggle the visibility of the given layers.
      *
-     * Toggle the visibility of the given layer.
-     * If the layer becomes visible, it is added to the selection,
-     * otherwise, it is removed from the selection.
+     * If the layers becomes visible, they are added to the selection,
+     * otherwise, they are removed from the selection.
      *
-     * Parameters:
-     *  - layerIndex: The index of a layer in the presentation
+     * @param {Layer[]} layers - The layers to show or hide.
+     *
+     * @fires Controller#editorStateChange
+     * @fires Controller#repaint
      */
     updateLayerVisibility(layers) {
         for (let layer of layers) {
@@ -651,11 +771,11 @@ export class Controller extends EventEmitter {
             }
         }
 
-        // Trigger a repaint of the editor views.
         this.emit("editorStateChange");
         this.emit("repaint");
     }
 
+    // TODO documentation
     resetLayer() {
         const selectedFrames = this.selection.selectedFrames.slice();
         const selectedLayers = this.selection.selectedLayers.slice();
@@ -715,8 +835,14 @@ export class Controller extends EventEmitter {
             )
         );
 
-        const layerToCopy = groupId == "__default__" ? this.refLayerInDefault : this.presentation.getLayerWithId(groupId);
-        if (!layerToCopy) {
+        // Find the layer to copy.
+        // If the given group id corresponds to the "default" layer set,
+        // choose the first layer that contains an SVG element.
+        // Otherwise, choose the layer with the given id.
+        const layerToCopy = groupId == "__default__" ?
+            this.defaultLayers.filter(layer => layer.svgNodes.length > 0)[0] :
+            this.presentation.getLayerWithId(groupId);
+        if (!layerToCopy || !layerToCopy.svgNodes.length) {
             return;
         }
 

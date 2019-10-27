@@ -10,6 +10,11 @@ import {addSVGHandler, DefaultSVGHandler} from "./SVGDocumentWrapper";
 const INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
 const SODIPODI_NS = "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd";
 
+/** Inkscape SVG handler.
+ *
+ * @category svg
+ * @todo Add documentation.
+ */
 export class InkscapeHandler extends DefaultSVGHandler {
 
     static matches(svgRoot) {

@@ -9,6 +9,11 @@ import {CameraState} from "../model/CameraState";
 // Constant: the Sozi namespace
 const SVG_NS = "http://www.w3.org/2000/svg";
 
+/** Camera.
+ *
+ * @category player
+ * @todo Add documentation.
+ */
 export class Camera extends CameraState {
 
     constructor(viewport, layer) {
