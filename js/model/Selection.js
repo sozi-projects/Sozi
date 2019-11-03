@@ -18,8 +18,16 @@ export class Selection {
      * @param {Presentation} presentation - A Sozi presentation object
      */
     constructor(presentation) {
+        /** The presentation where selections happen.
+         * @type {Presentation} */
         this.presentation = presentation;
+
+        /** The list of selected frames.
+         * @type {Frame[]} */
         this.selectedFrames = [];
+
+        /** The list of selected layers.
+         * @type {Layer[]} */
         this.selectedLayers = [];
     }
 
