@@ -9,25 +9,13 @@
  * A Selection instance holds the currently selected
  * frames and layers of the presentation.
  *
- * Events:
- *  - change: when the content of the selection has changed
- *
  * @category model
- * @todo Add documentation
  */
 export class Selection {
 
-    /*
-     * Initialize a selection for a given presentation.
+    /** Create an empty selection for a given presentation.
      *
-     * The selection is initialized with the first frame
-     * and all layers.
-     *
-     * Parameters:
-     *  - pres: A Sozi presentation object
-     *
-     * Returns:
-     *  - The current selection object
+     * @param {Presentation} presentation - A Sozi presentation object
      */
     constructor(presentation) {
         this.presentation = presentation;
@@ -72,11 +60,9 @@ export class Selection {
         }
     }
 
-    /*
-     * Get the last selected frame.
+    /** The frame that was selected last, `null` if no frame is selected.
      *
-     * Returns:
-     *  - The frame that has been selected last, null if no frame is selected.
+     * @type {Frame}
      */
     get currentFrame() {
         return this.selectedFrames.length ?
@@ -84,16 +70,29 @@ export class Selection {
             null;
     }
 
+    /** Check whether this selection contains the given frames.
+     *
+     * @param {Frame[]} frames - The frames to check.
+     * @return `true` if all the given frames are selected.
+     */
     hasFrames(frames) {
         return frames.every(frame => this.selectedFrames.indexOf(frame) >= 0);
     }
 
+    /** Add a frame to this selection.
+     *
+     * @param {Frame} frame - The frame to add.
+     */
     addFrame(frame) {
         if (this.selectedFrames.indexOf(frame) < 0) {
             this.selectedFrames.push(frame);
         }
     }
 
+    /** Remove a frame from this selection.
+     *
+     * @param {Frame} frame - The frame to remove.
+     */
     removeFrame(frame) {
         const index = this.selectedFrames.indexOf(frame);
         if (index >= 0) {
@@ -101,6 +100,13 @@ export class Selection {
         }
     }
 
+    /** Add or remove the given frame to/from this selection.
+     *
+     * If the frame is not selected, add it to the selection,
+     * otherwise, remove it.
+     *
+     * @param {Frame} frame - The frame to add or remove.
+     */
     toggleFrameSelection(frame) {
         const index = this.selectedFrames.indexOf(frame);
         if (index >= 0) {
@@ -111,16 +117,29 @@ export class Selection {
         }
     }
 
+    /** Check whether this selection contains the given layers.
+     *
+     * @param {Layer[]} layers - The layers to check.
+     * @return `true` if all the given layers are selected.
+     */
     hasLayers(layers) {
         return layers.every(layer => this.selectedLayers.indexOf(layer) >= 0);
     }
 
+    /** Add a layer to this selection.
+     *
+     * @param {Layer} layer - The layer to add.
+     */
     addLayer(layer) {
         if (this.selectedLayers.indexOf(layer) < 0) {
             this.selectedLayers.push(layer);
         }
     }
 
+    /** Remove a layer from this selection.
+     *
+     * @param {Layer} layer - The layer to remove.
+     */
     removeLayer(layer) {
         const index = this.selectedLayers.indexOf(layer);
         if (index >= 0) {
@@ -128,6 +147,13 @@ export class Selection {
         }
     }
 
+    /** Add or remove the given layer to/from this selection.
+     *
+     * If the layer is not selected, add it to the selection,
+     * otherwise, remove it.
+     *
+     * @param {Layer} layer - The layer to add or remove.
+     */
     toggleLayerSelection(layer) {
         const index = this.selectedLayers.indexOf(layer);
         if (index >= 0) {
