@@ -38,12 +38,11 @@ export class Timeline extends VirtualDOMView {
      * Returns:
      *  - The current view
      */
-    constructor(container, presentation, selection, controller, locale) {
+    constructor(container, presentation, selection, controller) {
         super(container, controller);
 
         this.presentation = presentation;
         this.selection = selection;
-        this.gettext = s => locale.gettext(s);
     }
 
     toggleLayerVisibility(layerIndex, evt) {
@@ -105,9 +104,9 @@ export class Timeline extends VirtualDOMView {
     }
 
     render() {
-        const _ = this.gettext;
         const controller = this.controller;
-        
+        const _ = controller.gettext;
+
         let even = true;
         function updateEven(frame, layer) {
             if (frame.index === 0) {

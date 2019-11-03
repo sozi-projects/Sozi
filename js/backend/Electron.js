@@ -28,12 +28,14 @@ console.log("Current working dir: " + cwd);
  */
 export class Electron extends AbstractBackend {
 
-    constructor(controller, container, _) {
+    constructor(controller, container) {
+        const _ = controller.gettext;
+
         super(controller, container, "sozi-editor-backend-Electron-input", _("Open an SVG file from your computer"));
 
         this.loadConfiguration();
 
-        document.getElementById("sozi-editor-backend-Electron-input").addEventListener("click", () => this.openFileChooser(_));
+        document.getElementById("sozi-editor-backend-Electron-input").addEventListener("click", () => this.openFileChooser());
 
         // Save automatically when the window loses focus
         const onBlur = () => {
@@ -87,11 +89,11 @@ export class Electron extends AbstractBackend {
             catch (err) {
                 this.controller.error(Jed.sprintf(_("File not found: %s."), fileName));
                 // Force the error notification to appear before the file chooser.
-                setTimeout(() => this.openFileChooser(_), 100);
+                setTimeout(() => this.openFileChooser(), 100);
             }
         }
         else {
-            this.openFileChooser(_);
+            this.openFileChooser();
         }
     }
 
@@ -114,7 +116,9 @@ export class Electron extends AbstractBackend {
         }
     }
 
-    openFileChooser(_) {
+    openFileChooser() {
+        const _ = this.controller.gettext;
+
         const files = remote.dialog.showOpenDialogSync({
             title: _("Choose an SVG file"),
             filters: [{name: _("SVG files"), extensions: ["svg"]}],

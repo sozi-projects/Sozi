@@ -16,19 +16,18 @@ import pkg from "../../package.json";
  */
 export class Toolbar extends VirtualDOMView {
 
-    constructor(container, properties, presentation, viewport, controller, locale) {
+    constructor(container, properties, presentation, viewport, controller) {
         super(container, controller);
 
         this.properties   = properties;
         this.presentation = presentation;
         this.viewport     = viewport;
-        this.gettext      = s => locale.gettext(s);
     }
 
     render() {
-        const _ = this.gettext;
+        const thisView   = this;
         const controller = this.controller;
-        const thisView = this;
+        const _          = controller.gettext;
 
         this.state["aspect-width"]  = {value: this.presentation.aspectWidth};
         this.state["aspect-height"] = {value: this.presentation.aspectHeight};

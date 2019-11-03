@@ -35,10 +35,10 @@ window.addEventListener("load", () => {
     const preferences  = new Preferences();
     const controller   = new Controller(preferences, presentation, selection, viewport, player, locale);
     const preview      = new Preview(document.getElementById("sozi-editor-view-preview"), presentation, selection, viewport, controller);
-    const properties   = new Properties(document.getElementById("sozi-editor-view-properties"), selection, controller, locale);
-    const toolbar      = new Toolbar(document.getElementById("sozi-editor-view-toolbar"), properties, presentation, viewport, controller, locale);
-    const timeline     = new Timeline(document.getElementById("sozi-editor-view-timeline"), presentation, selection, controller, locale);
-    const storage      = new Storage(controller, presentation, selection, locale);
+    const properties   = new Properties(document.getElementById("sozi-editor-view-properties"), selection, controller);
+    const toolbar      = new Toolbar(document.getElementById("sozi-editor-view-toolbar"), properties, presentation, viewport, controller);
+    const timeline     = new Timeline(document.getElementById("sozi-editor-view-timeline"), presentation, selection, controller);
+    const storage      = new Storage(controller, presentation, selection);
 
     const body         = document.querySelector("body");
     const left         = document.querySelector(".left");

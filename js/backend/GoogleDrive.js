@@ -13,7 +13,9 @@ import {AbstractBackend, addBackend} from "./AbstractBackend";
  */
 export class GoogleDrive extends AbstractBackend {
 
-    constructor(controller, container, _) {
+    constructor(controller, container) {
+        const _ = controller.gettext;
+
         AbstractBackend.init.call(this, controller, container, "sozi-editor-backend-GoogleDrive-input", _("Open an SVG file from Google Drive"));
 
         // Save automatically when the window loses focus

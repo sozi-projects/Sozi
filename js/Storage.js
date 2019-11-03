@@ -19,7 +19,7 @@ import path from "path";
  */
 export class Storage extends EventEmitter {
 
-    constructor(controller, presentation, selection, locale) {
+    constructor(controller, presentation, selection) {
         super();
 
         this.controller = controller;
@@ -31,7 +31,6 @@ export class Storage extends EventEmitter {
         this.jsonNeedsSaving = false;
         this.htmlNeedsSaving = false;
         this.reloading = false;
-        this.gettext = s => locale.gettext(s);
 
         // Adjust the template path depending on the target platform.
         // In the web browser, __dirname is set to "/js". The leading "/" will result
@@ -55,7 +54,7 @@ export class Storage extends EventEmitter {
             const listItem = document.createElement("li");
             document.querySelector("#sozi-editor-view-preview ul").appendChild(listItem);
 
-            const backendInstance = new backend(controller, listItem, this.gettext);
+            const backendInstance = new backend(controller, listItem);
             backendInstance.addListener("load", (...a) => this.onBackendLoad(backendInstance, ...a));
             backendInstance.addListener("change", (...a) => this.onBackendChange(...a));
         }
@@ -71,7 +70,7 @@ export class Storage extends EventEmitter {
     }
 
     onBackendLoad(backend, fileDescriptor, data, err) {
-        const _ = this.gettext;
+        const _ = this.controller.gettext;
         this.backend = backend;
 
         const name = backend.getName(fileDescriptor);
@@ -135,7 +134,7 @@ export class Storage extends EventEmitter {
     }
 
     onBackendChange(fileDescriptor) {
-        const _ = this.gettext;
+        const _ = this.controller.gettext;
 
         if (fileDescriptor === this.svgFileDescriptor) {
             switch (this.controller.getPreference("reloadMode")) {
@@ -166,7 +165,7 @@ export class Storage extends EventEmitter {
      * It it does not exist, create it.
      */
     openJSONFile(name, location) {
-        const _ = this.gettext;
+        const _ = this.controller.gettext;
 
         this.backend.find(name, location, fileDescriptor => {
             if (fileDescriptor) {
@@ -248,7 +247,7 @@ export class Storage extends EventEmitter {
 
         this.backend.autosave(fileDescriptor, () => this.jsonNeedsSaving, () => this.getJSONData());
 
-        const _ = this.gettext;
+        const _ = this.controller.gettext;
 
         this.backend.addListener("save", savedFileDescriptor => {
             if (fileDescriptor === savedFileDescriptor) {
@@ -268,7 +267,7 @@ export class Storage extends EventEmitter {
 
         this.backend.autosave(fileDescriptor, () => this.htmlNeedsSaving, () => this.exportHTML());
 
-        const _ = this.gettext;
+        const _ = this.controller.gettext;
 
         this.backend.addListener("save", savedFileDescriptor => {
             if (fileDescriptor === savedFileDescriptor) {

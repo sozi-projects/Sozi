@@ -18,11 +18,10 @@ function asArray(v) {
  */
 export class Properties extends VirtualDOMView {
 
-    constructor(container, selection, controller, locale) {
+    constructor(container, selection, controller) {
         super(container, controller);
 
         this.selection       = selection;
-        this.gettext         = s => locale.gettext(s);
         this.preferencesMode = false;
     }
 
@@ -36,8 +35,8 @@ export class Properties extends VirtualDOMView {
     }
 
     renderPreferences() {
-        const _ = this.gettext;
         const controller = this.controller;
+        const _ = controller.gettext;
 
         const ACTION_LABELS = {
             fitElement: _("Fit to element"),
@@ -91,8 +90,8 @@ export class Properties extends VirtualDOMView {
     }
 
     renderPresentationProperties() {
-        const _ = this.gettext;
         const controller = this.controller;
+        const _ = controller.gettext;
 
         const NOTES_HELP = [
             _("Basic formatting supported:"),
