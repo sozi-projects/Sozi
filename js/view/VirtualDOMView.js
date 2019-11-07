@@ -17,7 +17,6 @@ export class VirtualDOMView {
      *
      * @param {HTMLElement} container - The parent HTML element that will contain this view.
      * @param {Controller} controller - The controller that will manage the user actions from this view.
-     * @param {}
      */
     constructor(container, controller) {
         /** The parent HTML element that will contain this view.
