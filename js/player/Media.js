@@ -78,14 +78,18 @@ export function init(aPlayer) {
         if (j === mediaList.length) {
             rect.setAttribute("visibility", "hidden");
 
+            const width  = rect.getAttribute("width");
+            const height = rect.getAttribute("height");
+
             // Create HTML media element
             const htmlMedia = document.createElementNS(xhtmlNs, tagName);
             if (source.getAttribute(soziPrefix + ":controls") === "true") {
                 htmlMedia.setAttribute("controls", "controls");
+                htmlMedia.setAttribute("style", `width:${width}px;height:${height}px;`);
             }
             if (tagName === "video") {
-                htmlMedia.setAttribute("width", rect.getAttribute("width"));
-                htmlMedia.setAttribute("height", rect.getAttribute("height"));
+                htmlMedia.setAttribute("width", width);
+                htmlMedia.setAttribute("height", height);
             }
             htmlMedia.addEventListener("click", defaultEventHandler, false);
             htmlMedia.addEventListener("mousedown", defaultEventHandler, false);
@@ -101,8 +105,8 @@ export function init(aPlayer) {
             const foreignObject = document.createElementNS(svgNs, "foreignObject");
             foreignObject.setAttribute("x", rect.getAttribute("x"));
             foreignObject.setAttribute("y", rect.getAttribute("y"));
-            foreignObject.setAttribute("width", rect.getAttribute("width"));
-            foreignObject.setAttribute("height", rect.getAttribute("height"));
+            foreignObject.setAttribute("width", width);
+            foreignObject.setAttribute("height", height);
             foreignObject.appendChild(html);
 
             rect.parentNode.insertBefore(foreignObject, rect.nextSibling);
