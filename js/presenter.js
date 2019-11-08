@@ -1,8 +1,8 @@
 
 let currentFrameIndex = 0;
 let previews = [
-    { index: -1 },
     { index:  0 },
+    { index: -1 },
     { index:  1 }
 ];
 let mainSozi;
@@ -76,9 +76,9 @@ function load(url) {
 }
 
 function onFrameChange() {
-    previews[1].index = mainSozi.player.currentFrame.index;
-    previews[0].index = previews[1].index - 1;
-    previews[2].index = previews[1].index + 1;
+    previews[0].index = mainSozi.player.currentFrame.index;
+    previews[1].index = previews[0].index - 1;
+    previews[2].index = previews[0].index + 1;
     previews.forEach(updatePreview);
     updateNotes();
 }
