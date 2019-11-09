@@ -12,6 +12,7 @@ import pkg from "../../package.json";
 /** Toolbar in the presentation editor.
  *
  * @category view
+ * @extends VirtualDOMView
  * @todo Add documentation.
  */
 export class Toolbar extends VirtualDOMView {

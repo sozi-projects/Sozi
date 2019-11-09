@@ -26,6 +26,7 @@ const ROTATE_STEP = 5;
 /** Sozi presentation player.
  *
  * @category player
+ * @extends EventEmitter
  * @todo Add documentation.
  */
 export class Player extends EventEmitter {

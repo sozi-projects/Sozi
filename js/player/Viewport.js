@@ -28,6 +28,7 @@ const CLIP_BORDER = 3;
 /** Viewing area for Sozi presentation.
  *
  * @category player
+ * @extends EventEmitter
  * @todo Add documentation.
  */
 export class Viewport extends EventEmitter {
@@ -54,7 +55,7 @@ export class Viewport extends EventEmitter {
         /** The effect of dragging in this viewport (`"scale"`, `"translate"`, `"rotate"`, `"clip"`).
          * @type {string} */
         this.dragMode = "translate";
-        
+
         this.clipMode = {cameras: [], operation: "select"};
         this.showHiddenElements = false;
         this.wheelTimeout = null;

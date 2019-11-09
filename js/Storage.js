@@ -15,6 +15,7 @@ import path from "path";
 /** File read/write manager.
  *
  * @category editor
+ * @extends EventEmitter
  * @todo Add documentation.
  */
 export class Storage extends EventEmitter {

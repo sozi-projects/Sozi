@@ -97,6 +97,7 @@ function start() {
  * operations in the animated objects.
  *
  * @category player
+ * @extends EventEmitter
  * @todo Add documentation
  */
 export class Animator extends EventEmitter {

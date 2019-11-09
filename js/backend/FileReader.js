@@ -9,6 +9,7 @@ import {AbstractBackend, addBackend} from "./AbstractBackend";
 /** Browser FileReader backend.
  *
  * @category backend
+ * @extends AbstractBackend
  * @todo Add documentation.
  */
 export class FileReaderBackend extends AbstractBackend {

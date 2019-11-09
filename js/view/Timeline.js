@@ -22,6 +22,7 @@ import Jed from "jed";
  *  - add/remove layers and frames to/from the selection
  *
  * @category view
+ * @extends VirtualDOMView
  * @todo Add documentation
  */
 export class Timeline extends VirtualDOMView {

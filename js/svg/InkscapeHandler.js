@@ -13,6 +13,7 @@ const SODIPODI_NS = "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd";
 /** Inkscape SVG handler.
  *
  * @category svg
+ * @extends DefaultSVGHandler
  * @todo Add documentation.
  */
 export class InkscapeHandler extends DefaultSVGHandler {

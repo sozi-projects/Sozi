@@ -24,6 +24,7 @@ console.log("Current working dir: " + cwd);
 /** Electron backend.
  *
  * @category backend
+ * @extends AbstractBackend
  * @todo Add documentation.
  */
 export class Electron extends AbstractBackend {

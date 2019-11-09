@@ -9,6 +9,7 @@ import {AbstractBackend, addBackend} from "./AbstractBackend";
 /** Google Drive backend.
  *
  * @category backend
+ * @extends AbstractBackend
  * @todo Add documentation.
  */
 export class GoogleDrive extends AbstractBackend {

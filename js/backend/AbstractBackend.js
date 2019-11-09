@@ -27,6 +27,7 @@ export function addBackend(backend) {
 /** Abstraction for the execution platform.
  *
  * @category backend
+ * @extends EventEmitter
  */
 export class AbstractBackend extends EventEmitter {
     /** Common constructor for backends.

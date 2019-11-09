@@ -14,6 +14,7 @@ function asArray(v) {
 /** Properties pane of the presentation editor.
  *
  * @category view
+ * @extends VirtualDOMView
  * @todo Add documentation.
  */
 export class Properties extends VirtualDOMView {
