@@ -57,7 +57,10 @@ export class Controller extends EventEmitter {
         this.player = player;
 
         /** The function that returns translated text in the current language.
-         * @type {Function} */
+         *
+         * @param {string} s - The text to translate.
+         * @return {string} The translated text.
+         */
         this.gettext = s => locale.gettext(s);
 
         /** The layers that have been added to the timeline.
@@ -197,7 +200,7 @@ export class Controller extends EventEmitter {
             }
         }
 
-        /** Notify that the editor is ready.
+        /** Signals that the editor is ready.
          * @event Controller#ready */
         this.emit("ready");
 
@@ -215,7 +218,7 @@ export class Controller extends EventEmitter {
     save() {
         this.storage.save();
 
-        /** Notify that the editor UI needs to be repainted.
+        /** Signals that the editor UI needs to be repainted.
          * @event Controller#repaint */
         this.emit("repaint");
     }
@@ -1490,8 +1493,8 @@ export class Controller extends EventEmitter {
      * {@link Controller#undoStack|undo stack}, and clears the
      * {@link Controller#undoStack|redo stack}.
      *
-     * @param {Function} onDo - The function that performs the operation.
-     * @param {Function} onUndo - The function that undoes the operation.
+     * @param {function()} onDo - The function that performs the operation.
+     * @param {function()} onUndo - The function that undoes the operation.
      * @param {boolean} updateSelection - If `true`, restore the selection when undoing.
      * @param {string[]} events - Emit the given events when performing of undoing the operation.
      */
