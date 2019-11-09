@@ -13,7 +13,64 @@ import * as FrameList from "./player/FrameList";
 import * as FrameNumber from "./player/FrameNumber";
 import * as FrameURL from "./player/FrameURL";
 
-window.addEventListener("load", function () {
+function setPresenterMode() {
+    sozi.player.disableMedia();
+    sozi.player.pause();
+
+    sozi.presentation.enableMouseTranslation =
+    sozi.presentation.enableMouseNavigation =
+    sozi.presentation.enableKeyboardZoom =
+    sozi.presentation.enableKeyboardRotation =
+    sozi.presentation.enableKeyboardNavigation = false;
+}
+
+function notifyOnLoad(target, id) {
+    function checkSozi() {
+        if (sozi) {
+            target.postMessage({name: "loaded", id}, "*");
+        }
+        else {
+            setTimeout(checkSozi, 1);
+        }
+    }
+    checkSozi();
+}
+
+function notifyOnFrameChange(target) {
+    sozi.player.addListener("frameChange", () => {
+        target.postMessage({name: "frameChange", index: sozi.player.currentFrame.index}, "*");
+    });
+}
+
+window.addEventListener("message", evt => {
+    switch (evt.data.name) {
+        case "notifyOnLoad":
+            notifyOnLoad(evt.source, evt.data.id);
+            break;
+        case "notifyOnFrameChange":
+            notifyOnFrameChange(evt.source);
+            break;
+        case "setPresenterMode":
+            setPresenterMode();
+            break;
+        case "jumpToFrame":
+            if (evt.data.index >= 0 && evt.data.index < sozi.presentation.frames.length) {
+                sozi.player.jumpToFrame(evt.data.index);
+            }
+            else {
+                sozi.player.enableBlankScreen();
+            }
+            break;
+        case "moveToNext":
+            sozi.player.moveToNext();
+            break;
+        case "moveToPrevious":
+            sozi.player.moveToNext();
+            break;
+    }
+}, false);
+
+window.addEventListener("load", () => {
     const svgRoot = document.querySelector("svg");
     svgRoot.style.display = "inline";
 
