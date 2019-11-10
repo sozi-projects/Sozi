@@ -27,7 +27,10 @@ function setPresenterMode() {
 function notifyOnLoad(target, id) {
     function checkSozi() {
         if (sozi) {
-            target.postMessage({name: "loaded", id}, "*");
+            target.postMessage({
+                name: "loaded", id,
+                length: sozi.presentation.frames.length,
+            }, "*");
         }
         else {
             setTimeout(checkSozi, 1);
@@ -36,10 +39,20 @@ function notifyOnLoad(target, id) {
     checkSozi();
 }
 
+function onFrameChange(target) {
+    target.postMessage({
+        name:   "frameChange",
+        index:  sozi.player.currentFrame.index,
+        title:  sozi.player.currentFrame.title,
+        notes:  sozi.player.currentFrame.notes
+    }, "*");
+}
+
 function notifyOnFrameChange(target) {
-    sozi.player.addListener("frameChange", () => {
-        target.postMessage({name: "frameChange", index: sozi.player.currentFrame.index}, "*");
-    });
+    sozi.player.addListener("frameChange", () => onFrameChange(target));
+
+    // Send the message to set the initial frame data in the target.
+    onFrameChange(target);
 }
 
 window.addEventListener("message", evt => {
@@ -53,20 +66,15 @@ window.addEventListener("message", evt => {
         case "setPresenterMode":
             setPresenterMode();
             break;
-        case "jumpToFrame":
-            if (evt.data.index >= 0 && evt.data.index < sozi.presentation.frames.length) {
-                sozi.player.jumpToFrame(evt.data.index);
+        default:
+            const method = sozi.player[evt.data.name];
+            const args   = evt.data.args || [];
+            if (typeof method === "function") {
+                method.apply(sozi.player, args);
             }
             else {
-                sozi.player.enableBlankScreen();
+                console.log(`Unsupported message: ${evt.data.name}`);
             }
-            break;
-        case "moveToNext":
-            sozi.player.moveToNext();
-            break;
-        case "moveToPrevious":
-            sozi.player.moveToNext();
-            break;
     }
 }, false);
 

@@ -50,7 +50,7 @@
 
             .sozi-controls {
                 text-align: center;
-                margin: 0.5rem 0 0 0;
+                margin-bottom: 0.5rem;
             }
 
             .sozi-controls input {
@@ -68,16 +68,22 @@
     <body>
         <div class="sozi-frame-preview">
             <iframe class="sozi-current-frame" src="{{ soziHtml }}"></iframe>
+            <div class="sozi-controls">
+                <input type="button" id="sozi-previous-btn" value="&laquo;" title="Previous">
+                <span class="sozi-current-index"></span>
+                &nbsp;/&nbsp;
+                <span class="sozi-presentation-length"></span>
+                <input type="button" id="sozi-next-btn"     value="&raquo;" title="Next">
+            </div>
             <div class="sozi-frame-previews-prev-next">
                 <iframe class="sozi-previous-frame" src="{{ soziHtml }}"></iframe>
                 <iframe class="sozi-next-frame"     src="{{ soziHtml }}"></iframe>
             </div>
-            <div class="sozi-controls">
-                <input type="button" id="sozi-previous-btn" value="&laquo;" title="Previous">
-                <input type="button" id="sozi-next-btn"     value="&raquo;" title="Next">
-            </div>
         </div>
-        <div class="sozi-notes"></div>
+        <div class="sozi-notes">
+            <h1 class="sozi-notes-title"></h1>
+            <div class="sozi-notes-body"></div>
+        </div>
 {% endraw %}
         <script>{{'{% raw %}'}}{{ js|safe }}{{'{% endraw %}'}}</script>
     </body>
