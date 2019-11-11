@@ -73,3 +73,79 @@ window.addEventListener("load", () => {
         alert("Could not open presentation window. Please allow popups for this site and refresh this page.");
     }
 }, false);
+
+window.addEventListener("keydown", evt => {
+    // Keys with Alt/Ctrl/Meta modifiers are ignored
+    if (evt.altKey || evt.ctrlKey || evt.metaKey) {
+        return;
+    }
+
+    switch (evt.keyCode) {
+        case 36: // Home
+            if (evt.shiftKey) {
+                presWindow.postMessage({name: "jumpToFirst"}, "*");
+            }
+            else {
+                presWindow.postMessage({name: "moveToFirst"}, "*");
+            }
+            break;
+
+        case 35: // End
+            if (evt.shiftKey) {
+                presWindow.postMessage({name: "jumpToLast"}, "*");
+            }
+            else {
+                presWindow.postMessage({name: "moveToLast"}, "*");
+            }
+            break;
+
+        case 38: // Arrow up
+        case 33: // Page up
+        case 37: // Arrow left
+            if (evt.shiftKey) {
+                presWindow.postMessage({name: "jumpToPrevious"}, "*");
+            }
+            else {
+                presWindow.postMessage({name: "moveToPrevious"}, "*");
+            }
+            break;
+
+        case 40: // Arrow down
+        case 34: // Page down
+        case 39: // Arrow right
+        case 13: // Enter
+        case 32: // Space
+            if (evt.shiftKey) {
+                presWindow.postMessage({name: "jumpToNext"}, "*");
+            }
+            else {
+                presWindow.postMessage({name: "moveToNext"}, "*");
+            }
+            break;
+
+        default:
+            return;
+    }
+
+    evt.stopPropagation();
+    evt.preventDefault();
+});
+
+window.addEventListener("keypress", evt => {
+    // Keys with modifiers are ignored
+    if (evt.altKey || evt.ctrlKey || evt.metaKey) {
+        return;
+    }
+
+    switch (evt.charCode || evt.which) {
+        case 46: // .
+            presWindow.postMessage({name: "toggleBlankScreen"}, "*");
+            break;
+
+        default:
+            return;
+    }
+
+    evt.stopPropagation();
+    evt.preventDefault();
+});
