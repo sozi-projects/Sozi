@@ -19,8 +19,7 @@
             }
 
             iframe {
-                border: 1px solid rgb(128, 128, 128);
-                background: black;
+                border: none;
             }
 
             .sozi-frame-preview {
@@ -59,9 +58,18 @@
             }
 
             .sozi-notes {
-                width: 50vw;
+                min-width: calc(50vw - 3rem);
                 height: calc(100vh - 1rem);
                 padding: 0.5rem 1rem;
+                background: rgb(230, 230, 230);
+            }
+
+            .sozi-current-index {
+                margin: 0 0.5rem 0 1rem;
+            }
+
+            .sozi-presentation-length {
+                margin: 0 1rem 0 0.5rem;
             }
         </style>
     </head>
@@ -70,10 +78,8 @@
             <iframe class="sozi-current-frame" src="{{ soziHtml }}"></iframe>
             <div class="sozi-controls">
                 <input type="button" id="sozi-previous-btn" value="&laquo;" title="Previous">
-                <span class="sozi-current-index"></span>
-                &nbsp;/&nbsp;
-                <span class="sozi-presentation-length"></span>
-                <input type="button" id="sozi-next-btn"     value="&raquo;" title="Next">
+                <span class="sozi-current-index"></span>/<span class="sozi-presentation-length"></span>
+                <input type="button" id="sozi-next-btn" value="&raquo;" title="Next">
             </div>
             <div class="sozi-frame-previews-prev-next">
                 <iframe class="sozi-previous-frame" src="{{ soziHtml }}"></iframe>

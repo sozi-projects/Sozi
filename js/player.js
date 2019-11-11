@@ -22,6 +22,10 @@ function setPresenterMode() {
     sozi.presentation.enableKeyboardZoom =
     sozi.presentation.enableKeyboardRotation =
     sozi.presentation.enableKeyboardNavigation = false;
+
+    for (let frame of sozi.presentation.frames) {
+        frame.showFrameNumber = false;
+    }
 }
 
 function notifyOnLoad(target, id) {
