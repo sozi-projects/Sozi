@@ -24,14 +24,14 @@ Install the build tools and dependencies
 ----------------------------------------
 
 Install [Node.js](http://nodejs.org/) and the [Grunt](http://gruntjs.com/) CLI.
-Sozi is known to work with Node.js 8 from [Nodesource](https://github.com/nodesource/distributions).
+The build script for Sozi is known to work with Node.js 11 from [Nodesource](https://github.com/nodesource/distributions).
 If you plan to build a Windows executable from Linux or OS X, also install *wine*.
 In Debian/Ubuntu and their derivatives, you can type the following commands.
 
     sudo apt install nodejs wine
     sudo npm install grunt-cli -g
 
-If you plan to build Debian packages, also install the following packages:
+If you plan to build Debian packages, install the following additional packages:
 
     sudo apt install devscripts debhelper
 
@@ -39,7 +39,7 @@ From the root of the source tree:
 
     npm install
 
-Also install the following:
+Install the Droid Sans font:
 
 * [Droid Sans](http://www.fontsquirrel.com/fonts/Droid-Sans) as `vendor/DroidSans/DroidSans.eot|ttf` and `vendor/DroidSans/DroidSans-Bold.eot|ttf`
 
@@ -79,8 +79,8 @@ Other Grunt tasks are available for developers:
 | `grunt deb`                        | Build Debian packages.                                                       |
 | `grunt electron-build`             | Build the desktop application without creating archives.                     |
 | `grunt web-build`                  | Build the web application without uploading it.                              |
-| `grunt web-demo`                   | Build the web application and upload it to a server.                         |
 | `grunt pot`                        | Extract a template file (`locales/messages.pot`) for translation.            |
+| `grunt jsdoc`                      | Generate the API documentation.                                              |
 
 
 Install
@@ -92,7 +92,7 @@ Since Sozi 18.01, a Debian package is available for users of Debian or Ubuntu-ba
 sudo dpkg -i sozi_[...].deb
 ```
 
-For other platforms, Sozi is released as a zip/tgz archive that you can extract wherever you like.
+For other platforms, Sozi is released as a zip/tar.xz archive that you can extract wherever you like.
 
 * OS X users can drag the `Sozi.app` subfolder into their `Applications` folder.
 * Windows and Linux users can run the `Sozi` executable directly from the extracted folder.
