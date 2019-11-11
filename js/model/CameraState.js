@@ -173,7 +173,7 @@ export class CameraState {
     }
 
     resetClipping() {
-        this.clipXOffset = this.clipYOffset = 0;
+        this.clipXOffset     = this.clipYOffset      = 0;
         this.clipWidthFactor = this.clipHeightFactor = 1;
     }
 

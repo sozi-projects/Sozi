@@ -179,12 +179,11 @@ export class Camera extends CameraState {
 
         const intersectionList = this.svgRoot.getIntersectionList(viewportRect, this.layer.svgNodes[0]);
 
-        // Find the element which bounding box best fits in the viewport.
+        // Find the element whose bounding box best fits in the viewport.
         let element = null;
         let score = null;
 
-        for (let i = 0; i < intersectionList.length; i ++) {
-            const elt = intersectionList[i];
+        for (let elt of intersectionList) {
             if (elt.hasAttribute("id")) {
                 // TODO getBoundingClientRect returns bounding box of bounding box
                 const eltRect = elt.getBoundingClientRect();

@@ -947,7 +947,9 @@ export class Controller extends EventEmitter {
             for (let layer of this.selection.selectedLayers) {
                 const id = currentFrame.layerProperties[layer.index].outlineElementId;
                 if (offsets[id]) {
-                    modifiedFrame.cameraStates[layer.index].applyOffset(offsets[id]).resetClipping();
+                    const cs = modifiedFrame.cameraStates[layer.index];
+                    cs.applyOffset(offsets[id]);
+                    cs.resetClipping();
                 }
             }
 
