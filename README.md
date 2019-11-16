@@ -150,3 +150,15 @@ libxrender1
 libxss1
 libxtst6
 ```
+
+Helping debugging Sozi
+======================
+
+While Sozi is running, press `F12` to open the developer tools.
+Check the *Console* tab for error messages.
+
+Some environment variables will enable debugging features in Sozi:
+
+* `ELECTRON_ENABLE_LOGGING=1 sozi my-presentation.svg` will display JavaScript console messages in the current terminal window.
+* `SOZI_DEVTOOLS=1 sozi my-presentation.svg` will open the developer tools immediately.
+  This can be useful if `F12` has no effect or when you want to debug events that happen at startup.
