@@ -18,6 +18,10 @@ function createWindow () {
         }
     });
 
+    if (process.env.SOZI_DEVTOOLS) {
+        mainWindow.webContents.openDevTools();
+    }
+
     // Electron 6 provides a default menu bar that cannot be removed.
     // We keep it for a few default actions.
     const template = [
@@ -31,8 +35,6 @@ function createWindow () {
     Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
     mainWindow.loadURL(`file://${__dirname}/../index.html`);
-
-    // mainWindow.toggleDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on("closed", function () {

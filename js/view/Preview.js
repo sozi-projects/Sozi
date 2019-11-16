@@ -39,7 +39,8 @@ export class Preview {
         this.container.appendChild(this.presentation.document.root);
 
         this.viewport.onLoad();
-
+        this.presentation.setInitialCameraState();
+        
         this.container.addEventListener("mouseenter", () => this.onMouseEnter(), false);
         this.container.addEventListener("mouseleave", () => this.onMouseLeave(), false);
     }

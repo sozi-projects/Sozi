@@ -416,8 +416,13 @@ export class Presentation extends EventEmitter {
         }
 
         this.layers.push(autoLayer);
-        this.initialCameraState = new CameraState(this.document.root);
         this.emit("svgChange");
+    }
+
+    /** Sets the initial state of all cameras to the whole document.
+     */
+    setInitialCameraState() {
+        this.initialCameraState = new CameraState(this.document.root);
     }
 
     /** Convert this instance to a plain object that can be stored as JSON.
