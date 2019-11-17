@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-09-17 08:12:+0000\n"
+"POT-Creation-Date: 2019-11-17 01:28:+0000\n"
 "PO-Revision-Date: 2019-07-23 15:08+0000\n"
 "Last-Translator: Tauras <tp@colideum.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/sozi/"
@@ -22,35 +22,35 @@ msgstr ""
 "X-Generator: Weblate 3.8-dev\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
 
-#: js/backend/Electron.js:27
+#: js/backend/Electron.js:35
 msgid "Open an SVG file from your computer"
 msgstr "Atidaryti Jūsų kompiuteryje esantį SVG failą"
 
-#: js/backend/Electron.js:59
+#: js/backend/Electron.js:67
 msgid "Do you want to save the presentation before closing?"
 msgstr "Ar norite prieš uždarant išsaugoti prezentaciją?"
 
-#: js/backend/Electron.js:60
+#: js/backend/Electron.js:68
 msgid "Yes"
 msgstr "Taip"
 
-#: js/backend/Electron.js:60
+#: js/backend/Electron.js:68
 msgid "No"
 msgstr "Ne"
 
-#: js/backend/Electron.js:83
+#: js/backend/Electron.js:91
 msgid "File not found: %s."
 msgstr "Failas nerastas: %s."
 
-#: js/backend/Electron.js:116
+#: js/backend/Electron.js:124
 msgid "Choose an SVG file"
 msgstr "Pasirinkite SVG failą"
 
-#: js/backend/Electron.js:117
+#: js/backend/Electron.js:125
 msgid "SVG files"
 msgstr "SVG failai"
 
-#: js/backend/FileReader.js:12
+#: js/backend/FileReader.js:20
 msgid ""
 "Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
@@ -58,399 +58,400 @@ msgstr ""
 "Atidaryti Jūsų kompiuteryje esantį SVG failą (<i class=\"fas fa-exclamation-"
 "triangle\">skaitymo režimu</i>)"
 
-#: js/backend/GoogleDrive.js:16
+#: js/backend/GoogleDrive.js:20
 msgid "Open an SVG file from Google Drive"
 msgstr "Atidaryti Google diske esantį SVG failą"
 
-#: js/Controller.js:38
+#: js/Controller.js:125
 msgid "Sozi (Information)"
 msgstr "Sozi (Informacija)"
 
-#: js/Controller.js:44
+#: js/Controller.js:135
 msgid "Sozi (Error)"
 msgstr "Sozi (Klaida)"
 
-#: js/Storage.js:78
+#: js/Storage.js:81
 msgid "File %s could not be loaded."
 msgstr "Failas %s negali būti įkeltas."
 
-#: js/Storage.js:95 js/Storage.js:104
+#: js/Storage.js:98 js/Storage.js:107
 msgid "Document is not valid SVG."
 msgstr "Dokumentas neatitinka SVG standarto"
 
-#: js/Storage.js:141 js/Storage.js:147
+#: js/Storage.js:143 js/Storage.js:149
 msgid "Document was changed. Reloading."
 msgstr "Dokumentas buvo pakeistas. Įkeliama iš naujo."
 
-#: js/Storage.js:156
+#: js/Storage.js:158
 #, fuzzy
 msgid "Document was changed."
 msgstr "Dokumentas buvo pakeistas. Įkeliama iš naujo."
 
-#: js/Storage.js:182
+#: js/Storage.js:184
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Dokumentas importuotas iš Sozi 13 ar ankstesnės versijos."
 
-#: js/Storage.js:254 js/Storage.js:275
+#: js/Storage.js:256 js/Storage.js:277
 msgid "Saved %s."
 msgstr "Išsaugota %s."
 
-#: js/view/Properties.js:41 js/view/Properties.js:170
-msgid "Fit to element"
-msgstr "Vaizduoti pagal elemento dydį"
+#: js/view/Properties.js:43
+#, fuzzy
+msgid "Autoselect outline element"
+msgstr "Automatiškai žymėti elementą"
 
-#: js/view/Properties.js:42 js/view/Properties.js:152
+#: js/view/Properties.js:44 js/view/Properties.js:153
 msgid "Reset layer geometry"
 msgstr "Atstatyti sluoksnio geometriją"
 
-#: js/view/Properties.js:43 js/view/Timeline.js:303
+#: js/view/Properties.js:45 js/view/Timeline.js:137
 msgid "Create a new frame"
 msgstr "Sukurti naują kadrą"
 
-#: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:113
+#: js/view/Properties.js:46 js/view/Properties.js:69 js/view/Toolbar.js:114
 msgid "Save the presentation"
 msgstr "Išsaugoti prezentaciją"
 
-#: js/view/Properties.js:45 js/view/Toolbar.js:97
+#: js/view/Properties.js:47 js/view/Toolbar.js:98
 msgid "Redo"
 msgstr "Perdaryti"
 
-#: js/view/Properties.js:46 js/view/Toolbar.js:92
+#: js/view/Properties.js:48 js/view/Toolbar.js:93
 msgid "Undo"
 msgstr "Anuliuoti"
 
-#: js/view/Properties.js:47
+#: js/view/Properties.js:49
 msgid "Focus the frame title"
 msgstr ""
 
-#: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:118
+#: js/view/Properties.js:50 js/view/Properties.js:74 js/view/Toolbar.js:119
 msgid "Reload the SVG document"
 msgstr "Perkrauti SVG dokumentą"
 
-#: js/view/Properties.js:49
+#: js/view/Properties.js:51
 #, fuzzy
 msgid "Toggle full-screen mode"
 msgstr "Įjungti viso ekrano režimą"
 
-#: js/view/Properties.js:50
+#: js/view/Properties.js:52
 msgid "Toggle the developer tools"
 msgstr ""
 
-#: js/view/Properties.js:60
+#: js/view/Properties.js:62
 msgid "User interface"
 msgstr ""
 
-#: js/view/Properties.js:61
+#: js/view/Properties.js:63
 msgid "Font size"
 msgstr ""
 
-#: js/view/Properties.js:64
+#: js/view/Properties.js:66
 msgid "Enable notifications on save and reload"
 msgstr ""
 
-#: js/view/Properties.js:65
+#: js/view/Properties.js:67
 msgid "Enable notifications"
 msgstr ""
 
-#: js/view/Properties.js:69
+#: js/view/Properties.js:71
 msgid "When Sozi loses the focus"
 msgstr ""
 
-#: js/view/Properties.js:70 js/view/Properties.js:76
+#: js/view/Properties.js:72 js/view/Properties.js:78
 msgid "Manually"
 msgstr ""
 
-#: js/view/Properties.js:74
+#: js/view/Properties.js:76
 msgid "Automatically"
 msgstr ""
 
-#: js/view/Properties.js:75
+#: js/view/Properties.js:77
 msgid "When Sozi gets the focus"
 msgstr ""
 
-#: js/view/Properties.js:78
+#: js/view/Properties.js:80
 msgid "Behavior"
 msgstr ""
 
-#: js/view/Properties.js:80
+#: js/view/Properties.js:82
 msgid "Preview transition animations"
 msgstr ""
 
-#: js/view/Properties.js:81
+#: js/view/Properties.js:83
 msgid "Enable animated transitions"
 msgstr ""
 
-#: js/view/Properties.js:83
+#: js/view/Properties.js:85
 msgid "Keyboard shortcuts"
 msgstr ""
 
-#: js/view/Properties.js:96
+#: js/view/Properties.js:98
 msgid "Basic formatting supported:"
 msgstr ""
 
-#: js/view/Properties.js:98
+#: js/view/Properties.js:100
 msgid "Ctrl+B: Bold"
 msgstr ""
 
-#: js/view/Properties.js:99
+#: js/view/Properties.js:101
 msgid "Ctrl+I: Italic"
 msgstr ""
 
-#: js/view/Properties.js:100
+#: js/view/Properties.js:102
 msgid "Ctrl+U: Underline"
 msgstr ""
 
-#: js/view/Properties.js:101
+#: js/view/Properties.js:103
 msgid "Ctrl+0: Paragraph"
 msgstr ""
 
-#: js/view/Properties.js:102
+#: js/view/Properties.js:104
 msgid "Ctrl+1: Big header"
 msgstr ""
 
-#: js/view/Properties.js:103
+#: js/view/Properties.js:105
 msgid "Ctrl+2: Medium header"
 msgstr ""
 
-#: js/view/Properties.js:104
+#: js/view/Properties.js:106
 msgid "Ctrl+3: Small header"
 msgstr ""
 
-#: js/view/Properties.js:105
+#: js/view/Properties.js:107
 msgid "Ctrl+L: List"
 msgstr ""
 
-#: js/view/Properties.js:106
+#: js/view/Properties.js:108
 msgid "Ctrl+N: Numbered list"
 msgstr ""
 
-#: js/view/Properties.js:114
+#: js/view/Properties.js:115
 msgid "Select a layer to copy"
 msgstr "Pasirinkite sluoksnį kopijavimui"
 
-#: js/view/Properties.js:117 js/view/Timeline.js:350 js/view/Timeline.js:378
+#: js/view/Properties.js:118 js/view/Timeline.js:184 js/view/Timeline.js:212
 msgid "Default"
 msgstr "Numatytasis"
 
-#: js/view/Properties.js:124
+#: js/view/Properties.js:125
 msgid "Frame"
 msgstr "Kadras"
 
-#: js/view/Properties.js:127
+#: js/view/Properties.js:128
 msgid "Show in frame list"
 msgstr "Rodyti kadrų sąraše"
 
-#: js/view/Properties.js:128
+#: js/view/Properties.js:129
 msgid "Show frame number"
 msgstr "Rodyti kadro numerį"
 
-#: js/view/Properties.js:131
+#: js/view/Properties.js:132
 msgid "Title"
 msgstr "Pavadinimas"
 
-#: js/view/Properties.js:134
+#: js/view/Properties.js:135
 #, fuzzy
 msgid "Title level in frame list"
 msgstr "Rodyti kadrų sąraše"
 
-#: js/view/Properties.js:137
+#: js/view/Properties.js:138
 msgid "Id"
 msgstr "ID"
 
-#: js/view/Properties.js:141
+#: js/view/Properties.js:142
 msgid "Timeout (seconds)"
 msgstr "Laukimo laikas (sek.)"
 
-#: js/view/Properties.js:142
+#: js/view/Properties.js:143
 msgid "Timeout enable"
 msgstr "Laukimo laiko įjungimas"
 
-#: js/view/Properties.js:146
+#: js/view/Properties.js:147
 msgid "Layer"
 msgstr "Sluoksnis"
 
-#: js/view/Properties.js:149
+#: js/view/Properties.js:150
 msgid "Link to previous frame"
 msgstr "Susieti su ankstesniu kadru"
 
-#: js/view/Properties.js:150
+#: js/view/Properties.js:151
 msgid "Clip"
 msgstr "Apkirpti"
 
-#: js/view/Properties.js:157
+#: js/view/Properties.js:158
 msgid "Copy layer"
 msgstr "Kopijuoti sluoksnį"
 
-#: js/view/Properties.js:164
+#: js/view/Properties.js:165
 msgid "Outline element Id"
 msgstr "Apibrėžiamo elemento ID"
 
-#: js/view/Properties.js:167
+#: js/view/Properties.js:168
 msgid "Autoselect element"
 msgstr "Automatiškai žymėti elementą"
 
-#: js/view/Properties.js:168
+#: js/view/Properties.js:171
 msgid "Hide element"
 msgstr "Slėpti elementą"
 
-#: js/view/Properties.js:178
+#: js/view/Properties.js:176
 msgid "Layer opacity"
 msgstr "Sluoksnio skaidrumas"
 
-#: js/view/Properties.js:181
+#: js/view/Properties.js:179
 msgid "Transition"
 msgstr "Perėjimas"
 
-#: js/view/Properties.js:181
+#: js/view/Properties.js:179
 msgid "Configure the animation when moving to the selected frames."
 msgstr ""
 
-#: js/view/Properties.js:183
+#: js/view/Properties.js:181
 msgid "Duration (seconds)"
 msgstr "Laikas (sek)"
 
-#: js/view/Properties.js:186
+#: js/view/Properties.js:184
 msgid "Timing function"
 msgstr "Chronometražo funkcija"
 
-#: js/view/Properties.js:188
+#: js/view/Properties.js:186
 msgid "Linear"
 msgstr ""
 
-#: js/view/Properties.js:189
+#: js/view/Properties.js:187
 msgid "Ease"
 msgstr ""
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:188
 msgid "Ease in"
 msgstr ""
 
-#: js/view/Properties.js:191
+#: js/view/Properties.js:189
 msgid "Ease out"
 msgstr ""
 
-#: js/view/Properties.js:192
+#: js/view/Properties.js:190
 msgid "Ease in-out"
 msgstr ""
 
-#: js/view/Properties.js:193
+#: js/view/Properties.js:191
 msgid "Step start"
 msgstr ""
 
-#: js/view/Properties.js:194
+#: js/view/Properties.js:192
 msgid "Step end"
 msgstr ""
 
-#: js/view/Properties.js:195
+#: js/view/Properties.js:193
 msgid "Step middle"
 msgstr ""
 
-#: js/view/Properties.js:198
+#: js/view/Properties.js:196
 msgid "Relative zoom (%)"
 msgstr "Santykinis mastelis (%)"
 
-#: js/view/Properties.js:202
+#: js/view/Properties.js:200
 msgid "Path Id"
 msgstr "Perėjimo kelio ID"
 
-#: js/view/Properties.js:203
+#: js/view/Properties.js:201
 msgid "Hide path"
 msgstr "Slėpti perėjimo kelią"
 
-#: js/view/Properties.js:207
+#: js/view/Properties.js:205
 msgid "Notes"
 msgstr ""
 
-#: js/view/Properties.js:207
+#: js/view/Properties.js:205
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 
-#: js/view/Properties.js:211
+#: js/view/Properties.js:209
 #, fuzzy
 msgid "Player"
 msgstr "Sluoksnis"
 
-#: js/view/Properties.js:214
+#: js/view/Properties.js:212
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
 msgstr ""
 
-#: js/view/Properties.js:215
+#: js/view/Properties.js:213
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr ""
 
-#: js/view/Properties.js:219
+#: js/view/Properties.js:217
 msgid "Allow to control the presentation"
 msgstr ""
 
-#: js/view/Properties.js:221 js/view/Properties.js:228
-#: js/view/Properties.js:234 js/view/Properties.js:242
+#: js/view/Properties.js:219 js/view/Properties.js:226
+#: js/view/Properties.js:232 js/view/Properties.js:240
 msgid "using the mouse"
 msgstr ""
 
-#: js/view/Properties.js:222 js/view/Properties.js:235
-#: js/view/Properties.js:243
+#: js/view/Properties.js:220 js/view/Properties.js:233
+#: js/view/Properties.js:241
 msgid "using the keyboard"
 msgstr ""
 
-#: js/view/Properties.js:227
+#: js/view/Properties.js:225
 msgid "Allow to move the camera"
 msgstr ""
 
-#: js/view/Properties.js:232
+#: js/view/Properties.js:230
 msgid "Allow to rotate the camera"
 msgstr ""
 
-#: js/view/Properties.js:240
+#: js/view/Properties.js:238
 msgid "Allow to zoom"
 msgstr ""
 
-#: js/view/Timeline.js:296
+#: js/view/Timeline.js:130
 msgid "Delete the selected frames"
 msgstr "Trinti pasirinktus kadrus"
 
-#: js/view/Timeline.js:322
+#: js/view/Timeline.js:156
 msgid "Add layer"
 msgstr "Pridėti sluoksnį"
 
-#: js/view/Timeline.js:323
+#: js/view/Timeline.js:157
 #, fuzzy
 msgid "Add all layers"
 msgstr "Pridėti sluoksnį"
 
-#: js/view/Timeline.js:338 js/view/Timeline.js:358
+#: js/view/Timeline.js:172 js/view/Timeline.js:192
 msgid "This layer is visible. Click to hide it."
 msgstr "Šis sluoksnis yra matomas. Spragtelkite, kad paslėptumėt jį."
 
-#: js/view/Timeline.js:342 js/view/Timeline.js:362
+#: js/view/Timeline.js:176 js/view/Timeline.js:196
 msgid "This layer is hidden. Click to show it."
 msgstr "Šis sluoksnis yra paslėptas. Spragtelkite, kad parodytumėt jį."
 
-#: js/view/Timeline.js:366
+#: js/view/Timeline.js:200
 msgid "Remove this layer"
 msgstr "Naikinti šį sluoksnį"
 
-#: js/view/Timeline.js:391
+#: js/view/Timeline.js:225
 msgid "Insert selection before frame %d"
 msgstr "Įterpti pasirinkimą prieš %s kadrą"
 
-#: js/view/Timeline.js:398
+#: js/view/Timeline.js:232
 msgid "Insert selection after frame %d"
 msgstr "Įterpti pasirinkimą po %s kadro"
 
-#: js/view/Toolbar.js:37
+#: js/view/Toolbar.js:38
 msgid "Aspect ratio: "
 msgstr "Proporcijos: "
 
-#: js/view/Toolbar.js:70
+#: js/view/Toolbar.js:71
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
 "Stumdyti pasirinktus sluoksnius (laikykite Alt, kad keisti mastelį; Shift, "
 "kad pasukti)"
 
-#: js/view/Toolbar.js:75
+#: js/view/Toolbar.js:76
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
@@ -458,32 +459,35 @@ msgstr ""
 "Keisti pasirinktų sluoksnių mastelius (Jūs taip pat galite tai atlikti "
 "laikydami paspaudę Alt klavišą Stumdymo režime)"
 
-#: js/view/Toolbar.js:80
+#: js/view/Toolbar.js:81
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 "Pasukti pasirinktus sluoksnius (Jūs taip pat galite tai atlikti laikydami "
 "paspaudę Shift klavišą Stumdymo režime)"
 
-#: js/view/Toolbar.js:85
+#: js/view/Toolbar.js:86
 msgid "Edit the clipping area"
 msgstr ""
 
-#: js/view/Toolbar.js:104
+#: js/view/Toolbar.js:105
 msgid "Disable full-screen mode"
 msgstr "Išjungti viso ekrano režimą"
 
-#: js/view/Toolbar.js:104
+#: js/view/Toolbar.js:105
 msgid "Enable full-screen mode"
 msgstr "Įjungti viso ekrano režimą"
 
-#: js/view/Toolbar.js:124
+#: js/view/Toolbar.js:125
 msgid "Preferences"
 msgstr ""
 
-#: js/view/Toolbar.js:129
+#: js/view/Toolbar.js:130
 msgid "Information"
 msgstr "Informacija"
+
+#~ msgid "Fit to element"
+#~ msgstr "Vaizduoti pagal elemento dydį"
 
 #, fuzzy
 #~ msgid "Document was changed. Use the reload button."

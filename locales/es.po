@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-09-17 08:12:+0000\n"
+"POT-Creation-Date: 2019-11-17 01:28:+0000\n"
 "PO-Revision-Date: 2019-02-13 03:11+0000\n"
 "Last-Translator: Carlos Fernando <carlos.gorosito+traducir@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/sozi/"
@@ -20,35 +20,35 @@ msgstr ""
 "X-Generator: Weblate 3.5-dev\n"
 "X-Launchpad-Export-Date: 2018-04-06 19:08+0000\n"
 
-#: js/backend/Electron.js:27
+#: js/backend/Electron.js:35
 msgid "Open an SVG file from your computer"
 msgstr "Abrir archivo SVG desde tu computadora"
 
-#: js/backend/Electron.js:59
+#: js/backend/Electron.js:67
 msgid "Do you want to save the presentation before closing?"
 msgstr "¿Desea guardar la presentación antes de cerrar?"
 
-#: js/backend/Electron.js:60
+#: js/backend/Electron.js:68
 msgid "Yes"
 msgstr "Sí"
 
-#: js/backend/Electron.js:60
+#: js/backend/Electron.js:68
 msgid "No"
 msgstr "No"
 
-#: js/backend/Electron.js:83
+#: js/backend/Electron.js:91
 msgid "File not found: %s."
 msgstr "Archivo no encontrado: %s."
 
-#: js/backend/Electron.js:116
+#: js/backend/Electron.js:124
 msgid "Choose an SVG file"
 msgstr "Elija un archivo SVG"
 
-#: js/backend/Electron.js:117
+#: js/backend/Electron.js:125
 msgid "SVG files"
 msgstr "Archivos SVG"
 
-#: js/backend/FileReader.js:12
+#: js/backend/FileReader.js:20
 msgid ""
 "Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
@@ -56,397 +56,398 @@ msgstr ""
 "Abrir un archivo SVG desde su computadora (<i class=\"fas fa-exclamation-"
 "triangle\"></i> sólo lectura)"
 
-#: js/backend/GoogleDrive.js:16
+#: js/backend/GoogleDrive.js:20
 msgid "Open an SVG file from Google Drive"
 msgstr "Abrir un archivo SVG desde Google Drive"
 
-#: js/Controller.js:38
+#: js/Controller.js:125
 msgid "Sozi (Information)"
 msgstr "Sozi (información)"
 
-#: js/Controller.js:44
+#: js/Controller.js:135
 msgid "Sozi (Error)"
 msgstr "Sozi (error)"
 
-#: js/Storage.js:78
+#: js/Storage.js:81
 msgid "File %s could not be loaded."
 msgstr "El archivo %s no pudo ser cargado."
 
-#: js/Storage.js:95 js/Storage.js:104
+#: js/Storage.js:98 js/Storage.js:107
 msgid "Document is not valid SVG."
 msgstr "Documento SVG no válido."
 
-#: js/Storage.js:141 js/Storage.js:147
+#: js/Storage.js:143 js/Storage.js:149
 msgid "Document was changed. Reloading."
 msgstr "Se ha modificado el documento. Recargando."
 
-#: js/Storage.js:156
+#: js/Storage.js:158
 msgid "Document was changed."
 msgstr "El documento ha sido modificado."
 
-#: js/Storage.js:182
+#: js/Storage.js:184
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "El documento fue importado desde Sozi 13 o una versión anterior."
 
-#: js/Storage.js:254 js/Storage.js:275
+#: js/Storage.js:256 js/Storage.js:277
 msgid "Saved %s."
 msgstr "%s guardado."
 
-#: js/view/Properties.js:41 js/view/Properties.js:170
-msgid "Fit to element"
-msgstr "Ajustar al elemento"
+#: js/view/Properties.js:43
+#, fuzzy
+msgid "Autoselect outline element"
+msgstr "Autoseleccionar elemento"
 
-#: js/view/Properties.js:42 js/view/Properties.js:152
+#: js/view/Properties.js:44 js/view/Properties.js:153
 msgid "Reset layer geometry"
 msgstr "Reinicia la geometría de la capa"
 
-#: js/view/Properties.js:43 js/view/Timeline.js:303
+#: js/view/Properties.js:45 js/view/Timeline.js:137
 msgid "Create a new frame"
 msgstr "Crear un nuevo fotograma"
 
-#: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:113
+#: js/view/Properties.js:46 js/view/Properties.js:69 js/view/Toolbar.js:114
 msgid "Save the presentation"
 msgstr "Guardar la presentación"
 
-#: js/view/Properties.js:45 js/view/Toolbar.js:97
+#: js/view/Properties.js:47 js/view/Toolbar.js:98
 msgid "Redo"
 msgstr "Rehacer"
 
-#: js/view/Properties.js:46 js/view/Toolbar.js:92
+#: js/view/Properties.js:48 js/view/Toolbar.js:93
 msgid "Undo"
 msgstr "Deshacer"
 
-#: js/view/Properties.js:47
+#: js/view/Properties.js:49
 msgid "Focus the frame title"
 msgstr "Enfocar título del fotograma"
 
-#: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:118
+#: js/view/Properties.js:50 js/view/Properties.js:74 js/view/Toolbar.js:119
 msgid "Reload the SVG document"
 msgstr "Volver a cargar el documento SVG"
 
-#: js/view/Properties.js:49
+#: js/view/Properties.js:51
 msgid "Toggle full-screen mode"
 msgstr "Cambiar a modo de pantalla completa"
 
-#: js/view/Properties.js:50
+#: js/view/Properties.js:52
 msgid "Toggle the developer tools"
 msgstr "Cambiar a herramientas de desarrollador"
 
-#: js/view/Properties.js:60
+#: js/view/Properties.js:62
 msgid "User interface"
 msgstr "Interfaz de usuario"
 
-#: js/view/Properties.js:61
+#: js/view/Properties.js:63
 msgid "Font size"
 msgstr "Tamaño de letra"
 
-#: js/view/Properties.js:64
+#: js/view/Properties.js:66
 msgid "Enable notifications on save and reload"
 msgstr "Habilitar las notificaciones al grabar y recargar"
 
-#: js/view/Properties.js:65
+#: js/view/Properties.js:67
 msgid "Enable notifications"
 msgstr "Habilitar notificaciones"
 
-#: js/view/Properties.js:69
+#: js/view/Properties.js:71
 msgid "When Sozi loses the focus"
 msgstr "Cuando Sozi pierde el foco"
 
-#: js/view/Properties.js:70 js/view/Properties.js:76
+#: js/view/Properties.js:72 js/view/Properties.js:78
 msgid "Manually"
 msgstr "Manualmente"
 
-#: js/view/Properties.js:74
+#: js/view/Properties.js:76
 msgid "Automatically"
 msgstr "Automáticamente"
 
-#: js/view/Properties.js:75
+#: js/view/Properties.js:77
 msgid "When Sozi gets the focus"
 msgstr "Cuando Sozi obtiene el foco"
 
-#: js/view/Properties.js:78
+#: js/view/Properties.js:80
 msgid "Behavior"
 msgstr "Comportamiento"
 
-#: js/view/Properties.js:80
+#: js/view/Properties.js:82
 msgid "Preview transition animations"
 msgstr "Vista previa de animaciones en transiciones"
 
-#: js/view/Properties.js:81
+#: js/view/Properties.js:83
 msgid "Enable animated transitions"
 msgstr "Habilitar transiciones animadas"
 
-#: js/view/Properties.js:83
+#: js/view/Properties.js:85
 msgid "Keyboard shortcuts"
 msgstr "Atajos de teclado"
 
-#: js/view/Properties.js:96
+#: js/view/Properties.js:98
 msgid "Basic formatting supported:"
 msgstr "Formato básico soportado:"
 
-#: js/view/Properties.js:98
+#: js/view/Properties.js:100
 msgid "Ctrl+B: Bold"
 msgstr "Control+B: Negrita"
 
-#: js/view/Properties.js:99
+#: js/view/Properties.js:101
 msgid "Ctrl+I: Italic"
 msgstr "Control+I: Itálica/Cursiva"
 
-#: js/view/Properties.js:100
+#: js/view/Properties.js:102
 msgid "Ctrl+U: Underline"
 msgstr "Control+U: Subrayado"
 
-#: js/view/Properties.js:101
+#: js/view/Properties.js:103
 msgid "Ctrl+0: Paragraph"
 msgstr "Control+0: Párrafo"
 
-#: js/view/Properties.js:102
+#: js/view/Properties.js:104
 msgid "Ctrl+1: Big header"
 msgstr "Control+1: Encabezado grande"
 
-#: js/view/Properties.js:103
+#: js/view/Properties.js:105
 msgid "Ctrl+2: Medium header"
 msgstr "Control+2: Encabezado mediano"
 
-#: js/view/Properties.js:104
+#: js/view/Properties.js:106
 msgid "Ctrl+3: Small header"
 msgstr "Control+3: Encabezado pequeño"
 
-#: js/view/Properties.js:105
+#: js/view/Properties.js:107
 msgid "Ctrl+L: List"
 msgstr "Control+L: Lista"
 
-#: js/view/Properties.js:106
+#: js/view/Properties.js:108
 msgid "Ctrl+N: Numbered list"
 msgstr "Control+N: Lista enumerada"
 
-#: js/view/Properties.js:114
+#: js/view/Properties.js:115
 msgid "Select a layer to copy"
 msgstr "Seleccione una capa para copiar"
 
-#: js/view/Properties.js:117 js/view/Timeline.js:350 js/view/Timeline.js:378
+#: js/view/Properties.js:118 js/view/Timeline.js:184 js/view/Timeline.js:212
 msgid "Default"
 msgstr "Predeterminada"
 
-#: js/view/Properties.js:124
+#: js/view/Properties.js:125
 msgid "Frame"
 msgstr "Fotograma"
 
-#: js/view/Properties.js:127
+#: js/view/Properties.js:128
 msgid "Show in frame list"
 msgstr "Mostrar en la lista de fotogramas"
 
-#: js/view/Properties.js:128
+#: js/view/Properties.js:129
 msgid "Show frame number"
 msgstr "Mostrar el número del fotograma"
 
-#: js/view/Properties.js:131
+#: js/view/Properties.js:132
 msgid "Title"
 msgstr "Título"
 
-#: js/view/Properties.js:134
+#: js/view/Properties.js:135
 msgid "Title level in frame list"
 msgstr "Nivel de título en la lista de fotogramas"
 
-#: js/view/Properties.js:137
+#: js/view/Properties.js:138
 msgid "Id"
 msgstr "ID"
 
-#: js/view/Properties.js:141
+#: js/view/Properties.js:142
 msgid "Timeout (seconds)"
 msgstr "Tiempo de espera (segundos)"
 
-#: js/view/Properties.js:142
+#: js/view/Properties.js:143
 msgid "Timeout enable"
 msgstr "Activar el tiempo de espera"
 
-#: js/view/Properties.js:146
+#: js/view/Properties.js:147
 msgid "Layer"
 msgstr "Capa"
 
-#: js/view/Properties.js:149
+#: js/view/Properties.js:150
 msgid "Link to previous frame"
 msgstr "Enlazar al fotograma anterior"
 
-#: js/view/Properties.js:150
+#: js/view/Properties.js:151
 msgid "Clip"
 msgstr "Recortar"
 
-#: js/view/Properties.js:157
+#: js/view/Properties.js:158
 msgid "Copy layer"
 msgstr "Copiar capa"
 
-#: js/view/Properties.js:164
+#: js/view/Properties.js:165
 msgid "Outline element Id"
 msgstr "ID del elemento trazado"
 
-#: js/view/Properties.js:167
+#: js/view/Properties.js:168
 msgid "Autoselect element"
 msgstr "Autoseleccionar elemento"
 
-#: js/view/Properties.js:168
+#: js/view/Properties.js:171
 msgid "Hide element"
 msgstr "Ocultar elemento"
 
-#: js/view/Properties.js:178
+#: js/view/Properties.js:176
 msgid "Layer opacity"
 msgstr "Opacidad de la capa"
 
-#: js/view/Properties.js:181
+#: js/view/Properties.js:179
 msgid "Transition"
 msgstr "Transición"
 
-#: js/view/Properties.js:181
+#: js/view/Properties.js:179
 msgid "Configure the animation when moving to the selected frames."
 msgstr ""
 "Configurar la animación cuando se mueve hacia los fotogramas seleccionados."
 
-#: js/view/Properties.js:183
+#: js/view/Properties.js:181
 msgid "Duration (seconds)"
 msgstr "Duración (segundos)"
 
-#: js/view/Properties.js:186
+#: js/view/Properties.js:184
 msgid "Timing function"
 msgstr "Función de temporización"
 
-#: js/view/Properties.js:188
+#: js/view/Properties.js:186
 msgid "Linear"
 msgstr "Lineal"
 
-#: js/view/Properties.js:189
+#: js/view/Properties.js:187
 msgid "Ease"
 msgstr "Suavizado"
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:188
 msgid "Ease in"
 msgstr "Suavizado al inicio"
 
-#: js/view/Properties.js:191
+#: js/view/Properties.js:189
 msgid "Ease out"
 msgstr "Suavizado al terminar"
 
-#: js/view/Properties.js:192
+#: js/view/Properties.js:190
 msgid "Ease in-out"
 msgstr "Suavizado al principio y al final"
 
-#: js/view/Properties.js:193
+#: js/view/Properties.js:191
 msgid "Step start"
 msgstr "Paso inicial"
 
-#: js/view/Properties.js:194
+#: js/view/Properties.js:192
 msgid "Step end"
 msgstr "Paso final"
 
-#: js/view/Properties.js:195
+#: js/view/Properties.js:193
 msgid "Step middle"
 msgstr "Paso intermedio"
 
-#: js/view/Properties.js:198
+#: js/view/Properties.js:196
 msgid "Relative zoom (%)"
 msgstr "Zoom relativo (%)"
 
-#: js/view/Properties.js:202
+#: js/view/Properties.js:200
 msgid "Path Id"
 msgstr "ID del trayecto"
 
-#: js/view/Properties.js:203
+#: js/view/Properties.js:201
 msgid "Hide path"
 msgstr "Ocultar el trayecto"
 
-#: js/view/Properties.js:207
+#: js/view/Properties.js:205
 msgid "Notes"
 msgstr "Notas"
 
-#: js/view/Properties.js:207
+#: js/view/Properties.js:205
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 "Editar las notas del presentador. Toque aquí para mostrar la lista de atajos "
 "de formato."
 
-#: js/view/Properties.js:211
+#: js/view/Properties.js:209
 msgid "Player"
 msgstr "Reproductor"
 
-#: js/view/Properties.js:214
+#: js/view/Properties.js:212
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
 msgstr ""
 
-#: js/view/Properties.js:215
+#: js/view/Properties.js:213
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr ""
 
-#: js/view/Properties.js:219
+#: js/view/Properties.js:217
 msgid "Allow to control the presentation"
 msgstr "Permitir controlar la presentación"
 
-#: js/view/Properties.js:221 js/view/Properties.js:228
-#: js/view/Properties.js:234 js/view/Properties.js:242
+#: js/view/Properties.js:219 js/view/Properties.js:226
+#: js/view/Properties.js:232 js/view/Properties.js:240
 msgid "using the mouse"
 msgstr "usar el mouse"
 
-#: js/view/Properties.js:222 js/view/Properties.js:235
-#: js/view/Properties.js:243
+#: js/view/Properties.js:220 js/view/Properties.js:233
+#: js/view/Properties.js:241
 msgid "using the keyboard"
 msgstr "usar el teclado"
 
-#: js/view/Properties.js:227
+#: js/view/Properties.js:225
 msgid "Allow to move the camera"
 msgstr "Permitir mover la cámara"
 
-#: js/view/Properties.js:232
+#: js/view/Properties.js:230
 msgid "Allow to rotate the camera"
 msgstr "Permitir rotar la cámara"
 
-#: js/view/Properties.js:240
+#: js/view/Properties.js:238
 msgid "Allow to zoom"
 msgstr "Permitir hacer zoom"
 
-#: js/view/Timeline.js:296
+#: js/view/Timeline.js:130
 msgid "Delete the selected frames"
 msgstr "Borrar los fotogramas seleccionados"
 
-#: js/view/Timeline.js:322
+#: js/view/Timeline.js:156
 msgid "Add layer"
 msgstr "Añadir capa"
 
-#: js/view/Timeline.js:323
+#: js/view/Timeline.js:157
 #, fuzzy
 msgid "Add all layers"
 msgstr "Añadir capa"
 
-#: js/view/Timeline.js:338 js/view/Timeline.js:358
+#: js/view/Timeline.js:172 js/view/Timeline.js:192
 msgid "This layer is visible. Click to hide it."
 msgstr "Esta capa está visible. Presione para ocultarla."
 
-#: js/view/Timeline.js:342 js/view/Timeline.js:362
+#: js/view/Timeline.js:176 js/view/Timeline.js:196
 msgid "This layer is hidden. Click to show it."
 msgstr "Esta capa está oculta. Presione para mostrarla."
 
-#: js/view/Timeline.js:366
+#: js/view/Timeline.js:200
 msgid "Remove this layer"
 msgstr "Borrar esta capa"
 
-#: js/view/Timeline.js:391
+#: js/view/Timeline.js:225
 msgid "Insert selection before frame %d"
 msgstr "Insertar la selección antes del fotograma %d"
 
-#: js/view/Timeline.js:398
+#: js/view/Timeline.js:232
 msgid "Insert selection after frame %d"
 msgstr "Insertar la sección después del fotograma %d"
 
-#: js/view/Toolbar.js:37
+#: js/view/Toolbar.js:38
 msgid "Aspect ratio: "
 msgstr "Proporción de tamaño: "
 
-#: js/view/Toolbar.js:70
+#: js/view/Toolbar.js:71
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
 "Mover las capas seleccionadas (presione ALT para ampliar, MAYUS para rotar)"
 
-#: js/view/Toolbar.js:75
+#: js/view/Toolbar.js:76
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
@@ -454,32 +455,35 @@ msgstr ""
 "Acercar/alejar las capas seleccionadas (también puede presionar ALT en "
 "\"Modo mover\")"
 
-#: js/view/Toolbar.js:80
+#: js/view/Toolbar.js:81
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 "Rotar las capas seleccionadas (también puede presionar MAYÚS en \"Modo mover"
 "\")"
 
-#: js/view/Toolbar.js:85
+#: js/view/Toolbar.js:86
 msgid "Edit the clipping area"
 msgstr "Editar el área de recorte"
 
-#: js/view/Toolbar.js:104
+#: js/view/Toolbar.js:105
 msgid "Disable full-screen mode"
 msgstr "Desactivar el modo de pantalla completa"
 
-#: js/view/Toolbar.js:104
+#: js/view/Toolbar.js:105
 msgid "Enable full-screen mode"
 msgstr "Activar el modo de pantalla completa"
 
-#: js/view/Toolbar.js:124
+#: js/view/Toolbar.js:125
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: js/view/Toolbar.js:129
+#: js/view/Toolbar.js:130
 msgid "Information"
 msgstr "Información"
+
+#~ msgid "Fit to element"
+#~ msgstr "Ajustar al elemento"
 
 #, fuzzy
 #~ msgid "Formatting shortcuts"

@@ -29,7 +29,7 @@ export class Preferences {
             reload                  : "F5",
             toggleFullscreen        : "F11",
             toggleDevTools          : "F12"
-        }
+        };
     }
 
     save() {
@@ -41,7 +41,16 @@ export class Preferences {
     load() {
         for (let key of Object.keys(this)) {
             const value = localStorage.getItem(key);
-            if (value !== null) {
+            if (value === null) {
+                return;
+            }
+            const pref = JSON.parse(value);
+            if (typeof pref === "object") {
+                for (let [fieldName, fieldValue] of Object.entries(pref)) {
+                    this[key][fieldName] = fieldValue;
+                }
+            }
+            else {
                 this[key] = JSON.parse(value);
             }
         }
