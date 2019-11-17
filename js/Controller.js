@@ -145,7 +145,7 @@ export class Controller extends EventEmitter {
      * @listens Controller#repaint
      */
     onRepaint() {
-        if (this.selection.currentFrame && this.selection.currentFrame !== this.player.currentFrame) {
+        if (this.selection.currentFrame && (this.selection.currentFrame !== this.player.currentFrame || this.player.animator.running)) {
             if (this.preferences.animateTransitions) {
                 this.player.moveToFrame(this.selection.currentFrame);
             }
