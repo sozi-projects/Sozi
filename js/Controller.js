@@ -918,58 +918,24 @@ export class Controller extends EventEmitter {
                });
     }
 
-    /** Fit each layer so that its outline element fills the viewport.
-     *
-     * This method applies a transformation to each selected layer in the
-     * {@link Selection#currentFrame|current frame} so that the outline element
-     * of each layer fills the current viewport.
-     *
-     * @fires Controller#presentationChange
-     * @fires Controller#repaint
-     */
-    fitElement() {
+    autoselectOutlineElement() {
         const currentFrame = this.selection.currentFrame;
-        if (currentFrame) {
-            const savedFrame    = new Frame(currentFrame, true);
-            const modifiedFrame = new Frame(currentFrame, true);
+        if (!currentFrame) {
+            return;
+        }
 
-            // Compute the offsets of each layer relative to the outline elements.
-            const offsets = {};
-            for (let layer of this.selection.selectedLayers) {
-                const id = currentFrame.layerProperties[layer.index].outlineElementId;
-                const elt = this.presentation.document.root.getElementById(id);
-                if (elt && layer.contains(elt)) {
-                    offsets[id] = modifiedFrame.cameraStates[layer.index].offsetFromElement(elt);
-                }
-            }
+        let outlineElt = null, outlineScore = null;
 
-            // Apply the offsets to each layer
-            for (let layer of this.selection.selectedLayers) {
-                const id = currentFrame.layerProperties[layer.index].outlineElementId;
-                if (offsets[id]) {
-                    const cs = modifiedFrame.cameraStates[layer.index];
-                    cs.applyOffset(offsets[id]);
-                    cs.resetClipping();
-                }
+        for (let layer of this.selection.selectedLayers) {
+            const {element, score} = this.viewport.cameras[layer.index].getCandidateReferenceElement();
+            if (element && element.hasAttribute("id") && (outlineScore === null || score < outlineScore)) {
+                outlineElt   = element;
+                outlineScore = score;
             }
+        }
 
-            if (Object.keys(offsets).length) {
-                this.perform(
-                    function onDo() {
-                        currentFrame.setAtStates(modifiedFrame.cameraStates);
-                        for (let layer of this.selection.selectedLayers) {
-                            currentFrame.layerProperties[layer.index].link = false;
-                        }
-                        this.presentation.updateLinkedLayers();
-                    },
-                    function onUndo() {
-                        currentFrame.copy(savedFrame);
-                        this.presentation.updateLinkedLayers();
-                    },
-                    false,
-                    ["presentationChange", "repaint"]
-                );
-            }
+        if (outlineElt) {
+            this.setOutlineElement(outlineElt);
         }
     }
 
@@ -1104,6 +1070,14 @@ export class Controller extends EventEmitter {
      * @fires Controller#repaint
      */
     setLayerProperty(property, propertyValue) {
+        if (property === "outlineElementId") {
+            const outlineElt = this.presentation.document.root.getElementById(propertyValue);
+            if (outlineElt) {
+                this.setOutlineElement(outlineElt);
+            }
+            return;
+        }
+
         const selectedFrames = this.selection.selectedFrames.slice();
         const selectedLayers = this.selection.selectedLayers.slice();
         const savedValues = selectedFrames.map(
@@ -1235,60 +1209,45 @@ export class Controller extends EventEmitter {
      */
     updateCameraStates() {
         const currentFrame = this.selection.currentFrame;
-        if (currentFrame) {
-            const savedFrame    = new Frame(currentFrame, true);
-            const modifiedFrame = new Frame(currentFrame, true);
-
-            let outlineElt = null, outlineScore = null;
-
-            this.viewport.cameras.forEach((camera, cameraIndex) => {
-                if (camera.selected) {
-                    // Update the camera states of the current frame
-                    modifiedFrame.cameraStates[cameraIndex].copy(camera);
-
-                    // We will update the layer properties corresponding to the
-                    // current camera in the modified frame
-                    const layerProperties = modifiedFrame.layerProperties[cameraIndex];
-
-                    // Mark the modified layers as unlinked in the current frame
-                    layerProperties.link = false;
-
-                    // Update the reference SVG element if applicable.
-                    const {element, score} = camera.getCandidateReferenceElement();
-                    if (element && element.hasAttribute("id")) {
-                        layerProperties.referenceElementId = element.getAttribute("id");
-                        if (outlineScore === null || score < outlineScore) {
-                            outlineElt = element;
-                            outlineScore = score;
-                        }
-                    }
-                }
-            });
-
-            if (outlineElt) {
-                this.viewport.cameras.forEach((camera, cameraIndex) => {
-                    if (camera.selected) {
-                        const layerProperties = modifiedFrame.layerProperties[cameraIndex];
-                        if (layerProperties.outlineElementAuto) {
-                            layerProperties.outlineElementId = outlineElt.getAttribute("id");
-                        }
-                    }
-                });
-            }
-
-            this.perform(
-                function onDo() {
-                    currentFrame.copy(modifiedFrame, true);
-                    this.presentation.updateLinkedLayers();
-                },
-                function onUndo() {
-                    currentFrame.copy(savedFrame, true);
-                    this.presentation.updateLinkedLayers();
-                },
-                false,
-                ["presentationChange", "repaint"]
-            );
+        if (!currentFrame) {
+            return;
         }
+
+        const savedFrame    = new Frame(currentFrame, true);
+        const modifiedFrame = new Frame(currentFrame, true);
+
+        for (let layer of this.selection.selectedLayers) {
+            const camera = this.viewport.cameras[layer.index];
+
+            // Update the camera states of the current frame
+            modifiedFrame.cameraStates[layer.index].copy(camera);
+
+            // We will update the layer properties corresponding to the
+            // current camera in the modified frame
+            const layerProperties = modifiedFrame.layerProperties[layer.index];
+
+            // Mark the modified layers as unlinked in the current frame
+            layerProperties.link = false;
+
+            // Update the reference SVG element if applicable.
+            const {element} = camera.getCandidateReferenceElement();
+            if (element && element.hasAttribute("id")) {
+                layerProperties.referenceElementId = element.getAttribute("id");
+            }
+        }
+
+        this.perform(
+            function onDo() {
+                currentFrame.copy(modifiedFrame, true);
+                this.presentation.updateLinkedLayers();
+            },
+            function onUndo() {
+                currentFrame.copy(savedFrame, true);
+                this.presentation.updateLinkedLayers();
+            },
+            false,
+            ["presentationChange", "repaint"]
+        );
     }
 
     /** Set the given element as the outline element of the selected layers in the current frame.
@@ -1302,42 +1261,35 @@ export class Controller extends EventEmitter {
      */
     setOutlineElement(outlineElement) {
         const currentFrame = this.selection.currentFrame;
-        if (currentFrame) {
-            const properties = this.selection.selectedLayers.map(layer => {
-                const layerProperties    = currentFrame.layerProperties[layer.index];
-                const savedProperties    = new LayerProperties(layerProperties);
-                const modifiedProperties = new LayerProperties(layerProperties);
-
-                // Mark the modified layers as unlinked in the current frame
-                modifiedProperties.link = false;
-
-                modifiedProperties.outlineElementAuto = false;
-                modifiedProperties.outlineElementId = outlineElement.getAttribute("id");
-
-                return {layerProperties, savedProperties, modifiedProperties};
-            });
-
-            this.perform(
-                function onDo() {
-                    for (let p of properties) {
-                        if (p) {
-                            p.layerProperties.copy(p.modifiedProperties);
-                        }
-                    }
-                    this.presentation.updateLinkedLayers();
-                },
-                function onUndo() {
-                    for (let p of properties) {
-                        if (p) {
-                            p.layerProperties.copy(p.savedProperties);
-                        }
-                    }
-                    this.presentation.updateLinkedLayers();
-                },
-                false,
-                ["presentationChange", "repaint"]
-            );
+        if (!currentFrame) {
+            return;
         }
+
+        const savedFrame    = new Frame(currentFrame, true);
+        const modifiedFrame = new Frame(currentFrame, true);
+
+        for (let layer of this.selection.selectedLayers) {
+            const cameraState = modifiedFrame.cameraStates[layer.index]
+            cameraState.setAtElement(outlineElement);
+            cameraState.resetClipping();
+
+            const layerProperties            = modifiedFrame.layerProperties[layer.index];
+            layerProperties.link             = false;
+            layerProperties.outlineElementId = outlineElement.getAttribute("id");
+        }
+
+        this.perform(
+            function onDo() {
+                currentFrame.copy(modifiedFrame);
+                this.presentation.updateLinkedLayers();
+            },
+            function onUndo() {
+                currentFrame.copy(savedFrame);
+                this.presentation.updateLinkedLayers();
+            },
+            false,
+            ["presentationChange", "repaint"]
+        );
     }
 
     /** Set the width component (numerator) of the current aspect ratio of the preview area.

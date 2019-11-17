@@ -29,7 +29,6 @@ export class LayerProperties {
             this.link                     = false;
             this.referenceElementId       = "";
             this.outlineElementId         = "";
-            this.outlineElementAuto       = true;
             this.transitionTimingFunction = "linear";
             this.transitionRelativeZoom   = 0;
             this.transitionPathId         = "";
@@ -41,7 +40,6 @@ export class LayerProperties {
         this.link                     = other.link;
         this.referenceElementId       = other.referenceElementId;
         this.outlineElementId         = other.outlineElementId;
-        this.outlineElementAuto       = other.outlineElementAuto;
         this.transitionTimingFunction = other.transitionTimingFunction;
         this.transitionRelativeZoom   = other.transitionRelativeZoom;
         this.transitionPathId         = other.transitionPathId;
@@ -56,7 +54,6 @@ export class LayerProperties {
             link                    : this.link,
             referenceElementId      : this.referenceElementId,
             outlineElementId        : this.outlineElementId,
-            outlineElementAuto      : this.outlineElementAuto,
             transitionTimingFunction: this.transitionTimingFunction,
             transitionRelativeZoom  : this.transitionRelativeZoom,
             transitionPathId        : this.transitionPathId
@@ -79,7 +76,6 @@ export class LayerProperties {
         copyIfSet(this, storable, "link");
         copyIfSet(this, storable, "referenceElementId");
         copyIfSet(this, storable, "outlineElementId");
-        copyIfSet(this, storable, "outlineElementAuto");
         copyIfSet(this, storable, "transitionTimingFunction");
         copyIfSet(this, storable, "transitionRelativeZoom");
         copyIfSet(this, storable, "transitionPathId");

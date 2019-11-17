@@ -116,8 +116,8 @@ window.addEventListener("load", () => {
         }
 
         switch (actionFound) {
-            case "fitElement":
-                controller.fitElement();
+            case "autoselectOutlineElement":
+                controller.autoselectOutlineElement();
                 break;
             case "resetLayer":
                 controller.resetLayer();

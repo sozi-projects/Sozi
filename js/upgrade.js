@@ -143,7 +143,6 @@ export function upgradeFromSVG(pres, controller) {
             importAttributeNS(layerProperties, "transitionRelativeZoom",   [layerElt, frameElt], SOZI_NS, "transition-zoom-percent", z => parseFloat(z) / 100);
             importAttributeNS(layerProperties, "transitionPathId",         [layerElt, frameElt], SOZI_NS, "transition-path");
             importAttributeNS(layerProperties, "transitionPathHide",       [layerElt, frameElt], SOZI_NS, "transition-path-hide",    parseBoolean);
-            layerProperties.outlineElementAuto = false;
         });
 
         importAttribute(  frame, "frameId",              [frameElt],          "id");
@@ -157,13 +156,12 @@ export function upgradeFromSVG(pres, controller) {
 
 export function upgradeFromStorable(storable) {
     // Sozi 17.02.05
-    // Replace referenceElementAuto with outlineElementAuto
+    // Remove property referenceElementAuto
     // Replace referenceElementHide with outlineElementHide
     for (let frame of storable.frames) {
         for (let layerId in frame.layerProperties) {
             const layer = frame.layerProperties[layerId];
             if (layer.hasOwnProperty("referenceElementAuto")) {
-                layer.outlineElementAuto = layer.referenceElementAuto;
                 delete layer.referenceElementAuto;
             }
             if (layer.hasOwnProperty("referenceElementHide")) {

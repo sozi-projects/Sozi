@@ -40,16 +40,16 @@ export class Properties extends VirtualDOMView {
         const _ = controller.gettext;
 
         const ACTION_LABELS = {
-            fitElement: _("Fit to element"),
-            resetLayer: _("Reset layer geometry"),
-            addFrame: _("Create a new frame"),
-            save: _("Save the presentation"),
-            redo: _("Redo"),
-            undo: _("Undo"),
-            focusTitleField: _("Focus the frame title"),
-            reload: _("Reload the SVG document"),
-            toggleFullscreen: _("Toggle full-screen mode"),
-            toggleDevTools: _("Toggle the developer tools")
+            autoselectOutlineElement: _("Autoselect outline element"),
+            resetLayer              : _("Reset layer geometry"),
+            addFrame                : _("Create a new frame"),
+            save                    : _("Save the presentation"),
+            redo                    : _("Redo"),
+            undo                    : _("Undo"),
+            focusTitleField         : _("Focus the frame title"),
+            reload                  : _("Reload the SVG document"),
+            toggleFullscreen        : _("Toggle full-screen mode"),
+            toggleDevTools          : _("Toggle the developer tools")
         };
 
         let shortcuts = [];
@@ -110,7 +110,6 @@ export class Properties extends VirtualDOMView {
 
         const timeoutMsDisabled = controller.getFrameProperty("timeoutEnable").every(value => !value);
         const showInFrameListDisabled = controller.getFrameProperty("showInFrameList").every(value => !value);
-        const outlineElementIdDisabled = controller.getLayerProperty("outlineElementAuto").every(value => value);
 
         const layersToCopy = {
             __select_a_layer__: _("Select a layer to copy")
@@ -165,17 +164,14 @@ export class Properties extends VirtualDOMView {
             h("label", {for: "field-outlineElementId"}, [
                 _("Outline element Id"),
                 h("span.btn-group", [
-                    // TODO: onclick, update reference element immediately
-                    this.renderToggleField(h("i.fas.fa-magic"), _("Autoselect element"), "outlineElementAuto", controller.getLayerProperty, controller.setLayerProperty),
-                    this.renderToggleField(h("i.far.fa-eye-slash"), _("Hide element"), "outlineElementHide", controller.getLayerProperty, controller.setLayerProperty),
                     h("button", {
-                        title: _("Fit to element"),
-                        disabled: !controller.canFitElement,
-                        onclick() { controller.fitElement(); }
-                    }, h("i.fas.fa-arrows-alt"))
+                        title: _("Autoselect element"),
+                        onclick() { controller.autoselectOutlineElement(); }
+                    }, h("i.fas.fa-magic")),
+                    this.renderToggleField(h("i.far.fa-eye-slash"), _("Hide element"), "outlineElementHide", controller.getLayerProperty, controller.setLayerProperty)
                 ])
             ]),
-            this.renderTextField("outlineElementId", outlineElementIdDisabled, controller.getLayerProperty, controller.setLayerProperty, true),
+            this.renderTextField("outlineElementId", false, controller.getLayerProperty, controller.setLayerProperty, true),
 
             h("label", {for: "field-opacity"}, _("Layer opacity")),
             this.renderRangeField("opacity", false, controller.getCameraProperty, controller.setCameraProperty, 0, 1, 0.1),

@@ -13,23 +13,23 @@
  */
 export class Preferences {
     constructor() {
-        this.fontSize = 11;
+        this.fontSize            = 11;
         this.enableNotifications = true;
-        this.animateTransitions = true;
-        this.keys = {
-            fitElement: "Ctrl+E",
-            resetLayer: "Ctrl+R",
-            addFrame: "Ctrl+N",
-            save: "Ctrl+S",
-            redo: "Ctrl+Y",
-            undo: "Ctrl+Z",
-            focusTitleField: "F2",
-            reload: "F5",
-            toggleFullscreen: "F11",
-            toggleDevTools: "F12"
+        this.animateTransitions  = true;
+        this.saveMode            = "onblur";
+        this.reloadMode          = "auto";
+        this.keys                = {
+            autoselectOutlineElement: "Ctrl+E",
+            resetLayer              : "Ctrl+R",
+            addFrame                : "Ctrl+N",
+            save                    : "Ctrl+S",
+            redo                    : "Ctrl+Y",
+            undo                    : "Ctrl+Z",
+            focusTitleField         : "F2",
+            reload                  : "F5",
+            toggleFullscreen        : "F11",
+            toggleDevTools          : "F12"
         }
-        this.saveMode = "onblur";
-        this.reloadMode = "auto";
     }
 
     save() {
