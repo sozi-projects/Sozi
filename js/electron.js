@@ -12,27 +12,16 @@ function createWindow () {
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
-        autoHideMenuBar: true, // Temporary fix for the non-removable menu bar.
         webPreferences: {
             nodeIntegration: true
         }
     });
 
+    mainWindow.setMenuBarVisibility(false);
+
     if (process.env.SOZI_DEVTOOLS) {
         mainWindow.webContents.openDevTools();
     }
-
-    // Electron 6 provides a default menu bar that cannot be removed.
-    // We keep it for a few default actions.
-    const template = [
-        {
-            label: "Sozi",
-            submenu: [
-                {role: "quit"}
-            ]
-        }
-    ];
-    Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
     mainWindow.loadURL(`file://${__dirname}/../index.html`);
 
