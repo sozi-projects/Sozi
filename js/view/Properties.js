@@ -70,6 +70,8 @@ export class Properties extends VirtualDOMView {
                 _("Show thumbnails in timeline"),
                 this.renderToggleField(h("i.far.fa-check-square"), _("Show thumbnails"), "showThumbnails", controller.getPreference, controller.setPreference)
             ]),
+            h("label", {for: "field-thumbnailHeight"}, _("Thumbnail size (pixels)")),
+            this.renderNumberField("thumbnailHeight", false, controller.getPreference, controller.setPreference, false, 1, 1),
             h("label", {for: "field-saveMode"}, _("Save the presentation")),
             this.renderSelectField("saveMode", controller.getPreference, controller.setPreference, {
                 onblur: _("When Sozi loses the focus"),

@@ -17,6 +17,7 @@ export class Preferences {
         this.enableNotifications = true;
         this.animateTransitions  = true;
         this.showThumbnails      = false;
+        this.thumbnailHeight     = 64;
         this.saveMode            = "onblur";
         this.reloadMode          = "auto";
         this.keys                = {

@@ -98,10 +98,6 @@
     padding-right: 0.5em;
 }
 
-.timeline th.frame-thumbnail {
-    height: 9em;
-}
-
 .timeline th.layer-icons {
     width: auto;
     text-align: left;

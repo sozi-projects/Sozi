@@ -45,6 +45,8 @@ export class Timeline extends VirtualDOMView {
 
         this.presentation = presentation;
         this.selection = selection;
+
+        controller.player.addListener("frameChange", () => this.repaint());
     }
 
     toggleLayerVisibility(layerIndex, evt) {
@@ -67,61 +69,66 @@ export class Timeline extends VirtualDOMView {
         evt.stopPropagation();
     }
 
+    updateThumbnails() {
+        const currentThumbnailContainer = this.container.querySelector(".frame-thumbnail.current");
+
+        if (!currentThumbnailContainer) {
+            return Promise.resolve();
+        }
+
+        return html2canvas(document.querySelector("#sozi-editor-view-preview svg")).then(canvas => {
+            const style  = getComputedStyle(currentThumbnailContainer);
+            const width  = currentThumbnailContainer.clientWidth  - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+            const height = this.controller.getPreference("thumbnailHeight");
+
+            canvas.style = `max-width:${width}px; max-height:${height}px`;
+
+            if (currentThumbnailContainer.firstChild) {
+                currentThumbnailContainer.replaceChild(canvas, currentThumbnailContainer.firstChild);
+            }
+            else {
+                currentThumbnailContainer.appendChild(canvas);
+            }
+        });
+    }
+
     repaint() {
         super.repaint();
 
-        // Update the thumbnail of the current frame.
-        const currentThumbnailContainer = this.container.querySelector(".frame-thumbnail.current");
+        this.updateThumbnails().then(() => {
+            const topLeft = this.container.querySelector(".timeline-top-left");
+            const topRight = this.container.querySelector(".timeline-top-right");
+            const bottomLeft = this.container.querySelector(".timeline-bottom-left");
+            const bottomRight = this.container.querySelector(".timeline-bottom-right");
 
-        if (currentThumbnailContainer) {
-            html2canvas(document.getElementById("sozi-editor-view-preview")).then(canvas => {
-                const style  = getComputedStyle(currentThumbnailContainer);
-                const width  = currentThumbnailContainer.clientWidth  - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
-                const height = currentThumbnailContainer.clientHeight - parseFloat(style.paddingTop)  - parseFloat(style.paddingBottom);
+            const topLeftTable = topLeft.querySelector("table");
+            const topRightTable = topRight.querySelector("table");
+            const bottomLeftTable = bottomLeft.querySelector("table");
 
-                canvas.style = `max-width:${width}px; max-height:${height}px`;
+            const leftWidth = Math.max(topLeftTable.clientWidth, bottomLeftTable.clientWidth);
+            const rightWidth = this.container.clientWidth - leftWidth;
+            const topHeight = Math.max(topLeftTable.clientHeight, topRightTable.clientHeight);
+            const bottomHeight = this.container.clientHeight - topHeight;
 
-                if (currentThumbnailContainer.firstChild) {
-                    currentThumbnailContainer.replaceChild(canvas, currentThumbnailContainer.firstChild);
-                }
-                else {
-                    currentThumbnailContainer.appendChild(canvas);
-                }
+            // Fit the width of the left tables,
+            // allocate remaining width to the right tables
+            topLeft.style.width = bottomLeft.style.width =
+            topLeftTable.style.width = bottomLeftTable.style.width = leftWidth + "px";
+            topRight.style.width = bottomRight.style.width = rightWidth + "px";
+
+            // Fit the height of the top tables,
+            // allocate remaining width to the bottom tables
+            topLeft.style.height = topRight.style.height = topHeight + "px";
+            bottomLeft.style.height = bottomRight.style.height = bottomHeight + "px";
+
+            // Corresponding rows in left and right tables must have the same height
+            const leftRows  = document.querySelectorAll(".timeline-top-left tr,  .timeline-bottom-left tr");
+            const rightRows = document.querySelectorAll(".timeline-top-right tr, .timeline-bottom-right tr");
+            leftRows.forEach((leftRow, rowIndex) => {
+                const rightRow = rightRows[rowIndex];
+                const maxHeight = Math.max(leftRow.clientHeight, rightRow.clientHeight);
+                leftRow.style.height = rightRow.style.height = maxHeight + "px";
             });
-        }
-
-        const topLeft = this.container.querySelector(".timeline-top-left");
-        const topRight = this.container.querySelector(".timeline-top-right");
-        const bottomLeft = this.container.querySelector(".timeline-bottom-left");
-        const bottomRight = this.container.querySelector(".timeline-bottom-right");
-
-        const topLeftTable = topLeft.querySelector("table");
-        const topRightTable = topRight.querySelector("table");
-        const bottomLeftTable = bottomLeft.querySelector("table");
-
-        const leftWidth = Math.max(topLeftTable.clientWidth, bottomLeftTable.clientWidth);
-        const rightWidth = this.container.clientWidth - leftWidth;
-        const topHeight = Math.max(topLeftTable.clientHeight, topRightTable.clientHeight);
-        const bottomHeight = this.container.clientHeight - topHeight;
-
-        // Fit the width of the left tables,
-        // allocate remaining width to the right tables
-        topLeft.style.width = bottomLeft.style.width =
-        topLeftTable.style.width = bottomLeftTable.style.width = leftWidth + "px";
-        topRight.style.width = bottomRight.style.width = rightWidth + "px";
-
-        // Fit the height of the top tables,
-        // allocate remaining width to the bottom tables
-        topLeft.style.height = topRight.style.height = topHeight + "px";
-        bottomLeft.style.height = bottomRight.style.height = bottomHeight + "px";
-
-        // Corresponding rows in left and right tables must have the same height
-        const leftRows  = document.querySelectorAll(".timeline-top-left tr,  .timeline-bottom-left tr");
-        const rightRows = document.querySelectorAll(".timeline-top-right tr, .timeline-bottom-right tr");
-        leftRows.forEach((leftRow, rowIndex) => {
-            const rightRow = rightRows[rowIndex];
-            const maxHeight = Math.max(leftRow.clientHeight, rightRow.clientHeight);
-            leftRow.style.height = rightRow.style.height = maxHeight + "px";
         });
     }
 
