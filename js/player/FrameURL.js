@@ -10,7 +10,10 @@ export function init(aPlayer) {
     player = aPlayer;
 
     window.addEventListener("hashchange", onHashChange, false);
-    player.addListener("frameChange", onFrameChange);
+
+    if (player.presentation.updateURLOnFrameChange) {
+        player.addListener("frameChange", onFrameChange);
+    }
 }
 
 export function getFrame() {

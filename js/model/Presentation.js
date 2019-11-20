@@ -4,7 +4,7 @@
 
 "use strict";
 
-import {toArray} from "../utils";
+import {EventEmitter} from "events";
 import {CameraState} from "./CameraState";
 
 function copyIfSet(dest, src, prop) {
@@ -13,83 +13,93 @@ function copyIfSet(dest, src, prop) {
     }
 }
 
-export const LayerProperties = {
+/** Layer properties for a frame in a Sozi presentation.
+ *
+ * @category model
+ * @todo Add documentation.
+ */
+export class LayerProperties {
 
-    link: false,
-    referenceElementId: "",
-    outlineElementId: "",
-    outlineElementAuto: true,
-    transitionTimingFunction: "linear",
-    transitionRelativeZoom: 0,
-    transitionPathId: "",
+    constructor(obj) {
+        if (obj instanceof LayerProperties) {
+            this.copy(obj);
+        }
+        else {
+            this.frame                    = obj;
+            this.link                     = false;
+            this.referenceElementId       = "";
+            this.outlineElementId         = "";
+            this.transitionTimingFunction = "linear";
+            this.transitionRelativeZoom   = 0;
+            this.transitionPathId         = "";
+        }
+    }
 
-    init(frame) {
-        this.frame = frame;
-        return this;
-    },
-
-    initFrom(other) {
-        this.frame = other.frame;
-        this.link = other.link;
-        this.referenceElementId = other.referenceElementId;
-        this.outlineElementId = other.outlineElementId;
-        this.outlineElementAuto = other.outlineElementAuto;
+    copy(other) {
+        this.frame                    = other.frame;
+        this.link                     = other.link;
+        this.referenceElementId       = other.referenceElementId;
+        this.outlineElementId         = other.outlineElementId;
         this.transitionTimingFunction = other.transitionTimingFunction;
-        this.transitionRelativeZoom = other.transitionRelativeZoom;
-        this.transitionPathId = other.transitionPathId;
-        return this;
-    },
+        this.transitionRelativeZoom   = other.transitionRelativeZoom;
+        this.transitionPathId         = other.transitionPathId;
+    }
 
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * @return A plain object with the properties that need to be saved.
+     */
     toStorable() {
         return {
-            link: this.link,
-            referenceElementId: this.referenceElementId,
-            outlineElementId: this.outlineElementId,
-            outlineElementAuto: this.outlineElementAuto,
+            link                    : this.link,
+            referenceElementId      : this.referenceElementId,
+            outlineElementId        : this.outlineElementId,
             transitionTimingFunction: this.transitionTimingFunction,
-            transitionRelativeZoom: this.transitionRelativeZoom,
-            transitionPathId: this.transitionPathId
+            transitionRelativeZoom  : this.transitionRelativeZoom,
+            transitionPathId        : this.transitionPathId
         };
-    },
+    }
 
     toMinimalStorable() {
         return {
             transitionTimingFunction: this.transitionTimingFunction,
-            transitionRelativeZoom: this.transitionRelativeZoom,
-            transitionPathId: this.transitionPathId
+            transitionRelativeZoom  : this.transitionRelativeZoom,
+            transitionPathId        : this.transitionPathId
         };
-    },
+    }
 
+    /** Copy the properties of the given object into this instance.
+     *
+     * @param {Object} storable A plain object with the properties to copy.
+     */
     fromStorable(storable) {
         copyIfSet(this, storable, "link");
         copyIfSet(this, storable, "referenceElementId");
         copyIfSet(this, storable, "outlineElementId");
-        copyIfSet(this, storable, "outlineElementAuto");
         copyIfSet(this, storable, "transitionTimingFunction");
         copyIfSet(this, storable, "transitionRelativeZoom");
         copyIfSet(this, storable, "transitionPathId");
-        return this;
-    },
+    }
 
     get index() {
         return this.frame.layerProperties.indexOf(this);
-    },
+    }
 
     get referenceElement() {
         return this.frame.presentation.document.root.getElementById(this.referenceElementId);
-    },
+    }
 
     get outlineElement() {
         return this.frame.presentation.document.root.getElementById(this.outlineElementId);
-    },
+    }
 
     get transitionPath() {
         return this.frame.presentation.document.root.getElementById(this.transitionPathId);
-    },
+    }
 
     get outlineElementHide() {
         return this.frame.presentation.elementsToHide.indexOf(this.outlineElementId) >= 0;
-    },
+    }
 
     set outlineElementHide(hide) {
         if (this.outlineElement === this.frame.presentation.document.root) {
@@ -106,11 +116,11 @@ export const LayerProperties = {
         if (this.outlineElement) {
             this.outlineElement.style.visibility = hide ? "hidden" : "visible";
         }
-    },
+    }
 
     get transitionPathHide() {
         return this.frame.presentation.elementsToHide.indexOf(this.transitionPathId) >= 0;
-    },
+    }
 
     set transitionPathHide(hide) {
         const hidden = this.transitionPathHide;
@@ -125,44 +135,56 @@ export const LayerProperties = {
             this.transitionPath.style.visibility = hide ? "hidden" : "visible";
         }
     }
-};
+}
 
-export const Frame = {
+/** A frame in a Sozi presentation.
+ *
+ * @category model
+ * @todo Add documentation.
+ */
+export class Frame {
 
-    // Default values for new frames
-    title: "New frame",
-    titleLevel: 0,
-    timeoutMs: 0,
-    timeoutEnable: false,
-    transitionDurationMs: 1000,
-    showInFrameList: true,
-    showFrameNumber: true,
+    constructor(obj, preserveId=false) {
+        if (obj instanceof Frame) {
+            this.copy(obj, preserveId);
+        }
+        else {
+            this.presentation         = obj;
+            this.frameId              = obj.makeFrameId();
+            this.layerProperties      = obj.layers.map(lp => new LayerProperties(this));
+            this.cameraStates         = obj.layers.map(cs => new CameraState(obj.document.root));
+            this.title                = "New frame";
+            this.titleLevel           = 0;
+            this.notes                = "";
+            this.timeoutMs            = 0;
+            this.timeoutEnable        = false;
+            this.transitionDurationMs = 1000;
+            this.showInFrameList      = true;
+            this.showFrameNumber      = true;
+        }
+    }
 
-    init(presentation) {
-        this.presentation = presentation;
-        this.frameId = presentation.makeFrameId();
-        this.layerProperties = presentation.layers.map(lp => Object.create(LayerProperties).init(this));
-        this.cameraStates = presentation.layers.map(cs => Object.create(CameraState).init(presentation.document.root));
-        return this;
-    },
-
-    initFrom(other, preserveId) {
+    copy(other, preserveId) {
         this.presentation = other.presentation;
         if (!preserveId) {
             this.frameId = other.presentation.makeFrameId();
         }
-        this.title = other.title;
-        this.titleLevel = other.titleLevel;
-        this.timeoutMs = other.timeoutMs;
-        this.timeoutEnable = other.timeoutEnable;
+        this.title                = other.title;
+        this.titleLevel           = other.titleLevel;
+        this.notes                = other.notes;
+        this.timeoutMs            = other.timeoutMs;
+        this.timeoutEnable        = other.timeoutEnable;
         this.transitionDurationMs = other.transitionDurationMs;
-        this.showInFrameList = other.showInFrameList;
-        this.showFrameNumber = other.showFrameNumber;
-        this.layerProperties = other.layerProperties.map(lp => Object.create(LayerProperties).initFrom(lp));
-        this.cameraStates = other.cameraStates.map(cs => Object.create(CameraState).initFrom(cs));
-        return this;
-    },
+        this.showInFrameList      = other.showInFrameList;
+        this.showFrameNumber      = other.showFrameNumber;
+        this.layerProperties      = other.layerProperties.map(lp => new LayerProperties(lp));
+        this.cameraStates         = other.cameraStates.map(cs => new CameraState(cs));
+    }
 
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * @return A plain object with the properties that need to be saved.
+     */
     toStorable() {
         const layerProperties = {};
         const cameraStates = {};
@@ -182,19 +204,20 @@ export const Frame = {
         });
 
         return {
-            frameId: this.frameId,
-            title: this.title,
-            titleLevel: this.titleLevel,
-            timeoutMs: this.timeoutMs,
-            timeoutEnable: this.timeoutEnable,
+            frameId             : this.frameId,
+            title               : this.title,
+            titleLevel          : this.titleLevel,
+            notes               : this.notes,
+            timeoutMs           : this.timeoutMs,
+            timeoutEnable       : this.timeoutEnable,
             transitionDurationMs: this.transitionDurationMs,
-            showInFrameList: this.showInFrameList,
-            showFrameNumber: this.showFrameNumber,
+            showInFrameList     : this.showInFrameList,
+            showFrameNumber     : this.showFrameNumber,
             layerProperties,
             cameraStates,
             cameraOffsets
         };
-    },
+    }
 
     toMinimalStorable() {
         const layerProperties = {};
@@ -213,6 +236,7 @@ export const Frame = {
             frameId: this.frameId,
             title: this.title,
             titleLevel: this.titleLevel,
+            notes: this.notes,
             timeoutMs: this.timeoutMs,
             timeoutEnable: this.timeoutEnable,
             transitionDurationMs: this.transitionDurationMs,
@@ -221,12 +245,17 @@ export const Frame = {
             layerProperties,
             cameraStates
         };
-    },
+    }
 
+    /** Copy the properties of the given object into this instance.
+     *
+     * @param {Object} storable A plain object with the properties to copy.
+     */
     fromStorable(storable) {
         copyIfSet(this, storable, "frameId");
         copyIfSet(this, storable, "title");
         copyIfSet(this, storable, "titleLevel");
+        copyIfSet(this, storable, "notes");
         copyIfSet(this, storable, "timeoutMs");
         copyIfSet(this, storable, "timeoutEnable");
         copyIfSet(this, storable, "transitionDurationMs");
@@ -242,7 +271,9 @@ export const Frame = {
                 const lp = this.layerProperties[index];
                 lp.fromStorable(storable.layerProperties[key]);
 
-                const cs = this.cameraStates[index].fromStorable(storable.cameraStates[key]);
+                const cs = this.cameraStates[index];
+                cs.fromStorable(storable.cameraStates[key]);
+
                 const re = lp.referenceElement;
                 if (re) {
                     const ofs = storable.cameraOffsets[key] || {};
@@ -254,19 +285,17 @@ export const Frame = {
                 }
             }
         });
-
-        return this;
-    },
+    }
 
     get index() {
         return this.presentation.frames.indexOf(this);
-    },
+    }
 
     setAtStates(states) {
         states.forEach((state, index) => {
-            this.cameraStates[index].initFrom(state);
+            this.cameraStates[index].copy(state);
         });
-    },
+    }
 
     /*
      * Check whether the current frame is linked to the given frame
@@ -283,55 +312,55 @@ export const Frame = {
                 second.index > first.index &&
                 this.presentation.frames[second.index - 1].isLinkedTo(first, layerIndex));
     }
-};
+}
 
-export const Layer = {
+/** Layer in an SVG document.
+ *
+ * @category model
+ * @todo Add documentation.
+ */
+export class Layer {
 
-    init(presentation, label, auto) {
+    constructor(presentation, label, auto) {
         this.presentation = presentation;
         this.label = label;
         this.auto = auto;
         this.svgNodes = [];
-        return this;
-    },
+    }
 
     get groupId() {
         return this.auto ? "__sozi_auto__" : this.svgNodes[0].getAttribute("id");
-    },
+    }
 
     get index() {
         return this.presentation.layers.indexOf(this);
-    },
+    }
 
     get isVisible() {
         return this.svgNodes.some(node => window.getComputedStyle(node).display !== "none");
-    },
+    }
 
     set isVisible(visible) {
-        this.svgNodes.forEach(node => {
+        for (let node of this.svgNodes) {
             node.style.display = visible ? "inline" : "none";
-        });
-    },
+        }
+    }
 
     contains(svgElement) {
         return this.svgNodes.some(node => node.contains(svgElement));
     }
-};
+}
 
 // Constant: the SVG namespace
 const SVG_NS = "http://www.w3.org/2000/svg";
 
-export const Presentation = {
-
-    aspectWidth: 4,
-    aspectHeight: 3,
-    enableKeyboardZoom: true,
-    enableKeyboardRotation: true,
-    enableKeyboardNavigation: true,
-    enableMouseTranslation: true,
-    enableMouseZoom: true,
-    enableMouseRotation: true,
-    enableMouseNavigation: true,
+/** Sozi presentation.
+ *
+ * @category model
+ * @extends EventEmitter
+ * @todo Add documentation.
+ */
+export class Presentation extends EventEmitter {
 
     /*
      * Initialize a Sozi document object.
@@ -339,20 +368,33 @@ export const Presentation = {
      * Returns:
      *    - The current presentation object.
      */
-    init() {
-        this.frames = [];
-        this.layers = [];
-        this.elementsToHide = [];
-        return this;
-    },
+    constructor() {
+        super();
+
+        this.document                 = null;
+        this.frames                   = [];
+        this.layers                   = [];
+        this.elementsToHide           = [];
+        this.aspectWidth              = 4;
+        this.aspectHeight             = 3;
+        this.enableKeyboardZoom       = true;
+        this.enableKeyboardRotation   = true;
+        this.enableKeyboardNavigation = true;
+        this.enableMouseTranslation   = true;
+        this.enableMouseZoom          = true;
+        this.enableMouseRotation      = true;
+        this.enableMouseNavigation    = true;
+        this.updateURLOnFrameChange   = true;
+    }
 
     setSVGDocument(svgDocument) {
         this.document = svgDocument;
 
         // Create an empty wrapper layer for elements that do not belong to a valid layer
-        const autoLayer = Object.create(Layer).init(this, "auto", true);
+        const autoLayer = new Layer(this, "auto", true);
 
-        toArray(this.document.root.childNodes).forEach(svgNode => {
+        this.layers = [];
+        for (let svgNode of this.document.root.childNodes) {
             if (svgNode instanceof SVGGElement) {
                 const nodeId = svgNode.getAttribute("id");
                 if (nodeId === null) {
@@ -360,54 +402,65 @@ export const Presentation = {
                 }
                 else {
                     // Add the current node as a new layer.
-                    const layer = Object.create(Layer).init(this,
+                    const layer = new Layer(this,
                         this.document.handler.getLabel(svgNode) || ("#" + nodeId),
                         false);
                     layer.svgNodes.push(svgNode);
                     this.layers.push(layer);
                 }
             }
-        });
+        }
 
         this.layers.push(autoLayer);
+        this.emit("svgChange");
+    }
 
-        return this;
-    },
-
+    /** Sets the initial state of all cameras to the whole document.
+     */
     setInitialCameraState() {
-        this.initialCameraState = Object.create(CameraState).init(this.document.root);
-    },
+        this.initialCameraState = new CameraState(this.document.root);
+    }
 
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * @return A plain object with the properties that need to be saved.
+     */
     toStorable() {
         return {
-            aspectWidth: this.aspectWidth,
-            aspectHeight: this.aspectHeight,
-            enableKeyboardZoom: this.enableKeyboardZoom,
-            enableKeyboardRotation: this.enableKeyboardRotation,
+            aspectWidth             : this.aspectWidth,
+            aspectHeight            : this.aspectHeight,
+            enableKeyboardZoom      : this.enableKeyboardZoom,
+            enableKeyboardRotation  : this.enableKeyboardRotation,
             enableKeyboardNavigation: this.enableKeyboardNavigation,
-            enableMouseTranslation: this.enableMouseTranslation,
-            enableMouseZoom: this.enableMouseZoom,
-            enableMouseRotation: this.enableMouseRotation,
-            enableMouseNavigation: this.enableMouseNavigation,
-            frames: this.frames.map(frame => frame.toStorable()),
-            elementsToHide: this.elementsToHide.slice()
+            enableMouseTranslation  : this.enableMouseTranslation,
+            enableMouseZoom         : this.enableMouseZoom,
+            enableMouseRotation     : this.enableMouseRotation,
+            enableMouseNavigation   : this.enableMouseNavigation,
+            updateURLOnFrameChange  : this.updateURLOnFrameChange,
+            frames                  : this.frames.map(frame => frame.toStorable()),
+            elementsToHide          : this.elementsToHide.slice()
         };
-    },
+    }
 
     toMinimalStorable() {
         return {
-            enableKeyboardZoom: this.enableKeyboardZoom,
-            enableKeyboardRotation: this.enableKeyboardRotation,
+            enableKeyboardZoom      : this.enableKeyboardZoom,
+            enableKeyboardRotation  : this.enableKeyboardRotation,
             enableKeyboardNavigation: this.enableKeyboardNavigation,
-            enableMouseTranslation: this.enableMouseTranslation,
-            enableMouseZoom: this.enableMouseZoom,
-            enableMouseRotation: this.enableMouseRotation,
-            enableMouseNavigation: this.enableMouseNavigation,
-            frames: this.frames.map(frame => frame.toMinimalStorable()),
-            elementsToHide: this.elementsToHide.slice()
+            enableMouseTranslation  : this.enableMouseTranslation,
+            enableMouseZoom         : this.enableMouseZoom,
+            enableMouseRotation     : this.enableMouseRotation,
+            enableMouseNavigation   : this.enableMouseNavigation,
+            updateURLOnFrameChange  : this.updateURLOnFrameChange,
+            frames                  : this.frames.map(frame => frame.toMinimalStorable()),
+            elementsToHide          : this.elementsToHide.slice()
         };
-    },
+    }
 
+    /** Copy the properties of the given object into this instance.
+     *
+     * @param {Object} storable A plain object with the properties to copy.
+     */
     fromStorable(storable) {
         copyIfSet(this, storable, "aspectWidth");
         copyIfSet(this, storable, "aspectHeight");
@@ -418,20 +471,23 @@ export const Presentation = {
         copyIfSet(this, storable, "enableMouseZoom");
         copyIfSet(this, storable, "enableMouseRotation");
         copyIfSet(this, storable, "enableMouseNavigation");
+        copyIfSet(this, storable, "updateURLOnFrameChange");
 
-        this.frames = storable.frames.map(f => Object.create(Frame).init(this).fromStorable(f));
+        this.frames = storable.frames.map(f => {
+            const res = new Frame(this);
+            res.fromStorable(f);
+            return res;
+        });
 
         if (storable.elementsToHide) {
             this.elementsToHide = storable.elementsToHide.slice();
         }
-
-        return this;
-    },
+    }
 
     get title() {
         const svgTitles = this.document.root.getElementsByTagNameNS(SVG_NS, "title");
         return svgTitles.length ? svgTitles[0].firstChild.wholeText.trim() : "Untitled";
-    },
+    }
 
     makeFrameId() {
         const prefix = "frame";
@@ -442,45 +498,52 @@ export const Presentation = {
             suffix ++;
         } while (this.frames.some(frame => frame.frameId === frameId));
         return frameId;
-    },
+    }
 
     getFrameWithId(frameId) {
-        for (let i = 0; i < this.frames.length; i ++) {
-            if (this.frames[i].frameId === frameId) {
-                return this.frames[i];
+        for (let frame of this.frames) {
+            if (frame.frameId === frameId) {
+                return frame;
             }
         }
         return null;
-    },
+    }
 
     getLayerWithId(groupId) {
-        for (let i = 0; i < this.layers.length; i ++) {
-            if (this.layers[i].groupId === groupId) {
-                return this.layers[i];
+        for (let layer of this.layers) {
+            if (layer.groupId === groupId) {
+                return layer;
             }
         }
         return null;
-    },
+    }
 
     updateLinkedLayers() {
         if (!this.frames.length) {
             return;
         }
 
-        const firstCameraStates = this.frames[0].cameraStates;
-        const defaultCameraState = firstCameraStates[firstCameraStates.length - 1];
+        const firstCameraStates      = this.frames[0].cameraStates;
+        const defaultCameraState     = firstCameraStates[firstCameraStates.length - 1];
+
+        const firstLayerProperties   = this.frames[0].layerProperties;
+        const defaultLayerProperties = firstLayerProperties[firstLayerProperties.length - 1];
 
         this.layers.forEach((layer, layerIndex) => {
-            let cameraState = defaultCameraState;
+            let cameraState     = defaultCameraState;
+            let layerProperties = defaultLayerProperties;
 
-            this.frames.forEach(frame => {
+            for (let frame of this.frames) {
                 if (frame.layerProperties[layerIndex].link) {
-                    frame.cameraStates[layerIndex].initFrom(cameraState);
+                    frame.cameraStates[layerIndex].copy(cameraState);
+                    frame.layerProperties[layerIndex].referenceElementId = layerProperties.referenceElementId;
+                    frame.layerProperties[layerIndex].outlineElementId   = layerProperties.outlineElementId;
                 }
                 else {
-                    cameraState = frame.cameraStates[layerIndex];
+                    cameraState     = frame.cameraStates[layerIndex];
+                    layerProperties = frame.layerProperties[layerIndex];
                 }
-            });
+            }
         });
     }
-};
+}

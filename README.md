@@ -23,24 +23,23 @@ Clone the repository:
 Install the build tools and dependencies
 ----------------------------------------
 
-Install [Node.js](http://nodejs.org/), [Bower](http://bower.io/)
-and the [Grunt](http://gruntjs.com/) CLI.
+Install [Node.js](http://nodejs.org/) and the [Grunt](http://gruntjs.com/) CLI.
+The build script for Sozi is known to work with Node.js 11 from [Nodesource](https://github.com/nodesource/distributions).
 If you plan to build a Windows executable from Linux or OS X, also install *wine*.
 In Debian/Ubuntu and their derivatives, you can type the following commands.
 
-    sudo apt install nodejs nodejs-legacy npm wine
-    sudo npm install bower grunt-cli -g
+    sudo apt install nodejs wine
+    sudo npm install grunt-cli -g
 
-If you plan to build Debian packages, also install the following packages:
+If you plan to build Debian packages, install the following additional packages:
 
     sudo apt install devscripts debhelper
 
 From the root of the source tree:
 
     npm install
-    bower install
 
-Also install the following:
+Install the Droid Sans font:
 
 * [Droid Sans](http://www.fontsquirrel.com/fonts/Droid-Sans) as `vendor/DroidSans/DroidSans.eot|ttf` and `vendor/DroidSans/DroidSans-Bold.eot|ttf`
 
@@ -52,7 +51,7 @@ To build the desktop application for all platforms, run the following command fr
     grunt
 
 After a successful build, you will get a `dist` folder that will contain the
-generated application bundles for each platform.
+generated application archives for each platform.
 
 You can customize the build by creating a custom configuration file.
 See `config.default.json` and `config.linux-x64.json` for examples.
@@ -74,14 +73,14 @@ Then run Grunt with the `--config` option:
 
 Other Grunt tasks are available for developers:
 
-| Command                           | Effect                                                                      |
-|:----------------------------------|:----------------------------------------------------------------------------|
-| `grunt electron-bundle` (default) | Build the desktop application and create zip bundles for various platforms. |
-| `grunt deb`                       | Build Debian packages.                                                      |
-| `grunt electron-build`            | Build the desktop application without creating bundles.                     |
-| `grunt web-build`                 | Build the web application without uploading it.                             |
-| `grunt web-demo`                  | Build the web application and upload it to a server.                        |
-| `grunt pot`                       | Extract a template file (`locales/messages.pot`) for translation.           |
+| Command                            | Effect                                                                       |
+|:-----------------------------------|:-----------------------------------------------------------------------------|
+| `grunt electron-archive` (default) | Build the desktop application and create zip archives for various platforms. |
+| `grunt deb`                        | Build Debian packages.                                                       |
+| `grunt electron-build`             | Build the desktop application without creating archives.                     |
+| `grunt web-build`                  | Build the web application without uploading it.                              |
+| `grunt pot`                        | Extract a template file (`locales/messages.pot`) for translation.            |
+| `grunt jsdoc`                      | Generate the API documentation.                                              |
 
 
 Install
@@ -93,7 +92,7 @@ Since Sozi 18.01, a Debian package is available for users of Debian or Ubuntu-ba
 sudo dpkg -i sozi_[...].deb
 ```
 
-For other platforms, Sozi is released as a zip/tgz archive that you can extract wherever you like.
+For other platforms, Sozi is released as a zip/tar.xz archive that you can extract wherever you like.
 
 * OS X users can drag the `Sozi.app` subfolder into their `Applications` folder.
 * Windows and Linux users can run the `Sozi` executable directly from the extracted folder.
@@ -151,3 +150,15 @@ libxrender1
 libxss1
 libxtst6
 ```
+
+Helping debugging Sozi
+======================
+
+While Sozi is running, press `F12` to open the developer tools.
+Check the *Console* tab for error messages.
+
+Some environment variables will enable debugging features in Sozi:
+
+* `ELECTRON_ENABLE_LOGGING=1 sozi my-presentation.svg` will display JavaScript console messages in the current terminal window.
+* `SOZI_DEVTOOLS=1 sozi my-presentation.svg` will open the developer tools immediately.
+  This can be useful if `F12` has no effect or when you want to debug events that happen at startup.

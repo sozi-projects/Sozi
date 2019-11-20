@@ -4,7 +4,6 @@
 
 "use strict";
 
-import {toArray} from "./utils";
 import {Frame} from "./model/Presentation";
 
 const SOZI_NS = "http://sozi.baierouge.fr";
@@ -46,7 +45,7 @@ function importAttribute(obj, propName, elts, attrName, fn) {
     for (let e of elts) {
         if (e && e.hasAttribute(attrName)) {
             obj[propName] = fn(e.getAttribute(attrName));
-            return;
+            break;
         }
     }
 }
@@ -56,12 +55,12 @@ function importAttributeNS(obj, propName, elts, nsUri, attrName, fn) {
     for (let e of elts) {
         if (e && e.hasAttributeNS(nsUri, attrName)) {
             obj[propName] = fn(e.getAttributeNS(nsUri, attrName));
-            return;
+            break;
         }
     }
 }
 
-export function upgradeFromSVG(pres, timeline) {
+export function upgradeFromSVG(pres, controller) {
     // In the inlined SVG, DOM accessors fail to get elements with explicit XML namespaces.
     // getElementsByTagNameNS, getAttributeNS do not work for elements with the Sozi namespace.
     // We need to use an explicit namespace prefix ("ns:attr") and use method
@@ -70,14 +69,14 @@ export function upgradeFromSVG(pres, timeline) {
     // (ns1, ns2, ...). We first need to identify which one corresponds to the Sozi namespace.
 
     // Get the xmlns for the Sozi namespace
-    const soziNsAttrs = toArray(pres.document.root.attributes).filter(a => a.value === SOZI_NS);
+    const soziNsAttrs = Array.from(pres.document.root.attributes).filter(a => a.value === SOZI_NS);
     if (!soziNsAttrs.length) {
         return;
     }
     const soziPrefix = soziNsAttrs[0].name.replace(/^xmlns:/, "") + ":";
 
     // Get an ordered array of sozi:frame elements
-    const frameElts = toArray(pres.document.root.getElementsByTagNameNS(SOZI_NS, "frame"));
+    const frameElts = Array.from(pres.document.root.getElementsByTagNameNS(SOZI_NS, "frame"));
     frameElts.sort((a, b) => parseInt(a.getAttributeNS(SOZI_NS, "sequence")) - parseInt(b.getAttributeNS(SOZI_NS, "sequence")));
 
     // The "default" pool contains all layers that have no corresponding
@@ -88,20 +87,19 @@ export function upgradeFromSVG(pres, timeline) {
 
     frameElts.forEach((frameElt, frameIndex) => {
         // Create a new frame with default camera states
-        const frame = Object.create(Frame).init(pres);
+        const frame = new Frame(pres);
         pres.frames.splice(frameIndex, 0, frame);
 
         // If this is not the first frame, the state is cloned from the previous frame.
         if (frameIndex) {
-            frame.initFrom(pres.frames[frameIndex - 1]);
+            frame.copy(pres.frames[frameIndex - 1]);
         }
 
         // Collect layer elements inside the current frame element
-        const layerElts = toArray(frameElt.getElementsByTagNameNS(SOZI_NS, "layer"));
         const layerEltsByGroupId = {};
-        layerElts.forEach(layerElt => {
+        for (let layerElt of frameElt.getElementsByTagNameNS(SOZI_NS, "layer")) {
             layerEltsByGroupId[layerElt.getAttributeNS(SOZI_NS, "group")] = layerElt;
-        });
+        }
 
         pres.layers.forEach((layer, layerIndex) => {
             let layerElt = null;
@@ -117,7 +115,7 @@ export function upgradeFromSVG(pres, timeline) {
                     layerElt = layerEltsByGroupId[groupId];
                     if (defaultLayerIndex >= 0) {
                         defaultLayers.splice(defaultLayerIndex, 1);
-                        timeline.editableLayers.push(layer);
+                        controller.editableLayers.push(layer);
                     }
                 }
             }
@@ -145,7 +143,6 @@ export function upgradeFromSVG(pres, timeline) {
             importAttributeNS(layerProperties, "transitionRelativeZoom",   [layerElt, frameElt], SOZI_NS, "transition-zoom-percent", z => parseFloat(z) / 100);
             importAttributeNS(layerProperties, "transitionPathId",         [layerElt, frameElt], SOZI_NS, "transition-path");
             importAttributeNS(layerProperties, "transitionPathHide",       [layerElt, frameElt], SOZI_NS, "transition-path-hide",    parseBoolean);
-            layerProperties.outlineElementAuto = false;
         });
 
         importAttribute(  frame, "frameId",              [frameElt],          "id");
@@ -159,13 +156,12 @@ export function upgradeFromSVG(pres, timeline) {
 
 export function upgradeFromStorable(storable) {
     // Sozi 17.02.05
-    // Replace referenceElementAuto with outlineElementAuto
+    // Remove property referenceElementAuto
     // Replace referenceElementHide with outlineElementHide
-    storable.frames.forEach(frame => {
+    for (let frame of storable.frames) {
         for (let layerId in frame.layerProperties) {
             const layer = frame.layerProperties[layerId];
             if (layer.hasOwnProperty("referenceElementAuto")) {
-                layer.outlineElementAuto = layer.referenceElementAuto;
                 delete layer.referenceElementAuto;
             }
             if (layer.hasOwnProperty("referenceElementHide")) {
@@ -176,5 +172,5 @@ export function upgradeFromStorable(storable) {
                 layer.outlineElementId = layer.referenceElementId;
             }
         }
-    });
+    }
 }

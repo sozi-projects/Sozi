@@ -6,7 +6,6 @@
 
 import "./backend";
 import "./svg";
-import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
 import {Presentation} from "./model/Presentation";
 import {Selection} from "./model/Selection";
 import {Preferences} from "./model/Preferences";
@@ -27,29 +26,27 @@ window.addEventListener("load", () => {
 
     Notification.requestPermission();
 
-    Presentation.init();
-    Selection.init(Presentation);
-    Viewport.init(Presentation, true);
-    Player.init(Viewport, Presentation, true);
+    const presentation = new Presentation();
+    const selection    = new Selection(presentation);
+    const viewport     = new Viewport(presentation, true);
+    const player       = new Player(viewport, presentation, true);
 
-    const locale = i18n.init();
+    const locale       = i18n.init();
+    const preferences  = new Preferences();
+    const controller   = new Controller(preferences, presentation, selection, viewport, player, locale);
+    const preview      = new Preview(document.getElementById("sozi-editor-view-preview"), presentation, selection, viewport, controller);
+    const properties   = new Properties(document.getElementById("sozi-editor-view-properties"), selection, controller);
+    const toolbar      = new Toolbar(document.getElementById("sozi-editor-view-toolbar"), properties, presentation, viewport, controller);
+    const timeline     = new Timeline(document.getElementById("sozi-editor-view-timeline"), presentation, selection, controller);
+    const storage      = new Storage(controller, presentation, selection);
 
-    Controller.init(Storage, Preferences, Presentation, Selection, Timeline, Viewport, Player, locale);
-
-    Preview.init(document.getElementById("sozi-editor-view-preview"), Presentation, Selection, Viewport, Controller);
-
-    Properties.init(document.getElementById("sozi-editor-view-properties"), Selection, Controller, Timeline, locale);
-    Toolbar.init(document.getElementById("sozi-editor-view-toolbar"), Storage, Presentation, Viewport, Controller, locale);
-    Timeline.init(document.getElementById("sozi-editor-view-timeline"), Presentation, Selection, Controller, locale);
-    Storage.init(Controller, SVGDocumentWrapper, Presentation, Selection, Timeline, locale);
-
-    const body      = document.querySelector("body");
-    const left      = document.querySelector(".left");
-    const right     = document.querySelector(".right");
-    const top       = document.querySelector(".top");
-    const bottom    = document.querySelector(".bottom");
-    const hsplitter = document.querySelector(".hsplitter");
-    const vsplitter = document.querySelector(".vsplitter");
+    const body         = document.querySelector("body");
+    const left         = document.querySelector(".left");
+    const right        = document.querySelector(".right");
+    const top          = document.querySelector(".top");
+    const bottom       = document.querySelector(".bottom");
+    const hsplitter    = document.querySelector(".hsplitter");
+    const vsplitter    = document.querySelector(".vsplitter");
 
     let hsplitterStartY, vsplitterStartX;
 
@@ -105,74 +102,74 @@ window.addEventListener("load", () => {
             key += "Alt+";
         }
         if (evt.shiftKey) {
-            key += "Shift+"
+            key += "Shift+";
         }
         key += evt.key.toUpperCase();
 
         let actionFound = null;
 
-        for (let action in Preferences.keys) {
-            if (Preferences.keys[action] === key) {
+        for (let action in preferences.keys) {
+            if (preferences.keys[action] === key) {
                 actionFound = action;
                 break;
             }
         }
 
         switch (actionFound) {
-            case "fitElement":
-                Controller.fitElement();
+            case "autoselectOutlineElement":
+                controller.autoselectOutlineElement();
                 break;
             case "resetLayer":
-                Controller.resetLayer();
+                controller.resetLayer();
                 break;
             case "addFrame":
-                Controller.addFrame();
+                controller.addFrame();
                 break;
             case "save":
-                Controller.save();
+                controller.save();
                 break;
             case "redo":
-                Controller.redo();
+                controller.redo();
                 break;
             case "undo":
-                Controller.undo();
+                controller.undo();
                 break;
             case "focusTitleField":
                 document.getElementById('field-title').select();
                 break;
             case "reload":
-                Controller.reload();
+                controller.reload();
                 break;
             case "toggleFullscreen":
                 document.getElementById('btn-fullscreen').click();
                 break;
             case "toggleDevTools":
-                Storage.backend.toggleDevTools();
+                storage.backend.toggleDevTools();
                 break;
         }
 
         // Keyboard acctions that may collide with text inputs.
-        if (!actionFound && !/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) {
+        if (!actionFound && !/INPUT|SELECT|TEXTAREA|SECTION/.test(document.activeElement.tagName)) {
             actionFound = true;
             switch (evt.key) {
                 case "End":
-                    Controller.selectFrame(-1);
+                    controller.selectFrame(-1);
                     break;
                 case "Home":
-                    Controller.selectFrame(0);
+                    controller.selectFrame(0);
                     break;
                 case "ArrowLeft":
-                    Controller.selectRelativeFrame(-1);
+                    controller.selectRelativeFrame(-1);
                     break;
                 case "ArrowRight":
-                    Controller.selectRelativeFrame(1);
+                    controller.selectRelativeFrame(1);
                     break;
                 case "Delete":
-                    Controller.deleteFrames();
+                    controller.deleteFrames();
                     break;
                 case "a":
                     if (evt.ctrlKey) {
-                        Controller.selectAllFrames();
+                        controller.selectAllFrames();
                     }
                     else {
                         actionFound = false;

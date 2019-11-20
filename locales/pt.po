@@ -1,0 +1,477 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2019-11-17 01:28:+0000\n"
+"PO-Revision-Date: 2019-03-25 11:39+0000\n"
+"Last-Translator: Rui Mendes <xz9@protonmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/sozi/"
+"translations/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.6-dev\n"
+
+#: js/backend/Electron.js:35
+msgid "Open an SVG file from your computer"
+msgstr "Abrir ficheiro SVG no seu computador"
+
+#: js/backend/Electron.js:67
+msgid "Do you want to save the presentation before closing?"
+msgstr "Quer guardar a apresentação antes de sair?"
+
+#: js/backend/Electron.js:68
+msgid "Yes"
+msgstr "Sim"
+
+#: js/backend/Electron.js:68
+msgid "No"
+msgstr "Não"
+
+#: js/backend/Electron.js:91
+msgid "File not found: %s."
+msgstr "Ficheiro não encontrado: %s."
+
+#: js/backend/Electron.js:124
+msgid "Choose an SVG file"
+msgstr "Escolher ficheiro SVG"
+
+#: js/backend/Electron.js:125
+msgid "SVG files"
+msgstr "Ficheiros SVG"
+
+#: js/backend/FileReader.js:20
+msgid ""
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
+msgstr ""
+"Abrir ficheiro SVG no seu computador (<i class=\"fas fa-exclamation-triangle"
+"\"></i> apenas no modo leitura)"
+
+#: js/backend/GoogleDrive.js:20
+msgid "Open an SVG file from Google Drive"
+msgstr "Abrir ficheiro SVG no Google Drive"
+
+#: js/Controller.js:125
+msgid "Sozi (Information)"
+msgstr "Sozi (informações)"
+
+#: js/Controller.js:135
+msgid "Sozi (Error)"
+msgstr "Sozi (erro)"
+
+#: js/Storage.js:81
+msgid "File %s could not be loaded."
+msgstr "Não foi possível carregar o ficheiro %s."
+
+#: js/Storage.js:98 js/Storage.js:107
+msgid "Document is not valid SVG."
+msgstr "O documento não é um SVG válido."
+
+#: js/Storage.js:143 js/Storage.js:149
+msgid "Document was changed. Reloading."
+msgstr "O documento foi alterado. A recarregar."
+
+#: js/Storage.js:158
+msgid "Document was changed."
+msgstr "O documento foi alterado."
+
+#: js/Storage.js:184
+msgid "Document was imported from Sozi 13 or earlier."
+msgstr "O documento foi importado do Sozi 13 ou versão anterior."
+
+#: js/Storage.js:256 js/Storage.js:277
+msgid "Saved %s."
+msgstr "%s guardado."
+
+#: js/view/Properties.js:43
+#, fuzzy
+msgid "Autoselect outline element"
+msgstr "Selecionar elemento automaticamente"
+
+#: js/view/Properties.js:44 js/view/Properties.js:153
+msgid "Reset layer geometry"
+msgstr "Reiniciar geometria da camada"
+
+#: js/view/Properties.js:45 js/view/Timeline.js:137
+msgid "Create a new frame"
+msgstr "Criar um novo quadro"
+
+#: js/view/Properties.js:46 js/view/Properties.js:69 js/view/Toolbar.js:114
+msgid "Save the presentation"
+msgstr "Guardar a apresentação"
+
+#: js/view/Properties.js:47 js/view/Toolbar.js:98
+msgid "Redo"
+msgstr "Refazer"
+
+#: js/view/Properties.js:48 js/view/Toolbar.js:93
+msgid "Undo"
+msgstr "Desfazer"
+
+#: js/view/Properties.js:49
+msgid "Focus the frame title"
+msgstr "Focar o título do quadro"
+
+#: js/view/Properties.js:50 js/view/Properties.js:74 js/view/Toolbar.js:119
+msgid "Reload the SVG document"
+msgstr "Recarregar o documento SVG"
+
+#: js/view/Properties.js:51
+msgid "Toggle full-screen mode"
+msgstr "Alternar modo de ecrã inteiro"
+
+#: js/view/Properties.js:52
+msgid "Toggle the developer tools"
+msgstr "Alternar modo de programador"
+
+#: js/view/Properties.js:62
+msgid "User interface"
+msgstr "Interface do utilizador"
+
+#: js/view/Properties.js:63
+msgid "Font size"
+msgstr "Tamanho da fonte"
+
+#: js/view/Properties.js:66
+msgid "Enable notifications on save and reload"
+msgstr "Ativar notificações quando guardar ou atualizar"
+
+#: js/view/Properties.js:67
+msgid "Enable notifications"
+msgstr "Ativar notificações"
+
+#: js/view/Properties.js:71
+msgid "When Sozi loses the focus"
+msgstr "Quando o Sozi perde o foco"
+
+#: js/view/Properties.js:72 js/view/Properties.js:78
+msgid "Manually"
+msgstr "Manualmente"
+
+#: js/view/Properties.js:76
+msgid "Automatically"
+msgstr "Automaticamente"
+
+#: js/view/Properties.js:77
+msgid "When Sozi gets the focus"
+msgstr "Quando o Sozi é focado"
+
+#: js/view/Properties.js:80
+msgid "Behavior"
+msgstr "Comportamento"
+
+#: js/view/Properties.js:82
+msgid "Preview transition animations"
+msgstr "Pré-visualizar animações de transição"
+
+#: js/view/Properties.js:83
+msgid "Enable animated transitions"
+msgstr "Permitir transições animadas"
+
+#: js/view/Properties.js:85
+msgid "Keyboard shortcuts"
+msgstr "Teclas de atalho"
+
+#: js/view/Properties.js:98
+msgid "Basic formatting supported:"
+msgstr "Formatação básica suportada:"
+
+#: js/view/Properties.js:100
+msgid "Ctrl+B: Bold"
+msgstr "Ctrl+B: Negrito"
+
+#: js/view/Properties.js:101
+msgid "Ctrl+I: Italic"
+msgstr "Ctrl+I: Itálico"
+
+#: js/view/Properties.js:102
+msgid "Ctrl+U: Underline"
+msgstr "Ctrl+U: Sublinhado"
+
+#: js/view/Properties.js:103
+msgid "Ctrl+0: Paragraph"
+msgstr "Ctrl+0: Parágrafo"
+
+#: js/view/Properties.js:104
+msgid "Ctrl+1: Big header"
+msgstr "Ctrl+1: Cabeçalho grande"
+
+#: js/view/Properties.js:105
+msgid "Ctrl+2: Medium header"
+msgstr "Ctrl+2: Cabeçalho médio"
+
+#: js/view/Properties.js:106
+msgid "Ctrl+3: Small header"
+msgstr "Ctrl+3: Cabeçalho pequeno"
+
+#: js/view/Properties.js:107
+msgid "Ctrl+L: List"
+msgstr "Ctrl+L: Lista"
+
+#: js/view/Properties.js:108
+msgid "Ctrl+N: Numbered list"
+msgstr "Ctrl+N: Lista numérica"
+
+#: js/view/Properties.js:115
+msgid "Select a layer to copy"
+msgstr "Selecione uma camada para copiar"
+
+#: js/view/Properties.js:118 js/view/Timeline.js:184 js/view/Timeline.js:212
+msgid "Default"
+msgstr "Padrão"
+
+#: js/view/Properties.js:125
+msgid "Frame"
+msgstr "Quadro"
+
+#: js/view/Properties.js:128
+msgid "Show in frame list"
+msgstr "Mostrar na lista de quadros"
+
+#: js/view/Properties.js:129
+msgid "Show frame number"
+msgstr "Mostrar número do quadro"
+
+#: js/view/Properties.js:132
+msgid "Title"
+msgstr "Título"
+
+#: js/view/Properties.js:135
+msgid "Title level in frame list"
+msgstr "Nível de título na lista de quadros"
+
+#: js/view/Properties.js:138
+msgid "Id"
+msgstr "Identificador"
+
+#: js/view/Properties.js:142
+msgid "Timeout (seconds)"
+msgstr "Tempo de espera (segundos)"
+
+#: js/view/Properties.js:143
+msgid "Timeout enable"
+msgstr "Ativar tempo de espera"
+
+#: js/view/Properties.js:147
+msgid "Layer"
+msgstr "Camada"
+
+#: js/view/Properties.js:150
+msgid "Link to previous frame"
+msgstr "Ligação para o quadro anterior"
+
+#: js/view/Properties.js:151
+msgid "Clip"
+msgstr "Cortar"
+
+#: js/view/Properties.js:158
+msgid "Copy layer"
+msgstr "Copiar camada"
+
+#: js/view/Properties.js:165
+msgid "Outline element Id"
+msgstr "Identificador do elemento destacado"
+
+#: js/view/Properties.js:168
+msgid "Autoselect element"
+msgstr "Selecionar elemento automaticamente"
+
+#: js/view/Properties.js:171
+msgid "Hide element"
+msgstr "Ocultar elemento"
+
+#: js/view/Properties.js:176
+msgid "Layer opacity"
+msgstr "Opacidade da camada"
+
+#: js/view/Properties.js:179
+msgid "Transition"
+msgstr "Transição"
+
+#: js/view/Properties.js:179
+msgid "Configure the animation when moving to the selected frames."
+msgstr "Configurar a animação ao mover para os quadros selecionados."
+
+#: js/view/Properties.js:181
+msgid "Duration (seconds)"
+msgstr "Duração (segundos)"
+
+#: js/view/Properties.js:184
+msgid "Timing function"
+msgstr "Tipo de transição"
+
+#: js/view/Properties.js:186
+msgid "Linear"
+msgstr "Linear"
+
+#: js/view/Properties.js:187
+msgid "Ease"
+msgstr "Suave"
+
+#: js/view/Properties.js:188
+msgid "Ease in"
+msgstr "Suave ao entrar"
+
+#: js/view/Properties.js:189
+msgid "Ease out"
+msgstr "Suave ao terminar"
+
+#: js/view/Properties.js:190
+msgid "Ease in-out"
+msgstr "Suave ao entrar e ao terminar"
+
+#: js/view/Properties.js:191
+msgid "Step start"
+msgstr "Passo inicial"
+
+#: js/view/Properties.js:192
+msgid "Step end"
+msgstr "Passo final"
+
+#: js/view/Properties.js:193
+msgid "Step middle"
+msgstr "Passo intermediário"
+
+#: js/view/Properties.js:196
+msgid "Relative zoom (%)"
+msgstr "Ampliação relativa (%)"
+
+#: js/view/Properties.js:200
+msgid "Path Id"
+msgstr "Identificador do caminho"
+
+#: js/view/Properties.js:201
+msgid "Hide path"
+msgstr "Esconder caminho"
+
+#: js/view/Properties.js:205
+msgid "Notes"
+msgstr "Notas"
+
+#: js/view/Properties.js:205
+msgid ""
+"Edit presenter notes. Click here to show the list of formatting shortcuts."
+msgstr ""
+"Editar notas de apresentador. Clique aqui para mostrar a lista de atalhos de "
+"formatar."
+
+#: js/view/Properties.js:209
+msgid "Player"
+msgstr "Reprodutor"
+
+#: js/view/Properties.js:212
+msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
+msgstr ""
+
+#: js/view/Properties.js:213
+msgid ""
+"Moving from one frame to another will change the content of the location bar "
+"automatically."
+msgstr ""
+
+#: js/view/Properties.js:217
+msgid "Allow to control the presentation"
+msgstr "Permitir controlo da apresentação"
+
+#: js/view/Properties.js:219 js/view/Properties.js:226
+#: js/view/Properties.js:232 js/view/Properties.js:240
+msgid "using the mouse"
+msgstr "utilizando o rato"
+
+#: js/view/Properties.js:220 js/view/Properties.js:233
+#: js/view/Properties.js:241
+msgid "using the keyboard"
+msgstr "utilizando o teclado"
+
+#: js/view/Properties.js:225
+msgid "Allow to move the camera"
+msgstr "Permitir mover a câmara"
+
+#: js/view/Properties.js:230
+msgid "Allow to rotate the camera"
+msgstr "Permitir rodar a câmara"
+
+#: js/view/Properties.js:238
+msgid "Allow to zoom"
+msgstr "Permitir ampliar"
+
+#: js/view/Timeline.js:130
+msgid "Delete the selected frames"
+msgstr "Eliminar os quadros selecionados"
+
+#: js/view/Timeline.js:156
+msgid "Add layer"
+msgstr "Adicionar camada"
+
+#: js/view/Timeline.js:157
+#, fuzzy
+msgid "Add all layers"
+msgstr "Adicionar camada"
+
+#: js/view/Timeline.js:172 js/view/Timeline.js:192
+msgid "This layer is visible. Click to hide it."
+msgstr "Camada visível. Clique para ocultar."
+
+#: js/view/Timeline.js:176 js/view/Timeline.js:196
+msgid "This layer is hidden. Click to show it."
+msgstr "Camada oculta. Clique para mostrar."
+
+#: js/view/Timeline.js:200
+msgid "Remove this layer"
+msgstr "Eliminar esta camada"
+
+#: js/view/Timeline.js:225
+msgid "Insert selection before frame %d"
+msgstr "Inserir a seleção antes do quadro %d"
+
+#: js/view/Timeline.js:232
+msgid "Insert selection after frame %d"
+msgstr "Inserir a seleção após o quadro %d"
+
+#: js/view/Toolbar.js:38
+msgid "Aspect ratio: "
+msgstr "Proporção: "
+
+#: js/view/Toolbar.js:71
+msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
+msgstr ""
+"Mover as camadas selecionadas (pressionar ALT para ampliar, SHIFT para rodar)"
+
+#: js/view/Toolbar.js:76
+msgid ""
+"Zoom in/out on the selected layers (you can also hold the Alt key in Move "
+"mode)"
+msgstr ""
+"Ampliar / diminuir as camadas selecionadas (ou pressionar ALT durante ação "
+"no modo Mover)"
+
+#: js/view/Toolbar.js:81
+msgid ""
+"Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgstr ""
+"Rodar camadas selecionadas (ou pressionar SHIFT durante ação no modo Mover)"
+
+#: js/view/Toolbar.js:86
+msgid "Edit the clipping area"
+msgstr "Editar a área de recorte"
+
+#: js/view/Toolbar.js:105
+msgid "Disable full-screen mode"
+msgstr "Desativar modo de ecrã inteiro"
+
+#: js/view/Toolbar.js:105
+msgid "Enable full-screen mode"
+msgstr "Ativar modo de ecrã inteiro"
+
+#: js/view/Toolbar.js:125
+msgid "Preferences"
+msgstr "Preferências"
+
+#: js/view/Toolbar.js:130
+msgid "Information"
+msgstr "Informação"
+
+#~ msgid "Fit to element"
+#~ msgstr "Enquadrar elemento"

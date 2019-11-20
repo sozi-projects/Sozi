@@ -10,29 +10,63 @@ function copyIfSet(dest, src, prop) {
     }
 }
 
-export const CameraState = {
-    opacity: 1.0,
-    clipped: false,
-    clipXOffset: 0,
-    clipYOffset: 0,
-    clipWidthFactor: 1,
-    clipHeightFactor: 1,
+/** Camera state.
+ *
+ * @category model
+ * @todo Add documentation.
+ */
+export class CameraState {
+    constructor(obj) {
+        if (obj instanceof CameraState) {
+            this.copy(obj);
+        }
+        else {
+            const initialBBox     = obj.getBBox();
+            this.svgRoot          = obj;
+            this.opacity          = 1.0;
+            this.clipped          = false;
+            this.clipXOffset      = 0;
+            this.clipYOffset      = 0;
+            this.clipWidthFactor  = 1;
+            this.clipHeightFactor = 1;
+            this.cx               = initialBBox.x + initialBBox.width / 2;
+            this.cy               = initialBBox.y + initialBBox.height / 2;
+            this.width            = initialBBox.width;
+            this.height           = initialBBox.height;
+            this.angle            = 0;
+        }
+    }
+
+    copy(state) {
+        this.svgRoot          = state.svgRoot;
+        this.cx               = state.cx;
+        this.cy               = state.cy;
+        this.width            = state.width;
+        this.height           = state.height;
+        this.opacity          = state.opacity;
+        this.angle            = state.angle;
+        this.clipped          = state.clipped;
+        this.clipXOffset      = state.clipXOffset;
+        this.clipYOffset      = state.clipYOffset;
+        this.clipWidthFactor  = state.clipWidthFactor;
+        this.clipHeightFactor = state.clipHeightFactor;
+    }
 
     set width(w) {
         this._width = !isNaN(w) && w >= 1 ? w : 1;
-    },
+    }
 
     get width() {
         return this._width;
-    },
+    }
 
     set height(h) {
         this._height = !isNaN(h) && h >= 1 ? h : 1;
-    },
+    }
 
     get height() {
         return this._height;
-    },
+    }
 
     /*
      * Set the angle of the current camera state.
@@ -47,66 +81,40 @@ export const CameraState = {
         else {
             this._angle -= 180;
         }
-    },
+    }
 
     get angle() {
         return this._angle;
-    },
+    }
 
-    init(svgRoot) {
-        this.svgRoot = svgRoot;
-
-        const initialBBox = svgRoot.getBBox();
-
-        // Center coordinates
-        this.cx = initialBBox.x + initialBBox.width / 2;
-        this.cy = initialBBox.y + initialBBox.height / 2;
-
-        // Dimensions
-        this.width = initialBBox.width;
-        this.height = initialBBox.height;
-
-        this.angle = 0;
-
-        return this;
-    },
-
-    initFrom(state) {
-        this.svgRoot = state.svgRoot;
-        this.cx = state.cx;
-        this.cy = state.cy;
-        this.width = state.width;
-        this.height = state.height;
-        this.opacity = state.opacity;
-        this.angle = state.angle;
-        this.clipped = state.clipped;
-        this.clipXOffset = state.clipXOffset;
-        this.clipYOffset = state.clipYOffset;
-        this.clipWidthFactor = state.clipWidthFactor;
-        this.clipHeightFactor = state.clipHeightFactor;
-        return this;
-    },
-
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * @return A plain object with the properties that need to be saved.
+     */
     toStorable() {
         return {
-            cx: this.cx,
-            cy: this.cy,
-            width: this.width,
-            height: this.height,
-            opacity: this.opacity,
-            angle: this.angle,
-            clipped: this.clipped,
-            clipXOffset: this.clipXOffset,
-            clipYOffset: this.clipYOffset,
-            clipWidthFactor: this.clipWidthFactor,
+            cx              : this.cx,
+            cy              : this.cy,
+            width           : this.width,
+            height          : this.height,
+            opacity         : this.opacity,
+            angle           : this.angle,
+            clipped         : this.clipped,
+            clipXOffset     : this.clipXOffset,
+            clipYOffset     : this.clipYOffset,
+            clipWidthFactor : this.clipWidthFactor,
             clipHeightFactor: this.clipHeightFactor
         };
-    },
+    }
 
     toMinimalStorable() {
         return this.toStorable();
-    },
+    }
 
+    /** Copy the properties of the given object into this instance.
+     *
+     * @param {Object} storable A plain object with the properties to copy.
+     */
     fromStorable(storable) {
         copyIfSet(this, storable, "cx");
         copyIfSet(this, storable, "cy");
@@ -119,8 +127,7 @@ export const CameraState = {
         copyIfSet(this, storable, "clipYOffset");
         copyIfSet(this, storable, "clipWidthFactor");
         copyIfSet(this, storable, "clipHeightFactor");
-        return this;
-    },
+    }
 
     /*
      * Set the current camera's properties to the given SVG element.
@@ -163,18 +170,16 @@ export const CameraState = {
         this.width  = bbox.width  * scale * widthFactor;
         this.height = bbox.height * scale * heightFactor;
         this.angle  = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI + deltaAngle;
-
-        return this;
-    },
+    }
 
     resetClipping() {
-        this.clipXOffset = this.clipYOffset = 0;
+        this.clipXOffset     = this.clipYOffset      = 0;
         this.clipWidthFactor = this.clipHeightFactor = 1;
-        return this;
-    },
+    }
 
     offsetFromElement(svgElement) {
-        const cam = Object.create(CameraState).init(this.svgRoot).setAtElement(svgElement);
+        const cam = new CameraState(this.svgRoot);
+        cam.setAtElement(svgElement);
         return {
             deltaX: this.cx - cam.cx,
             deltaY: this.cy - cam.cy,
@@ -182,7 +187,7 @@ export const CameraState = {
             heightFactor: this.height / cam.height,
             deltaAngle: this.angle - cam.angle
         };
-    },
+    }
 
     applyOffset({deltaX, deltaY, widthFactor, heightFactor, deltaAngle}) {
         this.cx -= deltaX;
@@ -190,6 +195,5 @@ export const CameraState = {
         this.width /= widthFactor;
         this.height /= heightFactor;
         this.angle -= deltaAngle;
-        return this;
     }
-};
+}

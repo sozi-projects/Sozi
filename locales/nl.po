@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: Tim van Steenbergen <tim@sourcerers.nl>\n"
-"POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-05-02 11:36+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"POT-Creation-Date: 2019-11-17 01:28:+0000\n"
+"PO-Revision-Date: 2019-03-21 20:04+0000\n"
+"Last-Translator: Kurt Latre <meester.kurt@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/sozi/translations/"
 "nl/>\n"
 "Language: nl\n"
@@ -17,301 +17,436 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.6-dev\n"
 "X-Launchpad-Export-Date: 2016-10-10 06:40+0000\n"
 
-#: js/backend/Electron.js:28
+#: js/backend/Electron.js:35
 msgid "Open an SVG file from your computer"
 msgstr "Importeer een SVG bestand vanaf je computer"
 
-#: js/backend/Electron.js:56
+#: js/backend/Electron.js:67
+msgid "Do you want to save the presentation before closing?"
+msgstr "Wilt u de presentatie opslaan voor je hem afsluit?"
+
+#: js/backend/Electron.js:68
+msgid "Yes"
+msgstr "Ja"
+
+#: js/backend/Electron.js:68
+msgid "No"
+msgstr "Nee"
+
+#: js/backend/Electron.js:91
 msgid "File not found: %s."
 msgstr "Bestand niet gevonden: %s."
 
-#: js/backend/Electron.js:70
+#: js/backend/Electron.js:124
 msgid "Choose an SVG file"
 msgstr "Kies een SVG bestand"
 
-#: js/backend/Electron.js:71
+#: js/backend/Electron.js:125
 msgid "SVG files"
 msgstr "SVG bestanden"
 
-#: js/backend/FileReader.js:12
+#: js/backend/FileReader.js:20
 msgid ""
-"Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
-"only)"
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
 msgstr ""
-"Importeer een SVG bestand vanaf je computer (<i class=\"fa fa-warning\"></i> "
-"read-only)"
+"Importeer een SVG bestand vanaf je computer (<i class=\"fas fa-exclamation-"
+"triangle\"></i> read-only)"
 
-#: js/backend/GoogleDrive.js:16
+#: js/backend/GoogleDrive.js:20
 msgid "Open an SVG file from Google Drive"
 msgstr "Importeer een SVG bestand vanaf Google Drive"
 
-#: js/Controller.js:38
+#: js/Controller.js:125
 msgid "Sozi (Information)"
 msgstr "Sozi (Informatie)"
 
-#: js/Controller.js:44
+#: js/Controller.js:135
 msgid "Sozi (Error)"
 msgstr "Sozi (Fout)"
 
-#: js/Storage.js:78
+#: js/Storage.js:81
 msgid "File %s could not be loaded."
 msgstr "Bestand %s kon niet worden geïmporteerd."
 
-#: js/Storage.js:93 js/Storage.js:102
+#: js/Storage.js:98 js/Storage.js:107
 msgid "Document is not valid SVG."
-msgstr "Het bestand is niet een correct SVG bestand."
+msgstr "Het bestand is geen correct SVG bestand."
 
-#: js/Storage.js:137
+#: js/Storage.js:143 js/Storage.js:149
 msgid "Document was changed. Reloading."
-msgstr "Het bestand was gewijzigd. Bezig met verversen."
+msgstr "Het bestand was gewijzigd. Bezig met opnieuw laden."
 
-#: js/Storage.js:163
+#: js/Storage.js:158
+msgid "Document was changed."
+msgstr "Het bestand werd gewijzigd."
+
+#: js/Storage.js:184
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Bestand is geïmporteerd uit Sozi 13 of een nog oudere Sozi versie."
 
-#: js/Storage.js:221 js/Storage.js:242
+#: js/Storage.js:256 js/Storage.js:277
 msgid "Saved %s."
 msgstr "%s is opgeslagen."
 
-#: js/view/Properties.js:41 js/view/Properties.js:137
-msgid "Fit to element"
-msgstr "An SVG-Element aanpassen"
+#: js/view/Properties.js:43
+#, fuzzy
+msgid "Autoselect outline element"
+msgstr "Element automatisch selecteren"
 
-#: js/view/Properties.js:42 js/view/Properties.js:119
+#: js/view/Properties.js:44 js/view/Properties.js:153
 msgid "Reset layer geometry"
-msgstr ""
+msgstr "Herstel geometrische laag"
 
-#: js/view/Properties.js:43 js/view/Timeline.js:272
+#: js/view/Properties.js:45 js/view/Timeline.js:137
 msgid "Create a new frame"
 msgstr "Nieuw Frame maken"
 
-#: js/view/Properties.js:44 js/view/Toolbar.js:110
+#: js/view/Properties.js:46 js/view/Properties.js:69 js/view/Toolbar.js:114
 msgid "Save the presentation"
 msgstr "Presentatie opslaan"
 
-#: js/view/Properties.js:45 js/view/Toolbar.js:94
+#: js/view/Properties.js:47 js/view/Toolbar.js:98
 msgid "Redo"
 msgstr "Herhaal"
 
-#: js/view/Properties.js:46 js/view/Toolbar.js:89
+#: js/view/Properties.js:48 js/view/Toolbar.js:93
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: js/view/Properties.js:47
-msgid "Focus the frame title"
-msgstr ""
-
-#: js/view/Properties.js:48 js/view/Toolbar.js:115
-msgid "Reload the SVG document"
-msgstr "Ververs het SVG-Dokument"
-
 #: js/view/Properties.js:49
-#, fuzzy
+msgid "Focus the frame title"
+msgstr "Focus op de titel van het frame"
+
+#: js/view/Properties.js:50 js/view/Properties.js:74 js/view/Toolbar.js:119
+msgid "Reload the SVG document"
+msgstr "Ververs het SVG-Document"
+
+#: js/view/Properties.js:51
 msgid "Toggle full-screen mode"
 msgstr "Toon in full-screen modus"
 
-#: js/view/Properties.js:50
+#: js/view/Properties.js:52
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "Toon/verberg ontwikkelaar tools"
 
-#: js/view/Properties.js:60
+#: js/view/Properties.js:62
 msgid "User interface"
-msgstr ""
+msgstr "Gebruiksinterface"
 
-#: js/view/Properties.js:61
+#: js/view/Properties.js:63
 msgid "Font size"
-msgstr ""
+msgstr "Lettergrootte"
 
-#: js/view/Properties.js:64
+#: js/view/Properties.js:66
 msgid "Enable notifications on save and reload"
-msgstr ""
-
-#: js/view/Properties.js:65
-msgid "Enable notifications"
-msgstr ""
+msgstr "Meldingen toestaan bij laden en herladen"
 
 #: js/view/Properties.js:67
+msgid "Enable notifications"
+msgstr "Meldingen toestaan"
+
+#: js/view/Properties.js:71
+msgid "When Sozi loses the focus"
+msgstr "Als Sozi niet actief is"
+
+#: js/view/Properties.js:72 js/view/Properties.js:78
+msgid "Manually"
+msgstr "Manueel"
+
+#: js/view/Properties.js:76
+msgid "Automatically"
+msgstr "Automatisch"
+
+#: js/view/Properties.js:77
+msgid "When Sozi gets the focus"
+msgstr "Als het Sozi scherm actief is"
+
+#: js/view/Properties.js:80
 msgid "Behavior"
-msgstr ""
+msgstr "Gedrag"
 
-#: js/view/Properties.js:69
+#: js/view/Properties.js:82
 msgid "Preview transition animations"
-msgstr ""
+msgstr "Voorvertoning overgangen en animaties"
 
-#: js/view/Properties.js:70
+#: js/view/Properties.js:83
 msgid "Enable animated transitions"
-msgstr ""
+msgstr "Geanimeerde overgangen toestaan"
 
-#: js/view/Properties.js:72
+#: js/view/Properties.js:85
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Sneltoetsen"
 
-#: js/view/Properties.js:84
+#: js/view/Properties.js:98
+msgid "Basic formatting supported:"
+msgstr "Basisopmaak ondersteund:"
+
+#: js/view/Properties.js:100
+msgid "Ctrl+B: Bold"
+msgstr "CTRL + B: vet"
+
+#: js/view/Properties.js:101
+msgid "Ctrl+I: Italic"
+msgstr "CTRL + I: cursief"
+
+#: js/view/Properties.js:102
+msgid "Ctrl+U: Underline"
+msgstr "CTRL + U: onderstreep"
+
+#: js/view/Properties.js:103
+msgid "Ctrl+0: Paragraph"
+msgstr "Ctrl+0: Paragraaf"
+
+#: js/view/Properties.js:104
+msgid "Ctrl+1: Big header"
+msgstr "Ctrl+1: grote titel"
+
+#: js/view/Properties.js:105
+msgid "Ctrl+2: Medium header"
+msgstr "Ctrl+2: Midden - Titel"
+
+#: js/view/Properties.js:106
+msgid "Ctrl+3: Small header"
+msgstr "Ctrl+3: Kleine koptekst"
+
+#: js/view/Properties.js:107
+msgid "Ctrl+L: List"
+msgstr "CTRL + L: lijst"
+
+#: js/view/Properties.js:108
+msgid "Ctrl+N: Numbered list"
+msgstr "CTRL + N: Genummerde lijst"
+
+#: js/view/Properties.js:115
 msgid "Select a layer to copy"
-msgstr ""
+msgstr "Selecteer een te kopiëren laag"
 
-#: js/view/Properties.js:87 js/view/Timeline.js:314 js/view/Timeline.js:344
+#: js/view/Properties.js:118 js/view/Timeline.js:184 js/view/Timeline.js:212
 msgid "Default"
 msgstr "Standaard"
 
-#: js/view/Properties.js:94
+#: js/view/Properties.js:125
 msgid "Frame"
-msgstr "Frame"
+msgstr "Kader"
 
-#: js/view/Properties.js:97
+#: js/view/Properties.js:128
 msgid "Show in frame list"
-msgstr "Toon in de Frames lijst"
+msgstr "Toon in frame lijst"
 
-#: js/view/Properties.js:98
+#: js/view/Properties.js:129
 msgid "Show frame number"
-msgstr "Frame-Nummer tonen"
+msgstr "Framenummer tonen"
 
-#: js/view/Properties.js:101
+#: js/view/Properties.js:132
 msgid "Title"
 msgstr "Titel"
 
-#: js/view/Properties.js:104
-msgid "Id"
-msgstr "ID"
+#: js/view/Properties.js:135
+msgid "Title level in frame list"
+msgstr "Titel niveau in frame lijst"
 
-#: js/view/Properties.js:108
+#: js/view/Properties.js:138
+msgid "Id"
+msgstr "Id"
+
+#: js/view/Properties.js:142
 msgid "Timeout (seconds)"
 msgstr "Timeout (Seconden)"
 
-#: js/view/Properties.js:109
+#: js/view/Properties.js:143
 msgid "Timeout enable"
 msgstr "Timeout activeren"
 
-#: js/view/Properties.js:113
+#: js/view/Properties.js:147
 msgid "Layer"
-msgstr ""
+msgstr "Laag"
 
-#: js/view/Properties.js:116
+#: js/view/Properties.js:150
 msgid "Link to previous frame"
 msgstr "Link naar het vorige Frame"
 
-#: js/view/Properties.js:117 js/view/Toolbar.js:82
+#: js/view/Properties.js:151
 msgid "Clip"
 msgstr "Clip"
 
-#: js/view/Properties.js:124
-#, fuzzy
+#: js/view/Properties.js:158
 msgid "Copy layer"
 msgstr "Layer toevoegen"
 
-#: js/view/Properties.js:131
-#, fuzzy
+#: js/view/Properties.js:165
 msgid "Outline element Id"
 msgstr "ID element uitlijnen"
 
-#: js/view/Properties.js:134
+#: js/view/Properties.js:168
 msgid "Autoselect element"
 msgstr "Element automatisch selecteren"
 
-#: js/view/Properties.js:135
+#: js/view/Properties.js:171
 msgid "Hide element"
 msgstr "Element verbergen"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:176
 msgid "Layer opacity"
 msgstr "Laag doorzichtigheid"
 
-#: js/view/Properties.js:148
+#: js/view/Properties.js:179
 msgid "Transition"
 msgstr "Overgang"
 
-#: js/view/Properties.js:150
+#: js/view/Properties.js:179
+msgid "Configure the animation when moving to the selected frames."
+msgstr "De animatie naar het geselecteerd frame instellen."
+
+#: js/view/Properties.js:181
 msgid "Duration (seconds)"
 msgstr "Duur (Seconden)"
 
-#: js/view/Properties.js:153
+#: js/view/Properties.js:184
 msgid "Timing function"
 msgstr "Timing-functie"
 
-#: js/view/Properties.js:165
+#: js/view/Properties.js:186
+msgid "Linear"
+msgstr "Lineair"
+
+#: js/view/Properties.js:187
+msgid "Ease"
+msgstr "Ease"
+
+#: js/view/Properties.js:188
+msgid "Ease in"
+msgstr "Ease in"
+
+#: js/view/Properties.js:189
+msgid "Ease out"
+msgstr "Ease in"
+
+#: js/view/Properties.js:190
+msgid "Ease in-out"
+msgstr "Ease in-out"
+
+#: js/view/Properties.js:191
+msgid "Step start"
+msgstr "Stap start"
+
+#: js/view/Properties.js:192
+msgid "Step end"
+msgstr "Stap einde"
+
+#: js/view/Properties.js:193
+msgid "Step middle"
+msgstr "Stap midden"
+
+#: js/view/Properties.js:196
 msgid "Relative zoom (%)"
 msgstr "Relative Zoom (%)"
 
-#: js/view/Properties.js:169
+#: js/view/Properties.js:200
 msgid "Path Id"
 msgstr "Pad-ID"
 
-#: js/view/Properties.js:170
+#: js/view/Properties.js:201
 msgid "Hide path"
 msgstr "Pad verbergen"
 
-#: js/view/Properties.js:174
-#, fuzzy
+#: js/view/Properties.js:205
+msgid "Notes"
+msgstr "Notities"
+
+#: js/view/Properties.js:205
+msgid ""
+"Edit presenter notes. Click here to show the list of formatting shortcuts."
+msgstr ""
+"Aantekeningen van de presentator bewerken. Klik hier om de lijst met "
+"opmaaksnelkoppelingen weer te geven."
+
+#: js/view/Properties.js:209
 msgid "Player"
-msgstr "Layer toevoegen"
+msgstr "Speler"
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:212
+msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
+msgstr ""
+
+#: js/view/Properties.js:213
+msgid ""
+"Moving from one frame to another will change the content of the location bar "
+"automatically."
+msgstr ""
+
+#: js/view/Properties.js:217
 msgid "Allow to control the presentation"
-msgstr ""
+msgstr "Toestaan om de presentatie te controleren"
 
-#: js/view/Properties.js:179 js/view/Properties.js:186
-#: js/view/Properties.js:192 js/view/Properties.js:200
+#: js/view/Properties.js:219 js/view/Properties.js:226
+#: js/view/Properties.js:232 js/view/Properties.js:240
 msgid "using the mouse"
-msgstr ""
+msgstr "met behulp van de muis"
 
-#: js/view/Properties.js:180 js/view/Properties.js:193
-#: js/view/Properties.js:201
+#: js/view/Properties.js:220 js/view/Properties.js:233
+#: js/view/Properties.js:241
 msgid "using the keyboard"
-msgstr ""
+msgstr "met behulp van het toetsenbord"
 
-#: js/view/Properties.js:185
+#: js/view/Properties.js:225
 msgid "Allow to move the camera"
-msgstr ""
+msgstr "Toestaan om de camera te verplaatsen"
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:230
 msgid "Allow to rotate the camera"
-msgstr ""
+msgstr "Sta toe om de camera te draaien"
 
-#: js/view/Properties.js:198
+#: js/view/Properties.js:238
 msgid "Allow to zoom"
-msgstr ""
+msgstr "Toestaan om in te zoomen"
 
-#: js/view/Timeline.js:265
+#: js/view/Timeline.js:130
 msgid "Delete the selected frames"
 msgstr "Het geselecteerde Frame verwijderen"
 
-#: js/view/Timeline.js:286
+#: js/view/Timeline.js:156
 msgid "Add layer"
 msgstr "Layer toevoegen"
 
-#: js/view/Timeline.js:302 js/view/Timeline.js:323
+#: js/view/Timeline.js:157
+#, fuzzy
+msgid "Add all layers"
+msgstr "Layer toevoegen"
+
+#: js/view/Timeline.js:172 js/view/Timeline.js:192
 msgid "This layer is visible. Click to hide it."
 msgstr "Deze layer is zichtbaar. Klik om het te verbergen."
 
-#: js/view/Timeline.js:306 js/view/Timeline.js:327
+#: js/view/Timeline.js:176 js/view/Timeline.js:196
 msgid "This layer is hidden. Click to show it."
 msgstr "Deze layer is niet zichtbaar. Klik om het te tonen."
 
-#: js/view/Timeline.js:331
+#: js/view/Timeline.js:200
 msgid "Remove this layer"
 msgstr "De geselecteerde layer verwijderen"
 
-#: js/view/Timeline.js:357
+#: js/view/Timeline.js:225
 msgid "Insert selection before frame %d"
 msgstr "Voeg de geselecteerde items in voor frame %d"
 
-#: js/view/Timeline.js:364
+#: js/view/Timeline.js:232
 msgid "Insert selection after frame %d"
-msgstr "Voeg de geselecteerde items in na frame %d."
+msgstr "Voeg de geselecteerde items in na frame %d"
 
-#: js/view/Toolbar.js:34
+#: js/view/Toolbar.js:38
 msgid "Aspect ratio: "
 msgstr "Aspect ratio: "
 
-#: js/view/Toolbar.js:67
+#: js/view/Toolbar.js:71
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
 "Verplaats de geselecteerde layers (Alt om te zoomen, Shift om te draaien)"
 
-#: js/view/Toolbar.js:72
+#: js/view/Toolbar.js:76
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
@@ -319,24 +454,35 @@ msgstr ""
 "In de geselecteerde layers in- of uitzoomen (kan ook met Alt-toets tijdens "
 "het moven)"
 
-#: js/view/Toolbar.js:77
+#: js/view/Toolbar.js:81
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 "Roteer de geselecteerde layer (kan ook met Shift-toets tijdens het moven)"
 
-#: js/view/Toolbar.js:101
+#: js/view/Toolbar.js:86
+msgid "Edit the clipping area"
+msgstr "Bewerk het knipselgebied"
+
+#: js/view/Toolbar.js:105
 msgid "Disable full-screen mode"
 msgstr "Sluit de full-screen modus"
 
-#: js/view/Toolbar.js:101
+#: js/view/Toolbar.js:105
 msgid "Enable full-screen mode"
 msgstr "Toon in full-screen modus"
 
-#: js/view/Toolbar.js:121
+#: js/view/Toolbar.js:125
 msgid "Preferences"
-msgstr ""
+msgstr "Voorkeuren"
 
-#: js/view/Toolbar.js:126
+#: js/view/Toolbar.js:130
 msgid "Information"
 msgstr "Informatie"
+
+#~ msgid "Fit to element"
+#~ msgstr "Aan SVG-Element aanpassen"
+
+#, fuzzy
+#~ msgid "Document was changed. Use the reload button."
+#~ msgstr "Het bestand was gewijzigd. Bezig met verversen."

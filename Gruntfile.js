@@ -1,33 +1,34 @@
 module.exports = function(grunt) {
     "use strict";
 
-    var path = require("path");
-    var fs = require("fs");
-    var execSync = require("child_process").execSync;
+    const path = require("path");
+    const fs = require("fs");
+    const execSync = require("child_process").execSync;
+    const envify = require("envify/custom");
 
-    var nunjucks = require("nunjucks");
+    const nunjucks = require("nunjucks");
     nunjucks.configure({watch: false});
 
     require("load-grunt-tasks")(grunt);
 
-    var pkg = grunt.file.readJSON("package.json");
+    const pkg = grunt.file.readJSON("package.json");
 
     // Get version number from last commit date.
     // Format: YY.MM.T (year.month.timestamp).
-    var rev = execSync("git show -s --format='%cI %ct'").toString().trim().split(" ");
+    const rev = execSync("git show -s --format='%cI %ct'").toString().trim().split(" ");
     pkg.version = rev[0].slice(2, 4) + "." + rev[0].slice(5, 7) + "." + rev[0].slice(8, 10) + "-" + rev[1];
 
-    var buildConfig = grunt.file.readJSON("config.default.json");
-    var buildConfigJson = grunt.option("config");
+    const buildConfig = grunt.file.readJSON("config.default.json");
+    const buildConfigJson = grunt.option("config");
 
     if (buildConfigJson) {
         try {
-            var customBuildConfig = grunt.file.readJSON(buildConfigJson);
+            const customBuildConfig = grunt.file.readJSON(buildConfigJson);
 
             grunt.verbose.writeln("Using configuration from " + buildConfigJson);
 
             // Overwrite default config
-            for (var key in customBuildConfig) {
+            for (let key in customBuildConfig) {
                 buildConfig[key] = customBuildConfig[key];
             }
         }
@@ -36,20 +37,9 @@ module.exports = function(grunt) {
         }
     }
 
-    grunt.verbose.write("Checking for bower_components...");
-    if (grunt.file.isDir("bower_components")) {
-        grunt.verbose.ok();
-    }
-    else {
-        grunt.log.error("bower_components not found! Please run `bower install`.");
-        process.exit();
-    }
-
     // Remove duplicates from an array.
     function dedup(arr) {
-        return arr.filter(function (x, pos) {
-            return arr.indexOf(x) === pos;
-        });
+        return Array.from(new Set(arr));
     }
 
     // Get the OS part from a platform identifier.
@@ -65,9 +55,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: pkg,
 
-        /*
-         * Check JavaScript and CSS source files.
-         */
+        // Check JavaScript source files.
         jshint: {
             options: {
                 jshintrc: true
@@ -75,6 +63,7 @@ module.exports = function(grunt) {
             all: [ "js/**/*.js" ]
         },
 
+        // Check CSS source files.
         csslint: {
             options: {
                 csslintrc: ".csslintrc"
@@ -82,37 +71,40 @@ module.exports = function(grunt) {
             all: [ "css/**/*.css" ]
         },
 
-        /*
-         * Automatic tests.
-         */
-        simplemocha: {
+        // Generate JavaScript API documentation.
+        jsdoc: {
             options: {
-                timeout: 3000,
-                ignoreLeaks: false,
-                ui: "bdd",
-                reporter: "tap"
+                destination: "dist/api",
+                configure: "jsdoc.json"
             },
-            all: {
-                src: ["test/**/*.mocha.js"]
-            }
+            all: [ "js/**/*.js" ]
         },
 
-        /*
-         * Transpile JavaScript source files from ES6 to ES5
-         */
+        // Transpile JavaScript source files for Electron and browsers.
         babel: {
-            options: {
-                presets: ["es2015"]
-            },
-            all: {
+            electron: {
+                options: {
+                    presets: [["@babel/preset-env", {targets: {node: "12"}}]]
+                },
                 files: [{
                     expand: true,
-                    src: ["index-webapp.js", "js/**/*.js"],
-                    dest: "build/app"
+                    src: ["js/**/*.js"],
+                    dest: "build/electron"
+                }]
+            },
+            browser: {
+                options: {
+                    presets: ["@babel/preset-env"]
+                },
+                files: [{
+                    expand: true,
+                    src: ["js/**/*.js"],
+                    dest: "build/browser"
                 }]
             }
         },
 
+        // Generate gettext translation template (pot) file from JavaScript sources.
         jspot: {
             options: {
                 keyword: "_",
@@ -126,6 +118,7 @@ module.exports = function(grunt) {
             }
         },
 
+        // Convert gettext translation (po) files to JavaScript.
         po2json: {
             options: {
                 fuzzy: false,
@@ -133,121 +126,166 @@ module.exports = function(grunt) {
                 nodeJs: true,
                 format: "jed1.x"
             },
-            all: {
+            electron: {
                 src: ["locales/*.po"],
-                dest: "build/app/js/locales.js",
+                dest: "build/electron/js/locales.js",
+            },
+            browser: {
+                src: ["locales/*.po"],
+                dest: "build/browser/js/locales.js",
             }
         },
 
+        // Merge JavaScript modules for browser targets.
         browserify: {
             editor: {
                 options: {
                     external: ["electron", "fs", "process"],
                     browserifyOptions: {
-                        basedir: "build/app"
+                        basedir: "build/browser"
+                    },
+                    configure(b) {
+                        b.transform({global: true}, envify({NODE_ENV: "production"}));
                     }
                 },
-                src: ["build/app/index-webapp.js"],
-                dest: "build/tmp/js/editor.bundle.js"
+                src: ["build/browser/js/editor.js"],
+                dest: "build/tmp/js/editor.js"
             },
             player: {
-                src: ["build/app/js/player.js"],
-                dest: "build/tmp/js/player.bundle.js"
+                src: ["build/browser/js/player.js"],
+                dest: "build/tmp/js/player.js"
             }
         },
 
-        /*
-         * Compress the JavaScript code of the editor and player.
-         */
+        // Compress the JavaScript code of the editor, player, and presenter
+        // for browser targets.
         uglify: {
+            options: {
+                mangle: false,
+                compress: false
+            },
             editor: {
                 src: "<%= browserify.editor.dest %>",
-                dest: "build/app/js/editor.min.js"
+                dest: "build/browser/js/editor.min.js"
             },
             player: {
                 src: "<%= browserify.player.dest %>",
                 dest: "build/tmp/js/player.min.js"
+            },
+            presenter: {
+                src: "build/browser/js/presenter.js",
+                dest: "build/tmp/js/presenter.min.js"
             }
         },
 
-        /*
-         * Precompile templates for the editor and player.
-         */
+        // Precompile templates for the player and presenter,
+        // inserting the player and presenter JavaScript into the template HTML.
         nunjucks_render: {
             player: {
                 src: "templates/player.html",
-                dest: "build/app/templates/player.html",
+                dest: "build/browser/templates/player.html",
                 context: {
-                    playerJs: "<%= grunt.file.read('build/tmp/js/player.min.js') %>"
+                    js: "<%= uglify.player.dest %>"
+                }
+            },
+            presenter: {
+                src: "templates/presenter.html",
+                dest: "build/browser/templates/presenter.html",
+                context: {
+                    js: "<%= uglify.presenter.dest %>"
                 }
             }
         },
 
+        // Copy assets to the build/ folder.
         copy: {
             editor: {
                 files: [
                     {
                         expand: true,
                         src: [
-                            "index-*.html",
+                            "index-electron.html",
                             "css/**/*",
-                            "vendor/**/*",
-                            "bower_components/**/*"
+                            "vendor/**/*"
                         ],
-                        dest: "build/app"
+                        dest: "build/electron/"
+                    },
+                    {
+                        expand: true,
+                        src: [
+                            "index-webapp.html",
+                            "css/**/*",
+                            "vendor/**/*"
+                        ],
+                        dest: "build/browser/"
+                    },
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: [
+                            "<%= nunjucks_render.player.dest %>",
+                            "<%= nunjucks_render.presenter.dest %>"
+                        ],
+                        dest: "build/electron/templates/"
                     }
                 ]
             }
         },
 
+        // Rename index HTML and JavaScript files depending on the target.
         rename: {
             webapp_backend: {
-                src: ["build/app/js/backend/index-webapp.js"],
-                dest: "build/app/js/backend/index.js"
+                src: ["build/browser/js/backend/index-webapp.js"],
+                dest: "build/browser/js/backend/index.js"
             },
             webapp_html: {
-                src: ["build/app/index-webapp.html"],
-                dest: "build/app/index.html"
+                src: ["build/browser/index-webapp.html"],
+                dest: "build/browser/index.html"
             },
             electron_backend: {
-                src: ["build/app/js/backend/index-electron.js"],
-                dest: "build/app/js/backend/index.js"
+                src: ["build/electron/js/backend/index-electron.js"],
+                dest: "build/electron/js/backend/index.js"
             },
             electron_html: {
-                src: ["build/app/index-electron.html"],
-                dest: "build/app/index.html"
+                src: ["build/electron/index-electron.html"],
+                dest: "build/electron/index.html"
             }
         },
 
+        // Generate a zip archive of the "add media" Inkscape extension.
         compress: {
             media: {
                 options: {
-                    mode: "zip",
-                    archive: "dist/Sozi-extras-media-<%= pkg.version %>.zip"
+                    archive: "dist/Sozi-extras-media-<%= pkg.version %>.zip",
+                    cwd: "extras/media"
                 },
-                expand: true,
-                cwd: "extras/media",
-                src: ["**/*"]
+                src: [
+                    "extras/media/sozi_extras_media.inx",
+                    "extras/media/sozi_extras_media.py"
+                ]
             }
         },
 
-        /*
-         * Build electron applications for various platforms.
-         * The options take precedence over the targets variable
-         * defined later.
-         */
-
+        // Install all node modules used by the editor into the build/ folder.
         "install-dependencies": {
-            options: {
-                cwd: "build/app"
+            electron: {
+                options: {
+                    cwd: "build/electron"
+                }
+            },
+            browser: {
+                options: {
+                    cwd: "build/browser"
+                }
             }
         },
 
+        // Build the Electron application.
         electron: {
             editor: {
                 options: {
                     name: "Sozi",
-                    dir: "build/app",
+                    dir: "build/electron",
                     out: "dist",
                     overwrite: true,
                     prune: false,
@@ -258,17 +296,24 @@ module.exports = function(grunt) {
             }
         },
 
-        /*
-         * Upload the web demonstration of the Sozi editor.
-         */
+        // Upload the web demonstration of the editor.
         rsync: {
             options: {
                 args: ["--verbose", "--update", "--checksum"]
             },
             editor: {
                 options: {
-                    src: ["build/app/*"],
+                    src: ["build/browser/*"],
                     dest: "/var/www/sozi.baierouge.fr/demo/",
+                    host: "sozi@baierouge.fr",
+                    deleteAll: true,
+                    recursive: true
+                }
+            },
+            api: {
+                options: {
+                    src: ["dist/api"],
+                    dest: "/var/www/sozi.baierouge.fr/",
                     host: "sozi@baierouge.fr",
                     deleteAll: true,
                     recursive: true
@@ -278,9 +323,9 @@ module.exports = function(grunt) {
 
         newer: {
             options: {
-                override: function (details, include) {
-                    if (details.task === "nunjucks_render" && details.target === "player") {
-                        include(fs.statSync("build/tmp/js/player.min.js").mtime > details.time);
+                override(details, include) {
+                    if (details.task === "nunjucks_render") {
+                        include(fs.statSync(`build/tmp/js/${details.target}.min.js`).mtime > details.time);
                     }
                     else {
                         include(false);
@@ -290,33 +335,32 @@ module.exports = function(grunt) {
         }
     });
 
-    /*
-     * Generate installable bundles for each platform.
-     */
-
-    var debianArchs = {
+    // Conversion rules between Electron and Debian architecture names.
+    const debianArchs = {
         ia32: "i386",
         x64: "amd64"
     };
 
-    var renamedOS = {
+    // Conversion rules between Electron and Debian OS names.
+    const renamedOS = {
         darwin: "osx",
         win32: "windows"
     };
 
-    buildConfig.platforms.forEach(function (platform) {
+    // Generate an installable archive in the dist/ folder for each platform.
+    for (let platform of buildConfig.platforms) {
         // The folder for the current platform.
-        var distDir = "dist/Sozi-" + platform;
-        // Get the components of the platform.
-        var platformOS   = getPlatformOS(platform);
+        const distDir = "dist/Sozi-" + platform;
+        // Extract the components of the platform name.
+        let platformOS   = getPlatformOS(platform);
         if (platformOS in renamedOS) {
             platformOS = renamedOS[platformOS];
         }
-        var platformArch = getPlatformArch(platform);
+        const platformArch = getPlatformArch(platform);
         // The name of the target folder for the current platform in dist/.
-        var bundleName = "Sozi-" + pkg.version + "-" + platformOS + "-" + platformArch;
+        const archiveName = "Sozi-" + pkg.version + "-" + platformOS + "-" + platformArch;
         // The renamed folder for the current platform.
-        var bundleDir = "dist/" + bundleName;
+        const archiveDir = "dist/" + archiveName;
 
         // Copy the installation assets for the target OS.
         grunt.config(["copy", platform], {
@@ -339,26 +383,24 @@ module.exports = function(grunt) {
 
         // Delete the distribution folder for this platform if it exists.
         grunt.config(["clean", platform], {
-            src: bundleDir
+            src: archiveDir
         });
 
-        // Rename the distribution folder to the bundle name.
+        // Rename the distribution folder to the archive name.
         grunt.config(["rename", platform], {
             src: distDir,
-            dest: bundleDir
+            dest: archiveDir
         });
 
-        // Build zip files for Windows, tgz for other platforms.
-        var bundleFormat = platformOS.startsWith("win") ? "zip" : "tgz";
+        // Build zip files for Windows, tar.xz for other platforms.
+        const archiveFormat = platformOS.startsWith("win") ? "zip" : "tar.xz";
 
         grunt.config(["compress", platform], {
             options: {
-                mode: bundleFormat,
-                archive: bundleDir + "." + bundleFormat
+                archive: archiveDir + "." + archiveFormat,
+                cwd: "dist/"
             },
-            expand: true,
-            cwd: "dist/",
-            src: [bundleName + "/**/*"]
+            src: [archiveDir]
         });
 
         // Generate a Debian package for each Linux platform.
@@ -370,34 +412,55 @@ module.exports = function(grunt) {
                 date: new Date().toUTCString().slice(0, -3) + "+0000"
             });
         }
+    }
+
+    // Copy the installation scripts for each supported platform.
+    grunt.registerTask("copy-installation-assets", buildConfig.platforms.flatMap(platform => {
+        return buildConfig.installable.indexOf(getPlatformOS(platform)) >= 0 ? ["copy:" + platform] : [];
+    }));
+
+    // Rename the dist folder of each platform to match archive names.
+    grunt.registerTask("rename-platforms", buildConfig.platforms.flatMap(platform => {
+        return ["clean:" + platform, "rename:" + platform];
+    }));
+
+    // Generate a zip archive from a set of files.
+    grunt.registerMultiTask("compress", function () {
+        const dest = this.options().archive;
+        const cwd = this.options().cwd;
+        const src = this.files.map(f => f.src).flat().map(p => path.relative(cwd, p)).join(" ");
+
+        grunt.log.writeln("Compressing " + dest);
+        if (dest.endsWith(".tar.xz")) {
+            execSync("tar cJf "+ path.relative(cwd, dest) + " " + src, {cwd});
+        }
+        else if (dest.endsWith(".zip")) {
+            execSync("zip -ry " + path.relative(cwd, dest) + " " + src, {cwd});
+        }
     });
 
-    grunt.registerTask("copy-installation-assets", buildConfig.platforms.reduce(function (prev, platform) {
-        var installationTask = buildConfig.installable.indexOf(getPlatformOS(platform)) >= 0 ? ["copy:" + platform] : [];
-        return prev.concat(installationTask);
-    }, []));
+    // Generate a zip archive for each platform.
+    grunt.registerTask("compress-platforms", buildConfig.platforms.map(platform => "compress:" + platform));
 
-    grunt.registerTask("rename-platforms", buildConfig.platforms.reduce(function (prev, platform) {
-        return prev.concat(["clean:" + platform, "rename:" + platform]);
-    }, []));
-
-    grunt.registerTask("compress-platforms", buildConfig.platforms.reduce(function (prev, platform) {
-        return prev.concat(["compress:" + platform]);
-    }, []));
-
+    // Copy the package.json file with updated version number into the build/ folder.
     grunt.registerTask("write_package_json", function () {
-        grunt.file.write("build/app/package.json", JSON.stringify(pkg));
+        grunt.file.write("build/electron/package.json", JSON.stringify(pkg));
+        grunt.file.write("build/browser/package.json", JSON.stringify(pkg));
     });
 
+    // Render a template.
     grunt.registerMultiTask("nunjucks_render", function () {
-        this.files.forEach(function (file) {
-            grunt.file.write(file.dest, nunjucks.render(file.src[0], this.data.context));
+        for (let file of this.files) {
+            grunt.file.write(file.dest, nunjucks.render(file.src[0], {
+                js: grunt.file.read(this.data.context.js)
+            }));
             grunt.log.writeln("File " + file.dest + " created.");
-        }, this);
+        }
     });
 
+    // Build a Debian package.
     grunt.registerMultiTask("debian_package", function () {
-        var workDir = "dist/packaging-" + this.data.platform;
+        const workDir = "dist/packaging-" + this.data.platform;
         grunt.file.write(workDir + "/Makefile",  nunjucks.render("debian/Makefile", this.data));
         grunt.file.write(workDir + "/debian/changelog", nunjucks.render("debian/changelog", this.data));
         grunt.file.write(workDir + "/debian/compat", nunjucks.render("debian/compat", this.data));
@@ -407,19 +470,23 @@ module.exports = function(grunt) {
         execSync("dpkg-buildpackage -a" + this.data.arch, {cwd: workDir});
     });
 
+    // Check JavaScript and CSS source files.
     grunt.registerTask("lint", ["jshint", "csslint"]);
 
+    // Common build task for browser and Electron targets.
     grunt.registerTask("build", [
         "write_package_json",
         "newer:babel",
         "browserify:player", // Cannot use 'newer' here due to imports
         "newer:uglify:player",
+        "newer:uglify:presenter",
         "newer:nunjucks_render",
         "newer:po2json",
         "newer:copy:editor",
         "compress:media"
     ]);
 
+    // Build the Electron application.
     grunt.registerTask("electron-build",  [
         "build",
         "rename:electron_backend",
@@ -429,6 +496,7 @@ module.exports = function(grunt) {
         "copy-installation-assets"
     ]);
 
+    // Build the editor for the browser.
     grunt.registerTask("web-build", [
         "build",
         "rename:webapp_backend",
@@ -437,22 +505,26 @@ module.exports = function(grunt) {
         "newer:uglify:editor"
     ]);
 
-    grunt.registerTask("electron-bundle", [
+    // Build an installable zip archive of the Electron application for all platform.
+    grunt.registerTask("electron-archive", [
         "electron-build",
         "rename-platforms",
         "compress-platforms"
     ]);
 
+    // Build and upload the editor for the browser.
     grunt.registerTask("web-demo", [
         "web-build",
-        "rsync" // Cannot use 'newer' here since 'dest' is not a generated file
+        "rsync:editor" // Cannot use 'newer' here since 'dest' is not a generated file
     ]);
 
+    // Generate a translation template (pot) file.
     grunt.registerTask("pot", [
         "newer:babel",
         "jspot" // Cannot use 'newer' here since 'dest' is not a generated file
     ]);
 
+    // Build the Electron application, and generate zip archives and Debian packages if applicable.
     if (buildConfig.platforms.some(p => getPlatformOS(p) === "linux")) {
         grunt.registerTask("deb", [
             "electron-build",
@@ -461,13 +533,16 @@ module.exports = function(grunt) {
         ]);
 
         grunt.registerTask("dist", [
-            "electron-bundle",
+            "electron-archive",
             "debian_package"
         ]);
     }
     else {
-        grunt.registerTask("dist", ["electron-bundle"]);
+        grunt.registerTask("dist", ["electron-archive"]);
     }
 
-    grunt.registerTask("default", ["electron-bundle"]);
+    grunt.registerTask("api", ["jsdoc", "rsync:api"]);
+
+    // Default task: build the Electron application, and generate zip archives
+    grunt.registerTask("default", ["electron-archive"]);
 };

@@ -5,20 +5,55 @@
 
 "use strict";
 
-export const Preferences = {
-    fontSize: 11,
-    enableNotifications: true,
-    animateTransitions: true,
-    keys: {
-        fitElement: "Ctrl+E",
-        resetLayer: "Ctrl+R",
-        addFrame: "Ctrl+N",
-        save: "Ctrl+S",
-        redo: "Ctrl+Y",
-        undo: "Ctrl+Z",
-        focusTitleField: "F2",
-        reload: "F5",
-        toggleFullscreen: "F11",
-        toggleDevTools: "F12"
+/** Sozi editor preferences.
+ *
+ * @category model
+ *
+ * @todo Add documentation.
+ */
+export class Preferences {
+    constructor() {
+        this.fontSize            = 11;
+        this.enableNotifications = true;
+        this.animateTransitions  = true;
+        this.showThumbnails      = false;
+        this.saveMode            = "onblur";
+        this.reloadMode          = "auto";
+        this.keys                = {
+            autoselectOutlineElement: "Ctrl+E",
+            resetLayer              : "Ctrl+R",
+            addFrame                : "Ctrl+N",
+            save                    : "Ctrl+S",
+            redo                    : "Ctrl+Y",
+            undo                    : "Ctrl+Z",
+            focusTitleField         : "F2",
+            reload                  : "F5",
+            toggleFullscreen        : "F11",
+            toggleDevTools          : "F12"
+        };
+    }
+
+    save() {
+        for (let key of Object.keys(this)) {
+            localStorage.setItem(key, JSON.stringify(this[key]));
+        }
+    }
+
+    load() {
+        for (let key of Object.keys(this)) {
+            const value = localStorage.getItem(key);
+            if (value === null) {
+                return;
+            }
+            const pref = JSON.parse(value);
+            if (typeof pref === "object") {
+                for (let [fieldName, fieldValue] of Object.entries(pref)) {
+                    this[key][fieldName] = fieldValue;
+                }
+            }
+            else {
+                this[key] = JSON.parse(value);
+            }
+        }
     }
 };

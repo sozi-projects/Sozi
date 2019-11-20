@@ -19,6 +19,7 @@
   <param name="start-frame" type="string"  _gui-text="Start playing when entering frame (id)">undefined</param>
   <param name="stop-frame"  type="string"  _gui-text="Stop playing when entering frame (id)">undefined</param>
   <param name="loop"        type="boolean" _gui-text="Loop">false</param>
+  <param name="controls"    type="boolean" _gui-text="Show controls">false</param>
   <effect>
     <object-type>all</object-type>
     <effects-menu>
@@ -29,5 +30,3 @@
     <command reldir="extensions" interpreter="python">sozi_extras_media.py</command>
   </script>
 </inkscape-extension>
-
-

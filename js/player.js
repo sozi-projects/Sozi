@@ -13,45 +13,116 @@ import * as FrameList from "./player/FrameList";
 import * as FrameNumber from "./player/FrameNumber";
 import * as FrameURL from "./player/FrameURL";
 
-window.addEventListener("load", function () {
+function setPresenterMode() {
+    sozi.player.disableMedia();
+    sozi.player.pause();
+
+    sozi.presentation.enableMouseTranslation =
+    sozi.presentation.enableMouseNavigation =
+    sozi.presentation.enableKeyboardZoom =
+    sozi.presentation.enableKeyboardRotation =
+    sozi.presentation.enableKeyboardNavigation = false;
+
+    for (let frame of sozi.presentation.frames) {
+        frame.showFrameNumber = false;
+    }
+}
+
+function notifyOnLoad(target, id) {
+    function checkSozi() {
+        if (sozi) {
+            target.postMessage({
+                name: "loaded", id,
+                length: sozi.presentation.frames.length,
+            }, "*");
+        }
+        else {
+            setTimeout(checkSozi, 1);
+        }
+    }
+    checkSozi();
+}
+
+function onFrameChange(target) {
+    target.postMessage({
+        name:   "frameChange",
+        index:  sozi.player.currentFrame.index,
+        title:  sozi.player.currentFrame.title,
+        notes:  sozi.player.currentFrame.notes
+    }, "*");
+}
+
+function notifyOnFrameChange(target) {
+    sozi.player.addListener("frameChange", () => onFrameChange(target));
+
+    // Send the message to set the initial frame data in the target.
+    onFrameChange(target);
+}
+
+window.addEventListener("message", evt => {
+    switch (evt.data.name) {
+        case "notifyOnLoad":
+            notifyOnLoad(evt.source, evt.data.id);
+            break;
+        case "notifyOnFrameChange":
+            notifyOnFrameChange(evt.source);
+            break;
+        case "setPresenterMode":
+            setPresenterMode();
+            break;
+        default:
+            const method = sozi.player[evt.data.name];
+            const args   = evt.data.args || [];
+            if (typeof method === "function") {
+                method.apply(sozi.player, args);
+            }
+            else {
+                console.log(`Unsupported message: ${evt.data.name}`);
+            }
+    }
+}, false);
+
+window.addEventListener("load", () => {
     const svgRoot = document.querySelector("svg");
     svgRoot.style.display = "inline";
 
-    SVGDocumentWrapper.init(svgRoot);
-    Presentation.init().setSVGDocument(SVGDocumentWrapper);
-    Viewport.init(Presentation, false).onLoad();
+    const presentation = new Presentation();
+    presentation.setSVGDocument(new SVGDocumentWrapper(svgRoot));
 
-    Presentation.fromStorable(window.soziPresentationData);
-    Player.init(Viewport, Presentation);
+    const viewport = new Viewport(presentation, false);
+    viewport.onLoad();
 
-    Media.init(Player);
-    FrameList.init(Player);
-    FrameNumber.init(Player);
-    FrameURL.init(Player);
+    presentation.fromStorable(window.soziPresentationData);
+    const player = new Player(viewport, presentation);
+
+    Media.init(player);
+    FrameList.init(player);
+    FrameNumber.init(player);
+    FrameURL.init(player);
 
     window.sozi = {
-        presentation: Presentation,
-        viewport: Viewport,
-        player: Player
+        presentation,
+        viewport,
+        player
     };
 
-    Player.addListener("stateChange", () => {
-        if (Player.playing) {
-            document.title = Presentation.title;
+    player.addListener("stateChange", () => {
+        if (player.playing) {
+            document.title = presentation.title;
         }
         else {
-            document.title = Presentation.title + " (Paused)";
+            document.title = presentation.title + " (Paused)";
         }
     });
 
-    window.addEventListener('resize', () => Viewport.repaint());
+    window.addEventListener("resize", () => viewport.repaint());
 
-    if (Presentation.frames.length) {
-        Player.playFromFrame(FrameURL.getFrame());
+    if (presentation.frames.length) {
+        player.playFromFrame(FrameURL.getFrame());
     }
 
-    Viewport.repaint();
-    Player.disableBlankScreen();
+    viewport.repaint();
+    player.disableBlankScreen();
 
     document.querySelector(".sozi-blank-screen .spinner").style.display = "none";
 });

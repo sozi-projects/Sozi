@@ -6,29 +6,29 @@
 
 const PREVIEW_MARGIN = 15;
 
-export const Preview = {
+/** Preview area in the presentation editor.
+ *
+ * @category view
+ * @todo Add documentation.
+ */
+export class Preview {
 
-    init(container, presentation, selection, viewport, controller) {
+    constructor(container, presentation, selection, viewport, controller) {
         this.container = container;
         this.presentation = presentation;
         this.selection = selection;
         this.viewport = viewport;
         this.controller = controller;
 
-        controller.addListener("loadSVG", () => this.onLoad());
+        presentation.addListener("svgChange", () => this.onLoad());
         window.addEventListener("resize", () => this.repaint());
         viewport.addListener("mouseDown", () => document.activeElement.blur());
-
-        return this;
-    },
+        viewport.addListener("click", (btn, evt) => this.onClick(btn, evt));
+        viewport.addListener("userChangeState", () => controller.updateCameraStates());
+        controller.addListener("repaint", () => this.repaint());
+    }
 
     onLoad() {
-        this.viewport.addListener("click", (btn, evt) => this.onClick(btn, evt));
-        this.viewport.addListener("userChangeState", () => this.controller.updateCameraStates());
-        this.controller.addListener("repaint", () => this.repaint());
-        this.container.addEventListener("mouseenter", () => this.onMouseEnter(), false);
-        this.container.addEventListener("mouseleave", () => this.onMouseLeave(), false);
-
         // Set the window title to the presentation title
         document.querySelector("html head title").innerHTML = this.presentation.title;
 
@@ -39,7 +39,11 @@ export const Preview = {
         this.container.appendChild(this.presentation.document.root);
 
         this.viewport.onLoad();
-    },
+        this.presentation.setInitialCameraState();
+        
+        this.container.addEventListener("mouseenter", () => this.onMouseEnter(), false);
+        this.container.addEventListener("mouseleave", () => this.onMouseLeave(), false);
+    }
 
     repaint() {
         // this.container is assumed to have padding: 0
@@ -64,7 +68,7 @@ export const Preview = {
         if (this.viewport.ready) {
             this.viewport.repaint();
         }
-    },
+    }
 
     onClick(button, evt) {
         if (button === 0 && evt.altKey) {
@@ -73,7 +77,7 @@ export const Preview = {
                 this.controller.setOutlineElement(outlineElement);
             }
         }
-    },
+    }
 
     /*
      * When the mouse enters the preview area,
@@ -81,14 +85,14 @@ export const Preview = {
      * and show the hidden SVG elements.
      */
     onMouseEnter() {
-        this.viewport.cameras.forEach(camera => {
+        for (let camera of this.viewport.cameras) {
             if (camera.selected) {
                 camera.revealClipping();
             }
-        });
+        }
         this.viewport.showHiddenElements = true;
         this.viewport.repaint();
-    },
+    }
 
     /*
      * When the mouse leaves the preview area,
@@ -96,12 +100,12 @@ export const Preview = {
      * and hide the hidden SVG elements.
      */
     onMouseLeave() {
-        this.viewport.cameras.forEach(camera => {
+        for (let camera of this.viewport.cameras) {
             if (camera.selected) {
                 camera.concealClipping();
             }
-        });
+        }
         this.viewport.showHiddenElements = false;
         this.viewport.repaint();
     }
-};
+}

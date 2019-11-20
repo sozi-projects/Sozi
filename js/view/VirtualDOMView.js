@@ -4,35 +4,64 @@
 
 "use strict";
 
-import h from "virtual-dom/h";
-import createElement from "virtual-dom/create-element";
-import diff from "virtual-dom/diff";
-import patch from "virtual-dom/patch";
+import {render} from "inferno";
+import {h} from "inferno-hyperscript";
 
-export const VirtualDOMView = {
+/** Base class for editor views using the virtual DOM.
+ *
+ * @category view
+ */
+export class VirtualDOMView {
 
-    init(container, controller) {
+    /** Create a new virtual DOM view.
+     *
+     * @param {HTMLElement} container - The parent HTML element that will contain this view.
+     * @param {Controller} controller - The controller that will manage the user actions from this view.
+     */
+    constructor(container, controller) {
+        /** The parent HTML element that will contain this view.
+         * @type {HTMLElement} */
         this.container = container;
+
+        /** The controller that will manage the user actions from this view.
+         * @type {Controller} */
         this.controller = controller;
 
-        this.vtree = h("div");
-        this.rootNode = createElement(this.vtree, {document});
-        container.appendChild(this.rootNode);
+        /** Form field values that need to be set after rendering.
+         * @type {Object} */
+        this.state = {};
 
         const repaintHandler = () => this.repaint();
         controller.addListener("repaint", repaintHandler);
         window.addEventListener("resize", repaintHandler);
 
-        return this;
-    },
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+    }
 
+    /** Repaint this view.
+     *
+     * This will render the current view using the result of {@link VirtualDOMView#render}.
+     */
     repaint() {
-        const vtree = this.render();
-        this.rootNode = patch(this.rootNode, diff(this.vtree, vtree));
-        this.vtree = vtree;
-    },
+        render(this.render(), this.container, () => {
+            for (let prop in this.state) {
+                const elt = document.getElementById("field-" + prop);
+                if (elt) {
+                    for (let attr in this.state[prop]) {
+                        elt[attr] = this.state[prop][attr];
+                    }
+                }
+            }
+        });
+    }
 
+    /** Render this view as a virtual DOM tree.
+     *
+     * @return A virtual DOM tree for this view.
+     */
     render() {
         return h("div");
     }
-};
+}

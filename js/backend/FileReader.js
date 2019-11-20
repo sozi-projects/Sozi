@@ -6,43 +6,50 @@
 
 import {AbstractBackend, addBackend} from "./AbstractBackend";
 
-export const FileReaderBackend = Object.create(AbstractBackend);
+/** Browser FileReader backend.
+ *
+ * @category backend
+ * @extends AbstractBackend
+ * @todo Add documentation.
+ */
+export class FileReaderBackend extends AbstractBackend {
 
-FileReaderBackend.init = function (container, _) {
-    AbstractBackend.init.call(this, container, "sozi-editor-backend-FileReader-input", _('Open an SVG file from your computer (<i class="fa fa-warning"></i> read-only)'));
+    constructor(controller, container) {
+        const _ = controller.gettext;
 
-    document.getElementById("sozi-editor-backend-FileReader-input").addEventListener("click", () => this.openFileChooser());
+        AbstractBackend.init.call(this, controller, container, "sozi-editor-backend-FileReader-input", _('Open an SVG file from your computer (<i class="fas fa-exclamation-triangle"></i> read-only)'));
 
-    this.fileInput = document.createElement("input");
-    this.fileInput.style.display = "none";
-    this.fileInput.setAttribute("type", "file");
-    this.fileInput.setAttribute("accept", "image/svg+xml");
-    container.appendChild(this.fileInput);
+        document.getElementById("sozi-editor-backend-FileReader-input").addEventListener("click", () => this.openFileChooser());
 
-    // Load the SVG document selected in the file input
-    this.fileInput.addEventListener("change", evt => {
-        if (evt.target.files.length) {
-            this.load(evt.target.files[0]);
-        }
-    });
+        this.fileInput = document.createElement("input");
+        this.fileInput.style.display = "none";
+        this.fileInput.setAttribute("type", "file");
+        this.fileInput.setAttribute("accept", "image/svg+xml");
+        container.appendChild(this.fileInput);
 
-    return this;
-};
+        // Load the SVG document selected in the file input
+        this.fileInput.addEventListener("change", evt => {
+            if (evt.target.files.length) {
+                this.load(evt.target.files[0]);
+            }
+        });
+    }
 
-FileReaderBackend.openFileChooser = function () {
-    this.fileInput.dispatchEvent(new MouseEvent("click"));
-};
+    openFileChooser() {
+        this.fileInput.dispatchEvent(new MouseEvent("click"));
+    }
 
-FileReaderBackend.getName = function (fileDescriptor) {
-    return fileDescriptor.name;
-};
+    getName(fileDescriptor) {
+        return fileDescriptor.name;
+    }
 
-FileReaderBackend.load = function (fileDescriptor) {
-    const reader = new FileReader();
-    reader.readAsText(fileDescriptor, "utf8");
-    reader.onload = () => {
-        this.emit("load", fileDescriptor, reader.result, reader.error && reader.error.name);
-    };
-};
+    load(fileDescriptor) {
+        const reader = new FileReader();
+        reader.readAsText(fileDescriptor, "utf8");
+        reader.onload = () => {
+            this.emit("load", fileDescriptor, reader.result, reader.error && reader.error.name);
+        };
+    }
+}
 
 addBackend(FileReaderBackend);

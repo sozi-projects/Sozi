@@ -4,7 +4,6 @@
 
 "use strict";
 
-import {toArray} from "../utils";
 import {Animator} from "./Animator";
 import * as Timing from "./Timing";
 
@@ -23,20 +22,21 @@ export function init(aPlayer) {
     player = aPlayer;
 
     frameList = document.querySelector(".sozi-frame-list");
-
-    links = toArray(frameList.querySelectorAll("li a"));
-    links.forEach(link => {
+    links = frameList.querySelectorAll("li a");
+    
+    for (let link of links) {
         link.addEventListener("click", evt => {
             if (evt.button === 0) {
                 player.previewFrame(link.hash.slice(1));
                 evt.preventDefault();
             }
         });
-    });
+    }
 
-    animator = Object.create(Animator).init();
+    animator = new Animator();
     animator.addListener("step", onAnimatorStep);
     window.addEventListener("keypress", onKeyPress, false);
+    window.addEventListener("resize", () => setCurrentOffset(currentOffset));
     player.viewport.addListener("mouseDown", onMouseDown);
     frameList.addEventListener("mouseout", onMouseOut, false);
     aPlayer.addListener("frameChange", onFrameChange);
@@ -45,7 +45,7 @@ export function init(aPlayer) {
 
 function setCurrentOffset(offset) {
     currentOffset = offset;
-    frameList.style.left = currentOffset * frameList.clientWidth + "px";
+    frameList.style.left = currentOffset * frameList.offsetWidth + "px";
 }
 
 function moveTo(offset) {
@@ -112,9 +112,9 @@ function onMouseOut(evt) {
 }
 
 function onFrameChange() {
-    links.forEach(link => {
+    for (let link of links) {
         link.className = link.hash === "#" + player.currentFrame.frameId ?
             "current" :
             "";
-    });
+    }
 }

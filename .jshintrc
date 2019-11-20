@@ -8,8 +8,8 @@
 
     "browser": true,
     "devel": true,
-    "jquery": true,
+    "jquery": false,
     "node": true,
 
-	"predef": ["gapi", "google", "unescape"]
+	"predef": ["gapi", "google", "unescape", "UIEvent"]
 }

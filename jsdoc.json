@@ -1,0 +1,37 @@
+{
+    "templates": {
+        "better-docs": {
+            "name": "Sozi API documentation",
+            "logo": "sozi-logo-bg.png"
+        },
+        "cleverLinks": false,
+        "navigation": [
+            {
+                "label": "Github",
+                "href": "https://github.com/senshu/Sozi"
+            },
+            {
+                "label": "Home page",
+                "href": "https://sozi.baierouge.fr"
+            }
+        ],
+        "default": {
+            "staticFiles": {
+                "include": [
+                    "./doc/sozi-logo-bg.png"
+                ]
+            }
+        }
+    },
+    "tags": {
+        "allowUnknownTags": ["category"]
+    },
+    "plugins": [
+        "plugins/markdown",
+        "node_modules/better-docs/category"
+    ],
+    "opts": {
+        "template": "node_modules/better-docs",
+        "readme": "./README.jsdoc.md"
+    }
+}

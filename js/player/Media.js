@@ -4,9 +4,7 @@
 
 "use strict";
 
-import {toArray} from "../utils";
-
-const	svgNs = "http://www.w3.org/2000/svg";
+const svgNs = "http://www.w3.org/2000/svg";
 const soziNs = "http://sozi.baierouge.fr";
 const xhtmlNs = "http://www.w3.org/1999/xhtml";
 
@@ -22,14 +20,14 @@ const mediaToStopByFrameId = {};
 function onFrameChange() {
     const frameId = player.currentFrame.frameId;
     if (frameId in mediaToStartByFrameId) {
-        mediaToStartByFrameId[frameId].forEach(m => {
+        for (let m of mediaToStartByFrameId[frameId]) {
             m.play();
-        });
+        }
     }
     if (frameId in mediaToStopByFrameId) {
-        mediaToStopByFrameId[frameId].forEach(m => {
+        for (let m of mediaToStopByFrameId[frameId]) {
             m.pause();
-        });
+        }
     }
 }
 
@@ -56,14 +54,12 @@ export function init(aPlayer) {
     }
 
     // Get custom video and audio elements
-    const videoSources = svgRoot.getElementsByTagName(soziPrefix + ":video");
-    const audioSources = svgRoot.getElementsByTagName(soziPrefix + ":audio");
-
-    const mediaSources = toArray(videoSources).concat(toArray(audioSources));
+    const videoSources = Array.from(svgRoot.getElementsByTagName(soziPrefix + ":video"));
+    const audioSources = Array.from(svgRoot.getElementsByTagName(soziPrefix + ":audio"));
 
     // Replace them with HTML5 audio and video elements
     const mediaList = [];
-    mediaSources.forEach(source => {
+    for (let source of videoSources.concat(audioSources)) {
         const rect = source.parentNode;
         const tagName = source.localName.slice(soziPrefix.length + 1);
 
@@ -82,12 +78,18 @@ export function init(aPlayer) {
         if (j === mediaList.length) {
             rect.setAttribute("visibility", "hidden");
 
+            const width  = rect.getAttribute("width");
+            const height = rect.getAttribute("height");
+
             // Create HTML media element
             const htmlMedia = document.createElementNS(xhtmlNs, tagName);
-            htmlMedia.setAttribute("controls", "controls");
+            if (source.getAttribute(soziPrefix + ":controls") === "true") {
+                htmlMedia.setAttribute("controls", "controls");
+                htmlMedia.setAttribute("style", `width:${width}px;height:${height}px;`);
+            }
             if (tagName === "video") {
-                htmlMedia.setAttribute("width", rect.getAttribute("width"));
-                htmlMedia.setAttribute("height", rect.getAttribute("height"));
+                htmlMedia.setAttribute("width", width);
+                htmlMedia.setAttribute("height", height);
             }
             htmlMedia.addEventListener("click", defaultEventHandler, false);
             htmlMedia.addEventListener("mousedown", defaultEventHandler, false);
@@ -103,8 +105,8 @@ export function init(aPlayer) {
             const foreignObject = document.createElementNS(svgNs, "foreignObject");
             foreignObject.setAttribute("x", rect.getAttribute("x"));
             foreignObject.setAttribute("y", rect.getAttribute("y"));
-            foreignObject.setAttribute("width", rect.getAttribute("width"));
-            foreignObject.setAttribute("height", rect.getAttribute("height"));
+            foreignObject.setAttribute("width", width);
+            foreignObject.setAttribute("height", height);
             foreignObject.appendChild(html);
 
             rect.parentNode.insertBefore(foreignObject, rect.nextSibling);
@@ -134,5 +136,16 @@ export function init(aPlayer) {
 
         // Append HTML source element to current HTML media element
         mediaList[j].htmlMedia.appendChild(htmlSource);
-    });
+    }
+}
+
+export function disable() {
+    player.removeListener("frameChange", onFrameChange);
+
+    const frameId = player.currentFrame.frameId;
+    if (frameId in mediaToStartByFrameId) {
+        for (let m of mediaToStartByFrameId[frameId]) {
+            m.pause();
+        }
+    }
 }

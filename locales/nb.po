@@ -7,329 +7,493 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-03-09 08:42:+0000\n"
-"PO-Revision-Date: 2018-05-01 10:55+0000\n"
+"POT-Creation-Date: 2019-11-17 01:28:+0000\n"
+"PO-Revision-Date: 2019-01-07 19:07+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/sozi/"
-"translations/nb/>\n"
+"translations/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.9-dev\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 
-#: js/backend/Electron.js:28
+#: js/backend/Electron.js:35
 msgid "Open an SVG file from your computer"
 msgstr "Åpne ei SVG-fil fra datamaskinen din"
 
-#: js/backend/Electron.js:56
+#: js/backend/Electron.js:67
+msgid "Do you want to save the presentation before closing?"
+msgstr "Ønsker du å lagre denne presentasjonen før du lukker den?"
+
+#: js/backend/Electron.js:68
+msgid "Yes"
+msgstr "Ja"
+
+#: js/backend/Electron.js:68
+msgid "No"
+msgstr "Nei"
+
+#: js/backend/Electron.js:91
 msgid "File not found: %s."
 msgstr "Fil ikke funnet: %s."
 
-#: js/backend/Electron.js:70
+#: js/backend/Electron.js:124
 msgid "Choose an SVG file"
 msgstr "Velg ei SVG-fil"
 
-#: js/backend/Electron.js:71
+#: js/backend/Electron.js:125
 msgid "SVG files"
 msgstr "SVG-filer"
 
-#: js/backend/FileReader.js:12
+#: js/backend/FileReader.js:20
 msgid ""
-"Open an SVG file from your computer (<i class=\"fa fa-warning\"></i> read-"
-"only)"
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
 msgstr ""
-"Åpne ei SVG-fil fra din datamaskin (<i class=\"fa fa-warning\""
-"></i>skrivebeskyttet)"
+"Åpne ei SVG-fil fra din datamaskin (<i class=\"fas fa-exclamation-triangle"
+"\"></i>skrivebeskyttet)"
 
-#: js/backend/GoogleDrive.js:16
+#: js/backend/GoogleDrive.js:20
 msgid "Open an SVG file from Google Drive"
 msgstr "Åpne ei SVG-fil fra Google Drive"
 
-#: js/Controller.js:38
+#: js/Controller.js:125
 msgid "Sozi (Information)"
 msgstr "Sozi (informasjon)"
 
-#: js/Controller.js:44
+#: js/Controller.js:135
 msgid "Sozi (Error)"
 msgstr "Sozi (feil)"
 
-#: js/Storage.js:78
+#: js/Storage.js:81
 msgid "File %s could not be loaded."
 msgstr "Fila %s kunne ikke lastes inn."
 
-#: js/Storage.js:93 js/Storage.js:102
+#: js/Storage.js:98 js/Storage.js:107
 msgid "Document is not valid SVG."
 msgstr "Dokumentet er ikke gyldig SVG-format."
 
-#: js/Storage.js:137
+#: js/Storage.js:143 js/Storage.js:149
 msgid "Document was changed. Reloading."
 msgstr "Dokumentet er endret. Laster på ny."
 
-#: js/Storage.js:163
+#: js/Storage.js:158
+#, fuzzy
+msgid "Document was changed."
+msgstr "Dokumentet er endret. Laster på ny."
+
+#: js/Storage.js:184
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Dokumentet ble importert fra Sozi 13 eller tidligere."
 
-#: js/Storage.js:221 js/Storage.js:242
+#: js/Storage.js:256 js/Storage.js:277
 msgid "Saved %s."
 msgstr "Lagret %s."
 
-#: js/view/Properties.js:41 js/view/Properties.js:137
-msgid "Fit to element"
-msgstr "Juster til element"
+#: js/view/Properties.js:43
+#, fuzzy
+msgid "Autoselect outline element"
+msgstr "Autovelg element"
 
-#: js/view/Properties.js:42 js/view/Properties.js:119
+#: js/view/Properties.js:44 js/view/Properties.js:153
 msgid "Reset layer geometry"
 msgstr "Tilbakestill laggeometri"
 
-#: js/view/Properties.js:43 js/view/Timeline.js:272
+#: js/view/Properties.js:45 js/view/Timeline.js:137
 msgid "Create a new frame"
 msgstr "Opprett ny ramme"
 
-#: js/view/Properties.js:44 js/view/Toolbar.js:110
+#: js/view/Properties.js:46 js/view/Properties.js:69 js/view/Toolbar.js:114
 msgid "Save the presentation"
 msgstr "Lagre presentasjonen"
 
-#: js/view/Properties.js:45 js/view/Toolbar.js:94
+#: js/view/Properties.js:47 js/view/Toolbar.js:98
 msgid "Redo"
 msgstr "Gjenta"
 
-#: js/view/Properties.js:46 js/view/Toolbar.js:89
+#: js/view/Properties.js:48 js/view/Toolbar.js:93
 msgid "Undo"
 msgstr "Angre"
 
-#: js/view/Properties.js:47
+#: js/view/Properties.js:49
 msgid "Focus the frame title"
 msgstr "Fokuser på rammetittelen"
 
-#: js/view/Properties.js:48 js/view/Toolbar.js:115
+#: js/view/Properties.js:50 js/view/Properties.js:74 js/view/Toolbar.js:119
 msgid "Reload the SVG document"
 msgstr "Gjeninnlast SVG-dokumentet"
 
-#: js/view/Properties.js:49
+#: js/view/Properties.js:51
 msgid "Toggle full-screen mode"
 msgstr "Veksle fullskjermsvisning"
 
-#: js/view/Properties.js:50
+#: js/view/Properties.js:52
 msgid "Toggle the developer tools"
 msgstr "Veksle utviklerverktøyene"
 
-#: js/view/Properties.js:60
+#: js/view/Properties.js:62
 msgid "User interface"
 msgstr "Brukergrensesnitt"
 
-#: js/view/Properties.js:61
+#: js/view/Properties.js:63
 msgid "Font size"
 msgstr "Skriftstørrelse"
 
-#: js/view/Properties.js:64
+#: js/view/Properties.js:66
 msgid "Enable notifications on save and reload"
 msgstr "Skru på merknader ved lagring og gjeninnlasting"
 
-#: js/view/Properties.js:65
+#: js/view/Properties.js:67
 msgid "Enable notifications"
 msgstr "Skru på merknader"
 
-#: js/view/Properties.js:67
+#: js/view/Properties.js:71
+#, fuzzy
+msgid "When Sozi loses the focus"
+msgstr "Når Sozi er ute av fokus"
+
+#: js/view/Properties.js:72 js/view/Properties.js:78
+msgid "Manually"
+msgstr "Manuelt"
+
+#: js/view/Properties.js:76
+msgid "Automatically"
+msgstr "Automatisk"
+
+#: js/view/Properties.js:77
+msgid "When Sozi gets the focus"
+msgstr "Når Sozi er ute av fokus"
+
+#: js/view/Properties.js:80
 msgid "Behavior"
 msgstr "Oppførsel"
 
-#: js/view/Properties.js:69
+#: js/view/Properties.js:82
 msgid "Preview transition animations"
 msgstr "Forhåndsvis overgangsanimasjoner"
 
-#: js/view/Properties.js:70
+#: js/view/Properties.js:83
 msgid "Enable animated transitions"
 msgstr "Skru på animerte overganger"
 
-#: js/view/Properties.js:72
+#: js/view/Properties.js:85
 msgid "Keyboard shortcuts"
 msgstr "Tastatursnarveier"
 
-#: js/view/Properties.js:84
+#: js/view/Properties.js:98
+msgid "Basic formatting supported:"
+msgstr "Enkel formatering støttes:"
+
+#: js/view/Properties.js:100
+msgid "Ctrl+B: Bold"
+msgstr "Ctrl+B: Fet"
+
+#: js/view/Properties.js:101
+msgid "Ctrl+I: Italic"
+msgstr "Ctrl+I: Kursiv"
+
+#: js/view/Properties.js:102
+msgid "Ctrl+U: Underline"
+msgstr "Ctrl+U: Understrek"
+
+#: js/view/Properties.js:103
+msgid "Ctrl+0: Paragraph"
+msgstr "Ctrl+0: Avsnitt"
+
+#: js/view/Properties.js:104
+msgid "Ctrl+1: Big header"
+msgstr "Ctrl+1: Stor overskrift"
+
+#: js/view/Properties.js:105
+msgid "Ctrl+2: Medium header"
+msgstr "Ctrl: Middels overskrift"
+
+#: js/view/Properties.js:106
+msgid "Ctrl+3: Small header"
+msgstr "Ctrl+3: Liten overskrift"
+
+#: js/view/Properties.js:107
+msgid "Ctrl+L: List"
+msgstr "Ctrl+L: Liste"
+
+#: js/view/Properties.js:108
+msgid "Ctrl+N: Numbered list"
+msgstr "Ctrl+N: Nummerert liste"
+
+#: js/view/Properties.js:115
 msgid "Select a layer to copy"
 msgstr "Velg et lag å kopiere"
 
-#: js/view/Properties.js:87 js/view/Timeline.js:314 js/view/Timeline.js:344
+#: js/view/Properties.js:118 js/view/Timeline.js:184 js/view/Timeline.js:212
 msgid "Default"
 msgstr "Standardverdi"
 
-#: js/view/Properties.js:94
+#: js/view/Properties.js:125
 msgid "Frame"
 msgstr "Ramme"
 
-#: js/view/Properties.js:97
+#: js/view/Properties.js:128
 msgid "Show in frame list"
 msgstr "Vis i rammeliste"
 
-#: js/view/Properties.js:98
+#: js/view/Properties.js:129
 msgid "Show frame number"
 msgstr "Vis rammenummer"
 
-#: js/view/Properties.js:101
+#: js/view/Properties.js:132
 msgid "Title"
 msgstr "Tittel"
 
-#: js/view/Properties.js:104
+#: js/view/Properties.js:135
+#, fuzzy
+msgid "Title level in frame list"
+msgstr "Vis i rammeliste"
+
+#: js/view/Properties.js:138
 msgid "Id"
 msgstr "ID"
 
-#: js/view/Properties.js:108
+#: js/view/Properties.js:142
 msgid "Timeout (seconds)"
 msgstr "Tidsavbrudd (sekunder)"
 
-#: js/view/Properties.js:109
+#: js/view/Properties.js:143
 msgid "Timeout enable"
 msgstr "Aktiver tidsavbrudd"
 
-#: js/view/Properties.js:113
+#: js/view/Properties.js:147
 msgid "Layer"
 msgstr "Lag"
 
-#: js/view/Properties.js:116
+#: js/view/Properties.js:150
 msgid "Link to previous frame"
 msgstr "Lenke til forrige ramme"
 
-#: js/view/Properties.js:117 js/view/Toolbar.js:82
+#: js/view/Properties.js:151
 msgid "Clip"
 msgstr "Klipp"
 
-#: js/view/Properties.js:124
+#: js/view/Properties.js:158
 msgid "Copy layer"
 msgstr "Kopier bilde"
 
-#: js/view/Properties.js:131
+#: js/view/Properties.js:165
 msgid "Outline element Id"
 msgstr "ID for elementets omriss"
 
-#: js/view/Properties.js:134
+#: js/view/Properties.js:168
 msgid "Autoselect element"
 msgstr "Autovelg element"
 
-#: js/view/Properties.js:135
+#: js/view/Properties.js:171
 msgid "Hide element"
 msgstr "Skjul element"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:176
 msgid "Layer opacity"
 msgstr "Lag-gjennomsiktighet"
 
-#: js/view/Properties.js:148
+#: js/view/Properties.js:179
 msgid "Transition"
 msgstr "Overgang"
 
-#: js/view/Properties.js:150
+#: js/view/Properties.js:179
+#, fuzzy
+msgid "Configure the animation when moving to the selected frames."
+msgstr "Sett opp animasjon ved flytting til valgte rammer."
+
+#: js/view/Properties.js:181
 msgid "Duration (seconds)"
 msgstr "Varighet (sekunder)"
 
-#: js/view/Properties.js:153
+#: js/view/Properties.js:184
 msgid "Timing function"
 msgstr "Tidsfunksjon"
 
-#: js/view/Properties.js:165
+#: js/view/Properties.js:186
+msgid "Linear"
+msgstr "Lineær"
+
+#: js/view/Properties.js:187
+msgid "Ease"
+msgstr "Mykgjør"
+
+#: js/view/Properties.js:188
+msgid "Ease in"
+msgstr "Myk inn"
+
+#: js/view/Properties.js:189
+msgid "Ease out"
+msgstr "Myk ut"
+
+#: js/view/Properties.js:190
+msgid "Ease in-out"
+msgstr "Mykgjør inn-ut"
+
+#: js/view/Properties.js:191
+msgid "Step start"
+msgstr "Stegstart"
+
+#: js/view/Properties.js:192
+msgid "Step end"
+msgstr "Stegslutt"
+
+#: js/view/Properties.js:193
+msgid "Step middle"
+msgstr "Midtsteg"
+
+#: js/view/Properties.js:196
 msgid "Relative zoom (%)"
 msgstr "Relativ zoom (%)"
 
-#: js/view/Properties.js:169
+#: js/view/Properties.js:200
 msgid "Path Id"
 msgstr "Sti-ID"
 
-#: js/view/Properties.js:170
+#: js/view/Properties.js:201
 msgid "Hide path"
 msgstr "Skjul sti"
 
-#: js/view/Properties.js:174
+#: js/view/Properties.js:205
+msgid "Notes"
+msgstr "Merknader"
+
+#: js/view/Properties.js:205
+#, fuzzy
+msgid ""
+"Edit presenter notes. Click here to show the list of formatting shortcuts."
+msgstr ""
+"Rediger presentørnotiser. Klikk her for å vise en liste over "
+"formateringssnarveier."
+
+#: js/view/Properties.js:209
 msgid "Player"
 msgstr "Avspiller"
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:212
+msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
+msgstr ""
+"Støtte for nettleserens \"Tilbake\"-knapp for å gå tilbake i presentasjonen"
+
+#: js/view/Properties.js:213
+#, fuzzy
+msgid ""
+"Moving from one frame to another will change the content of the location bar "
+"automatically."
+msgstr ""
+"Flytting av én ramme til en annen endrer innholdet i plasseringsfeltet "
+"automatisk"
+
+#: js/view/Properties.js:217
 msgid "Allow to control the presentation"
 msgstr "Tillat kontroll over presentasjonen"
 
-#: js/view/Properties.js:179 js/view/Properties.js:186
-#: js/view/Properties.js:192 js/view/Properties.js:200
+#: js/view/Properties.js:219 js/view/Properties.js:226
+#: js/view/Properties.js:232 js/view/Properties.js:240
 msgid "using the mouse"
 msgstr "ved bruk av musen"
 
-#: js/view/Properties.js:180 js/view/Properties.js:193
-#: js/view/Properties.js:201
+#: js/view/Properties.js:220 js/view/Properties.js:233
+#: js/view/Properties.js:241
 msgid "using the keyboard"
 msgstr "ved bruk av tastaturet"
 
-#: js/view/Properties.js:185
+#: js/view/Properties.js:225
 msgid "Allow to move the camera"
 msgstr "Tillat flytting av kameraet"
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:230
 msgid "Allow to rotate the camera"
 msgstr "Tillat rotering av kameraet"
 
-#: js/view/Properties.js:198
+#: js/view/Properties.js:238
 msgid "Allow to zoom"
 msgstr "Tillat forstørring"
 
-#: js/view/Timeline.js:265
+#: js/view/Timeline.js:130
 msgid "Delete the selected frames"
 msgstr "Slett valgte rammer"
 
-#: js/view/Timeline.js:286
+#: js/view/Timeline.js:156
 msgid "Add layer"
 msgstr "Legg til lag"
 
-#: js/view/Timeline.js:302 js/view/Timeline.js:323
+#: js/view/Timeline.js:157
+#, fuzzy
+msgid "Add all layers"
+msgstr "Legg til lag"
+
+#: js/view/Timeline.js:172 js/view/Timeline.js:192
 msgid "This layer is visible. Click to hide it."
 msgstr "Laget er synlig. Klikk for å skjule."
 
-#: js/view/Timeline.js:306 js/view/Timeline.js:327
+#: js/view/Timeline.js:176 js/view/Timeline.js:196
 msgid "This layer is hidden. Click to show it."
 msgstr "Laget er skjult. Klikk for å vise."
 
-#: js/view/Timeline.js:331
+#: js/view/Timeline.js:200
 msgid "Remove this layer"
 msgstr "Fjern lag"
 
-#: js/view/Timeline.js:357
+#: js/view/Timeline.js:225
 msgid "Insert selection before frame %d"
 msgstr "Sett inn utvalg før ramme %d"
 
-#: js/view/Timeline.js:364
+#: js/view/Timeline.js:232
 msgid "Insert selection after frame %d"
 msgstr "Sett inn utvalg etter ramme %d"
 
-#: js/view/Toolbar.js:34
+#: js/view/Toolbar.js:38
 msgid "Aspect ratio: "
 msgstr "Størrelsesforhold: "
 
-#: js/view/Toolbar.js:67
+#: js/view/Toolbar.js:71
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr "Flytt valgte lag (trykk Alt for å zoome, Shift for å rotere)"
 
-#: js/view/Toolbar.js:72
+#: js/view/Toolbar.js:76
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
 "Forstørr/forminsk valgte lag (du kan også holde Alt-tasten i flyttemodus)"
 
-#: js/view/Toolbar.js:77
+#: js/view/Toolbar.js:81
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr "Roter valgt lag (du kan også holde Shift-tasten i flyttemodus)"
 
-#: js/view/Toolbar.js:101
+#: js/view/Toolbar.js:86
+#, fuzzy
+msgid "Edit the clipping area"
+msgstr "Rediger klippeområdet"
+
+#: js/view/Toolbar.js:105
 msgid "Disable full-screen mode"
 msgstr "Skru av fullskjermsvisning"
 
-#: js/view/Toolbar.js:101
+#: js/view/Toolbar.js:105
 msgid "Enable full-screen mode"
 msgstr "Fullskjermsvisning"
 
-#: js/view/Toolbar.js:121
+#: js/view/Toolbar.js:125
 msgid "Preferences"
 msgstr "Innstillinger"
 
-#: js/view/Toolbar.js:126
+#: js/view/Toolbar.js:130
 msgid "Information"
 msgstr "Informasjon"
+
+#~ msgid "Fit to element"
+#~ msgstr "Juster til element"
+
+#, fuzzy
+#~ msgid "Formatting shortcuts"
+#~ msgstr "Tastatursnarveier"
+
+#, fuzzy
+#~ msgid "Document was changed. Use the reload button."
+#~ msgstr "Dokumentet er endret. Laster på ny."

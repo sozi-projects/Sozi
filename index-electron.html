@@ -8,14 +8,15 @@
         <meta charset="utf-8">
         <title>Sozi</title>
 
-        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
         <link rel="stylesheet" href="css/sozi.editor.view.css">
         <link rel="stylesheet" href="css/sozi.editor.view.Properties.css">
         <link rel="stylesheet" href="css/sozi.editor.view.Preview.css">
         <link rel="stylesheet" href="css/sozi.editor.view.Timeline.css">
         <link rel="stylesheet" href="css/sozi.editor.view.Toolbar.css">
 
-        <script>
+        <script defer>
+            process.env.NODE_ENV = "production";
             require("./js/editor.js");
         </script>
     </head>

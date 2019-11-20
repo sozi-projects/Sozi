@@ -61,11 +61,11 @@ function loop() {
 
         // Step all animators. We iterate over a copy of the animator list
         // in case the step() method removes an animator from the list.
-        animatorList.forEach(animator => {
+        for (let animator of animatorList) {
             if (animator.running) {
                 animator.step();
             }
-        });
+        }
     }
     else if (!doRequestAnimationFrame) {
         // If all animators have been removed,
@@ -91,67 +91,70 @@ function start() {
     }
 }
 
-/*
- * An animator provides the logic for animating other objects.
+/** An animator provides the logic for animating other objects.
  *
  * The main purpose of an animator is to schedule the update
  * operations in the animated objects.
- */
-export const Animator = Object.create(EventEmitter.prototype);
-
-Animator.init = function () {
-    EventEmitter.call(this);
-    this.durationMs = 500;
-    this.initialTime = 0;
-    this.running = false;
-    animatorList.push(this);
-    return this;
-};
-
-/*
- * Start the current animator.
  *
- * The "step" event is fired once before starting the animation.
+ * @category player
+ * @extends EventEmitter
+ * @todo Add documentation
  */
-Animator.start = function (durationMs) {
-    this.durationMs = durationMs;
-    this.initialTime = perf.now();
-    this.emit("step", 0);
-    if (!this.running) {
-        this.running = true;
-        runningAnimators ++;
-        if (runningAnimators === 1) {
-            start();
+export class Animator extends EventEmitter {
+
+    constructor() {
+        super();
+        this.durationMs = 500;
+        this.initialTime = 0;
+        this.running = false;
+        animatorList.push(this);
+    }
+
+    /*
+     * Start the current animator.
+     *
+     * The "step" event is fired once before starting the animation.
+     */
+    start(durationMs) {
+        this.durationMs = durationMs;
+        this.initialTime = perf.now();
+        this.emit("step", 0);
+        if (!this.running) {
+            this.running = true;
+            runningAnimators ++;
+            if (runningAnimators === 1) {
+                start();
+            }
         }
     }
-};
 
-/*
- * Stop the current animator.
- */
-Animator.stop = function () {
-    if (this.running) {
-        this.running = false;
-        runningAnimators --;
-        this.emit("stop");
+    /*
+     * Stop the current animator.
+     */
+    stop() {
+        if (this.running) {
+            this.running = false;
+            runningAnimators --;
+            this.emit("stop");
+        }
     }
-};
 
-/*
- * Perform one animation step.
- *
- * This function is called automatically by the loop() function.
- * It fires the "step" event with the current progress (elapsed time / duration).
- * If the animation duration has elapsed, the "done" event is fired.
- */
-Animator.step = function () {
-    const elapsedTime = perf.now() - this.initialTime;
-    if (elapsedTime >= this.durationMs) {
-        this.emit("step", 1);
-        this.running = false;
-        runningAnimators --;
-        this.emit("done");
-    } else {
-        this.emit("step", elapsedTime / this.durationMs);
+    /*
+     * Perform one animation step.
+     *
+     * This function is called automatically by the loop() function.
+     * It fires the "step" event with the current progress (elapsed time / duration).
+     * If the animation duration has elapsed, the "done" event is fired.
+     */
+    step() {
+        const elapsedTime = perf.now() - this.initialTime;
+        if (elapsedTime >= this.durationMs) {
+            this.emit("step", 1);
+            this.running = false;
+            runningAnimators --;
+            this.emit("done");
+        } else {
+            this.emit("step", elapsedTime / this.durationMs);
+        }
     }
-};
+}
