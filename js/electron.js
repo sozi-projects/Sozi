@@ -25,6 +25,10 @@ function createWindow () {
 
     mainWindow.loadURL(`file://${__dirname}/../index.html`);
 
+    mainWindow.on("leave-html-full-screen", () => {
+        mainWindow.setMenuBarVisibility(false);
+    });
+    
     // Emitted when the window is closed.
     mainWindow.on("closed", function () {
         // Dereference the window object, usually you would store windows
