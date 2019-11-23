@@ -9,15 +9,15 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="532.88043"
-   height="550.37225"
+   width="529.10089"
+   height="529.10101"
    id="svg2"
    version="1.1"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="sozi-logo-bg.svg"
-   inkscape:export-filename="/home/guillaume/Travail/Sozi/Sozi.git/doc/sozi-logo-bg.png"
-   inkscape:export-xdpi="11.61"
-   inkscape:export-ydpi="11.61">
+   inkscape:export-filename="/home/guillaume/Travail/Sozi/Sozi.git/icons/icon-16.png"
+   inkscape:export-xdpi="2.9000001"
+   inkscape:export-ydpi="2.9000001">
   <defs
      id="defs4">
     <inkscape:path-effect
@@ -101,9 +101,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="190.92042"
-     inkscape:cy="287.77229"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="149.51092"
+     inkscape:cy="155.5652"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -133,14 +133,14 @@
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-242.27363,-416.52055)">
+     transform="translate(-244.16339,-426.30557)">
     <ellipse
-       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.77952766;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.7795279;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path62"
        cx="508.71384"
-       cy="691.70667"
+       cy="690.85608"
        rx="264.55045"
-       ry="273.29636" />
+       ry="264.55051" />
     <path
        style="fill:#ffcc00;fill-opacity:1;stroke:#ffcc00;stroke-width:0.99921262;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="m 664.99729,654.7941 c -0.97165,-3.16732 -3.59682,-16.13813 -5.08854,-25.14219 -2.99137,-18.05589 -4.38349,-32.97732 -5.10094,-54.67451 -0.28238,-8.53959 -0.22726,-9.72271 0.45298,-9.72271 2.82778,0 16.87096,6.38731 23.01633,10.4686 12.37658,8.21958 18.92606,18.74124 19.57856,31.45273 0.2441,4.75551 0.13785,5.72066 -1.02871,9.34391 -2.68567,8.34152 -9.34372,17.86718 -19.76885,28.28324 -3.61501,3.61186 -7.74554,7.53957 -9.17896,8.72824 -2.2368,1.85487 -2.6453,2.03385 -2.88187,1.26269 z"
