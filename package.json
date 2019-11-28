@@ -2,7 +2,7 @@
   "name": "sozi",
   "description": "A zooming presentation editor",
   "author": "Guillaume Savaton",
-  "version": "19.11.17",
+  "version": "19.11.28",
   "license": "MPL-2.0",
   "main": "js/electron.js",
   "scripts": {

@@ -147,7 +147,7 @@ window.addEventListener("load", () => {
         }
 
         // Keyboard acctions that may collide with text inputs.
-        if (!actionFound && !/INPUT|SELECT|TEXTAREA|SECTION/.test(document.activeElement.tagName)) {
+        if (!actionFound && !/input|select|textarea|section/i.test(document.activeElement.tagName)) {
             actionFound = true;
             switch (evt.key) {
                 case "End":

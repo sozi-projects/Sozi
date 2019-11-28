@@ -7,6 +7,10 @@ import {CameraState} from "../model/CameraState";
 // Constant: the Sozi namespace
 const SVG_NS = "http://www.w3.org/2000/svg";
 
+export function hasReliableBoundaries(elt) {
+    return !/text|textpath|tspan/i.test(elt.tagName);
+}
+
 /** Camera.
  *
  * @category player
@@ -162,28 +166,27 @@ export class Camera extends CameraState {
     }
 
     getCandidateReferenceElement() {
-        // getIntersectionList is not supported in Gecko
+        // FIXME getIntersectionList is not supported in Gecko
         if (!this.layer.svgNodes.length || !this.svgRoot.getIntersectionList) {
             return {element: null, score: null};
         }
 
         // Get all elements that intersect with the viewport.
-        const viewportRect = this.svgRoot.createSVGRect();
-        viewportRect.x = 0;
-        viewportRect.y = 0;
-        viewportRect.width = this.viewport.width;
-        viewportRect.height = this.viewport.height;
-        const viewportArea = this.viewport.width * this.viewport.height;
-
+        const viewportArea     = this.viewport.width * this.viewport.height;
+        const viewportRect     = this.svgRoot.createSVGRect();
+        viewportRect.x         = 0;
+        viewportRect.y         = 0;
+        viewportRect.width     = this.viewport.width;
+        viewportRect.height    = this.viewport.height;
         const intersectionList = this.svgRoot.getIntersectionList(viewportRect, this.layer.svgNodes[0]);
 
         // Find the element whose bounding box best fits in the viewport.
         let element = null;
-        let score = null;
+        let score   = null;
 
         for (let elt of intersectionList) {
-            if (elt.hasAttribute("id")) {
-                // TODO getBoundingClientRect returns bounding box of bounding box
+            if (elt.hasAttribute("id") && hasReliableBoundaries(elt)) {
+                // FIXME getBoundingClientRect returns bounding box of bounding box
                 const eltRect = elt.getBoundingClientRect();
                 const eltArea = eltRect.width * eltRect.height;
 

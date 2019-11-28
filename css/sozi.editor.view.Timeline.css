@@ -148,6 +148,10 @@
  * Colors
  */
 
+.timeline-bottom-right td {
+    color: rgb(80, 80, 80);
+}
+
 .timeline td,
 .timeline th.frame-index,
 .timeline th.frame-title {

@@ -117,6 +117,14 @@ export class Timeline extends VirtualDOMView {
             return even;
         }
 
+        function isLinked(frame, layer) {
+            return frame.index > 0 && frame.layerProperties[layer.index].link
+        }
+
+        function hasNoReferenceElement(frame, layer) {
+            return !isLinked(frame, layer) && !frame.layerProperties[layer.index].referenceElement;
+        }
+
         const defaultLayersAreVisible = controller.defaultLayers.some(layer => layer.isVisible);
 
         return h("div", [
@@ -259,10 +267,10 @@ export class Timeline extends VirtualDOMView {
                             className:
                                 (controller.defaultLayersAreSelected && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
                                 (frame === this.selection.currentFrame ? " current" : "") +
-                                (frameIndex > 0 && frame.layerProperties[controller.defaultLayers[0].index].link ? " link" : "") +
+                                (isLinked(frame, controller.defaultLayers[0]) ? " link" : "") +
                                 (updateEven(frame, controller.defaultLayers[0]) ? " even" : " odd"),
                             onclick: evt => this.updateLayerAndFrameSelection(-1, frameIndex, evt)
-                        }))
+                        }, hasNoReferenceElement(frame, controller.defaultLayers[0]) ? h("i.fas.fa-exclamation-triangle", {title: _("You should add graphic elements in the current area to help Sozi keep track of this layer's position.")}) : null))
                     ) : null,
                     this.presentation.layers.slice().reverse()
                         .filter(layer => controller.editableLayers.indexOf(layer) >= 0)
@@ -271,10 +279,10 @@ export class Timeline extends VirtualDOMView {
                                 className:
                                     (this.selection.selectedLayers.indexOf(layer) >= 0 && this.selection.selectedFrames.indexOf(frame) >= 0 ? "selected" : "") +
                                     (frame === this.selection.currentFrame ? " current" : "") +
-                                    (frameIndex > 0 && frame.layerProperties[layer.index].link ? " link" : "") +
+                                    (isLinked(frame, layer) ? " link" : "") +
                                     (updateEven(frame, layer) ? " even" : " odd"),
                                 onclick: evt => this.updateLayerAndFrameSelection(layer.index, frameIndex, evt)
-                            })
+                            }, hasNoReferenceElement(frame, layer) ? h("i.fas.fa-exclamation-triangle", _("You should add graphic elements in the current area to help Sozi keep track of this layer's position.")) : null)
                         ))),
                     h("tr.collapse",
                         this.presentation.frames.map(frame => h("td", frame.title))

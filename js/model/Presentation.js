@@ -4,6 +4,7 @@
 
 import {EventEmitter} from "events";
 import {CameraState} from "./CameraState";
+import {hasReliableBoundaries} from "../player/Camera";
 
 function copyIfSet(dest, src, prop) {
     if (src.hasOwnProperty(prop)) {
@@ -84,7 +85,8 @@ export class LayerProperties {
     }
 
     get referenceElement() {
-        return this.frame.presentation.document.root.getElementById(this.referenceElementId);
+        const elt = this.frame.presentation.document.root.getElementById(this.referenceElementId);
+        return elt && hasReliableBoundaries(elt) ? elt : null;
     }
 
     get outlineElement() {

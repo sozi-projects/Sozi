@@ -78,6 +78,7 @@ export class Controller extends EventEmitter {
         this.redoStack = [];
 
         this.addListener("repaint", () => this.onRepaint());
+        player.addListener("frameChange", () => this.onFrameChange());
     }
 
     /** Convert this instance to a plain object that can be stored as JSON.
@@ -150,6 +151,24 @@ export class Controller extends EventEmitter {
             else {
                 this.player.jumpToFrame(this.selection.currentFrame);
             }
+        }
+    }
+
+    onFrameChange() {
+        let changed = false;
+        for (let layer of this.presentation.layers) {
+            const layerProperties = this.selection.currentFrame.layerProperties[layer.index];
+            if (layer.isVisible) {
+                // Update the reference SVG element if applicable.
+                const {element} = this.viewport.cameras[layer.index].getCandidateReferenceElement();
+                if (element && element !== layerProperties.referenceElement) {
+                    layerProperties.referenceElementId = element.getAttribute("id");
+                    changed = true;
+                }
+            }
+        }
+        if (changed) {
+            this.emit("repaint");
         }
     }
 
@@ -926,7 +945,7 @@ export class Controller extends EventEmitter {
 
         for (let layer of this.selection.selectedLayers) {
             const {element, score} = this.viewport.cameras[layer.index].getCandidateReferenceElement();
-            if (element && element.hasAttribute("id") && (outlineScore === null || score < outlineScore)) {
+            if (element && (outlineScore === null || score < outlineScore)) {
                 outlineElt   = element;
                 outlineScore = score;
             }
@@ -1229,7 +1248,7 @@ export class Controller extends EventEmitter {
 
             // Update the reference SVG element if applicable.
             const {element} = camera.getCandidateReferenceElement();
-            if (element && element.hasAttribute("id")) {
+            if (element) {
                 layerProperties.referenceElementId = element.getAttribute("id");
             }
         }
