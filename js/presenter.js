@@ -43,6 +43,7 @@ window.addEventListener("message", evt => {
             previews[2].index = evt.data.index + 1;
             previews.forEach(updatePreview);
             updateFrameData(evt.data);
+            break;
     }
 });
 
@@ -52,14 +53,12 @@ window.addEventListener("load", () => {
     // Initialize the iframes that show the previous, current, and next frames.
     previews.forEach((p, i) => {
         p.window = iframes[i].contentWindow;
-        p.window.postMessage({name: "notifyOnLoad"}, "*");
     });
 
     // Open a new window for the main presentation view.
-    presWindow = window.open(document.querySelector("iframe").src, "sozi-presentation", "width=600, height=400, scrollbars=yes");
+    presWindow = window.open(iframes[0].src, "sozi-presentation", "width=600, height=400, scrollbars=yes");
     try {
         presWindow.focus();
-        presWindow.postMessage({name: "notifyOnLoad"}, "*");
 
         document.getElementById("sozi-previous-btn").addEventListener("click", () => {
             presWindow.postMessage({name: "moveToPrevious"}, "*");

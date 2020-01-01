@@ -26,27 +26,12 @@ function setPresenterMode() {
     }
 }
 
-function notifyOnLoad(target, id) {
-    function checkSozi() {
-        if (sozi) {
-            target.postMessage({
-                name: "loaded", id,
-                length: sozi.presentation.frames.length,
-            }, "*");
-        }
-        else {
-            setTimeout(checkSozi, 1);
-        }
-    }
-    checkSozi();
-}
-
 function onFrameChange(target) {
     target.postMessage({
-        name:   "frameChange",
-        index:  sozi.player.currentFrame.index,
-        title:  sozi.player.currentFrame.title,
-        notes:  sozi.player.currentFrame.notes
+        name : "frameChange",
+        index: sozi.player.currentFrame.index,
+        title: sozi.player.currentFrame.title,
+        notes: sozi.player.currentFrame.notes
     }, "*");
 }
 
@@ -59,9 +44,6 @@ function notifyOnFrameChange(target) {
 
 window.addEventListener("message", evt => {
     switch (evt.data.name) {
-        case "notifyOnLoad":
-            notifyOnLoad(evt.source, evt.data.id);
-            break;
         case "notifyOnFrameChange":
             notifyOnFrameChange(evt.source);
             break;
@@ -124,3 +106,21 @@ window.addEventListener("load", () => {
 
     document.querySelector(".sozi-blank-screen .spinner").style.display = "none";
 });
+
+const opener = window.opener || window.parent;
+
+function checkSozi() {
+    if (window.sozi) {
+        opener.postMessage({
+            name: "loaded",
+            length: sozi.presentation.frames.length,
+        }, "*");
+    }
+    else {
+        setTimeout(checkSozi, 1);
+    }
+}
+
+if (opener) {
+    checkSozi();
+}
