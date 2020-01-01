@@ -46,6 +46,11 @@ window.addEventListener("load", () => {
     const hsplitter    = document.querySelector(".hsplitter");
     const vsplitter    = document.querySelector(".vsplitter");
 
+    document.getElementById("message").addEventListener("click", evt => {
+        controller.hideNotification();
+        evt.stopPropagation();
+    });
+
     let hsplitterStartY, vsplitterStartX;
 
     const hsplitterHeight = hsplitter.getBoundingClientRect().height;

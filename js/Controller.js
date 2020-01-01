@@ -77,6 +77,10 @@ export class Controller extends EventEmitter {
          * @type {Array} */
         this.redoStack = [];
 
+        /** The timeout ID of the current notification.
+         * @type {number} */
+        this.notificationTimeout = null;
+
         this.addListener("repaint", () => this.onRepaint());
         player.addListener("frameChange", () => this.onFrameChange());
     }
@@ -113,6 +117,32 @@ export class Controller extends EventEmitter {
         }
     }
 
+    showNotification(severity, body) {
+        const _ = this.gettext;
+        const msg = document.getElementById("message");
+        if (this.notificationTimeout === null) {
+            msg.querySelector(".body").innerHTML = "";
+        }
+        else {
+            clearTimeout(this.notificationTimeout);
+        }
+
+        msg.querySelector(".title").innerHTML =
+            severity === "error" ? _('<i class="fas fa-exclamation-triangle"></i> Error')
+                                 : _('<i class="fas fa-info-circle"></i> Information');
+
+        msg.querySelector(".body").innerHTML  += `<div>${body}</div>`;
+        msg.classList.add("visible", severity);
+        this.notificationTimeout = setTimeout(() => this.hideNotification(), 5000);
+    }
+
+    hideNotification() {
+        const msg = document.getElementById("message");
+        msg.classList.remove("visible");
+        clearTimeout(this.notificationTimeout);
+        this.notificationTimeout = null;
+    }
+
     /** Show a notification with an information message.
      *
      * @param {string} body - The message to display.
@@ -120,8 +150,7 @@ export class Controller extends EventEmitter {
      */
     info(body, force=false) {
         if (this.preferences.enableNotifications || force) {
-            const _ = this.gettext;
-            new Notification(_("Sozi (Information)"), {body, silent: true});
+            this.showNotification("info", body);
         }
     }
 
@@ -130,8 +159,7 @@ export class Controller extends EventEmitter {
      * @param {string} body - The message to display.
      */
     error(body) {
-        const _ = this.gettext;
-        new Notification(_("Sozi (Error)"), {body});
+        this.showNotification("error", body);
     }
 
     /** Update the visible frame on repaint.

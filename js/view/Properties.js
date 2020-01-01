@@ -200,7 +200,7 @@ export class Properties extends VirtualDOMView {
             ]),
             this.renderTextField("transitionPathId", false, controller.getLayerProperty, controller.setLayerProperty, true),
 
-            h("h1", [_("Notes"), this.renderHelp(_("Edit presenter notes. Click here to show the list of formatting shortcuts."), () => controller.info(NOTES_HELP.join("\n"), true))]),
+            h("h1", [_("Notes"), this.renderHelp(_("Edit presenter notes. Click here to show the list of formatting shortcuts."), () => controller.info(NOTES_HELP.join("<br>"), true))]),
 
             this.renderRichTextField("notes", false, controller.getFrameProperty, controller.setFrameProperty, true),
 
