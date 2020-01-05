@@ -92,6 +92,8 @@ Since Sozi 18.01, a Debian package is available for users of Debian or Ubuntu-ba
 sudo dpkg -i sozi_[...].deb
 ```
 
+[Alien](https://joeyh.name/code/alien/) can convert it to an RPM package by `sudo alien --to-rpm`.
+
 For other platforms, Sozi is released as a zip/tar.xz archive that you can extract wherever you like.
 
 * OS X users can drag the `Sozi.app` subfolder into their `Applications` folder.
