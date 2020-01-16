@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-01-01 03:40:+0000\n"
-"PO-Revision-Date: 2019-01-07 19:07+0000\n"
+"PO-Revision-Date: 2020-01-17 01:21+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/sozi/"
 "translations/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 3.10.2-dev\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 
 #: js/backend/Electron.js:33
@@ -68,8 +68,9 @@ msgstr ""
 "\"></i>skrivebeskyttet)"
 
 #: js/Controller.js:132
+#, fuzzy
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+msgstr "<i class=\"fas fa-info-circle\"></i> Informasjon"
 
 #: js/Storage.js:79
 msgid "File %s could not be loaded."
@@ -454,6 +455,8 @@ msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
 msgstr ""
+"Du bør legge til grafiske elementer i nåværende område for å hjelpe Sozi å "
+"holde oppsyn med lagets posisjon."
 
 #: js/view/Toolbar.js:36
 msgid "Aspect ratio: "
