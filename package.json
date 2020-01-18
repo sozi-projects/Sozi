@@ -2,7 +2,7 @@
   "name": "sozi",
   "description": "A zooming presentation editor",
   "author": "Guillaume Savaton",
-  "version": "19.12.01",
+  "version": "20.01.18",
   "license": "MPL-2.0",
   "main": "js/electron.js",
   "scripts": {
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.0",
+    "core-js": "^3.6.4",
     "html2canvas": "^1.0.0-rc.5",
     "inferno": "^7.3.3",
     "inferno-hyperscript": "^7.3.3",

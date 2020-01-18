@@ -94,7 +94,7 @@ module.exports = function(grunt) {
             },
             browser: {
                 options: {
-                    presets: ["@babel/preset-env"]
+                    presets: [["@babel/preset-env", {useBuiltIns: "usage", corejs: 3}]]
                 },
                 files: [{
                     expand: true,
