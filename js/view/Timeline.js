@@ -282,7 +282,7 @@ export class Timeline extends VirtualDOMView {
                                     (isLinked(frame, layer) ? " link" : "") +
                                     (updateEven(frame, layer) ? " even" : " odd"),
                                 onclick: evt => this.updateLayerAndFrameSelection(layer.index, frameIndex, evt)
-                            }, hasNoReferenceElement(frame, layer) ? h("i.fas.fa-exclamation-triangle", _("You should add graphic elements in the current area to help Sozi keep track of this layer's position.")) : null)
+                            }, hasNoReferenceElement(frame, layer) ? h("i.fas.fa-exclamation-triangle", {title: _("You should add graphic elements in the current area to help Sozi keep track of this layer's position.")}) : null)
                         ))),
                     h("tr.collapse",
                         this.presentation.frames.map(frame => h("td", frame.title))
