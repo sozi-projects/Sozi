@@ -118,6 +118,14 @@ window.addEventListener("load", () => {
             }
         }
 
+        // If an action was found, validate the active input field
+        // before executing the action.
+        const inputFocused = document.activeElement && /input|select|textarea|section/i.test(document.activeElement.tagName);
+
+        if (actionFound && inputFocused) {
+            document.activeElement.blur();
+        }
+
         switch (actionFound) {
             case "autoselectOutlineElement":
                 controller.autoselectOutlineElement();
@@ -151,8 +159,9 @@ window.addEventListener("load", () => {
                 break;
         }
 
-        // Keyboard acctions that may collide with text inputs.
-        if (!actionFound && !/input|select|textarea|section/i.test(document.activeElement.tagName)) {
+        // Keyboard actions that may collide with input fields
+        // are executed only if no input element has the focus.
+        if (!actionFound && !inputFocused) {
             actionFound = true;
             switch (evt.key) {
                 case "End":
