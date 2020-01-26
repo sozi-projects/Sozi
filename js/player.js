@@ -11,7 +11,7 @@ import * as FrameList from "./player/FrameList";
 import * as FrameNumber from "./player/FrameNumber";
 import * as FrameURL from "./player/FrameURL";
 
-function setPresenterMode() {
+function setPresenterMode(isCurrent) {
     sozi.player.disableMedia();
     sozi.player.pause();
 
@@ -23,6 +23,13 @@ function setPresenterMode() {
 
     for (let frame of sozi.presentation.frames) {
         frame.showFrameNumber = false;
+    }
+
+    if (isCurrent) {
+        console.log("Current");
+    }
+    else {
+        sozi.presentation.document.disableHyperlinks(true);
     }
 }
 
@@ -43,16 +50,16 @@ function notifyOnFrameChange(target) {
 }
 
 window.addEventListener("message", evt => {
+    const args = evt.data.args || [];
     switch (evt.data.name) {
         case "notifyOnFrameChange":
             notifyOnFrameChange(evt.source);
             break;
         case "setPresenterMode":
-            setPresenterMode();
+            setPresenterMode(...args);
             break;
         default:
             const method = sozi.player[evt.data.name];
-            const args   = evt.data.args || [];
             if (typeof method === "function") {
                 method.apply(sozi.player, args);
             }

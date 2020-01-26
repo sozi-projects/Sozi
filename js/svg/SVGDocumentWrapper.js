@@ -155,9 +155,12 @@ export class SVGDocumentWrapper {
         }
     }
 
-    disableHyperlinks() {
+    disableHyperlinks(styled=false) {
         for (let link of this.root.getElementsByTagName("a")) {
             link.addEventListener("click", evt => evt.preventDefault(), false);
+            if (styled) {
+                link.style.cursor = "default";
+            }
         }
     }
 }

@@ -30,11 +30,15 @@ window.addEventListener("message", evt => {
     switch (evt.data.name) {
         case "loaded":
             presLength = evt.data.length;
-            evt.source.postMessage({
-                name: evt.source === presWindow ?
-                    "notifyOnFrameChange" :
-                    "setPresenterMode"
-            }, "*");
+            if (evt.source === presWindow) {
+                evt.source.postMessage({name: "notifyOnFrameChange"}, "*");
+            }
+            else {
+                evt.source.postMessage({
+                    name: "setPresenterMode",
+                    args: [evt.source === previews[0].window]
+                }, "*");
+            }
             break;
 
         case "frameChange":
@@ -56,7 +60,7 @@ window.addEventListener("load", () => {
     });
 
     // Open a new window for the main presentation view.
-    presWindow = window.open(iframes[0].src, "sozi-presentation", "width=600, height=400, scrollbars=yes");
+    presWindow = window.open(iframes[0].src, "sozi-presentation", "width=600, height=400, scrollbars=yes, toolbar=yes");
     try {
         presWindow.focus();
 
