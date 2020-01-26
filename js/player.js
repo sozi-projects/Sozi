@@ -11,7 +11,7 @@ import * as FrameList from "./player/FrameList";
 import * as FrameNumber from "./player/FrameNumber";
 import * as FrameURL from "./player/FrameURL";
 
-function setPresenterMode(isCurrent) {
+function setPresenterMode(target, isCurrent) {
     sozi.player.disableMedia();
     sozi.player.pause();
 
@@ -26,7 +26,15 @@ function setPresenterMode(isCurrent) {
     }
 
     if (isCurrent) {
-        console.log("Current");
+        // Forward hyperlink clicks to the main presentation window.
+        for (let link of sozi.presentation.document.root.getElementsByTagName("a")) {
+            link.addEventListener("click", evt => {
+                if (link.id) {
+                    target.postMessage({name: "click", id: link.id}, "*");
+                }
+                evt.preventDefault();
+            }, false);
+        }
     }
     else {
         sozi.presentation.document.disableHyperlinks(true);
@@ -50,16 +58,22 @@ function notifyOnFrameChange(target) {
 }
 
 window.addEventListener("message", evt => {
-    const args = evt.data.args || [];
     switch (evt.data.name) {
         case "notifyOnFrameChange":
             notifyOnFrameChange(evt.source);
             break;
         case "setPresenterMode":
-            setPresenterMode(...args);
+            setPresenterMode(evt.source, evt.data.isCurrent);
+            break;
+        case "click":
+            // We use dispatchEvent here because
+            // SVG <a> elements do not have a click method.
+            const link = sozi.presentation.document.root.getElementById(evt.data.id);
+            link.dispatchEvent(new MouseEvent("click"));
             break;
         default:
             const method = sozi.player[evt.data.name];
+            const args   = evt.data.args || [];
             if (typeof method === "function") {
                 method.apply(sozi.player, args);
             }

@@ -36,7 +36,7 @@ window.addEventListener("message", evt => {
             else {
                 evt.source.postMessage({
                     name: "setPresenterMode",
-                    args: [evt.source === previews[0].window]
+                    isCurrent: evt.source === previews[0].window
                 }, "*");
             }
             break;
@@ -47,6 +47,10 @@ window.addEventListener("message", evt => {
             previews[2].index = evt.data.index + 1;
             previews.forEach(updatePreview);
             updateFrameData(evt.data);
+            break;
+
+        case "click":
+            presWindow.postMessage({name: "click", id: evt.data.id}, "*");
             break;
     }
 });
