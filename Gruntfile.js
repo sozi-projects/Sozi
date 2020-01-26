@@ -154,6 +154,10 @@ module.exports = function(grunt) {
             player: {
                 src: ["build/browser/js/player.js"],
                 dest: "build/tmp/js/player.js"
+            },
+            presenter: {
+                src: ["build/browser/js/presenter.js"],
+                dest: "build/tmp/js/presenter.js"
             }
         },
 
@@ -173,7 +177,7 @@ module.exports = function(grunt) {
                 dest: "build/tmp/js/player.min.js"
             },
             presenter: {
-                src: "build/browser/js/presenter.js",
+                src: "<%= browserify.presenter.dest %>",
                 dest: "build/tmp/js/presenter.min.js"
             }
         },
@@ -477,7 +481,8 @@ module.exports = function(grunt) {
     grunt.registerTask("build", [
         "write_package_json",
         "newer:babel",
-        "browserify:player", // Cannot use 'newer' here due to imports
+        "browserify:player",    // Cannot use 'newer' here due to imports
+        "browserify:presenter", // Cannot use 'newer' here due to imports
         "newer:uglify:player",
         "newer:uglify:presenter",
         "newer:nunjucks_render",
