@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-01-01 03:40:+0000\n"
-"PO-Revision-Date: 2019-05-20 20:49+0000\n"
-"Last-Translator: Jimmy <Hennderson@gmx.de>\n"
+"PO-Revision-Date: 2020-01-24 01:21+0000\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/sozi/translations/"
 "de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.7-dev\n"
+"X-Generator: Weblate 3.11-dev\n"
 "X-Launchpad-Export-Date: 2016-10-10 06:40+0000\n"
 
 #: js/backend/Electron.js:33
@@ -61,15 +61,12 @@ msgid "Open an SVG file from Google Drive"
 msgstr "Lade SVG Datei aus Google Drive"
 
 #: js/Controller.js:131
-#, fuzzy
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
-msgstr ""
-"Lade lokale SVG Datei hoch (<i class=\"fas fa-exclamation-triangle\"></i> "
-"schreibgeschützt)"
+msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Fehler"
 
 #: js/Controller.js:132
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+msgstr "<i class=\"fas fa-info-circle\"></i> Information"
 
 #: js/Storage.js:79
 msgid "File %s could not be loaded."
@@ -96,9 +93,8 @@ msgid "Saved %s."
 msgstr "%s gespeichert."
 
 #: js/view/Properties.js:41
-#, fuzzy
 msgid "Autoselect outline element"
-msgstr "Element automatisch auswählen"
+msgstr "Umrißelement automatisch auswählen"
 
 #: js/view/Properties.js:42 js/view/Properties.js:151
 msgid "Reset layer geometry"
@@ -374,12 +370,16 @@ msgstr "Spieler"
 #: js/view/Properties.js:210
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
 msgstr ""
+"Unterstütze die \"Zurück\" (🡰) Taste des Browsers, um zum vorherigen Frame "
+"zu wechseln"
 
 #: js/view/Properties.js:211
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr ""
+"Wenn Sie von einem Rahmen zu einem anderen wechseln, ändert sich der Inhalt "
+"der Positionsleiste automatisch."
 
 #: js/view/Properties.js:215
 msgid "Allow to control the presentation"
@@ -416,9 +416,8 @@ msgid "Add layer"
 msgstr "Ebene hinzufügen"
 
 #: js/view/Timeline.js:163
-#, fuzzy
 msgid "Add all layers"
-msgstr "Ebene hinzufügen"
+msgstr "Alle Ebenen hinzufügen"
 
 #: js/view/Timeline.js:178 js/view/Timeline.js:198
 msgid "This layer is visible. Click to hide it."
@@ -445,6 +444,8 @@ msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
 msgstr ""
+"Sie sollten im aktuellen Bereich Grafikelemente hinzufügen, damit Sozi die "
+"Position dieser Ebene verfolgen kann."
 
 #: js/view/Toolbar.js:36
 msgid "Aspect ratio: "

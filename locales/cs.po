@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-01-01 03:40:+0000\n"
-"PO-Revision-Date: 2018-10-30 11:24+0000\n"
-"Last-Translator: Robin Pecha <robinpecha@gmail.com>\n"
+"PO-Revision-Date: 2020-02-11 19:50+0000\n"
+"Last-Translator: Vojtěch Šamla <auzkok@seznam.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/sozi/translations/"
 "cs/>\n"
 "Language: cs\n"
@@ -11,23 +11,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 3.3-dev\n"
+"X-Generator: Weblate 3.11-dev\n"
 
 #: js/backend/Electron.js:33
 msgid "Open an SVG file from your computer"
-msgstr "Otevřete soubor SVG z počítače"
+msgstr "Otevřete soubor SVG z vašeho počítače"
 
 #: js/backend/Electron.js:65
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "Přejete si před zavřením uložit prezentaci?"
 
 #: js/backend/Electron.js:66
 msgid "Yes"
-msgstr ""
+msgstr "Ano"
 
 #: js/backend/Electron.js:66
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #: js/backend/Electron.js:89
 msgid "File not found: %s."
@@ -54,15 +54,12 @@ msgid "Open an SVG file from Google Drive"
 msgstr "Otevřít SVG soubor z Google Drive"
 
 #: js/Controller.js:131
-#, fuzzy
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
-msgstr ""
-"Otevřít SVG soubor z počítače (<i class=\"fas fa-exclamation-triangle\">1</"
-"i>2 pouze ke čtení)"
+msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Chyba"
 
 #: js/Controller.js:132
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+msgstr "<i class=\"fas fa-info-circle\"></i> Informace"
 
 #: js/Storage.js:79
 msgid "File %s could not be loaded."
@@ -89,9 +86,8 @@ msgid "Saved %s."
 msgstr "Uloženo %s."
 
 #: js/view/Properties.js:41
-#, fuzzy
 msgid "Autoselect outline element"
-msgstr "Automaticky vyber objekt"
+msgstr "Automaticky vyber obrys objektu"
 
 #: js/view/Properties.js:42 js/view/Properties.js:151
 msgid "Reset layer geometry"
@@ -146,9 +142,8 @@ msgid "Enable notifications"
 msgstr "Zapni oznámení"
 
 #: js/view/Properties.js:69
-#, fuzzy
 msgid "When Sozi loses the focus"
-msgstr "Když je Sozi vybráno"
+msgstr "Když Sozi ztratí fokus"
 
 #: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
@@ -180,43 +175,43 @@ msgstr "Klávesové zkratky"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "Základní podporované formátování:"
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: Tučné"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: Kurzíva"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: Podtržené"
 
 #: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0: Odstavec"
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big header"
-msgstr ""
+msgstr "Ctrl+1: Velký nadpis"
 
 #: js/view/Properties.js:103
 msgid "Ctrl+2: Medium header"
-msgstr ""
+msgstr "Ctrl+2: Střední nadpis"
 
 #: js/view/Properties.js:104
 msgid "Ctrl+3: Small header"
-msgstr ""
+msgstr "Ctrl+3: Malý nadpis"
 
 #: js/view/Properties.js:105
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl+L: Seznam"
 
 #: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl+N: Číslovaný seznam"
 
 #: js/view/Properties.js:113
 msgid "Select a layer to copy"
