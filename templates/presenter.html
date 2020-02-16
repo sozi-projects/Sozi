@@ -82,7 +82,9 @@
     </head>
     <body>
         <div class="sozi-frame-preview">
-            <iframe class="sozi-current-frame" src="{{ soziHtml }}"></iframe>
+            <div class="sozi-current-frame-container">
+                <iframe class="sozi-current-frame" src="{{ soziHtml }}"></iframe>
+            </div>
             <div class="sozi-controls">
                 <input type="button" id="sozi-previous-btn" value="&laquo;" title="Previous">
                 <span class="sozi-current-index"></span>/<span class="sozi-presentation-length"></span>
