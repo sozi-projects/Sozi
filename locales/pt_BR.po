@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-01-01 03:40:+0000\n"
-"PO-Revision-Date: 2019-03-25 11:39+0000\n"
-"Last-Translator: Rui Mendes <xz9@protonmail.com>\n"
+"PO-Revision-Date: 2020-02-19 15:32+0000\n"
+"Last-Translator: Douglas Fiedler <dognew@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/sozi/"
 "translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.6-dev\n"
+"X-Generator: Weblate 3.11\n"
 "X-Launchpad-Export-Date: 2018-04-06 19:08+0000\n"
 
 #: js/backend/Electron.js:33
@@ -61,15 +61,12 @@ msgid "Open an SVG file from Google Drive"
 msgstr "Abrir arquivo SVG do Google Drive"
 
 #: js/Controller.js:131
-#, fuzzy
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
-msgstr ""
-"Abrir arquivo SVG do seu computador (<i class=\"fas fa-exclamation-triangle"
-"\"></i> apenas no modo leitura)"
+msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Erro"
 
 #: js/Controller.js:132
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+msgstr "<i class=\"fas fa-info-circle\"></i> Informação"
 
 #: js/Storage.js:79
 msgid "File %s could not be loaded."
