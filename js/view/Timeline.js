@@ -118,7 +118,7 @@ export class Timeline extends VirtualDOMView {
         }
 
         function isLinked(frame, layer) {
-            return frame.index > 0 && frame.layerProperties[layer.index].link
+            return frame.index > 0 && frame.layerProperties[layer.index].link;
         }
 
         function hasNoReferenceElement(frame, layer) {

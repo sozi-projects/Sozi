@@ -1314,7 +1314,7 @@ export class Controller extends EventEmitter {
         const modifiedFrame = new Frame(currentFrame, true);
 
         for (let layer of this.selection.selectedLayers) {
-            const cameraState = modifiedFrame.cameraStates[layer.index]
+            const cameraState = modifiedFrame.cameraStates[layer.index];
             cameraState.setAtElement(outlineElement);
             cameraState.resetClipping();
 
