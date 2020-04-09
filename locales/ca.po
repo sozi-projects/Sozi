@@ -8,31 +8,33 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-01-01 03:40:+0000\n"
-"PO-Revision-Date: 2015-10-11 20:14+0000\n"
-"Last-Translator: Adolfo Jayme <Unknown>\n"
-"Language-Team: Catalan <ca@li.org>\n"
+"PO-Revision-Date: 2020-04-11 22:09+0000\n"
+"Last-Translator: Carles Sadurní <sadurbnd@gmail.com>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/sozi/"
+"translations/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0-dev\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
-"X-Generator: Launchpad (build 18599)\n"
 
 #: js/backend/Electron.js:33
 msgid "Open an SVG file from your computer"
-msgstr ""
+msgstr "Obriu un fitxer SVG del vostre ordinador"
 
 #: js/backend/Electron.js:65
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "Voleu desar la presentació abans de tancar?"
 
 #: js/backend/Electron.js:66
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #: js/backend/Electron.js:66
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: js/backend/Electron.js:89
 msgid "File not found: %s."
@@ -40,29 +42,31 @@ msgstr "No s’ha trobat el fitxer: %s."
 
 #: js/backend/Electron.js:122
 msgid "Choose an SVG file"
-msgstr ""
+msgstr "Tria un fitxer SVG"
 
 #: js/backend/Electron.js:123
 msgid "SVG files"
-msgstr ""
+msgstr "Fitxers SVG"
 
 #: js/backend/FileReader.js:18
 msgid ""
 "Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
+"Obriu un fitxer SVG del vostre ordinador (<i class=\"fas fa-exclamation-"
+"triangle\"></i> read-only)"
 
 #: js/backend/GoogleDrive.js:18
 msgid "Open an SVG file from Google Drive"
-msgstr ""
+msgstr "Obre un fitxer SVG de Google Drive"
 
 #: js/Controller.js:131
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
-msgstr ""
+msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Error"
 
 #: js/Controller.js:132
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+msgstr "<i class=\"fas fa-info-circle\"></i> Informació"
 
 #: js/Storage.js:79
 msgid "File %s could not be loaded."
@@ -77,17 +81,16 @@ msgid "Document was changed. Reloading."
 msgstr "El document s’ha modificat. S’està recarregant."
 
 #: js/Storage.js:156
-#, fuzzy
 msgid "Document was changed."
-msgstr "El document s’ha modificat. S’està recarregant."
+msgstr "El document s’ha modificat."
 
 #: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr ""
+msgstr "El document s'ha importat de Sozi 13 o anterior."
 
 #: js/Storage.js:254 js/Storage.js:275
 msgid "Saved %s."
-msgstr ""
+msgstr "S'ha desat %s."
 
 #: js/view/Properties.js:41
 msgid "Autoselect outline element"
@@ -95,23 +98,23 @@ msgstr ""
 
 #: js/view/Properties.js:42 js/view/Properties.js:151
 msgid "Reset layer geometry"
-msgstr ""
+msgstr "Reinicia la geometria de les capes"
 
 #: js/view/Properties.js:43 js/view/Timeline.js:143
 msgid "Create a new frame"
-msgstr ""
+msgstr "Crea un nou fotograma"
 
 #: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:112
 msgid "Save the presentation"
-msgstr ""
+msgstr "Desa la presentació"
 
 #: js/view/Properties.js:45 js/view/Toolbar.js:96
 msgid "Redo"
-msgstr ""
+msgstr "Refés"
 
 #: js/view/Properties.js:46 js/view/Toolbar.js:91
 msgid "Undo"
-msgstr ""
+msgstr "Desfés"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
@@ -119,11 +122,11 @@ msgstr ""
 
 #: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:117
 msgid "Reload the SVG document"
-msgstr ""
+msgstr "Torna a carregar el document SVG"
 
 #: js/view/Properties.js:49
 msgid "Toggle full-screen mode"
-msgstr ""
+msgstr "Commuta mode de pantalla completa"
 
 #: js/view/Properties.js:50
 msgid "Toggle the developer tools"
@@ -131,11 +134,11 @@ msgstr ""
 
 #: js/view/Properties.js:60
 msgid "User interface"
-msgstr ""
+msgstr "Interfície d'usuari"
 
 #: js/view/Properties.js:61
 msgid "Font size"
-msgstr ""
+msgstr "Mida de la lletra"
 
 #: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
@@ -143,83 +146,83 @@ msgstr ""
 
 #: js/view/Properties.js:65
 msgid "Enable notifications"
-msgstr ""
+msgstr "Activa notificacions"
 
 #: js/view/Properties.js:69
 msgid "When Sozi loses the focus"
-msgstr ""
+msgstr "Quan Sozi perd el focus"
 
 #: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
-msgstr ""
+msgstr "Manualment"
 
 #: js/view/Properties.js:74
 msgid "Automatically"
-msgstr ""
+msgstr "Automàticament"
 
 #: js/view/Properties.js:75
 msgid "When Sozi gets the focus"
-msgstr ""
+msgstr "Quan Sozi rep el focus"
 
 #: js/view/Properties.js:78
 msgid "Behavior"
-msgstr ""
+msgstr "Comportament"
 
 #: js/view/Properties.js:80
 msgid "Preview transition animations"
-msgstr ""
+msgstr "Previsualitza les animacions de transició"
 
 #: js/view/Properties.js:81
 msgid "Enable animated transitions"
-msgstr ""
+msgstr "Activa les transicions animades"
 
 #: js/view/Properties.js:83
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Dreceres de teclat"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "Formatat bàsic suportat:"
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: negreta"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: cursiva"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: Subratllat"
 
 #: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0: Paràgraf"
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big header"
-msgstr ""
+msgstr "Ctrl+1: Capçalera grossa"
 
 #: js/view/Properties.js:103
 msgid "Ctrl+2: Medium header"
-msgstr ""
+msgstr "Ctrl+2: Capçalera mitjana"
 
 #: js/view/Properties.js:104
 msgid "Ctrl+3: Small header"
-msgstr ""
+msgstr "Ctrl+3: Capçalera petita"
 
 #: js/view/Properties.js:105
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl+L: Llista"
 
 #: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl+N: Llista numerada"
 
 #: js/view/Properties.js:113
 msgid "Select a layer to copy"
-msgstr ""
+msgstr "Selecciona una capa per a copiar"
 
 #: js/view/Properties.js:116 js/view/Timeline.js:190 js/view/Timeline.js:218
 msgid "Default"
@@ -227,15 +230,15 @@ msgstr "Per defecte"
 
 #: js/view/Properties.js:123
 msgid "Frame"
-msgstr ""
+msgstr "Fotograma"
 
 #: js/view/Properties.js:126
 msgid "Show in frame list"
-msgstr ""
+msgstr "Mostra la llista de fotogrames"
 
 #: js/view/Properties.js:127
 msgid "Show frame number"
-msgstr ""
+msgstr "Mostra el nombre de fotogrames"
 
 #: js/view/Properties.js:130
 msgid "Title"
@@ -243,27 +246,27 @@ msgstr "Títol"
 
 #: js/view/Properties.js:133
 msgid "Title level in frame list"
-msgstr ""
+msgstr "Nivell de títol en la llista de fotogrames"
 
 #: js/view/Properties.js:136
 msgid "Id"
-msgstr ""
+msgstr "ID"
 
 #: js/view/Properties.js:140
 msgid "Timeout (seconds)"
-msgstr ""
+msgstr "Temps d'espera (segons)"
 
 #: js/view/Properties.js:141
 msgid "Timeout enable"
-msgstr ""
+msgstr "Activa temps d'espera"
 
 #: js/view/Properties.js:145
 msgid "Layer"
-msgstr ""
+msgstr "Capa"
 
 #: js/view/Properties.js:148
 msgid "Link to previous frame"
-msgstr ""
+msgstr "Enllaç al fotograma anterior"
 
 #: js/view/Properties.js:149
 msgid "Clip"
@@ -271,7 +274,7 @@ msgstr ""
 
 #: js/view/Properties.js:156
 msgid "Copy layer"
-msgstr ""
+msgstr "Copia la capa"
 
 #: js/view/Properties.js:163
 msgid "Outline element Id"
@@ -279,7 +282,7 @@ msgstr ""
 
 #: js/view/Properties.js:166
 msgid "Autoselect element"
-msgstr ""
+msgstr "Selecciona automàticament l'element"
 
 #: js/view/Properties.js:169
 msgid "Hide element"
@@ -287,7 +290,7 @@ msgstr "Amaga l’element"
 
 #: js/view/Properties.js:174
 msgid "Layer opacity"
-msgstr ""
+msgstr "Opacitat de la capa"
 
 #: js/view/Properties.js:177
 msgid "Transition"
@@ -303,11 +306,11 @@ msgstr "Durada (segons)"
 
 #: js/view/Properties.js:182
 msgid "Timing function"
-msgstr ""
+msgstr "Activa cronometratge"
 
 #: js/view/Properties.js:184
 msgid "Linear"
-msgstr ""
+msgstr "Lineal"
 
 #: js/view/Properties.js:185
 msgid "Ease"
@@ -315,15 +318,15 @@ msgstr ""
 
 #: js/view/Properties.js:186
 msgid "Ease in"
-msgstr ""
+msgstr "Entrada lenta"
 
 #: js/view/Properties.js:187
 msgid "Ease out"
-msgstr ""
+msgstr "Sortida lenta"
 
 #: js/view/Properties.js:188
 msgid "Ease in-out"
-msgstr ""
+msgstr "Entrada-sortida lenta"
 
 #: js/view/Properties.js:189
 msgid "Step start"
@@ -339,7 +342,7 @@ msgstr ""
 
 #: js/view/Properties.js:194
 msgid "Relative zoom (%)"
-msgstr ""
+msgstr "Ampliació relativa (%)"
 
 #: js/view/Properties.js:198
 msgid "Path Id"
@@ -347,20 +350,22 @@ msgstr ""
 
 #: js/view/Properties.js:199
 msgid "Hide path"
-msgstr ""
+msgstr "Amaga el camí"
 
 #: js/view/Properties.js:203
 msgid "Notes"
-msgstr ""
+msgstr "Notes"
 
 #: js/view/Properties.js:203
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
+"Edita les notes del presentador. Feu clic ací per a mostrar la llista de "
+"dreceres de formatació."
 
 #: js/view/Properties.js:207
 msgid "Player"
-msgstr ""
+msgstr "Reproductor"
 
 #: js/view/Properties.js:210
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
@@ -374,42 +379,41 @@ msgstr ""
 
 #: js/view/Properties.js:215
 msgid "Allow to control the presentation"
-msgstr ""
+msgstr "Permet de controlar la presentació"
 
 #: js/view/Properties.js:217 js/view/Properties.js:224
 #: js/view/Properties.js:230 js/view/Properties.js:238
 msgid "using the mouse"
-msgstr ""
+msgstr "fent servir el ratolí"
 
 #: js/view/Properties.js:218 js/view/Properties.js:231
 #: js/view/Properties.js:239
 msgid "using the keyboard"
-msgstr ""
+msgstr "fent servir el teclat"
 
 #: js/view/Properties.js:223
 msgid "Allow to move the camera"
-msgstr ""
+msgstr "Permet de moure la càmera"
 
 #: js/view/Properties.js:228
 msgid "Allow to rotate the camera"
-msgstr ""
+msgstr "Permet de fer rodar la càmera"
 
 #: js/view/Properties.js:236
 msgid "Allow to zoom"
-msgstr ""
+msgstr "Permet d'ampliar"
 
 #: js/view/Timeline.js:136
 msgid "Delete the selected frames"
-msgstr ""
+msgstr "Esborra els fotogrames seleccionats"
 
 #: js/view/Timeline.js:162
 msgid "Add layer"
 msgstr "Afegeix una capa"
 
 #: js/view/Timeline.js:163
-#, fuzzy
 msgid "Add all layers"
-msgstr "Afegeix una capa"
+msgstr "Afegeix totes les capes"
 
 #: js/view/Timeline.js:178 js/view/Timeline.js:198
 msgid "This layer is visible. Click to hide it."
@@ -421,15 +425,15 @@ msgstr "Aquesta capa s’ha amagat. Feu clic per mostrar-la."
 
 #: js/view/Timeline.js:206
 msgid "Remove this layer"
-msgstr ""
+msgstr "Elimina aquesta capa"
 
 #: js/view/Timeline.js:231
 msgid "Insert selection before frame %d"
-msgstr ""
+msgstr "Insereix la selecció abans del fotograma %d"
 
 #: js/view/Timeline.js:238
 msgid "Insert selection after frame %d"
-msgstr ""
+msgstr "Insereix la selecció després del fotograma %d"
 
 #: js/view/Timeline.js:273 js/view/Timeline.js:285
 msgid ""
@@ -444,17 +448,23 @@ msgstr "Relació d’aspecte: "
 #: js/view/Toolbar.js:69
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
+"Mou les capes seleccionades (manteniu premuda la tecla ALT per a fer zoom, "
+"Majúscula per a rodar)"
 
 #: js/view/Toolbar.js:74
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
+"Amplia/redueix en les capes seleccionades (també podeu mantenir premuda la "
+"tecla Alt en el mode de moviment)"
 
 #: js/view/Toolbar.js:79
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
+"Rotació de les capes seleccionades (també podeu mantenir premuda la tecla "
+"Majúscula en el mode de moviment)"
 
 #: js/view/Toolbar.js:84
 msgid "Edit the clipping area"
@@ -462,15 +472,15 @@ msgstr ""
 
 #: js/view/Toolbar.js:103
 msgid "Disable full-screen mode"
-msgstr ""
+msgstr "Desactiva el mode de pantalla completa"
 
 #: js/view/Toolbar.js:103
 msgid "Enable full-screen mode"
-msgstr ""
+msgstr "Activa el mode de pantalla completa"
 
 #: js/view/Toolbar.js:123
 msgid "Preferences"
-msgstr ""
+msgstr "Preferències"
 
 #: js/view/Toolbar.js:128
 msgid "Information"
