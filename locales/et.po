@@ -2,461 +2,476 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-01-01 03:40:+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2020-04-11 22:09+0000\n"
+"Last-Translator: Rivo Zängov <rivozangov@gmail.com>\n"
+"Language-Team: Estonian <https://hosted.weblate.org/projects/sozi/"
+"translations/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: js/backend/Electron.js:33
 msgid "Open an SVG file from your computer"
-msgstr ""
+msgstr "Ava SVG fail oma arvutist"
 
 #: js/backend/Electron.js:65
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "Kas soovid esitlust enne sulgemist salvestada?"
 
 #: js/backend/Electron.js:66
 msgid "Yes"
-msgstr ""
+msgstr "Jah"
 
 #: js/backend/Electron.js:66
 msgid "No"
-msgstr ""
+msgstr "Ei"
 
 #: js/backend/Electron.js:89
 msgid "File not found: %s."
-msgstr ""
+msgstr "Faili ei leitud: %s."
 
 #: js/backend/Electron.js:122
 msgid "Choose an SVG file"
-msgstr ""
+msgstr "Vali SVG fail"
 
 #: js/backend/Electron.js:123
 msgid "SVG files"
-msgstr ""
+msgstr "SVG failid"
 
 #: js/backend/FileReader.js:18
 msgid ""
 "Open an SVG file from your computer (<i class=\"fas "
 "fa-exclamation-triangle\"></i> read-only)"
 msgstr ""
+"Ava SVG fail oma arvutist (<i class=\"fas fa-exclamation-triangle\"></i> "
+"ainult loetav)"
 
 #: js/backend/GoogleDrive.js:18
 msgid "Open an SVG file from Google Drive"
-msgstr ""
+msgstr "Ava SVG fail Google Drive-st"
 
 #: js/Controller.js:131
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
-msgstr ""
+msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Viga"
 
 #: js/Controller.js:132
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+msgstr "<i class=\"fas fa-info-circle\"></i> Info"
 
 #: js/Storage.js:79
 msgid "File %s could not be loaded."
-msgstr ""
+msgstr "Faili %s laadimine ebaõnnestus."
 
 #: js/Storage.js:96 js/Storage.js:105
 msgid "Document is not valid SVG."
-msgstr ""
+msgstr "Dokument pole korrektne SVG."
 
 #: js/Storage.js:141 js/Storage.js:147
 msgid "Document was changed. Reloading."
-msgstr ""
+msgstr "Dokumenti muudeti. Uuesti laadimine."
 
 #: js/Storage.js:156
 msgid "Document was changed."
-msgstr ""
+msgstr "Dokumenti muudeti."
 
 #: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr ""
+msgstr "Dokument imporditi Sozi 13 või vanemast versioonist."
 
 #: js/Storage.js:254 js/Storage.js:275
 msgid "Saved %s."
-msgstr ""
+msgstr "%s salvestati."
 
 #: js/view/Properties.js:41
 msgid "Autoselect outline element"
-msgstr ""
+msgstr "Vali raam automaatselt"
 
 #: js/view/Properties.js:42 js/view/Properties.js:151
 msgid "Reset layer geometry"
-msgstr ""
+msgstr "Nulli kihi geomeetria"
 
 #: js/view/Properties.js:43 js/view/Timeline.js:143
 msgid "Create a new frame"
-msgstr ""
+msgstr "Loo uus raam"
 
 #: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:112
 msgid "Save the presentation"
-msgstr ""
+msgstr "Salvesta esitlus"
 
 #: js/view/Properties.js:45 js/view/Toolbar.js:96
 msgid "Redo"
-msgstr ""
+msgstr "Tee uusti"
 
 #: js/view/Properties.js:46 js/view/Toolbar.js:91
 msgid "Undo"
-msgstr ""
+msgstr "Tühista"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr ""
+msgstr "Fookus raami pealkirjale"
 
 #: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:117
 msgid "Reload the SVG document"
-msgstr ""
+msgstr "Laadi SVG dokument uuesti"
 
 #: js/view/Properties.js:49
 msgid "Toggle full-screen mode"
-msgstr ""
+msgstr "Lülita täisekraani režiimi"
 
 #: js/view/Properties.js:50
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "Lülita arendusrežiimi"
 
 #: js/view/Properties.js:60
 msgid "User interface"
-msgstr ""
+msgstr "Kasutajaliides"
 
 #: js/view/Properties.js:61
 msgid "Font size"
-msgstr ""
+msgstr "Teksti suurus"
 
 #: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
-msgstr ""
+msgstr "Luba teavitused salvestamisel ja uuesti laadimisel"
 
 #: js/view/Properties.js:65
 msgid "Enable notifications"
-msgstr ""
+msgstr "Luba teavitused"
 
 #: js/view/Properties.js:69
 msgid "When Sozi loses the focus"
-msgstr ""
+msgstr "Kui Sozi kaotab fookuse"
 
 #: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
-msgstr ""
+msgstr "Käsitsi"
 
 #: js/view/Properties.js:74
 msgid "Automatically"
-msgstr ""
+msgstr "Automaatselt"
 
 #: js/view/Properties.js:75
 msgid "When Sozi gets the focus"
-msgstr ""
+msgstr "Kui fookus läheb Suzi peale"
 
 #: js/view/Properties.js:78
 msgid "Behavior"
-msgstr ""
+msgstr "Käitumine"
 
 #: js/view/Properties.js:80
 msgid "Preview transition animations"
-msgstr ""
+msgstr "Üleminekute animatsioonide eelvaade"
 
 #: js/view/Properties.js:81
 msgid "Enable animated transitions"
-msgstr ""
+msgstr "Luba animeeritud üleminekud"
 
 #: js/view/Properties.js:83
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Klaviatuuri otsetee"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "Toetatud põhivorming:"
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: Rasvane"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: Kaldkiri"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: Allajoonitud"
 
 #: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0: Lõik"
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big header"
-msgstr ""
+msgstr "Ctrl+1: Suur pealkiri"
 
 #: js/view/Properties.js:103
 msgid "Ctrl+2: Medium header"
-msgstr ""
+msgstr "Ctrl+2: Keskmine pealkiri"
 
 #: js/view/Properties.js:104
 msgid "Ctrl+3: Small header"
-msgstr ""
+msgstr "Ctrl+3: Väike pealkiri"
 
 #: js/view/Properties.js:105
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl+L: Nimekiri"
 
 #: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl+N: Nummerdatud nimekiri"
 
 #: js/view/Properties.js:113
 msgid "Select a layer to copy"
-msgstr ""
+msgstr "Vali kiht, mida kopeerida"
 
 #: js/view/Properties.js:116 js/view/Timeline.js:190 js/view/Timeline.js:218
 msgid "Default"
-msgstr ""
+msgstr "Vaikimisi"
 
 #: js/view/Properties.js:123
 msgid "Frame"
-msgstr ""
+msgstr "Raam"
 
 #: js/view/Properties.js:126
 msgid "Show in frame list"
-msgstr ""
+msgstr "Näita iframe nimekirja"
 
 #: js/view/Properties.js:127
 msgid "Show frame number"
-msgstr ""
+msgstr "Näita raami numbrit"
 
 #: js/view/Properties.js:130
 msgid "Title"
-msgstr ""
+msgstr "Pealkiri"
 
 #: js/view/Properties.js:133
 msgid "Title level in frame list"
-msgstr ""
+msgstr "Pealkirja tase raamide nimekirjas"
 
 #: js/view/Properties.js:136
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 #: js/view/Properties.js:140
 msgid "Timeout (seconds)"
-msgstr ""
+msgstr "Aegumine (sekundites)"
 
 #: js/view/Properties.js:141
 msgid "Timeout enable"
-msgstr ""
+msgstr "Luba aegumine"
 
 #: js/view/Properties.js:145
 msgid "Layer"
-msgstr ""
+msgstr "Kiht"
 
 #: js/view/Properties.js:148
 msgid "Link to previous frame"
-msgstr ""
+msgstr "Link eelmisele raamile"
 
 #: js/view/Properties.js:149
 msgid "Clip"
-msgstr ""
+msgstr "Klipp"
 
 #: js/view/Properties.js:156
 msgid "Copy layer"
-msgstr ""
+msgstr "Kopeeri kiht"
 
 #: js/view/Properties.js:163
 msgid "Outline element Id"
-msgstr ""
+msgstr "Raami elemendi ID"
 
 #: js/view/Properties.js:166
 msgid "Autoselect element"
-msgstr ""
+msgstr "Elemendi automaatne valimine"
 
 #: js/view/Properties.js:169
 msgid "Hide element"
-msgstr ""
+msgstr "Peida element"
 
 #: js/view/Properties.js:174
 msgid "Layer opacity"
-msgstr ""
+msgstr "Kihi läbipaistvus"
 
 #: js/view/Properties.js:177
 msgid "Transition"
-msgstr ""
+msgstr "Üleminek"
 
 #: js/view/Properties.js:177
 msgid "Configure the animation when moving to the selected frames."
-msgstr ""
+msgstr "Seadista valitud raamile liikumise animatsiooni."
 
 #: js/view/Properties.js:179
 msgid "Duration (seconds)"
-msgstr ""
+msgstr "Kestus (sekundites)"
 
 #: js/view/Properties.js:182
 msgid "Timing function"
-msgstr ""
+msgstr "Ajastuse funktsioonid"
 
 #: js/view/Properties.js:184
 msgid "Linear"
-msgstr ""
+msgstr "Lineaarne"
 
 #: js/view/Properties.js:185
 msgid "Ease"
-msgstr ""
+msgstr "Sujuv"
 
 #: js/view/Properties.js:186
 msgid "Ease in"
-msgstr ""
+msgstr "Sujuvalt sisse"
 
 #: js/view/Properties.js:187
 msgid "Ease out"
-msgstr ""
+msgstr "Sujuvalt välja"
 
 #: js/view/Properties.js:188
 msgid "Ease in-out"
-msgstr ""
+msgstr "Sujuvalt sisse-välja"
 
 #: js/view/Properties.js:189
 msgid "Step start"
-msgstr ""
+msgstr "Alguse samm"
 
 #: js/view/Properties.js:190
 msgid "Step end"
-msgstr ""
+msgstr "Lõpu samm"
 
 #: js/view/Properties.js:191
 msgid "Step middle"
-msgstr ""
+msgstr "Keskmine samm"
 
 #: js/view/Properties.js:194
 msgid "Relative zoom (%)"
-msgstr ""
+msgstr "Suhteline suurendus (%)"
 
 #: js/view/Properties.js:198
 msgid "Path Id"
-msgstr ""
+msgstr "Joone ID"
 
 #: js/view/Properties.js:199
 msgid "Hide path"
-msgstr ""
+msgstr "Peida joon"
 
 #: js/view/Properties.js:203
 msgid "Notes"
-msgstr ""
+msgstr "Märkmed"
 
 #: js/view/Properties.js:203
 msgid "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
+"Muuda esitluse tegija märkmeid. Kliki siia, et näha vormindamise otseteede "
+"nimekirja."
 
 #: js/view/Properties.js:207
 msgid "Player"
-msgstr ""
+msgstr "Esitaja"
 
 #: js/view/Properties.js:210
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
-msgstr ""
+msgstr "Toeta veebibrauseri \"Tagasi\" (🡰) nuppu, et liikuda eelmisele raamile"
 
 #: js/view/Properties.js:211
 msgid ""
 "Moving from one frame to another will change the content of the location "
 "bar automatically."
-msgstr ""
+msgstr "Ühelt raamilt teisele liikumine muudab automaatselt asukoha riba sisu."
 
 #: js/view/Properties.js:215
 msgid "Allow to control the presentation"
-msgstr ""
+msgstr "Luba esitlust juhtida"
 
 #: js/view/Properties.js:217 js/view/Properties.js:224 js/view/Properties.js:230 js/view/Properties.js:238
 msgid "using the mouse"
-msgstr ""
+msgstr "kasutades hiir"
 
 #: js/view/Properties.js:218 js/view/Properties.js:231 js/view/Properties.js:239
 msgid "using the keyboard"
-msgstr ""
+msgstr "kasutades klaviatuuri"
 
 #: js/view/Properties.js:223
 msgid "Allow to move the camera"
-msgstr ""
+msgstr "Luba kaamerat liigutada"
 
 #: js/view/Properties.js:228
 msgid "Allow to rotate the camera"
-msgstr ""
+msgstr "Luba kaamerat pöörata"
 
 #: js/view/Properties.js:236
 msgid "Allow to zoom"
-msgstr ""
+msgstr "Luba suurendada"
 
 #: js/view/Timeline.js:136
 msgid "Delete the selected frames"
-msgstr ""
+msgstr "Kustuta valitud raamid"
 
 #: js/view/Timeline.js:162
 msgid "Add layer"
-msgstr ""
+msgstr "Lisa kiht"
 
 #: js/view/Timeline.js:163
 msgid "Add all layers"
-msgstr ""
+msgstr "Lisa kõik kihid"
 
 #: js/view/Timeline.js:178 js/view/Timeline.js:198
 msgid "This layer is visible. Click to hide it."
-msgstr ""
+msgstr "See kiht on nähtav. Peitmiseks kliki."
 
 #: js/view/Timeline.js:182 js/view/Timeline.js:202
 msgid "This layer is hidden. Click to show it."
-msgstr ""
+msgstr "See kiht on peidetud. Näitamiseks kliki."
 
 #: js/view/Timeline.js:206
 msgid "Remove this layer"
-msgstr ""
+msgstr "Eemalda see kiht"
 
 #: js/view/Timeline.js:231
 msgid "Insert selection before frame %d"
-msgstr ""
+msgstr "Sisesta valik raami %d ette"
 
 #: js/view/Timeline.js:238
 msgid "Insert selection after frame %d"
-msgstr ""
+msgstr "Sisesta valik raami %d järele"
 
 #: js/view/Timeline.js:273 js/view/Timeline.js:285
 msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
 msgstr ""
+"Peaksid lisama praegusele alale graafilise elemendi, et Sozi saaks selle "
+"kihi asukohta jälgida."
 
 #: js/view/Toolbar.js:36
 msgid "Aspect ratio: "
-msgstr ""
+msgstr "Külgede suhe: "
 
 #: js/view/Toolbar.js:69
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
+"Liiguta valitud kihte (suumimise jaoks hoia all ALT klahvi ja pööramiseks "
+"SHIFT-i)"
 
 #: js/view/Toolbar.js:74
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
+"Valitud kihtidel sisse/välja suumimine (võid ka hoida liigutamise režiimis "
+"all ALT klahvi)"
 
 #: js/view/Toolbar.js:79
 msgid "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
+"Pööra valitud kihte (võid ka hoida liigutamise režiimis all SHIFT klahvi)"
 
 #: js/view/Toolbar.js:84
 msgid "Edit the clipping area"
-msgstr ""
+msgstr "Muuda klippimise ala"
 
 #: js/view/Toolbar.js:103
 msgid "Disable full-screen mode"
-msgstr ""
+msgstr "Keela täisakna režiim"
 
 #: js/view/Toolbar.js:103
 msgid "Enable full-screen mode"
-msgstr ""
+msgstr "Luba täisakna režiim"
 
 #: js/view/Toolbar.js:123
 msgid "Preferences"
-msgstr ""
+msgstr "Eelistused"
 
 #: js/view/Toolbar.js:128
 msgid "Information"
-msgstr ""
+msgstr "Informatsioon"
