@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-01-01 03:40:+0000\n"
-"PO-Revision-Date: 2020-04-11 22:09+0000\n"
+"PO-Revision-Date: 2020-04-13 19:11+0000\n"
 "Last-Translator: Carles Sadurní <sadurbnd@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/sozi/"
 "translations/ca/>\n"
@@ -118,7 +118,7 @@ msgstr "Desfés"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr ""
+msgstr "Posa el focus en el títol del fotograma"
 
 #: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:117
 msgid "Reload the SVG document"
@@ -130,7 +130,7 @@ msgstr "Commuta mode de pantalla completa"
 
 #: js/view/Properties.js:50
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "Commuta les eines de desenvolupador"
 
 #: js/view/Properties.js:60
 msgid "User interface"
@@ -346,7 +346,7 @@ msgstr "Ampliació relativa (%)"
 
 #: js/view/Properties.js:198
 msgid "Path Id"
-msgstr ""
+msgstr "Id del camí"
 
 #: js/view/Properties.js:199
 msgid "Hide path"
@@ -370,6 +370,7 @@ msgstr "Reproductor"
 #: js/view/Properties.js:210
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
 msgstr ""
+"Admet que el botó «enrere» (🡰) del navegador mogui al fotograma anterior"
 
 #: js/view/Properties.js:211
 msgid ""
