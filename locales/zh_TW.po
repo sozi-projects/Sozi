@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-01-01 03:40:+0000\n"
-"PO-Revision-Date: 2020-01-15 13:21+0000\n"
-"Last-Translator: 周宏陽 <hongyang.jp@gmail.com>\n"
+"PO-Revision-Date: 2020-04-19 03:11+0000\n"
+"Last-Translator: 麋悟BigELK176 <bigelk176@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "sozi/translations/zh_Hant/>\n"
 "Language: zh_TW\n"
@@ -17,16 +17,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 4.0.2-dev\n"
 "X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
 
 #: js/backend/Electron.js:33
 msgid "Open an SVG file from your computer"
-msgstr "開啟來自電腦的 SVG 檔案"
+msgstr "開啟電腦中的 SVG 檔案"
 
 #: js/backend/Electron.js:65
 msgid "Do you want to save the presentation before closing?"
-msgstr "是否要在關閉之前保存演示文稿嗎？"
+msgstr "在關閉之前是否儲存簡報？"
 
 #: js/backend/Electron.js:66
 msgid "Yes"
@@ -38,7 +38,7 @@ msgstr "否"
 
 #: js/backend/Electron.js:89
 msgid "File not found: %s."
-msgstr "找不到檔案：%s."
+msgstr "找不到檔案： %s。"
 
 #: js/backend/Electron.js:122
 msgid "Choose an SVG file"
@@ -52,11 +52,11 @@ msgstr "SVG 檔案"
 msgid ""
 "Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
-msgstr "開啟來自電腦的 SVG 檔案 (<i class=\"fas fa-exclamation-triangle\"></i> 唯讀)"
+msgstr "開啟電腦中的 SVG 檔案 (<i class=\"fas fa-exclamation-triangle\"></i> 唯讀)"
 
 #: js/backend/GoogleDrive.js:18
 msgid "Open an SVG file from Google Drive"
-msgstr "開啟來自 Google 雲端硬碟的 SVG 檔案"
+msgstr "開啟 Google 雲端硬碟中的 SVG 檔案"
 
 #: js/Controller.js:131
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
@@ -76,24 +76,23 @@ msgstr "此文件不是有效的 SVG 檔案。"
 
 #: js/Storage.js:141 js/Storage.js:147
 msgid "Document was changed. Reloading."
-msgstr "文件已被更改。重新載入中。"
+msgstr "文件已更改。重新載入中。"
 
 #: js/Storage.js:156
 msgid "Document was changed."
-msgstr "文件已被更改。"
+msgstr "文件已更改。"
 
 #: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr "文件匯入自 Sozi 13 或更舊版本。"
+msgstr "文件匯入 Sozi 13 或更舊的版本。"
 
 #: js/Storage.js:254 js/Storage.js:275
 msgid "Saved %s."
 msgstr "完成儲存 %s 。"
 
 #: js/view/Properties.js:41
-#, fuzzy
 msgid "Autoselect outline element"
-msgstr "自動選擇元件"
+msgstr "自動選擇大綱元件"
 
 #: js/view/Properties.js:42 js/view/Properties.js:151
 msgid "Reset layer geometry"
@@ -141,7 +140,7 @@ msgstr "字型大小"
 
 #: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
-msgstr "啟用存檔及重新載入通知"
+msgstr "存檔及重新載入時啟用通知"
 
 #: js/view/Properties.js:65
 msgid "Enable notifications"
@@ -181,7 +180,7 @@ msgstr "鍵盤操作快捷鍵"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
-msgstr "支援的基本格式："
+msgstr "基本支援的格式："
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
@@ -225,7 +224,7 @@ msgstr "選擇圖層進行複製"
 
 #: js/view/Properties.js:116 js/view/Timeline.js:190 js/view/Timeline.js:218
 msgid "Default"
-msgstr "預設圖層"
+msgstr "預設"
 
 #: js/view/Properties.js:123
 msgid "Frame"
@@ -245,7 +244,7 @@ msgstr "標題名稱"
 
 #: js/view/Properties.js:133
 msgid "Title level in frame list"
-msgstr "框格列表的標題大小"
+msgstr "框格列表的標題等級"
 
 #: js/view/Properties.js:136
 msgid "Id"
@@ -297,7 +296,7 @@ msgstr "轉場"
 
 #: js/view/Properties.js:177
 msgid "Configure the animation when moving to the selected frames."
-msgstr "移動到選定的幀時配置動畫。"
+msgstr "當要移動到選定框格時設定動畫效果。"
 
 #: js/view/Properties.js:179
 msgid "Duration (seconds)"
@@ -366,13 +365,13 @@ msgstr "播放操控"
 
 #: js/view/Properties.js:210
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
-msgstr ""
+msgstr "支援瀏覽器〔上一頁〕(🡰) 按鍵，回到上一個框格"
 
 #: js/view/Properties.js:211
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
-msgstr ""
+msgstr "從一個框格移到另一個框格，將會自動改變位置欄的內容。"
 
 #: js/view/Properties.js:215
 msgid "Allow to control the presentation"
@@ -402,7 +401,7 @@ msgstr "允許放大"
 
 #: js/view/Timeline.js:136
 msgid "Delete the selected frames"
-msgstr "刪除所選框格"
+msgstr "刪除所選的框格"
 
 #: js/view/Timeline.js:162
 msgid "Add layer"
