@@ -984,6 +984,14 @@ export class Controller extends EventEmitter {
         }
     }
 
+    fitElement() {
+        const outlineElementId = this.getLayerProperty("outlineElementId");
+        const outlineElt = this.presentation.document.root.getElementById(outlineElementId);
+        if (outlineElt) {
+            this.setOutlineElement(outlineElt);
+        }
+    }
+
     /** Get a property of the current presentation.
      *
      * This method is used in the {@link Properties} view to assign getters

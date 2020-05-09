@@ -166,7 +166,11 @@ export class Properties extends VirtualDOMView {
                         title: _("Autoselect element"),
                         onclick() { controller.autoselectOutlineElement(); }
                     }, h("i.fas.fa-magic")),
-                    this.renderToggleField(h("i.far.fa-eye-slash"), _("Hide element"), "outlineElementHide", controller.getLayerProperty, controller.setLayerProperty)
+                    this.renderToggleField(h("i.far.fa-eye-slash"), _("Hide element"), "outlineElementHide", controller.getLayerProperty, controller.setLayerProperty),
+                    h("button", {
+                        title: _("Fit element"),
+                        onclick() { controller.fitElement(); }
+                    }, h("i.fas.fa-arrows-alt")),
                 ])
             ]),
             this.renderTextField("outlineElementId", false, controller.getLayerProperty, controller.setLayerProperty, true),
