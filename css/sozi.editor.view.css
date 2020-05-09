@@ -62,7 +62,8 @@ body {
     left: 0;
     padding: 0.5em 1em;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    visibility: hidden;
+    transition: visibility 0s 0.5s, opacity 0.5s ease;
 }
 
 #message .title {
@@ -71,6 +72,8 @@ body {
 
 #message.visible {
     opacity: 1;
+    visibility: visible;
+    transition: visibility 0s 0s, opacity 0.5s ease;
 }
 
 /* ------------------------------------------------------------------------- *
