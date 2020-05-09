@@ -168,7 +168,7 @@ export class Properties extends VirtualDOMView {
                     }, h("i.fas.fa-magic")),
                     this.renderToggleField(h("i.far.fa-eye-slash"), _("Hide element"), "outlineElementHide", controller.getLayerProperty, controller.setLayerProperty),
                     h("button", {
-                        title: _("Fit element"),
+                        title: _("Fit to element"),
                         onclick() { controller.fitElement(); }
                     }, h("i.fas.fa-arrows-alt")),
                 ])

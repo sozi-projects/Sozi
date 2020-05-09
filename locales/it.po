@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-01 03:40:+0000\n"
+"POT-Creation-Date: 2020-05-09 01:47:+0000\n"
 "PO-Revision-Date: 2020-05-3 10:47+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/sozi/"
@@ -290,119 +290,126 @@ msgstr "Auto-seleziona elemento"
 msgid "Hide element"
 msgstr "Nascondi elemento"
 
-#: js/view/Properties.js:174
+#: js/view/Properties.js:171
+msgid "Fit to element"
+msgstr "Adatta all'elemento"
+
+#: js/view/Properties.js:178
 msgid "Layer opacity"
 msgstr "Opacità layer"
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:181
 msgid "Transition"
 msgstr "Transizione"
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:181
 msgid "Configure the animation when moving to the selected frames."
 msgstr "Configurare l'animazione quando ci si sposta nei frame selezionati"
 
-#: js/view/Properties.js:179
+#: js/view/Properties.js:183
 msgid "Duration (seconds)"
 msgstr "Durata (secondi)"
 
-#: js/view/Properties.js:182
+#: js/view/Properties.js:186
 msgid "Timing function"
 msgstr "Funzione di temporizzazione"
 
-#: js/view/Properties.js:184
+#: js/view/Properties.js:188
 msgid "Linear"
 msgstr "LIneare"
 
-#: js/view/Properties.js:185
+#: js/view/Properties.js:189
 msgid "Ease"
 msgstr "Facile"
 
-#: js/view/Properties.js:186
+#: js/view/Properties.js:190
 msgid "Ease in"
 msgstr ""
 
-#: js/view/Properties.js:187
+#: js/view/Properties.js:191
 msgid "Ease out"
 msgstr ""
 
-#: js/view/Properties.js:188
+#: js/view/Properties.js:192
 msgid "Ease in-out"
 msgstr "Facile dentro-fuori"
 
-#: js/view/Properties.js:189
+#: js/view/Properties.js:193
 msgid "Step start"
 msgstr "Inizio passo"
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:194
 msgid "Step end"
 msgstr "Fine passo"
 
-#: js/view/Properties.js:191
+#: js/view/Properties.js:195
 msgid "Step middle"
 msgstr "Passo centrale"
 
-#: js/view/Properties.js:194
+#: js/view/Properties.js:198
 msgid "Relative zoom (%)"
 msgstr "Zoom relativo (%)"
 
-#: js/view/Properties.js:198
+#: js/view/Properties.js:202
 msgid "Path Id"
 msgstr "ID percorso"
 
-#: js/view/Properties.js:199
+#: js/view/Properties.js:203
 msgid "Hide path"
 msgstr "Nascondi percorso"
 
-#: js/view/Properties.js:203
+#: js/view/Properties.js:207
 msgid "Notes"
 msgstr "Note"
 
-#: js/view/Properties.js:203
+#: js/view/Properties.js:207
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
-"Modifica note del presentatore. Fai clic qui per mostrare l'elenco delle scorciatoie di formattazione."
+"Modifica note del presentatore. Fai clic qui per mostrare l'elenco delle "
+"scorciatoie di formattazione."
 
-#: js/view/Properties.js:207
+#: js/view/Properties.js:211
 msgid "Player"
 msgstr "Visualizzazione"
 
-#: js/view/Properties.js:210
+#: js/view/Properties.js:214
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
-msgstr "Supporta il pulsante \ "Indietro \" (🡰) del browser per passare al fotogramma precedente"
+msgstr ""
+"Supporta il pulsante \"Indietro \" (🡰) del browser per passare al fotogramma "
+"precedente"
 
-#: js/view/Properties.js:211
+#: js/view/Properties.js:215
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr ""
-"Passare da un fotogramma all'altro cambierà il contenuto della barra degli indirizzi "
-"automaticamente."
+"Passare da un fotogramma all'altro cambierà il contenuto della barra degli "
+"indirizzi automaticamente."
 
-#: js/view/Properties.js:215
+#: js/view/Properties.js:219
 msgid "Allow to control the presentation"
 msgstr "Permetti il controllo della presentazione"
 
-#: js/view/Properties.js:217 js/view/Properties.js:224
-#: js/view/Properties.js:230 js/view/Properties.js:238
+#: js/view/Properties.js:221 js/view/Properties.js:228
+#: js/view/Properties.js:234 js/view/Properties.js:242
 msgid "using the mouse"
 msgstr "usando il mouse"
 
-#: js/view/Properties.js:218 js/view/Properties.js:231
-#: js/view/Properties.js:239
+#: js/view/Properties.js:222 js/view/Properties.js:235
+#: js/view/Properties.js:243
 msgid "using the keyboard"
 msgstr "usando la tastiera"
 
-#: js/view/Properties.js:223
+#: js/view/Properties.js:227
 msgid "Allow to move the camera"
 msgstr "Permetti di spostare lo scenario"
 
-#: js/view/Properties.js:228
+#: js/view/Properties.js:232
 msgid "Allow to rotate the camera"
 msgstr "Permetti di ruotare lo scenario"
 
-#: js/view/Properties.js:236
+#: js/view/Properties.js:240
 msgid "Allow to zoom"
 msgstr "Permetti di zoomare"
 
@@ -443,8 +450,8 @@ msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
 msgstr ""
-"Dovresti aggiungere elementi grafici nell'area corrente per aiutare Sozi a tenere traccia"
-"della posizione di questo livello."
+"Dovresti aggiungere elementi grafici nell'area corrente per aiutare Sozi a "
+"tenere tracciadella posizione di questo livello."
 
 #: js/view/Toolbar.js:36
 msgid "Aspect ratio: "
@@ -495,11 +502,9 @@ msgstr "Informazioni"
 #~ msgid "Sozi (Error)"
 #~ msgstr "Sozi (Errore)"
 
-#~ msgid "Fit to element"
-#~ msgstr "Adatta all'elemento"
-
 #~ msgid "Formatting shortcuts"
 #~ msgstr "Scorciatoie di formattazione"
 
 #~ msgid "Document was changed. Use the reload button."
-#~ msgstr "Il documento è stato modificato. Utilizzare il pulsante di ricarica."
+#~ msgstr ""
+#~ "Il documento è stato modificato. Utilizzare il pulsante di ricarica."

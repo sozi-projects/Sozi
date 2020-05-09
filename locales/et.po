@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-01-01 03:40:+0000\n"
+"POT-Creation-Date: 2020-05-09 01:47:+0000\n"
 "PO-Revision-Date: 2020-04-11 22:09+0000\n"
 "Last-Translator: Rivo Zängov <rivozangov@gmail.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/sozi/"
 "translations/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.0-dev\n"
@@ -43,8 +43,8 @@ msgstr "SVG failid"
 
 #: js/backend/FileReader.js:18
 msgid ""
-"Open an SVG file from your computer (<i class=\"fas "
-"fa-exclamation-triangle\"></i> read-only)"
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
 msgstr ""
 "Ava SVG fail oma arvutist (<i class=\"fas fa-exclamation-triangle\"></i> "
 "ainult loetav)"
@@ -281,115 +281,123 @@ msgstr "Elemendi automaatne valimine"
 msgid "Hide element"
 msgstr "Peida element"
 
-#: js/view/Properties.js:174
+#: js/view/Properties.js:171
+#, fuzzy
+msgid "Fit to element"
+msgstr "Peida element"
+
+#: js/view/Properties.js:178
 msgid "Layer opacity"
 msgstr "Kihi läbipaistvus"
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:181
 msgid "Transition"
 msgstr "Üleminek"
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:181
 msgid "Configure the animation when moving to the selected frames."
 msgstr "Seadista valitud raamile liikumise animatsiooni."
 
-#: js/view/Properties.js:179
+#: js/view/Properties.js:183
 msgid "Duration (seconds)"
 msgstr "Kestus (sekundites)"
 
-#: js/view/Properties.js:182
+#: js/view/Properties.js:186
 msgid "Timing function"
 msgstr "Ajastuse funktsioonid"
 
-#: js/view/Properties.js:184
+#: js/view/Properties.js:188
 msgid "Linear"
 msgstr "Lineaarne"
 
-#: js/view/Properties.js:185
+#: js/view/Properties.js:189
 msgid "Ease"
 msgstr "Sujuv"
 
-#: js/view/Properties.js:186
+#: js/view/Properties.js:190
 msgid "Ease in"
 msgstr "Sujuvalt sisse"
 
-#: js/view/Properties.js:187
+#: js/view/Properties.js:191
 msgid "Ease out"
 msgstr "Sujuvalt välja"
 
-#: js/view/Properties.js:188
+#: js/view/Properties.js:192
 msgid "Ease in-out"
 msgstr "Sujuvalt sisse-välja"
 
-#: js/view/Properties.js:189
+#: js/view/Properties.js:193
 msgid "Step start"
 msgstr "Alguse samm"
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:194
 msgid "Step end"
 msgstr "Lõpu samm"
 
-#: js/view/Properties.js:191
+#: js/view/Properties.js:195
 msgid "Step middle"
 msgstr "Keskmine samm"
 
-#: js/view/Properties.js:194
+#: js/view/Properties.js:198
 msgid "Relative zoom (%)"
 msgstr "Suhteline suurendus (%)"
 
-#: js/view/Properties.js:198
+#: js/view/Properties.js:202
 msgid "Path Id"
 msgstr "Joone ID"
 
-#: js/view/Properties.js:199
+#: js/view/Properties.js:203
 msgid "Hide path"
 msgstr "Peida joon"
 
-#: js/view/Properties.js:203
+#: js/view/Properties.js:207
 msgid "Notes"
 msgstr "Märkmed"
 
-#: js/view/Properties.js:203
-msgid "Edit presenter notes. Click here to show the list of formatting shortcuts."
+#: js/view/Properties.js:207
+msgid ""
+"Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 "Muuda esitluse tegija märkmeid. Kliki siia, et näha vormindamise otseteede "
 "nimekirja."
 
-#: js/view/Properties.js:207
+#: js/view/Properties.js:211
 msgid "Player"
 msgstr "Esitaja"
 
-#: js/view/Properties.js:210
+#: js/view/Properties.js:214
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
 msgstr "Toeta veebibrauseri \"Tagasi\" (🡰) nuppu, et liikuda eelmisele raamile"
 
-#: js/view/Properties.js:211
+#: js/view/Properties.js:215
 msgid ""
-"Moving from one frame to another will change the content of the location "
-"bar automatically."
+"Moving from one frame to another will change the content of the location bar "
+"automatically."
 msgstr "Ühelt raamilt teisele liikumine muudab automaatselt asukoha riba sisu."
 
-#: js/view/Properties.js:215
+#: js/view/Properties.js:219
 msgid "Allow to control the presentation"
 msgstr "Luba esitlust juhtida"
 
-#: js/view/Properties.js:217 js/view/Properties.js:224 js/view/Properties.js:230 js/view/Properties.js:238
+#: js/view/Properties.js:221 js/view/Properties.js:228
+#: js/view/Properties.js:234 js/view/Properties.js:242
 msgid "using the mouse"
 msgstr "kasutades hiir"
 
-#: js/view/Properties.js:218 js/view/Properties.js:231 js/view/Properties.js:239
+#: js/view/Properties.js:222 js/view/Properties.js:235
+#: js/view/Properties.js:243
 msgid "using the keyboard"
 msgstr "kasutades klaviatuuri"
 
-#: js/view/Properties.js:223
+#: js/view/Properties.js:227
 msgid "Allow to move the camera"
 msgstr "Luba kaamerat liigutada"
 
-#: js/view/Properties.js:228
+#: js/view/Properties.js:232
 msgid "Allow to rotate the camera"
 msgstr "Luba kaamerat pöörata"
 
-#: js/view/Properties.js:236
+#: js/view/Properties.js:240
 msgid "Allow to zoom"
 msgstr "Luba suurendada"
 
@@ -452,7 +460,8 @@ msgstr ""
 "all ALT klahvi)"
 
 #: js/view/Toolbar.js:79
-msgid "Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgid ""
+"Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 "Pööra valitud kihte (võid ka hoida liigutamise režiimis all SHIFT klahvi)"
 

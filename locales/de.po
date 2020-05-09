@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-01-01 03:40:+0000\n"
+"POT-Creation-Date: 2020-05-09 01:47:+0000\n"
 "PO-Revision-Date: 2020-01-24 01:21+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/sozi/translations/"
@@ -288,92 +288,97 @@ msgstr "Element automatisch auswählen"
 msgid "Hide element"
 msgstr "Element verstecken"
 
-#: js/view/Properties.js:174
+#: js/view/Properties.js:171
+#, fuzzy
+msgid "Fit to element"
+msgstr "An SVG-Element anpassen"
+
+#: js/view/Properties.js:178
 msgid "Layer opacity"
 msgstr "Transparenz der Ebene"
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:181
 msgid "Transition"
 msgstr "Übergang"
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:181
 msgid "Configure the animation when moving to the selected frames."
 msgstr "Konfigurieren der Animation beim Verschieben der ausgewählten frames."
 
-#: js/view/Properties.js:179
+#: js/view/Properties.js:183
 msgid "Duration (seconds)"
 msgstr "Dauer (Sekunden)"
 
-#: js/view/Properties.js:182
+#: js/view/Properties.js:186
 msgid "Timing function"
 msgstr "Timing-Funktion"
 
-#: js/view/Properties.js:184
+#: js/view/Properties.js:188
 msgid "Linear"
 msgstr "Linear"
 
-#: js/view/Properties.js:185
+#: js/view/Properties.js:189
 msgid "Ease"
 msgstr "Leicht"
 
-#: js/view/Properties.js:186
+#: js/view/Properties.js:190
 msgid "Ease in"
 msgstr "Leicht einblenden"
 
-#: js/view/Properties.js:187
+#: js/view/Properties.js:191
 msgid "Ease out"
 msgstr "Leicht ausblenden"
 
-#: js/view/Properties.js:188
+#: js/view/Properties.js:192
 msgid "Ease in-out"
 msgstr "Leichtes ein-/ausblenden"
 
-#: js/view/Properties.js:189
+#: js/view/Properties.js:193
 msgid "Step start"
 msgstr "Zum Anfang springen"
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:194
 msgid "Step end"
 msgstr "Zum Ende springen"
 
-#: js/view/Properties.js:191
+#: js/view/Properties.js:195
 msgid "Step middle"
 msgstr "Zur Mitte springen"
 
-#: js/view/Properties.js:194
+#: js/view/Properties.js:198
 msgid "Relative zoom (%)"
 msgstr "Relativer Zoom (%)"
 
-#: js/view/Properties.js:198
+#: js/view/Properties.js:202
 msgid "Path Id"
 msgstr "Pfad-ID"
 
-#: js/view/Properties.js:199
+#: js/view/Properties.js:203
 msgid "Hide path"
 msgstr "Pfad verbergen"
 
-#: js/view/Properties.js:203
+#: js/view/Properties.js:207
 msgid "Notes"
 msgstr "Notizen"
 
-#: js/view/Properties.js:203
+#: js/view/Properties.js:207
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 "Die Notizen des Vortragenden bearbeiten. Klicken Sie hier, um die Liste der "
 "Formatierungsverknüpfungen anzuzeigen."
 
-#: js/view/Properties.js:207
+#: js/view/Properties.js:211
 msgid "Player"
 msgstr "Spieler"
 
-#: js/view/Properties.js:210
+#: js/view/Properties.js:214
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
 msgstr ""
 "Unterstütze die \"Zurück\" (🡰) Taste des Browsers, um zum vorherigen Frame "
 "zu wechseln"
 
-#: js/view/Properties.js:211
+#: js/view/Properties.js:215
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
@@ -381,29 +386,29 @@ msgstr ""
 "Wenn Sie von einem Rahmen zu einem anderen wechseln, ändert sich der Inhalt "
 "der Positionsleiste automatisch."
 
-#: js/view/Properties.js:215
+#: js/view/Properties.js:219
 msgid "Allow to control the presentation"
 msgstr "Präsentation steuern"
 
-#: js/view/Properties.js:217 js/view/Properties.js:224
-#: js/view/Properties.js:230 js/view/Properties.js:238
+#: js/view/Properties.js:221 js/view/Properties.js:228
+#: js/view/Properties.js:234 js/view/Properties.js:242
 msgid "using the mouse"
 msgstr "Maus verwenden"
 
-#: js/view/Properties.js:218 js/view/Properties.js:231
-#: js/view/Properties.js:239
+#: js/view/Properties.js:222 js/view/Properties.js:235
+#: js/view/Properties.js:243
 msgid "using the keyboard"
 msgstr "Tastatur verwenden"
 
-#: js/view/Properties.js:223
+#: js/view/Properties.js:227
 msgid "Allow to move the camera"
 msgstr "Erlauben, die Kamera zu bewegen"
 
-#: js/view/Properties.js:228
+#: js/view/Properties.js:232
 msgid "Allow to rotate the camera"
 msgstr "Erlauben die Kamera zu drehen"
 
-#: js/view/Properties.js:236
+#: js/view/Properties.js:240
 msgid "Allow to zoom"
 msgstr "Zoom zulassen"
 
@@ -495,9 +500,6 @@ msgstr "Information"
 
 #~ msgid "Sozi (Error)"
 #~ msgstr "Sozi (Fehler)"
-
-#~ msgid "Fit to element"
-#~ msgstr "An SVG-Element anpassen"
 
 #, fuzzy
 #~ msgid "Formatting shortcuts"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-01-01 03:40:+0000\n"
+"POT-Creation-Date: 2020-05-09 01:47:+0000\n"
 "PO-Revision-Date: 2018-11-07 16:08+0000\n"
 "Last-Translator: Csizmazia-Darab István <i.csizmazia@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/sozi/"
@@ -293,92 +293,97 @@ msgstr "Automatikus elemkiválasztás"
 msgid "Hide element"
 msgstr "Elem elrejtése"
 
-#: js/view/Properties.js:174
+#: js/view/Properties.js:171
+#, fuzzy
+msgid "Fit to element"
+msgstr "Elemhez illesztés"
+
+#: js/view/Properties.js:178
 msgid "Layer opacity"
 msgstr "Réteg átlátszósága"
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:181
 msgid "Transition"
 msgstr "Átmenet"
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:181
 msgid "Configure the animation when moving to the selected frames."
 msgstr "Animáció beállítása a kiválasztott képkockára mozgáskor."
 
-#: js/view/Properties.js:179
+#: js/view/Properties.js:183
 msgid "Duration (seconds)"
 msgstr "Időtartam (másodperc)"
 
-#: js/view/Properties.js:182
+#: js/view/Properties.js:186
 msgid "Timing function"
 msgstr "Időzítés funkció"
 
-#: js/view/Properties.js:184
+#: js/view/Properties.js:188
 msgid "Linear"
 msgstr "Lineáris"
 
-#: js/view/Properties.js:185
+#: js/view/Properties.js:189
 msgid "Ease"
 msgstr "Lebegés"
 
-#: js/view/Properties.js:186
+#: js/view/Properties.js:190
 msgid "Ease in"
 msgstr "Belebegés"
 
-#: js/view/Properties.js:187
+#: js/view/Properties.js:191
 msgid "Ease out"
 msgstr "Kilebegés"
 
-#: js/view/Properties.js:188
+#: js/view/Properties.js:192
 msgid "Ease in-out"
 msgstr "Be-kilebegés"
 
-#: js/view/Properties.js:189
+#: js/view/Properties.js:193
 msgid "Step start"
 msgstr "Lépés kezdete"
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:194
 msgid "Step end"
 msgstr "Lépés vége"
 
-#: js/view/Properties.js:191
+#: js/view/Properties.js:195
 msgid "Step middle"
 msgstr "Középre lépés"
 
-#: js/view/Properties.js:194
+#: js/view/Properties.js:198
 msgid "Relative zoom (%)"
 msgstr "Relatív nagyítás (%)"
 
-#: js/view/Properties.js:198
+#: js/view/Properties.js:202
 msgid "Path Id"
 msgstr "Útvonal ID"
 
-#: js/view/Properties.js:199
+#: js/view/Properties.js:203
 msgid "Hide path"
 msgstr "Útvonal rejtése"
 
-#: js/view/Properties.js:203
+#: js/view/Properties.js:207
 msgid "Notes"
 msgstr "Jegyzetek"
 
-#: js/view/Properties.js:203
+#: js/view/Properties.js:207
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 "Előadói jegyzetek szerkesztése. Kattints ide a formázási parancsok "
 "listájának megjelenítéséhez."
 
-#: js/view/Properties.js:207
+#: js/view/Properties.js:211
 msgid "Player"
 msgstr "Lejátszás"
 
-#: js/view/Properties.js:210
+#: js/view/Properties.js:214
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
 msgstr ""
 "A böngésző „Vissza” gombjának engedélyezése a prezentáció visszafelé történő "
 "léptetéséhez"
 
-#: js/view/Properties.js:211
+#: js/view/Properties.js:215
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
@@ -386,29 +391,29 @@ msgstr ""
 "Ha engedélyezve van, az egyik képkockából a másikba történő mozgás "
 "automatikusan módosítja a címsáv tartalmát"
 
-#: js/view/Properties.js:215
+#: js/view/Properties.js:219
 msgid "Allow to control the presentation"
 msgstr "Prezentáció vezérlésének engedélyezése"
 
-#: js/view/Properties.js:217 js/view/Properties.js:224
-#: js/view/Properties.js:230 js/view/Properties.js:238
+#: js/view/Properties.js:221 js/view/Properties.js:228
+#: js/view/Properties.js:234 js/view/Properties.js:242
 msgid "using the mouse"
 msgstr "egér használat"
 
-#: js/view/Properties.js:218 js/view/Properties.js:231
-#: js/view/Properties.js:239
+#: js/view/Properties.js:222 js/view/Properties.js:235
+#: js/view/Properties.js:243
 msgid "using the keyboard"
 msgstr "billentyű használat"
 
-#: js/view/Properties.js:223
+#: js/view/Properties.js:227
 msgid "Allow to move the camera"
 msgstr "Kameramozgás engedélyezése"
 
-#: js/view/Properties.js:228
+#: js/view/Properties.js:232
 msgid "Allow to rotate the camera"
 msgstr "Kameraforgatás engedélyezése"
 
-#: js/view/Properties.js:236
+#: js/view/Properties.js:240
 msgid "Allow to zoom"
 msgstr "Nagyítás engedélyezése"
 
@@ -497,9 +502,6 @@ msgstr "Információ"
 
 #~ msgid "Sozi (Error)"
 #~ msgstr "Sozi (Hiba)"
-
-#~ msgid "Fit to element"
-#~ msgstr "Elemhez illesztés"
 
 #, fuzzy
 #~ msgid "Formatting shortcuts"
