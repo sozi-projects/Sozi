@@ -294,7 +294,6 @@ msgid "Hide element"
 msgstr "Elem elrejtése"
 
 #: js/view/Properties.js:171
-#, fuzzy
 msgid "Fit to element"
 msgstr "Elemhez illesztés"
 

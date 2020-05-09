@@ -293,9 +293,8 @@ msgid "Hide element"
 msgstr "Element verbergen"
 
 #: js/view/Properties.js:171
-#, fuzzy
 msgid "Fit to element"
-msgstr "Aan SVG-Element aanpassen"
+msgstr "Aan Element aanpassen"
 
 #: js/view/Properties.js:178
 msgid "Layer opacity"

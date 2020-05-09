@@ -288,7 +288,6 @@ msgid "Hide element"
 msgstr "隱藏元件"
 
 #: js/view/Properties.js:171
-#, fuzzy
 msgid "Fit to element"
 msgstr "符合元件大小"
 

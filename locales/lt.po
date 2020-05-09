@@ -298,7 +298,6 @@ msgid "Hide element"
 msgstr "Slėpti elementą"
 
 #: js/view/Properties.js:171
-#, fuzzy
 msgid "Fit to element"
 msgstr "Vaizduoti pagal elemento dydį"
 

@@ -301,7 +301,6 @@ msgid "Hide element"
 msgstr "Skryť prvok"
 
 #: js/view/Properties.js:171
-#, fuzzy
 msgid "Fit to element"
 msgstr "Prispôsobiť na veľkosť prvku"
 

@@ -293,7 +293,6 @@ msgid "Hide element"
 msgstr "Ocultar elemento"
 
 #: js/view/Properties.js:171
-#, fuzzy
 msgid "Fit to element"
 msgstr "Ajustar al elemento"
 

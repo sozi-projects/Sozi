@@ -287,7 +287,6 @@ msgid "Hide element"
 msgstr "Piilota elementti"
 
 #: js/view/Properties.js:171
-#, fuzzy
 msgid "Fit to element"
 msgstr "Sovita elementtiin"
 
