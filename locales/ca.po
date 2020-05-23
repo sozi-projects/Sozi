@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-01-01 03:40:+0000\n"
-"PO-Revision-Date: 2020-04-13 19:11+0000\n"
-"Last-Translator: Carles Sadurní <sadurbnd@gmail.com>\n"
+"PO-Revision-Date: 2020-05-25 15:41+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/sozi/"
 "translations/ca/>\n"
 "Language: ca\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 
 #: js/backend/Electron.js:33
@@ -94,7 +94,7 @@ msgstr "S'ha desat %s."
 
 #: js/view/Properties.js:41
 msgid "Autoselect outline element"
-msgstr ""
+msgstr "Selecciona automàticament l’element d’esquema"
 
 #: js/view/Properties.js:42 js/view/Properties.js:151
 msgid "Reset layer geometry"
@@ -142,7 +142,7 @@ msgstr "Mida de la lletra"
 
 #: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
-msgstr ""
+msgstr "Activa les notificacions en desar i recarregar"
 
 #: js/view/Properties.js:65
 msgid "Enable notifications"
