@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-01-01 03:40:+0000\n"
-"PO-Revision-Date: 2020-01-15 13:21+0000\n"
-"Last-Translator: 周宏陽 <hongyang.jp@gmail.com>\n"
+"PO-Revision-Date: 2020-05-25 15:41+0000\n"
+"Last-Translator: Hideyoshi Fuji <HideyoshiFuji@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/sozi/"
 "translations/ja/>\n"
 "Language: ja\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: js/backend/Electron.js:33
 msgid "Open an SVG file from your computer"
@@ -64,136 +64,158 @@ msgid "File %s could not be loaded."
 msgstr "ファイル %s を読み込めませんでした。"
 
 #: js/Storage.js:96 js/Storage.js:105
+#, fuzzy
 msgid "Document is not valid SVG."
-msgstr ""
+msgstr "ドキュメントは有効なSVGではありません。"
 
 #: js/Storage.js:141 js/Storage.js:147
 msgid "Document was changed. Reloading."
-msgstr ""
+msgstr "ドキュメントが変更されました。再読み込み中。"
 
 #: js/Storage.js:156
+#, fuzzy
 msgid "Document was changed."
-msgstr ""
+msgstr "ドキュメントが変更されました。"
 
 #: js/Storage.js:182
+#, fuzzy
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr ""
+msgstr "ドキュメントは Sozi 13 以前からインポートされました。"
 
 #: js/Storage.js:254 js/Storage.js:275
+#, fuzzy
 msgid "Saved %s."
-msgstr ""
+msgstr "%s を保存しました。"
 
 #: js/view/Properties.js:41
+#, fuzzy
 msgid "Autoselect outline element"
-msgstr ""
+msgstr "アウトライン要素を自動選択"
 
 #: js/view/Properties.js:42 js/view/Properties.js:151
 msgid "Reset layer geometry"
-msgstr ""
+msgstr "レイヤー配置をリセットする"
 
 #: js/view/Properties.js:43 js/view/Timeline.js:143
+#, fuzzy
 msgid "Create a new frame"
-msgstr ""
+msgstr "新しいフレームを作成する"
 
 #: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:112
 msgid "Save the presentation"
-msgstr ""
+msgstr "プレゼンテーションの保存"
 
 #: js/view/Properties.js:45 js/view/Toolbar.js:96
+#, fuzzy
 msgid "Redo"
-msgstr ""
+msgstr "やり直し"
 
 #: js/view/Properties.js:46 js/view/Toolbar.js:91
+#, fuzzy
 msgid "Undo"
-msgstr ""
+msgstr "元に戻す"
 
 #: js/view/Properties.js:47
+#, fuzzy
 msgid "Focus the frame title"
-msgstr ""
+msgstr "フレームタイトルにフォーカスする"
 
 #: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:117
+#, fuzzy
 msgid "Reload the SVG document"
-msgstr ""
+msgstr "SVG ドキュメントを再読み込みする"
 
 #: js/view/Properties.js:49
+#, fuzzy
 msgid "Toggle full-screen mode"
-msgstr ""
+msgstr "フルスクリーンモードの切り替え"
 
 #: js/view/Properties.js:50
+#, fuzzy
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "開発者ツールの切り替え"
 
 #: js/view/Properties.js:60
+#, fuzzy
 msgid "User interface"
-msgstr ""
+msgstr "ユーザーインターフェース"
 
 #: js/view/Properties.js:61
+#, fuzzy
 msgid "Font size"
-msgstr ""
+msgstr "フォントサイズ"
 
 #: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
-msgstr ""
+msgstr "保存と再読み込み時の通知を有効にする"
 
 #: js/view/Properties.js:65
+#, fuzzy
 msgid "Enable notifications"
-msgstr ""
+msgstr "通知を有効にする"
 
 #: js/view/Properties.js:69
 msgid "When Sozi loses the focus"
-msgstr ""
+msgstr "Soziがフォーカスを失う時"
 
 #: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
-msgstr ""
+msgstr "手動"
 
 #: js/view/Properties.js:74
 msgid "Automatically"
-msgstr ""
+msgstr "自動"
 
 #: js/view/Properties.js:75
 msgid "When Sozi gets the focus"
-msgstr ""
+msgstr "Soziがフォーカスを取得した時"
 
 #: js/view/Properties.js:78
+#, fuzzy
 msgid "Behavior"
-msgstr ""
+msgstr "動作設定"
 
 #: js/view/Properties.js:80
+#, fuzzy
 msgid "Preview transition animations"
-msgstr ""
+msgstr "遷移アニメーションのプレビュー"
 
 #: js/view/Properties.js:81
+#, fuzzy
 msgid "Enable animated transitions"
-msgstr ""
+msgstr "アニメーション切り替えを有効にする"
 
 #: js/view/Properties.js:83
+#, fuzzy
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "キーボードショートカット"
 
 #: js/view/Properties.js:96
+#, fuzzy
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "サポートされる基本的なフォーマット："
 
 #: js/view/Properties.js:98
+#, fuzzy
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: 太字"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: イタリック体"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: 下線"
 
 #: js/view/Properties.js:101
+#, fuzzy
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0: 段落"
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big header"
-msgstr ""
+msgstr "Ctrl+1：大きなヘッダー"
 
 #: js/view/Properties.js:103
 msgid "Ctrl+2: Medium header"
