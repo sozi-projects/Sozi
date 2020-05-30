@@ -260,7 +260,7 @@ module.exports = function(grunt) {
         compress: {
             "media-inkscape-0.92": {
                 options: {
-                    archive: "dist/Sozi-extras-media-inkscape-0.92-<%= pkg.version %>.zip",
+                    archive: "dist/Sozi-extras-media-<%= pkg.version %>-inkscape-0.92.zip",
                     cwd: "extras/media-inkscape-0.92"
                 },
                 src: [
@@ -270,7 +270,7 @@ module.exports = function(grunt) {
             },
             "media-inkscape-1.0": {
                 options: {
-                    archive: "dist/Sozi-extras-media-inkscape-1.0-<%= pkg.version %>.zip",
+                    archive: "dist/Sozi-extras-media-<%= pkg.version %>-inkscape-1.0.zip",
                     cwd: "extras/media-inkscape-1.0"
                 },
                 src: [
