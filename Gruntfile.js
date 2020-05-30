@@ -258,14 +258,24 @@ module.exports = function(grunt) {
 
         // Generate a zip archive of the "add media" Inkscape extension.
         compress: {
-            media: {
+            "media-inkscape-0.92": {
                 options: {
-                    archive: "dist/Sozi-extras-media-<%= pkg.version %>.zip",
-                    cwd: "extras/media"
+                    archive: "dist/Sozi-extras-media-inkscape-0.92-<%= pkg.version %>.zip",
+                    cwd: "extras/media-inkscape-0.92"
                 },
                 src: [
-                    "extras/media/sozi_extras_media.inx",
-                    "extras/media/sozi_extras_media.py"
+                    "extras/media-inkscape-0.92/sozi_extras_media.inx",
+                    "extras/media-inkscape-0.92/sozi_extras_media.py"
+                ]
+            },
+            "media-inkscape-1.0": {
+                options: {
+                    archive: "dist/Sozi-extras-media-inkscape-1.0-<%= pkg.version %>.zip",
+                    cwd: "extras/media-inkscape-1.0"
+                },
+                src: [
+                    "extras/media-inkscape-1.0/sozi_extras_media.inx",
+                    "extras/media-inkscape-1.0/sozi_extras_media.py"
                 ]
             }
         },
@@ -488,7 +498,8 @@ module.exports = function(grunt) {
         "newer:nunjucks_render",
         "newer:po2json",
         "newer:copy:editor",
-        "compress:media"
+        "compress:media-inkscape-0.92",
+        "compress:media-inkscape-1.0"
     ]);
 
     // Build the Electron application.
