@@ -1,6 +1,6 @@
 
-![Github Downloads (latest)](https://img.shields.io/github/downloads/senshu/Sozi/latest/total.svg?style=flat-square)
-![Github Downloads (total)](https://img.shields.io/github/downloads/senshu/Sozi/total.svg?style=flat-square)
+![Github Downloads (latest)](https://img.shields.io/github/downloads/sozi-projects/Sozi/latest/total.svg?style=flat-square)
+![Github Downloads (total)](https://img.shields.io/github/downloads/sozi-projects/Sozi/total.svg?style=flat-square)
 
 Sozi is a presentation tool for SVG documents.
 
@@ -17,7 +17,7 @@ Get the source files
 
 Clone the repository:
 
-    git clone git://github.com/senshu/Sozi.git
+    git clone git://github.com/sozi-projects/Sozi.git
 
 
 Install the build tools and dependencies
