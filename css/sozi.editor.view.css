@@ -171,12 +171,12 @@ button:disabled {
     border-right: 1px solid rgb(80, 80, 80);
 }
 
-#message.error {
-    background-color: rgba(255, 100, 100, 0.8);
-}
-
 #message.info {
     background-color: rgba(150, 200, 200, 0.8);
+}
+
+#message.error {
+    background-color: rgba(255, 100, 100, 0.8);
 }
 
 /* ------------------------------------------------------------------------- *

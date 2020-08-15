@@ -135,6 +135,10 @@ export class AbstractBackend extends EventEmitter {
         this.emit("load", fileDescriptor, "", "Not implemented");
     }
 
+    loadSync(fileDescriptor) {
+        // Not implemented
+    }
+
     /** Signals that a file has changed.
      * @event AbstractBackend#change
      */

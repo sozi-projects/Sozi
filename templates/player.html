@@ -122,6 +122,8 @@
                 border-top-color: #333;
                 animation: spinner .8s linear infinite;
             }
+
+            {{ customCSS }}
         </style>
     </head>
     <body>
@@ -142,5 +144,10 @@
         <script>var soziPresentationData = {{ json }};</script>
 {% endraw %}
         <script>{{'{% raw %}'}}{{ js|safe }}{{'{% endraw %}'}}</script>
+{% raw %}
+        <script>
+            {{ customJS|safe }}
+        </script>
+{% endraw %}
     </body>
 </html>

@@ -552,4 +552,8 @@ export class Presentation extends EventEmitter {
             }
         });
     }
+
+    getCustomFiles(ext) {
+        return this.customFiles.filter(path => path.endsWith(ext));
+    }
 }

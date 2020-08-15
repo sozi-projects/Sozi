@@ -300,7 +300,9 @@ export class Storage extends EventEmitter {
         return nunjucks.render("player.html", {
             svg: this.document.asText,
             pres: this.presentation,
-            json: JSON.stringify(this.presentation.toMinimalStorable())
+            json: JSON.stringify(this.presentation.toMinimalStorable()),
+            customCSS: this.readCustomFiles(".css"),
+            customJS: this.readCustomFiles(".js")
         });
     }
 
@@ -317,5 +319,15 @@ export class Storage extends EventEmitter {
     toRelativePath(filePath) {
         const svgLoc = this.backend.getLocation(this.svgFileDescriptor);
         return path.relative(svgLoc, filePath);
+    }
+
+    readCustomFiles(ext) {
+        const svgLoc = this.backend.getLocation(this.svgFileDescriptor);
+        const paths = this.presentation.customFiles.filter(path => path.endsWith(ext));
+        const contents = paths.map(relPath => {
+            const absPath = path.join(svgLoc, relPath);
+            return this.backend.loadSync(absPath);
+        })
+        return contents.join("\n");
     }
 }

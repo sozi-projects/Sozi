@@ -170,6 +170,17 @@ export class Electron extends AbstractBackend {
         });
     }
 
+    loadSync(fileDescriptor) {
+        try {
+            return fs.readFileSync(fileDescriptor, {encoding: "utf8" });
+        }
+        catch (e) {
+            const _ = this.controller.gettext;
+            this.controller.error(Jed.sprintf(_("Could not read file %s."), fileDescriptor));
+            return "";
+        }
+    }
+
     create(name, location, mimeType, data, callback = () => {}) {
         const fileName = path.join(location, name);
         fs.writeFile(fileName, data, { encoding: "utf-8" }, (err) => callback(fileName, err));
