@@ -276,11 +276,10 @@ export class Controller extends EventEmitter {
         this.storage.reload();
     }
 
-    addCustomFile() {
+    addCustomFile(path) {
         this.perform(
             function onDo() {
-                // TODO Show file chooser
-                this.presentation.customFiles.push(this.presentation.customFiles.length + ".css");
+                this.presentation.customFiles.push(this.storage.toRelativePath(path));
             },
             function onUndo() {
                 this.presentation.customFiles.pop();

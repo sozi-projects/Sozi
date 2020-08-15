@@ -313,4 +313,9 @@ export class Storage extends EventEmitter {
             soziHtml: htmlFileName
         });
     }
+
+    toRelativePath(filePath) {
+        const svgLoc = this.backend.getLocation(this.svgFileDescriptor);
+        return path.relative(svgLoc, filePath);
+    }
 }

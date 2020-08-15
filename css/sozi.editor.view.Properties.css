@@ -48,7 +48,7 @@
     margin-left: 1em;
 }
 
-.properties table {
+.properties table.custom-css-js {
     width: 100%;
     border-radius: 0.5em;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5) inset;
@@ -56,11 +56,15 @@
     color: black;
 }
 
-.properties tr th {
+.properties .custom-css-js tr th {
     width: 100%;
 }
 
-.properties td:first-child {
+.properties .custom-css-js td:first-child {
     padding-left: 0.5em;
     padding-right: 0.5em;
+}
+
+.properties input.custom-css-js {
+    display: none;
 }

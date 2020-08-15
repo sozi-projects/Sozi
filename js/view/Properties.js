@@ -210,13 +210,25 @@ export class Properties extends VirtualDOMView {
 
             h("h1", _("Custom stylesheets and scripts")),
 
-            h("table", [
+            h("input.custom-css-js", {
+                type: "file",
+                accept: "text/css, text/javascript",
+                onChange(evt) {
+                    if (evt.target.files.length) {
+                        controller.addCustomFile(evt.target.files[0].path);
+                    }
+                }
+            }),
+            h("table.custom-css-js", [
                 h("tr", [
                     h("th", controller.getCustomFiles().length ? _("CSS or JS file names") : _("Add CSS or JS files")),
                     h("td", [
                         h("button", {
                             title: _("Add a file"),
-                            onClick() { controller.addCustomFile(); }
+                            onClick() {
+                                // Open the file chooser.
+                                document.querySelector(".properties input.custom-css-js").dispatchEvent(new MouseEvent("click"));
+                            }
                         }, h("i.fas.fa-plus"))
                     ])
                 ]),
