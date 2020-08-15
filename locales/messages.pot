@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2020-05-09 01:47:+0000\n"
+"POT-Creation-Date: 2020-08-15 04:22:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -356,7 +356,7 @@ msgid "Player"
 msgstr ""
 
 #: js/view/Properties.js:214
-msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
+msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
 msgstr ""
 
 #: js/view/Properties.js:215

@@ -377,7 +377,7 @@ msgid "Player"
 msgstr "Lejátszás"
 
 #: js/view/Properties.js:214
-msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
+msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
 msgstr ""
 "A böngésző „Vissza” gombjának engedélyezése a prezentáció visszafelé történő "
 "léptetéséhez"

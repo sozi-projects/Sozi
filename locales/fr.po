@@ -368,9 +368,9 @@ msgid "Player"
 msgstr "Visionnage"
 
 #: js/view/Properties.js:214
-msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
+msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
 msgstr ""
-"Prendre en charge le bouton \"Retour\" (🡰) du navigateur pour revenir à la "
+"Prendre en charge le bouton \"Retour\" (⬅) du navigateur pour revenir à la "
 "vue précédente"
 
 #: js/view/Properties.js:215

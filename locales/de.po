@@ -372,9 +372,9 @@ msgid "Player"
 msgstr "Spieler"
 
 #: js/view/Properties.js:214
-msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
+msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
 msgstr ""
-"Unterstütze die \"Zurück\" (🡰) Taste des Browsers, um zum vorherigen Frame "
+"Unterstütze die \"Zurück\" (⬅) Taste des Browsers, um zum vorherigen Frame "
 "zu wechseln"
 
 #: js/view/Properties.js:215

@@ -211,7 +211,7 @@ export class Properties extends VirtualDOMView {
             h("h1", _("Player")),
 
             h("div", [
-                _("Support the browser's \"Back\" (🡰) button to move to the previous frame"),
+                _("Support the browser's \"Back\" (\u2b05) button to move to the previous frame"),
                 this.renderToggleField(h("i.fas.fa-history"), _("Moving from one frame to another will change the content of the location bar automatically."), "updateURLOnFrameChange", controller.getPresentationProperty, controller.setPresentationProperty)
             ]),
 

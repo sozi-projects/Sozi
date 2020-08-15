@@ -374,9 +374,9 @@ msgid "Player"
 msgstr "Visualizzazione"
 
 #: js/view/Properties.js:214
-msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
+msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
 msgstr ""
-"Supporta il pulsante \"Indietro \" (🡰) del browser per passare al fotogramma "
+"Supporta il pulsante \"Indietro \" (⬅) del browser per passare al fotogramma "
 "precedente"
 
 #: js/view/Properties.js:215
