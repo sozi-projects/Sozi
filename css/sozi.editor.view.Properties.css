@@ -36,7 +36,7 @@
 }
 
 .properties span.btn-group,
-.properties :not(.btn-group) > button {
+.properties :not(.btn-group):not(td) > button {
     margin-left: 1em;
 }
 
@@ -46,4 +46,21 @@
 
 .properties .help {
     margin-left: 1em;
+}
+
+.properties table {
+    width: 100%;
+    border-radius: 0.5em;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5) inset;
+    background-color: white;
+    color: black;
+}
+
+.properties tr th {
+    width: 100%;
+}
+
+.properties td:first-child {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }

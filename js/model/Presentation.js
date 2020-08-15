@@ -375,6 +375,7 @@ export class Presentation extends EventEmitter {
         this.frames                   = [];
         this.layers                   = [];
         this.elementsToHide           = [];
+        this.customFiles              = [];
         this.aspectWidth              = 4;
         this.aspectHeight             = 3;
         this.enableKeyboardZoom       = true;
@@ -438,7 +439,8 @@ export class Presentation extends EventEmitter {
             enableMouseNavigation   : this.enableMouseNavigation,
             updateURLOnFrameChange  : this.updateURLOnFrameChange,
             frames                  : this.frames.map(frame => frame.toStorable()),
-            elementsToHide          : this.elementsToHide.slice()
+            elementsToHide          : this.elementsToHide.slice(),
+            customFiles             : this.customFiles.slice(),
         };
     }
 
@@ -481,6 +483,10 @@ export class Presentation extends EventEmitter {
 
         if (storable.elementsToHide) {
             this.elementsToHide = storable.elementsToHide.slice();
+        }
+
+        if (storable.customFiles) {
+            this.customFiles = storable.customFiles.slice();
         }
     }
 

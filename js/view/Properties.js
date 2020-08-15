@@ -208,6 +208,31 @@ export class Properties extends VirtualDOMView {
 
             this.renderRichTextField("notes", false, controller.getFrameProperty, controller.setFrameProperty, true),
 
+            h("h1", _("Custom stylesheets and scripts")),
+
+            h("table", [
+                h("tr", [
+                    h("th", controller.getCustomFiles().length ? _("CSS or JS file names") : _("Add CSS or JS files")),
+                    h("td", [
+                        h("button", {
+                            title: _("Add a file"),
+                            onClick() { controller.addCustomFile(); }
+                        }, h("i.fas.fa-plus"))
+                    ])
+                ]),
+                controller.getCustomFiles().map((name, index) =>
+                    h("tr", [
+                        h("td", name),
+                        h("td", [
+                            h("button", {
+                                title: _("Remove this file"),
+                                onClick() { controller.removeCustomFile(index); }
+                            }, h("i.fas.fa-trash"))
+                        ])
+                    ])
+                )
+            ]),
+
             h("h1", _("Player")),
 
             h("div", [
@@ -218,8 +243,8 @@ export class Properties extends VirtualDOMView {
             h("div", [
                 _("Allow to control the presentation"),
                 h("span.btn-group", [
-                        this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseNavigation", controller.getPresentationProperty, controller.setPresentationProperty),
-                        this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardNavigation", controller.getPresentationProperty, controller.setPresentationProperty)
+                    this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseNavigation", controller.getPresentationProperty, controller.setPresentationProperty),
+                    this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardNavigation", controller.getPresentationProperty, controller.setPresentationProperty)
                 ])
             ]),
 
@@ -231,16 +256,16 @@ export class Properties extends VirtualDOMView {
             h("div", [
                 _("Allow to rotate the camera"),
                 h("span.btn-group", [
-                        this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseRotation", controller.getPresentationProperty, controller.setPresentationProperty),
-                        this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardRotation", controller.getPresentationProperty, controller.setPresentationProperty)
+                    this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseRotation", controller.getPresentationProperty, controller.setPresentationProperty),
+                    this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardRotation", controller.getPresentationProperty, controller.setPresentationProperty)
                 ])
             ]),
 
             h("div", [
                 _("Allow to zoom"),
                 h("span.btn-group", [
-                        this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseZoom", controller.getPresentationProperty, controller.setPresentationProperty),
-                        this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardZoom", controller.getPresentationProperty, controller.setPresentationProperty)
+                    this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseZoom", controller.getPresentationProperty, controller.setPresentationProperty),
+                    this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardZoom", controller.getPresentationProperty, controller.setPresentationProperty)
                 ])
             ])
         ]);

@@ -276,6 +276,38 @@ export class Controller extends EventEmitter {
         this.storage.reload();
     }
 
+    addCustomFile() {
+        this.perform(
+            function onDo() {
+                // TODO Show file chooser
+                this.presentation.customFiles.push(this.presentation.customFiles.length + ".css");
+            },
+            function onUndo() {
+                this.presentation.customFiles.pop();
+            },
+            false,
+            ["presentationChange", "repaint"]
+        );
+    }
+
+    removeCustomFile(index) {
+        const fileName = this.presentation.customFiles[index];
+        this.perform(
+            function onDo() {
+                this.presentation.customFiles.splice(index, 1);
+            },
+            function onUndo() {
+                this.presentation.customFiles.splice(index, 0, fileName);
+            },
+            false,
+            ["presentationChange", "repaint"]
+        );
+    }
+
+    getCustomFiles() {
+        return this.presentation.customFiles;
+    }
+
     /** Add a new frame to the presentation.
      *
      * A new frame is added to the presentation after the
