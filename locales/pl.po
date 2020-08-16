@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-05-09 01:47:+0000\n"
-"PO-Revision-Date: 2018-10-22 13:33+0000\n"
-"Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
+"POT-Creation-Date: 2020-01-01 03:40:+0000\n"
+"PO-Revision-Date: 2020-06-13 00:29+0000\n"
+"Last-Translator: WaldiS <sto@tutanota.de>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/sozi/translations/"
 "pl/>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.3-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
 
 #: js/backend/Electron.js:33
@@ -27,15 +27,15 @@ msgstr "Otwórz plik SVG z komputera"
 
 #: js/backend/Electron.js:65
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "Chcesz zapisać prezentację przed zamknięciem?"
 
 #: js/backend/Electron.js:66
 msgid "Yes"
-msgstr ""
+msgstr "Tak"
 
 #: js/backend/Electron.js:66
 msgid "No"
-msgstr ""
+msgstr "Nie"
 
 #: js/backend/Electron.js:89
 msgid "File not found: %s."
@@ -62,15 +62,12 @@ msgid "Open an SVG file from Google Drive"
 msgstr "Otwórz plik SVG z Google Drive"
 
 #: js/Controller.js:131
-#, fuzzy
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
-msgstr ""
-"Otwórz plik SVG z komputera (<i class=\"fas fa-exclamation-triangle\"></i> "
-"read-only)"
+msgstr "Błąd <i class=\"fas fa-exclamation-triangle\"></i>"
 
 #: js/Controller.js:132
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+msgstr "Informacje <i class=\"fas fa-info-circle\"></i>"
 
 #: js/Storage.js:79
 msgid "File %s could not be loaded."
@@ -97,9 +94,8 @@ msgid "Saved %s."
 msgstr "Zapisano %s."
 
 #: js/view/Properties.js:41
-#, fuzzy
 msgid "Autoselect outline element"
-msgstr "Zaznacz element automatycznie"
+msgstr "Automatycznie wybierz element konspektu"
 
 #: js/view/Properties.js:42 js/view/Properties.js:151
 msgid "Reset layer geometry"
@@ -155,19 +151,19 @@ msgstr "Włącz powiadomienia"
 
 #: js/view/Properties.js:69
 msgid "When Sozi loses the focus"
-msgstr ""
+msgstr "Kiedy Sozi traci ostrość"
 
 #: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
-msgstr ""
+msgstr "Ręcznie"
 
 #: js/view/Properties.js:74
 msgid "Automatically"
-msgstr ""
+msgstr "Automatycznie"
 
 #: js/view/Properties.js:75
 msgid "When Sozi gets the focus"
-msgstr ""
+msgstr "Kiedy Sozi dostaje ostrość"
 
 #: js/view/Properties.js:78
 msgid "Behavior"
@@ -187,43 +183,43 @@ msgstr "Skróty klawiszowe"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "Obsługa podstawowego formatowania:"
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: Pogrubienie"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: Kursywa"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: Podkreślenie"
 
 #: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0: Akapit"
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big header"
-msgstr ""
+msgstr "Ctrl+1: Duży nagłówek"
 
 #: js/view/Properties.js:103
 msgid "Ctrl+2: Medium header"
-msgstr ""
+msgstr "Ctrl+2: Średni nagłówek"
 
 #: js/view/Properties.js:104
 msgid "Ctrl+3: Small header"
-msgstr ""
+msgstr "Ctrl+3: Mały nagłówek"
 
 #: js/view/Properties.js:105
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl+L: Lista"
 
 #: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl+N: Lista numerowana"
 
 #: js/view/Properties.js:113
 msgid "Select a layer to copy"
@@ -250,9 +246,8 @@ msgid "Title"
 msgstr "Tytuł"
 
 #: js/view/Properties.js:133
-#, fuzzy
 msgid "Title level in frame list"
-msgstr "Pokaż w spisie"
+msgstr "Poziom tytułu na liście ramek"
 
 #: js/view/Properties.js:136
 msgid "Id"
@@ -308,7 +303,7 @@ msgstr "Przejście"
 
 #: js/view/Properties.js:181
 msgid "Configure the animation when moving to the selected frames."
-msgstr ""
+msgstr "Ustaw animację, po przejściu na wybrane zdjęcia."
 
 #: js/view/Properties.js:183
 msgid "Duration (seconds)"
@@ -320,35 +315,35 @@ msgstr "Funkcja czasu"
 
 #: js/view/Properties.js:188
 msgid "Linear"
-msgstr ""
+msgstr "Liniowy"
 
 #: js/view/Properties.js:189
 msgid "Ease"
-msgstr ""
+msgstr "Łatwy"
 
 #: js/view/Properties.js:190
 msgid "Ease in"
-msgstr ""
+msgstr "Łatwy w"
 
 #: js/view/Properties.js:191
 msgid "Ease out"
-msgstr ""
+msgstr "Łatwy na zewnątrz"
 
 #: js/view/Properties.js:192
 msgid "Ease in-out"
-msgstr ""
+msgstr "Łatwe wprowadzanie"
 
 #: js/view/Properties.js:193
 msgid "Step start"
-msgstr ""
+msgstr "Rozpoczęcie kroku"
 
 #: js/view/Properties.js:194
 msgid "Step end"
-msgstr ""
+msgstr "Koniec kroku"
 
 #: js/view/Properties.js:195
 msgid "Step middle"
-msgstr ""
+msgstr "Krok środkowy"
 
 #: js/view/Properties.js:198
 msgid "Relative zoom (%)"
@@ -364,12 +359,14 @@ msgstr "Ukryj ścieżkę"
 
 #: js/view/Properties.js:207
 msgid "Notes"
-msgstr ""
+msgstr "Notatki"
 
 #: js/view/Properties.js:207
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
+"Edytuj notatki prelegenta. Kliknij tutaj, aby wyświetlić listę skrótów "
+"formatowania."
 
 #: js/view/Properties.js:211
 msgid "Player"
@@ -378,12 +375,16 @@ msgstr "Odtwarzaj"
 #: js/view/Properties.js:214
 msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
 msgstr ""
+"Obsługa przycisku przeglądarki \"wstecz\" (⬅), aby przejść do poprzedniej "
+"klatki"
 
 #: js/view/Properties.js:215
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr ""
+"Przejście z jednej klatki na drugą spowoduje automatyczną zmianę zawartości "
+"paska lokalizacji."
 
 #: js/view/Properties.js:219
 msgid "Allow to control the presentation"
@@ -420,9 +421,8 @@ msgid "Add layer"
 msgstr "Dodaj warstwę"
 
 #: js/view/Timeline.js:163
-#, fuzzy
 msgid "Add all layers"
-msgstr "Dodaj warstwę"
+msgstr "Dodaj wszystkie warstwy"
 
 #: js/view/Timeline.js:178 js/view/Timeline.js:198
 msgid "This layer is visible. Click to hide it."
@@ -449,6 +449,8 @@ msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
 msgstr ""
+"Powinieneś dodać elementy graficzne w bieżącym obszarze, aby pomóc Sozi "
+"śledzić położenie tej warstwy."
 
 #: js/view/Toolbar.js:36
 msgid "Aspect ratio: "
@@ -464,7 +466,7 @@ msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
-"Przybliż/oddal  zaznaczone warstwy (możesz też przytrzymać Alt w trybie "
+"Przybliż/oddal zaznaczone warstwy (możesz też przytrzymać Alt w trybie "
 "przesuwania)"
 
 #: js/view/Toolbar.js:79
@@ -475,7 +477,7 @@ msgstr ""
 
 #: js/view/Toolbar.js:84
 msgid "Edit the clipping area"
-msgstr ""
+msgstr "Edytowanie obszaru przycinania"
 
 #: js/view/Toolbar.js:103
 msgid "Disable full-screen mode"

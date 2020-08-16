@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-05-09 01:47:+0000\n"
-"PO-Revision-Date: 2019-02-13 03:11+0000\n"
-"Last-Translator: Carlos Fernando <carlos.gorosito+traducir@gmail.com>\n"
+"POT-Creation-Date: 2020-01-01 03:40:+0000\n"
+"PO-Revision-Date: 2020-05-25 15:41+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/sozi/"
 "translations/es/>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.5-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 "X-Launchpad-Export-Date: 2018-04-06 19:08+0000\n"
 
 #: js/backend/Electron.js:33
@@ -53,27 +53,24 @@ msgid ""
 "Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Abrir un archivo SVG desde su computadora (<i class=\"fas fa-exclamation-"
-"triangle\"></i> sólo lectura)"
+"Abrir un archivo SVG desde su equipo (<i class=\"fas fa-exclamation-"
+"triangle\"></i> solo lectura)"
 
 #: js/backend/GoogleDrive.js:18
 msgid "Open an SVG file from Google Drive"
 msgstr "Abrir un archivo SVG desde Google Drive"
 
 #: js/Controller.js:131
-#, fuzzy
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
-msgstr ""
-"Abrir un archivo SVG desde su computadora (<i class=\"fas fa-exclamation-"
-"triangle\"></i> sólo lectura)"
+msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Error"
 
 #: js/Controller.js:132
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+msgstr "<i class=\"fas fa-info-circle\"></i> Información"
 
 #: js/Storage.js:79
 msgid "File %s could not be loaded."
-msgstr "El archivo %s no pudo ser cargado."
+msgstr "No se pudo cargar el archivo %s."
 
 #: js/Storage.js:96 js/Storage.js:105
 msgid "Document is not valid SVG."
@@ -85,20 +82,19 @@ msgstr "Se ha modificado el documento. Recargando."
 
 #: js/Storage.js:156
 msgid "Document was changed."
-msgstr "El documento ha sido modificado."
+msgstr "Se modificó el documento."
 
 #: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr "El documento fue importado desde Sozi 13 o una versión anterior."
+msgstr "El documento se importó desde Sozi 13 o una versión anterior."
 
 #: js/Storage.js:254 js/Storage.js:275
 msgid "Saved %s."
 msgstr "%s guardado."
 
 #: js/view/Properties.js:41
-#, fuzzy
 msgid "Autoselect outline element"
-msgstr "Autoseleccionar elemento"
+msgstr "Seleccionar elemento de esquema automáticamente"
 
 #: js/view/Properties.js:42 js/view/Properties.js:151
 msgid "Reset layer geometry"
@@ -186,23 +182,23 @@ msgstr "Atajos de teclado"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
-msgstr "Formato básico soportado:"
+msgstr "Se permite un formato básico:"
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
-msgstr "Control+B: Negrita"
+msgstr "Ctrl + B: negrita"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr "Control+I: Itálica/Cursiva"
+msgstr "Ctrl + I: itálica"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr "Control+U: Subrayado"
+msgstr "Ctrl + U: subrayado"
 
 #: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
-msgstr "Control+0: Párrafo"
+msgstr "Ctrl + 0: párrafo"
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big header"
@@ -218,11 +214,11 @@ msgstr "Control+3: Encabezado pequeño"
 
 #: js/view/Properties.js:105
 msgid "Ctrl+L: List"
-msgstr "Control+L: Lista"
+msgstr "Ctrl + L: lista"
 
 #: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
-msgstr "Control+N: Lista enumerada"
+msgstr "Ctrl + N: lista numerada"
 
 #: js/view/Properties.js:113
 msgid "Select a layer to copy"
@@ -254,7 +250,7 @@ msgstr "Nivel de título en la lista de fotogramas"
 
 #: js/view/Properties.js:136
 msgid "Id"
-msgstr "ID"
+msgstr "Id."
 
 #: js/view/Properties.js:140
 msgid "Timeout (seconds)"
@@ -282,11 +278,11 @@ msgstr "Copiar capa"
 
 #: js/view/Properties.js:163
 msgid "Outline element Id"
-msgstr "ID del elemento trazado"
+msgstr "Id. del elemento trazado"
 
 #: js/view/Properties.js:166
 msgid "Autoselect element"
-msgstr "Autoseleccionar elemento"
+msgstr "Seleccionar elemento automáticamente"
 
 #: js/view/Properties.js:169
 msgid "Hide element"
@@ -355,7 +351,7 @@ msgstr "Zoom relativo (%)"
 
 #: js/view/Properties.js:202
 msgid "Path Id"
-msgstr "ID del trayecto"
+msgstr "Id. del trayecto"
 
 #: js/view/Properties.js:203
 msgid "Hide path"
@@ -379,12 +375,16 @@ msgstr "Reproductor"
 #: js/view/Properties.js:214
 msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
 msgstr ""
+"Se admite el botón «Atrás» (⬅) del navegador para moverse al fotograma "
+"anterior"
 
 #: js/view/Properties.js:215
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr ""
+"Moverse de un fotograma a otro cambiará el contenido de la barra de "
+"ubicación automáticamente."
 
 #: js/view/Properties.js:219
 msgid "Allow to control the presentation"
@@ -421,21 +421,20 @@ msgid "Add layer"
 msgstr "Añadir capa"
 
 #: js/view/Timeline.js:163
-#, fuzzy
 msgid "Add all layers"
-msgstr "Añadir capa"
+msgstr "Añadir todas las capas"
 
 #: js/view/Timeline.js:178 js/view/Timeline.js:198
 msgid "This layer is visible. Click to hide it."
-msgstr "Esta capa está visible. Presione para ocultarla."
+msgstr "Esta capa está visible. Pulse para ocultarla."
 
 #: js/view/Timeline.js:182 js/view/Timeline.js:202
 msgid "This layer is hidden. Click to show it."
-msgstr "Esta capa está oculta. Presione para mostrarla."
+msgstr "Esta capa está oculta. Pulse para mostrarla."
 
 #: js/view/Timeline.js:206
 msgid "Remove this layer"
-msgstr "Borrar esta capa"
+msgstr "Quitar esta capa"
 
 #: js/view/Timeline.js:231
 msgid "Insert selection before frame %d"
@@ -450,6 +449,8 @@ msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
 msgstr ""
+"Añada elementos gráficos en el área actual para ayudar a que Sozi siga el "
+"rastro de la posición de esta capa."
 
 #: js/view/Toolbar.js:36
 msgid "Aspect ratio: "
