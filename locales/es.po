@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-01-01 03:40:+0000\n"
+"POT-Creation-Date: 2020-08-16 09:17:+0000\n"
 "PO-Revision-Date: 2020-05-25 15:41+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/sozi/"
@@ -48,13 +48,17 @@ msgstr "Elija un archivo SVG"
 msgid "SVG files"
 msgstr "Archivos SVG"
 
+#: js/backend/Electron.js:179
+msgid "Could not read file %s."
+msgstr ""
+
 #: js/backend/FileReader.js:18
 msgid ""
 "Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Abrir un archivo SVG desde su equipo (<i class=\"fas fa-exclamation-"
-"triangle\"></i> solo lectura)"
+"Abrir un archivo SVG desde su equipo (<i class=\"fas fa-exclamation-triangle"
+"\"></i> solo lectura)"
 
 #: js/backend/GoogleDrive.js:18
 msgid "Open an SVG file from Google Drive"
@@ -369,16 +373,38 @@ msgstr ""
 "de formato."
 
 #: js/view/Properties.js:211
+msgid "Custom stylesheets and scripts"
+msgstr ""
+
+#: js/view/Properties.js:224
+msgid "CSS or JS file names"
+msgstr ""
+
+#: js/view/Properties.js:224
+msgid "Add CSS or JS files"
+msgstr ""
+
+#: js/view/Properties.js:227
+#, fuzzy
+msgid "Add a file"
+msgstr "Añadir todas las capas"
+
+#: js/view/Properties.js:240
+#, fuzzy
+msgid "Remove this file"
+msgstr "Quitar esta capa"
+
+#: js/view/Properties.js:248
 msgid "Player"
 msgstr "Reproductor"
 
-#: js/view/Properties.js:214
+#: js/view/Properties.js:251
 msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
 msgstr ""
 "Se admite el botón «Atrás» (⬅) del navegador para moverse al fotograma "
 "anterior"
 
-#: js/view/Properties.js:215
+#: js/view/Properties.js:252
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
@@ -386,29 +412,29 @@ msgstr ""
 "Moverse de un fotograma a otro cambiará el contenido de la barra de "
 "ubicación automáticamente."
 
-#: js/view/Properties.js:219
+#: js/view/Properties.js:256
 msgid "Allow to control the presentation"
 msgstr "Permitir controlar la presentación"
 
-#: js/view/Properties.js:221 js/view/Properties.js:228
-#: js/view/Properties.js:234 js/view/Properties.js:242
+#: js/view/Properties.js:258 js/view/Properties.js:265
+#: js/view/Properties.js:271 js/view/Properties.js:279
 msgid "using the mouse"
 msgstr "usar el mouse"
 
-#: js/view/Properties.js:222 js/view/Properties.js:235
-#: js/view/Properties.js:243
+#: js/view/Properties.js:259 js/view/Properties.js:272
+#: js/view/Properties.js:280
 msgid "using the keyboard"
 msgstr "usar el teclado"
 
-#: js/view/Properties.js:227
+#: js/view/Properties.js:264
 msgid "Allow to move the camera"
 msgstr "Permitir mover la cámara"
 
-#: js/view/Properties.js:232
+#: js/view/Properties.js:269
 msgid "Allow to rotate the camera"
 msgstr "Permitir rotar la cámara"
 
-#: js/view/Properties.js:240
+#: js/view/Properties.js:277
 msgid "Allow to zoom"
 msgstr "Permitir hacer zoom"
 

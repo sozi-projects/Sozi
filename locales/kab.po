@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-01-01 03:40:+0000\n"
+"POT-Creation-Date: 2020-08-16 09:17:+0000\n"
 "PO-Revision-Date: 2020-06-30 20:01+0000\n"
 "Last-Translator: Farid Alem <atcemlulfarid@yahoo.com>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/sozi/translations/"
 "kab/>\n"
 "Language: kab\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 4.2-dev\n"
@@ -41,10 +41,14 @@ msgstr ""
 msgid "SVG files"
 msgstr ""
 
+#: js/backend/Electron.js:179
+msgid "Could not read file %s."
+msgstr ""
+
 #: js/backend/FileReader.js:18
 msgid ""
-"Open an SVG file from your computer (<i class=\"fas "
-"fa-exclamation-triangle\"></i> read-only)"
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
 msgstr ""
 
 #: js/backend/GoogleDrive.js:18
@@ -279,113 +283,140 @@ msgstr ""
 msgid "Hide element"
 msgstr ""
 
-#: js/view/Properties.js:174
+#: js/view/Properties.js:171
+msgid "Fit to element"
+msgstr ""
+
+#: js/view/Properties.js:178
 msgid "Layer opacity"
 msgstr ""
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:181
 msgid "Transition"
 msgstr ""
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:181
 msgid "Configure the animation when moving to the selected frames."
 msgstr ""
 
-#: js/view/Properties.js:179
+#: js/view/Properties.js:183
 msgid "Duration (seconds)"
 msgstr ""
 
-#: js/view/Properties.js:182
+#: js/view/Properties.js:186
 msgid "Timing function"
 msgstr ""
 
-#: js/view/Properties.js:184
+#: js/view/Properties.js:188
 msgid "Linear"
 msgstr ""
 
-#: js/view/Properties.js:185
+#: js/view/Properties.js:189
 msgid "Ease"
 msgstr ""
 
-#: js/view/Properties.js:186
+#: js/view/Properties.js:190
 msgid "Ease in"
 msgstr ""
 
-#: js/view/Properties.js:187
+#: js/view/Properties.js:191
 msgid "Ease out"
 msgstr ""
 
-#: js/view/Properties.js:188
+#: js/view/Properties.js:192
 msgid "Ease in-out"
 msgstr ""
 
-#: js/view/Properties.js:189
+#: js/view/Properties.js:193
 msgid "Step start"
 msgstr ""
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:194
 msgid "Step end"
 msgstr ""
 
-#: js/view/Properties.js:191
+#: js/view/Properties.js:195
 msgid "Step middle"
 msgstr ""
 
-#: js/view/Properties.js:194
+#: js/view/Properties.js:198
 msgid "Relative zoom (%)"
 msgstr ""
 
-#: js/view/Properties.js:198
+#: js/view/Properties.js:202
 msgid "Path Id"
 msgstr ""
 
-#: js/view/Properties.js:199
+#: js/view/Properties.js:203
 msgid "Hide path"
 msgstr ""
 
-#: js/view/Properties.js:203
+#: js/view/Properties.js:207
 msgid "Notes"
 msgstr ""
 
-#: js/view/Properties.js:203
-msgid "Edit presenter notes. Click here to show the list of formatting shortcuts."
-msgstr ""
-
 #: js/view/Properties.js:207
-msgid "Player"
-msgstr ""
-
-#: js/view/Properties.js:210
-msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
+msgid ""
+"Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 
 #: js/view/Properties.js:211
-msgid ""
-"Moving from one frame to another will change the content of the location "
-"bar automatically."
+msgid "Custom stylesheets and scripts"
 msgstr ""
 
-#: js/view/Properties.js:215
+#: js/view/Properties.js:224
+msgid "CSS or JS file names"
+msgstr ""
+
+#: js/view/Properties.js:224
+msgid "Add CSS or JS files"
+msgstr ""
+
+#: js/view/Properties.js:227
+msgid "Add a file"
+msgstr ""
+
+#: js/view/Properties.js:240
+msgid "Remove this file"
+msgstr ""
+
+#: js/view/Properties.js:248
+msgid "Player"
+msgstr ""
+
+#: js/view/Properties.js:251
+msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
+msgstr ""
+
+#: js/view/Properties.js:252
+msgid ""
+"Moving from one frame to another will change the content of the location bar "
+"automatically."
+msgstr ""
+
+#: js/view/Properties.js:256
 msgid "Allow to control the presentation"
 msgstr ""
 
-#: js/view/Properties.js:217 js/view/Properties.js:224 js/view/Properties.js:230 js/view/Properties.js:238
+#: js/view/Properties.js:258 js/view/Properties.js:265
+#: js/view/Properties.js:271 js/view/Properties.js:279
 msgid "using the mouse"
 msgstr ""
 
-#: js/view/Properties.js:218 js/view/Properties.js:231 js/view/Properties.js:239
+#: js/view/Properties.js:259 js/view/Properties.js:272
+#: js/view/Properties.js:280
 msgid "using the keyboard"
 msgstr ""
 
-#: js/view/Properties.js:223
+#: js/view/Properties.js:264
 msgid "Allow to move the camera"
 msgstr ""
 
-#: js/view/Properties.js:228
+#: js/view/Properties.js:269
 msgid "Allow to rotate the camera"
 msgstr ""
 
-#: js/view/Properties.js:236
+#: js/view/Properties.js:277
 msgid "Allow to zoom"
 msgstr ""
 
@@ -442,7 +473,8 @@ msgid ""
 msgstr ""
 
 #: js/view/Toolbar.js:79
-msgid "Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgid ""
+"Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 
 #: js/view/Toolbar.js:84

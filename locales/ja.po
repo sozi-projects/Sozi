@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-01-01 03:40:+0000\n"
+"POT-Creation-Date: 2020-08-16 09:17:+0000\n"
 "PO-Revision-Date: 2020-05-25 15:41+0000\n"
 "Last-Translator: Hideyoshi Fuji <HideyoshiFuji@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/sozi/"
@@ -40,6 +40,10 @@ msgstr "SVGファイルを選ぶ"
 #: js/backend/Electron.js:123
 msgid "SVG files"
 msgstr "SVGファイル"
+
+#: js/backend/Electron.js:179
+msgid "Could not read file %s."
+msgstr ""
 
 #: js/backend/FileReader.js:18
 msgid ""
@@ -381,42 +385,62 @@ msgid ""
 msgstr ""
 
 #: js/view/Properties.js:211
+msgid "Custom stylesheets and scripts"
+msgstr ""
+
+#: js/view/Properties.js:224
+msgid "CSS or JS file names"
+msgstr ""
+
+#: js/view/Properties.js:224
+msgid "Add CSS or JS files"
+msgstr ""
+
+#: js/view/Properties.js:227
+msgid "Add a file"
+msgstr ""
+
+#: js/view/Properties.js:240
+msgid "Remove this file"
+msgstr ""
+
+#: js/view/Properties.js:248
 msgid "Player"
 msgstr ""
 
-#: js/view/Properties.js:214
+#: js/view/Properties.js:251
 msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
 msgstr ""
 
-#: js/view/Properties.js:215
+#: js/view/Properties.js:252
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr ""
 
-#: js/view/Properties.js:219
+#: js/view/Properties.js:256
 msgid "Allow to control the presentation"
 msgstr ""
 
-#: js/view/Properties.js:221 js/view/Properties.js:228
-#: js/view/Properties.js:234 js/view/Properties.js:242
+#: js/view/Properties.js:258 js/view/Properties.js:265
+#: js/view/Properties.js:271 js/view/Properties.js:279
 msgid "using the mouse"
 msgstr ""
 
-#: js/view/Properties.js:222 js/view/Properties.js:235
-#: js/view/Properties.js:243
+#: js/view/Properties.js:259 js/view/Properties.js:272
+#: js/view/Properties.js:280
 msgid "using the keyboard"
 msgstr ""
 
-#: js/view/Properties.js:227
+#: js/view/Properties.js:264
 msgid "Allow to move the camera"
 msgstr ""
 
-#: js/view/Properties.js:232
+#: js/view/Properties.js:269
 msgid "Allow to rotate the camera"
 msgstr ""
 
-#: js/view/Properties.js:240
+#: js/view/Properties.js:277
 msgid "Allow to zoom"
 msgstr ""
 

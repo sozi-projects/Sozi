@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-09 01:47:+0000\n"
+"POT-Creation-Date: 2020-08-16 09:17:+0000\n"
 "PO-Revision-Date: 2020-05-3 10:47+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/sozi/"
@@ -46,6 +46,10 @@ msgstr "Scegli un file SVG"
 #: js/backend/Electron.js:123
 msgid "SVG files"
 msgstr "File SVG"
+
+#: js/backend/Electron.js:179
+msgid "Could not read file %s."
+msgstr ""
 
 #: js/backend/FileReader.js:18
 msgid ""
@@ -370,16 +374,38 @@ msgstr ""
 "scorciatoie di formattazione."
 
 #: js/view/Properties.js:211
+msgid "Custom stylesheets and scripts"
+msgstr ""
+
+#: js/view/Properties.js:224
+msgid "CSS or JS file names"
+msgstr ""
+
+#: js/view/Properties.js:224
+msgid "Add CSS or JS files"
+msgstr ""
+
+#: js/view/Properties.js:227
+#, fuzzy
+msgid "Add a file"
+msgstr "Aggiungi tutti i layer"
+
+#: js/view/Properties.js:240
+#, fuzzy
+msgid "Remove this file"
+msgstr "Rimuovi questo layer"
+
+#: js/view/Properties.js:248
 msgid "Player"
 msgstr "Visualizzazione"
 
-#: js/view/Properties.js:214
+#: js/view/Properties.js:251
 msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
 msgstr ""
 "Supporta il pulsante \"Indietro \" (⬅) del browser per passare al fotogramma "
 "precedente"
 
-#: js/view/Properties.js:215
+#: js/view/Properties.js:252
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
@@ -387,29 +413,29 @@ msgstr ""
 "Passare da un fotogramma all'altro cambierà il contenuto della barra degli "
 "indirizzi automaticamente."
 
-#: js/view/Properties.js:219
+#: js/view/Properties.js:256
 msgid "Allow to control the presentation"
 msgstr "Permetti il controllo della presentazione"
 
-#: js/view/Properties.js:221 js/view/Properties.js:228
-#: js/view/Properties.js:234 js/view/Properties.js:242
+#: js/view/Properties.js:258 js/view/Properties.js:265
+#: js/view/Properties.js:271 js/view/Properties.js:279
 msgid "using the mouse"
 msgstr "usando il mouse"
 
-#: js/view/Properties.js:222 js/view/Properties.js:235
-#: js/view/Properties.js:243
+#: js/view/Properties.js:259 js/view/Properties.js:272
+#: js/view/Properties.js:280
 msgid "using the keyboard"
 msgstr "usando la tastiera"
 
-#: js/view/Properties.js:227
+#: js/view/Properties.js:264
 msgid "Allow to move the camera"
 msgstr "Permetti di spostare lo scenario"
 
-#: js/view/Properties.js:232
+#: js/view/Properties.js:269
 msgid "Allow to rotate the camera"
 msgstr "Permetti di ruotare lo scenario"
 
-#: js/view/Properties.js:240
+#: js/view/Properties.js:277
 msgid "Allow to zoom"
 msgstr "Permetti di zoomare"
 
