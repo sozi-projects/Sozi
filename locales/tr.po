@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-01-01 03:40:+0000\n"
-"PO-Revision-Date: 2019-02-17 07:33+0000\n"
-"Last-Translator: Kemal Oktay Aktoğan <oktay454@disroot.org>\n"
+"PO-Revision-Date: 2020-08-16 00:51+0000\n"
+"Last-Translator: Mehmet Gurbuz GUVEN <6mehmet6@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/sozi/"
 "translations/tr/>\n"
 "Language: tr\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.5-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: js/backend/Electron.js:33
 msgid "Open an SVG file from your computer"
@@ -51,18 +51,15 @@ msgstr ""
 
 #: js/backend/GoogleDrive.js:18
 msgid "Open an SVG file from Google Drive"
-msgstr "Google Drive'dan bir SVG dosyası açın"
+msgstr "Google Drive üzerinden bir SVG dosyası açın"
 
 #: js/Controller.js:131
-#, fuzzy
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
-msgstr ""
-"Bilgisayarınızdan bir SVG dosyası açın (<i class=\"fas fa-exclamation-"
-"triangle\"> </i> salt okunur)"
+msgstr "Hata: <i class=\"fas fa-exclamation-triangle\"></i>"
 
 #: js/Controller.js:132
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+msgstr "Bilgi: <i class=\"fas fa-info-circle\"></i>"
 
 #: js/Storage.js:79
 msgid "File %s could not be loaded."
@@ -82,7 +79,7 @@ msgstr "Belge değiştirildi."
 
 #: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr "Belge, Sozi 13'ten veya daha öncesinden ithal edildi."
+msgstr "Belge, Sozi 13 ya da daha öncesi bir sürümden içeri aktarıldı."
 
 #: js/Storage.js:254 js/Storage.js:275
 msgid "Saved %s."
@@ -90,15 +87,15 @@ msgstr "%s kaydedildi."
 
 #: js/view/Properties.js:41
 msgid "Autoselect outline element"
-msgstr ""
+msgstr "Dış hat öğesini otomatik seç"
 
 #: js/view/Properties.js:42 js/view/Properties.js:151
 msgid "Reset layer geometry"
-msgstr "Katman geometrisini sıfırla"
+msgstr "Katman biçimlendirmesini sıfırla"
 
 #: js/view/Properties.js:43 js/view/Timeline.js:143
 msgid "Create a new frame"
-msgstr "Yeni bir çerçeve oluştur"
+msgstr "Yeni bir kare oluştur"
 
 #: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:112
 msgid "Save the presentation"
@@ -114,7 +111,7 @@ msgstr "Geri al"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr "Çerçeve başlığını odakla"
+msgstr "Kare başlığını odakla"
 
 #: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:117
 msgid "Reload the SVG document"
@@ -122,11 +119,11 @@ msgstr "SVG belgesini yeniden yükleyin"
 
 #: js/view/Properties.js:49
 msgid "Toggle full-screen mode"
-msgstr "Tam ekran modunu değiştir"
+msgstr "Tam ekran modunu aç-kapa"
 
 #: js/view/Properties.js:50
 msgid "Toggle the developer tools"
-msgstr "Geliştirici araçlarını değiştir"
+msgstr "Geliştirici araçlarını aç-kapa"
 
 #: js/view/Properties.js:60
 msgid "User interface"
@@ -138,11 +135,11 @@ msgstr "Yazı boyutu"
 
 #: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
-msgstr "Kaydet ve yeniden yükle ile ilgili bildirimleri etkinleştir"
+msgstr "Kaydet ve yeniden yükle ile ilgili bildirimleri aç"
 
 #: js/view/Properties.js:65
 msgid "Enable notifications"
-msgstr "Bildirimleri etkinleştir"
+msgstr "Bildirimleri aç"
 
 #: js/view/Properties.js:69
 msgid "When Sozi loses the focus"
@@ -158,15 +155,15 @@ msgstr "Otomatik"
 
 #: js/view/Properties.js:75
 msgid "When Sozi gets the focus"
-msgstr "Sozi odağı aldığında"
+msgstr "Sozi odağa aldığında"
 
 #: js/view/Properties.js:78
 msgid "Behavior"
-msgstr "Davranış"
+msgstr "Hareket"
 
 #: js/view/Properties.js:80
 msgid "Preview transition animations"
-msgstr "Geçiş animasyonlarını önizleme"
+msgstr "Geçiş animasyonlarını önizle"
 
 #: js/view/Properties.js:81
 msgid "Enable animated transitions"
@@ -178,7 +175,7 @@ msgstr "Klavye kısayolları"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
-msgstr "Temel biçimlendirme desteklenir:"
+msgstr "Desteklenen temel biçimlendirmeler:"
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
@@ -214,11 +211,11 @@ msgstr "Ctrl+L: Liste"
 
 #: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
-msgstr "Ctrl+N: Numaralı liste"
+msgstr "Ctrl+N: Numaralandırılmış liste"
 
 #: js/view/Properties.js:113
 msgid "Select a layer to copy"
-msgstr "Kopyalanacak bir katman seçin"
+msgstr "Kopyalamak için bir katman seçin"
 
 #: js/view/Properties.js:116 js/view/Timeline.js:190 js/view/Timeline.js:218
 msgid "Default"
@@ -226,15 +223,15 @@ msgstr "Varsayılan"
 
 #: js/view/Properties.js:123
 msgid "Frame"
-msgstr "Çerçeve"
+msgstr "Kare"
 
 #: js/view/Properties.js:126
 msgid "Show in frame list"
-msgstr "Çerçeve listesinde göster"
+msgstr "Kare listesinde göster"
 
 #: js/view/Properties.js:127
 msgid "Show frame number"
-msgstr "Çerçeve numarasını göster"
+msgstr "Kare sırasını göster"
 
 #: js/view/Properties.js:130
 msgid "Title"
@@ -242,19 +239,19 @@ msgstr "Başlık"
 
 #: js/view/Properties.js:133
 msgid "Title level in frame list"
-msgstr "Çerçeve listesindeki başlık seviyesi"
+msgstr "Kare listesinde başlığın seviyesi"
 
 #: js/view/Properties.js:136
 msgid "Id"
-msgstr "Kimlik"
+msgstr "Ad"
 
 #: js/view/Properties.js:140
 msgid "Timeout (seconds)"
-msgstr "Zaman aşımı (saniye)"
+msgstr "Duraksama (saniye)"
 
 #: js/view/Properties.js:141
 msgid "Timeout enable"
-msgstr "Zaman aşımı etkin"
+msgstr "Duraksama etkin"
 
 #: js/view/Properties.js:145
 msgid "Layer"
@@ -262,217 +259,230 @@ msgstr "Katman"
 
 #: js/view/Properties.js:148
 msgid "Link to previous frame"
-msgstr "Önceki çerçeveye bağla"
+msgstr "Önceki kareye bağlantı ver"
 
 #: js/view/Properties.js:149
 msgid "Clip"
-msgstr ""
+msgstr "Klip"
 
 #: js/view/Properties.js:156
 msgid "Copy layer"
-msgstr ""
+msgstr "Katmanı kopyala"
 
 #: js/view/Properties.js:163
 msgid "Outline element Id"
-msgstr ""
+msgstr "Dış hat öğe adı"
 
 #: js/view/Properties.js:166
 msgid "Autoselect element"
-msgstr ""
+msgstr "Öğeyi otomatik seç"
 
 #: js/view/Properties.js:169
 msgid "Hide element"
-msgstr ""
+msgstr "Öğeyi gizle"
 
 #: js/view/Properties.js:174
 msgid "Layer opacity"
-msgstr ""
+msgstr "Katman saydamlığı"
 
 #: js/view/Properties.js:177
 msgid "Transition"
-msgstr ""
+msgstr "Geçiş"
 
 #: js/view/Properties.js:177
 msgid "Configure the animation when moving to the selected frames."
-msgstr ""
+msgstr "Seçili karelerin animasyonlarını yapılandır."
 
 #: js/view/Properties.js:179
 msgid "Duration (seconds)"
-msgstr ""
+msgstr "Süre (Saniye)"
 
 #: js/view/Properties.js:182
 msgid "Timing function"
-msgstr ""
+msgstr "Zamanlama işlevi"
 
 #: js/view/Properties.js:184
 msgid "Linear"
-msgstr ""
+msgstr "Düz"
 
 #: js/view/Properties.js:185
 msgid "Ease"
-msgstr ""
+msgstr "Yavaşlayarak"
 
 #: js/view/Properties.js:186
 msgid "Ease in"
-msgstr ""
+msgstr "Girişte yavaşlayarak"
 
 #: js/view/Properties.js:187
 msgid "Ease out"
-msgstr ""
+msgstr "Çıkışta yavaşlayarak"
 
 #: js/view/Properties.js:188
 msgid "Ease in-out"
-msgstr ""
+msgstr "Girişte ve çıkışta yavaşlayarak"
 
 #: js/view/Properties.js:189
 msgid "Step start"
-msgstr ""
+msgstr "Girişte aralıklı"
 
 #: js/view/Properties.js:190
 msgid "Step end"
-msgstr ""
+msgstr "Çıkışta aralıklı"
 
 #: js/view/Properties.js:191
 msgid "Step middle"
-msgstr ""
+msgstr "Ortada aralıklı"
 
 #: js/view/Properties.js:194
 msgid "Relative zoom (%)"
-msgstr ""
+msgstr "Göreli yakınlaştırma (%)"
 
 #: js/view/Properties.js:198
 msgid "Path Id"
-msgstr ""
+msgstr "Yol adı"
 
 #: js/view/Properties.js:199
 msgid "Hide path"
-msgstr ""
+msgstr "Yolu gizle"
 
 #: js/view/Properties.js:203
 msgid "Notes"
-msgstr ""
+msgstr "Notlar"
 
 #: js/view/Properties.js:203
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
+"Sunucu notlarını düzenle.Biçimlendirme kısayollarının listesi için tıklayın."
 
 #: js/view/Properties.js:207
 msgid "Player"
-msgstr ""
+msgstr "Oynatıcı"
 
 #: js/view/Properties.js:210
 msgid "Support the browser's \"Back\" (🡰) button to move to the previous frame"
 msgstr ""
+"Internet tarayıcısının \"Geri\" (🡰) tuşuyla bir önceki kareye dönmeyi "
+"destekle"
 
 #: js/view/Properties.js:211
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr ""
+"Bir kareden diğerine geçerken konum çubuğunun içeriğini otomatik olarak "
+"değiştir."
 
 #: js/view/Properties.js:215
 msgid "Allow to control the presentation"
-msgstr ""
+msgstr "Sunumu kontrol etmeye izin ver"
 
 #: js/view/Properties.js:217 js/view/Properties.js:224
 #: js/view/Properties.js:230 js/view/Properties.js:238
 msgid "using the mouse"
-msgstr ""
+msgstr "Fareyi kullanarak"
 
 #: js/view/Properties.js:218 js/view/Properties.js:231
 #: js/view/Properties.js:239
 msgid "using the keyboard"
-msgstr ""
+msgstr "Klavyeyi kullanarak"
 
 #: js/view/Properties.js:223
 msgid "Allow to move the camera"
-msgstr ""
+msgstr "Kamerayı hareket ettirmeye izin ver"
 
 #: js/view/Properties.js:228
 msgid "Allow to rotate the camera"
-msgstr ""
+msgstr "Kamerayı döndürmeye izin ver"
 
 #: js/view/Properties.js:236
 msgid "Allow to zoom"
-msgstr ""
+msgstr "Görüntüyü yakınlaştırmaya izin ver"
 
 #: js/view/Timeline.js:136
 msgid "Delete the selected frames"
-msgstr ""
+msgstr "Seçili kareleri sil"
 
 #: js/view/Timeline.js:162
 msgid "Add layer"
-msgstr ""
+msgstr "Katman ekle"
 
 #: js/view/Timeline.js:163
 msgid "Add all layers"
-msgstr ""
+msgstr "Tüm katmanları ekle"
 
 #: js/view/Timeline.js:178 js/view/Timeline.js:198
 msgid "This layer is visible. Click to hide it."
-msgstr ""
+msgstr "Bu katman şu anda görünür.Tıklayarak gizle."
 
 #: js/view/Timeline.js:182 js/view/Timeline.js:202
 msgid "This layer is hidden. Click to show it."
-msgstr ""
+msgstr "Bu katman şu anda gizli.Tıklayarak görünür yap."
 
 #: js/view/Timeline.js:206
 msgid "Remove this layer"
-msgstr ""
+msgstr "Bu katmanı kaldır"
 
 #: js/view/Timeline.js:231
 msgid "Insert selection before frame %d"
-msgstr ""
+msgstr "Seçimi %d karesinden önce yapıştır"
 
 #: js/view/Timeline.js:238
 msgid "Insert selection after frame %d"
-msgstr ""
+msgstr "Seçimi %d karesinden sonra yapıştır"
 
 #: js/view/Timeline.js:273 js/view/Timeline.js:285
 msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
 msgstr ""
+"Sozi'nin bu katmanın konumunu anlayabilmesine yardımcı olması için bu alana "
+"görsel öğe eklemelisiniz."
 
 #: js/view/Toolbar.js:36
 msgid "Aspect ratio: "
-msgstr ""
+msgstr "Çerçeve Oranı: "
 
 #: js/view/Toolbar.js:69
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
+"Seçili katmanları taşı(Alt'a basılı tutarak yakınlaştırma yapabilir, Shift'e "
+"basılı tutarak döndürme yapabilirsiniz)"
 
 #: js/view/Toolbar.js:74
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
+"Seçili katmanları yakınlaştır/uzaklaştır(Ayrıca Taşıma modunda Alt'a basılı "
+"tutarak da yapabilirsiniz)"
 
 #: js/view/Toolbar.js:79
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
+"Seçili katmanları döndür(Ayrıca Taşıma modunda Shift'e basılı tutarak da "
+"yapabilirsiniz)"
 
 #: js/view/Toolbar.js:84
 msgid "Edit the clipping area"
-msgstr ""
+msgstr "Kırpma alanını düzenle"
 
 #: js/view/Toolbar.js:103
 msgid "Disable full-screen mode"
-msgstr ""
+msgstr "Tam ekran modundan çık"
 
 #: js/view/Toolbar.js:103
 msgid "Enable full-screen mode"
-msgstr ""
+msgstr "Tam ekran moduna gir"
 
 #: js/view/Toolbar.js:123
 msgid "Preferences"
-msgstr ""
+msgstr "Seçenekler"
 
 #: js/view/Toolbar.js:128
 msgid "Information"
-msgstr ""
+msgstr "Bilgi"
 
 #~ msgid "Sozi (Information)"
 #~ msgstr "Sozi (Bilgi)"
