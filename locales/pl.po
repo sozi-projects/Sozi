@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-08-16 09:17:+0000\n"
-"PO-Revision-Date: 2020-06-13 00:29+0000\n"
+"PO-Revision-Date: 2020-08-19 03:33+0000\n"
 "Last-Translator: WaldiS <sto@tutanota.de>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/sozi/translations/"
 "pl/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
 
 #: js/backend/Electron.js:33
@@ -51,7 +51,7 @@ msgstr "Pliki SVG"
 
 #: js/backend/Electron.js:179
 msgid "Could not read file %s."
-msgstr ""
+msgstr "Nie można odczytać pliku %s."
 
 #: js/backend/FileReader.js:18
 msgid ""
@@ -374,25 +374,23 @@ msgstr ""
 
 #: js/view/Properties.js:211
 msgid "Custom stylesheets and scripts"
-msgstr ""
+msgstr "Własne arkusze stylów i skrypty"
 
 #: js/view/Properties.js:224
 msgid "CSS or JS file names"
-msgstr ""
+msgstr "Nazwy plików CSS lub JS"
 
 #: js/view/Properties.js:224
 msgid "Add CSS or JS files"
-msgstr ""
+msgstr "Dodaj pliki CSS lub JS"
 
 #: js/view/Properties.js:227
-#, fuzzy
 msgid "Add a file"
-msgstr "Dodaj wszystkie warstwy"
+msgstr "Dodaj plik"
 
 #: js/view/Properties.js:240
-#, fuzzy
 msgid "Remove this file"
-msgstr "Usuń tę warstwę"
+msgstr "Usuń ten plik"
 
 #: js/view/Properties.js:248
 msgid "Player"
