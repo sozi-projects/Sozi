@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-08-16 09:17:+0000\n"
-"PO-Revision-Date: 2020-08-16 00:51+0000\n"
-"Last-Translator: Mehmet Gurbuz GUVEN <6mehmet6@gmail.com>\n"
+"PO-Revision-Date: 2020-08-16 10:03+0000\n"
+"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/sozi/"
 "translations/tr/>\n"
 "Language: tr\n"
@@ -43,7 +43,7 @@ msgstr "SVG dosyaları"
 
 #: js/backend/Electron.js:179
 msgid "Could not read file %s."
-msgstr ""
+msgstr "%s dosyası okunamadı."
 
 #: js/backend/FileReader.js:18
 msgid ""
@@ -369,21 +369,19 @@ msgstr ""
 
 #: js/view/Properties.js:224
 msgid "CSS or JS file names"
-msgstr ""
+msgstr "CSS veya JS dosya adları"
 
 #: js/view/Properties.js:224
 msgid "Add CSS or JS files"
-msgstr ""
+msgstr "CSS veya JS dosyaları ekle"
 
 #: js/view/Properties.js:227
-#, fuzzy
 msgid "Add a file"
-msgstr "Tüm katmanları ekle"
+msgstr "Bir dosya ekle"
 
 #: js/view/Properties.js:240
-#, fuzzy
 msgid "Remove this file"
-msgstr "Bu katmanı kaldır"
+msgstr "Bu dosyayı kaldır"
 
 #: js/view/Properties.js:248
 msgid "Player"
