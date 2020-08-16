@@ -99,9 +99,9 @@ export class Properties extends VirtualDOMView {
             _("Ctrl+I: Italic"),
             _("Ctrl+U: Underline"),
             _("Ctrl+0: Paragraph"),
-            _("Ctrl+1: Big header"),
-            _("Ctrl+2: Medium header"),
-            _("Ctrl+3: Small header"),
+            _("Ctrl+1: Big heading"),
+            _("Ctrl+2: Medium heading"),
+            _("Ctrl+3: Small heading"),
             _("Ctrl+L: List"),
             _("Ctrl+N: Numbered list")
         ];

@@ -205,15 +205,15 @@ msgid "Ctrl+0: Paragraph"
 msgstr "Strg+0: Absatz"
 
 #: js/view/Properties.js:102
-msgid "Ctrl+1: Big header"
+msgid "Ctrl+1: Big heading"
 msgstr "Strg+1: Große Kopfzeile"
 
 #: js/view/Properties.js:103
-msgid "Ctrl+2: Medium header"
+msgid "Ctrl+2: Medium heading"
 msgstr "Strg+2: Mittlere Kopfzeile"
 
 #: js/view/Properties.js:104
-msgid "Ctrl+3: Small header"
+msgid "Ctrl+3: Small heading"
 msgstr "Ctrl+3: Kleine Kopfzeile"
 
 #: js/view/Properties.js:105

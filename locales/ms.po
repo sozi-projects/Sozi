@@ -201,15 +201,15 @@ msgid "Ctrl+0: Paragraph"
 msgstr ""
 
 #: js/view/Properties.js:102
-msgid "Ctrl+1: Big header"
+msgid "Ctrl+1: Big heading"
 msgstr ""
 
 #: js/view/Properties.js:103
-msgid "Ctrl+2: Medium header"
+msgid "Ctrl+2: Medium heading"
 msgstr ""
 
 #: js/view/Properties.js:104
-msgid "Ctrl+3: Small header"
+msgid "Ctrl+3: Small heading"
 msgstr ""
 
 #: js/view/Properties.js:105
