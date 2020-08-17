@@ -2,114 +2,120 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-08-16 09:17:+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2020-08-19 03:33+0000\n"
+"Last-Translator: Mehmet Gurbuz GUVEN <6mehmet6@gmail.com>\n"
+"Language-Team: Chinese (Pinyin) <https://hosted.weblate.org/projects/sozi/"
+"translations/zh_Latn/>\n"
 "Language: zh_Latn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: js/backend/Electron.js:33
 msgid "Open an SVG file from your computer"
-msgstr ""
+msgstr "Cóng diànnǎo dǎkāi SVG wénjiàn"
 
 #: js/backend/Electron.js:65
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "Shìfǒu yào zài guānbì zhīqián bǎocún gāi yǎnshì wéngǎo?"
 
 #: js/backend/Electron.js:66
 msgid "Yes"
-msgstr ""
+msgstr "Shì"
 
 #: js/backend/Electron.js:66
 msgid "No"
-msgstr ""
+msgstr "Fǒu"
 
 #: js/backend/Electron.js:89
 msgid "File not found: %s."
-msgstr ""
+msgstr "Zhǎo bù dào wénjiàn: %S."
 
 #: js/backend/Electron.js:122
 msgid "Choose an SVG file"
-msgstr ""
+msgstr "Xuǎnzé SVG wénjiàn"
 
 #: js/backend/Electron.js:123
 msgid "SVG files"
-msgstr ""
+msgstr "SVG wénjiàn"
 
 #: js/backend/Electron.js:179
 msgid "Could not read file %s."
-msgstr ""
+msgstr "Wúfǎ dúqǔ wénjiàn %s."
 
 #: js/backend/FileReader.js:18
 msgid ""
 "Open an SVG file from your computer (<i class=\"fas "
 "fa-exclamation-triangle\"></i> read-only)"
 msgstr ""
+"Cóng diànnǎo dǎkāi SVG wénjiàn (<i class=\"fas fa-exclamation-triangle\"></"
+"i> zhǐ dú)"
 
 #: js/backend/GoogleDrive.js:18
 msgid "Open an SVG file from Google Drive"
-msgstr ""
+msgstr "Cóng Google Drive shàng dǎkāi SVG wénjiàn"
 
 #: js/Controller.js:131
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
-msgstr ""
+msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Cuòwù"
 
 #: js/Controller.js:132
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+msgstr "<i class=\"fas fa-info-circle\"></i> Tíshì"
 
 #: js/Storage.js:79
 msgid "File %s could not be loaded."
-msgstr ""
+msgstr "Wúfǎ jiāzài wénjiàn %s."
 
 #: js/Storage.js:96 js/Storage.js:105
 msgid "Document is not valid SVG."
-msgstr ""
+msgstr "Cǐ wénjiàn bùshì yǒuxiào de SVG wénjiàn."
 
 #: js/Storage.js:141 js/Storage.js:147
 msgid "Document was changed. Reloading."
-msgstr ""
+msgstr "Wéndàng yǐ xiūgǎi. Chóngxīn jiāzài zhōng."
 
 #: js/Storage.js:156
 msgid "Document was changed."
-msgstr ""
+msgstr "Wéndàng yǐ xiūgǎi."
 
 #: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr ""
+msgstr "Shūrù wéndàng wèi Sozi 13 huò gèng zǎoqí bǎnběn."
 
 #: js/Storage.js:254 js/Storage.js:275
 msgid "Saved %s."
-msgstr ""
+msgstr "Bǎocún wánbì %s."
 
 #: js/view/Properties.js:41
 msgid "Autoselect outline element"
-msgstr ""
+msgstr "Zìdòng xuǎnzé dàgāng yuánsù"
 
 #: js/view/Properties.js:42 js/view/Properties.js:151
 msgid "Reset layer geometry"
-msgstr ""
+msgstr "Chóng zhì céng jǐhé xíngzhuàng"
 
 #: js/view/Properties.js:43 js/view/Timeline.js:143
 msgid "Create a new frame"
-msgstr ""
+msgstr "Chuàngjiàn dònghuà zhèng"
 
 #: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:112
 msgid "Save the presentation"
-msgstr ""
+msgstr "Bǎocún yǎnshì wéngǎo"
 
 #: js/view/Properties.js:45 js/view/Toolbar.js:96
 msgid "Redo"
-msgstr ""
+msgstr "Chóngzuò"
 
 #: js/view/Properties.js:46 js/view/Toolbar.js:91
 msgid "Undo"
-msgstr ""
+msgstr "Chèxiāo"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr ""
+msgstr "Qiánwǎng zhèng biāotí"
 
 #: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:117
 msgid "Reload the SVG document"
