@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-08-16 09:17:+0000\n"
-"PO-Revision-Date: 2020-08-16 10:03+0000\n"
-"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
+"PO-Revision-Date: 2020-08-19 03:33+0000\n"
+"Last-Translator: Mehmet Gurbuz GUVEN <6mehmet6@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/sozi/"
 "translations/tr/>\n"
 "Language: tr\n"
@@ -50,7 +50,7 @@ msgid ""
 "Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Bilgisayarınızdan bir SVG dosyası açın (<i class=\"fas fa-exclamation-"
+"Bilgisayarınız üzerinden bir SVG dosyası açın (<i class=\"fas fa-exclamation-"
 "triangle\"> </i> salt okunur)"
 
 #: js/backend/GoogleDrive.js:18
@@ -115,11 +115,11 @@ msgstr "Geri al"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr "Kare başlığını odakla"
+msgstr "Kare başlığına git"
 
 #: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:117
 msgid "Reload the SVG document"
-msgstr "SVG belgesini yeniden yükleyin"
+msgstr "SVG belgesini yeniden yükle"
 
 #: js/view/Properties.js:49
 msgid "Toggle full-screen mode"
@@ -361,11 +361,12 @@ msgstr "Notlar"
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
-"Sunucu notlarını düzenle.Biçimlendirme kısayollarının listesi için tıklayın."
+"Sunucu notlarını düzenle.Biçimlendirme kısayollarının listesi için "
+"tıklayınız."
 
 #: js/view/Properties.js:211
 msgid "Custom stylesheets and scripts"
-msgstr ""
+msgstr "Özel stil şablonları ve komutlar"
 
 #: js/view/Properties.js:224
 msgid "CSS or JS file names"
@@ -474,8 +475,8 @@ msgstr "Çerçeve Oranı: "
 #: js/view/Toolbar.js:69
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
-"Seçili katmanları taşı(Alt'a basılı tutarak yakınlaştırma yapabilir, Shift'e "
-"basılı tutarak döndürme yapabilirsiniz)"
+"Seçili katmanları taşı(Alt'a basılı tutarak yakınlaştırma/uzaklaştırma "
+"yapabilir, Shift'e basılı tutarak döndürme yapabilirsiniz)"
 
 #: js/view/Toolbar.js:74
 msgid ""
