@@ -2,19 +2,19 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/** @module */
+
 import {render} from "inferno";
 import {h} from "inferno-hyperscript";
 
 /** Base class for editor views using the virtual DOM.
- *
- * @category view
  */
 export class VirtualDOMView {
 
     /** Create a new virtual DOM view.
      *
      * @param {HTMLElement} container - The parent HTML element that will contain this view.
-     * @param {Controller} controller - The controller that will manage the user actions from this view.
+     * @param {module:Controller.Controller} controller - The controller that will manage the user actions from this view.
      */
     constructor(container, controller) {
         /** The parent HTML element that will contain this view.
@@ -22,7 +22,7 @@ export class VirtualDOMView {
         this.container = container;
 
         /** The controller that will manage the user actions from this view.
-         * @type {Controller} */
+         * @type {module:Controller.Controller} */
         this.controller = controller;
 
         /** Form field values that need to be set after rendering.

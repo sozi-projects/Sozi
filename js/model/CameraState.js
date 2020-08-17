@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/** @module */
+
 function copyIfSet(dest, src, prop) {
     if (src.hasOwnProperty(prop)) {
         dest[prop] = src[prop];
@@ -10,7 +12,6 @@ function copyIfSet(dest, src, prop) {
 
 /** Camera state.
  *
- * @category model
  * @todo Add documentation.
  */
 export class CameraState {

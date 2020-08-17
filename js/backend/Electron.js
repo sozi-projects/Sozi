@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/** @module */
+
 import {AbstractBackend, addBackend} from "./AbstractBackend";
 import fs from "fs";
 import path from "path";
@@ -21,8 +23,7 @@ console.log("Current working dir: " + cwd);
 
 /** Electron backend.
  *
- * @category backend
- * @extends AbstractBackend
+ * @extends module:backend/AbstractBackend.AbstractBackend
  * @todo Add documentation.
  */
 export class Electron extends AbstractBackend {

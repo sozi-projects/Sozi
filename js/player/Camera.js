@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/** @module */
+
 import {CameraState} from "../model/CameraState";
 
 // Constant: the Sozi namespace
@@ -13,8 +15,7 @@ export function hasReliableBoundaries(elt) {
 
 /** Camera.
  *
- * @category player
- * @extends CameraState
+ * @extends module:model/CameraState.CameraState
  * @todo Add documentation.
  */
 export class Camera extends CameraState {

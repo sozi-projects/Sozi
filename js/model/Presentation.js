@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/** @module */
+
 import {EventEmitter} from "events";
 import {CameraState} from "./CameraState";
 import {hasReliableBoundaries} from "../player/Camera";
@@ -14,7 +16,6 @@ function copyIfSet(dest, src, prop) {
 
 /** Layer properties for a frame in a Sozi presentation.
  *
- * @category model
  * @todo Add documentation.
  */
 export class LayerProperties {
@@ -139,7 +140,6 @@ export class LayerProperties {
 
 /** A frame in a Sozi presentation.
  *
- * @category model
  * @todo Add documentation.
  */
 export class Frame {
@@ -316,7 +316,6 @@ export class Frame {
 
 /** Layer in an SVG document.
  *
- * @category model
  * @todo Add documentation.
  */
 export class Layer {
@@ -356,7 +355,6 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 
 /** Sozi presentation.
  *
- * @category model
  * @extends EventEmitter
  * @todo Add documentation.
  */

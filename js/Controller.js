@@ -2,56 +2,63 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/** @module */
+
 import {Frame, LayerProperties} from "./model/Presentation";
 import {CameraState} from "./model/CameraState";
 import {EventEmitter} from "events";
 
 const UNDO_STACK_LIMIT = 100;
 
+/** Signals that the presentation data has changed.
+ * @event module:Controller#presentationChange */
+
+/** Signals that the editor state data has changed.
+ * @event module:Controller#editorStateChange */
+
 /** Sozi editor UI controller.
  *
  * A Controller instance manages the user interface of the editor and updates
  * the presentation data in reaction to user actions.
  *
- * @category editor
  * @extends EventEmitter
  */
 export class Controller extends EventEmitter {
 
     /** Construct a new Sozi editor UI controller.
      *
-     * @param {Preferences} preferences - The object that holds the user settings of the editor.
-     * @param {Presentation} presentation - The Sozi presentation opened in the editor.
-     * @param {Selection} selection - The object that represents the selection in the timeline.
-     * @param {Viewport} viewport - The object that displays a preview of the presentation.
-     * @param {Player} player - The object that animates the presentation.
+     * @param {module:model/Preferences.Preferences} preferences - The object that holds the user settings of the editor.
+     * @param {module:model/Presentation.Presentation} presentation - The Sozi presentation opened in the editor.
+     * @param {module:model/Selection.Selection} selection - The object that represents the selection in the timeline.
+     * @param {module:player/Viewport.Viewport} viewport - The object that displays a preview of the presentation.
+     * @param {module:player/Player.Player} player - The object that animates the presentation.
      * @param {Jed} locale - The object that manages the translations.
      */
     constructor(preferences, presentation, selection, viewport, player, locale) {
         super();
 
         /** The object that manages the file I/O, set in {@linkcode Controller#onLoad|onLoad}.
-         * @type {Storage} */
+         * @type {module:Storage.Storage} */
         this.storage = null;
 
         /** The object that holds the user settings of the editor.
-         * @type {Preferences} */
+         * @type {module:model/Preferences.Preferences} */
         this.preferences = preferences;
 
         /** The Sozi presentation opened in the editor.
-         * @type {Presentation} */
+         * @type {module:model/Presentation.Presentation} */
         this.presentation = presentation;
 
         /** The object that represents the selection in the timeline.
-         * @type {Selection} */
+         * @type {module:model/Selection.Selection} */
         this.selection = selection;
 
         /** The object that displays a preview of the presentation.
-         * @type {Viewport} */
+         * @type {module:player/Viewport.Viewport} */
         this.viewport = viewport;
 
         /** The object that animates the presentation.
-         * @type {Player} */
+         * @type {module:player/Player.Player} */
         this.player = player;
 
         /** The function that returns translated text in the current language.
@@ -62,11 +69,11 @@ export class Controller extends EventEmitter {
         this.gettext = s => locale.gettext(s);
 
         /** The layers that have been added to the timeline.
-         * @type {Layer[]} */
+         * @type {module:model/Presentation.Layer[]} */
         this.editableLayers = [];
 
         /** The layers that fall in the "default" row of the timeline.
-         * @type {Layer[]} */
+         * @type {module:model/Presentation.Layer[]} */
         this.defaultLayers = [];
 
         /** The stack of operations that can be undone.
@@ -210,7 +217,7 @@ export class Controller extends EventEmitter {
      *
      * @param {Storage} storage - A storage management object.
      *
-     * @fires Controller#ready
+     * @fires module:Controller#ready
      */
     onLoad(storage) {
         this.storage = storage;
@@ -246,7 +253,7 @@ export class Controller extends EventEmitter {
         }
 
         /** Signals that the editor is ready.
-         * @event Controller#ready */
+         * @event module:Controller#ready */
         this.emit("ready");
 
         // Apply the preferences (will trigger a repaint of the editor views).
@@ -258,13 +265,13 @@ export class Controller extends EventEmitter {
      * This method delegates the operation to its {@linkcode Storage} instance and triggers
      * a repaint so that the UI shows the correct "saved" status.
      *
-     * @fires Controller#repaint
+     * @fires module:Controller#repaint
      */
     save() {
         this.storage.save();
 
         /** Signals that the editor UI needs to be repainted.
-         * @event Controller#repaint */
+         * @event module:Controller#repaint */
         this.emit("repaint");
     }
 
@@ -316,9 +323,9 @@ export class Controller extends EventEmitter {
      *
      * This operation can be undone.
      *
-     * @fires Controller#presentationChange
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#presentationChange
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     addFrame() {
         let frame, frameIndex;
@@ -362,9 +369,9 @@ export class Controller extends EventEmitter {
      *
      * This operation can be undone.
      *
-     * @fires Controller#presentationChange
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#presentationChange
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     deleteFrames() {
         // Sort the selected frames by presentation order.
@@ -399,9 +406,9 @@ export class Controller extends EventEmitter {
      *
      * @param {number} toFrameIndex - The new index of the first frame in the selection.
      *
-     * @fires Controller#presentationChange
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#presentationChange
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     moveFrames(toFrameIndex) {
         // Sort the selected frames by presentation order.
@@ -473,8 +480,8 @@ export class Controller extends EventEmitter {
      *
      * @param {number} layerIndex - The index of the layer to add.
      *
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     addLayer(layerIndex) {
         const layer = this.presentation.layers[layerIndex];
@@ -503,8 +510,8 @@ export class Controller extends EventEmitter {
      * This operation modifies the editor state and does not affect the actual presentation.
      * It does not provide an "Undo" action.
      *
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     addAllLayers() {
         for (let layer of this.defaultLayers.slice()) {
@@ -536,8 +543,8 @@ export class Controller extends EventEmitter {
      *
      * @param {number} layerIndex - The index of the layer to remove.
      *
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     removeLayer(layerIndex) {
         const layer = this.presentation.layers[layerIndex];
@@ -569,7 +576,7 @@ export class Controller extends EventEmitter {
      * or the layers in the "default" set.
      *
      * @param {number} layerIndex - The index of the layer to get, or a negative number for the "default" layers.
-     * @return {Layer[]} The layer(s) at the given index.
+     * @return {module:model/Presentation.Layer[]} The layer(s) at the given index.
      */
     getLayersAtIndex(layerIndex) {
         return layerIndex >= 0 ?
@@ -599,10 +606,10 @@ export class Controller extends EventEmitter {
      * This methods adds the given layers to the selection and removes
      * the other previously selected layers.
      *
-     * @param {Layer[]} layers - The layers to select.
+     * @param {module:model/Presentation.Layer[]} layers - The layers to select.
      *
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     selectLayers(layers) {
         this.selection.selectedLayers = layers.slice();
@@ -616,10 +623,10 @@ export class Controller extends EventEmitter {
      * This method adds the given layer to the selection if it is not
      * already present.
      *
-     * @param {Layer} layer - The layer to select.
+     * @param {module:model/Presentation.Layer} layer - The layer to select.
      *
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     addLayerToSelection(layer) {
         if (!this.selection.hasLayers([layer])) {
@@ -634,10 +641,10 @@ export class Controller extends EventEmitter {
      *
      * This method removes the given layer to the selection if it is present.
      *
-     * @param {Layer} layer - The layer to deselect.
+     * @param {module:model/Presentation.Layer} layer - The layer to deselect.
      *
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     removeLayerFromSelection(layer) {
         if (this.selection.hasLayers([layer])) {
@@ -655,8 +662,8 @@ export class Controller extends EventEmitter {
      *
      * @param {number} index - The index of the frame to select. A negative number counts backwards from the end.
      *
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     selectFrame(index) {
         if (index < 0) {
@@ -669,8 +676,8 @@ export class Controller extends EventEmitter {
      *
      * This methods adds all the frames of the presentation to the selection.
      *
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     selectAllFrames() {
         this.selection.selectedFrames = this.presentation.frames.slice();
@@ -686,8 +693,8 @@ export class Controller extends EventEmitter {
      *
      * @param {number} relativeIndex - The relative location of the frame to select with respect to the current frame.
      *
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     selectRelativeFrame(relativeIndex) {
         if (this.selection.currentFrame) {
@@ -708,8 +715,8 @@ export class Controller extends EventEmitter {
      * @param {boolean} sequence - If true, add or remove consecutive frames, starting from the {@link Selection#currentFrame|current frame} up/down to the given index.
      * @param {number} frameIndex - The index of a frame in the presentation.
      *
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     updateFrameSelection(single, sequence, frameIndex) {
         const frame = this.presentation.frames[frameIndex];
@@ -748,10 +755,10 @@ export class Controller extends EventEmitter {
 
      * @param {boolean} single - If true, add or remove the given layers to/from the selection.
      * @param {boolean} sequence - If true, add or remove consecutive layers, starting from the current layer up/down to the given layers.
-     * @param {Layer[]} layers - The layers to select or deselect.
+     * @param {module:model/Presentation.Layer[]} layers - The layers to select or deselect.
      *
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     updateLayerSelection(single, sequence, layers) {
         if (single) {
@@ -783,11 +790,11 @@ export class Controller extends EventEmitter {
      *
      * @param {boolean} single - If true, add or remove the given layers and frame to/from the selection.
      * @param {boolean} sequence - If true, add or remove consevutive frames and layers starting from the {@link Selection#currentFrame|current frame} and layer.
-     * @param {Layer[]} layers - The layers to select or deselect.
+     * @param {module:model/Presentation.Layer[]} layers - The layers to select or deselect.
      * @param {number} frameIndex - The index of the frame in the presentation
      *
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     updateLayerAndFrameSelection(single, sequence, layers, frameIndex) {
         const frame = this.presentation.frames[frameIndex];
@@ -834,10 +841,10 @@ export class Controller extends EventEmitter {
      * If the layers becomes visible, they are added to the selection,
      * otherwise, they are removed from the selection.
      *
-     * @param {Layer[]} layers - The layers to show or hide.
+     * @param {module:model/Presentation.Layer[]} layers - The layers to show or hide.
      *
-     * @fires Controller#editorStateChange
-     * @fires Controller#repaint
+     * @fires module:Controller#editorStateChange
+     * @fires module:Controller#repaint
      */
     updateLayerVisibility(layers) {
         for (let layer of layers) {
@@ -863,8 +870,8 @@ export class Controller extends EventEmitter {
      *
      * This operation can be undone.
      *
-     * @fires Controller#presentationChange
-     * @fires Controller#repaint
+     * @fires module:Controller#presentationChange
+     * @fires module:Controller#repaint
      */
     resetLayer() {
         const selectedFrames = this.selection.selectedFrames.slice();
@@ -920,8 +927,8 @@ export class Controller extends EventEmitter {
      *
      * @param {number} groupId - The ID of the SVG group for the layer to copy.
      *
-     * @fires Controller#presentationChange
-     * @fires Controller#repaint
+     * @fires module:Controller#presentationChange
+     * @fires module:Controller#repaint
      */
     copyLayer(groupId) {
         const selectedFrames = this.selection.selectedFrames.slice();
@@ -1045,8 +1052,8 @@ export class Controller extends EventEmitter {
      * @param {string} property - The name of the property to set.
      * @param propertyValue - The new value of the property.
      *
-     * @fires Controller#presentationChange
-     * @fires Controller#repaint
+     * @fires module:Controller#presentationChange
+     * @fires module:Controller#repaint
      */
     setPresentationProperty(property, propertyValue) {
         const pres = this.presentation;
@@ -1095,8 +1102,8 @@ export class Controller extends EventEmitter {
      * @param {string} property - The name of the property to set.
      * @param propertyValue - The new value of the property.
      *
-     * @fires Controller#presentationChange
-     * @fires Controller#repaint
+     * @fires module:Controller#presentationChange
+     * @fires module:Controller#repaint
      */
     setFrameProperty(property, propertyValue) {
         const savedValues = this.selection.selectedFrames.map(frame => [frame, frame[property]]);
@@ -1150,8 +1157,8 @@ export class Controller extends EventEmitter {
      * @param {string} property - The name of the property to set.
      * @param propertyValue - The new value of the property.
      *
-     * @fires Controller#presentationChange
-     * @fires Controller#repaint
+     * @fires module:Controller#presentationChange
+     * @fires module:Controller#repaint
      */
     setLayerProperty(property, propertyValue) {
         if (property === "outlineElementId") {
@@ -1238,8 +1245,8 @@ export class Controller extends EventEmitter {
      * @param {string} property - The name of the property to set.
      * @param propertyValue - The new value of the property.
      *
-     * @fires Controller#presentationChange
-     * @fires Controller#repaint
+     * @fires module:Controller#presentationChange
+     * @fires module:Controller#repaint
      */
     setCameraProperty(property, propertyValue) {
         const selectedFrames = this.selection.selectedFrames.slice();
@@ -1288,8 +1295,8 @@ export class Controller extends EventEmitter {
      *
      * This operation can be undone.
      *
-     * @fires Controller#presentationChange
-     * @fires Controller#repaint
+     * @fires module:Controller#presentationChange
+     * @fires module:Controller#repaint
      */
     updateCameraStates() {
         const currentFrame = this.selection.currentFrame;
@@ -1340,8 +1347,8 @@ export class Controller extends EventEmitter {
      *
      * @param {SVGElement} outlineElement - The element to use as an outline of the selected layers.
      *
-     * @fires Controller#presentationChange
-     * @fires Controller#repaint
+     * @fires module:Controller#presentationChange
+     * @fires module:Controller#repaint
      */
     setOutlineElement(outlineElement) {
         const currentFrame = this.selection.currentFrame;
@@ -1382,8 +1389,8 @@ export class Controller extends EventEmitter {
      *
      * @param {number} width - The desired width.
      *
-     * @fires Controller#presentationChange
-     * @fires Controller#repaint
+     * @fires module:Controller#presentationChange
+     * @fires module:Controller#repaint
      */
     setAspectWidth(width) {
         const widthPrev = this.presentation.aspectWidth;
@@ -1405,8 +1412,8 @@ export class Controller extends EventEmitter {
      *
      * @param {number} height - The desired height.
      *
-     * @fires Controller#presentationChange
-     * @fires Controller#repaint
+     * @fires module:Controller#presentationChange
+     * @fires module:Controller#repaint
      */
     setAspectHeight(height) {
         const heightPrev = this.presentation.aspectHeight;
@@ -1428,7 +1435,7 @@ export class Controller extends EventEmitter {
      *
      * @param {string} dragMode - The new drag mode.
      *
-     * @fires Controller#repaint
+     * @fires module:Controller#repaint
      */
     setDragMode(dragMode) {
         this.viewport.dragMode = dragMode;
@@ -1457,7 +1464,7 @@ export class Controller extends EventEmitter {
      * @param {string} property - The name of the property to set.
      * @param propertyValue - The new value of the property.
      *
-     * @fires Controller#repaint
+     * @fires module:Controller#repaint
      */
     setPreference(key, value) {
         this.preferences[key] = value;
@@ -1516,7 +1523,7 @@ export class Controller extends EventEmitter {
 
     /** Update the user interface after modifying the preferences.
      *
-     * @fires Controller#repaint
+     * @fires module:Controller#repaint
      */
     applyPreferences() {
         if (this.preferences.fontSize > 0) {

@@ -1,4 +1,6 @@
 
+![Sozi logo](sozi-logo-bg.png)
+
 This is the JavaScript API documentation for Sozi.
 
 Additional information about the Sozi project can be found at:

@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/** @module */
+
 import {addSVGHandler, DefaultSVGHandler} from "./SVGDocumentWrapper";
 
 // Constant: the Inkscape namespace
@@ -10,8 +12,7 @@ const SODIPODI_NS = "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd";
 
 /** Inkscape SVG handler.
  *
- * @category svg
- * @extends DefaultSVGHandler
+ * @extends module:svg/DefaultSVGHandler.DefaultSVGHandler
  * @todo Add documentation.
  */
 export class InkscapeHandler extends DefaultSVGHandler {

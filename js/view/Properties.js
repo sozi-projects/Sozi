@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/** @module */
+
 import {h} from "inferno-hyperscript";
 import {VirtualDOMView} from "./VirtualDOMView";
 
@@ -11,8 +13,7 @@ function asArray(v) {
 
 /** Properties pane of the presentation editor.
  *
- * @category view
- * @extends VirtualDOMView
+ * @extends module:view/VirtualDOMView.VirtualDOMView
  * @todo Add documentation.
  */
 export class Properties extends VirtualDOMView {

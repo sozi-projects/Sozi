@@ -2,21 +2,19 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/** @module */
+
 import {EventEmitter} from "events";
 
 /** The list of backends supported by the current editor.
  *
- * @category backend
- *
- * @type {AbstractBackend[]}
+ * @type {module:backend/AbstractBackend.AbstractBackend[]}
  */
 export const backendList = [];
 
 /** Add a backend to {@link backendList|the list of supported backends}.
  *
- * @category backend
- *
- * @param {AbstractBackend} backend - The backend to add.
+ * @param {module:backend/AbstractBackend.AbstractBackend} backend - The backend to add.
  */
 export function addBackend(backend) {
     backendList.push(backend);
@@ -24,13 +22,12 @@ export function addBackend(backend) {
 
 /** Abstraction for the execution platform.
  *
- * @category backend
  * @extends EventEmitter
  */
 export class AbstractBackend extends EventEmitter {
     /** Common constructor for backends.
      *
-     * @param {Controller} controller - A controller instance.
+     * @param {module:Controller.Controller} controller - A controller instance.
      * @param {HTMLElement} container - The element that will contain the menu for choosing a backend.
      * @param {string} buttonId - The ID of the button to generate in the menu.
      * @param {string} buttonLabel - The text of the button to generate in the menu (already translated).
@@ -39,7 +36,7 @@ export class AbstractBackend extends EventEmitter {
         super();
 
         /** The controller for this backend.
-         * @type {Controller} */
+         * @type {module:Controller.Controller} */
         this.controller = controller;
 
         /** A list of files to save automatically.
@@ -59,14 +56,14 @@ export class AbstractBackend extends EventEmitter {
         window.addEventListener("focus", () => {
             this.hasFocus = true;
             /** Signals that the current editor window has received the focus.
-             * @event AbstractBackend#focus */
+             * @event module:backend/AbstractBackend#focus */
             this.emit("focus");
         });
 
         window.addEventListener("blur", () => {
             this.hasFocus = false;
             /** Signals that the current editor window has lost the focus.
-             * @event AbstractBackend#blur */
+             * @event module:backend/AbstractBackend#blur */
             this.emit("blur");
         });
     }
@@ -125,13 +122,13 @@ export class AbstractBackend extends EventEmitter {
      *
      * @param fileDescriptor - A file to load (backend-dependent).
      *
-     * @fires AbstractBackend#load
-     * @fires AbstractBackend#change
+     * @fires module:backend/AbstractBackend#load
+     * @fires module:backend/AbstractBackend#change
      */
     load(fileDescriptor) {
         // Not implemented
         /** Signals that a file has been loaded.
-         * @event AbstractBackend#load */
+         * @event module:backend/AbstractBackend#load */
         this.emit("load", fileDescriptor, "", "Not implemented");
     }
 
@@ -140,7 +137,7 @@ export class AbstractBackend extends EventEmitter {
     }
 
     /** Signals that a file has changed.
-     * @event AbstractBackend#change
+     * @event module:backend/AbstractBackend#change
      */
 
     /** Create a new file.
@@ -163,14 +160,14 @@ export class AbstractBackend extends EventEmitter {
      * @param fileDescriptor - The file to save (backend-dependent).
      * @param {string} data - The new content of the file.
      *
-     * @fires AbstractBackend#save
+     * @fires module:backend/AbstractBackend#save
      *
      * @todo Use a callback instead of an event
      */
     save(fileDescriptor, data) {
         // Not implemented
         /** Signals that a file has been saved.
-         * @event AbstractBackend#save */
+         * @event module:backend/AbstractBackend#save */
         this.emit("save", fileDescriptor, "Not implemented");
     }
 

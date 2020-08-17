@@ -2,30 +2,30 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/** @module */
+
 /** Selection in the timeline of the Sozi editor.
  *
  * A Selection instance holds the currently selected
  * frames and layers of the presentation.
- *
- * @category model
  */
 export class Selection {
 
     /** Create an empty selection for a given presentation.
      *
-     * @param {Presentation} presentation - A Sozi presentation object
+     * @param {module:model/Presentation.Presentation} presentation - A Sozi presentation object
      */
     constructor(presentation) {
         /** The presentation where selections happen.
-         * @type {Presentation} */
+         * @type {module:model/Presentation.Presentation} */
         this.presentation = presentation;
 
         /** The list of selected frames.
-         * @type {Frame[]} */
+         * @type {module:model/Presentation.Frame[]} */
         this.selectedFrames = [];
 
         /** The list of selected layers.
-         * @type {Layer[]} */
+         * @type {module:model/Presentation.Layer[]} */
         this.selectedLayers = [];
     }
 
@@ -68,7 +68,7 @@ export class Selection {
 
     /** The frame that was selected last, `null` if no frame is selected.
      *
-     * @type {Frame}
+     * @type {module:model/Presentation.Frame}
      */
     get currentFrame() {
         return this.selectedFrames.length ?
@@ -78,7 +78,7 @@ export class Selection {
 
     /** Check whether this selection contains the given frames.
      *
-     * @param {Frame[]} frames - The frames to check.
+     * @param {module:model/Presentation.Frame[]} frames - The frames to check.
      * @return `true` if all the given frames are selected.
      */
     hasFrames(frames) {
@@ -87,7 +87,7 @@ export class Selection {
 
     /** Add a frame to this selection.
      *
-     * @param {Frame} frame - The frame to add.
+     * @param {module:model/Presentation.Frame} frame - The frame to add.
      */
     addFrame(frame) {
         if (this.selectedFrames.indexOf(frame) < 0) {
@@ -97,7 +97,7 @@ export class Selection {
 
     /** Remove a frame from this selection.
      *
-     * @param {Frame} frame - The frame to remove.
+     * @param {module:model/Presentation.Frame} frame - The frame to remove.
      */
     removeFrame(frame) {
         const index = this.selectedFrames.indexOf(frame);
@@ -111,7 +111,7 @@ export class Selection {
      * If the frame is not selected, add it to the selection,
      * otherwise, remove it.
      *
-     * @param {Frame} frame - The frame to add or remove.
+     * @param {module:model/Presentation.Frame} frame - The frame to add or remove.
      */
     toggleFrameSelection(frame) {
         const index = this.selectedFrames.indexOf(frame);
@@ -125,7 +125,7 @@ export class Selection {
 
     /** Check whether this selection contains the given layers.
      *
-     * @param {Layer[]} layers - The layers to check.
+     * @param {module:model/Presentation.Layer[]} layers - The layers to check.
      * @return `true` if all the given layers are selected.
      */
     hasLayers(layers) {
@@ -134,7 +134,7 @@ export class Selection {
 
     /** Add a layer to this selection.
      *
-     * @param {Layer} layer - The layer to add.
+     * @param {module:model/Presentation.Layer} layer - The layer to add.
      */
     addLayer(layer) {
         if (this.selectedLayers.indexOf(layer) < 0) {
@@ -144,7 +144,7 @@ export class Selection {
 
     /** Remove a layer from this selection.
      *
-     * @param {Layer} layer - The layer to remove.
+     * @param {module:model/Presentation.Layer} layer - The layer to remove.
      */
     removeLayer(layer) {
         const index = this.selectedLayers.indexOf(layer);
@@ -158,7 +158,7 @@ export class Selection {
      * If the layer is not selected, add it to the selection,
      * otherwise, remove it.
      *
-     * @param {Layer} layer - The layer to add or remove.
+     * @param {module:model/Presentation.Layer} layer - The layer to add or remove.
      */
     toggleLayerSelection(layer) {
         const index = this.selectedLayers.indexOf(layer);

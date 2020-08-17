@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/** @module */
+
 import {Animator} from "./Animator";
 import * as Timing from "./Timing";
 
@@ -21,7 +23,7 @@ export function init(aPlayer) {
 
     frameList = document.querySelector(".sozi-frame-list");
     links = frameList.querySelectorAll("li a");
-    
+
     for (let link of links) {
         link.addEventListener("click", evt => {
             if (evt.button === 0) {

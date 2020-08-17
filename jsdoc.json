@@ -1,9 +1,5 @@
 {
     "templates": {
-        "better-docs": {
-            "name": "Sozi API documentation",
-            "logo": "sozi-logo-bg.png"
-        },
         "cleverLinks": false,
         "navigation": [
             {
@@ -27,11 +23,9 @@
         "allowUnknownTags": ["category"]
     },
     "plugins": [
-        "plugins/markdown",
-        "node_modules/better-docs/category"
+        "plugins/markdown"
     ],
     "opts": {
-        "template": "node_modules/better-docs",
         "readme": "./README.jsdoc.md"
     }
 }

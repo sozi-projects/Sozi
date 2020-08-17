@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/** @module */
+
 import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
 import {backendList} from "./backend/AbstractBackend";
 import {EventEmitter} from "events";
@@ -12,7 +14,6 @@ import path from "path";
 
 /** File read/write manager.
  *
- * @category editor
  * @extends EventEmitter
  * @todo Add documentation.
  */
@@ -327,7 +328,7 @@ export class Storage extends EventEmitter {
         const contents = paths.map(relPath => {
             const absPath = path.join(svgLoc, relPath);
             return this.backend.loadSync(absPath);
-        })
+        });
         return contents.join("\n");
     }
 }
