@@ -25,7 +25,7 @@
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
-    "better-docs": "^1.4.13",
+    "better-docs": "^2.3.0",
     "envify": "^4.1.0",
     "grunt": "^1.2.1",
     "grunt-babel": "^8.0.0",
