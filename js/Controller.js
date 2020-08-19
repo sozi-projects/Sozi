@@ -7,6 +7,7 @@
 import {Frame, LayerProperties} from "./model/Presentation";
 import {CameraState} from "./model/CameraState";
 import {EventEmitter} from "events";
+import * as i18n from "./i18n";
 
 const UNDO_STACK_LIMIT = 100;
 
@@ -32,9 +33,8 @@ export class Controller extends EventEmitter {
      * @param {module:model/Selection.Selection} selection - The object that represents the selection in the timeline.
      * @param {module:player/Viewport.Viewport} viewport - The object that displays a preview of the presentation.
      * @param {module:player/Player.Player} player - The object that animates the presentation.
-     * @param {Jed} locale - The object that manages the translations.
      */
-    constructor(preferences, presentation, selection, viewport, player, locale) {
+    constructor(preferences, presentation, selection, viewport, player) {
         super();
 
         /** The object that manages the file I/O, set in {@linkcode Controller#onLoad|onLoad}.
@@ -66,7 +66,7 @@ export class Controller extends EventEmitter {
          * @param {string} s - The text to translate.
          * @return {string} The translated text.
          */
-        this.gettext = s => locale.gettext(s);
+        this.gettext = s => s;
 
         /** The layers that have been added to the timeline.
          * @type {module:model/Presentation.Layer[]} */
@@ -224,7 +224,7 @@ export class Controller extends EventEmitter {
 
         // Load the preferences.
         this.preferences.load();
-
+        
         // If no frame is selected, select the first frame.
         if (!this.selection.selectedFrames.length && this.presentation.frames.length) {
             this.selection.addFrame(this.presentation.frames[0]);
@@ -1468,7 +1468,7 @@ export class Controller extends EventEmitter {
      */
     setPreference(key, value) {
         this.preferences[key] = value;
-        this.applyPreferences();
+        this.applyPreferences({[key]: true});
     }
 
     /** Get the keyboard shortcut for a given action.
@@ -1525,10 +1525,16 @@ export class Controller extends EventEmitter {
      *
      * @fires module:Controller#repaint
      */
-    applyPreferences() {
-        if (this.preferences.fontSize > 0) {
+    applyPreferences(changed="all") {
+        if ((changed === "all" || changed.fontSize) && this.preferences.fontSize > 0) {
             document.body.style.fontSize = this.preferences.fontSize + "pt";
         }
+
+        if (changed === "all" || changed.language) {
+            const locale = i18n.init(this.preferences.language);
+            this.gettext = s => locale.gettext(s);
+        }
+
         this.emit("repaint");
     }
 

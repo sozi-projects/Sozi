@@ -6,6 +6,7 @@
 
 import {h} from "inferno-hyperscript";
 import {VirtualDOMView} from "./VirtualDOMView";
+import {getLanguages} from "./languages";
 
 function asArray(v) {
     return v instanceof Array ? v : [v];
@@ -59,28 +60,37 @@ export class Properties extends VirtualDOMView {
 
         return h("div.properties", [
             h("h1", _("User interface")),
+
+            h("label", {for: "field-language"}, _("Language")),
+            this.renderSelectField("language", controller.getPreference, controller.setPreference, getLanguages(_)),
+
             h("label", {for: "field-fontSize"}, _("Font size")),
             this.renderNumberField("fontSize", false, controller.getPreference, controller.setPreference, false, 1, 1),
+
             h("label", {for: "field-enableNotifications"}, [
                 _("Enable notifications on save and reload"),
                 this.renderToggleField(h("i.far.fa-check-square"), _("Enable notifications"), "enableNotifications", controller.getPreference, controller.setPreference)
             ]),
+
             h("label", {for: "field-saveMode"}, _("Save the presentation")),
             this.renderSelectField("saveMode", controller.getPreference, controller.setPreference, {
                 onblur: _("When Sozi loses the focus"),
                 manual: _("Manually")
             }),
+
             h("label", {for: "field-reloadMode"}, _("Reload the SVG document")),
             this.renderSelectField("reloadMode", controller.getPreference, controller.setPreference, {
                 auto:    _("Automatically"),
                 onfocus: _("When Sozi gets the focus"),
                 manual:  _("Manually")
             }),
+
             h("h1", _("Behavior")),
             h("label", {for: "field-animateTransitions"}, [
                 _("Preview transition animations"),
                 this.renderToggleField(h("i.far.fa-check-square"), _("Enable animated transitions"), "animateTransitions", controller.getPreference, controller.setPreference)
             ]),
+
             h("h1", _("Keyboard shortcuts"))
         ].concat(shortcuts));
     }

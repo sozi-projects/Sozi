@@ -11,6 +11,7 @@
  */
 export class Preferences {
     constructor() {
+        this.language            = "auto";
         this.fontSize            = 11;
         this.enableNotifications = true;
         this.animateTransitions  = true;

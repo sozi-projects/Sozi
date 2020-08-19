@@ -29,9 +29,8 @@ window.addEventListener("load", () => {
     const viewport     = new Viewport(presentation, true);
     const player       = new Player(viewport, presentation, true);
 
-    const locale       = i18n.init();
     const preferences  = new Preferences();
-    const controller   = new Controller(preferences, presentation, selection, viewport, player, locale);
+    const controller   = new Controller(preferences, presentation, selection, viewport, player);
     const preview      = new Preview(document.getElementById("sozi-editor-view-preview"), presentation, selection, viewport, controller);
     const properties   = new Properties(document.getElementById("sozi-editor-view-properties"), selection, controller);
     const toolbar      = new Toolbar(document.getElementById("sozi-editor-view-toolbar"), properties, presentation, viewport, controller);

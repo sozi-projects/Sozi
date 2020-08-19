@@ -12,8 +12,8 @@ function normalize(tag) {
     return tag.replace(/_/g, "-").toLowerCase();
 }
 
-export function init(lang) {
-    if (!lang) {
+export function init(lang="auto") {
+    if (lang === "auto") {
         lang = window.navigator.languages && window.navigator.languages.length ?
             window.navigator.languages[0] :
             (window.navigator.language || window.navigator.userLanguage || "en");
