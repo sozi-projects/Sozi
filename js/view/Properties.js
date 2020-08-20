@@ -22,17 +22,21 @@ export class Properties extends VirtualDOMView {
     constructor(container, selection, controller) {
         super(container, controller);
 
-        this.selection       = selection;
-        this.preferencesMode = false;
+        this.selection = selection;
+        this.mode      = "default";
     }
 
-    togglePreferencesMode() {
-        this.preferencesMode = !this.preferencesMode;
+    toggleMode(mode) {
+        this.mode = this.mode === mode ? "default" : mode;
         this.repaint();
     }
 
     render() {
-        return this.preferencesMode ? this.renderPreferences() : this.renderPresentationProperties();
+        switch (this.mode) {
+            case "preferences": return this.renderPreferences();
+            case "export":      return this.renderExportTool();
+            default:            return this.renderPresentationProperties();
+        }
     }
 
     renderPreferences() {
@@ -291,6 +295,15 @@ export class Properties extends VirtualDOMView {
                     this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardZoom", controller.getPresentationProperty, controller.setPresentationProperty)
                 ])
             ])
+        ]);
+    }
+
+    renderExportTool() {
+        const controller = this.controller;
+        const _ = controller.gettext;
+
+        return h("div.properties", [
+            h("h1", _("Export to PDF")),
         ]);
     }
 

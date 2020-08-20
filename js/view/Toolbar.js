@@ -117,13 +117,18 @@ export class Toolbar extends VirtualDOMView {
                 h("button", {
                     title: _("Reload the SVG document"),
                     onclick() { controller.reload(); }
-                }, h("i.fas.fa-sync"))
+                }, h("i.fas.fa-sync")),
+                h("button", {
+                    title: _("Export the presentation"),
+                    className: this.properties.mode === "export" ? "active" : undefined,
+                    onclick() { thisView.properties.toggleMode("export"); thisView.repaint(); }
+                }, h("i.fas.fa-file-export"))
             ]),
             h("span.group.btn-group", [
                 h("button", {
                     title: _("Preferences"),
-                    className: this.properties.preferencesMode ? "active" : undefined,
-                    onclick() { thisView.properties.togglePreferencesMode(); thisView.repaint(); }
+                    className: this.properties.mode === "preferences" ? "active" : undefined,
+                    onclick() { thisView.properties.toggleMode("preferences"); thisView.repaint(); }
                 }, h("i.fas.fa-sliders-h")),
                 h("button", {
                     title: _("Information"),
