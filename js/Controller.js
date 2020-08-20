@@ -224,7 +224,7 @@ export class Controller extends EventEmitter {
 
         // Load the preferences.
         this.preferences.load();
-        
+
         // If no frame is selected, select the first frame.
         if (!this.selection.selectedFrames.length && this.presentation.frames.length) {
             this.selection.addFrame(this.presentation.frames[0]);
@@ -1471,6 +1471,14 @@ export class Controller extends EventEmitter {
         this.applyPreferences({[key]: true});
     }
 
+    getExportOption(key) {
+        return this.preferences.export[key];
+    }
+
+    setExportOption(key, value) {
+        this.preferences.export[key] = value;
+    }
+
     /** Get the keyboard shortcut for a given action.
      *
      * This method is used in the {@link Properties} view to assign getters
@@ -1536,6 +1544,11 @@ export class Controller extends EventEmitter {
         }
 
         this.emit("repaint");
+    }
+
+    exportToPDF() {
+        this.save();
+        console.log("TODO: Export to PDF");
     }
 
     /** Perform an operation with undo/redo support.

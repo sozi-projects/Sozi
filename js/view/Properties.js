@@ -304,6 +304,23 @@ export class Properties extends VirtualDOMView {
 
         return h("div.properties", [
             h("h1", _("Export to PDF")),
+
+            h("label", {for: "field-pdfPageSize"}, _("Page size")),
+            this.renderSelectField("pdfPageSize", controller.getExportOption, controller.setExportOption, {
+                a3: "A3",
+                a4: "A4",
+                a5: "A5",
+                legal: "Legal",
+                letter: "Letter",
+                tabloid: "Tabloid"
+            }),
+
+            h("div.btn-group", [
+                h("button", {
+                    title: _("Export the presentation to PDF"),
+                    onClick() { controller.exportToPDF(); }
+                }, _("Export"))
+            ])
         ]);
     }
 

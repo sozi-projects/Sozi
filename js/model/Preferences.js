@@ -29,6 +29,9 @@ export class Preferences {
             toggleFullscreen        : "F11",
             toggleDevTools          : "F12"
         };
+        this.export              = {
+            pdfPageSize: "a4"
+        };
     }
 
     save() {
