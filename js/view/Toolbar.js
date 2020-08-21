@@ -118,6 +118,7 @@ export class Toolbar extends VirtualDOMView {
                     title: _("Reload the SVG document"),
                     onclick() { controller.reload(); }
                 }, h("i.fas.fa-sync")),
+                // TODO disable the Export button if the feature is not available
                 h("button", {
                     title: _("Export the presentation"),
                     className: this.properties.mode === "export" ? "active" : undefined,

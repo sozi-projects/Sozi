@@ -28,6 +28,7 @@ export class Storage extends EventEmitter {
         this.selection = selection;
         this.backend = backendList[0];
         this.svgFileDescriptor = null;
+        this.htmlFileDescriptor = null;
         this.jsonNeedsSaving = false;
         this.htmlNeedsSaving = false;
         this.reloading = false;
@@ -100,7 +101,7 @@ export class Storage extends EventEmitter {
         else if (/\.sozi\.json$/.test(name)) {
             // Load presentation data and editor state from JSON file.
             this.loadJSONData(data);
-            this.autosaveJSON(fileDescriptor);
+            this.setJSONFile(fileDescriptor);
         }
         else {
             this.controller.error(_("Document is not valid SVG."));
@@ -184,7 +185,7 @@ export class Storage extends EventEmitter {
                 }
 
                 this.backend.create(name, location, "application/json", this.getJSONData(), fileDescriptor => {
-                    this.autosaveJSON(fileDescriptor);
+                    this.setJSONFile(fileDescriptor);
                 });
 
                 this.controller.onLoad(this);
@@ -198,12 +199,12 @@ export class Storage extends EventEmitter {
     createHTMLFile(name, location) {
         this.backend.find(name, location, fileDescriptor => {
             if (fileDescriptor) {
-                this.autosaveHTML(fileDescriptor);
+                this.setHTMLFile(fileDescriptor);
                 this.backend.save(fileDescriptor, this.exportHTML());
             }
             else {
                 this.backend.create(name, location, "text/html", this.exportHTML(), fileDescriptor => {
-                    this.autosaveHTML(fileDescriptor);
+                    this.setHTMLFile(fileDescriptor);
                 });
             }
         });
@@ -237,10 +238,11 @@ export class Storage extends EventEmitter {
     }
 
     /*
-     * Configure autosaving for presentation data
-     * and editor state.
+     * Register a file descriptor for the JSON presentation data.
+     *
+     * Configure autosaving for presentation data and editor state.
      */
-    autosaveJSON(fileDescriptor) {
+    setJSONFile(fileDescriptor) {
         if (this.reloading) {
             return;
         }
@@ -258,12 +260,16 @@ export class Storage extends EventEmitter {
     }
 
     /*
+     * Register a file descriptor for the generated HTML presentation.
+     *
      * Configure autosaving for HTML export.
      */
-    autosaveHTML(fileDescriptor) {
+    setHTMLFile(fileDescriptor) {
         if (this.reloading) {
             return;
         }
+
+        this.htmlFileDescriptor = fileDescriptor;
 
         this.backend.autosave(fileDescriptor, () => this.htmlNeedsSaving, () => this.exportHTML());
 

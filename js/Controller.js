@@ -8,6 +8,7 @@ import {Frame, LayerProperties} from "./model/Presentation";
 import {CameraState} from "./model/CameraState";
 import {EventEmitter} from "events";
 import * as i18n from "./i18n";
+import * as exporter from "./exporter";
 
 const UNDO_STACK_LIMIT = 100;
 
@@ -1548,7 +1549,7 @@ export class Controller extends EventEmitter {
 
     exportToPDF() {
         this.save();
-        console.log("TODO: Export to PDF");
+        exporter.exportToPDF(this);
     }
 
     /** Perform an operation with undo/redo support.
