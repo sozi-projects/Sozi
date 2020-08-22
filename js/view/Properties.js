@@ -315,6 +315,12 @@ export class Properties extends VirtualDOMView {
                 Tabloid: "Tabloid"
             }),
 
+            h("label", {for: "field-pdfPageOrientation"}, _("Page orientation")),
+            this.renderSelectField("pdfPageOrientation", controller.getExportOption, controller.setExportOption, {
+                landscape: _("Landscape"),
+                portrait: _("Portrait")
+            }),
+
             h("div.btn-group", [
                 h("button", {
                     title: _("Export the presentation to PDF"),

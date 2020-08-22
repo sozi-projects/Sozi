@@ -4,7 +4,7 @@
 
 import {ipcRenderer} from "electron";
 
-function exportFrames(options) {
+function exportFrames(callerId, frameIndex) {
     if (sozi.player.disableMedia) {
         sozi.player.disableMedia();
     }
@@ -12,11 +12,11 @@ function exportFrames(options) {
     document.querySelector(".sozi-blank-screen").style.display = "none";
 
     sozi.player.addListener("frameChange", () => {
-        ipcRenderer.sendTo(options.callerId, "frameChange", sozi.player.currentFrame.index);
+        ipcRenderer.sendTo(callerId, "frameChange", sozi.player.currentFrame.index);
     });
 
-    sozi.player.jumpToFrame(options.frameIndex);
+    sozi.player.jumpToFrame(frameIndex);
 }
 
-ipcRenderer.on("exportFrames", (evt, options) => exportFrames(options));
+ipcRenderer.on("exportFrames", (evt, {callerId, frameIndex}) => exportFrames(callerId, frameIndex));
 ipcRenderer.on("jumpToFrame", (evt, frameIndex) => sozi.player.jumpToFrame(frameIndex));

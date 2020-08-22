@@ -31,6 +31,7 @@ export class Preferences {
         };
         this.export              = {
             pdfPageSize: "A4",
+            pdfPageOrientation: "landscape",
             pdfInclude: "",
             pdfExclude: ""
         };

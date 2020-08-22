@@ -73,6 +73,17 @@ function zeroPadded(value, digits) {
     return result;
 }
 
+const pageGeometry = {
+    A3:      {width: 297,   height: 420},
+    A4:      {width: 210,   height: 297},
+    A5:      {width: 148,   height: 210},
+    Legal:   {width: 216,   height: 355.6},
+    Letter:  {width: 215.9, height: 279.4},
+    Tabloid: {width: 279,   height: 432},
+};
+
+const pixelsPerMm = 12;
+
 export async function exportToPDF(controller) {
     const _ = controller.gettext;
     const htmlFileName = controller.storage.htmlFileDescriptor;
@@ -99,9 +110,13 @@ export async function exportToPDF(controller) {
     const digits = frameCount.toString().length;
 
     // Open the HTML presentation in a new browser window.
+    let g = pageGeometry[controller.preferences.export.pdfPageSize];
+    if (controller.preferences.export.pdfPageOrientation === "landscape") {
+        g = {width: g.height, height: g.width};
+    }
     const w = new remote.BrowserWindow({
-        width:  800, // TODO infer from page size
-        height: 600, // TODO infer from page size
+        width:  g.width  * pixelsPerMm,
+        height: g.height * pixelsPerMm,
         webPreferences: {
             preload: path.join(__dirname, "exporter-preload.js")
         }
@@ -115,8 +130,11 @@ export async function exportToPDF(controller) {
     ipcRenderer.on("frameChange", async (evt, index) => {
         // Convert the current web contents to PDF and add it to the target document.
         const pdfData = await w.webContents.printToPDF({
-            pageSize: controller.preferences.export.pdfPageSize
+            pageSize: controller.preferences.export.pdfPageSize,
+            landscape: controller.preferences.export.pdfPageOrientation === "landscape",
+            marginsType: 2, // No margin
         });
+
         const pdfDocForFrame = await PDFDocument.load(pdfData);
         const [pdfPage]      = await pdfDoc.copyPages(pdfDocForFrame, [0]);
         pdfDoc.addPage(pdfPage);
