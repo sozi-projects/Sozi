@@ -8,7 +8,7 @@ import {Frame, LayerProperties} from "./model/Presentation";
 import {CameraState} from "./model/CameraState";
 import {EventEmitter} from "events";
 import * as i18n from "./i18n";
-import * as exporter from "./exporter";
+import * as exporter from "./exporter/exporter";
 
 const UNDO_STACK_LIMIT = 100;
 

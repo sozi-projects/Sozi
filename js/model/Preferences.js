@@ -30,7 +30,9 @@ export class Preferences {
             toggleDevTools          : "F12"
         };
         this.export              = {
-            pdfPageSize: "a4"
+            pdfPageSize: "A4",
+            pdfInclude: "",
+            pdfExclude: ""
         };
     }
 

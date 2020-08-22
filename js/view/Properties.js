@@ -307,12 +307,12 @@ export class Properties extends VirtualDOMView {
 
             h("label", {for: "field-pdfPageSize"}, _("Page size")),
             this.renderSelectField("pdfPageSize", controller.getExportOption, controller.setExportOption, {
-                a3: "A3",
-                a4: "A4",
-                a5: "A5",
-                legal: "Legal",
-                letter: "Letter",
-                tabloid: "Tabloid"
+                A3: "A3",
+                A4: "A4",
+                A5: "A5",
+                Legal: "Legal",
+                Letter: "Letter",
+                Tabloid: "Tabloid"
             }),
 
             h("div.btn-group", [
