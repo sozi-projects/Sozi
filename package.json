@@ -20,6 +20,7 @@
     "inferno-hyperscript": "^7.4.2",
     "jed": "^1.1.0",
     "nunjucks": "^3.2.2",
+    "pdf-lib": "^1.10.0",
     "screenfull": "^5.0.0"
   },
   "devDependencies": {

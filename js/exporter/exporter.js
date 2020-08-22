@@ -8,6 +8,7 @@ import {remote, ipcRenderer} from "electron";
 import * as path from "path";
 import * as tmp from "tmp";
 import * as fs from "fs";
+import {PDFDocument} from "pdf-lib";
 
 function markInterval(list, first, last, step, value) {
     if (step > 0) {
@@ -73,7 +74,11 @@ function zeroPadded(value, digits) {
 }
 
 export async function exportToPDF(controller) {
-    console.log(`Exporting ${controller.storage.htmlFileDescriptor} to PDF`);
+    const _ = controller.gettext;
+    const htmlFileName = controller.storage.htmlFileDescriptor;
+    const pdfFileName  = htmlFileName.replace(/html$/, "pdf");
+
+    console.log(`Exporting ${htmlFileName} to PDF`);
 
     // Mark the list of frames that will be included in the target document.
     const frameCount = controller.presentation.frames.length;
@@ -93,10 +98,6 @@ export async function exportToPDF(controller) {
     // The length of the file suffix for each generated page.
     const digits = frameCount.toString().length;
 
-    // Create a temporary directory.
-    // Force deletion on cleanup, even if not empty.
-    const tmpDir = tmp.dirSync({unsafeCleanup: true}).name;
-
     // Open the HTML presentation in a new browser window.
     const w = new remote.BrowserWindow({
         width:  800, // TODO infer from page size
@@ -107,31 +108,38 @@ export async function exportToPDF(controller) {
     });
     await w.loadURL(`file://${controller.storage.htmlFileDescriptor}`);
 
+    // Create a PDF document object.
+    const pdfDoc = await PDFDocument.create();
+
     // On each frameChange event in the player, save the current web contents.
     ipcRenderer.on("frameChange", async (evt, index) => {
-        const pdfFileName = path.join(tmpDir, zeroPadded(index, digits) + ".pdf");
-        console.log(`Saving frame: ${index} as ${pdfFileName}`);
-
-        // Save the current web contents to a PDF file.
+        // Convert the current web contents to PDF and add it to the target document.
         const pdfData = await w.webContents.printToPDF({
             pageSize: controller.preferences.export.pdfPageSize
         });
-        try {
-            fs.writeFileSync(pdfFileName, pdfData);
-        }
-        catch (e) {
-            console.log("exportToPDF: file write error");
-        }
+        const pdfDocForFrame = await PDFDocument.load(pdfData);
+        const [pdfPage]      = await pdfDoc.copyPages(pdfDocForFrame, [0]);
+        pdfDoc.addPage(pdfPage);
 
-        // Move to the next frame.
         const frameIndex = nextFrameIndex(frameSelection, index);
         if (frameIndex >= 0) {
+            // If there are frames remaining, move to the next frame.
             w.webContents.send("jumpToFrame", frameIndex);
         }
         else {
+            // If this is the last frame, close the presentation window
+            // and write the PDF document to a file.
             ipcRenderer.removeAllListeners("frameChange");
-            // TODO merge pages into a single document.
             w.close();
+
+            const pdfBytes = await pdfDoc.save();
+            try {
+                fs.writeFileSync(pdfFileName, pdfBytes);
+                controller.info(_("Presentation was exported to PDF."));
+            }
+            catch (e) {
+                controller.error(_("Failed to write PDF file."));
+            }
         }
     });
 
