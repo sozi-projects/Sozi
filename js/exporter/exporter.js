@@ -82,7 +82,7 @@ const pageGeometry = {
     Tabloid: {width: 279,   height: 432},
 };
 
-const pixelsPerMm = 12;
+const pixelsPerMm = 3.78; // 96ppi
 
 export async function exportToPDF(controller) {
     const _ = controller.gettext;
@@ -115,8 +115,9 @@ export async function exportToPDF(controller) {
         g = {width: g.height, height: g.width};
     }
     const w = new remote.BrowserWindow({
-        width:  g.width  * pixelsPerMm,
-        height: g.height * pixelsPerMm,
+        width:  Math.round(g.width  * pixelsPerMm),
+        height: Math.round(g.height * pixelsPerMm),
+        frame: false,
         webPreferences: {
             preload: path.join(__dirname, "exporter-preload.js")
         }
