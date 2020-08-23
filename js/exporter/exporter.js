@@ -120,6 +120,7 @@ export async function exportToPDF(controller) {
         width:  Math.round(g.width  * pixelsPerMm),
         height: Math.round(g.height * pixelsPerMm),
         frame: false,
+        show: false,
         webPreferences: {
             preload: path.join(__dirname, "exporter-preload.js")
         }
