@@ -369,21 +369,26 @@ export class Presentation extends EventEmitter {
     constructor() {
         super();
 
-        this.document                 = null;
-        this.frames                   = [];
-        this.layers                   = [];
-        this.elementsToHide           = [];
-        this.customFiles              = [];
-        this.aspectWidth              = 4;
-        this.aspectHeight             = 3;
-        this.enableKeyboardZoom       = true;
-        this.enableKeyboardRotation   = true;
-        this.enableKeyboardNavigation = true;
-        this.enableMouseTranslation   = true;
-        this.enableMouseZoom          = true;
-        this.enableMouseRotation      = true;
-        this.enableMouseNavigation    = true;
-        this.updateURLOnFrameChange   = true;
+        this.document                   = null;
+        this.frames                     = [];
+        this.layers                     = [];
+        this.elementsToHide             = [];
+        this.customFiles                = [];
+        this.aspectWidth                = 4;
+        this.aspectHeight               = 3;
+        this.enableKeyboardZoom         = true;
+        this.enableKeyboardRotation     = true;
+        this.enableKeyboardNavigation   = true;
+        this.enableMouseTranslation     = true;
+        this.enableMouseZoom            = true;
+        this.enableMouseRotation        = true;
+        this.enableMouseNavigation      = true;
+        this.updateURLOnFrameChange     = true;
+        this.exportToPdfPageSize        = "A4";
+        this.exportToPdfPageOrientation = "landscape";
+        this.exportToPdfInclude         = "";
+        this.exportToPdfExclude         = "";
+
     }
 
     setSVGDocument(svgDocument) {
@@ -426,19 +431,23 @@ export class Presentation extends EventEmitter {
      */
     toStorable() {
         return {
-            aspectWidth             : this.aspectWidth,
-            aspectHeight            : this.aspectHeight,
-            enableKeyboardZoom      : this.enableKeyboardZoom,
-            enableKeyboardRotation  : this.enableKeyboardRotation,
-            enableKeyboardNavigation: this.enableKeyboardNavigation,
-            enableMouseTranslation  : this.enableMouseTranslation,
-            enableMouseZoom         : this.enableMouseZoom,
-            enableMouseRotation     : this.enableMouseRotation,
-            enableMouseNavigation   : this.enableMouseNavigation,
-            updateURLOnFrameChange  : this.updateURLOnFrameChange,
-            frames                  : this.frames.map(frame => frame.toStorable()),
-            elementsToHide          : this.elementsToHide.slice(),
-            customFiles             : this.customFiles.slice(),
+            aspectWidth               : this.aspectWidth,
+            aspectHeight              : this.aspectHeight,
+            enableKeyboardZoom        : this.enableKeyboardZoom,
+            enableKeyboardRotation    : this.enableKeyboardRotation,
+            enableKeyboardNavigation  : this.enableKeyboardNavigation,
+            enableMouseTranslation    : this.enableMouseTranslation,
+            enableMouseZoom           : this.enableMouseZoom,
+            enableMouseRotation       : this.enableMouseRotation,
+            enableMouseNavigation     : this.enableMouseNavigation,
+            updateURLOnFrameChange    : this.updateURLOnFrameChange,
+            exportToPdfPageSize       : this.exportToPdfPageSize,
+            exportToPdfPageOrientation: this.exportToPdfPageOrientation,
+            exportToPdfInclude        : this.exportToPdfInclude,
+            exportToPdfExclude        : this.exportToPdfExclude,
+            frames                    : this.frames.map(frame => frame.toStorable()),
+            elementsToHide            : this.elementsToHide.slice(),
+            customFiles               : this.customFiles.slice(),
         };
     }
 
@@ -472,6 +481,10 @@ export class Presentation extends EventEmitter {
         copyIfSet(this, storable, "enableMouseRotation");
         copyIfSet(this, storable, "enableMouseNavigation");
         copyIfSet(this, storable, "updateURLOnFrameChange");
+        copyIfSet(this, storable, "exportToPdfPageSize");
+        copyIfSet(this, storable, "exportToPdfPageOrientation");
+        copyIfSet(this, storable, "exportToPdfInclude");
+        copyIfSet(this, storable, "exportToPdfExclude");
 
         this.frames = storable.frames.map(f => {
             const res = new Frame(this);

@@ -29,12 +29,6 @@ export class Preferences {
             toggleFullscreen        : "F11",
             toggleDevTools          : "F12"
         };
-        this.export              = {
-            pdfPageSize: "A4",
-            pdfPageOrientation: "landscape",
-            pdfInclude: "",
-            pdfExclude: ""
-        };
     }
 
     save() {

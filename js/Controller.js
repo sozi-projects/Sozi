@@ -1472,14 +1472,6 @@ export class Controller extends EventEmitter {
         this.applyPreferences({[key]: true});
     }
 
-    getExportOption(key) {
-        return this.preferences.export[key];
-    }
-
-    setExportOption(key, value) {
-        this.preferences.export[key] = value;
-    }
-
     /** Get the keyboard shortcut for a given action.
      *
      * This method is used in the {@link Properties} view to assign getters

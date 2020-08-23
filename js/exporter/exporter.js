@@ -89,16 +89,18 @@ export async function exportToPDF(controller) {
     const htmlFileName = controller.storage.htmlFileDescriptor;
     const pdfFileName  = htmlFileName.replace(/html$/, "pdf");
 
+    const pres = controller.presentation;
+
     console.log(`Exporting ${htmlFileName} to PDF`);
 
     // Mark the list of frames that will be included in the target document.
-    const frameCount = controller.presentation.frames.length;
+    const frameCount = pres.frames.length;
     const frameSelection = new Array(frameCount);
-    let include = controller.preferences.export.pdfInclude.trim();
+    let include = pres.exportToPdfInclude.trim();
     if (!include.length) {
         include = "all";
     }
-    let exclude = controller.preferences.export.pdfExclude.trim();
+    let exclude = pres.exportToPdfExclude.trim();
     if (!exclude.length) {
         exclude = "none";
     }
@@ -110,8 +112,8 @@ export async function exportToPDF(controller) {
     const digits = frameCount.toString().length;
 
     // Open the HTML presentation in a new browser window.
-    let g = pageGeometry[controller.preferences.export.pdfPageSize];
-    if (controller.preferences.export.pdfPageOrientation === "landscape") {
+    let g = pageGeometry[pres.exportToPdfPageSize];
+    if (pres.exportToPdfPageOrientation === "landscape") {
         g = {width: g.height, height: g.width};
     }
     const w = new remote.BrowserWindow({
@@ -131,8 +133,8 @@ export async function exportToPDF(controller) {
     ipcRenderer.on("frameChange", async (evt, index) => {
         // Convert the current web contents to PDF and add it to the target document.
         const pdfData = await w.webContents.printToPDF({
-            pageSize: controller.preferences.export.pdfPageSize,
-            landscape: controller.preferences.export.pdfPageOrientation === "landscape",
+            pageSize:  pres.exportToPdfPageSize,
+            landscape: pres.exportToPdfPageOrientation === "landscape",
             marginsType: 2, // No margin
         });
 

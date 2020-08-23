@@ -302,11 +302,20 @@ export class Properties extends VirtualDOMView {
         const controller = this.controller;
         const _ = controller.gettext;
 
+        const EXPORT_LIST_HELP = [
+            _("Examples of frame lists to include/exclude in export"),
+            "",
+            _("Select frames 2, 5, and 12: \"2, 5, 12\""),
+            _("Select frames 5 to 8: \"5:8\""),
+            _("Select frames 5, 8, 11, 14, and 17: \"5:8:17\""),
+            _("Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\"")
+        ];
+
         return h("div.properties", [
             h("h1", _("Export to PDF")),
 
-            h("label", {for: "field-pdfPageSize"}, _("Page size")),
-            this.renderSelectField("pdfPageSize", controller.getExportOption, controller.setExportOption, {
+            h("label", {for: "field-exportToPdfPageSize"}, _("Page size")),
+            this.renderSelectField("exportToPdfPageSize", controller.getPresentationProperty, controller.setPresentationProperty, {
                 A3: "A3",
                 A4: "A4",
                 A5: "A5",
@@ -315,11 +324,23 @@ export class Properties extends VirtualDOMView {
                 Tabloid: "Tabloid"
             }),
 
-            h("label", {for: "field-pdfPageOrientation"}, _("Page orientation")),
-            this.renderSelectField("pdfPageOrientation", controller.getExportOption, controller.setExportOption, {
+            h("label", {for: "field-exportToPdfPageOrientation"}, _("Page orientation")),
+            this.renderSelectField("exportToPdfPageOrientation", controller.getPresentationProperty, controller.setPresentationProperty, {
                 landscape: _("Landscape"),
                 portrait: _("Portrait")
             }),
+
+            h("label", {for: "field-exportToPdfInclude"}, [
+                _("List of frames to include"),
+                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(EXPORT_LIST_HELP.join("<br>"), true))
+            ]),
+            this.renderTextField("exportToPdfInclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true),
+
+            h("label", {for: "field-exportToPdfExclude"}, [
+                _("List of frames to exclude"),
+                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(EXPORT_LIST_HELP.join("<br>"), true))
+            ]),
+            this.renderTextField("exportToPdfExclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true),
 
             h("div.btn-group", [
                 h("button", {
