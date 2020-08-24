@@ -163,15 +163,17 @@ export class Storage extends EventEmitter {
      * Open the JSON file with the given name at the given location.
      * If the file exists, load it.
      * It it does not exist, create it.
+     *
+     * Returns a promise.
      */
     openJSONFile(name, location) {
         const _ = this.controller.gettext;
 
-        this.backend.find(name, location, fileDescriptor => {
-            if (fileDescriptor) {
-                this.backend.load(fileDescriptor);
-            }
-            else {
+        return this.backend.find(name, location).then(
+            fileDescriptor => {
+                return this.backend.load(fileDescriptor);
+            },
+            err => {
                 // If no JSON file is available, attempt to extract
                 // presentation data from the SVG document, assuming
                 // it has been generated from Sozi 13 or earlier.
@@ -189,38 +191,42 @@ export class Storage extends EventEmitter {
 
                 this.controller.onLoad(this);
             }
-        });
+        );
     }
 
     /*
      * Create the exported HTML file if it does not exist.
+     *
+     * Returns a promise.
      */
     createHTMLFile(name, location) {
-        this.backend.find(name, location, fileDescriptor => {
-            if (fileDescriptor) {
+        return this.backend.find(name, location).then(
+            fileDescriptor => {
                 this.autosaveHTML(fileDescriptor);
                 this.backend.save(fileDescriptor, this.exportHTML());
-            }
-            else {
+            },
+            err => {
                 this.backend.create(name, location, "text/html", this.exportHTML(), fileDescriptor => {
                     this.autosaveHTML(fileDescriptor);
                 });
             }
-        });
+        );
     }
 
     /*
      * Create the presenter HTML file if it does not exist.
+     *
+     * Returns a promise.
      */
     createPresenterHTMLFile(name, location, htmlFileName) {
-        this.backend.find(name, location, fileDescriptor => {
-            if (fileDescriptor) {
+        return this.backend.find(name, location).then(
+            fileDescriptor => {
                 this.backend.save(fileDescriptor, this.exportPresenterHTML(htmlFileName));
-            }
-            else {
+            },
+            err => {
                 this.backend.create(name, location, "text/html", this.exportPresenterHTML(htmlFileName));
             }
-        });
+        );
     }
 
     /*

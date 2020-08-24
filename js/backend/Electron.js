@@ -137,37 +137,52 @@ export class Electron extends AbstractBackend {
         return path.dirname(fileDescriptor);
     }
 
-    find(name, location, callback) {
+    find(name, location) {
         const fileName = path.join(location, name);
-        fs.access(fileName, err => callback(err ? null : fileName));
+        return new Promise((resolve, reject) => {
+            fs.access(fileName, err => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(fileName);
+                }
+            });
+        });
     }
 
     load(fileDescriptor) {
-        // Read file asynchronously and fire the "load" event.
-        fs.readFile(fileDescriptor, { encoding: "utf8" }, (err, data) => {
-            if (!err) {
-                // Watch for changes in the loaded file and fire the "change" event.
-                // The "change" event is fired only once if the file is modified
-                // after being loaded. It will not be fired again until the file is
-                // loaded again.
-                // This includes a debouncing mechanism to ensure the file is in a stable
-                // state when the "change" event is fired: the event is fired only if the
-                // file has not changed for 100 ms.
-                if (!(fileDescriptor in this.watchers)) {
-                    const watcher = this.watchers[fileDescriptor] = fs.watch(fileDescriptor);
-                    let timer;
-                    watcher.on("change", () => {
-                        if (timer) {
-                            clearTimeout(timer);
-                        }
-                        timer = setTimeout(() => {
-                            timer = 0;
-                            this.emit("change", fileDescriptor);
-                        }, 100);
-                    });
+        return new Promise((resolve, reject) => {
+            // Read file asynchronously and fire the "load" event.
+            fs.readFile(fileDescriptor, { encoding: "utf8" }, (err, data) => {
+                if (err) {
+                    reject(err);
                 }
-            }
-            this.emit("load", fileDescriptor, data, err);
+                else {
+                    // Watch for changes in the loaded file and fire the "change" event.
+                    // The "change" event is fired only once if the file is modified
+                    // after being loaded. It will not be fired again until the file is
+                    // loaded again.
+                    // This includes a debouncing mechanism to ensure the file is in a stable
+                    // state when the "change" event is fired: the event is fired only if the
+                    // file has not changed for 100 ms.
+                    if (!(fileDescriptor in this.watchers)) {
+                        const watcher = this.watchers[fileDescriptor] = fs.watch(fileDescriptor);
+                        let timer;
+                        watcher.on("change", () => {
+                            if (timer) {
+                                clearTimeout(timer);
+                            }
+                            timer = setTimeout(() => {
+                                timer = 0;
+                                this.emit("change", fileDescriptor);
+                            }, 100);
+                        });
+                    }
+                    resolve({fileDescriptor, data});
+                }
+                this.emit("load", fileDescriptor, data, err);
+            });
         });
     }
 

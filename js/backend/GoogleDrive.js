@@ -93,24 +93,26 @@ export class GoogleDrive extends AbstractBackend {
         return fileDescriptor.parents;
     }
 
-    find(name, location, callback) {
-        function findInParent(index) {
-            gapi.client.drive.files.list({
-                q: "title = '" + name + "' and " +
-                   "'" + location[index].id + "' in parents"
-            }).execute(response => {
-                if (response.items && response.items.length) {
-                    callback(response.items[0]);
-                }
-                else if (index < location.length - 1) {
-                    findInParent(index + 1);
-                }
-                else {
-                    callback(null);
-                }
-            });
-        }
-        findInParent(0);
+    find(name, location) {
+        return new Promise((resolve, reject) => {
+            function findInParent(index) {
+                gapi.client.drive.files.list({
+                    q: "title = '" + name + "' and " +
+                       "'" + location[index].id + "' in parents"
+                }).execute(response => {
+                    if (response.items && response.items.length) {
+                        resolve(response.items[0]);
+                    }
+                    else if (index < location.length - 1) {
+                        findInParent(index + 1);
+                    }
+                    else {
+                        reject("Not found");
+                    }
+                });
+            }
+            findInParent(0);
+        });
     }
 
     // TODO implement the "change" event
@@ -123,17 +125,21 @@ export class GoogleDrive extends AbstractBackend {
         xhr.open("GET", fileDescriptor.downloadUrl);
         xhr.setRequestHeader("Content-Type", fileDescriptor.mimeType);
         xhr.setRequestHeader("Authorization", "Bearer " + this.accessToken);
-        xhr.addEventListener("readystatechange", () => {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    this.emit("load", fileDescriptor, xhr.responseText);
+        return new Promise((resolve, reject) => {
+            xhr.addEventListener("readystatechange", () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve({fileDescriptor, data: xhr.responseText})
+                        this.emit("load", fileDescriptor, xhr.responseText);
+                    }
+                    else {
+                        reject(xhr.status);
+                        this.emit("load", fileDescriptor, null, xhr.status);
+                    }
                 }
-                else {
-                    this.emit("load", fileDescriptor, null, xhr.status);
-                }
-            }
+            });
+            xhr.send();
         });
-        xhr.send();
     }
 
     create(name, location, mimeType, data, callback) {

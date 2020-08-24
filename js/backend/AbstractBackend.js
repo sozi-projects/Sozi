@@ -103,11 +103,10 @@ export class AbstractBackend extends EventEmitter {
      *
      * @param {string} name - The base name of the file.
      * @param location - The location of the file (backend-dependent).
-     * @param {function(FileDescriptor)} callback - The function to call when the operation completes.
+     * @return {Promise<FileDescriptor>} - A promise that resolves to a file descriptor, rejected if not found.
      */
-    find(name, location, callback) {
-        // Not implemented
-        callback(null);
+    find(name, location) {
+        return Promise.reject("Not implemented");
     }
 
     /** Load a file.
@@ -121,15 +120,16 @@ export class AbstractBackend extends EventEmitter {
      * after the file has been loaded.
      *
      * @param fileDescriptor - A file to load (backend-dependent).
+     * @return {Promise<FileDescriptor>} - A promise that resolves to a file descriptor.
      *
      * @fires module:backend/AbstractBackend#load
      * @fires module:backend/AbstractBackend#change
      */
     load(fileDescriptor) {
-        // Not implemented
         /** Signals that a file has been loaded.
          * @event module:backend/AbstractBackend#load */
         this.emit("load", fileDescriptor, "", "Not implemented");
+        return Promise.reject("Not implemented");
     }
 
     loadSync(fileDescriptor) {

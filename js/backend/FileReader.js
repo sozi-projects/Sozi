@@ -44,10 +44,17 @@ export class FileReaderBackend extends AbstractBackend {
 
     load(fileDescriptor) {
         const reader = new FileReader();
-        reader.readAsText(fileDescriptor, "utf8");
-        reader.onload = () => {
-            this.emit("load", fileDescriptor, reader.result, reader.error && reader.error.name);
-        };
+        return new Promise((resolve, reject) => {
+            reader.readAsText(fileDescriptor, "utf8");
+            reader.onload = () => {
+                resolve({fileDescriptor, data: reader.result});
+                this.emit("load", fileDescriptor, reader.result, false);
+            };
+            reader.onerror = () => {
+                reject(reader.error.name);
+                this.emit("load", fileDescriptor, reader.result, reader.error.name);
+            };
+        });
     }
 }
 
