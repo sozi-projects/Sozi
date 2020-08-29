@@ -26,16 +26,16 @@ export class Storage extends EventEmitter {
     constructor(controller, presentation, selection) {
         super();
 
-        this.controller        = controller;
-        this.document          = null;
-        this.presentation      = presentation;
-        this.selection         = selection;
-        this.backend           = backendList[0];
-        this.svgFileDescriptor = null;
-        this.jsonNeedsSaving   = false;
-        this.htmlNeedsSaving   = false;
-        this.jsonAutosaved     = false;
-        this.htmlAutosaved     = false;
+        this.controller         = controller;
+        this.document           = null;
+        this.presentation       = presentation;
+        this.selection          = selection;
+        this.backend            = backendList[0];
+        this.svgFileDescriptor  = null;
+        this.htmlFileDescriptor = null;
+        this.jsonFileDescriptor = null;
+        this.jsonNeedsSaving    = false;
+        this.htmlNeedsSaving    = false;
 
         // Adjust the template path depending on the target platform.
         // In the web browser, __dirname is set to "/js". The leading "/" will result
@@ -66,12 +66,15 @@ export class Storage extends EventEmitter {
     }
 
     save() {
-        this.backend.doAutosave();
+        return this.backend.doAutosave();
     }
 
     reload() {
-        this.save();
-        this.backend.load(this.svgFileDescriptor).then(data => this.loadSVGData(data));
+        this.save().then(
+            () => this.backend.load(this.svgFileDescriptor)
+        ).then(
+            data => this.loadSVGData(data)
+        );
     }
 
     setSVGFile(fileDescriptor, backend) {
@@ -122,6 +125,7 @@ export class Storage extends EventEmitter {
         }
     }
 
+    // TODO Move this to controller.
     onFileChange(fileDescriptor) {
         const _ = this.controller.gettext;
 
@@ -180,16 +184,22 @@ export class Storage extends EventEmitter {
 
                 return this.backend.create(name, location, "application/json", this.getJSONData());
             }
-        ).then(fileDescriptor => {
-            this.autosaveJSON(fileDescriptor);
-            this.controller.onLoad();
+        ).then(
+            fileDescriptor => {
+                if (!this.jsonFileDescriptor) {
+                    this.jsonFileDescriptor = fileDescriptor;
+                    this.backend.autosave(fileDescriptor, () => this.jsonNeedsSaving, () => this.getJSONData());
+                }
 
-            const svgName           = this.backend.getName(this.svgFileDescriptor);
-            const htmlFileName      = replaceFileExtWith(svgName, ".sozi.html");
-            const presenterFileName = replaceFileExtWith(svgName, "-presenter.sozi.html");
-            this.createHTMLFile(htmlFileName, location);
-            this.createPresenterHTMLFile(presenterFileName, location, htmlFileName);
-        });
+                this.controller.onLoad();
+
+                const svgName           = this.backend.getName(this.svgFileDescriptor);
+                const htmlFileName      = replaceFileExtWith(svgName, ".sozi.html");
+                const presenterFileName = replaceFileExtWith(svgName, "-presenter.sozi.html");
+                this.createHTMLFile(htmlFileName, location);
+                this.createPresenterHTMLFile(presenterFileName, location, htmlFileName);
+            }
+        );
     }
 
     /*
@@ -199,16 +209,14 @@ export class Storage extends EventEmitter {
      */
     createHTMLFile(name, location) {
         return this.backend.find(name, location).then(
+            fileDescriptor => this.backend.save(fileDescriptor, this.exportHTML()),
+            err => this.backend.create(name, location, "text/html", this.exportHTML())
+        ).then(
             fileDescriptor => {
-                this.autosaveHTML(fileDescriptor);
-                this.backend.save(fileDescriptor, this.exportHTML());
-            },
-            err => {
-                this.backend.create(name, location, "text/html", this.exportHTML()).then(
-                    fileDescriptor => {
-                        this.autosaveHTML(fileDescriptor);
-                    }
-                )  ;
+                if (!this.htmlFileDescriptor) {
+                    this.htmlFileDescriptor = fileDescriptor;
+                    this.backend.autosave(fileDescriptor, () => this.htmlNeedsSaving, () => this.exportHTML());
+                }
             }
         );
     }
@@ -241,50 +249,18 @@ export class Storage extends EventEmitter {
         this.selection.fromStorable(storable);
     }
 
-    /*
-     * Configure autosaving for presentation data
-     * and editor state.
-     */
-    autosaveJSON(fileDescriptor) {
-        if (this.jsonAutosaved) {
-            return;
-        }
-
-        this.backend.autosave(fileDescriptor, () => this.jsonNeedsSaving, () => this.getJSONData());
-
+    onSave(fileDescriptor) {
         const _ = this.controller.gettext;
 
-        this.backend.addListener("save", savedFileDescriptor => {
-            if (fileDescriptor === savedFileDescriptor) {
-                this.jsonNeedsSaving = false;
-                this.controller.info(Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)));
-            }
-        });
-
-        this.jsonAutosaved = true;
-    }
-
-    /*
-     * Configure autosaving for HTML export.
-     */
-    autosaveHTML(fileDescriptor) {
-        if (this.htmlAutosaved) {
-            return;
+        if (this.backend.sameFile(fileDescriptor, this.jsonFileDescriptor)) {
+            this.jsonNeedsSaving = false;
+        }
+        else if (this.backend.sameFile(fileDescriptor, this.htmlFileDescriptor)) {
+            this.htmlNeedsSaving = false;
         }
 
-        this.backend.autosave(fileDescriptor, () => this.htmlNeedsSaving, () => this.exportHTML());
-
-        const _ = this.controller.gettext;
-
-        this.backend.addListener("save", savedFileDescriptor => {
-            if (fileDescriptor === savedFileDescriptor) {
-                this.htmlNeedsSaving = false;
-                this.controller.emit("repaint"); // TODO move this to controller
-                this.controller.info(Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)));
-            }
-        });
-
-        this.htmlAutosaved = true;
+        this.controller.emit("repaint"); // TODO move this to controller
+        this.controller.info(Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)));
     }
 
     /*

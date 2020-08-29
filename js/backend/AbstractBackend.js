@@ -96,6 +96,10 @@ export class AbstractBackend extends EventEmitter {
         return null;
     }
 
+    sameFile(fd1, fd2) {
+        return fd1 === fd2;
+    }
+
     /** Find a file.
      *
      * @param {string} name - The base name of the file.
@@ -150,16 +154,10 @@ export class AbstractBackend extends EventEmitter {
      *
      * @param fileDescriptor - The file to save (backend-dependent).
      * @param {string} data - The new content of the file.
-     *
-     * @fires module:backend/AbstractBackend#save
-     *
-     * @todo Use a promise instead of an event
+     * @return {Promise<FileDescriptor>} - A promise that resolves to the given file descriptor.
      */
     save(fileDescriptor, data) {
-        // Not implemented
-        /** Signals that a file has been saved.
-         * @event module:backend/AbstractBackend#save */
-        this.emit("save", fileDescriptor, "Not implemented");
+        return Promise.reject("Not implemented");
     }
 
     /** Add the given file to the list of files to save automatically.
@@ -190,23 +188,27 @@ export class AbstractBackend extends EventEmitter {
      *
      * It uses the function `getData` passed to {@link AbstractBackend#autosave|autosave}
      * to write the new file content.
+     *
+     * @return {Promise<FileDescriptor[]} - A promise that resolves when all autosaved files have been saved.
      */
     saveOutdatedFiles() {
-        for (let file of this.autosavedFiles) {
-            if (file.needsSaving()) {
-                this.save(file.descriptor, file.getData());
-            }
-        }
+        return Promise.all(
+            this.autosavedFiles
+                .filter(file => file.needsSaving())
+                .map(file => this.save(file.descriptor, file.getData()))
+        );
     }
 
     /** Save all files previously added to the {@link AbstractBackend#autosavedFiles|autosaved file list}.
      *
      * Typically, we want to call this method each time the editor loses focus
      * and when the editor closes.
+     *
+     * @return {Promise<FileDescriptor[]} - A promise that resolves when all autosaved files have been saved.
      */
     doAutosave() {
         this.controller.preferences.save();
-        this.saveOutdatedFiles();
+        return this.saveOutdatedFiles();
     }
 
     /** Show or hide the development tools of the current web browser.

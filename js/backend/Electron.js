@@ -97,23 +97,17 @@ export class Electron extends AbstractBackend {
         }
     }
 
-    quit(confirmSave) {
+    async quit(confirmSave) {
         // Always save the window settings and the preferences.
         this.saveConfiguration();
         this.controller.preferences.save();
 
         if (confirmSave && this.hasOutdatedFiles) {
             // Close the window only when all files have been saved.
-            this.addListener("save", () => {
-                if (!this.hasOutdatedFiles) {
-                    browserWindow.close();
-                }
-            });
-            this.saveOutdatedFiles();
+            await this.saveOutdatedFiles();
         }
-        else {
-            browserWindow.close();
-        }
+        
+        browserWindow.close();
     }
 
     openFileChooser() {
@@ -206,7 +200,17 @@ export class Electron extends AbstractBackend {
     }
 
     save(fileDescriptor, data) {
-        fs.writeFile(fileDescriptor, data, { encoding: "utf-8" }, err => this.emit("save", fileDescriptor, err));
+        return new Promise((resolve, reject) => {
+            fs.writeFile(fileDescriptor, data, { encoding: "utf-8" }, err => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    this.controller.storage.onSave(fileDescriptor);
+                    resolve(fileDescriptor);
+                }
+            });
+        });
     }
 
     loadConfiguration() {

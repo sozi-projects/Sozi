@@ -18,6 +18,9 @@ const UNDO_STACK_LIMIT = 100;
 /** Signals that the editor state data has changed.
  * @event module:Controller#editorStateChange */
 
+/** Signals that the editor UI needs to be repainted.
+ * @event module:Controller#repaint */
+
 /** Sozi editor UI controller.
  *
  * A Controller instance manages the user interface of the editor and updates
@@ -261,11 +264,9 @@ export class Controller extends EventEmitter {
      * @fires module:Controller#repaint
      */
     save() {
-        this.storage.save();
-
-        /** Signals that the editor UI needs to be repainted.
-         * @event module:Controller#repaint */
-        this.emit("repaint");
+        return this.storage.save().then(
+            () => this.emit("repaint")
+        );
     }
 
     /** Reload the presentation.

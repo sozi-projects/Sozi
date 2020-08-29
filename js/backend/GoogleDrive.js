@@ -93,6 +93,10 @@ export class GoogleDrive extends AbstractBackend {
         return fileDescriptor.parents;
     }
 
+    sameFile(fd1, fd2) {
+        return fd1.id === fd2.id;
+    }
+
     find(name, location) {
         return new Promise((resolve, reject) => {
             function findInParent(index) {
@@ -182,20 +186,28 @@ export class GoogleDrive extends AbstractBackend {
 
     save(fileDescriptor, data) {
         const base64Data = toBase64(data); // Force UTF-8 encoding
-        gapi.client.request({
-            path: "/upload/drive/v2/files/" + fileDescriptor.id,
-            method: "PUT",
-            params: {
-                uploadType: "media"
-            },
-            headers: {
-                "Content-Type": fileDescriptor.mimeType,
-                "Content-Length": base64Data.length,
-                "Content-Encoding": "base64"
-            },
-            body: base64Data
-        }).execute(response => {
-            this.emit("save", fileDescriptor, response.error);
+        return new Promise((resolve, reject) => {
+            gapi.client.request({
+                path: "/upload/drive/v2/files/" + fileDescriptor.id,
+                method: "PUT",
+                params: {
+                    uploadType: "media"
+                },
+                headers: {
+                    "Content-Type": fileDescriptor.mimeType,
+                    "Content-Length": base64Data.length,
+                    "Content-Encoding": "base64"
+                },
+                body: base64Data
+            }).execute(response => {
+                if (response.error) {
+                    reject(response.error.message);
+                }
+                else {
+                    this.controller.storage.onSave(fileDescriptor);
+                    resolve(fileDescriptor);
+                }
+            });
         });
     }
 }

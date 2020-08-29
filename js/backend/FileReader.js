@@ -42,6 +42,10 @@ export class FileReaderBackend extends AbstractBackend {
         return fileDescriptor.name;
     }
 
+    sameFile(fd1, fd2) {
+        return fd1.name === fd2.name;
+    }
+    
     load(fileDescriptor) {
         const reader = new FileReader();
         return new Promise((resolve, reject) => {
