@@ -12,6 +12,10 @@ import Jed from "jed";
 import {upgradeFromSVG, upgradeFromStorable} from "./upgrade";
 import path from "path";
 
+function replaceFileExtWith(fileName, ext) {
+    return fileName.replace(/\.[^/.]+$/, ext);
+}
+
 /** File read/write manager.
  *
  * @extends EventEmitter
@@ -86,12 +90,7 @@ export class Storage extends EventEmitter {
         if (this.document.isValidSVG) {
             this.resolveRelativeURLs(location);
             this.presentation.setSVGDocument(this.document);
-            this.controller.once("ready", () => {
-                const htmlFileName = name.replace(/\.svg$/, ".sozi.html");
-                this.createHTMLFile(htmlFileName, location);
-                this.createPresenterHTMLFile(name.replace(/\.svg$/, "-presenter.sozi.html"), location, htmlFileName);
-            });
-            this.openJSONFile(name.replace(/\.svg$/, ".sozi.json"), location);
+            this.openJSONFile(replaceFileExtWith(name, ".sozi.json"), location);
         }
         else {
             this.controller.error(_("Document is not valid SVG."));
@@ -161,11 +160,13 @@ export class Storage extends EventEmitter {
         const _ = this.controller.gettext;
 
         return this.backend.find(name, location).then(
-            fileDescriptor => {
-                // Load presentation data and editor state from JSON file.
-                this.backend.load(fileDescriptor).then(data => this.loadJSONData(data));
-                return fileDescriptor;
-            },
+            // Load presentation data and editor state from JSON file.
+            fileDescriptor => this.backend.load(fileDescriptor).then(
+                data => {
+                    this.loadJSONData(data);
+                    return fileDescriptor;
+                }
+            ),
             err => {
                 // If no JSON file is available, attempt to extract
                 // presentation data from the SVG document, assuming
@@ -183,6 +184,12 @@ export class Storage extends EventEmitter {
         ).then(fileDescriptor => {
             this.autosaveJSON(fileDescriptor);
             this.controller.onLoad();
+
+            const svgName           = this.backend.getName(this.svgFileDescriptor);
+            const htmlFileName      = replaceFileExtWith(svgName, ".sozi.html");
+            const presenterFileName = replaceFileExtWith(svgName, "-presenter.sozi.html");
+            this.createHTMLFile(htmlFileName, location);
+            this.createPresenterHTMLFile(presenterFileName, location, htmlFileName);
         });
     }
 

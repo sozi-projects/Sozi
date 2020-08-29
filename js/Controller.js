@@ -65,7 +65,7 @@ export class Controller extends EventEmitter {
          * @type {module:player/Player.Player} */
         this.player = player;
 
-        /** The object that manages the file I/O, set in {@linkcode Controller#onLoad|onLoad}.
+        /** The object that manages the file I/O.
          * @type {module:Storage.Storage} */
         this.storage = new Storage(this, presentation, selection);
 
@@ -251,10 +251,6 @@ export class Controller extends EventEmitter {
                 this.defaultLayers.push(layer);
             }
         }
-
-        /** Signals that the editor is ready.
-         * @event module:Controller#ready */
-        this.emit("ready");
     }
 
     /** Save the presentation.
