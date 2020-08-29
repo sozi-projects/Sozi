@@ -62,7 +62,6 @@ export class Storage extends EventEmitter {
             document.querySelector("#sozi-editor-view-preview ul").appendChild(listItem);
 
             const backendInstance = new backend(this.controller, listItem);
-            backendInstance.addListener("change", (...a) => this.onBackendChange(...a));
         }
     }
 
@@ -123,7 +122,7 @@ export class Storage extends EventEmitter {
         }
     }
 
-    onBackendChange(fileDescriptor) {
+    onFileChange(fileDescriptor) {
         const _ = this.controller.gettext;
 
         if (fileDescriptor === this.svgFileDescriptor) {

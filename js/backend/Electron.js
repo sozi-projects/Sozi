@@ -158,13 +158,9 @@ export class Electron extends AbstractBackend {
                     reject(err);
                 }
                 else {
-                    // Watch for changes in the loaded file and fire the "change" event.
-                    // The "change" event is fired only once if the file is modified
-                    // after being loaded. It will not be fired again until the file is
-                    // loaded again.
+                    // Watch for changes in the loaded file.
                     // This includes a debouncing mechanism to ensure the file is in a stable
-                    // state when the "change" event is fired: the event is fired only if the
-                    // file has not changed for 100 ms.
+                    // state when the storage is notified.
                     if (!(fileDescriptor in this.watchers)) {
                         const watcher = this.watchers[fileDescriptor] = fs.watch(fileDescriptor);
                         let timer;
@@ -174,7 +170,7 @@ export class Electron extends AbstractBackend {
                             }
                             timer = setTimeout(() => {
                                 timer = 0;
-                                this.emit("change", fileDescriptor);
+                                this.controller.storage.onFileChange(fileDescriptor);
                             }, 100);
                         });
                     }
