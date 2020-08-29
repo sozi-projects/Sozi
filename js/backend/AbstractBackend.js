@@ -111,8 +111,7 @@ export class AbstractBackend extends EventEmitter {
 
     /** Load a file.
      *
-     * This method loads a file and fires the `load` event. This event
-     * must be fired even if loading failed.
+     * This method loads a file and returns a promise with the content of this file.
      *
      * If the file was successfully loaded and if the backend supports it,
      * a `change` event can be fired when the file is modified after being
@@ -120,15 +119,13 @@ export class AbstractBackend extends EventEmitter {
      * after the file has been loaded.
      *
      * @param fileDescriptor - A file to load (backend-dependent).
-     * @return {Promise<FileDescriptor>} - A promise that resolves to a file descriptor.
+     * @return {Promise<string>} - A promise that resolves to the content of the file.
      *
-     * @fires module:backend/AbstractBackend#load
      * @fires module:backend/AbstractBackend#change
      */
     load(fileDescriptor) {
         /** Signals that a file has been loaded.
          * @event module:backend/AbstractBackend#load */
-        this.emit("load", fileDescriptor, "", "Not implemented");
         return Promise.reject("Not implemented");
     }
 
@@ -148,11 +145,10 @@ export class AbstractBackend extends EventEmitter {
      * @param location - The location of the file to create (backend-dependent).
      * @param {string} mimeType - The MIME type of the file to create.
      * @param {string} data - The content of the file to create.
-     * @param {function(FileDescriptor, string)} callback - The function to call when the operation completes.
+     * @return {Promise<FileDescriptor>} - A promise that resolves to a file descriptor.
      */
-    create(name, location, mimeType, data, callback) {
-        // Not implemented
-        callback(null, "Not implemented");
+    create(name, location, mimeType, data) {
+        return Promise.reject("Not implemented");
     }
 
     /** Save data to an existing file.

@@ -74,7 +74,7 @@ export class GoogleDrive extends AbstractBackend {
                 if (data[google.picker.Response.ACTION] === google.picker.Action.PICKED) {
                     gapi.client.drive.files.get({fileId: data.docs[0].id}).execute(response => {
                         if (!response.error) {
-                            this.load(response);
+                            this.controller.storage.setSVGFile(response, this);
                         }
                         else {
                             console.log(response.error.message);
@@ -119,8 +119,6 @@ export class GoogleDrive extends AbstractBackend {
     load(fileDescriptor) {
         // The file is loaded using an AJAX GET operation.
         // The data type is forced to "text" to prevent parsing it.
-        // Emit the "load" event with the file content in case of success,
-        // or with the error status in case of failure.
         const xhr = new XMLHttpRequest();
         xhr.open("GET", fileDescriptor.downloadUrl);
         xhr.setRequestHeader("Content-Type", fileDescriptor.mimeType);
@@ -129,12 +127,10 @@ export class GoogleDrive extends AbstractBackend {
             xhr.addEventListener("readystatechange", () => {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        resolve({fileDescriptor, data: xhr.responseText})
-                        this.emit("load", fileDescriptor, xhr.responseText);
+                        resolve(xhr.responseText)
                     }
                     else {
                         reject(xhr.status);
-                        this.emit("load", fileDescriptor, null, xhr.status);
                     }
                 }
             });
@@ -142,7 +138,7 @@ export class GoogleDrive extends AbstractBackend {
         });
     }
 
-    create(name, location, mimeType, data, callback) {
+    create(name, location, mimeType, data) {
         const boundary = "-------314159265358979323846";
         const delimiter = "\r\n--" + boundary + "\r\n";
         const closeDelimiter = "\r\n--" + boundary + "--";
@@ -162,23 +158,25 @@ export class GoogleDrive extends AbstractBackend {
             toBase64(data) + // Force UTF-8 encoding
             closeDelimiter;
 
-        gapi.client.request({
-            path: "/upload/drive/v2/files",
-            method: "POST",
-            params: {
-                uploadType: "multipart"
-            },
-            headers: {
-              "Content-Type": 'multipart/mixed; boundary="' + boundary + '"'
-            },
-            body: multipartRequestBody
-        }).execute(response => {
-            if (!response.error) {
-                callback(response);
-            }
-            else {
-                callback(response, response.error.message);
-            }
+        return new Promise((resolve, reject) => {
+            gapi.client.request({
+                path: "/upload/drive/v2/files",
+                method: "POST",
+                params: {
+                    uploadType: "multipart"
+                },
+                headers: {
+                  "Content-Type": 'multipart/mixed; boundary="' + boundary + '"'
+                },
+                body: multipartRequestBody
+            }).execute(response => {
+                if (response.error) {
+                    reject(response.error.message);
+                }
+                else {
+                    resolve(response);
+                }
+            });
         });
     }
 

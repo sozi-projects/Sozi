@@ -7,7 +7,6 @@ import "./svg";
 import {Presentation} from "./model/Presentation";
 import {Selection} from "./model/Selection";
 import {Preferences} from "./model/Preferences";
-import {Storage} from "./Storage";
 import {Viewport} from "./player/Viewport";
 import {Player} from "./player/Player";
 import {Controller} from "./Controller";
@@ -35,8 +34,8 @@ window.addEventListener("load", () => {
     const properties   = new Properties(document.getElementById("sozi-editor-view-properties"), selection, controller);
     const toolbar      = new Toolbar(document.getElementById("sozi-editor-view-toolbar"), properties, presentation, viewport, controller);
     const timeline     = new Timeline(document.getElementById("sozi-editor-view-timeline"), presentation, selection, controller);
-    const storage      = new Storage(controller, presentation, selection);
-
+    controller.activate();
+    
     const body         = document.querySelector("body");
     const left         = document.querySelector(".left");
     const right        = document.querySelector(".right");
@@ -154,7 +153,7 @@ window.addEventListener("load", () => {
                 document.getElementById('btn-fullscreen').click();
                 break;
             case "toggleDevTools":
-                storage.backend.toggleDevTools();
+                controller.storage.backend.toggleDevTools();
                 break;
         }
 

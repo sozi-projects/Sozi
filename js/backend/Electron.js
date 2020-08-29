@@ -48,7 +48,7 @@ export class Electron extends AbstractBackend {
         // Save files when closing the window
         let closing = false;
 
-        window.addEventListener("beforeunload", (evt) => {
+        window.addEventListener("beforeunload", evt => {
             // Workaround for a bug in Electron where the window closes after a few
             // seconds even when calling dialog.showMessageBox() synchronously.
             if (closing) {
@@ -84,7 +84,7 @@ export class Electron extends AbstractBackend {
             const fileName = path.resolve(cwd, remote.process.argv[1]);
             try {
                 fs.accessSync(fileName);
-                this.load(fileName);
+                this.controller.storage.setSVGFile(fileName, this);
             }
             catch (err) {
                 this.controller.error(Jed.sprintf(_("File not found: %s."), fileName));
@@ -125,7 +125,7 @@ export class Electron extends AbstractBackend {
             properties: ["openFile"]
         });
         if (files) {
-            this.load(files[0]);
+            this.controller.storage.setSVGFile(files[0], this);
         }
     }
 
@@ -153,7 +153,6 @@ export class Electron extends AbstractBackend {
 
     load(fileDescriptor) {
         return new Promise((resolve, reject) => {
-            // Read file asynchronously and fire the "load" event.
             fs.readFile(fileDescriptor, { encoding: "utf8" }, (err, data) => {
                 if (err) {
                     reject(err);
@@ -179,9 +178,8 @@ export class Electron extends AbstractBackend {
                             }, 100);
                         });
                     }
-                    resolve({fileDescriptor, data});
+                    resolve(data);
                 }
-                this.emit("load", fileDescriptor, data, err);
             });
         });
     }
@@ -197,13 +195,22 @@ export class Electron extends AbstractBackend {
         }
     }
 
-    create(name, location, mimeType, data, callback = () => {}) {
+    create(name, location, mimeType, data) {
         const fileName = path.join(location, name);
-        fs.writeFile(fileName, data, { encoding: "utf-8" }, (err) => callback(fileName, err));
+        return new Promise((resolve, reject) => {
+            fs.writeFile(fileName, data, { encoding: "utf-8" }, err => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(fileName);
+                }
+            });
+        });
     }
 
     save(fileDescriptor, data) {
-        fs.writeFile(fileDescriptor, data, { encoding: "utf-8" }, (err) => this.emit("save", fileDescriptor, err));
+        fs.writeFile(fileDescriptor, data, { encoding: "utf-8" }, err => this.emit("save", fileDescriptor, err));
     }
 
     loadConfiguration() {

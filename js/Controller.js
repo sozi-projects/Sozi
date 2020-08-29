@@ -4,6 +4,7 @@
 
 /** @module */
 
+import {Storage} from "./Storage";
 import {Frame, LayerProperties} from "./model/Presentation";
 import {CameraState} from "./model/CameraState";
 import {EventEmitter} from "events";
@@ -37,9 +38,12 @@ export class Controller extends EventEmitter {
     constructor(preferences, presentation, selection, viewport, player) {
         super();
 
-        /** The object that manages the file I/O, set in {@linkcode Controller#onLoad|onLoad}.
-         * @type {module:Storage.Storage} */
-        this.storage = null;
+        /** The function that returns translated text in the current language.
+         *
+         * @param {string} s - The text to translate.
+         * @return {string} The translated text.
+         */
+        this.gettext = s => s;
 
         /** The object that holds the user settings of the editor.
          * @type {module:model/Preferences.Preferences} */
@@ -61,12 +65,9 @@ export class Controller extends EventEmitter {
          * @type {module:player/Player.Player} */
         this.player = player;
 
-        /** The function that returns translated text in the current language.
-         *
-         * @param {string} s - The text to translate.
-         * @return {string} The translated text.
-         */
-        this.gettext = s => s;
+        /** The object that manages the file I/O, set in {@linkcode Controller#onLoad|onLoad}.
+         * @type {module:Storage.Storage} */
+        this.storage = new Storage(this, presentation, selection);
 
         /** The layers that have been added to the timeline.
          * @type {module:model/Presentation.Layer[]} */
@@ -90,6 +91,12 @@ export class Controller extends EventEmitter {
 
         this.addListener("repaint", () => this.onRepaint());
         player.addListener("frameChange", () => this.onFrameChange());
+    }
+
+    activate() {
+        this.preferences.load();
+        this.applyPreferences();
+        this.storage.activate();
     }
 
     /** Convert this instance to a plain object that can be stored as JSON.
@@ -215,16 +222,9 @@ export class Controller extends EventEmitter {
      * shows the {@link Selection#currentFrame|current frame}, loads
      * and applies the user {@link Controller#preferences|preferences}.
      *
-     * @param {Storage} storage - A storage management object.
-     *
      * @fires module:Controller#ready
      */
-    onLoad(storage) {
-        this.storage = storage;
-
-        // Load the preferences.
-        this.preferences.load();
-        
+    onLoad() {
         // If no frame is selected, select the first frame.
         if (!this.selection.selectedFrames.length && this.presentation.frames.length) {
             this.selection.addFrame(this.presentation.frames[0]);
@@ -255,9 +255,6 @@ export class Controller extends EventEmitter {
         /** Signals that the editor is ready.
          * @event module:Controller#ready */
         this.emit("ready");
-
-        // Apply the preferences (will trigger a repaint of the editor views).
-        this.applyPreferences();
     }
 
     /** Save the presentation.

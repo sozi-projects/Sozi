@@ -22,15 +22,16 @@ export class Storage extends EventEmitter {
     constructor(controller, presentation, selection) {
         super();
 
-        this.controller = controller;
-        this.document = null;
-        this.presentation = presentation;
-        this.selection = selection;
-        this.backend = backendList[0];
+        this.controller        = controller;
+        this.document          = null;
+        this.presentation      = presentation;
+        this.selection         = selection;
+        this.backend           = backendList[0];
         this.svgFileDescriptor = null;
-        this.jsonNeedsSaving = false;
-        this.htmlNeedsSaving = false;
-        this.reloading = false;
+        this.jsonNeedsSaving   = false;
+        this.htmlNeedsSaving   = false;
+        this.jsonAutosaved     = false;
+        this.htmlAutosaved     = false;
 
         // Adjust the template path depending on the target platform.
         // In the web browser, __dirname is set to "/js". The leading "/" will result
@@ -49,13 +50,14 @@ export class Storage extends EventEmitter {
         controller.addListener("editorStateChange",  () => {
             this.jsonNeedsSaving = true;
         });
+    }
 
+    activate() {
         for (let backend of backendList) {
             const listItem = document.createElement("li");
             document.querySelector("#sozi-editor-view-preview ul").appendChild(listItem);
 
-            const backendInstance = new backend(controller, listItem);
-            backendInstance.addListener("load", (...a) => this.onBackendLoad(backendInstance, ...a));
+            const backendInstance = new backend(this.controller, listItem);
             backendInstance.addListener("change", (...a) => this.onBackendChange(...a));
         }
     }
@@ -66,41 +68,30 @@ export class Storage extends EventEmitter {
 
     reload() {
         this.save();
-        this.backend.load(this.svgFileDescriptor);
+        this.backend.load(this.svgFileDescriptor).then(data => this.loadSVGData(data));
     }
 
-    onBackendLoad(backend, fileDescriptor, data, err) {
-        const _ = this.controller.gettext;
-        this.backend = backend;
+    setSVGFile(fileDescriptor, backend) {
+        this.svgFileDescriptor = fileDescriptor;
+        this.backend           = backend;
+        this.backend.load(this.svgFileDescriptor).then(data => this.loadSVGData(data));
+    }
 
-        const name = backend.getName(fileDescriptor);
-        const location = backend.getLocation(fileDescriptor);
+    loadSVGData(data) {
+        const _        = this.controller.gettext;
+        const name     = this.backend.getName(this.svgFileDescriptor);
+        const location = this.backend.getLocation(this.svgFileDescriptor);
 
-        if (err) {
-            this.controller.error(Jed.sprintf(_("File %s could not be loaded."), name));
-        }
-        else if (/\.svg$/.test(name)) {
-            this.reloading = fileDescriptor === this.svgFileDescriptor;
-            this.document = SVGDocumentWrapper.fromString(data);
-            if (this.document.isValidSVG) {
-                this.resolveRelativeURLs(location);
-                this.presentation.setSVGDocument(this.document);
-                this.svgFileDescriptor = fileDescriptor;
-                this.controller.once("ready", () => {
-                    const htmlFileName = name.replace(/\.svg$/, ".sozi.html");
-                    this.createHTMLFile(htmlFileName, location);
-                    this.createPresenterHTMLFile(name.replace(/\.svg$/, "-presenter.sozi.html"), location, htmlFileName);
-                });
-                this.openJSONFile(name.replace(/\.svg$/, ".sozi.json"), location);
-            }
-            else {
-                this.controller.error(_("Document is not valid SVG."));
-            }
-        }
-        else if (/\.sozi\.json$/.test(name)) {
-            // Load presentation data and editor state from JSON file.
-            this.loadJSONData(data);
-            this.autosaveJSON(fileDescriptor);
+        this.document = SVGDocumentWrapper.fromString(data);
+        if (this.document.isValidSVG) {
+            this.resolveRelativeURLs(location);
+            this.presentation.setSVGDocument(this.document);
+            this.controller.once("ready", () => {
+                const htmlFileName = name.replace(/\.svg$/, ".sozi.html");
+                this.createHTMLFile(htmlFileName, location);
+                this.createPresenterHTMLFile(name.replace(/\.svg$/, "-presenter.sozi.html"), location, htmlFileName);
+            });
+            this.openJSONFile(name.replace(/\.svg$/, ".sozi.json"), location);
         }
         else {
             this.controller.error(_("Document is not valid SVG."));
@@ -171,7 +162,9 @@ export class Storage extends EventEmitter {
 
         return this.backend.find(name, location).then(
             fileDescriptor => {
-                return this.backend.load(fileDescriptor);
+                // Load presentation data and editor state from JSON file.
+                this.backend.load(fileDescriptor).then(data => this.loadJSONData(data));
+                return fileDescriptor;
             },
             err => {
                 // If no JSON file is available, attempt to extract
@@ -185,13 +178,12 @@ export class Storage extends EventEmitter {
                     this.controller.info(_("Document was imported from Sozi 13 or earlier."));
                 }
 
-                this.backend.create(name, location, "application/json", this.getJSONData(), fileDescriptor => {
-                    this.autosaveJSON(fileDescriptor);
-                });
-
-                this.controller.onLoad(this);
+                return this.backend.create(name, location, "application/json", this.getJSONData());
             }
-        );
+        ).then(fileDescriptor => {
+            this.autosaveJSON(fileDescriptor);
+            this.controller.onLoad();
+        });
     }
 
     /*
@@ -206,9 +198,11 @@ export class Storage extends EventEmitter {
                 this.backend.save(fileDescriptor, this.exportHTML());
             },
             err => {
-                this.backend.create(name, location, "text/html", this.exportHTML(), fileDescriptor => {
-                    this.autosaveHTML(fileDescriptor);
-                });
+                this.backend.create(name, location, "text/html", this.exportHTML()).then(
+                    fileDescriptor => {
+                        this.autosaveHTML(fileDescriptor);
+                    }
+                )  ;
             }
         );
     }
@@ -239,7 +233,6 @@ export class Storage extends EventEmitter {
         this.presentation.fromStorable(storable);
         this.controller.fromStorable(storable);
         this.selection.fromStorable(storable);
-        this.controller.onLoad(this);
     }
 
     /*
@@ -247,7 +240,7 @@ export class Storage extends EventEmitter {
      * and editor state.
      */
     autosaveJSON(fileDescriptor) {
-        if (this.reloading) {
+        if (this.jsonAutosaved) {
             return;
         }
 
@@ -261,13 +254,15 @@ export class Storage extends EventEmitter {
                 this.controller.info(Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)));
             }
         });
+
+        this.jsonAutosaved = true;
     }
 
     /*
      * Configure autosaving for HTML export.
      */
     autosaveHTML(fileDescriptor) {
-        if (this.reloading) {
+        if (this.htmlAutosaved) {
             return;
         }
 
@@ -282,6 +277,8 @@ export class Storage extends EventEmitter {
                 this.controller.info(Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)));
             }
         });
+
+        this.htmlAutosaved = true;
     }
 
     /*

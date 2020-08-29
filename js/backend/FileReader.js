@@ -29,7 +29,7 @@ export class FileReaderBackend extends AbstractBackend {
         // Load the SVG document selected in the file input
         this.fileInput.addEventListener("change", evt => {
             if (evt.target.files.length) {
-                this.load(evt.target.files[0]);
+                this.controller.storage.setSVGFile(evt.target.files[0], this);
             }
         });
     }
@@ -47,12 +47,10 @@ export class FileReaderBackend extends AbstractBackend {
         return new Promise((resolve, reject) => {
             reader.readAsText(fileDescriptor, "utf8");
             reader.onload = () => {
-                resolve({fileDescriptor, data: reader.result});
-                this.emit("load", fileDescriptor, reader.result, false);
+                resolve(reader.result);
             };
             reader.onerror = () => {
                 reject(reader.error.name);
-                this.emit("load", fileDescriptor, reader.result, reader.error.name);
             };
         });
     }
