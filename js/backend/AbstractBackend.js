@@ -98,9 +98,6 @@ export class AbstractBackend extends EventEmitter {
 
     /** Find a file.
      *
-     * The callback function accepts a file descriptor, `null` if no file was
-     * found.
-     *
      * @param {string} name - The base name of the file.
      * @param location - The location of the file (backend-dependent).
      * @return {Promise<FileDescriptor>} - A promise that resolves to a file descriptor, rejected if not found.
@@ -139,8 +136,6 @@ export class AbstractBackend extends EventEmitter {
 
     /** Create a new file.
      *
-     * The callback function receives a file descriptor and an error message.
-     *
      * @param {string} name - The name of the file to create.
      * @param location - The location of the file to create (backend-dependent).
      * @param {string} mimeType - The MIME type of the file to create.
@@ -158,7 +153,7 @@ export class AbstractBackend extends EventEmitter {
      *
      * @fires module:backend/AbstractBackend#save
      *
-     * @todo Use a callback instead of an event
+     * @todo Use a promise instead of an event
      */
     save(fileDescriptor, data) {
         // Not implemented

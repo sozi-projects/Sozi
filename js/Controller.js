@@ -152,7 +152,7 @@ export class Controller extends EventEmitter {
 
     hideNotification() {
         const msg = document.getElementById("message");
-        msg.classList.remove("visible");
+        msg.classList.remove("visible", "info", "error");
         clearTimeout(this.notificationTimeout);
         this.notificationTimeout = null;
     }
