@@ -55,7 +55,7 @@ body {
     white-space: nowrap;
 }
 
-#message {
+.message {
     position: fixed;
     width: 100%;
     top: 0;
@@ -66,11 +66,11 @@ body {
     transition: visibility 0s 0.5s, opacity 0.5s ease;
 }
 
-#message .title {
+.message .title {
     font-weight: bold;
 }
 
-#message.visible {
+.message.visible {
     opacity: 1;
     visibility: visible;
     transition: visibility 0s 0s, opacity 0.5s ease;
@@ -171,11 +171,11 @@ button:disabled {
     border-right: 1px solid rgb(80, 80, 80);
 }
 
-#message.info {
+.message.info {
     background-color: rgba(150, 200, 200, 0.8);
 }
 
-#message.error {
+.message.error {
     background-color: rgba(255, 100, 100, 0.8);
 }
 
