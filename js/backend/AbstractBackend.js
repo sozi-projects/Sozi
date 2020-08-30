@@ -4,8 +4,6 @@
 
 /** @module */
 
-import {EventEmitter} from "events";
-
 /** The list of backends supported by the current editor.
  *
  * @type {module:backend/AbstractBackend.AbstractBackend[]}
@@ -24,7 +22,7 @@ export function addBackend(backend) {
  *
  * @extends EventEmitter
  */
-export class AbstractBackend extends EventEmitter {
+export class AbstractBackend {
     /** Common constructor for backends.
      *
      * @param {module:Controller.Controller} controller - A controller instance.
@@ -33,8 +31,6 @@ export class AbstractBackend extends EventEmitter {
      * @param {string} buttonLabel - The text of the button to generate in the menu (already translated).
      */
     constructor(controller, container, buttonId, buttonLabel) {
-        super();
-
         /** The controller for this backend.
          * @type {module:Controller.Controller} */
         this.controller = controller;
@@ -47,25 +43,7 @@ export class AbstractBackend extends EventEmitter {
          * @type {Array} */
         this.autosavedFiles = [];
 
-        /** True if the current window has the focus.
-         * @type {boolean} */
-        this.hasFocus = false;
-
         container.innerHTML = `<button id="${buttonId}">${buttonLabel}</button>`;
-
-        window.addEventListener("focus", () => {
-            this.hasFocus = true;
-            /** Signals that the current editor window has received the focus.
-             * @event module:backend/AbstractBackend#focus */
-            this.emit("focus");
-        });
-
-        window.addEventListener("blur", () => {
-            this.hasFocus = false;
-            /** Signals that the current editor window has lost the focus.
-             * @event module:backend/AbstractBackend#blur */
-            this.emit("blur");
-        });
     }
 
     /** Open a file chooser.

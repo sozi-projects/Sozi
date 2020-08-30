@@ -92,6 +92,24 @@ export class Controller extends EventEmitter {
          * @type {number} */
         this.notificationTimeout = null;
 
+        /** True if the current window has the focus.
+         * @type {boolean} */
+        this.hasFocus = false;
+
+        window.addEventListener("focus", () => {
+            this.hasFocus = true;
+            /** Signals that the current editor window has received the focus.
+             * @event module:Controller#focus */
+            this.emit("focus");
+        });
+
+        window.addEventListener("blur", () => {
+            this.hasFocus = false;
+            /** Signals that the current editor window has lost the focus.
+             * @event module:Controller#blur */
+            this.emit("blur");
+        });
+
         this.addListener("repaint", () => this.onRepaint());
         player.addListener("frameChange", () => this.onFrameChange());
     }

@@ -18,9 +18,6 @@ export class GoogleDrive extends AbstractBackend {
 
         super(controller, container, "sozi-editor-backend-GoogleDrive-input", _("Open an SVG file from Google Drive"));
 
-        // Save automatically when the window loses focus
-        this.addListener("blur", () => this.doAutosave());
-
         this.clickToAuth = () => this.authorize(false);
 
         gapi.client.setApiKey(GoogleDrive.apiKey);

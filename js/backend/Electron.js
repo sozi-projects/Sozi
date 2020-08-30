@@ -37,14 +37,6 @@ export class Electron extends AbstractBackend {
 
         document.getElementById("sozi-editor-backend-Electron-input").addEventListener("click", () => this.openFileChooser());
 
-        // Save automatically when the window loses focus
-        const onBlur = () => {
-            if (this.controller.getPreference("saveMode") === "onblur") {
-                this.doAutosave();
-            }
-        };
-        this.addListener("blur", onBlur);
-
         // Save files when closing the window
         let closing = false;
 
@@ -54,10 +46,11 @@ export class Electron extends AbstractBackend {
             if (closing) {
                 return;
             }
+
+            this.controller.removeAllListeners("blur");
+
             closing = true;
             evt.returnValue = false;
-
-            this.removeListener("blur", onBlur);
 
             if (this.hasOutdatedFiles && this.controller.getPreference("saveMode") !== "onblur") {
                 // If autosave is disabled and some files are outdated, ask user confirmation.
@@ -67,7 +60,7 @@ export class Electron extends AbstractBackend {
                     buttons: [_("Yes"), _("No")],
                     defaultId: 0,
                     cancelId: 1
-                }, (index) => this.quit(index === 0));
+                }, index => this.quit(index === 0));
             }
             else {
                 window.setTimeout(() => this.quit(true));
@@ -106,7 +99,7 @@ export class Electron extends AbstractBackend {
             // Close the window only when all files have been saved.
             await this.saveOutdatedFiles();
         }
-        
+
         browserWindow.close();
     }
 

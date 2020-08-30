@@ -54,6 +54,12 @@ export class Storage extends EventEmitter {
         controller.addListener("editorStateChange",  () => {
             this.jsonNeedsSaving = true;
         });
+
+        controller.addListener("blur", () => {
+            if (this.backend && controller.getPreference("saveMode") === "onblur") {
+                this.backend.doAutosave();
+            }
+        });
     }
 
     activate() {
@@ -137,12 +143,12 @@ export class Storage extends EventEmitter {
                     break;
 
                 case "onfocus":
-                    if (this.backend.hasFocus) {
+                    if (this.controller.hasFocus) {
                         this.controller.info(_("Document was changed. Reloading."));
                         this.reload();
                     }
                     else {
-                        this.backend.once("focus", () => this.reload());
+                        this.controller.once("focus", () => this.reload());
                     }
                     break;
 
