@@ -38,7 +38,7 @@ export class Electron extends AbstractBackend {
         // Save files when closing the window
         let closing = false;
 
-        window.addEventListener("beforeunload", evt => {
+        window.addEventListener("beforeunload", async evt => {
             // Workaround for a bug in Electron where the window closes after a few
             // seconds even when calling dialog.showMessageBox() synchronously.
             if (closing) {
@@ -52,13 +52,14 @@ export class Electron extends AbstractBackend {
 
             if (this.hasOutdatedFiles && this.controller.getPreference("saveMode") !== "onblur") {
                 // If autosave is disabled and some files are outdated, ask user confirmation.
-                remote.dialog.showMessageBox(browserWindow, {
+                const res = await remote.dialog.showMessageBox(browserWindow, {
                     type: "question",
                     message: _("Do you want to save the presentation before closing?"),
                     buttons: [_("Yes"), _("No")],
                     defaultId: 0,
                     cancelId: 1
-                }, index => this.quit(index === 0));
+                });
+                this.quit(res.response === 0);
             }
             else {
                 window.setTimeout(() => this.quit(true));
