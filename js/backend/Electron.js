@@ -19,8 +19,6 @@ const browserWindow = remote.getCurrentWindow();
 // process.cwd() returns the installation path of Sozi.
 const cwd = process.env.PWD;
 
-console.log("Current working dir: " + cwd);
-
 /** Electron backend.
  *
  * @extends module:backend/AbstractBackend.AbstractBackend
@@ -111,6 +109,7 @@ export class Electron extends AbstractBackend {
             filters: [{name: _("SVG files"), extensions: ["svg"]}],
             properties: ["openFile"]
         });
+        this.controller.hideNotification();
         if (files) {
             this.controller.storage.setSVGFile(files[0], this);
         }

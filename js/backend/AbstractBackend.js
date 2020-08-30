@@ -112,10 +112,6 @@ export class AbstractBackend {
         // Not implemented
     }
 
-    /** Signals that a file has changed.
-     * @event module:backend/AbstractBackend#change
-     */
-
     /** Create a new file.
      *
      * @param {string} name - The name of the file to create.
