@@ -6,7 +6,6 @@
 
 import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
 import {backendList} from "./backend/AbstractBackend";
-import {EventEmitter} from "events";
 import nunjucks from "nunjucks";
 import Jed from "jed";
 import {upgradeFromSVG, upgradeFromStorable} from "./upgrade";
@@ -21,11 +20,9 @@ function replaceFileExtWith(fileName, ext) {
  * @extends EventEmitter
  * @todo Add documentation.
  */
-export class Storage extends EventEmitter {
+export class Storage {
 
     constructor(controller, presentation, selection) {
-        super();
-
         this.controller         = controller;
         this.document           = null;
         this.presentation       = presentation;
