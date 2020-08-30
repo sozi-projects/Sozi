@@ -51,7 +51,7 @@
 .properties table.custom-css-js {
     width: 100%;
     border-radius: 0.5em;
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5) inset;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) inset;
     background-color: white;
     color: black;
 }

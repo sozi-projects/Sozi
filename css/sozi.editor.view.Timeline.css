@@ -68,7 +68,7 @@
 
 .timeline {
     border-collapse: separate;
-    border-spacing: 0px 2px;
+    border-spacing: 0 2px;
 }
 
 .timeline input,
@@ -140,7 +140,7 @@
     display: inline;
 }
 
-.timeline tr.collapse {
+.timeline .collapse {
     visibility: collapse;
 }
 
