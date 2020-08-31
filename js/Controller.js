@@ -240,10 +240,7 @@ export class Controller extends EventEmitter {
      * This method is called by a {@linkcode Storage} instance when the SVG and JSON files
      * of a presentation have been loaded.
      * It sets a default {@link Controller#selection|selection} if needed,
-     * shows the {@link Selection#currentFrame|current frame}, loads
-     * and applies the user {@link Controller#preferences|preferences}.
-     *
-     * @fires module:Controller#ready
+     * and shows the {@link Selection#currentFrame|current frame}.
      */
     onLoad() {
         // If no frame is selected, select the first frame.
