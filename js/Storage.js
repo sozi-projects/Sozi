@@ -128,33 +128,6 @@ export class Storage {
         }
     }
 
-    // TODO Move this to controller.
-    onFileChange(fileDescriptor) {
-        const _ = this.controller.gettext;
-
-        if (fileDescriptor === this.svgFileDescriptor) {
-            switch (this.controller.getPreference("reloadMode")) {
-                case "auto":
-                    this.controller.info(_("Document was changed. Reloading."));
-                    this.reload();
-                    break;
-
-                case "onfocus":
-                    if (this.controller.hasFocus) {
-                        this.controller.info(_("Document was changed. Reloading."));
-                        this.reload();
-                    }
-                    else {
-                        this.controller.once("focus", () => this.reload());
-                    }
-                    break;
-
-                default:
-                    this.controller.info(_("Document was changed."));
-            }
-        }
-    }
-
     /*
      * Open the JSON file with the given name at the given location.
      * If the file exists, load it.

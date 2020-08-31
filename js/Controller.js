@@ -274,6 +274,29 @@ export class Controller extends EventEmitter {
         }
     }
 
+    onFileChange(fileDescriptor) {
+        const _ = this.gettext;
+        const doReload = () => {
+            this.info(_("Document was changed. Reloading."));
+            this.reload();
+        };
+
+        if (this.storage.backend.sameFile(fileDescriptor, this.storage.svgFileDescriptor)) {
+            switch (this.getPreference("reloadMode")) {
+                case "auto": doReload(); break;
+                case "onfocus":
+                    if (this.hasFocus) {
+                        doReload();
+                    }
+                    else {
+                        this.once("focus", doReload);
+                    }
+                    break;
+                default: this.info(_("Document was changed."));
+            }
+        }
+    }
+
     /** Save the presentation.
      *
      * This method delegates the operation to its {@linkcode Storage} instance and triggers

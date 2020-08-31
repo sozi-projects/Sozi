@@ -157,7 +157,7 @@ export class Electron extends AbstractBackend {
                             }
                             timer = setTimeout(() => {
                                 timer = 0;
-                                this.controller.storage.onFileChange(fileDescriptor);
+                                this.controller.onFileChange(fileDescriptor);
                             }, 100);
                         });
                     }
