@@ -17,7 +17,6 @@ function replaceFileExtWith(fileName, ext) {
 
 /** File read/write manager.
  *
- * @extends EventEmitter
  * @todo Add documentation.
  */
 export class Storage {

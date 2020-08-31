@@ -18,10 +18,7 @@ export function addBackend(backend) {
     backendList.push(backend);
 }
 
-/** Abstraction for the execution platform.
- *
- * @extends EventEmitter
- */
+/** Abstraction for the execution platform. */
 export class AbstractBackend {
     /** Common constructor for backends.
      *
