@@ -6,5 +6,7 @@
     },
     "parserOptions": {
         "sourceType": "module"
-    }
+    },
+    "plugins": ["jsdoc"],
+    "extends": ["plugin:jsdoc/recommended"]
 }
