@@ -9,5 +9,12 @@
         "sourceType": "module"
     },
     "plugins": ["jsdoc"],
-    "extends": ["plugin:jsdoc/recommended"]
+    "extends": ["plugin:jsdoc/recommended"],
+    "settings": {
+        "jsdoc": {
+            "tagNamePreference": {
+                "augments": "extends"
+            }
+        }
+    }
 }

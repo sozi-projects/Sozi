@@ -18,15 +18,18 @@ export class VirtualDOMView {
      */
     constructor(container, controller) {
         /** The parent HTML element that will contain this view.
+         *
          * @type {HTMLElement} */
         this.container = container;
 
         /** The controller that will manage the user actions from this view.
+         *
          * @type {module:Controller.Controller} */
         this.controller = controller;
 
         /** Form field values that need to be set after rendering.
-         * @type {Object} */
+         *
+         * @type {object} */
         this.state = {};
 
         const repaintHandler = () => this.repaint();
@@ -40,7 +43,7 @@ export class VirtualDOMView {
 
     /** Repaint this view.
      *
-     * This will render the current view using the result of {@link VirtualDOMView#render}.
+     * This will render the current view using the result of {@linkcode module:view/VirtualDOMView.VirtualDOMView#render|render}.
      */
     repaint() {
         render(this.render(), this.container, () => {
@@ -57,7 +60,7 @@ export class VirtualDOMView {
 
     /** Render this view as a virtual DOM tree.
      *
-     * @return A virtual DOM tree for this view.
+     * @returns {VNode} A virtual DOM tree for this view.
      */
     render() {
         return h("div");

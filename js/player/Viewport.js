@@ -52,6 +52,7 @@ export class Viewport extends EventEmitter {
         this.mouseDragY = 0;
 
         /** The effect of dragging in this viewport (`"scale"`, `"translate"`, `"rotate"`, `"clip"`).
+         *
          * @type {string} */
         this.dragMode = "translate";
 

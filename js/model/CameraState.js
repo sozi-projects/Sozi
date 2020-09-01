@@ -88,7 +88,7 @@ export class CameraState {
 
     /** Convert this instance to a plain object that can be stored as JSON.
      *
-     * @return A plain object with the properties that need to be saved.
+     * @returns A plain object with the properties that need to be saved.
      */
     toStorable() {
         return {
@@ -112,7 +112,7 @@ export class CameraState {
 
     /** Copy the properties of the given object into this instance.
      *
-     * @param {Object} storable A plain object with the properties to copy.
+     * @param {object} storable A plain object with the properties to copy.
      */
     fromStorable(storable) {
         copyIfSet(this, storable, "cx");

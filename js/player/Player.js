@@ -137,8 +137,7 @@ export class Player extends EventEmitter {
         evt.preventDefault();
     }
 
-    /**
-     * Event handler: key press.
+    /** Event handler: key press.
      *
      * This method handles character keys:
      *    - "+", "-": zoom in/out
@@ -147,7 +146,7 @@ export class Player extends EventEmitter {
      * Parameters:
      *    - evt: The DOM event object
      *
-     * TODO use keydown event
+     * @param {Event} evt - The keypress event object.
      */
     onKeyPress(evt) {
         // Keys with modifiers are ignored

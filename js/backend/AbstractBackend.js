@@ -10,7 +10,7 @@
  */
 export const backendList = [];
 
-/** Add a backend to {@link backendList|the list of supported backends}.
+/** Add a backend to {@link module:backend/AbstractBackend.backendList|the list of supported backends}.
  *
  * @param {module:backend/AbstractBackend.AbstractBackend} backend - The backend to add.
  */
@@ -29,6 +29,7 @@ export class AbstractBackend {
      */
     constructor(controller, container, buttonId, buttonLabel) {
         /** The controller for this backend.
+         *
          * @type {module:Controller.Controller} */
         this.controller = controller;
 
@@ -53,8 +54,8 @@ export class AbstractBackend {
 
     /** Return the base name of a file.
      *
-     * @param fileDescriptor - A file descriptor (backend-dependent).
-     * @return {string} The file name.
+     * @param {any} fileDescriptor - A file descriptor (backend-dependent).
+     * @returns {string} The file name.
      */
     getName(fileDescriptor) {
         // Not implemented
@@ -63,14 +64,20 @@ export class AbstractBackend {
 
     /** Return the location of a file.
      *
-     * @param fileDescriptor - A file descriptor (backend-dependent).
-     * @return {string} The file location.
+     * @param {any} fileDescriptor - A file descriptor (backend-dependent).
+     * @returns {string} The file location.
      */
     getLocation(fileDescriptor) {
         // Not implemented
         return null;
     }
 
+    /** Compare two file descriptors.
+     *
+     * @param {any} fd1 - A file descriptor (backend-dependent).
+     * @param {any} fd2 - A file descriptor (backend-dependent).
+     * @returns {boolean} - `true` if `fd1` and `fd2` represent the same file.
+     */
     sameFile(fd1, fd2) {
         return fd1 === fd2;
     }
@@ -78,8 +85,8 @@ export class AbstractBackend {
     /** Find a file.
      *
      * @param {string} name - The base name of the file.
-     * @param location - The location of the file (backend-dependent).
-     * @return {Promise<FileDescriptor>} - A promise that resolves to a file descriptor, rejected if not found.
+     * @param {any} location - The location of the file (backend-dependent).
+     * @returns {Promise} - A promise that resolves to a file descriptor, rejected if not found.
      */
     find(name, location) {
         return Promise.reject("Not implemented");
@@ -94,28 +101,30 @@ export class AbstractBackend {
      * loaded. The `change` event must be fired only on the first modification
      * after the file has been loaded.
      *
-     * @param fileDescriptor - A file to load (backend-dependent).
-     * @return {Promise<string>} - A promise that resolves to the content of the file.
-     *
-     * @fires module:backend/AbstractBackend#change
+     * @param {any} fileDescriptor - A file to load (backend-dependent).
+     * @returns {Promise<string>} - A promise that resolves to the content of the file.
      */
     load(fileDescriptor) {
-        /** Signals that a file has been loaded.
-         * @event module:backend/AbstractBackend#load */
         return Promise.reject("Not implemented");
     }
 
+    /** Load a file synchronously.
+     *
+     * @param {any} fileDescriptor - A file to load (backend-dependent).
+     * @returns {string} - The content of the file.
+     */
     loadSync(fileDescriptor) {
         // Not implemented
+        return "";
     }
 
     /** Create a new file.
      *
      * @param {string} name - The name of the file to create.
-     * @param location - The location of the file to create (backend-dependent).
+     * @param {any} location - The location of the file to create (backend-dependent).
      * @param {string} mimeType - The MIME type of the file to create.
      * @param {string} data - The content of the file to create.
-     * @return {Promise<FileDescriptor>} - A promise that resolves to a file descriptor.
+     * @returns {Promise} - A promise that resolves to a file descriptor.
      */
     create(name, location, mimeType, data) {
         return Promise.reject("Not implemented");
@@ -123,9 +132,9 @@ export class AbstractBackend {
 
     /** Save data to an existing file.
      *
-     * @param fileDescriptor - The file to save (backend-dependent).
+     * @param {any} fileDescriptor - The file to save (backend-dependent).
      * @param {string} data - The new content of the file.
-     * @return {Promise<FileDescriptor>} - A promise that resolves to the given file descriptor.
+     * @returns {Promise} - A promise that resolves to the given file descriptor.
      */
     save(fileDescriptor, data) {
         return Promise.reject("Not implemented");
@@ -133,19 +142,19 @@ export class AbstractBackend {
 
     /** Add the given file to the list of files to save automatically.
      *
-     * @param descriptor - The file to autosave (backend-dependent).
+     * @param {any} fileDescriptor - The file to autosave (backend-dependent).
      * @param {function():boolean} needsSaving - A function that returns `true` if the file needs saving.
      * @param {function():string} getData - A function that returns the data to save.
      */
-    autosave(descriptor, needsSaving, getData) {
-        this.autosavedFiles.push({descriptor, needsSaving, getData});
+    autosave(fileDescriptor, needsSaving, getData) {
+        this.autosavedFiles.push({fileDescriptor, needsSaving, getData});
     }
 
-    /** Check whether at least one file in the {@link AbstractBackend#autosavedFiles|autosaved file list} needs saving.
+    /** Check whether at least one file in the {@link module:backend/AbstractBackend.AbstractBackend#autosavedFiles|autosaved file list} needs saving.
      *
-     * This method uses the `needsSaving` function passed to {@link AbstractBackend#autosave|autosave}.
+     * This method uses the `needsSaving` function passed to {@link module:backend/AbstractBackend.AbstractBackend#autosave|autosave}.
      *
-     * @return {boolean} `true` if at least one file has unsaved modifications.
+     * @returns {boolean} `true` if at least one file has unsaved modifications.
      */
     get hasOutdatedFiles() {
         return this.autosavedFiles.some(file => file.needsSaving());
@@ -153,14 +162,14 @@ export class AbstractBackend {
 
     /** Save all outdated files.
      *
-     * This method calls {@link AbstractBackend#save|save} for each file
-     * in the {@link AbstractBackend#autosavedFiles|autosaved file list}
+     * This method calls {@link module:backend/AbstractBackend.AbstractBackend#save|save} for each file
+     * in the {@link module:backend/AbstractBackend.AbstractBackend#autosavedFiles|autosaved file list}
      * where `needsSaving` returns `true`.
      *
-     * It uses the function `getData` passed to {@link AbstractBackend#autosave|autosave}
+     * It uses the function `getData` passed to {@link module:backend/AbstractBackend.AbstractBackend#autosave|autosave}
      * to write the new file content.
      *
-     * @return {Promise<FileDescriptor[]} - A promise that resolves when all autosaved files have been saved.
+     * @returns {Promise<Array>} - A promise that resolves when all autosaved files have been saved.
      */
     saveOutdatedFiles() {
         return Promise.all(
@@ -170,12 +179,12 @@ export class AbstractBackend {
         );
     }
 
-    /** Save all files previously added to the {@link AbstractBackend#autosavedFiles|autosaved file list}.
+    /** Save all files previously added to the {@link module:backend/AbstractBackend.AbstractBackend#autosavedFiles|autosaved file list}.
      *
      * Typically, we want to call this method each time the editor loses focus
      * and when the editor closes.
      *
-     * @return {Promise<FileDescriptor[]} - A promise that resolves when all autosaved files have been saved.
+     * @returns {Promise<Array>} - A promise that resolves when all autosaved files have been saved.
      */
     doAutosave() {
         this.controller.preferences.save();
