@@ -7,5 +7,7 @@
     "parserOptions": {
         "ecmaVersion": 8,
         "sourceType": "module"
-    }
+    },
+    "plugins": ["jsdoc"],
+    "extends": ["plugin:jsdoc/recommended"]
 }
