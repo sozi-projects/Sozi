@@ -16,5 +16,14 @@
                 "augments": "extends"
             }
         }
+    },
+    "rules": {
+        "jsdoc/require-jsdoc": ["warn", {
+            "publicOnly": true,
+            "require": {
+                "ClassDeclaration": true,
+                "MethodDefinition": true
+            }
+        }]
     }
 }

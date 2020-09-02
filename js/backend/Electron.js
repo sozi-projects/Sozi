@@ -12,20 +12,29 @@ import Jed from "jed";
 import screenfull from "screenfull";
 import {remote} from "electron";
 
+/** The main browser window of the Sozi editor.
+ *
+ * @type {BrowserWindow} */
 const browserWindow = remote.getCurrentWindow();
 
-// Get the current working directory.
-// We use the PWD environment variable directly because
-// process.cwd() returns the installation path of Sozi.
+/** The current working directory.
+ *
+ * We use the `PWD` environment variable directly because
+ * `process.cwd()` returns the installation path of Sozi.
+ */
 const cwd = process.env.PWD;
 
-/** Electron backend.
+/** A Sozi editor backend based on Electron.
  *
  * @extends module:backend/AbstractBackend.AbstractBackend
- * @todo Add documentation.
  */
 export class Electron extends AbstractBackend {
 
+    /** Construct a Sozi  backend based on Electron
+     *
+     * @param {module:Controller.Controller} controller - A controller instance.
+     * @param {HTMLElement} container - The element that will contain the menu for choosing a backend.
+     */
     constructor(controller, container) {
         const _ = controller.gettext;
 
@@ -66,6 +75,11 @@ export class Electron extends AbstractBackend {
             }
         });
 
+        /** A dictionary of file watchers.
+         *
+         * Populated by the {@linkcode module:backend/Electron.Electron#load|load} method.
+         *
+         * @type {object.<string, fs.FSWatcher>} */
         this.watchers = {};
 
         // If a file name was provided on the command line,
@@ -89,6 +103,10 @@ export class Electron extends AbstractBackend {
         }
     }
 
+    /** Close the editor window and terminate the application.
+     *
+     * @param {boolean} confirmSave - If `true`, save the current presentation before quitting.
+     */
     async quit(confirmSave) {
         // Always save the window settings and the preferences.
         this.saveConfiguration();
@@ -102,6 +120,7 @@ export class Electron extends AbstractBackend {
         browserWindow.close();
     }
 
+    /** @inheritdoc */
     openFileChooser() {
         const _ = this.controller.gettext;
 
@@ -116,14 +135,17 @@ export class Electron extends AbstractBackend {
         }
     }
 
+    /** @inheritdoc */
     getName(fileDescriptor) {
         return path.basename(fileDescriptor);
     }
 
+    /** @inheritdoc */
     getLocation(fileDescriptor) {
         return path.dirname(fileDescriptor);
     }
 
+    /** @inheritdoc */
     find(name, location) {
         const fileName = path.join(location, name);
         return new Promise((resolve, reject) => {
@@ -138,6 +160,7 @@ export class Electron extends AbstractBackend {
         });
     }
 
+    /** @inheritdoc */
     load(fileDescriptor) {
         return new Promise((resolve, reject) => {
             fs.readFile(fileDescriptor, { encoding: "utf8" }, (err, data) => {
@@ -167,6 +190,7 @@ export class Electron extends AbstractBackend {
         });
     }
 
+    /** @inheritdoc */
     loadSync(fileDescriptor) {
         try {
             return fs.readFileSync(fileDescriptor, {encoding: "utf8" });
@@ -178,6 +202,7 @@ export class Electron extends AbstractBackend {
         }
     }
 
+    /** @inheritdoc */
     create(name, location, mimeType, data) {
         const fileName = path.join(location, name);
         return new Promise((resolve, reject) => {
@@ -192,6 +217,7 @@ export class Electron extends AbstractBackend {
         });
     }
 
+    /** @inheritdoc */
     save(fileDescriptor, data) {
         return new Promise((resolve, reject) => {
             fs.writeFile(fileDescriptor, data, { encoding: "utf-8" }, err => {
@@ -206,6 +232,11 @@ export class Electron extends AbstractBackend {
         });
     }
 
+    /** Load the configuration of the current browser window.
+     *
+     * This method will restore the location, size, and fullscreen state
+     * of the window.
+     */
     loadConfiguration() {
         function getItem(key, val) {
             const result = localStorage.getItem(key);
@@ -220,12 +251,18 @@ export class Electron extends AbstractBackend {
         }
     }
 
+    /** Save the configuration of the current browser window.
+     *
+     * This method will save the location, size, and fullscreen state
+     * of the window.
+     */
     saveConfiguration() {
         [localStorage.windowX, localStorage.windowY] = browserWindow.getPosition();
         [localStorage.windowWidth, localStorage.windowHeight] = browserWindow.getSize();
         localStorage.windowFullscreen = screenfull.isFullscreen;
     }
 
+    /** @inheritdoc */
     toggleDevTools() {
         browserWindow.toggleDevTools();
     }

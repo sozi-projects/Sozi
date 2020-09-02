@@ -96,11 +96,6 @@ export class AbstractBackend {
      *
      * This method loads a file and returns a promise with the content of this file.
      *
-     * If the file was successfully loaded and if the backend supports it,
-     * a `change` event can be fired when the file is modified after being
-     * loaded. The `change` event must be fired only on the first modification
-     * after the file has been loaded.
-     *
      * @param {any} fileDescriptor - A file to load (backend-dependent).
      * @returns {Promise<string>} - A promise that resolves to the content of the file.
      */
