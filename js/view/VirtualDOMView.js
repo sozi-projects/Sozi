@@ -7,6 +7,11 @@
 import {render} from "inferno";
 import {h} from "inferno-hyperscript";
 
+/** Type for Virtual DOM nodes.
+ *
+ * @external VNode
+ */
+
 /** Base class for editor views using the virtual DOM.
  */
 export class VirtualDOMView {

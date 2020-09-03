@@ -12,6 +12,11 @@ import Jed from "jed";
 import screenfull from "screenfull";
 import {remote} from "electron";
 
+/** Type for Electron browser windows.
+ *
+ * @external BrowserWindow
+ */
+
 /** The main browser window of the Sozi editor.
  *
  * @type {BrowserWindow} */
