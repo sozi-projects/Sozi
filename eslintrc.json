@@ -20,6 +20,7 @@
     "rules": {
         "jsdoc/require-jsdoc": ["warn", {
             "publicOnly": true,
+            "checkSetters": false,
             "require": {
                 "ClassDeclaration": true,
                 "MethodDefinition": true

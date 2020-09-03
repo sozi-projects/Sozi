@@ -147,9 +147,11 @@ export class AbstractBackend {
 
     /** Check whether at least one file in the {@link module:backend/AbstractBackend.AbstractBackend#autosavedFiles|autosaved file list} needs saving.
      *
-     * This method uses the `needsSaving` function passed to {@link module:backend/AbstractBackend.AbstractBackend#autosave|autosave}.
+     * This is an accessor that uses the `needsSaving` function passed to {@link module:backend/AbstractBackend.AbstractBackend#autosave|autosave}.
+     * Returns `true` if at least one file has unsaved modifications.
      *
-     * @returns {boolean} `true` if at least one file has unsaved modifications.
+     * @readonly
+     * @type {boolean}
      */
     get hasOutdatedFiles() {
         return this.autosavedFiles.some(file => file.needsSaving());

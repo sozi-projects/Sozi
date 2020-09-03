@@ -47,7 +47,10 @@ export class LayerProperties {
 
     /** Convert this instance to a plain object that can be stored as JSON.
      *
-     * @returns A plain object with the properties that need to be saved.
+     * The result contains all the properties needed by the editor to restore
+     * the state of this instance.
+     *
+     * @returns {object} - A plain object with the properties needed by the editor.
      */
     toStorable() {
         return {
@@ -60,6 +63,13 @@ export class LayerProperties {
         };
     }
 
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * The result contains only the properties needed by the Sozi player to
+     * show and animate the presentation.
+     *
+     * @returns {object} - A plain object with the properties needed by the player.
+     */
     toMinimalStorable() {
         return {
             transitionTimingFunction: this.transitionTimingFunction,
@@ -70,7 +80,7 @@ export class LayerProperties {
 
     /** Copy the properties of the given object into this instance.
      *
-     * @param {object} storable A plain object with the properties to copy.
+     * @param {object} storable - A plain object with the properties to copy.
      */
     fromStorable(storable) {
         copyIfSet(this, storable, "link");
@@ -183,7 +193,10 @@ export class Frame {
 
     /** Convert this instance to a plain object that can be stored as JSON.
      *
-     * @returns A plain object with the properties that need to be saved.
+     * The result contains all the properties needed by the editor to restore
+     * the state of this instance.
+     *
+     * @returns {object} - A plain object with the properties needed by the editor.
      */
     toStorable() {
         const layerProperties = {};
@@ -219,6 +232,13 @@ export class Frame {
         };
     }
 
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * The result contains only the properties needed by the Sozi player to
+     * show and animate the presentation.
+     *
+     * @returns {object} - A plain object with the properties needed by the player.
+     */
     toMinimalStorable() {
         const layerProperties = {};
         const cameraStates = {};
@@ -249,7 +269,7 @@ export class Frame {
 
     /** Copy the properties of the given object into this instance.
      *
-     * @param {object} storable A plain object with the properties to copy.
+     * @param {object} storable - A plain object with the properties to copy.
      */
     fromStorable(storable) {
         copyIfSet(this, storable, "frameId");
@@ -422,7 +442,10 @@ export class Presentation extends EventEmitter {
 
     /** Convert this instance to a plain object that can be stored as JSON.
      *
-     * @returns A plain object with the properties that need to be saved.
+     * The result contains all the properties needed by the editor to restore
+     * the state of this instance.
+     *
+     * @returns {object} - A plain object with the properties needed by the editor.
      */
     toStorable() {
         return {
@@ -442,6 +465,13 @@ export class Presentation extends EventEmitter {
         };
     }
 
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * The result contains only the properties needed by the Sozi player to
+     * show and animate the presentation.
+     *
+     * @returns {object} - A plain object with the properties needed by the player.
+     */
     toMinimalStorable() {
         return {
             enableKeyboardZoom      : this.enableKeyboardZoom,
@@ -459,7 +489,7 @@ export class Presentation extends EventEmitter {
 
     /** Copy the properties of the given object into this instance.
      *
-     * @param {object} storable A plain object with the properties to copy.
+     * @param {object} storable - A plain object with the properties to copy.
      */
     fromStorable(storable) {
         copyIfSet(this, storable, "aspectWidth");

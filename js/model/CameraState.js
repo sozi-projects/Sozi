@@ -4,6 +4,15 @@
 
 /** @module */
 
+/** Copy a property from an object to another.
+ *
+ * If the source object has a property with the given name,
+ * this property is copied to the target object.
+ *
+ * @param {object} dest - The destination object.
+ * @param {object} src - The source object.
+ * @param {string} prop - The name of the property to copy.
+ */
 function copyIfSet(dest, src, prop) {
     if (src.hasOwnProperty(prop)) {
         dest[prop] = src[prop];
@@ -12,30 +21,104 @@ function copyIfSet(dest, src, prop) {
 
 /** Camera state.
  *
- * @todo Add documentation.
+ * This class models the state of a camera in the context of a Sozi document.
+ * It is attached to a given SVG document and contains the properties that need
+ * to be stored in the Sozi presentation file.
+ *
+ * @see {@linkcode module:player/Camera.Camera|Camera} for a camera implementation in the context of the Sozi player.
  */
 export class CameraState {
+    /** Construct a new camera state object.
+     *
+     * If the argument is a camera state, this constructor will create a copy of
+     * of that state.
+     * If the argument is an SVG root element, a camera state with default properties
+     * will be created.
+     *
+     * @param {(CameraState|SVGSVGElement)} obj - A camera state to copy, or an SVG root element.
+     */
     constructor(obj) {
         if (obj instanceof CameraState) {
             this.copy(obj);
         }
         else {
-            const initialBBox     = obj.getBBox();
-            this.svgRoot          = obj;
-            this.opacity          = 1.0;
-            this.clipped          = false;
-            this.clipXOffset      = 0;
-            this.clipYOffset      = 0;
-            this.clipWidthFactor  = 1;
+            const initialBBox = obj.getBBox();
+
+            /** The root SVG element attached to this camera.
+             *
+             * @type {SVGSVGElement} */
+            this.svgRoot = obj;
+
+            /** The opacity level of the layer attached to this camera.
+             *
+             * A floating-point number between 0 and 1.
+             * Defaults to 1.
+             *
+             * @type {number} */
+            this.opacity = 1.0;
+
+            /** Indicates that the content outside a specified rectangle must be clipped.
+             *
+             * Defaults to false.
+             *
+             * @type {boolean} */
+            this.clipped = false;
+
+            /** The horizontal offset of the clipping rectangle with respect to the current camera location.
+             *
+             * Defaults to 0.
+             *
+             * @type {number} */
+            this.clipXOffset = 0;
+
+            /** The vertical offset of the clipping rectangle with respect to the current camera location.
+             *
+             * Defaults to 0.
+             *
+             * @type {number} */
+            this.clipYOffset = 0;
+
+            /** The width of the clipping rectangle with respect to the width of the region seen by the camera.
+             *
+             * Defaults to 1.
+             *
+             * @type {number} */
+            this.clipWidthFactor = 1;
+
+            /** The height of the clipping rectangle with respect to the height of the region seen by the camera.
+             *
+             * Defaults to 1.
+             *
+             * @type {number} */
             this.clipHeightFactor = 1;
-            this.cx               = initialBBox.x + initialBBox.width / 2;
-            this.cy               = initialBBox.y + initialBBox.height / 2;
-            this.width            = initialBBox.width;
-            this.height           = initialBBox.height;
-            this.angle            = 0;
+
+            /** The horizontal coordinate of the camera.
+             *
+             * This is also the horizontal coordinate of the center of the region seen by the camera.
+             * Defaults to the center of the bounding box of the SVG content.
+             *
+             * @type {number} */
+            this.cx = initialBBox.x + initialBBox.width / 2;
+
+            /** The vertical coordinate of the camera.
+             *
+             * This is also the vertical coordinate of the center of the region seen by the camera.
+             * Defaults to the center of the bounding box of the SVG content.
+             *
+             * @type {number} */
+            this.cy = initialBBox.y + initialBBox.height / 2;
+
+            // These are assigned through setters. See below.
+            this.width  = initialBBox.width;
+            this.height = initialBBox.height;
+            this.angle  = 0;
         }
     }
 
+    /** Copy another camera state into the current instance.
+     *
+     * @param {module:model/CameraState.CameraState} state - The camera state to copy.
+     */
     copy(state) {
         this.svgRoot          = state.svgRoot;
         this.cx               = state.cx;
@@ -51,27 +134,46 @@ export class CameraState {
         this.clipHeightFactor = state.clipHeightFactor;
     }
 
+    /** The width of the region seen by the camera.
+     *
+     * Defaults to the width of the bounding box of the SVG content.
+     * Cannot be lower than 1.
+     *
+     * @type {number}
+     */
+    get width() {
+        return this._width;
+    }
+
     set width(w) {
         this._width = !isNaN(w) && w >= 1 ? w : 1;
     }
 
-    get width() {
-        return this._width;
+    /** The height of the region seen by the camera.
+     *
+     * Defaults to the height of the bounding box of the SVG content.
+     * Cannot be lower than 1.
+     *
+     * @type {number} */
+    get height() {
+        return this._height;
     }
 
     set height(h) {
         this._height = !isNaN(h) && h >= 1 ? h : 1;
     }
 
-    get height() {
-        return this._height;
+    /** The rotation angle applied to the camera.
+     *
+     * The angle is automatically normalized in the interval [-180 ; 180].
+     * Defaults to 0.
+     *
+     * @type {number}
+     */
+    get angle() {
+        return this._angle;
     }
 
-    /*
-     * Set the angle of the current camera state.
-     * The angle of the current state is normalized
-     * in the interval [-180 ; 180]
-     */
     set angle(a) {
         this._angle = !isNaN(a) ? (a + 180) % 360 : 180;
         if (this._angle < 0) {
@@ -82,13 +184,12 @@ export class CameraState {
         }
     }
 
-    get angle() {
-        return this._angle;
-    }
-
     /** Convert this instance to a plain object that can be stored as JSON.
      *
-     * @returns A plain object with the properties that need to be saved.
+     * The result contains all the properties needed by the editor to restore
+     * the state of this instance.
+     *
+     * @returns {object} - A plain object with the properties needed by the editor.
      */
     toStorable() {
         return {
@@ -106,13 +207,20 @@ export class CameraState {
         };
     }
 
+    /** Convert this instance to a plain object that can be stored as JSON.
+     *
+     * The result contains only the properties needed by the Sozi player to
+     * show and animate the presentation.
+     *
+     * @returns {object} - A plain object with the properties needed by the player.
+     */
     toMinimalStorable() {
         return this.toStorable();
     }
 
     /** Copy the properties of the given object into this instance.
      *
-     * @param {object} storable A plain object with the properties to copy.
+     * @param {object} storable - A plain object with the properties to copy.
      */
     fromStorable(storable) {
         copyIfSet(this, storable, "cx");
@@ -128,14 +236,18 @@ export class CameraState {
         copyIfSet(this, storable, "clipHeightFactor");
     }
 
-    /*
-     * Set the current camera's properties to the given SVG element.
+    /** Fit the current camera state to the given SVG element.
      *
-     * Otherwise, the properties of the frame are based on the bounding box
-     * of the given element.
+     * The default behavior is to fit the region seen by the camera to the bounding
+     * box of the SVG element.
+     * Translation, scaling and rotation can be applied to this region.
      *
-     * Parameters:
-     *    - svgElement: an element from the SVG DOM
+     * @param {SVGElement} svgElement - The target SVG element.
+     * @param {number} [deltaX=0] - An horizontal offset from the center of the SVG element.
+     * @param {number} [deltaY=0] - A vertical offset from the center of the SVG element.
+     * @param {number} [widthFactor=1] - A scaling factor applied to the width of the SVG element.
+     * @param {number} [heightFactor=1] - A scaling factor applied to the height of the SVG element.
+     * @param {number} [deltaAngle=0] - A relative angle from the orientation of the SVG element.
      */
     setAtElement(svgElement, deltaX = 0, deltaY = 0, widthFactor = 1, heightFactor = 1, deltaAngle = 0) {
         // Read the raw bounding box of the given SVG element
@@ -171,11 +283,25 @@ export class CameraState {
         this.angle  = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI + deltaAngle;
     }
 
+    /** Set the clipping properties to their default values.
+     *
+     * This method will fit the clipping rectangle to the region seen by the camera.
+     */
     resetClipping() {
         this.clipXOffset     = this.clipYOffset      = 0;
         this.clipWidthFactor = this.clipHeightFactor = 1;
     }
 
+    /** Compute a transformation from the bounding box of an SVG element to the current camera state.
+     *
+     * The result will have properties `deltaX`, `deltaY`, `widthFactor`, `heightFactor`,
+     * and `deltaAngle` with the same meanings as the parameters of the methods
+     * {@linkcode module:model/CameraState.CameraState#setAtElement|setAtElement}.
+     * and {@linkcode module:model/CameraState.CameraState#applyOffset|applyOffset}.
+     *
+     * @param {SVGElement} svgElement - A source SVG element.
+     * @returns {object} - The translation coordinates, scaling factors, and rotation angle.
+     */
     offsetFromElement(svgElement) {
         const cam = new CameraState(this.svgRoot);
         cam.setAtElement(svgElement);
@@ -188,6 +314,18 @@ export class CameraState {
         };
     }
 
+    /** Apply a transformation to the current camera state.
+     *
+     * This method accepts an object with the same type as the result of
+     * {@linkcode module:model/CameraState.CameraState#offsetFromElement|offsetFromElement}.
+     *
+     * @param {object} arg - A transformation object to apply.
+     * @param {number} arg.deltaX - An horizontal offset from the center of the SVG element.
+     * @param {number} arg.deltaY - A vertical offset from the center of the SVG element.
+     * @param {number} arg.widthFactor - A scaling factor applied to the width of the SVG element.
+     * @param {number} arg.heightFactor - A scaling factor applied to the height of the SVG element.
+     * @param {number} arg.deltaAngle - A relative angle from the orientation of the SVG element.
+     */
     applyOffset({deltaX, deltaY, widthFactor, heightFactor, deltaAngle}) {
         this.cx -= deltaX;
         this.cy -= deltaY;

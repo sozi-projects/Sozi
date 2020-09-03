@@ -141,9 +141,10 @@ export class Controller extends EventEmitter {
 
     /** Convert this instance to a plain object that can be stored as JSON.
      *
-     * This method will save the IDs of the editable layers managed by this controller.
+     * The result contains all the properties needed by the editor to restore
+     * the state of this instance.
      *
-     * @returns {object} A plain object with the properties that need to be saved.
+     * @returns {object} - A plain object with the properties needed by the editor.
      */
     toStorable() {
         return {

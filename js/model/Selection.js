@@ -34,7 +34,10 @@ export class Selection {
 
     /** Convert this instance to a plain object that can be stored as JSON.
      *
-     * @returns A plain object with the properties that need to be saved.
+     * The result contains all the properties needed by the editor to restore
+     * the state of this instance.
+     *
+     * @returns {object} - A plain object with the properties needed by the editor.
      */
     toStorable() {
         return {
@@ -45,7 +48,7 @@ export class Selection {
 
     /** Copy the properties of the given object into this instance.
      *
-     * @param {object} storable A plain object with the properties to copy.
+     * @param {object} storable - A plain object with the properties to copy.
      */
     fromStorable(storable) {
         if ("selectedFrames" in storable) {

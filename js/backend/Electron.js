@@ -26,6 +26,8 @@ const browserWindow = remote.getCurrentWindow();
  *
  * We use the `PWD` environment variable directly because
  * `process.cwd()` returns the installation path of Sozi.
+ *
+ * @type {string}
  */
 const cwd = process.env.PWD;
 
