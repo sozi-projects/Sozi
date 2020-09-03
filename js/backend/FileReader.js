@@ -9,10 +9,14 @@ import {AbstractBackend, addBackend} from "./AbstractBackend";
 /** Browser FileReader backend.
  *
  * @extends module:backend/AbstractBackend.AbstractBackend
- * @todo Add documentation.
  */
 export class FileReaderBackend extends AbstractBackend {
 
+    /** Construct a Sozi  backend based on the FileReader API.
+     *
+     * @param {module:Controller.Controller} controller - A controller instance.
+     * @param {HTMLElement} container - The element that will contain the menu for choosing a backend.
+     */
     constructor(controller, container) {
         const _ = controller.gettext;
 
@@ -20,6 +24,9 @@ export class FileReaderBackend extends AbstractBackend {
 
         document.getElementById("sozi-editor-backend-FileReader-input").addEventListener("click", () => this.openFileChooser());
 
+        /** A hidden HTML file input element to open a file chooser.
+         *
+         * @type {HTMLInputElement} */
         this.fileInput = document.createElement("input");
         this.fileInput.style.display = "none";
         this.fileInput.setAttribute("type", "file");
@@ -34,18 +41,22 @@ export class FileReaderBackend extends AbstractBackend {
         });
     }
 
+    /** @inheritdoc */
     openFileChooser() {
         this.fileInput.dispatchEvent(new MouseEvent("click"));
     }
 
+    /** @inheritdoc */
     getName(fileDescriptor) {
         return fileDescriptor.name;
     }
 
+    /** @inheritdoc */
     sameFile(fd1, fd2) {
         return fd1.name === fd2.name;
     }
-    
+
+    /** @inheritdoc */
     load(fileDescriptor) {
         const reader = new FileReader();
         return new Promise((resolve, reject) => {

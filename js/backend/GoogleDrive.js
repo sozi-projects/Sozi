@@ -9,10 +9,14 @@ import {AbstractBackend, addBackend} from "./AbstractBackend";
 /** Google Drive backend.
  *
  * @extends module:backend/AbstractBackend.AbstractBackend
- * @todo Add documentation.
  */
 export class GoogleDrive extends AbstractBackend {
 
+    /** Construct a Sozi  backend based on the Google Drive API.
+     *
+     * @param {module:Controller.Controller} controller - A controller instance.
+     * @param {HTMLElement} container - The element that will contain the menu for choosing a backend.
+     */
     constructor(controller, container) {
         const _ = controller.gettext;
 
@@ -24,10 +28,16 @@ export class GoogleDrive extends AbstractBackend {
         this.authorize(true);
     }
 
+    /** @inheritdoc */
     openFileChooser() {
         this.picker.setVisible(true);
     }
 
+    /** Authorize access to the Google Drive API.
+     *
+     * @private
+     * @param {boolean} onInit - `true` if this is the first authorization request in this session.
+     */
     authorize(onInit) {
         gapi.auth.authorize({
             client_id: GoogleDrive.clientId,
@@ -36,6 +46,14 @@ export class GoogleDrive extends AbstractBackend {
         }, authResult => this.onAuthResult(onInit, authResult));
     }
 
+    /** Process a Google Drive API authorization result.
+     *
+     * Called on completion of the authorization request.
+     *
+     * @private
+     * @param {boolean} onInit - `true` if this is the first authorization request in this session.
+     * @param {object} authResult - The authorization result.
+     */
     onAuthResult(onInit, authResult) {
         const inputButton = document.getElementById("sozi-editor-backend-GoogleDrive-input");
 
@@ -60,6 +78,10 @@ export class GoogleDrive extends AbstractBackend {
         }
     }
 
+    /** Create a Google Drive file picker.
+     *
+     * @private
+     */
     createPicker() {
         const view = new google.picker.View(google.picker.ViewId.DOCS);
         view.setMimeTypes("image/svg+xml");
@@ -82,18 +104,22 @@ export class GoogleDrive extends AbstractBackend {
             build();
     }
 
+    /** @inheritdoc */
     getName(fileDescriptor) {
         return fileDescriptor.title;
     }
 
+    /** @inheritdoc */
     getLocation(fileDescriptor) {
         return fileDescriptor.parents;
     }
 
+    /** @inheritdoc */
     sameFile(fd1, fd2) {
         return fd1.id === fd2.id;
     }
 
+    /** @inheritdoc */
     find(name, location) {
         return new Promise((resolve, reject) => {
             function findInParent(index) {
@@ -116,8 +142,9 @@ export class GoogleDrive extends AbstractBackend {
         });
     }
 
-    // TODO implement the "change" event
+    /** @inheritdoc */
     load(fileDescriptor) {
+        // TODO implement the "change" event
         // The file is loaded using an AJAX GET operation.
         // The data type is forced to "text" to prevent parsing it.
         const xhr = new XMLHttpRequest();
@@ -139,6 +166,7 @@ export class GoogleDrive extends AbstractBackend {
         });
     }
 
+    /** @inheritdoc */
     create(name, location, mimeType, data) {
         const boundary = "-------314159265358979323846";
         const delimiter = "\r\n--" + boundary + "\r\n";
@@ -181,6 +209,7 @@ export class GoogleDrive extends AbstractBackend {
         });
     }
 
+    /** @inheritdoc */
     save(fileDescriptor, data) {
         const base64Data = toBase64(data); // Force UTF-8 encoding
         return new Promise((resolve, reject) => {
@@ -209,12 +238,30 @@ export class GoogleDrive extends AbstractBackend {
     }
 }
 
+/** Encode data to base64.
+ *
+ * @private
+ * @param {string} data - The data to encode.
+ * @returns {string} The encoded data.
+ */
 function toBase64(data) {
     return btoa(unescape(encodeURIComponent(data)));
 }
 
-// Configure these settings in GoogleDrive.config.js
+/** The Google Drive OAuth cliend Id.
+ *
+ * Override the value of this attribute in `GoogleDrive.config.js`.
+ *
+ * @static
+ * @type {string} */
 GoogleDrive.clientId = "Your OAuth client Id";
+
+/** The Google Drive API key.
+ *
+ * Override the value of this attribute in `GoogleDrive.config.js`.
+ *
+ * @static
+ * @type {string} */
 GoogleDrive.apiKey = "Your developer API key";
 
 addBackend(GoogleDrive);
