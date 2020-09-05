@@ -52,59 +52,54 @@ export class CameraState {
             /** The opacity level of the layer attached to this camera.
              *
              * A floating-point number between 0 and 1.
-             * Defaults to 1.
              *
+             * @default
              * @type {number} */
             this.opacity = 1.0;
 
             /** Indicates that the content outside a specified rectangle must be clipped.
              *
-             * Defaults to false.
-             *
+             * @default
              * @type {boolean} */
             this.clipped = false;
 
             /** The horizontal offset of the clipping rectangle with respect to the current camera location.
              *
-             * Defaults to 0.
-             *
+             * @default
              * @type {number} */
             this.clipXOffset = 0;
 
             /** The vertical offset of the clipping rectangle with respect to the current camera location.
              *
-             * Defaults to 0.
-             *
+             * @default
              * @type {number} */
             this.clipYOffset = 0;
 
             /** The width of the clipping rectangle with respect to the width of the region seen by the camera.
              *
-             * Defaults to 1.
-             *
+             * @default
              * @type {number} */
             this.clipWidthFactor = 1;
 
             /** The height of the clipping rectangle with respect to the height of the region seen by the camera.
              *
-             * Defaults to 1.
-             *
+             * @default
              * @type {number} */
             this.clipHeightFactor = 1;
 
             /** The horizontal coordinate of the camera.
              *
              * This is also the horizontal coordinate of the center of the region seen by the camera.
-             * Defaults to the center of the bounding box of the SVG content.
              *
+             * @default The center of the bounding box of the SVG content.
              * @type {number} */
             this.cx = initialBBox.x + initialBBox.width / 2;
 
             /** The vertical coordinate of the camera.
              *
              * This is also the vertical coordinate of the center of the region seen by the camera.
-             * Defaults to the center of the bounding box of the SVG content.
              *
+             * @default The center of the bounding box of the SVG content.
              * @type {number} */
             this.cy = initialBBox.y + initialBBox.height / 2;
 
@@ -136,9 +131,9 @@ export class CameraState {
 
     /** The width of the region seen by the camera.
      *
-     * Defaults to the width of the bounding box of the SVG content.
      * Cannot be lower than 1.
      *
+     * @default The width of the bounding box of the SVG content.
      * @type {number}
      */
     get width() {
@@ -151,9 +146,9 @@ export class CameraState {
 
     /** The height of the region seen by the camera.
      *
-     * Defaults to the height of the bounding box of the SVG content.
      * Cannot be lower than 1.
      *
+     * @default The height of the bounding box of the SVG content.
      * @type {number} */
     get height() {
         return this._height;
@@ -166,8 +161,8 @@ export class CameraState {
     /** The rotation angle applied to the camera.
      *
      * The angle is automatically normalized in the interval [-180 ; 180].
-     * Defaults to 0.
      *
+     * @default 0
      * @type {number}
      */
     get angle() {
@@ -242,6 +237,9 @@ export class CameraState {
      * box of the SVG element.
      * Translation, scaling and rotation can be applied to this region.
      *
+     * @see {@linkcode module:model/CameraState.CameraState#offsetFromElement|offsetFromElement}
+     * @see {@linkcode module:model/CameraState.CameraState#applyOffset|applyOffset}
+     *
      * @param {SVGElement} svgElement - The target SVG element.
      * @param {number} [deltaX=0] - An horizontal offset from the center of the SVG element.
      * @param {number} [deltaY=0] - A vertical offset from the center of the SVG element.
@@ -294,10 +292,9 @@ export class CameraState {
 
     /** Compute a transformation from the bounding box of an SVG element to the current camera state.
      *
-     * The result will have properties `deltaX`, `deltaY`, `widthFactor`, `heightFactor`,
-     * and `deltaAngle` with the same meanings as the parameters of the methods
-     * {@linkcode module:model/CameraState.CameraState#setAtElement|setAtElement}.
-     * and {@linkcode module:model/CameraState.CameraState#applyOffset|applyOffset}.
+     * The result has the same type as the argument of {@linkcode module:model/CameraState.CameraState#applyOffset|applyOffset}.
+     *
+     * @see {@linkcode module:model/CameraState.CameraState#setAtElement|setAtElement}
      *
      * @param {SVGElement} svgElement - A source SVG element.
      * @returns {object} - The translation coordinates, scaling factors, and rotation angle.
@@ -318,6 +315,8 @@ export class CameraState {
      *
      * This method accepts an object with the same type as the result of
      * {@linkcode module:model/CameraState.CameraState#offsetFromElement|offsetFromElement}.
+     *
+     * @see {@linkcode module:model/CameraState.CameraState#setAtElement|setAtElement}
      *
      * @param {object} arg - A transformation object to apply.
      * @param {number} arg.deltaX - An horizontal offset from the center of the SVG element.
