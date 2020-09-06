@@ -85,7 +85,7 @@ export class Selection {
     /** Check whether this selection contains the given frames.
      *
      * @param {module:model/Presentation.Frame[]} frames - The frames to check.
-     * @returns `true` if all the given frames are selected.
+     * @returns {boolean} - `true` if all the given frames are selected.
      */
     hasFrames(frames) {
         return frames.every(frame => this.selectedFrames.indexOf(frame) >= 0);
@@ -132,7 +132,7 @@ export class Selection {
     /** Check whether this selection contains the given layers.
      *
      * @param {module:model/Presentation.Layer[]} layers - The layers to check.
-     * @returns `true` if all the given layers are selected.
+     * @returns {boolean} - `true` if all the given layers are selected.
      */
     hasLayers(layers) {
         return layers.every(layer => this.selectedLayers.indexOf(layer) >= 0);
