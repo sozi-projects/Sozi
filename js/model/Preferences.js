@@ -17,13 +17,13 @@ export class Preferences {
          *
          * @default
          * @type {string} */
-        this.language            = "auto";
+        this.language = "auto";
 
         /** The preferred font size, in points (pt).
          *
          * @default
          * @type {number} */
-        this.fontSize            = 11;
+        this.fontSize = 11;
 
         /** Enable notifications on file save and reload.
          *
@@ -35,7 +35,7 @@ export class Preferences {
          *
          * @default
          * @type {boolean} */
-        this.animateTransitions  = true;
+        this.animateTransitions = true;
 
         /** When to save an edited presentation.
          *
@@ -45,7 +45,7 @@ export class Preferences {
          *
          * @default
          * @type {string} */
-        this.saveMode            = "onblur";
+        this.saveMode = "onblur";
 
         /** When to reload an externally modified SVG document.
          *
@@ -56,7 +56,7 @@ export class Preferences {
          *
          * @default
          * @type {string} */
-        this.reloadMode          = "auto";
+        this.reloadMode = "auto";
 
         /** The supported keyboard shortcuts.
          *

@@ -8,6 +8,15 @@ import {EventEmitter} from "events";
 import {CameraState} from "./CameraState";
 import {hasReliableBoundaries} from "../player/Camera";
 
+/** Copy a property from an object to another.
+ *
+ * If the source object has a property with the given name,
+ * this property is copied to the target object.
+ *
+ * @param {object} dest - The destination object.
+ * @param {object} src - The source object.
+ * @param {string} prop - The name of the property to copy.
+ */
 function copyIfSet(dest, src, prop) {
     if (src.hasOwnProperty(prop)) {
         dest[prop] = src[prop];
@@ -16,25 +25,75 @@ function copyIfSet(dest, src, prop) {
 
 /** Layer properties for a frame in a Sozi presentation.
  *
- * @todo Add documentation.
+ * In a given frame, one instance of this class is created for each layer.
+ * An instance of `LayerProperties` provides information about the properties
+ * of a frame in a given layer.
+ *
+ * @todo Find a better name for this class.
  */
 export class LayerProperties {
 
+    /** Construct a new layer properties object.
+     *
+     * If the argument is another instance of `LayerProperties`, this constructor will create a copy of
+     * of that instance.
+     * If the argument is a {@linkcode module:model/Presentation.Frame|Frame} instance,
+     * an object with default properties will be created.
+     *
+     * @param {(LayerProperties|Frame)} obj - An instance to copy, or a frame.
+     */
     constructor(obj) {
         if (obj instanceof LayerProperties) {
             this.copy(obj);
         }
         else {
-            this.frame                    = obj;
-            this.link                     = false;
-            this.referenceElementId       = "";
-            this.outlineElementId         = "";
+            /** The frame that owns the current object.
+             *
+             * @type {module:model/Presentation.Frame} */
+            this.frame = obj;
+
+            /** Does the current frame copy the geometry of the previous frame in the current layer?
+             *
+             * @default
+             * @type {boolean} */
+            this.link = false;
+
+            /** The SVG ID of the reference element for the current frame in the current layer.
+             *
+             * @default
+             * @type {string} */
+            this.referenceElementId = "";
+
+            /** The SVG ID of the outline element for the current frame in the current layer.
+             *
+             * @default
+             * @type {string} */
+            this.outlineElementId = "";
+
+            /** The name of the timing function for the transition to the current frame in the current layer.
+             *
+             * @default
+             * @type {string} */
             this.transitionTimingFunction = "linear";
-            this.transitionRelativeZoom   = 0;
-            this.transitionPathId         = "";
+
+            /** The relative zoom factor for the transition to the current frame in the current layer.
+             *
+             * @default
+             * @type {number} */
+            this.transitionRelativeZoom = 0;
+
+            /** The SVG ID of a path to follow during the transition to the current frame in the current layer.
+             *
+             * @default
+             * @type {string} */
+            this.transitionPathId = "";
         }
     }
 
+    /** Copy another layer properties into the current instance.
+     *
+     * @param {module:model/Presentation.LayerProperties} other - The object to copy.
+     */
     copy(other) {
         this.frame                    = other.frame;
         this.link                     = other.link;
@@ -91,23 +150,43 @@ export class LayerProperties {
         copyIfSet(this, storable, "transitionPathId");
     }
 
+    /** The index of the current layer.
+     *
+     * @readonly
+     * @type {number} */
     get index() {
         return this.frame.layerProperties.indexOf(this);
     }
 
+    /** The reference SVG element of the current frame in the current layer.
+     *
+     * @readonly
+     * @type {?SVGElement} */
     get referenceElement() {
         const elt = this.frame.presentation.document.root.getElementById(this.referenceElementId);
         return elt && hasReliableBoundaries(elt) ? elt : null;
     }
 
+    /** The SVG element used to outline the current frame in the current layer.
+     *
+     * @readonly
+     * @type {?SVGElement} */
     get outlineElement() {
         return this.frame.presentation.document.root.getElementById(this.outlineElementId);
     }
 
+    /** The SVG path to follow in transitions to the current frame in the current layer.
+     *
+     * @readonly
+     * @type {?SVGElement} */
     get transitionPath() {
         return this.frame.presentation.document.root.getElementById(this.transitionPathId);
     }
 
+    /** Will the outline element be hidden when playing the presentation?
+     *
+     * @type {boolean}
+     */
     get outlineElementHide() {
         return this.frame.presentation.elementsToHide.indexOf(this.outlineElementId) >= 0;
     }
@@ -129,6 +208,10 @@ export class LayerProperties {
         }
     }
 
+    /** Will the transition path be hidden when playing the presentation?
+     *
+     * @type {boolean}
+     */
     get transitionPathHide() {
         return this.frame.presentation.elementsToHide.indexOf(this.transitionPathId) >= 0;
     }
@@ -148,32 +231,102 @@ export class LayerProperties {
     }
 }
 
-/** A frame in a Sozi presentation.
- *
- * @todo Add documentation.
- */
+/** A frame in a Sozi presentation. */
 export class Frame {
 
+    /** Construct a new frame.
+     *
+     * If the argument is another frame, this constructor will create a copy of
+     * of that frame.
+     * If the argument is a {@linkcode module:model/Presentation.Presentation|Presentation} instance,
+     * an object with default properties will be created.
+     *
+     * @param {(Frame|Presentation)} obj - A frame to copy, or a presentation.
+     * @param {boolean} [preserveId=false] - If `obj` is another frame, create a copy with the same frame ID.
+     */
     constructor(obj, preserveId=false) {
         if (obj instanceof Frame) {
             this.copy(obj, preserveId);
         }
         else {
-            this.presentation         = obj;
-            this.frameId              = obj.makeFrameId();
-            this.layerProperties      = obj.layers.map(lp => new LayerProperties(this));
-            this.cameraStates         = obj.layers.map(cs => new CameraState(obj.document.root));
-            this.title                = "New frame";
-            this.titleLevel           = 0;
-            this.notes                = "";
-            this.timeoutMs            = 0;
-            this.timeoutEnable        = false;
+            /** The presentation that contains this frame.
+             *
+             * @type {module:model/Presentation.Presentation} */
+            this.presentation = obj;
+
+            /** A unique identifier for this frame.
+             *
+             * @type {string} */
+            this.frameId = obj.makeFrameId();
+
+            /** The layer-specific properties of this frame.
+             *
+             * @type {module:model/Presentation.LayerProperties[]} */
+            this.layerProperties = obj.layers.map(lp => new LayerProperties(this));
+
+            /** The camera states of this frame for each layer.
+             *
+             * @type {module:model/Presentation.CameraState[]} */
+            this.cameraStates = obj.layers.map(cs => new CameraState(obj.document.root));
+
+            /** The title of this frame.
+             *
+             * @default
+             * @type {string} */
+            this.title = "New frame";
+
+            /** The nesting level of the title of this frame in the frame list.
+             *
+             * @default
+             * @type {number} */
+            this.titleLevel = 0;
+
+            /** The presenter's notes for this frame.
+             *
+             * @default
+             * @type {string} */
+            this.notes = "";
+
+            /** The duration of this frame, in milliseconds.
+             *
+             * @default
+             * @type {number} */
+            this.timeoutMs = 0;
+
+            /** Will the player move to the next frame automatically when the duration of this frame has elapsed?
+             *
+             * @default
+             * @type {boolean} */
+            this.timeoutEnable = false;
+
+            /** The duration of the transition to this frame, in milliseconds.
+             *
+             * @default
+             * @type {number} */
             this.transitionDurationMs = 1000;
-            this.showInFrameList      = true;
-            this.showFrameNumber      = true;
+
+            /** Will the player show the title of this frame in the table of contents?
+             *
+             * @default
+             * @type {boolean} */
+            this.showInFrameList = true;
+
+            /** Will the player show the number of this frame?
+             *
+             * @default
+             * @type {boolean} */
+            this.showFrameNumber = true;
         }
     }
 
+    /** Copy the properties of another frame into the current instance.
+     *
+     * This method will also construct copies of the layer properties and
+     * camera states of the original frame.
+     *
+     * @param {module:model/Presentation.Frame} other - The frame to copy.
+     * @param {boolean} preserveId - Create a copy with the same frame ID.
+     */
     copy(other, preserveId) {
         this.presentation = other.presentation;
         if (!preserveId) {
@@ -307,23 +460,34 @@ export class Frame {
         });
     }
 
+    /** The index of this frame in the presentation.
+     *
+     * @readonly
+     * @type {number}
+     */
     get index() {
         return this.presentation.frames.indexOf(this);
     }
 
+    /** Copy the given camera states into the current frame.
+     *
+     * @param {module:model/CameraState.CameraState[]} states - The states to copy.
+     */
     setAtStates(states) {
         states.forEach((state, index) => {
             this.cameraStates[index].copy(state);
         });
     }
 
-    /*
-     * Check whether the current frame is linked to the given frame
-     * at the given layer index.
+    /** Check whether the current frame is linked to the given frame in the layer at the given index.
      *
-     * Returns true if there is a sequence of frames, between the first
-     * and the last of the two frames, where the link attribute is set
-     * in the layer at the given index.
+     * Considering two frames A and B where A comes before B in the presentation order,
+     * A and B are linked if all frames in the sequence that starts after A and finishes at B
+     * have their `link` attribute `true` in their layer properties at the given index.
+     *
+     * @param {Frame} frame - Another frame to check against the current frame.
+     * @param {number} layerIndex - The index of a layer.
+     * @returns {boolean} `true` if this frame is linked to the given other frame.
      */
     isLinkedTo(frame, layerIndex) {
         const [first, second] = this.index < frame.index ? [this, frame] : [frame, this];
@@ -334,27 +498,73 @@ export class Frame {
     }
 }
 
-/** Layer in an SVG document.
+/** A layer in an SVG document.
  *
- * @todo Add documentation.
+ * The SVG standard does not define a notion of layer.
+ * The implementation of layers depends on the software that was used to create
+ * the SVG document.
+ *
+ * In Sozi, a layer is an SVG group that is a direct child of the SVG root element.
+ * When Sozi opens an SVG document, elements that do not belong to a layer are
+ * grouped automatically into *automatic* layers.
  */
 export class Layer {
-
+    /** Construct a new layer.
+     *
+     * @param {module:model/Presentation.Presentation} presentation - The current Sozi presentation.
+     * @param {string} label - The display name of this layer.
+     * @param {boolean} auto - Was the layer created by Sozi to collect isolated elements?
+     */
     constructor(presentation, label, auto) {
+        /** The current presentation.
+         *
+         * @type {module:model/Presentation.Presentation} */
         this.presentation = presentation;
+
+        /** The display name of this layer.
+         *
+         * @type {string} */
         this.label = label;
+
+        /** Was the layer created by Sozi to collect isolated elements?
+         *
+         * @type {boolean} */
         this.auto = auto;
+
+        /** The SVG element(s) that constitute this layer.
+         *
+         * If `auto` is `false`, this array will contain a single SVG group element.
+         * If `auto` is `true`, this array can contain several groups that are
+         * managed as a single layer in Sozi.
+         *
+         * @type {SVGElement[]} */
         this.svgNodes = [];
     }
 
+    /** The identifier of the SVG group for this layer.
+     *
+     * If `auto` is `true`, the value of this property is `"__sozi_auto__"`.
+     *
+     * @type {string}
+     */
     get groupId() {
         return this.auto ? "__sozi_auto__" : this.svgNodes[0].getAttribute("id");
     }
 
+    /** The index of this layer.
+     *
+     * @type {number} */
     get index() {
         return this.presentation.layers.indexOf(this);
     }
 
+    /** Is this layer visible?
+     *
+     * This property corresponds to the CSS `display` property of the SVG group
+     * for this layer.
+     *
+     * @type {boolean}
+     */
     get isVisible() {
         return this.svgNodes.some(node => window.getComputedStyle(node).display !== "none");
     }
@@ -365,47 +575,136 @@ export class Layer {
         }
     }
 
+    /** Does this layer contain the given SVG element?
+     *
+     * @param {SVGElement} svgElement - An element to check.
+     * @returns {boolean} `true` if the given element is a child of the current layer.
+     */
     contains(svgElement) {
         return this.svgNodes.some(node => node.contains(svgElement));
     }
 }
 
-// Constant: the SVG namespace
+/** Constant: the SVG namespace
+ *
+ * @type {string} */
 const SVG_NS = "http://www.w3.org/2000/svg";
+
+/** Type for SVG documents.
+ *
+ * @external SVGDocument
+ */
 
 /** Sozi presentation.
  *
  * @extends EventEmitter
- * @todo Add documentation.
  */
 export class Presentation extends EventEmitter {
 
-    /*
-     * Initialize a Sozi document object.
-     *
-     * Returns:
-     *    - The current presentation object.
-     */
+    /** Construct a Sozi document object. */
     constructor() {
         super();
 
-        this.document                 = null;
-        this.frames                   = [];
-        this.layers                   = [];
-        this.elementsToHide           = [];
-        this.customFiles              = [];
-        this.aspectWidth              = 4;
-        this.aspectHeight             = 3;
-        this.enableKeyboardZoom       = true;
-        this.enableKeyboardRotation   = true;
+        /** The SVG document attached to this presentation.
+         *
+         * Set it with {@linkcode module:model/Presentation.Presentation#setSVGDocument}.
+         *
+         * @default
+         * @type {SVGDocument} */
+        this.document = null;
+
+        /** The sequence of frames in this presentation.
+         *
+         * @default
+         * @type {module:model/Presentation.Frame[]} */
+        this.frames = [];
+
+        /** A representation of the layers of the SVG document.
+         *
+         * @default
+         * @type {module:model/Presentation.Layer[]} */
+        this.layers = [];
+
+        /** The list of SVG elements to hide when playing the presentation.
+         *
+         * @default
+         * @type {SVGElement[]} */
+        this.elementsToHide = [];
+
+        /** The custom CSS and JavaScript files to add to the generated HTML presentation.
+         *
+         * @default
+         * @type {string[]} */
+        this.customFiles = [];
+
+        /** The width of the aspect ratio used in the editor for this presentation.
+         *
+         * @default
+         * @type {number} */
+        this.aspectWidth = 4;
+
+        /** The height of the aspect ratio used in the editor for this presentation.
+         *
+         * @default
+         * @type {number} */
+        this.aspectHeight = 3;
+
+        /** When playing the presentation, are the keyboard shortcuts for zoom-in and zoom-out enabled?
+         *
+         * @default
+         * @type {boolean} */
+        this.enableKeyboardZoom = true;
+
+        /** When playing the presentation, are the keyboard shortcuts for rotation enabled?
+         *
+         * @default
+         * @type {boolean} */
+        this.enableKeyboardRotation = true;
+
+        /** When playing the presentation, are the keyboard shortcuts for navigation enabled?
+         *
+         * @default
+         * @type {boolean} */
         this.enableKeyboardNavigation = true;
-        this.enableMouseTranslation   = true;
-        this.enableMouseZoom          = true;
-        this.enableMouseRotation      = true;
-        this.enableMouseNavigation    = true;
-        this.updateURLOnFrameChange   = true;
+
+        /** When playing the presentation, is the mouse gesture for translation enabled?
+         *
+         * @default
+         * @type {boolean} */
+        this.enableMouseTranslation = true;
+
+        /** When playing the presentation, are the mouse gestures for zoom-in and zoom-out enabled?
+         *
+         * @default
+         * @type {boolean} */
+        this.enableMouseZoom = true;
+
+        /** When playing the presentation, are the mouse gestures for rotation enabled?
+         *
+         * @default
+         * @type {boolean} */
+        this.enableMouseRotation = true;
+
+        /** When playing the presentation, are the mouse gestures for navigation enabled?
+         *
+         * @default
+         * @type {boolean} */
+        this.enableMouseNavigation = true;
+
+        /** When playing the presentation, does the URL change automatically on frame change?
+         *
+         * @default
+         * @type {boolean} */
+        this.updateURLOnFrameChange = true;
     }
 
+    /** Set the SVG document for this presentation.
+     *
+     * This method populates the {@linkcode module:model/Presentation.Presentation#layers} property of this instance.
+     *
+     * @fires module:model/Presentation#svgChange
+     * @param {SVGDocument} svgDocument - The SVG document to use.
+     */
     setSVGDocument(svgDocument) {
         this.document = svgDocument;
 
@@ -431,12 +730,20 @@ export class Presentation extends EventEmitter {
         }
 
         this.layers.push(autoLayer);
+
+        /** Signals that a new SVG document has been attached to a presentation.
+         *
+         * @event module:model/Presentation#svgChange */
         this.emit("svgChange");
     }
 
-    /** Sets the initial state of all cameras to the whole document.
-     */
+    /** Sets the initial state of all cameras to fit the bounding box of the SVG content. */
     setInitialCameraState() {
+        /** The initial camera state.
+         *
+         * This property is initialized after the document has been loaded and displayed.
+         *
+         * @type {module:model/CameraState.CameraState} */
         this.initialCameraState = new CameraState(this.document.root);
     }
 
@@ -518,11 +825,22 @@ export class Presentation extends EventEmitter {
         }
     }
 
+    /** The title of this presentation.
+     *
+     * This property is extracted from the `<title>` element of the SVG document.
+     * Its default value is `"Untitled"`.
+     *
+     * @readonly
+     * @type {string} */
     get title() {
         const svgTitles = this.document.root.getElementsByTagNameNS(SVG_NS, "title");
         return svgTitles.length ? svgTitles[0].firstChild.wholeText.trim() : "Untitled";
     }
 
+    /** Create a new unique identifier for a frame in this presentation.
+     *
+     * @returns {string} - A new ID
+     */
     makeFrameId() {
         const prefix = "frame";
         let suffix = Math.floor(1000 * (1 + 9 * Math.random()));
@@ -534,6 +852,11 @@ export class Presentation extends EventEmitter {
         return frameId;
     }
 
+    /** Get the frame with a given ID in the current presentation.
+     *
+     * @param {string} frameId - The ID of the frame to find.
+     * @returns {?module:model/Presentation.Frame} - The frame with that ID.
+     */
     getFrameWithId(frameId) {
         for (let frame of this.frames) {
             if (frame.frameId === frameId) {
@@ -543,6 +866,11 @@ export class Presentation extends EventEmitter {
         return null;
     }
 
+    /** Get the layer with a given ID in the current presentation.
+     *
+     * @param {string} groupId - The ID of an SVG group that represents a layer.
+     * @returns {?module:model/Presentation.Layer} - The layer that maps to a group with that ID.
+     */
     getLayerWithId(groupId) {
         for (let layer of this.layers) {
             if (layer.groupId === groupId) {
@@ -552,6 +880,11 @@ export class Presentation extends EventEmitter {
         return null;
     }
 
+    /** Update the camera states and layer properties of all linked layers in all frames.
+     *
+     * This method must be called to propagate the changes in some frames to
+     * the frames that are linked to them.
+     */
     updateLinkedLayers() {
         if (!this.frames.length) {
             return;
@@ -581,6 +914,11 @@ export class Presentation extends EventEmitter {
         });
     }
 
+    /** Get the custom files with the given extension.
+     *
+     * @param {string} ext - The file extension.
+     * @returns {string[]} - The custom files that have that extension.
+     */
     getCustomFiles(ext) {
         return this.customFiles.filter(path => path.endsWith(ext));
     }
