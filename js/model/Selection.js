@@ -23,11 +23,13 @@ export class Selection {
 
         /** The list of selected frames.
          *
+         * @default
          * @type {module:model/Presentation.Frame[]} */
         this.selectedFrames = [];
 
         /** The list of selected layers.
          *
+         * @default
          * @type {module:model/Presentation.Layer[]} */
         this.selectedLayers = [];
     }

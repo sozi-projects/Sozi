@@ -702,7 +702,7 @@ export class Presentation extends EventEmitter {
      *
      * This method populates the {@linkcode module:model/Presentation.Presentation#layers} property of this instance.
      *
-     * @fires module:model/Presentation#svgChange
+     * @fires module:model/Presentation.svgChange
      * @param {SVGDocument} svgDocument - The SVG document to use.
      */
     setSVGDocument(svgDocument) {
@@ -733,7 +733,7 @@ export class Presentation extends EventEmitter {
 
         /** Signals that a new SVG document has been attached to a presentation.
          *
-         * @event module:model/Presentation#svgChange */
+         * @event module:model/Presentation.svgChange */
         this.emit("svgChange");
     }
 
