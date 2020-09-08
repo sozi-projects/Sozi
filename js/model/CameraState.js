@@ -75,13 +75,13 @@ export class CameraState {
              * @type {number} */
             this.clipYOffset = 0;
 
-            /** The width of the clipping rectangle with respect to the width of the region seen by the camera.
+            /** The width of the clipping rectangle with respect to the width of the image seen by the camera.
              *
              * @default
              * @type {number} */
             this.clipWidthFactor = 1;
 
-            /** The height of the clipping rectangle with respect to the height of the region seen by the camera.
+            /** The height of the clipping rectangle with respect to the height of the image seen by the camera.
              *
              * @default
              * @type {number} */
@@ -89,7 +89,7 @@ export class CameraState {
 
             /** The horizontal coordinate of the camera.
              *
-             * This is also the horizontal coordinate of the center of the region seen by the camera.
+             * This is also the horizontal coordinate of the center of the image seen by the camera.
              *
              * @default The center of the bounding box of the SVG content.
              * @type {number} */
@@ -97,7 +97,7 @@ export class CameraState {
 
             /** The vertical coordinate of the camera.
              *
-             * This is also the vertical coordinate of the center of the region seen by the camera.
+             * This is also the vertical coordinate of the center of the image seen by the camera.
              *
              * @default The center of the bounding box of the SVG content.
              * @type {number} */
@@ -129,7 +129,7 @@ export class CameraState {
         this.clipHeightFactor = state.clipHeightFactor;
     }
 
-    /** The width of the region seen by the camera.
+    /** The width of the image seen by the camera.
      *
      * Cannot be lower than 1.
      *
@@ -144,7 +144,7 @@ export class CameraState {
         this._width = !isNaN(w) && w >= 1 ? w : 1;
     }
 
-    /** The height of the region seen by the camera.
+    /** The height of the image seen by the camera.
      *
      * Cannot be lower than 1.
      *
@@ -158,7 +158,7 @@ export class CameraState {
         this._height = !isNaN(h) && h >= 1 ? h : 1;
     }
 
-    /** The rotation angle applied to the camera.
+    /** The rotation angle applied to the camera, in degrees.
      *
      * The angle is automatically normalized in the interval [-180 ; 180].
      *
@@ -233,9 +233,9 @@ export class CameraState {
 
     /** Fit the current camera state to the given SVG element.
      *
-     * The default behavior is to fit the region seen by the camera to the bounding
+     * The default behavior is to fit the image seen by the camera to the bounding
      * box of the SVG element.
-     * Translation, scaling and rotation can be applied to this region.
+     * Translation, scaling and rotation may be applied.
      *
      * @see {@linkcode module:model/CameraState.CameraState#offsetFromElement|offsetFromElement}
      * @see {@linkcode module:model/CameraState.CameraState#applyOffset|applyOffset}
@@ -283,7 +283,7 @@ export class CameraState {
 
     /** Set the clipping properties to their default values.
      *
-     * This method will fit the clipping rectangle to the region seen by the camera.
+     * This method will fit the clipping rectangle to the image seen by the camera.
      */
     resetClipping() {
         this.clipXOffset     = this.clipYOffset      = 0;
