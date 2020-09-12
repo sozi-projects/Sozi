@@ -9,7 +9,6 @@
  * @module
  */
 
-
 /** The current Sozi player.
  *
  * @type {module:player/Player.Player} */
@@ -17,7 +16,7 @@ let player;
 
 /** Initialize the location bar management.
  *
- * This function registers a `hashchange` and a
+ * This function registers `hashchange` and
  * {@linkcode module:player/Viewport.frameChange|frameChange} event handlers
  * to reflect the current frame ID in the current URL.
  *
