@@ -11,38 +11,127 @@ import {Frame} from "../model/Presentation";
 import {EventEmitter} from "events";
 import * as Media from "./Media";
 
-// Constants: default animation properties
-// for out-of-sequence transitions
+/** The duration of out-of-sequence transitions, in milliseconds.
+ *
+ * @readonly
+ * @default
+ * @type {number} */
 const DEFAULT_TRANSITION_DURATION_MS = 500;
+
+/** The relative zoom of out-of-sequence transitions.
+ *
+ * @readonly
+ * @default
+ * @type {number} */
 const DEFAULT_RELATIVE_ZOOM = 0;
+
+/** The timing function name of out-of-sequence transitions.
+ *
+ * @readonly
+ * @default
+ * @type {string} */
 const DEFAULT_TIMING_FUNCTION = "ease";
 
-// Zoom factor for user zoom action (keyboard and mouse wheel)
+/** The zoom step factor for user zoom action (keyboard and mouse wheel)
+ *
+ * @readonly
+ * @default
+ * @type {number} */
 const SCALE_FACTOR = 1.05;
 
-// Rotation step for user rotate action (keyboard and mouse wheel)
+/** The rotation step angle for user zoom action (keyboard and mouse wheel), in degrees.
+ *
+ * @readonly
+ * @default
+ * @type {number} */
 const ROTATE_STEP = 5;
+
+/** Signals that the player has moved to a new frame.
+ *
+ * @event module:player/Player.frameChange
+ */
+
+/** Signals that the player has changed its `playing` status.
+ *
+ * @event module:player/Player.stateChange
+ */
 
 /** Sozi presentation player.
  *
  * @extends EventEmitter
- * @todo Add documentation.
  */
 export class Player extends EventEmitter {
 
+    /** Construct a new Sozi player.
+     *
+     * If the presentation is opened in edit mode, the player will disable
+     * these features:
+     * - mouse and keyboard actions for navigating in the presentation,
+     * - automatic transitions after a timeout.
+     *
+     * @param {module:player/Viewport.Viewport} viewport - The viewport where the presentation is rendered.
+     * @param {module:model/Presentation.Presentation} presentation - The presentation to play.
+     * @param {boolean} [editMode=false] - Is the presentation opened in edit mode?
+     */
     constructor(viewport, presentation, editMode = false) {
         super();
 
-        this.editMode       = !!editMode;
-        this.viewport       = viewport;
-        this.presentation   = presentation;
-        this.animator       = new Animator();
-        this.playing        = false;
+        /** Is the presentation opened in edit mode?
+         *
+         * @default false
+         * @type {boolean} */
+        this.editMode = !!editMode;
+
+        /** The viewport where the presentation is rendered.
+         *
+         * @type {module:player/Viewport.Viewport} */
+        this.viewport = viewport;
+
+        /** The presentation to play.
+         *
+         * @type {module:model/Presentation.Presentation} */
+        this.presentation = presentation;
+
+        /** An animator to control the transitions.
+         *
+         * @type {module:player/Animator.Animator} */
+        this.animator = new Animator();
+
+        /** The playing/paused state of this player.
+         *
+         * @default
+         * @type {boolean} */
+        this.playing = false;
+
+        /** Is the player waiting for a frame timeout to complete?
+         *
+         * @default
+         * @type {boolean} */
         this.waitingTimeout = false;
-        this.currentFrame   = presentation.frames[0];
-        this.targetFrame    = presentation.frames[0];
-        this.timeoutHandle  = null;
-        this.transitions    = [];
+
+        /** The current frame of the presentation.
+         *
+         * @type {module:model/Presentation.Frame} */
+        this.currentFrame = presentation.frames[0];
+
+        /** The target frame of the current transition.
+         *
+         * @type {module:model/Presentation.Frame} */
+        this.targetFrame = presentation.frames[0];
+
+        /** The result of `setTimeout` when starting waiting for a frame timeout.
+         *
+         * @default
+         * @type {?number} */
+        this.timeoutHandle = null;
+
+        /** An array of tansition descriptors for each camera.
+         *
+         * @see {@linkcode module:player/Player.Player#setupTransition}
+         * @default
+         * @type {object[]}
+         */
+        this.transitions = [];
 
         if (!this.editMode) {
             this.viewport.addListener("click", btn => this.onClick(btn));
@@ -63,6 +152,14 @@ export class Player extends EventEmitter {
         });
     }
 
+    /** Move to the next or previous frame on each click event in the viewport.
+     *
+     * This method is registered as a {@linkcode module:player/Viewport.click|click}
+     * event handler of the current {@linkcode module:player/Viewport.Viewport|viewport}.
+     *
+     * @listens module:player/Viewport.click
+     * @param {number} button - The index of the button that was pressed.
+     */
     onClick(button) {
         if (this.presentation.enableMouseNavigation) {
             switch (button) {
@@ -72,6 +169,15 @@ export class Player extends EventEmitter {
         }
     }
 
+    /** Process a keyboard event.
+     *
+     * This method handles the navigation keys if they are enabled in the
+     * current presentation:
+     * Arrows, Page-Up/Down, Home, End, Enter, and Space.
+     *
+     * @listens keydown
+     * @param {KeyboardEvent} evt - The DOM event to process.
+     */
     onKeyDown(evt) {
         // Keys with Alt/Ctrl/Meta modifiers are ignored
         if (evt.altKey || evt.ctrlKey || evt.metaKey) {
@@ -137,16 +243,12 @@ export class Player extends EventEmitter {
         evt.preventDefault();
     }
 
-    /** Event handler: key press.
+    /** Process a keyboard event.
      *
-     * This method handles character keys:
-     *    - "+", "-": zoom in/out
-     *    - "R", "r": rotate clockwise/counter-clockwise.
+     * This method handles character keys: "+", "-", "R", "P", ".".
      *
-     * Parameters:
-     *    - evt: The DOM event object
-     *
-     * @param {Event} evt - The keypress event object.
+     * @listens keypress
+     * @param {KeyboardEvent} evt - The DOM event to process.
      */
     onKeyPress(evt) {
         // Keys with modifiers are ignored
@@ -207,6 +309,11 @@ export class Player extends EventEmitter {
         evt.preventDefault();
     }
 
+    /** Find a frame by its ID or number.
+     *
+     * @param {(string|number|module:model/Presentation.Frame)} frame - An indication of the frame to find.
+     * @returns {?module:model/Presentation.Frame} - The frame found, or `null`.
+     */
     findFrame(frame) {
         if (frame instanceof Frame) {
             return frame;
@@ -220,29 +327,54 @@ export class Player extends EventEmitter {
         return null;
     }
 
+    /** The frame before the current frame.
+     *
+     * If a transition is in progress, returns the frame before the target frame.
+     * When reaching the first frame, cycle to the last of the presentation.
+     *
+     * @readonly
+     * @type {module:model/Presentation.Frame}
+     */
     get previousFrame() {
         const frame = this.animator.running ? this.targetFrame : this.currentFrame;
         const index = (frame.index + this.presentation.frames.length - 1) % this.presentation.frames.length;
         return this.presentation.frames[index];
     }
 
+    /** The frame after the current frame.
+     *
+     * If a transition is in progress, returns the frame after the target frame.
+     * When reaching the last frame, cycle to the first of the presentation.
+     *
+     * @readonly
+     * @type {module:model/Presentation.Frame}
+     */
     get nextFrame() {
         const frame = this.animator.running ? this.targetFrame : this.currentFrame;
         const index = (frame.index + 1) % this.presentation.frames.length;
         return this.presentation.frames[index];
     }
 
+    /** Force the viewport to show the current frame.
+     *
+     * This method will set all cameras to the states in the current frame,
+     * and update the viewport.
+     *
+     * @fires {module:player/Player.frameChange}
+     */
     showCurrentFrame() {
         this.viewport.setAtStates(this.currentFrame.cameraStates);
         this.viewport.update();
         this.emit("frameChange");
     }
 
-    /*
-     * Start the presentation from the given frame.
+    /** Start the presentation from the given frame.
      *
-     * This method sets the "playing" flag, shows the desired frame
-     * and waits for the frame timeout if needed.
+     * This method sets the {@linkcode module:player/Player.Player#playing|playing} flag,
+     * shows the desired frame and waits for the frame timeout if needed.
+     *
+     * @fires {module:player/Player.stateChange}
+     * @param {string|number|module:model/Presentation.Frame} frame - The first frame to show.
      */
     playFromFrame(frame) {
         if (!this.playing) {
@@ -255,13 +387,16 @@ export class Player extends EventEmitter {
         this.waitTimeout();
     }
 
-    /*
-     * Pause the presentation.
+    /** Pause the presentation.
      *
-     * This method clears the "playing" flag.
+     * This method clears the {@linkcode module:player/Player.Player#playing|playing} flag.
      * If the presentation was in "waiting" mode due to a timeout
      * in the current frame, then it stops waiting.
      * The current animation is stopped in its current state.
+     *
+     * @listens module:player/Viewport.userChangeState
+     * @listens module:player/Viewport.dragStart
+     * @fires {module:player/Player.stateChange}
      */
     pause() {
         this.animator.stop();
@@ -276,17 +411,14 @@ export class Player extends EventEmitter {
         this.targetFrame = this.currentFrame;
     }
 
-    /*
-     * Resume playing from the current frame.
-     */
+    /** Resume playing from the current frame. */
     resume() {
         this.playFromFrame(this.currentFrame);
     }
 
-    /*
-     * Starts waiting before moving to the next frame.
+    /** Starts waiting before moving to the next frame.
      *
-     * It the current frame has a timeout set, this method
+     * If the current frame has a timeout set, this method
      * will register a timer to move to the next frame automatically
      * after the specified time.
      *
@@ -303,14 +435,16 @@ export class Player extends EventEmitter {
         }
     }
 
-    /*
-     * Jump to a frame.
+    /** Jump to a frame.
      *
      * This method does not animate the transition from the current
      * state of the viewport to the desired frame.
      *
      * The presentation is stopped: if a timeout has been set for the
      * target frame, it will be ignored.
+     *
+     * @fires {module:player/Player.frameChange}
+     * @param {string|number|module:model/Presentation.Frame} frame - The frame to show.
      */
     jumpToFrame(frame) {
         this.disableBlankScreen();
@@ -321,36 +455,39 @@ export class Player extends EventEmitter {
         this.showCurrentFrame();
     }
 
-    /*
-     * Jumps to the first frame of the presentation.
+    /** Jumps to the first frame of the presentation.
+     *
+     * @fires {module:player/Player.frameChange}
      */
     jumpToFirst() {
         this.jumpToFrame(0);
     }
 
-    /*
-     * Jump to the last frame of the presentation.
+    /** Jump to the last frame of the presentation.
+     *
+     * @fires {module:player/Player.frameChange}
      */
     jumpToLast() {
         this.jumpToFrame(this.presentation.frames.length - 1);
     }
 
-    /*
-     * Jumps to the previous frame.
+    /** Jump to the previous frame.
+     *
+     * @fires {module:player/Player.frameChange}
      */
     jumpToPrevious() {
         this.jumpToFrame(this.previousFrame);
     }
 
-    /*
-     * Jumps to the next frame.
+    /** Jumps to the next frame.
+     *
+     * @fires {module:player/Player.frameChange}
      */
     jumpToNext() {
         this.jumpToFrame(this.nextFrame);
     }
 
-    /*
-     * Move to a frame.
+    /** Move to a frame.
      *
      * This method animates the transition from the current
      * state of the viewport to the desired frame.
@@ -358,6 +495,10 @@ export class Player extends EventEmitter {
      * If the given frame corresponds to the next frame in the list,
      * the transition properties of the next frame are used.
      * Otherwise, default transition properties are used.
+     *
+     * @fires {module:player/Player.frameChange}
+     * @fires {module:player/Player.stateChange}
+     * @param {string|number|module:model/Presentation.Frame} frame - The first frame to show.
      */
     moveToFrame(frame) {
         this.disableBlankScreen();
@@ -416,24 +557,30 @@ export class Player extends EventEmitter {
         this.animator.start(durationMs);
     }
 
-    /*
-     * Move to the first frame of the presentation.
+    /** Move to the first frame of the presentation.
+     *
+     * @fires {module:player/Player.frameChange}
+     * @fires {module:player/Player.stateChange}
      */
     moveToFirst() {
         this.moveToFrame(0);
     }
 
-    /*
-     * Move to the last frame of the presentation.
+    /** Move to the last frame of the presentation.
+     *
+     * @fires {module:player/Player.frameChange}
+     * @fires {module:player/Player.stateChange}
      */
     moveToLast() {
         this.moveToFrame(this.presentation.frames.length - 1);
     }
 
-    /*
-     * Move to the previous frame.
+    /** Move to the previous frame.
      *
      * This method skips previous frames with 0 ms timeout.
+     *
+     * @fires {module:player/Player.frameChange}
+     * @fires {module:player/Player.stateChange}
      */
     moveToPrevious() {
         for (let index = this.previousFrame.index; index >= 0; index --) {
@@ -445,29 +592,36 @@ export class Player extends EventEmitter {
         }
     }
 
-    /*
-     * Move to the next frame.
+    /** Move to the next frame.
+     *
+     * @fires {module:player/Player.frameChange}
+     * @fires {module:player/Player.stateChange}
      */
     moveToNext() {
         this.moveToFrame(this.nextFrame);
     }
 
-    /*
-     * Restore the current frame.
+    /** Restore the current frame.
      *
      * This method restores the viewport to fit the current frame,
      * e.g. after the viewport has been zoomed or dragged.
+     *
+     * @fires {module:player/Player.frameChange}
+     * @fires {module:player/Player.stateChange}
      */
     moveToCurrent() {
         this.moveToFrame(this.currentFrame);
     }
 
-    /*
-     * Move to a frame.
+    /** Move to a frame in *preview* mode.
      *
      * This method animates the transition from the current
      * state of the viewport to the desired frame, using
      * default transition settings.
+     *
+     * @fires {module:player/Player.frameChange}
+     * @fires {module:player/Player.stateChange}
+     * @param {string|number|module:model/Presentation.Frame} frame - The first frame to show.
      */
     previewFrame(frame) {
         this.targetFrame = this.findFrame(frame);
@@ -479,7 +633,20 @@ export class Player extends EventEmitter {
         this.animator.start(DEFAULT_TRANSITION_DURATION_MS);
     }
 
-    setupTransition(camera, timingFunction, relativeZoom, svgPath, reverse) {
+    /** Prepare a transition for a given camera.
+     *
+     * The initial state is the current state of the given camera.
+     * The final state is the camera state in the current layer of the target frame.
+     *
+     * A new descriptor is added to the {@linkcode module:player/Player.Player#transitions|list of transition descriptors}.
+     *
+     * @param {module:player/Camera.Camera} camera - The camera that will perform the transition.
+     * @param {Function} timingFunction - A function that maps the progress indicator to the relative distance already completed between the initial and final states (between 0 and 1).
+     * @param {number} relativeZoom - An additional zooming factor to apply during the transition.
+     * @param {SVGPathElement} svgPath - An SVG path to follow during the transition.
+     * @param {boolean} reversePath - If `true`, follow the path in the opposite direction.
+     */
+    setupTransition(camera, timingFunction, relativeZoom, svgPath, reversePath) {
         if (this.animator.running) {
             this.animator.stop();
         }
@@ -491,10 +658,18 @@ export class Player extends EventEmitter {
             timingFunction,
             relativeZoom,
             svgPath,
-            reverse
+            reversePath
         });
     }
 
+    /** Process an animation step.
+     *
+     * This method moves each camera according to the {@linkcode module:player/Player.Player#transitions|list of transition descriptors}.
+     *
+     * @see {@linkcode module:player/Player.Camera#interpolate}
+     * @listens module:player/Animator.step
+     * @param {number} progress - The relative time already elapsed between the initial and final states of the current animation (between 0 and 1).
+     */
     onAnimatorStep(progress) {
         for (let transition of this.transitions) {
             transition.camera.interpolate(transition.initialState, transition.finalState, progress, transition.timingFunction, transition.relativeZoom, transition.svgPath, transition.reverse);
@@ -502,12 +677,26 @@ export class Player extends EventEmitter {
         }
     }
 
+    /** Finalize a transition when the current animation is stopped.
+     *
+     * This method clears the {@linkcode module:player/Player.Player#transitions|list of transition descriptors}.
+     *
+     * @listens module:player/Animator.stop
+     * @fires {module:player/Player.frameChange}
+     */
     onAnimatorStop() {
         this.transitions = [];
         this.currentFrame = this.targetFrame;
         this.emit("frameChange");
     }
 
+    /** Finalize a transition when the current animation is complete.
+     *
+     * If the presentation is in playing state, wait for the current frame's timeout.
+     *
+     * @listens module:player/Animator.done
+     * @fires {module:player/Player.frameChange}
+     */
     onAnimatorDone() {
         this.onAnimatorStop();
         if (this.playing) {
@@ -515,10 +704,20 @@ export class Player extends EventEmitter {
         }
     }
 
+    /** Is the blank screen activated?
+     *
+     * @readonly
+     * @type {boolean}
+     */
     get blankScreenIsVisible() {
         return document.querySelector(".sozi-blank-screen").style.visibility === "visible";
     }
 
+    /** Enable the blank screen.
+     *
+     * This method will pause the presentation and hide the viewport under
+     * an opaque element.
+     */
     enableBlankScreen() {
         this.pause();
         const blankScreen = document.querySelector(".sozi-blank-screen");
@@ -528,6 +727,10 @@ export class Player extends EventEmitter {
         }
     }
 
+    /** Disable the blank screen.
+     *
+     * This method will reveal the viewport again.
+     */
     disableBlankScreen() {
         const blankScreen = document.querySelector(".sozi-blank-screen");
         if (blankScreen) {
@@ -536,6 +739,7 @@ export class Player extends EventEmitter {
         }
     }
 
+    /** Toggle the visibility of the elements that hides the viewport. */
     toggleBlankScreen() {
         if (this.blankScreenIsVisible) {
             this.disableBlankScreen();
@@ -545,6 +749,7 @@ export class Player extends EventEmitter {
         }
     }
 
+    /** Disable all video and audio elements in the current presentation. */
     disableMedia() {
         Media.disable();
     }

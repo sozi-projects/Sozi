@@ -14,7 +14,7 @@ import * as FrameList from "./FrameList";
 /** Initialize the frame number management.
  *
  * This function registers event handlers:
- * - A {@linkcode module:player/Viewport.frameChange|frameChange} event from the Sozi player will update the frame number.
+ * - A {@linkcode module:player/Player.frameChange|frameChange} event from the Sozi player will update the frame number.
  * - A `click` event on the frame number will open the frame list.
  *
  * @param {module:player/Player.Player} player - The current Sozi player.

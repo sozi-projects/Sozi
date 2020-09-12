@@ -17,7 +17,7 @@ let player;
 /** Initialize the location bar management.
  *
  * This function registers `hashchange` and
- * {@linkcode module:player/Viewport.frameChange|frameChange} event handlers
+ * {@linkcode module:player/Player.frameChange|frameChange} event handlers
  * to reflect the current frame ID in the current URL.
  *
  * @param {module:player/Player.Player} p - The current Sozi player.
@@ -61,6 +61,8 @@ export function getFrame() {
 /** Process the `hashchange` event.
  *
  * Move the presentation to the frame that corresponds to the current URL.
+ *
+ * @listens hashchange
  */
 function onHashChange() {
     const frame = getFrame();
@@ -69,9 +71,9 @@ function onHashChange() {
     }
 }
 
-/** Process the {@linkcode module:player/Viewport.frameChange|frameChange} event.
+/** Update the URL hash in the location bar on frame change.
  *
- * Update the URL hash in the location bar with the current frame ID.
+ * @listens module:player/Player.frameChange
  */
 function onFrameChange() {
     window.location.hash = "#" + player.currentFrame.frameId;

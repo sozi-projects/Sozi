@@ -41,6 +41,10 @@ function setPresenterMode(target, isCurrent) {
     }
 }
 
+/**
+ *
+ * @listens module:player/Player.frameChange
+ */
 function onFrameChange(target) {
     target.postMessage({
         name : "frameChange",

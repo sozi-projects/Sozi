@@ -49,6 +49,9 @@ export class VirtualDOMView {
     /** Repaint this view.
      *
      * This will render the current view using the result of {@linkcode module:view/VirtualDOMView.VirtualDOMView#render|render}.
+     *
+     * @listens resize
+     * @listens module:Controller.repaint
      */
     repaint() {
         render(this.render(), this.container, () => {

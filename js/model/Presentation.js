@@ -23,6 +23,10 @@ function copyIfSet(dest, src, prop) {
     }
 }
 
+/** Signals that a new SVG document has been attached to a presentation.
+ *
+ * @event module:model/Presentation.svgChange */
+
 /** Layer properties for a frame in a Sozi presentation.
  *
  * In a given frame, one instance of this class is created for each layer.
@@ -731,9 +735,6 @@ export class Presentation extends EventEmitter {
 
         this.layers.push(autoLayer);
 
-        /** Signals that a new SVG document has been attached to a presentation.
-         *
-         * @event module:model/Presentation.svgChange */
         this.emit("svgChange");
     }
 

@@ -74,7 +74,7 @@ let currentOffset = startOffset;
  * to manage the open/close animations and registers its {@linkcode module:player/Animator.step|step}
  * even handler.
  *
- * It registers a {@linkcode module:player/Viewport.frameChange|frameChange} event handler
+ * It registers a {@linkcode module:player/Player.frameChange|frameChange} event handler
  * to highlight the current frame title in the frame list.
  *
  * It also registers mouse and keyboard events related to the frame list.
@@ -149,6 +149,7 @@ export function toggle() {
  *
  * If enabled by the presentation, pressing the key `T` will toggle the open/close status of the frame list.
  *
+ * @listens keypress
  * @param {KeyboardEvent} evt - The DOM event representing the keypress.
  */
 function onKeyPress(evt) {
@@ -177,6 +178,7 @@ function onKeyPress(evt) {
  *
  * This function is called by the current animator.
  *
+ * @listens module:player/Animator.step
  * @param {number} progress - The current progress indicator, between 0 and 1.
  */
 function onAnimatorStep(progress) {
@@ -189,11 +191,7 @@ function onAnimatorStep(progress) {
  * If enabled by the presentation, pressing the middle mouse button will
  * toggle the open/close status of the frame list.
  *
- * This function is registered as a
- * {@linkcode module:player/Viewport.mouseDown|mouseDown}
- * event handler of the current
- * {@linkcode module:player/Viewport.Viewport|viewport}.
- *
+ * @listens module:player/Viewport.mouseDown
  * @param {number} button - The index of the button that was pressed.
  */
 function onMouseDown(button) {
@@ -202,11 +200,12 @@ function onMouseDown(button) {
     }
 }
 
-/** Process a mouse-down event.
+/** Process a mouse-out event.
  *
  * When the mouse cursor moves out of the frame list area,
  * this function closes it.
  *
+ * @listens mouseout
  * @param {MouseEvent} evt - The DOM event representing the mouse gesture.
  */
 function onMouseOut(evt) {
@@ -222,10 +221,7 @@ function onMouseOut(evt) {
 
 /** Highlight the current frame in the frame list.
  *
- * This function is registered as a
- * {@linkcode module:player/Viewport.frameChange|frameChange}
- * event handler of the current
- * {@linkcode module:player/Player.Player|player}.
+ * @listens module:player/Player.frameChange
  */
 function onFrameChange() {
     for (let link of links) {

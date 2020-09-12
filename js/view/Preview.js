@@ -27,6 +27,10 @@ export class Preview {
         controller.addListener("repaint", () => this.repaint());
     }
 
+    /**
+     *
+     * @listens module:model/Presentation.svgChange
+     */
     onLoad() {
         // Set the window title to the presentation title
         document.querySelector("html head title").innerHTML = this.presentation.title;
@@ -44,6 +48,11 @@ export class Preview {
         this.container.addEventListener("mouseleave", () => this.onMouseLeave(), false);
     }
 
+    /**
+     *
+     * @listens resize
+     * @listens module:Controller.repaint
+     */
     repaint() {
         // this.container is assumed to have padding: 0
         const parentWidth  = this.container.parentNode.clientWidth;
@@ -69,6 +78,9 @@ export class Preview {
         }
     }
 
+    /**
+     * @listens click
+     */
     onClick(button, evt) {
         if (button === 0 && evt.altKey) {
             const outlineElement = evt.target;
@@ -78,10 +90,12 @@ export class Preview {
         }
     }
 
-    /*
+    /**
      * When the mouse enters the preview area,
      * show the document outside the clipping rectangle
      * and show the hidden SVG elements.
+     *
+     * @listens mouseenter
      */
     onMouseEnter() {
         for (let camera of this.viewport.cameras) {
@@ -93,10 +107,12 @@ export class Preview {
         this.viewport.repaint();
     }
 
-    /*
+    /**
      * When the mouse leaves the preview area,
      * hide the document outside the clipping rectangle
      * and hide the hidden SVG elements.
+     *
+     * @listens mouseleave
      */
     onMouseLeave() {
         for (let camera of this.viewport.cameras) {

@@ -37,6 +37,11 @@ let player;
  * For instance, this function prevents a click event inside a video element
  * from also triggering a transition in the current presentation.
  *
+ * @listens click
+ * @listens mousedown
+ * @listens mouseup
+ * @listens mousemove
+ * @listens contextmenu
  * @param {Event} evt - The DOM event to stop.
  */
 function defaultEventHandler(evt) {
@@ -53,10 +58,9 @@ const mediaToStartByFrameId = {};
  * @type {object} */
 const mediaToStopByFrameId = {};
 
-/** Process the {@linkcode module:player/Viewport.frameChange|frameChange} event.
+/** Start or stop media on frame change.
  *
- * This function will start or stop the video and audio elements
- * that are registered for the current frame.
+ * @listens module:player/Player.frameChange
  */
 function onFrameChange() {
     const frameId = player.currentFrame.frameId;
@@ -78,7 +82,7 @@ function onFrameChange() {
  * HTML counterparts.
  *
  * It extracts the start/stop frame information for each media element,
- * and registers a {@linkcode module:player/Viewport.frameChange|frameChange} event handler
+ * and registers a {@linkcode module:player/Player.frameChange|frameChange} event handler
  * to start and stop media in the appropriate frames.
  *
  * @param {module:player/Player.Player} p - The current Sozi player.
@@ -193,7 +197,7 @@ export function init(p) {
 
 /** Disable video and audio support in the current presentation.
  *
- * This function disables the {@linkcode module:player/Viewport.frameChange|frameChange} event handler
+ * This function disables the {@linkcode module:player/Player.frameChange|frameChange} event handler
  * and pauses all playing videos.
  */
 export function disable() {
