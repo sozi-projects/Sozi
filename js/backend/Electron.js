@@ -179,17 +179,22 @@ export class Electron extends AbstractBackend {
                     // This includes a debouncing mechanism to ensure the file is in a stable
                     // state when the storage is notified.
                     if (!(fileDescriptor in this.watchers)) {
-                        const watcher = this.watchers[fileDescriptor] = fs.watch(fileDescriptor);
-                        let timer;
-                        watcher.on("change", () => {
-                            if (timer) {
-                                clearTimeout(timer);
-                            }
-                            timer = setTimeout(() => {
-                                timer = 0;
-                                this.controller.onFileChange(fileDescriptor);
-                            }, 100);
-                        });
+                        try {
+                            const watcher = this.watchers[fileDescriptor] = fs.watch(fileDescriptor);
+                            let timer;
+                            watcher.on("change", () => {
+                                if (timer) {
+                                    clearTimeout(timer);
+                                }
+                                timer = setTimeout(() => {
+                                    timer = 0;
+                                    this.controller.onFileChange(fileDescriptor);
+                                }, 100);
+                            });
+                        }
+                        catch (err) {
+                            this.controller.error(Jed.sprintf(_("This file will not be reloaded on change: %s."), fileDescriptor));
+                        }
                     }
                     resolve(data);
                 }
