@@ -9,15 +9,16 @@ import {addSVGHandler, DefaultSVGHandler} from "./SVGDocumentWrapper";
 /** Adobe Illustrator SVG handler.
  *
  * @extends module:svg/DefaultSVGHandler.DefaultSVGHandler
- * @todo Add documentation.
  */
 export class AiHandler extends DefaultSVGHandler {
 
+    /** @inheritdoc */
     static matches(svgRoot) {
         return /^http:\/\/ns.adobe.com\/AdobeIllustrator/.test(svgRoot.getAttribute("xmlns:i")) &&
                Array.from(svgRoot.childNodes).some(svgNode => svgNode instanceof SVGSwitchElement);
     }
 
+    /** @inheritdoc */
     static transform(svgRoot) {
         for (let svgSwitch of Array.from(svgRoot.getElementsByTagName("switch"))) {
             // Remove first foreignObject child node
@@ -44,6 +45,7 @@ export class AiHandler extends DefaultSVGHandler {
         }
     }
 
+    /** @inheritdoc */
     static isLayer(svgElement) {
         return svgElement.getAttribute("i:layer") === "yes";
     }

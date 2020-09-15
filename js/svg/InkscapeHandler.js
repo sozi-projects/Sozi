@@ -6,21 +6,32 @@
 
 import {addSVGHandler, DefaultSVGHandler} from "./SVGDocumentWrapper";
 
-// Constant: the Inkscape namespace
+/** The XML namespace URI of Inkscape.
+ *
+ * @readonly
+ * @default
+ * @type {string} */
 const INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
+
+/** The XML namespace URI of Sodipodi.
+ *
+ * @readonly
+ * @default
+ * @type {string} */
 const SODIPODI_NS = "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd";
 
 /** Inkscape SVG handler.
  *
  * @extends module:svg/DefaultSVGHandler.DefaultSVGHandler
- * @todo Add documentation.
  */
 export class InkscapeHandler extends DefaultSVGHandler {
 
+    /** @inheritdoc */
     static matches(svgRoot) {
         return svgRoot.getAttribute("xmlns:inkscape") === INKSCAPE_NS;
     }
 
+    /** @inheritdoc */
     static transform(svgRoot) {
         let pageColor = "#ffffff";
         let pageOpacity = "0";
@@ -47,10 +58,12 @@ export class InkscapeHandler extends DefaultSVGHandler {
         svgRoot.insertBefore(style, svgRoot.firstChild);
     }
 
+    /** @inheritdoc */
     static isLayer(svgElement) {
         return svgElement.getAttribute("inkscape:groupmode") === "layer";
     }
 
+    /** @inheritdoc */
     static getLabel(svgElement) {
         return svgElement.getAttribute("inkscape:label");
     }
