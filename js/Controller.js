@@ -111,7 +111,7 @@ export class Controller extends EventEmitter {
 
         /** The timeout ID of the current notification.
          *
-         * @type {number} */
+         * @type {?number} */
         this.notificationTimeout = null;
 
         /** True if the current window has the focus.
