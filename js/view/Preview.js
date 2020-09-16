@@ -78,9 +78,10 @@ export class Preview {
      * This method will update the geometry of the preview area,
      * realign all cameras and repaint the viewport.
      *
-     * @see {@linkcode module:player/Viewport.Viewport#repaint}
      * @listens resize
      * @listens module:Controller.repaint
+     *
+     * @see {@linkcode module:player/Viewport.Viewport#repaint}
      */
     repaint() {
         // this.container is assumed to have padding: 0
@@ -109,9 +110,10 @@ export class Preview {
 
     /** Choose an outline element on an Alt+click event in this preview area.
      *
-     * @listens click
      * @param {number} button - The mouse button number that was clicked.
      * @param {MouseEvent} evt - A DOM event.
+     *
+     * @listens click
      */
     onClick(button, evt) {
         if (button === 0 && evt.altKey) {
@@ -124,8 +126,9 @@ export class Preview {
 
     /** When the mouse hovers the preview area, reveal the clipping rectangle.
      *
-     * @see {@linkcode module:player/Camera.Camera#revealClipping}
      * @listens mouseenter
+     *
+     * @see {@linkcode module:player/Camera.Camera#revealClipping}
      */
     onMouseEnter() {
         for (let camera of this.viewport.cameras) {
@@ -139,8 +142,9 @@ export class Preview {
 
     /** When the mouse leaves the preview area, conceal the clipping rectangle.
      *
-     * @see {@linkcode module:player/Camera.Camera#concealClipping}
      * @listens mouseleave
+     *
+     * @see {@linkcode module:player/Camera.Camera#concealClipping}
      */
     onMouseLeave() {
         for (let camera of this.viewport.cameras) {

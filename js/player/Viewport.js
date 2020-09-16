@@ -158,9 +158,10 @@ export class Viewport extends EventEmitter {
          * This function is registered as an event listener after
          * a mouse-down event.
          *
-         * @listens mousemove
          * @param {MouseEvent} evt - A DOM event.
-         * @returns {void} */
+         * @returns {void}
+         * @listens mousemove
+         */
         this.dragHandler = evt => this.onDrag(evt);
 
         /** The mouse drag end event handler.
@@ -168,9 +169,10 @@ export class Viewport extends EventEmitter {
          * This function is registered as an event listener after
          * a mouse-down event.
          *
-         * @listens mouseup
          * @param {MouseEvent} evt - A DOM event.
-         * @returns {void} */
+         * @returns {void}
+         * @listens mouseup
+         */
         this.dragEndHandler = evt => this.onDragEnd(evt);
     }
 
@@ -244,9 +246,10 @@ export class Viewport extends EventEmitter {
      * This method forwards the `contextmenu` event as a
      * viewport {@linkcode module:player/Viewport.click|click} event.
      *
+     * @param {MouseEvent} evt - A DOM event.
+     *
      * @listens contextmenu
      * @fires module:player/Viewport.click
-     * @param {MouseEvent} evt - A DOM event.
      */
     onContextMenu(evt) {
         evt.stopPropagation();
@@ -258,8 +261,9 @@ export class Viewport extends EventEmitter {
      *
      * This method changes the mouse cursor shape depending on the current mode.
      *
-     * @listens mousemove
      * @param {MouseEvent} evt - A DOM event.
+     *
+     * @listens mousemove
      */
     onMouseMove(evt) {
         if (this.dragMode === "clip") {
@@ -300,9 +304,10 @@ export class Viewport extends EventEmitter {
      * If the mouse button pressed is the left button,
      * this method will setup event listeners for detecting a drag action.
      *
+     * @param {MouseEvent} evt - A DOM event.
+     *
      * @listens mousedown
      * @fires module:player/Viewport.mouseDown
-     * @param {MouseEvent} evt - A DOM event.
      */
     onMouseDown(evt) {
         evt.stopPropagation();
@@ -331,9 +336,10 @@ export class Viewport extends EventEmitter {
      * of the clipping rectangle of each camera, and decide which clipping
      * operation is in progress on which cameras.
      *
-     * @see {@linkcode module:player/Viewport.Viewport#clipMode|clipMode}
      * @param {MouseEvent} evt - A DOM event containing the current mouse coordinates.
      * @returns {object} - A list of cameras and a clipping operation.
+     *
+     * @see {@linkcode module:player/Viewport.Viewport#clipMode|clipMode}
      */
     getClipMode(evt) {
         const x = evt.clientX - this.x;
@@ -389,9 +395,10 @@ export class Viewport extends EventEmitter {
      *
      * This method is called when a mouse move event happens after a mouse down event.
      *
+     * @param {MouseEvent} evt - A DOM event.
+     *
      * @listens mousemove
      * @fires module:player/Viewport.dragStart
-     * @param {MouseEvent} evt - A DOM event.
      */
     onDrag(evt) {
         evt.stopPropagation();
@@ -516,11 +523,12 @@ export class Viewport extends EventEmitter {
      * If the mouse has been moved past the drag threshold, this method
      * will fire a `dragEnd` event. Otherwise, it will fire a `click` event.
      *
+     * @param {MouseEvent} evt - A DOM event
+     *
      * @listens mouseup
      * @fires module:player/Viewport.userChangeState
      * @fires module:player/Viewport.dragEnd
      * @fires module:player/Viewport.click
-     * @param {MouseEvent} evt - A DOM event
      */
     onDragEnd(evt) {
         evt.stopPropagation();
@@ -551,8 +559,9 @@ export class Viewport extends EventEmitter {
      *    - released: zoom in and out,
      *    - pressed: rotate clockwise or counter-clockwise
      *
-     * @fires module:player/Viewport.userChangeState
      * @param {WheelEvent} evt - A DOM event.
+     *
+     * @fires module:player/Viewport.userChangeState
      */
     onWheel(evt) {
         if (this.wheelTimeout !== null) {
@@ -715,10 +724,11 @@ export class Viewport extends EventEmitter {
      *
      * The zoom is centered around (`x`, `y`).
      *
-     * @see {@linkcode module:player/Camera.Camera#zoom}
      * @param {number} factor - The scaling factor, above 1 to zoom in, below 1 to zoom out.
      * @param {number} x - The X coordinate of the transformation center (this point will not move during the operation).
      * @param {number} y - The Y coordinate of the transformation center (this point will not move during the operation).
+     *
+     * @see {@linkcode module:player/Camera.Camera#zoom}
      */
     zoom(factor, x, y) {
         for (let camera of this.cameras) {
@@ -732,8 +742,9 @@ export class Viewport extends EventEmitter {
      *
      * The rotation is centered around the center of the display area.
      *
-     * @see {@linkcode module:player/Camera.Camera#rotate}
      * @param {number} angle - The rotation angle, in degrees.
+     *
+     * @see {@linkcode module:player/Camera.Camera#rotate}
      */
     rotate(angle) {
         for (let camera of this.cameras) {
@@ -745,11 +756,12 @@ export class Viewport extends EventEmitter {
 
     /** Clip the content of this viewport.
      *
-     * @see {@linkcode module:player/Camera.Camera#clip}
      * @param {number} x0 - The X coordinate of the first corner of the clipping rectangle.
      * @param {number} y0 - The Y coordinate of the first corner of the clipping rectangle.
      * @param {number} x1 - The X coordinate of the opposite corner of the clipping rectangle.
      * @param {number} y1 - The Y coordinate of the opposite corner of the clipping rectangle.
+     *
+     * @see {@linkcode module:player/Camera.Camera#clip}
      */
     clip(x0, y0, x1, y1) {
         for (let camera of this.clipMode.cameras) {
@@ -759,11 +771,12 @@ export class Viewport extends EventEmitter {
 
     /** Update the clipping rectangles for all selected cameras.
      *
-     * @see {@linkcode module:player/Camera.Camera#clip}
      * @param {number} w - The X offset with respect to the west border.
      * @param {number} n - The Y offset with respect to the north border.
      * @param {number} e - The X offset with respect to the east border.
      * @param {number} s - The Y offset with respect to the south border.
+     *
+     * @see {@linkcode module:player/Camera.Camera#clip}
      */
     clipRel(w, n, e, s) {
         for (let camera of this.clipMode.cameras) {

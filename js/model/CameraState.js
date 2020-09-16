@@ -237,15 +237,15 @@ export class CameraState {
      * box of the SVG element.
      * Translation, scaling and rotation may be applied.
      *
-     * @see {@linkcode module:model/CameraState.CameraState#offsetFromElement|offsetFromElement}
-     * @see {@linkcode module:model/CameraState.CameraState#applyOffset|applyOffset}
-     *
      * @param {SVGElement} svgElement - The target SVG element.
      * @param {number} [deltaX=0] - An horizontal offset from the center of the SVG element.
      * @param {number} [deltaY=0] - A vertical offset from the center of the SVG element.
      * @param {number} [widthFactor=1] - A scaling factor applied to the width of the SVG element.
      * @param {number} [heightFactor=1] - A scaling factor applied to the height of the SVG element.
      * @param {number} [deltaAngle=0] - A relative angle from the orientation of the SVG element.
+     *
+     * @see {@linkcode module:model/CameraState.CameraState#offsetFromElement|offsetFromElement}
+     * @see {@linkcode module:model/CameraState.CameraState#applyOffset|applyOffset}
      */
     setAtElement(svgElement, deltaX = 0, deltaY = 0, widthFactor = 1, heightFactor = 1, deltaAngle = 0) {
         // Read the raw bounding box of the given SVG element
@@ -294,10 +294,10 @@ export class CameraState {
      *
      * The result has the same type as the argument of {@linkcode module:model/CameraState.CameraState#applyOffset|applyOffset}.
      *
-     * @see {@linkcode module:model/CameraState.CameraState#setAtElement|setAtElement}
-     *
      * @param {SVGElement} svgElement - A source SVG element.
      * @returns {object} - The translation coordinates, scaling factors, and rotation angle.
+     *
+     * @see {@linkcode module:model/CameraState.CameraState#setAtElement|setAtElement}
      */
     offsetFromElement(svgElement) {
         const cam = new CameraState(this.svgRoot);
@@ -316,14 +316,14 @@ export class CameraState {
      * This method accepts an object with the same type as the result of
      * {@linkcode module:model/CameraState.CameraState#offsetFromElement|offsetFromElement}.
      *
-     * @see {@linkcode module:model/CameraState.CameraState#setAtElement|setAtElement}
-     *
      * @param {object} arg - A transformation object to apply.
      * @param {number} arg.deltaX - An horizontal offset from the center of the SVG element.
      * @param {number} arg.deltaY - A vertical offset from the center of the SVG element.
      * @param {number} arg.widthFactor - A scaling factor applied to the width of the SVG element.
      * @param {number} arg.heightFactor - A scaling factor applied to the height of the SVG element.
      * @param {number} arg.deltaAngle - A relative angle from the orientation of the SVG element.
+     *
+     * @see {@linkcode module:model/CameraState.CameraState#setAtElement|setAtElement}
      */
     applyOffset({deltaX, deltaY, widthFactor, heightFactor, deltaAngle}) {
         this.cx -= deltaX;

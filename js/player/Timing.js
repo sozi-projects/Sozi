@@ -6,8 +6,8 @@
  *
  * This module is based on the article by Gaëtan Renaudeau, with code released under an MIT license.
  *
- * @see {@link http://greweb.me/2012/02/bezier-curve-based-easing-functions-from-concept-to-implementation/ Bézier Curve based easing functions – from concept to implementation}
  * @module
+ * @see {@link http://greweb.me/2012/02/bezier-curve-based-easing-functions-from-concept-to-implementation/ Bézier Curve based easing functions – from concept to implementation}
  */
 
 /** Helper function to compute a Bézier curve.

@@ -10,6 +10,12 @@ import {CameraState} from "./model/CameraState";
 import {EventEmitter} from "events";
 import * as i18n from "./i18n";
 
+/** The maximum size of the undo stack.
+ *
+ * @readonly
+ * @default
+ * @type {number}
+ */
 const UNDO_STACK_LIMIT = 100;
 
 /** Signals that the presentation data has changed.
@@ -133,6 +139,11 @@ export class Controller extends EventEmitter {
         player.addListener("frameChange", () => this.onFrameChange());
     }
 
+    /** Finalize the initialization of the application.
+     *
+     * Load and apply the user preferences.
+     * Activate the storage instance.
+     */
     activate() {
         this.preferences.load();
         this.applyPreferences();
@@ -172,6 +183,18 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Show a notification.
+     *
+     * The presentation editor does not use the operating system's notification
+     * system.
+     * This method will display a notification inside the application.
+     *
+     * A notification will be hidden after a given time.
+     * Consecutive notifications are concatenated if they happen in a short period of time.
+     *
+     * @param {string} severity - The severity of the event to signal (`"error"` or `"info"`).
+     * @param {string} body - An HTML string to show in the notification area.
+     */
     showNotification(severity, body) {
         const _ = this.gettext;
         const msg = document.getElementById("message");
@@ -191,6 +214,7 @@ export class Controller extends EventEmitter {
         this.notificationTimeout = setTimeout(() => this.hideNotification(), 5000);
     }
 
+    /** Hide all notifications. */
     hideNotification() {
         const msg = document.getElementById("message");
         msg.classList.remove("visible", "info", "error");
@@ -237,7 +261,7 @@ export class Controller extends EventEmitter {
         }
     }
 
-    /**
+    /** On frame change, recompute the reference element.
      *
      * @listens module:player/Player.frameChange
      */
@@ -295,6 +319,13 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Process an SVG document change event.
+     *
+     * Depending on the user preferences, this method will reload the
+     * presentation, or prompt the user.
+     *
+     * @param {any} fileDescriptor - The file that changed recently.
+     */
     onFileChange(fileDescriptor) {
         const _ = this.gettext;
         const doReload = () => {
@@ -323,7 +354,11 @@ export class Controller extends EventEmitter {
      * This method delegates the operation to its {@linkcode module:Storage.Storage|Storage} instance and triggers
      * a repaint so that the UI shows the correct "saved" status.
      *
+     * @returns {Promise} - A promise that is resolved when the save action completes.
+     *
      * @fires module:Controller.repaint
+     *
+     * @see {@linkcode module:Storage.Storage#save}
      */
     save() {
         return this.storage.save().then(
@@ -339,6 +374,15 @@ export class Controller extends EventEmitter {
         this.storage.reload();
     }
 
+    /** Add a custom stylesheet or script to the current presentation.
+     *
+     * This action supports undo and redo.
+     *
+     * @param {string} path - The path of the file to add.
+     *
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
+     */
     addCustomFile(path) {
         this.perform(
             function onDo() {
@@ -352,6 +396,15 @@ export class Controller extends EventEmitter {
         );
     }
 
+    /** Remove a custom stylesheet or script from the current presentation.
+     *
+     * This action supports undo and redo.
+     *
+     * @param {number} index - The index of the entry to remove in the custom file list.
+     *
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
+     */
     removeCustomFile(index) {
         const fileName = this.presentation.customFiles[index];
         this.perform(
@@ -366,6 +419,10 @@ export class Controller extends EventEmitter {
         );
     }
 
+    /** Get the list of custom stylesheets and scripts added to the current presentation.
+     *
+     * @returns {string[]} - An array of file paths.
+     */
     getCustomFiles() {
         return this.presentation.customFiles;
     }
@@ -377,7 +434,7 @@ export class Controller extends EventEmitter {
      * If no frame is selected, the new frame is added at the
      * end of the presentation.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @fires module:Controller.presentationChange
      * @fires module:Controller.editorStateChange
@@ -423,7 +480,7 @@ export class Controller extends EventEmitter {
 
     /** Delete the selected frames from the presentation.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @fires module:Controller.presentationChange
      * @fires module:Controller.editorStateChange
@@ -458,7 +515,7 @@ export class Controller extends EventEmitter {
 
     /** Move the selected frames to the given location.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {number} toFrameIndex - The new index of the first frame in the selection.
      *
@@ -532,7 +589,7 @@ export class Controller extends EventEmitter {
      * to the "editable" layer set.
      *
      * This operation modifies the editor state and does not affect the actual presentation.
-     * It does not provide an "Undo" action.
+     * This action does not support undo and redo.
      *
      * @param {number} layerIndex - The index of the layer to add.
      *
@@ -564,7 +621,7 @@ export class Controller extends EventEmitter {
      * to the "editable" layer set.
      *
      * This operation modifies the editor state and does not affect the actual presentation.
-     * It does not provide an "Undo" action.
+     * This action does not support undo and redo.
      *
      * @fires module:Controller.editorStateChange
      * @fires module:Controller.repaint
@@ -595,7 +652,7 @@ export class Controller extends EventEmitter {
      * to the "default" layer set.
      *
      * This operation modifies the editor state and does not affect the actual presentation.
-     * It does not provide an "Undo" action.
+     * This action does not support undo and redo.
      *
      * @param {number} layerIndex - The index of the layer to remove.
      *
@@ -642,6 +699,7 @@ export class Controller extends EventEmitter {
 
     /** `true` if all layers in the "default" set are selected.
      *
+     * @readonly
      * @type {boolean}
      */
     get defaultLayersAreSelected() {
@@ -650,6 +708,7 @@ export class Controller extends EventEmitter {
 
     /** `true` if there is at least one layer in the "default" set.
      *
+     * @readonly
      * @type {boolean}
      */
     get hasDefaultLayer() {
@@ -808,7 +867,7 @@ export class Controller extends EventEmitter {
      * If `single` and `sequence` are false, select only the given layers and all frames.
      *
      * @todo Sequence mode is not supported yet.
-
+     *
      * @param {boolean} single - If true, add or remove the given layers to/from the selection.
      * @param {boolean} sequence - If true, add or remove consecutive layers, starting from the current layer up/down to the given layers.
      * @param {module:model/Presentation.Layer[]} layers - The layers to select or deselect.
@@ -924,7 +983,7 @@ export class Controller extends EventEmitter {
      * Users can perform this operation to recover from a sequence of transformations
      * that resulted in an undesired layer state.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @fires module:Controller.presentationChange
      * @fires module:Controller.repaint
@@ -979,7 +1038,7 @@ export class Controller extends EventEmitter {
      * for the given layer in the selected frames, into the selected layers
      * in the same frames.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {number} groupId - The ID of the SVG group for the layer to copy.
      *
@@ -1045,6 +1104,7 @@ export class Controller extends EventEmitter {
      *
      * This property is `true` when the outline element of each selected layer belongs to this layer.
      *
+     * @readonly
      * @type {boolean}
      */
     get canFitElement() {
@@ -1103,7 +1163,7 @@ export class Controller extends EventEmitter {
      * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign setters
      * to HTML fields that represent presentation properties.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
      * @param propertyValue - The new value of the property.
@@ -1153,7 +1213,7 @@ export class Controller extends EventEmitter {
      * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign setters
      * to HTML fields that represent frame properties.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
      * @param propertyValue - The new value of the property.
@@ -1208,7 +1268,7 @@ export class Controller extends EventEmitter {
      * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign setters
      * to HTML fields that represent layer properties.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
      * @param propertyValue - The new value of the property.
@@ -1296,7 +1356,7 @@ export class Controller extends EventEmitter {
      * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign setters
      * to HTML fields that represent camera properties.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
      * @param propertyValue - The new value of the property.
@@ -1349,7 +1409,7 @@ export class Controller extends EventEmitter {
      * viewport. It copies the camera states of the viewport to the camera states
      * of the selected layers of the presentation.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @fires module:Controller.presentationChange
      * @fires module:Controller.repaint
@@ -1399,7 +1459,7 @@ export class Controller extends EventEmitter {
 
     /** Set the given element as the outline element of the selected layers in the current frame.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {SVGElement} outlineElement - The element to use as an outline of the selected layers.
      *
@@ -1441,7 +1501,7 @@ export class Controller extends EventEmitter {
 
     /** Set the width component (numerator) of the current aspect ratio of the preview area.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {number} width - The desired width.
      *
@@ -1464,7 +1524,7 @@ export class Controller extends EventEmitter {
 
     /** Set the height component (denominator) of the current aspect ratio of the preview area.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {number} height - The desired height.
      *
@@ -1487,11 +1547,11 @@ export class Controller extends EventEmitter {
 
     /** Set the effect of dragging in the preview area.
      *
-     * @see Viewport#dragMode
-     *
      * @param {string} dragMode - The new drag mode.
      *
      * @fires module:Controller.repaint
+     *
+     * @see {@linkcode module:player/Viewport.Viewport#dragMode}
      */
     setDragMode(dragMode) {
         this.viewport.dragMode = dragMode;
@@ -1503,8 +1563,8 @@ export class Controller extends EventEmitter {
      * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign getters
      * to HTML fields that represent preferences.
      *
-     * @param {string} property - The name of the property to get.
-     * @returns The values of the property in the preferences.
+     * @param {string} key - The name of the property to get.
+     * @returns {any} - The value of the property in the preferences.
      */
     getPreference(key) {
         return this.preferences[key];
@@ -1517,8 +1577,8 @@ export class Controller extends EventEmitter {
      *
      * This operation cannot be undone.
      *
-     * @param {string} property - The name of the property to set.
-     * @param propertyValue - The new value of the property.
+     * @param {string} key - The name of the property to set.
+     * @param {any} value - The new value of the property.
      *
      * @fires module:Controller.repaint
      */
@@ -1533,7 +1593,7 @@ export class Controller extends EventEmitter {
      * to HTML fields that represent keyboard shortcut preferences.
      *
      * @param {string} action - A supported keyboard action name.
-     * @returns {string} A shortcut definition.
+     * @returns {string} - A shortcut definition.
      */
     getShortcut(action) {
         return this.preferences.keys[action];

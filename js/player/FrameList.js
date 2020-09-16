@@ -149,8 +149,9 @@ export function toggle() {
  *
  * If enabled by the presentation, pressing the key `T` will toggle the open/close status of the frame list.
  *
- * @listens keypress
  * @param {KeyboardEvent} evt - The DOM event representing the keypress.
+ *
+ * @listens keypress
  */
 function onKeyPress(evt) {
     // Keys with modifiers are ignored
@@ -178,8 +179,9 @@ function onKeyPress(evt) {
  *
  * This function is called by the current animator.
  *
- * @listens module:player/Animator.step
  * @param {number} progress - The current progress indicator, between 0 and 1.
+ *
+ * @listens module:player/Animator.step
  */
 function onAnimatorStep(progress) {
     const p = Timing.ease(progress);
@@ -191,8 +193,9 @@ function onAnimatorStep(progress) {
  * If enabled by the presentation, pressing the middle mouse button will
  * toggle the open/close status of the frame list.
  *
- * @listens module:player/Viewport.mouseDown
  * @param {number} button - The index of the button that was pressed.
+ *
+ * @listens module:player/Viewport.mouseDown
  */
 function onMouseDown(button) {
     if (player.presentation.enableMouseNavigation && button === 1) {
@@ -205,8 +208,9 @@ function onMouseDown(button) {
  * When the mouse cursor moves out of the frame list area,
  * this function closes it.
  *
- * @listens mouseout
  * @param {MouseEvent} evt - The DOM event representing the mouse gesture.
+ *
+ * @listens mouseout
  */
 function onMouseOut(evt) {
     let rel = evt.relatedTarget;

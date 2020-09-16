@@ -149,9 +149,10 @@ export class SVGDocumentWrapper {
      * This method will also apply several preprocessing operations,
      * some generic and some specific to a SVG handler.
      *
-     * @see {@linkcode module:svg/SVGDocumentWrapper.DefaultSVGHandler.transform}
      * @param {string} data - A string containing a serialized SVG document.
      * @returns {module:svg/SVGDocumentWrapper.SVGDocumentWrapper} - A new SVG document wrapper.
+     *
+     * @see {@linkcode module:svg/SVGDocumentWrapper.DefaultSVGHandler.transform}
      */
     static fromString(data) {
         const svgRoot = new DOMParser().parseFromString(data, "image/svg+xml").documentElement;

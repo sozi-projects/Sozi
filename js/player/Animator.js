@@ -161,8 +161,9 @@ export class Animator extends EventEmitter {
      *
      * The {@linkcode module:player/Animator.step|step} event is fired once before starting the animation.
      *
-     * @fires module:player/Animator.step
      * @param {number} durationMs - The duration of the animation, in milliseconds.
+     *
+     * @fires module:player/Animator.step
      */
     start(durationMs) {
         this.durationMs = durationMs;

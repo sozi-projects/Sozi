@@ -127,9 +127,9 @@ export class Player extends EventEmitter {
 
         /** An array of tansition descriptors for each camera.
          *
-         * @see {@linkcode module:player/Player.Player#setupTransition}
          * @default
          * @type {object[]}
+         * @see {@linkcode module:player/Player.Player#setupTransition}
          */
         this.transitions = [];
 
@@ -157,8 +157,9 @@ export class Player extends EventEmitter {
      * This method is registered as a {@linkcode module:player/Viewport.click|click}
      * event handler of the current {@linkcode module:player/Viewport.Viewport|viewport}.
      *
-     * @listens module:player/Viewport.click
      * @param {number} button - The index of the button that was pressed.
+     *
+     * @listens module:player/Viewport.click
      */
     onClick(button) {
         if (this.presentation.enableMouseNavigation) {
@@ -175,8 +176,9 @@ export class Player extends EventEmitter {
      * current presentation:
      * Arrows, Page-Up/Down, Home, End, Enter, and Space.
      *
-     * @listens keydown
      * @param {KeyboardEvent} evt - The DOM event to process.
+     *
+     * @listens keydown
      */
     onKeyDown(evt) {
         // Keys with Alt/Ctrl/Meta modifiers are ignored
@@ -247,8 +249,9 @@ export class Player extends EventEmitter {
      *
      * This method handles character keys: "+", "-", "R", "P", ".".
      *
-     * @listens keypress
      * @param {KeyboardEvent} evt - The DOM event to process.
+     *
+     * @listens keypress
      */
     onKeyPress(evt) {
         // Keys with modifiers are ignored
@@ -373,8 +376,9 @@ export class Player extends EventEmitter {
      * This method sets the {@linkcode module:player/Player.Player#playing|playing} flag,
      * shows the desired frame and waits for the frame timeout if needed.
      *
-     * @fires {module:player/Player.stateChange}
      * @param {string|number|module:model/Presentation.Frame} frame - The first frame to show.
+     *
+     * @fires {module:player/Player.stateChange}
      */
     playFromFrame(frame) {
         if (!this.playing) {
@@ -443,8 +447,9 @@ export class Player extends EventEmitter {
      * The presentation is stopped: if a timeout has been set for the
      * target frame, it will be ignored.
      *
-     * @fires {module:player/Player.frameChange}
      * @param {string|number|module:model/Presentation.Frame} frame - The frame to show.
+     *
+     * @fires {module:player/Player.frameChange}
      */
     jumpToFrame(frame) {
         this.disableBlankScreen();
@@ -496,9 +501,10 @@ export class Player extends EventEmitter {
      * the transition properties of the next frame are used.
      * Otherwise, default transition properties are used.
      *
+     * @param {string|number|module:model/Presentation.Frame} frame - The first frame to show.
+     *
      * @fires {module:player/Player.frameChange}
      * @fires {module:player/Player.stateChange}
-     * @param {string|number|module:model/Presentation.Frame} frame - The first frame to show.
      */
     moveToFrame(frame) {
         this.disableBlankScreen();
@@ -619,9 +625,10 @@ export class Player extends EventEmitter {
      * state of the viewport to the desired frame, using
      * default transition settings.
      *
+     * @param {string|number|module:model/Presentation.Frame} frame - The first frame to show.
+     *
      * @fires {module:player/Player.frameChange}
      * @fires {module:player/Player.stateChange}
-     * @param {string|number|module:model/Presentation.Frame} frame - The first frame to show.
      */
     previewFrame(frame) {
         this.targetFrame = this.findFrame(frame);
@@ -666,9 +673,11 @@ export class Player extends EventEmitter {
      *
      * This method moves each camera according to the {@linkcode module:player/Player.Player#transitions|list of transition descriptors}.
      *
-     * @see {@linkcode module:player/Player.Camera#interpolate}
-     * @listens module:player/Animator.step
      * @param {number} progress - The relative time already elapsed between the initial and final states of the current animation (between 0 and 1).
+     *
+     * @listens module:player/Animator.step
+     *
+     * @see {@linkcode module:player/Player.Camera#interpolate}
      */
     onAnimatorStep(progress) {
         for (let transition of this.transitions) {

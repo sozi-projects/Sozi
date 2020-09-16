@@ -37,12 +37,13 @@ let player;
  * For instance, this function prevents a click event inside a video element
  * from also triggering a transition in the current presentation.
  *
+ * @param {Event} evt - The DOM event to stop.
+ *
  * @listens click
  * @listens mousedown
  * @listens mouseup
  * @listens mousemove
  * @listens contextmenu
- * @param {Event} evt - The DOM event to stop.
  */
 function defaultEventHandler(evt) {
     evt.stopPropagation();

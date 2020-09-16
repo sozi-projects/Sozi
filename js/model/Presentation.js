@@ -706,8 +706,9 @@ export class Presentation extends EventEmitter {
      *
      * This method populates the {@linkcode module:model/Presentation.Presentation#layers} property of this instance.
      *
-     * @fires module:model/Presentation.svgChange
      * @param {SVGDocument} svgDocument - The SVG document to use.
+     *
+     * @fires module:model/Presentation.svgChange
      */
     setSVGDocument(svgDocument) {
         this.document = svgDocument;
