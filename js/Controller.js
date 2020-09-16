@@ -1117,6 +1117,11 @@ export class Controller extends EventEmitter {
                });
     }
 
+    /** Find and assign an outline element to the current frame in the selected layers.
+     *
+     * @see {@linkcode module:player/Camera.Camera#getCandidateReferenceElement}
+     * @see {@linkcode module:Controller.Controller#setOutlineElement}
+     */
     autoselectOutlineElement() {
         const currentFrame = this.selection.currentFrame;
         if (!currentFrame) {
@@ -1138,6 +1143,10 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Use the element with the user-provided ID as an outline element.
+     *
+     * @see {@linkcode module:Controller.Controller#setOutlineElement}
+     */
     fitElement() {
         const outlineElementId = this.getLayerProperty("outlineElementId");
         const outlineElt = this.presentation.document.root.getElementById(outlineElementId);
@@ -1152,7 +1161,7 @@ export class Controller extends EventEmitter {
      * to HTML fields that represent presentation properties.
      *
      * @param {string} property - The name of the property to get.
-     * @returns The value of the property.
+     * @returns {any} - The value of the property.
      */
     getPresentationProperty(property) {
         return this.presentation[property];
@@ -1166,18 +1175,18 @@ export class Controller extends EventEmitter {
      * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
-     * @param propertyValue - The new value of the property.
+     * @param {any} value - The new value of the property.
      *
      * @fires module:Controller.presentationChange
      * @fires module:Controller.repaint
      */
-    setPresentationProperty(property, propertyValue) {
+    setPresentationProperty(property, value) {
         const pres = this.presentation;
         const savedValue = pres[property];
 
         this.perform(
             function onDo() {
-                pres[property] = propertyValue;
+                pres[property] = value;
             },
             function onUndo() {
                 pres[property] = savedValue;
@@ -1216,18 +1225,18 @@ export class Controller extends EventEmitter {
      * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
-     * @param propertyValue - The new value of the property.
+     * @param {any} value - The new value of the property.
      *
      * @fires module:Controller.presentationChange
      * @fires module:Controller.repaint
      */
-    setFrameProperty(property, propertyValue) {
+    setFrameProperty(property, value) {
         const savedValues = this.selection.selectedFrames.map(frame => [frame, frame[property]]);
 
         this.perform(
             function onDo() {
                 for (let [frame, value] of savedValues) {
-                    frame[property] = propertyValue;
+                    frame[property] = value;
                 }
             },
             function onUndo() {
@@ -1271,14 +1280,14 @@ export class Controller extends EventEmitter {
      * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
-     * @param propertyValue - The new value of the property.
+     * @param {any} value - The new value of the property.
      *
      * @fires module:Controller.presentationChange
      * @fires module:Controller.repaint
      */
-    setLayerProperty(property, propertyValue) {
+    setLayerProperty(property, value) {
         if (property === "outlineElementId") {
-            const outlineElt = this.presentation.document.root.getElementById(propertyValue);
+            const outlineElt = this.presentation.document.root.getElementById(value);
             if (outlineElt) {
                 this.setOutlineElement(outlineElt);
             }
@@ -1293,7 +1302,7 @@ export class Controller extends EventEmitter {
             )
         );
 
-        const link = property === "link" && propertyValue;
+        const link = property === "link" && value;
 
         const savedCameraStates = selectedFrames.map(
             frame => selectedLayers.map(
@@ -1305,7 +1314,7 @@ export class Controller extends EventEmitter {
             function onDo() {
                 for (let frame of selectedFrames) {
                     for (let layer of selectedLayers) {
-                        frame.layerProperties[layer.index][property] = propertyValue;
+                        frame.layerProperties[layer.index][property] = value;
                     }
                 }
 
@@ -1359,12 +1368,12 @@ export class Controller extends EventEmitter {
      * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
-     * @param propertyValue - The new value of the property.
+     * @param {any} value - The new value of the property.
      *
      * @fires module:Controller.presentationChange
      * @fires module:Controller.repaint
      */
-    setCameraProperty(property, propertyValue) {
+    setCameraProperty(property, value) {
         const selectedFrames = this.selection.selectedFrames.slice();
         const selectedLayers = this.selection.selectedLayers.slice();
 
@@ -1381,7 +1390,7 @@ export class Controller extends EventEmitter {
             function onDo() {
                 for (let frame of selectedFrames) {
                     for (let layer of selectedLayers) {
-                        frame.cameraStates[layer.index][property] = propertyValue;
+                        frame.cameraStates[layer.index][property] = value;
                         frame.layerProperties[layer.index].link = false;
                     }
                 }
@@ -1607,7 +1616,7 @@ export class Controller extends EventEmitter {
      * This operation cannot be undone.
      *
      * @param {string} action - A supported keyboard action name.
-     * @param value - A shortcut definition.
+     * @param {any} value - A shortcut definition.
      */
     setShortcut(action, value) {
         // Find occurrences of modifier keys in the given value.
@@ -1638,6 +1647,8 @@ export class Controller extends EventEmitter {
     }
 
     /** Update the user interface after modifying the preferences.
+     *
+     * @param {string|object} [changed="all"] - A dictionay that maps changed property names to a boolean `true`.
      *
      * @fires module:Controller.repaint
      */
