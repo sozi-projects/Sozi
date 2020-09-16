@@ -14,7 +14,7 @@ export class Preview {
      *
      * @param {HTMLElement} container - The HTML element that will contain this preview area.
      * @param {module:model/Presentation.Presentation} presentation - The current Sozi presentation.
-     * @param {module:model/Selection.Selection} selection - The current frame and layer selection.
+     * @param {module:model/Selection.Selection} selection - The object that manages the frame and layer selection.
      * @param {module:player/Viewport.Viewport} viewport - The viewport where the presentation is displayed.
      * @param {module:Controller.Controller} controller - The controller that manages the current editor.
      */
@@ -29,7 +29,7 @@ export class Preview {
          * @type {module:model/Presentation.Presentation} */
         this.presentation = presentation;
 
-        /** The current frame and layer selection.
+        /** The object that manages the frame and layer selection.
          *
          * @type {module:model/Selection.Selection} */
         this.selection = selection;

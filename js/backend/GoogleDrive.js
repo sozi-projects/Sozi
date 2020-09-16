@@ -12,7 +12,7 @@ import {AbstractBackend, addBackend} from "./AbstractBackend";
  */
 export class GoogleDrive extends AbstractBackend {
 
-    /** Construct a Sozi  backend based on the Google Drive API.
+    /** Initialize a Sozi  backend based on the Google Drive API.
      *
      * @param {module:Controller.Controller} controller - A controller instance.
      * @param {HTMLElement} container - The element that will contain the menu for choosing a backend.

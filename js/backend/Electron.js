@@ -37,7 +37,7 @@ const cwd = process.env.PWD;
  */
 export class Electron extends AbstractBackend {
 
-    /** Construct a Sozi  backend based on Electron.
+    /** Initialize a Sozi  backend based on Electron.
      *
      * @param {module:Controller.Controller} controller - A controller instance.
      * @param {HTMLElement} container - The element that will contain the menu for choosing a backend.

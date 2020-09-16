@@ -7,7 +7,7 @@
 
 /** Sozi editor preferences. */
 export class Preferences {
-    /** Construct a preferences object with default values. */
+    /** Initialize a preferences object with default values. */
     constructor() {
         /** The preferred language of the user interface.
          *

@@ -16,18 +16,18 @@ import {h} from "inferno-hyperscript";
  */
 export class VirtualDOMView {
 
-    /** Create a new virtual DOM view.
+    /** Initialize a new virtual DOM view.
      *
-     * @param {HTMLElement} container - The parent HTML element that will contain this view.
-     * @param {module:Controller.Controller} controller - The controller that will manage the user actions from this view.
+     * @param {HTMLElement} container - The HTML element that will contain this preview area.
+     * @param {module:Controller.Controller} controller - The controller that manages the current editor.
      */
     constructor(container, controller) {
-        /** The parent HTML element that will contain this view.
+        /** The HTML element that will contain this preview area.
          *
          * @type {HTMLElement} */
         this.container = container;
 
-        /** The controller that will manage the user actions from this view.
+        /** The controller that manages the current editor.
          *
          * @type {module:Controller.Controller} */
         this.controller = controller;
@@ -68,7 +68,7 @@ export class VirtualDOMView {
 
     /** Render this view as a virtual DOM tree.
      *
-     * @returns {VNode} A virtual DOM tree for this view.
+     * @returns {VNode} - A virtual DOM tree for this view.
      */
     render() {
         return h("div");

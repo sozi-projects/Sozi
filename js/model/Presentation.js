@@ -37,7 +37,7 @@ function copyIfSet(dest, src, prop) {
  */
 export class LayerProperties {
 
-    /** Construct a new layer properties object.
+    /** Initialize a new layer properties object.
      *
      * If the argument is another instance of `LayerProperties`, this constructor will create a copy of
      * of that instance.
@@ -238,7 +238,7 @@ export class LayerProperties {
 /** A frame in a Sozi presentation. */
 export class Frame {
 
-    /** Construct a new frame.
+    /** Initialize a new frame.
      *
      * If the argument is another frame, this constructor will create a copy of
      * of that frame.
@@ -513,7 +513,7 @@ export class Frame {
  * grouped automatically into *automatic* layers.
  */
 export class Layer {
-    /** Construct a new layer.
+    /** Initialize a new layer.
      *
      * @param {module:model/Presentation.Presentation} presentation - The current Sozi presentation.
      * @param {string} label - The display name of this layer.
@@ -605,7 +605,7 @@ const SVG_NS = "http://www.w3.org/2000/svg";
  */
 export class Presentation extends EventEmitter {
 
-    /** Construct a Sozi document object. */
+    /** Initialize a Sozi document object. */
     constructor() {
         super();
 

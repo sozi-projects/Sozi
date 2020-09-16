@@ -28,7 +28,7 @@ function copyIfSet(dest, src, prop) {
  * @see {@linkcode module:player/Camera.Camera|Camera} for a camera implementation in the context of the Sozi player.
  */
 export class CameraState {
-    /** Construct a new camera state object.
+    /** Initialize a new camera state object.
      *
      * If the argument is a camera state, this constructor will create a copy of
      * of that state.

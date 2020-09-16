@@ -29,7 +29,7 @@ export function hasReliableBoundaries(elt) {
  */
 export class Camera extends CameraState {
 
-    /** Construct a new camera.
+    /** Initialize a new camera.
      *
      * @param {module:player/Viewport.Viewport} viewport - The viewport attached to this camera.
      * @param {module:model/Presentation.Layer} layer - The layer where this camera operates.

@@ -41,7 +41,7 @@ const UNDO_STACK_LIMIT = 100;
  */
 export class Controller extends EventEmitter {
 
-    /** Construct a new Sozi editor UI controller.
+    /** Initialize a new Sozi editor UI controller.
      *
      * @param {module:model/Preferences.Preferences} preferences - The object that holds the user settings of the editor.
      * @param {module:model/Presentation.Presentation} presentation - The Sozi presentation opened in the editor.

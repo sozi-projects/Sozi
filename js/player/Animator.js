@@ -128,7 +128,7 @@ function start() {
  * @extends EventEmitter
  */
 export class Animator extends EventEmitter {
-    /** Create a new animator.
+    /** Initialize a new animator.
      *
      * The new animator is added to the list of animators
      * managed by the Sozi player.

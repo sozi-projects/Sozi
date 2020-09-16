@@ -62,7 +62,7 @@ const ROTATE_STEP = 5;
  */
 export class Player extends EventEmitter {
 
-    /** Construct a new Sozi player.
+    /** Initialize a new Sozi player.
      *
      * If the presentation is opened in edit mode, the player will disable
      * these features:

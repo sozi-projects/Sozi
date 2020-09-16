@@ -26,22 +26,24 @@ import Jed from "jed";
  */
 export class Timeline extends VirtualDOMView {
 
-    /*
-     * Initialize a Timeline view.
+    /** Initialize a new timeline view.
      *
-     * The view is rendered and event handlers are set up.
-     *
-     * Parameters:
-     *  - presentation: a presentation object
-     *  - selection: a selection object
-     *
-     * Returns:
-     *  - The current view
+     * @param {HTMLElement} container - The HTML element that will contain this preview area.
+     * @param {module:model/Presentation.Presentation} presentation - The current Sozi presentation.
+     * @param {module:model/Selection.Selection} selection - The object that manages the frame and layer selection.
+     * @param {module:Controller.Controller} controller - The controller that manages the current editor.
      */
     constructor(container, presentation, selection, controller) {
         super(container, controller);
 
+        /** The current Sozi presentation.
+         *
+         * @type {module:model/Presentation.Presentation} */
         this.presentation = presentation;
+
+        /** The object that manages the frame and layer selection.
+         *
+         * @type {module:model/Selection.Selection} */
         this.selection = selection;
     }
 
@@ -65,6 +67,7 @@ export class Timeline extends VirtualDOMView {
         evt.stopPropagation();
     }
 
+    /** @inheritdoc */
     repaint() {
         super.repaint();
 
@@ -103,6 +106,7 @@ export class Timeline extends VirtualDOMView {
         });
     }
 
+    /** @inheritdoc */
     render() {
         const controller = this.controller;
         const _ = controller.gettext;

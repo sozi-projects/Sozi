@@ -93,7 +93,7 @@ export class DefaultSVGHandler {
 /** SVG document wrapper. */
 export class SVGDocumentWrapper {
 
-    /** Create a new wrapper for a given SVG root element.
+    /** Initialize a new wrapper for a given SVG root element.
      *
      * @param {SVGSVGElement} svgRoot - An SVG root element.
      */
