@@ -47,21 +47,56 @@ export class Timeline extends VirtualDOMView {
         this.selection = selection;
     }
 
+    /** Toggle the visibility of a layer in the preview area.
+     *
+     * @see {@linkcode module:Controller.Controller#updateLayerVisibility}
+     * @listens click
+     * @param {number} layerIndex - The index of the layer to change.
+     * @param {MouseEvent} evt - The DOM event that triggered this action.
+     */
     toggleLayerVisibility(layerIndex, evt) {
         this.controller.updateLayerVisibility(this.controller.getLayersAtIndex(layerIndex));
         evt.stopPropagation();
     }
 
+    /** Update the list of selected frames.
+     *
+     * This method is called when the user clicks a frame heading in the timeline.
+     *
+     * @see {@linkcode module:Controller.Controller#updateFrameSelection}
+     * @listens click
+     * @param {number} frameIndex - The index of the frame to add or remove.
+     * @param {MouseEvent} evt - The DOM event that triggered this action.
+     */
     updateFrameSelection(frameIndex, evt) {
         this.controller.updateFrameSelection(evt.ctrlKey, evt.shiftKey, frameIndex);
         evt.stopPropagation();
     }
 
+    /** Update the list of selected layers.
+     *
+     * This method is called when the user clicks a layer heading in the timeline.
+     *
+     * @see {@linkcode module:Controller.Controller#updateLayerSelection}
+     * @listens click
+     * @param {number} layerIndex - The index of the layer to add or remove.
+     * @param {MouseEvent} evt - The DOM event that triggered this action.
+     */
     updateLayerSelection(layerIndex, evt) {
         this.controller.updateLayerSelection(evt.ctrlKey, evt.shiftKey, this.controller.getLayersAtIndex(layerIndex));
         evt.stopPropagation();
     }
 
+    /** Update the list of selected frames and layers.
+     *
+     * This method is called when the user clicks a cell inside the timeline table.
+     *
+     * @see {@linkcode module:Controller.Controller#updateLayerSelection}
+     * @listens click
+     * @param {number} layerIndex - The index of the layer to add or remove.
+     * @param {number} frameIndex - The index of the frame to add or remove.
+     * @param {MouseEvent} evt - The DOM event that triggered this action.
+     */
     updateLayerAndFrameSelection(layerIndex, frameIndex, evt) {
         this.controller.updateLayerAndFrameSelection(evt.ctrlKey, evt.shiftKey, this.controller.getLayersAtIndex(layerIndex), frameIndex);
         evt.stopPropagation();
