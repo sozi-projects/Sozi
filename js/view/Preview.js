@@ -6,17 +6,42 @@
 
 const PREVIEW_MARGIN = 15;
 
-/** Preview area in the presentation editor.
- *
- * @todo Add documentation.
- */
+/** The preview area in the presentation editor. */
 export class Preview {
-
+    /** Initialize a new preview area.
+     *
+     * This method registers the event handlers for the preview area of the presentation editor.
+     *
+     * @param {HTMLElement} container - The HTML element that will contain this preview area.
+     * @param {module:model/Presentation.Presentation} presentation - The current Sozi presentation.
+     * @param {module:model/Selection.Selection} selection - The current frame and layer selection.
+     * @param {module:player/Viewport.Viewport} viewport - The viewport where the presentation is displayed.
+     * @param {module:Controller.Controller} controller - The controller that manages the current editor.
+     */
     constructor(container, presentation, selection, viewport, controller) {
+        /** The HTML element that will contain this preview area.
+         *
+         * @type {HTMLElement} */
         this.container = container;
+
+        /** The current Sozi presentation.
+         *
+         * @type {module:model/Presentation.Presentation} */
         this.presentation = presentation;
+
+        /** The current frame and layer selection.
+         *
+         * @type {module:model/Selection.Selection} */
         this.selection = selection;
+
+        /** The viewport where the presentation is displayed.
+         *
+         * @type {module:player/Viewport.Viewport} */
         this.viewport = viewport;
+
+        /** The controller that manages the current editor.
+         *
+         * @type {module:Controller.Controller} */
         this.controller = controller;
 
         presentation.addListener("svgChange", () => this.onLoad());
@@ -27,7 +52,7 @@ export class Preview {
         controller.addListener("repaint", () => this.repaint());
     }
 
-    /**
+    /** Reset the preview area when a presentation is loaded or reloaded.
      *
      * @listens module:model/Presentation.svgChange
      */
@@ -48,8 +73,12 @@ export class Preview {
         this.container.addEventListener("mouseleave", () => this.onMouseLeave(), false);
     }
 
-    /**
+    /** Refresh this preview area on resize and repaint events.
      *
+     * This method will update the geometry of the preview area,
+     * realign all cameras and repaint the viewport.
+     *
+     * @see {@linkcode module:player/Viewport.Viewport#repaint}
      * @listens resize
      * @listens module:Controller.repaint
      */
@@ -78,8 +107,11 @@ export class Preview {
         }
     }
 
-    /**
+    /** Choose an outline element on an Alt+click event in this preview area.
+     *
      * @listens click
+     * @param {number} button - The mouse button number that was clicked.
+     * @param {MouseEvent} evt - A DOM event.
      */
     onClick(button, evt) {
         if (button === 0 && evt.altKey) {
@@ -90,11 +122,9 @@ export class Preview {
         }
     }
 
-    /**
-     * When the mouse enters the preview area,
-     * show the document outside the clipping rectangle
-     * and show the hidden SVG elements.
+    /** When the mouse hovers the preview area, reveal the clipping rectangle.
      *
+     * @see {@linkcode module:player/Camera.Camera#revealClipping}
      * @listens mouseenter
      */
     onMouseEnter() {
@@ -107,11 +137,9 @@ export class Preview {
         this.viewport.repaint();
     }
 
-    /**
-     * When the mouse leaves the preview area,
-     * hide the document outside the clipping rectangle
-     * and hide the hidden SVG elements.
+    /** When the mouse leaves the preview area, conceal the clipping rectangle.
      *
+     * @see {@linkcode module:player/Camera.Camera#concealClipping}
      * @listens mouseleave
      */
     onMouseLeave() {
