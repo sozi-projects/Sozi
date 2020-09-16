@@ -16,7 +16,6 @@ import {Toolbar} from "./view/Toolbar";
 import {Timeline} from "./view/Timeline";
 
 import nunjucks from "nunjucks";
-import * as i18n from "./i18n";
 
 window.addEventListener("load", () => {
     nunjucks.configure({watch: false});
@@ -35,7 +34,7 @@ window.addEventListener("load", () => {
     const toolbar      = new Toolbar(document.getElementById("sozi-editor-view-toolbar"), properties, presentation, viewport, controller);
     const timeline     = new Timeline(document.getElementById("sozi-editor-view-timeline"), presentation, selection, controller);
     controller.activate();
-    
+
     const body         = document.querySelector("body");
     const left         = document.querySelector(".left");
     const right        = document.querySelector(".right");
