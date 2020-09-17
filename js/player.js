@@ -11,7 +11,20 @@ import * as FrameList from "./player/FrameList";
 import * as FrameNumber from "./player/FrameNumber";
 import * as FrameURL from "./player/FrameURL";
 
-function setPresenterMode(target, isCurrent) {
+/** Put the current  player in presenter mode.
+ *
+ * This function is used by the presenter console that uses several
+ * players as *previews* of the previous, current and next frames.
+ *
+ * In presenter mode, keyboard and mouse navigation are disabled,
+ * frame numbers are hidden, hyperlink in the previous and next views are
+ * disabled, and in the current view, hyperlink ckicks are forwarded to the
+ * main presentation window.
+ *
+ * @param {Window} mainWindow - The browser window that plays the main presentation.
+ * @param {boolean} isCurrent - Is the current player showing the current frame?
+ */
+function setPresenterMode(mainWindow, isCurrent) {
     sozi.player.disableMedia();
     sozi.player.pause();
 
@@ -30,7 +43,7 @@ function setPresenterMode(target, isCurrent) {
         for (let link of sozi.presentation.document.root.getElementsByTagName("a")) {
             link.addEventListener("click", evt => {
                 if (link.id) {
-                    target.postMessage({name: "click", id: link.id}, "*");
+                    mainWindow.postMessage({name: "click", id: link.id}, "*");
                 }
                 evt.preventDefault();
             }, false);
@@ -41,12 +54,18 @@ function setPresenterMode(target, isCurrent) {
     }
 }
 
-/**
+/** Process a frame change event.
+ *
+ * This event handler is setup when the current player is connected to
+ * a presenter console.
+ * On frame change, the event is forwarded to the presenter.
+ *
+ * @param {Window} presenterWindow - The window that shows the presenter console.
  *
  * @listens module:player/Player.frameChange
  */
-function onFrameChange(target) {
-    target.postMessage({
+function onFrameChange(presenterWindow) {
+    presenterWindow.postMessage({
         name : "frameChange",
         index: sozi.player.currentFrame.index,
         title: sozi.player.currentFrame.title,
@@ -54,28 +73,43 @@ function onFrameChange(target) {
     }, "*");
 }
 
-function notifyOnFrameChange(target) {
-    sozi.player.addListener("frameChange", () => onFrameChange(target));
+/** Setup an event handler to forward the frame change event to the presenter window.
+ *
+ * This function is called when initializing the connexion between the current
+ * presentation and a presenter console in another window.
+ *
+ * @param {Window} presenterWindow - The window that shows the presenter console.
+ */
+function notifyOnFrameChange(presenterWindow) {
+    sozi.player.addListener("frameChange", () => onFrameChange(presenterWindow));
 
-    // Send the message to set the initial frame data in the target.
-    onFrameChange(target);
+    // Send the message to set the initial frame data in the presenter window.
+    onFrameChange(presenterWindow);
 }
 
+// Process messages from a presenter console.
 window.addEventListener("message", evt => {
     switch (evt.data.name) {
         case "notifyOnFrameChange":
+            // Install an event handler to forward the frame change event
+            // to the presenter console.
             notifyOnFrameChange(evt.source);
             break;
         case "setPresenterMode":
+            // Set this presentation into presenter mode.
             setPresenterMode(evt.source, evt.data.isCurrent);
             break;
         case "click":
+            // Forward the click event on a hyperlink in the presenter console
+            // to the same hyperlink in the main presentation.
+            const link = sozi.presentation.document.root.getElementById(evt.data.id);
             // We use dispatchEvent here because
             // SVG <a> elements do not have a click method.
-            const link = sozi.presentation.document.root.getElementById(evt.data.id);
             link.dispatchEvent(new MouseEvent("click"));
             break;
         default:
+            // Interpret a message as a method call to the current Sozi player.
+            // The message must be of the form: {name: string, args: any[]}.
             const method = sozi.player[evt.data.name];
             const args   = evt.data.args || [];
             if (typeof method === "function") {
@@ -87,6 +121,7 @@ window.addEventListener("message", evt => {
     }
 }, false);
 
+// Initialize the Sozi player when the document is loaded.
 window.addEventListener("load", () => {
     const svgRoot = document.querySelector("svg");
     svgRoot.style.display = "inline";
@@ -132,8 +167,23 @@ window.addEventListener("load", () => {
     document.querySelector(".sozi-blank-screen .spinner").style.display = "none";
 });
 
+/** Identifies the window that opened this presentation.
+ *
+ * This constant can typically have three possible values:
+ * - a presenter console window that opened this window to display the main presentation,
+ * - a parent window if this presentation is opened in a frame,
+ * - the current window.
+ *
+ * @readonly
+ * @type {Window}
+ */
 const opener = window.opener || window.parent;
 
+/** Check that Sozi is loaded and notify a presenter console.
+ *
+ * This function will repeatedly check whether the `window.sozi` variable is populated.
+ * On success, it will send the `loaded` message to the presenter console.
+ */
 function checkSozi() {
     if (window.sozi) {
         opener.postMessage({
