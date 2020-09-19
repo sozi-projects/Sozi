@@ -2,12 +2,28 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/** @module */
+/** Manage the browser's location bar while playing a presentation.
+ *
+ * This module is part of the Sozi player embedded in each presentation.
+ *
+ * @module
+ */
 
+/** The current Sozi player.
+ *
+ * @type {module:player/Player.Player} */
 let player;
 
-export function init(aPlayer) {
-    player = aPlayer;
+/** Initialize the location bar management.
+ *
+ * This function registers `hashchange` and
+ * {@linkcode module:player/Player.frameChange|frameChange} event handlers
+ * to reflect the current frame ID in the current URL.
+ *
+ * @param {module:player/Player.Player} p - The current Sozi player.
+ */
+export function init(p) {
+    player = p;
 
     window.addEventListener("hashchange", onHashChange, false);
 
@@ -16,6 +32,13 @@ export function init(aPlayer) {
     }
 }
 
+/** Get the frame for the current URL.
+ *
+ * This function parses the current URL hash as a frame ID or a frame number.
+ * It returns the corresponding frame, or the current frame if no match was found.
+ *
+ * @returns {module:model/Presentation.Frame} - The frame that corresponds to the current URL hash.
+ */
 export function getFrame() {
     if (window.location.hash) {
         const indexOrId = window.location.hash.slice(1);
@@ -35,6 +58,12 @@ export function getFrame() {
     }
 }
 
+/** Process the `hashchange` event.
+ *
+ * Move the presentation to the frame that corresponds to the current URL.
+ *
+ * @listens hashchange
+ */
 function onHashChange() {
     const frame = getFrame();
     if (player.currentFrame !== frame) {
@@ -42,6 +71,10 @@ function onHashChange() {
     }
 }
 
+/** Update the URL hash in the location bar on frame change.
+ *
+ * @listens module:player/Player.frameChange
+ */
 function onFrameChange() {
     window.location.hash = "#" + player.currentFrame.frameId;
 }

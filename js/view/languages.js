@@ -2,9 +2,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/** @module */
+/** Internationalization support in the presentation editor.
+ *
+ * @module
+ */
 
-/** Returns the supported languages in the user interface of Sozi */
+/** Returns the supported languages in the user interface of Sozi.
+ *
+ * @param {Function} _ - The `gettext` function.
+ * @returns {object} - A dictionary that maps language tags to language names.
+ */
 export function getLanguages(_) {
     return {
         auto: _("System language"),

@@ -26,45 +26,91 @@ import Jed from "jed";
  */
 export class Timeline extends VirtualDOMView {
 
-    /*
-     * Initialize a Timeline view.
+    /** Initialize a new timeline view.
      *
-     * The view is rendered and event handlers are set up.
-     *
-     * Parameters:
-     *  - presentation: a presentation object
-     *  - selection: a selection object
-     *
-     * Returns:
-     *  - The current view
+     * @param {HTMLElement} container - The HTML element that will contain this preview area.
+     * @param {module:model/Presentation.Presentation} presentation - The current Sozi presentation.
+     * @param {module:model/Selection.Selection} selection - The object that manages the frame and layer selection.
+     * @param {module:Controller.Controller} controller - The controller that manages the current editor.
      */
     constructor(container, presentation, selection, controller) {
         super(container, controller);
 
+        /** The current Sozi presentation.
+         *
+         * @type {module:model/Presentation.Presentation} */
         this.presentation = presentation;
+
+        /** The object that manages the frame and layer selection.
+         *
+         * @type {module:model/Selection.Selection} */
         this.selection = selection;
     }
 
+    /** Toggle the visibility of a layer in the preview area.
+     *
+     * @param {number} layerIndex - The index of the layer to change.
+     * @param {MouseEvent} evt - The DOM event that triggered this action.
+     *
+     * @listens click
+     *
+     * @see {@linkcode module:Controller.Controller#updateLayerVisibility}
+     */
     toggleLayerVisibility(layerIndex, evt) {
         this.controller.updateLayerVisibility(this.controller.getLayersAtIndex(layerIndex));
         evt.stopPropagation();
     }
 
+    /** Update the list of selected frames.
+     *
+     * This method is called when the user clicks a frame heading in the timeline.
+     *
+     * @param {number} frameIndex - The index of the frame to add or remove.
+     * @param {MouseEvent} evt - The DOM event that triggered this action.
+     *
+     * @listens click
+     *
+     * @see {@linkcode module:Controller.Controller#updateFrameSelection}
+     */
     updateFrameSelection(frameIndex, evt) {
         this.controller.updateFrameSelection(evt.ctrlKey, evt.shiftKey, frameIndex);
         evt.stopPropagation();
     }
 
+    /** Update the list of selected layers.
+     *
+     * This method is called when the user clicks a layer heading in the timeline.
+     *
+     * @param {number} layerIndex - The index of the layer to add or remove.
+     * @param {MouseEvent} evt - The DOM event that triggered this action.
+     *
+     * @listens click
+     *
+     * @see {@linkcode module:Controller.Controller#updateLayerSelection}
+     */
     updateLayerSelection(layerIndex, evt) {
         this.controller.updateLayerSelection(evt.ctrlKey, evt.shiftKey, this.controller.getLayersAtIndex(layerIndex));
         evt.stopPropagation();
     }
 
+    /** Update the list of selected frames and layers.
+     *
+     * This method is called when the user clicks a cell inside the timeline table.
+     *
+     * @param {number} layerIndex - The index of the layer to add or remove.
+     * @param {number} frameIndex - The index of the frame to add or remove.
+     * @param {MouseEvent} evt - The DOM event that triggered this action.
+     *
+     * @listens click
+     *
+     * @see {@linkcode module:Controller.Controller#updateLayerSelection}
+     */
     updateLayerAndFrameSelection(layerIndex, frameIndex, evt) {
         this.controller.updateLayerAndFrameSelection(evt.ctrlKey, evt.shiftKey, this.controller.getLayersAtIndex(layerIndex), frameIndex);
         evt.stopPropagation();
     }
 
+    /** @inheritdoc */
     repaint() {
         super.repaint();
 
@@ -103,6 +149,7 @@ export class Timeline extends VirtualDOMView {
         });
     }
 
+    /** @inheritdoc */
     render() {
         const controller = this.controller;
         const _ = controller.gettext;

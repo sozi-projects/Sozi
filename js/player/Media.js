@@ -2,21 +2,67 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/** @module */
+/** Manage the video or audio elements embedded in a presentation.
+ *
+ * This module is part of the Sozi player embedded in each presentation.
+ *
+ * @module
+ */
 
+/** The SVG namespace URI.
+ *
+ * @readonly
+ * @type {string} */
 const svgNs = "http://www.w3.org/2000/svg";
+
+/** The Sozi namespace URI.
+ *
+ * @readonly
+ * @type {string} */
 const soziNs = "http://sozi.baierouge.fr";
+
+/** The XHTML namespace URI.
+ *
+ * @readonly
+ * @type {string} */
 const xhtmlNs = "http://www.w3.org/1999/xhtml";
 
+/** The current Sozi player.
+ *
+ * @type {module:player/Player.Player} */
 let player;
 
+/** A default event handler that prevents the propagation of an event.
+ *
+ * For instance, this function prevents a click event inside a video element
+ * from also triggering a transition in the current presentation.
+ *
+ * @param {Event} evt - The DOM event to stop.
+ *
+ * @listens click
+ * @listens mousedown
+ * @listens mouseup
+ * @listens mousemove
+ * @listens contextmenu
+ */
 function defaultEventHandler(evt) {
     evt.stopPropagation();
 }
 
+/** A dictionary of video and audio elements to start in each frame.
+ *
+ * @type {object} */
 const mediaToStartByFrameId = {};
+
+/** A dictionary of video and audio elements to stop in each frame.
+ *
+ * @type {object} */
 const mediaToStopByFrameId = {};
 
+/** Start or stop media on frame change.
+ *
+ * @listens module:player/Player.frameChange
+ */
 function onFrameChange() {
     const frameId = player.currentFrame.frameId;
     if (frameId in mediaToStartByFrameId) {
@@ -31,8 +77,19 @@ function onFrameChange() {
     }
 }
 
-export function init(aPlayer) {
-    player = aPlayer;
+/** Initialize the video and audio element management.
+ *
+ * This function transforms custom XML `video` and `audio` into their
+ * HTML counterparts.
+ *
+ * It extracts the start/stop frame information for each media element,
+ * and registers a {@linkcode module:player/Player.frameChange|frameChange} event handler
+ * to start and stop media in the appropriate frames.
+ *
+ * @param {module:player/Player.Player} p - The current Sozi player.
+ */
+export function init(p) {
+    player = p;
 
     player.addListener("frameChange", onFrameChange);
 
@@ -139,6 +196,11 @@ export function init(aPlayer) {
     }
 }
 
+/** Disable video and audio support in the current presentation.
+ *
+ * This function disables the {@linkcode module:player/Player.frameChange|frameChange} event handler
+ * and pauses all playing videos.
+ */
 export function disable() {
     player.removeListener("frameChange", onFrameChange);
 

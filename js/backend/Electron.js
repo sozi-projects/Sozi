@@ -12,22 +12,36 @@ import Jed from "jed";
 import screenfull from "screenfull";
 import {remote} from "electron";
 
+/** Type for Electron browser windows.
+ *
+ * @external BrowserWindow
+ */
+
+/** The main browser window of the Sozi editor.
+ *
+ * @type {BrowserWindow} */
 const browserWindow = remote.getCurrentWindow();
 
-// Get the current working directory.
-// We use the PWD environment variable directly because
-// process.cwd() returns the installation path of Sozi.
+/** The current working directory.
+ *
+ * We use the `PWD` environment variable directly because
+ * `process.cwd()` returns the installation path of Sozi.
+ *
+ * @type {string}
+ */
 const cwd = process.env.PWD;
 
-console.log("Current working dir: " + cwd);
-
-/** Electron backend.
+/** A Sozi editor backend based on Electron.
  *
  * @extends module:backend/AbstractBackend.AbstractBackend
- * @todo Add documentation.
  */
 export class Electron extends AbstractBackend {
 
+    /** Initialize a Sozi  backend based on Electron.
+     *
+     * @param {module:Controller.Controller} controller - A controller instance.
+     * @param {HTMLElement} container - The element that will contain the menu for choosing a backend.
+     */
     constructor(controller, container) {
         const _ = controller.gettext;
 
@@ -37,43 +51,42 @@ export class Electron extends AbstractBackend {
 
         document.getElementById("sozi-editor-backend-Electron-input").addEventListener("click", () => this.openFileChooser());
 
-        // Save automatically when the window loses focus
-        const onBlur = () => {
-            if (this.controller.getPreference("saveMode") === "onblur") {
-                this.doAutosave();
-            }
-        };
-        this.addListener("blur", onBlur);
-
         // Save files when closing the window
         let closing = false;
 
-        window.addEventListener("beforeunload", (evt) => {
+        window.addEventListener("beforeunload", async evt => {
             // Workaround for a bug in Electron where the window closes after a few
             // seconds even when calling dialog.showMessageBox() synchronously.
             if (closing) {
                 return;
             }
+
+            this.controller.removeAllListeners("blur");
+
             closing = true;
             evt.returnValue = false;
 
-            this.removeListener("blur", onBlur);
-
             if (this.hasOutdatedFiles && this.controller.getPreference("saveMode") !== "onblur") {
                 // If autosave is disabled and some files are outdated, ask user confirmation.
-                remote.dialog.showMessageBox(browserWindow, {
+                const res = await remote.dialog.showMessageBox(browserWindow, {
                     type: "question",
                     message: _("Do you want to save the presentation before closing?"),
                     buttons: [_("Yes"), _("No")],
                     defaultId: 0,
                     cancelId: 1
-                }, (index) => this.quit(index === 0));
+                });
+                this.quit(res.response === 0);
             }
             else {
                 window.setTimeout(() => this.quit(true));
             }
         });
 
+        /** A dictionary of file watchers.
+         *
+         * Populated by the {@linkcode module:backend/Electron.Electron#load|load} method.
+         *
+         * @type {object.<string, fs.FSWatcher>} */
         this.watchers = {};
 
         // If a file name was provided on the command line,
@@ -84,7 +97,7 @@ export class Electron extends AbstractBackend {
             const fileName = path.resolve(cwd, remote.process.argv[1]);
             try {
                 fs.accessSync(fileName);
-                this.load(fileName);
+                this.controller.storage.setSVGFile(fileName, this);
             }
             catch (err) {
                 this.controller.error(Jed.sprintf(_("File not found: %s."), fileName));
@@ -97,25 +110,24 @@ export class Electron extends AbstractBackend {
         }
     }
 
-    quit(confirmSave) {
+    /** Close the editor window and terminate the application.
+     *
+     * @param {boolean} confirmSave - If `true`, save the current presentation before quitting.
+     */
+    async quit(confirmSave) {
         // Always save the window settings and the preferences.
         this.saveConfiguration();
         this.controller.preferences.save();
 
         if (confirmSave && this.hasOutdatedFiles) {
             // Close the window only when all files have been saved.
-            this.addListener("save", () => {
-                if (!this.hasOutdatedFiles) {
-                    browserWindow.close();
-                }
-            });
-            this.saveOutdatedFiles();
+            await this.saveOutdatedFiles();
         }
-        else {
-            browserWindow.close();
-        }
+
+        browserWindow.close();
     }
 
+    /** @inheritdoc */
     openFileChooser() {
         const _ = this.controller.gettext;
 
@@ -124,53 +136,73 @@ export class Electron extends AbstractBackend {
             filters: [{name: _("SVG files"), extensions: ["svg"]}],
             properties: ["openFile"]
         });
+        this.controller.hideNotification();
         if (files) {
-            this.load(files[0]);
+            this.controller.storage.setSVGFile(files[0], this);
         }
     }
 
+    /** @inheritdoc */
     getName(fileDescriptor) {
         return path.basename(fileDescriptor);
     }
 
+    /** @inheritdoc */
     getLocation(fileDescriptor) {
         return path.dirname(fileDescriptor);
     }
 
-    find(name, location, callback) {
+    /** @inheritdoc */
+    find(name, location) {
         const fileName = path.join(location, name);
-        fs.access(fileName, err => callback(err ? null : fileName));
-    }
-
-    load(fileDescriptor) {
-        // Read file asynchronously and fire the "load" event.
-        fs.readFile(fileDescriptor, { encoding: "utf8" }, (err, data) => {
-            if (!err) {
-                // Watch for changes in the loaded file and fire the "change" event.
-                // The "change" event is fired only once if the file is modified
-                // after being loaded. It will not be fired again until the file is
-                // loaded again.
-                // This includes a debouncing mechanism to ensure the file is in a stable
-                // state when the "change" event is fired: the event is fired only if the
-                // file has not changed for 100 ms.
-                if (!(fileDescriptor in this.watchers)) {
-                    const watcher = this.watchers[fileDescriptor] = fs.watch(fileDescriptor);
-                    let timer;
-                    watcher.on("change", () => {
-                        if (timer) {
-                            clearTimeout(timer);
-                        }
-                        timer = setTimeout(() => {
-                            timer = 0;
-                            this.emit("change", fileDescriptor);
-                        }, 100);
-                    });
+        return new Promise((resolve, reject) => {
+            fs.access(fileName, err => {
+                if (err) {
+                    reject(err);
                 }
-            }
-            this.emit("load", fileDescriptor, data, err);
+                else {
+                    resolve(fileName);
+                }
+            });
         });
     }
 
+    /** @inheritdoc */
+    load(fileDescriptor) {
+        return new Promise((resolve, reject) => {
+            fs.readFile(fileDescriptor, { encoding: "utf8" }, (err, data) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    // Watch for changes in the loaded file.
+                    // This includes a debouncing mechanism to ensure the file is in a stable
+                    // state when the storage is notified.
+                    if (!(fileDescriptor in this.watchers)) {
+                        try {
+                            const watcher = this.watchers[fileDescriptor] = fs.watch(fileDescriptor);
+                            let timer;
+                            watcher.on("change", () => {
+                                if (timer) {
+                                    clearTimeout(timer);
+                                }
+                                timer = setTimeout(() => {
+                                    timer = 0;
+                                    this.controller.onFileChange(fileDescriptor);
+                                }, 100);
+                            });
+                        }
+                        catch (err) {
+                            this.controller.error(Jed.sprintf(_("This file will not be reloaded on change: %s."), fileDescriptor));
+                        }
+                    }
+                    resolve(data);
+                }
+            });
+        });
+    }
+
+    /** @inheritdoc */
     loadSync(fileDescriptor) {
         try {
             return fs.readFileSync(fileDescriptor, {encoding: "utf8" });
@@ -182,15 +214,41 @@ export class Electron extends AbstractBackend {
         }
     }
 
-    create(name, location, mimeType, data, callback = () => {}) {
+    /** @inheritdoc */
+    create(name, location, mimeType, data) {
         const fileName = path.join(location, name);
-        fs.writeFile(fileName, data, { encoding: "utf-8" }, (err) => callback(fileName, err));
+        return new Promise((resolve, reject) => {
+            fs.writeFile(fileName, data, { encoding: "utf-8" }, err => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(fileName);
+                }
+            });
+        });
     }
 
+    /** @inheritdoc */
     save(fileDescriptor, data) {
-        fs.writeFile(fileDescriptor, data, { encoding: "utf-8" }, (err) => this.emit("save", fileDescriptor, err));
+        return new Promise((resolve, reject) => {
+            fs.writeFile(fileDescriptor, data, { encoding: "utf-8" }, err => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    this.controller.storage.onSave(fileDescriptor);
+                    resolve(fileDescriptor);
+                }
+            });
+        });
     }
 
+    /** Load the configuration of the current browser window.
+     *
+     * This method will restore the location, size, and fullscreen state
+     * of the window.
+     */
     loadConfiguration() {
         function getItem(key, val) {
             const result = localStorage.getItem(key);
@@ -205,12 +263,18 @@ export class Electron extends AbstractBackend {
         }
     }
 
+    /** Save the configuration of the current browser window.
+     *
+     * This method will save the location, size, and fullscreen state
+     * of the window.
+     */
     saveConfiguration() {
         [localStorage.windowX, localStorage.windowY] = browserWindow.getPosition();
         [localStorage.windowWidth, localStorage.windowHeight] = browserWindow.getSize();
         localStorage.windowFullscreen = screenfull.isFullscreen;
     }
 
+    /** @inheritdoc */
     toggleDevTools() {
         browserWindow.toggleDevTools();
     }

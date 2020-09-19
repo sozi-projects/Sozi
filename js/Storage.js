@@ -6,32 +6,32 @@
 
 import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
 import {backendList} from "./backend/AbstractBackend";
-import {EventEmitter} from "events";
 import nunjucks from "nunjucks";
 import Jed from "jed";
 import {upgradeFromSVG, upgradeFromStorable} from "./upgrade";
 import path from "path";
 
+function replaceFileExtWith(fileName, ext) {
+    return fileName.replace(/\.[^/.]+$/, ext);
+}
+
 /** File read/write manager.
  *
- * @extends EventEmitter
  * @todo Add documentation.
  */
-export class Storage extends EventEmitter {
+export class Storage {
 
     constructor(controller, presentation, selection) {
-        super();
-
-        this.controller = controller;
-        this.document = null;
-        this.presentation = presentation;
-        this.selection = selection;
-        this.backend = backendList[0];
-        this.svgFileDescriptor = null;
+        this.controller         = controller;
+        this.document           = null;
+        this.presentation       = presentation;
+        this.selection          = selection;
+        this.backend            = backendList[0];
+        this.svgFileDescriptor  = null;
         this.htmlFileDescriptor = null;
-        this.jsonNeedsSaving = false;
-        this.htmlNeedsSaving = false;
-        this.reloading = false;
+        this.jsonFileDescriptor = null;
+        this.jsonNeedsSaving    = false;
+        this.htmlNeedsSaving    = false;
 
         // Adjust the template path depending on the target platform.
         // In the web browser, __dirname is set to "/js". The leading "/" will result
@@ -51,57 +51,50 @@ export class Storage extends EventEmitter {
             this.jsonNeedsSaving = true;
         });
 
+        controller.addListener("blur", () => {
+            if (this.backend && controller.getPreference("saveMode") === "onblur") {
+                this.backend.doAutosave();
+            }
+        });
+    }
+
+    activate() {
         for (let backend of backendList) {
             const listItem = document.createElement("li");
             document.querySelector("#sozi-editor-view-preview ul").appendChild(listItem);
 
-            const backendInstance = new backend(controller, listItem);
-            backendInstance.addListener("load", (...a) => this.onBackendLoad(backendInstance, ...a));
-            backendInstance.addListener("change", (...a) => this.onBackendChange(...a));
+            const backendInstance = new backend(this.controller, listItem);
         }
     }
 
     save() {
-        this.backend.doAutosave();
+        return this.backend.doAutosave();
     }
 
     reload() {
-        this.save();
-        this.backend.load(this.svgFileDescriptor);
+        this.save().then(
+            () => this.backend.load(this.svgFileDescriptor)
+        ).then(
+            data => this.loadSVGData(data)
+        );
     }
 
-    onBackendLoad(backend, fileDescriptor, data, err) {
-        const _ = this.controller.gettext;
-        this.backend = backend;
+    setSVGFile(fileDescriptor, backend) {
+        this.svgFileDescriptor = fileDescriptor;
+        this.backend           = backend;
+        this.backend.load(this.svgFileDescriptor).then(data => this.loadSVGData(data));
+    }
 
-        const name = backend.getName(fileDescriptor);
-        const location = backend.getLocation(fileDescriptor);
+    loadSVGData(data) {
+        const _        = this.controller.gettext;
+        const name     = this.backend.getName(this.svgFileDescriptor);
+        const location = this.backend.getLocation(this.svgFileDescriptor);
 
-        if (err) {
-            this.controller.error(Jed.sprintf(_("File %s could not be loaded."), name));
-        }
-        else if (/\.svg$/.test(name)) {
-            this.reloading = fileDescriptor === this.svgFileDescriptor;
-            this.document = SVGDocumentWrapper.fromString(data);
-            if (this.document.isValidSVG) {
-                this.resolveRelativeURLs(location);
-                this.presentation.setSVGDocument(this.document);
-                this.svgFileDescriptor = fileDescriptor;
-                this.controller.once("ready", () => {
-                    const htmlFileName = name.replace(/\.svg$/, ".sozi.html");
-                    this.createHTMLFile(htmlFileName, location);
-                    this.createPresenterHTMLFile(name.replace(/\.svg$/, "-presenter.sozi.html"), location, htmlFileName);
-                });
-                this.openJSONFile(name.replace(/\.svg$/, ".sozi.json"), location);
-            }
-            else {
-                this.controller.error(_("Document is not valid SVG."));
-            }
-        }
-        else if (/\.sozi\.json$/.test(name)) {
-            // Load presentation data and editor state from JSON file.
-            this.loadJSONData(data);
-            this.setJSONFile(fileDescriptor);
+        this.document = SVGDocumentWrapper.fromString(data);
+        if (this.document.isValidSVG) {
+            this.resolveRelativeURLs(location);
+            this.presentation.setSVGDocument(this.document);
+            this.openJSONFile(replaceFileExtWith(name, ".sozi.json"), location);
         }
         else {
             this.controller.error(_("Document is not valid SVG."));
@@ -134,45 +127,25 @@ export class Storage extends EventEmitter {
         }
     }
 
-    onBackendChange(fileDescriptor) {
-        const _ = this.controller.gettext;
-
-        if (fileDescriptor === this.svgFileDescriptor) {
-            switch (this.controller.getPreference("reloadMode")) {
-                case "auto":
-                    this.controller.info(_("Document was changed. Reloading."));
-                    this.reload();
-                    break;
-
-                case "onfocus":
-                    if (this.backend.hasFocus) {
-                        this.controller.info(_("Document was changed. Reloading."));
-                        this.reload();
-                    }
-                    else {
-                        this.backend.once("focus", () => this.reload());
-                    }
-                    break;
-
-                default:
-                    this.controller.info(_("Document was changed."));
-            }
-        }
-    }
-
     /*
      * Open the JSON file with the given name at the given location.
      * If the file exists, load it.
      * It it does not exist, create it.
+     *
+     * Returns a promise.
      */
     openJSONFile(name, location) {
         const _ = this.controller.gettext;
 
-        this.backend.find(name, location, fileDescriptor => {
-            if (fileDescriptor) {
-                this.backend.load(fileDescriptor);
-            }
-            else {
+        return this.backend.find(name, location).then(
+            // Load presentation data and editor state from JSON file.
+            fileDescriptor => this.backend.load(fileDescriptor).then(
+                data => {
+                    this.loadJSONData(data);
+                    return fileDescriptor;
+                }
+            ),
+            err => {
                 // If no JSON file is available, attempt to extract
                 // presentation data from the SVG document, assuming
                 // it has been generated from Sozi 13 or earlier.
@@ -184,44 +157,59 @@ export class Storage extends EventEmitter {
                     this.controller.info(_("Document was imported from Sozi 13 or earlier."));
                 }
 
-                this.backend.create(name, location, "application/json", this.getJSONData(), fileDescriptor => {
-                    this.setJSONFile(fileDescriptor);
-                });
-
-                this.controller.onLoad(this);
+                return this.backend.create(name, location, "application/json", this.getJSONData());
             }
-        });
+        ).then(
+            fileDescriptor => {
+                if (!this.jsonFileDescriptor) {
+                    this.jsonFileDescriptor = fileDescriptor;
+                    this.backend.autosave(fileDescriptor, () => this.jsonNeedsSaving, () => this.getJSONData());
+                }
+
+                this.controller.onLoad();
+
+                const svgName           = this.backend.getName(this.svgFileDescriptor);
+                const htmlFileName      = replaceFileExtWith(svgName, ".sozi.html");
+                const presenterFileName = replaceFileExtWith(svgName, "-presenter.sozi.html");
+                this.createHTMLFile(htmlFileName, location);
+                this.createPresenterHTMLFile(presenterFileName, location, htmlFileName);
+            }
+        );
     }
 
     /*
      * Create the exported HTML file if it does not exist.
+     *
+     * Returns a promise.
      */
     createHTMLFile(name, location) {
-        this.backend.find(name, location, fileDescriptor => {
-            if (fileDescriptor) {
-                this.setHTMLFile(fileDescriptor);
-                this.backend.save(fileDescriptor, this.exportHTML());
+        return this.backend.find(name, location).then(
+            fileDescriptor => this.backend.save(fileDescriptor, this.exportHTML()),
+            err => this.backend.create(name, location, "text/html", this.exportHTML())
+        ).then(
+            fileDescriptor => {
+                if (!this.htmlFileDescriptor) {
+                    this.htmlFileDescriptor = fileDescriptor;
+                    this.backend.autosave(fileDescriptor, () => this.htmlNeedsSaving, () => this.exportHTML());
+                }
             }
-            else {
-                this.backend.create(name, location, "text/html", this.exportHTML(), fileDescriptor => {
-                    this.setHTMLFile(fileDescriptor);
-                });
-            }
-        });
+        );
     }
 
     /*
      * Create the presenter HTML file if it does not exist.
+     *
+     * Returns a promise.
      */
     createPresenterHTMLFile(name, location, htmlFileName) {
-        this.backend.find(name, location, fileDescriptor => {
-            if (fileDescriptor) {
+        return this.backend.find(name, location).then(
+            fileDescriptor => {
                 this.backend.save(fileDescriptor, this.exportPresenterHTML(htmlFileName));
-            }
-            else {
+            },
+            err => {
                 this.backend.create(name, location, "text/html", this.exportPresenterHTML(htmlFileName));
             }
-        });
+        );
     }
 
     /*
@@ -234,54 +222,20 @@ export class Storage extends EventEmitter {
         this.presentation.fromStorable(storable);
         this.controller.fromStorable(storable);
         this.selection.fromStorable(storable);
-        this.controller.onLoad(this);
     }
 
-    /*
-     * Register a file descriptor for the JSON presentation data.
-     *
-     * Configure autosaving for presentation data and editor state.
-     */
-    setJSONFile(fileDescriptor) {
-        if (this.reloading) {
-            return;
-        }
-
-        this.backend.autosave(fileDescriptor, () => this.jsonNeedsSaving, () => this.getJSONData());
-
+    onSave(fileDescriptor) {
         const _ = this.controller.gettext;
 
-        this.backend.addListener("save", savedFileDescriptor => {
-            if (fileDescriptor === savedFileDescriptor) {
-                this.jsonNeedsSaving = false;
-                this.controller.info(Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)));
-            }
-        });
-    }
-
-    /*
-     * Register a file descriptor for the generated HTML presentation.
-     *
-     * Configure autosaving for HTML export.
-     */
-    setHTMLFile(fileDescriptor) {
-        if (this.reloading) {
-            return;
+        if (this.backend.sameFile(fileDescriptor, this.jsonFileDescriptor)) {
+            this.jsonNeedsSaving = false;
+        }
+        else if (this.backend.sameFile(fileDescriptor, this.htmlFileDescriptor)) {
+            this.htmlNeedsSaving = false;
         }
 
-        this.htmlFileDescriptor = fileDescriptor;
-
-        this.backend.autosave(fileDescriptor, () => this.htmlNeedsSaving, () => this.exportHTML());
-
-        const _ = this.controller.gettext;
-
-        this.backend.addListener("save", savedFileDescriptor => {
-            if (fileDescriptor === savedFileDescriptor) {
-                this.htmlNeedsSaving = false;
-                this.controller.emit("repaint"); // TODO move this to controller
-                this.controller.info(Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)));
-            }
-        });
+        this.controller.emit("repaint"); // TODO move this to controller
+        this.controller.info(Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)));
     }
 
     /*

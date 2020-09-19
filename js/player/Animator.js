@@ -6,8 +6,10 @@
 
 import {EventEmitter} from "events";
 
-/*
- * The browser-specific function to request an animation frame.
+/** The browser-specific function to request an animation frame.
+ *
+ * @readonly
+ * @type {Function}
  */
 const doRequestAnimationFrame =
         window.requestAnimationFrame ||
@@ -16,30 +18,43 @@ const doRequestAnimationFrame =
         window.msRequestAnimationFrame ||
         window.oRequestAnimationFrame;
 
+/** The object that provides the `now` method to read the current time.
+ *
+ * @readonly
+ * @type {Function}
+ */
 const perf = window.performance && window.performance.now ? window.performance : Date;
 
-/*
- * The default time step.
+/** The default time step.
+ *
  * For browsers that do not support animation frames.
+ *
+ * @default
+ * @type {number}
  */
 const TIME_STEP_MS = 40;
 
-/*
- * The handle provided by setInterval().
+/** The handle provided by `setInterval`.
+ *
  * For browsers that do not support animation frames.
  */
 let timer;
 
-// The number of running animators.
+/** The number of running animators.
+ *
+ * @default
+ * @type {number}
+ */
 let runningAnimators = 0;
 
-/*
- * The list of managed animators.
+/** The list of managed animators.
+ *
+ * @default
+ * @type {module:player/Animator.Animator[]}
  */
 const animatorList = [];
 
-/*
- * The main animation loop.
+/** The main animation loop.
  *
  * This function is called periodically and triggers the
  * animation steps in all running animators.
@@ -47,8 +62,8 @@ const animatorList = [];
  * If all animators are removed from the list of running animators,
  * then the periodic calling is disabled.
  *
- * This function can be called either through doRequestAnimationFrame()
- * or through setInterval().
+ * This function can be called either through `doRequestAnimationFrame`
+ * or through `setInterval`.
  */
 function loop() {
     if (runningAnimators > 0) {
@@ -75,12 +90,11 @@ function loop() {
     }
 }
 
-/*
- * Start the animation loop.
+/** Start the animation loop.
  *
  * This function delegates the periodic update of all animators
- * to the loop() function, either using doRequestAnimationFrame()
- * if the browser supports it, or using setInterval().
+ * to the `loop` function, either using `doRequestAnimationFrame`
+ * if the browser supports it, or using `setInterval`.
  */
 function start() {
     if (doRequestAnimationFrame) {
@@ -91,28 +105,65 @@ function start() {
     }
 }
 
+/** Fired by an animator on each animation step.
+ *
+ * @event module:player/Animator.step
+ */
+
+/** Fired by an animator when stopping an animation before completion.
+ *
+ * @event module:player/Animator.stop
+ */
+
+/** Fired by an animator when an animation is complete.
+ *
+ * @event module:player/Animator.done
+ */
+
 /** An animator provides the logic for animating other objects.
  *
  * The main purpose of an animator is to schedule the update
  * operations in the animated objects.
  *
  * @extends EventEmitter
- * @todo Add documentation
  */
 export class Animator extends EventEmitter {
-
+    /** Initialize a new animator.
+     *
+     * The new animator is added to the list of animators
+     * managed by the Sozi player.
+     */
     constructor() {
         super();
+
+        /** The duration of the current animation, in milliseconds.
+         *
+         * @default
+         * @type {number} */
         this.durationMs = 500;
+
+        /** The start time of the current animation.
+         *
+         * @default
+         * @type {number} */
         this.initialTime = 0;
+
+        /** The current running state of this animator.
+         *
+         * @default
+         * @type {boolean} */
         this.running = false;
+
         animatorList.push(this);
     }
 
-    /*
-     * Start the current animator.
+    /** Start a new animation.
      *
-     * The "step" event is fired once before starting the animation.
+     * The {@linkcode module:player/Animator.step|step} event is fired once before starting the animation.
+     *
+     * @param {number} durationMs - The duration of the animation, in milliseconds.
+     *
+     * @fires module:player/Animator.step
      */
     start(durationMs) {
         this.durationMs = durationMs;
@@ -127,8 +178,9 @@ export class Animator extends EventEmitter {
         }
     }
 
-    /*
-     * Stop the current animator.
+    /** Stop the current animation.
+     *
+     * @fires module:player/Animator.step
      */
     stop() {
         if (this.running) {
@@ -138,12 +190,17 @@ export class Animator extends EventEmitter {
         }
     }
 
-    /*
-     * Perform one animation step.
+    /** Perform one animation step.
      *
-     * This function is called automatically by the loop() function.
-     * It fires the "step" event with the current progress (elapsed time / duration).
-     * If the animation duration has elapsed, the "done" event is fired.
+     * This function is called automatically by the main animation loop.
+     * It fires the {@linkcode module:player/Animator.step|step} event with
+     * an indication of the current progress (elapsed time / duration).
+     *
+     * If the animation duration has elapsed, the
+     * {@linkcode module:player/Animator.done|done} event is fired.
+     *
+     * @fires module:player/Animator.step
+     * @fires module:player/Animator.done
      */
     step() {
         const elapsedTime = perf.now() - this.initialTime;

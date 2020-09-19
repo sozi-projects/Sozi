@@ -6,9 +6,19 @@
 
 import {CameraState} from "../model/CameraState";
 
-// Constant: the Sozi namespace
+/** Constant: the XML SVG namespace URI.
+ *
+ * @type {string} */
 const SVG_NS = "http://www.w3.org/2000/svg";
 
+/** Check that an SVG element is usable as a reference element.
+ *
+ * The function helps work around a bug in web browsers where text elements
+ * are known to return unreliable bounding box data.
+ *
+ * @param {SVGElement} elt - An SVG element to check.
+ * @returns {boolean} - `true` if the element can be used as a reference element.
+ */
 export function hasReliableBoundaries(elt) {
     return !/text|textpath|tspan/i.test(elt.tagName);
 }
@@ -16,25 +26,47 @@ export function hasReliableBoundaries(elt) {
 /** Camera.
  *
  * @extends module:model/CameraState.CameraState
- * @todo Add documentation.
  */
 export class Camera extends CameraState {
 
+    /** Initialize a new camera.
+     *
+     * @param {module:player/Viewport.Viewport} viewport - The viewport attached to this camera.
+     * @param {module:model/Presentation.Layer} layer - The layer where this camera operates.
+     */
     constructor(viewport, layer) {
         super(viewport.svgRoot);
 
+        /** The viewport attached to this camera.
+         *
+         * @type {module:player/Viewport.Viewport} */
         this.viewport = viewport;
+
+        /** The layer where this camera operates.
+         *
+         * @type {module:model/Presentation.Layer} */
         this.layer = layer;
+
+        /** Is the layer for this camera selected for manipulation by the user?
+         *
+         * When playing the presentation, all cameras are always selected.
+         *
+         * @default
+         * @type {boolean} */
         this.selected = true;
 
-        // The clipping rectangle of this camera
+        /** The clipping rectangle of this camera.
+         *
+         * @type {SVGRectElement} */
         this.svgClipRect = document.createElementNS(SVG_NS, "rect");
 
         let svgClipId;
 
         if (viewport.editMode) {
-            // In edit mode, we set up a mask outside the clipping rectangle.
-            // This value allows to set the opacity of the mask.
+            /** In edit mode, the opacity of the mask outside the clipping rectangle.
+             *
+             * @default
+             * @type {number} */
             this.maskValue = 0;
 
             const svgMask = document.createElementNS(SVG_NS, "mask");
@@ -42,19 +74,32 @@ export class Camera extends CameraState {
             svgMask.setAttribute("id", svgClipId);
             viewport.svgRoot.appendChild(svgMask);
 
+            /** In edit mode, a rectangle that will be combined to the clipping rectangle to create a mask.
+             *
+             * @type {SVGRectElement} */
             this.svgMaskRect = document.createElementNS(SVG_NS, "rect");
             svgMask.appendChild(this.svgMaskRect);
 
             this.svgClipRect.setAttribute("fill", "white");
             svgMask.appendChild(this.svgClipRect);
 
-            // We also define two rectangles that will show the outline
-            // of the clipped region in alternating white and black dashes.
+            /** A rectangle with black stroke that indicates the boundary of the clipped region.
+             *
+             * This rectangle is painted below {@linkcode module:player/Camera.Camera#svgClipOutlineRect2|svgClipOutlineRect2}
+             * to create an alternating black-and-white pattern.
+             *
+             * @type {SVGRectElement} */
             this.svgClipOutlineRect1 = document.createElementNS(SVG_NS, "rect");
             this.svgClipOutlineRect1.setAttribute("stroke", "black");
             this.svgClipOutlineRect1.setAttribute("fill", "none");
             viewport.svgRoot.appendChild(this.svgClipOutlineRect1);
 
+            /** A rectangle with dashed white stroke that indicates the boundary of the clipped region.
+             *
+             * This rectangle is painted over {@linkcode module:player/Camera.Camera#svgClipOutlineRect1|svgClipOutlineRect1}
+             * to create an alternating black-and-white pattern.
+             *
+             * @type {SVGRectElement} */
             this.svgClipOutlineRect2 = document.createElementNS(SVG_NS, "rect");
             this.svgClipOutlineRect2.setAttribute("stroke", "white");
             this.svgClipOutlineRect2.setAttribute("fill", "none");
@@ -73,7 +118,11 @@ export class Camera extends CameraState {
             viewport.svgRoot.appendChild(svgClipPath);
         }
 
-        // The groups that will support transformations
+        /** The groups that will support transformations.
+         *
+         * One SVG group is created for each group listed in each layer.
+         *
+         * @type {SVGGElement[]} */
         this.svgTransformGroups = layer.svgNodes.map(svgNode => {
             // The group that will support the clipping operation
             const svgClippedGroup = document.createElementNS(SVG_NS, "g");
@@ -93,28 +142,66 @@ export class Camera extends CameraState {
         });
     }
 
+    /** Show the clipping rectangle and its surroundings.
+     *
+     * This method makes the clipping rectangle visible and dims the
+     * elements outside this rectangle by making the clipping mask partially
+     * transparent.
+     *
+     * @see {@linkcode module:player/Camera.Camera#maskValue|maskValue}
+     * @see {@linkcode module:player/Camera.Camera#svgClipOutlineRect2|svgClipOutlineRect1}
+     * @see {@linkcode module:player/Camera.Camera#svgClipOutlineRect2|svgClipOutlineRect2}
+     */
     revealClipping() {
         this.maskValue = 64;
         this.svgClipOutlineRect1.style.display = "inline";
         this.svgClipOutlineRect2.style.display = "inline";
     }
 
+    /** Hide the clipping rectangle and its surroundings.
+     *
+     * This method makes the clipping rectangle invisible and masks the
+     * elements outside this rectangle.
+     *
+     * @see {@linkcode module:player/Camera.Camera#maskValue|maskValue}
+     * @see {@linkcode module:player/Camera.Camera#svgClipOutlineRect2|svgClipOutlineRect1}
+     * @see {@linkcode module:player/Camera.Camera#svgClipOutlineRect2|svgClipOutlineRect2}
+     */
     concealClipping() {
         this.maskValue = 0;
         this.svgClipOutlineRect1.style.display = "none";
         this.svgClipOutlineRect2.style.display = "none";
     }
 
+    /** The scaling factor applied to this camera to fit the viewport.
+     *
+     * @readonly
+     * @type {number}
+     */
     get scale() {
         return Math.min(this.viewport.width / this.width, this.viewport.height / this.height);
     }
 
+    /** Rotate this camera.
+     *
+     * @param {number} angle - The rotation angle, in degrees.
+     */
     rotate(angle) {
         this.restoreAspectRatio();
         this.angle += angle;
         this.update();
     }
 
+    /** Zoom by a given factor.
+     *
+     * A zoom-in operation will shrink the width and height of the image
+     * seen by this camera.
+     * It will be automatically scaled to fit the viewport.
+     *
+     * @param {number} factor - The scaling factor, above 1 to zoom in, below 1 to zoom out.
+     * @param {number} x - The X coordinate of the transformation center (this point will not move during the operation).
+     * @param {number} y - The Y coordinate of the transformation center (this point will not move during the operation).
+     */
     zoom(factor, x, y) {
         this.width /= factor;
         this.height /= factor;
@@ -125,6 +212,18 @@ export class Camera extends CameraState {
         );
     }
 
+    /** Translate the canvas.
+     *
+     * The given coordinates represent the displacement of the canvas,
+     * e.g. when the user uses a drag-and-drop gesture.
+     * For this reason, they are negated when computing the new coordinates
+     * of this camera.
+     *
+     * The translation is applied after the rotation and zoom.
+     *
+     * @param {number} deltaX - The displacement along the X axis.
+     * @param {number} deltaY - The displacement along the Y axis.
+     */
     translate(deltaX, deltaY) {
         const scale = this.scale;
         const angleRad = this.angle * Math.PI / 180;
@@ -136,6 +235,16 @@ export class Camera extends CameraState {
         this.update();
     }
 
+    /** Clip the image seen by the camera.
+     *
+     * This method will set the `clipped` property to `true`
+     * and will compute the geometry of the clipping rectangle.
+     *
+     * @param {number} x0 - The X coordinate of the first corner of the clipping rectangle.
+     * @param {number} y0 - The Y coordinate of the first corner of the clipping rectangle.
+     * @param {number} x1 - The X coordinate of the opposite corner of the clipping rectangle.
+     * @param {number} y1 - The Y coordinate of the opposite corner of the clipping rectangle.
+     */
     clip(x0, y0, x1, y1) {
         this.clipped = true;
         const scale = this.scale;
@@ -148,6 +257,7 @@ export class Camera extends CameraState {
         this.update();
     }
 
+    /** Update the dimensions of the image to match the aspect ratio of the viewport. */
     restoreAspectRatio() {
         const viewportRatio = this.viewport.width / this.viewport.height;
         const camRatio = this.width / this.height;
@@ -166,6 +276,17 @@ export class Camera extends CameraState {
         }
     }
 
+    /** Find an SVG element that can be used as an anchor for this camera.
+     *
+     * When the SVG is modified, the reference element will be used to
+     * recalculate to location, rotation, ans scaling factor of this camera.
+     *
+     * The reference element is selected according to these criteria:
+     * - It must be completely, or partially, visible in the field of this camera.
+     * - Its bounding box has the biggest intersection area with the viewport, and the smallest area outside the viewport.
+     *
+     * @returns {object} - An object `{element, score}` with an SVG element and a number that indicates how well the element fits the viewport.
+     */
     getCandidateReferenceElement() {
         // FIXME getIntersectionList is not supported in Gecko
         if (!this.layer.svgNodes.length || !this.svgRoot.getIntersectionList) {
@@ -213,6 +334,10 @@ export class Camera extends CameraState {
         return {element, score};
     }
 
+    /** The geometry of the clipping rectangle.
+     *
+     * @returns {object} - An object of the form `{width, height, x, y}` where `x` and `y` are the coordinates of the top-left corner.
+     */
     get clipRect() {
         let width, height, x, y;
         if (this.clipped) {
@@ -231,6 +356,11 @@ export class Camera extends CameraState {
         return {width, height, x, y};
     }
 
+    /** Update the current layer of the SVG document to reflect the properties of this camera.
+     *
+     * This method applies geometrical transformations to the current layer,
+     * and updates the clipping rectangles and mask.
+     */
     update() {
         // Adjust the location and size of the clipping rectangle
         const rect = this.clipRect;
@@ -272,6 +402,19 @@ export class Camera extends CameraState {
         }
     }
 
+    /** Update this camera by interpolating between two camera states.
+     *
+     * This method is typically used when animating a transition between two
+     * frames of a Sozi presentation.
+     *
+     * @param {module:model/CameraState.CameraState} initialState - The initial camera state.
+     * @param {module:model/CameraState.CameraState} finalState - The final camera state.
+     * @param {number} progress - The relative time already elapsed between the initial and final states (between 0 and 1).
+     * @param {Function} timingFunction - A function that maps the progress indicator to the relative distance already completed between the initial and final states (between 0 and 1).
+     * @param {number} relativeZoom - An additional zooming factor to apply during the transition.
+     * @param {SVGPathElement} svgPath - An SVG path to follow during the transition.
+     * @param {boolean} reversePath - If `true`, follow the path in the opposite direction.
+     */
     interpolate(initialState, finalState, progress, timingFunction, relativeZoom, svgPath, reversePath) {
         const tfProgress = timingFunction(progress);
         const tfRemaining = 1 - tfProgress;

@@ -56,9 +56,9 @@ module.exports = function(grunt) {
         pkg: pkg,
 
         // Check JavaScript source files.
-        jshint: {
+        eslint: {
             options: {
-                jshintrc: true
+                configFile: "eslintrc.json"
             },
             all: [ "js/**/*.js" ]
         },
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
         // Check CSS source files.
         csslint: {
             options: {
-                csslintrc: ".csslintrc"
+                csslintrc: "csslintrc.json"
             },
             all: [ "css/**/*.css" ]
         },
@@ -485,7 +485,7 @@ module.exports = function(grunt) {
     });
 
     // Check JavaScript and CSS source files.
-    grunt.registerTask("lint", ["jshint", "csslint"]);
+    grunt.registerTask("lint", ["eslint", "csslint"]);
 
     // Common build task for browser and Electron targets.
     grunt.registerTask("build", [

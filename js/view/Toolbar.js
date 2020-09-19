@@ -16,14 +16,34 @@ import pkg from "../../package.json";
  */
 export class Toolbar extends VirtualDOMView {
 
+    /** Initialize a new toolbar view.
+     *
+     * @param {HTMLElement} container - The HTML element that will contain this preview area.
+     * @param {module:view/Properties.Properties} properties - The properties view of the editor.
+     * @param {module:model/Presentation.Presentation} presentation - The current Sozi presentation.
+     * @param {module:player/Viewport.Viewport} viewport - The viewport where the presentation is displayed.
+     * @param {module:Controller.Controller} controller - The controller that manages the current editor.
+     */
     constructor(container, properties, presentation, viewport, controller) {
         super(container, controller);
 
-        this.properties   = properties;
+        /** The properties view of the editor.
+         *
+         * @type {module:view/Properties.Properties} */
+        this.properties = properties;
+
+        /** The current Sozi presentation.
+         *
+         * @type {module:model/Presentation.Presentation} */
         this.presentation = presentation;
-        this.viewport     = viewport;
+
+        /** The viewport where the presentation is displayed.
+         *
+         * @type {module:player/Viewport.Viewport} */
+        this.viewport = viewport;
     }
 
+    /** @inheritdoc */
     render() {
         const thisView   = this;
         const controller = this.controller;

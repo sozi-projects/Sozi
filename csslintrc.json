@@ -3,5 +3,8 @@
     "universal-selector": false,
     "box-sizing": false,
     "qualified-headings": false,
-    "adjoining-classes": false
+    "adjoining-classes": false,
+    "order-alphabetical": false,
+    "fallback-colors": false,
+    "ids": false
 }

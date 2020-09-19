@@ -9,10 +9,14 @@ import {AbstractBackend, addBackend} from "./AbstractBackend";
 /** Browser FileReader backend.
  *
  * @extends module:backend/AbstractBackend.AbstractBackend
- * @todo Add documentation.
  */
 export class FileReaderBackend extends AbstractBackend {
 
+    /** Initialize a Sozi  backend based on the FileReader API.
+     *
+     * @param {module:Controller.Controller} controller - A controller instance.
+     * @param {HTMLElement} container - The element that will contain the menu for choosing a backend.
+     */
     constructor(controller, container) {
         const _ = controller.gettext;
 
@@ -20,6 +24,9 @@ export class FileReaderBackend extends AbstractBackend {
 
         document.getElementById("sozi-editor-backend-FileReader-input").addEventListener("click", () => this.openFileChooser());
 
+        /** A hidden HTML file input element to open a file chooser.
+         *
+         * @type {HTMLInputElement} */
         this.fileInput = document.createElement("input");
         this.fileInput.style.display = "none";
         this.fileInput.setAttribute("type", "file");
@@ -29,25 +36,38 @@ export class FileReaderBackend extends AbstractBackend {
         // Load the SVG document selected in the file input
         this.fileInput.addEventListener("change", evt => {
             if (evt.target.files.length) {
-                this.load(evt.target.files[0]);
+                this.controller.storage.setSVGFile(evt.target.files[0], this);
             }
         });
     }
 
+    /** @inheritdoc */
     openFileChooser() {
         this.fileInput.dispatchEvent(new MouseEvent("click"));
     }
 
+    /** @inheritdoc */
     getName(fileDescriptor) {
         return fileDescriptor.name;
     }
 
+    /** @inheritdoc */
+    sameFile(fd1, fd2) {
+        return fd1.name === fd2.name;
+    }
+
+    /** @inheritdoc */
     load(fileDescriptor) {
         const reader = new FileReader();
-        reader.readAsText(fileDescriptor, "utf8");
-        reader.onload = () => {
-            this.emit("load", fileDescriptor, reader.result, reader.error && reader.error.name);
-        };
+        return new Promise((resolve, reject) => {
+            reader.readAsText(fileDescriptor, "utf8");
+            reader.onload = () => {
+                resolve(reader.result);
+            };
+            reader.onerror = () => {
+                reject(reader.error.name);
+            };
+        });
     }
 }
 

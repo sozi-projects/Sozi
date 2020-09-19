@@ -4,19 +4,40 @@
 
 /** @module */
 
+import {Storage} from "./Storage";
 import {Frame, LayerProperties} from "./model/Presentation";
 import {CameraState} from "./model/CameraState";
 import {EventEmitter} from "events";
 import * as i18n from "./i18n";
 import * as exporter from "./exporter/exporter";
 
+/** The maximum size of the undo stack.
+ *
+ * @readonly
+ * @default
+ * @type {number}
+ */
 const UNDO_STACK_LIMIT = 100;
 
 /** Signals that the presentation data has changed.
- * @event module:Controller#presentationChange */
+ *
+ * @event module:Controller.presentationChange */
 
 /** Signals that the editor state data has changed.
- * @event module:Controller#editorStateChange */
+ *
+ * @event module:Controller.editorStateChange */
+
+/** Signals that the editor UI needs to be repainted.
+ *
+ * @event module:Controller.repaint */
+
+/** Signals that the current editor window has received the focus.
+ *
+ * @event module:Controller.focus */
+
+/** Signals that the current editor window has lost the focus.
+ *
+ * @event module:Controller.blur */
 
 /** Sozi editor UI controller.
  *
@@ -27,7 +48,7 @@ const UNDO_STACK_LIMIT = 100;
  */
 export class Controller extends EventEmitter {
 
-    /** Construct a new Sozi editor UI controller.
+    /** Initialize a new Sozi editor UI controller.
      *
      * @param {module:model/Preferences.Preferences} preferences - The object that holds the user settings of the editor.
      * @param {module:model/Presentation.Presentation} presentation - The Sozi presentation opened in the editor.
@@ -38,66 +59,104 @@ export class Controller extends EventEmitter {
     constructor(preferences, presentation, selection, viewport, player) {
         super();
 
-        /** The object that manages the file I/O, set in {@linkcode Controller#onLoad|onLoad}.
-         * @type {module:Storage.Storage} */
-        this.storage = null;
+        /** The function that returns translated text in the current language.
+         *
+         * @param {string} s - The text to translate.
+         * @returns {string} The translated text.
+         */
+        this.gettext = s => s;
 
         /** The object that holds the user settings of the editor.
+         *
          * @type {module:model/Preferences.Preferences} */
         this.preferences = preferences;
 
         /** The Sozi presentation opened in the editor.
+         *
          * @type {module:model/Presentation.Presentation} */
         this.presentation = presentation;
 
         /** The object that represents the selection in the timeline.
+         *
          * @type {module:model/Selection.Selection} */
         this.selection = selection;
 
         /** The object that displays a preview of the presentation.
+         *
          * @type {module:player/Viewport.Viewport} */
         this.viewport = viewport;
 
         /** The object that animates the presentation.
+         *
          * @type {module:player/Player.Player} */
         this.player = player;
 
-        /** The function that returns translated text in the current language.
+        /** The object that manages the file I/O.
          *
-         * @param {string} s - The text to translate.
-         * @return {string} The translated text.
-         */
-        this.gettext = s => s;
+         * @type {module:Storage.Storage} */
+        this.storage = new Storage(this, presentation, selection);
 
         /** The layers that have been added to the timeline.
+         *
          * @type {module:model/Presentation.Layer[]} */
         this.editableLayers = [];
 
         /** The layers that fall in the "default" row of the timeline.
+         *
          * @type {module:model/Presentation.Layer[]} */
         this.defaultLayers = [];
 
         /** The stack of operations that can be undone.
+         *
          * @type {Array} */
         this.undoStack = [];
 
         /** The stack of operations that can be redone.
+         *
          * @type {Array} */
         this.redoStack = [];
 
         /** The timeout ID of the current notification.
-         * @type {number} */
+         *
+         * @type {?number} */
         this.notificationTimeout = null;
+
+        /** True if the current window has the focus.
+         *
+         * @type {boolean} */
+        this.hasFocus = false;
+
+        window.addEventListener("focus", () => {
+            this.hasFocus = true;
+            this.emit("focus");
+        });
+
+        window.addEventListener("blur", () => {
+            this.hasFocus = false;
+            this.emit("blur");
+        });
 
         this.addListener("repaint", () => this.onRepaint());
         player.addListener("frameChange", () => this.onFrameChange());
     }
 
+    /** Finalize the initialization of the application.
+     *
+     * Load and apply the user preferences.
+     * Activate the storage instance.
+     */
+    activate() {
+        this.preferences.load();
+        this.applyPreferences();
+        this.storage.activate();
+    }
+
     /** Convert this instance to a plain object that can be stored as JSON.
      *
-     * This method will save the IDs of the editable layers managed by this controller.
+     * The result contains all the properties needed by the editor to restore
+     * the state of this instance.
      *
-     * @return {Object} A plain object with the properties that need to be saved.
+     * @returns {object} - A plain object with the properties needed by the editor.
      */
     toStorable() {
         return {
@@ -110,7 +169,7 @@ export class Controller extends EventEmitter {
      * This method will build the list of editable layers managed by this controller,
      * from a list of group IDs provided by the given object.
      *
-     * @param {Object} storable - A plain object with the properties to copy.
+     * @param {object} storable - A plain object with the properties to copy.
      */
     fromStorable(storable) {
         this.editableLayers = [];
@@ -125,6 +184,18 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Show a notification.
+     *
+     * The presentation editor does not use the operating system's notification
+     * system.
+     * This method will display a notification inside the application.
+     *
+     * A notification will be hidden after a given time.
+     * Consecutive notifications are concatenated if they happen in a short period of time.
+     *
+     * @param {string} severity - The severity of the event to signal (`"error"` or `"info"`).
+     * @param {string} body - An HTML string to show in the notification area.
+     */
     showNotification(severity, body) {
         const _ = this.gettext;
         const msg = document.getElementById("message");
@@ -144,9 +215,10 @@ export class Controller extends EventEmitter {
         this.notificationTimeout = setTimeout(() => this.hideNotification(), 5000);
     }
 
+    /** Hide all notifications. */
     hideNotification() {
         const msg = document.getElementById("message");
-        msg.classList.remove("visible");
+        msg.classList.remove("visible", "info", "error");
         clearTimeout(this.notificationTimeout);
         this.notificationTimeout = null;
     }
@@ -173,11 +245,11 @@ export class Controller extends EventEmitter {
     /** Update the visible frame on repaint.
      *
      * This method is called each time this controller emits the "repaint" event.
-     * If the {@link Selection#currentFrame|currently selected frame} is different
-     * from the {@link Player#currentFrame|currently visible frame},
+     * If the {@link module:model/Selection.Selection#currentFrame|currently selected frame} is different
+     * from the {@link module:player/Player.Player#currentFrame|currently visible frame},
      * it will move to the selected frame.
      *
-     * @listens Controller#repaint
+     * @listens module:Controller.repaint
      */
     onRepaint() {
         if (this.selection.currentFrame && (this.selection.currentFrame !== this.player.currentFrame || this.player.animator.running)) {
@@ -190,6 +262,10 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** On frame change, recompute the reference element.
+     *
+     * @listens module:player/Player.frameChange
+     */
     onFrameChange() {
         let changed = false;
         for (let layer of this.presentation.layers) {
@@ -210,22 +286,12 @@ export class Controller extends EventEmitter {
 
     /** Finalize the loading of a presentation.
      *
-     * This method is called by a {@linkcode Storage} instance when the SVG and JSON files
+     * This method is called by a {@linkcode module:Storage.Storage|Storage} instance when the SVG and JSON files
      * of a presentation have been loaded.
-     * It sets a default {@link Controller#selection|selection} if needed,
-     * shows the {@link Selection#currentFrame|current frame}, loads
-     * and applies the user {@link Controller#preferences|preferences}.
-     *
-     * @param {Storage} storage - A storage management object.
-     *
-     * @fires module:Controller#ready
+     * It sets a default {@link module:Controller.Controller#selection|selection} if needed,
+     * and shows the {@link module:model/Selection.Selection#currentFrame|current frame}.
      */
-    onLoad(storage) {
-        this.storage = storage;
-
-        // Load the preferences.
-        this.preferences.load();
-
+    onLoad() {
         // If no frame is selected, select the first frame.
         if (!this.selection.selectedFrames.length && this.presentation.frames.length) {
             this.selection.addFrame(this.presentation.frames[0]);
@@ -252,38 +318,72 @@ export class Controller extends EventEmitter {
                 this.defaultLayers.push(layer);
             }
         }
+    }
 
-        /** Signals that the editor is ready.
-         * @event module:Controller#ready */
-        this.emit("ready");
+    /** Process an SVG document change event.
+     *
+     * Depending on the user preferences, this method will reload the
+     * presentation, or prompt the user.
+     *
+     * @param {any} fileDescriptor - The file that changed recently.
+     */
+    onFileChange(fileDescriptor) {
+        const _ = this.gettext;
+        const doReload = () => {
+            this.info(_("Document was changed. Reloading."));
+            this.reload();
+        };
 
-        // Apply the preferences (will trigger a repaint of the editor views).
-        this.applyPreferences();
+        if (this.storage.backend.sameFile(fileDescriptor, this.storage.svgFileDescriptor)) {
+            switch (this.getPreference("reloadMode")) {
+                case "auto": doReload(); break;
+                case "onfocus":
+                    if (this.hasFocus) {
+                        doReload();
+                    }
+                    else {
+                        this.once("focus", doReload);
+                    }
+                    break;
+                default: this.info(_("Document was changed."));
+            }
+        }
     }
 
     /** Save the presentation.
      *
-     * This method delegates the operation to its {@linkcode Storage} instance and triggers
+     * This method delegates the operation to its {@linkcode module:Storage.Storage|Storage} instance and triggers
      * a repaint so that the UI shows the correct "saved" status.
      *
-     * @fires module:Controller#repaint
+     * @returns {Promise} - A promise that is resolved when the save action completes.
+     *
+     * @fires module:Controller.repaint
+     *
+     * @see {@linkcode module:Storage.Storage#save}
      */
     save() {
-        this.storage.save();
-
-        /** Signals that the editor UI needs to be repainted.
-         * @event module:Controller#repaint */
-        this.emit("repaint");
+        return this.storage.save().then(
+            () => this.emit("repaint")
+        );
     }
 
     /** Reload the presentation.
      *
-     * This method delegates the operation to its {@linkcode Storage} instance.
+     * This method delegates the operation to its {@linkcode module:Storage.Storage|Storage} instance.
      */
     reload() {
         this.storage.reload();
     }
 
+    /** Add a custom stylesheet or script to the current presentation.
+     *
+     * This action supports undo and redo.
+     *
+     * @param {string} path - The path of the file to add.
+     *
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
+     */
     addCustomFile(path) {
         this.perform(
             function onDo() {
@@ -297,6 +397,15 @@ export class Controller extends EventEmitter {
         );
     }
 
+    /** Remove a custom stylesheet or script from the current presentation.
+     *
+     * This action supports undo and redo.
+     *
+     * @param {number} index - The index of the entry to remove in the custom file list.
+     *
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
+     */
     removeCustomFile(index) {
         const fileName = this.presentation.customFiles[index];
         this.perform(
@@ -311,6 +420,10 @@ export class Controller extends EventEmitter {
         );
     }
 
+    /** Get the list of custom stylesheets and scripts added to the current presentation.
+     *
+     * @returns {string[]} - An array of file paths.
+     */
     getCustomFiles() {
         return this.presentation.customFiles;
     }
@@ -318,15 +431,15 @@ export class Controller extends EventEmitter {
     /** Add a new frame to the presentation.
      *
      * A new frame is added to the presentation after the
-     * {@link Selection#currentFrame|currently selected frame}.
+     * {@link module:model/Selection.Selection#currentFrame|currently selected frame}.
      * If no frame is selected, the new frame is added at the
      * end of the presentation.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
-     * @fires module:Controller#presentationChange
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     addFrame() {
         let frame, frameIndex;
@@ -368,11 +481,11 @@ export class Controller extends EventEmitter {
 
     /** Delete the selected frames from the presentation.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
-     * @fires module:Controller#presentationChange
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     deleteFrames() {
         // Sort the selected frames by presentation order.
@@ -403,13 +516,13 @@ export class Controller extends EventEmitter {
 
     /** Move the selected frames to the given location.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {number} toFrameIndex - The new index of the first frame in the selection.
      *
-     * @fires module:Controller#presentationChange
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     moveFrames(toFrameIndex) {
         // Sort the selected frames by presentation order.
@@ -462,7 +575,7 @@ export class Controller extends EventEmitter {
 
     /** Select the cameras corresponding to the selected layers.
      *
-     * For each selected layer, this method sets the {@linkcode Camera#selected|selected} property of
+     * For each selected layer, this method sets the {@linkcode module:player/Camera.Camera#selected|selected} property of
      * the corresponding camera in the current viewport.
      */
     updateCameraSelection() {
@@ -477,12 +590,12 @@ export class Controller extends EventEmitter {
      * to the "editable" layer set.
      *
      * This operation modifies the editor state and does not affect the actual presentation.
-     * It does not provide an "Undo" action.
+     * This action does not support undo and redo.
      *
      * @param {number} layerIndex - The index of the layer to add.
      *
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     addLayer(layerIndex) {
         const layer = this.presentation.layers[layerIndex];
@@ -509,10 +622,10 @@ export class Controller extends EventEmitter {
      * to the "editable" layer set.
      *
      * This operation modifies the editor state and does not affect the actual presentation.
-     * It does not provide an "Undo" action.
+     * This action does not support undo and redo.
      *
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     addAllLayers() {
         for (let layer of this.defaultLayers.slice()) {
@@ -540,12 +653,12 @@ export class Controller extends EventEmitter {
      * to the "default" layer set.
      *
      * This operation modifies the editor state and does not affect the actual presentation.
-     * It does not provide an "Undo" action.
+     * This action does not support undo and redo.
      *
      * @param {number} layerIndex - The index of the layer to remove.
      *
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     removeLayer(layerIndex) {
         const layer = this.presentation.layers[layerIndex];
@@ -577,7 +690,7 @@ export class Controller extends EventEmitter {
      * or the layers in the "default" set.
      *
      * @param {number} layerIndex - The index of the layer to get, or a negative number for the "default" layers.
-     * @return {module:model/Presentation.Layer[]} The layer(s) at the given index.
+     * @returns {module:model/Presentation.Layer[]} The layer(s) at the given index.
      */
     getLayersAtIndex(layerIndex) {
         return layerIndex >= 0 ?
@@ -587,6 +700,7 @@ export class Controller extends EventEmitter {
 
     /** `true` if all layers in the "default" set are selected.
      *
+     * @readonly
      * @type {boolean}
      */
     get defaultLayersAreSelected() {
@@ -595,6 +709,7 @@ export class Controller extends EventEmitter {
 
     /** `true` if there is at least one layer in the "default" set.
      *
+     * @readonly
      * @type {boolean}
      */
     get hasDefaultLayer() {
@@ -609,8 +724,8 @@ export class Controller extends EventEmitter {
      *
      * @param {module:model/Presentation.Layer[]} layers - The layers to select.
      *
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     selectLayers(layers) {
         this.selection.selectedLayers = layers.slice();
@@ -626,8 +741,8 @@ export class Controller extends EventEmitter {
      *
      * @param {module:model/Presentation.Layer} layer - The layer to select.
      *
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     addLayerToSelection(layer) {
         if (!this.selection.hasLayers([layer])) {
@@ -644,8 +759,8 @@ export class Controller extends EventEmitter {
      *
      * @param {module:model/Presentation.Layer} layer - The layer to deselect.
      *
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     removeLayerFromSelection(layer) {
         if (this.selection.hasLayers([layer])) {
@@ -663,8 +778,8 @@ export class Controller extends EventEmitter {
      *
      * @param {number} index - The index of the frame to select. A negative number counts backwards from the end.
      *
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     selectFrame(index) {
         if (index < 0) {
@@ -677,8 +792,8 @@ export class Controller extends EventEmitter {
      *
      * This methods adds all the frames of the presentation to the selection.
      *
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     selectAllFrames() {
         this.selection.selectedFrames = this.presentation.frames.slice();
@@ -687,15 +802,15 @@ export class Controller extends EventEmitter {
         this.emit("repaint");
     }
 
-    /** Select a specific frame at a relative location from the {@link Selection#currentFrame|current frame}.
+    /** Select a specific frame at a relative location from the {@link module:model/Selection.Selection#currentFrame|current frame}.
      *
-     * The absolute index of the frame to select is the sum of the {@link Selection#currentFrame|current frame}
+     * The absolute index of the frame to select is the sum of the {@link module:model/Selection.Selection#currentFrame|current frame}
      * index and the given relative index.
      *
      * @param {number} relativeIndex - The relative location of the frame to select with respect to the current frame.
      *
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     selectRelativeFrame(relativeIndex) {
         if (this.selection.currentFrame) {
@@ -713,11 +828,11 @@ export class Controller extends EventEmitter {
      * If `single` and `sequence` are false, select only the given frame and all layers.
      *
      * @param {boolean} single - If true, add or remove one frame to/from the selection.
-     * @param {boolean} sequence - If true, add or remove consecutive frames, starting from the {@link Selection#currentFrame|current frame} up/down to the given index.
+     * @param {boolean} sequence - If true, add or remove consecutive frames, starting from the {@link module:model/Selection.Selection#currentFrame|current frame} up/down to the given index.
      * @param {number} frameIndex - The index of a frame in the presentation.
      *
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     updateFrameSelection(single, sequence, frameIndex) {
         const frame = this.presentation.frames[frameIndex];
@@ -753,13 +868,13 @@ export class Controller extends EventEmitter {
      * If `single` and `sequence` are false, select only the given layers and all frames.
      *
      * @todo Sequence mode is not supported yet.
-
+     *
      * @param {boolean} single - If true, add or remove the given layers to/from the selection.
      * @param {boolean} sequence - If true, add or remove consecutive layers, starting from the current layer up/down to the given layers.
      * @param {module:model/Presentation.Layer[]} layers - The layers to select or deselect.
      *
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     updateLayerSelection(single, sequence, layers) {
         if (single) {
@@ -790,12 +905,12 @@ export class Controller extends EventEmitter {
      * @todo Sequence mode is not supported for layers.
      *
      * @param {boolean} single - If true, add or remove the given layers and frame to/from the selection.
-     * @param {boolean} sequence - If true, add or remove consevutive frames and layers starting from the {@link Selection#currentFrame|current frame} and layer.
+     * @param {boolean} sequence - If true, add or remove consevutive frames and layers starting from the {@link module:model/Selection.Selection#currentFrame|current frame} and layer.
      * @param {module:model/Presentation.Layer[]} layers - The layers to select or deselect.
      * @param {number} frameIndex - The index of the frame in the presentation
      *
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     updateLayerAndFrameSelection(single, sequence, layers, frameIndex) {
         const frame = this.presentation.frames[frameIndex];
@@ -844,8 +959,8 @@ export class Controller extends EventEmitter {
      *
      * @param {module:model/Presentation.Layer[]} layers - The layers to show or hide.
      *
-     * @fires module:Controller#editorStateChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.editorStateChange
+     * @fires module:Controller.repaint
      */
     updateLayerVisibility(layers) {
         for (let layer of layers) {
@@ -869,10 +984,10 @@ export class Controller extends EventEmitter {
      * Users can perform this operation to recover from a sequence of transformations
      * that resulted in an undesired layer state.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
-     * @fires module:Controller#presentationChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
      */
     resetLayer() {
         const selectedFrames = this.selection.selectedFrames.slice();
@@ -924,12 +1039,12 @@ export class Controller extends EventEmitter {
      * for the given layer in the selected frames, into the selected layers
      * in the same frames.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {number} groupId - The ID of the SVG group for the layer to copy.
      *
-     * @fires module:Controller#presentationChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
      */
     copyLayer(groupId) {
         const selectedFrames = this.selection.selectedFrames.slice();
@@ -990,6 +1105,7 @@ export class Controller extends EventEmitter {
      *
      * This property is `true` when the outline element of each selected layer belongs to this layer.
      *
+     * @readonly
      * @type {boolean}
      */
     get canFitElement() {
@@ -1002,6 +1118,11 @@ export class Controller extends EventEmitter {
                });
     }
 
+    /** Find and assign an outline element to the current frame in the selected layers.
+     *
+     * @see {@linkcode module:player/Camera.Camera#getCandidateReferenceElement}
+     * @see {@linkcode module:Controller.Controller#setOutlineElement}
+     */
     autoselectOutlineElement() {
         const currentFrame = this.selection.currentFrame;
         if (!currentFrame) {
@@ -1023,6 +1144,10 @@ export class Controller extends EventEmitter {
         }
     }
 
+    /** Use the element with the user-provided ID as an outline element.
+     *
+     * @see {@linkcode module:Controller.Controller#setOutlineElement}
+     */
     fitElement() {
         const outlineElementId = this.getLayerProperty("outlineElementId");
         const outlineElt = this.presentation.document.root.getElementById(outlineElementId);
@@ -1033,11 +1158,11 @@ export class Controller extends EventEmitter {
 
     /** Get a property of the current presentation.
      *
-     * This method is used in the {@link Properties} view to assign getters
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign getters
      * to HTML fields that represent presentation properties.
      *
      * @param {string} property - The name of the property to get.
-     * @return The value of the property.
+     * @returns {any} - The value of the property.
      */
     getPresentationProperty(property) {
         return this.presentation[property];
@@ -1045,24 +1170,24 @@ export class Controller extends EventEmitter {
 
     /** Set a property of the current presentation.
      *
-     * This method is used in the {@link Properties} view to assign setters
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign setters
      * to HTML fields that represent presentation properties.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
-     * @param propertyValue - The new value of the property.
+     * @param {any} value - The new value of the property.
      *
-     * @fires module:Controller#presentationChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
      */
-    setPresentationProperty(property, propertyValue) {
+    setPresentationProperty(property, value) {
         const pres = this.presentation;
         const savedValue = pres[property];
 
         this.perform(
             function onDo() {
-                pres[property] = propertyValue;
+                pres[property] = value;
             },
             function onUndo() {
                 pres[property] = savedValue;
@@ -1074,11 +1199,11 @@ export class Controller extends EventEmitter {
 
     /** Get a property of the selected frames.
      *
-     * This method is used in the {@link Properties} view to assign getters
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign getters
      * to HTML fields that represent frame properties.
      *
      * @param {string} property - The name of the property to get.
-     * @return {Array} The values of the property in the selected frames.
+     * @returns {Array} The values of the property in the selected frames.
      */
     getFrameProperty(property) {
         const values = [];
@@ -1095,24 +1220,24 @@ export class Controller extends EventEmitter {
 
     /** Set a property of the selected frames.
      *
-     * This method is used in the {@link Properties} view to assign setters
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign setters
      * to HTML fields that represent frame properties.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
-     * @param propertyValue - The new value of the property.
+     * @param {any} value - The new value of the property.
      *
-     * @fires module:Controller#presentationChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
      */
-    setFrameProperty(property, propertyValue) {
+    setFrameProperty(property, value) {
         const savedValues = this.selection.selectedFrames.map(frame => [frame, frame[property]]);
 
         this.perform(
             function onDo() {
                 for (let [frame, value] of savedValues) {
-                    frame[property] = propertyValue;
+                    frame[property] = value;
                 }
             },
             function onUndo() {
@@ -1127,11 +1252,11 @@ export class Controller extends EventEmitter {
 
     /** Get a property of the selected layers in the selected frames.
      *
-     * This method is used in the {@link Properties} view to assign getters
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign getters
      * to HTML fields that represent layer properties.
      *
      * @param {string} property - The name of the property to get.
-     * @return {Array} The values of the property in the selected layers.
+     * @returns {Array} The values of the property in the selected layers.
      */
     getLayerProperty(property) {
         const values = [];
@@ -1150,20 +1275,20 @@ export class Controller extends EventEmitter {
 
     /** Set a property of the selected layers in the selected frames.
      *
-     * This method is used in the {@link Properties} view to assign setters
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign setters
      * to HTML fields that represent layer properties.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
-     * @param propertyValue - The new value of the property.
+     * @param {any} value - The new value of the property.
      *
-     * @fires module:Controller#presentationChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
      */
-    setLayerProperty(property, propertyValue) {
+    setLayerProperty(property, value) {
         if (property === "outlineElementId") {
-            const outlineElt = this.presentation.document.root.getElementById(propertyValue);
+            const outlineElt = this.presentation.document.root.getElementById(value);
             if (outlineElt) {
                 this.setOutlineElement(outlineElt);
             }
@@ -1178,7 +1303,7 @@ export class Controller extends EventEmitter {
             )
         );
 
-        const link = property === "link" && propertyValue;
+        const link = property === "link" && value;
 
         const savedCameraStates = selectedFrames.map(
             frame => selectedLayers.map(
@@ -1190,7 +1315,7 @@ export class Controller extends EventEmitter {
             function onDo() {
                 for (let frame of selectedFrames) {
                     for (let layer of selectedLayers) {
-                        frame.layerProperties[layer.index][property] = propertyValue;
+                        frame.layerProperties[layer.index][property] = value;
                     }
                 }
 
@@ -1215,11 +1340,11 @@ export class Controller extends EventEmitter {
 
     /** Get a property of the selected cameras in the selected frames.
      *
-     * This method is used in the {@link Properties} view to assign getters
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign getters
      * to HTML fields that represent camera properties.
      *
      * @param {string} property - The name of the property to get.
-     * @return {Array} The values of the property in the selected cameras.
+     * @returns {Array} The values of the property in the selected cameras.
      */
     getCameraProperty(property) {
         const values = [];
@@ -1238,18 +1363,18 @@ export class Controller extends EventEmitter {
 
     /** Set a property of the selected cameras in the selected frames.
      *
-     * This method is used in the {@link Properties} view to assign setters
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign setters
      * to HTML fields that represent camera properties.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
-     * @param propertyValue - The new value of the property.
+     * @param {any} value - The new value of the property.
      *
-     * @fires module:Controller#presentationChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
      */
-    setCameraProperty(property, propertyValue) {
+    setCameraProperty(property, value) {
         const selectedFrames = this.selection.selectedFrames.slice();
         const selectedLayers = this.selection.selectedLayers.slice();
 
@@ -1266,7 +1391,7 @@ export class Controller extends EventEmitter {
             function onDo() {
                 for (let frame of selectedFrames) {
                     for (let layer of selectedLayers) {
-                        frame.cameraStates[layer.index][property] = propertyValue;
+                        frame.cameraStates[layer.index][property] = value;
                         frame.layerProperties[layer.index].link = false;
                     }
                 }
@@ -1294,10 +1419,10 @@ export class Controller extends EventEmitter {
      * viewport. It copies the camera states of the viewport to the camera states
      * of the selected layers of the presentation.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
-     * @fires module:Controller#presentationChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
      */
     updateCameraStates() {
         const currentFrame = this.selection.currentFrame;
@@ -1344,12 +1469,12 @@ export class Controller extends EventEmitter {
 
     /** Set the given element as the outline element of the selected layers in the current frame.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {SVGElement} outlineElement - The element to use as an outline of the selected layers.
      *
-     * @fires module:Controller#presentationChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
      */
     setOutlineElement(outlineElement) {
         const currentFrame = this.selection.currentFrame;
@@ -1386,12 +1511,12 @@ export class Controller extends EventEmitter {
 
     /** Set the width component (numerator) of the current aspect ratio of the preview area.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {number} width - The desired width.
      *
-     * @fires module:Controller#presentationChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
      */
     setAspectWidth(width) {
         const widthPrev = this.presentation.aspectWidth;
@@ -1409,12 +1534,12 @@ export class Controller extends EventEmitter {
 
     /** Set the height component (denominator) of the current aspect ratio of the preview area.
      *
-     * This operation can be undone.
+     * This action supports undo and redo.
      *
      * @param {number} height - The desired height.
      *
-     * @fires module:Controller#presentationChange
-     * @fires module:Controller#repaint
+     * @fires module:Controller.presentationChange
+     * @fires module:Controller.repaint
      */
     setAspectHeight(height) {
         const heightPrev = this.presentation.aspectHeight;
@@ -1432,11 +1557,11 @@ export class Controller extends EventEmitter {
 
     /** Set the effect of dragging in the preview area.
      *
-     * @see Viewport#dragMode
-     *
      * @param {string} dragMode - The new drag mode.
      *
-     * @fires module:Controller#repaint
+     * @fires module:Controller.repaint
+     *
+     * @see {@linkcode module:player/Viewport.Viewport#dragMode}
      */
     setDragMode(dragMode) {
         this.viewport.dragMode = dragMode;
@@ -1445,11 +1570,11 @@ export class Controller extends EventEmitter {
 
     /** Get a property of the preferences object.
      *
-     * This method is used in the {@link Properties} view to assign getters
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign getters
      * to HTML fields that represent preferences.
      *
-     * @param {string} property - The name of the property to get.
-     * @return The values of the property in the preferences.
+     * @param {string} key - The name of the property to get.
+     * @returns {any} - The value of the property in the preferences.
      */
     getPreference(key) {
         return this.preferences[key];
@@ -1457,15 +1582,15 @@ export class Controller extends EventEmitter {
 
     /** Set a property of the preferences object.
      *
-     * This method is used in the {@link Properties} view to assign setters
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign setters
      * to HTML fields that represent preferences.
      *
      * This operation cannot be undone.
      *
-     * @param {string} property - The name of the property to set.
-     * @param propertyValue - The new value of the property.
+     * @param {string} key - The name of the property to set.
+     * @param {any} value - The new value of the property.
      *
-     * @fires module:Controller#repaint
+     * @fires module:Controller.repaint
      */
     setPreference(key, value) {
         this.preferences[key] = value;
@@ -1474,11 +1599,11 @@ export class Controller extends EventEmitter {
 
     /** Get the keyboard shortcut for a given action.
      *
-     * This method is used in the {@link Properties} view to assign getters
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign getters
      * to HTML fields that represent keyboard shortcut preferences.
      *
      * @param {string} action - A supported keyboard action name.
-     * @return {string} A shortcut definition.
+     * @returns {string} - A shortcut definition.
      */
     getShortcut(action) {
         return this.preferences.keys[action];
@@ -1486,13 +1611,13 @@ export class Controller extends EventEmitter {
 
     /** Set a keyboard shortcut for a given action.
      *
-     * This method is used in the {@link Properties} view to assign setters
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign setters
      * to HTML fields that represent keyboard shortcut preferences.
      *
      * This operation cannot be undone.
      *
      * @param {string} action - A supported keyboard action name.
-     * @param value - A shortcut definition.
+     * @param {any} value - A shortcut definition.
      */
     setShortcut(action, value) {
         // Find occurrences of modifier keys in the given value.
@@ -1524,7 +1649,9 @@ export class Controller extends EventEmitter {
 
     /** Update the user interface after modifying the preferences.
      *
-     * @fires module:Controller#repaint
+     * @param {string|object} [changed="all"] - A dictionay that maps changed property names to a boolean `true`.
+     *
+     * @fires module:Controller.repaint
      */
     applyPreferences(changed="all") {
         if ((changed === "all" || changed.fontSize) && this.preferences.fontSize > 0) {
@@ -1547,8 +1674,8 @@ export class Controller extends EventEmitter {
     /** Perform an operation with undo/redo support.
      *
      * This method call `onDo`, adds an operation record to the
-     * {@link Controller#undoStack|undo stack}, and clears the
-     * {@link Controller#undoStack|redo stack}.
+     * {@link module:Controller.Controller#undoStack|undo stack}, and clears the
+     * {@link module:Controller.Controller#undoStack|redo stack}.
      *
      * @param {function()} onDo - The function that performs the operation.
      * @param {function()} onUndo - The function that undoes the operation.
@@ -1574,10 +1701,10 @@ export class Controller extends EventEmitter {
 
     /** Undo an operation.
      *
-     * This method pops and executes an operation from the {@link Controller#undoStack|undo stack}.
+     * This method pops and executes an operation from the {@link module:Controller.Controller#undoStack|undo stack}.
      * It updates the selection and emits events as specified in the corresponding
-     * call to {@link Controller#peform}.
-     * The operation record is pushed to the {@link Controller#redoStack|redo stack}
+     * call to {@linkcode module:Controller.Controller#peform|perform}.
+     * The operation record is pushed to the {@link module:Controller.Controller#redoStack|redo stack}
      */
     undo() {
         if (!this.undoStack.length) {
@@ -1597,10 +1724,10 @@ export class Controller extends EventEmitter {
 
     /** Redo an operation.
      *
-     * This method pops and executes an operation from the {@link Controller#undoStack|redo stack}.
+     * This method pops and executes an operation from the {@link module:Controller.Controller#undoStack|redo stack}.
      * It updates the selection and emits events as specified in the corresponding
-     * call to {@link Controller#peform}.
-     * The operation record is pushed to the {@link Controller#redoStack|undo stack}
+     * call to {@linkcode module:Controller.Controller#peform|perform}.
+     * The operation record is pushed to the {@link module:Controller.Controller#redoStack|undo stack}
      */
     redo() {
         if (!this.redoStack.length) {

@@ -17,21 +17,29 @@ export class Selection {
      */
     constructor(presentation) {
         /** The presentation where selections happen.
+         *
          * @type {module:model/Presentation.Presentation} */
         this.presentation = presentation;
 
         /** The list of selected frames.
+         *
+         * @default
          * @type {module:model/Presentation.Frame[]} */
         this.selectedFrames = [];
 
         /** The list of selected layers.
+         *
+         * @default
          * @type {module:model/Presentation.Layer[]} */
         this.selectedLayers = [];
     }
 
     /** Convert this instance to a plain object that can be stored as JSON.
      *
-     * @return A plain object with the properties that need to be saved.
+     * The result contains all the properties needed by the editor to restore
+     * the state of this instance.
+     *
+     * @returns {object} - A plain object with the properties needed by the editor.
      */
     toStorable() {
         return {
@@ -42,7 +50,7 @@ export class Selection {
 
     /** Copy the properties of the given object into this instance.
      *
-     * @param {Object} storable A plain object with the properties to copy.
+     * @param {object} storable - A plain object with the properties to copy.
      */
     fromStorable(storable) {
         if ("selectedFrames" in storable) {
@@ -79,7 +87,7 @@ export class Selection {
     /** Check whether this selection contains the given frames.
      *
      * @param {module:model/Presentation.Frame[]} frames - The frames to check.
-     * @return `true` if all the given frames are selected.
+     * @returns {boolean} - `true` if all the given frames are selected.
      */
     hasFrames(frames) {
         return frames.every(frame => this.selectedFrames.indexOf(frame) >= 0);
@@ -126,7 +134,7 @@ export class Selection {
     /** Check whether this selection contains the given layers.
      *
      * @param {module:model/Presentation.Layer[]} layers - The layers to check.
-     * @return `true` if all the given layers are selected.
+     * @returns {boolean} - `true` if all the given layers are selected.
      */
     hasLayers(layers) {
         return layers.every(layer => this.selectedLayers.indexOf(layer) >= 0);

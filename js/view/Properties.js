@@ -8,6 +8,19 @@ import {h} from "inferno-hyperscript";
 import {VirtualDOMView} from "./VirtualDOMView";
 import {getLanguages} from "./languages";
 
+/** Type for Virtual DOM nodes.
+ *
+ * @external VNode
+ */
+
+/** Convert a value into an array.
+ *
+ * If the argument is already an array, it is returned as is.
+ * If it is not, wrap it in an array.
+ *
+ * @param {any} v - A value to convert.
+ * @returns {any[]} - An array.
+ */
 function asArray(v) {
     return v instanceof Array ? v : [v];
 }
@@ -15,22 +28,39 @@ function asArray(v) {
 /** Properties pane of the presentation editor.
  *
  * @extends module:view/VirtualDOMView.VirtualDOMView
- * @todo Add documentation.
  */
 export class Properties extends VirtualDOMView {
 
+    /** Initialize a new properties view.
+     *
+     * @param {HTMLElement} container - The HTML element that will contain this preview area.
+     * @param {module:model/Selection.Selection} selection -
+     * @param {module:Controller.Controller} controller - The controller that manages the current editor.
+     */
     constructor(container, selection, controller) {
         super(container, controller);
 
+        /** The object that manages the frame and layer selection.
+         *
+         * @type {module:model/Selection.Selection} */
         this.selection = selection;
-        this.mode      = "default";
+
+        /** What the properties view shows.
+         *
+         * Acceptable values are: `"default"`, `"preferences"` and `"export"`.
+         *
+         * @default
+         * @type {string} */
+         this.mode = "default";
     }
 
+    /** Toggle between presentation properties and preferences or export mode. */
     toggleMode(mode) {
         this.mode = this.mode === mode ? "default" : mode;
         this.repaint();
     }
 
+    /** @inheritdoc */
     render() {
         switch (this.mode) {
             case "preferences": return this.renderPreferences();
@@ -39,6 +69,10 @@ export class Properties extends VirtualDOMView {
         }
     }
 
+    /** Render the properties view to edit the editor preferences.
+     *
+     * @returns {VNode} - A virtual DOM tree.
+     */
     renderPreferences() {
         const controller = this.controller;
         const _ = controller.gettext;
@@ -99,10 +133,10 @@ export class Properties extends VirtualDOMView {
         ].concat(shortcuts));
     }
 
-    renderHelp(text, onclick) {
-        return h("span.help", {title: text, onclick}, h("i.fas.fa-question-circle"));
-    }
-
+    /** Render the properties view to edit the presentation properties.
+     *
+     * @returns {VNode} - A virtual DOM tree.
+     */
     renderPresentationProperties() {
         const controller = this.controller;
         const _ = controller.gettext;
@@ -351,6 +385,27 @@ export class Properties extends VirtualDOMView {
         ]);
     }
 
+    /** Create a help widget.
+     *
+     * @param {string} text - The tooltip text to show.
+     * @param {Function} onclick - An event handler for click events.
+     * @returns {VNode} - A virtual DOM tree.
+     */
+    renderHelp(text, onclick) {
+        return h("span.help", {title: text, onclick}, h("i.fas.fa-question-circle"));
+    }
+
+    /** Create a text input field.
+     *
+     * A text field will render as a simple HTML input element.
+     *
+     * @param {string} property - The name of a property of the model.
+     * @param {boolean} disabled - Is this field disabled?
+     * @param {Function} getter - A function that returns the current value of the property in the model.
+     * @param {Function} setter - A function that updates the value of the property in the model.
+     * @param {boolean} acceptsEmpty - Is an empty field a valid entry?
+     * @returns {VNode} - A virtuel DOM tree.
+     */
     renderTextField(property, disabled, getter, setter, acceptsEmpty) {
         const controller = this.controller;
 
@@ -372,6 +427,18 @@ export class Properties extends VirtualDOMView {
         });
     }
 
+    /** Create a rich text input field.
+     *
+     * A rich text field will render as a content-editable HTML element
+     * supporting basic formatting via keyboard shortcuts.
+     *
+     * @param {string} property - The name of a property of the model.
+     * @param {boolean} disabled - Is this field disabled?
+     * @param {Function} getter - A function that returns the current value of the property in the model.
+     * @param {Function} setter - A function that updates the value of the property in the model.
+     * @param {boolean} acceptsEmpty - Is an empty field a valid entry?
+     * @returns {VNode} - A virtuel DOM tree.
+     */
     renderRichTextField(property, disabled, getter, setter, acceptsEmpty) {
         const controller = this.controller;
 
@@ -424,6 +491,17 @@ export class Properties extends VirtualDOMView {
         });
     }
 
+    /** Create a number input field.
+     *
+     * @param {string} property - The name of a property of the model.
+     * @param {boolean} disabled - Is this field disabled?
+     * @param {Function} getter - A function that returns the current value of the property in the model.
+     * @param {Function} setter - A function that updates the value of the property in the model.
+     * @param {boolean} signed - Does this field acccept negative values?
+     * @param {number} step - The step between consecutive values.
+     * @param {number} factor - A conversion factor between field value and model property value.
+     * @returns {VNode} - A virtuel DOM tree.
+     */
     renderNumberField(property, disabled, getter, setter, signed, step, factor) {
         const controller = this.controller;
 
@@ -448,6 +526,17 @@ export class Properties extends VirtualDOMView {
         });
     }
 
+    /** Create a range input field.
+     *
+     * @param {string} property - The name of a property of the model.
+     * @param {boolean} disabled - Is this field disabled?
+     * @param {Function} getter - A function that returns the current value of the property in the model.
+     * @param {Function} setter - A function that updates the value of the property in the model.
+     * @param {number} min - The minimum supported value.
+     * @param {number} max - The maximum supported value.
+     * @param {number} step - The step between consecutive values.
+     * @returns {VNode} - A virtuel DOM tree.
+     */
     renderRangeField(property, disabled, getter, setter, min, max, step) {
         const controller = this.controller;
 
@@ -473,6 +562,15 @@ export class Properties extends VirtualDOMView {
         });
     }
 
+    /** Create a toggle button.
+     *
+     * @param {string} label - The label to show next to the button.
+     * @param {string} title - A tooltip for the button.
+     * @param {string} property - The name of a property of the model.
+     * @param {Function} getter - A function that returns the current value of the property in the model.
+     * @param {Function} setter - A function that updates the value of the property in the model.
+     * @returns {VNode} - A virtuel DOM tree.
+     */
     renderToggleField(label, title, property, getter, setter) {
         const controller = this.controller;
 
@@ -492,6 +590,14 @@ export class Properties extends VirtualDOMView {
         }, label);
     }
 
+    /** Create a drop-down list.
+     *
+     * @param {string} property - The name of a property of the model.
+     * @param {Function} getter - A function that returns the current value of the property in the model.
+     * @param {Function} setter - A function that updates the value of the property in the model.
+     * @param {object} options - An object that maps option keys to option labels.
+     * @returns {VNode} - A virtuel DOM tree.
+     */
     renderSelectField(property, getter, setter, options) {
         const controller = this.controller;
 

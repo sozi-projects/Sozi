@@ -7,26 +7,34 @@
 import {render} from "inferno";
 import {h} from "inferno-hyperscript";
 
+/** Type for Virtual DOM nodes.
+ *
+ * @external VNode
+ */
+
 /** Base class for editor views using the virtual DOM.
  */
 export class VirtualDOMView {
 
-    /** Create a new virtual DOM view.
+    /** Initialize a new virtual DOM view.
      *
-     * @param {HTMLElement} container - The parent HTML element that will contain this view.
-     * @param {module:Controller.Controller} controller - The controller that will manage the user actions from this view.
+     * @param {HTMLElement} container - The HTML element that will contain this preview area.
+     * @param {module:Controller.Controller} controller - The controller that manages the current editor.
      */
     constructor(container, controller) {
-        /** The parent HTML element that will contain this view.
+        /** The HTML element that will contain this preview area.
+         *
          * @type {HTMLElement} */
         this.container = container;
 
-        /** The controller that will manage the user actions from this view.
+        /** The controller that manages the current editor.
+         *
          * @type {module:Controller.Controller} */
         this.controller = controller;
 
         /** Form field values that need to be set after rendering.
-         * @type {Object} */
+         *
+         * @type {object} */
         this.state = {};
 
         const repaintHandler = () => this.repaint();
@@ -40,7 +48,10 @@ export class VirtualDOMView {
 
     /** Repaint this view.
      *
-     * This will render the current view using the result of {@link VirtualDOMView#render}.
+     * This will render the current view using the result of {@linkcode module:view/VirtualDOMView.VirtualDOMView#render|render}.
+     *
+     * @listens resize
+     * @listens module:Controller.repaint
      */
     repaint() {
         render(this.render(), this.container, () => {
@@ -57,7 +68,7 @@ export class VirtualDOMView {
 
     /** Render this view as a virtual DOM tree.
      *
-     * @return A virtual DOM tree for this view.
+     * @returns {VNode} - A virtual DOM tree for this view.
      */
     render() {
         return h("div");

@@ -4,49 +4,114 @@
 
 /** @module */
 
-// Constant: the SVG namespace
+/** The SVG namespace URI.
+ *
+ * @readonly
+ * @default
+ * @type {string} */
 const SVG_NS = "http://www.w3.org/2000/svg";
 
-// Constant: The SVG element names that can be found in layers
+/** The names of the SVG elements recognized as "drawable".
+ *
+ * When isolated elements of these types are found, they are
+ * automatically added to specific layers.
+ *
+ * @readonly
+ * @type {string[]} */
 const DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
     "ellipse", "line", "polyline", "polygon", "text", "clippath" ];
 
+/** A dictionary of SVG handlers.
+ *
+ * @default
+ * @type {object} */
 const handlers = {};
 
+/** Add an SVG handler to the dictionary of supported handlers.
+ *
+ * @param {string} name - The name of the handler to add.
+ * @param {module:svg/SVGDocumentWrapper.DefaultSVGHandler} handler - The handler to add.
+ */
 export function addSVGHandler(name, handler) {
     handlers[name] = handler;
 }
 
 /** Base class for SVG handlers.
  *
- * @todo Add documentation.
+ * An SVG handler provides support for SVG documents created by a given
+ * authoring application.
  */
 export class DefaultSVGHandler {
+    /** Check that an SVG document has been created with a given application.
+     *
+     * @param {SVGSVGElement} svgRoot - The root SVG element to check.
+     * @returns {boolean} - `true` if the given SVG root has been created by the application handled by this class.
+     */
     static matches(svgRoot) {
         return true;
     }
 
+    /** Preprocess an SVG document.
+     *
+     * This method will transform an SVG document to make it suitable for
+     * the Sozi editor.
+     *
+     * Typical transformations consist in removing unsupported XML elements,
+     * or fixing properties that could conflict with Sozi.
+     *
+     * @param {SVGSVGElement} svgRoot - The root SVG element to check.
+     */
     static transform(svgRoot) {
     }
 
+    /** Check whether an SVG group represents a layer.
+     *
+     * The concept of layer is not specified in the SVG standard.
+     * This method will check the given element against the implementation
+     * of layers according to a given application.
+     *
+     * @param {SVGGElement} svgElement - A group to check.
+     * @returns {boolean} - `true` if the given element represents a layer.
+     */
     static isLayer(svgElement) {
         return true;
     }
 
+    /** Get the label of a layer represented by the given SVG group.
+     *
+     * If a group has been identified as a layer, this method will
+     * return the name/title/label of this layer if it exists.
+     *
+     * @param {SVGGElement} svgElement - A group to check.
+     * @returns {?string} - The label of the layer.
+     */
     static getLabel(svgElement) {
         return null;
     }
 }
 
-/** SVG document wrapper.
- *
- * @todo Add documentation.
- */
+/** SVG document wrapper. */
 export class SVGDocumentWrapper {
+
+    /** Initialize a new wrapper for a given SVG root element.
+     *
+     * @param {SVGSVGElement} svgRoot - An SVG root element.
+     */
     constructor(svgRoot) {
-        this.asText  = "";
+        /** A serialized representation of the current SVG document.
+         *
+         * @type {string} */
+        this.asText = "";
+
+        /** The SVG handler class for the current SVG document.
+         *
+         * @type {Function} */
         this.handler = DefaultSVGHandler;
-        this.root    = svgRoot;
+
+        /** The current SVG root element.
+         *
+         * @type {SVGSVGElement} */
+        this.root = svgRoot;
 
         // Prevent event propagation on hyperlinks
         for (let link of this.root.getElementsByTagName("a")) {
@@ -54,15 +119,24 @@ export class SVGDocumentWrapper {
         }
     }
 
+    /** Does the current root element belong to a valid SVG document?
+     *
+     * @readonly
+     * @type {boolean}
+     */
     get isValidSVG() {
         return this.root instanceof SVGSVGElement;
     }
 
-    /*
+    /** Check whether an SVG element represents a layer.
+     *
      * The given node is a valid layer if it has the following characteristics:
-     *    - it is an SVG group element
-     *    - it has an id that has not been met before
-     *    - it is recognized as a layer by the current SVG handler
+     * - it is an SVG group element,
+     * - it has an ID that has not been met before,
+     * - it is recognized as a layer by the current SVG handler.
+     *
+     * @param {Node} svgNode - An XML node to check.
+     * @returns {boolean} - `true` if the given node represents a layer.
      */
     isLayer(svgNode) {
         return svgNode instanceof SVGGElement &&
@@ -70,6 +144,16 @@ export class SVGDocumentWrapper {
             this.handler.isLayer(svgNode);
     }
 
+    /** Parse the given string into a new SVG document wrapper.
+     *
+     * This method will also apply several preprocessing operations,
+     * some generic and some specific to a SVG handler.
+     *
+     * @param {string} data - A string containing a serialized SVG document.
+     * @returns {module:svg/SVGDocumentWrapper.SVGDocumentWrapper} - A new SVG document wrapper.
+     *
+     * @see {@linkcode module:svg/SVGDocumentWrapper.DefaultSVGHandler.transform}
+     */
     static fromString(data) {
         const svgRoot = new DOMParser().parseFromString(data, "image/svg+xml").documentElement;
         const doc = new SVGDocumentWrapper(svgRoot);
@@ -142,11 +226,24 @@ export class SVGDocumentWrapper {
         return doc;
     }
 
+    /** Remove the `viewBox` attribute from the SVG root element.
+     *
+     * This attribute conflicts with the Sozi viewport.
+     * This method also sets the dimensions of the SVG root to 100%.
+     */
     removeViewbox() {
         this.root.removeAttribute("viewBox");
         this.root.style.width = this.root.style.height = "100%";
     }
 
+    /** Remove the scripts embedded in the SVG.
+     *
+     * The presentation editor operates on static SVG documents.
+     * Third-party scripts are removed because they could interfere with the editor.
+     *
+     * Custom scripts can be added into the generated HTML via the
+     * presentation editor.
+     */
     removeScripts() {
         // Make a copy of root.childNodes before modifying the document.
         const scripts = Array.from(this.root.getElementsByTagName("script"));
@@ -155,6 +252,13 @@ export class SVGDocumentWrapper {
         }
     }
 
+    /** Disable the hyperlinks inside the document.
+     *
+     * Hyperlinks are disabled in the editor only.
+     * This operation does not affect the saved presentation.
+     *
+     * @param {boolean} [styled=false] - If `true`, disable the hand-shaped mouse cursor over links.
+     */
     disableHyperlinks(styled=false) {
         for (let link of this.root.getElementsByTagName("a")) {
             link.addEventListener("click", evt => evt.preventDefault(), false);

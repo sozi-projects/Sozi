@@ -4,15 +4,13 @@
 
 /** @module */
 
-import {EventEmitter} from "events";
-
 /** The list of backends supported by the current editor.
  *
  * @type {module:backend/AbstractBackend.AbstractBackend[]}
  */
 export const backendList = [];
 
-/** Add a backend to {@link backendList|the list of supported backends}.
+/** Add a backend to {@link module:backend/AbstractBackend.backendList|the list of supported backends}.
  *
  * @param {module:backend/AbstractBackend.AbstractBackend} backend - The backend to add.
  */
@@ -20,11 +18,8 @@ export function addBackend(backend) {
     backendList.push(backend);
 }
 
-/** Abstraction for the execution platform.
- *
- * @extends EventEmitter
- */
-export class AbstractBackend extends EventEmitter {
+/** Abstraction for the execution platform. */
+export class AbstractBackend {
     /** Common constructor for backends.
      *
      * @param {module:Controller.Controller} controller - A controller instance.
@@ -33,9 +28,8 @@ export class AbstractBackend extends EventEmitter {
      * @param {string} buttonLabel - The text of the button to generate in the menu (already translated).
      */
     constructor(controller, container, buttonId, buttonLabel) {
-        super();
-
         /** The controller for this backend.
+         *
          * @type {module:Controller.Controller} */
         this.controller = controller;
 
@@ -47,25 +41,7 @@ export class AbstractBackend extends EventEmitter {
          * @type {Array} */
         this.autosavedFiles = [];
 
-        /** True if the current window has the focus.
-         * @type {boolean} */
-        this.hasFocus = false;
-
         container.innerHTML = `<button id="${buttonId}">${buttonLabel}</button>`;
-
-        window.addEventListener("focus", () => {
-            this.hasFocus = true;
-            /** Signals that the current editor window has received the focus.
-             * @event module:backend/AbstractBackend#focus */
-            this.emit("focus");
-        });
-
-        window.addEventListener("blur", () => {
-            this.hasFocus = false;
-            /** Signals that the current editor window has lost the focus.
-             * @event module:backend/AbstractBackend#blur */
-            this.emit("blur");
-        });
     }
 
     /** Open a file chooser.
@@ -78,8 +54,8 @@ export class AbstractBackend extends EventEmitter {
 
     /** Return the base name of a file.
      *
-     * @param fileDescriptor - A file descriptor (backend-dependent).
-     * @return {string} The file name.
+     * @param {any} fileDescriptor - A file descriptor (backend-dependent).
+     * @returns {string} The file name.
      */
     getName(fileDescriptor) {
         // Not implemented
@@ -88,104 +64,94 @@ export class AbstractBackend extends EventEmitter {
 
     /** Return the location of a file.
      *
-     * @param fileDescriptor - A file descriptor (backend-dependent).
-     * @return {string} The file location.
+     * @param {any} fileDescriptor - A file descriptor (backend-dependent).
+     * @returns {string} The file location.
      */
     getLocation(fileDescriptor) {
         // Not implemented
         return null;
     }
 
+    /** Compare two file descriptors.
+     *
+     * @param {any} fd1 - A file descriptor (backend-dependent).
+     * @param {any} fd2 - A file descriptor (backend-dependent).
+     * @returns {boolean} - `true` if `fd1` and `fd2` represent the same file.
+     */
+    sameFile(fd1, fd2) {
+        return fd1 === fd2;
+    }
+
     /** Find a file.
      *
-     * The callback function accepts a file descriptor, `null` if no file was
-     * found.
-     *
      * @param {string} name - The base name of the file.
-     * @param location - The location of the file (backend-dependent).
-     * @param {function(FileDescriptor)} callback - The function to call when the operation completes.
+     * @param {any} location - The location of the file (backend-dependent).
+     * @returns {Promise} - A promise that resolves to a file descriptor, rejected if not found.
      */
-    find(name, location, callback) {
-        // Not implemented
-        callback(null);
+    find(name, location) {
+        return Promise.reject("Not implemented");
     }
 
     /** Load a file.
      *
-     * This method loads a file and fires the `load` event. This event
-     * must be fired even if loading failed.
+     * This method loads a file and returns a promise with the content of this file.
      *
-     * If the file was successfully loaded and if the backend supports it,
-     * a `change` event can be fired when the file is modified after being
-     * loaded. The `change` event must be fired only on the first modification
-     * after the file has been loaded.
-     *
-     * @param fileDescriptor - A file to load (backend-dependent).
-     *
-     * @fires module:backend/AbstractBackend#load
-     * @fires module:backend/AbstractBackend#change
+     * @param {any} fileDescriptor - A file to load (backend-dependent).
+     * @returns {Promise<string>} - A promise that resolves to the content of the file.
      */
     load(fileDescriptor) {
-        // Not implemented
-        /** Signals that a file has been loaded.
-         * @event module:backend/AbstractBackend#load */
-        this.emit("load", fileDescriptor, "", "Not implemented");
+        return Promise.reject("Not implemented");
     }
 
+    /** Load a file synchronously.
+     *
+     * @param {any} fileDescriptor - A file to load (backend-dependent).
+     * @returns {string} - The content of the file.
+     */
     loadSync(fileDescriptor) {
         // Not implemented
+        return "";
     }
-
-    /** Signals that a file has changed.
-     * @event module:backend/AbstractBackend#change
-     */
 
     /** Create a new file.
      *
-     * The callback function receives a file descriptor and an error message.
-     *
      * @param {string} name - The name of the file to create.
-     * @param location - The location of the file to create (backend-dependent).
+     * @param {any} location - The location of the file to create (backend-dependent).
      * @param {string} mimeType - The MIME type of the file to create.
      * @param {string} data - The content of the file to create.
-     * @param {function(FileDescriptor, string)} callback - The function to call when the operation completes.
+     * @returns {Promise} - A promise that resolves to a file descriptor.
      */
-    create(name, location, mimeType, data, callback) {
-        // Not implemented
-        callback(null, "Not implemented");
+    create(name, location, mimeType, data) {
+        return Promise.reject("Not implemented");
     }
 
     /** Save data to an existing file.
      *
-     * @param fileDescriptor - The file to save (backend-dependent).
+     * @param {any} fileDescriptor - The file to save (backend-dependent).
      * @param {string} data - The new content of the file.
-     *
-     * @fires module:backend/AbstractBackend#save
-     *
-     * @todo Use a callback instead of an event
+     * @returns {Promise} - A promise that resolves to the given file descriptor.
      */
     save(fileDescriptor, data) {
-        // Not implemented
-        /** Signals that a file has been saved.
-         * @event module:backend/AbstractBackend#save */
-        this.emit("save", fileDescriptor, "Not implemented");
+        return Promise.reject("Not implemented");
     }
 
     /** Add the given file to the list of files to save automatically.
      *
-     * @param descriptor - The file to autosave (backend-dependent).
+     * @param {any} fileDescriptor - The file to autosave (backend-dependent).
      * @param {function():boolean} needsSaving - A function that returns `true` if the file needs saving.
      * @param {function():string} getData - A function that returns the data to save.
      */
-    autosave(descriptor, needsSaving, getData) {
-        this.autosavedFiles.push({descriptor, needsSaving, getData});
+    autosave(fileDescriptor, needsSaving, getData) {
+        this.autosavedFiles.push({fileDescriptor, needsSaving, getData});
     }
 
-    /** Check whether at least one file in the {@link AbstractBackend#autosavedFiles|autosaved file list} needs saving.
+    /** Check whether at least one file in the {@link module:backend/AbstractBackend.AbstractBackend#autosavedFiles|autosaved file list} needs saving.
      *
-     * This method uses the `needsSaving` function passed to {@link AbstractBackend#autosave|autosave}.
+     * This is an accessor that uses the `needsSaving` function passed to {@link module:backend/AbstractBackend.AbstractBackend#autosave|autosave}.
+     * Returns `true` if at least one file has unsaved modifications.
      *
-     * @return {boolean} `true` if at least one file has unsaved modifications.
+     * @readonly
+     * @type {boolean}
      */
     get hasOutdatedFiles() {
         return this.autosavedFiles.some(file => file.needsSaving());
@@ -193,29 +159,33 @@ export class AbstractBackend extends EventEmitter {
 
     /** Save all outdated files.
      *
-     * This method calls {@link AbstractBackend#save|save} for each file
-     * in the {@link AbstractBackend#autosavedFiles|autosaved file list}
+     * This method calls {@link module:backend/AbstractBackend.AbstractBackend#save|save} for each file
+     * in the {@link module:backend/AbstractBackend.AbstractBackend#autosavedFiles|autosaved file list}
      * where `needsSaving` returns `true`.
      *
-     * It uses the function `getData` passed to {@link AbstractBackend#autosave|autosave}
+     * It uses the function `getData` passed to {@link module:backend/AbstractBackend.AbstractBackend#autosave|autosave}
      * to write the new file content.
+     *
+     * @returns {Promise<Array>} - A promise that resolves when all autosaved files have been saved.
      */
     saveOutdatedFiles() {
-        for (let file of this.autosavedFiles) {
-            if (file.needsSaving()) {
-                this.save(file.descriptor, file.getData());
-            }
-        }
+        return Promise.all(
+            this.autosavedFiles
+                .filter(file => file.needsSaving())
+                .map(file => this.save(file.descriptor, file.getData()))
+        );
     }
 
-    /** Save all files previously added to the {@link AbstractBackend#autosavedFiles|autosaved file list}.
+    /** Save all files previously added to the {@link module:backend/AbstractBackend.AbstractBackend#autosavedFiles|autosaved file list}.
      *
      * Typically, we want to call this method each time the editor loses focus
      * and when the editor closes.
+     *
+     * @returns {Promise<Array>} - A promise that resolves when all autosaved files have been saved.
      */
     doAutosave() {
         this.controller.preferences.save();
-        this.saveOutdatedFiles();
+        return this.saveOutdatedFiles();
     }
 
     /** Show or hide the development tools of the current web browser.

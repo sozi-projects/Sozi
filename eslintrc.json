@@ -1,0 +1,30 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module"
+    },
+    "plugins": ["jsdoc"],
+    "extends": ["plugin:jsdoc/recommended"],
+    "settings": {
+        "jsdoc": {
+            "tagNamePreference": {
+                "augments": "extends"
+            }
+        }
+    },
+    "rules": {
+        "jsdoc/require-jsdoc": ["warn", {
+            "publicOnly": true,
+            "checkSetters": false,
+            "require": {
+                "ClassDeclaration": true,
+                "MethodDefinition": true
+            }
+        }]
+    }
+}
