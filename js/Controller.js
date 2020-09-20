@@ -1175,18 +1175,18 @@ export class Controller extends EventEmitter {
      * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
-     * @param {any} value - The new value of the property.
+     * @param {any} newValue - The new value of the property.
      *
      * @fires module:Controller.presentationChange
      * @fires module:Controller.repaint
      */
-    setPresentationProperty(property, value) {
+    setPresentationProperty(property, newValue) {
         const pres = this.presentation;
         const savedValue = pres[property];
 
         this.perform(
             function onDo() {
-                pres[property] = value;
+                pres[property] = newValue;
             },
             function onUndo() {
                 pres[property] = savedValue;
@@ -1225,18 +1225,18 @@ export class Controller extends EventEmitter {
      * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
-     * @param {any} value - The new value of the property.
+     * @param {any} newValue - The new value of the property.
      *
      * @fires module:Controller.presentationChange
      * @fires module:Controller.repaint
      */
-    setFrameProperty(property, value) {
+    setFrameProperty(property, newValue) {
         const savedValues = this.selection.selectedFrames.map(frame => [frame, frame[property]]);
 
         this.perform(
             function onDo() {
                 for (let [frame, value] of savedValues) {
-                    frame[property] = value;
+                    frame[property] = newValue;
                 }
             },
             function onUndo() {
@@ -1280,14 +1280,14 @@ export class Controller extends EventEmitter {
      * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
-     * @param {any} value - The new value of the property.
+     * @param {any} newValue - The new value of the property.
      *
      * @fires module:Controller.presentationChange
      * @fires module:Controller.repaint
      */
-    setLayerProperty(property, value) {
+    setLayerProperty(property, newValue) {
         if (property === "outlineElementId") {
-            const outlineElt = this.presentation.document.root.getElementById(value);
+            const outlineElt = this.presentation.document.root.getElementById(newValue);
             if (outlineElt) {
                 this.setOutlineElement(outlineElt);
             }
@@ -1302,7 +1302,7 @@ export class Controller extends EventEmitter {
             )
         );
 
-        const link = property === "link" && value;
+        const link = property === "link" && newValue;
 
         const savedCameraStates = selectedFrames.map(
             frame => selectedLayers.map(
@@ -1314,7 +1314,7 @@ export class Controller extends EventEmitter {
             function onDo() {
                 for (let frame of selectedFrames) {
                     for (let layer of selectedLayers) {
-                        frame.layerProperties[layer.index][property] = value;
+                        frame.layerProperties[layer.index][property] = newValue;
                     }
                 }
 
@@ -1368,12 +1368,12 @@ export class Controller extends EventEmitter {
      * This action supports undo and redo.
      *
      * @param {string} property - The name of the property to set.
-     * @param {any} value - The new value of the property.
+     * @param {any} newValue - The new value of the property.
      *
      * @fires module:Controller.presentationChange
      * @fires module:Controller.repaint
      */
-    setCameraProperty(property, value) {
+    setCameraProperty(property, newValue) {
         const selectedFrames = this.selection.selectedFrames.slice();
         const selectedLayers = this.selection.selectedLayers.slice();
 
@@ -1390,7 +1390,7 @@ export class Controller extends EventEmitter {
             function onDo() {
                 for (let frame of selectedFrames) {
                     for (let layer of selectedLayers) {
-                        frame.cameraStates[layer.index][property] = value;
+                        frame.cameraStates[layer.index][property] = newValue;
                         frame.layerProperties[layer.index].link = false;
                     }
                 }
@@ -1587,12 +1587,12 @@ export class Controller extends EventEmitter {
      * This operation cannot be undone.
      *
      * @param {string} key - The name of the property to set.
-     * @param {any} value - The new value of the property.
+     * @param {any} newValue - The new value of the property.
      *
      * @fires module:Controller.repaint
      */
-    setPreference(key, value) {
-        this.preferences[key] = value;
+    setPreference(key, newValue) {
+        this.preferences[key] = newValue;
         this.applyPreferences({[key]: true});
     }
 
@@ -1616,34 +1616,34 @@ export class Controller extends EventEmitter {
      * This operation cannot be undone.
      *
      * @param {string} action - A supported keyboard action name.
-     * @param {any} value - A shortcut definition.
+     * @param {any} newValue - A shortcut definition.
      */
-    setShortcut(action, value) {
+    setShortcut(action, newValue) {
         // Find occurrences of modifier keys in the given value.
-        let ctrl  = /\bCtrl\s*\+/i.test(value);
-        let alt   = /\bAlt\s*\+/i.test(value);
-        let shift = /\bShift\s*\+/i.test(value);
+        let ctrl  = /\bCtrl\s*\+/i.test(newValue);
+        let alt   = /\bAlt\s*\+/i.test(newValue);
+        let shift = /\bShift\s*\+/i.test(newValue);
 
         // Remove all occurrences of modifier keys and spaces in the given value.
-        value = value.replace(/\bCtrl\s*\+\s*/gi, "");
-        value = value.replace(/\bAlt\s*\+\s*/gi, "");
-        value = value.replace(/\bShift\s*\+\s*/gi, "");
-        value = value.replace(/\s/g, "").toUpperCase();
-        if (value.length === 0) {
+        newValue = newValue.replace(/\bCtrl\s*\+\s*/gi, "");
+        newValue = newValue.replace(/\bAlt\s*\+\s*/gi, "");
+        newValue = newValue.replace(/\bShift\s*\+\s*/gi, "");
+        newValue = newValue.replace(/\s/g, "").toUpperCase();
+        if (newValue.length === 0) {
             return;
         }
 
         // Rewrite the shortcut in standard order.
         if (shift) {
-            value = "Shift+" + value;
+            newValue = "Shift+" + newValue;
         }
         if (alt) {
-            value = "Alt+" + value;
+            newValue = "Alt+" + newValue;
         }
         if (ctrl) {
-            value = "Ctrl+" + value;
+            newValue = "Ctrl+" + newValue;
         }
-        this.preferences.keys[action] = value;
+        this.preferences.keys[action] = newValue;
     }
 
     /** Update the user interface after modifying the preferences.
