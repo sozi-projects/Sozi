@@ -126,6 +126,13 @@ export class Controller extends EventEmitter {
          * @type {boolean} */
         this.hasFocus = false;
 
+        /** True if an export operation is in progress.
+         *
+         * @default
+         * @type {boolean}
+         */
+        this.exporting = false;
+
         window.addEventListener("focus", () => {
             this.hasFocus = true;
             this.emit("focus");
@@ -1666,10 +1673,25 @@ export class Controller extends EventEmitter {
         this.emit("repaint");
     }
 
+    /** Toggle the "exporting" state */
+    toggleExportState() {
+        this.exporting = !this.exporting;
+        this.emit("repaint");
+    }
+
     /** Export the current presentation to PDF. */
     async exportToPDF() {
+        const _ = this.gettext;
+        this.toggleExportState();
         await this.save();
-        exporter.exportToPDF(this);
+        try {
+            await exporter.exportToPDF(this.presentation, this.storage.htmlFileDescriptor);
+            this.info(_("Presentation was exported to PDF."));
+        }
+        catch (e) {
+            this.error(_("Failed to write PDF file."));
+        }
+        this.toggleExportState();
     }
 
     /** Perform an operation with undo/redo support.

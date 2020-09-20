@@ -379,6 +379,7 @@ export class Properties extends VirtualDOMView {
             h("div.btn-group", [
                 h("button", {
                     title: _("Export the presentation to PDF"),
+                    disabled: controller.exporting,
                     onClick() { controller.exportToPDF(); }
                 }, _("Export"))
             ])

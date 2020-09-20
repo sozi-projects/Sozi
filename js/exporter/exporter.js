@@ -84,23 +84,17 @@ const pageGeometry = {
 
 const pixelsPerMm = 3.78; // 96ppi
 
-export async function exportToPDF(controller) {
-    const _ = controller.gettext;
-    const htmlFileName = controller.storage.htmlFileDescriptor;
-    const pdfFileName  = htmlFileName.replace(/html$/, "pdf");
-
-    const pres = controller.presentation;
-
+export async function exportToPDF(presentation, htmlFileName) {
     console.log(`Exporting ${htmlFileName} to PDF`);
 
     // Mark the list of frames that will be included in the target document.
-    const frameCount = pres.frames.length;
+    const frameCount = presentation.frames.length;
     const frameSelection = new Array(frameCount);
-    let include = pres.exportToPdfInclude.trim();
+    let include = presentation.exportToPdfInclude.trim();
     if (!include.length) {
         include = "all";
     }
-    let exclude = pres.exportToPdfExclude.trim();
+    let exclude = presentation.exportToPdfExclude.trim();
     if (!exclude.length) {
         exclude = "none";
     }
@@ -112,8 +106,8 @@ export async function exportToPDF(controller) {
     const digits = frameCount.toString().length;
 
     // Open the HTML presentation in a new browser window.
-    let g = pageGeometry[pres.exportToPdfPageSize];
-    if (pres.exportToPdfPageOrientation === "landscape") {
+    let g = pageGeometry[presentation.exportToPdfPageSize];
+    if (presentation.exportToPdfPageOrientation === "landscape") {
         g = {width: g.height, height: g.width};
     }
     const w = new remote.BrowserWindow({
@@ -125,44 +119,48 @@ export async function exportToPDF(controller) {
             preload: path.join(__dirname, "exporter-preload.js")
         }
     });
-    await w.loadURL(`file://${controller.storage.htmlFileDescriptor}`);
+    await w.loadURL(`file://${htmlFileName}`);
 
     // Create a PDF document object.
     const pdfDoc = await PDFDocument.create();
 
     // On each frameChange event in the player, save the current web contents.
-    ipcRenderer.on("frameChange", async (evt, index) => {
-        // Convert the current web contents to PDF and add it to the target document.
-        const pdfData = await w.webContents.printToPDF({
-            pageSize:  pres.exportToPdfPageSize,
-            landscape: pres.exportToPdfPageOrientation === "landscape",
-            marginsType: 2, // No margin
+    const result = new Promise((resolve, reject) => {
+        ipcRenderer.on("frameChange", async (evt, index) => {
+            // Convert the current web contents to PDF and add it to the target document.
+            const pdfData = await w.webContents.printToPDF({
+                pageSize:  presentation.exportToPdfPageSize,
+                landscape: presentation.exportToPdfPageOrientation === "landscape",
+                marginsType: 2, // No margin
+            });
+
+            const pdfDocForFrame = await PDFDocument.load(pdfData);
+            const [pdfPage]      = await pdfDoc.copyPages(pdfDocForFrame, [0]);
+            pdfDoc.addPage(pdfPage);
+
+            const frameIndex = nextFrameIndex(frameSelection, index);
+            if (frameIndex >= 0) {
+                // If there are frames remaining, move to the next frame.
+                w.webContents.send("jumpToFrame", frameIndex);
+            }
+            else {
+                // If this is the last frame, close the presentation window
+                // and write the PDF document to a file.
+                ipcRenderer.removeAllListeners("frameChange");
+                w.close();
+
+                const pdfFileName = htmlFileName.replace(/html$/, "pdf");
+                const pdfBytes    = await pdfDoc.save();
+                fs.writeFile(pdfFileName, pdfBytes, err => {
+                    if (err) {
+                        reject();
+                    }
+                    else {
+                        resolve();
+                    }
+                });
+            }
         });
-
-        const pdfDocForFrame = await PDFDocument.load(pdfData);
-        const [pdfPage]      = await pdfDoc.copyPages(pdfDocForFrame, [0]);
-        pdfDoc.addPage(pdfPage);
-
-        const frameIndex = nextFrameIndex(frameSelection, index);
-        if (frameIndex >= 0) {
-            // If there are frames remaining, move to the next frame.
-            w.webContents.send("jumpToFrame", frameIndex);
-        }
-        else {
-            // If this is the last frame, close the presentation window
-            // and write the PDF document to a file.
-            ipcRenderer.removeAllListeners("frameChange");
-            w.close();
-
-            const pdfBytes = await pdfDoc.save();
-            try {
-                fs.writeFileSync(pdfFileName, pdfBytes);
-                controller.info(_("Presentation was exported to PDF."));
-            }
-            catch (e) {
-                controller.error(_("Failed to write PDF file."));
-            }
-        }
     });
 
     // Start the player in the presentation window.
@@ -170,4 +168,6 @@ export async function exportToPDF(controller) {
         frameIndex: nextFrameIndex(frameSelection),
         callerId: remote.getCurrentWindow().webContents.id
     });
+
+    return result;
 }
