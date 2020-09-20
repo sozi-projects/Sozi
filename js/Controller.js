@@ -1666,8 +1666,9 @@ export class Controller extends EventEmitter {
         this.emit("repaint");
     }
 
-    exportToPDF() {
-        this.save();
+    /** Export the current presentation to PDF. */
+    async exportToPDF() {
+        await this.save();
         exporter.exportToPDF(this);
     }
 
