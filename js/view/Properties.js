@@ -381,7 +381,7 @@ export class Properties extends VirtualDOMView {
                     title: _("Export the presentation to PDF"),
                     disabled: controller.exporting,
                     onClick() { controller.exportToPDF(); }
-                }, _("Export"))
+                }, [_("Export"), controller.exporting ? h("span.spinner") : null])
             ])
         ]);
     }
