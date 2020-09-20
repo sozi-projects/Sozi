@@ -172,7 +172,7 @@ export class AbstractBackend {
         return Promise.all(
             this.autosavedFiles
                 .filter(file => file.needsSaving())
-                .map(file => this.save(file.descriptor, file.getData()))
+                .map(file => this.save(file.fileDescriptor, file.getData()))
         );
     }
 
