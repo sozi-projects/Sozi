@@ -125,7 +125,10 @@ export class Toolbar extends VirtualDOMView {
                     id: "btn-fullscreen",
                     className: screenfull.isFullscreen ? "active" : undefined,
                     disabled: !screenfull.isEnabled,
-                    onclick() { screenfull.toggle(document.documentElement).then(() => thisView.repaint()); }
+                    async onclick() {
+                        await screenfull.toggle(document.documentElement);
+                        thisView.repaint();
+                    }
                 }, h("i.fas.fa-desktop"))
             ]),
             h("span.group.btn-group", [
