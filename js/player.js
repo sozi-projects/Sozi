@@ -124,7 +124,7 @@ window.addEventListener("message", evt => {
 // Initialize the Sozi player when the document is loaded.
 window.addEventListener("load", () => {
     const svgRoot = document.querySelector("svg");
-    svgRoot.style.display = "inline";
+    svgRoot.style.display = "initial";
 
     const presentation = new Presentation();
     presentation.setSVGDocument(new SVGDocumentWrapper(svgRoot));

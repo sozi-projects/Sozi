@@ -575,7 +575,7 @@ export class Layer {
 
     set isVisible(visible) {
         for (let node of this.svgNodes) {
-            node.style.display = visible ? "inline" : "none";
+            node.style.display = visible ? "initial" : "none";
         }
     }
 

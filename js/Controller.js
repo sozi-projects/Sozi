@@ -362,16 +362,13 @@ export class Controller extends EventEmitter {
      * This method delegates the operation to its {@linkcode module:Storage.Storage|Storage} instance and triggers
      * a repaint so that the UI shows the correct "saved" status.
      *
-     * @returns {Promise} - A promise that is resolved when the save action completes.
-     *
      * @fires module:Controller.repaint
      *
      * @see {@linkcode module:Storage.Storage#save}
      */
-    save() {
-        return this.storage.save().then(
-            () => this.emit("repaint")
-        );
+    async save() {
+        await this.storage.save();
+        this.emit("repaint");
     }
 
     /** Reload the presentation.

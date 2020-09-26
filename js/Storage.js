@@ -71,18 +71,17 @@ export class Storage {
         return this.backend.doAutosave();
     }
 
-    reload() {
-        this.save().then(
-            () => this.backend.load(this.svgFileDescriptor)
-        ).then(
-            data => this.loadSVGData(data)
-        );
+    async reload() {
+        await this.save();
+        const data = await this.backend.load(this.svgFileDescriptor);
+        this.loadSVGData(data);
     }
 
-    setSVGFile(fileDescriptor, backend) {
+    async setSVGFile(fileDescriptor, backend) {
         this.svgFileDescriptor = fileDescriptor;
         this.backend           = backend;
-        this.backend.load(this.svgFileDescriptor).then(data => this.loadSVGData(data));
+        const data = await this.backend.load(this.svgFileDescriptor);
+        this.loadSVGData(data);
     }
 
     loadSVGData(data) {
@@ -131,85 +130,77 @@ export class Storage {
      * Open the JSON file with the given name at the given location.
      * If the file exists, load it.
      * It it does not exist, create it.
-     *
-     * Returns a promise.
      */
-    openJSONFile(name, location) {
+    async openJSONFile(name, location) {
         const _ = this.controller.gettext;
 
-        return this.backend.find(name, location).then(
+        let fileDescriptor;
+        try {
             // Load presentation data and editor state from JSON file.
-            fileDescriptor => this.backend.load(fileDescriptor).then(
-                data => {
-                    this.loadJSONData(data);
-                    return fileDescriptor;
-                }
-            ),
-            err => {
-                // If no JSON file is available, attempt to extract
-                // presentation data from the SVG document, assuming
-                // it has been generated from Sozi 13 or earlier.
-                // Then save the extracted data to a JSON file.
-                upgradeFromSVG(this.presentation, this.controller);
+            fileDescriptor = await this.backend.find(name, location);
+            const data = await this.backend.load(fileDescriptor);
+            this.loadJSONData(data);
+        }
+        catch (err) {
+            // If no JSON file is available, attempt to extract
+            // presentation data from the SVG document, assuming
+            // it has been generated from Sozi 13 or earlier.
+            // Then save the extracted data to a JSON file.
+            upgradeFromSVG(this.presentation, this.controller);
 
-                // Select the first frame
-                if (this.presentation.frames.length) {
-                    this.controller.info(_("Document was imported from Sozi 13 or earlier."));
-                }
-
-                return this.backend.create(name, location, "application/json", this.getJSONData());
+            // If the document contains frames, it means it was imported from Sozi 13.
+            if (this.presentation.frames.length) {
+                this.controller.info(_("Document was imported from Sozi 13 or earlier."));
             }
-        ).then(
-            fileDescriptor => {
-                if (!this.jsonFileDescriptor) {
-                    this.jsonFileDescriptor = fileDescriptor;
-                    this.backend.autosave(fileDescriptor, () => this.jsonNeedsSaving, () => this.getJSONData());
-                }
 
-                this.controller.onLoad();
+            // Create a JSON file for the presentation data.
+            fileDescriptor = await this.backend.create(name, location, "application/json", this.getJSONData());
+        }
 
-                const svgName           = this.backend.getName(this.svgFileDescriptor);
-                const htmlFileName      = replaceFileExtWith(svgName, ".sozi.html");
-                const presenterFileName = replaceFileExtWith(svgName, "-presenter.sozi.html");
-                this.createHTMLFile(htmlFileName, location);
-                this.createPresenterHTMLFile(presenterFileName, location, htmlFileName);
-            }
-        );
+        if (!this.jsonFileDescriptor) {
+            this.jsonFileDescriptor = fileDescriptor;
+            this.backend.autosave(fileDescriptor, () => this.jsonNeedsSaving, () => this.getJSONData());
+        }
+
+        this.controller.onLoad();
+
+        const svgName           = this.backend.getName(this.svgFileDescriptor);
+        const htmlFileName      = replaceFileExtWith(svgName, ".sozi.html");
+        const presenterFileName = replaceFileExtWith(svgName, "-presenter.sozi.html");
+        this.createHTMLFile(htmlFileName, location);
+        this.createPresenterHTMLFile(presenterFileName, location, htmlFileName);
     }
 
     /*
      * Create the exported HTML file if it does not exist.
-     *
-     * Returns a promise.
      */
-    createHTMLFile(name, location) {
-        return this.backend.find(name, location).then(
-            fileDescriptor => this.backend.save(fileDescriptor, this.exportHTML()),
-            err => this.backend.create(name, location, "text/html", this.exportHTML())
-        ).then(
-            fileDescriptor => {
-                if (!this.htmlFileDescriptor) {
-                    this.htmlFileDescriptor = fileDescriptor;
-                    this.backend.autosave(fileDescriptor, () => this.htmlNeedsSaving, () => this.exportHTML());
-                }
-            }
-        );
+    async createHTMLFile(name, location) {
+        let fileDescriptor;
+        try {
+            fileDescriptor = await this.backend.find(name, location);
+            await this.backend.save(fileDescriptor, this.exportHTML());
+        }
+        catch (err) {
+            fileDescriptor = await this.backend.create(name, location, "text/html", this.exportHTML());
+        }
+
+        if (!this.htmlFileDescriptor) {
+            this.htmlFileDescriptor = fileDescriptor;
+            this.backend.autosave(fileDescriptor, () => this.htmlNeedsSaving, () => this.exportHTML());
+        }
     }
 
     /*
      * Create the presenter HTML file if it does not exist.
-     *
-     * Returns a promise.
      */
-    createPresenterHTMLFile(name, location, htmlFileName) {
-        return this.backend.find(name, location).then(
-            fileDescriptor => {
-                this.backend.save(fileDescriptor, this.exportPresenterHTML(htmlFileName));
-            },
-            err => {
-                this.backend.create(name, location, "text/html", this.exportPresenterHTML(htmlFileName));
-            }
-        );
+    async createPresenterHTMLFile(name, location, htmlFileName) {
+        try {
+            const fileDescriptor = await this.backend.find(name, location);
+            await this.backend.save(fileDescriptor, this.exportPresenterHTML(htmlFileName));
+        }
+        catch (err) {
+            await this.backend.create(name, location, "text/html", this.exportPresenterHTML(htmlFileName));
+        }
     }
 
     /*
