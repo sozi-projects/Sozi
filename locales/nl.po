@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: Tim van Steenbergen <tim@sourcerers.nl>\n"
 "POT-Creation-Date: 2020-08-16 09:17:+0000\n"
-"PO-Revision-Date: 2020-06-19 15:41+0000\n"
+"PO-Revision-Date: 2020-08-19 03:33+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/sozi/translations/"
 "nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2016-10-10 06:40+0000\n"
 
 #: js/backend/Electron.js:33
@@ -50,7 +50,7 @@ msgstr "SVG-bestanden"
 
 #: js/backend/Electron.js:179
 msgid "Could not read file %s."
-msgstr ""
+msgstr "Het bestand '%s' kan niet worden uitgelezen."
 
 #: js/backend/FileReader.js:18
 msgid ""
@@ -373,25 +373,23 @@ msgstr ""
 
 #: js/view/Properties.js:211
 msgid "Custom stylesheets and scripts"
-msgstr ""
+msgstr "Aangepaste stijlbladen en scripts"
 
 #: js/view/Properties.js:224
 msgid "CSS or JS file names"
-msgstr ""
+msgstr "CSS- of JS-bestandsnamen"
 
 #: js/view/Properties.js:224
 msgid "Add CSS or JS files"
-msgstr ""
+msgstr "CSS- of JS-bestanden toevoegen"
 
 #: js/view/Properties.js:227
-#, fuzzy
 msgid "Add a file"
-msgstr "Alle lagen toevoegen"
+msgstr "Bestand toevoegen"
 
 #: js/view/Properties.js:240
-#, fuzzy
 msgid "Remove this file"
-msgstr "Geselecteerde laag verwijderen"
+msgstr "Bestand verwijderen"
 
 #: js/view/Properties.js:248
 msgid "Player"

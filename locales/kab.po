@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-08-16 09:17:+0000\n"
-"PO-Revision-Date: 2020-06-30 20:01+0000\n"
-"Last-Translator: Farid Alem <atcemlulfarid@yahoo.com>\n"
+"PO-Revision-Date: 2020-09-08 22:36+0000\n"
+"Last-Translator: Kahina Messaoudi <messaoudikahina02@gmail.com>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/sozi/translations/"
 "kab/>\n"
 "Language: kab\n"
@@ -11,15 +11,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: js/backend/Electron.js:33
 msgid "Open an SVG file from your computer"
-msgstr ""
+msgstr "Ldi afaylu SVG seg uselkim-ik•im"
 
 #: js/backend/Electron.js:65
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "Tebɣiḍ ad teskelseḍ tanekda send Tuffɣa?"
 
 #: js/backend/Electron.js:66
 msgid "Yes"
@@ -31,41 +31,43 @@ msgstr "Uhu"
 
 #: js/backend/Electron.js:89
 msgid "File not found: %s."
-msgstr ""
+msgstr "Ulac afaylu: %s."
 
 #: js/backend/Electron.js:122
 msgid "Choose an SVG file"
-msgstr ""
+msgstr "Fren afaylu SVG"
 
 #: js/backend/Electron.js:123
 msgid "SVG files"
-msgstr ""
+msgstr "Ifuyla SVG"
 
 #: js/backend/Electron.js:179
 msgid "Could not read file %s."
-msgstr ""
+msgstr "Ur izmir ara ad d-iɣer afaylu %s."
 
 #: js/backend/FileReader.js:18
 msgid ""
 "Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
+"Ldi afaylu SVG seg uselkim-ik•im (<i class=\"fas fa-exclamation-triangle\"></"
+"i> taɣuri kan)"
 
 #: js/backend/GoogleDrive.js:18
 msgid "Open an SVG file from Google Drive"
-msgstr ""
+msgstr "Ldi afaylu SVG seg Google Drive"
 
 #: js/Controller.js:131
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
-msgstr ""
+msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Tuccḍa"
 
 #: js/Controller.js:132
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+msgstr "<i class=\"fas fa-info-circle\"></i> Talɣut"
 
 #: js/Storage.js:79
 msgid "File %s could not be loaded."
-msgstr ""
+msgstr "Afaylu %s ur d-yuli ara."
 
 #: js/Storage.js:96 js/Storage.js:105
 msgid "Document is not valid SVG."
@@ -73,15 +75,15 @@ msgstr ""
 
 #: js/Storage.js:141 js/Storage.js:147
 msgid "Document was changed. Reloading."
-msgstr ""
+msgstr "Isemli ibeddel. Asali."
 
 #: js/Storage.js:156
 msgid "Document was changed."
-msgstr ""
+msgstr "Isemli yettusnifel."
 
 #: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr ""
+msgstr "Isemli yettwakter seg Sozi 13 neɣ d llqem aqbur."
 
 #: js/Storage.js:254 js/Storage.js:275
 msgid "Saved %s."
@@ -97,11 +99,11 @@ msgstr ""
 
 #: js/view/Properties.js:43 js/view/Timeline.js:143
 msgid "Create a new frame"
-msgstr ""
+msgstr "Rnu akatar amaynut"
 
 #: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:112
 msgid "Save the presentation"
-msgstr ""
+msgstr "Sekles tanekda"
 
 #: js/view/Properties.js:45 js/view/Toolbar.js:96
 msgid "Redo"
@@ -109,7 +111,7 @@ msgstr "Redo"
 
 #: js/view/Properties.js:46 js/view/Toolbar.js:91
 msgid "Undo"
-msgstr ""
+msgstr "Sefsex"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
@@ -117,7 +119,7 @@ msgstr ""
 
 #: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:117
 msgid "Reload the SVG document"
-msgstr ""
+msgstr "Ales asali n yisemli SVG"
 
 #: js/view/Properties.js:49
 msgid "Toggle full-screen mode"
@@ -129,7 +131,7 @@ msgstr ""
 
 #: js/view/Properties.js:60
 msgid "User interface"
-msgstr ""
+msgstr "Agrudem n useqdac"
 
 #: js/view/Properties.js:61
 msgid "Font size"
@@ -141,7 +143,7 @@ msgstr ""
 
 #: js/view/Properties.js:65
 msgid "Enable notifications"
-msgstr ""
+msgstr "Rmed ilɣuten"
 
 #: js/view/Properties.js:69
 msgid "When Sozi loses the focus"
@@ -149,11 +151,11 @@ msgstr ""
 
 #: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
-msgstr ""
+msgstr "S ufus"
 
 #: js/view/Properties.js:74
 msgid "Automatically"
-msgstr ""
+msgstr "S wudem awurman"
 
 #: js/view/Properties.js:75
 msgid "When Sozi gets the focus"
@@ -161,7 +163,7 @@ msgstr ""
 
 #: js/view/Properties.js:78
 msgid "Behavior"
-msgstr ""
+msgstr "Tikli"
 
 #: js/view/Properties.js:80
 msgid "Preview transition animations"
@@ -173,7 +175,7 @@ msgstr ""
 
 #: js/view/Properties.js:83
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Inegzumen n unasiw"
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
@@ -181,39 +183,39 @@ msgstr ""
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: Azuran"
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: Uknan"
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: Yettuderrer"
 
 #: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+O: Taseddart"
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big heading"
-msgstr ""
+msgstr "Ctrl+1: Azwel ameqqran"
 
 #: js/view/Properties.js:103
 msgid "Ctrl+2: Medium heading"
-msgstr ""
+msgstr "Ctrl+2: Azwel alemmas"
 
 #: js/view/Properties.js:104
 msgid "Ctrl+3: Small heading"
-msgstr ""
+msgstr "Ctrl+3: Azwel ameẓẓyan"
 
 #: js/view/Properties.js:105
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl+L: Tabdart"
 
 #: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl+N: Tabdart s wuṭṭunen"
 
 #: js/view/Properties.js:113
 msgid "Select a layer to copy"
@@ -221,39 +223,39 @@ msgstr ""
 
 #: js/view/Properties.js:116 js/view/Timeline.js:190 js/view/Timeline.js:218
 msgid "Default"
-msgstr ""
+msgstr "Amezwer"
 
 #: js/view/Properties.js:123
 msgid "Frame"
-msgstr ""
+msgstr "Akatar"
 
 #: js/view/Properties.js:126
 msgid "Show in frame list"
-msgstr ""
+msgstr "Sken deg tebdart n yikataren"
 
 #: js/view/Properties.js:127
 msgid "Show frame number"
-msgstr ""
+msgstr "Sken uṭṭun n ukatar"
 
 #: js/view/Properties.js:130
 msgid "Title"
-msgstr ""
+msgstr "Azwel"
 
 #: js/view/Properties.js:133
 msgid "Title level in frame list"
-msgstr ""
+msgstr "Aswir n uzwel deg tebdart n yikataren"
 
 #: js/view/Properties.js:136
 msgid "Id"
-msgstr ""
+msgstr "Asulay Id"
 
 #: js/view/Properties.js:140
 msgid "Timeout (seconds)"
-msgstr ""
+msgstr "Tanzagt n uraǧu (tisinin)"
 
 #: js/view/Properties.js:141
 msgid "Timeout enable"
-msgstr ""
+msgstr "Rmed tanzagt n uraǧu"
 
 #: js/view/Properties.js:145
 msgid "Layer"
@@ -261,7 +263,7 @@ msgstr ""
 
 #: js/view/Properties.js:148
 msgid "Link to previous frame"
-msgstr ""
+msgstr "Cudd ɣer ukatar yezrin"
 
 #: js/view/Properties.js:149
 msgid "Clip"
@@ -277,11 +279,11 @@ msgstr ""
 
 #: js/view/Properties.js:166
 msgid "Autoselect element"
-msgstr ""
+msgstr "Fren aferdis s wudem awurman"
 
 #: js/view/Properties.js:169
 msgid "Hide element"
-msgstr ""
+msgstr "Ffer aferdis"
 
 #: js/view/Properties.js:171
 msgid "Fit to element"
@@ -293,7 +295,7 @@ msgstr ""
 
 #: js/view/Properties.js:181
 msgid "Transition"
-msgstr ""
+msgstr "Asaka"
 
 #: js/view/Properties.js:181
 msgid "Configure the animation when moving to the selected frames."
@@ -301,7 +303,7 @@ msgstr ""
 
 #: js/view/Properties.js:183
 msgid "Duration (seconds)"
-msgstr ""
+msgstr "Tanzagt (tisinin)"
 
 #: js/view/Properties.js:186
 msgid "Timing function"
