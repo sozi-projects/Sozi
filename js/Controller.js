@@ -1680,7 +1680,7 @@ export class Controller extends EventEmitter {
     async exportToPDF() {
         const _ = this.gettext;
         this.toggleExportState();
-        await this.save();
+        this.save();
         try {
             await exporter.exportToPDF(this.presentation, this.storage.htmlFileDescriptor);
             this.info(_("Presentation was exported to PDF."));
@@ -1692,20 +1692,20 @@ export class Controller extends EventEmitter {
     }
 
     /** Export the current presentation to PPTX. */
-    async exportToPPTX() {
+    exportToPPTX() {
         const _ = this.gettext;
         this.toggleExportState();
-        await this.save();
+        this.save();
         // TODO
         this.error(_("Export to PPTX is not supported yet."));
         this.toggleExportState();
     }
 
     /** Export the current presentation to video. */
-    async exportToVideo() {
+    exportToVideo() {
         const _ = this.gettext;
         this.toggleExportState();
-        await this.save();
+        this.save();
         // TODO
         this.error(_("Export to Video is not supported yet."));
         this.toggleExportState();
