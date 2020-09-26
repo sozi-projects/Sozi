@@ -154,8 +154,8 @@ export class Camera extends CameraState {
      */
     revealClipping() {
         this.maskValue = 64;
-        this.svgClipOutlineRect1.style.display = "inline";
-        this.svgClipOutlineRect2.style.display = "inline";
+        this.svgClipOutlineRect1.style.display = "initial";
+        this.svgClipOutlineRect2.style.display = "initial";
     }
 
     /** Hide the clipping rectangle and its surroundings.
@@ -399,6 +399,7 @@ export class Camera extends CameraState {
                 "rotate(" + (-this.angle) + ',' + this.cx + "," + this.cy + ")"
             );
             svgGroup.setAttribute("opacity", this.opacity);
+            svgGroup.style.display = this.opacity === 0 ? "none" : "initial";
         }
     }
 
