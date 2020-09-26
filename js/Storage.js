@@ -178,7 +178,7 @@ export class Storage {
         let fileDescriptor;
         try {
             fileDescriptor = await this.backend.find(name, location);
-            await this.backend.save(fileDescriptor, this.exportHTML());
+            this.backend.save(fileDescriptor, this.exportHTML());
         }
         catch (err) {
             fileDescriptor = await this.backend.create(name, location, "text/html", this.exportHTML());
@@ -196,10 +196,10 @@ export class Storage {
     async createPresenterHTMLFile(name, location, htmlFileName) {
         try {
             const fileDescriptor = await this.backend.find(name, location);
-            await this.backend.save(fileDescriptor, this.exportPresenterHTML(htmlFileName));
+            this.backend.save(fileDescriptor, this.exportPresenterHTML(htmlFileName));
         }
         catch (err) {
-            await this.backend.create(name, location, "text/html", this.exportPresenterHTML(htmlFileName));
+            this.backend.create(name, location, "text/html", this.exportPresenterHTML(htmlFileName));
         }
     }
 
