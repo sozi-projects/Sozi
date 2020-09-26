@@ -48,6 +48,7 @@ export function getLanguages(_) {
         sv: "Svenska",
         tr: "Türkçe",
         zh_Hans: "简体中文",
+        zh_Latn: "Hànyǔ Pīnyīn",
         zh_TW: "繁體字",
     };
 }

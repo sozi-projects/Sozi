@@ -1,534 +1,496 @@
-# Polish translation for sozi
-# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
-# This file is distributed under the same license as the sozi package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: sozi\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-08-16 09:17:+0000\n"
 "PO-Revision-Date: 2020-08-19 03:33+0000\n"
-"Last-Translator: WaldiS <sto@tutanota.de>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/sozi/translations/"
-"pl/>\n"
-"Language: pl\n"
+"Last-Translator: Mehmet Gurbuz GUVEN <6mehmet6@gmail.com>\n"
+"Language-Team: Chinese (Pinyin) <https://hosted.weblate.org/projects/sozi/"
+"translations/zh_Latn/>\n"
+"Language: zh_Latn\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.2-dev\n"
-"X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
 
 #: js/backend/Electron.js:33
 msgid "Open an SVG file from your computer"
-msgstr "Otwórz plik SVG z komputera"
+msgstr "Cóng diànnǎo dǎkāi SVG wénjiàn"
 
 #: js/backend/Electron.js:65
 msgid "Do you want to save the presentation before closing?"
-msgstr "Chcesz zapisać prezentację przed zamknięciem?"
+msgstr "Shìfǒu yào zài guānbì zhīqián bǎocún gāi yǎnshì wéngǎo?"
 
 #: js/backend/Electron.js:66
 msgid "Yes"
-msgstr "Tak"
+msgstr "Shì"
 
 #: js/backend/Electron.js:66
 msgid "No"
-msgstr "Nie"
+msgstr "Fǒu"
 
 #: js/backend/Electron.js:89
 msgid "File not found: %s."
-msgstr "Nie można odnaleźć pliku: %s."
+msgstr "Zhǎo bù dào wénjiàn: %S."
 
 #: js/backend/Electron.js:122
 msgid "Choose an SVG file"
-msgstr "Wybierz plik SVG"
+msgstr "Xuǎnzé SVG wénjiàn"
 
 #: js/backend/Electron.js:123
 msgid "SVG files"
-msgstr "Pliki SVG"
+msgstr "SVG wénjiàn"
 
 #: js/backend/Electron.js:179
 msgid "Could not read file %s."
-msgstr "Nie można odczytać pliku %s."
+msgstr "Wúfǎ dúqǔ wénjiàn %s."
 
 #: js/backend/FileReader.js:18
 msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
-"\"></i> read-only)"
+"Open an SVG file from your computer (<i class=\"fas "
+"fa-exclamation-triangle\"></i> read-only)"
 msgstr ""
-"Otwórz plik SVG z komputera (<i class=\"fas fa-exclamation-triangle\"></i> "
-"read-only)"
+"Cóng diànnǎo dǎkāi SVG wénjiàn (<i class=\"fas fa-exclamation-triangle\"></"
+"i> zhǐ dú)"
 
 #: js/backend/GoogleDrive.js:18
 msgid "Open an SVG file from Google Drive"
-msgstr "Otwórz plik SVG z Google Drive"
+msgstr "Cóng Google Drive shàng dǎkāi SVG wénjiàn"
 
 #: js/Controller.js:131
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
-msgstr "Błąd <i class=\"fas fa-exclamation-triangle\"></i>"
+msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Cuòwù"
 
 #: js/Controller.js:132
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr "Informacje <i class=\"fas fa-info-circle\"></i>"
+msgstr "<i class=\"fas fa-info-circle\"></i> Tíshì"
 
 #: js/Storage.js:79
 msgid "File %s could not be loaded."
-msgstr "Nie można załadować pliku %s."
+msgstr "Wúfǎ jiāzài wénjiàn %s."
 
 #: js/Storage.js:96 js/Storage.js:105
 msgid "Document is not valid SVG."
-msgstr "Niepoprawny format pliku SVG."
+msgstr "Cǐ wénjiàn bùshì yǒuxiào de SVG wénjiàn."
 
 #: js/Storage.js:141 js/Storage.js:147
 msgid "Document was changed. Reloading."
-msgstr "Dokument uległ zmianie. Trwa odświeżanie."
+msgstr "Wéndàng yǐ xiūgǎi. Chóngxīn jiāzài zhōng."
 
 #: js/Storage.js:156
 msgid "Document was changed."
-msgstr "Dokument uległ zmianie."
+msgstr "Wéndàng yǐ xiūgǎi."
 
 #: js/Storage.js:182
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr "Dokument został zaimportowany z Sozi w wersji 13 lub wcześniejszej."
+msgstr "Shūrù wéndàng wèi Sozi 13 huò gèng zǎoqí bǎnběn."
 
 #: js/Storage.js:254 js/Storage.js:275
 msgid "Saved %s."
-msgstr "Zapisano %s."
+msgstr "Bǎocún wánbì %s."
 
 #: js/view/Properties.js:41
 msgid "Autoselect outline element"
-msgstr "Automatycznie wybierz element konspektu"
+msgstr "Zìdòng xuǎnzé dàgāng yuánsù"
 
 #: js/view/Properties.js:42 js/view/Properties.js:151
 msgid "Reset layer geometry"
-msgstr "Zresetuj geometrię warstwę"
+msgstr "Chóng zhì céng jǐhé xíngzhuàng"
 
 #: js/view/Properties.js:43 js/view/Timeline.js:143
 msgid "Create a new frame"
-msgstr "Stwórz nową ramkę"
+msgstr "Chuàngjiàn dònghuà zhèng"
 
 #: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:112
 msgid "Save the presentation"
-msgstr "Zapisz prezentację"
+msgstr "Bǎocún yǎnshì wéngǎo"
 
 #: js/view/Properties.js:45 js/view/Toolbar.js:96
 msgid "Redo"
-msgstr "Ponów"
+msgstr "Chóngzuò"
 
 #: js/view/Properties.js:46 js/view/Toolbar.js:91
 msgid "Undo"
-msgstr "Cofnij"
+msgstr "Chèxiāo"
 
 #: js/view/Properties.js:47
 msgid "Focus the frame title"
-msgstr "Ustaw tytuł ramki"
+msgstr "Qiánwǎng zhèng biāotí"
 
 #: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:117
 msgid "Reload the SVG document"
-msgstr "Otwórz plik SVG ponownie"
+msgstr ""
 
 #: js/view/Properties.js:49
 msgid "Toggle full-screen mode"
-msgstr "Włącz tryb pełnoekranowy"
+msgstr ""
 
 #: js/view/Properties.js:50
 msgid "Toggle the developer tools"
-msgstr "Przełącz narzędzia programistyczne"
+msgstr ""
 
 #: js/view/Properties.js:60
 msgid "User interface"
-msgstr "Interfejs użytkownika"
+msgstr ""
 
 #: js/view/Properties.js:61
 msgid "Font size"
-msgstr "Rozmiar czcionki"
+msgstr ""
 
 #: js/view/Properties.js:64
 msgid "Enable notifications on save and reload"
-msgstr "Włącz powiadomienia o zapisywaniu i ponownym ładowaniu"
+msgstr ""
 
 #: js/view/Properties.js:65
 msgid "Enable notifications"
-msgstr "Włącz powiadomienia"
+msgstr ""
 
 #: js/view/Properties.js:69
 msgid "When Sozi loses the focus"
-msgstr "Kiedy Sozi traci ostrość"
+msgstr ""
 
 #: js/view/Properties.js:70 js/view/Properties.js:76
 msgid "Manually"
-msgstr "Ręcznie"
+msgstr ""
 
 #: js/view/Properties.js:74
 msgid "Automatically"
-msgstr "Automatycznie"
+msgstr ""
 
 #: js/view/Properties.js:75
 msgid "When Sozi gets the focus"
-msgstr "Kiedy Sozi dostaje ostrość"
+msgstr ""
 
 #: js/view/Properties.js:78
 msgid "Behavior"
-msgstr "Zachowanie"
+msgstr ""
 
 #: js/view/Properties.js:80
 msgid "Preview transition animations"
-msgstr "Podgląd animacji przejścia"
+msgstr ""
 
 #: js/view/Properties.js:81
 msgid "Enable animated transitions"
-msgstr "Włącz animowane przejścia"
+msgstr ""
 
 #: js/view/Properties.js:83
 msgid "Keyboard shortcuts"
-msgstr "Skróty klawiszowe"
+msgstr ""
 
 #: js/view/Properties.js:96
 msgid "Basic formatting supported:"
-msgstr "Obsługa podstawowego formatowania:"
+msgstr ""
 
 #: js/view/Properties.js:98
 msgid "Ctrl+B: Bold"
-msgstr "Ctrl+B: Pogrubienie"
+msgstr ""
 
 #: js/view/Properties.js:99
 msgid "Ctrl+I: Italic"
-msgstr "Ctrl+I: Kursywa"
+msgstr ""
 
 #: js/view/Properties.js:100
 msgid "Ctrl+U: Underline"
-msgstr "Ctrl+U: Podkreślenie"
+msgstr ""
 
 #: js/view/Properties.js:101
 msgid "Ctrl+0: Paragraph"
-msgstr "Ctrl+0: Akapit"
+msgstr ""
 
 #: js/view/Properties.js:102
 msgid "Ctrl+1: Big heading"
-msgstr "Ctrl+1: Duży nagłówek"
+msgstr ""
 
 #: js/view/Properties.js:103
 msgid "Ctrl+2: Medium heading"
-msgstr "Ctrl+2: Średni nagłówek"
+msgstr ""
 
 #: js/view/Properties.js:104
 msgid "Ctrl+3: Small heading"
-msgstr "Ctrl+3: Mały nagłówek"
+msgstr ""
 
 #: js/view/Properties.js:105
 msgid "Ctrl+L: List"
-msgstr "Ctrl+L: Lista"
+msgstr ""
 
 #: js/view/Properties.js:106
 msgid "Ctrl+N: Numbered list"
-msgstr "Ctrl+N: Lista numerowana"
+msgstr ""
 
 #: js/view/Properties.js:113
 msgid "Select a layer to copy"
-msgstr "Wybierz warstwę do skopiowania"
+msgstr ""
 
 #: js/view/Properties.js:116 js/view/Timeline.js:190 js/view/Timeline.js:218
 msgid "Default"
-msgstr "Domyślny"
+msgstr ""
 
 #: js/view/Properties.js:123
 msgid "Frame"
-msgstr "Ramka"
+msgstr ""
 
 #: js/view/Properties.js:126
 msgid "Show in frame list"
-msgstr "Pokaż w spisie"
+msgstr ""
 
 #: js/view/Properties.js:127
 msgid "Show frame number"
-msgstr "Pokaż numer ramki"
+msgstr ""
 
 #: js/view/Properties.js:130
 msgid "Title"
-msgstr "Tytuł"
+msgstr ""
 
 #: js/view/Properties.js:133
 msgid "Title level in frame list"
-msgstr "Poziom tytułu na liście ramek"
+msgstr ""
 
 #: js/view/Properties.js:136
 msgid "Id"
-msgstr "Identyfikator"
+msgstr ""
 
 #: js/view/Properties.js:140
 msgid "Timeout (seconds)"
-msgstr "Limit czasu (w sekundach)"
+msgstr ""
 
 #: js/view/Properties.js:141
 msgid "Timeout enable"
-msgstr "Włącz odliczanie"
+msgstr ""
 
 #: js/view/Properties.js:145
 msgid "Layer"
-msgstr "Warstwa"
+msgstr ""
 
 #: js/view/Properties.js:148
 msgid "Link to previous frame"
-msgstr "Odnośnik do poprzedniej ramki"
+msgstr ""
 
 #: js/view/Properties.js:149
 msgid "Clip"
-msgstr "Przytnij"
+msgstr ""
 
 #: js/view/Properties.js:156
 msgid "Copy layer"
-msgstr "Skopiuj warstwę"
+msgstr ""
 
 #: js/view/Properties.js:163
 msgid "Outline element Id"
-msgstr "ID elementu obrysu"
+msgstr ""
 
 #: js/view/Properties.js:166
 msgid "Autoselect element"
-msgstr "Zaznacz element automatycznie"
+msgstr ""
 
 #: js/view/Properties.js:169
 msgid "Hide element"
-msgstr "Ukryj element"
+msgstr ""
 
 #: js/view/Properties.js:171
 msgid "Fit to element"
-msgstr "Dopasuj do obiektu"
+msgstr ""
 
 #: js/view/Properties.js:178
 msgid "Layer opacity"
-msgstr "Przeźroczystość warstwy"
+msgstr ""
 
 #: js/view/Properties.js:181
 msgid "Transition"
-msgstr "Przejście"
+msgstr ""
 
 #: js/view/Properties.js:181
 msgid "Configure the animation when moving to the selected frames."
-msgstr "Ustaw animację, po przejściu na wybrane zdjęcia."
+msgstr ""
 
 #: js/view/Properties.js:183
 msgid "Duration (seconds)"
-msgstr "Czas trwania (sekundy)"
+msgstr ""
 
 #: js/view/Properties.js:186
 msgid "Timing function"
-msgstr "Funkcja czasu"
+msgstr ""
 
 #: js/view/Properties.js:188
 msgid "Linear"
-msgstr "Liniowy"
+msgstr ""
 
 #: js/view/Properties.js:189
 msgid "Ease"
-msgstr "Łatwy"
+msgstr ""
 
 #: js/view/Properties.js:190
 msgid "Ease in"
-msgstr "Łatwy w"
+msgstr ""
 
 #: js/view/Properties.js:191
 msgid "Ease out"
-msgstr "Łatwy na zewnątrz"
+msgstr ""
 
 #: js/view/Properties.js:192
 msgid "Ease in-out"
-msgstr "Łatwe wprowadzanie"
+msgstr ""
 
 #: js/view/Properties.js:193
 msgid "Step start"
-msgstr "Rozpoczęcie kroku"
+msgstr ""
 
 #: js/view/Properties.js:194
 msgid "Step end"
-msgstr "Koniec kroku"
+msgstr ""
 
 #: js/view/Properties.js:195
 msgid "Step middle"
-msgstr "Krok środkowy"
+msgstr ""
 
 #: js/view/Properties.js:198
 msgid "Relative zoom (%)"
-msgstr "Przybliżenie względne (%)"
+msgstr ""
 
 #: js/view/Properties.js:202
 msgid "Path Id"
-msgstr "Identyfikator ścieżki"
+msgstr ""
 
 #: js/view/Properties.js:203
 msgid "Hide path"
-msgstr "Ukryj ścieżkę"
+msgstr ""
 
 #: js/view/Properties.js:207
 msgid "Notes"
-msgstr "Notatki"
+msgstr ""
 
 #: js/view/Properties.js:207
-msgid ""
-"Edit presenter notes. Click here to show the list of formatting shortcuts."
+msgid "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
-"Edytuj notatki prelegenta. Kliknij tutaj, aby wyświetlić listę skrótów "
-"formatowania."
 
 #: js/view/Properties.js:211
 msgid "Custom stylesheets and scripts"
-msgstr "Własne arkusze stylów i skrypty"
+msgstr ""
 
 #: js/view/Properties.js:224
 msgid "CSS or JS file names"
-msgstr "Nazwy plików CSS lub JS"
+msgstr ""
 
 #: js/view/Properties.js:224
 msgid "Add CSS or JS files"
-msgstr "Dodaj pliki CSS lub JS"
+msgstr ""
 
 #: js/view/Properties.js:227
 msgid "Add a file"
-msgstr "Dodaj plik"
+msgstr ""
 
 #: js/view/Properties.js:240
 msgid "Remove this file"
-msgstr "Usuń ten plik"
+msgstr ""
 
 #: js/view/Properties.js:248
 msgid "Player"
-msgstr "Odtwarzaj"
+msgstr ""
 
 #: js/view/Properties.js:251
 msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
 msgstr ""
-"Obsługa przycisku przeglądarki \"wstecz\" (⬅), aby przejść do poprzedniej "
-"klatki"
 
 #: js/view/Properties.js:252
 msgid ""
-"Moving from one frame to another will change the content of the location bar "
-"automatically."
+"Moving from one frame to another will change the content of the location "
+"bar automatically."
 msgstr ""
-"Przejście z jednej klatki na drugą spowoduje automatyczną zmianę zawartości "
-"paska lokalizacji."
 
 #: js/view/Properties.js:256
 msgid "Allow to control the presentation"
-msgstr "Pozwól kontrolować prezentację"
+msgstr ""
 
-#: js/view/Properties.js:258 js/view/Properties.js:265
-#: js/view/Properties.js:271 js/view/Properties.js:279
+#: js/view/Properties.js:258 js/view/Properties.js:265 js/view/Properties.js:271 js/view/Properties.js:279
 msgid "using the mouse"
-msgstr "za pomocą myszy"
+msgstr ""
 
-#: js/view/Properties.js:259 js/view/Properties.js:272
-#: js/view/Properties.js:280
+#: js/view/Properties.js:259 js/view/Properties.js:272 js/view/Properties.js:280
 msgid "using the keyboard"
-msgstr "za pomocą klawiatury"
+msgstr ""
 
 #: js/view/Properties.js:264
 msgid "Allow to move the camera"
-msgstr "Pozwól przesuwać kamerę"
+msgstr ""
 
 #: js/view/Properties.js:269
 msgid "Allow to rotate the camera"
-msgstr "Pozwól, aby obrócić kamerę"
+msgstr ""
 
 #: js/view/Properties.js:277
 msgid "Allow to zoom"
-msgstr "Zezwalaj na powiększanie"
+msgstr ""
 
 #: js/view/Timeline.js:136
 msgid "Delete the selected frames"
-msgstr "Usuń zaznaczone ramki"
+msgstr ""
 
 #: js/view/Timeline.js:162
 msgid "Add layer"
-msgstr "Dodaj warstwę"
+msgstr ""
 
 #: js/view/Timeline.js:163
 msgid "Add all layers"
-msgstr "Dodaj wszystkie warstwy"
+msgstr ""
 
 #: js/view/Timeline.js:178 js/view/Timeline.js:198
 msgid "This layer is visible. Click to hide it."
-msgstr "Ta warstwa jest widoczna. Kliknij by ją ukryć."
+msgstr ""
 
 #: js/view/Timeline.js:182 js/view/Timeline.js:202
 msgid "This layer is hidden. Click to show it."
-msgstr "Ta warstwa jest ukryta. Kliknij by ją pokazać."
+msgstr ""
 
 #: js/view/Timeline.js:206
 msgid "Remove this layer"
-msgstr "Usuń tę warstwę"
+msgstr ""
 
 #: js/view/Timeline.js:231
 msgid "Insert selection before frame %d"
-msgstr "Wstaw zaznaczone przed ramką %d"
+msgstr ""
 
 #: js/view/Timeline.js:238
 msgid "Insert selection after frame %d"
-msgstr "Wstaw zaznaczone za ramką %d"
+msgstr ""
 
 #: js/view/Timeline.js:273 js/view/Timeline.js:285
 msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
 msgstr ""
-"Powinieneś dodać elementy graficzne w bieżącym obszarze, aby pomóc Sozi "
-"śledzić położenie tej warstwy."
 
 #: js/view/Toolbar.js:36
 msgid "Aspect ratio: "
-msgstr "Proporcje obrazu "
+msgstr ""
 
 #: js/view/Toolbar.js:69
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
-"Przesuń zaznaczone warstwy (przytrzymaj Alt by przybliżyć, Shift by obrócić)"
 
 #: js/view/Toolbar.js:74
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
-"Przybliż/oddal zaznaczone warstwy (możesz też przytrzymać Alt w trybie "
-"przesuwania)"
 
 #: js/view/Toolbar.js:79
-msgid ""
-"Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgid "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
-"Obróć zaznaczone warstwy (możesz też przytrzymać Shift w trybie przesuwania)"
 
 #: js/view/Toolbar.js:84
 msgid "Edit the clipping area"
-msgstr "Edytowanie obszaru przycinania"
+msgstr ""
 
 #: js/view/Toolbar.js:103
 msgid "Disable full-screen mode"
-msgstr "Wyłącz tryb pełnoekranowy"
+msgstr ""
 
 #: js/view/Toolbar.js:103
 msgid "Enable full-screen mode"
-msgstr "Włącz tryb pełnoekranowy"
+msgstr ""
 
 #: js/view/Toolbar.js:123
 msgid "Preferences"
-msgstr "Preferencje"
+msgstr ""
 
 #: js/view/Toolbar.js:128
 msgid "Information"
-msgstr "Informacje"
-
-#~ msgid "Sozi (Information)"
-#~ msgstr "Sozi (informacja)"
-
-#~ msgid "Sozi (Error)"
-#~ msgstr "Sozi (błąd)"
-
-#, fuzzy
-#~ msgid "Formatting shortcuts"
-#~ msgstr "Skróty klawiszowe"
-
-#, fuzzy
-#~ msgid "Document was changed. Use the reload button."
-#~ msgstr "Dokument uległ zmianie. Trwa odświeżanie."
+msgstr ""

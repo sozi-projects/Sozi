@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-08-16 09:17:+0000\n"
-"PO-Revision-Date: 2020-04-19 03:11+0000\n"
-"Last-Translator: 麋悟BigELK176 <bigelk176@gmail.com>\n"
+"PO-Revision-Date: 2020-08-19 03:33+0000\n"
+"Last-Translator: Mehmet Gurbuz GUVEN <6mehmet6@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "sozi/translations/zh_Hant/>\n"
 "Language: zh_TW\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.0.2-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
 
 #: js/backend/Electron.js:33
@@ -50,7 +50,7 @@ msgstr "SVG 檔案"
 
 #: js/backend/Electron.js:179
 msgid "Could not read file %s."
-msgstr ""
+msgstr "無法讀取文件 %s。"
 
 #: js/backend/FileReader.js:18
 msgid ""
@@ -370,25 +370,23 @@ msgstr "編輯簡報者備註。點擊此處顯示格式快捷方式清單。"
 
 #: js/view/Properties.js:211
 msgid "Custom stylesheets and scripts"
-msgstr ""
+msgstr "自定義腳本和層疊樣式表"
 
 #: js/view/Properties.js:224
 msgid "CSS or JS file names"
-msgstr ""
+msgstr "CSS 或 JS 文件名"
 
 #: js/view/Properties.js:224
 msgid "Add CSS or JS files"
-msgstr ""
+msgstr "添加 CSS 或 JS 文件"
 
 #: js/view/Properties.js:227
-#, fuzzy
 msgid "Add a file"
-msgstr "加上所有圖層"
+msgstr "添加文件"
 
 #: js/view/Properties.js:240
-#, fuzzy
 msgid "Remove this file"
-msgstr "移除此一圖層"
+msgstr "刪除此文件"
 
 #: js/view/Properties.js:248
 msgid "Player"
