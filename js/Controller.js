@@ -1694,6 +1694,26 @@ export class Controller extends EventEmitter {
         this.toggleExportState();
     }
 
+    /** Export the current presentation to PPTX. */
+    async exportToPPTX() {
+        const _ = this.gettext;
+        this.toggleExportState();
+        await this.save();
+        // TODO
+        this.error(_("Export to PPTX is not supported yet."));
+        this.toggleExportState();
+    }
+
+    /** Export the current presentation to video. */
+    async exportToVideo() {
+        const _ = this.gettext;
+        this.toggleExportState();
+        await this.save();
+        // TODO
+        this.error(_("Export to Video is not supported yet."));
+        this.toggleExportState();
+    }
+
     /** Perform an operation with undo/redo support.
      *
      * This method call `onDo`, adds an operation record to the

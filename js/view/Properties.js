@@ -129,8 +129,10 @@ export class Properties extends VirtualDOMView {
                 this.renderToggleField(h("i.far.fa-check-square"), _("Enable animated transitions"), "animateTransitions", controller.getPreference, controller.setPreference)
             ]),
 
-            h("h1", _("Keyboard shortcuts"))
-        ].concat(shortcuts));
+            h("h1", _("Keyboard shortcuts")),
+
+            shortcuts
+        ]);
     }
 
     /** Render the properties view to edit the presentation properties.
@@ -345,9 +347,52 @@ export class Properties extends VirtualDOMView {
             _("Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\"")
         ];
 
-        return h("div.properties", [
-            h("h1", _("Export to PDF")),
+        let exportFields, exportFn;
+        switch (controller.presentation.exportType) {
+            case "pdf":
+                exportFields = this.renderPDFExportFields();
+                exportFn     = controller.exportToPDF;
+                break;
+            case "pptx":
+                exportFields = this.renderPPTXExportFields();
+                exportFn     = controller.exportToPPTX;
+                break;
+            case "video":
+                exportFields = this.renderVideoExportFields();
+                exportFn     = controller.exportToVideo;
+                break;
+            default:
+                exportFields = [];
+                exportFn     = () => {}
+        }
 
+        return h("div.properties", [
+            h("h1", _("Export")),
+
+            h("label", {for: "field-exportType"}, _("Document type")),
+            this.renderSelectField("exportType", controller.getPresentationProperty, controller.setPresentationProperty, {
+                pdf: _("Portable Document Format (PDF)"),
+                pptx: _("Microsoft Powerpoint (PPTX)"),
+                video: _("Video")
+            }),
+
+            exportFields,
+
+            h("div.btn-group", [
+                h("button", {
+                    title: _("Export the presentation to PDF"),
+                    disabled: controller.exporting,
+                    onClick() { exportFn.call(controller); }
+                }, [_("Export"), controller.exporting ? h("span.spinner") : null])
+            ])
+        ]);
+    }
+
+    renderPDFExportFields() {
+        const controller = this.controller;
+        const _ = controller.gettext;
+
+        return [
             h("label", {for: "field-exportToPdfPageSize"}, _("Page size")),
             this.renderSelectField("exportToPdfPageSize", controller.getPresentationProperty, controller.setPresentationProperty, {
                 A3: "A3",
@@ -374,16 +419,20 @@ export class Properties extends VirtualDOMView {
                 _("List of frames to exclude"),
                 this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(EXPORT_LIST_HELP.join("<br>"), true))
             ]),
-            this.renderTextField("exportToPdfExclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true),
+            this.renderTextField("exportToPdfExclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true)
+        ];
+    }
 
-            h("div.btn-group", [
-                h("button", {
-                    title: _("Export the presentation to PDF"),
-                    disabled: controller.exporting,
-                    onClick() { controller.exportToPDF(); }
-                }, [_("Export"), controller.exporting ? h("span.spinner") : null])
-            ])
-        ]);
+    renderPPTXExportFields() {
+        const controller = this.controller;
+        const _ = controller.gettext;
+        return h("div", _("Not implemented"));
+    }
+
+    renderVideoExportFields() {
+        const controller = this.controller;
+        const _ = controller.gettext;
+        return h("div", _("Not implemented"));
     }
 
     /** Create a help widget.

@@ -701,6 +701,12 @@ export class Presentation extends EventEmitter {
          * @type {boolean} */
         this.updateURLOnFrameChange = true;
 
+        /** The last export document type.
+         *
+         * @default
+         * @type {string} */
+        this.exportType = "pdf";
+
         /** The page size for PDF export.
          *
          * @default
@@ -718,7 +724,7 @@ export class Presentation extends EventEmitter {
          * @default
          * @type {string} */
         this.exportToPdfInclude = "";
-        
+
         /** The list of frame numbers to exclude in the PDF export.
          *
          * @default
@@ -792,6 +798,7 @@ export class Presentation extends EventEmitter {
             enableMouseRotation       : this.enableMouseRotation,
             enableMouseNavigation     : this.enableMouseNavigation,
             updateURLOnFrameChange    : this.updateURLOnFrameChange,
+            exportType                : this.exportType,
             exportToPdfPageSize       : this.exportToPdfPageSize,
             exportToPdfPageOrientation: this.exportToPdfPageOrientation,
             exportToPdfInclude        : this.exportToPdfInclude,
@@ -839,6 +846,7 @@ export class Presentation extends EventEmitter {
         copyIfSet(this, storable, "enableMouseRotation");
         copyIfSet(this, storable, "enableMouseNavigation");
         copyIfSet(this, storable, "updateURLOnFrameChange");
+        copyIfSet(this, storable, "exportType");
         copyIfSet(this, storable, "exportToPdfPageSize");
         copyIfSet(this, storable, "exportToPdfPageOrientation");
         copyIfSet(this, storable, "exportToPdfInclude");
