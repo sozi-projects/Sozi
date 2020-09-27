@@ -107,7 +107,7 @@ function importAttributeNS(obj, propName, elts, nsUri, attrName, fn=x=>x) {
  * document and populates the presentation data structure.
  *
  * @param {module:model/Presentation.Presentation} pres - The current presentation object.
- * @param {module:Controller.Controller} controller - The current controller of the Sozi application.
+ * @param {module:Controller.Controller} controller - The controller that manages the current editor.
  */
 export function upgradeFromSVG(pres, controller) {
     // In the inlined SVG, DOM accessors fail to get elements with explicit XML namespaces.
