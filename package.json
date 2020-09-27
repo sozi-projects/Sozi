@@ -20,8 +20,10 @@
     "inferno-hyperscript": "^7.4.3",
     "jed": "^1.1.0",
     "nunjucks": "^3.2.2",
+    "officegen": "^0.6.4",
     "pdf-lib": "^1.10.0",
-    "screenfull": "^5.0.0"
+    "screenfull": "^5.0.0",
+    "tmp": "^0.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",

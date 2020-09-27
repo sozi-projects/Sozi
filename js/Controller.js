@@ -1687,6 +1687,7 @@ export class Controller extends EventEmitter {
         }
         catch (e) {
             this.error(_("Failed to write PDF file."));
+            console.log(e);
         }
         this.toggleExportState();
     }
@@ -1696,8 +1697,14 @@ export class Controller extends EventEmitter {
         const _ = this.gettext;
         this.toggleExportState();
         await this.save();
-        // TODO
-        this.error(_("Export to PPTX is not supported yet."));
+        try {
+            await exporter.exportToPPTX(this.presentation, this.storage.htmlFileDescriptor);
+            this.info(_("Presentation was exported to PPTX."));
+        }
+        catch (e) {
+            this.error(_("Failed to write PPTX file."));
+            console.log(e);
+        }
         this.toggleExportState();
     }
 

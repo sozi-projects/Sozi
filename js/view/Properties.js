@@ -404,8 +404,8 @@ export class Properties extends VirtualDOMView {
         const _ = controller.gettext;
 
         return [
-            h("label", {for: "field-exportToPdfPageSize"}, _("Page size")),
-            this.renderSelectField("exportToPdfPageSize", controller.getPresentationProperty, controller.setPresentationProperty, {
+            h("label", {for: "field-exportToPDFPageSize"}, _("Page size")),
+            this.renderSelectField("exportToPDFPageSize", controller.getPresentationProperty, controller.setPresentationProperty, {
                 A3: "A3",
                 A4: "A4",
                 A5: "A5",
@@ -414,23 +414,23 @@ export class Properties extends VirtualDOMView {
                 Tabloid: "Tabloid"
             }),
 
-            h("label", {for: "field-exportToPdfPageOrientation"}, _("Page orientation")),
-            this.renderSelectField("exportToPdfPageOrientation", controller.getPresentationProperty, controller.setPresentationProperty, {
+            h("label", {for: "field-exportToPDFPageOrientation"}, _("Page orientation")),
+            this.renderSelectField("exportToPDFPageOrientation", controller.getPresentationProperty, controller.setPresentationProperty, {
                 landscape: _("Landscape"),
                 portrait: _("Portrait")
             }),
 
-            h("label", {for: "field-exportToPdfInclude"}, [
+            h("label", {for: "field-exportToPDFInclude"}, [
                 _("List of frames to include"),
                 this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(EXPORT_LIST_HELP.join("<br>"), true))
             ]),
-            this.renderTextField("exportToPdfInclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true),
+            this.renderTextField("exportToPDFInclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true),
 
-            h("label", {for: "field-exportToPdfExclude"}, [
+            h("label", {for: "field-exportToPDFExclude"}, [
                 _("List of frames to exclude"),
                 this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(EXPORT_LIST_HELP.join("<br>"), true))
             ]),
-            this.renderTextField("exportToPdfExclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true)
+            this.renderTextField("exportToPDFExclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true)
         ];
     }
 
@@ -441,7 +441,25 @@ export class Properties extends VirtualDOMView {
     renderPPTXExportFields() {
         const controller = this.controller;
         const _ = controller.gettext;
-        return h("div", _("Not implemented"));
+        return [
+            h("label", {for: "field-exportToPPTXWidth"}, _("Width (pixels)")),
+            this.renderNumberField("exportToPPTXWidth", false, controller.getPresentationProperty, controller.setPresentationProperty, false, 10, 1),
+
+            h("label", {for: "field-exportToPPTXHeight"}, _("Height (pixels)")),
+            this.renderNumberField("exportToPPTXHeight", false, controller.getPresentationProperty, controller.setPresentationProperty, false, 10, 1),
+
+            h("label", {for: "field-exportToPPTXInclude"}, [
+                _("List of frames to include"),
+                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(EXPORT_LIST_HELP.join("<br>"), true))
+            ]),
+            this.renderTextField("exportToPPTXInclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true),
+
+            h("label", {for: "field-exportToPPTXExclude"}, [
+                _("List of frames to exclude"),
+                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(EXPORT_LIST_HELP.join("<br>"), true))
+            ]),
+            this.renderTextField("exportToPPTXExclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true)
+        ];
     }
 
     /** Render the fields of the video export tool.

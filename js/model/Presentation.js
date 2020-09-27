@@ -711,25 +711,49 @@ export class Presentation extends EventEmitter {
          *
          * @default
          * @type {string} */
-        this.exportToPdfPageSize = "A4";
+        this.exportToPDFPageSize = "A4";
 
         /** The page orientation for PDF export.
          *
          * @default
          * @type {string} */
-        this.exportToPdfPageOrientation = "landscape";
+        this.exportToPDFPageOrientation = "landscape";
 
         /** The list of frame numbers to include in the PDF export.
          *
          * @default
          * @type {string} */
-        this.exportToPdfInclude = "";
+        this.exportToPDFInclude = "";
 
         /** The list of frame numbers to exclude in the PDF export.
          *
          * @default
          * @type {string} */
-        this.exportToPdfExclude = "";
+        this.exportToPDFExclude = "";
+
+        /** The slide width for PPTX export, in pixels.
+         *
+         * @default
+         * @type {number} */
+        this.exportToPPTXWidth = 1920;
+
+        /** The slide height for PPTX export, in pixels.
+         *
+         * @default
+         * @type {number} */
+        this.exportToPPTXHeight = 1080;
+
+        /** The list of frame numbers to include in the PPTX export.
+         *
+         * @default
+         * @type {string} */
+        this.exportToPPTXInclude = "";
+
+        /** The list of frame numbers to exclude in the PPTX export.
+         *
+         * @default
+         * @type {string} */
+        this.exportToPPTXExclude = "";
     }
 
     /** Set the SVG document for this presentation.
@@ -799,10 +823,14 @@ export class Presentation extends EventEmitter {
             enableMouseNavigation     : this.enableMouseNavigation,
             updateURLOnFrameChange    : this.updateURLOnFrameChange,
             exportType                : this.exportType,
-            exportToPdfPageSize       : this.exportToPdfPageSize,
-            exportToPdfPageOrientation: this.exportToPdfPageOrientation,
-            exportToPdfInclude        : this.exportToPdfInclude,
-            exportToPdfExclude        : this.exportToPdfExclude,
+            exportToPDFPageSize       : this.exportToPDFPageSize,
+            exportToPDFPageOrientation: this.exportToPDFPageOrientation,
+            exportToPDFInclude        : this.exportToPDFInclude,
+            exportToPDFExclude        : this.exportToPDFExclude,
+            exportToPPTXWidth         : this.exportToPPTXWidth,
+            exportToPPTXHeight        : this.exportToPPTXHeight,
+            exportToPPTXInclude       : this.exportToPPTXInclude,
+            exportToPPTXExclude       : this.exportToPPTXExclude,
             frames                    : this.frames.map(frame => frame.toStorable()),
             elementsToHide            : this.elementsToHide.slice(),
             customFiles               : this.customFiles.slice(),
@@ -847,10 +875,14 @@ export class Presentation extends EventEmitter {
         copyIfSet(this, storable, "enableMouseNavigation");
         copyIfSet(this, storable, "updateURLOnFrameChange");
         copyIfSet(this, storable, "exportType");
-        copyIfSet(this, storable, "exportToPdfPageSize");
-        copyIfSet(this, storable, "exportToPdfPageOrientation");
-        copyIfSet(this, storable, "exportToPdfInclude");
-        copyIfSet(this, storable, "exportToPdfExclude");
+        copyIfSet(this, storable, "exportToPDFPageSize");
+        copyIfSet(this, storable, "exportToPDFPageOrientation");
+        copyIfSet(this, storable, "exportToPDFInclude");
+        copyIfSet(this, storable, "exportToPDFExclude");
+        copyIfSet(this, storable, "exportToPPTXWidth");
+        copyIfSet(this, storable, "exportToPPTXHeight");
+        copyIfSet(this, storable, "exportToPPTXInclude");
+        copyIfSet(this, storable, "exportToPPTXExclude");
 
         this.frames = storable.frames.map(f => {
             const res = new Frame(this);

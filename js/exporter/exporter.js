@@ -9,6 +9,7 @@ import * as path from "path";
 import * as tmp from "tmp";
 import * as fs from "fs";
 import {PDFDocument} from "pdf-lib";
+import officegen from "officegen";
 
 /** Update the status of a sequence of frame numbers to include or exclude in the export.
  *
@@ -136,11 +137,11 @@ export async function exportToPDF(presentation, htmlFileName) {
     // Mark the list of frames that will be included in the target document.
     const frameCount = presentation.frames.length;
     const frameSelection = new Array(frameCount);
-    let include = presentation.exportToPdfInclude.trim();
+    let include = presentation.exportToPDFInclude.trim();
     if (!include.length) {
         include = "all";
     }
-    let exclude = presentation.exportToPdfExclude.trim();
+    let exclude = presentation.exportToPDFExclude.trim();
     if (!exclude.length) {
         exclude = "none";
     }
@@ -152,8 +153,8 @@ export async function exportToPDF(presentation, htmlFileName) {
     const digits = frameCount.toString().length;
 
     // Open the HTML presentation in a new browser window.
-    let g = pageGeometry[presentation.exportToPdfPageSize];
-    if (presentation.exportToPdfPageOrientation === "landscape") {
+    let g = pageGeometry[presentation.exportToPDFPageSize];
+    if (presentation.exportToPDFPageOrientation === "landscape") {
         g = {width: g.height, height: g.width};
     }
     const w = new remote.BrowserWindow({
@@ -175,8 +176,8 @@ export async function exportToPDF(presentation, htmlFileName) {
         ipcRenderer.on("frameChange", async (evt, index) => {
             // Convert the current web contents to PDF and add it to the target document.
             const pdfData = await w.webContents.printToPDF({
-                pageSize:  presentation.exportToPdfPageSize,
-                landscape: presentation.exportToPdfPageOrientation === "landscape",
+                pageSize:  presentation.exportToPDFPageSize,
+                landscape: presentation.exportToPDFPageOrientation === "landscape",
                 marginsType: 2, // No margin
             });
 
@@ -207,6 +208,99 @@ export async function exportToPDF(presentation, htmlFileName) {
                 });
             }
         });
+    });
+
+    // Start the player in the presentation window.
+    w.webContents.send("exportFrames", {
+        frameIndex: nextFrameIndex(frameSelection),
+        callerId: remote.getCurrentWindow().webContents.id
+    });
+
+    return result;
+}
+
+/** Export a presentation to a PPTX document.
+ *
+ * @param {module:model/Presentation.Presentation} presentation - The presentation to export.
+ * @param {string} htmlFileName - The name of the presentation HTML file.
+ * @returns {Promise} - A promise that resolves when the operation completes.
+ */
+export async function exportToPPTX(presentation, htmlFileName) {
+    console.log(`Exporting ${htmlFileName} to PPTX`);
+
+    // Mark the list of frames that will be included in the target document.
+    const frameCount = presentation.frames.length;
+    const frameSelection = new Array(frameCount);
+    let include = presentation.exportToPPTXInclude.trim();
+    if (!include.length) {
+        include = "all";
+    }
+    let exclude = presentation.exportToPPTXExclude.trim();
+    if (!exclude.length) {
+        exclude = "none";
+    }
+    markInterval(frameSelection, 0, frameCount - 1, 1, false);
+    markFrames(frameSelection, include, true);
+    markFrames(frameSelection, exclude, false);
+
+    // The length of the file suffix for each generated image.
+    const digits = frameCount.toString().length;
+
+    // Open the HTML presentation in a new browser window.
+    const w = new remote.BrowserWindow({
+        width:  presentation.exportToPPTXWidth,
+        height: presentation.exportToPPTXHeight,
+        frame: false,
+        show: false,
+        webPreferences: {
+            preload: path.join(__dirname, "exporter-preload.js")
+        }
+    });
+    await w.loadURL(`file://${htmlFileName}`);
+
+    // Create a PPTX document object.
+    const pptxDoc = officegen("pptx");
+
+    // On each frameChange event in the player, save the current web contents.
+    const result = new Promise((resolve, reject) => {
+        pptxDoc.on("finalize", resolve);
+        pptxDoc.on("error", reject);
+    });
+
+    // Create a temporary directory.
+    // Force deletion on cleanup, even if not empty.
+    var tmpDir = tmp.dirSync({unsafeCleanup: true}).name;
+
+    // The number of digits to represent zero-padded frame numbers.
+    const indexDigits = frameCount.toString().length;
+
+    ipcRenderer.on("frameChange", async (evt, index) => {
+        // Convert the current web contents to a PNG image.
+        const img = await w.webContents.capturePage();
+        const png = img.toPNG();
+        const indexStr = zeroPadded(index, indexDigits);
+        const fileName = path.join(tmpDir, `${indexStr}.png`);
+        fs.writeFileSync(fileName, png);
+
+        // Insert the image into a new slide.
+        const slide = pptxDoc.makeNewSlide();
+        slide.addImage(fileName, {x: 0, y: 0, cx: "100%", cy: "100%" });
+
+        const frameIndex = nextFrameIndex(frameSelection, index);
+        if (frameIndex >= 0) {
+            // If there are frames remaining, move to the next frame.
+            w.webContents.send("jumpToFrame", frameIndex);
+        }
+        else {
+            // If this is the last frame, close the presentation window
+            // and write the PPTX document to a file.
+            ipcRenderer.removeAllListeners("frameChange");
+            w.close();
+
+            const pptxFileName = htmlFileName.replace(/html$/, "pptx");
+            const out = fs.createWriteStream(pptxFileName);
+            pptxDoc.generate(out);
+        }
     });
 
     // Start the player in the presentation window.
