@@ -11,27 +11,85 @@ import Jed from "jed";
 import {upgradeFromSVG, upgradeFromStorable} from "./upgrade";
 import path from "path";
 
+/** Replace the extension in a file name.
+ *
+ * @param {string} fileName - The name of a file.
+ * @param {string} ext - The new extension.
+ * @returns {string} - A file name with the new extension.
+ */
 function replaceFileExtWith(fileName, ext) {
     return fileName.replace(/\.[^/.]+$/, ext);
 }
 
-/** File read/write manager.
- *
- * @todo Add documentation.
- */
+/** File read/write manager. */
 export class Storage {
-
+    /** Initialize a storage manager for a presentation.
+     *
+     * @param {module:Controller.Controller} controller - The controller that manages the current editor.
+     * @param {module:model/Presentation.Presentation} presentation - The Sozi presentation opened in the editor.
+     * @param {module:model/Selection.Selection} selection - The object that represents the selection in the timeline.
+     */
     constructor(controller, presentation, selection) {
-        this.controller         = controller;
-        this.document           = null;
-        this.presentation       = presentation;
-        this.selection          = selection;
-        this.backend            = backendList[0];
+        /** The controller that manages the current editor.
+         *
+         * @type {module:Controller.Controller} */
+        this.controller = controller;
+
+        /** The current SVG document.
+         *
+         * @default
+         * @type {module:svg/SVGDocumentWrapper.SVGDocumentWrapper} */
+        this.document = null;
+
+        /** The Sozi presentation opened in the editor.
+         *
+         * @type {module:model/Presentation.Presentation} */
+        this.presentation = presentation;
+
+        /** The object that represents the selection in the timeline.
+         *
+         * @type {module:model/Selection.Selection} */
+        this.selection = selection;
+
+        /** The current execution platform backend.
+         *
+         * @type {module:backend/AbstractBackend.AbstractBackend} */
+        this.backend = backendList[0];
+
+        /** The descriptor of the current SVG document file.
+         *
+         * @default
+         * @type {any} */
         this.svgFileDescriptor  = null;
+
+        /** The descriptor of the presentation HTML file.
+         *
+         * @default
+         * @type {any} */
         this.htmlFileDescriptor = null;
+
+        /** The descriptor of the presentation JSON file.
+         *
+         * @default
+         * @type {any} */
         this.jsonFileDescriptor = null;
-        this.jsonNeedsSaving    = false;
-        this.htmlNeedsSaving    = false;
+
+        /** Do we need to update the presentation JSON file?
+         *
+         * This property is true when the {@linkcode module:Controller.presentationChange|presentationChange}
+         * or the {@linkcode module:Controller.editorStateChange|editorStateChange} event is detected.
+         *
+         * @default
+         * @type {boolean} */
+        this.jsonNeedsSaving = false;
+
+        /** Do we need to update the presentation HTML file?
+         *
+         * This property is true when the {@linkcode module:Controller.presentationChange|presentationChange} event is detected.
+         *
+         * @default
+         * @type {boolean} */
+        this.htmlNeedsSaving = false;
 
         // Adjust the template path depending on the target platform.
         // In the web browser, __dirname is set to "/js". The leading "/" will result
@@ -58,6 +116,11 @@ export class Storage {
         });
     }
 
+    /** Finalize the initialization of the application.
+     *
+     * Show a load button for each supported {@link module:backend/AbstractBackend.AbstractBackend|backend} in the preview area.
+     * Create an instance of each supported backend.
+     */
     activate() {
         for (let backend of backendList) {
             const listItem = document.createElement("li");
@@ -67,16 +130,38 @@ export class Storage {
         }
     }
 
+    /** Save the presentation.
+     *
+     * This method delegates the operation to the current {@link module:backend/AbstractBackend.AbstractBackend|backend} instance and triggers
+     *
+     * @returns {Promise} - A promise that will be resolved when the operation completes.
+     *
+     * @see {@linkcode module:backend/AbstractBackend.AbstractBackend#doAutosave}
+     */
     save() {
         return this.backend.doAutosave();
     }
 
+    /** Reload the SVG document.
+     *
+     * This method is called automatically or on user demand when the SVG
+     * document has changed.
+     * It saves the presentation and reloads it completely with the new
+     * SVG content.
+     */
     async reload() {
         await this.save();
         const data = await this.backend.load(this.svgFileDescriptor);
         this.loadSVGData(data);
     }
 
+    /** Assign an SVG file descriptor and backend.
+     *
+     * This method is called when opening a new SVG file.
+     *
+     * @param {any} fileDescriptor - A descriptor of the SVG file.
+     * @param {module:backend/AbstractBackend.AbstractBackend} backend - The selected backend to manage the presentation files.
+     */
     async setSVGFile(fileDescriptor, backend) {
         this.svgFileDescriptor = fileDescriptor;
         this.backend           = backend;
@@ -84,6 +169,14 @@ export class Storage {
         this.loadSVGData(data);
     }
 
+    /** Load the content of an SVG document.
+     *
+     * This method creates an {@link module:svg/SVGDocumentWrapper.SVGDocumentWrapper| SVG document wrapper}
+     * with the given data and assigns it to the current presentation.
+     * Then it loads the presentation data from a JSON file in the same folder.
+     *
+     * @param {string} data  - The content of an SVG file, as text.
+     */
     loadSVGData(data) {
         const _        = this.controller.gettext;
         const name     = this.backend.getName(this.svgFileDescriptor);
@@ -100,15 +193,16 @@ export class Storage {
         }
     }
 
-    /*
-     * Fix the href attribute of linked images when the given URL is relative.
+    /** Fix the href attribute of linked images when the target URL is relative.
      *
-     * In linked images, the href attribute can be either an absolute URL
+     * In linked images, the `href` attribute can be either an absolute URL
      * or a path relative to the location of the SVG file.
      * But in the presentation editor, URLs are relative to the location of
-     * the index.html file of the application.
+     * the `index.html` file of the application.
      * For this reason, we modify image URLs by prefixing all relative URLs
      * with the actual location of the SVG file.
+     *
+     * @param {string} location - The path or URL of the folder containing the current SVG file.
      */
     resolveRelativeURLs(location) {
         const XLINK_NS = "http://www.w3.org/1999/xlink";
@@ -126,10 +220,13 @@ export class Storage {
         }
     }
 
-    /*
-     * Open the JSON file with the given name at the given location.
-     * If the file exists, load it.
-     * It it does not exist, create it.
+    /** Open presentation data from a JSON file.
+     *
+     * It the file does not exist, it is created and populated with the current
+     * presentation data.
+     *
+     * @param {string} name - The name of the JSON file to open.
+     * @param {any} location - The location of the file (backend-dependent).
      */
     async openJSONFile(name, location) {
         const _ = this.controller.gettext;
@@ -171,8 +268,10 @@ export class Storage {
         this.createPresenterHTMLFile(presenterFileName, location, htmlFileName);
     }
 
-    /*
-     * Create the exported HTML file if it does not exist.
+    /** Create the presentation HTML file if it does not exist.
+     *
+     * @param {string} name - The name of the HTML file to create.
+     * @param {any} location - The location of the file (backend-dependent).
      */
     async createHTMLFile(name, location) {
         let fileDescriptor;
@@ -190,8 +289,11 @@ export class Storage {
         }
     }
 
-    /*
-     * Create the presenter HTML file if it does not exist.
+    /** Create the presenter console HTML file if it does not exist.
+     *
+     * @param {string} name - The name of the HTML file to create.
+     * @param {any} location - The location of the file (backend-dependent).
+     * @param {string} htmlFileName - The name of the presentation HTML file.
      */
     async createPresenterHTMLFile(name, location, htmlFileName) {
         try {
@@ -203,9 +305,9 @@ export class Storage {
         }
     }
 
-    /*
-     * Load the presentation and set the initial state
-     * of the editor using the given JSON data.
+    /**  Load the presentation data and set the initial state of the editor.
+     *
+     * @param {object} data - An object containing presentation data and the editor state, as loaded from a JSON file.
      */
     loadJSONData(data) {
         const storable = JSON.parse(data);
@@ -215,6 +317,15 @@ export class Storage {
         this.selection.fromStorable(storable);
     }
 
+    /** Finalize a save operation.
+     *
+     * This method is called by the current backend when a save operation has
+     * completed.
+     *
+     * @param {any} fileDescriptor - A descriptor of the file that was saved.
+     *
+     * @fires module:Controller.repaint
+     */
     onSave(fileDescriptor) {
         const _ = this.controller.gettext;
 
@@ -229,10 +340,9 @@ export class Storage {
         this.controller.info(Jed.sprintf(_("Saved %s."), this.backend.getName(fileDescriptor)));
     }
 
-    /*
-     * Extract the data to save from the current presentation
-     * and the current editor state.
-     * Return it as a JSON string.
+    /** Extract the data to save from the current presentation and the current editor state.
+     *
+     * @returns {string} - A JSON representation of the presentation data and editor state.
      */
     getJSONData() {
         const storable = {};
@@ -245,8 +355,15 @@ export class Storage {
         return JSON.stringify(storable, null, "  ");
     }
 
-    /*
-     * Generate the content of the exported HTML file.
+    /** Generate the content of the presentation HTML file.
+     *
+     * The result is derived from the `player.html` template.
+     * It contains a copy of the following items:
+     * - the SVG document,
+     * - the presentation data needed by the player,
+     * - a copy of the custom style sheets and scripts.
+     *
+     * @returns {string} - An HTML document content, as text.
      */
     exportHTML() {
         return nunjucks.render("player.html", {
@@ -258,8 +375,12 @@ export class Storage {
         });
     }
 
-    /*
-     * Generate the content of the presenter HTML file.
+    /** Generate the content of the presenter console HTML file.
+     *
+     * The result is derived from the `presenter.html` template.
+     *
+     * @param {string} htmlFileName - The name of the presentation HTML file to play.
+     * @returns {string} - An HTML document content, as text.
      */
     exportPresenterHTML(htmlFileName) {
         return nunjucks.render("presenter.html", {
@@ -268,11 +389,21 @@ export class Storage {
         });
     }
 
+    /** Get the path of a file relative to the location of the current SVG file.
+     *
+     * @param {string} filePath - The path of a file.
+     * @returns {string} - The path of the same file, relative to the location of the current SVG file.
+     */
     toRelativePath(filePath) {
         const svgLoc = this.backend.getLocation(this.svgFileDescriptor);
         return path.relative(svgLoc, filePath);
     }
 
+    /** Read custom files to include in the presentation HTML.
+     *
+     * @param {string} ext - The extension of the files to read.
+     * @returns {string} - The concatenated content of all the files read.
+     */
     readCustomFiles(ext) {
         const svgLoc = this.backend.getLocation(this.svgFileDescriptor);
         const paths = this.presentation.customFiles.filter(path => path.endsWith(ext));

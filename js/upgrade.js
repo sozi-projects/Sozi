@@ -2,46 +2,76 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/** @module */
+/** Upgrade functions to load presentations made with older versions of Sozi.
+ *
+ * @module
+ */
 
 import {Frame} from "./model/Presentation";
 
+/** The Sozi namespace for custom XML elements.
+ *
+ * @readonly
+ * @type {string} */
 const SOZI_NS = "http://sozi.baierouge.fr";
 
+/** Convert a string to a boolean.
+ *
+ * This function is used when upgrading from Sozi 13 where presentation data
+ * is kept in custom XML elements and attributes inside the SVG document.
+ *
+ * @param {string} str - A string to parse.
+ * @returns {boolean} - `true` if `str` is `"true"`.
+ */
 function parseBoolean(str) {
     return str === "true";
 }
 
+/** Get the new name for a Sozi 13 timing function.
+ *
+ * @param {string} str - The name of a timing function in Sozi 13.
+ * @returns {string} - The name of the corresponding timing function in the current version of Sozi.
+ */
 function convertTimingFunction(str) {
     switch (str) {
-            case "accelerate":
-            case "strong-accelerate":
-                return "easeIn";
+        case "accelerate":
+        case "strong-accelerate":
+            return "easeIn";
 
-            case "decelerate":
-            case "strong-decelerate":
-                return "easeOut";
+        case "decelerate":
+        case "strong-decelerate":
+            return "easeOut";
 
-            case "accelerate-decelerate":
-            case "strong-accelerate-decelerate":
-                return "easeInOut";
+        case "accelerate-decelerate":
+        case "strong-accelerate-decelerate":
+            return "easeInOut";
 
-            case "immediate-beginning":
-                return "stepStart";
+        case "immediate-beginning":
+            return "stepStart";
 
-            case "immediate-end":
-                return "stepEnd";
+        case "immediate-end":
+            return "stepEnd";
 
-            case "immediate-middle":
-                return "stepMiddle";
+        case "immediate-middle":
+            return "stepMiddle";
 
-            default:
-                return "linear";
+        default:
+            return "linear";
     }
 }
 
-function importAttribute(obj, propName, elts, attrName, fn) {
-    fn = fn || function (x) { return x; };
+/** Retrieve the value of an XML attribute.
+ *
+ * This function is used when upgrading from Sozi 13 where presentation data
+ * is kept in custom XML elements and attributes inside the SVG document.
+ *
+ * @param {object} obj - The object where to copy the value of the attribute.
+ * @param {string} propName - The name of the property to write in `obj`.
+ * @param {Element[]} elts - An array of candidate XML elements where to look up.
+ * @param {string} attrName - The name of the attribute to read.
+ * @param {Function} [fn=x=>x] - A conversion function to apply to the attribute.
+ */
+function importAttribute(obj, propName, elts, attrName, fn=x => x) {
     for (let e of elts) {
         if (e && e.hasAttribute(attrName)) {
             obj[propName] = fn(e.getAttribute(attrName));
@@ -50,8 +80,19 @@ function importAttribute(obj, propName, elts, attrName, fn) {
     }
 }
 
-function importAttributeNS(obj, propName, elts, nsUri, attrName, fn) {
-    fn = fn || function (x) { return x; };
+/** Retrieve the value of an XML attribute with namespace.
+ *
+ * This function is used when upgrading from Sozi 13 where presentation data
+ * is kept in custom XML elements and attributes inside the SVG document.
+ *
+ * @param {object} obj - The object where to copy the value of the attribute.
+ * @param {string} propName - The name of the property to write in `obj`.
+ * @param {Element[]} elts - An array of candidate XML elements where to look up.
+ * @param {string} nsUri - The XML namespace URI of the attribute.
+ * @param {string} attrName - The name of the attribute to read.
+ * @param {Function} [fn=x=>x] - A conversion function to apply to the attribute.
+ */
+function importAttributeNS(obj, propName, elts, nsUri, attrName, fn=x=>x) {
     for (let e of elts) {
         if (e && e.hasAttributeNS(nsUri, attrName)) {
             obj[propName] = fn(e.getAttributeNS(nsUri, attrName));
@@ -60,6 +101,14 @@ function importAttributeNS(obj, propName, elts, nsUri, attrName, fn) {
     }
 }
 
+/** Read a Sozi 13 presentation.
+ *
+ * This function reads the custom XML elements and attributes from the SVG
+ * document and populates the presentation data structure.
+ *
+ * @param {module:model/Presentation.Presentation} pres - The current presentation object.
+ * @param {module:Controller.Controller} controller - The controller that manages the current editor.
+ */
 export function upgradeFromSVG(pres, controller) {
     // In the inlined SVG, DOM accessors fail to get elements with explicit XML namespaces.
     // getElementsByTagNameNS, getAttributeNS do not work for elements with the Sozi namespace.
@@ -154,6 +203,12 @@ export function upgradeFromSVG(pres, controller) {
     });
 }
 
+/** Upgrade presentation data from an earlier version of Sozi.
+ *
+ * This function operates on a raw object loaded from a Sozi JSON file.
+ *
+ * @param {object} storable - The data loaded from a Sozi JSON file.
+ */
 export function upgradeFromStorable(storable) {
     // Sozi 17.02.05
     // Remove property referenceElementAuto
