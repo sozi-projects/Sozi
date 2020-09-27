@@ -54,7 +54,10 @@ export class Properties extends VirtualDOMView {
          this.mode = "default";
     }
 
-    /** Toggle between presentation properties and preferences or export mode. */
+    /** Toggle between presentation properties and preferences or export mode.
+     *
+     * @param {string} mode - The mode to toggle (`"preferences"`, `"export"`).
+     */
     toggleMode(mode) {
         this.mode = this.mode === mode ? "default" : mode;
         this.repaint();
@@ -334,6 +337,10 @@ export class Properties extends VirtualDOMView {
         ]);
     }
 
+    /** Render the properties view with the export tool.
+     *
+     * @returns {VNode} - A virtual DOM tree.
+     */
     renderExportTool() {
         const controller = this.controller;
         const _ = controller.gettext;
@@ -388,6 +395,10 @@ export class Properties extends VirtualDOMView {
         ]);
     }
 
+    /** Render the fields of the PDF export tool.
+     *
+     * @returns {VNode[]} - Virtual DOM nodes with the PDF-specific fields of the export tool.
+     */
     renderPDFExportFields() {
         const controller = this.controller;
         const _ = controller.gettext;
@@ -423,12 +434,20 @@ export class Properties extends VirtualDOMView {
         ];
     }
 
+    /** Render the fields of the PPTX export tool.
+     *
+     * @returns {VNode[]} - Virtual DOM nodes with the PPTX-specific fields of the export tool.
+     */
     renderPPTXExportFields() {
         const controller = this.controller;
         const _ = controller.gettext;
         return h("div", _("Not implemented"));
     }
 
+    /** Render the fields of the video export tool.
+     *
+     * @returns {VNode[]} - Virtual DOM nodes with the video-specific fields of the export tool.
+     */
     renderVideoExportFields() {
         const controller = this.controller;
         const _ = controller.gettext;

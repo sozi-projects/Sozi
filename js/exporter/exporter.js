@@ -10,6 +10,14 @@ import * as tmp from "tmp";
 import * as fs from "fs";
 import {PDFDocument} from "pdf-lib";
 
+/** Update the status of a sequence of frame numbers to include or exclude in the export.
+ *
+ * @param {boolean[]} list - The status of each frame of the presentation.
+ * @param {number} first - The index of the first element to update.
+ * @param {number} last - The index of the last element to update.
+ * @param {number} step - The step between elements to update.
+ * @param {boolean} value - The value to assign at each index.
+ */
 function markInterval(list, first, last, step, value) {
     if (step > 0) {
         for (let i = first; i <= last; i += step) {
@@ -20,19 +28,25 @@ function markInterval(list, first, last, step, value) {
     }
 }
 
-/*
- * Parse an expression and mark the corresponding frames with the given value.
+/** Parse a list of frames to include or exclude from the export.
  *
+ * ```
  * expr ::= interval ("," interval)*
  *
  * interval ::=
  *      INT                     // frame number
  *    | INT? ":" INT?           // first:last
  *    | INT? ":" INT? ":" INT?  // first:second:last
+ * ```
  *
- * If first is omitted, it is set to 1.
- * If second is omitted, it is set to first + 1.
- * If last is omitted, it is set to list.length.
+ * In an interval:
+ * - If `first` is omitted, it is set to 1.
+ * - If `second` is omitted, it is set to `first + 1`.
+ * - If `last` is omitted, it is set to `list.length`.
+ *
+ * @param {boolean[]} list - The status of each frame of the presentation.
+ * @param {string} expr - An expression that represents a list of frame.
+ * @param {boolean} value - The value to assign for each frame to mark.
  */
 function markFrames(list, expr, value) {
     switch (expr) {
@@ -56,6 +70,12 @@ function markFrames(list, expr, value) {
     }
 }
 
+/** Get the index of a frame to include in the export, after a given index.
+ *
+ * @param {boolean[]} list - The status of each frame of the presentation.
+ * @param {number} index - The index of the current frame.
+ * @returns {number} - The index of the next frame that is marked for inclusion.
+ */
 function nextFrameIndex(list, index=-1) {
     for (let i = index + 1; i < list.length; i ++) {
         if (list[i]) {
@@ -65,6 +85,12 @@ function nextFrameIndex(list, index=-1) {
     return -1;
 }
 
+/** Pad an integer value with zeros.
+ *
+ * @param {number} value - A value to pad.
+ * @param {number} digits - The number of digits in the result.
+ * @returns {string} - A zero-padded representation of the given value.
+ */
 function zeroPadded(value, digits) {
     let result = value.toString();
     while(result.length < digits) {
@@ -73,6 +99,13 @@ function zeroPadded(value, digits) {
     return result;
 }
 
+/** The available page sizes for PDF export.
+ *
+ * Page sizes are in millimeters for each format supported by the
+ * `printToPDF` function of the Electron API.
+ *
+ * @readonly
+ * @type {object} */
 const pageGeometry = {
     A3:      {width: 297,   height: 420},
     A4:      {width: 210,   height: 297},
@@ -82,8 +115,21 @@ const pageGeometry = {
     Tabloid: {width: 279,   height: 432},
 };
 
-const pixelsPerMm = 3.78; // 96ppi
+/** The default scale of web pages.
+ *
+ * This value is 96 dpi, converted to pixels per millimeter.
+ *
+ * @readonly
+ * @default
+ * @type {number} */
+const pixelsPerMm = 3.78;
 
+/** Export a presentation to a PDF document.
+ *
+ * @param {module:model/Presentation.Presentation} presentation - The presentation to export.
+ * @param {string} htmlFileName - The name of the presentation HTML file.
+ * @returns {Promise} - A promise that resolves when the operation completes.
+ */
 export async function exportToPDF(presentation, htmlFileName) {
     console.log(`Exporting ${htmlFileName} to PDF`);
 
