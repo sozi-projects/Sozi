@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-08-16 09:17:+0000\n"
-"PO-Revision-Date: 2020-01-05 21:21+0000\n"
+"PO-Revision-Date: 2020-09-28 20:27+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/sozi/"
 "translations/pt/>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.10\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: js/backend/Electron.js:33
 msgid "Open an SVG file from your computer"
@@ -43,7 +43,7 @@ msgstr "Ficheiros SVG"
 
 #: js/backend/Electron.js:179
 msgid "Could not read file %s."
-msgstr ""
+msgstr "Não foi possível ler o ficheiro %s."
 
 #: js/backend/FileReader.js:18
 msgid ""
@@ -366,25 +366,23 @@ msgstr ""
 
 #: js/view/Properties.js:211
 msgid "Custom stylesheets and scripts"
-msgstr ""
+msgstr "Folhas de estilo e scripts personalizados"
 
 #: js/view/Properties.js:224
 msgid "CSS or JS file names"
-msgstr ""
+msgstr "Nomes de ficheiros CSS ou JS"
 
 #: js/view/Properties.js:224
 msgid "Add CSS or JS files"
-msgstr ""
+msgstr "Adicionar ficheiros CSS ou JS"
 
 #: js/view/Properties.js:227
-#, fuzzy
 msgid "Add a file"
-msgstr "Adicionar todas as camadas"
+msgstr "Adicionar um ficheirio"
 
 #: js/view/Properties.js:240
-#, fuzzy
 msgid "Remove this file"
-msgstr "Eliminar esta camada"
+msgstr "Apagar este ficheiro"
 
 #: js/view/Properties.js:248
 msgid "Player"
