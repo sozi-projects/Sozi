@@ -379,7 +379,7 @@ export class Properties extends VirtualDOMView {
             h("label", {for: "field-exportType"}, _("Document type")),
             this.renderSelectField("exportType", controller.getPresentationProperty, controller.setPresentationProperty, {
                 pdf: _("Portable Document Format (PDF)"),
-                pptx: _("Microsoft Powerpoint (PPTX)"),
+                pptx: _("Microsoft PowerPoint (PPTX)"),
                 video: _("Video")
             }),
 
@@ -406,12 +406,12 @@ export class Properties extends VirtualDOMView {
         return [
             h("label", {for: "field-exportToPDFPageSize"}, _("Page size")),
             this.renderSelectField("exportToPDFPageSize", controller.getPresentationProperty, controller.setPresentationProperty, {
-                A3: "A3",
-                A4: "A4",
-                A5: "A5",
-                Legal: "Legal",
-                Letter: "Letter",
-                Tabloid: "Tabloid"
+                A3     : _("A3"),
+                A4     : _("A4"),
+                A5     : _("A5"),
+                Legal  : _("Legal"),
+                Letter : _("Letter"),
+                Tabloid: _("Tabloid")
             }),
 
             h("label", {for: "field-exportToPDFPageOrientation"}, _("Page orientation")),
@@ -442,11 +442,24 @@ export class Properties extends VirtualDOMView {
         const controller = this.controller;
         const _ = controller.gettext;
         return [
-            h("label", {for: "field-exportToPPTXWidth"}, _("Width (pixels)")),
-            this.renderNumberField("exportToPPTXWidth", false, controller.getPresentationProperty, controller.setPresentationProperty, false, 10, 1),
-
-            h("label", {for: "field-exportToPPTXHeight"}, _("Height (pixels)")),
-            this.renderNumberField("exportToPPTXHeight", false, controller.getPresentationProperty, controller.setPresentationProperty, false, 10, 1),
+            h("label", {for: "field-exportToPPTXSlideSize"}, _("Slide size")),
+            this.renderSelectField("exportToPPTXSlideSize", controller.getPresentationProperty, controller.setPresentationProperty, {
+                "35mm"     : _("35 mm"),
+                A3         : _("A3"),
+                A4         : _("A4"),
+                B4ISO      : _("B4 (ISO)"),
+                B4JIS      : _("B4 (JIS)"),
+                B5ISO      : _("B5 (ISO)"),
+                B5JIS      : _("B5 (JIS)"),
+                banner     : _("Banner"),
+                hagakiCard : _("Hagaki Card"),
+                ledger     : _("Ledger"),
+                letter     : _("Letter"),
+                overhead   : _("Overhead"),
+                screen16x10: _("Screen 16:10"),
+                screen16x9 : _("Screen 16:9"),
+                screen4x3  : _("Screen 4:3")
+            }),
 
             h("label", {for: "field-exportToPPTXInclude"}, [
                 _("List of frames to include"),

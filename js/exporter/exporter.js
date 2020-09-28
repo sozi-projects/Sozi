@@ -102,28 +102,54 @@ function zeroPadded(value, digits) {
 
 /** The available page sizes for PDF export.
  *
- * Page sizes are in millimeters for each format supported by the
- * `printToPDF` function of the Electron API.
+ * Page sizes are in pixels, assuming a resolution of 96 dpi,
+ * for each format supported by the `printToPDF` function of the Electron API.
+ * All formats are in landscape mode by default.
  *
  * @readonly
  * @type {object} */
-const pageGeometry = {
-    A3:      {width: 297,   height: 420},
-    A4:      {width: 210,   height: 297},
-    A5:      {width: 148,   height: 210},
-    Legal:   {width: 216,   height: 355.6},
-    Letter:  {width: 215.9, height: 279.4},
-    Tabloid: {width: 279,   height: 432},
+const pdfPageGeometry = {
+    A3     : {width: 1587, height: 1123},
+    A4     : {width: 1123, height: 794},
+    A5     : {width: 794 , height: 559},
+    Legal  : {width: 1344, height: 816},
+    Letter : {width: 1056, height: 816},
+    Tabloid: {width: 1632, height: 1056},
 };
 
-/** The default scale of web pages.
+/** The available slide sizes for PPTX export.
  *
- * This value is 96 dpi, converted to pixels per millimeter.
+ * Slide sizes are represented by aspect ratios regardless of a physical size.
+ * The export function will assume a screen height equal to 1080 pixels.
+ * The keys represent all formats supported by the Officegen PPTX API.
+ * All formats are in landscape mode by default.
+ *
+ * @readonly
+ * @type {object} */
+const pptxSlideGeometry = {
+    "35mm"     : {width: 11.25, height: 7.5}, // in
+    A3         : {width: 420,   height: 297}, // mm
+    A4         : {width: 297,   height: 210}, // mm
+    B4ISO      : {width: 353,   height: 250}, // mm
+    B4JIS      : {width: 364,   height: 257}, // mm
+    B5ISO      : {width: 250,   height: 176}, // mm
+    B5JIS      : {width: 257,   height: 182}, // mm
+    banner     : {width: 8,     height: 1},   // in
+    hagakiCard : {width: 148,   height: 100}, // mm
+    ledger     : {width: 17,    height: 11},  // in
+    letter     : {width: 11,    height: 8.5}, // in
+    overhead   : {width: 10,    height: 7.5}, // in
+    screen16x10: {width: 16,    height: 10},  // no unit
+    screen16x9 : {width: 16,    height: 9},   // no unit
+    screen4x3  : {width: 4,     height: 3}    // no unit
+};
+
+/** The default height of PPTX slides, in pixels.
  *
  * @readonly
  * @default
  * @type {number} */
-const pixelsPerMm = 3.78;
+const pptxSlideHeightPx = 1080;
 
 /** Export a presentation to a PDF document.
  *
@@ -149,17 +175,16 @@ export async function exportToPDF(presentation, htmlFileName) {
     markFrames(frameSelection, include, true);
     markFrames(frameSelection, exclude, false);
 
-    // The length of the file suffix for each generated page.
-    const digits = frameCount.toString().length;
-
-    // Open the HTML presentation in a new browser window.
-    let g = pageGeometry[presentation.exportToPDFPageSize];
-    if (presentation.exportToPDFPageOrientation === "landscape") {
+    // Get the PDF page size and swap width and height in protrait orientation.
+    let g = pdfPageGeometry[presentation.exportToPDFPageSize];
+    if (presentation.exportToPDFPageOrientation === "portrait") {
         g = {width: g.height, height: g.width};
     }
+
+    // Open the HTML presentation in a new browser window.
     const w = new remote.BrowserWindow({
-        width:  Math.round(g.width  * pixelsPerMm),
-        height: Math.round(g.height * pixelsPerMm),
+        width:  g.width,
+        height: g.height,
         frame: false,
         show: false,
         webPreferences: {
@@ -171,20 +196,22 @@ export async function exportToPDF(presentation, htmlFileName) {
     // Create a PDF document object.
     const pdfDoc = await PDFDocument.create();
 
-    // On each frameChange event in the player, save the current web contents.
-    const result = new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
+        // On each frameChange event in the player, save the current web contents.
         ipcRenderer.on("frameChange", async (evt, index) => {
-            // Convert the current web contents to PDF and add it to the target document.
+            // Convert the current web contents to PDF.
             const pdfData = await w.webContents.printToPDF({
                 pageSize:  presentation.exportToPDFPageSize,
                 landscape: presentation.exportToPDFPageOrientation === "landscape",
                 marginsType: 2, // No margin
             });
 
+            // Add the current PDF page to the document.
             const pdfDocForFrame = await PDFDocument.load(pdfData);
             const [pdfPage]      = await pdfDoc.copyPages(pdfDocForFrame, [0]);
             pdfDoc.addPage(pdfPage);
 
+            // Jump to the next frame.
             const frameIndex = nextFrameIndex(frameSelection, index);
             if (frameIndex >= 0) {
                 // If there are frames remaining, move to the next frame.
@@ -208,15 +235,13 @@ export async function exportToPDF(presentation, htmlFileName) {
                 });
             }
         });
-    });
 
-    // Start the player in the presentation window.
-    w.webContents.send("exportFrames", {
-        frameIndex: nextFrameIndex(frameSelection),
-        callerId: remote.getCurrentWindow().webContents.id
+        // Start the player in the presentation window.
+        w.webContents.send("exportFrames", {
+            frameIndex: nextFrameIndex(frameSelection),
+            callerId: remote.getCurrentWindow().webContents.id
+        });
     });
-
-    return result;
 }
 
 /** Export a presentation to a PPTX document.
@@ -243,13 +268,15 @@ export async function exportToPPTX(presentation, htmlFileName) {
     markFrames(frameSelection, include, true);
     markFrames(frameSelection, exclude, false);
 
-    // The length of the file suffix for each generated image.
-    const digits = frameCount.toString().length;
+    // Get the PPTX slide size and convert it to pixels.
+    const g = pptxSlideGeometry[presentation.exportToPPTXSlideSize];
+    g.width  = Math.round(g.width * pptxSlideHeightPx / g.height);
+    g.height = pptxSlideHeightPx;
 
     // Open the HTML presentation in a new browser window.
     const w = new remote.BrowserWindow({
-        width:  presentation.exportToPPTXWidth,
-        height: presentation.exportToPPTXHeight,
+        width:  g.width,
+        height: g.height,
         frame: false,
         show: false,
         webPreferences: {
@@ -260,54 +287,55 @@ export async function exportToPPTX(presentation, htmlFileName) {
 
     // Create a PPTX document object.
     const pptxDoc = officegen("pptx");
-
-    // On each frameChange event in the player, save the current web contents.
-    const result = new Promise((resolve, reject) => {
-        pptxDoc.on("finalize", resolve);
-        pptxDoc.on("error", reject);
-    });
+    pptxDoc.setSlideSize(g.width, g.height, presentation.exportToPPTXSlideSize);
 
     // Create a temporary directory.
     // Force deletion on cleanup, even if not empty.
-    var tmpDir = tmp.dirSync({unsafeCleanup: true}).name;
+    const tmpDir = tmp.dirSync({unsafeCleanup: true}).name;
+    console.log("Exporting to " + tmpDir);
 
-    // The number of digits to represent zero-padded frame numbers.
-    const indexDigits = frameCount.toString().length;
-
-    ipcRenderer.on("frameChange", async (evt, index) => {
-        // Convert the current web contents to a PNG image.
-        const img = await w.webContents.capturePage();
-        const png = img.toPNG();
-        const indexStr = zeroPadded(index, indexDigits);
-        const fileName = path.join(tmpDir, `${indexStr}.png`);
-        fs.writeFileSync(fileName, png);
-
-        // Insert the image into a new slide.
-        const slide = pptxDoc.makeNewSlide();
-        slide.addImage(fileName, {x: 0, y: 0, cx: "100%", cy: "100%" });
-
-        const frameIndex = nextFrameIndex(frameSelection, index);
-        if (frameIndex >= 0) {
-            // If there are frames remaining, move to the next frame.
-            w.webContents.send("jumpToFrame", frameIndex);
-        }
-        else {
-            // If this is the last frame, close the presentation window
-            // and write the PPTX document to a file.
-            ipcRenderer.removeAllListeners("frameChange");
-            w.close();
-
-            const pptxFileName = htmlFileName.replace(/html$/, "pptx");
-            const out = fs.createWriteStream(pptxFileName);
-            pptxDoc.generate(out);
-        }
+    // Generate a list of PNG file names.
+    const digits = frameCount.toString().length;
+    const pngFileNames = presentation.frames.map((frame, index) => {
+        const indexStr = zeroPadded(index, digits);
+        return path.join(tmpDir, `${indexStr}.png`)
     });
 
-    // Start the player in the presentation window.
-    w.webContents.send("exportFrames", {
-        frameIndex: nextFrameIndex(frameSelection),
-        callerId: remote.getCurrentWindow().webContents.id
-    });
+    return new Promise((resolve, reject) => {
+        pptxDoc.on("finalize", resolve);
+        pptxDoc.on("error", reject);
 
-    return result;
+        // On each frameChange event in the player, save the current web contents.
+        ipcRenderer.on("frameChange", async (evt, index) => {
+            // Write the current web contents to a PNG image file.
+            const img = await w.webContents.capturePage();
+            fs.writeFileSync(pngFileNames[index], img.toPNG());
+
+            // Add the PNG file to its own slide.
+            pptxDoc.makeNewSlide().addImage(pngFileNames[index], {x: 0, y: 0, cx: "100%", cy: "100%" });
+
+            // Jump to the next frame.
+            const frameIndex = nextFrameIndex(frameSelection, index);
+            if (frameIndex >= 0) {
+                // If there are frames remaining, move to the next frame.
+                w.webContents.send("jumpToFrame", frameIndex);
+            }
+            else {
+                // If this is the last frame, close the presentation window
+                // and write the PPTX document to a file.
+                ipcRenderer.removeAllListeners("frameChange");
+                w.close();
+
+                const pptxFileName = htmlFileName.replace(/html$/, "pptx");
+                const pptxFile = fs.createWriteStream(pptxFileName);
+                pptxDoc.generate(pptxFile);
+            }
+        });
+
+        // Start the player in the presentation window.
+        w.webContents.send("exportFrames", {
+            frameIndex: nextFrameIndex(frameSelection),
+            callerId: remote.getCurrentWindow().webContents.id
+        });
+    });
 }

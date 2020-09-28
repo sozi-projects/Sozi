@@ -731,17 +731,11 @@ export class Presentation extends EventEmitter {
          * @type {string} */
         this.exportToPDFExclude = "";
 
-        /** The slide width for PPTX export, in pixels.
+        /** The slide size for PPTX export.
          *
          * @default
-         * @type {number} */
-        this.exportToPPTXWidth = 1920;
-
-        /** The slide height for PPTX export, in pixels.
-         *
-         * @default
-         * @type {number} */
-        this.exportToPPTXHeight = 1080;
+         * @type {string} */
+        this.exportToPPTXSlideSize = "screen4x3";
 
         /** The list of frame numbers to include in the PPTX export.
          *
@@ -827,8 +821,7 @@ export class Presentation extends EventEmitter {
             exportToPDFPageOrientation: this.exportToPDFPageOrientation,
             exportToPDFInclude        : this.exportToPDFInclude,
             exportToPDFExclude        : this.exportToPDFExclude,
-            exportToPPTXWidth         : this.exportToPPTXWidth,
-            exportToPPTXHeight        : this.exportToPPTXHeight,
+            exportToPPTXSlideSize     : this.exportToPPTXSlideSize,
             exportToPPTXInclude       : this.exportToPPTXInclude,
             exportToPPTXExclude       : this.exportToPPTXExclude,
             frames                    : this.frames.map(frame => frame.toStorable()),
@@ -879,8 +872,7 @@ export class Presentation extends EventEmitter {
         copyIfSet(this, storable, "exportToPDFPageOrientation");
         copyIfSet(this, storable, "exportToPDFInclude");
         copyIfSet(this, storable, "exportToPDFExclude");
-        copyIfSet(this, storable, "exportToPPTXWidth");
-        copyIfSet(this, storable, "exportToPPTXHeight");
+        copyIfSet(this, storable, "exportToPPTXSlideSize");
         copyIfSet(this, storable, "exportToPPTXInclude");
         copyIfSet(this, storable, "exportToPPTXExclude");
 
