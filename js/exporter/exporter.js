@@ -183,10 +183,10 @@ export async function exportToPDF(presentation, htmlFileName) {
 
     // Open the HTML presentation in a new browser window.
     const w = new remote.BrowserWindow({
-        width:  g.width,
+        width : g.width,
         height: g.height,
-        frame: false,
-        show: false,
+        frame : false,
+        show  : false,
         webPreferences: {
             preload: path.join(__dirname, "exporter-preload.js")
         }
@@ -274,11 +274,13 @@ export async function exportToPPTX(presentation, htmlFileName) {
     g.height = pptxSlideHeightPx;
 
     // Open the HTML presentation in a new browser window.
+    // The window must be visible to work with the Page.captureScreenshot
+    // message of the Chrome DevTools Protocol.
     const w = new remote.BrowserWindow({
-        width:  g.width,
+        width : g.width,
         height: g.height,
-        frame: false,
-        show: false,
+        frame : false,
+        show  : true,
         webPreferences: {
             preload: path.join(__dirname, "exporter-preload.js")
         }
@@ -301,15 +303,19 @@ export async function exportToPPTX(presentation, htmlFileName) {
         return path.join(tmpDir, `${indexStr}.png`)
     });
 
+    // We will use the Chrome DevTools protocol instead of
+    // the unreliable Electron capturePage method.
+    w.webContents.debugger.attach("1.2");
+
     return new Promise((resolve, reject) => {
         pptxDoc.on("finalize", resolve);
         pptxDoc.on("error", reject);
 
         // On each frameChange event in the player, save the current web contents.
         ipcRenderer.on("frameChange", async (evt, index) => {
-            // Write the current web contents to a PNG image file.
-            const img = await w.webContents.capturePage();
-            fs.writeFileSync(pngFileNames[index], img.toPNG());
+            // Capture the current web contents into a PNG image file.
+            const img = await w.webContents.debugger.sendCommand("Page.captureScreenshot", {format: "png"});
+            fs.writeFileSync(pngFileNames[index], Buffer.from(img.data, "base64"));
 
             // Add the PNG file to its own slide.
             pptxDoc.makeNewSlide().addImage(pngFileNames[index], {x: 0, y: 0, cx: "100%", cy: "100%" });
