@@ -50,6 +50,10 @@ function markInterval(list, first, last, step, value) {
  * @param {boolean} value - The value to assign for each frame to mark.
  */
 function markFrames(list, expr, value) {
+    expr = expr.trim();
+    if (!expr.length) {
+        expr = value ? "all" : "none";
+    }
     switch (expr) {
         case "all":
             markInterval(list, 0, list.length - 1, 1, value);
@@ -69,6 +73,14 @@ function markFrames(list, expr, value) {
                 }
             }
     }
+}
+
+function markFramesFromLists(pres, include, exclude) {
+    const result = new Array(pres.frames.length);
+    markFrames(result, "all",   false);
+    markFrames(result, include, true);
+    markFrames(result, exclude, false);
+    return result;
 }
 
 /** Get the index of a frame to include in the export, after a given index.
@@ -161,19 +173,7 @@ export async function exportToPDF(presentation, htmlFileName) {
     console.log(`Exporting ${htmlFileName} to PDF`);
 
     // Mark the list of frames that will be included in the target document.
-    const frameCount = presentation.frames.length;
-    const frameSelection = new Array(frameCount);
-    let include = presentation.exportToPDFInclude.trim();
-    if (!include.length) {
-        include = "all";
-    }
-    let exclude = presentation.exportToPDFExclude.trim();
-    if (!exclude.length) {
-        exclude = "none";
-    }
-    markInterval(frameSelection, 0, frameCount - 1, 1, false);
-    markFrames(frameSelection, include, true);
-    markFrames(frameSelection, exclude, false);
+    const frameSelection = markFramesFromLists(presentation, presentation.exportToPDFInclude, presentation.exportToPDFExclude);
 
     // Get the PDF page size and swap width and height in protrait orientation.
     let g = pdfPageGeometry[presentation.exportToPDFPageSize];
@@ -254,19 +254,7 @@ export async function exportToPPTX(presentation, htmlFileName) {
     console.log(`Exporting ${htmlFileName} to PPTX`);
 
     // Mark the list of frames that will be included in the target document.
-    const frameCount = presentation.frames.length;
-    const frameSelection = new Array(frameCount);
-    let include = presentation.exportToPPTXInclude.trim();
-    if (!include.length) {
-        include = "all";
-    }
-    let exclude = presentation.exportToPPTXExclude.trim();
-    if (!exclude.length) {
-        exclude = "none";
-    }
-    markInterval(frameSelection, 0, frameCount - 1, 1, false);
-    markFrames(frameSelection, include, true);
-    markFrames(frameSelection, exclude, false);
+    const frameSelection = markFramesFromLists(presentation, presentation.exportToPPTXInclude, presentation.exportToPPTXExclude);
 
     // Get the PPTX slide size and convert it to pixels.
     const g = pptxSlideGeometry[presentation.exportToPPTXSlideSize];
@@ -297,7 +285,7 @@ export async function exportToPPTX(presentation, htmlFileName) {
     console.log("Exporting to " + tmpDir);
 
     // Generate a list of PNG file names.
-    const digits = frameCount.toString().length;
+    const digits = presentation.frames.length.toString().length;
     const pngFileNames = presentation.frames.map((frame, index) => {
         const indexStr = zeroPadded(index, digits);
         return path.join(tmpDir, `${indexStr}.png`)
