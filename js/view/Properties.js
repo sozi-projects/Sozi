@@ -482,7 +482,14 @@ export class Properties extends VirtualDOMView {
     renderVideoExportFields() {
         const controller = this.controller;
         const _ = controller.gettext;
-        return h("div", _("Not implemented"));
+
+        return [
+            h("label", {for: "field-exportToVideoWidth"}, _("Width (pixels)")),
+            this.renderNumberField("exportToVideoWidth", false, controller.getPresentationProperty, controller.setPresentationProperty, false, 1, 1),
+
+            h("label", {for: "field-exportToVideoHeight"}, _("Height (pixels)")),
+            this.renderNumberField("exportToVideoHeight", false, controller.getPresentationProperty, controller.setPresentationProperty, false, 1, 1)
+        ];
     }
 
     /** Create a help widget.

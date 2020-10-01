@@ -748,6 +748,18 @@ export class Presentation extends EventEmitter {
          * @default
          * @type {string} */
         this.exportToPPTXExclude = "";
+
+        /** The width of the exported video, in pixels.
+         *
+         * @default
+         * @type {number} */
+        this.exportToVideoWidth = 1280;
+
+        /** The height of the exported video, in pixels.
+         *
+         * @default
+         * @type {number} */
+        this.exportToVideoHeight = 720;
     }
 
     /** Set the SVG document for this presentation.
@@ -824,6 +836,8 @@ export class Presentation extends EventEmitter {
             exportToPPTXSlideSize     : this.exportToPPTXSlideSize,
             exportToPPTXInclude       : this.exportToPPTXInclude,
             exportToPPTXExclude       : this.exportToPPTXExclude,
+            exportToVideoWidth        : this.exportToVideoWidth,
+            exportToVideoHeight       : this.exportToVideoHeight,
             frames                    : this.frames.map(frame => frame.toStorable()),
             elementsToHide            : this.elementsToHide.slice(),
             customFiles               : this.customFiles.slice(),
@@ -875,6 +889,8 @@ export class Presentation extends EventEmitter {
         copyIfSet(this, storable, "exportToPPTXSlideSize");
         copyIfSet(this, storable, "exportToPPTXInclude");
         copyIfSet(this, storable, "exportToPPTXExclude");
+        copyIfSet(this, storable, "exportToVideoWidth");
+        copyIfSet(this, storable, "exportToVideoHeight");
 
         this.frames = storable.frames.map(f => {
             const res = new Frame(this);
