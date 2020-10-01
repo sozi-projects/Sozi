@@ -287,14 +287,14 @@ export async function exportToPPTX(presentation, htmlFileName) {
 
     // Create a temporary directory.
     // Force deletion on cleanup, even if not empty.
-    const tmpDir = tmp.dirSync({unsafeCleanup: true}).name;
-    console.log("Exporting to " + tmpDir);
+    const tmpDir = tmp.dirSync({unsafeCleanup: true});
+    console.log("Exporting to " + tmpDir.name);
 
     // Generate a list of PNG file names.
     const digits = presentation.frames.length.toString().length;
     const pngFileNames = presentation.frames.map((frame, index) => {
         const indexStr = zeroPadded(index, digits);
-        return path.join(tmpDir, `${indexStr}.png`)
+        return path.join(tmpDir.name, `${indexStr}.png`)
     });
 
     // We will use the Chrome DevTools protocol instead of
@@ -304,8 +304,14 @@ export async function exportToPPTX(presentation, htmlFileName) {
     const callerId = remote.getCurrentWindow().webContents.id;
 
     return new Promise((resolve, reject) => {
-        pptxDoc.on("finalize", resolve);
-        pptxDoc.on("error", reject);
+        pptxDoc.on("finalize", () => {
+            tmpDir.removeCallback();
+            resolve();
+        });
+        pptxDoc.on("error", () => {
+            tmpDir.removeCallback();
+            reject();
+        });
 
         // On each jumpToFrame event in the player, save the current web contents.
         ipcRenderer.on("jumpToFrame.done", async (evt, index) => {
@@ -364,8 +370,8 @@ export async function exportToPPTX(presentation, htmlFileName) {
 
      // Create a temporary directory.
      // Force deletion on cleanup, even if not empty.
-     const tmpDir = tmp.dirSync({unsafeCleanup: true}).name;
-     console.log("Exporting to " + tmpDir);
+     const tmpDir = tmp.dirSync({unsafeCleanup: true});
+     console.log("Exporting to " + tmpDir.name);
 
      // We will use the Chrome DevTools protocol instead of
      // the unreliable Electron capturePage method.
@@ -384,6 +390,7 @@ export async function exportToPPTX(presentation, htmlFileName) {
 
              // TODO run FFMPEG
 
+             tmpDir.removeCallback();
              resolve();
          }
 
@@ -400,7 +407,7 @@ export async function exportToPPTX(presentation, htmlFileName) {
              // Generate images for the duration of the current frame.
              let firstImgFileName;
              for (let timeMs = 0; timeMs < currentFrame.timeoutMs; timeMs += timeStepMs, imgIndex ++) {
-                 const imgFileName = path.join(tmpDir, `img${imgIndex}.png`)
+                 const imgFileName = path.join(tmpDir.name, `img${imgIndex}.png`)
                  if (timeMs === 0) {
                      // Capture the first image of the current frame.
                      const img = await w.webContents.debugger.sendCommand("Page.captureScreenshot", {format: "png"});
@@ -430,7 +437,7 @@ export async function exportToPPTX(presentation, htmlFileName) {
          // On each animation step, capture the current web contents.
          ipcRenderer.on("moveToNext.step", async evt => {
              const img = await w.webContents.debugger.sendCommand("Page.captureScreenshot", {format: "png"});
-             const imgFileName = path.join(tmpDir, `img${imgIndex}.png`);
+             const imgFileName = path.join(tmpDir.name, `img${imgIndex}.png`);
              fs.writeFileSync(imgFileName, Buffer.from(img.data, "base64"));
              w.webContents.send("moveToNext.more");
              imgIndex ++;
