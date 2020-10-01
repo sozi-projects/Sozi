@@ -4,19 +4,46 @@
 
 import {ipcRenderer} from "electron";
 
-function exportFrames(callerId, frameIndex) {
+ipcRenderer.on("initializeExporter", (evt, {callerId, frameIndex}) => {
     if (sozi.player.disableMedia) {
         sozi.player.disableMedia();
     }
 
     document.querySelector(".sozi-blank-screen").style.display = "none";
 
-    sozi.player.addListener("frameChange", () => {
-        ipcRenderer.sendTo(callerId, "frameChange", sozi.player.currentFrame.index);
-    });
-
     sozi.player.jumpToFrame(frameIndex);
+    ipcRenderer.sendTo(callerId, "jumpToFrame.done", frameIndex);
+});
+
+ipcRenderer.on("jumpToFrame", (evt, {callerId, frameIndex}) => {
+    sozi.player.jumpToFrame(frameIndex);
+    ipcRenderer.sendTo(callerId, "jumpToFrame.done", frameIndex);
+});
+
+function ipcMessage(name) {
+    return new Promise(resolve => {
+        ipcRenderer.once(name, resolve);
+    });
 }
 
-ipcRenderer.on("exportFrames", (evt, {callerId, frameIndex}) => exportFrames(callerId, frameIndex));
-ipcRenderer.on("jumpToFrame", (evt, frameIndex) => sozi.player.jumpToFrame(frameIndex));
+ipcRenderer.on("moveToNext", async (evt, {callerId, timeStepMs}) => {
+    sozi.player.targetFrame = sozi.player.nextFrame;
+
+    const layerProperties      = sozi.player.targetFrame.layerProperties;
+    const transitionDurationMs = sozi.player.targetFrame.transitionDurationMs;
+    const targetFrameIndex     = sozi.player.targetFrame.index;
+
+    for (let camera of sozi.viewport.cameras) {
+        const lp = layerProperties[camera.layer.index];
+        sozi.player.setupTransition(camera, lp.transitionTimingFunction, lp.transitionRelativeZoom, lp.transitionPath);
+    }
+
+    for (let timeMs = 0; timeMs < transitionDurationMs; timeMs += timeStepMs) {
+        sozi.player.onAnimatorStep(timeMs / transitionDurationMs);
+        ipcRenderer.sendTo(callerId, "moveToNext.step");
+        await ipcMessage("moveToNext.more");
+    }
+
+    sozi.player.jumpToFrame(targetFrameIndex);
+    ipcRenderer.sendTo(callerId, "jumpToFrame.done", targetFrameIndex);
+});

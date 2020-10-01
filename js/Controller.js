@@ -1713,8 +1713,14 @@ export class Controller extends EventEmitter {
         const _ = this.gettext;
         this.toggleExportState();
         await this.save();
-        // TODO
-        this.error(_("Export to Video is not supported yet."));
+        try {
+            await exporter.exportToVideo(this.presentation, this.storage.htmlFileDescriptor);
+            this.info(_("Presentation was exported to video."));
+        }
+        catch (e) {
+            this.error(_("Failed to write video file."));
+            console.log(e);
+        }
         this.toggleExportState();
     }
 

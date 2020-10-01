@@ -541,19 +541,16 @@ export class Player extends EventEmitter {
         }
 
         for (let camera of this.viewport.cameras) {
-            let timingFunction = Timing[DEFAULT_TIMING_FUNCTION];
-            let relativeZoom = DEFAULT_RELATIVE_ZOOM;
+            let timingFunction = DEFAULT_TIMING_FUNCTION;
+            let relativeZoom   = DEFAULT_RELATIVE_ZOOM;
             let transitionPath = null;
 
             if (layerProperties) {
-                const lp = layerProperties[camera.layer.index];
-                relativeZoom = lp.transitionRelativeZoom;
-                timingFunction = Timing[lp.transitionTimingFunction];
+                const lp       = layerProperties[camera.layer.index];
+                relativeZoom   = lp.transitionRelativeZoom;
+                timingFunction = lp.transitionTimingFunction;
                 if (useTransitionPath) {
                     transitionPath = lp.transitionPath;
-                }
-                if (backwards) {
-                    timingFunction = timingFunction.reverse;
                 }
             }
 
@@ -634,7 +631,7 @@ export class Player extends EventEmitter {
         this.targetFrame = this.findFrame(frame);
 
         for (let camera of this.viewport.cameras) {
-            this.setupTransition(camera, Timing[DEFAULT_TIMING_FUNCTION], DEFAULT_RELATIVE_ZOOM);
+            this.setupTransition(camera, DEFAULT_TIMING_FUNCTION, DEFAULT_RELATIVE_ZOOM);
         }
 
         this.animator.start(DEFAULT_TRANSITION_DURATION_MS);
@@ -648,14 +645,19 @@ export class Player extends EventEmitter {
      * A new descriptor is added to the {@linkcode module:player/Player.Player#transitions|list of transition descriptors}.
      *
      * @param {module:player/Camera.Camera} camera - The camera that will perform the transition.
-     * @param {Function} timingFunction - A function that maps the progress indicator to the relative distance already completed between the initial and final states (between 0 and 1).
+     * @param {string} timingFunction - The name of function that maps the progress indicator to the relative distance already completed between the initial and final states (between 0 and 1).
      * @param {number} relativeZoom - An additional zooming factor to apply during the transition.
      * @param {SVGPathElement} svgPath - An SVG path to follow during the transition.
-     * @param {boolean} reversePath - If `true`, follow the path in the opposite direction.
+     * @param {boolean} [backwards=false] - If `true`, apply the reverse timing function and follow the transition path in the opposite direction.
      */
-    setupTransition(camera, timingFunction, relativeZoom, svgPath, reversePath) {
+    setupTransition(camera, timingFunction, relativeZoom, svgPath, backwards=false) {
         if (this.animator.running) {
             this.animator.stop();
+        }
+
+        timingFunction = Timing[timingFunction];
+        if (backwards) {
+            timingFunction = timingFunction.reverse;
         }
 
         this.transitions.push({
@@ -665,7 +667,7 @@ export class Player extends EventEmitter {
             timingFunction,
             relativeZoom,
             svgPath,
-            reversePath
+            backwards
         });
     }
 

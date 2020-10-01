@@ -46,7 +46,7 @@ function markInterval(list, first, last, step, value) {
  * - If `last` is omitted, it is set to `list.length`.
  *
  * @param {boolean[]} list - The status of each frame of the presentation.
- * @param {string} expr - An expression that represents a list of frame.
+ * @param {string} expr - An expression that represents a list of frames.
  * @param {boolean} value - The value to assign for each frame to mark.
  */
 function markFrames(list, expr, value) {
@@ -75,6 +75,13 @@ function markFrames(list, expr, value) {
     }
 }
 
+/** Mark frames to include or exclude from export.
+ *
+ * @param {module:model/Presentation.Presentation} pres - The presentation to export.
+ * @param {string} include - An expression that represents a list of frames to include.
+ * @param {string} exclude - An expression that represents a list of frames to exclude.
+ * @returns {boolean[]} - The status of each frame in the presentation.
+ */
 function markFramesFromLists(pres, include, exclude) {
     const result = new Array(pres.frames.length);
     markFrames(result, "all",   false);
@@ -196,9 +203,11 @@ export async function exportToPDF(presentation, htmlFileName) {
     // Create a PDF document object.
     const pdfDoc = await PDFDocument.create();
 
+    const callerId = remote.getCurrentWindow().webContents.id;
+
     return new Promise((resolve, reject) => {
-        // On each frameChange event in the player, save the current web contents.
-        ipcRenderer.on("frameChange", async (evt, index) => {
+        // On each jumpToFrame event in the player, save the current web contents.
+        ipcRenderer.on("jumpToFrame.done", async (evt, index) => {
             // Convert the current web contents to PDF.
             const pdfData = await w.webContents.printToPDF({
                 pageSize:  presentation.exportToPDFPageSize,
@@ -215,12 +224,12 @@ export async function exportToPDF(presentation, htmlFileName) {
             const frameIndex = nextFrameIndex(frameSelection, index);
             if (frameIndex >= 0) {
                 // If there are frames remaining, move to the next frame.
-                w.webContents.send("jumpToFrame", frameIndex);
+                w.webContents.send("jumpToFrame", {callerId, frameIndex});
             }
             else {
                 // If this is the last frame, close the presentation window
                 // and write the PDF document to a file.
-                ipcRenderer.removeAllListeners("frameChange");
+                ipcRenderer.removeAllListeners("jumpToFrame.done");
                 w.close();
 
                 const pdfFileName = htmlFileName.replace(/html$/, "pdf");
@@ -237,10 +246,7 @@ export async function exportToPDF(presentation, htmlFileName) {
         });
 
         // Start the player in the presentation window.
-        w.webContents.send("exportFrames", {
-            frameIndex: nextFrameIndex(frameSelection),
-            callerId: remote.getCurrentWindow().webContents.id
-        });
+        w.webContents.send("initializeExporter", {callerId, frameIndex: nextFrameIndex(frameSelection)});
     });
 }
 
@@ -295,12 +301,14 @@ export async function exportToPPTX(presentation, htmlFileName) {
     // the unreliable Electron capturePage method.
     w.webContents.debugger.attach("1.2");
 
+    const callerId = remote.getCurrentWindow().webContents.id;
+
     return new Promise((resolve, reject) => {
         pptxDoc.on("finalize", resolve);
         pptxDoc.on("error", reject);
 
-        // On each frameChange event in the player, save the current web contents.
-        ipcRenderer.on("frameChange", async (evt, index) => {
+        // On each jumpToFrame event in the player, save the current web contents.
+        ipcRenderer.on("jumpToFrame.done", async (evt, index) => {
             // Capture the current web contents into a PNG image file.
             const img = await w.webContents.debugger.sendCommand("Page.captureScreenshot", {format: "png"});
             fs.writeFileSync(pngFileNames[index], Buffer.from(img.data, "base64"));
@@ -312,12 +320,12 @@ export async function exportToPPTX(presentation, htmlFileName) {
             const frameIndex = nextFrameIndex(frameSelection, index);
             if (frameIndex >= 0) {
                 // If there are frames remaining, move to the next frame.
-                w.webContents.send("jumpToFrame", frameIndex);
+                w.webContents.send("jumpToFrame", {callerId, frameIndex});
             }
             else {
                 // If this is the last frame, close the presentation window
                 // and write the PPTX document to a file.
-                ipcRenderer.removeAllListeners("frameChange");
+                ipcRenderer.removeAllListeners("jumpToFrame.done");
                 w.close();
 
                 const pptxFileName = htmlFileName.replace(/html$/, "pptx");
@@ -327,9 +335,108 @@ export async function exportToPPTX(presentation, htmlFileName) {
         });
 
         // Start the player in the presentation window.
-        w.webContents.send("exportFrames", {
-            frameIndex: nextFrameIndex(frameSelection),
-            callerId: remote.getCurrentWindow().webContents.id
-        });
+        w.webContents.send("initializeExporter", {callerId, frameIndex: nextFrameIndex(frameSelection)});
     });
+}
+
+/** Export a presentation to a video document.
+ *
+ * @param {module:model/Presentation.Presentation} presentation - The presentation to export.
+ * @param {string} htmlFileName - The name of the presentation HTML file.
+ * @returns {Promise} - A promise that resolves when the operation completes.
+ */
+ export async function exportToVideo(presentation, htmlFileName) {
+     console.log(`Exporting ${htmlFileName} to video`);
+
+     // Open the HTML presentation in a new browser window.
+     // The window must be visible to work with the Page.captureScreenshot
+     // message of the Chrome DevTools Protocol.
+     const w = new remote.BrowserWindow({
+         width : presentation.exportToVideoWidth,
+         height: presentation.exportToVideoHeight,
+         frame : false,
+         show  : true,
+         webPreferences: {
+             preload: path.join(__dirname, "exporter-preload.js")
+         }
+     });
+     await w.loadURL(`file://${htmlFileName}`);
+
+     // Create a temporary directory.
+     // Force deletion on cleanup, even if not empty.
+     const tmpDir = tmp.dirSync({unsafeCleanup: true}).name;
+     console.log("Exporting to " + tmpDir);
+
+     // We will use the Chrome DevTools protocol instead of
+     // the unreliable Electron capturePage method.
+     w.webContents.debugger.attach("1.2");
+
+     const callerId = remote.getCurrentWindow().webContents.id;
+
+     return new Promise((resolve, reject) => {
+         const timeStepMs = 20;
+         const frameCount = presentation.frames.length;
+         let imgIndex = 0;
+
+         function onDone() {
+             ipcRenderer.removeAllListeners("jumpToFrame.done");
+             w.close();
+
+             // TODO run FFMPEG
+
+             resolve();
+         }
+
+         // On each frame change, capture the web contents and animate the transition.
+         ipcRenderer.on("jumpToFrame.done", async (evt, index) => {
+             // If we jumped to the first frame after a transition,
+             // terminate the video export.
+             if (index === 0 && imgIndex > 0) {
+                 onDone();
+             }
+
+             const currentFrame = presentation.frames[index];
+
+             // Generate images for the duration of the current frame.
+             let firstImgFileName;
+             for (let timeMs = 0; timeMs < currentFrame.timeoutMs; timeMs += timeStepMs, imgIndex ++) {
+                 const imgFileName = path.join(tmpDir, `img${imgIndex}.png`)
+                 if (timeMs === 0) {
+                     // Capture the first image of the current frame.
+                     const img = await w.webContents.debugger.sendCommand("Page.captureScreenshot", {format: "png"});
+                     fs.writeFileSync(imgFileName, Buffer.from(img.data, "base64"));
+                     firstImgFileName = imgFileName;
+                 }
+                 else {
+                     // For the remaining duration of the frame, copy the first image.
+                     fs.copyFileSync(firstImgFileName, imgFileName);
+                 }
+             }
+
+             // Get the index of the next frame.
+             const targetIndex = (index + 1) % frameCount;
+
+             // Generate images for the transition to the next frame.
+             // If the last frame has a timeout enabled, transition to the first frame.
+             // Else terminate the video export.
+             if (targetIndex > 0 || currentFrame.timeoutEnable) {
+                 w.webContents.send("moveToNext", {callerId, timeStepMs});
+             }
+             else {
+                 onDone();
+             }
+         });
+
+         // On each animation step, capture the current web contents.
+         ipcRenderer.on("moveToNext.step", async evt => {
+             const img = await w.webContents.debugger.sendCommand("Page.captureScreenshot", {format: "png"});
+             const imgFileName = path.join(tmpDir, `img${imgIndex}.png`);
+             fs.writeFileSync(imgFileName, Buffer.from(img.data, "base64"));
+             w.webContents.send("moveToNext.more");
+             imgIndex ++;
+         });
+
+         // Start the player in the presentation window.
+         w.webContents.send("initializeExporter", {frameIndex: 0, callerId});
+     });
 }
