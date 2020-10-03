@@ -210,7 +210,7 @@ module.exports = function(grunt) {
                         src: [
                             "index-electron.html",
                             "css/**/*",
-                            "vendor/**/*"
+                            "vendor/DroidSans/*"
                         ],
                         dest: "build/electron/"
                     },
@@ -219,7 +219,7 @@ module.exports = function(grunt) {
                         src: [
                             "index-webapp.html",
                             "css/**/*",
-                            "vendor/**/*"
+                            "vendor/DroidSans/*"
                         ],
                         dest: "build/browser/"
                     },
@@ -376,7 +376,7 @@ module.exports = function(grunt) {
         // The renamed folder for the current platform.
         const archiveDir = "dist/" + archiveName;
 
-        // Copy the installation assets for the target OS.
+        // Copy the installation assets and FFMPEG executable for the target OS.
         grunt.config(["copy", platform], {
             options: {
                 mode: true
@@ -385,12 +385,16 @@ module.exports = function(grunt) {
                 {
                     expand: true,
                     flatten: true,
-                    src: "installation-assets/" + platformOS + "/*",
-                    dest: distDir + "/install/"
+                    src: `installation-assets/${platformOS}/*`,
+                    dest: `${distDir}/install/`
                 },
                 {
                     src: "icons/icon-256.png",
-                    dest: distDir + "/install/sozi.png"
+                    dest: `${distDir}/install/sozi.png`
+                },
+                {
+                    src: `vendor/ffmpeg/${platform}/*`,
+                    dest: `${distDir}/resources/`
                 }
             ]
         });
@@ -429,9 +433,7 @@ module.exports = function(grunt) {
     }
 
     // Copy the installation scripts for each supported platform.
-    grunt.registerTask("copy-installation-assets", buildConfig.platforms.flatMap(platform => {
-        return buildConfig.installable.indexOf(getPlatformOS(platform)) >= 0 ? ["copy:" + platform] : [];
-    }));
+    grunt.registerTask("copy-platform-assets", buildConfig.platforms.map(platform => "copy:" + platform));
 
     // Rename the dist folder of each platform to match archive names.
     grunt.registerTask("rename-platforms", buildConfig.platforms.flatMap(platform => {
@@ -509,7 +511,7 @@ module.exports = function(grunt) {
         "rename:electron_html",
         "install-dependencies",
         "electron",
-        "copy-installation-assets"
+        "copy-platform-assets"
     ]);
 
     // Build the editor for the browser.
