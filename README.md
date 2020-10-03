@@ -43,6 +43,15 @@ Install the Droid Sans font:
 
 * [Droid Sans](http://www.fontsquirrel.com/fonts/Droid-Sans) as `vendor/DroidSans/DroidSans.eot|ttf` and `vendor/DroidSans/DroidSans-Bold.eot|ttf`
 
+Get the binaries for ffmpeg (optional, video export will not work without them).
+Download and unzip the FFMPEG executables to the following folders:
+
+* Linux 32-bit: `vendor/ffmpeg/linux-ia32`
+* Linux 64-bit: `vendor/ffmpeg/linux-x64`
+* Windows 32-bit: `vendor/ffmpeg/win32-ia32`
+* Windows 64-bit: `vendor/ffmpeg/win32-x64`
+* MacOS X 64-bit: `vendor/ffmpeg/darwin-x64`
+
 Build
 -----
 

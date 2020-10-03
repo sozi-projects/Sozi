@@ -1,6 +1,5 @@
 *~
 node_modules
-vendor/DroidSans/DroidSans*
 build
 dist
 deb
@@ -8,4 +7,3 @@ cache
 /js/backend/GoogleDrive.config.js
 npm-debug.log
 *.mo
-
