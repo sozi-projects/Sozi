@@ -393,6 +393,8 @@ module.exports = function(grunt) {
                     dest: `${distDir}/install/sozi.png`
                 },
                 {
+                    expand: true,
+                    flatten: true,
                     src: `vendor/ffmpeg/${platform}/*`,
                     dest: `${distDir}/resources/`
                 }

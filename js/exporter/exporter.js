@@ -5,11 +5,19 @@
 /** @module */
 
 import {remote, ipcRenderer} from "electron";
-import * as path from "path";
+import path from "path";
+import process from "process";
 import * as tmp from "tmp";
 import * as fs from "fs";
 import {PDFDocument} from "pdf-lib";
 import officegen from "officegen";
+import {spawnSync} from "child_process";
+
+const ffmpeg = path.join(process.resourcesPath,
+    process.platform === "win32" ? "ffmpeg.exe" : "ffmpeg"
+);
+
+export const canExportVideo = fs.existsSync(ffmpeg);
 
 /** Update the status of a sequence of frame numbers to include or exclude in the export.
  *
@@ -388,10 +396,32 @@ export async function exportToPPTX(presentation, htmlFileName) {
              ipcRenderer.removeAllListeners("jumpToFrame.done");
              w.close();
 
-             // TODO run FFMPEG
+             // TODO Make video frame rate, bitrate and format configurable
+             const ffmpegOptions = [
+                 // Frames per second
+                 "-r", 50,
+                 // Convert a sequence of image files
+                 "-f", "image2",
+                 // The list of image files
+                 "-i", path.join(tmpDir.name, "img%d.png"),
+                 // The video bit rate
+                 "-b:v", "2M",
+                 // Overwrite the output file without asking
+                 "-y",
+                 // The name of the output video file
+                 htmlFileName.replace(/html$/, "mp4")
+             ];
+
+             const res = spawnSync(ffmpeg, ffmpegOptions, {stdio: "inherit"});
 
              tmpDir.removeCallback();
-             resolve();
+
+             if (res.error) {
+                 reject();
+             }
+             else {
+                 resolve();
+             }
          }
 
          // On each frame change, capture the web contents and animate the transition.
