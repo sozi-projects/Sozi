@@ -396,7 +396,7 @@ module.exports = function(grunt) {
                     expand: true,
                     flatten: true,
                     src: `vendor/ffmpeg/${platform}/ffmpeg*`,
-                    dest: distDir + (platformOS === "osx" ? "/resources" : "/Sozi.app/Contents/Resources")
+                    dest: distDir + (platformOS === "osx" ? "/Sozi.app/Contents/Resources" : "/resources")
                 }
             ]
         });
