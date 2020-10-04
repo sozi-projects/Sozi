@@ -388,7 +388,7 @@ export async function exportToPPTX(presentation, htmlFileName) {
      const callerId = remote.getCurrentWindow().webContents.id;
 
      return new Promise((resolve, reject) => {
-         const timeStepMs = 20;
+         const timeStepMs = 1000 / presentation.exportToVideoFrameRate;
          const frameCount = presentation.frames.length;
          let imgIndex = 0;
 
@@ -396,20 +396,19 @@ export async function exportToPPTX(presentation, htmlFileName) {
              ipcRenderer.removeAllListeners("jumpToFrame.done");
              w.close();
 
-             // TODO Make video frame rate, bitrate and format configurable
              const ffmpegOptions = [
                  // Frames per second
-                 "-r", 50,
+                 "-r", presentation.exportToVideoFrameRate,
                  // Convert a sequence of image files
                  "-f", "image2",
                  // The list of image files
                  "-i", path.join(tmpDir.name, "img%d.png"),
                  // The video bit rate
-                 "-b:v", "2M",
+                 "-b:v", presentation.exportToVideoBitRate,
                  // Overwrite the output file without asking
                  "-y",
                  // The name of the output video file
-                 htmlFileName.replace(/html$/, "mp4")
+                 htmlFileName.replace(/html$/, presentation.exportToVideoFormat)
              ];
 
              const res = spawnSync(ffmpeg, ffmpegOptions, {stdio: "inherit"});

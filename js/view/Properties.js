@@ -484,11 +484,26 @@ export class Properties extends VirtualDOMView {
         const _ = controller.gettext;
 
         return [
+            h("label", {for: "field-exportToVideoFormat"}, _("Format")),
+            this.renderSelectField("exportToVideoFormat", controller.getPresentationProperty, controller.setPresentationProperty, {
+                mp4  : _("MPEG-4 (.mp4)"),
+                ogv  : _("Ogg Vorbis (.ogv)"),
+                webm : _("WebM (.webm)"),
+                wmv  : _("Windows Media Video (.wmv)"),
+                png  : _("Image sequence (.png)")
+            }),
+
             h("label", {for: "field-exportToVideoWidth"}, _("Width (pixels)")),
             this.renderNumberField("exportToVideoWidth", false, controller.getPresentationProperty, controller.setPresentationProperty, false, 1, 1),
 
             h("label", {for: "field-exportToVideoHeight"}, _("Height (pixels)")),
-            this.renderNumberField("exportToVideoHeight", false, controller.getPresentationProperty, controller.setPresentationProperty, false, 1, 1)
+            this.renderNumberField("exportToVideoHeight", false, controller.getPresentationProperty, controller.setPresentationProperty, false, 1, 1),
+
+            h("label", {for: "field-exportToVideoFrameRate"}, _("Frame rate (frames/sec)")),
+            this.renderNumberField("exportToVideoFrameRate", false, controller.getPresentationProperty, controller.setPresentationProperty, false, 1, 1),
+
+            h("label", {for: "field-exportToVideoBitRate"}, _("Frame rate (kbits/sec)")),
+            this.renderNumberField("exportToVideoBitRate", false, controller.getPresentationProperty, controller.setPresentationProperty, false, 1, 1000),
         ];
     }
 

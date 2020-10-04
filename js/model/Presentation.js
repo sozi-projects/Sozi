@@ -749,6 +749,12 @@ export class Presentation extends EventEmitter {
          * @type {string} */
         this.exportToPPTXExclude = "";
 
+        /** The file extension of the exported video.
+         *
+         * @default
+         * @type {string} */
+        this.exportToVideoFormat = "webm";
+
         /** The width of the exported video, in pixels.
          *
          * @default
@@ -760,6 +766,18 @@ export class Presentation extends EventEmitter {
          * @default
          * @type {number} */
         this.exportToVideoHeight = 720;
+
+        /** The number of images per second in the exported video.
+         *
+         * @default
+         * @type {number} */
+        this.exportToVideoFrameRate = 50;
+
+        /** The number of bits per second in the exported video.
+         *
+         * @default
+         * @type {number} */
+        this.exportToVideoBitRate = 2000000;
     }
 
     /** Set the SVG document for this presentation.
@@ -836,8 +854,11 @@ export class Presentation extends EventEmitter {
             exportToPPTXSlideSize     : this.exportToPPTXSlideSize,
             exportToPPTXInclude       : this.exportToPPTXInclude,
             exportToPPTXExclude       : this.exportToPPTXExclude,
+            exportToVideoFormat       : this.exportToVideoFormat,
             exportToVideoWidth        : this.exportToVideoWidth,
             exportToVideoHeight       : this.exportToVideoHeight,
+            exportToVideoFrameRate    : this.exportToVideoFrameRate,
+            exportToVideoBitRate      : this.exportToVideoBitRate,
             frames                    : this.frames.map(frame => frame.toStorable()),
             elementsToHide            : this.elementsToHide.slice(),
             customFiles               : this.customFiles.slice(),
@@ -889,8 +910,11 @@ export class Presentation extends EventEmitter {
         copyIfSet(this, storable, "exportToPPTXSlideSize");
         copyIfSet(this, storable, "exportToPPTXInclude");
         copyIfSet(this, storable, "exportToPPTXExclude");
+        copyIfSet(this, storable, "exportToVideoFormat");
         copyIfSet(this, storable, "exportToVideoWidth");
         copyIfSet(this, storable, "exportToVideoHeight");
+        copyIfSet(this, storable, "exportToVideoFrameRate");
+        copyIfSet(this, storable, "exportToVideoBitRate");
 
         this.frames = storable.frames.map(f => {
             const res = new Frame(this);
