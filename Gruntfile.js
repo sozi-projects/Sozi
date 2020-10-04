@@ -366,7 +366,7 @@ module.exports = function(grunt) {
         // The folder for the current platform.
         const distDir = "dist/Sozi-" + platform;
         // Extract the components of the platform name.
-        let platformOS   = getPlatformOS(platform);
+        let platformOS = getPlatformOS(platform);
         if (platformOS in renamedOS) {
             platformOS = renamedOS[platformOS];
         }
@@ -395,8 +395,8 @@ module.exports = function(grunt) {
                 {
                     expand: true,
                     flatten: true,
-                    src: `vendor/ffmpeg/${platform}/*`,
-                    dest: `${distDir}/resources/`
+                    src: `vendor/ffmpeg/${platform}/ffmpeg*`,
+                    dest: distDir + (platformOS === "osx" ? "/resources" : "/Sozi.app/Contents/Resources")
                 }
             ]
         });
@@ -450,10 +450,10 @@ module.exports = function(grunt) {
 
         grunt.log.writeln("Compressing " + dest);
         if (dest.endsWith(".tar.xz")) {
-            execSync("tar cJf "+ path.relative(cwd, dest) + " " + src, {cwd});
+            execSync("tar cJf "+ path.relative(cwd, dest) + " " + src, {cwd, stdio: "ignore"});
         }
         else if (dest.endsWith(".zip")) {
-            execSync("zip -ry " + path.relative(cwd, dest) + " " + src, {cwd});
+            execSync("zip -ry " + path.relative(cwd, dest) + " " + src, {cwd, stdio: "ignore"});
         }
     });
 
