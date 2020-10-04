@@ -13,12 +13,6 @@ import {PDFDocument} from "pdf-lib";
 import officegen from "officegen";
 import {spawnSync} from "child_process";
 
-const ffmpeg = path.join(process.resourcesPath,
-    process.platform === "win32" ? "ffmpeg.exe" : "ffmpeg"
-);
-
-export const canExportVideo = fs.existsSync(ffmpeg);
-
 /** Update the status of a sequence of frame numbers to include or exclude in the export.
  *
  * @param {boolean[]} list - The status of each frame of the presentation.
@@ -411,7 +405,7 @@ export async function exportToPPTX(presentation, htmlFileName) {
                  resolve();
                  return;
              }
-             
+
              const ffmpegOptions = [
                  // Frames per second
                  "-r", presentation.exportToVideoFrameRate,
@@ -427,14 +421,26 @@ export async function exportToPPTX(presentation, htmlFileName) {
                  htmlFileName.replace(/html$/, presentation.exportToVideoFormat)
              ];
 
-             const res = spawnSync(ffmpeg, ffmpegOptions, {stdio: "inherit"});
+             // Attempt to launch the system-wide FFMPEG executable.
+             let res = spawnSync("ffmpeg", ffmpegOptions, {stdio: "inherit"});
+             if (res.error) {
+                 console.log("No global installation of FFMPEG found. Trying the local FFMPEG executable shipped with Sozi.");
+                 // Attempt to launch the local FFMPEG executable.
+                 const ffmpegPath = path.join(process.resourcesPath,
+                     process.platform === "win32" ? "ffmpeg.exe" : "ffmpeg"
+                 );
+                 res = spawnSync(ffmpegPath, ffmpegOptions, {stdio: "inherit"});
+             }
 
+             // Force the deletion of the temporaty image directory.
              destDir.removeCallback();
 
              if (res.error) {
+                 console.log("Could not launch FFMPEG.");
                  reject();
              }
              else {
+                 console.log("Video export complete.");
                  resolve();
              }
          }
