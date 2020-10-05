@@ -302,7 +302,6 @@ module.exports = function(grunt) {
                     dir: "build/electron",
                     out: "dist",
                     overwrite: true,
-                    prune: false,
                     electronVersion: buildConfig.electronVersion,
                     platform: dedup(buildConfig.platforms.map(getPlatformOS)).join(","),
                     arch:     dedup(buildConfig.platforms.map(getPlatformArch)).join(",")
@@ -521,6 +520,7 @@ module.exports = function(grunt) {
         "build",
         "rename:webapp_backend",
         "rename:webapp_html",
+        "install-dependencies:browser",
         "browserify:editor", // Cannot use 'newer' here due to imports
         "newer:uglify:editor"
     ]);
