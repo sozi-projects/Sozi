@@ -5,6 +5,7 @@ module.exports = function(grunt) {
     const fs = require("fs");
     const execSync = require("child_process").execSync;
     const envify = require("envify/custom");
+    const modclean = require("modclean");
 
     const nunjucks = require("nunjucks");
     nunjucks.configure({watch: false});
@@ -294,6 +295,14 @@ module.exports = function(grunt) {
             }
         },
 
+        modclean: {
+            electron: {
+                options: {
+                    cwd: "build/electron/node_modules"
+                }
+            }
+        },
+
         // Build the Electron application.
         electron: {
             editor: {
@@ -465,6 +474,18 @@ module.exports = function(grunt) {
         grunt.file.write("build/browser/package.json", JSON.stringify(pkg));
     });
 
+    grunt.registerMultiTask("modclean", function () {
+        grunt.log.writeln("Cleaning directory: " + this.options().cwd);
+        const done = this.async();
+        modclean({cwd: this.options().cwd}).clean().then(res => {
+            grunt.verbose.writeln("Deleted files:");
+            for (const f of res.files) {
+                grunt.verbose.writeln(f.path);
+            }
+            done();
+        });
+    });
+
     // Render a template.
     grunt.registerMultiTask("nunjucks_render", function () {
         for (let file of this.files) {
@@ -511,6 +532,7 @@ module.exports = function(grunt) {
         "rename:electron_backend",
         "rename:electron_html",
         "install-dependencies",
+        "modclean",
         "electron",
         "copy-platform-assets"
     ]);

@@ -45,6 +45,7 @@
     "grunt-po2json": "github:rockykitamura/grunt-po2json",
     "grunt-rename": "github:sozi-projects/grunt-rename",
     "grunt-rsync": "^3.0.0",
-    "load-grunt-tasks": "^5.1.0"
+    "load-grunt-tasks": "^5.1.0",
+    "modclean": "^3.0.0-beta.1"
   }
 }
