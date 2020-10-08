@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: Tim van Steenbergen <tim@sourcerers.nl>\n"
-"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
+"POT-Creation-Date: 2020-10-08 08:56:+0000\n"
 "PO-Revision-Date: 2020-08-19 03:33+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/sozi/translations/"
@@ -507,9 +507,9 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: js/view/Properties.js:390
+#: js/view/Properties.js:390 js/view/Toolbar.js:146
 #, fuzzy
-msgid "Export the presentation to PDF"
+msgid "Export the presentation"
 msgstr "Presentatie opslaan"
 
 #: js/view/Properties.js:407
@@ -655,7 +655,7 @@ msgid "Frame rate (frames/sec)"
 msgstr ""
 
 #: js/view/Properties.js:505
-msgid "Frame rate (kbits/sec)"
+msgid "Bit rate (kbits/sec)"
 msgstr ""
 
 #: js/view/Timeline.js:184
@@ -735,11 +735,6 @@ msgstr "Beeldvullende modus afsluiten"
 msgid "Enable full-screen mode"
 msgstr "Beeldvullende modus starten"
 
-#: js/view/Toolbar.js:146
-#, fuzzy
-msgid "Export the presentation"
-msgstr "Presentatie opslaan"
-
 #: js/view/Toolbar.js:153
 msgid "Preferences"
 msgstr "Instellingen"
@@ -747,6 +742,10 @@ msgstr "Instellingen"
 #: js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Informatie"
+
+#, fuzzy
+#~ msgid "Export the presentation to PDF"
+#~ msgstr "Presentatie opslaan"
 
 #~ msgid "File %s could not be loaded."
 #~ msgstr "'%s' kan niet worden geopend."

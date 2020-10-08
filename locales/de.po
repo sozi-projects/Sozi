@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
+"POT-Creation-Date: 2020-10-08 08:56:+0000\n"
 "PO-Revision-Date: 2020-01-24 01:21+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/sozi/translations/"
@@ -509,9 +509,9 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: js/view/Properties.js:390
+#: js/view/Properties.js:390 js/view/Toolbar.js:146
 #, fuzzy
-msgid "Export the presentation to PDF"
+msgid "Export the presentation"
 msgstr "Präsentation speichern"
 
 #: js/view/Properties.js:407
@@ -657,7 +657,7 @@ msgid "Frame rate (frames/sec)"
 msgstr ""
 
 #: js/view/Properties.js:505
-msgid "Frame rate (kbits/sec)"
+msgid "Bit rate (kbits/sec)"
 msgstr ""
 
 #: js/view/Timeline.js:184
@@ -735,11 +735,6 @@ msgstr "Vollbild schließen"
 msgid "Enable full-screen mode"
 msgstr "Vollbild öffnen"
 
-#: js/view/Toolbar.js:146
-#, fuzzy
-msgid "Export the presentation"
-msgstr "Präsentation speichern"
-
 #: js/view/Toolbar.js:153
 msgid "Preferences"
 msgstr "Einstellungen"
@@ -747,6 +742,10 @@ msgstr "Einstellungen"
 #: js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Information"
+
+#, fuzzy
+#~ msgid "Export the presentation to PDF"
+#~ msgstr "Präsentation speichern"
 
 #~ msgid "File %s could not be loaded."
 #~ msgstr "Die Datei %s konnte nicht geladen werden."

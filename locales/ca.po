@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
+"POT-Creation-Date: 2020-10-08 08:56:+0000\n"
 "PO-Revision-Date: 2020-05-25 15:41+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/sozi/"
@@ -507,9 +507,9 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: js/view/Properties.js:390
+#: js/view/Properties.js:390 js/view/Toolbar.js:146
 #, fuzzy
-msgid "Export the presentation to PDF"
+msgid "Export the presentation"
 msgstr "Desa la presentació"
 
 #: js/view/Properties.js:407
@@ -655,7 +655,7 @@ msgid "Frame rate (frames/sec)"
 msgstr ""
 
 #: js/view/Properties.js:505
-msgid "Frame rate (kbits/sec)"
+msgid "Bit rate (kbits/sec)"
 msgstr ""
 
 #: js/view/Timeline.js:184
@@ -733,11 +733,6 @@ msgstr "Desactiva el mode de pantalla completa"
 msgid "Enable full-screen mode"
 msgstr "Activa el mode de pantalla completa"
 
-#: js/view/Toolbar.js:146
-#, fuzzy
-msgid "Export the presentation"
-msgstr "Desa la presentació"
-
 #: js/view/Toolbar.js:153
 msgid "Preferences"
 msgstr "Preferències"
@@ -745,6 +740,10 @@ msgstr "Preferències"
 #: js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Informació"
+
+#, fuzzy
+#~ msgid "Export the presentation to PDF"
+#~ msgstr "Desa la presentació"
 
 #~ msgid "File %s could not be loaded."
 #~ msgstr "No s’ha pogut carregar el fitxer %s."

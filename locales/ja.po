@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
+"POT-Creation-Date: 2020-10-08 08:56:+0000\n"
 "PO-Revision-Date: 2020-05-25 15:41+0000\n"
 "Last-Translator: Hideyoshi Fuji <HideyoshiFuji@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/sozi/"
@@ -516,9 +516,9 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: js/view/Properties.js:390
+#: js/view/Properties.js:390 js/view/Toolbar.js:146
 #, fuzzy
-msgid "Export the presentation to PDF"
+msgid "Export the presentation"
 msgstr "プレゼンテーションの保存"
 
 #: js/view/Properties.js:407
@@ -664,7 +664,7 @@ msgid "Frame rate (frames/sec)"
 msgstr ""
 
 #: js/view/Properties.js:505
-msgid "Frame rate (kbits/sec)"
+msgid "Bit rate (kbits/sec)"
 msgstr ""
 
 #: js/view/Timeline.js:184
@@ -736,11 +736,6 @@ msgstr ""
 msgid "Enable full-screen mode"
 msgstr ""
 
-#: js/view/Toolbar.js:146
-#, fuzzy
-msgid "Export the presentation"
-msgstr "プレゼンテーションの保存"
-
 #: js/view/Toolbar.js:153
 msgid "Preferences"
 msgstr ""
@@ -748,6 +743,10 @@ msgstr ""
 #: js/view/Toolbar.js:158
 msgid "Information"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Export the presentation to PDF"
+#~ msgstr "プレゼンテーションの保存"
 
 #~ msgid "File %s could not be loaded."
 #~ msgstr "ファイル %s を読み込めませんでした。"

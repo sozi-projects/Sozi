@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
+"POT-Creation-Date: 2020-10-08 08:56:+0000\n"
 "PO-Revision-Date: 2015-11-27 10:57+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -501,8 +501,8 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: js/view/Properties.js:390
-msgid "Export the presentation to PDF"
+#: js/view/Properties.js:390 js/view/Toolbar.js:146
+msgid "Export the presentation"
 msgstr ""
 
 #: js/view/Properties.js:407
@@ -647,7 +647,7 @@ msgid "Frame rate (frames/sec)"
 msgstr ""
 
 #: js/view/Properties.js:505
-msgid "Frame rate (kbits/sec)"
+msgid "Bit rate (kbits/sec)"
 msgstr ""
 
 #: js/view/Timeline.js:184
@@ -719,10 +719,6 @@ msgstr ""
 
 #: js/view/Toolbar.js:124
 msgid "Enable full-screen mode"
-msgstr ""
-
-#: js/view/Toolbar.js:146
-msgid "Export the presentation"
 msgstr ""
 
 #: js/view/Toolbar.js:153

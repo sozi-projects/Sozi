@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
-"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
-"PO-Revision-Date: 2020-10-08 22:52+0200\n"
+"POT-Creation-Date: 2020-10-08 08:56:+0000\n"
+"PO-Revision-Date: 2020-10-08 22:55+0200\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/sozi/translations/"
 "fr/>\n"
@@ -503,9 +503,9 @@ msgstr "Microsoft PowerPoint (PPTX)"
 msgid "Video"
 msgstr "Vidéo"
 
-#: js/view/Properties.js:390
-msgid "Export the presentation to PDF"
-msgstr "Exporter la présentation au format PDF"
+#: js/view/Properties.js:390 js/view/Toolbar.js:146
+msgid "Export the presentation"
+msgstr "Exporter la présentation"
 
 #: js/view/Properties.js:407
 msgid "Page size"
@@ -646,11 +646,11 @@ msgstr "Hauteur (pixels)"
 
 #: js/view/Properties.js:502
 msgid "Frame rate (frames/sec)"
-msgstr ""
+msgstr "Nombre d'images par seconde"
 
 #: js/view/Properties.js:505
-msgid "Frame rate (kbits/sec)"
-msgstr ""
+msgid "Bit rate (kbits/sec)"
+msgstr "Débit (kbits/sec)"
 
 #: js/view/Timeline.js:184
 msgid "Delete the selected frames"
@@ -729,10 +729,6 @@ msgstr "Quitter le mode plein écran"
 msgid "Enable full-screen mode"
 msgstr "Activer le mode plein écran"
 
-#: js/view/Toolbar.js:146
-msgid "Export the presentation"
-msgstr "Exporter la présentation"
-
 #: js/view/Toolbar.js:153
 msgid "Preferences"
 msgstr "Préférences"
@@ -740,6 +736,9 @@ msgstr "Préférences"
 #: js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Information"
+
+#~ msgid "Export the presentation to PDF"
+#~ msgstr "Exporter la présentation au format PDF"
 
 #~ msgid "File %s could not be loaded."
 #~ msgstr "Le fichier %s n'a pas pu être chargé."

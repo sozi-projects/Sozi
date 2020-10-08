@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
+"POT-Creation-Date: 2020-10-08 08:56:+0000\n"
 "PO-Revision-Date: 2019-07-23 15:08+0000\n"
 "Last-Translator: Tauras <tp@colideum.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/sozi/"
@@ -513,9 +513,9 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: js/view/Properties.js:390
+#: js/view/Properties.js:390 js/view/Toolbar.js:146
 #, fuzzy
-msgid "Export the presentation to PDF"
+msgid "Export the presentation"
 msgstr "Išsaugoti prezentaciją"
 
 #: js/view/Properties.js:407
@@ -661,7 +661,7 @@ msgid "Frame rate (frames/sec)"
 msgstr ""
 
 #: js/view/Properties.js:505
-msgid "Frame rate (kbits/sec)"
+msgid "Bit rate (kbits/sec)"
 msgstr ""
 
 #: js/view/Timeline.js:184
@@ -740,11 +740,6 @@ msgstr "Išjungti viso ekrano režimą"
 msgid "Enable full-screen mode"
 msgstr "Įjungti viso ekrano režimą"
 
-#: js/view/Toolbar.js:146
-#, fuzzy
-msgid "Export the presentation"
-msgstr "Išsaugoti prezentaciją"
-
 #: js/view/Toolbar.js:153
 msgid "Preferences"
 msgstr ""
@@ -752,6 +747,10 @@ msgstr ""
 #: js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Informacija"
+
+#, fuzzy
+#~ msgid "Export the presentation to PDF"
+#~ msgstr "Išsaugoti prezentaciją"
 
 #~ msgid "File %s could not be loaded."
 #~ msgstr "Failas %s negali būti įkeltas."

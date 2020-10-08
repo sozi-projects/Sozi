@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
+"POT-Creation-Date: 2020-10-08 08:56:+0000\n"
 "PO-Revision-Date: 2020-04-11 22:09+0000\n"
 "Last-Translator: Rivo Zängov <rivozangov@gmail.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/sozi/"
@@ -499,9 +499,9 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: js/view/Properties.js:390
+#: js/view/Properties.js:390 js/view/Toolbar.js:146
 #, fuzzy
-msgid "Export the presentation to PDF"
+msgid "Export the presentation"
 msgstr "Salvesta esitlus"
 
 #: js/view/Properties.js:407
@@ -647,7 +647,7 @@ msgid "Frame rate (frames/sec)"
 msgstr ""
 
 #: js/view/Properties.js:505
-msgid "Frame rate (kbits/sec)"
+msgid "Bit rate (kbits/sec)"
 msgstr ""
 
 #: js/view/Timeline.js:184
@@ -726,11 +726,6 @@ msgstr "Keela täisakna režiim"
 msgid "Enable full-screen mode"
 msgstr "Luba täisakna režiim"
 
-#: js/view/Toolbar.js:146
-#, fuzzy
-msgid "Export the presentation"
-msgstr "Salvesta esitlus"
-
 #: js/view/Toolbar.js:153
 msgid "Preferences"
 msgstr "Eelistused"
@@ -738,6 +733,10 @@ msgstr "Eelistused"
 #: js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Informatsioon"
+
+#, fuzzy
+#~ msgid "Export the presentation to PDF"
+#~ msgstr "Salvesta esitlus"
 
 #~ msgid "File %s could not be loaded."
 #~ msgstr "Faili %s laadimine ebaõnnestus."

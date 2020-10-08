@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
+"POT-Creation-Date: 2020-10-08 08:56:+0000\n"
 "PO-Revision-Date: 2020-02-11 19:50+0000\n"
 "Last-Translator: Vojtěch Šamla <auzkok@seznam.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/sozi/translations/"
@@ -496,9 +496,9 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: js/view/Properties.js:390
+#: js/view/Properties.js:390 js/view/Toolbar.js:146
 #, fuzzy
-msgid "Export the presentation to PDF"
+msgid "Export the presentation"
 msgstr "Uložit prezentaci"
 
 #: js/view/Properties.js:407
@@ -644,7 +644,7 @@ msgid "Frame rate (frames/sec)"
 msgstr ""
 
 #: js/view/Properties.js:505
-msgid "Frame rate (kbits/sec)"
+msgid "Bit rate (kbits/sec)"
 msgstr ""
 
 #: js/view/Timeline.js:184
@@ -718,11 +718,6 @@ msgstr "Vypni zobrazení přes celou obrazovku"
 msgid "Enable full-screen mode"
 msgstr "Zapni zobrazení přes celou obrazovku"
 
-#: js/view/Toolbar.js:146
-#, fuzzy
-msgid "Export the presentation"
-msgstr "Uložit prezentaci"
-
 #: js/view/Toolbar.js:153
 msgid "Preferences"
 msgstr "Nastavení"
@@ -730,6 +725,10 @@ msgstr "Nastavení"
 #: js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Informace"
+
+#, fuzzy
+#~ msgid "Export the presentation to PDF"
+#~ msgstr "Uložit prezentaci"
 
 #~ msgid "File %s could not be loaded."
 #~ msgstr "Soubor %s nelze načíst."

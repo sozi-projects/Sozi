@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
+"POT-Creation-Date: 2020-10-08 08:56:+0000\n"
 "PO-Revision-Date: 2018-05-02 11:42+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/sozi/translations/"
@@ -516,9 +516,9 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: js/view/Properties.js:390
+#: js/view/Properties.js:390 js/view/Toolbar.js:146
 #, fuzzy
-msgid "Export the presentation to PDF"
+msgid "Export the presentation"
 msgstr "Uložiť prezentáciu"
 
 #: js/view/Properties.js:407
@@ -664,7 +664,7 @@ msgid "Frame rate (frames/sec)"
 msgstr ""
 
 #: js/view/Properties.js:505
-msgid "Frame rate (kbits/sec)"
+msgid "Bit rate (kbits/sec)"
 msgstr ""
 
 #: js/view/Timeline.js:184
@@ -742,11 +742,6 @@ msgstr "Zakázať režim zobrazenia na celú obrazovku"
 msgid "Enable full-screen mode"
 msgstr "Zapnúť režim zobrazenia na celú obrazovku"
 
-#: js/view/Toolbar.js:146
-#, fuzzy
-msgid "Export the presentation"
-msgstr "Uložiť prezentáciu"
-
 #: js/view/Toolbar.js:153
 msgid "Preferences"
 msgstr ""
@@ -754,6 +749,10 @@ msgstr ""
 #: js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Informácie"
+
+#, fuzzy
+#~ msgid "Export the presentation to PDF"
+#~ msgstr "Uložiť prezentáciu"
 
 #~ msgid "File %s could not be loaded."
 #~ msgstr "Súbor %s sa nepodarilo načítať."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
+"POT-Creation-Date: 2020-10-08 08:56:+0000\n"
 "PO-Revision-Date: 2018-03-10 16:09+0100\n"
 "Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
@@ -512,9 +512,9 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: js/view/Properties.js:390
+#: js/view/Properties.js:390 js/view/Toolbar.js:146
 #, fuzzy
-msgid "Export the presentation to PDF"
+msgid "Export the presentation"
 msgstr "Запази презентацията"
 
 #: js/view/Properties.js:407
@@ -660,7 +660,7 @@ msgid "Frame rate (frames/sec)"
 msgstr ""
 
 #: js/view/Properties.js:505
-msgid "Frame rate (kbits/sec)"
+msgid "Bit rate (kbits/sec)"
 msgstr ""
 
 #: js/view/Timeline.js:184
@@ -737,11 +737,6 @@ msgstr "Изключи режим на цял екран"
 msgid "Enable full-screen mode"
 msgstr "Позволи режим на цял екран"
 
-#: js/view/Toolbar.js:146
-#, fuzzy
-msgid "Export the presentation"
-msgstr "Запази презентацията"
-
 #: js/view/Toolbar.js:153
 msgid "Preferences"
 msgstr ""
@@ -749,6 +744,10 @@ msgstr ""
 #: js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Информация"
+
+#, fuzzy
+#~ msgid "Export the presentation to PDF"
+#~ msgstr "Запази презентацията"
 
 #~ msgid "File %s could not be loaded."
 #~ msgstr "Файл %s не може да бъде зареден."

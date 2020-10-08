@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
+"POT-Creation-Date: 2020-10-08 08:56:+0000\n"
 "PO-Revision-Date: 2020-08-19 03:33+0000\n"
 "Last-Translator: Mehmet Gurbuz GUVEN <6mehmet6@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -500,9 +500,9 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: js/view/Properties.js:390
+#: js/view/Properties.js:390 js/view/Toolbar.js:146
 #, fuzzy
-msgid "Export the presentation to PDF"
+msgid "Export the presentation"
 msgstr "儲存簡報"
 
 #: js/view/Properties.js:407
@@ -648,7 +648,7 @@ msgid "Frame rate (frames/sec)"
 msgstr ""
 
 #: js/view/Properties.js:505
-msgid "Frame rate (kbits/sec)"
+msgid "Bit rate (kbits/sec)"
 msgstr ""
 
 #: js/view/Timeline.js:184
@@ -720,11 +720,6 @@ msgstr "關閉全螢幕模式"
 msgid "Enable full-screen mode"
 msgstr "啟用全螢幕模式"
 
-#: js/view/Toolbar.js:146
-#, fuzzy
-msgid "Export the presentation"
-msgstr "儲存簡報"
-
 #: js/view/Toolbar.js:153
 msgid "Preferences"
 msgstr "偏好設定"
@@ -732,6 +727,10 @@ msgstr "偏好設定"
 #: js/view/Toolbar.js:158
 msgid "Information"
 msgstr "軟體資訊"
+
+#, fuzzy
+#~ msgid "Export the presentation to PDF"
+#~ msgstr "儲存簡報"
 
 #~ msgid "File %s could not be loaded."
 #~ msgstr "無法載入檔案 %s 。"

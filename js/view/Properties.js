@@ -387,7 +387,7 @@ export class Properties extends VirtualDOMView {
 
             h("div.btn-group", [
                 h("button", {
-                    title: _("Export the presentation to PDF"),
+                    title: _("Export the presentation"),
                     disabled: controller.exporting,
                     onClick() { exportFn.call(controller); }
                 }, [_("Export"), controller.exporting ? h("span.spinner") : null])
@@ -502,7 +502,7 @@ export class Properties extends VirtualDOMView {
             h("label", {for: "field-exportToVideoFrameRate"}, _("Frame rate (frames/sec)")),
             this.renderNumberField("exportToVideoFrameRate", false, controller.getPresentationProperty, controller.setPresentationProperty, false, 1, 1),
 
-            h("label", {for: "field-exportToVideoBitRate"}, _("Frame rate (kbits/sec)")),
+            h("label", {for: "field-exportToVideoBitRate"}, _("Bit rate (kbits/sec)")),
             this.renderNumberField("exportToVideoBitRate", false, controller.getPresentationProperty, controller.setPresentationProperty, false, 1, 1000),
         ];
     }
