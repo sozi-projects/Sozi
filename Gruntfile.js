@@ -110,7 +110,8 @@ module.exports = function(grunt) {
             options: {
                 keyword: "_",
                 parserOptions: {
-                    sourceType: "module"
+                    sourceType: "module",
+                    ecmaVersion: 9
                 }
             },
             all: {
