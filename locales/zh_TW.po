@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-08-16 09:17:+0000\n"
+"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
 "PO-Revision-Date: 2020-08-19 03:33+0000\n"
 "Last-Translator: Mehmet Gurbuz GUVEN <6mehmet6@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -20,490 +20,721 @@ msgstr ""
 "X-Generator: Weblate 4.2-dev\n"
 "X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
 
-#: js/backend/Electron.js:33
+#: js/backend/Electron.js:48
 msgid "Open an SVG file from your computer"
 msgstr "開啟電腦中的 SVG 檔案"
 
-#: js/backend/Electron.js:65
+#: js/backend/Electron.js:73
 msgid "Do you want to save the presentation before closing?"
 msgstr "在關閉之前是否儲存簡報？"
 
-#: js/backend/Electron.js:66
+#: js/backend/Electron.js:74
 msgid "Yes"
 msgstr "是"
 
-#: js/backend/Electron.js:66
+#: js/backend/Electron.js:74
 msgid "No"
 msgstr "否"
 
-#: js/backend/Electron.js:89
+#: js/backend/Electron.js:103
 msgid "File not found: %s."
 msgstr "找不到檔案： %s。"
 
-#: js/backend/Electron.js:122
+#: js/backend/Electron.js:135
 msgid "Choose an SVG file"
 msgstr "選擇 SVG 檔案"
 
-#: js/backend/Electron.js:123
+#: js/backend/Electron.js:136
 msgid "SVG files"
 msgstr "SVG 檔案"
 
-#: js/backend/Electron.js:179
+#: js/backend/Electron.js:196
+msgid "This file will not be reloaded on change: %s."
+msgstr ""
+
+#: js/backend/Electron.js:212
 msgid "Could not read file %s."
 msgstr "無法讀取文件 %s。"
 
-#: js/backend/FileReader.js:18
+#: js/backend/FileReader.js:23
 msgid ""
 "Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
 "開啟電腦中的 SVG 檔案 (<i class=\"fas fa-exclamation-triangle\"></i> 唯讀)"
 
-#: js/backend/GoogleDrive.js:18
+#: js/backend/GoogleDrive.js:23
 msgid "Open an SVG file from Google Drive"
 msgstr "開啟 Google 雲端硬碟中的 SVG 檔案"
 
-#: js/Controller.js:131
+#: js/Controller.js:217
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
 msgstr "<i class=\"fas fa-exclamation-triangle\"></i> 錯誤"
 
-#: js/Controller.js:132
+#: js/Controller.js:218
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
 msgstr "<i class=\"fas fa-info-circle\"></i> 資訊"
 
-#: js/Storage.js:79
-msgid "File %s could not be loaded."
-msgstr "無法載入檔案 %s 。"
-
-#: js/Storage.js:96 js/Storage.js:105
-msgid "Document is not valid SVG."
-msgstr "此文件不是有效的 SVG 檔案。"
-
-#: js/Storage.js:141 js/Storage.js:147
+#: js/Controller.js:340
 msgid "Document was changed. Reloading."
 msgstr "文件已更改。重新載入中。"
 
-#: js/Storage.js:156
+#: js/Controller.js:355
 msgid "Document was changed."
 msgstr "文件已更改。"
 
-#: js/Storage.js:182
+#: js/Controller.js:1686
+msgid "Presentation was exported to PDF."
+msgstr ""
+
+#: js/Controller.js:1689
+msgid "Failed to write PDF file."
+msgstr ""
+
+#: js/Controller.js:1702
+msgid "Presentation was exported to PPTX."
+msgstr ""
+
+#: js/Controller.js:1705
+msgid "Failed to write PPTX file."
+msgstr ""
+
+#: js/Controller.js:1718
+msgid "Presentation was exported to video."
+msgstr ""
+
+#: js/Controller.js:1721
+msgid "Failed to write video file."
+msgstr ""
+
+#: js/Storage.js:192
+msgid "Document is not valid SVG."
+msgstr "此文件不是有效的 SVG 檔案。"
+
+#: js/Storage.js:250
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "文件匯入 Sozi 13 或更舊的版本。"
 
-#: js/Storage.js:254 js/Storage.js:275
+#: js/Storage.js:340
 msgid "Saved %s."
 msgstr "完成儲存 %s 。"
 
-#: js/view/Properties.js:41
+#: js/view/languages.js:17
+msgid "System language"
+msgstr ""
+
+#: js/view/Properties.js:84
 msgid "Autoselect outline element"
 msgstr "自動選擇大綱元件"
 
-#: js/view/Properties.js:42 js/view/Properties.js:151
+#: js/view/Properties.js:85 js/view/Properties.js:205
 msgid "Reset layer geometry"
 msgstr "重設圖層"
 
-#: js/view/Properties.js:43 js/view/Timeline.js:143
+#: js/view/Properties.js:86 js/view/Timeline.js:191
 msgid "Create a new frame"
 msgstr "新建框格"
 
-#: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:112
+#: js/view/Properties.js:87 js/view/Properties.js:116 js/view/Toolbar.js:136
 msgid "Save the presentation"
 msgstr "儲存簡報"
 
-#: js/view/Properties.js:45 js/view/Toolbar.js:96
+#: js/view/Properties.js:88 js/view/Toolbar.js:117
 msgid "Redo"
 msgstr "重復操作"
 
-#: js/view/Properties.js:46 js/view/Toolbar.js:91
+#: js/view/Properties.js:89 js/view/Toolbar.js:112
 msgid "Undo"
 msgstr "取消操作"
 
-#: js/view/Properties.js:47
+#: js/view/Properties.js:90
 msgid "Focus the frame title"
 msgstr "前往框格標題"
 
-#: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:117
+#: js/view/Properties.js:91 js/view/Properties.js:122 js/view/Toolbar.js:141
 msgid "Reload the SVG document"
 msgstr "重新載入 SVG 文件"
 
-#: js/view/Properties.js:49
+#: js/view/Properties.js:92
 msgid "Toggle full-screen mode"
 msgstr "切換全螢幕模式"
 
-#: js/view/Properties.js:50
+#: js/view/Properties.js:93
 msgid "Toggle the developer tools"
 msgstr "切換開發者模式"
 
-#: js/view/Properties.js:60
+#: js/view/Properties.js:103
 msgid "User interface"
 msgstr "使用者介面"
 
-#: js/view/Properties.js:61
+#: js/view/Properties.js:105
+msgid "Language"
+msgstr ""
+
+#: js/view/Properties.js:108
 msgid "Font size"
 msgstr "字型大小"
 
-#: js/view/Properties.js:64
+#: js/view/Properties.js:112
 msgid "Enable notifications on save and reload"
 msgstr "存檔及重新載入時啟用通知"
 
-#: js/view/Properties.js:65
+#: js/view/Properties.js:113
 msgid "Enable notifications"
 msgstr "啟用通知"
 
-#: js/view/Properties.js:69
+#: js/view/Properties.js:118
 msgid "When Sozi loses the focus"
 msgstr "當 Sozi 失去焦點時"
 
-#: js/view/Properties.js:70 js/view/Properties.js:76
+#: js/view/Properties.js:119 js/view/Properties.js:126
 msgid "Manually"
 msgstr "手動"
 
-#: js/view/Properties.js:74
+#: js/view/Properties.js:124
 msgid "Automatically"
 msgstr "自動"
 
-#: js/view/Properties.js:75
+#: js/view/Properties.js:125
 msgid "When Sozi gets the focus"
 msgstr "當 Sozi 得到焦點時"
 
-#: js/view/Properties.js:78
+#: js/view/Properties.js:129
 msgid "Behavior"
 msgstr "動作效果"
 
-#: js/view/Properties.js:80
+#: js/view/Properties.js:131
 msgid "Preview transition animations"
 msgstr "預覽轉場動態效果"
 
-#: js/view/Properties.js:81
+#: js/view/Properties.js:132
 msgid "Enable animated transitions"
 msgstr "啟用動態的轉場效果"
 
-#: js/view/Properties.js:83
+#: js/view/Properties.js:135
 msgid "Keyboard shortcuts"
 msgstr "鍵盤操作快捷鍵"
 
-#: js/view/Properties.js:96
+#: js/view/Properties.js:150
 msgid "Basic formatting supported:"
 msgstr "基本支援的格式："
 
-#: js/view/Properties.js:98
+#: js/view/Properties.js:152
 msgid "Ctrl+B: Bold"
 msgstr "Ctrl+B: 粗體"
 
-#: js/view/Properties.js:99
+#: js/view/Properties.js:153
 msgid "Ctrl+I: Italic"
 msgstr "Ctrl+I: 斜體"
 
-#: js/view/Properties.js:100
+#: js/view/Properties.js:154
 msgid "Ctrl+U: Underline"
 msgstr "Ctrl+U: 底線"
 
-#: js/view/Properties.js:101
+#: js/view/Properties.js:155
 msgid "Ctrl+0: Paragraph"
 msgstr "Ctrl+0: 段落"
 
-#: js/view/Properties.js:102
+#: js/view/Properties.js:156
 msgid "Ctrl+1: Big heading"
 msgstr "Ctrl+1: 大標題"
 
-#: js/view/Properties.js:103
+#: js/view/Properties.js:157
 msgid "Ctrl+2: Medium heading"
 msgstr "Ctrl+2: 中標題"
 
-#: js/view/Properties.js:104
+#: js/view/Properties.js:158
 msgid "Ctrl+3: Small heading"
 msgstr "Ctrl+3: 小標題"
 
-#: js/view/Properties.js:105
+#: js/view/Properties.js:159
 msgid "Ctrl+L: List"
 msgstr "Ctrl+L: 列表"
 
-#: js/view/Properties.js:106
+#: js/view/Properties.js:160
 msgid "Ctrl+N: Numbered list"
 msgstr "Ctrl+N: 編號列表"
 
-#: js/view/Properties.js:113
+#: js/view/Properties.js:167
 msgid "Select a layer to copy"
 msgstr "選擇圖層進行複製"
 
-#: js/view/Properties.js:116 js/view/Timeline.js:190 js/view/Timeline.js:218
+#: js/view/Properties.js:170 js/view/Timeline.js:238 js/view/Timeline.js:266
 msgid "Default"
 msgstr "預設"
 
-#: js/view/Properties.js:123
+#: js/view/Properties.js:177
 msgid "Frame"
 msgstr "框格"
 
-#: js/view/Properties.js:126
+#: js/view/Properties.js:180
 msgid "Show in frame list"
 msgstr "顯示於框格列表"
 
-#: js/view/Properties.js:127
+#: js/view/Properties.js:181
 msgid "Show frame number"
 msgstr "顯示框格編號"
 
-#: js/view/Properties.js:130
+#: js/view/Properties.js:184
 msgid "Title"
 msgstr "標題名稱"
 
-#: js/view/Properties.js:133
+#: js/view/Properties.js:187
 msgid "Title level in frame list"
 msgstr "框格列表的標題等級"
 
-#: js/view/Properties.js:136
+#: js/view/Properties.js:190
 msgid "Id"
 msgstr "ID (識別編號)"
 
-#: js/view/Properties.js:140
+#: js/view/Properties.js:194
 msgid "Timeout (seconds)"
 msgstr "停格計時 (秒)"
 
-#: js/view/Properties.js:141
+#: js/view/Properties.js:195
 msgid "Timeout enable"
 msgstr "啟用停格計時功能"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:199
 msgid "Layer"
 msgstr "圖層"
 
-#: js/view/Properties.js:148
+#: js/view/Properties.js:202
 msgid "Link to previous frame"
 msgstr "連結到前一個框格"
 
-#: js/view/Properties.js:149
+#: js/view/Properties.js:203
 msgid "Clip"
 msgstr "裁剪畫面"
 
-#: js/view/Properties.js:156
+#: js/view/Properties.js:210
 msgid "Copy layer"
 msgstr "複製圖層"
 
-#: js/view/Properties.js:163
+#: js/view/Properties.js:217
 msgid "Outline element Id"
 msgstr "大綱元件 ID"
 
-#: js/view/Properties.js:166
+#: js/view/Properties.js:220
 msgid "Autoselect element"
 msgstr "自動選擇元件"
 
-#: js/view/Properties.js:169
+#: js/view/Properties.js:223
 msgid "Hide element"
 msgstr "隱藏元件"
 
-#: js/view/Properties.js:171
+#: js/view/Properties.js:225
 msgid "Fit to element"
 msgstr "符合元件大小"
 
-#: js/view/Properties.js:178
+#: js/view/Properties.js:232
 msgid "Layer opacity"
 msgstr "圖層透明度"
 
-#: js/view/Properties.js:181
+#: js/view/Properties.js:235
 msgid "Transition"
 msgstr "轉場"
 
-#: js/view/Properties.js:181
+#: js/view/Properties.js:235
 msgid "Configure the animation when moving to the selected frames."
 msgstr "當要移動到選定框格時設定動畫效果。"
 
-#: js/view/Properties.js:183
+#: js/view/Properties.js:237
 msgid "Duration (seconds)"
 msgstr "動態時間 (秒)"
 
-#: js/view/Properties.js:186
+#: js/view/Properties.js:240
 msgid "Timing function"
 msgstr "動態變速"
 
-#: js/view/Properties.js:188
+#: js/view/Properties.js:242
 msgid "Linear"
 msgstr "線性"
 
-#: js/view/Properties.js:189
+#: js/view/Properties.js:243
 msgid "Ease"
 msgstr "淡化"
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:244
 msgid "Ease in"
 msgstr "淡化進入"
 
-#: js/view/Properties.js:191
+#: js/view/Properties.js:245
 msgid "Ease out"
 msgstr "淡化進入"
 
-#: js/view/Properties.js:192
+#: js/view/Properties.js:246
 msgid "Ease in-out"
 msgstr "淡化進出"
 
-#: js/view/Properties.js:193
+#: js/view/Properties.js:247
 msgid "Step start"
 msgstr "步驟啟動"
 
-#: js/view/Properties.js:194
+#: js/view/Properties.js:248
 msgid "Step end"
 msgstr "步驟結束"
 
-#: js/view/Properties.js:195
+#: js/view/Properties.js:249
 msgid "Step middle"
 msgstr "中間的步驟"
 
-#: js/view/Properties.js:198
+#: js/view/Properties.js:252
 msgid "Relative zoom (%)"
 msgstr "相對縮放 (％)"
 
-#: js/view/Properties.js:202
+#: js/view/Properties.js:256
 msgid "Path Id"
 msgstr "路徑 ID"
 
-#: js/view/Properties.js:203
+#: js/view/Properties.js:257
 msgid "Hide path"
 msgstr "隱藏路徑"
 
-#: js/view/Properties.js:207
+#: js/view/Properties.js:261
 msgid "Notes"
 msgstr "筆記"
 
-#: js/view/Properties.js:207
+#: js/view/Properties.js:261
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr "編輯簡報者備註。點擊此處顯示格式快捷方式清單。"
 
-#: js/view/Properties.js:211
+#: js/view/Properties.js:265
 msgid "Custom stylesheets and scripts"
 msgstr "自定義腳本和層疊樣式表"
 
-#: js/view/Properties.js:224
+#: js/view/Properties.js:278
 msgid "CSS or JS file names"
 msgstr "CSS 或 JS 文件名"
 
-#: js/view/Properties.js:224
+#: js/view/Properties.js:278
 msgid "Add CSS or JS files"
 msgstr "添加 CSS 或 JS 文件"
 
-#: js/view/Properties.js:227
+#: js/view/Properties.js:281
 msgid "Add a file"
 msgstr "添加文件"
 
-#: js/view/Properties.js:240
+#: js/view/Properties.js:294
 msgid "Remove this file"
 msgstr "刪除此文件"
 
-#: js/view/Properties.js:248
+#: js/view/Properties.js:302
 msgid "Player"
 msgstr "播放操控"
 
-#: js/view/Properties.js:251
+#: js/view/Properties.js:305
 msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
 msgstr "支援瀏覽器〔上一頁〕(⬅) 按鍵，回到上一個框格"
 
-#: js/view/Properties.js:252
+#: js/view/Properties.js:306
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr "從一個框格移到另一個框格，將會自動改變位置欄的內容。"
 
-#: js/view/Properties.js:256
+#: js/view/Properties.js:310
 msgid "Allow to control the presentation"
 msgstr "允許控制簡報"
 
-#: js/view/Properties.js:258 js/view/Properties.js:265
-#: js/view/Properties.js:271 js/view/Properties.js:279
+#: js/view/Properties.js:312 js/view/Properties.js:319
+#: js/view/Properties.js:325 js/view/Properties.js:333
 msgid "using the mouse"
 msgstr "使用滑鼠"
 
-#: js/view/Properties.js:259 js/view/Properties.js:272
-#: js/view/Properties.js:280
+#: js/view/Properties.js:313 js/view/Properties.js:326
+#: js/view/Properties.js:334
 msgid "using the keyboard"
 msgstr "使用鍵盤"
 
-#: js/view/Properties.js:264
+#: js/view/Properties.js:318
 msgid "Allow to move the camera"
 msgstr "允許移動攝影"
 
-#: js/view/Properties.js:269
+#: js/view/Properties.js:323
 msgid "Allow to rotate the camera"
 msgstr "允許旋轉攝影"
 
-#: js/view/Properties.js:277
+#: js/view/Properties.js:331
 msgid "Allow to zoom"
 msgstr "允許放大"
 
-#: js/view/Timeline.js:136
+#: js/view/Properties.js:349
+msgid "Examples of frame lists to include/exclude in export"
+msgstr ""
+
+#: js/view/Properties.js:351
+msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
+msgstr ""
+
+#: js/view/Properties.js:352
+msgid "Select frames 5 to 8: \"5:8\""
+msgstr ""
+
+#: js/view/Properties.js:353
+msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
+msgstr ""
+
+#: js/view/Properties.js:354
+msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
+msgstr ""
+
+#: js/view/Properties.js:377 js/view/Properties.js:393
+msgid "Export"
+msgstr ""
+
+#: js/view/Properties.js:379
+msgid "Document type"
+msgstr ""
+
+#: js/view/Properties.js:381
+msgid "Portable Document Format (PDF)"
+msgstr ""
+
+#: js/view/Properties.js:382
+msgid "Microsoft PowerPoint (PPTX)"
+msgstr ""
+
+#: js/view/Properties.js:383
+msgid "Video"
+msgstr ""
+
+#: js/view/Properties.js:390
+#, fuzzy
+msgid "Export the presentation to PDF"
+msgstr "儲存簡報"
+
+#: js/view/Properties.js:407
+msgid "Page size"
+msgstr ""
+
+#: js/view/Properties.js:409 js/view/Properties.js:448
+msgid "A3"
+msgstr ""
+
+#: js/view/Properties.js:410 js/view/Properties.js:449
+msgid "A4"
+msgstr ""
+
+#: js/view/Properties.js:411
+msgid "A5"
+msgstr ""
+
+#: js/view/Properties.js:412
+msgid "Legal"
+msgstr ""
+
+#: js/view/Properties.js:413 js/view/Properties.js:457
+msgid "Letter"
+msgstr ""
+
+#: js/view/Properties.js:414
+msgid "Tabloid"
+msgstr ""
+
+#: js/view/Properties.js:417
+#, fuzzy
+msgid "Page orientation"
+msgstr "儲存簡報"
+
+#: js/view/Properties.js:419
+msgid "Landscape"
+msgstr ""
+
+#: js/view/Properties.js:420
+msgid "Portrait"
+msgstr ""
+
+#: js/view/Properties.js:424 js/view/Properties.js:465
+msgid "List of frames to include"
+msgstr ""
+
+#: js/view/Properties.js:425 js/view/Properties.js:431
+#: js/view/Properties.js:466 js/view/Properties.js:472
+msgid "Click here to see the syntax for this field"
+msgstr ""
+
+#: js/view/Properties.js:430 js/view/Properties.js:471
+msgid "List of frames to exclude"
+msgstr ""
+
+#: js/view/Properties.js:445
+msgid "Slide size"
+msgstr ""
+
+#: js/view/Properties.js:447
+msgid "35 mm"
+msgstr ""
+
+#: js/view/Properties.js:450
+msgid "B4 (ISO)"
+msgstr ""
+
+#: js/view/Properties.js:451
+msgid "B4 (JIS)"
+msgstr ""
+
+#: js/view/Properties.js:452
+msgid "B5 (ISO)"
+msgstr ""
+
+#: js/view/Properties.js:453
+msgid "B5 (JIS)"
+msgstr ""
+
+#: js/view/Properties.js:454
+msgid "Banner"
+msgstr ""
+
+#: js/view/Properties.js:455
+msgid "Hagaki Card"
+msgstr ""
+
+#: js/view/Properties.js:456
+msgid "Ledger"
+msgstr ""
+
+#: js/view/Properties.js:458
+msgid "Overhead"
+msgstr ""
+
+#: js/view/Properties.js:459
+msgid "Screen 16:10"
+msgstr ""
+
+#: js/view/Properties.js:460
+msgid "Screen 16:9"
+msgstr ""
+
+#: js/view/Properties.js:461
+msgid "Screen 4:3"
+msgstr ""
+
+#: js/view/Properties.js:487
+msgid "Format"
+msgstr ""
+
+#: js/view/Properties.js:489
+msgid "MPEG-4 (.mp4)"
+msgstr ""
+
+#: js/view/Properties.js:490
+msgid "Ogg Vorbis (.ogv)"
+msgstr ""
+
+#: js/view/Properties.js:491
+msgid "WebM (.webm)"
+msgstr ""
+
+#: js/view/Properties.js:492
+msgid "Windows Media Video (.wmv)"
+msgstr ""
+
+#: js/view/Properties.js:493
+msgid "Image sequence (.png)"
+msgstr ""
+
+#: js/view/Properties.js:496
+msgid "Width (pixels)"
+msgstr ""
+
+#: js/view/Properties.js:499
+msgid "Height (pixels)"
+msgstr ""
+
+#: js/view/Properties.js:502
+msgid "Frame rate (frames/sec)"
+msgstr ""
+
+#: js/view/Properties.js:505
+msgid "Frame rate (kbits/sec)"
+msgstr ""
+
+#: js/view/Timeline.js:184
 msgid "Delete the selected frames"
 msgstr "刪除所選的框格"
 
-#: js/view/Timeline.js:162
+#: js/view/Timeline.js:210
 msgid "Add layer"
 msgstr "加上圖層"
 
-#: js/view/Timeline.js:163
+#: js/view/Timeline.js:211
 msgid "Add all layers"
 msgstr "加上所有圖層"
 
-#: js/view/Timeline.js:178 js/view/Timeline.js:198
+#: js/view/Timeline.js:226 js/view/Timeline.js:246
 msgid "This layer is visible. Click to hide it."
 msgstr "此為可見圖層。點按它即可隱藏。"
 
-#: js/view/Timeline.js:182 js/view/Timeline.js:202
+#: js/view/Timeline.js:230 js/view/Timeline.js:250
 msgid "This layer is hidden. Click to show it."
 msgstr "此為隱藏圖層。點按它即可顯示。"
 
-#: js/view/Timeline.js:206
+#: js/view/Timeline.js:254
 msgid "Remove this layer"
 msgstr "移除此一圖層"
 
-#: js/view/Timeline.js:231
+#: js/view/Timeline.js:279
 msgid "Insert selection before frame %d"
 msgstr "在框格 %d 之前插入所選項目"
 
-#: js/view/Timeline.js:238
+#: js/view/Timeline.js:286
 msgid "Insert selection after frame %d"
 msgstr "在框格 %d 之後插入所選項目"
 
-#: js/view/Timeline.js:273 js/view/Timeline.js:285
+#: js/view/Timeline.js:321 js/view/Timeline.js:333
 msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
 msgstr "您應該在當前區域中添加圖形元件，以幫助 Sozi 追蹤此圖層的位置。"
 
-#: js/view/Toolbar.js:36
+#: js/view/Toolbar.js:57
 msgid "Aspect ratio: "
 msgstr "寬高比例： "
 
-#: js/view/Toolbar.js:69
+#: js/view/Toolbar.js:90
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr "移動所選圖層 (按 Alt 縮放；按 Shift 旋轉)"
 
-#: js/view/Toolbar.js:74
+#: js/view/Toolbar.js:95
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr "縮放所選圖層 (也可以在移動模式下按 Alt 縮放)"
 
-#: js/view/Toolbar.js:79
+#: js/view/Toolbar.js:100
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr "旋轉所選圖層 (也可以在移動模式下按 Shift 旋轉)"
 
-#: js/view/Toolbar.js:84
+#: js/view/Toolbar.js:105
 msgid "Edit the clipping area"
 msgstr "編輯剪輯區域"
 
-#: js/view/Toolbar.js:103
+#: js/view/Toolbar.js:124
 msgid "Disable full-screen mode"
 msgstr "關閉全螢幕模式"
 
-#: js/view/Toolbar.js:103
+#: js/view/Toolbar.js:124
 msgid "Enable full-screen mode"
 msgstr "啟用全螢幕模式"
 
-#: js/view/Toolbar.js:123
+#: js/view/Toolbar.js:146
+#, fuzzy
+msgid "Export the presentation"
+msgstr "儲存簡報"
+
+#: js/view/Toolbar.js:153
 msgid "Preferences"
 msgstr "偏好設定"
 
-#: js/view/Toolbar.js:128
+#: js/view/Toolbar.js:158
 msgid "Information"
 msgstr "軟體資訊"
+
+#~ msgid "File %s could not be loaded."
+#~ msgstr "無法載入檔案 %s 。"
 
 #~ msgid "Sozi (Information)"
 #~ msgstr "Sozi (軟體資訊)"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-08-16 09:17:+0000\n"
+"POT-Creation-Date: 2020-10-08 08:33:+0000\n"
 "PO-Revision-Date: 2018-11-07 16:08+0000\n"
 "Last-Translator: Csizmazia-Darab István <i.csizmazia@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/sozi/"
@@ -21,39 +21,43 @@ msgstr ""
 "X-Generator: Weblate 3.9\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 
-#: js/backend/Electron.js:33
+#: js/backend/Electron.js:48
 msgid "Open an SVG file from your computer"
 msgstr "Helyi SVG állomány megnyitása"
 
-#: js/backend/Electron.js:65
+#: js/backend/Electron.js:73
 msgid "Do you want to save the presentation before closing?"
 msgstr "El szeretnéd menteni a prezentációt bezárás előtt?"
 
-#: js/backend/Electron.js:66
+#: js/backend/Electron.js:74
 msgid "Yes"
 msgstr "Igen"
 
-#: js/backend/Electron.js:66
+#: js/backend/Electron.js:74
 msgid "No"
 msgstr "Nem"
 
-#: js/backend/Electron.js:89
+#: js/backend/Electron.js:103
 msgid "File not found: %s."
 msgstr "Hiányzó fájl: %s."
 
-#: js/backend/Electron.js:122
+#: js/backend/Electron.js:135
 msgid "Choose an SVG file"
 msgstr "Válassz ki egy SVG fájlt"
 
-#: js/backend/Electron.js:123
+#: js/backend/Electron.js:136
 msgid "SVG files"
 msgstr "SVG fájlok"
 
-#: js/backend/Electron.js:179
+#: js/backend/Electron.js:196
+msgid "This file will not be reloaded on change: %s."
+msgstr ""
+
+#: js/backend/Electron.js:212
 msgid "Could not read file %s."
 msgstr ""
 
-#: js/backend/FileReader.js:18
+#: js/backend/FileReader.js:23
 msgid ""
 "Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
@@ -61,354 +65,382 @@ msgstr ""
 "Helyi SVG fájl megnyitása (<i class=\"fas fa-exclamation-triangle\">1</i>2 "
 "read-only)"
 
-#: js/backend/GoogleDrive.js:18
+#: js/backend/GoogleDrive.js:23
 msgid "Open an SVG file from Google Drive"
 msgstr "SVG fájl megnyitása Google Drive-ról"
 
-#: js/Controller.js:131
+#: js/Controller.js:217
 #, fuzzy
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
 msgstr ""
 "Helyi SVG fájl megnyitása (<i class=\"fas fa-exclamation-triangle\">1</i>2 "
 "read-only)"
 
-#: js/Controller.js:132
+#: js/Controller.js:218
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
 msgstr ""
 
-#: js/Storage.js:79
-msgid "File %s could not be loaded."
-msgstr "A %s fájlt nem lehet betölteni."
-
-#: js/Storage.js:96 js/Storage.js:105
-msgid "Document is not valid SVG."
-msgstr "Érvénytelen SVG állomány."
-
-#: js/Storage.js:141 js/Storage.js:147
+#: js/Controller.js:340
 msgid "Document was changed. Reloading."
 msgstr "Az állomány megváltozott. Újratöltés."
 
-#: js/Storage.js:156
+#: js/Controller.js:355
 msgid "Document was changed."
 msgstr "Az állomány megváltozott."
 
-#: js/Storage.js:182
+#: js/Controller.js:1686
+msgid "Presentation was exported to PDF."
+msgstr ""
+
+#: js/Controller.js:1689
+msgid "Failed to write PDF file."
+msgstr ""
+
+#: js/Controller.js:1702
+msgid "Presentation was exported to PPTX."
+msgstr ""
+
+#: js/Controller.js:1705
+msgid "Failed to write PPTX file."
+msgstr ""
+
+#: js/Controller.js:1718
+msgid "Presentation was exported to video."
+msgstr ""
+
+#: js/Controller.js:1721
+msgid "Failed to write video file."
+msgstr ""
+
+#: js/Storage.js:192
+msgid "Document is not valid SVG."
+msgstr "Érvénytelen SVG állomány."
+
+#: js/Storage.js:250
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Az állomány Sozi 13 vagy korábbi verzióból lett importálva."
 
-#: js/Storage.js:254 js/Storage.js:275
+#: js/Storage.js:340
 msgid "Saved %s."
 msgstr "A %s elmentve ."
 
-#: js/view/Properties.js:41
+#: js/view/languages.js:17
+msgid "System language"
+msgstr ""
+
+#: js/view/Properties.js:84
 #, fuzzy
 msgid "Autoselect outline element"
 msgstr "Automatikus elemkiválasztás"
 
-#: js/view/Properties.js:42 js/view/Properties.js:151
+#: js/view/Properties.js:85 js/view/Properties.js:205
 msgid "Reset layer geometry"
 msgstr "A réteg geometriájának visszaállítása"
 
-#: js/view/Properties.js:43 js/view/Timeline.js:143
+#: js/view/Properties.js:86 js/view/Timeline.js:191
 msgid "Create a new frame"
 msgstr "Új keret létrehozása"
 
-#: js/view/Properties.js:44 js/view/Properties.js:67 js/view/Toolbar.js:112
+#: js/view/Properties.js:87 js/view/Properties.js:116 js/view/Toolbar.js:136
 msgid "Save the presentation"
 msgstr "Prezentáció mentése"
 
-#: js/view/Properties.js:45 js/view/Toolbar.js:96
+#: js/view/Properties.js:88 js/view/Toolbar.js:117
 msgid "Redo"
 msgstr "Újra"
 
-#: js/view/Properties.js:46 js/view/Toolbar.js:91
+#: js/view/Properties.js:89 js/view/Toolbar.js:112
 msgid "Undo"
 msgstr "Visszavonás"
 
-#: js/view/Properties.js:47
+#: js/view/Properties.js:90
 msgid "Focus the frame title"
 msgstr "Fókusz a keret címére"
 
-#: js/view/Properties.js:48 js/view/Properties.js:72 js/view/Toolbar.js:117
+#: js/view/Properties.js:91 js/view/Properties.js:122 js/view/Toolbar.js:141
 msgid "Reload the SVG document"
 msgstr "SVG állomány újratöltése"
 
-#: js/view/Properties.js:49
+#: js/view/Properties.js:92
 msgid "Toggle full-screen mode"
 msgstr "Váltás teljes képernyőre"
 
-#: js/view/Properties.js:50
+#: js/view/Properties.js:93
 msgid "Toggle the developer tools"
 msgstr "Váltás a fejlesztői eszköztárra"
 
-#: js/view/Properties.js:60
+#: js/view/Properties.js:103
 msgid "User interface"
 msgstr "Felhasználói felület"
 
-#: js/view/Properties.js:61
+#: js/view/Properties.js:105
+msgid "Language"
+msgstr ""
+
+#: js/view/Properties.js:108
 msgid "Font size"
 msgstr "Betűméret"
 
-#: js/view/Properties.js:64
+#: js/view/Properties.js:112
 msgid "Enable notifications on save and reload"
 msgstr "Mentés és újratöltés üzeneteinek engedélyezése"
 
-#: js/view/Properties.js:65
+#: js/view/Properties.js:113
 msgid "Enable notifications"
 msgstr "Üzenetek engedélyezése"
 
-#: js/view/Properties.js:69
+#: js/view/Properties.js:118
 msgid "When Sozi loses the focus"
 msgstr "Amikor a Sozi fókuszt veszít"
 
-#: js/view/Properties.js:70 js/view/Properties.js:76
+#: js/view/Properties.js:119 js/view/Properties.js:126
 msgid "Manually"
 msgstr "Kézileg"
 
-#: js/view/Properties.js:74
+#: js/view/Properties.js:124
 msgid "Automatically"
 msgstr "Automatikusan"
 
-#: js/view/Properties.js:75
+#: js/view/Properties.js:125
 msgid "When Sozi gets the focus"
 msgstr "Amikor a Sozi fókuszba kerül"
 
-#: js/view/Properties.js:78
+#: js/view/Properties.js:129
 msgid "Behavior"
 msgstr "Viselkedés"
 
-#: js/view/Properties.js:80
+#: js/view/Properties.js:131
 msgid "Preview transition animations"
 msgstr "Áttűnési animáció előnézete"
 
-#: js/view/Properties.js:81
+#: js/view/Properties.js:132
 msgid "Enable animated transitions"
 msgstr "Animált átmenet engedélyezése"
 
-#: js/view/Properties.js:83
+#: js/view/Properties.js:135
 msgid "Keyboard shortcuts"
 msgstr "Billentyű parancsok"
 
-#: js/view/Properties.js:96
+#: js/view/Properties.js:150
 msgid "Basic formatting supported:"
 msgstr "A következő formázási beállítások támogatottak:"
 
-#: js/view/Properties.js:98
+#: js/view/Properties.js:152
 msgid "Ctrl+B: Bold"
 msgstr "Ctrl+B: Félkövér"
 
-#: js/view/Properties.js:99
+#: js/view/Properties.js:153
 msgid "Ctrl+I: Italic"
 msgstr "Ctrl + I: Dőlt"
 
-#: js/view/Properties.js:100
+#: js/view/Properties.js:154
 msgid "Ctrl+U: Underline"
 msgstr "Ctrl + U:  Aláhúzott"
 
-#: js/view/Properties.js:101
+#: js/view/Properties.js:155
 msgid "Ctrl+0: Paragraph"
 msgstr "Ctrl+0:  Új bekezdés"
 
-#: js/view/Properties.js:102
+#: js/view/Properties.js:156
 msgid "Ctrl+1: Big heading"
 msgstr "Ctrl+1: Vastag fejléc"
 
-#: js/view/Properties.js:103
+#: js/view/Properties.js:157
 msgid "Ctrl+2: Medium heading"
 msgstr "Ctrl + 2: Közepes fejléc"
 
-#: js/view/Properties.js:104
+#: js/view/Properties.js:158
 msgid "Ctrl+3: Small heading"
 msgstr "Ctrl+3: Vékony fejléc"
 
-#: js/view/Properties.js:105
+#: js/view/Properties.js:159
 msgid "Ctrl+L: List"
 msgstr "Ctrl+L: Felsorolás"
 
-#: js/view/Properties.js:106
+#: js/view/Properties.js:160
 msgid "Ctrl+N: Numbered list"
 msgstr "Ctrl+N: Számozott felsorolás"
 
-#: js/view/Properties.js:113
+#: js/view/Properties.js:167
 msgid "Select a layer to copy"
 msgstr "Válaszd ki a másolandó réteget"
 
-#: js/view/Properties.js:116 js/view/Timeline.js:190 js/view/Timeline.js:218
+#: js/view/Properties.js:170 js/view/Timeline.js:238 js/view/Timeline.js:266
 msgid "Default"
 msgstr "Alapértelmezett"
 
-#: js/view/Properties.js:123
+#: js/view/Properties.js:177
 msgid "Frame"
 msgstr "Képkocka"
 
-#: js/view/Properties.js:126
+#: js/view/Properties.js:180
 msgid "Show in frame list"
 msgstr "Képkocka lista megjelenítése"
 
-#: js/view/Properties.js:127
+#: js/view/Properties.js:181
 msgid "Show frame number"
 msgstr "Képkocka sorszám megjelenítése"
 
-#: js/view/Properties.js:130
+#: js/view/Properties.js:184
 msgid "Title"
 msgstr "Cím"
 
-#: js/view/Properties.js:133
+#: js/view/Properties.js:187
 msgid "Title level in frame list"
 msgstr "Cím megjelenítése a képkocka listában"
 
-#: js/view/Properties.js:136
+#: js/view/Properties.js:190
 msgid "Id"
 msgstr "ID"
 
-#: js/view/Properties.js:140
+#: js/view/Properties.js:194
 msgid "Timeout (seconds)"
 msgstr "Időtúllépés (másodperc)"
 
-#: js/view/Properties.js:141
+#: js/view/Properties.js:195
 msgid "Timeout enable"
 msgstr "Időtúllépés engedélyezése"
 
-#: js/view/Properties.js:145
+#: js/view/Properties.js:199
 msgid "Layer"
 msgstr "Réteg"
 
-#: js/view/Properties.js:148
+#: js/view/Properties.js:202
 msgid "Link to previous frame"
 msgstr "Link az előző képkockára"
 
-#: js/view/Properties.js:149
+#: js/view/Properties.js:203
 msgid "Clip"
 msgstr "Levágás"
 
-#: js/view/Properties.js:156
+#: js/view/Properties.js:210
 msgid "Copy layer"
 msgstr "Réteg másolása"
 
-#: js/view/Properties.js:163
+#: js/view/Properties.js:217
 msgid "Outline element Id"
 msgstr "Elem ID állapota"
 
-#: js/view/Properties.js:166
+#: js/view/Properties.js:220
 msgid "Autoselect element"
 msgstr "Automatikus elemkiválasztás"
 
-#: js/view/Properties.js:169
+#: js/view/Properties.js:223
 msgid "Hide element"
 msgstr "Elem elrejtése"
 
-#: js/view/Properties.js:171
+#: js/view/Properties.js:225
 msgid "Fit to element"
 msgstr "Elemhez illesztés"
 
-#: js/view/Properties.js:178
+#: js/view/Properties.js:232
 msgid "Layer opacity"
 msgstr "Réteg átlátszósága"
 
-#: js/view/Properties.js:181
+#: js/view/Properties.js:235
 msgid "Transition"
 msgstr "Átmenet"
 
-#: js/view/Properties.js:181
+#: js/view/Properties.js:235
 msgid "Configure the animation when moving to the selected frames."
 msgstr "Animáció beállítása a kiválasztott képkockára mozgáskor."
 
-#: js/view/Properties.js:183
+#: js/view/Properties.js:237
 msgid "Duration (seconds)"
 msgstr "Időtartam (másodperc)"
 
-#: js/view/Properties.js:186
+#: js/view/Properties.js:240
 msgid "Timing function"
 msgstr "Időzítés funkció"
 
-#: js/view/Properties.js:188
+#: js/view/Properties.js:242
 msgid "Linear"
 msgstr "Lineáris"
 
-#: js/view/Properties.js:189
+#: js/view/Properties.js:243
 msgid "Ease"
 msgstr "Lebegés"
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:244
 msgid "Ease in"
 msgstr "Belebegés"
 
-#: js/view/Properties.js:191
+#: js/view/Properties.js:245
 msgid "Ease out"
 msgstr "Kilebegés"
 
-#: js/view/Properties.js:192
+#: js/view/Properties.js:246
 msgid "Ease in-out"
 msgstr "Be-kilebegés"
 
-#: js/view/Properties.js:193
+#: js/view/Properties.js:247
 msgid "Step start"
 msgstr "Lépés kezdete"
 
-#: js/view/Properties.js:194
+#: js/view/Properties.js:248
 msgid "Step end"
 msgstr "Lépés vége"
 
-#: js/view/Properties.js:195
+#: js/view/Properties.js:249
 msgid "Step middle"
 msgstr "Középre lépés"
 
-#: js/view/Properties.js:198
+#: js/view/Properties.js:252
 msgid "Relative zoom (%)"
 msgstr "Relatív nagyítás (%)"
 
-#: js/view/Properties.js:202
+#: js/view/Properties.js:256
 msgid "Path Id"
 msgstr "Útvonal ID"
 
-#: js/view/Properties.js:203
+#: js/view/Properties.js:257
 msgid "Hide path"
 msgstr "Útvonal rejtése"
 
-#: js/view/Properties.js:207
+#: js/view/Properties.js:261
 msgid "Notes"
 msgstr "Jegyzetek"
 
-#: js/view/Properties.js:207
+#: js/view/Properties.js:261
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 "Előadói jegyzetek szerkesztése. Kattints ide a formázási parancsok "
 "listájának megjelenítéséhez."
 
-#: js/view/Properties.js:211
+#: js/view/Properties.js:265
 msgid "Custom stylesheets and scripts"
 msgstr ""
 
-#: js/view/Properties.js:224
+#: js/view/Properties.js:278
 msgid "CSS or JS file names"
 msgstr ""
 
-#: js/view/Properties.js:224
+#: js/view/Properties.js:278
 msgid "Add CSS or JS files"
 msgstr ""
 
-#: js/view/Properties.js:227
+#: js/view/Properties.js:281
 #, fuzzy
 msgid "Add a file"
 msgstr "Az összes réteg hozzáadása"
 
-#: js/view/Properties.js:240
+#: js/view/Properties.js:294
 #, fuzzy
 msgid "Remove this file"
 msgstr "Réteg törlése"
 
-#: js/view/Properties.js:248
+#: js/view/Properties.js:302
 msgid "Player"
 msgstr "Lejátszás"
 
-#: js/view/Properties.js:251
+#: js/view/Properties.js:305
 msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
 msgstr ""
 "A böngésző „Vissza” gombjának engedélyezése a prezentáció visszafelé történő "
 "léptetéséhez"
 
-#: js/view/Properties.js:252
+#: js/view/Properties.js:306
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
@@ -416,80 +448,271 @@ msgstr ""
 "Ha engedélyezve van, az egyik képkockából a másikba történő mozgás "
 "automatikusan módosítja a címsáv tartalmát"
 
-#: js/view/Properties.js:256
+#: js/view/Properties.js:310
 msgid "Allow to control the presentation"
 msgstr "Prezentáció vezérlésének engedélyezése"
 
-#: js/view/Properties.js:258 js/view/Properties.js:265
-#: js/view/Properties.js:271 js/view/Properties.js:279
+#: js/view/Properties.js:312 js/view/Properties.js:319
+#: js/view/Properties.js:325 js/view/Properties.js:333
 msgid "using the mouse"
 msgstr "egér használat"
 
-#: js/view/Properties.js:259 js/view/Properties.js:272
-#: js/view/Properties.js:280
+#: js/view/Properties.js:313 js/view/Properties.js:326
+#: js/view/Properties.js:334
 msgid "using the keyboard"
 msgstr "billentyű használat"
 
-#: js/view/Properties.js:264
+#: js/view/Properties.js:318
 msgid "Allow to move the camera"
 msgstr "Kameramozgás engedélyezése"
 
-#: js/view/Properties.js:269
+#: js/view/Properties.js:323
 msgid "Allow to rotate the camera"
 msgstr "Kameraforgatás engedélyezése"
 
-#: js/view/Properties.js:277
+#: js/view/Properties.js:331
 msgid "Allow to zoom"
 msgstr "Nagyítás engedélyezése"
 
-#: js/view/Timeline.js:136
+#: js/view/Properties.js:349
+msgid "Examples of frame lists to include/exclude in export"
+msgstr ""
+
+#: js/view/Properties.js:351
+msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
+msgstr ""
+
+#: js/view/Properties.js:352
+msgid "Select frames 5 to 8: \"5:8\""
+msgstr ""
+
+#: js/view/Properties.js:353
+msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
+msgstr ""
+
+#: js/view/Properties.js:354
+msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
+msgstr ""
+
+#: js/view/Properties.js:377 js/view/Properties.js:393
+msgid "Export"
+msgstr ""
+
+#: js/view/Properties.js:379
+msgid "Document type"
+msgstr ""
+
+#: js/view/Properties.js:381
+msgid "Portable Document Format (PDF)"
+msgstr ""
+
+#: js/view/Properties.js:382
+msgid "Microsoft PowerPoint (PPTX)"
+msgstr ""
+
+#: js/view/Properties.js:383
+msgid "Video"
+msgstr ""
+
+#: js/view/Properties.js:390
+#, fuzzy
+msgid "Export the presentation to PDF"
+msgstr "Prezentáció mentése"
+
+#: js/view/Properties.js:407
+msgid "Page size"
+msgstr ""
+
+#: js/view/Properties.js:409 js/view/Properties.js:448
+msgid "A3"
+msgstr ""
+
+#: js/view/Properties.js:410 js/view/Properties.js:449
+msgid "A4"
+msgstr ""
+
+#: js/view/Properties.js:411
+msgid "A5"
+msgstr ""
+
+#: js/view/Properties.js:412
+msgid "Legal"
+msgstr ""
+
+#: js/view/Properties.js:413 js/view/Properties.js:457
+msgid "Letter"
+msgstr ""
+
+#: js/view/Properties.js:414
+msgid "Tabloid"
+msgstr ""
+
+#: js/view/Properties.js:417
+#, fuzzy
+msgid "Page orientation"
+msgstr "Prezentáció mentése"
+
+#: js/view/Properties.js:419
+msgid "Landscape"
+msgstr ""
+
+#: js/view/Properties.js:420
+msgid "Portrait"
+msgstr ""
+
+#: js/view/Properties.js:424 js/view/Properties.js:465
+msgid "List of frames to include"
+msgstr ""
+
+#: js/view/Properties.js:425 js/view/Properties.js:431
+#: js/view/Properties.js:466 js/view/Properties.js:472
+msgid "Click here to see the syntax for this field"
+msgstr ""
+
+#: js/view/Properties.js:430 js/view/Properties.js:471
+msgid "List of frames to exclude"
+msgstr ""
+
+#: js/view/Properties.js:445
+msgid "Slide size"
+msgstr ""
+
+#: js/view/Properties.js:447
+msgid "35 mm"
+msgstr ""
+
+#: js/view/Properties.js:450
+msgid "B4 (ISO)"
+msgstr ""
+
+#: js/view/Properties.js:451
+msgid "B4 (JIS)"
+msgstr ""
+
+#: js/view/Properties.js:452
+msgid "B5 (ISO)"
+msgstr ""
+
+#: js/view/Properties.js:453
+msgid "B5 (JIS)"
+msgstr ""
+
+#: js/view/Properties.js:454
+msgid "Banner"
+msgstr ""
+
+#: js/view/Properties.js:455
+msgid "Hagaki Card"
+msgstr ""
+
+#: js/view/Properties.js:456
+msgid "Ledger"
+msgstr ""
+
+#: js/view/Properties.js:458
+msgid "Overhead"
+msgstr ""
+
+#: js/view/Properties.js:459
+msgid "Screen 16:10"
+msgstr ""
+
+#: js/view/Properties.js:460
+msgid "Screen 16:9"
+msgstr ""
+
+#: js/view/Properties.js:461
+msgid "Screen 4:3"
+msgstr ""
+
+#: js/view/Properties.js:487
+msgid "Format"
+msgstr ""
+
+#: js/view/Properties.js:489
+msgid "MPEG-4 (.mp4)"
+msgstr ""
+
+#: js/view/Properties.js:490
+msgid "Ogg Vorbis (.ogv)"
+msgstr ""
+
+#: js/view/Properties.js:491
+msgid "WebM (.webm)"
+msgstr ""
+
+#: js/view/Properties.js:492
+msgid "Windows Media Video (.wmv)"
+msgstr ""
+
+#: js/view/Properties.js:493
+msgid "Image sequence (.png)"
+msgstr ""
+
+#: js/view/Properties.js:496
+msgid "Width (pixels)"
+msgstr ""
+
+#: js/view/Properties.js:499
+msgid "Height (pixels)"
+msgstr ""
+
+#: js/view/Properties.js:502
+msgid "Frame rate (frames/sec)"
+msgstr ""
+
+#: js/view/Properties.js:505
+msgid "Frame rate (kbits/sec)"
+msgstr ""
+
+#: js/view/Timeline.js:184
 msgid "Delete the selected frames"
 msgstr "Kiválasztott képkocka törlése"
 
-#: js/view/Timeline.js:162
+#: js/view/Timeline.js:210
 msgid "Add layer"
 msgstr "Réteg hozzáadása"
 
-#: js/view/Timeline.js:163
+#: js/view/Timeline.js:211
 msgid "Add all layers"
 msgstr "Az összes réteg hozzáadása"
 
-#: js/view/Timeline.js:178 js/view/Timeline.js:198
+#: js/view/Timeline.js:226 js/view/Timeline.js:246
 msgid "This layer is visible. Click to hide it."
 msgstr "Látható réteg. Kattints az elrejtéshez."
 
-#: js/view/Timeline.js:182 js/view/Timeline.js:202
+#: js/view/Timeline.js:230 js/view/Timeline.js:250
 msgid "This layer is hidden. Click to show it."
 msgstr "Rejtett réteg. Kattints a megjelenítéshez."
 
-#: js/view/Timeline.js:206
+#: js/view/Timeline.js:254
 msgid "Remove this layer"
 msgstr "Réteg törlése"
 
-#: js/view/Timeline.js:231
+#: js/view/Timeline.js:279
 msgid "Insert selection before frame %d"
 msgstr "Kiválasztott elem beszúrása a %d képkocka elé"
 
-#: js/view/Timeline.js:238
+#: js/view/Timeline.js:286
 msgid "Insert selection after frame %d"
 msgstr "Kiválasztott elem beszúrása a %d képkocka mögé"
 
-#: js/view/Timeline.js:273 js/view/Timeline.js:285
+#: js/view/Timeline.js:321 js/view/Timeline.js:333
 msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
 msgstr ""
 
-#: js/view/Toolbar.js:36
+#: js/view/Toolbar.js:57
 msgid "Aspect ratio: "
 msgstr "Képarány: "
 
-#: js/view/Toolbar.js:69
+#: js/view/Toolbar.js:90
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
 "Kiválasztott réteg mozgatása (Alt billentyű nagyít, Shift billentyű forgat)"
 
-#: js/view/Toolbar.js:74
+#: js/view/Toolbar.js:95
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
@@ -497,30 +720,38 @@ msgstr ""
 "Nagyítás engedélyezése a kiválasztott rétegen (az Alt billentyű is tudja "
 "mozgatni)"
 
-#: js/view/Toolbar.js:79
+#: js/view/Toolbar.js:100
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr "Kiválasztott réteg forgatása (a Shift billentyű is tudja forgatni)"
 
-#: js/view/Toolbar.js:84
+#: js/view/Toolbar.js:105
 msgid "Edit the clipping area"
 msgstr "A  zoomolási terület átméretezése"
 
-#: js/view/Toolbar.js:103
+#: js/view/Toolbar.js:124
 msgid "Disable full-screen mode"
 msgstr "Teljes képernyős mód tiltása"
 
-#: js/view/Toolbar.js:103
+#: js/view/Toolbar.js:124
 msgid "Enable full-screen mode"
 msgstr "Teljes képernyős mód engedélyezése"
 
-#: js/view/Toolbar.js:123
+#: js/view/Toolbar.js:146
+#, fuzzy
+msgid "Export the presentation"
+msgstr "Prezentáció mentése"
+
+#: js/view/Toolbar.js:153
 msgid "Preferences"
 msgstr "Beállítások"
 
-#: js/view/Toolbar.js:128
+#: js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Információ"
+
+#~ msgid "File %s could not be loaded."
+#~ msgstr "A %s fájlt nem lehet betölteni."
 
 #~ msgid "Sozi (Information)"
 #~ msgstr "Sozi (információ)"
