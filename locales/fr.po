@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
 "POT-Creation-Date: 2020-10-08 08:33:+0000\n"
-"PO-Revision-Date: 2020-08-16 11:22+0200\n"
+"PO-Revision-Date: 2020-10-08 22:52+0200\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/sozi/translations/"
 "fr/>\n"
@@ -45,7 +45,7 @@ msgstr "Fichiers SVG"
 
 #: js/backend/Electron.js:196
 msgid "This file will not be reloaded on change: %s."
-msgstr ""
+msgstr "Ce fichier ne sera pas rechargé après modification : %s."
 
 #: js/backend/Electron.js:212
 msgid "Could not read file %s."
@@ -81,27 +81,27 @@ msgstr "Le document a été modifié."
 
 #: js/Controller.js:1686
 msgid "Presentation was exported to PDF."
-msgstr ""
+msgstr "La présentation a été exportée au format PDF."
 
 #: js/Controller.js:1689
 msgid "Failed to write PDF file."
-msgstr ""
+msgstr "Échec de l'écriture du fichier PDF."
 
 #: js/Controller.js:1702
 msgid "Presentation was exported to PPTX."
-msgstr ""
+msgstr "La présentation a été exportée au format PPTX."
 
 #: js/Controller.js:1705
 msgid "Failed to write PPTX file."
-msgstr ""
+msgstr "Échec de l'écriture du fichier PPTX."
 
 #: js/Controller.js:1718
 msgid "Presentation was exported to video."
-msgstr ""
+msgstr "La présentation a été exportée en vidéo."
 
 #: js/Controller.js:1721
 msgid "Failed to write video file."
-msgstr ""
+msgstr "Échec de l'écriture du fichier vidéo."
 
 #: js/Storage.js:192
 msgid "Document is not valid SVG."
@@ -117,7 +117,7 @@ msgstr "Fichier %s enregistré."
 
 #: js/view/languages.js:17
 msgid "System language"
-msgstr ""
+msgstr "La langue du système"
 
 #: js/view/Properties.js:84
 msgid "Autoselect outline element"
@@ -165,7 +165,7 @@ msgstr "Interface utilisateur"
 
 #: js/view/Properties.js:105
 msgid "Language"
-msgstr ""
+msgstr "Langue"
 
 #: js/view/Properties.js:108
 msgid "Font size"
@@ -465,64 +465,63 @@ msgstr "Autoriser le zoom"
 
 #: js/view/Properties.js:349
 msgid "Examples of frame lists to include/exclude in export"
-msgstr ""
+msgstr "Exemples de listes de vues à inclure/exclure dans l'export"
 
 #: js/view/Properties.js:351
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
-msgstr ""
+msgstr "Sélectionner les vues 2, 5, et 12 : \"2, 5, 12\""
 
 #: js/view/Properties.js:352
 msgid "Select frames 5 to 8: \"5:8\""
-msgstr ""
+msgstr "Sélectionner les vues 5 à 8 : \"5:8\""
 
 #: js/view/Properties.js:353
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
-msgstr ""
+msgstr "Sélectionner les vues 5, 8, 11, 14 et 17 : \"5:8:17\""
 
 #: js/view/Properties.js:354
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
-msgstr ""
+msgstr "Sélectionner les vues 2, 5, et 10 à 15 : \"2, 5, 10:15\""
 
 #: js/view/Properties.js:377 js/view/Properties.js:393
 msgid "Export"
-msgstr ""
+msgstr "Exportation"
 
 #: js/view/Properties.js:379
 msgid "Document type"
-msgstr ""
+msgstr "Type de document"
 
 #: js/view/Properties.js:381
 msgid "Portable Document Format (PDF)"
-msgstr ""
+msgstr "Portable Document Format (PDF)"
 
 #: js/view/Properties.js:382
 msgid "Microsoft PowerPoint (PPTX)"
-msgstr ""
+msgstr "Microsoft PowerPoint (PPTX)"
 
 #: js/view/Properties.js:383
 msgid "Video"
-msgstr ""
+msgstr "Vidéo"
 
 #: js/view/Properties.js:390
-#, fuzzy
 msgid "Export the presentation to PDF"
-msgstr "Enregistrer la présentation"
+msgstr "Exporter la présentation au format PDF"
 
 #: js/view/Properties.js:407
 msgid "Page size"
-msgstr ""
+msgstr "Taille de la page"
 
 #: js/view/Properties.js:409 js/view/Properties.js:448
 msgid "A3"
-msgstr ""
+msgstr "A3"
 
 #: js/view/Properties.js:410 js/view/Properties.js:449
 msgid "A4"
-msgstr ""
+msgstr "A4"
 
 #: js/view/Properties.js:411
 msgid "A5"
-msgstr ""
+msgstr "A5"
 
 #: js/view/Properties.js:412
 msgid "Legal"
@@ -537,62 +536,61 @@ msgid "Tabloid"
 msgstr ""
 
 #: js/view/Properties.js:417
-#, fuzzy
 msgid "Page orientation"
-msgstr "Enregistrer la présentation"
+msgstr "Orientation de la page"
 
 #: js/view/Properties.js:419
 msgid "Landscape"
-msgstr ""
+msgstr "Paysage"
 
 #: js/view/Properties.js:420
 msgid "Portrait"
-msgstr ""
+msgstr "Portrait"
 
 #: js/view/Properties.js:424 js/view/Properties.js:465
 msgid "List of frames to include"
-msgstr ""
+msgstr "Liste des vues à inclure"
 
 #: js/view/Properties.js:425 js/view/Properties.js:431
 #: js/view/Properties.js:466 js/view/Properties.js:472
 msgid "Click here to see the syntax for this field"
-msgstr ""
+msgstr "Cliquez ici pour voir la syntaxe de ce champ"
 
 #: js/view/Properties.js:430 js/view/Properties.js:471
 msgid "List of frames to exclude"
-msgstr ""
+msgstr "Liste des vues à exclure"
 
 #: js/view/Properties.js:445
 msgid "Slide size"
-msgstr ""
+msgstr "Taille des diapos"
 
 #: js/view/Properties.js:447
 msgid "35 mm"
-msgstr ""
+msgstr "35 mm"
 
 #: js/view/Properties.js:450
 msgid "B4 (ISO)"
-msgstr ""
+msgstr "B4 (ISO)"
 
 #: js/view/Properties.js:451
 msgid "B4 (JIS)"
-msgstr ""
+msgstr "B4 (JIS)"
 
 #: js/view/Properties.js:452
 msgid "B5 (ISO)"
-msgstr ""
+msgstr "B5 (ISO)"
 
 #: js/view/Properties.js:453
 msgid "B5 (JIS)"
-msgstr ""
+msgstr "B5 (JIS)"
 
 #: js/view/Properties.js:454
 msgid "Banner"
-msgstr ""
+msgstr "Bannière"
 
 #: js/view/Properties.js:455
 msgid "Hagaki Card"
-msgstr ""
+msgstr "Carte Hagaki"
 
 #: js/view/Properties.js:456
 msgid "Ledger"
@@ -604,47 +602,47 @@ msgstr ""
 
 #: js/view/Properties.js:459
 msgid "Screen 16:10"
-msgstr ""
+msgstr "Écran 16:10"
 
 #: js/view/Properties.js:460
 msgid "Screen 16:9"
-msgstr ""
+msgstr "Écran 16:9"
 
 #: js/view/Properties.js:461
 msgid "Screen 4:3"
-msgstr ""
+msgstr "Écran 4:3"
 
 #: js/view/Properties.js:487
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: js/view/Properties.js:489
 msgid "MPEG-4 (.mp4)"
-msgstr ""
+msgstr "MPEG-4 (.mp4)"
 
 #: js/view/Properties.js:490
 msgid "Ogg Vorbis (.ogv)"
-msgstr ""
+msgstr "Ogg Vorbis (.ogv)"
 
 #: js/view/Properties.js:491
 msgid "WebM (.webm)"
-msgstr ""
+msgstr "WebM (.webm)"
 
 #: js/view/Properties.js:492
 msgid "Windows Media Video (.wmv)"
-msgstr ""
+msgstr "Windows Media Video (.wmv)"
 
 #: js/view/Properties.js:493
 msgid "Image sequence (.png)"
-msgstr ""
+msgstr "Séquence d'images (.png)"
 
 #: js/view/Properties.js:496
 msgid "Width (pixels)"
-msgstr ""
+msgstr "Largeur (pixels)"
 
 #: js/view/Properties.js:499
 msgid "Height (pixels)"
-msgstr ""
+msgstr "Hauteur (pixels)"
 
 #: js/view/Properties.js:502
 msgid "Frame rate (frames/sec)"
@@ -732,9 +730,8 @@ msgid "Enable full-screen mode"
 msgstr "Activer le mode plein écran"
 
 #: js/view/Toolbar.js:146
-#, fuzzy
 msgid "Export the presentation"
-msgstr "Enregistrer la présentation"
+msgstr "Exporter la présentation"
 
 #: js/view/Toolbar.js:153
 msgid "Preferences"
