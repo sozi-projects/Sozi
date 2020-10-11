@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: Tim van Steenbergen <tim@sourcerers.nl>\n"
 "POT-Creation-Date: 2020-10-08 08:56:+0000\n"
-"PO-Revision-Date: 2020-08-19 03:33+0000\n"
+"PO-Revision-Date: 2020-10-12 11:26+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/sozi/translations/"
 "nl/>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 "X-Launchpad-Export-Date: 2016-10-10 06:40+0000\n"
 
 #: js/backend/Electron.js:48
 msgid "Open an SVG file from your computer"
-msgstr "Open een SVG-bestand van je computer"
+msgstr "Open een svg-bestand van je computer"
 
 #: js/backend/Electron.js:73
 msgid "Do you want to save the presentation before closing?"
@@ -42,7 +42,7 @@ msgstr "Bestand niet aangetroffen: %s."
 
 #: js/backend/Electron.js:135
 msgid "Choose an SVG file"
-msgstr "Kies een SVG-bestand"
+msgstr "Kies een svg-bestand"
 
 #: js/backend/Electron.js:136
 msgid "SVG files"
@@ -50,7 +50,7 @@ msgstr "SVG-bestanden"
 
 #: js/backend/Electron.js:196
 msgid "This file will not be reloaded on change: %s."
-msgstr ""
+msgstr "Het volgende bestand wordt na aanpassing niet herladen: %s."
 
 #: js/backend/Electron.js:212
 msgid "Could not read file %s."
@@ -61,12 +61,12 @@ msgid ""
 "Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Open een SVG-bestand van je computer (<i class=\"fas fa-exclamation-triangle"
-"\"></i> alleen-lezen)"
+"Open een svg-bestand van je computer (<i class=\"fas fa-exclamation-"
+"triangle\"></i> alleen-lezen)"
 
 #: js/backend/GoogleDrive.js:23
 msgid "Open an SVG file from Google Drive"
-msgstr "Open een SVG-bestand van Google Drive"
+msgstr "Open een svg-bestand van Google Drive"
 
 #: js/Controller.js:217
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
@@ -86,35 +86,35 @@ msgstr "Het bestand is aangepast."
 
 #: js/Controller.js:1686
 msgid "Presentation was exported to PDF."
-msgstr ""
+msgstr "De presentatie is geëxporteerd naar een pdf-bestand."
 
 #: js/Controller.js:1689
 msgid "Failed to write PDF file."
-msgstr ""
+msgstr "Kan pdf-bestand niet wegschrijven."
 
 #: js/Controller.js:1702
 msgid "Presentation was exported to PPTX."
-msgstr ""
+msgstr "De presentatie is geëxporteerd naar een pptx-bestand."
 
 #: js/Controller.js:1705
 msgid "Failed to write PPTX file."
-msgstr ""
+msgstr "Kan pptx-bestand niet wegschrijven."
 
 #: js/Controller.js:1718
 msgid "Presentation was exported to video."
-msgstr ""
+msgstr "De presentatie is geëxporteerd naar een videobestand."
 
 #: js/Controller.js:1721
 msgid "Failed to write video file."
-msgstr ""
+msgstr "Kan videobestand niet wegschrijven."
 
 #: js/Storage.js:192
 msgid "Document is not valid SVG."
-msgstr "Het bestand is geen geldig SVG-bestand."
+msgstr "Het bestand is geen geldig svg-bestand."
 
 #: js/Storage.js:250
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr "Het bestand is geïmporteerd uit Sozi 13 of eerder."
+msgstr "Het bestand is geïmporteerd uit Sozi 13 of ouder."
 
 #: js/Storage.js:340
 msgid "Saved %s."
@@ -122,7 +122,7 @@ msgstr "'%s' is opgeslagen."
 
 #: js/view/languages.js:17
 msgid "System language"
-msgstr ""
+msgstr "Systeemtaal"
 
 #: js/view/Properties.js:84
 msgid "Autoselect outline element"
@@ -166,11 +166,11 @@ msgstr "Ontwikkelaarshulpmiddelen tonen/verbergen"
 
 #: js/view/Properties.js:103
 msgid "User interface"
-msgstr "Uiterlijk"
+msgstr "Vormgeving"
 
 #: js/view/Properties.js:105
 msgid "Language"
-msgstr ""
+msgstr "Taal"
 
 #: js/view/Properties.js:108
 msgid "Font size"
@@ -286,7 +286,7 @@ msgstr "Titelniveau op framelijst"
 
 #: js/view/Properties.js:190
 msgid "Id"
-msgstr "Id"
+msgstr "ID"
 
 #: js/view/Properties.js:194
 msgid "Timeout (seconds)"
@@ -326,7 +326,7 @@ msgstr "Element verbergen"
 
 #: js/view/Properties.js:225
 msgid "Fit to element"
-msgstr "Aan Element aanpassen"
+msgstr "Aanpassen aan element"
 
 #: js/view/Properties.js:232
 msgid "Layer opacity"
@@ -378,7 +378,7 @@ msgstr "Stapeinde"
 
 #: js/view/Properties.js:249
 msgid "Step middle"
-msgstr "Stap midden"
+msgstr "Stapmidden"
 
 #: js/view/Properties.js:252
 msgid "Relative zoom (%)"
@@ -461,202 +461,200 @@ msgstr "Toestaan om de camera te verplaatsen"
 
 #: js/view/Properties.js:323
 msgid "Allow to rotate the camera"
-msgstr "Toestaan om camera te draaien"
+msgstr "Toestaan om de camera te draaien"
 
 #: js/view/Properties.js:331
 msgid "Allow to zoom"
-msgstr "Toestaan om in te zoomen"
+msgstr "Toestaan om te zoomen"
 
 #: js/view/Properties.js:349
 msgid "Examples of frame lists to include/exclude in export"
-msgstr ""
+msgstr "Voorbeelden van op te nemen/uit te sluiten framelijsten bij exporteren"
 
 #: js/view/Properties.js:351
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
-msgstr ""
+msgstr "Selecteer frames 2, 5 en 12: \"2, 5, 12\""
 
 #: js/view/Properties.js:352
 msgid "Select frames 5 to 8: \"5:8\""
-msgstr ""
+msgstr "Selecteer frames 5 tot 8: \"5:8\""
 
 #: js/view/Properties.js:353
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
-msgstr ""
+msgstr "Selecteer frames 5, 8, 11, 14 en 17: \"5:8:17\""
 
 #: js/view/Properties.js:354
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
-msgstr ""
+msgstr "Selecteer frames 2, 5 en 10 tot 15: \"2, 5, 10:15\""
 
 #: js/view/Properties.js:377 js/view/Properties.js:393
 msgid "Export"
-msgstr ""
+msgstr "Exporteren"
 
 #: js/view/Properties.js:379
 msgid "Document type"
-msgstr ""
+msgstr "Soort document"
 
 #: js/view/Properties.js:381
 msgid "Portable Document Format (PDF)"
-msgstr ""
+msgstr "Portable Document Format (PDF)"
 
 #: js/view/Properties.js:382
 msgid "Microsoft PowerPoint (PPTX)"
-msgstr ""
+msgstr "Microsoft PowerPoint (PPTX)"
 
 #: js/view/Properties.js:383
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: js/view/Properties.js:390 js/view/Toolbar.js:146
-#, fuzzy
 msgid "Export the presentation"
-msgstr "Presentatie opslaan"
+msgstr "Presentatie exporteren"
 
 #: js/view/Properties.js:407
 msgid "Page size"
-msgstr ""
+msgstr "Paginagrootte"
 
 #: js/view/Properties.js:409 js/view/Properties.js:448
 msgid "A3"
-msgstr ""
+msgstr "A3"
 
 #: js/view/Properties.js:410 js/view/Properties.js:449
 msgid "A4"
-msgstr ""
+msgstr "A4"
 
 #: js/view/Properties.js:411
 msgid "A5"
-msgstr ""
+msgstr "A5"
 
 #: js/view/Properties.js:412
 msgid "Legal"
-msgstr ""
+msgstr "Juridisch"
 
 #: js/view/Properties.js:413 js/view/Properties.js:457
 msgid "Letter"
-msgstr ""
+msgstr "Brief"
 
 #: js/view/Properties.js:414
 msgid "Tabloid"
-msgstr ""
+msgstr "Tabloid"
 
 #: js/view/Properties.js:417
-#, fuzzy
 msgid "Page orientation"
-msgstr "Presentatie opslaan"
+msgstr "Pagina-oriëntatie"
 
 #: js/view/Properties.js:419
 msgid "Landscape"
-msgstr ""
+msgstr "Horizontaal"
 
 #: js/view/Properties.js:420
 msgid "Portrait"
-msgstr ""
+msgstr "Verticaal"
 
 #: js/view/Properties.js:424 js/view/Properties.js:465
 msgid "List of frames to include"
-msgstr ""
+msgstr "Lijst met op te nemen frames"
 
 #: js/view/Properties.js:425 js/view/Properties.js:431
 #: js/view/Properties.js:466 js/view/Properties.js:472
 msgid "Click here to see the syntax for this field"
-msgstr ""
+msgstr "Klik hier om de syntax van dit veld te bekijken"
 
 #: js/view/Properties.js:430 js/view/Properties.js:471
 msgid "List of frames to exclude"
-msgstr ""
+msgstr "Lijst met uit te sluiten frames"
 
 #: js/view/Properties.js:445
 msgid "Slide size"
-msgstr ""
+msgstr "Diagrootte"
 
 #: js/view/Properties.js:447
 msgid "35 mm"
-msgstr ""
+msgstr "35 mm"
 
 #: js/view/Properties.js:450
 msgid "B4 (ISO)"
-msgstr ""
+msgstr "B4 (ISO)"
 
 #: js/view/Properties.js:451
 msgid "B4 (JIS)"
-msgstr ""
+msgstr "B4 (JIS)"
 
 #: js/view/Properties.js:452
 msgid "B5 (ISO)"
-msgstr ""
+msgstr "B5 (ISO)"
 
 #: js/view/Properties.js:453
 msgid "B5 (JIS)"
-msgstr ""
+msgstr "B5 (JIS)"
 
 #: js/view/Properties.js:454
 msgid "Banner"
-msgstr ""
+msgstr "Banier"
 
 #: js/view/Properties.js:455
 msgid "Hagaki Card"
-msgstr ""
+msgstr "Hagaki-kaart"
 
 #: js/view/Properties.js:456
 msgid "Ledger"
-msgstr ""
+msgstr "Grootboek"
 
 #: js/view/Properties.js:458
 msgid "Overhead"
-msgstr ""
+msgstr "Overlap"
 
 #: js/view/Properties.js:459
 msgid "Screen 16:10"
-msgstr ""
+msgstr "16:10-beeldverhouding"
 
 #: js/view/Properties.js:460
 msgid "Screen 16:9"
-msgstr ""
+msgstr "16:9-beeldverhouding"
 
 #: js/view/Properties.js:461
 msgid "Screen 4:3"
-msgstr ""
+msgstr "4:3-beeldverhouding"
 
 #: js/view/Properties.js:487
 msgid "Format"
-msgstr ""
+msgstr "Formaat"
 
 #: js/view/Properties.js:489
 msgid "MPEG-4 (.mp4)"
-msgstr ""
+msgstr "MPEG-4 (.mp4)"
 
 #: js/view/Properties.js:490
 msgid "Ogg Vorbis (.ogv)"
-msgstr ""
+msgstr "Ogg Vorbis (.ogv)"
 
 #: js/view/Properties.js:491
 msgid "WebM (.webm)"
-msgstr ""
+msgstr "WebM (.webm)"
 
 #: js/view/Properties.js:492
 msgid "Windows Media Video (.wmv)"
-msgstr ""
+msgstr "Windows Media Video (.wmv)"
 
 #: js/view/Properties.js:493
 msgid "Image sequence (.png)"
-msgstr ""
+msgstr "Afbeeldingenreeks (*.png)"
 
 #: js/view/Properties.js:496
 msgid "Width (pixels)"
-msgstr ""
+msgstr "Breedte (in pixels)"
 
 #: js/view/Properties.js:499
 msgid "Height (pixels)"
-msgstr ""
+msgstr "Hoogte (in pixels)"
 
 #: js/view/Properties.js:502
 msgid "Frame rate (frames/sec)"
-msgstr ""
+msgstr "Framesnelheid (in frames/sec)"
 
 #: js/view/Properties.js:505
 msgid "Bit rate (kbits/sec)"
-msgstr ""
+msgstr "Bitsnelheid (in kbits/sec)"
 
 #: js/view/Timeline.js:184
 msgid "Delete the selected frames"
@@ -705,7 +703,7 @@ msgstr "Beeldverhouding: "
 #: js/view/Toolbar.js:90
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
-"Geselecteerde lagen verplaatsen (houdt Alt ingedrukt om te zoomen, en Shift "
+"Geselecteerde lagen verplaatsen (houdt Alt ingedrukt om te zoomen en Shift "
 "om te draaien)"
 
 #: js/view/Toolbar.js:95
