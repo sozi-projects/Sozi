@@ -432,7 +432,7 @@ export async function exportToPPTX(presentation, htmlFileName) {
                  res = spawnSync(ffmpegPath, ffmpegOptions, {stdio: "inherit"});
              }
 
-             // Force the deletion of the temporaty image directory.
+             // Force the deletion of the temporary image directory.
              destDir.removeCallback();
 
              if (res.error) {
