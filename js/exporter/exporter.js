@@ -307,11 +307,24 @@ export async function exportToPPTX(presentation, htmlFileName) {
 
     return new Promise((resolve, reject) => {
         pptxDoc.on("finalize", () => {
-            destDir.removeCallback();
+            // Remove the temporary image folder, ignoring exceptions on failure.
+            try {
+                destDir.removeCallback();
+            }
+            catch (e) {
+                console.log(e);
+            }
             resolve();
         });
+        
         pptxDoc.on("error", () => {
-            destDir.removeCallback();
+            // Remove the temporary image folder, ignoring exceptions on failure.
+            try {
+                destDir.removeCallback();
+            }
+            catch (e) {
+                console.log(e);
+            }
             reject();
         });
 
@@ -432,8 +445,13 @@ export async function exportToPPTX(presentation, htmlFileName) {
                  res = spawnSync(ffmpegPath, ffmpegOptions, {stdio: "inherit"});
              }
 
-             // Force the deletion of the temporary image directory.
-             destDir.removeCallback();
+             // Remove the temporary image folder, ignoring exceptions on failure.
+             try {
+                 destDir.removeCallback();
+             }
+             catch (e) {
+                 console.log(e);
+             }
 
              if (res.error) {
                  console.log("Could not launch FFMPEG.");
