@@ -183,26 +183,9 @@ button:disabled {
  * Fonts
  * ------------------------------------------------------------------------- */
 
-/*
- * Using bulletproof @font-face syntax:
- * http://www.paulirish.com/2009/bulletproof-font-face-implementation-syntax/
- */
-@font-face {
-    font-family: "Droid Sans";
-    src: url("../vendor/DroidSans/DroidSans.eot?") format("embedded-opentype"),
-         url("../vendor/DroidSans/DroidSans.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "Droid Sans";
-    src: url("../vendor/DroidSans/DroidSans-Bold.eot?") format("embedded-opentype"),
-         url("../vendor/DroidSans/DroidSans-Bold.ttf") format("truetype");
-    font-weight: bold;
-}
-
 body {
     font-size: small;
-    font-family: "Droid Sans", serif;
+    font-family: "Roboto", serif;
 }
 
 .top-left p {

@@ -212,8 +212,7 @@ module.exports = function(grunt) {
                         expand: true,
                         src: [
                             "index-electron.html",
-                            "css/**/*",
-                            "vendor/DroidSans/*"
+                            "css/**/*"
                         ],
                         dest: "build/electron/"
                     },
@@ -221,8 +220,7 @@ module.exports = function(grunt) {
                         expand: true,
                         src: [
                             "index-webapp.html",
-                            "css/**/*",
-                            "vendor/DroidSans/*"
+                            "css/**/*"
                         ],
                         dest: "build/browser/"
                     },

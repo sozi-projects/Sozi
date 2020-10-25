@@ -39,10 +39,6 @@ From the root of the source tree:
 
     npm install
 
-Install the Droid Sans font:
-
-* [Droid Sans](http://www.fontsquirrel.com/fonts/Droid-Sans) as `vendor/DroidSans/DroidSans.eot|ttf` and `vendor/DroidSans/DroidSans-Bold.eot|ttf`
-
 Get the binaries for ffmpeg (optional, video export will not work without them).
 Download and unzip the FFMPEG executables to the following folders:
 
