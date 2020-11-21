@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-10-08 08:56:+0000\n"
-"PO-Revision-Date: 2020-08-19 03:33+0000\n"
-"Last-Translator: Mehmet Gurbuz GUVEN <6mehmet6@gmail.com>\n"
+"PO-Revision-Date: 2020-10-09 23:26+0000\n"
+"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/sozi/"
 "translations/tr/>\n"
 "Language: tr\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: js/backend/Electron.js:48
 msgid "Open an SVG file from your computer"
@@ -43,7 +43,7 @@ msgstr "SVG dosyaları"
 
 #: js/backend/Electron.js:196
 msgid "This file will not be reloaded on change: %s."
-msgstr ""
+msgstr "Bu dosya, değişiklik olduğunda yeniden yüklenmeyecek: %s."
 
 #: js/backend/Electron.js:212
 msgid "Could not read file %s."
@@ -79,27 +79,27 @@ msgstr "Belge değiştirildi."
 
 #: js/Controller.js:1686
 msgid "Presentation was exported to PDF."
-msgstr ""
+msgstr "Sunum PDF olarak dışa aktarıldı."
 
 #: js/Controller.js:1689
 msgid "Failed to write PDF file."
-msgstr ""
+msgstr "PDF dosyası yazılamadı."
 
 #: js/Controller.js:1702
 msgid "Presentation was exported to PPTX."
-msgstr ""
+msgstr "Sunum PPTX olarak dışa aktarıldı."
 
 #: js/Controller.js:1705
 msgid "Failed to write PPTX file."
-msgstr ""
+msgstr "PPTX dosyası yazılamadı."
 
 #: js/Controller.js:1718
 msgid "Presentation was exported to video."
-msgstr ""
+msgstr "Sunum video olarak dışa aktarıldı."
 
 #: js/Controller.js:1721
 msgid "Failed to write video file."
-msgstr ""
+msgstr "Video dosyası yazılamadı."
 
 #: js/Storage.js:192
 msgid "Document is not valid SVG."
@@ -115,7 +115,7 @@ msgstr "%s kaydedildi."
 
 #: js/view/languages.js:17
 msgid "System language"
-msgstr ""
+msgstr "Sistem dili"
 
 #: js/view/Properties.js:84
 msgid "Autoselect outline element"
@@ -163,7 +163,7 @@ msgstr "Kullanıcı arayüzü"
 
 #: js/view/Properties.js:105
 msgid "Language"
-msgstr ""
+msgstr "Dil"
 
 #: js/view/Properties.js:108
 msgid "Font size"
@@ -462,194 +462,193 @@ msgstr "Görüntüyü yakınlaştırmaya izin ver"
 
 #: js/view/Properties.js:349
 msgid "Examples of frame lists to include/exclude in export"
-msgstr ""
+msgstr "Dışa aktarmaya dahil edilecek/hariç tutulacak kare listesi örnekleri"
 
 #: js/view/Properties.js:351
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
-msgstr ""
+msgstr "2, 5 ve 12 numaralı kareleri seç: \"2, 5, 12\""
 
 #: js/view/Properties.js:352
 msgid "Select frames 5 to 8: \"5:8\""
-msgstr ""
+msgstr "5 ile 8 arasındaki kareleri seç: \"5:8\""
 
 #: js/view/Properties.js:353
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
-msgstr ""
+msgstr "5, 8, 11, 14 ve 17 numaralı kareleri seç: \"5:8:17\""
 
 #: js/view/Properties.js:354
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
 msgstr ""
+"2 ve 5 numaralı kareler ile 10 ve 15 arasındaki kareleri seç: \"2, 5, 10:15\""
 
 #: js/view/Properties.js:377 js/view/Properties.js:393
 msgid "Export"
-msgstr ""
+msgstr "Dışa aktar"
 
 #: js/view/Properties.js:379
 msgid "Document type"
-msgstr ""
+msgstr "Belge türü"
 
 #: js/view/Properties.js:381
 msgid "Portable Document Format (PDF)"
-msgstr ""
+msgstr "Portable Document Format (PDF)"
 
 #: js/view/Properties.js:382
 msgid "Microsoft PowerPoint (PPTX)"
-msgstr ""
+msgstr "Microsoft PowerPoint (PPTX)"
 
 #: js/view/Properties.js:383
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: js/view/Properties.js:390 js/view/Toolbar.js:146
-#, fuzzy
 msgid "Export the presentation"
-msgstr "Sunumu kaydet"
+msgstr "Sunumu dışa aktar"
 
 #: js/view/Properties.js:407
 msgid "Page size"
-msgstr ""
+msgstr "Sayfa boyutu"
 
 #: js/view/Properties.js:409 js/view/Properties.js:448
 msgid "A3"
-msgstr ""
+msgstr "A3"
 
 #: js/view/Properties.js:410 js/view/Properties.js:449
 msgid "A4"
-msgstr ""
+msgstr "A4"
 
 #: js/view/Properties.js:411
 msgid "A5"
-msgstr ""
+msgstr "A5"
 
 #: js/view/Properties.js:412
 msgid "Legal"
-msgstr ""
+msgstr "Hukuki (Legal)"
 
 #: js/view/Properties.js:413 js/view/Properties.js:457
 msgid "Letter"
-msgstr ""
+msgstr "Mektup (Letter)"
 
 #: js/view/Properties.js:414
 msgid "Tabloid"
-msgstr ""
+msgstr "Tabloid"
 
 #: js/view/Properties.js:417
-#, fuzzy
 msgid "Page orientation"
-msgstr "Sunumu kaydet"
+msgstr "Sayfa yönlendirmesi"
 
 #: js/view/Properties.js:419
 msgid "Landscape"
-msgstr ""
+msgstr "Yatay"
 
 #: js/view/Properties.js:420
 msgid "Portrait"
-msgstr ""
+msgstr "Dikey"
 
 #: js/view/Properties.js:424 js/view/Properties.js:465
 msgid "List of frames to include"
-msgstr ""
+msgstr "Dahil edilecek karelerin listesi"
 
 #: js/view/Properties.js:425 js/view/Properties.js:431
 #: js/view/Properties.js:466 js/view/Properties.js:472
 msgid "Click here to see the syntax for this field"
-msgstr ""
+msgstr "Bu alanın söz dizimini görmek için buraya tıklayın"
 
 #: js/view/Properties.js:430 js/view/Properties.js:471
 msgid "List of frames to exclude"
-msgstr ""
+msgstr "Hariç tutulacak karelerin listesi"
 
 #: js/view/Properties.js:445
 msgid "Slide size"
-msgstr ""
+msgstr "Slayt boyutu"
 
 #: js/view/Properties.js:447
 msgid "35 mm"
-msgstr ""
+msgstr "35 mm"
 
 #: js/view/Properties.js:450
 msgid "B4 (ISO)"
-msgstr ""
+msgstr "B4 (ISO)"
 
 #: js/view/Properties.js:451
 msgid "B4 (JIS)"
-msgstr ""
+msgstr "B4 (JIS)"
 
 #: js/view/Properties.js:452
 msgid "B5 (ISO)"
-msgstr ""
+msgstr "B5 (ISO)"
 
 #: js/view/Properties.js:453
 msgid "B5 (JIS)"
-msgstr ""
+msgstr "B5 (JIS)"
 
 #: js/view/Properties.js:454
 msgid "Banner"
-msgstr ""
+msgstr "Afiş"
 
 #: js/view/Properties.js:455
 msgid "Hagaki Card"
-msgstr ""
+msgstr "Hagaki Kartı"
 
 #: js/view/Properties.js:456
 msgid "Ledger"
-msgstr ""
+msgstr "Defter (Ledger)"
 
 #: js/view/Properties.js:458
 msgid "Overhead"
-msgstr ""
+msgstr "Asetat (Overhead)"
 
 #: js/view/Properties.js:459
 msgid "Screen 16:10"
-msgstr ""
+msgstr "16:10 Ekran"
 
 #: js/view/Properties.js:460
 msgid "Screen 16:9"
-msgstr ""
+msgstr "16:9 Ekran"
 
 #: js/view/Properties.js:461
 msgid "Screen 4:3"
-msgstr ""
+msgstr "4:3 Ekran"
 
 #: js/view/Properties.js:487
 msgid "Format"
-msgstr ""
+msgstr "Biçim"
 
 #: js/view/Properties.js:489
 msgid "MPEG-4 (.mp4)"
-msgstr ""
+msgstr "MPEG-4 (.mp4)"
 
 #: js/view/Properties.js:490
 msgid "Ogg Vorbis (.ogv)"
-msgstr ""
+msgstr "Ogg Vorbis (.ogv)"
 
 #: js/view/Properties.js:491
 msgid "WebM (.webm)"
-msgstr ""
+msgstr "WebM (.webm)"
 
 #: js/view/Properties.js:492
 msgid "Windows Media Video (.wmv)"
-msgstr ""
+msgstr "Windows Media Video (.wmv)"
 
 #: js/view/Properties.js:493
 msgid "Image sequence (.png)"
-msgstr ""
+msgstr "Görüntü dizisi (.png)"
 
 #: js/view/Properties.js:496
 msgid "Width (pixels)"
-msgstr ""
+msgstr "Genişlik (piksel)"
 
 #: js/view/Properties.js:499
 msgid "Height (pixels)"
-msgstr ""
+msgstr "Yükseklik (piksel)"
 
 #: js/view/Properties.js:502
 msgid "Frame rate (frames/sec)"
-msgstr ""
+msgstr "Kare hızı (kare/sn)"
 
 #: js/view/Properties.js:505
 msgid "Bit rate (kbits/sec)"
-msgstr ""
+msgstr "Bit hızı (kbit/sn)"
 
 #: js/view/Timeline.js:184
 msgid "Delete the selected frames"

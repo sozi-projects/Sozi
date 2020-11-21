@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-10-08 08:56:+0000\n"
-"PO-Revision-Date: 2020-08-19 03:33+0000\n"
-"Last-Translator: Mehmet Gurbuz GUVEN <6mehmet6@gmail.com>\n"
+"PO-Revision-Date: 2020-11-05 08:26+0000\n"
+"Last-Translator: 麋悟BigELK176 <bigelk176@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "sozi/translations/zh_Hant/>\n"
 "Language: zh_TW\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 "X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
 
 #: js/backend/Electron.js:48
@@ -50,7 +50,7 @@ msgstr "SVG 檔案"
 
 #: js/backend/Electron.js:196
 msgid "This file will not be reloaded on change: %s."
-msgstr ""
+msgstr "此檔案將不會再次載入於變更： %s。"
 
 #: js/backend/Electron.js:212
 msgid "Could not read file %s."
@@ -85,27 +85,27 @@ msgstr "文件已更改。"
 
 #: js/Controller.js:1686
 msgid "Presentation was exported to PDF."
-msgstr ""
+msgstr "簡報業已匯出成 PDF 檔案。"
 
 #: js/Controller.js:1689
 msgid "Failed to write PDF file."
-msgstr ""
+msgstr "寫入 PDF 檔案失敗。"
 
 #: js/Controller.js:1702
 msgid "Presentation was exported to PPTX."
-msgstr ""
+msgstr "簡報業已匯出成 PPTX 檔案。"
 
 #: js/Controller.js:1705
 msgid "Failed to write PPTX file."
-msgstr ""
+msgstr "寫入 PPTX 檔案失敗。"
 
 #: js/Controller.js:1718
 msgid "Presentation was exported to video."
-msgstr ""
+msgstr "簡報業已匯出成影片檔案。"
 
 #: js/Controller.js:1721
 msgid "Failed to write video file."
-msgstr ""
+msgstr "寫入影片檔案失敗。"
 
 #: js/Storage.js:192
 msgid "Document is not valid SVG."
@@ -121,7 +121,7 @@ msgstr "完成儲存 %s 。"
 
 #: js/view/languages.js:17
 msgid "System language"
-msgstr ""
+msgstr "系統語言"
 
 #: js/view/Properties.js:84
 msgid "Autoselect outline element"
@@ -169,7 +169,7 @@ msgstr "使用者介面"
 
 #: js/view/Properties.js:105
 msgid "Language"
-msgstr ""
+msgstr "語言"
 
 #: js/view/Properties.js:108
 msgid "Font size"
@@ -462,194 +462,192 @@ msgstr "允許放大"
 
 #: js/view/Properties.js:349
 msgid "Examples of frame lists to include/exclude in export"
-msgstr ""
+msgstr "框格範例列出包含/不包含於匯出"
 
 #: js/view/Properties.js:351
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
-msgstr ""
+msgstr "選擇框格 2, 5 及12: \"2, 5, 12\""
 
 #: js/view/Properties.js:352
 msgid "Select frames 5 to 8: \"5:8\""
-msgstr ""
+msgstr "選擇框格 5 至 8: \"5:8\""
 
 #: js/view/Properties.js:353
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
-msgstr ""
+msgstr "選擇框格 5, 8, 11, 14 及 17: \"5:8:17\""
 
 #: js/view/Properties.js:354
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
-msgstr ""
+msgstr "選擇框格 2, 5 及 10 至15: \"2, 5, 10:15\""
 
 #: js/view/Properties.js:377 js/view/Properties.js:393
 msgid "Export"
-msgstr ""
+msgstr "匯出"
 
 #: js/view/Properties.js:379
 msgid "Document type"
-msgstr ""
+msgstr "文件類型"
 
 #: js/view/Properties.js:381
 msgid "Portable Document Format (PDF)"
-msgstr ""
+msgstr "可攜式文件格式(PDF)"
 
 #: js/view/Properties.js:382
 msgid "Microsoft PowerPoint (PPTX)"
-msgstr ""
+msgstr "微軟 PowerPoint (PPTX)"
 
 #: js/view/Properties.js:383
 msgid "Video"
-msgstr ""
+msgstr "影片"
 
 #: js/view/Properties.js:390 js/view/Toolbar.js:146
-#, fuzzy
 msgid "Export the presentation"
-msgstr "儲存簡報"
+msgstr "匯出簡報"
 
 #: js/view/Properties.js:407
 msgid "Page size"
-msgstr ""
+msgstr "頁面大小"
 
 #: js/view/Properties.js:409 js/view/Properties.js:448
 msgid "A3"
-msgstr ""
+msgstr "A3"
 
 #: js/view/Properties.js:410 js/view/Properties.js:449
 msgid "A4"
-msgstr ""
+msgstr "A4"
 
 #: js/view/Properties.js:411
 msgid "A5"
-msgstr ""
+msgstr "A5"
 
 #: js/view/Properties.js:412
 msgid "Legal"
-msgstr ""
+msgstr "Legal (216 × 356 mm)"
 
 #: js/view/Properties.js:413 js/view/Properties.js:457
 msgid "Letter"
-msgstr ""
+msgstr "Letter (216 × 279 mm)"
 
 #: js/view/Properties.js:414
 msgid "Tabloid"
-msgstr ""
+msgstr "Tabloid (279 × 432 mm)"
 
 #: js/view/Properties.js:417
-#, fuzzy
 msgid "Page orientation"
-msgstr "儲存簡報"
+msgstr "頁面方向"
 
 #: js/view/Properties.js:419
 msgid "Landscape"
-msgstr ""
+msgstr "橫向"
 
 #: js/view/Properties.js:420
 msgid "Portrait"
-msgstr ""
+msgstr "直向"
 
 #: js/view/Properties.js:424 js/view/Properties.js:465
 msgid "List of frames to include"
-msgstr ""
+msgstr "框格列表至包含"
 
 #: js/view/Properties.js:425 js/view/Properties.js:431
 #: js/view/Properties.js:466 js/view/Properties.js:472
 msgid "Click here to see the syntax for this field"
-msgstr ""
+msgstr "在此點按以查看此欄位語法"
 
 #: js/view/Properties.js:430 js/view/Properties.js:471
 msgid "List of frames to exclude"
-msgstr ""
+msgstr "框格列表至不包含"
 
 #: js/view/Properties.js:445
 msgid "Slide size"
-msgstr ""
+msgstr "投影片大小"
 
 #: js/view/Properties.js:447
 msgid "35 mm"
-msgstr ""
+msgstr "35 mm"
 
 #: js/view/Properties.js:450
 msgid "B4 (ISO)"
-msgstr ""
+msgstr "B4 (ISO)"
 
 #: js/view/Properties.js:451
 msgid "B4 (JIS)"
-msgstr ""
+msgstr "B4 (JIS)"
 
 #: js/view/Properties.js:452
 msgid "B5 (ISO)"
-msgstr ""
+msgstr "B5 (ISO)"
 
 #: js/view/Properties.js:453
 msgid "B5 (JIS)"
-msgstr ""
+msgstr "B5 (JIS)"
 
 #: js/view/Properties.js:454
 msgid "Banner"
-msgstr ""
+msgstr "橫幅"
 
 #: js/view/Properties.js:455
 msgid "Hagaki Card"
-msgstr ""
+msgstr "Hagaki Card (100x148mm)"
 
 #: js/view/Properties.js:456
 msgid "Ledger"
-msgstr ""
+msgstr "Ledger (432 × 279 mm)"
 
 #: js/view/Properties.js:458
 msgid "Overhead"
-msgstr ""
+msgstr "透明片"
 
 #: js/view/Properties.js:459
 msgid "Screen 16:10"
-msgstr ""
+msgstr "螢幕 16:10"
 
 #: js/view/Properties.js:460
 msgid "Screen 16:9"
-msgstr ""
+msgstr "螢幕 16:9"
 
 #: js/view/Properties.js:461
 msgid "Screen 4:3"
-msgstr ""
+msgstr "螢幕 4:3"
 
 #: js/view/Properties.js:487
 msgid "Format"
-msgstr ""
+msgstr "格式"
 
 #: js/view/Properties.js:489
 msgid "MPEG-4 (.mp4)"
-msgstr ""
+msgstr "MPEG-4 (.mp4) 影片"
 
 #: js/view/Properties.js:490
 msgid "Ogg Vorbis (.ogv)"
-msgstr ""
+msgstr "Ogg Vorbis (.ogv) 聲音"
 
 #: js/view/Properties.js:491
 msgid "WebM (.webm)"
-msgstr ""
+msgstr "WebM (.webm) 圖片"
 
 #: js/view/Properties.js:492
 msgid "Windows Media Video (.wmv)"
-msgstr ""
+msgstr "Windows Media Video (.wmv) 聲音"
 
 #: js/view/Properties.js:493
 msgid "Image sequence (.png)"
-msgstr ""
+msgstr "Image sequence (.png) 圖片"
 
 #: js/view/Properties.js:496
 msgid "Width (pixels)"
-msgstr ""
+msgstr "寬度 (pixels)"
 
 #: js/view/Properties.js:499
 msgid "Height (pixels)"
-msgstr ""
+msgstr "高度 (pixels)"
 
 #: js/view/Properties.js:502
 msgid "Frame rate (frames/sec)"
-msgstr ""
+msgstr "影格率 (frames/sec)"
 
 #: js/view/Properties.js:505
 msgid "Bit rate (kbits/sec)"
-msgstr ""
+msgstr "Bit rate (kbits/sec) 位元速率"
 
 #: js/view/Timeline.js:184
 msgid "Delete the selected frames"
