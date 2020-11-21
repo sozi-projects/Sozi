@@ -29,6 +29,7 @@ export function getLanguages(_) {
         fi: "Suomi",
         fr: "Français",
         gl: "Galego",
+        he: "עִבְרִית",
         hu: "Magyar",
         id: "Bahasa Indonesia",
         it: "Italiano",
