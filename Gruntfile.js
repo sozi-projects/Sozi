@@ -528,7 +528,7 @@ module.exports = function(grunt) {
         grunt.file.write(workDir + "/debian/control",       nunjucks.render("debian/control",       this.data));
         grunt.file.write(workDir + "/debian/links",         nunjucks.render("debian/links",         this.data));
         grunt.file.write(workDir + "/debian/rules",         nunjucks.render("debian/rules",         this.data));
-        execSync("dpkg-buildpackage -a" + this.data.arch, {cwd: workDir});
+        execSync(`dpkg-buildpackage --host-arch ${this.data.arch}`, {cwd: workDir});
     });
 
     // Check JavaScript and CSS source files.
