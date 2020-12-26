@@ -438,6 +438,12 @@ module.exports = function(grunt) {
             src: [archiveDir]
         });
 
+        if (platformOS === "linux") {
+            grunt.config(["fix-permissions", platform], {
+                src: distDir
+            });
+        }
+
         // Generate a Debian package for each Linux platform.
         if (platformOS === "linux" && platformArch in debianArchs) {
             grunt.config(["debian_package", platform], {
@@ -459,21 +465,30 @@ module.exports = function(grunt) {
 
     // Generate a zip archive from a set of files.
     grunt.registerMultiTask("compress", function () {
-        const dest = this.options().archive;
-        const cwd = this.options().cwd;
-        const src = this.files.map(f => f.src).flat().map(p => path.relative(cwd, p)).join(" ");
+        const cwd  = this.options().cwd;
+        const src  = this.files.map(f => f.src).flat().map(p => path.relative(cwd, p)).join(" ");
+        const dest = path.relative(cwd, this.options().archive);
+        const opts = {cwd, stdio: "ignore"};
 
         grunt.log.writeln("Compressing " + dest);
         if (dest.endsWith(".tar.xz")) {
-            execSync("tar cJf "+ path.relative(cwd, dest) + " " + src, {cwd, stdio: "ignore"});
+            execSync(`tar cJf ${dest} ${src}`, opts);
         }
         else if (dest.endsWith(".zip")) {
-            execSync("zip -ry " + path.relative(cwd, dest) + " " + src, {cwd, stdio: "ignore"});
+            execSync(`zip -ry ${dest} ${src}`, opts);
         }
     });
 
     // Generate a zip archive for each platform.
     grunt.registerTask("compress-platforms", buildConfig.platforms.map(platform => "compress:" + platform));
+
+    grunt.registerMultiTask("fix-permissions", function () {
+        for (const f of this.files) {
+            for (const dir of f.src) {
+                execSync(`chmod 4755 ${dir}/chrome-sandbox`);
+            }
+        }
+    });
 
     // Copy the package.json file with updated version number into the build/ folder.
     grunt.registerTask("write_package_json", function () {
@@ -506,12 +521,13 @@ module.exports = function(grunt) {
     // Build a Debian package.
     grunt.registerMultiTask("debian_package", function () {
         const workDir = "dist/packaging-" + this.data.platform;
-        grunt.file.write(workDir + "/Makefile",  nunjucks.render("debian/Makefile", this.data));
-        grunt.file.write(workDir + "/debian/changelog", nunjucks.render("debian/changelog", this.data));
-        grunt.file.write(workDir + "/debian/compat", nunjucks.render("debian/compat", this.data));
-        grunt.file.write(workDir + "/debian/control", nunjucks.render("debian/control", this.data));
-        grunt.file.write(workDir + "/debian/links", nunjucks.render("debian/links", this.data));
-        grunt.file.write(workDir + "/debian/rules", nunjucks.render("debian/rules", this.data));
+        grunt.file.write(workDir + "/Makefile",             nunjucks.render("debian/Makefile",      this.data));
+        grunt.file.write(workDir + "/debian/source/format", nunjucks.render("debian/source/format", this.data));
+        grunt.file.write(workDir + "/debian/changelog",     nunjucks.render("debian/changelog",     this.data));
+        grunt.file.write(workDir + "/debian/compat",        nunjucks.render("debian/compat",        this.data));
+        grunt.file.write(workDir + "/debian/control",       nunjucks.render("debian/control",       this.data));
+        grunt.file.write(workDir + "/debian/links",         nunjucks.render("debian/links",         this.data));
+        grunt.file.write(workDir + "/debian/rules",         nunjucks.render("debian/rules",         this.data));
         execSync("dpkg-buildpackage -a" + this.data.arch, {cwd: workDir});
     });
 
@@ -541,6 +557,7 @@ module.exports = function(grunt) {
         "install-dependencies",
         "modclean",
         "electron",
+        "fix-permissions",
         "copy-platform-assets"
     ]);
 
