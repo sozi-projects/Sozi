@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2020-10-08 08:56:+0000\n"
-"PO-Revision-Date: 2020-10-10 10:51+0000\n"
+"PO-Revision-Date: 2020-12-29 16:29+0000\n"
 "Last-Translator: WaldiS <sto@tutanota.de>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/sozi/translations/"
 "pl/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
 
 #: js/backend/Electron.js:48
@@ -603,7 +603,7 @@ msgstr "Księga"
 
 #: js/view/Properties.js:458
 msgid "Overhead"
-msgstr ""
+msgstr "Na górze"
 
 #: js/view/Properties.js:459
 msgid "Screen 16:10"
