@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-10-08 08:56:+0000\n"
-"PO-Revision-Date: 2020-08-19 03:33+0000\n"
-"Last-Translator: Mehmet Gurbuz GUVEN <6mehmet6@gmail.com>\n"
+"PO-Revision-Date: 2021-01-09 05:32+0000\n"
+"Last-Translator: Eric <spice2wolf@gmail.com>\n"
 "Language-Team: Chinese (Pinyin) <https://hosted.weblate.org/projects/sozi/"
 "translations/zh_Latn/>\n"
 "Language: zh_Latn\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #: js/backend/Electron.js:48
 msgid "Open an SVG file from your computer"
@@ -495,9 +495,8 @@ msgid "Video"
 msgstr ""
 
 #: js/view/Properties.js:390 js/view/Toolbar.js:146
-#, fuzzy
 msgid "Export the presentation"
-msgstr "Bǎocún yǎnshì wéngǎo"
+msgstr ""
 
 #: js/view/Properties.js:407
 msgid "Page size"
@@ -528,9 +527,8 @@ msgid "Tabloid"
 msgstr ""
 
 #: js/view/Properties.js:417
-#, fuzzy
 msgid "Page orientation"
-msgstr "Bǎocún yǎnshì wéngǎo"
+msgstr ""
 
 #: js/view/Properties.js:419
 msgid "Landscape"
