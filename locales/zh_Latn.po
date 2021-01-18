@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-10-08 08:56:+0000\n"
-"PO-Revision-Date: 2021-01-09 05:32+0000\n"
-"Last-Translator: Eric <spice2wolf@gmail.com>\n"
+"PO-Revision-Date: 2021-01-19 16:32+0000\n"
+"Last-Translator: Lilian Wang <li330wang@gmail.com>\n"
 "Language-Team: Chinese (Pinyin) <https://hosted.weblate.org/projects/sozi/"
 "translations/zh_Latn/>\n"
 "Language: zh_Latn\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: js/backend/Electron.js:48
 msgid "Open an SVG file from your computer"
@@ -43,7 +43,7 @@ msgstr "SVG wénjiàn"
 
 #: js/backend/Electron.js:196
 msgid "This file will not be reloaded on change: %s."
-msgstr ""
+msgstr "更改后，将不会重新加载此文件：％s。"
 
 #: js/backend/Electron.js:212
 msgid "Could not read file %s."
@@ -79,27 +79,27 @@ msgstr "Wéndàng yǐ xiūgǎi."
 
 #: js/Controller.js:1686
 msgid "Presentation was exported to PDF."
-msgstr ""
+msgstr "演示文稿已导出为PDF。"
 
 #: js/Controller.js:1689
 msgid "Failed to write PDF file."
-msgstr ""
+msgstr "无法写入PDF文件。"
 
 #: js/Controller.js:1702
 msgid "Presentation was exported to PPTX."
-msgstr ""
+msgstr "演示文稿已导出为PDF。"
 
 #: js/Controller.js:1705
 msgid "Failed to write PPTX file."
-msgstr ""
+msgstr "无法写入PPTX文件。"
 
 #: js/Controller.js:1718
 msgid "Presentation was exported to video."
-msgstr ""
+msgstr "演示文稿已导出到视频。"
 
 #: js/Controller.js:1721
 msgid "Failed to write video file."
-msgstr ""
+msgstr "无法写入视频文件。"
 
 #: js/Storage.js:192
 msgid "Document is not valid SVG."
@@ -115,7 +115,7 @@ msgstr "Bǎocún wánbì %s."
 
 #: js/view/languages.js:17
 msgid "System language"
-msgstr ""
+msgstr "系统语言"
 
 #: js/view/Properties.js:84
 msgid "Autoselect outline element"
@@ -147,59 +147,59 @@ msgstr "Qiánwǎng zhèng biāotí"
 
 #: js/view/Properties.js:91 js/view/Properties.js:122 js/view/Toolbar.js:141
 msgid "Reload the SVG document"
-msgstr ""
+msgstr "重新加载SVG文档"
 
 #: js/view/Properties.js:92
 msgid "Toggle full-screen mode"
-msgstr ""
+msgstr "切换全屏模式"
 
 #: js/view/Properties.js:93
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "切换开发人员工具"
 
 #: js/view/Properties.js:103
 msgid "User interface"
-msgstr ""
+msgstr "用户界面"
 
 #: js/view/Properties.js:105
 msgid "Language"
-msgstr ""
+msgstr "语言"
 
 #: js/view/Properties.js:108
 msgid "Font size"
-msgstr ""
+msgstr "字体大小"
 
 #: js/view/Properties.js:112
 msgid "Enable notifications on save and reload"
-msgstr ""
+msgstr "在保存和重新加载时启用通知"
 
 #: js/view/Properties.js:113
 msgid "Enable notifications"
-msgstr ""
+msgstr "启用通知"
 
 #: js/view/Properties.js:118
 msgid "When Sozi loses the focus"
-msgstr ""
+msgstr "当Sozi失去焦点时"
 
 #: js/view/Properties.js:119 js/view/Properties.js:126
 msgid "Manually"
-msgstr ""
+msgstr "手动地"
 
 #: js/view/Properties.js:124
 msgid "Automatically"
-msgstr ""
+msgstr "自动地"
 
 #: js/view/Properties.js:125
 msgid "When Sozi gets the focus"
-msgstr ""
+msgstr "当Sozi成为焦点时"
 
 #: js/view/Properties.js:129
 msgid "Behavior"
-msgstr ""
+msgstr "行为"
 
 #: js/view/Properties.js:131
 msgid "Preview transition animations"
-msgstr ""
+msgstr "预览过渡动画"
 
 #: js/view/Properties.js:132
 msgid "Enable animated transitions"
