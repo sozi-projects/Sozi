@@ -303,11 +303,11 @@ export class CameraState {
         const cam = new CameraState(this.svgRoot);
         cam.setAtElement(svgElement);
         return {
-            deltaX: this.cx - cam.cx,
-            deltaY: this.cy - cam.cy,
-            widthFactor: this.width / cam.width,
+            deltaX:       this.cx     - cam.cx,
+            deltaY:       this.cy     - cam.cy,
+            widthFactor:  this.width  / cam.width,
             heightFactor: this.height / cam.height,
-            deltaAngle: this.angle - cam.angle
+            deltaAngle:   this.angle  - cam.angle
         };
     }
 
@@ -326,10 +326,10 @@ export class CameraState {
      * @see {@linkcode module:model/CameraState.CameraState#setAtElement|setAtElement}
      */
     applyOffset({deltaX, deltaY, widthFactor, heightFactor, deltaAngle}) {
-        this.cx -= deltaX;
-        this.cy -= deltaY;
-        this.width /= widthFactor;
+        this.cx     -= deltaX;
+        this.cy     -= deltaY;
+        this.width  /= widthFactor;
         this.height /= heightFactor;
-        this.angle -= deltaAngle;
+        this.angle  -= deltaAngle;
     }
 }
