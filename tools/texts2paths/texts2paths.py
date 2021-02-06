@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -41,9 +41,9 @@ if __name__ == '__main__':
     input_file.close()
 
     # Use Inkscape to convert each text element to a path
-    command = ["inkscape"]
+    command = ["inkscape", "--verb=FileVacuum"]
     for t in texts:
         command += ["--verb=EditDeselect", "--select=" + t.get("id"), "--verb=ObjectToPath"]
-    command += ["--verb=FileSave", "--verb=FileClose", output_file_name]
+    command += ["--verb=FileSave", "--verb=FileQuit", output_file_name]
 
     subprocess.call(command)
