@@ -40,6 +40,9 @@ function createWindow () {
     });
 }
 
+// Prevent Electron from altering colors in the SVG.
+app.commandLine.appendSwitch("disable-color-correct-rendering");
+
 if (process.env.SOZI_DISABLE_HW_ACCELERATION) {
     app.disableHardwareAcceleration();
 }
