@@ -1489,9 +1489,45 @@ export class Controller extends EventEmitter {
         const savedFrame    = new Frame(currentFrame, true);
         const modifiedFrame = new Frame(currentFrame, true);
 
+        // Find the layer that contains the given element
+        let outlineLayerGroup = outlineElement;
+        while (outlineLayerGroup.parentNode.parentNode.parentNode !== this.presentation.document.root) {
+            outlineLayerGroup = outlineLayerGroup.parentNode;
+        }
+        const outlineLayer = this.presentation.getLayerWithId(outlineLayerGroup.id);
+
+        // Compute the offset in that layer.
+        const outlineState = currentFrame.cameraStates[outlineLayer.index];
+        const outlineAngle = outlineState.angle;
+        const offset       = outlineState.offsetFromElement(outlineElement);
+
+        // Compute the scaling factor to apply.
+        const outlineCam   = this.viewport.cameras[outlineLayer.index];
+        const outlineScale = outlineCam.scale;
+        outlineCam.applyOffset(offset);
+        const scalingFactor = outlineCam.scale / outlineScale;
+
         for (let layer of this.selection.selectedLayers) {
             const cameraState = modifiedFrame.cameraStates[layer.index];
-            cameraState.setAtElement(outlineElement);
+            
+            if (layer === outlineLayer) {
+                cameraState.applyOffset(offset);
+            }
+            else {
+                const camera   = this.viewport.cameras[layer.index];
+                const angleRad = (cameraState.angle - outlineAngle) * Math.PI / 180;
+                const si       = Math.sin(angleRad) * outlineScale / camera.scale;
+                const co       = Math.cos(angleRad) * outlineScale / camera.scale;
+
+                cameraState.applyOffset({
+                    deltaX:       offset.deltaX * co - offset.deltaY * si,
+                    deltaY:       offset.deltaX * si + offset.deltaY * co,
+                    widthFactor:  scalingFactor,
+                    heightFactor: scalingFactor,
+                    deltaAngle:   offset.deltaAngle
+                });
+            }
+
             cameraState.resetClipping();
 
             const layerProperties            = modifiedFrame.layerProperties[layer.index];
