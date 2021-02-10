@@ -158,7 +158,7 @@ export class Properties extends VirtualDOMView {
             _("Ctrl+3: Small heading"),
             _("Ctrl+L: List"),
             _("Ctrl+N: Numbered list")
-        ];
+        ].join("<br>");
 
         const timeoutMsDisabled = controller.getFrameProperty("timeoutEnable").every(value => !value);
         const showInFrameListDisabled = controller.getFrameProperty("showInFrameList").every(value => !value);
@@ -258,7 +258,7 @@ export class Properties extends VirtualDOMView {
             ]),
             this.renderTextField("transitionPathId", false, controller.getLayerProperty, controller.setLayerProperty, true),
 
-            h("h1", [_("Notes"), this.renderHelp(_("Edit presenter notes. Click here to show the list of formatting shortcuts."), () => controller.info(NOTES_HELP.join("<br>"), true))]),
+            h("h1", [_("Notes"), this.renderHelp(_("Edit presenter notes. Click here to show the list of formatting shortcuts."), () => controller.info(NOTES_HELP, true))]),
 
             this.renderRichTextField("notes", false, controller.getFrameProperty, controller.setFrameProperty, true),
 
@@ -337,6 +337,18 @@ export class Properties extends VirtualDOMView {
         ]);
     }
 
+    get exportListHelp() {
+        const _ = this.controller.gettext;
+        return [
+            _("Examples of frame lists to include/exclude in export"),
+            "",
+            _("Select frames 2, 5, and 12: \"2, 5, 12\""),
+            _("Select frames 5 to 8: \"5:8\""),
+            _("Select frames 5, 8, 11, 14, and 17: \"5:8:17\""),
+            _("Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\"")
+        ].join("<br>");
+    }
+
     /** Render the properties view with the export tool.
      *
      * @returns {VNode} - A virtual DOM tree.
@@ -344,15 +356,6 @@ export class Properties extends VirtualDOMView {
     renderExportTool() {
         const controller = this.controller;
         const _ = controller.gettext;
-
-        const EXPORT_LIST_HELP = [
-            _("Examples of frame lists to include/exclude in export"),
-            "",
-            _("Select frames 2, 5, and 12: \"2, 5, 12\""),
-            _("Select frames 5 to 8: \"5:8\""),
-            _("Select frames 5, 8, 11, 14, and 17: \"5:8:17\""),
-            _("Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\"")
-        ];
 
         let exportFields, exportFn;
         switch (controller.presentation.exportType) {
@@ -422,13 +425,13 @@ export class Properties extends VirtualDOMView {
 
             h("label", {for: "field-exportToPDFInclude"}, [
                 _("List of frames to include"),
-                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(EXPORT_LIST_HELP.join("<br>"), true))
+                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(this.exportListHelp, true))
             ]),
             this.renderTextField("exportToPDFInclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true),
 
             h("label", {for: "field-exportToPDFExclude"}, [
                 _("List of frames to exclude"),
-                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(EXPORT_LIST_HELP.join("<br>"), true))
+                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(this.exportListHelp, true))
             ]),
             this.renderTextField("exportToPDFExclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true)
         ];
@@ -463,13 +466,13 @@ export class Properties extends VirtualDOMView {
 
             h("label", {for: "field-exportToPPTXInclude"}, [
                 _("List of frames to include"),
-                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(EXPORT_LIST_HELP.join("<br>"), true))
+                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(this.exportListHelp, true))
             ]),
             this.renderTextField("exportToPPTXInclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true),
 
             h("label", {for: "field-exportToPPTXExclude"}, [
                 _("List of frames to exclude"),
-                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(EXPORT_LIST_HELP.join("<br>"), true))
+                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(this.exportListHelp, true))
             ]),
             this.renderTextField("exportToPPTXExclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true)
         ];
