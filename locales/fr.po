@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
 "POT-Creation-Date: 2020-10-08 08:56:+0000\n"
-"PO-Revision-Date: 2020-10-08 22:55+0200\n"
-"Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
+"PO-Revision-Date: 2021-01-09 05:32+0000\n"
+"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/sozi/translations/"
 "fr/>\n"
 "Language: fr\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Launchpad-Export-Date: 2016-06-25 07:48+0000\n"
 
@@ -33,7 +33,7 @@ msgstr "Non"
 
 #: js/backend/Electron.js:103
 msgid "File not found: %s."
-msgstr "Fichier non trouvé : %s."
+msgstr "Fichier non trouvé : %s."
 
 #: js/backend/Electron.js:135
 msgid "Choose an SVG file"
@@ -69,7 +69,7 @@ msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Erreur"
 
 #: js/Controller.js:218
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr "<i class=\"fas fa-info-circle\"></i> Information"
+msgstr "<i class=\"fas fa-info-circle\"></i> Informations"
 
 #: js/Controller.js:340
 msgid "Document was changed. Reloading."
@@ -213,7 +213,7 @@ msgstr "Raccourcis clavier"
 
 #: js/view/Properties.js:150
 msgid "Basic formatting supported:"
-msgstr "Mise en forme basique acceptée :"
+msgstr "Mise en forme basique acceptée :"
 
 #: js/view/Properties.js:152
 msgid "Ctrl+B: Bold"
@@ -529,11 +529,11 @@ msgstr ""
 
 #: js/view/Properties.js:413 js/view/Properties.js:457
 msgid "Letter"
-msgstr ""
+msgstr "Lettre"
 
 #: js/view/Properties.js:414
 msgid "Tabloid"
-msgstr ""
+msgstr "Tabloïd"
 
 #: js/view/Properties.js:417
 msgid "Page orientation"
@@ -594,7 +594,7 @@ msgstr "Carte Hagaki"
 
 #: js/view/Properties.js:456
 msgid "Ledger"
-msgstr ""
+msgstr "Ledger (432 × 279 mm)"
 
 #: js/view/Properties.js:458
 msgid "Overhead"
