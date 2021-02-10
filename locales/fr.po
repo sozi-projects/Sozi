@@ -21,7 +21,7 @@ msgstr "Ouvrir un document SVG depuis votre ordinateur"
 
 #: js/backend/Electron.js:73
 msgid "Do you want to save the presentation before closing?"
-msgstr "Voulez-vous enregistrer la présentation avant de quitter ?"
+msgstr "Voulez-vous enregistrer la présentation avant de quitter ?"
 
 #: js/backend/Electron.js:74
 msgid "Yes"
@@ -45,7 +45,7 @@ msgstr "Fichiers SVG"
 
 #: js/backend/Electron.js:196
 msgid "This file will not be reloaded on change: %s."
-msgstr "Ce fichier ne sera pas rechargé après modification : %s."
+msgstr "Ce fichier ne sera pas rechargé après modification : %s."
 
 #: js/backend/Electron.js:212
 msgid "Could not read file %s."
@@ -217,39 +217,39 @@ msgstr "Mise en forme basique acceptée :"
 
 #: js/view/Properties.js:152
 msgid "Ctrl+B: Bold"
-msgstr "Ctrl+B : Gras"
+msgstr "Ctrl+B : Gras"
 
 #: js/view/Properties.js:153
 msgid "Ctrl+I: Italic"
-msgstr "Ctrl+I : Italique"
+msgstr "Ctrl+I : Italique"
 
 #: js/view/Properties.js:154
 msgid "Ctrl+U: Underline"
-msgstr "Ctrl+U : Souligné"
+msgstr "Ctrl+U : Souligné"
 
 #: js/view/Properties.js:155
 msgid "Ctrl+0: Paragraph"
-msgstr "Ctrl+0 : Paragraphe"
+msgstr "Ctrl+0 : Paragraphe"
 
 #: js/view/Properties.js:156
 msgid "Ctrl+1: Big heading"
-msgstr "Ctrl+1 : Gros titre"
+msgstr "Ctrl+1 : Gros titre"
 
 #: js/view/Properties.js:157
 msgid "Ctrl+2: Medium heading"
-msgstr "Ctrl+2 : Titre moyen"
+msgstr "Ctrl+2 : Titre moyen"
 
 #: js/view/Properties.js:158
 msgid "Ctrl+3: Small heading"
-msgstr "Ctrl+3 : Petit titre"
+msgstr "Ctrl+3 : Petit titre"
 
 #: js/view/Properties.js:159
 msgid "Ctrl+L: List"
-msgstr "Ctrl+L : Liste"
+msgstr "Ctrl+L : Liste"
 
 #: js/view/Properties.js:160
 msgid "Ctrl+N: Numbered list"
-msgstr "Ctrl+N : Liste numérotée"
+msgstr "Ctrl+N : Liste numérotée"
 
 #: js/view/Properties.js:167
 msgid "Select a layer to copy"
@@ -469,19 +469,19 @@ msgstr "Exemples de listes de vues à inclure/exclure dans l'export"
 
 #: js/view/Properties.js:351
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
-msgstr "Sélectionner les vues 2, 5, et 12 : \"2, 5, 12\""
+msgstr "Sélectionner les vues 2, 5, et 12 : \"2, 5, 12\""
 
 #: js/view/Properties.js:352
 msgid "Select frames 5 to 8: \"5:8\""
-msgstr "Sélectionner les vues 5 à 8 : \"5:8\""
+msgstr "Sélectionner les vues 5 à 8 : \"5:8\""
 
 #: js/view/Properties.js:353
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
-msgstr "Sélectionner les vues 5, 8, 11, 14 et 17 : \"5:8:17\""
+msgstr "Sélectionner les vues 5, 8, 11, 14 et 17 : \"5:8:17\""
 
 #: js/view/Properties.js:354
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
-msgstr "Sélectionner les vues 2, 5, et 10 à 15 : \"2, 5, 10:15\""
+msgstr "Sélectionner les vues 2, 5, et 10 à 15 : \"2, 5, 10:15\""
 
 #: js/view/Properties.js:377 js/view/Properties.js:393
 msgid "Export"
@@ -694,7 +694,7 @@ msgstr ""
 
 #: js/view/Toolbar.js:57
 msgid "Aspect ratio: "
-msgstr "Format : "
+msgstr "Format : "
 
 #: js/view/Toolbar.js:90
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
