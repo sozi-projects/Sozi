@@ -456,7 +456,7 @@ export class Properties extends VirtualDOMView {
                 B5JIS      : _("B5 (JIS)"),
                 banner     : _("Banner"),
                 hagakiCard : _("Hagaki Card"),
-                ledger     : _("Ledger"),
+                ledger     : _("Tabloid"),
                 letter     : _("Letter"),
                 overhead   : _("Overhead"),
                 screen16x10: _("Screen 16:10"),

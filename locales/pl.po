@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2020-10-08 08:56:+0000\n"
+"POT-Creation-Date: 2021-02-10 10:06:+0000\n"
 "PO-Revision-Date: 2020-12-29 16:29+0000\n"
 "Last-Translator: WaldiS <sto@tutanota.de>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/sozi/translations/"
@@ -85,27 +85,27 @@ msgstr "Dokument uległ zmianie. Trwa odświeżanie."
 msgid "Document was changed."
 msgstr "Dokument uległ zmianie."
 
-#: js/Controller.js:1686
+#: js/Controller.js:1722
 msgid "Presentation was exported to PDF."
 msgstr "Prezentacja została wyeksportowana do pliku PDF."
 
-#: js/Controller.js:1689
+#: js/Controller.js:1725
 msgid "Failed to write PDF file."
 msgstr "Nie można zapisać pliku PDF."
 
-#: js/Controller.js:1702
+#: js/Controller.js:1738
 msgid "Presentation was exported to PPTX."
 msgstr "Prezentacja została wyeksportowana do PPTX."
 
-#: js/Controller.js:1705
+#: js/Controller.js:1741
 msgid "Failed to write PPTX file."
 msgstr "Nie udało się zapisać pliku PPTX."
 
-#: js/Controller.js:1718
+#: js/Controller.js:1754
 msgid "Presentation was exported to video."
 msgstr "Prezentacja została wyeksportowana do pliku wideo."
 
-#: js/Controller.js:1721
+#: js/Controller.js:1757
 msgid "Failed to write video file."
 msgstr "Nie udało się zapisać pliku wideo."
 
@@ -468,192 +468,188 @@ msgstr "Pozwól, aby obrócić kamerę"
 msgid "Allow to zoom"
 msgstr "Zezwalaj na powiększanie"
 
-#: js/view/Properties.js:349
+#: js/view/Properties.js:343
 msgid "Examples of frame lists to include/exclude in export"
 msgstr "Przykłady list ramek do uwzględnienia/wykluczenia w eksporcie"
 
-#: js/view/Properties.js:351
+#: js/view/Properties.js:345
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
 msgstr "Wybierz klatki 2, 5 i 12: \"2, 5, 12\""
 
-#: js/view/Properties.js:352
+#: js/view/Properties.js:346
 msgid "Select frames 5 to 8: \"5:8\""
 msgstr "Wybierz klatki od 5 do 8: \"5:8\""
 
-#: js/view/Properties.js:353
+#: js/view/Properties.js:347
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
 msgstr "Wybierz klatki 5, 8, 11, 14 i 17: \"5:8:17\""
 
-#: js/view/Properties.js:354
+#: js/view/Properties.js:348
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
 msgstr "Wybierz klatki 2, 5 i 10 do 15: \"2, 5, 10:15\""
 
-#: js/view/Properties.js:377 js/view/Properties.js:393
+#: js/view/Properties.js:380 js/view/Properties.js:396
 msgid "Export"
 msgstr "Exportuj"
 
-#: js/view/Properties.js:379
+#: js/view/Properties.js:382
 msgid "Document type"
 msgstr "Typ dokumentu"
 
-#: js/view/Properties.js:381
+#: js/view/Properties.js:384
 msgid "Portable Document Format (PDF)"
 msgstr "Portable Document Format (PDF)"
 
-#: js/view/Properties.js:382
+#: js/view/Properties.js:385
 msgid "Microsoft PowerPoint (PPTX)"
 msgstr "Microsoft PowerPoint (PPTX)"
 
-#: js/view/Properties.js:383
+#: js/view/Properties.js:386
 msgid "Video"
 msgstr "Film"
 
-#: js/view/Properties.js:390 js/view/Toolbar.js:146
+#: js/view/Properties.js:393 js/view/Toolbar.js:146
 msgid "Export the presentation"
 msgstr "Eksportuj prezentację"
 
-#: js/view/Properties.js:407
+#: js/view/Properties.js:410
 msgid "Page size"
 msgstr "Rozmiar strony"
 
-#: js/view/Properties.js:409 js/view/Properties.js:448
+#: js/view/Properties.js:412 js/view/Properties.js:451
 msgid "A3"
 msgstr "A3"
 
-#: js/view/Properties.js:410 js/view/Properties.js:449
+#: js/view/Properties.js:413 js/view/Properties.js:452
 msgid "A4"
 msgstr "A4"
 
-#: js/view/Properties.js:411
+#: js/view/Properties.js:414
 msgid "A5"
 msgstr "A5"
 
-#: js/view/Properties.js:412
+#: js/view/Properties.js:415
 msgid "Legal"
 msgstr "Legal"
 
-#: js/view/Properties.js:413 js/view/Properties.js:457
+#: js/view/Properties.js:416 js/view/Properties.js:460
 msgid "Letter"
 msgstr "Letter"
 
-#: js/view/Properties.js:414
+#: js/view/Properties.js:417 js/view/Properties.js:459
 msgid "Tabloid"
 msgstr "Tabloid"
 
-#: js/view/Properties.js:417
+#: js/view/Properties.js:420
 msgid "Page orientation"
 msgstr "Orientacja strony"
 
-#: js/view/Properties.js:419
+#: js/view/Properties.js:422
 msgid "Landscape"
 msgstr "Krajobraz"
 
-#: js/view/Properties.js:420
+#: js/view/Properties.js:423
 msgid "Portrait"
 msgstr "Portret"
 
-#: js/view/Properties.js:424 js/view/Properties.js:465
+#: js/view/Properties.js:427 js/view/Properties.js:468
 msgid "List of frames to include"
 msgstr "Lista ramek do umieszczenia"
 
-#: js/view/Properties.js:425 js/view/Properties.js:431
-#: js/view/Properties.js:466 js/view/Properties.js:472
+#: js/view/Properties.js:428 js/view/Properties.js:434
+#: js/view/Properties.js:469 js/view/Properties.js:475
 msgid "Click here to see the syntax for this field"
 msgstr "Kliknij tutaj, aby zobaczyć składnię dla tego pola"
 
-#: js/view/Properties.js:430 js/view/Properties.js:471
+#: js/view/Properties.js:433 js/view/Properties.js:474
 msgid "List of frames to exclude"
 msgstr "Lista ramek do wyłączenia"
 
-#: js/view/Properties.js:445
+#: js/view/Properties.js:448
 msgid "Slide size"
 msgstr "Rozmiar slajdu"
 
-#: js/view/Properties.js:447
+#: js/view/Properties.js:450
 msgid "35 mm"
 msgstr "35 mm"
 
-#: js/view/Properties.js:450
+#: js/view/Properties.js:453
 msgid "B4 (ISO)"
 msgstr "B4 (ISO)"
 
-#: js/view/Properties.js:451
+#: js/view/Properties.js:454
 msgid "B4 (JIS)"
 msgstr "B4 (JIS)"
 
-#: js/view/Properties.js:452
+#: js/view/Properties.js:455
 msgid "B5 (ISO)"
 msgstr "B5 (ISO)"
 
-#: js/view/Properties.js:453
+#: js/view/Properties.js:456
 msgid "B5 (JIS)"
 msgstr "B5 (JIS)"
 
-#: js/view/Properties.js:454
+#: js/view/Properties.js:457
 msgid "Banner"
 msgstr "Baner"
 
-#: js/view/Properties.js:455
+#: js/view/Properties.js:458
 msgid "Hagaki Card"
 msgstr "Karta Hagaki"
 
-#: js/view/Properties.js:456
-msgid "Ledger"
-msgstr "Księga"
-
-#: js/view/Properties.js:458
+#: js/view/Properties.js:461
 msgid "Overhead"
 msgstr "Na górze"
 
-#: js/view/Properties.js:459
+#: js/view/Properties.js:462
 msgid "Screen 16:10"
 msgstr "Ekran 16:10"
 
-#: js/view/Properties.js:460
+#: js/view/Properties.js:463
 msgid "Screen 16:9"
 msgstr "Ekran 16: 9"
 
-#: js/view/Properties.js:461
+#: js/view/Properties.js:464
 msgid "Screen 4:3"
 msgstr "Ekran 4: 3"
 
-#: js/view/Properties.js:487
+#: js/view/Properties.js:490
 msgid "Format"
 msgstr "Format"
 
-#: js/view/Properties.js:489
+#: js/view/Properties.js:492
 msgid "MPEG-4 (.mp4)"
 msgstr "MPEG-4 (.mp4)"
 
-#: js/view/Properties.js:490
+#: js/view/Properties.js:493
 msgid "Ogg Vorbis (.ogv)"
 msgstr "Ogg Vorbis (.ogv)"
 
-#: js/view/Properties.js:491
+#: js/view/Properties.js:494
 msgid "WebM (.webm)"
 msgstr "WebM (.webm)"
 
-#: js/view/Properties.js:492
+#: js/view/Properties.js:495
 msgid "Windows Media Video (.wmv)"
 msgstr "Windows Media Video (.wmv)"
 
-#: js/view/Properties.js:493
+#: js/view/Properties.js:496
 msgid "Image sequence (.png)"
 msgstr "Sekwencja obrazów (png)"
 
-#: js/view/Properties.js:496
+#: js/view/Properties.js:499
 msgid "Width (pixels)"
 msgstr "Szerokość (piksele)"
 
-#: js/view/Properties.js:499
+#: js/view/Properties.js:502
 msgid "Height (pixels)"
 msgstr "Wysokość (piksele)"
 
-#: js/view/Properties.js:502
+#: js/view/Properties.js:505
 msgid "Frame rate (frames/sec)"
 msgstr "Liczba klatek na sekundę (klatki/s)"
 
-#: js/view/Properties.js:505
+#: js/view/Properties.js:508
 msgid "Bit rate (kbits/sec)"
 msgstr "Szybkość transmisji bitów (kbits/s)"
 
@@ -739,6 +735,9 @@ msgstr "Preferencje"
 #: js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Informacje"
+
+#~ msgid "Ledger"
+#~ msgstr "Księga"
 
 #, fuzzy
 #~ msgid "Export the presentation to PDF"
