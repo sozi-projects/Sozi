@@ -82,6 +82,7 @@ Other Grunt tasks are available for developers:
 |:-----------------------------------|:-----------------------------------------------------------------------------|
 | `grunt electron-archive` (default) | Build the desktop application and create zip archives for various platforms. |
 | `grunt deb`                        | Build Debian packages.                                                       |
+| `grunt dist`                       | Create zip archives and Debian packages.                                     |
 | `grunt electron-build`             | Build the desktop application without creating archives.                     |
 | `grunt web-build`                  | Build the web application without uploading it.                              |
 | `grunt pot`                        | Extract a template file (`locales/messages.pot`) for translation.            |
@@ -164,8 +165,20 @@ Helping debugging Sozi
 While Sozi is running, press `F12` to open the developer tools.
 Check the *Console* tab for error messages.
 
-Some environment variables will enable debugging features in Sozi:
+Some environment variables will enable debugging features in Sozi.
+When running Sozi from the command line, you can add one
+or more variable assignments like this:
 
-* `ELECTRON_ENABLE_LOGGING=1 sozi my-presentation.svg` will display JavaScript console messages in the current terminal window.
-* `SOZI_DEVTOOLS=1 sozi my-presentation.svg` will open the developer tools immediately.
-  This can be useful if `F12` has no effect or when you want to debug events that happen at startup.
+```
+SOME_VAR=1 SOME_OTHER_VAR=1 sozi my-presentation.svg
+```
+
+Where `SOME_VAR` and `SOME_OTHER_VAR` are variable names from the
+first column of this table:
+
+| Variable                               | Effect                                                                                                                                   |
+|:---------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------|
+| `ELECTRON_ENABLE_LOGGING`              | Display JavaScript console messages in the current terminal window.                                                                      |
+| `SOZI_DEVTOOLS`                        | Open the developer tools immediately. This can be useful if `F12` has no effect or when you want to debug events that happen at startup. |
+| `SOZI_DISABLE_HW_ACCELERATION`         | Disable hardware acceleration in the rendering engine.                                                                                   |
+| `SOZI_DISABLE_COLOR_CORRECT_RENDERING` | Disable color profile correction.                                                                                                        |
