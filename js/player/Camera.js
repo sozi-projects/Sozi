@@ -310,22 +310,17 @@ export class Camera extends CameraState {
             if (elt.hasAttribute("id") && hasReliableBoundaries(elt)) {
                 // FIXME getBoundingClientRect returns bounding box of bounding box
                 const eltRect = elt.getBoundingClientRect();
-                const eltArea = eltRect.width * eltRect.height;
 
-                // Compute the intersection of the element's bounding
-                // box with the current viewport.
-                const l = Math.max(eltRect.left, this.viewport.x);
-                const t = Math.max(eltRect.top, this.viewport.y);
-                const r = Math.min(eltRect.right, this.viewport.x + this.viewport.width);
-                const b = Math.min(eltRect.bottom, this.viewport.y + this.viewport.height);
+                // Candidate elements are ranked by the "distance" between their
+                // bounding rectangle and the viewport.
+                const dl = this.viewport.x                        - eltRect.left;
+                const dt = this.viewport.y                        - eltRect.top;
+                const dr = this.viewport.x + this.viewport.width  - eltRect.right;
+                const db = this.viewport.y + this.viewport.height - eltRect.bottom;
+                const eltScore = dl * dl + dt * dt + dr * dr + db * db;
 
-                const intersectArea = (r - l) * (b - t);
-
-                // An element is selected if it has the biggest intersect area
-                // and the smallest area outside the intersection.
-                const eltScore = viewportArea + eltArea - 2 * intersectArea;
                 if (score === null || eltScore < score) {
-                    score = eltScore;
+                    score   = eltScore;
                     element = elt;
                 }
             }

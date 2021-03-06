@@ -248,8 +248,15 @@ export class CameraState {
      * @see {@linkcode module:model/CameraState.CameraState#applyOffset|applyOffset}
      */
     setAtElement(svgElement, deltaX = 0, deltaY = 0, widthFactor = 1, heightFactor = 1, deltaAngle = 0) {
-        // Read the raw bounding box of the given SVG element
+        // Read the raw bounding box of the given SVG element.
+        // Fix the width or height if it is zero.
         const bbox = svgElement.getBBox();
+        if (bbox.width === 0) {
+            bbox.width = 1;
+        }
+        if (bbox.height === 0) {
+            bbox.height = 1;
+        }
 
         // Compute the raw coordinates of the center
         // of the given SVG element
