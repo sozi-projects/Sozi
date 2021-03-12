@@ -337,6 +337,11 @@ export class Properties extends VirtualDOMView {
         ]);
     }
 
+    /** The HTML of the help message for include/exclude lists in export.
+     *
+     * @readonly
+     * @type {string}
+     */
     get exportListHelp() {
         const _ = this.controller.gettext;
         return [
