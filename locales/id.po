@@ -430,7 +430,7 @@ msgstr "Pemutar"
 #: js/view/Properties.js:305
 msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
-"Mendukung tombol \"Kembali\" (⬅) browser untuk berpindah ke frame sebelumnya"
+"Mendukung tombol \"Kembali\" browser untuk berpindah ke frame sebelumnya"
 
 #: js/view/Properties.js:306
 msgid ""
