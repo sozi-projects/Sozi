@@ -24,8 +24,9 @@
     text-align: center;
 }
 
-.properties > div.side-by-side {
+.properties .side-by-side {
     display: flex;
+    align-items: center;
 }
 
 .properties label {

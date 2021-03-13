@@ -108,7 +108,7 @@ export class Properties extends VirtualDOMView {
             h("label", {for: "field-fontSize"}, _("Font size")),
             this.renderNumberField("fontSize", false, controller.getPreference, controller.setPreference, false, 1, 1),
 
-            h("label", {for: "field-enableNotifications"}, [
+            h("label.side-by-side", {for: "field-enableNotifications"}, [
                 _("Enable notifications on save and reload"),
                 this.renderToggleField(h("i.far.fa-check-square"), _("Enable notifications"), "enableNotifications", controller.getPreference, controller.setPreference)
             ]),
@@ -127,7 +127,7 @@ export class Properties extends VirtualDOMView {
             }),
 
             h("h1", _("Behavior")),
-            h("label", {for: "field-animateTransitions"}, [
+            h("label.side-by-side", {for: "field-animateTransitions"}, [
                 _("Preview transition animations"),
                 this.renderToggleField(h("i.far.fa-check-square"), _("Enable animated transitions"), "animateTransitions", controller.getPreference, controller.setPreference)
             ]),
@@ -190,7 +190,7 @@ export class Properties extends VirtualDOMView {
             h("label", {for: "field-frameId"}, _("Id")),
             this.renderTextField("frameId", false, controller.getFrameProperty, controller.setFrameProperty, false),
 
-            h("label", {for: "field-timeoutMs"}, [
+            h("label.side-by-side", {for: "field-timeoutMs"}, [
                 _("Timeout (seconds)"),
                 this.renderToggleField(h("i.far.fa-clock"), _("Timeout enable"), "timeoutEnable", controller.getFrameProperty, controller.setFrameProperty)
             ]),
@@ -213,7 +213,7 @@ export class Properties extends VirtualDOMView {
                 document.getElementById("field-layerToCopy").firstChild.selected = true;
             }, layersToCopy),
 
-            h("label", {for: "field-outlineElementId"}, [
+            h("label.side-by-side", {for: "field-outlineElementId"}, [
                 _("Outline element Id"),
                 h("span.btn-group", [
                     h("button", {
@@ -252,7 +252,7 @@ export class Properties extends VirtualDOMView {
             h("label", {for: "field-transitionRelativeZoom"}, _("Relative zoom (%)")),
             this.renderNumberField("transitionRelativeZoom", false, controller.getLayerProperty, controller.setLayerProperty, true, 1, 0.01),
 
-            h("label", {for: "field-transitionPathId"}, [
+            h("label.side-by-side", {for: "field-transitionPathId"}, [
                 _("Path Id"),
                 this.renderToggleField(h("i.far.fa-eye-slash"), _("Hide path"), "transitionPathHide", controller.getLayerProperty, controller.setLayerProperty)
             ]),
@@ -428,13 +428,13 @@ export class Properties extends VirtualDOMView {
                 portrait: _("Portrait")
             }),
 
-            h("label", {for: "field-exportToPDFInclude"}, [
+            h("label.side-by-side", {for: "field-exportToPDFInclude"}, [
                 _("List of frames to include"),
                 this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(this.exportListHelp, true))
             ]),
             this.renderTextField("exportToPDFInclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true),
 
-            h("label", {for: "field-exportToPDFExclude"}, [
+            h("label.side-by-side", {for: "field-exportToPDFExclude"}, [
                 _("List of frames to exclude"),
                 this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(this.exportListHelp, true))
             ]),
@@ -469,13 +469,13 @@ export class Properties extends VirtualDOMView {
                 screen4x3  : _("Screen 4:3")
             }),
 
-            h("label", {for: "field-exportToPPTXInclude"}, [
+            h("label.side-by-side", {for: "field-exportToPPTXInclude"}, [
                 _("List of frames to include"),
                 this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(this.exportListHelp, true))
             ]),
             this.renderTextField("exportToPPTXInclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true),
 
-            h("label", {for: "field-exportToPPTXExclude"}, [
+            h("label.side-by-side", {for: "field-exportToPPTXExclude"}, [
                 _("List of frames to exclude"),
                 this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(this.exportListHelp, true))
             ]),

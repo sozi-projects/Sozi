@@ -20,7 +20,6 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: rgb(80, 80, 80);
 }
 
 .top    { position: absolute; left:  0; top:    0; width: 100%;             height: calc(70% - 2px); }
@@ -34,7 +33,6 @@ body {
     top: calc(70% - 3px);
     width: 100%;
     height: 6px;
-    cursor: ns-resize;
 }
 
 .vsplitter {
@@ -43,7 +41,6 @@ body {
     top: 0;
     width: 6px;
     height: 100%;
-    cursor: ew-resize;
 }
 
 .right {
@@ -61,24 +58,15 @@ body {
     top: 0;
     left: 0;
     padding: 0.5rem 1rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: visibility 0s 0.5s, opacity 0.5s ease;
-}
-
-.message .title {
-    font-weight: bold;
-}
-
-.message.visible {
-    opacity: 1;
-    visibility: visible;
-    transition: visibility 0s 0s, opacity 0.5s ease;
 }
 
 /* ------------------------------------------------------------------------- *
- * Colors
+ * Colors and borders
  * ------------------------------------------------------------------------- */
+
+body {
+    background: rgb(80, 80, 80);
+}
 
 .top .left {
     background-image: linear-gradient(-45deg,
@@ -194,4 +182,36 @@ body {
 .top-left p {
     font-size: 200%;
     text-align: center;
+}
+
+.message .title {
+    font-weight: bold;
+}
+
+/* ------------------------------------------------------------------------- *
+ * Actions and animations
+ * ------------------------------------------------------------------------- */
+
+body {
+    user-select: none;
+}
+
+.message {
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0s 0.5s, opacity 0.5s ease;
+}
+
+.message.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: visibility 0s 0s, opacity 0.5s ease;
+}
+
+.hsplitter {
+    cursor: ns-resize;
+}
+
+.vsplitter {
+    cursor: ew-resize;
 }
