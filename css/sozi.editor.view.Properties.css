@@ -24,6 +24,10 @@
     text-align: center;
 }
 
+.properties > div.side-by-side {
+    display: flex;
+}
+
 .properties label {
     display: block;
     margin-top: 0.5em;

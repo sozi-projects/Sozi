@@ -301,12 +301,12 @@ export class Properties extends VirtualDOMView {
 
             h("h1", _("Player")),
 
-            h("div", [
+            h("div.side-by-side", [
                 _("Support the browser's \"Back\" button to move to the previous frame"),
                 this.renderToggleField(h("i.fas.fa-arrow-circle-left"), _("Moving from one frame to another will change the content of the location bar automatically."), "updateURLOnFrameChange", controller.getPresentationProperty, controller.setPresentationProperty)
             ]),
 
-            h("div", [
+            h("div.side-by-side", [
                 _("Allow to control the presentation"),
                 h("span.btn-group", [
                     this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseNavigation", controller.getPresentationProperty, controller.setPresentationProperty),
@@ -314,12 +314,12 @@ export class Properties extends VirtualDOMView {
                 ])
             ]),
 
-            h("div", [
+            h("div.side-by-side", [
                 _("Allow to move the camera"),
                 this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseTranslation", controller.getPresentationProperty, controller.setPresentationProperty)
             ]),
 
-            h("div", [
+            h("div.side-by-side", [
                 _("Allow to rotate the camera"),
                 h("span.btn-group", [
                     this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseRotation", controller.getPresentationProperty, controller.setPresentationProperty),
@@ -327,7 +327,7 @@ export class Properties extends VirtualDOMView {
                 ])
             ]),
 
-            h("div", [
+            h("div.side-by-side", [
                 _("Allow to zoom"),
                 h("span.btn-group", [
                     this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseZoom", controller.getPresentationProperty, controller.setPresentationProperty),
