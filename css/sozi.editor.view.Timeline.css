@@ -11,7 +11,7 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    height: calc(100% - 2.5em);
+    height: calc(100% - 2.5rem);
     overflow-y: auto;
     color: white;
     background: rgb(80, 80, 80);
@@ -84,10 +84,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 8em;
-    max-width: 8em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    width: 8rem;
+    max-width: 8rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .timeline th.layer-icons {
@@ -98,13 +98,13 @@
 
 .timeline .layer-label {
     text-align: left;
-    border-bottom-left-radius: 0.5em;
-    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
 }
 
 .timeline .layer-icons .visibility,
 .timeline .layer-icons .remove {
-    margin-right: 0.5em;
+    margin-right: 0.5rem;
 }
 
 .timeline .layer-label .remove {
@@ -116,20 +116,20 @@
 }
 
 .timeline .frame-title {
-    border-top-left-radius: 0.5em;
-    border-top-right-radius: 0.5em;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
 }
 
 .timeline .frame-index .insert-before {
     float: left;
     position: relative;
-    top: 0.5em;
+    top: 0.5rem;
 }
 
 .timeline .frame-index .insert-after {
     float: right;
     position: relative;
-    top: 0.5em;
+    top: 0.5rem;
 }
 
 .timeline .frame-index i {

@@ -24,12 +24,12 @@
 
 #sozi-editor-view-preview p,
 #sozi-editor-view-preview ul {
-    margin: 2em;
+    margin: 2rem;
     padding: 0;
 }
 
 #sozi-editor-view-preview ul li {
     list-style-type: none;
     display: inline-block;
-    margin: 0 1em 0.5em 1em;
+    margin: 0 1rem 0.5rem 1rem;
 }

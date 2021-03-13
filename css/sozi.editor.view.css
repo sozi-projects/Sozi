@@ -60,7 +60,7 @@ body {
     width: 100%;
     top: 0;
     left: 0;
-    padding: 0.5em 1em;
+    padding: 0.5rem 1rem;
     opacity: 0;
     visibility: hidden;
     transition: visibility 0s 0.5s, opacity 0.5s ease;
@@ -84,7 +84,7 @@ body {
     background-image: linear-gradient(-45deg,
         rgb(80, 80, 80) 25%, rgb(64, 64, 64) 25%, rgb(64, 64, 64) 50%,
         rgb(80, 80, 80) 50%, rgb(80, 80, 80) 75%, rgb(64, 64, 64) 75%, rgb(64, 64, 64));
-    background-size: 1em 1em;
+    background-size: 1rem 1rem;
 }
 
 .right {
@@ -108,9 +108,9 @@ input[type=number],
 section[contenteditable=true],
 select,
 button {
-    border-radius: 0.5em;
+    border-radius: 0.5rem;
     border: none;
-    padding: 0.3em 0.5em;
+    padding: 0.3rem 0.5rem;
     color: black;
 }
 
@@ -148,12 +148,12 @@ button:disabled {
     background-image: linear-gradient(-45deg,
         rgb(150, 200, 200) 25%, rgb(220, 220, 220) 25%, rgb(220, 220, 220) 50%,
         rgb(150, 200, 200) 50%, rgb(150, 200, 200) 75%, rgb(220, 220, 220) 75%, rgb(220, 220, 220));
-    background-size: 1em 1em;
+    background-size: 1rem 1rem;
 }
 
 .btn-group button:first-child:not(:last-child) {
-    border-top-left-radius: 0.5em;
-    border-bottom-left-radius: 0.5em;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-right: 1px solid rgb(80, 80, 80);
@@ -162,8 +162,8 @@ button:disabled {
 .btn-group button:last-child:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border-top-right-radius: 0.5em;
-    border-bottom-right-radius: 0.5em;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
 }
 
 .btn-group button:not(:first-child):not(:last-child) {

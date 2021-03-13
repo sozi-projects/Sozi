@@ -1,5 +1,5 @@
 .properties {
-    margin: 0.5em 1em;
+    margin: 0.5rem 1rem;
 }
 
 .properties h1 {
@@ -16,8 +16,8 @@
 }
 
 .properties > div {
-    margin-top: 0.5em;
-    margin-bottom: 0.3em;
+    margin-top: 0.5rem;
+    margin-bottom: 0.3rem;
 }
 
 .properties > div.btn-group {
@@ -30,8 +30,8 @@
 
 .properties label {
     display: block;
-    margin-top: 0.5em;
-    margin-bottom: 0.3em;
+    margin-top: 0.5rem;
+    margin-bottom: 0.3rem;
 }
 
 .properties input,
@@ -41,7 +41,7 @@
 
 .properties span.btn-group,
 .properties :not(.btn-group):not(td) > button {
-    margin-left: 1em;
+    margin-left: 1rem;
 }
 
 .properties {
@@ -49,12 +49,12 @@
 }
 
 .properties .help {
-    margin-left: 1em;
+    margin-left: 1rem;
 }
 
 .properties table.custom-css-js {
     width: 100%;
-    border-radius: 0.5em;
+    border-radius: 0.5rem;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) inset;
     background-color: white;
     color: black;
@@ -65,8 +65,8 @@
 }
 
 .properties .custom-css-js td:first-child {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .properties input.custom-css-js {
@@ -78,16 +78,16 @@
 }
 
 .spinner {
-    margin-left: 1em;
-    margin-right: 1em;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 .spinner:before {
     content: '';
     box-sizing: border-box;
     position: absolute;
-    width: 1em;
-    height: 1em;
+    width: 1rem;
+    height: 1rem;
     border-radius: 50%;
     border: 4px solid transparent;
     border-top-color: #333;
