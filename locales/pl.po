@@ -429,9 +429,9 @@ msgid "Player"
 msgstr "Odtwarzaj"
 
 #: js/view/Properties.js:305
-msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
+msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
-"Obsługa przycisku przeglądarki \"wstecz\" (⬅), aby przejść do poprzedniej "
+"Obsługa przycisku przeglądarki \"wstecz\", aby przejść do poprzedniej "
 "klatki"
 
 #: js/view/Properties.js:306

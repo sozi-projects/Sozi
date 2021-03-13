@@ -428,9 +428,9 @@ msgid "Player"
 msgstr "Speler"
 
 #: js/view/Properties.js:305
-msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
+msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
-"Ondersteuning voor de browserknop 'Terug' (⬅) om naar het vorige frame te "
+"Ondersteuning voor de browserknop 'Terug' om naar het vorige frame te "
 "gaan"
 
 #: js/view/Properties.js:306

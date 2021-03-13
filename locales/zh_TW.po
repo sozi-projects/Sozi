@@ -425,7 +425,7 @@ msgid "Player"
 msgstr "播放操控"
 
 #: js/view/Properties.js:305
-msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
+msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr "支援瀏覽器〔上一頁〕(⬅) 按鍵，回到上一個框格"
 
 #: js/view/Properties.js:306

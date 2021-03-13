@@ -421,9 +421,9 @@ msgid "Player"
 msgstr "Oynatıcı"
 
 #: js/view/Properties.js:305
-msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
+msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
-"Internet tarayıcısının \"Geri\" (⬅) tuşuyla bir önceki kareye dönmeyi "
+"Internet tarayıcısının \"Geri\" tuşuyla bir önceki kareye dönmeyi "
 "destekle"
 
 #: js/view/Properties.js:306

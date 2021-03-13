@@ -424,8 +424,8 @@ msgid "Player"
 msgstr "Esitaja"
 
 #: js/view/Properties.js:305
-msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
-msgstr "Toeta veebibrauseri \"Tagasi\" (⬅) nuppu, et liikuda eelmisele raamile"
+msgid "Support the browser's \"Back\" button to move to the previous frame"
+msgstr "Toeta veebibrauseri \"Tagasi\" nuppu, et liikuda eelmisele raamile"
 
 #: js/view/Properties.js:306
 msgid ""

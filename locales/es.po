@@ -431,9 +431,9 @@ msgid "Player"
 msgstr "Reproductor"
 
 #: js/view/Properties.js:305
-msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
+msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
-"Se admite el botón «Atrás» (⬅) del navegador para moverse al fotograma "
+"Se admite el botón «Atrás» del navegador para moverse al fotograma "
 "anterior"
 
 #: js/view/Properties.js:306

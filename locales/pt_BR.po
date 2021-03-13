@@ -429,9 +429,9 @@ msgid "Player"
 msgstr "Reprodutor"
 
 #: js/view/Properties.js:305
-msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
+msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
-"Suporta o botão \"Voltar\" (⬅) do navegador para ir para o quadro anterior"
+"Suporta o botão \"Voltar\" do navegador para ir para o quadro anterior"
 
 #: js/view/Properties.js:306
 msgid ""

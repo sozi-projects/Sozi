@@ -440,7 +440,7 @@ msgid "Player"
 msgstr "Avspiller"
 
 #: js/view/Properties.js:305
-msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
+msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
 "Støtte for nettleserens \"Tilbake\"-knapp for å gå tilbake i presentasjonen"
 

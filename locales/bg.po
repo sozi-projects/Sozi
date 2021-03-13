@@ -437,7 +437,7 @@ msgid "Player"
 msgstr "Добави слой"
 
 #: js/view/Properties.js:305
-msgid "Support the browser's \"Back\" (⬅) button to move to the previous frame"
+msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
 
 #: js/view/Properties.js:306
