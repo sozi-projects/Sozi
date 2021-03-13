@@ -183,9 +183,12 @@ button:disabled {
  * Fonts
  * ------------------------------------------------------------------------- */
 
+html {
+    font-family: "InterVariable", sans-serif;
+}
+
 body {
     font-size: small;
-    font-family: "Roboto", serif;
 }
 
 .top-left p {
