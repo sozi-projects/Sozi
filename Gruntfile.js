@@ -544,9 +544,7 @@ module.exports = function(grunt) {
         "newer:uglify:presenter",
         "newer:nunjucks_render",
         "newer:po2json",
-        "newer:copy:editor",
-        "compress:media-inkscape-0.92",
-        "compress:media-inkscape-1.0"
+        "newer:copy:editor"
     ]);
 
     // Build the Electron application.
@@ -590,6 +588,12 @@ module.exports = function(grunt) {
         "jspot" // Cannot use 'newer' here since 'dest' is not a generated file
     ]);
 
+    // Generate Inkscape extensions.
+    grunt.registerTask("extras", [
+        "compress:media-inkscape-0.92",
+        "compress:media-inkscape-1.0"
+    ]);
+
     // Build the Electron application, and generate zip archives and Debian packages if applicable.
     if (buildConfig.platforms.some(p => getPlatformOS(p) === "linux")) {
         grunt.registerTask("deb", [
@@ -600,7 +604,8 @@ module.exports = function(grunt) {
 
         grunt.registerTask("dist", [
             "electron-archive",
-            "debian_package"
+            "debian_package",
+            "extras"
         ]);
     }
     else {
