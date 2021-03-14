@@ -27,7 +27,7 @@ function asArray(v) {
 
 /** Signals that the mode of the properties view has changed.
  *
- * @event module:Properties.modeChange */
+ * @event module:view/Properties.modeChange */
 
 /** Properties pane of the presentation editor.
  *
@@ -62,7 +62,7 @@ export class Properties extends VirtualDOMView {
      *
      * @param {string} mode - The mode to toggle (`"preferences"`, `"export"`).
      *
-     * @fires module:Properties.modeChange
+     * @fires module:view/Properties.modeChange
      */
     toggleMode(mode) {
         this.mode = this.mode === mode ? "default" : mode;
