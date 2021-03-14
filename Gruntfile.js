@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 
     // Get version number from last commit date.
     // Format: YY.MM.T (year.month.timestamp).
-    const rev = execSync("git show -s --format='%cI %ct'").toString().trim().split(" ");
+    const rev = execSync('git show -s --format="%cI %ct"').toString().trim().split(" ");
     pkg.version = rev[0].slice(2, 4) + "." + rev[0].slice(5, 7) + "." + rev[0].slice(8, 10) + "-" + rev[1];
 
     const buildConfig = grunt.file.readJSON("config.default.json");
@@ -464,11 +464,12 @@ module.exports = function(grunt) {
         const src = this.files.map(f => f.src).flat().map(p => path.relative(cwd, p)).join(" ");
 
         grunt.log.writeln("Compressing " + dest);
+        grunt.log.writeln("cwd " + cwd);
         if (dest.endsWith(".tar.xz")) {
             execSync("tar cJf "+ path.relative(cwd, dest) + " " + src, {cwd, stdio: "ignore"});
         }
         else if (dest.endsWith(".zip")) {
-            execSync("zip -ry " + path.relative(cwd, dest) + " " + src, {cwd, stdio: "ignore"});
+            execSync("zip -r " + path.relative(cwd, dest) + " " + src, {cwd, stdio: "ignore"});
         }
     });
 
