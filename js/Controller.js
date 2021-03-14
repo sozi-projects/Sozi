@@ -143,8 +143,8 @@ export class Controller extends EventEmitter {
             this.emit("blur");
         });
 
-        this.addListener("repaint", () => this.onRepaint());
-        player.addListener("frameChange", () => this.onFrameChange());
+        this.on("repaint", () => this.onRepaint());
+        player.on("frameChange", () => this.onFrameChange());
     }
 
     /** Finalize the initialization of the application.
@@ -1509,7 +1509,7 @@ export class Controller extends EventEmitter {
 
         for (let layer of this.selection.selectedLayers) {
             const cameraState = modifiedFrame.cameraStates[layer.index];
-            
+
             if (layer === outlineLayer) {
                 cameraState.applyOffset(offset);
             }

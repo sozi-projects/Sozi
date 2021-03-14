@@ -81,7 +81,7 @@ function onFrameChange(presenterWindow) {
  * @param {Window} presenterWindow - The window that shows the presenter console.
  */
 function notifyOnFrameChange(presenterWindow) {
-    sozi.player.addListener("frameChange", () => onFrameChange(presenterWindow));
+    sozi.player.on("frameChange", () => onFrameChange(presenterWindow));
 
     // Send the message to set the initial frame data in the presenter window.
     onFrameChange(presenterWindow);
@@ -146,7 +146,7 @@ window.addEventListener("load", () => {
         player
     };
 
-    player.addListener("stateChange", () => {
+    player.on("stateChange", () => {
         if (player.playing) {
             document.title = presentation.title;
         }

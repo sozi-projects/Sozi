@@ -22,7 +22,7 @@ import * as FrameList from "./FrameList";
 export function init(player) {
     const frameNumber = document.querySelector(".sozi-frame-number");
 
-    player.addListener("frameChange", () => {
+    player.on("frameChange", () => {
         frameNumber.innerHTML = player.currentFrame.index + 1;
         frameNumber.style.visibility = player.currentFrame.showFrameNumber ? "visible" : "hidden";
     });

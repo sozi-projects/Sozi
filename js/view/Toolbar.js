@@ -41,11 +41,14 @@ export class Toolbar extends VirtualDOMView {
          *
          * @type {module:player/Viewport.Viewport} */
         this.viewport = viewport;
+
+        screenfull.on("change",     () => this.repaint());
+        properties.on("modeChange", () => this.repaint());
     }
 
     /** @inheritdoc */
     render() {
-        const thisView   = this;
+        const properties = this.properties;
         const controller = this.controller;
         const _          = controller.gettext;
 
@@ -125,10 +128,7 @@ export class Toolbar extends VirtualDOMView {
                     id: "btn-fullscreen",
                     className: screenfull.isFullscreen ? "active" : undefined,
                     disabled: !screenfull.isEnabled,
-                    async onclick() {
-                        await screenfull.toggle(document.documentElement);
-                        thisView.repaint();
-                    }
+                    onclick() { screenfull.toggle(document.documentElement); }
                 }, h("i.fas.fa-desktop"))
             ]),
             h("span.group.btn-group", [
@@ -144,15 +144,15 @@ export class Toolbar extends VirtualDOMView {
                 // TODO disable the Export button if the feature is not available
                 h("button", {
                     title: _("Export the presentation"),
-                    className: this.properties.mode === "export" ? "active" : undefined,
-                    onclick() { thisView.properties.toggleMode("export"); thisView.repaint(); }
+                    className: properties.mode === "export" ? "active" : undefined,
+                    onclick() { properties.toggleMode("export"); }
                 }, h("i.fas.fa-file-export"))
             ]),
             h("span.group.btn-group", [
                 h("button", {
                     title: _("Preferences"),
-                    className: this.properties.mode === "preferences" ? "active" : undefined,
-                    onclick() { thisView.properties.toggleMode("preferences"); thisView.repaint(); }
+                    className: properties.mode === "preferences" ? "active" : undefined,
+                    onclick() { properties.toggleMode("preferences"); }
                 }, h("i.fas.fa-sliders-h")),
                 h("button", {
                     title: _("Information"),

@@ -25,6 +25,10 @@ function asArray(v) {
     return v instanceof Array ? v : [v];
 }
 
+/** Signals that the mode of the properties view has changed.
+ *
+ * @event module:Properties.modeChange */
+
 /** Properties pane of the presentation editor.
  *
  * @extends module:view/VirtualDOMView.VirtualDOMView
@@ -57,9 +61,12 @@ export class Properties extends VirtualDOMView {
     /** Toggle between presentation properties and preferences or export mode.
      *
      * @param {string} mode - The mode to toggle (`"preferences"`, `"export"`).
+     *
+     * @fires module:Properties.modeChange
      */
     toggleMode(mode) {
         this.mode = this.mode === mode ? "default" : mode;
+        this.emit("modeChange");
         this.repaint();
     }
 
@@ -99,7 +106,14 @@ export class Properties extends VirtualDOMView {
             shortcuts.push(this.renderTextField(action, false, controller.getShortcut, controller.setShortcut, true));
         }
 
+        const toDefaultMode = () => this.toggleMode("default");
+
         return h("div.properties", [
+            h("div.back", {
+                title: _("Back to presentation properties"),
+                onClick() { toDefaultMode(); }
+            }, h("i.fas.fa-arrow-left", )),
+
             h("h1", _("User interface")),
 
             h("label", {for: "field-language"}, _("Language")),
@@ -381,7 +395,14 @@ export class Properties extends VirtualDOMView {
                 exportFn     = () => {}
         }
 
+        const toDefaultMode = () => this.toggleMode("default");
+
         return h("div.properties", [
+            h("div.back", {
+                title: _("Back to presentation properties"),
+                onClick() { toDefaultMode(); }
+            }, h("i.fas.fa-arrow-left", )),
+
             h("h1", _("Export")),
 
             h("label", {for: "field-exportType"}, _("Document type")),

@@ -134,19 +134,19 @@ export class Player extends EventEmitter {
         this.transitions = [];
 
         if (!this.editMode) {
-            this.viewport.addListener("click", btn => this.onClick(btn));
+            this.viewport.on("click", btn => this.onClick(btn));
             window.addEventListener("keydown", evt => this.onKeyDown(evt), false);
             if (this.presentation.enableMouseTranslation) {
-                this.viewport.addListener("dragStart", () => this.pause());
+                this.viewport.on("dragStart", () => this.pause());
             }
-            this.viewport.addListener("userChangeState", () => this.pause());
+            this.viewport.on("userChangeState", () => this.pause());
             window.addEventListener("keypress", evt => this.onKeyPress(evt), false);
         }
-        this.animator.addListener("step", p => this.onAnimatorStep(p));
-        this.animator.addListener("stop", () => this.onAnimatorStop());
-        this.animator.addListener("done", () => this.onAnimatorDone());
+        this.animator.on("step", p => this.onAnimatorStep(p));
+        this.animator.on("stop", () => this.onAnimatorStop());
+        this.animator.on("done", () => this.onAnimatorDone());
 
-        this.addListener("frameChange", () => {
+        this.on("frameChange", () => {
             // TODO Only if frame is not transient.
             document.title = this.presentation.title + " \u2014 " + this.currentFrame.title;
         });

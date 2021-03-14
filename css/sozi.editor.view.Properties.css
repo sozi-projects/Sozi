@@ -24,6 +24,13 @@
     text-align: center;
 }
 
+.properties .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
 .properties .side-by-side {
     display: flex;
     align-items: center;

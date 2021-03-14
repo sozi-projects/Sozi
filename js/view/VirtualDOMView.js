@@ -6,6 +6,7 @@
 
 import {render} from "inferno";
 import {h} from "inferno-hyperscript";
+import {EventEmitter} from "events";
 
 /** Type for Virtual DOM nodes.
  *
@@ -13,8 +14,10 @@ import {h} from "inferno-hyperscript";
  */
 
 /** Base class for editor views using the virtual DOM.
+ *
+ * @extends EventEmitter
  */
-export class VirtualDOMView {
+export class VirtualDOMView extends EventEmitter {
 
     /** Initialize a new virtual DOM view.
      *
@@ -22,6 +25,8 @@ export class VirtualDOMView {
      * @param {module:Controller.Controller} controller - The controller that manages the current editor.
      */
     constructor(container, controller) {
+        super();
+
         /** The HTML element that will contain this preview area.
          *
          * @type {HTMLElement} */
@@ -38,7 +43,7 @@ export class VirtualDOMView {
         this.state = {};
 
         const repaintHandler = () => this.repaint();
-        controller.addListener("repaint", repaintHandler);
+        controller.on("repaint", repaintHandler);
         window.addEventListener("resize", repaintHandler);
 
         while (container.firstChild) {

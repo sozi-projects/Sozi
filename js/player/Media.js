@@ -91,7 +91,7 @@ function onFrameChange() {
 export function init(p) {
     player = p;
 
-    player.addListener("frameChange", onFrameChange);
+    player.on("frameChange", onFrameChange);
 
     // Find namespace prefix for Sozi.
     // Inlining SVG inside HTML does not allow to use
@@ -202,7 +202,7 @@ export function init(p) {
  * and pauses all playing videos.
  */
 export function disable() {
-    player.removeListener("frameChange", onFrameChange);
+    player.off("frameChange", onFrameChange);
 
     const frameId = player.currentFrame.frameId;
     if (frameId in mediaToStartByFrameId) {

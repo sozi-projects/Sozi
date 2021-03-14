@@ -28,7 +28,7 @@ export function init(p) {
     window.addEventListener("hashchange", onHashChange, false);
 
     if (player.presentation.updateURLOnFrameChange) {
-        player.addListener("frameChange", onFrameChange);
+        player.on("frameChange", onFrameChange);
     }
 }
 

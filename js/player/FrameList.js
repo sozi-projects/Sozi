@@ -97,12 +97,12 @@ export function init(p) {
     }
 
     animator = new Animator();
-    animator.addListener("step", onAnimatorStep);
+    animator.on("step", onAnimatorStep);
     window.addEventListener("keypress", onKeyPress, false);
     window.addEventListener("resize", () => setCurrentOffset(currentOffset));
-    player.viewport.addListener("mouseDown", onMouseDown);
+    player.viewport.on("mouseDown", onMouseDown);
     frameList.addEventListener("mouseout", onMouseOut, false);
-    p.addListener("frameChange", onFrameChange);
+    p.on("frameChange", onFrameChange);
     setCurrentOffset(startOffset);
 }
 

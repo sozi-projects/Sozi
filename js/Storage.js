@@ -101,15 +101,15 @@ export class Storage {
             autoescape: false
         });
 
-        controller.addListener("presentationChange", () => {
+        controller.on("presentationChange", () => {
             this.jsonNeedsSaving = this.htmlNeedsSaving = true;
         });
 
-        controller.addListener("editorStateChange",  () => {
+        controller.on("editorStateChange",  () => {
             this.jsonNeedsSaving = true;
         });
 
-        controller.addListener("blur", () => {
+        controller.on("blur", () => {
             if (this.backend && controller.getPreference("saveMode") === "onblur") {
                 this.backend.doAutosave();
             }

@@ -44,12 +44,12 @@ export class Preview {
          * @type {module:Controller.Controller} */
         this.controller = controller;
 
-        presentation.addListener("svgChange", () => this.onLoad());
+        presentation.on("svgChange", () => this.onLoad());
         window.addEventListener("resize", () => this.repaint());
-        viewport.addListener("mouseDown", () => document.activeElement.blur());
-        viewport.addListener("click", (btn, evt) => this.onClick(btn, evt));
-        viewport.addListener("userChangeState", () => controller.updateCameraStates());
-        controller.addListener("repaint", () => this.repaint());
+        viewport.on("mouseDown", () => document.activeElement.blur());
+        viewport.on("click", (btn, evt) => this.onClick(btn, evt));
+        viewport.on("userChangeState", () => controller.updateCameraStates());
+        controller.on("repaint", () => this.repaint());
     }
 
     /** Reset the preview area when a presentation is loaded or reloaded.
