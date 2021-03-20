@@ -90,9 +90,9 @@ export function init(p) {
     for (let link of links) {
         link.addEventListener("click", evt => {
             if (evt.button === 0) {
-				var frame = link.hash.slice(1);
+                var frame = link.hash.slice(1);
                 player.previewFrame(frame);
-				player.emit("localChange", {change:"previewFrame", value:frame});
+                player.emit("localChange", {change:"previewFrame", value:frame});
 
                 evt.preventDefault();
             }
