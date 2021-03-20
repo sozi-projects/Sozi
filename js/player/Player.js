@@ -164,8 +164,12 @@ export class Player extends EventEmitter {
     onClick(button) {
         if (this.presentation.enableMouseNavigation) {
             switch (button) {
-                case 0: this.moveToNext(); break;
-                case 2: this.moveToPrevious(); break;
+                case 0: this.moveToNext();
+				this.emit("localChange", {change: "moveToFrame",value: this.targetFrame});
+				break;
+                case 2: this.moveToPrevious();
+				this.emit("localChange", {change: "moveToFrame",value: this.targetFrame});
+				break;
             }
         }
     }
@@ -191,9 +195,11 @@ export class Player extends EventEmitter {
                 if (this.presentation.enableKeyboardNavigation) {
                     if (evt.shiftKey) {
                         this.jumpToFirst();
+						this.emit("localChange", {change: "jumpToFrame", value: this.currentFrame});
                     }
                     else {
                         this.moveToFirst();
+						this.emit("localChange", {change: "moveToFrame",value: this.targetFrame});
                     }
                 }
                 break;
@@ -202,9 +208,11 @@ export class Player extends EventEmitter {
                 if (this.presentation.enableKeyboardNavigation) {
                     if (evt.shiftKey) {
                         this.jumpToLast();
+						his.emit("localChange", {change: "jumpToFrame",value: this.currentFrame});
                     }
                     else {
                         this.moveToLast();
+						this.emit("localChange", {change: "moveToFrame",value: this.targetFrame});
                     }
                 }
                 break;
@@ -215,9 +223,11 @@ export class Player extends EventEmitter {
                 if (this.presentation.enableKeyboardNavigation) {
                     if (evt.shiftKey) {
                         this.jumpToPrevious();
+						this.emit("localChange", {change: "jumpToFrame",value: this.currentFrame});
                     }
                     else {
                         this.moveToPrevious();
+						this.emit("localChange", {change: "moveToFrame",value: this.targetFrame});
                     }
                 }
                 break;
@@ -230,9 +240,11 @@ export class Player extends EventEmitter {
                 if (this.presentation.enableKeyboardNavigation) {
                     if (evt.shiftKey) {
                         this.jumpToNext();
+						this.emit("localChange", {change: "jumpToFrame",value: this.currentFrame});
                     }
                     else {
                         this.moveToNext();
+						this.emit("localChange", {change: "moveToFrame",value: this.targetFrame});
                     }
                 }
                 break;
@@ -264,6 +276,7 @@ export class Player extends EventEmitter {
                 if (this.presentation.enableKeyboardZoom) {
                     this.viewport.zoom(SCALE_FACTOR, this.viewport.width / 2, this.viewport.height / 2);
                     this.pause();
+					this.emit("localChange", {change: "interactive"});
                 }
                 break;
 
@@ -271,6 +284,7 @@ export class Player extends EventEmitter {
                 if (this.presentation.enableKeyboardZoom) {
                     this.viewport.zoom(1 / SCALE_FACTOR, this.viewport.width / 2, this.viewport.height / 2);
                     this.pause();
+					this.emit("localChange", {change: "interactive"});
                 }
                 break;
 
@@ -278,6 +292,7 @@ export class Player extends EventEmitter {
                 if (this.presentation.enableKeyboardRotation) {
                     this.viewport.rotate(-ROTATE_STEP);
                     this.pause();
+					this.emit("localChange", {change: "interactive"});
                 }
                 break;
 
@@ -285,6 +300,7 @@ export class Player extends EventEmitter {
                 if (this.presentation.enableKeyboardRotation) {
                     this.viewport.rotate(ROTATE_STEP);
                     this.pause();
+					this.emit("localChange", {change: "interactive"});
                 }
                 break;
 
@@ -296,11 +312,13 @@ export class Player extends EventEmitter {
                 else {
                     this.resume();
                 }
+				this.emit("localChange", {change: "pause"});
                 break;
 
             case 46: // .
                 if (this.presentation.enableKeyboardNavigation) {
                     this.toggleBlankScreen();
+					this.emit("localChange", {change:"blankScreen", value:this.blankScreenIsVisible});
                 }
                 break;
 
