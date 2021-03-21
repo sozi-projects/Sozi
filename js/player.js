@@ -5,11 +5,12 @@
 import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
 import {Presentation} from "./model/Presentation";
 import {Viewport} from "./player/Viewport";
-import {Player} from "./player/Player";
+import {TouchGesture} from "./player/Player";
 import * as Media from "./player/Media";
 import * as FrameList from "./player/FrameList";
 import * as FrameNumber from "./player/FrameNumber";
 import * as FrameURL from "./player/FrameURL";
+import * as TouchGestures from "./player/TouchGestures";
 
 /** Put the current  player in presenter mode.
  *
@@ -139,6 +140,8 @@ window.addEventListener("load", () => {
     FrameList.init(player);
     FrameNumber.init(player);
     FrameURL.init(player);
+    TouchGestures.init(player);
+    
 
     window.sozi = {
         presentation,
