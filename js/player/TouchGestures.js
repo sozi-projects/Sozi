@@ -72,7 +72,7 @@ class Line {
      * @param {module:player/TouchGestures.Line} otherLine - the line to calculate the distance to.
      * 
      */
-    getXDist = function(otherLine) {
+    getXDist (otherLine) {
 /*
         var dist1 = this.x1 - otherLine.x1;
         var dist2 = this.x2 - otherLine.x2;
@@ -87,7 +87,7 @@ class Line {
      * @param {module:player/TouchGestures.Line} otherLine - the line to calculate the distance to.
      * 
      */
-    getYDist = function(otherLine) {
+    getYDist (otherLine) {
 /*
         var dist1 = this.y1 - otherLine.y1;
         var dist2 = this.y2 - otherLine.y2;

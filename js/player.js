@@ -5,7 +5,7 @@
 import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
 import {Presentation} from "./model/Presentation";
 import {Viewport} from "./player/Viewport";
-import {TouchGesture} from "./player/Player";
+import {Player} from "./player/Player";
 import * as Media from "./player/Media";
 import * as FrameList from "./player/FrameList";
 import * as FrameNumber from "./player/FrameNumber";
