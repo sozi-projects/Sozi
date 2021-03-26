@@ -18,10 +18,18 @@ const ZOOM_UP_THRESHHOLD = 1.5; // must be exceeded once to accept zooming gestu
 const ZOOM_LOW_THRESHHOLD = 1/ZOOM_UP_THRESHHOLD;
 
 /** The current Sozi player.
- *
  * @type {module:player/Player.Player} */
 let player;
 
+/** flag according to state of mouseNavigationEnabled in presentation */
+let navigationGestureEnabled;
+
+/** flag according to any of the states mouseZoomEnabled, 
+ * mouseTranslationEnabled or mouseRotationEnabled in presentation */
+let interactionGestureEnabled;
+
+/** The presentation to play.
+ * @type {module:player/TouchGesture.Gesture} */
 let currentGesture;
 
 
@@ -117,15 +125,46 @@ class Line {
 }
 
 /**
- *
+ * abstract class for touch gestures.
  */
 class Gesture {
+    /**
+     *
+     * touchpoints have been moved.
+     * @param touches - array of touch objects from the touch event.
+     * 
+     */
     move(touches){}
+    
+    /**
+     *
+     * checks, if the given touches (e.g. by number) cannot be processed by the specific gesture object
+     * @param touches - array of touch objects from the touch event.
+     * @returns {boolean} - true, if touches are rejected, false if accepted
+     * 
+     */
     rejects(touches){}
+    
+    /**
+     * gesture has been completed successfully.
+     * Must be implemented by derived class.
+     */
     finish(){}
     
+    /**
+     * execute a swipe. Must be implemented by derived class.
+     */
     doSwipe(){}
-    // tests for vertical or horizontal swipes according to a given minimum movement
+    /**
+     * tests for vertical or horizontal swipes according to a given minimum movement
+     * and performs the swipe in the dominant direction (longer absolute move) 
+     * @param distX - touch movement in horizontal direction
+     * @param distY - touch movement in vertical direction
+     * @param minX - minimum distance in horizontal direction to accept as swipe
+     * @param minY - minimum distance in vertical direction to accept as swipe
+     * @returns {boolean} - true, if a swipe was ececuted
+     * 
+     */
     checkSwipe(distX, distY, minX, minY){
         var dXAbs = Math.abs(distX);
         var dYAbs = Math.abs(distY);      
@@ -147,6 +186,10 @@ class Gesture {
 
 }
 
+
+/**
+ * handles single touch gestures
+ */ 
 class SingleGesture extends Gesture {
     constructor(touches){
       super();
@@ -210,6 +253,10 @@ class SingleGesture extends Gesture {
     
 }
 
+/**
+ * handles double touch gestures
+ */
+
 class DoubleGesture extends Gesture {
     constructor(touches){
         super();
@@ -264,6 +311,21 @@ class DoubleGesture extends Gesture {
     }
 }
 
+/**
+ * a dummy used when a gesture is restricted by mouse configuration.
+ *
+ */
+class DummyGesture extends Gesture {
+    constructor(touchNum){
+        super();
+        this.touchNum = touchNum;
+    }
+    
+    rejects(touches){
+        return touches.length != this.touchNum;
+    }
+}
+
 function updateScreenValues(){
     MIN_SLOW_TRAVEL_X = Math.floor(window.innerWidth/2);
     MIN_SLOW_TRAVEL_Y = Math.floor(window.innerHeight/2);
@@ -273,9 +335,8 @@ function updateScreenValues(){
       
 function createGesture(touches) {
     switch(touches.length){
-        case 1: return new SingleGesture(touches);
-        case 2: return new DoubleGesture(touches);
-        case 3: return new TripleGesture(touches);
+        case 1: return navigationGestureEnabled ? new SingleGesture(touches) : new DummyGesture(1);
+        case 2: return interactionGestureEnabled ? new DoubleGesture(touches) : new DummyGesture(2);
         default: return null;
     }
 }
@@ -307,19 +368,29 @@ function onTouchEnd(evt) {
  *
  *  This function adds touch listeners to the given parent.
  *
- * @param parent - The dom object to add touch gestures to.
+ * @param {module:player/Player.Player} player - The current Player.
+ * @param {module:model/Presentation.Presentation} presentation - The presentation to play.
  */
-export function init(p){
+export function init(p, presentation){
     
     player = p;
-    let root = player.viewport.svgRoot;
+
+    navigationGestureEnabled = presentation.enableMouseNavigation;
+
+    interactionGestureEnabled = presentation.enableMouseRotation ||
+        presentation.enableMouseZoom || presentation.enableMouseTranslation;
     
-    updateScreenValues();
-    window.addEventListener("resize", updateScreenValues);
-    
-    root.addEventListener("touchstart", onTouchStart, false);
-    root.addEventListener("touchend", onTouchEnd, false);
-    root.addEventListener("touchcancel", onTouchEnd, false);
-    root.addEventListener("touchmove", onTouchMove, false);
+    if( navigationGestureEnabled || interactionGestureEnabled ) {
+
+        let root = player.viewport.svgRoot;
+        
+        updateScreenValues();
+        window.addEventListener("resize", updateScreenValues);
+        
+        root.addEventListener("touchstart", onTouchStart, false);
+        root.addEventListener("touchend", onTouchEnd, false);
+        root.addEventListener("touchcancel", onTouchEnd, false);
+        root.addEventListener("touchmove", onTouchMove, false);
+    }
 }
 
