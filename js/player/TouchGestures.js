@@ -21,8 +21,10 @@ const ZOOM_LOW_THRESHHOLD = 1/ZOOM_UP_THRESHHOLD;
  * @type {module:player/Player.Player} */
 let player;
 
-/** flag according to state of mouseNavigationEnabled in presentation */
-let navigationGestureEnabled;
+/** The current Sozi presentation.
+ * @type {module:model/Presentation.Presentation} */
+let presentation;
+
 
 /** flag according to any of the states mouseZoomEnabled, 
  * mouseTranslationEnabled or mouseRotationEnabled in presentation */
@@ -273,14 +275,7 @@ class DoubleGesture extends Gesture {
         this.zoomEnabled = false;
     }
        
-    move(touches){
-        let actLine = new Line(
-            touches[0].clientX,
-            touches[0].clientY,
-            touches[1].clientX,
-            touches[1].clientY
-          );
-
+    zoom(actLine) {
         if( this.zoomEnabled){
           var zoom = (actLine.getSqrLength() / this.lastLine.getSqrLength());
           var mid = actLine.getMidpoint();
@@ -290,6 +285,9 @@ class DoubleGesture extends Gesture {
           var zoom = Math.abs(actLine.getSqrLength() / this.startLine.getSqrLength());
           if ( zoom > ZOOM_UP_THRESHHOLD || zoom < ZOOM_LOW_THRESHHOLD) this.zoomEnabled = true;           
         }
+    }
+    
+    rotate(actLine){
         if ( this.rotateEnabled){
           var rotate = actLine.getAngle(this.lastLine);
           player.viewport.rotate(rotate);
@@ -297,12 +295,26 @@ class DoubleGesture extends Gesture {
         // check threshhold to enable rotation
         if (Math.abs(actLine.getAngle(this.startLine)) >= ROTATE_THRESHHOLD) this.rotateEnabled = true;          
         }
-
+    }
+    
+    translate(actLine){
         var panX = actLine.getXDist(this.lastLine);
         var panY = actLine.getYDist(this.lastLine);
-
         player.viewport.translate(panX, panY);
+    }
+        
+    move(touches){
+        let actLine = new Line(
+            touches[0].clientX,
+            touches[0].clientY,
+            touches[1].clientX,
+            touches[1].clientY
+          );
 
+        if(presentation.enableMouseZoom) this.zoom(actLine);
+        if(presentation.enableMouseRotation) this.rotate(actLine);
+        if(presentation.enableMouseTranslation) this.translate(actLine);
+        
         this.lastLine = actLine;
     }
     
@@ -335,7 +347,7 @@ function updateScreenValues(){
       
 function createGesture(touches) {
     switch(touches.length){
-        case 1: return navigationGestureEnabled ? new SingleGesture(touches) : new DummyGesture(1);
+        case 1: return presentation.enableMouseNavigation ? new SingleGesture(touches) : new DummyGesture(1);
         case 2: return interactionGestureEnabled ? new DoubleGesture(touches) : new DummyGesture(2);
         default: return null;
     }
@@ -371,16 +383,15 @@ function onTouchEnd(evt) {
  * @param {module:player/Player.Player} player - The current Player.
  * @param {module:model/Presentation.Presentation} presentation - The presentation to play.
  */
-export function init(p, presentation){
+export function init(p, pr){
     
     player = p;
-
-    navigationGestureEnabled = presentation.enableMouseNavigation;
+    presentation = pr;
 
     interactionGestureEnabled = presentation.enableMouseRotation ||
         presentation.enableMouseZoom || presentation.enableMouseTranslation;
     
-    if( navigationGestureEnabled || interactionGestureEnabled ) {
+    if( presentation.enableMouseNavigation || interactionGestureEnabled ) {
 
         let root = player.viewport.svgRoot;
         
