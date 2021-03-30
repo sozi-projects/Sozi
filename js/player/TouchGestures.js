@@ -4,17 +4,62 @@
 
 /** @module */
 
-const MAX_FLICK_TIME = 100;  // max time in ms to accept a touch move as flick gesture
-const MIN_FLICK_TRAVEL = 20; // min distance to accept a touch move as flick gesture
 
-var MIN_SLOW_TRAVEL_X;       // minimum distance to accept a touch move as slow swipe gesture in horizontal direction 
+/** Max time in ms to accept a touch move as quick swipe gesture
+ *
+ * @readonly
+ * @default
+ * @type {number} */
+const MAX_FLICK_TIME = 100; 
+
+/** Min distance to accept a touch move as quick swipe gesture.
+ * Threshhold to prevent any touch to be interpreted as swipe.
+ *
+ * @readonly
+ * @default
+ * @type {number} */
+const MIN_FLICK_TRAVEL = 20;
+
+/** Minimum distance to accept a touch move as slow swipe gesture in horizontal direction.
+ * value depends on screen size and therefore is (re)calculated 
+ *
+ * @default
+ * @type {number} */
+var MIN_SLOW_TRAVEL_X;
+
+/** Minimum distance to accept a touch move as slow swipe gesture in vertical direction.
+ * value depends on screen size and therefore is (re)calculated 
+ *
+ * @default
+ * @type {number} */
 var MIN_SLOW_TRAVEL_Y;       // minimum distance to accept a touch move as slow swipe gesture in vertical direction
 
-var MIN_SCROLL_TRAVEL_X;       // minimum distance to accept a touch move as scroll swipe gesture in horizontal direction 
-var MIN_SCROLL_TRAVEL_Y;       // minimum distance to accept a touch move as scroll swipe gesture in vertical direction
 
-const ROTATE_THRESHHOLD = 10;   // must be exceeded once to accept rotating gesture - for more stability
-const ZOOM_UP_THRESHHOLD = 1.5; // must be exceeded once to accept zooming gesture - for more stability
+/** Tolerance of slight rotation gesture movement assumed to be unintentional.
+ * The Threshhold adds some visual stability to pan movements.
+ * Must be exceeded once to accept a rotating gesture.
+ *
+ * @readonly
+ * @default
+ * @type {number} */
+const ROTATE_THRESHHOLD = 10;   
+
+/** Upper tolerance of slight zoom gesture movement assumed to be unintentional.
+ * The Threshhold adds some visual stability to pan movements.
+ * Must be exceeded once to accept a zoom gesture.
+ *
+ * @readonly
+ * @default
+ * @type {number} */
+const ZOOM_UP_THRESHHOLD = 1.5;
+
+/** Lower tolerance of slight zoom gesture movement assumed to be unintentional.
+ * The Threshhold adds some visual stability to pan movements.
+ * Must be exceeded once to accept a zoom gesture.
+ *
+ * @readonly
+ * @default
+ * @type {number} */
 const ZOOM_LOW_THRESHHOLD = 1/ZOOM_UP_THRESHHOLD;
 
 /** The current Sozi player.
@@ -25,13 +70,14 @@ let player;
  * @type {module:model/Presentation.Presentation} */
 let presentation;
 
-
 /** flag according to any of the states mouseZoomEnabled, 
- * mouseTranslationEnabled or mouseRotationEnabled in presentation */
+ * mouseTranslationEnabled or mouseRotationEnabled in presentation 
+ * @type {boolean} */
 let interactionGestureEnabled;
 
-/** The presentation to play.
- * @type {module:player/TouchGesture.Gesture} */
+/** The currently active gesture handler depending on the amount of touchpoints.
+ * null, if no touches on the screen.
+ * @type {module:player/TouchGestures.Gesture} */
 let currentGesture;
 
 
@@ -59,10 +105,10 @@ class Line {
         this.y2 = y2;
     }
     
-    /**
-     *
-     * calculate the angle between this line and another.
-     * @param {module:player/TouchGestures.Line} otherLine - the line defining the second leg of the angle.
+    /** Calculate the angle between this line and another.
+     * 
+     @param {module:player/TouchGestures.Line} otherLine - the line defining the second leg of the angle.
+     @returns {number} the angle in degree
      * 
      */
     getAngle(otherLine) {
@@ -76,48 +122,34 @@ class Line {
     }
     
 
-    /**
+    /** Calculates the average horizontal distance to another line according to the two definition points.
      *
-     * returns the average distance in x direction between this line and another.
      * @param {module:player/TouchGestures.Line} otherLine - the line to calculate the distance to.
-     * 
+     * @returns {number} the average horizontal distance.
      */
     getXDist (otherLine) {
-/*
-        var dist1 = this.x1 - otherLine.x1;
-        var dist2 = this.x2 - otherLine.x2;
-        return (dist1 + dist2) / 2;
- */
         return (this.x1 - otherLine.x1 + this.x2 - otherLine.x2) / 2;
     };
 
-    /**
+    /** Calculates the average vertical distance to another line according to the two definition points.
      *
-     * returns the average distance in y direction between this line and another.
      * @param {module:player/TouchGestures.Line} otherLine - the line to calculate the distance to.
-     * 
+     * @returns {number} the average vertical distance.
      */
     getYDist (otherLine) {
-/*
-        var dist1 = this.y1 - otherLine.y1;
-        var dist2 = this.y2 - otherLine.y2;
-        return (dist1 + dist2) / 2;
-*/
         return (this.y1 - otherLine.y1 + this.y2 - otherLine.y2) / 2;
     };
 
-    /**
+    /** Calculates the square of the line's length.
      *
-     * the square of this line's length.
-     * 
+     * @returns {number} the square to the line's length.
      */
     getSqrLength() {
         return Math.pow(this.x1 - this.x2, 2) + Math.pow(this.y1 - this.y2, 2);
     };
 
-    /**
-     *
-     * the Midpoint of this line
+    /** The Midpoint of this line in x and y coordinate
+     * 
      * @returns {object} - x and y coordinate of the midpoint
      * 
      */
@@ -127,43 +159,43 @@ class Line {
 }
 
 /**
- * abstract class for touch gestures.
+ * abstract class for touch gesture handler.
  */
 class Gesture {
-    /**
-     *
-     * touchpoints have been moved.
-     * @param touches - array of touch objects from the touch event.
+    
+    /** Touchpoints have been moved.
+     * Specific behaviour to be implemented by derived classes
+     *  
+     * @param {object[]}touches - array of touchpoints from the touch event.
      * 
      */
     move(touches){}
     
-    /**
-     *
-     * checks, if the given touches (e.g. by number) cannot be processed by the specific gesture object
-     * @param touches - array of touch objects from the touch event.
+    /** Checks, if the given touches (e.g. by number) cannot be processed by the specific gesture object
+     * Must be implemented by derived classes.
+     * 
+     * @param {object[]}touches - array of touchpoints from the touch event.
      * @returns {boolean} - true, if touches are rejected, false if accepted
      * 
      */
     rejects(touches){}
     
-    /**
-     * gesture has been completed successfully.
-     * Must be implemented by derived class.
-     */
+    /** Gesture has been completed successfully.
+     * Specific behaviour to be implemented by derived classes*/
     finish(){}
     
-    /**
-     * execute a swipe. Must be implemented by derived class.
+    /** Execute a swipe. 
+     * Must be implemented by derived class.
      */
     doSwipe(){}
-    /**
-     * tests for vertical or horizontal swipes according to a given minimum movement
-     * and performs the swipe in the dominant direction (longer absolute move) 
-     * @param distX - touch movement in horizontal direction
-     * @param distY - touch movement in vertical direction
-     * @param minX - minimum distance in horizontal direction to accept as swipe
-     * @param minY - minimum distance in vertical direction to accept as swipe
+
+    /** Tests for vertical or horizontal swipes according to a given minimum movement.
+     * Performs the swipe in the dominant direction (longer absolute move) 
+     * 
+     * @param {Number} distX - touch movement in horizontal direction
+     * @param {Number} distY - touch movement in vertical direction
+     * @param {Number} minX - minimum distance in horizontal direction to accept as swipe
+     * @param {Number} minY - minimum distance in vertical direction to accept as swipe
      * @returns {boolean} - true, if a swipe was ececuted
      * 
      */
@@ -190,19 +222,34 @@ class Gesture {
 
 
 /**
- * handles single touch gestures
+ * Handles single touch gestures.
+ * Single touch gestures are swipes controlling navigation.
+ * A Swipe is detected either as a  quick flick (any/very short minimum length within restricted time 
+ * or a slow movement across the screen (any time but minimum length of movement).
+ * Swipes are accepted in both vertical and horizontal direction.
+ * Only one swipe is performed however, determined by the dominant direction (longer absolute length in px).
+ *
+ * @extends Gesture
  */ 
 class SingleGesture extends Gesture {
+    
+    /** Creates a new single touch gesture handler.
+     * @param {object[]} touches - the initial touchpoint objects when the gesture is first detected
+    */
     constructor(touches){
       super();
       
-      this.flickTime = Date.now(); //   
-      this.firstTouch = {x:touches[0].clientX, y:touches[0].clientY}; // first touched point
-      this.lastTouch = this.firstTouch;  // last touched point
+      this.flickTime = Date.now(); // start time for quick swipes
+      this.firstTouch = {x:touches[0].clientX, y:touches[0].clientY}; // first touched point for long swipes
+      this.lastTouch = this.firstTouch;  // last touched point 
       this.prevTouch = this.firstTouch;  // point touched before the last
       this.swipeDone = false;  // swipe performed while moving
     }
     
+    /** Performs a swipe. 
+     * @param {string} direction - currently recognized "up", "down", "left", "right"
+     * @override
+     */
     doSwipe(direction){
         switch(direction){
             case "down":
@@ -216,6 +263,12 @@ class SingleGesture extends Gesture {
         }
     }
       
+    /** Checks for long swipes when the touch point moves.
+     * Also updates the last touch value to check  quick swipes when gesture is finished.
+     *
+     * @param {object[]} touches - the touchpoints
+     * @override
+     */
     move(touches){
         let current = {x:touches[0].clientX, y:touches[0].clientY};
         // check slow swipe at every movement
@@ -238,31 +291,45 @@ class SingleGesture extends Gesture {
         return this.swipeDone || touches.length != 1;
     }
     
+    /** check quick swipe when the touchpint is released from the screen.
+     * A quick swipe happend, when the last movement before release was a quick flick in one direction. 
+     * The touchpoint has to be moved for a certain distance within a short timeframe right before release.
+     *
+     * @override
+     */
     finish(){
-        // check quick swipe when finger is released.
-        // a quick swipe happend, when the last movement before release 
-        // was a quick flick in one direction. The finger has to be moved for a certain distance
-        // within a short timeframe right before release.
-        let travelTime = Date.now() - this.flickTime;
-        if( travelTime < MAX_FLICK_TIME){
-      
-            this.checkSwipe(  this.lastTouch.x - this.prevTouch.x,
-                              this.lastTouch.y - this.prevTouch.y,
-                              MIN_FLICK_TRAVEL,
-                              MIN_FLICK_TRAVEL);
-        } 
+        // Do not swipe again, if long swipe already fired.
+        // this prevents double swipe glitches for long AND fast swipe gestures.
+        if(!this.swipeDone) {
+            let travelTime = Date.now() - this.flickTime;
+            if( travelTime < MAX_FLICK_TIME){
+          
+                this.checkSwipe(  this.lastTouch.x - this.prevTouch.x,
+                                  this.lastTouch.y - this.prevTouch.y,
+                                  MIN_FLICK_TRAVEL,
+                                  MIN_FLICK_TRAVEL);
+            }
+        }
     }
     
 }
 
-/**
- * handles double touch gestures
+/** Handles double touch gestures.
+ * Double touch gestures control screen interactions like zoom, rotate and panning (translate).
+ * To interpret changes the handler uses line objects which
+ * virtuallyvirtually connect two touchpoints. 
+ * 
+ * @extends Gesture
  */
-
 class DoubleGesture extends Gesture {
+    
+    /** Creates a new double touch gesture handler.
+     * @param {object[]} touches - the initial touchpoint objects when the gesture is first detected
+    */
     constructor(touches){
         super();
         
+        // initial line connecting the very first touchpoints as reference for all upcomming gestures 
         this.startLine = new Line(
             touches[0].clientX,
             touches[0].clientY,
@@ -270,11 +337,17 @@ class DoubleGesture extends Gesture {
             touches[1].clientY
         );
         
+        // buffer for the previous touchpoints.
         this.lastLine = this.startLine;
+        
+        // mark if rotation and zoom threshholds are reached at least once during gesture.
         this.rotateEnabled = false;
         this.zoomEnabled = false;
     }
        
+    /** checks zoom threshhold and performs the actual zoom.
+     * @param {module:player/TouchGestures.Line] actLine - the currently processed line.
+     */
     zoom(actLine) {
         if( this.zoomEnabled){
           var zoom = (actLine.getSqrLength() / this.lastLine.getSqrLength());
@@ -287,6 +360,9 @@ class DoubleGesture extends Gesture {
         }
     }
     
+    /** checks roatation threshhold and performs the actual rotation.
+     * @param {module:player/TouchGestures.Line] actLine - the currently processed line.
+     */
     rotate(actLine){
         if ( this.rotateEnabled){
           var rotate = actLine.getAngle(this.lastLine);
@@ -297,12 +373,22 @@ class DoubleGesture extends Gesture {
         }
     }
     
+    /** performes the actual translation/pan.
+     * @param {module:player/TouchGestures.Line] actLine - the currently processed line.
+     */
     translate(actLine){
         var panX = actLine.getXDist(this.lastLine);
         var panY = actLine.getYDist(this.lastLine);
         player.viewport.translate(panX, panY);
     }
         
+    
+    /** Processes touchpoint moves.
+     * checks, if each of translate, zoom or rotate are allowed by presentation's mouse enabled policy
+     * and delegates the interaction to helper classes.
+     * @param {object[]} touches - array of touchpoints.
+     * @override
+     */
     move(touches){
         let actLine = new Line(
             touches[0].clientX,
@@ -318,57 +404,100 @@ class DoubleGesture extends Gesture {
         this.lastLine = actLine;
     }
     
+    /** rejects any number of touchpoints but 2.
+     * @param {object[]} touches - array of touchpoints.
+     * @override
+     */
     rejects(touches){
         return touches.length != 2;
     }
 }
 
-/**
- * a dummy used when a gesture is restricted by mouse configuration.
+/** A dummy gesture handler used when a gesture is restricted by mouse configuration.
+ * The dummy pretends to handle a given number of touchpoints, but does nothing in effect.
  *
+ * @extends Gesture
  */
 class DummyGesture extends Gesture {
+
+    /** constructs the dummy gesture handler
+     * @param {Number} touchNum - the number of touches this dummy should pretend to handle.
+     */
     constructor(touchNum){
         super();
         this.touchNum = touchNum;
     }
     
+    /** rejects touch events that do not exaclty match the initial number of touches to be handled.
+     * @override
+     * @param {Object[]} touches - array of touch objects from the touch event
+     */
     rejects(touches){
         return touches.length != this.touchNum;
     }
 }
 
+/** Updates all parameters depending on screen dimensions.
+ * @listens window resize
+ */
 function updateScreenValues(){
     MIN_SLOW_TRAVEL_X = Math.floor(window.innerWidth/2);
     MIN_SLOW_TRAVEL_Y = Math.floor(window.innerHeight/2);
-    MIN_SCROLL_TRAVEL_X = Math.floor(window.innerWidth/20);
-    MIN_SCROLL_TRAVEL_Y = Math.floor(window.innerHeight/20);
 }
       
+/** Creates a new gesture handler according to the number of currently applied touches.
+ * If no appropriate handler can be identified according to number of touch points or the presentation's mouse enabled policy, 
+ * a dummy handler is returned. 
+ * The dummy does nothing in effect, but avoids the createGesture function to be called repeatedly.
+ * 
+ * @param {object[]} touches - array of currently active touches
+ * @returns {module:player/TouchGestures.Gesture} - a new gesturehandler matching the number of touches or null, if no Handler matches.
+ */
 function createGesture(touches) {
     switch(touches.length){
         case 1: return presentation.enableMouseNavigation ? new SingleGesture(touches) : new DummyGesture(1);
         case 2: return interactionGestureEnabled ? new DoubleGesture(touches) : new DummyGesture(2);
-        default: return null;
+        default: return new DummyGesture(touches.length);
     }
 }
 
+/** Checks, if the current gesture handler is appropriate for the given touches.
+ * If not, a new gesture handler is put in place.
+ * 
+ * @param {object[]} touches - array of currently active touches
+ */
 function updateGesture(touches) {
     if(currentGesture == null || currentGesture.rejects(touches)){
         currentGesture = createGesture(touches);
     }    
 }
 
+/** Processes touch start.
+ * initializes a gesture handler.
+ *
+ * @param {touchEvent} evt - the DOM event to process.
+ * @listens touchstart
+ */
 function onTouchStart(evt) {
     evt.preventDefault();
     updateGesture(evt.touches);
 }
 
+/** Processes touch moves.
+ * 
+ * @param {touchEvent} evt - the DOM event to process.
+ * @listens touchmove
+ */
 function onTouchMove(evt) {
     updateGesture(evt.touches);
     currentGesture.move(evt.touches);
 }
 
+
+/** Processes touch end.
+ * @param {touchEvent} evt - the DOM event to process.
+ * @listens touchend
+ */
 function onTouchEnd(evt) {
     if (currentGesture) {
         currentGesture.finish(evt);
