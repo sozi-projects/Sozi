@@ -42,7 +42,6 @@
     "grunt-install-dependencies": "github:sozi-projects/grunt-install-dependencies",
     "grunt-jsdoc": "^2.4.1",
     "grunt-jspot": "github:sozi-projects/grunt-jspot",
-    "grunt-license": "^0.1.5",
     "grunt-newer": "^1.1.0",
     "grunt-po2json": "github:rockykitamura/grunt-po2json",
     "grunt-rename": "github:sozi-projects/grunt-rename",

@@ -56,13 +56,6 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: pkg,
 
-        license: {
-            editor: {
-                start: "build/electron",
-                output: "build/electron/LICENSES"
-            }
-        },
-
         // Check JavaScript source files.
         eslint: {
             options: {
