@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2021-02-10 10:06:+0000\n"
-"PO-Revision-Date: 2021-04-14 03:46+0000\n"
-"Last-Translator: Αυγέρης Τσιρώνης <avgeristsironis@gmail.com>\n"
+"PO-Revision-Date: 2021-04-17 15:07+0000\n"
+"Last-Translator: Kleanthis Damianidis <kdamian.sxoleio@gmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/sozi/translations/"
 "el/>\n"
 "Language: el\n"
@@ -19,7 +19,7 @@ msgstr "Ανοίξτε ένα αρχείο SVG από τον υπολογιστ�
 
 #: js/backend/Electron.js:73
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "Θέλετε να αποθηκεύσετε την παρουσίαση πριν την έξοδο;"
 
 #: js/backend/Electron.js:74
 msgid "Yes"
@@ -27,325 +27,327 @@ msgstr "Ναι"
 
 #: js/backend/Electron.js:74
 msgid "No"
-msgstr ""
+msgstr "Όχι"
 
 #: js/backend/Electron.js:103
 msgid "File not found: %s."
-msgstr ""
+msgstr "Το αρχείο δε βρέθηκε."
 
 #: js/backend/Electron.js:135
 msgid "Choose an SVG file"
-msgstr ""
+msgstr "Επιλέξτε ένα SVG αρχείο"
 
 #: js/backend/Electron.js:136
 msgid "SVG files"
-msgstr ""
+msgstr "Αρχεία SVG"
 
 #: js/backend/Electron.js:196
 msgid "This file will not be reloaded on change: %s."
-msgstr ""
+msgstr "Το αρχείο δεν θα ξαναφορτωθεί κατά την αλλαγή."
 
 #: js/backend/Electron.js:212
 msgid "Could not read file %s."
-msgstr ""
+msgstr "Το αρχείο δεν μπορεί να διαβαστεί."
 
 #: js/backend/FileReader.js:23
 msgid ""
 "Open an SVG file from your computer (<i class=\"fas "
 "fa-exclamation-triangle\"></i> read-only)"
 msgstr ""
+"Ανοίξτε ένα αρχείο SVG από τον υπολογιστή σας (<i class=\"fas fa-exclamation-"
+"triangle\"></i>read-only)"
 
 #: js/backend/GoogleDrive.js:23
 msgid "Open an SVG file from Google Drive"
-msgstr ""
+msgstr "Ανοίξτε ένα αρχείο SVG από το Google Drive"
 
 #: js/Controller.js:217
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
-msgstr ""
+msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Λάθος"
 
 #: js/Controller.js:218
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+msgstr "<i class=\"fas fa-info-circle\"></i> Πληροφορίες"
 
 #: js/Controller.js:340
 msgid "Document was changed. Reloading."
-msgstr ""
+msgstr "Το έγγραφο έχει αλλάξει. Επαναφόρτωση."
 
 #: js/Controller.js:355
 msgid "Document was changed."
-msgstr ""
+msgstr "Το έγγραφο έχει αλλάξει."
 
 #: js/Controller.js:1722
 msgid "Presentation was exported to PDF."
-msgstr ""
+msgstr "Έγινε εξαγωγή της Παρουσίασης σε μορφή PDF."
 
 #: js/Controller.js:1725
 msgid "Failed to write PDF file."
-msgstr ""
+msgstr "Αποτυχία εγγραφής στο αρχείο PDF."
 
 #: js/Controller.js:1738
 msgid "Presentation was exported to PPTX."
-msgstr ""
+msgstr "Έγινε εξαγωγή της Παρουσίασης σε μορφή PPTX."
 
 #: js/Controller.js:1741
 msgid "Failed to write PPTX file."
-msgstr ""
+msgstr "Αποτυχία εγγραφής στο αρχείο PPTX."
 
 #: js/Controller.js:1754
 msgid "Presentation was exported to video."
-msgstr ""
+msgstr "Έγινε εξαγωγή της Παρουσίασης σε μορφή βίντεο."
 
 #: js/Controller.js:1757
 msgid "Failed to write video file."
-msgstr ""
+msgstr "Αποτυχία εγγραφής στο αρχείο βίντεο."
 
 #: js/Storage.js:192
 msgid "Document is not valid SVG."
-msgstr ""
+msgstr "Το έγγραφο δεν είναι έγκυρο αρχείο SVG."
 
 #: js/Storage.js:250
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr ""
+msgstr "Το έγγραφο εισήχθη από έκδοση Sozi 13 ή παλαιότερη."
 
 #: js/Storage.js:340
 msgid "Saved %s."
-msgstr ""
+msgstr "Αποθηκεύτηκε %s."
 
 #: js/view/languages.js:17
 msgid "System language"
-msgstr ""
+msgstr "Γλώσσα συστήματος"
 
 #: js/view/Properties.js:84
 msgid "Autoselect outline element"
-msgstr ""
+msgstr "Αυτόματη επιλογή στοιχείου διάρθρωσης"
 
 #: js/view/Properties.js:85 js/view/Properties.js:205
 msgid "Reset layer geometry"
-msgstr ""
+msgstr "Επαναφορά γεωμετρίας επιπέδου"
 
 #: js/view/Properties.js:86 js/view/Timeline.js:191
 msgid "Create a new frame"
-msgstr ""
+msgstr "Δημιουργήστε ένα νέο καρέ"
 
 #: js/view/Properties.js:87 js/view/Properties.js:116 js/view/Toolbar.js:136
 msgid "Save the presentation"
-msgstr ""
+msgstr "Αποθηκεύστε την παρουσίαση"
 
 #: js/view/Properties.js:88 js/view/Toolbar.js:117
 msgid "Redo"
-msgstr ""
+msgstr "Επανάληψη"
 
 #: js/view/Properties.js:89 js/view/Toolbar.js:112
 msgid "Undo"
-msgstr ""
+msgstr "Αναίρεση"
 
 #: js/view/Properties.js:90
 msgid "Focus the frame title"
-msgstr ""
+msgstr "Εστίαση στον τίτλο του καρέ"
 
 #: js/view/Properties.js:91 js/view/Properties.js:122 js/view/Toolbar.js:141
 msgid "Reload the SVG document"
-msgstr ""
+msgstr "Επαναφόρτωση εγγράφου SVG"
 
 #: js/view/Properties.js:92
 msgid "Toggle full-screen mode"
-msgstr ""
+msgstr "Εναλλαγή σε κατάσταση πλήρους οθόνης"
 
 #: js/view/Properties.js:93
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "Εναλλαγή εργαλείων προγραμματιστή"
 
 #: js/view/Properties.js:103
 msgid "User interface"
-msgstr ""
+msgstr "Διεπαφή χρήστη"
 
 #: js/view/Properties.js:105
 msgid "Language"
-msgstr ""
+msgstr "Γλώσσα"
 
 #: js/view/Properties.js:108
 msgid "Font size"
-msgstr ""
+msgstr "Μέγεθος γραμματοσειράς"
 
 #: js/view/Properties.js:112
 msgid "Enable notifications on save and reload"
-msgstr ""
+msgstr "Ενεργοποίηση ειδοποιήσεων για αποθήκευση και επαναφόρτωση"
 
 #: js/view/Properties.js:113
 msgid "Enable notifications"
-msgstr ""
+msgstr "Ενεργοποίηση ειδοποιήσεων"
 
 #: js/view/Properties.js:118
 msgid "When Sozi loses the focus"
-msgstr ""
+msgstr "Όταν το Sozi χάνει την εστίαση"
 
 #: js/view/Properties.js:119 js/view/Properties.js:126
 msgid "Manually"
-msgstr ""
+msgstr "Χειροκίνητα"
 
 #: js/view/Properties.js:124
 msgid "Automatically"
-msgstr ""
+msgstr "Αυτόματα"
 
 #: js/view/Properties.js:125
 msgid "When Sozi gets the focus"
-msgstr ""
+msgstr "Όταν το Sozi παίρνει την εστίαση"
 
 #: js/view/Properties.js:129
 msgid "Behavior"
-msgstr ""
+msgstr "Συμπεριφορά"
 
 #: js/view/Properties.js:131
 msgid "Preview transition animations"
-msgstr ""
+msgstr "Προεπισκόπηση μεταβάσεων"
 
 #: js/view/Properties.js:132
 msgid "Enable animated transitions"
-msgstr ""
+msgstr "Ενεργοποίηση κινούμενων μεταβάσεων"
 
 #: js/view/Properties.js:135
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Συντομεύσεις πληκτρολογίου"
 
 #: js/view/Properties.js:150
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "Βασική υποστηριζόμενη μορφοποίηση:"
 
 #: js/view/Properties.js:152
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: Έντονα"
 
 #: js/view/Properties.js:153
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: Πλάγια γραφή"
 
 #: js/view/Properties.js:154
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: Υπογράμμιση"
 
 #: js/view/Properties.js:155
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0: Παράγραφος"
 
 #: js/view/Properties.js:156
 msgid "Ctrl+1: Big heading"
-msgstr ""
+msgstr "Ctrl+1: Μεγάλη επικεφαλίδα"
 
 #: js/view/Properties.js:157
 msgid "Ctrl+2: Medium heading"
-msgstr ""
+msgstr "Ctrl+2: Μεσαία επικεφαλίδα"
 
 #: js/view/Properties.js:158
 msgid "Ctrl+3: Small heading"
-msgstr ""
+msgstr "Ctrl+3: Μικρή επικεφαλίδα"
 
 #: js/view/Properties.js:159
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl+L: Λίστα"
 
 #: js/view/Properties.js:160
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl+N: Αριθμημένη λίστα"
 
 #: js/view/Properties.js:167
 msgid "Select a layer to copy"
-msgstr ""
+msgstr "Επιλέξτε ένα επίπεδο για αντιγραφή"
 
 #: js/view/Properties.js:170 js/view/Timeline.js:238 js/view/Timeline.js:266
 msgid "Default"
-msgstr ""
+msgstr "Προεπιλογή"
 
 #: js/view/Properties.js:177
 msgid "Frame"
-msgstr ""
+msgstr "Καρέ"
 
 #: js/view/Properties.js:180
 msgid "Show in frame list"
-msgstr ""
+msgstr "Εμφάνισε στη λίστα καρέ"
 
 #: js/view/Properties.js:181
 msgid "Show frame number"
-msgstr ""
+msgstr "Δείξε τον αριθμό καρέ"
 
 #: js/view/Properties.js:184
 msgid "Title"
-msgstr ""
+msgstr "Τίτλος"
 
 #: js/view/Properties.js:187
 msgid "Title level in frame list"
-msgstr ""
+msgstr "Επίπεδο τίτλου στη λίστα καρέ"
 
 #: js/view/Properties.js:190
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 #: js/view/Properties.js:194
 msgid "Timeout (seconds)"
-msgstr ""
+msgstr "Τέλος χρόνου (δευτερόλεπτα)"
 
 #: js/view/Properties.js:195
 msgid "Timeout enable"
-msgstr ""
+msgstr "Ενεργοποίηση χρονικού ορίου"
 
 #: js/view/Properties.js:199
 msgid "Layer"
-msgstr ""
+msgstr "Επίπεδο"
 
 #: js/view/Properties.js:202
 msgid "Link to previous frame"
-msgstr ""
+msgstr "Σύνδεση στο προηγούμενο καρέ"
 
 #: js/view/Properties.js:203
 msgid "Clip"
-msgstr ""
+msgstr "Απόσπασμα"
 
 #: js/view/Properties.js:210
 msgid "Copy layer"
-msgstr ""
+msgstr "Αντιγραφή επιπέδου"
 
 #: js/view/Properties.js:217
 msgid "Outline element Id"
-msgstr ""
+msgstr "Επέλεξε το Id του στοιχείου"
 
 #: js/view/Properties.js:220
 msgid "Autoselect element"
-msgstr ""
+msgstr "Αυτόματη επιλογή στοιχείου"
 
 #: js/view/Properties.js:223
 msgid "Hide element"
-msgstr ""
+msgstr "Απόκρυψη στοιχείου"
 
 #: js/view/Properties.js:225
 msgid "Fit to element"
-msgstr ""
+msgstr "Προσαρμογή στο στοιχείο"
 
 #: js/view/Properties.js:232
 msgid "Layer opacity"
-msgstr ""
+msgstr "Αδιαφάνεια στρώσης"
 
 #: js/view/Properties.js:235
 msgid "Transition"
-msgstr ""
+msgstr "Μετάβαση"
 
 #: js/view/Properties.js:235
 msgid "Configure the animation when moving to the selected frames."
-msgstr ""
+msgstr "Διαμορφώστε την κίνηση κατά τη μετακίνηση στα επιλεγμένα καρέ."
 
 #: js/view/Properties.js:237
 msgid "Duration (seconds)"
-msgstr ""
+msgstr "Διάρκεια (δευτερόλεπτα)"
 
 #: js/view/Properties.js:240
 msgid "Timing function"
-msgstr ""
+msgstr "Συνάρτηση χρονισμού"
 
 #: js/view/Properties.js:242
 msgid "Linear"
-msgstr ""
+msgstr "Γραμμική"
 
 #: js/view/Properties.js:243
 msgid "Ease"
-msgstr ""
+msgstr "Χαλάρωση"
 
 #: js/view/Properties.js:244
 msgid "Ease in"
@@ -361,11 +363,11 @@ msgstr ""
 
 #: js/view/Properties.js:247
 msgid "Step start"
-msgstr ""
+msgstr "Αρχή βήματος"
 
 #: js/view/Properties.js:248
 msgid "Step end"
-msgstr ""
+msgstr "Τέλος βήματος"
 
 #: js/view/Properties.js:249
 msgid "Step middle"
