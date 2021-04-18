@@ -205,10 +205,12 @@ function onMouseDown(button) {
 }
 
 /** Process a touch event on touch devices.
- * Closes the Frame List on any touch outside of the list itself. 
- * @param {touchevent} evt - the touch event.
  *
- * @listens module:player/Viewport.svgRoot.touchstart
+ * Closes the Frame List on any touch outside of the list itself.
+ *
+ * @param {TouchEvent} evt - the touch event.
+ *
+ * @listens touchstart
  */
 function onTouchStart(evt){
     close();
