@@ -101,6 +101,7 @@ export function init(p) {
     window.addEventListener("keypress", onKeyPress, false);
     window.addEventListener("resize", () => setCurrentOffset(currentOffset));
     player.viewport.on("mouseDown", onMouseDown);
+    player.viewport.svgRoot.addEventListener("touchstart", evt => onTouchStart);
     frameList.addEventListener("mouseout", onMouseOut, false);
     p.on("frameChange", onFrameChange);
     setCurrentOffset(startOffset);
@@ -201,6 +202,18 @@ function onMouseDown(button) {
     if (player.presentation.enableMouseNavigation && button === 1) {
         toggle();
     }
+}
+
+/** Process a touch event on touch devices.
+ *
+ * Closes the Frame List on any touch outside of the list itself.
+ *
+ * @param {TouchEvent} evt - the touch event.
+ *
+ * @listens touchstart
+ */
+function onTouchStart(evt){
+    close();
 }
 
 /** Process a mouse-out event.

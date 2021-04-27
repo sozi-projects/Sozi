@@ -10,6 +10,7 @@ import * as Media from "./player/Media";
 import * as FrameList from "./player/FrameList";
 import * as FrameNumber from "./player/FrameNumber";
 import * as FrameURL from "./player/FrameURL";
+import * as TouchGestures from "./player/TouchGestures";
 
 /** Put the current  player in presenter mode.
  *
@@ -139,6 +140,8 @@ window.addEventListener("load", () => {
     FrameList.init(player);
     FrameNumber.init(player);
     FrameURL.init(player);
+    TouchGestures.init(player, presentation);
+    
 
     window.sozi = {
         presentation,
