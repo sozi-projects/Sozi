@@ -246,11 +246,10 @@ export class Frame {
      * an object with default properties will be created.
      *
      * @param {(Frame|Presentation)} obj - A frame to copy, or a presentation.
-     * @param {boolean} [preserveId=false] - If `obj` is another frame, create a copy with the same frame ID.
      */
-    constructor(obj, preserveId=false) {
+    constructor(obj) {
         if (obj instanceof Frame) {
-            this.copy(obj, preserveId);
+            this.copy(obj);
         }
         else {
             /** The presentation that contains this frame.
@@ -327,11 +326,12 @@ export class Frame {
      *
      * This method will also construct copies of the layer properties and
      * camera states of the original frame.
+     * The default behavior is to make a new unique ID to the current frame.
      *
      * @param {module:model/Presentation.Frame} other - The frame to copy.
-     * @param {boolean} preserveId - Create a copy with the same frame ID.
+     * @param {boolean} preserveId - If `true`, keep the original ID of the current frame.
      */
-    copy(other, preserveId) {
+    copy(other, preserveId=false) {
         this.presentation = other.presentation;
         if (!preserveId) {
             this.frameId = other.presentation.makeFrameId();

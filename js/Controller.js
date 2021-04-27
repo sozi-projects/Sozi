@@ -1434,8 +1434,8 @@ export class Controller extends EventEmitter {
             return;
         }
 
-        const savedFrame    = new Frame(currentFrame, true);
-        const modifiedFrame = new Frame(currentFrame, true);
+        const savedFrame    = new Frame(currentFrame);
+        const modifiedFrame = new Frame(currentFrame);
 
         for (let layer of this.selection.selectedLayers) {
             const camera = this.viewport.cameras[layer.index];
@@ -1486,8 +1486,8 @@ export class Controller extends EventEmitter {
             return;
         }
 
-        const savedFrame    = new Frame(currentFrame, true);
-        const modifiedFrame = new Frame(currentFrame, true);
+        const savedFrame    = new Frame(currentFrame);
+        const modifiedFrame = new Frame(currentFrame);
 
         // Find the layer that contains the given element
         let outlineLayerGroup = outlineElement;
@@ -1537,11 +1537,11 @@ export class Controller extends EventEmitter {
 
         this.perform(
             function onDo() {
-                currentFrame.copy(modifiedFrame);
+                currentFrame.copy(modifiedFrame, true);
                 this.presentation.updateLinkedLayers();
             },
             function onUndo() {
-                currentFrame.copy(savedFrame);
+                currentFrame.copy(savedFrame, true);
                 this.presentation.updateLinkedLayers();
             },
             false,
