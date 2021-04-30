@@ -4,6 +4,8 @@
 
 /** @module */
 
+/* global google, gapi */
+
 import {AbstractBackend, addBackend} from "./AbstractBackend";
 
 /** Google Drive backend.

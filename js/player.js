@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/* global sozi */
+
 import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
 import {Presentation} from "./model/Presentation";
 import {Viewport} from "./player/Viewport";
@@ -100,7 +102,7 @@ window.addEventListener("message", evt => {
             // Set this presentation into presenter mode.
             setPresenterMode(evt.source, evt.data.isCurrent);
             break;
-        case "click":
+        case "click": {
             // Forward the click event on a hyperlink in the presenter console
             // to the same hyperlink in the main presentation.
             const link = sozi.presentation.document.root.getElementById(evt.data.id);
@@ -108,7 +110,8 @@ window.addEventListener("message", evt => {
             // SVG <a> elements do not have a click method.
             link.dispatchEvent(new MouseEvent("click"));
             break;
-        default:
+        }
+        default: {
             // Interpret a message as a method call to the current Sozi player.
             // The message must be of the form: {name: string, args: any[]}.
             const method = sozi.player[evt.data.name];
@@ -119,6 +122,7 @@ window.addEventListener("message", evt => {
             else {
                 console.log(`Unsupported message: ${evt.data.name}`);
             }
+        }
     }
 }, false);
 
@@ -141,7 +145,7 @@ window.addEventListener("load", () => {
     FrameNumber.init(player);
     FrameURL.init(player);
     TouchGestures.init(player, presentation);
-    
+
 
     window.sozi = {
         presentation,

@@ -9,7 +9,10 @@
         "sourceType": "module"
     },
     "plugins": ["jsdoc"],
-    "extends": ["plugin:jsdoc/recommended"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:jsdoc/recommended"
+    ],
     "settings": {
         "jsdoc": {
             "tagNamePreference": {

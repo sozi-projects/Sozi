@@ -193,6 +193,7 @@ export class Electron extends AbstractBackend {
                             });
                         }
                         catch (err) {
+                            const _ = this.controller.gettext;
                             this.controller.error(Jed.sprintf(_("This file will not be reloaded on change: %s."), fileDescriptor));
                         }
                     }
