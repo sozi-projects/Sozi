@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 
     // Get version number from last commit date.
     // Format: YY.MM.T (year.month.timestamp).
-    const rev = execSync("git show -s --format='%cI %ct'").toString().trim().split(" ");
+    const rev = execSync('git show -s --format="%cI %ct"').toString().trim().split(" ");
     pkg.version = rev[0].slice(2, 4) + "." + rev[0].slice(5, 7) + "." + rev[0].slice(8, 10) + "-" + rev[1];
 
     const buildConfig = grunt.file.readJSON("config.default.json");
@@ -55,13 +55,6 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         pkg: pkg,
-
-        license: {
-            editor: {
-                start: "build/electron",
-                output: "build/electron/LICENSES"
-            }
-        },
 
         // Check JavaScript source files.
         eslint: {
