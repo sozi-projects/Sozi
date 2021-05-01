@@ -445,7 +445,6 @@ export class Viewport extends EventEmitter {
                             this.mouseDragChangedState = true;
                         }
                         this.zoomPrev = zoom;
-                        this.emit("localChange", {change: "interactive"});
                     }
                     break;
 
@@ -457,7 +456,6 @@ export class Viewport extends EventEmitter {
                         this.rotate(this.rotatePrev - angle);
                         this.mouseDragChangedState = true;
                         this.rotatePrev = angle;
-                        this.emit("localChange", {change: "interactive"});
                     }
                     break;
 
@@ -509,7 +507,6 @@ export class Viewport extends EventEmitter {
                             }
                         }
                         this.translate(translateX - this.translateXPrev, translateY - this.translateYPrev);
-                        this.emit("localChange", {change: "interactive"});
                         this.mouseDragChangedState = true;
                         this.translateXPrev = translateX;
                         this.translateYPrev = translateY;
@@ -604,7 +601,6 @@ export class Viewport extends EventEmitter {
         }
 
         if (changed) {
-            this.emit("localChange", {change: "interactive"});
             this.wheelTimeout = window.setTimeout(() => {
                 this.wheelTimeout = null;
                 this.emit("userChangeState");
