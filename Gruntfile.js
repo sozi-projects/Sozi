@@ -575,12 +575,6 @@ module.exports = function(grunt) {
         "rsync:editor" // Cannot use 'newer' here since 'dest' is not a generated file
     ]);
 
-    // Generate a translation template (pot) file.
-    grunt.registerTask("pot", [
-        "newer:babel",
-        "jspot" // Cannot use 'newer' here since 'dest' is not a generated file
-    ]);
-
     // Generate Inkscape extensions.
     grunt.registerTask("extras", [
         "compress:media-inkscape-0.92",
