@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-02-10 10:06:+0000\n"
+"POT-Creation-Date: 2021-05-02 03:42:+0000\n"
 "PO-Revision-Date: 2020-10-09 23:26+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/sozi/"
@@ -41,11 +41,11 @@ msgstr "Bir SVG dosyası seçin"
 msgid "SVG files"
 msgstr "SVG dosyaları"
 
-#: js/backend/Electron.js:196
+#: js/backend/Electron.js:197
 msgid "This file will not be reloaded on change: %s."
 msgstr "Bu dosya, değişiklik olduğunda yeniden yüklenmeyecek: %s."
 
-#: js/backend/Electron.js:212
+#: js/backend/Electron.js:213
 msgid "Could not read file %s."
 msgstr "%s dosyası okunamadı."
 
@@ -57,7 +57,7 @@ msgstr ""
 "Bilgisayarınız üzerinden bir SVG dosyası açın (<i class=\"fas fa-exclamation-"
 "triangle\"> </i> salt okunur)"
 
-#: js/backend/GoogleDrive.js:23
+#: js/backend/GoogleDrive.js:25
 msgid "Open an SVG file from Google Drive"
 msgstr "Google Drive üzerinden bir SVG dosyası açın"
 
@@ -117,316 +117,320 @@ msgstr "%s kaydedildi."
 msgid "System language"
 msgstr "Sistem dili"
 
-#: js/view/Properties.js:84
+#: js/view/Properties.js:91
 msgid "Autoselect outline element"
 msgstr "Dış hat öğesini otomatik seç"
 
-#: js/view/Properties.js:85 js/view/Properties.js:205
+#: js/view/Properties.js:92 js/view/Properties.js:219
 msgid "Reset layer geometry"
 msgstr "Katman biçimlendirmesini sıfırla"
 
-#: js/view/Properties.js:86 js/view/Timeline.js:191
+#: js/view/Properties.js:93 js/view/Timeline.js:191
 msgid "Create a new frame"
 msgstr "Yeni bir kare oluştur"
 
-#: js/view/Properties.js:87 js/view/Properties.js:116 js/view/Toolbar.js:136
+#: js/view/Properties.js:94 js/view/Properties.js:130 js/view/Toolbar.js:136
 msgid "Save the presentation"
 msgstr "Sunumu kaydet"
 
-#: js/view/Properties.js:88 js/view/Toolbar.js:117
+#: js/view/Properties.js:95 js/view/Toolbar.js:120
 msgid "Redo"
 msgstr "Yeniden yap"
 
-#: js/view/Properties.js:89 js/view/Toolbar.js:112
+#: js/view/Properties.js:96 js/view/Toolbar.js:115
 msgid "Undo"
 msgstr "Geri al"
 
-#: js/view/Properties.js:90
+#: js/view/Properties.js:97
 msgid "Focus the frame title"
 msgstr "Kare başlığına git"
 
-#: js/view/Properties.js:91 js/view/Properties.js:122 js/view/Toolbar.js:141
+#: js/view/Properties.js:98 js/view/Properties.js:136 js/view/Toolbar.js:141
 msgid "Reload the SVG document"
 msgstr "SVG belgesini yeniden yükle"
 
-#: js/view/Properties.js:92
+#: js/view/Properties.js:99
 msgid "Toggle full-screen mode"
 msgstr "Tam ekran modunu aç-kapa"
 
-#: js/view/Properties.js:93
+#: js/view/Properties.js:100
 msgid "Toggle the developer tools"
 msgstr "Geliştirici araçlarını aç-kapa"
 
-#: js/view/Properties.js:103
+#: js/view/Properties.js:113 js/view/Properties.js:402
+#, fuzzy
+msgid "Back to presentation properties"
+msgstr "Sunumu kaydet"
+
+#: js/view/Properties.js:117
 msgid "User interface"
 msgstr "Kullanıcı arayüzü"
 
-#: js/view/Properties.js:105
+#: js/view/Properties.js:119
 msgid "Language"
 msgstr "Dil"
 
-#: js/view/Properties.js:108
+#: js/view/Properties.js:122
 msgid "Font size"
 msgstr "Yazı boyutu"
 
-#: js/view/Properties.js:112
+#: js/view/Properties.js:126
 msgid "Enable notifications on save and reload"
 msgstr "Kaydet ve yeniden yükle ile ilgili bildirimleri aç"
 
-#: js/view/Properties.js:113
+#: js/view/Properties.js:127
 msgid "Enable notifications"
 msgstr "Bildirimleri aç"
 
-#: js/view/Properties.js:118
+#: js/view/Properties.js:132
 msgid "When Sozi loses the focus"
 msgstr "Sozi odağı kaybettiğinde"
 
-#: js/view/Properties.js:119 js/view/Properties.js:126
+#: js/view/Properties.js:133 js/view/Properties.js:140
 msgid "Manually"
 msgstr "Elle"
 
-#: js/view/Properties.js:124
+#: js/view/Properties.js:138
 msgid "Automatically"
 msgstr "Otomatik"
 
-#: js/view/Properties.js:125
+#: js/view/Properties.js:139
 msgid "When Sozi gets the focus"
 msgstr "Sozi odağa aldığında"
 
-#: js/view/Properties.js:129
+#: js/view/Properties.js:143
 msgid "Behavior"
 msgstr "Hareket"
 
-#: js/view/Properties.js:131
+#: js/view/Properties.js:145
 msgid "Preview transition animations"
 msgstr "Geçiş animasyonlarını önizle"
 
-#: js/view/Properties.js:132
+#: js/view/Properties.js:146
 msgid "Enable animated transitions"
 msgstr "Animasyonlu geçişleri etkinleştir"
 
-#: js/view/Properties.js:135
+#: js/view/Properties.js:149
 msgid "Keyboard shortcuts"
 msgstr "Klavye kısayolları"
 
-#: js/view/Properties.js:150
+#: js/view/Properties.js:164
 msgid "Basic formatting supported:"
 msgstr "Desteklenen temel biçimlendirmeler:"
 
-#: js/view/Properties.js:152
+#: js/view/Properties.js:166
 msgid "Ctrl+B: Bold"
 msgstr "Ctrl+B: Kalın"
 
-#: js/view/Properties.js:153
+#: js/view/Properties.js:167
 msgid "Ctrl+I: Italic"
 msgstr "Ctrl+I: Eğik"
 
-#: js/view/Properties.js:154
+#: js/view/Properties.js:168
 msgid "Ctrl+U: Underline"
 msgstr "Ctrl+U: Altı Çizili"
 
-#: js/view/Properties.js:155
+#: js/view/Properties.js:169
 msgid "Ctrl+0: Paragraph"
 msgstr "Ctrl+0: Paragraf"
 
-#: js/view/Properties.js:156
+#: js/view/Properties.js:170
 msgid "Ctrl+1: Big heading"
 msgstr "Ctrl+1: Büyük başlık"
 
-#: js/view/Properties.js:157
+#: js/view/Properties.js:171
 msgid "Ctrl+2: Medium heading"
 msgstr "Ctrl+2: Orta başlık"
 
-#: js/view/Properties.js:158
+#: js/view/Properties.js:172
 msgid "Ctrl+3: Small heading"
 msgstr "Ctrl+3: Küçük başlık"
 
-#: js/view/Properties.js:159
+#: js/view/Properties.js:173
 msgid "Ctrl+L: List"
 msgstr "Ctrl+L: Liste"
 
-#: js/view/Properties.js:160
+#: js/view/Properties.js:174
 msgid "Ctrl+N: Numbered list"
 msgstr "Ctrl+N: Numaralandırılmış liste"
 
-#: js/view/Properties.js:167
+#: js/view/Properties.js:181
 msgid "Select a layer to copy"
 msgstr "Kopyalamak için bir katman seçin"
 
-#: js/view/Properties.js:170 js/view/Timeline.js:238 js/view/Timeline.js:266
+#: js/view/Properties.js:184 js/view/Timeline.js:238 js/view/Timeline.js:266
 msgid "Default"
 msgstr "Varsayılan"
 
-#: js/view/Properties.js:177
+#: js/view/Properties.js:191
 msgid "Frame"
 msgstr "Kare"
 
-#: js/view/Properties.js:180
+#: js/view/Properties.js:194
 msgid "Show in frame list"
 msgstr "Kare listesinde göster"
 
-#: js/view/Properties.js:181
+#: js/view/Properties.js:195
 msgid "Show frame number"
 msgstr "Kare sırasını göster"
 
-#: js/view/Properties.js:184
+#: js/view/Properties.js:198
 msgid "Title"
 msgstr "Başlık"
 
-#: js/view/Properties.js:187
+#: js/view/Properties.js:201
 msgid "Title level in frame list"
 msgstr "Kare listesinde başlığın seviyesi"
 
-#: js/view/Properties.js:190
+#: js/view/Properties.js:204
 msgid "Id"
 msgstr "Ad"
 
-#: js/view/Properties.js:194
+#: js/view/Properties.js:208
 msgid "Timeout (seconds)"
 msgstr "Duraksama (saniye)"
 
-#: js/view/Properties.js:195
+#: js/view/Properties.js:209
 msgid "Timeout enable"
 msgstr "Duraksama etkin"
 
-#: js/view/Properties.js:199
+#: js/view/Properties.js:213
 msgid "Layer"
 msgstr "Katman"
 
-#: js/view/Properties.js:202
+#: js/view/Properties.js:216
 msgid "Link to previous frame"
 msgstr "Önceki kareye bağlantı ver"
 
-#: js/view/Properties.js:203
+#: js/view/Properties.js:217
 msgid "Clip"
 msgstr "Klip"
 
-#: js/view/Properties.js:210
+#: js/view/Properties.js:224
 msgid "Copy layer"
 msgstr "Katmanı kopyala"
 
-#: js/view/Properties.js:217
+#: js/view/Properties.js:231
 msgid "Outline element Id"
 msgstr "Dış hat öğe adı"
 
-#: js/view/Properties.js:220
+#: js/view/Properties.js:234
 msgid "Autoselect element"
 msgstr "Öğeyi otomatik seç"
 
-#: js/view/Properties.js:223
+#: js/view/Properties.js:237
 msgid "Hide element"
 msgstr "Öğeyi gizle"
 
-#: js/view/Properties.js:225
+#: js/view/Properties.js:239
 msgid "Fit to element"
 msgstr "Öğeye sığdır"
 
-#: js/view/Properties.js:232
+#: js/view/Properties.js:246
 msgid "Layer opacity"
 msgstr "Katman saydamlığı"
 
-#: js/view/Properties.js:235
+#: js/view/Properties.js:249
 msgid "Transition"
 msgstr "Geçiş"
 
-#: js/view/Properties.js:235
+#: js/view/Properties.js:249
 msgid "Configure the animation when moving to the selected frames."
 msgstr "Seçili karelerin animasyonlarını yapılandır."
 
-#: js/view/Properties.js:237
+#: js/view/Properties.js:251
 msgid "Duration (seconds)"
 msgstr "Süre (Saniye)"
 
-#: js/view/Properties.js:240
+#: js/view/Properties.js:254
 msgid "Timing function"
 msgstr "Zamanlama işlevi"
 
-#: js/view/Properties.js:242
+#: js/view/Properties.js:256
 msgid "Linear"
 msgstr "Düz"
 
-#: js/view/Properties.js:243
+#: js/view/Properties.js:257
 msgid "Ease"
 msgstr "Yavaşlayarak"
 
-#: js/view/Properties.js:244
+#: js/view/Properties.js:258
 msgid "Ease in"
 msgstr "Girişte yavaşlayarak"
 
-#: js/view/Properties.js:245
+#: js/view/Properties.js:259
 msgid "Ease out"
 msgstr "Çıkışta yavaşlayarak"
 
-#: js/view/Properties.js:246
+#: js/view/Properties.js:260
 msgid "Ease in-out"
 msgstr "Girişte ve çıkışta yavaşlayarak"
 
-#: js/view/Properties.js:247
+#: js/view/Properties.js:261
 msgid "Step start"
 msgstr "Girişte aralıklı"
 
-#: js/view/Properties.js:248
+#: js/view/Properties.js:262
 msgid "Step end"
 msgstr "Çıkışta aralıklı"
 
-#: js/view/Properties.js:249
+#: js/view/Properties.js:263
 msgid "Step middle"
 msgstr "Ortada aralıklı"
 
-#: js/view/Properties.js:252
+#: js/view/Properties.js:266
 msgid "Relative zoom (%)"
 msgstr "Göreli yakınlaştırma (%)"
 
-#: js/view/Properties.js:256
+#: js/view/Properties.js:270
 msgid "Path Id"
 msgstr "Yol adı"
 
-#: js/view/Properties.js:257
+#: js/view/Properties.js:271
 msgid "Hide path"
 msgstr "Yolu gizle"
 
-#: js/view/Properties.js:261
+#: js/view/Properties.js:275
 msgid "Notes"
 msgstr "Notlar"
 
-#: js/view/Properties.js:261
+#: js/view/Properties.js:275
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 "Sunucu notlarını düzenle.Biçimlendirme kısayollarının listesi için "
 "tıklayınız."
 
-#: js/view/Properties.js:265
+#: js/view/Properties.js:279
 msgid "Custom stylesheets and scripts"
 msgstr "Özel stil şablonları ve komutlar"
 
-#: js/view/Properties.js:278
+#: js/view/Properties.js:292
 msgid "CSS or JS file names"
 msgstr "CSS veya JS dosya adları"
 
-#: js/view/Properties.js:278
+#: js/view/Properties.js:292
 msgid "Add CSS or JS files"
 msgstr "CSS veya JS dosyaları ekle"
 
-#: js/view/Properties.js:281
+#: js/view/Properties.js:295
 msgid "Add a file"
 msgstr "Bir dosya ekle"
 
-#: js/view/Properties.js:294
+#: js/view/Properties.js:308
 msgid "Remove this file"
 msgstr "Bu dosyayı kaldır"
 
-#: js/view/Properties.js:302
+#: js/view/Properties.js:316
 msgid "Player"
 msgstr "Oynatıcı"
 
-#: js/view/Properties.js:305
+#: js/view/Properties.js:319
 msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
-"Internet tarayıcısının \"Geri\" tuşuyla bir önceki kareye dönmeyi "
-"destekle"
+"Internet tarayıcısının \"Geri\" tuşuyla bir önceki kareye dönmeyi destekle"
 
-#: js/view/Properties.js:306
+#: js/view/Properties.js:320
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
@@ -434,215 +438,215 @@ msgstr ""
 "Bir kareden diğerine geçerken konum çubuğunun içeriğini otomatik olarak "
 "değiştir."
 
-#: js/view/Properties.js:310
+#: js/view/Properties.js:324
 msgid "Allow to control the presentation"
 msgstr "Sunumu kontrol etmeye izin ver"
 
-#: js/view/Properties.js:312 js/view/Properties.js:319
-#: js/view/Properties.js:325 js/view/Properties.js:333
+#: js/view/Properties.js:326 js/view/Properties.js:333
+#: js/view/Properties.js:339 js/view/Properties.js:347
 msgid "using the mouse"
 msgstr "Fareyi kullanarak"
 
-#: js/view/Properties.js:313 js/view/Properties.js:326
-#: js/view/Properties.js:334
+#: js/view/Properties.js:327 js/view/Properties.js:340
+#: js/view/Properties.js:348
 msgid "using the keyboard"
 msgstr "Klavyeyi kullanarak"
 
-#: js/view/Properties.js:318
+#: js/view/Properties.js:332
 msgid "Allow to move the camera"
 msgstr "Kamerayı hareket ettirmeye izin ver"
 
-#: js/view/Properties.js:323
+#: js/view/Properties.js:337
 msgid "Allow to rotate the camera"
 msgstr "Kamerayı döndürmeye izin ver"
 
-#: js/view/Properties.js:331
+#: js/view/Properties.js:345
 msgid "Allow to zoom"
 msgstr "Görüntüyü yakınlaştırmaya izin ver"
 
-#: js/view/Properties.js:343
+#: js/view/Properties.js:362
 msgid "Examples of frame lists to include/exclude in export"
 msgstr "Dışa aktarmaya dahil edilecek/hariç tutulacak kare listesi örnekleri"
 
-#: js/view/Properties.js:345
+#: js/view/Properties.js:364
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
 msgstr "2, 5 ve 12 numaralı kareleri seç: \"2, 5, 12\""
 
-#: js/view/Properties.js:346
+#: js/view/Properties.js:365
 msgid "Select frames 5 to 8: \"5:8\""
 msgstr "5 ile 8 arasındaki kareleri seç: \"5:8\""
 
-#: js/view/Properties.js:347
+#: js/view/Properties.js:366
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
 msgstr "5, 8, 11, 14 ve 17 numaralı kareleri seç: \"5:8:17\""
 
-#: js/view/Properties.js:348
+#: js/view/Properties.js:367
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
 msgstr ""
 "2 ve 5 numaralı kareler ile 10 ve 15 arasındaki kareleri seç: \"2, 5, 10:15\""
 
-#: js/view/Properties.js:380 js/view/Properties.js:396
+#: js/view/Properties.js:406 js/view/Properties.js:422
 msgid "Export"
 msgstr "Dışa aktar"
 
-#: js/view/Properties.js:382
+#: js/view/Properties.js:408
 msgid "Document type"
 msgstr "Belge türü"
 
-#: js/view/Properties.js:384
+#: js/view/Properties.js:410
 msgid "Portable Document Format (PDF)"
 msgstr "Portable Document Format (PDF)"
 
-#: js/view/Properties.js:385
+#: js/view/Properties.js:411
 msgid "Microsoft PowerPoint (PPTX)"
 msgstr "Microsoft PowerPoint (PPTX)"
 
-#: js/view/Properties.js:386
+#: js/view/Properties.js:412
 msgid "Video"
 msgstr "Video"
 
-#: js/view/Properties.js:393 js/view/Toolbar.js:146
+#: js/view/Properties.js:419 js/view/Toolbar.js:146
 msgid "Export the presentation"
 msgstr "Sunumu dışa aktar"
 
-#: js/view/Properties.js:410
+#: js/view/Properties.js:436
 msgid "Page size"
 msgstr "Sayfa boyutu"
 
-#: js/view/Properties.js:412 js/view/Properties.js:451
+#: js/view/Properties.js:438 js/view/Properties.js:477
 msgid "A3"
 msgstr "A3"
 
-#: js/view/Properties.js:413 js/view/Properties.js:452
+#: js/view/Properties.js:439 js/view/Properties.js:478
 msgid "A4"
 msgstr "A4"
 
-#: js/view/Properties.js:414
+#: js/view/Properties.js:440
 msgid "A5"
 msgstr "A5"
 
-#: js/view/Properties.js:415
+#: js/view/Properties.js:441
 msgid "Legal"
 msgstr "Hukuki (Legal)"
 
-#: js/view/Properties.js:416 js/view/Properties.js:460
+#: js/view/Properties.js:442 js/view/Properties.js:486
 msgid "Letter"
 msgstr "Mektup (Letter)"
 
-#: js/view/Properties.js:417 js/view/Properties.js:459
+#: js/view/Properties.js:443 js/view/Properties.js:485
 msgid "Tabloid"
 msgstr "Tabloid"
 
-#: js/view/Properties.js:420
+#: js/view/Properties.js:446
 msgid "Page orientation"
 msgstr "Sayfa yönlendirmesi"
 
-#: js/view/Properties.js:422
+#: js/view/Properties.js:448
 msgid "Landscape"
 msgstr "Yatay"
 
-#: js/view/Properties.js:423
+#: js/view/Properties.js:449
 msgid "Portrait"
 msgstr "Dikey"
 
-#: js/view/Properties.js:427 js/view/Properties.js:468
+#: js/view/Properties.js:453 js/view/Properties.js:494
 msgid "List of frames to include"
 msgstr "Dahil edilecek karelerin listesi"
 
-#: js/view/Properties.js:428 js/view/Properties.js:434
-#: js/view/Properties.js:469 js/view/Properties.js:475
+#: js/view/Properties.js:454 js/view/Properties.js:460
+#: js/view/Properties.js:495 js/view/Properties.js:501
 msgid "Click here to see the syntax for this field"
 msgstr "Bu alanın söz dizimini görmek için buraya tıklayın"
 
-#: js/view/Properties.js:433 js/view/Properties.js:474
+#: js/view/Properties.js:459 js/view/Properties.js:500
 msgid "List of frames to exclude"
 msgstr "Hariç tutulacak karelerin listesi"
 
-#: js/view/Properties.js:448
+#: js/view/Properties.js:474
 msgid "Slide size"
 msgstr "Slayt boyutu"
 
-#: js/view/Properties.js:450
+#: js/view/Properties.js:476
 msgid "35 mm"
 msgstr "35 mm"
 
-#: js/view/Properties.js:453
+#: js/view/Properties.js:479
 msgid "B4 (ISO)"
 msgstr "B4 (ISO)"
 
-#: js/view/Properties.js:454
+#: js/view/Properties.js:480
 msgid "B4 (JIS)"
 msgstr "B4 (JIS)"
 
-#: js/view/Properties.js:455
+#: js/view/Properties.js:481
 msgid "B5 (ISO)"
 msgstr "B5 (ISO)"
 
-#: js/view/Properties.js:456
+#: js/view/Properties.js:482
 msgid "B5 (JIS)"
 msgstr "B5 (JIS)"
 
-#: js/view/Properties.js:457
+#: js/view/Properties.js:483
 msgid "Banner"
 msgstr "Afiş"
 
-#: js/view/Properties.js:458
+#: js/view/Properties.js:484
 msgid "Hagaki Card"
 msgstr "Hagaki Kartı"
 
-#: js/view/Properties.js:461
+#: js/view/Properties.js:487
 msgid "Overhead"
 msgstr "Asetat (Overhead)"
 
-#: js/view/Properties.js:462
+#: js/view/Properties.js:488
 msgid "Screen 16:10"
 msgstr "16:10 Ekran"
 
-#: js/view/Properties.js:463
+#: js/view/Properties.js:489
 msgid "Screen 16:9"
 msgstr "16:9 Ekran"
 
-#: js/view/Properties.js:464
+#: js/view/Properties.js:490
 msgid "Screen 4:3"
 msgstr "4:3 Ekran"
 
-#: js/view/Properties.js:490
+#: js/view/Properties.js:516
 msgid "Format"
 msgstr "Biçim"
 
-#: js/view/Properties.js:492
+#: js/view/Properties.js:518
 msgid "MPEG-4 (.mp4)"
 msgstr "MPEG-4 (.mp4)"
 
-#: js/view/Properties.js:493
+#: js/view/Properties.js:519
 msgid "Ogg Vorbis (.ogv)"
 msgstr "Ogg Vorbis (.ogv)"
 
-#: js/view/Properties.js:494
+#: js/view/Properties.js:520
 msgid "WebM (.webm)"
 msgstr "WebM (.webm)"
 
-#: js/view/Properties.js:495
+#: js/view/Properties.js:521
 msgid "Windows Media Video (.wmv)"
 msgstr "Windows Media Video (.wmv)"
 
-#: js/view/Properties.js:496
+#: js/view/Properties.js:522
 msgid "Image sequence (.png)"
 msgstr "Görüntü dizisi (.png)"
 
-#: js/view/Properties.js:499
+#: js/view/Properties.js:525
 msgid "Width (pixels)"
 msgstr "Genişlik (piksel)"
 
-#: js/view/Properties.js:502
+#: js/view/Properties.js:528
 msgid "Height (pixels)"
 msgstr "Yükseklik (piksel)"
 
-#: js/view/Properties.js:505
+#: js/view/Properties.js:531
 msgid "Frame rate (frames/sec)"
 msgstr "Kare hızı (kare/sn)"
 
-#: js/view/Properties.js:508
+#: js/view/Properties.js:534
 msgid "Bit rate (kbits/sec)"
 msgstr "Bit hızı (kbit/sn)"
 
@@ -686,17 +690,17 @@ msgstr ""
 "Sozi'nin bu katmanın konumunu anlayabilmesine yardımcı olması için bu alana "
 "görsel öğe eklemelisiniz."
 
-#: js/view/Toolbar.js:57
+#: js/view/Toolbar.js:60
 msgid "Aspect ratio: "
 msgstr "Çerçeve Oranı: "
 
-#: js/view/Toolbar.js:90
+#: js/view/Toolbar.js:93
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
 "Seçili katmanları taşı(Alt'a basılı tutarak yakınlaştırma/uzaklaştırma "
 "yapabilir, Shift'e basılı tutarak döndürme yapabilirsiniz)"
 
-#: js/view/Toolbar.js:95
+#: js/view/Toolbar.js:98
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
@@ -704,22 +708,22 @@ msgstr ""
 "Seçili katmanları yakınlaştır/uzaklaştır(Ayrıca Taşıma modunda Alt'a basılı "
 "tutarak da yapabilirsiniz)"
 
-#: js/view/Toolbar.js:100
+#: js/view/Toolbar.js:103
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 "Seçili katmanları döndür(Ayrıca Taşıma modunda Shift'e basılı tutarak da "
 "yapabilirsiniz)"
 
-#: js/view/Toolbar.js:105
+#: js/view/Toolbar.js:108
 msgid "Edit the clipping area"
 msgstr "Kırpma alanını düzenle"
 
-#: js/view/Toolbar.js:124
+#: js/view/Toolbar.js:127
 msgid "Disable full-screen mode"
 msgstr "Tam ekran modundan çık"
 
-#: js/view/Toolbar.js:124
+#: js/view/Toolbar.js:127
 msgid "Enable full-screen mode"
 msgstr "Tam ekran moduna gir"
 
