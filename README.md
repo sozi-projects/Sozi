@@ -85,7 +85,7 @@ Other Grunt tasks are available for developers:
 | `grunt dist`                       | Create zip archives and Debian packages.                                     |
 | `grunt electron-build`             | Build the desktop application without creating archives.                     |
 | `grunt web-build`                  | Build the web application without uploading it.                              |
-| `grunt pot`                        | Extract a template file (`locales/messages.pot`) for translation.            |
+| `grunt jspot`                      | Extract a template file (`locales/messages.pot`) for translation.            |
 | `grunt jsdoc`                      | Generate the API documentation.                                              |
 
 
