@@ -14,7 +14,7 @@
         "default": {
             "staticFiles": {
                 "include": [
-                    "./doc/sozi-logo-bg.png"
+                    "doc/sozi-logo-bg.png"
                 ]
             }
         }
@@ -26,6 +26,6 @@
         "plugins/markdown"
     ],
     "opts": {
-        "readme": "./README.jsdoc.md"
+        "readme": "README.jsdoc.md"
     }
 }

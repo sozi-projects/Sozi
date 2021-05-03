@@ -59,9 +59,9 @@ After a successful build, you will get a `dist` folder that will contain the
 generated application archives for each platform.
 
 You can customize the build by creating a custom configuration file.
-See `config.default.json` and `config.linux-x64.json` for examples.
+See `config/sozi-default.json` and `config/sozi-linux-x64.json` for examples.
 For instance, if you want to build 64-bit executables for OS X and Linux,
-the configuration file (`config.linux-darwin-x64.json`) will look like this:
+the configuration file (`config/sozi-linux-darwin-x64.json`) will look like this:
 
 ```json
 {
@@ -74,7 +74,7 @@ the configuration file (`config.linux-darwin-x64.json`) will look like this:
 
 Then run Grunt with the `--config` option:
 
-    grunt --config=config.linux-darwin-x64.json
+    grunt --config=config/sozi-linux-darwin-x64.json
 
 Other Grunt tasks are available for developers:
 

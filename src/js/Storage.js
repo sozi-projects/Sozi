@@ -92,9 +92,9 @@ export class Storage {
         this.htmlNeedsSaving = false;
 
         // Adjust the template path depending on the target platform.
-        // In the web browser, __dirname is set to "/js". The leading "/" will result
+        // In the web browser, __dirname is set to "/src/js". The leading "/" will result
         // in an incorrect URL if the app is not hosted at the root of its domain.
-        const templatePath = __dirname === "/js" ? "templates" : path.join(__dirname, "..", "templates");
+        const templatePath = __dirname === "/src/js" ? "templates" : path.join(__dirname, "..", "templates");
 
         nunjucks.configure(templatePath, {
             watch: false,

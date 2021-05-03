@@ -7,7 +7,7 @@
 import {h} from "inferno-hyperscript";
 import {VirtualDOMView} from "./VirtualDOMView";
 import screenfull from "screenfull";
-import pkg from "../../package.json";
+import pkg from "../../../package.json";
 
 /** Toolbar in the presentation editor.
  *

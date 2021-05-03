@@ -19,7 +19,7 @@ module.exports = function(grunt) {
     const rev = execSync('git show -s --format="%cI %ct"').toString().trim().split(" ");
     pkg.version = rev[0].slice(2, 4) + "." + rev[0].slice(5, 7) + "." + rev[0].slice(8, 10) + "-" + rev[1];
 
-    const buildConfig = grunt.file.readJSON("config.default.json");
+    const buildConfig = grunt.file.readJSON("config/sozi-default.json");
     const buildConfigJson = grunt.option("config");
 
     if (buildConfigJson) {
@@ -59,26 +59,26 @@ module.exports = function(grunt) {
         // Check JavaScript source files.
         eslint: {
             options: {
-                configFile: "eslintrc.json"
+                configFile: "config/eslintrc.json"
             },
-            all: [ "js/**/*.js" ]
+            all: [ "src/**/*.js" ]
         },
 
         // Check CSS source files.
         csslint: {
             options: {
-                csslintrc: "csslintrc.json"
+                csslintrc: "config/csslintrc.json"
             },
-            all: [ "css/**/*.css" ]
+            all: [ "src/**/*.css" ]
         },
 
         // Generate JavaScript API documentation.
         jsdoc: {
             options: {
                 destination: "dist/api",
-                configure: "jsdoc.json"
+                configure: "config/jsdoc.json"
             },
-            all: [ "js/**/*.js" ]
+            all: [ "src/**/*.js" ]
         },
 
         // Transpile JavaScript source files for Electron and browsers.
@@ -89,7 +89,7 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    src: ["js/**/*.js"],
+                    src: ["src/**/*.js"],
                     dest: "build/electron"
                 }]
             },
@@ -99,7 +99,7 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    src: ["js/**/*.js"],
+                    src: ["src/**/*.js"],
                     dest: "build/browser"
                 }]
             }
@@ -115,7 +115,7 @@ module.exports = function(grunt) {
                 }
             },
             all: {
-                src: ["js/**/*.js"],
+                src: ["src/**/*.js"],
                 dest: "locales"
             }
         },
@@ -130,11 +130,11 @@ module.exports = function(grunt) {
             },
             electron: {
                 src: ["locales/*.po"],
-                dest: "build/electron/js/locales.js",
+                dest: "build/electron/src/js/locales.js",
             },
             browser: {
                 src: ["locales/*.po"],
-                dest: "build/browser/js/locales.js",
+                dest: "build/browser/src/js/locales.js",
             }
         },
 
@@ -150,16 +150,16 @@ module.exports = function(grunt) {
                         b.transform({global: true}, envify({NODE_ENV: "production"}));
                     }
                 },
-                src: ["build/browser/js/editor.js"],
-                dest: "build/tmp/js/editor.js"
+                src: ["build/browser/src/js/editor.js"],
+                dest: "build/tmp/editor.js"
             },
             player: {
-                src: ["build/browser/js/player.js"],
-                dest: "build/tmp/js/player.js"
+                src: ["build/browser/src/js/player.js"],
+                dest: "build/tmp/player.js"
             },
             presenter: {
-                src: ["build/browser/js/presenter.js"],
-                dest: "build/tmp/js/presenter.js"
+                src: ["build/browser/src/js/presenter.js"],
+                dest: "build/tmp/presenter.js"
             }
         },
 
@@ -173,15 +173,15 @@ module.exports = function(grunt) {
             },
             editor: {
                 src: "<%= browserify.editor.dest %>",
-                dest: "build/browser/js/editor.min.js"
+                dest: "build/browser/src/js/editor.min.js"
             },
             player: {
                 src: "<%= browserify.player.dest %>",
-                dest: "build/tmp/js/player.min.js"
+                dest: "build/tmp/player.min.js"
             },
             presenter: {
                 src: "<%= browserify.presenter.dest %>",
-                dest: "build/tmp/js/presenter.min.js"
+                dest: "build/tmp/presenter.min.js"
             }
         },
 
@@ -189,15 +189,15 @@ module.exports = function(grunt) {
         // inserting the player and presenter JavaScript into the template HTML.
         nunjucks_render: {
             player: {
-                src: "templates/player.html",
-                dest: "build/browser/templates/player.html",
+                src: "src/templates/player.html",
+                dest: "build/browser/src/templates/player.html",
                 context: {
                     js: "<%= uglify.player.dest %>"
                 }
             },
             presenter: {
-                src: "templates/presenter.html",
-                dest: "build/browser/templates/presenter.html",
+                src: "src/templates/presenter.html",
+                dest: "build/browser/src/templates/presenter.html",
                 context: {
                     js: "<%= uglify.presenter.dest %>"
                 }
@@ -211,16 +211,16 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         src: [
-                            "index-electron.html",
-                            "css/**/*"
+                            "src/index-electron.html",
+                            "src/css/**/*"
                         ],
                         dest: "build/electron/"
                     },
                     {
                         expand: true,
                         src: [
-                            "index-webapp.html",
-                            "css/**/*"
+                            "src/index-webapp.html",
+                            "src/css/**/*"
                         ],
                         dest: "build/browser/"
                     },
@@ -231,7 +231,7 @@ module.exports = function(grunt) {
                             "<%= nunjucks_render.player.dest %>",
                             "<%= nunjucks_render.presenter.dest %>"
                         ],
-                        dest: "build/electron/templates/"
+                        dest: "build/electron/src/templates/"
                     }
                 ]
             }
@@ -240,20 +240,20 @@ module.exports = function(grunt) {
         // Rename index HTML and JavaScript files depending on the target.
         rename: {
             webapp_backend: {
-                src: ["build/browser/js/backend/index-webapp.js"],
-                dest: "build/browser/js/backend/index.js"
+                src: ["build/browser/src/js/backend/index-webapp.js"],
+                dest: "build/browser/src/js/backend/index.js"
             },
             webapp_html: {
-                src: ["build/browser/index-webapp.html"],
-                dest: "build/browser/index.html"
+                src: ["build/browser/src/index-webapp.html"],
+                dest: "build/browser/src/index.html"
             },
             electron_backend: {
-                src: ["build/electron/js/backend/index-electron.js"],
-                dest: "build/electron/js/backend/index.js"
+                src: ["build/electron/src/js/backend/index-electron.js"],
+                dest: "build/electron/src/js/backend/index.js"
             },
             electron_html: {
-                src: ["build/electron/index-electron.html"],
-                dest: "build/electron/index.html"
+                src: ["build/electron/src/index-electron.html"],
+                dest: "build/electron/src/index.html"
             }
         },
 
@@ -347,7 +347,7 @@ module.exports = function(grunt) {
             options: {
                 override(details, include) {
                     if (details.task === "nunjucks_render") {
-                        include(fs.statSync(`build/tmp/js/${details.target}.min.js`).mtime > details.time);
+                        include(fs.statSync(`build/tmp/${details.target}.min.js`).mtime > details.time);
                     }
                     else {
                         include(false);
@@ -393,17 +393,17 @@ module.exports = function(grunt) {
                 {
                     expand: true,
                     flatten: true,
-                    src: `installation-assets/${platformOS}/*`,
+                    src: `resources/install/${platformOS}/*`,
                     dest: `${distDir}/install/`
                 },
                 {
-                    src: "icons/icon-256.png",
+                    src: "resources/icons/icon-256.png",
                     dest: `${distDir}/install/sozi.png`
                 },
                 {
                     expand: true,
                     flatten: true,
-                    src: `vendor/ffmpeg/${platform}/ffmpeg*`,
+                    src: `resources/ffmpeg/${platform}/ffmpeg*`,
                     dest: distDir + (platformOS === "osx" ? "/Sozi.app/Contents/Resources" : "/resources")
                 }
             ]
