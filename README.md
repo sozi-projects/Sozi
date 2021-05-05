@@ -29,7 +29,7 @@ If you plan to build a Windows executable from Linux or OS X, also install *wine
 In Debian/Ubuntu and their derivatives, you can type the following commands.
 
     sudo apt install nodejs wine
-    sudo npm install grunt-cli -g
+    sudo npm install --global gulp-cli
 
 If you plan to build Debian packages, install the following additional packages:
 

@@ -38,12 +38,15 @@
     "grunt-eslint": "^23.0.0",
     "grunt-install-dependencies": "github:sozi-projects/grunt-install-dependencies",
     "grunt-jsdoc": "^2.4.1",
-    "grunt-jspot": "github:sozi-projects/grunt-jspot",
     "grunt-newer": "^1.1.0",
-    "grunt-po2json": "github:rockykitamura/grunt-po2json",
     "grunt-rename": "github:sozi-projects/grunt-rename",
     "grunt-rsync": "^3.0.0",
+    "gulp": "^4.0.2",
+    "jspot": "^0.3.15",
     "load-grunt-tasks": "^5.1.0",
-    "modclean": "^3.0.0-beta.1"
+    "modclean": "^3.0.0-beta.1",
+    "node-glob": "^1.2.0",
+    "po2json": "^0.4.5",
+    "through2": "^4.0.2"
   }
 }
