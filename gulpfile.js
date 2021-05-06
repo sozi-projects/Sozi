@@ -139,7 +139,7 @@ function cssCopyTask() {
         .pipe(dest("build/electron/src/css/"));
 }
 
-function makeRenameTask(fromPath, toPath, toName) {
+function makeRenameTask(fromPath, toName, toPath = ".") {
     return () => {
         return src(fromPath)
             .pipe(rename(toName))
@@ -147,19 +147,22 @@ function makeRenameTask(fromPath, toPath, toName) {
     };
 }
 
-const electronIndexRenameTask = parallel(
-    makeRenameTask("src/index-electron.html", "build/electron", "index.html"),
-    makeRenameTask("build/electron/src/js/backend/index-electron.js", "", "index.js")
-);
+const electronIndexRenameTask        = makeRenameTask("src/index-electron.html", "index.html", "build/electron");
+const electronBackendIndexRenameTask = makeRenameTask("build/electron/src/js/backend/index-electron.js", "index.js")
 
 const transpileTask =
     parallel(
         cssCopyTask,
         electronIndexRenameTask,
-        electronTranspileTask,
+        series(
+            electronTranspileTask,
+            electronBackendIndexRenameTask
+        ),
         series(
             browserTranspileTask,
             browserifyTask,
-            templatesTask));
+            templatesTask
+        )
+    );
 
 exports.default = parallel(translationsTask, pkgTask, transpileTask);
