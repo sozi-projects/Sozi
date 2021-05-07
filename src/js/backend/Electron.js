@@ -94,12 +94,12 @@ export class Electron extends AbstractBackend {
         // Open a file chooser if no file name was provided or
         // the file does not exist.
         if (remote.process.argv.length > 1) {
-            const fileName = path.resolve(cwd, remote.process.argv[1]);
-            try {
-                fs.accessSync(fileName);
+            const arg = remote.process.argv[remote.process.argv.length - 1];
+            const fileName = path.resolve(cwd, arg);
+            if (fs.existsSync(fileName) && fs.statSync(fileName).isFile()) {
                 this.controller.storage.setSVGFile(fileName, this);
             }
-            catch (err) {
+            else {
                 this.controller.error(Jed.sprintf(_("File not found: %s."), fileName));
                 // Force the error notification to appear before the file chooser.
                 setTimeout(() => this.openFileChooser(), 100);
