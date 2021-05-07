@@ -5,7 +5,7 @@ const path      = require("path");
 const fs        = require("fs");
 const exec      = util.promisify(require("child_process").exec);
 const glob      = util.promisify(require("glob"));
-
+const log       = require("fancy-log");
 const writeFile_ = util.promisify(fs.writeFile);
 const mkdir      = util.promisify(fs.mkdir);
 
@@ -36,7 +36,12 @@ async function jspotTask() {
 
 async function msgmergeTask() {
     const files = await glob("locales/*.po");
-    await Promise.all(files.map(f => exec(`msgmerge -U ${f} locales/messages.pot`)))
+    try {
+        await Promise.all(files.map(f => exec(`msgmerge -U ${f} locales/messages.pot`)))
+    }
+    catch (e) {
+        log.warn("Could not run msgmerge. Translation files not updated.")
+    }
 }
 
 async function po2jsonTask() {
@@ -77,6 +82,8 @@ async function packageJsonTask() {
     pkg.version  = `${year}.${month}.${day}-${tstamp}`;
     // Remove dev dependencies from target package.json
     delete pkg.devDependencies;
+    // Set application entry point.
+    pkg.main = "src/js/index-electron.js";
     await writeFile("build/electron/package.json", JSON.stringify(pkg));
 }
 
@@ -132,7 +139,10 @@ function makeTemplateTask(tpl) {
     };
 }
 
-const templatesTask = parallel(makeTemplateTask("player"), makeTemplateTask("presenter"));
+const templatesTask = parallel(
+    makeTemplateTask("player"),
+    makeTemplateTask("presenter")
+);
 
 function cssCopyTask() {
     return src("src/css/**/*.css")
