@@ -176,3 +176,17 @@ const transpileTask =
     );
 
 exports.default = parallel(translationsTask, pkgTask, transpileTask);
+
+/* -------------------------------------------------------------------------- *
+ * Documentation.
+ * -------------------------------------------------------------------------- */
+
+const jsdoc = require("gulp-jsdoc3");
+
+function jsdocTask(cb) {
+    const config = require("./config/jsdoc.json");
+    src("./src/**/*.js", {read: false})
+        .pipe(jsdoc(config, cb));
+}
+
+exports.jsdoc = jsdocTask;

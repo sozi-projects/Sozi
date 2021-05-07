@@ -1,10 +1,12 @@
 {
-    "box-model": false,
-    "universal-selector": false,
-    "box-sizing": false,
-    "qualified-headings": false,
-    "adjoining-classes": false,
-    "order-alphabetical": false,
-    "fallback-colors": false,
-    "ids": false
+    "ignore": [
+        "box-model",
+        "universal-selector",
+        "box-sizing",
+        "qualified-headings",
+        "adjoining-classes",
+        "order-alphabetical",
+        "fallback-colors",
+        "ids"
+    ]
 }
