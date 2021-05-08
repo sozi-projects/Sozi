@@ -89,7 +89,7 @@ export class AbstractBackend {
      * @returns {Promise} - A promise that resolves to a file descriptor, rejected if not found.
      */
     find(name, location) {
-        return Promise.reject("Not implemented");
+        return Promise.resolve("Not implemented");
     }
 
     /** Load a file.
@@ -100,7 +100,7 @@ export class AbstractBackend {
      * @returns {Promise<string>} - A promise that resolves to the content of the file.
      */
     load(fileDescriptor) {
-        return Promise.reject("Not implemented");
+        return Promise.resolve("Not implemented");
     }
 
     /** Load a file synchronously.
@@ -122,7 +122,7 @@ export class AbstractBackend {
      * @returns {Promise} - A promise that resolves to a file descriptor.
      */
     create(name, location, mimeType, data) {
-        return Promise.reject("Not implemented");
+        return Promise.resolve("Not implemented");
     }
 
     /** Save data to an existing file.
@@ -132,7 +132,7 @@ export class AbstractBackend {
      * @returns {Promise} - A promise that resolves to the given file descriptor.
      */
     save(fileDescriptor, data) {
-        return Promise.reject("Not implemented");
+        return Promise.resolve("Not implemented");
     }
 
     /** Add the given file to the list of files to save automatically.

@@ -54,7 +54,7 @@ export class Storage {
         /** The current execution platform backend.
          *
          * @type {module:backend/AbstractBackend.AbstractBackend} */
-        this.backend = backendList[0];
+        this.backend = null;
 
         /** The descriptor of the current SVG document file.
          *
@@ -94,7 +94,7 @@ export class Storage {
         // Adjust the template path depending on the target platform.
         // In the web browser, __dirname is set to "/src/js". The leading "/" will result
         // in an incorrect URL if the app is not hosted at the root of its domain.
-        const templatePath = __dirname === "/src/js" ? "templates" : path.join(__dirname, "..", "templates");
+        const templatePath = __dirname === "/" ? "/src/templates" : path.join(__dirname, "..", "templates");
 
         nunjucks.configure(templatePath, {
             watch: false,
