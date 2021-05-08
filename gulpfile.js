@@ -168,7 +168,7 @@ function browserEditorBrowserifyTask() {
             entries: "build/browser/src/js/editor.js",
             external: ["electron", "fs", "process", "officegen", "pdf-lib"],
             debug: false,
-            transform: [envify({_: "purge", NODE_ENV: "production"})]
+            transform: [[envify({_: "purge", NODE_ENV: "production"}), {global: true}]]
         })
         .bundle()
         .pipe(source("editor.min.js"))
