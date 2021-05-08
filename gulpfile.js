@@ -44,33 +44,36 @@ async function msgmergeTask() {
     }
 }
 
-async function po2jsonTask() {
-    const files = await glob("locales/*.po");
-    // Convert each file to a JS object.
-    const data = await Promise.all(files.map(f => po2json(f, {
-        fuzzy: false,
-        format: "jed"
-    })));
-    // Merge all JS objects.
-    const obj = {};
-    for (const item of data) {
-        obj[item.locale_data.messages[""].lang] = item;
-    }
-    // Convert the result to a nodejs module.
-    const content = `module.exports = ${JSON.stringify(obj)};`;
-    await writeFile("build/electron/src/js/locales.js", content);
+function makePo2JsonTask(target) {
+    return async function po2jsonTask() {
+        const files = await glob("locales/*.po");
+        // Convert each file to a JS object.
+        const data = await Promise.all(files.map(f => po2json(f, {
+            fuzzy: false,
+            format: "jed"
+        })));
+        // Merge all JS objects.
+        const obj = {};
+        for (const item of data) {
+            obj[item.locale_data.messages[""].lang] = item;
+        }
+        // Convert the result to a nodejs module.
+        const content = `module.exports = ${JSON.stringify(obj)};`;
+        // Write the result to the app folders.
+        await writeFile(`build/${target}/src/js/locales.js`, content);
+    };
 }
 
-const translationsTask = series(jspotTask, msgmergeTask, po2jsonTask);
+const electronTranslationsTask = series(jspotTask, msgmergeTask, makePo2JsonTask("electron"));
+const browserTranslationsTask  = series(jspotTask, msgmergeTask, makePo2JsonTask("browser"));
 
 /* -------------------------------------------------------------------------- *
  * Application manifest and nodejs dependencies
  * -------------------------------------------------------------------------- */
 
 const modclean = require("modclean");
-const pkg      = require("./package.json");
 
-async function packageJsonTask() {
+async function getSoziVersion() {
     // Get version number from last commit date.
     const rev = (await exec('git show -s --format="%cI %ct"'))
                 .stdout.toString().trim().split(" ");
@@ -79,24 +82,38 @@ async function packageJsonTask() {
     const month  = rev[0].slice(5,  7);
     const day    = rev[0].slice(8, 10);
     const tstamp = rev[1];
-    pkg.version  = `${year}.${month}.${day}-${tstamp}`;
-    // Remove dev dependencies from target package.json
-    delete pkg.devDependencies;
-    // Set application entry point.
-    pkg.main = "src/js/index-electron.js";
-    await writeFile("build/electron/package.json", JSON.stringify(pkg));
+    return `${year}.${month}.${day}-${tstamp}`;
 }
 
-async function installDeps() {
-    await exec("npm install --only=prod \
-                             --no-audit \
-                             --no-fund \
-                             --no-optional \
-                             --no-package-lock", {cwd: "build/electron"});
-    await modclean({cwd: "build/electron/node_modules"}).clean();
+function makePackageJsonTask(target, opts = {}) {
+    return async function packageJsonTask() {
+        const pkg = Object.assign(require("./package.json"), opts);
+        delete pkg.devDependencies;
+        pkg.version = await getSoziVersion();
+        await writeFile(`build/${target}/package.json`, JSON.stringify(pkg));
+    };
 }
 
-const pkgTask = series(packageJsonTask, installDeps);
+function makeInstallDepsTask(target) {
+    return async function installDepsTask() {
+        await exec("npm install --only=prod \
+                                 --no-audit \
+                                 --no-fund \
+                                 --no-optional \
+                                 --no-package-lock", {cwd: `build/${target}`});
+        await modclean({cwd: `build/${target}/node_modules`}).clean();
+    };
+}
+
+const electronPkgTask = series(
+    makePackageJsonTask("electron", {main: "src/js/index-electron.js"}),
+    makeInstallDepsTask("electron")
+);
+
+const browserPkgTask = series(
+    makePackageJsonTask("browser"),
+    makeInstallDepsTask("browser")
+);
 
 /* -------------------------------------------------------------------------- *
  * Transpile and collect the source files of the application
@@ -107,21 +124,22 @@ const browserify = require("gulp-browserify");
 const uglify     = require("gulp-uglify");
 const nunjucks   = require("gulp-nunjucks");
 const rename     = require("gulp-rename");
+const envify     = require("envify/custom");
 
-function makeTranspileTask(dir, opts) {
-    return () => {
+function makeTranspileTask(target, opts) {
+    return function transpileTask() {
         return src("src/js/**/*.js")
             .pipe(babel({
                 presets: [["@babel/preset-env", opts]]
             }))
-            .pipe(dest(`build/${dir}/src/js/`));
+            .pipe(dest(`build/${target}/src/js/`));
     };
 }
 
 const electronTranspileTask = makeTranspileTask("electron", {targets: {node: "12"}});
 const browserTranspileTask  = makeTranspileTask("browser",  {useBuiltIns: "usage", corejs: 3});
 
-function browserifyTask() {
+function playerBrowserifyTask() {
     return src(["build/browser/src/js/player.js", "build/browser/src/js/presenter.js"])
         .pipe(browserify())
         .pipe(uglify({
@@ -131,26 +149,52 @@ function browserifyTask() {
         .pipe(dest("build/tmp/"))
 }
 
-function makeTemplateTask(tpl) {
-    return () => {
+function browserEditorBrowserifyTask() {
+    return src("build/browser/src/js/editor.js")
+        .pipe(browserify({
+            external: ["electron", "fs", "process", "officegen", "pdf-lib"],
+            debug: false,
+            basedir: "build/browser/src/js",
+            transform: [envify({_: "purge", NODE_ENV: "production"})]
+        }))
+        .pipe(uglify({
+            mangle: true,
+            compress: true
+        }))
+        .pipe(rename("editor.min.js"))
+        .pipe(dest("build/browser/src/js/"));
+}
+
+function makeTemplateTask(target, tpl) {
+    return function templateTask() {
         return src(`src/templates/${tpl}.html`)
             .pipe(nunjucks.compile({js: fs.readFileSync(`build/tmp/${tpl}.js`)}))
-            .pipe(dest("build/electron/src/templates/"));
+            .pipe(dest(`build/${target}/src/templates/`));
     };
 }
 
-const templatesTask = parallel(
-    makeTemplateTask("player"),
-    makeTemplateTask("presenter")
+const electronTemplatesTask = parallel(
+    makeTemplateTask("electron", "player"),
+    makeTemplateTask("electron", "presenter")
 );
 
-function cssCopyTask() {
-    return src("src/css/**/*.css")
-        .pipe(dest("build/electron/src/css/"));
+const browserTemplatesTask = parallel(
+    makeTemplateTask("browser", "player"),
+    makeTemplateTask("browser", "presenter")
+);
+
+function makeCssCopyTask(target) {
+    return function cssCopyTask() {
+        return src("src/css/**/*.css")
+            .pipe(dest(`build/${target}/src/css/`));
+    };
 }
 
+const electronCssCopyTask = makeCssCopyTask("electron");
+const browserCssCopyTask  = makeCssCopyTask("browser");
+
 function makeRenameTask(fromPath, toName, toPath = ".") {
-    return () => {
+    return function renameTask() {
         return src(fromPath)
             .pipe(rename(toName))
             .pipe(dest(path.join(toPath, path.dirname(fromPath))));
@@ -159,23 +203,54 @@ function makeRenameTask(fromPath, toName, toPath = ".") {
 
 const electronIndexRenameTask        = makeRenameTask("src/index-electron.html", "index.html", "build/electron");
 const electronBackendIndexRenameTask = makeRenameTask("build/electron/src/js/backend/index-electron.js", "index.js")
+const electronExporterRenameTask     = makeRenameTask("build/electron/src/js/exporter/index-electron.js", "index.js")
 
-const transpileTask =
+const browserIndexRenameTask        = makeRenameTask("src/index-browser.html", "index.html", "build/browser");
+const browserBackendIndexRenameTask = makeRenameTask("build/browser/src/js/backend/index-browser.js", "index.js")
+const browserExporterRenameTask     = makeRenameTask("build/browser/src/js/exporter/index-browser.js", "index.js")
+
+const electronBuildTask =
     parallel(
-        cssCopyTask,
+        electronTranslationsTask,
+        electronPkgTask,
+        electronCssCopyTask,
         electronIndexRenameTask,
         series(
             electronTranspileTask,
-            electronBackendIndexRenameTask
+            electronBackendIndexRenameTask,
+            electronExporterRenameTask
         ),
         series(
             browserTranspileTask,
-            browserifyTask,
-            templatesTask
+            playerBrowserifyTask,
+            electronTemplatesTask
         )
     );
 
-exports.default = parallel(translationsTask, pkgTask, transpileTask);
+const browserBuildTask =
+    parallel(
+        browserTranslationsTask,
+        browserPkgTask,
+        browserCssCopyTask,
+        browserIndexRenameTask,
+        series(
+            browserTranspileTask,
+            parallel(
+                series(
+                    browserBackendIndexRenameTask,
+                    browserExporterRenameTask,
+                    browserEditorBrowserifyTask
+                ),
+                series(
+                    playerBrowserifyTask,
+                    browserTemplatesTask
+                )
+            ),
+        )
+    );
+
+exports.browserBuild = browserBuildTask;
+exports.default = electronBuildTask;
 
 /* -------------------------------------------------------------------------- *
  * Documentation.

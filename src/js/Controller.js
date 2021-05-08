@@ -9,7 +9,7 @@ import {Frame, LayerProperties} from "./model/Presentation";
 import {CameraState} from "./model/CameraState";
 import {EventEmitter} from "events";
 import * as i18n from "./i18n";
-import * as exporter from "./exporter/exporter";
+import * as exporter from "./exporter";
 
 /** The maximum size of the undo stack.
  *

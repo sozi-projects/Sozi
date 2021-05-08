@@ -195,7 +195,7 @@ export async function exportToPDF(presentation, htmlFileName) {
         width : g.width,
         height: g.height,
         frame : false,
-        show  : false,
+        show  : true,
         webPreferences: {
             preload: path.join(__dirname, "exporter-preload.js")
         }
@@ -316,7 +316,7 @@ export async function exportToPPTX(presentation, htmlFileName) {
             }
             resolve();
         });
-        
+
         pptxDoc.on("error", () => {
             // Remove the temporary image folder, ignoring exceptions on failure.
             try {
@@ -366,153 +366,153 @@ export async function exportToPPTX(presentation, htmlFileName) {
  * @param {string} htmlFileName - The name of the presentation HTML file.
  * @returns {Promise} - A promise that resolves when the operation completes.
  */
- export async function exportToVideo(presentation, htmlFileName) {
-     console.log(`Exporting ${htmlFileName} to video`);
+export async function exportToVideo(presentation, htmlFileName) {
+    console.log(`Exporting ${htmlFileName} to video`);
 
-     // Open the HTML presentation in a new browser window.
-     // The window must be visible to work with the Page.captureScreenshot
-     // message of the Chrome DevTools Protocol.
-     const w = new remote.BrowserWindow({
-         width : presentation.exportToVideoWidth,
-         height: presentation.exportToVideoHeight,
-         frame : false,
-         show  : true,
-         webPreferences: {
-             preload: path.join(__dirname, "exporter-preload.js")
-         }
-     });
-     await w.loadURL(`file://${htmlFileName}`);
+    // Open the HTML presentation in a new browser window.
+    // The window must be visible to work with the Page.captureScreenshot
+    // message of the Chrome DevTools Protocol.
+    const w = new remote.BrowserWindow({
+        width : presentation.exportToVideoWidth,
+        height: presentation.exportToVideoHeight,
+        frame : false,
+        show  : true,
+        webPreferences: {
+            preload: path.join(__dirname, "exporter-preload.js")
+        }
+    });
+    await w.loadURL(`file://${htmlFileName}`);
 
-     // Create a temporary directory.
-     // Force deletion on cleanup, even if not empty.
-     let destDir, destDirName;
-     if (presentation.exportToVideoFormat === "png") {
-         destDirName = htmlFileName.replace(/\.sozi\.html$/, "-sozi-export");
-         if (!fs.existsSync(destDirName)) {
-             fs.mkdirSync(destDirName);
-         }
-     }
-     else {
-         destDir = tmp.dirSync({unsafeCleanup: true});
-         destDirName = destDir.name;
-     }
+    // Create a temporary directory.
+    // Force deletion on cleanup, even if not empty.
+    let destDir, destDirName;
+    if (presentation.exportToVideoFormat === "png") {
+        destDirName = htmlFileName.replace(/\.sozi\.html$/, "-sozi-export");
+        if (!fs.existsSync(destDirName)) {
+            fs.mkdirSync(destDirName);
+        }
+    }
+    else {
+        destDir = tmp.dirSync({unsafeCleanup: true});
+        destDirName = destDir.name;
+    }
 
-     console.log("Exporting to " + destDirName);
+    console.log("Exporting to " + destDirName);
 
-     // We will use the Chrome DevTools protocol instead of
-     // the unreliable Electron capturePage method.
-     w.webContents.debugger.attach("1.2");
+    // We will use the Chrome DevTools protocol instead of
+    // the unreliable Electron capturePage method.
+    w.webContents.debugger.attach("1.2");
 
-     const callerId = remote.getCurrentWindow().webContents.id;
+    const callerId = remote.getCurrentWindow().webContents.id;
 
-     return new Promise((resolve, reject) => {
-         const timeStepMs = 1000 / presentation.exportToVideoFrameRate;
-         const frameCount = presentation.frames.length;
-         let imgIndex = 0;
+    return new Promise((resolve, reject) => {
+        const timeStepMs = 1000 / presentation.exportToVideoFrameRate;
+        const frameCount = presentation.frames.length;
+        let imgIndex = 0;
 
-         function onDone() {
-             ipcRenderer.removeAllListeners("jumpToFrame.done");
-             w.close();
+        function onDone() {
+            ipcRenderer.removeAllListeners("jumpToFrame.done");
+            w.close();
 
-             if (presentation.exportToVideoFormat === "png") {
-                 resolve();
-                 return;
-             }
+            if (presentation.exportToVideoFormat === "png") {
+                resolve();
+                return;
+            }
 
-             const ffmpegOptions = [
-                 // Frames per second
-                 "-r", presentation.exportToVideoFrameRate,
-                 // Convert a sequence of image files
-                 "-f", "image2",
-                 // The list of image files
-                 "-i", path.join(destDirName, "img%d.png"),
-                 // The video bit rate
-                 "-b:v", presentation.exportToVideoBitRate,
-                 // Overwrite the output file without asking
-                 "-y",
-                 // The name of the output video file
-                 htmlFileName.replace(/html$/, presentation.exportToVideoFormat)
-             ];
+            const ffmpegOptions = [
+                // Frames per second
+                "-r", presentation.exportToVideoFrameRate,
+                // Convert a sequence of image files
+                "-f", "image2",
+                // The list of image files
+                "-i", path.join(destDirName, "img%d.png"),
+                // The video bit rate
+                "-b:v", presentation.exportToVideoBitRate,
+                // Overwrite the output file without asking
+                "-y",
+                // The name of the output video file
+                htmlFileName.replace(/html$/, presentation.exportToVideoFormat)
+            ];
 
-             // Attempt to launch the system-wide FFMPEG executable.
-             let res = spawnSync("ffmpeg", ffmpegOptions, {stdio: "inherit"});
-             if (res.error) {
-                 console.log("No global installation of FFMPEG found. Trying the local FFMPEG executable shipped with Sozi.");
-                 // Attempt to launch the local FFMPEG executable.
-                 const ffmpegPath = path.join(process.resourcesPath,
-                     process.platform === "win32" ? "ffmpeg.exe" : "ffmpeg"
-                 );
-                 res = spawnSync(ffmpegPath, ffmpegOptions, {stdio: "inherit"});
-             }
+            // Attempt to launch the system-wide FFMPEG executable.
+            let res = spawnSync("ffmpeg", ffmpegOptions, {stdio: "inherit"});
+            if (res.error) {
+                console.log("No global installation of FFMPEG found. Trying the local FFMPEG executable shipped with Sozi.");
+                // Attempt to launch the local FFMPEG executable.
+                const ffmpegPath = path.join(process.resourcesPath,
+                    process.platform === "win32" ? "ffmpeg.exe" : "ffmpeg"
+                );
+                res = spawnSync(ffmpegPath, ffmpegOptions, {stdio: "inherit"});
+            }
 
-             // Remove the temporary image folder, ignoring exceptions on failure.
-             try {
-                 destDir.removeCallback();
-             }
-             catch (e) {
-                 console.log(e);
-             }
+            // Remove the temporary image folder, ignoring exceptions on failure.
+            try {
+                destDir.removeCallback();
+            }
+            catch (e) {
+                console.log(e);
+            }
 
-             if (res.error) {
-                 console.log("Could not launch FFMPEG.");
-                 reject();
-             }
-             else {
-                 console.log("Video export complete.");
-                 resolve();
-             }
-         }
+            if (res.error) {
+                console.log("Could not launch FFMPEG.");
+                reject();
+            }
+            else {
+                console.log("Video export complete.");
+                resolve();
+            }
+        }
 
-         // On each frame change, capture the web contents and animate the transition.
-         ipcRenderer.on("jumpToFrame.done", async (evt, index) => {
-             // If we jumped to the first frame after a transition,
-             // terminate the video export.
-             if (index === 0 && imgIndex > 0) {
-                 onDone();
-             }
+        // On each frame change, capture the web contents and animate the transition.
+        ipcRenderer.on("jumpToFrame.done", async (evt, index) => {
+            // If we jumped to the first frame after a transition,
+            // terminate the video export.
+            if (index === 0 && imgIndex > 0) {
+                onDone();
+            }
 
-             const currentFrame = presentation.frames[index];
+            const currentFrame = presentation.frames[index];
 
-             // Generate images for the duration of the current frame.
-             let firstImgFileName;
-             for (let timeMs = 0; timeMs < currentFrame.timeoutMs; timeMs += timeStepMs, imgIndex ++) {
-                 const imgFileName = path.join(destDirName, `img${imgIndex}.png`)
-                 if (timeMs === 0) {
-                     // Capture the first image of the current frame.
-                     const img = await w.webContents.debugger.sendCommand("Page.captureScreenshot", {format: "png"});
-                     fs.writeFileSync(imgFileName, Buffer.from(img.data, "base64"));
-                     firstImgFileName = imgFileName;
-                 }
-                 else {
-                     // For the remaining duration of the frame, copy the first image.
-                     fs.copyFileSync(firstImgFileName, imgFileName);
-                 }
-             }
+            // Generate images for the duration of the current frame.
+            let firstImgFileName;
+            for (let timeMs = 0; timeMs < currentFrame.timeoutMs; timeMs += timeStepMs, imgIndex ++) {
+                const imgFileName = path.join(destDirName, `img${imgIndex}.png`)
+                if (timeMs === 0) {
+                    // Capture the first image of the current frame.
+                    const img = await w.webContents.debugger.sendCommand("Page.captureScreenshot", {format: "png"});
+                    fs.writeFileSync(imgFileName, Buffer.from(img.data, "base64"));
+                    firstImgFileName = imgFileName;
+                }
+                else {
+                    // For the remaining duration of the frame, copy the first image.
+                    fs.copyFileSync(firstImgFileName, imgFileName);
+                }
+            }
 
-             // Get the index of the next frame.
-             const targetIndex = (index + 1) % frameCount;
+            // Get the index of the next frame.
+            const targetIndex = (index + 1) % frameCount;
 
-             // Generate images for the transition to the next frame.
-             // If the last frame has a timeout enabled, transition to the first frame.
-             // Else terminate the video export.
-             if (targetIndex > 0 || currentFrame.timeoutEnable) {
-                 w.webContents.send("moveToNext", {callerId, timeStepMs});
-             }
-             else {
-                 onDone();
-             }
-         });
+            // Generate images for the transition to the next frame.
+            // If the last frame has a timeout enabled, transition to the first frame.
+            // Else terminate the video export.
+            if (targetIndex > 0 || currentFrame.timeoutEnable) {
+                w.webContents.send("moveToNext", {callerId, timeStepMs});
+            }
+            else {
+                onDone();
+            }
+        });
 
-         // On each animation step, capture the current web contents.
-         ipcRenderer.on("moveToNext.step", async evt => {
-             const img = await w.webContents.debugger.sendCommand("Page.captureScreenshot", {format: "png"});
-             const imgFileName = path.join(destDirName, `img${imgIndex}.png`);
-             fs.writeFileSync(imgFileName, Buffer.from(img.data, "base64"));
-             w.webContents.send("moveToNext.more");
-             imgIndex ++;
-         });
+        // On each animation step, capture the current web contents.
+        ipcRenderer.on("moveToNext.step", async evt => {
+            const img = await w.webContents.debugger.sendCommand("Page.captureScreenshot", {format: "png"});
+            const imgFileName = path.join(destDirName, `img${imgIndex}.png`);
+            fs.writeFileSync(imgFileName, Buffer.from(img.data, "base64"));
+            w.webContents.send("moveToNext.more");
+            imgIndex ++;
+        });
 
-         // Start the player in the presentation window.
-         w.webContents.send("initializeExporter", {frameIndex: 0, callerId});
-     });
+        // Start the player in the presentation window.
+        w.webContents.send("initializeExporter", {frameIndex: 0, callerId});
+    });
 }
