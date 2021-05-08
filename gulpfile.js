@@ -97,10 +97,10 @@ function makePackageJsonTask(target, opts = {}) {
 function makeInstallDepsTask(target) {
     return async function installDepsTask() {
         await exec("npm install --only=prod \
-                                 --no-audit \
-                                 --no-fund \
-                                 --no-optional \
-                                 --no-package-lock", {cwd: `build/${target}`});
+                                --no-audit \
+                                --no-fund \
+                                --no-optional \
+                                --no-package-lock", {cwd: `build/${target}`});
         await modclean({cwd: `build/${target}/node_modules`}).clean();
     };
 }
@@ -120,11 +120,13 @@ const browserPkgTask = series(
  * -------------------------------------------------------------------------- */
 
 const babel      = require("gulp-babel");
-const browserify = require("gulp-browserify");
+const browserify = require("browserify");
 const uglify     = require("gulp-uglify");
 const nunjucks   = require("gulp-nunjucks");
 const rename     = require("gulp-rename");
 const envify     = require("envify/custom");
+const source     = require("vinyl-source-stream");
+const buffer     = require("vinyl-buffer");
 
 function makeTranspileTask(target, opts) {
     return function transpileTask() {
@@ -139,29 +141,42 @@ function makeTranspileTask(target, opts) {
 const electronTranspileTask = makeTranspileTask("electron", {targets: {node: "12"}});
 const browserTranspileTask  = makeTranspileTask("browser",  {useBuiltIns: "usage", corejs: 3});
 
-function playerBrowserifyTask() {
-    return src(["build/browser/src/js/player.js", "build/browser/src/js/presenter.js"])
-        .pipe(browserify())
-        .pipe(uglify({
-            mangle: false,
-            compress: true
-        }))
-        .pipe(dest("build/tmp/"))
+function makeBrowserifyTask(name) {
+    return function browserifyTask() {
+        return browserify({
+                entries: `build/browser/src/js/${name}.js`,
+                debug: false,
+            })
+            .bundle()
+            .pipe(source(`${name}.js`))
+            .pipe(buffer())
+            .pipe(uglify({
+                mangle: true,
+                compress: true
+            }))
+            .pipe(dest("build/tmp/"))
+    };
 }
 
+const playerBrowserifyTask = parallel(
+    makeBrowserifyTask("player"),
+    makeBrowserifyTask("presenter")
+);
+
 function browserEditorBrowserifyTask() {
-    return src("build/browser/src/js/editor.js")
-        .pipe(browserify({
+    return browserify({
+            entries: "build/browser/src/js/editor.js",
             external: ["electron", "fs", "process", "officegen", "pdf-lib"],
             debug: false,
-            basedir: "build/browser/src/js",
             transform: [envify({_: "purge", NODE_ENV: "production"})]
-        }))
+        })
+        .bundle()
+        .pipe(source("editor.min.js"))
+        .pipe(buffer())
         .pipe(uglify({
             mangle: true,
             compress: true
         }))
-        .pipe(rename("editor.min.js"))
         .pipe(dest("build/browser/src/js/"));
 }
 
