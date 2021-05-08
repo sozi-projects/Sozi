@@ -9,7 +9,6 @@ import * as Timing from "./Timing";
 import {CameraState} from "../model/CameraState";
 import {Frame} from "../model/Presentation";
 import {EventEmitter} from "events";
-import * as Media from "./Media";
 
 /** The duration of out-of-sequence transitions, in milliseconds.
  *
@@ -81,6 +80,12 @@ export class Player extends EventEmitter {
          * @default false
          * @type {boolean} */
         this.editMode = !!editMode;
+
+        /** Enable embedded video and audio?
+         *
+         * @default true
+         * @type {boolean} */
+        this.mediaEnable = true;
 
         /** The viewport where the presentation is rendered.
          *
@@ -762,6 +767,6 @@ export class Player extends EventEmitter {
 
     /** Disable all video and audio elements in the current presentation. */
     disableMedia() {
-        Media.disable();
+        this.mediaEnable = false;
     }
 }

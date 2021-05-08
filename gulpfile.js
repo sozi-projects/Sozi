@@ -143,7 +143,7 @@ function playerBrowserifyTask() {
     return src(["build/browser/src/js/player.js", "build/browser/src/js/presenter.js"])
         .pipe(browserify())
         .pipe(uglify({
-            mangle: true,
+            mangle: false,
             compress: true
         }))
         .pipe(dest("build/tmp/"))

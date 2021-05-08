@@ -64,6 +64,9 @@ const mediaToStopByFrameId = {};
  * @listens module:player/Player.frameChange
  */
 function onFrameChange() {
+    if (!player.mediaEnable) {
+        return;
+    }
     const frameId = player.currentFrame.frameId;
     if (frameId in mediaToStartByFrameId) {
         for (let m of mediaToStartByFrameId[frameId]) {
