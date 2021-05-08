@@ -215,3 +215,27 @@ body {
 .vsplitter {
     cursor: ew-resize;
 }
+
+/* ------------------------------------------------------------------------- *
+ * Fixes
+ * ------------------------------------------------------------------------- */
+
+input[type=range] {
+    background: rgb(64, 64, 64);
+}
+
+input[type=range]::-moz-range-track {
+  border-radius: 8px;
+  height: 7px;
+  border: 1px solid #bdc3c7;
+  background-color: #fff;
+}
+
+input[type=range]::-moz-range-thumb {
+  background: #ecf0f1;
+  border: 1px solid #bdc3c7;
+  width: 14px;
+  height: 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
