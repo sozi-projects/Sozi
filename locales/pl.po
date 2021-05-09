@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-06 07:02:+0000\n"
+"POT-Creation-Date: 2021-05-08 05:41:+0000\n"
 "PO-Revision-Date: 2020-12-29 16:29+0000\n"
 "Last-Translator: WaldiS <sto@tutanota.de>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/sozi/translations/"
@@ -109,15 +109,15 @@ msgstr "Prezentacja została wyeksportowana do pliku wideo."
 msgid "Failed to write video file."
 msgstr "Nie udało się zapisać pliku wideo."
 
-#: src/js/Storage.js:192
+#: src/js/Storage.js:193
 msgid "Document is not valid SVG."
 msgstr "Niepoprawny format pliku SVG."
 
-#: src/js/Storage.js:250
+#: src/js/Storage.js:251
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Dokument został zaimportowany z Sozi w wersji 13 lub wcześniejszej."
 
-#: src/js/Storage.js:340
+#: src/js/Storage.js:341
 msgid "Saved %s."
 msgstr "Zapisano %s."
 

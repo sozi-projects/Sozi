@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-06 07:02:+0000\n"
+"POT-Creation-Date: 2021-05-08 05:41:+0000\n"
 "PO-Revision-Date: 2020-11-05 08:26+0000\n"
 "Last-Translator: 麋悟BigELK176 <bigelk176@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -107,15 +107,15 @@ msgstr "簡報業已匯出成影片檔案。"
 msgid "Failed to write video file."
 msgstr "寫入影片檔案失敗。"
 
-#: src/js/Storage.js:192
+#: src/js/Storage.js:193
 msgid "Document is not valid SVG."
 msgstr "此文件不是有效的 SVG 檔案。"
 
-#: src/js/Storage.js:250
+#: src/js/Storage.js:251
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "文件匯入 Sozi 13 或更舊的版本。"
 
-#: src/js/Storage.js:340
+#: src/js/Storage.js:341
 msgid "Saved %s."
 msgstr "完成儲存 %s 。"
 

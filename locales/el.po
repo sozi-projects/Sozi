@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-05-06 07:02:+0000\n"
+"POT-Creation-Date: 2021-05-08 05:41:+0000\n"
 "PO-Revision-Date: 2021-04-17 15:07+0000\n"
 "Last-Translator: Kleanthis Damianidis <kdamian.sxoleio@gmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/sozi/translations/"
@@ -101,15 +101,15 @@ msgstr "Έγινε εξαγωγή της Παρουσίασης σε μορφή 
 msgid "Failed to write video file."
 msgstr "Αποτυχία εγγραφής στο αρχείο βίντεο."
 
-#: src/js/Storage.js:192
+#: src/js/Storage.js:193
 msgid "Document is not valid SVG."
 msgstr "Το έγγραφο δεν είναι έγκυρο αρχείο SVG."
 
-#: src/js/Storage.js:250
+#: src/js/Storage.js:251
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Το έγγραφο εισήχθη από έκδοση Sozi 13 ή παλαιότερη."
 
-#: src/js/Storage.js:340
+#: src/js/Storage.js:341
 msgid "Saved %s."
 msgstr "Αποθηκεύτηκε %s."
 

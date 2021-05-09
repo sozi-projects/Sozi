@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-06 07:02:+0000\n"
+"POT-Creation-Date: 2021-05-08 05:41:+0000\n"
 "PO-Revision-Date: 2018-03-10 16:09+0100\n"
 "Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
@@ -111,15 +111,15 @@ msgstr ""
 msgid "Failed to write video file."
 msgstr ""
 
-#: src/js/Storage.js:192
+#: src/js/Storage.js:193
 msgid "Document is not valid SVG."
 msgstr "Документа не е валиден SVG."
 
-#: src/js/Storage.js:250
+#: src/js/Storage.js:251
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Дикумета е импортиран от Sozi 13 или по-стара версия"
 
-#: src/js/Storage.js:340
+#: src/js/Storage.js:341
 msgid "Saved %s."
 msgstr "Запазен %s."
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-05-06 07:02:+0000\n"
+"POT-Creation-Date: 2021-05-08 05:41:+0000\n"
 "PO-Revision-Date: 2020-05-25 15:41+0000\n"
 "Last-Translator: Hideyoshi Fuji <HideyoshiFuji@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/sozi/"
@@ -102,17 +102,17 @@ msgstr ""
 msgid "Failed to write video file."
 msgstr ""
 
-#: src/js/Storage.js:192
+#: src/js/Storage.js:193
 #, fuzzy
 msgid "Document is not valid SVG."
 msgstr "ドキュメントは有効なSVGではありません。"
 
-#: src/js/Storage.js:250
+#: src/js/Storage.js:251
 #, fuzzy
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "ドキュメントは Sozi 13 以前からインポートされました。"
 
-#: src/js/Storage.js:340
+#: src/js/Storage.js:341
 #, fuzzy
 msgid "Saved %s."
 msgstr "%s を保存しました。"
