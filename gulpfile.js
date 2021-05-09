@@ -224,6 +224,11 @@ const browserIndexRenameTask        = makeRenameTask("src/index-browser.html", "
 const browserBackendIndexRenameTask = makeRenameTask("build/browser/src/js/backend/index-browser.js", "index.js")
 const browserExporterRenameTask     = makeRenameTask("build/browser/src/js/exporter/index-browser.js", "index.js")
 
+function browserFaviconCopyTask() {
+    return src("resources/icons/favicon.ico")
+        .pipe(dest("build/browser"));
+}
+
 const electronBuildTask =
     parallel(
         electronTranslationsTask,
@@ -247,6 +252,7 @@ const browserBuildTask =
         browserTranslationsTask,
         browserPkgTask,
         browserCssCopyTask,
+        browserFaviconCopyTask,
         browserIndexRenameTask,
         series(
             browserTranspileTask,
