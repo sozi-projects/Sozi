@@ -105,12 +105,12 @@ function makeInstallDepsTask(target) {
     };
 }
 
-const electronPkgTask = series(
+const electronNodePackageTask = series(
     makePackageJsonTask("electron", {main: "src/js/index-electron.js"}),
     makeInstallDepsTask("electron")
 );
 
-const browserPkgTask = series(
+const browserNodePackageTask = series(
     makePackageJsonTask("browser"),
     makeInstallDepsTask("browser")
 );
@@ -232,7 +232,7 @@ function browserFaviconCopyTask() {
 const electronBuildTask =
     parallel(
         electronTranslationsTask,
-        electronPkgTask,
+        electronNodePackageTask,
         electronCssCopyTask,
         electronIndexRenameTask,
         series(
@@ -250,7 +250,7 @@ const electronBuildTask =
 const browserBuildTask =
     parallel(
         browserTranslationsTask,
-        browserPkgTask,
+        browserNodePackageTask,
         browserCssCopyTask,
         browserFaviconCopyTask,
         browserIndexRenameTask,
@@ -270,8 +270,32 @@ const browserBuildTask =
         )
     );
 
-exports.browserBuild = browserBuildTask;
-exports.default = electronBuildTask;
+exports.browserBuild  = browserBuildTask;
+exports.electronBuild = browserBuildTask;
+exports.default       = electronBuildTask;
+
+/* -------------------------------------------------------------------------- *
+ * Package the desktop application.
+ * -------------------------------------------------------------------------- */
+
+const soziConfigFileName = "./config/sozi-default.json";
+const soziConfig = require(soziConfigFileName);
+
+const packager = require("electron-packager");
+const packagerOpts = Object.assign({
+    electronVersion: "9.2.1",
+    arch: "all",
+    platform: "all",
+    dir: "build/electron",
+    out: "dist",
+    overwrite: true
+}, soziConfig.electronPackager);
+
+function electronPackageTask() {
+    return packager(packagerOpts);
+}
+
+exports.package = series(electronBuildTask, electronPackageTask);
 
 /* -------------------------------------------------------------------------- *
  * Documentation.

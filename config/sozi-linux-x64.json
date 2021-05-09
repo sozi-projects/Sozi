@@ -1,8 +1,9 @@
 {
-    "platforms": [
-        "linux-x64"
-    ],
-    "electronVersion": "9.2.1",
+    "electronPackager": {
+        "platform": ["linux"],
+        "arch": ["x64"],
+        "electronVersion": "9.2.1"
+    },
     "installable": [
         "linux"
     ]
