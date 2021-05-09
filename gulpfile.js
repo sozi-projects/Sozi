@@ -295,6 +295,15 @@ function electronPackageTask() {
     return packager(packagerOpts);
 }
 
+function electronFixLicenseTask() {
+    return Promise.all(soziConfig.electronPackager.platform.map(platform =>
+        soziConfig.electronPackager.arch.map(async arch => {
+            const licensePath = `dist/sozi-${platform}-${arch}/LICENSE`;
+            await copyFile(licensePath, licensePath + ".electron");
+            await copyFile("LICENSE", licensePath);
+        })).flat())
+}
+
 async function electronFfmpegTask() {
     const ffmpegFiles = await glob("resources/ffmpeg/**/ffmpeg*");
     await Promise.all(ffmpegFiles.map(src => {
@@ -336,8 +345,8 @@ const debianArch = {
     x64: "amd64"
 };
 
-async function electronDebianTask() {
-    await Promise.all(soziConfig.electronPackager.platform.map(platform =>
+function electronDebianTask() {
+    return Promise.all(soziConfig.electronPackager.platform.map(platform =>
         platform != "linux" ? Promise.resolve() :
         soziConfig.electronPackager.arch.map(arch =>
             debian(Object.assign(debianOpts, {
@@ -351,6 +360,7 @@ exports.package = series(
     electronPackageTask,
     parallel(
         electronFfmpegTask,
+        electronFixLicenseTask,
         electronInstallScriptsTask
     ),
     electronDebianTask
