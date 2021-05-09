@@ -279,12 +279,11 @@ exports.default       = electronBuildTask;
  * Package the desktop application.
  * -------------------------------------------------------------------------- */
 
-const soziConfigFileName = "./config/sozi-default.json";
-const soziConfig = require(soziConfigFileName);
+const soziConfigName = "SOZI_CONFIG" in process.env ? process.env.SOZI_CONFIG : "sozi-default";
+const soziConfig = require(`./config/${soziConfigName}.json`);
 
 const packager = require("electron-packager");
 const packagerOpts = Object.assign({
-    electronVersion: "9.2.1",
     dir: "build/electron",
     out: "dist",
     overwrite: true
@@ -300,14 +299,34 @@ async function electronFfmpegTask() {
         const base = path.basename(path.dirname(src));
         const pkgDir = `sozi-${base}`;
         const resDir = base.startsWith("darwin") ?
-            path.join("sozi.app", "Contents", "Resources") :
+            "sozi.app/Contents/Resources" :
             "resources";
         const target = path.join("dist", pkgDir, resDir, path.basename(src));
         return copyFile(src, target);
     }));
 }
 
-exports.package = series(electronBuildTask, electronPackageTask, electronFfmpegTask);
+async function electronInstallScriptsTask() {
+    for (const platform of soziConfig.installable) {
+        const res = await glob(`resources/install/${platform}/*`);
+        for (const arch of soziConfig.electronPackager.arch) {
+            const dest = `dist/sozi-${platform}-${arch}/install`;
+            await mkdir(dest);
+            await Promise.all(res.map(src => copyFile(src, path.join(dest, path.basename(src)))));
+        }
+    }
+}
+
+exports.package = series(
+    electronBuildTask,
+    electronPackageTask,
+    parallel(
+        electronFfmpegTask,
+        electronInstallScriptsTask
+    )
+);
+
+exports.installScripts = electronInstallScriptsTask;
 
 /* -------------------------------------------------------------------------- *
  * Documentation.
