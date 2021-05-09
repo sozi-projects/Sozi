@@ -279,10 +279,12 @@ exports.default       = electronBuildTask;
  * Package the desktop application.
  * -------------------------------------------------------------------------- */
 
+const packager = require("electron-packager");
+const debian   = require("electron-installer-debian");
+
 const soziConfigName = "SOZI_CONFIG" in process.env ? process.env.SOZI_CONFIG : "sozi-default";
 const soziConfig = require(`./config/${soziConfigName}.json`);
 
-const packager = require("electron-packager");
 const packagerOpts = Object.assign({
     dir: "build/electron",
     out: "dist",
@@ -317,13 +319,41 @@ async function electronInstallScriptsTask() {
     }
 }
 
+// TODO Check dependencies
+const debianOpts = {
+    maintainer: "Guillaume Savaton <guillaume@baierouge.fr>",
+    dest: "dist/installers",
+    icon: "resources/icons/icon-256.png",
+    section: "graphics",
+    categories: ["Office", "Graphics"],
+    mimeType: ["image/svg+xml"],
+    recommends: ["ffmpeg"],
+    suggests: ["inkscape"]
+};
+
+const debianArch = {
+    ia32: "i386",
+    x64: "amd64"
+};
+
+async function electronDebianTask() {
+    await Promise.all(soziConfig.electronPackager.platform.map(platform =>
+        platform != "linux" ? Promise.resolve() :
+        soziConfig.electronPackager.arch.map(arch =>
+            debian(Object.assign(debianOpts, {
+                src: `dist/sozi-${platform}-${arch}`,
+                arch: debianArch[arch]
+            })))).flat());
+}
+
 exports.package = series(
     electronBuildTask,
     electronPackageTask,
     parallel(
         electronFfmpegTask,
         electronInstallScriptsTask
-    )
+    ),
+    electronDebianTask
 );
 
 exports.installScripts = electronInstallScriptsTask;

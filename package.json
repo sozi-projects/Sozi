@@ -2,6 +2,7 @@
   "name": "sozi",
   "description": "A zooming presentation editor",
   "author": "Guillaume Savaton",
+  "homepage": "http://sozi.baierouge.fr",
   "version": "21.05.07",
   "license": "MPL-2.0",
   "repository": {
@@ -33,6 +34,7 @@
     "browserify": "^17.0.0",
     "csslint": "^1.0.5",
     "electron": "^9.2.1",
+    "electron-installer-debian": "^3.1.0",
     "electron-packager": "^15.2.0",
     "envify": "^4.1.0",
     "eslint": "^7.25.0",

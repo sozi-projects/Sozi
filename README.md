@@ -28,7 +28,8 @@ The build script for Sozi is known to work with Node.js 11 from [Nodesource](htt
 If you plan to build a Windows executable from Linux or OS X, also install *wine*.
 In Debian/Ubuntu and their derivatives, you can type the following commands.
 
-    sudo apt install nodejs wine
+    sudo apt install nodejs
+    sudo apt install wine # To build Windows executables
     sudo npm install --global gulp-cli
 
 If you plan to build Debian packages, install the following additional packages:
