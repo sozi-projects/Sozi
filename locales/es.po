@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-08 05:41:+0000\n"
+"POT-Creation-Date: 2021-05-09 01:32:+0000\n"
 "PO-Revision-Date: 2020-05-25 15:41+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/sozi/"
@@ -76,35 +76,35 @@ msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Error"
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
 msgstr "<i class=\"fas fa-info-circle\"></i> Información"
 
-#: src/js/Controller.js:340
+#: src/js/Controller.js:342
 msgid "Document was changed. Reloading."
 msgstr "Se ha modificado el documento. Recargando."
 
-#: src/js/Controller.js:355
+#: src/js/Controller.js:357
 msgid "Document was changed."
 msgstr "Se modificó el documento."
 
-#: src/js/Controller.js:1722
+#: src/js/Controller.js:1724
 msgid "Presentation was exported to PDF."
 msgstr ""
 
-#: src/js/Controller.js:1725
+#: src/js/Controller.js:1727
 msgid "Failed to write PDF file."
 msgstr ""
 
-#: src/js/Controller.js:1738
+#: src/js/Controller.js:1740
 msgid "Presentation was exported to PPTX."
 msgstr ""
 
-#: src/js/Controller.js:1741
+#: src/js/Controller.js:1743
 msgid "Failed to write PPTX file."
 msgstr ""
 
-#: src/js/Controller.js:1754
+#: src/js/Controller.js:1756
 msgid "Presentation was exported to video."
 msgstr ""
 
-#: src/js/Controller.js:1757
+#: src/js/Controller.js:1759
 msgid "Failed to write video file."
 msgstr ""
 

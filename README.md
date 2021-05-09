@@ -51,9 +51,20 @@ Download and unzip the FFMPEG executables to the following folders:
 Build
 -----
 
-To build the desktop application for all platforms, run the following command from the root of the source tree:
+To build and run the desktop application without packaging it,
+run the following commands from the root of the source tree.
+At startup, Sozi will show an error notification that can be ignored.
 
-    grunt
+```
+gulp
+npm start
+```
+
+To build and package the desktop application for all platforms, do:
+
+```
+gulp package
+```
 
 After a successful build, you will get a `dist` folder that will contain the
 generated application archives for each platform.
@@ -65,29 +76,20 @@ the configuration file (`config/sozi-linux-darwin-x64.json`) will look like this
 
 ```json
 {
-    "platforms": [
-        "darwin-x64",
-        "linux-x64"
-    ]
+    "electronPackager": {
+        "platform": ["darwin", "linux"],
+        "arch": ["x64"],
+        "electronVersion": "9.2.1"
+    },
+    "installable": ["linux"]
 }
 ```
 
-Then run Grunt with the `--config` option:
+Then run Gulp with the `SOZI_CONFIG` environment variable:
 
-    grunt --config=config/sozi-linux-darwin-x64.json
-
-Other Grunt tasks are available for developers:
-
-| Command                            | Effect                                                                       |
-|:-----------------------------------|:-----------------------------------------------------------------------------|
-| `grunt electron-archive` (default) | Build the desktop application and create zip archives for various platforms. |
-| `grunt deb`                        | Build Debian packages.                                                       |
-| `grunt dist`                       | Create zip archives and Debian packages.                                     |
-| `grunt electron-build`             | Build the desktop application without creating archives.                     |
-| `grunt web-build`                  | Build the web application without uploading it.                              |
-| `grunt jspot`                      | Extract a template file (`locales/messages.pot`) for translation.            |
-| `grunt jsdoc`                      | Generate the API documentation.                                              |
-
+```
+SOZI_CONFIG=sozi-linux-darwin-x64 gulp package
+```
 
 Install
 -------

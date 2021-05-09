@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-05-08 05:41:+0000\n"
+"POT-Creation-Date: 2021-05-09 01:32:+0000\n"
 "PO-Revision-Date: 2021-03-17 00:02+0000\n"
 "Last-Translator: Kewei <4mmmmie@gmail.com>\n"
 "Language-Team: Chinese (Pinyin) <https://hosted.weblate.org/projects/sozi/"
@@ -69,35 +69,35 @@ msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Cuòwù"
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
 msgstr "<i class=\"fas fa-info-circle\"></i> Tíshì"
 
-#: src/js/Controller.js:340
+#: src/js/Controller.js:342
 msgid "Document was changed. Reloading."
 msgstr "Wéndàng yǐ xiūgǎi. Chóngxīn jiāzài zhōng."
 
-#: src/js/Controller.js:355
+#: src/js/Controller.js:357
 msgid "Document was changed."
 msgstr "Wéndàng yǐ xiūgǎi."
 
-#: src/js/Controller.js:1722
+#: src/js/Controller.js:1724
 msgid "Presentation was exported to PDF."
 msgstr "演示文稿已导出为PDF。"
 
-#: src/js/Controller.js:1725
+#: src/js/Controller.js:1727
 msgid "Failed to write PDF file."
 msgstr "无法写入PDF文件。"
 
-#: src/js/Controller.js:1738
+#: src/js/Controller.js:1740
 msgid "Presentation was exported to PPTX."
 msgstr "演示文稿已导出为PDF。"
 
-#: src/js/Controller.js:1741
+#: src/js/Controller.js:1743
 msgid "Failed to write PPTX file."
 msgstr "无法写入PPTX文件。"
 
-#: src/js/Controller.js:1754
+#: src/js/Controller.js:1756
 msgid "Presentation was exported to video."
 msgstr "演示文稿已导出到视频。"
 
-#: src/js/Controller.js:1757
+#: src/js/Controller.js:1759
 msgid "Failed to write video file."
 msgstr "无法写入视频文件。"
 
