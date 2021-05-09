@@ -153,7 +153,7 @@ export class Storage {
     async reload() {
         await this.save();
         const data = await this.backend.load(this.svgFileDescriptor);
-        this.loadSVGData(data);
+        await this.loadSVGData(data);
     }
 
     /** Assign an SVG file descriptor and backend.
@@ -167,7 +167,7 @@ export class Storage {
         this.svgFileDescriptor = fileDescriptor;
         this.backend           = backend;
         const data = await this.backend.load(this.svgFileDescriptor);
-        this.loadSVGData(data);
+        await this.loadSVGData(data);
     }
 
     /** Load the content of an SVG document.
@@ -178,7 +178,7 @@ export class Storage {
      *
      * @param {string} data  - The content of an SVG file, as text.
      */
-    loadSVGData(data) {
+    async loadSVGData(data) {
         const _        = this.controller.gettext;
         const name     = this.backend.getName(this.svgFileDescriptor);
         const location = this.backend.getLocation(this.svgFileDescriptor);
@@ -187,7 +187,7 @@ export class Storage {
         if (this.document.isValidSVG) {
             this.resolveRelativeURLs(location);
             this.presentation.setSVGDocument(this.document);
-            this.openJSONFile(replaceFileExtWith(name, ".sozi.json"), location);
+            await this.openJSONFile(replaceFileExtWith(name, ".sozi.json"), location);
         }
         else {
             this.controller.error(_("Document is not valid SVG."));

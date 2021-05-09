@@ -325,6 +325,8 @@ export class Controller extends EventEmitter {
                 this.defaultLayers.push(layer);
             }
         }
+
+        this.emit("repaint");
     }
 
     /** Process an SVG document change event.
