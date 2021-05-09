@@ -114,6 +114,11 @@ button {
     background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(180, 180, 180) 100%);
 }
 
+select:active,
+button:active {
+    background: linear-gradient(to bottom, rgb(200, 200, 200), rgb(160, 160, 160) 100%);
+}
+
 option {
     background: rgb(220, 220, 220);
 }
@@ -130,6 +135,10 @@ button:disabled {
 
 .active {
     background: linear-gradient(to bottom, rgb(150, 200, 200), rgb(180, 220, 220) 100%);
+}
+
+button.active:active {
+    background: linear-gradient(to bottom, rgb(135, 180, 180), rgb(160, 200, 200) 100%);
 }
 
 .multiple {
