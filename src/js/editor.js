@@ -20,8 +20,6 @@ import nunjucks from "nunjucks";
 window.addEventListener("load", () => {
     nunjucks.configure({watch: false});
 
-    Notification.requestPermission();
-
     const presentation = new Presentation();
     const selection    = new Selection(presentation);
     const viewport     = new Viewport(presentation, true);
