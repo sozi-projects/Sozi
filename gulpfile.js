@@ -8,6 +8,7 @@ const glob      = util.promisify(require("glob"));
 const log       = require("fancy-log");
 const writeFile_ = util.promisify(fs.writeFile);
 const mkdir      = util.promisify(fs.mkdir);
+const copyFile   = util.promisify(fs.copyFile);
 
 async function writeFile(name, content) {
     await mkdir(path.dirname(name), {recursive: true});
@@ -284,8 +285,6 @@ const soziConfig = require(soziConfigFileName);
 const packager = require("electron-packager");
 const packagerOpts = Object.assign({
     electronVersion: "9.2.1",
-    arch: "all",
-    platform: "all",
     dir: "build/electron",
     out: "dist",
     overwrite: true
@@ -295,7 +294,20 @@ function electronPackageTask() {
     return packager(packagerOpts);
 }
 
-exports.package = series(electronBuildTask, electronPackageTask);
+async function electronFfmpegTask() {
+    const ffmpegFiles = await glob("resources/ffmpeg/**/ffmpeg*");
+    await Promise.all(ffmpegFiles.map(src => {
+        const base = path.basename(path.dirname(src));
+        const pkgDir = `sozi-${base}`;
+        const resDir = base.startsWith("darwin") ?
+            path.join("sozi.app", "Contents", "Resources") :
+            "resources";
+        const target = path.join("dist", pkgDir, resDir, path.basename(src));
+        return copyFile(src, target);
+    }));
+}
+
+exports.package = series(electronBuildTask, electronPackageTask, electronFfmpegTask);
 
 /* -------------------------------------------------------------------------- *
  * Documentation.
