@@ -23,6 +23,25 @@ export function hasReliableBoundaries(elt) {
     return !/text|textpath|tspan/i.test(elt.tagName);
 }
 
+/** Get a list of graphics elements in the given element.
+ *
+ * If `elt` is a group, return a list of its children, non-group, graphics elements.
+ * If `elt` is another graphics element, return a list with this element.
+ *
+ * @param {SVGElement} elt - An SVG element to inspect.
+ * @return {SVGElement[]} - A list of graphics elements.
+ */
+function getGraphicsElements(elt) {
+    switch (true) {
+        case elt instanceof SVGGElement:
+            return Array.from(elt.childNodes).map(getGraphicsElements).flat();
+        case elt instanceof SVGGraphicsElement:
+            return [elt];
+        default:
+            return [];
+    }
+}
+
 /** Camera.
  *
  * @extends module:model/CameraState.CameraState
@@ -288,11 +307,6 @@ export class Camera extends CameraState {
      * @returns {object} - An object `{element, score}` with an SVG element and a number that indicates how well the element fits the viewport.
      */
     getCandidateReferenceElement() {
-        // FIXME getIntersectionList is not supported in Gecko
-        if (!this.layer.svgNodes.length || !this.svgRoot.getIntersectionList) {
-            return {element: null, score: null};
-        }
-
         // Get all elements that intersect with the viewport.
         const viewportArea     = this.viewport.width * this.viewport.height;
         const viewportRect     = this.svgRoot.createSVGRect();
@@ -300,7 +314,15 @@ export class Camera extends CameraState {
         viewportRect.y         = 0;
         viewportRect.width     = this.viewport.width;
         viewportRect.height    = this.viewport.height;
-        const intersectionList = this.svgRoot.getIntersectionList(viewportRect, this.layer.svgNodes[0]);
+
+        // Fallback for getIntersectionList not supported in Gecko
+        const intersectionList = this.svgRoot.getIntersectionList ?
+            this.svgRoot.getIntersectionList(viewportRect, this.layer.svgNodes[0]) :
+            getGraphicsElements(this.layer.svgNodes[0]);
+
+        if (!intersectionList.length) {
+            return {element: null, score: null};
+        }
 
         // Find the element whose bounding box best fits in the viewport.
         let element = null;
