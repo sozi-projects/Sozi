@@ -209,21 +209,21 @@ function makeCssCopyTask(target) {
 const electronCssCopyTask = makeCssCopyTask("electron");
 const browserCssCopyTask  = makeCssCopyTask("browser");
 
-function makeRenameTask(fromPath, toName, toPath = ".") {
+function makeRenameTask(fromPath, toPath) {
     return function renameTask() {
         return src(fromPath)
-            .pipe(rename(toName))
-            .pipe(dest(path.join(toPath, path.dirname(fromPath))));
+            .pipe(rename(path.basename(toPath)))
+            .pipe(dest(path.dirname(toPath)));
     };
 }
 
-const electronIndexRenameTask        = makeRenameTask("src/index-electron.html", "index.html", "build/electron");
-const electronBackendIndexRenameTask = makeRenameTask("build/electron/src/js/backend/index-electron.js", "index.js")
-const electronExporterRenameTask     = makeRenameTask("build/electron/src/js/exporter/index-electron.js", "index.js")
+const electronIndexRenameTask        = makeRenameTask("src/index-electron.html",                          "build/electron/src/index.html");
+const electronBackendIndexRenameTask = makeRenameTask("build/electron/src/js/backend/index-electron.js",  "build/electron/src/js/backend/index.js")
+const electronExporterRenameTask     = makeRenameTask("build/electron/src/js/exporter/index-electron.js", "build/electron/src/js/exporter/index.js")
 
-const browserIndexRenameTask        = makeRenameTask("src/index-browser.html", "index.html", "build/browser");
-const browserBackendIndexRenameTask = makeRenameTask("build/browser/src/js/backend/index-browser.js", "index.js")
-const browserExporterRenameTask     = makeRenameTask("build/browser/src/js/exporter/index-browser.js", "index.js")
+const browserIndexRenameTask        = makeRenameTask("src/index-browser.html",                         "build/browser/index.html");
+const browserBackendIndexRenameTask = makeRenameTask("build/browser/src/js/backend/index-browser.js",  "build/browser/src/js/backend/index.js")
+const browserExporterRenameTask     = makeRenameTask("build/browser/src/js/exporter/index-browser.js", "build/browser/src/js/exporter/index.js")
 
 function browserFaviconCopyTask() {
     return src("resources/icons/favicon.ico")
