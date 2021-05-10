@@ -285,6 +285,13 @@ const debian   = require("electron-installer-debian");
 const soziConfigName = "SOZI_CONFIG" in process.env ? process.env.SOZI_CONFIG : "sozi-default";
 const soziConfig = require(`./config/${soziConfigName}.json`);
 
+const electronTargets = soziConfig.electronPackager.platform.map(platform =>
+    soziConfig.electronPackager.arch.map(arch => ({
+        platform,
+        arch,
+        dir: `dist/sozi-${platform}-${arch}`
+    }))).flat();
+
 const packagerOpts = Object.assign({
     dir: "build/electron",
     out: "dist",
@@ -296,12 +303,13 @@ function electronPackageTask() {
 }
 
 function electronFixLicenseTask() {
-    return Promise.all(soziConfig.electronPackager.platform.map(platform =>
-        soziConfig.electronPackager.arch.map(async arch => {
-            const licensePath = `dist/sozi-${platform}-${arch}/LICENSE`;
+    return Promise.all(electronTargets.map(async ({dir}) => {
+        if (fs.existsSync(dir)) {
+            const licensePath = `${dir}/LICENSE`;
             await copyFile(licensePath, licensePath + ".electron");
             await copyFile("LICENSE", licensePath);
-        })).flat())
+        }
+    }));
 }
 
 async function electronFfmpegTask() {
@@ -312,20 +320,22 @@ async function electronFfmpegTask() {
         const resDir = base.startsWith("darwin") ?
             "sozi.app/Contents/Resources" :
             "resources";
-        const target = path.join("dist", pkgDir, resDir, path.basename(src));
-        return copyFile(src, target);
+        const dest = path.join("dist", pkgDir, resDir, path.basename(src));
+        return copyFile(src, dest);
     }));
 }
 
-async function electronInstallScriptsTask() {
-    for (const platform of soziConfig.installable) {
-        const res = await glob(`resources/install/${platform}/*`);
-        for (const arch of soziConfig.electronPackager.arch) {
-            const dest = `dist/sozi-${platform}-${arch}/install`;
+function electronInstallScriptsTask() {
+    return Promise.all(electronTargets.map(async ({platform, dir}) => {
+        if (fs.existsSync(dir)) {
+            // Create install folder in electron application folder.
+            const dest = `${dir}/install`;
             await mkdir(dest);
+            // Copy install files to install folder.
+            const res = await glob(`resources/install/${platform}/*`);
             await Promise.all(res.map(src => copyFile(src, path.join(dest, path.basename(src)))));
         }
-    }
+    }));
 }
 
 // TODO Check dependencies
@@ -346,13 +356,14 @@ const debianArch = {
 };
 
 function electronDebianTask() {
-    return Promise.all(soziConfig.electronPackager.platform.map(platform =>
-        platform != "linux" ? Promise.resolve() :
-        soziConfig.electronPackager.arch.map(arch =>
+    return Promise.all(electronTargets.map(({platform, arch, dir}) => {
+        return platform != "linux" ?
+            Promise.resolve() :
             debian(Object.assign(debianOpts, {
-                src: `dist/sozi-${platform}-${arch}`,
+                src: dir,
                 arch: debianArch[arch]
-            })))).flat());
+            }));
+    }));
 }
 
 exports.package = series(
