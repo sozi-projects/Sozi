@@ -1,18 +1,27 @@
 
 const {src, dest, series, parallel} = require("gulp");
-const util      = require("util");
-const path      = require("path");
-const fs        = require("fs");
-const exec      = util.promisify(require("child_process").exec);
-const glob      = util.promisify(require("glob"));
-const log       = require("fancy-log");
+const util       = require("util");
+const path       = require("path");
+const fs         = require("fs");
+const exec       = util.promisify(require("child_process").exec);
+const glob       = util.promisify(require("glob"));
+const log        = require("fancy-log");
 const writeFile_ = util.promisify(fs.writeFile);
-const mkdir      = util.promisify(fs.mkdir);
-const copyFile   = util.promisify(fs.copyFile);
+const mkdir_     = util.promisify(fs.mkdir);
+const copyFile_  = util.promisify(fs.copyFile);
+
+function mkdir(path) {
+    return mkdir_(path, {recursive: true});
+}
 
 async function writeFile(name, content) {
-    await mkdir(path.dirname(name), {recursive: true});
+    await mkdir(path.dirname(name));
     await writeFile_(name, content);
+}
+
+async function copyFile(src, dest) {
+    await mkdir(path.dirname(dest));
+    await copyFile_(src, dest);
 }
 
 /* -------------------------------------------------------------------------- *
@@ -314,26 +323,50 @@ function electronFixLicenseTask() {
 
 async function electronFfmpegTask() {
     const ffmpegFiles = await glob("resources/ffmpeg/**/ffmpeg*");
-    await Promise.all(ffmpegFiles.map(src => {
+    await Promise.all(ffmpegFiles.map(async src => {
         const base = path.basename(path.dirname(src));
-        const pkgDir = `sozi-${base}`;
-        const resDir = base.startsWith("darwin") ?
-            "sozi.app/Contents/Resources" :
-            "resources";
-        const dest = path.join("dist", pkgDir, resDir, path.basename(src));
-        return copyFile(src, dest);
+        const pkgDir = `dist/sozi-${base}`;
+        if (fs.existsSync(pkgDir)) {
+            const resDir = base.startsWith("darwin") ?
+                "sozi.app/Contents/Resources" :
+                "resources";
+            const dest = path.join(pkgDir, resDir, path.basename(src));
+            await copyFile(src, dest);
+        }
     }));
 }
 
 function electronInstallScriptsTask() {
     return Promise.all(electronTargets.map(async ({platform, dir}) => {
         if (fs.existsSync(dir)) {
-            // Create install folder in electron application folder.
-            const dest = `${dir}/install`;
-            await mkdir(dest);
-            // Copy install files to install folder.
             const res = await glob(`resources/install/${platform}/*`);
+            const dest = `${dir}/install`;
             await Promise.all(res.map(src => copyFile(src, path.join(dest, path.basename(src)))));
+        }
+    }));
+}
+
+const zipFormat = {
+    linux: "tar.xz",
+    darwin: "tar.xz",
+    win32: "zip"
+};
+
+function electronCompressTask() {
+    const opts = {
+        cwd: "dist",
+        stdio: "ignore"
+    };
+    return Promise.all(electronTargets.map(async ({platform, dir}) => {
+        if (fs.existsSync(dir)) {
+            const ext = zipFormat[platform];
+            await mkdir("dist/installers")
+            const src  = path.relative("dist", dir);
+            const dest = `installers/${src}.${ext}`;
+            switch (ext) {
+                case "tar.xz": await exec(`tar cJf ${dest} ${src}`, opts); break;
+                case "zip":    await exec(`zip -ry ${dest} ${src}`, opts); break;
+            }
         }
     }));
 }
@@ -374,7 +407,10 @@ exports.package = series(
         electronFixLicenseTask,
         electronInstallScriptsTask
     ),
-    electronDebianTask
+    parallel(
+        electronDebianTask,
+        electronCompressTask
+    )
 );
 
 exports.installScripts = electronInstallScriptsTask;

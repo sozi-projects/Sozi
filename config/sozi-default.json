@@ -3,6 +3,5 @@
         "platform": ["darwin", "linux", "win32"],
         "arch": ["x64", "ia32"],
         "electronVersion": "9.2.1"
-    },
-    "installable": ["linux"]
+    }
 }
