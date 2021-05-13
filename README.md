@@ -70,7 +70,7 @@ gulp all
 After a successful build, you will get a `build/dist` folder that contains the
 generated application archives for each platform.
 
-You can customize the build by creating a custom configuration file.
+You can customize the build by creating a configuration file in the `config` folder.
 See `config/sozi-default.json` and `config/sozi-linux-x64.json` for examples.
 For instance, if you want to build 64-bit executables for OS X and Linux,
 the configuration file (`config/sozi-linux-darwin-x64.json`) will look like this:
@@ -127,8 +127,8 @@ cd sozi-[...]/install
 ./install-local.sh
 ```
 
-Helping debugging Sozi
-======================
+Helping debug Sozi
+==================
 
 While Sozi is running, press `F12` to open the developer tools.
 Check the *Console* tab for error messages.
