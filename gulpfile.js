@@ -438,17 +438,19 @@ const electronDistTask = series(
     )
 );
 
+exports.package = electronDistTask;
+
 /* -------------------------------------------------------------------------- *
  * Package the desktop application.
  * -------------------------------------------------------------------------- */
 
-function makeZipTask(dir) {
+function makeZipTask(fromPath, toPath) {
     const opts = {
-        cwd: path.dirname(dir),
+        cwd: path.dirname(fromPath),
         stdio: "ignore"
     };
-    const src  = path.basename(dir);
-    const dest = path.relative(opts.cwd, `${distDir}/${src}.zip`);
+    const src  = path.basename(fromPath);
+    const dest = path.relative(opts.cwd, toPath);
     return async function zipTask() {
         await mkdir(distDir)
         await exec(`zip -ry ${dest} ${src}`, opts);
@@ -456,9 +458,11 @@ function makeZipTask(dir) {
 }
 
 const extrasMediaCompressTask =parallel(
-    makeZipTask("extras/media-inkscape-0.92"),
-    makeZipTask("extras/media-inkscape-1.0")
+    makeZipTask("extras/media-inkscape-0.92", `${distDir}/sozi-extras-media-${soziVersion}-inkscape-0.92.zip`),
+    makeZipTask("extras/media-inkscape-1.0",  `${distDir}/sozi-extras-media-${soziVersion}-inkscape-1.0.zip`)
 )
+
+exports.extras = extrasMediaCompressTask;
 
 exports.all = parallel(
     electronDistTask,
