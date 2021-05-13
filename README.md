@@ -40,7 +40,7 @@ From the root of the source tree:
 
     npm install
 
-Get the binaries for ffmpeg (optional, video export will not work without them).
+Get the binaries for ffmpeg (optional, but video export will not work without them).
 Download and unzip the FFMPEG executables to the following folders:
 
 * Linux 32-bit: `vendor/ffmpeg/linux-ia32`
@@ -64,10 +64,10 @@ npm start
 To build and package the desktop application for all platforms, do:
 
 ```
-gulp package
+gulp all
 ```
 
-After a successful build, you will get a `dist` folder that will contain the
+After a successful build, you will get a `build/dist` folder that contains the
 generated application archives for each platform.
 
 You can customize the build by creating a custom configuration file.
@@ -81,85 +81,50 @@ the configuration file (`config/sozi-linux-darwin-x64.json`) will look like this
         "platform": ["darwin", "linux"],
         "arch": ["x64"],
         "electronVersion": "9.2.1"
-    },
-    "installable": ["linux"]
+    }
 }
 ```
 
 Then run Gulp with the `SOZI_CONFIG` environment variable:
 
 ```
-SOZI_CONFIG=sozi-linux-darwin-x64 gulp package
+SOZI_CONFIG=sozi-linux-darwin-x64 gulp all
 ```
 
 Install
 -------
 
-Since Sozi 18.01, a Debian package is available for users of Debian or Ubuntu-based distributions.
+A Debian package is available for users of Debian or Ubuntu-based distributions.
 
 ```
 sudo dpkg -i sozi_[...].deb
 ```
 
-[Alien](https://joeyh.name/code/alien/) can convert it to an RPM package by `sudo alien --to-rpm`.
+You can convert it to the RPM format with [Alien](https://joeyh.name/code/alien/):
+
+```
+sudo alien --to-rpm sozi_[...].deb
+```
 
 For other platforms, Sozi is released as a zip/tar.xz archive that you can extract wherever you like.
 
-* OS X users can drag the `Sozi.app` subfolder into their `Applications` folder.
-* Windows and Linux users can run the `Sozi` executable directly from the extracted folder.
+* OS X users can drag the `sozi.app` subfolder into their `Applications` folder.
+* Windows and Linux users can run the `sozi` executable directly from the extracted folder.
 
-If installation on your specific platform is supported by Sozi, there will be an *install* folder in the extracted archive containing installation scripts.
+If installation on your specific platform is supported by Sozi,
+there will be an *install* folder in the extracted archive containing installation scripts.
 To install Sozi system-wide:
 
 ```
-cd Sozi-[...]/install
+cd sozi-[...]/install
 sudo ./install.sh
 ```
 
 To install Sozi in your home folder:
 
 ```
-cd Sozi-[...]/install
+cd sozi-[...]/install
 ./install-local.sh
-```
-
-In many situations, Sozi will not need additional software to be installed.
-If Sozi complains about missing libraries, here is the list of all the known
-runtime dependencies of the `Sozi` executable:
-
-```
-libasound2
-libatk1.0-0
-libc6
-libcairo2
-libcups2
-libdbus-1-3
-libexpat1
-libfontconfig1
-libfreetype6
-libgcc1
-libgconf-2-4
-libgdk-pixbuf2.0-0
-libglib2.0-0
-libgtk2.0-0
-libnspr4
-libnss3
-libpango-1.0-0
-libpangocairo-1.0-0
-libstdc++6
-libx11-6
-libx11-xcb1
-libxcb1
-libxcomposite1
-libxcursor1
-libxdamage1
-libxext6
-libxfixes3
-libxi6
-libxrandr2
-libxrender1
-libxss1
-libxtst6
 ```
 
 Helping debugging Sozi
