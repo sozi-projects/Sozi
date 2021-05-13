@@ -3,12 +3,14 @@ const {src, dest, series, parallel} = require("gulp");
 const util       = require("util");
 const path       = require("path");
 const fs         = require("fs");
+const {execSync} = require("child_process");
 const exec       = util.promisify(require("child_process").exec);
 const glob       = util.promisify(require("glob"));
 const log        = require("fancy-log");
 const writeFile_ = util.promisify(fs.writeFile);
 const mkdir_     = util.promisify(fs.mkdir);
 const copyFile_  = util.promisify(fs.copyFile);
+const renameFile = util.promisify(fs.rename);
 
 function mkdir(path) {
     return mkdir_(path, {recursive: true});
@@ -24,6 +26,21 @@ async function copyFile(src, dest) {
     await copyFile_(src, dest);
 }
 
+function makeCopyTask(fromPath, toPath) {
+    return function copyTask() {
+        return src(fromPath, {allowEmpty: true})
+            .pipe(dest(toPath));
+    }
+}
+
+function makeRenameTask(fromPath, toPath) {
+    return function renameTask() {
+        return src(fromPath, {allowEmpty: true})
+            .pipe(rename(path.basename(toPath)))
+            .pipe(dest(path.dirname(toPath)));
+    };
+}
+
 /* -------------------------------------------------------------------------- *
  * Internationalization
  * -------------------------------------------------------------------------- */
@@ -33,7 +50,7 @@ const po2json = util.promisify(require("po2json").parseFile);
 
 async function jspotTask() {
     const files = await glob("src/**/*.js");
-    return jspot.extract({
+    jspot.extract({
         keyword: "_",
         parserOptions: {
             sourceType: "module",
@@ -83,10 +100,10 @@ const browserTranslationsTask  = series(jspotTask, msgmergeTask, makePo2JsonTask
 
 const modclean = require("modclean");
 
-async function getSoziVersion() {
+function getSoziVersion() {
     // Get version number from last commit date.
-    const rev = (await exec('git show -s --format="%cI %ct"'))
-                .stdout.toString().trim().split(" ");
+    const rev = execSync('git show -s --format="%cI %ct"')
+                    .toString().trim().split(" ");
     // Format Sozi version: YY.MM.DD-T (year.month.timestamp).
     const year   = rev[0].slice(2,  4);
     const month  = rev[0].slice(5,  7);
@@ -95,11 +112,16 @@ async function getSoziVersion() {
     return `${year}.${month}.${day}-${tstamp}`;
 }
 
+const soziVersion = getSoziVersion();
+
 function makePackageJsonTask(target, opts = {}) {
     return async function packageJsonTask() {
-        const pkg = Object.assign(require("./package.json"), opts);
+        const pkg = {
+            ...require("./package.json"),
+            ...opts,
+            version: soziVersion
+        };
         delete pkg.devDependencies;
-        pkg.version = await getSoziVersion();
         await writeFile(`build/${target}/package.json`, JSON.stringify(pkg));
     };
 }
@@ -208,23 +230,8 @@ const browserTemplatesTask = parallel(
     makeTemplateTask("browser", "presenter")
 );
 
-function makeCssCopyTask(target) {
-    return function cssCopyTask() {
-        return src("src/css/**/*.css")
-            .pipe(dest(`build/${target}/src/css/`));
-    };
-}
-
-const electronCssCopyTask = makeCssCopyTask("electron");
-const browserCssCopyTask  = makeCssCopyTask("browser");
-
-function makeRenameTask(fromPath, toPath) {
-    return function renameTask() {
-        return src(fromPath)
-            .pipe(rename(path.basename(toPath)))
-            .pipe(dest(path.dirname(toPath)));
-    };
-}
+const electronCssCopyTask = makeCopyTask("src/css/**/*.css", `build/electron/src/css/`);
+const browserCssCopyTask  = makeCopyTask("src/css/**/*.css", `build/browser/src/css/`);
 
 const electronIndexRenameTask        = makeRenameTask("src/index-electron.html",                          "build/electron/src/index.html");
 const electronBackendIndexRenameTask = makeRenameTask("build/electron/src/js/backend/index-electron.js",  "build/electron/src/js/backend/index.js")
@@ -234,10 +241,7 @@ const browserIndexRenameTask        = makeRenameTask("src/index-browser.html",  
 const browserBackendIndexRenameTask = makeRenameTask("build/browser/src/js/backend/index-browser.js",  "build/browser/src/js/backend/index.js")
 const browserExporterRenameTask     = makeRenameTask("build/browser/src/js/exporter/index-browser.js", "build/browser/src/js/exporter/index.js")
 
-function browserFaviconCopyTask() {
-    return src("resources/icons/favicon.ico")
-        .pipe(dest("build/browser"));
-}
+const browserFaviconCopyTask = makeCopyTask("resources/icons/favicon.ico", "build/browser");
 
 const electronBuildTask =
     parallel(
@@ -294,56 +298,70 @@ const debian   = require("electron-installer-debian");
 const soziConfigName = "SOZI_CONFIG" in process.env ? process.env.SOZI_CONFIG : "sozi-default";
 const soziConfig = require(`./config/${soziConfigName}.json`);
 
+const platformRename = {
+    linux: "linux",
+    darwin: "osx",
+    win32: "windows"
+};
+
 const electronTargets = soziConfig.electronPackager.platform.map(platform =>
     soziConfig.electronPackager.arch.map(arch => ({
         platform,
         arch,
-        dir: `dist/sozi-${platform}-${arch}`
+        packagerDir: `dist/sozi-${platform}-${arch}`,
+        dir: `dist/sozi-${soziVersion}-${platformRename[platform]}-${arch}`
     }))).flat();
 
-const packagerOpts = Object.assign({
+const packagerOpts = {
     dir: "build/electron",
     out: "dist",
-    overwrite: true
-}, soziConfig.electronPackager);
+    overwrite: true,
+    ...soziConfig.electronPackager
+};
 
 function electronPackageTask() {
     return packager(packagerOpts);
 }
 
-function electronFixLicenseTask() {
-    return Promise.all(electronTargets.map(async ({dir}) => {
-        if (fs.existsSync(dir)) {
-            const licensePath = `${dir}/LICENSE`;
-            await copyFile(licensePath, licensePath + ".electron");
-            await copyFile("LICENSE", licensePath);
-        }
-    }));
+function makeElectronPackageRenameTasks() {
+    return parallel(...electronTargets
+        .map(({packagerDir, dir}) => async function electronPackageRename() {
+            // We don't use makeRenameTask here because we want to
+            // rename each folder in place.
+            if (fs.existsSync(packagerDir)) {
+                await renameFile(packagerDir, dir);
+            }
+        })
+    );
 }
 
-async function electronFfmpegTask() {
-    const ffmpegFiles = await glob("resources/ffmpeg/**/ffmpeg*");
-    await Promise.all(ffmpegFiles.map(async src => {
-        const base = path.basename(path.dirname(src));
-        const pkgDir = `dist/sozi-${base}`;
-        if (fs.existsSync(pkgDir)) {
-            const resDir = base.startsWith("darwin") ?
-                "sozi.app/Contents/Resources" :
-                "resources";
-            const dest = path.join(pkgDir, resDir, path.basename(src));
-            await copyFile(src, dest);
-        }
-    }));
+function makeElectronFixLicenseTasks() {
+    return parallel(...electronTargets
+        .map(({dir}) => series(
+            makeRenameTask(`${dir}/LICENSE`, `${dir}/LICENSE.electron`),
+            makeCopyTask("LICENSE", dir)
+        ))
+    );
 }
 
-function electronInstallScriptsTask() {
-    return Promise.all(electronTargets.map(async ({platform, dir}) => {
-        if (fs.existsSync(dir)) {
-            const res = await glob(`resources/install/${platform}/*`);
-            const dest = `${dir}/install`;
-            await Promise.all(res.map(src => copyFile(src, path.join(dest, path.basename(src)))));
-        }
-    }));
+function makeElectronFfmpegTasks() {
+    return parallel(...electronTargets
+        .map(({platform, arch, dir}) => makeCopyTask(
+            `resources/ffmpeg/${platform}-${arch}/ffmpeg*`,
+            platform === "darwin" ?
+                `${dir}/sozi.app/Contents/Resources` :
+                `${dir}/resources`
+        ))
+    );
+}
+
+function makeElectronInstallScriptsTasks() {
+    return parallel(...electronTargets
+        .map(({platform, dir}) => makeCopyTask(
+            `resources/install/${platform}/*`,
+            `${dir}/install/`
+        ))
+    );
 }
 
 const zipFormat = {
@@ -352,26 +370,27 @@ const zipFormat = {
     win32: "zip"
 };
 
-function electronCompressTask() {
+function makeElectronCompressTasks() {
     const opts = {
         cwd: "dist",
         stdio: "ignore"
     };
-    return Promise.all(electronTargets.map(async ({platform, dir}) => {
-        if (fs.existsSync(dir)) {
-            const ext = zipFormat[platform];
-            await mkdir("dist/installers")
-            const src  = path.relative("dist", dir);
-            const dest = `installers/${src}.${ext}`;
-            switch (ext) {
-                case "tar.xz": await exec(`tar cJf ${dest} ${src}`, opts); break;
-                case "zip":    await exec(`zip -ry ${dest} ${src}`, opts); break;
+    return parallel(...electronTargets
+        .map(({platform, arch, dir}) => async function electronCompressTask() {
+            if (fs.existsSync(dir)) {
+                const ext  = zipFormat[platform];
+                const src  = path.relative("dist", dir);
+                const dest = `installers/${src}.${ext}`;
+                await mkdir("dist/installers")
+                switch (ext) {
+                    case "tar.xz": await exec(`tar cJf ${dest} ${src}`, opts); break;
+                    case "zip":    await exec(`zip -ry ${dest} ${src}`, opts); break;
+                }
             }
-        }
-    }));
+        })
+    );
 }
 
-// TODO Check dependencies
 const debianOpts = {
     maintainer: "Guillaume Savaton <guillaume@baierouge.fr>",
     dest: "dist/installers",
@@ -388,32 +407,33 @@ const debianArch = {
     x64: "amd64"
 };
 
-function electronDebianTask() {
-    return Promise.all(electronTargets.map(({platform, arch, dir}) => {
-        return platform != "linux" ?
-            Promise.resolve() :
-            debian(Object.assign(debianOpts, {
+function makeElectronDebianTasks() {
+    return parallel(...electronTargets
+        .filter(t => t.platform === "linux")
+        .map(({arch, dir}) => function electronDebianTask () {
+            return debian({
                 src: dir,
-                arch: debianArch[arch]
-            }));
-    }));
+                arch: debianArch[arch],
+                ...debianOpts
+            });
+        })
+    );
 }
 
 exports.package = series(
     electronBuildTask,
     electronPackageTask,
+    makeElectronPackageRenameTasks(),
     parallel(
-        electronFfmpegTask,
-        electronFixLicenseTask,
-        electronInstallScriptsTask
+        makeElectronFfmpegTasks(),
+        makeElectronFixLicenseTasks(),
+        makeElectronInstallScriptsTasks()
     ),
     parallel(
-        electronDebianTask,
-        electronCompressTask
+        makeElectronDebianTasks(),
+        makeElectronCompressTasks()
     )
 );
-
-exports.installScripts = electronInstallScriptsTask;
 
 /* -------------------------------------------------------------------------- *
  * Documentation.
@@ -423,7 +443,7 @@ const jsdoc = require("gulp-jsdoc3");
 
 function jsdocTask(cb) {
     const config = require("./config/jsdoc.json");
-    src("./src/**/*.js", {read: false})
+    return src("./src/**/*.js", {read: false})
         .pipe(jsdoc(config, cb));
 }
 
