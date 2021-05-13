@@ -298,6 +298,9 @@ const debian   = require("electron-installer-debian");
 const soziConfigName = "SOZI_CONFIG" in process.env ? process.env.SOZI_CONFIG : "sozi-default";
 const soziConfig = require(`./config/${soziConfigName}.json`);
 
+const packagingDir = "build/packaging";
+const distDir      = "build/dist";
+
 const platformRename = {
     linux: "linux",
     darwin: "osx",
@@ -308,13 +311,13 @@ const electronTargets = soziConfig.electronPackager.platform.map(platform =>
     soziConfig.electronPackager.arch.map(arch => ({
         platform,
         arch,
-        packagerDir: `dist/sozi-${platform}-${arch}`,
-        dir: `dist/sozi-${soziVersion}-${platformRename[platform]}-${arch}`
+        epkgDir: `${packagingDir}/sozi-${platform}-${arch}`,
+        dir: `${packagingDir}/sozi-${soziVersion}-${platformRename[platform]}-${arch}`
     }))).flat();
 
 const packagerOpts = {
     dir: "build/electron",
-    out: "dist",
+    out: packagingDir,
     overwrite: true,
     ...soziConfig.electronPackager
 };
@@ -325,11 +328,11 @@ function electronPackageTask() {
 
 function makeElectronPackageRenameTasks() {
     return parallel(...electronTargets
-        .map(({packagerDir, dir}) => async function electronPackageRename() {
+        .map(({epkgDir, dir}) => async function electronPackageRename() {
             // We don't use makeRenameTask here because we want to
             // rename each folder in place.
-            if (fs.existsSync(packagerDir)) {
-                await renameFile(packagerDir, dir);
+            if (fs.existsSync(epkgDir)) {
+                await renameFile(epkgDir, dir);
             }
         })
     );
@@ -372,16 +375,16 @@ const zipFormat = {
 
 function makeElectronCompressTasks() {
     const opts = {
-        cwd: "dist",
+        cwd: packagingDir,
         stdio: "ignore"
     };
     return parallel(...electronTargets
         .map(({platform, arch, dir}) => async function electronCompressTask() {
             if (fs.existsSync(dir)) {
                 const ext  = zipFormat[platform];
-                const src  = path.relative("dist", dir);
-                const dest = `installers/${src}.${ext}`;
-                await mkdir("dist/installers")
+                const src  = path.relative(opts.cwd, dir);
+                const dest = path.relative(opts.cwd, `${distDir}/${src}.${ext}`);
+                await mkdir(distDir)
                 switch (ext) {
                     case "tar.xz": await exec(`tar cJf ${dest} ${src}`, opts); break;
                     case "zip":    await exec(`zip -ry ${dest} ${src}`, opts); break;
@@ -393,7 +396,7 @@ function makeElectronCompressTasks() {
 
 const debianOpts = {
     maintainer: "Guillaume Savaton <guillaume@baierouge.fr>",
-    dest: "dist/installers",
+    dest: distDir,
     icon: "resources/icons/icon-256.png",
     section: "graphics",
     categories: ["Office", "Graphics"],
@@ -420,7 +423,7 @@ function makeElectronDebianTasks() {
     );
 }
 
-exports.package = series(
+const electronDistTask = series(
     electronBuildTask,
     electronPackageTask,
     makeElectronPackageRenameTasks(),
@@ -433,6 +436,33 @@ exports.package = series(
         makeElectronDebianTasks(),
         makeElectronCompressTasks()
     )
+);
+
+/* -------------------------------------------------------------------------- *
+ * Package the desktop application.
+ * -------------------------------------------------------------------------- */
+
+function makeZipTask(dir) {
+    const opts = {
+        cwd: path.dirname(dir),
+        stdio: "ignore"
+    };
+    const src  = path.basename(dir);
+    const dest = path.relative(opts.cwd, `${distDir}/${src}.zip`);
+    return async function zipTask() {
+        await mkdir(distDir)
+        await exec(`zip -ry ${dest} ${src}`, opts);
+    }
+}
+
+const extrasMediaCompressTask =parallel(
+    makeZipTask("extras/media-inkscape-0.92"),
+    makeZipTask("extras/media-inkscape-1.0")
+)
+
+exports.all = parallel(
+    electronDistTask,
+    extrasMediaCompressTask
 );
 
 /* -------------------------------------------------------------------------- *
