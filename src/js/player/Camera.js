@@ -29,7 +29,7 @@ export function hasReliableBoundaries(elt) {
  * If `elt` is another graphics element, return a list with this element.
  *
  * @param {SVGElement} elt - An SVG element to inspect.
- * @return {SVGElement[]} - A list of graphics elements.
+ * @returns {SVGElement[]} - A list of graphics elements.
  */
 function getGraphicsElements(elt) {
     switch (true) {
