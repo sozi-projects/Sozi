@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-02-10 10:06:+0000\n"
-"PO-Revision-Date: 2021-05-10 09:33+0000\n"
+"PO-Revision-Date: 2021-05-14 04:07+0000\n"
 "Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
 "Language-Team: Malay <https://hosted.weblate.org/projects/sozi/translations/"
 "ms/>\n"
@@ -54,7 +54,7 @@ msgstr ""
 
 #: js/backend/Electron.js:212
 msgid "Could not read file %s."
-msgstr ""
+msgstr "Tidak dapat membaca fail %s."
 
 #: js/backend/FileReader.js:23
 msgid ""
@@ -120,7 +120,7 @@ msgstr ""
 
 #: js/view/languages.js:17
 msgid "System language"
-msgstr ""
+msgstr "Bahasa sistem"
 
 #: js/view/Properties.js:84
 msgid "Autoselect outline element"
@@ -172,7 +172,7 @@ msgstr "Bahasa"
 
 #: js/view/Properties.js:108
 msgid "Font size"
-msgstr ""
+msgstr "Saiz fon"
 
 #: js/view/Properties.js:112
 msgid "Enable notifications on save and reload"
@@ -236,15 +236,15 @@ msgstr ""
 
 #: js/view/Properties.js:156
 msgid "Ctrl+1: Big heading"
-msgstr ""
+msgstr "Ctrl + 1: Tajuk besar"
 
 #: js/view/Properties.js:157
 msgid "Ctrl+2: Medium heading"
-msgstr ""
+msgstr "Ctrl + 2: Tajuk sederhana"
 
 #: js/view/Properties.js:158
 msgid "Ctrl+3: Small heading"
-msgstr ""
+msgstr "Ctrl + 3: Tajuk kecil"
 
 #: js/view/Properties.js:159
 msgid "Ctrl+L: List"
@@ -252,11 +252,11 @@ msgstr "Ctrl+L: Senarai"
 
 #: js/view/Properties.js:160
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl + N: Senarai bernombor"
 
 #: js/view/Properties.js:167
 msgid "Select a layer to copy"
-msgstr ""
+msgstr "Pilih lapisan untuk disalin"
 
 #: js/view/Properties.js:170 js/view/Timeline.js:238 js/view/Timeline.js:266
 msgid "Default"
@@ -308,7 +308,7 @@ msgstr "Klip"
 
 #: js/view/Properties.js:210
 msgid "Copy layer"
-msgstr ""
+msgstr "Salin lapisan"
 
 #: js/view/Properties.js:217
 msgid "Outline element Id"
@@ -320,7 +320,7 @@ msgstr ""
 
 #: js/view/Properties.js:223
 msgid "Hide element"
-msgstr ""
+msgstr "Sembunyikan elemen"
 
 #: js/view/Properties.js:225
 msgid "Fit to element"
@@ -413,7 +413,7 @@ msgstr ""
 
 #: js/view/Properties.js:281
 msgid "Add a file"
-msgstr ""
+msgstr "Tambahkan fail"
 
 #: js/view/Properties.js:294
 msgid "Remove this file"
@@ -440,7 +440,7 @@ msgstr ""
 #: js/view/Properties.js:312 js/view/Properties.js:319
 #: js/view/Properties.js:325 js/view/Properties.js:333
 msgid "using the mouse"
-msgstr ""
+msgstr "menggunakan tetikus"
 
 #: js/view/Properties.js:313 js/view/Properties.js:326
 #: js/view/Properties.js:334
@@ -485,7 +485,7 @@ msgstr ""
 
 #: js/view/Properties.js:382
 msgid "Document type"
-msgstr ""
+msgstr "Jenis dokumen"
 
 #: js/view/Properties.js:384
 msgid "Portable Document Format (PDF)"
@@ -505,7 +505,7 @@ msgstr ""
 
 #: js/view/Properties.js:410
 msgid "Page size"
-msgstr ""
+msgstr "Ukuran halaman"
 
 #: js/view/Properties.js:412 js/view/Properties.js:451
 msgid "A3"
@@ -562,23 +562,23 @@ msgstr ""
 
 #: js/view/Properties.js:450
 msgid "35 mm"
-msgstr ""
+msgstr "35 mm"
 
 #: js/view/Properties.js:453
 msgid "B4 (ISO)"
-msgstr ""
+msgstr "B4 (ISO)"
 
 #: js/view/Properties.js:454
 msgid "B4 (JIS)"
-msgstr ""
+msgstr "B4 (JIS)"
 
 #: js/view/Properties.js:455
 msgid "B5 (ISO)"
-msgstr ""
+msgstr "B5 (ISO)"
 
 #: js/view/Properties.js:456
 msgid "B5 (JIS)"
-msgstr ""
+msgstr "B5 (JIS)"
 
 #: js/view/Properties.js:457
 msgid "Banner"
@@ -586,7 +586,7 @@ msgstr ""
 
 #: js/view/Properties.js:458
 msgid "Hagaki Card"
-msgstr ""
+msgstr "Kad Hagaki"
 
 #: js/view/Properties.js:461
 msgid "Overhead"
@@ -594,15 +594,15 @@ msgstr ""
 
 #: js/view/Properties.js:462
 msgid "Screen 16:10"
-msgstr ""
+msgstr "Skrin 16:10"
 
 #: js/view/Properties.js:463
 msgid "Screen 16:9"
-msgstr ""
+msgstr "Skrin 16:9"
 
 #: js/view/Properties.js:464
 msgid "Screen 4:3"
-msgstr ""
+msgstr "Skrin 4:3"
 
 #: js/view/Properties.js:490
 msgid "Format"
@@ -610,19 +610,19 @@ msgstr ""
 
 #: js/view/Properties.js:492
 msgid "MPEG-4 (.mp4)"
-msgstr ""
+msgstr "MPEG-4 (.mp4)"
 
 #: js/view/Properties.js:493
 msgid "Ogg Vorbis (.ogv)"
-msgstr ""
+msgstr "Ogg Vorbis (.ogv)"
 
 #: js/view/Properties.js:494
 msgid "WebM (.webm)"
-msgstr ""
+msgstr "WebM (.webm)"
 
 #: js/view/Properties.js:495
 msgid "Windows Media Video (.wmv)"
-msgstr ""
+msgstr "Video Windows Media (.wmv)"
 
 #: js/view/Properties.js:496
 msgid "Image sequence (.png)"
@@ -650,7 +650,7 @@ msgstr ""
 
 #: js/view/Timeline.js:210
 msgid "Add layer"
-msgstr ""
+msgstr "Tambah lapisan"
 
 #: js/view/Timeline.js:211
 msgid "Add all layers"
@@ -666,7 +666,7 @@ msgstr ""
 
 #: js/view/Timeline.js:254
 msgid "Remove this layer"
-msgstr ""
+msgstr "Buang lapisan ini"
 
 #: js/view/Timeline.js:279
 msgid "Insert selection before frame %d"
