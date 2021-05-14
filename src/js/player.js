@@ -5,7 +5,7 @@
 /* global sozi */
 
 import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
-import {Presentation} from "./model/Presentation";
+import {Presentation, Frame} from "./model/Presentation";
 import {Viewport} from "./player/Viewport";
 import {Player} from "./player/Player";
 import * as Media from "./player/Media";
@@ -138,6 +138,12 @@ window.addEventListener("load", () => {
     viewport.onLoad();
 
     presentation.fromStorable(window.soziPresentationData);
+    if (!presentation.frames.length) {
+        const frame = new Frame(presentation);
+        frame.setAtStates(viewport.cameras);
+        presentation.frames.push(frame);
+    }
+
     const player = new Player(viewport, presentation);
 
     Media.init(player);
@@ -164,9 +170,7 @@ window.addEventListener("load", () => {
 
     window.addEventListener("resize", () => viewport.repaint());
 
-    if (presentation.frames.length) {
-        player.playFromFrame(FrameURL.getFrame());
-    }
+    player.playFromFrame(FrameURL.getFrame());
 
     viewport.repaint();
     player.disableBlankScreen();
