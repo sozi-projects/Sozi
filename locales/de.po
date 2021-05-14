@@ -606,12 +606,7 @@ msgstr "Banner"
 msgid "Hagaki Card"
 msgstr "Hagaki-Postkarte"
 
-<<<<<<< HEAD
 #: src/js/view/Properties.js:487
-#, fuzzy
-=======
-#: js/view/Properties.js:461
->>>>>>> 2ae03921eff3ccde1cef50d04096259a0af21ee9
 msgid "Overhead"
 msgstr "Overhead"
 
