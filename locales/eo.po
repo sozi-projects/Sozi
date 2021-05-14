@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-05-09 01:32:+0000\n"
-"PO-Revision-Date: 2021-04-17 15:06+0000\n"
-"Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
+"PO-Revision-Date: 2021-05-15 17:32+0000\n"
+"Last-Translator: phlostically <phlostically@mailinator.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/sozi/"
 "translations/eo/>\n"
 "Language: eo\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 "X-Launchpad-Export-Date: 2015-11-12 19:04+0000\n"
 
 #: src/js/backend/Electron.js:48
@@ -167,9 +167,8 @@ msgid "Toggle the developer tools"
 msgstr "Baskuli la programadilojn"
 
 #: src/js/view/Properties.js:113 src/js/view/Properties.js:402
-#, fuzzy
 msgid "Back to presentation properties"
-msgstr "Konservi la prezentaĵon"
+msgstr "Reen al atributoj de la prezentaĵo"
 
 #: src/js/view/Properties.js:117
 msgid "User interface"
