@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2021-02-10 10:06:+0000\n"
-"PO-Revision-Date: 2020-05-25 15:41+0000\n"
-"Last-Translator: Hideyoshi Fuji <HideyoshiFuji@gmail.com>\n"
+"PO-Revision-Date: 2021-05-14 13:32+0000\n"
+"Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/sozi/"
 "translations/ja/>\n"
 "Language: ja\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: js/backend/Electron.js:48
 msgid "Open an SVG file from your computer"
@@ -581,23 +581,23 @@ msgstr ""
 
 #: js/view/Properties.js:450
 msgid "35 mm"
-msgstr ""
+msgstr "35 mm"
 
 #: js/view/Properties.js:453
 msgid "B4 (ISO)"
-msgstr ""
+msgstr "B4（ISO）"
 
 #: js/view/Properties.js:454
 msgid "B4 (JIS)"
-msgstr ""
+msgstr "B4（JIS）"
 
 #: js/view/Properties.js:455
 msgid "B5 (ISO)"
-msgstr ""
+msgstr "B5（ISO）"
 
 #: js/view/Properties.js:456
 msgid "B5 (JIS)"
-msgstr ""
+msgstr "B5（JIS）"
 
 #: js/view/Properties.js:457
 msgid "Banner"
@@ -629,7 +629,7 @@ msgstr ""
 
 #: js/view/Properties.js:492
 msgid "MPEG-4 (.mp4)"
-msgstr ""
+msgstr "MPEG-4（.mp4）"
 
 #: js/view/Properties.js:493
 msgid "Ogg Vorbis (.ogv)"
