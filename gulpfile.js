@@ -9,11 +9,16 @@ const glob       = util.promisify(require("glob"));
 const log        = require("fancy-log");
 const writeFile_ = util.promisify(fs.writeFile);
 const mkdir_     = util.promisify(fs.mkdir);
+const rmdir_     = util.promisify(fs.rmdir);
 const copyFile_  = util.promisify(fs.copyFile);
 const renameFile = util.promisify(fs.rename);
 
 function mkdir(path) {
     return mkdir_(path, {recursive: true});
+}
+
+function rmdir(path) {
+    return rmdir_(path, {recursive: true});
 }
 
 async function writeFile(name, content) {
@@ -294,6 +299,7 @@ exports.default       = electronBuildTask;
 
 const packager = require("electron-packager");
 const debian   = require("electron-installer-debian");
+const redhat   = require("electron-installer-redhat");
 
 const soziConfigName = "SOZI_CONFIG" in process.env ? process.env.SOZI_CONFIG : "sozi-default";
 const soziConfig = require(`./config/${soziConfigName}.json`);
@@ -331,6 +337,9 @@ function makeElectronPackageRenameTasks() {
         .map(({epkgDir, dir}) => async function electronPackageRename() {
             // We don't use makeRenameTask here because we want to
             // rename each folder in place.
+            if (fs.existsSync(dir)) {
+                await rmdir(dir);
+            }
             if (fs.existsSync(epkgDir)) {
                 await renameFile(epkgDir, dir);
             }
@@ -394,15 +403,19 @@ function makeElectronCompressTasks() {
     );
 }
 
-const debianOpts = {
-    maintainer: "Guillaume Savaton <guillaume@baierouge.fr>",
+const linuxPackageOpts = {
     dest: distDir,
     icon: "resources/icons/icon-256.png",
+    mimeType: ["image/svg+xml"],
+}
+
+const debianPackageOpts = {
+    maintainer: "Guillaume Savaton <guillaume@baierouge.fr>",
     section: "graphics",
     categories: ["Office", "Graphics"],
-    mimeType: ["image/svg+xml"],
     recommends: ["ffmpeg"],
-    suggests: ["inkscape"]
+    suggests: ["inkscape"],
+    ...linuxPackageOpts
 };
 
 const debianArch = {
@@ -417,7 +430,30 @@ function makeElectronDebianTasks() {
             return debian({
                 src: dir,
                 arch: debianArch[arch],
-                ...debianOpts
+                ...debianPackageOpts
+            });
+        })
+    );
+}
+
+const redhatPackageOpts = {
+    platform: "linux",
+    ...linuxPackageOpts
+};
+
+const redhatArch = {
+    ia32: "i386",
+    x64: "x86_64"
+};
+
+function makeElectronRedhatTasks() {
+    return parallel(...electronTargets
+        .filter(t => t.platform === "linux")
+        .map(({arch, dir}) => function electronRedhatTask () {
+            return redhat({
+                src: dir,
+                arch: redhatArch[arch],
+                ...redhatPackageOpts
             });
         })
     );
@@ -434,6 +470,7 @@ const electronDistTask = series(
     ),
     parallel(
         makeElectronDebianTasks(),
+        makeElectronRedhatTasks(),
         makeElectronCompressTasks()
     )
 );

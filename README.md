@@ -36,6 +36,10 @@ If you plan to build Debian packages, install the following additional packages:
 
     sudo apt install devscripts debhelper
 
+If you plan to build Redhat packages, install the following additional packages:
+
+    sudo apt install rpm
+
 From the root of the source tree:
 
     npm install
