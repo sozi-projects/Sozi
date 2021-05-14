@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
 "POT-Creation-Date: 2021-05-09 01:32:+0000\n"
-"PO-Revision-Date: 2021-01-09 05:32+0000\n"
+"PO-Revision-Date: 2021-05-14 15:51+0200\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/sozi/translations/"
 "fr/>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Launchpad-Export-Date: 2016-06-25 07:48+0000\n"
 
@@ -162,9 +162,8 @@ msgid "Toggle the developer tools"
 msgstr "Basculer l'affichage des outils de développement"
 
 #: src/js/view/Properties.js:113 src/js/view/Properties.js:402
-#, fuzzy
 msgid "Back to presentation properties"
-msgstr "Enregistrer la présentation"
+msgstr "Revenir aux propriétés de la présentation"
 
 #: src/js/view/Properties.js:117
 msgid "User interface"
@@ -602,7 +601,7 @@ msgstr "Carte Hagaki"
 
 #: src/js/view/Properties.js:487
 msgid "Overhead"
-msgstr ""
+msgstr "Overhead"
 
 #: src/js/view/Properties.js:488
 msgid "Screen 16:10"
