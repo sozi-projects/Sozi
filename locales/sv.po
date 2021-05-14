@@ -7,16 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-09 01:32:+0000\n"
-"PO-Revision-Date: 2015-05-15 08:48+0000\n"
-"Last-Translator: jean paldanius <human@jumpz.org>\n"
-"Language-Team: Swedish <sv@li.org>\n"
+"POT-Creation-Date: 2021-02-10 10:06:+0000\n"
+"PO-Revision-Date: 2021-05-14 13:32+0000\n"
+"Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/sozi/"
+"translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
-"X-Generator: Launchpad (build 18599)\n"
 
 #: src/js/backend/Electron.js:48
 msgid "Open an SVG file from your computer"
@@ -567,23 +569,23 @@ msgstr ""
 
 #: src/js/view/Properties.js:476
 msgid "35 mm"
-msgstr ""
+msgstr "35 mm"
 
 #: src/js/view/Properties.js:479
 msgid "B4 (ISO)"
-msgstr ""
+msgstr "B4 (ISO)"
 
 #: src/js/view/Properties.js:480
 msgid "B4 (JIS)"
-msgstr ""
+msgstr "B4 (JIS)"
 
 #: src/js/view/Properties.js:481
 msgid "B5 (ISO)"
-msgstr ""
+msgstr "B5 (ISO)"
 
 #: src/js/view/Properties.js:482
 msgid "B5 (JIS)"
-msgstr ""
+msgstr "B5 (JIS)"
 
 #: src/js/view/Properties.js:483
 msgid "Banner"
@@ -591,7 +593,7 @@ msgstr ""
 
 #: src/js/view/Properties.js:484
 msgid "Hagaki Card"
-msgstr ""
+msgstr "Hagaki-kort"
 
 #: src/js/view/Properties.js:487
 msgid "Overhead"
@@ -599,15 +601,15 @@ msgstr ""
 
 #: src/js/view/Properties.js:488
 msgid "Screen 16:10"
-msgstr ""
+msgstr "Skärm 16:10"
 
 #: src/js/view/Properties.js:489
 msgid "Screen 16:9"
-msgstr ""
+msgstr "Skärm 16:9"
 
 #: src/js/view/Properties.js:490
 msgid "Screen 4:3"
-msgstr ""
+msgstr "Skärm 4:3"
 
 #: src/js/view/Properties.js:516
 msgid "Format"

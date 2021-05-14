@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-09 01:32:+0000\n"
-"PO-Revision-Date: 2020-11-05 08:26+0000\n"
+"POT-Creation-Date: 2021-02-10 10:06:+0000\n"
+"PO-Revision-Date: 2021-05-14 13:32+0000\n"
 "Last-Translator: 麋悟BigELK176 <bigelk176@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "sozi/translations/zh_Hant/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.3.2-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 "X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
 
 #: src/js/backend/Electron.js:48
@@ -357,35 +357,35 @@ msgstr "動態變速"
 
 #: src/js/view/Properties.js:256
 msgid "Linear"
-msgstr "線性"
+msgstr "線性轉動 (Linear 平速)"
 
 #: src/js/view/Properties.js:257
 msgid "Ease"
-msgstr "淡化"
+msgstr "緩和轉動 (Ease 稍慢-快-慢)"
 
 #: src/js/view/Properties.js:258
 msgid "Ease in"
-msgstr "淡化進入"
+msgstr "緩入轉動 (Ease in 慢-快)"
 
 #: src/js/view/Properties.js:259
 msgid "Ease out"
-msgstr "淡化進入"
+msgstr "緩出轉動 (Ease out 快-慢)"
 
 #: src/js/view/Properties.js:260
 msgid "Ease in-out"
-msgstr "淡化進出"
+msgstr "緩入緩出轉動 (Ease in-out 慢-快-慢)"
 
 #: src/js/view/Properties.js:261
 msgid "Step start"
-msgstr "步驟啟動"
+msgstr "開端的步驟 (Step start)"
 
 #: src/js/view/Properties.js:262
 msgid "Step end"
-msgstr "步驟結束"
+msgstr "結尾的步驟 (Step end)"
 
 #: src/js/view/Properties.js:263
 msgid "Step middle"
-msgstr "中間的步驟"
+msgstr "中間的步驟 (Step middle)"
 
 #: src/js/view/Properties.js:266
 msgid "Relative zoom (%)"
@@ -401,7 +401,7 @@ msgstr "隱藏路徑"
 
 #: src/js/view/Properties.js:275
 msgid "Notes"
-msgstr "筆記"
+msgstr "備記"
 
 #: src/js/view/Properties.js:275
 msgid ""
@@ -458,11 +458,11 @@ msgstr "使用鍵盤"
 
 #: src/js/view/Properties.js:332
 msgid "Allow to move the camera"
-msgstr "允許移動攝影"
+msgstr "允許移動鏡頭"
 
 #: src/js/view/Properties.js:337
 msgid "Allow to rotate the camera"
-msgstr "允許旋轉攝影"
+msgstr "允許旋轉鏡頭"
 
 #: src/js/view/Properties.js:345
 msgid "Allow to zoom"
@@ -470,7 +470,7 @@ msgstr "允許放大"
 
 #: src/js/view/Properties.js:362
 msgid "Examples of frame lists to include/exclude in export"
-msgstr "框格範例列出包含/不包含於匯出"
+msgstr "在匯出時包含/不包含框格的範例"
 
 #: src/js/view/Properties.js:364
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
@@ -554,7 +554,7 @@ msgstr "直向"
 
 #: src/js/view/Properties.js:453 src/js/view/Properties.js:494
 msgid "List of frames to include"
-msgstr "框格列表至包含"
+msgstr "列出包含的框格"
 
 #: src/js/view/Properties.js:454 src/js/view/Properties.js:460
 #: src/js/view/Properties.js:495 src/js/view/Properties.js:501
@@ -563,7 +563,7 @@ msgstr "在此點按以查看此欄位語法"
 
 #: src/js/view/Properties.js:459 src/js/view/Properties.js:500
 msgid "List of frames to exclude"
-msgstr "框格列表至不包含"
+msgstr "列出不包含的框格"
 
 #: src/js/view/Properties.js:474
 msgid "Slide size"

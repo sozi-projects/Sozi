@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-09 01:32:+0000\n"
-"PO-Revision-Date: 2020-05-25 15:41+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"POT-Creation-Date: 2021-02-10 10:06:+0000\n"
+"PO-Revision-Date: 2021-05-14 13:32+0000\n"
+"Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/sozi/"
 "translations/ca/>\n"
 "Language: ca\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 
 #: src/js/backend/Electron.js:48
@@ -579,23 +579,23 @@ msgstr ""
 
 #: src/js/view/Properties.js:476
 msgid "35 mm"
-msgstr ""
+msgstr "35 mm"
 
 #: src/js/view/Properties.js:479
 msgid "B4 (ISO)"
-msgstr ""
+msgstr "B4 (ISO)"
 
 #: src/js/view/Properties.js:480
 msgid "B4 (JIS)"
-msgstr ""
+msgstr "B4 (JI)"
 
 #: src/js/view/Properties.js:481
 msgid "B5 (ISO)"
-msgstr ""
+msgstr "B5 (ISO)"
 
 #: src/js/view/Properties.js:482
 msgid "B5 (JIS)"
-msgstr ""
+msgstr "B5 (JI)"
 
 #: src/js/view/Properties.js:483
 msgid "Banner"
@@ -603,7 +603,7 @@ msgstr ""
 
 #: src/js/view/Properties.js:484
 msgid "Hagaki Card"
-msgstr ""
+msgstr "Hagaki Carta"
 
 #: src/js/view/Properties.js:487
 msgid "Overhead"
@@ -627,7 +627,7 @@ msgstr ""
 
 #: src/js/view/Properties.js:518
 msgid "MPEG-4 (.mp4)"
-msgstr ""
+msgstr "MPEG-4 (.mp4)"
 
 #: src/js/view/Properties.js:519
 msgid "Ogg Vorbis (.ogv)"
