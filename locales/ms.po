@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-02-10 10:06:+0000\n"
-"PO-Revision-Date: 2021-05-14 04:07+0000\n"
+"PO-Revision-Date: 2021-05-14 13:32+0000\n"
 "Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
 "Language-Team: Malay <https://hosted.weblate.org/projects/sozi/translations/"
 "ms/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: js/backend/Electron.js:48
 msgid "Open an SVG file from your computer"
-msgstr ""
+msgstr "Buka fail SVG dari komputer"
 
 #: js/backend/Electron.js:73
 msgid "Do you want to save the presentation before closing?"
@@ -68,11 +68,11 @@ msgstr "Buka fail SVG melalui Google Drive"
 
 #: js/Controller.js:217
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
-msgstr ""
+msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Error"
 
 #: js/Controller.js:218
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+msgstr "<i class=\"fas fa-info-circle\"></i> matlumat"
 
 #: js/Controller.js:340
 msgid "Document was changed. Reloading."
@@ -80,7 +80,7 @@ msgstr ""
 
 #: js/Controller.js:355
 msgid "Document was changed."
-msgstr ""
+msgstr "Dokumen telah diubah."
 
 #: js/Controller.js:1722
 msgid "Presentation was exported to PDF."
@@ -140,7 +140,7 @@ msgstr ""
 
 #: js/view/Properties.js:88 js/view/Toolbar.js:117
 msgid "Redo"
-msgstr ""
+msgstr "Ulang"
 
 #: js/view/Properties.js:89 js/view/Toolbar.js:112
 msgid "Undo"
@@ -188,7 +188,7 @@ msgstr ""
 
 #: js/view/Properties.js:119 js/view/Properties.js:126
 msgid "Manually"
-msgstr ""
+msgstr "Manual"
 
 #: js/view/Properties.js:124
 msgid "Automatically"
@@ -296,7 +296,7 @@ msgstr ""
 
 #: js/view/Properties.js:199
 msgid "Layer"
-msgstr ""
+msgstr "Lapisan"
 
 #: js/view/Properties.js:202
 msgid "Link to previous frame"
@@ -340,7 +340,7 @@ msgstr ""
 
 #: js/view/Properties.js:237
 msgid "Duration (seconds)"
-msgstr ""
+msgstr "Tempoh (saat)"
 
 #: js/view/Properties.js:240
 msgid "Timing function"
@@ -405,11 +405,11 @@ msgstr ""
 
 #: js/view/Properties.js:278
 msgid "CSS or JS file names"
-msgstr ""
+msgstr "Nama fail CSS atau JS"
 
 #: js/view/Properties.js:278
 msgid "Add CSS or JS files"
-msgstr ""
+msgstr "Tambah fail CSS atau JS"
 
 #: js/view/Properties.js:281
 msgid "Add a file"
@@ -509,15 +509,15 @@ msgstr "Ukuran halaman"
 
 #: js/view/Properties.js:412 js/view/Properties.js:451
 msgid "A3"
-msgstr ""
+msgstr "A3"
 
 #: js/view/Properties.js:413 js/view/Properties.js:452
 msgid "A4"
-msgstr ""
+msgstr "A4"
 
 #: js/view/Properties.js:414
 msgid "A5"
-msgstr ""
+msgstr "A5"
 
 #: js/view/Properties.js:415
 msgid "Legal"
@@ -525,7 +525,7 @@ msgstr ""
 
 #: js/view/Properties.js:416 js/view/Properties.js:460
 msgid "Letter"
-msgstr ""
+msgstr "Surat"
 
 #: js/view/Properties.js:417 js/view/Properties.js:459
 msgid "Tabloid"
@@ -719,7 +719,7 @@ msgstr ""
 
 #: js/view/Toolbar.js:158
 msgid "Information"
-msgstr ""
+msgstr "Maklumat"
 
 #~ msgid "File %s could not be loaded."
 #~ msgstr "Fail %s tidak dapat dimuatkan."
