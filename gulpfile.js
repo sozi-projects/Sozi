@@ -127,6 +127,7 @@ function makePackageJsonTask(target, opts = {}) {
             version: soziVersion
         };
         delete pkg.devDependencies;
+        delete pkg.optionalDependencies;
         await writeFile(`build/${target}/package.json`, JSON.stringify(pkg));
     };
 }
@@ -298,8 +299,6 @@ exports.default       = electronBuildTask;
  * -------------------------------------------------------------------------- */
 
 const packager = require("electron-packager");
-const debian   = require("electron-installer-debian");
-const redhat   = require("electron-installer-redhat");
 
 const soziConfigName = "SOZI_CONFIG" in process.env ? process.env.SOZI_CONFIG : "sozi-default";
 const soziConfig = require(`./config/${soziConfigName}.json`);
@@ -409,6 +408,10 @@ const linuxPackageOpts = {
     mimeType: ["image/svg+xml"],
 }
 
+const electronLinuxBuild = electronTargets.some(({platform}) => platform === "linux");
+
+const debian = electronLinuxBuild && require("electron-installer-debian");
+
 const debianPackageOpts = {
     maintainer: "Guillaume Savaton <guillaume@baierouge.fr>",
     section: "graphics",
@@ -435,6 +438,8 @@ function makeElectronDebianTasks() {
         })
     );
 }
+
+const redhat = electronLinuxBuild && require("electron-installer-redhat");
 
 const redhatPackageOpts = {
     platform: "linux",
