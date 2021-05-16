@@ -46,6 +46,10 @@ function makeRenameTask(fromPath, toPath) {
     };
 }
 
+function dummyTask(cb) {
+    cb();
+}
+
 /* -------------------------------------------------------------------------- *
  * Internationalization
  * -------------------------------------------------------------------------- */
@@ -427,7 +431,7 @@ const debianArch = {
 };
 
 function makeElectronDebianTasks() {
-    return parallel(...electronTargets
+    return electronLinuxBuild ? parallel(...electronTargets
         .filter(t => t.platform === "linux")
         .map(({arch, dir}) => function electronDebianTask () {
             return debian({
@@ -436,7 +440,7 @@ function makeElectronDebianTasks() {
                 ...debianPackageOpts
             });
         })
-    );
+    ) : dummyTask;
 }
 
 const redhat = electronLinuxBuild && require("electron-installer-redhat");
@@ -452,7 +456,7 @@ const redhatArch = {
 };
 
 function makeElectronRedhatTasks() {
-    return parallel(...electronTargets
+    return electronLinuxBuild ? parallel(...electronTargets
         .filter(t => t.platform === "linux")
         .map(({arch, dir}) => function electronRedhatTask () {
             return redhat({
@@ -461,7 +465,7 @@ function makeElectronRedhatTasks() {
                 ...redhatPackageOpts
             });
         })
-    );
+    ) : dummyTask;
 }
 
 const electronDistTask = series(
