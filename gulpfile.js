@@ -1,5 +1,7 @@
 
 const {src, dest, series, parallel} = require("gulp");
+const newer      = require("gulp-newer");
+const streamExec = require("gulp-exec");
 const util       = require("util");
 const path       = require("path");
 const fs         = require("fs");
@@ -34,6 +36,7 @@ async function copyFile(src, dest) {
 function makeCopyTask(fromPath, toPath) {
     return function copyTask() {
         return src(fromPath, {allowEmpty: true})
+            .pipe(newer(toPath))
             .pipe(dest(toPath));
     }
 }
@@ -41,6 +44,7 @@ function makeCopyTask(fromPath, toPath) {
 function makeRenameTask(fromPath, toPath) {
     return function renameTask() {
         return src(fromPath, {allowEmpty: true})
+            .pipe(newer(toPath))
             .pipe(rename(path.basename(toPath)))
             .pipe(dest(path.dirname(toPath)));
     };
@@ -48,6 +52,21 @@ function makeRenameTask(fromPath, toPath) {
 
 function dummyTask(cb) {
     cb();
+}
+
+function toArray(stream) {
+    return new Promise((resolve, reject) => {
+        const res = [];
+        stream.on("data", data => res.push(data));
+        stream.on("end", err => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(res);
+            }
+        })
+    });
 }
 
 /* -------------------------------------------------------------------------- *
@@ -58,26 +77,28 @@ const jspot   = require("jspot");
 const po2json = util.promisify(require("po2json").parseFile);
 
 async function jspotTask() {
-    const files = await glob("src/**/*.js");
-    jspot.extract({
-        keyword: "_",
-        parserOptions: {
-            sourceType: "module",
-            ecmaVersion: 9
-        },
-        source: files,
-        target: "locales"
-    });
+    const stream = src("src/**/*.js", {read: false})
+        .pipe(newer("locales/messages.pot"));
+    const files = await toArray(stream);
+    if (files.length) {
+        jspot.extract({
+            keyword: "_",
+            parserOptions: {
+                sourceType: "module",
+                ecmaVersion: 9
+            },
+            source: files.map(f => path.relative(process.cwd(), f.path)),
+            target: "locales"
+        });
+    }
 }
 
-async function msgmergeTask() {
-    const files = await glob("locales/*.po");
-    try {
-        await Promise.all(files.map(f => exec(`msgmerge -U ${f} locales/messages.pot`)))
-    }
-    catch (e) {
-        log.warn("Could not run msgmerge. Translation files not updated.")
-    }
+function msgmergeTask() {
+    return src("locales/*.po", {read: false})
+        .pipe(newer({dest: "locales", extra: "locales/messages.pot"}))
+        .pipe(streamExec(file => `msgmerge -U ${file.path} locales/messages.pot`, {
+            continueOnError: true
+        }));
 }
 
 function makePo2JsonTask(target) {
@@ -171,12 +192,14 @@ const source     = require("vinyl-source-stream");
 const buffer     = require("vinyl-buffer");
 
 function makeTranspileTask(target, opts) {
+    const destPath = `build/${target}/src/js/`;
     return function transpileTask() {
         return src("src/js/**/*.js")
+            .pipe(newer(destPath))
             .pipe(babel({
                 presets: [["@babel/preset-env", opts]]
             }))
-            .pipe(dest(`build/${target}/src/js/`));
+            .pipe(dest(destPath));
     };
 }
 
@@ -223,10 +246,13 @@ function browserEditorBrowserifyTask() {
 }
 
 function makeTemplateTask(target, tpl) {
+    const jsPath   = `build/tmp/${tpl}.js`;
+    const destPath = `build/${target}/src/templates/`;
     return function templateTask() {
         return src(`src/templates/${tpl}.html`)
-            .pipe(nunjucks.compile({js: fs.readFileSync(`build/tmp/${tpl}.js`)}))
-            .pipe(dest(`build/${target}/src/templates/`));
+            .pipe(newer({dest: destPath, extra: jsPath}))
+            .pipe(nunjucks.compile({js: fs.readFileSync(jsPath)}))
+            .pipe(dest(destPath));
     };
 }
 
