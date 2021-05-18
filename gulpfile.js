@@ -103,21 +103,26 @@ function msgmergeTask() {
 
 function makePo2JsonTask(target) {
     return async function po2jsonTask() {
-        const files = await glob("locales/*.po");
-        // Convert each file to a JS object.
-        const data = await Promise.all(files.map(f => po2json(f, {
-            fuzzy: false,
-            format: "jed"
-        })));
-        // Merge all JS objects.
-        const obj = {};
-        for (const item of data) {
-            obj[item.locale_data.messages[""].lang] = item;
+        const destPath = `build/${target}/src/js/locales.js`;
+        const stream = src("locales/*.po")
+            .pipe(newer(destPath));
+        const files = await toArray(stream);
+        if (files.length) {
+            // Convert each file to a JS object.
+            const data = await Promise.all(files.map(f => po2json(f, {
+                fuzzy: false,
+                format: "jed"
+            })));
+            // Merge all JS objects.
+            const obj = {};
+            for (const item of data) {
+                obj[item.locale_data.messages[""].lang] = item;
+            }
+            // Convert the result to a nodejs module.
+            const content = `module.exports = ${JSON.stringify(obj)};`;
+            // Write the result to the app folders.
+            await writeFile(destPath, content);
         }
-        // Convert the result to a nodejs module.
-        const content = `module.exports = ${JSON.stringify(obj)};`;
-        // Write the result to the app folders.
-        await writeFile(`build/${target}/src/js/locales.js`, content);
     };
 }
 
