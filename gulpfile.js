@@ -69,6 +69,11 @@ function toArray(stream) {
     });
 }
 
+async function newerFiles(srcGlob, destPath) {
+    const files = await toArray(src(srcGlob, {read: false}).pipe(newer(destPath)));
+    return files.map(f => path.relative(process.cwd(), f.path));
+}
+
 /* -------------------------------------------------------------------------- *
  * Internationalization
  * -------------------------------------------------------------------------- */
@@ -77,9 +82,7 @@ const jspot   = require("jspot");
 const po2json = util.promisify(require("po2json").parseFile);
 
 async function jspotTask() {
-    const stream = src("src/**/*.js", {read: false})
-        .pipe(newer("locales/messages.pot"));
-    const files = await toArray(stream);
+    const files = await newerFiles("src/**/*.js", "locales/messages.pot");
     if (files.length) {
         jspot.extract({
             keyword: "_",
@@ -87,7 +90,7 @@ async function jspotTask() {
                 sourceType: "module",
                 ecmaVersion: 9
             },
-            source: files.map(f => path.relative(process.cwd(), f.path)),
+            source: files,
             target: "locales"
         });
     }
@@ -104,9 +107,7 @@ function msgmergeTask() {
 function makePo2JsonTask(target) {
     return async function po2jsonTask() {
         const destPath = `build/${target}/src/js/locales.js`;
-        const stream = src("locales/*.po")
-            .pipe(newer(destPath));
-        const files = await toArray(stream);
+        const files = await newerFiles("locales/*.po", destPath);
         if (files.length) {
             // Convert each file to a JS object.
             const data = await Promise.all(files.map(f => po2json(f, {
@@ -213,6 +214,7 @@ const browserTranspileTask  = makeTranspileTask("browser",  {useBuiltIns: "usage
 
 function makeBrowserifyTask(name) {
     return function browserifyTask() {
+        // TODO Use newer
         return browserify({
                 entries: `build/browser/src/js/${name}.js`,
                 debug: false,
@@ -224,7 +226,7 @@ function makeBrowserifyTask(name) {
                 mangle: true,
                 compress: true
             }))
-            .pipe(dest("build/tmp/"))
+            .pipe(dest("build/tmp/"));
     };
 }
 
@@ -234,6 +236,7 @@ const playerBrowserifyTask = parallel(
 );
 
 function browserEditorBrowserifyTask() {
+    // TODO Use newer
     return browserify({
             entries: "build/browser/src/js/editor.js",
             external: ["electron", "fs", "process", "officegen", "pdf-lib"],
