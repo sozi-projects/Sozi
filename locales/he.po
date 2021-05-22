@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2021-05-09 01:32:+0000\n"
-"PO-Revision-Date: 2020-11-09 22:28+0000\n"
+"PO-Revision-Date: 2021-05-23 09:32+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/sozi/translations/"
 "he/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: src/js/backend/Electron.js:48
 msgid "Open an SVG file from your computer"
@@ -161,9 +161,8 @@ msgid "Toggle the developer tools"
 msgstr "החלפת מצב כלי הפיתוח"
 
 #: src/js/view/Properties.js:113 src/js/view/Properties.js:402
-#, fuzzy
 msgid "Back to presentation properties"
-msgstr "שמירת המצגת"
+msgstr "חזרה למאפייני המצגת"
 
 #: src/js/view/Properties.js:117
 msgid "User interface"
