@@ -65,7 +65,7 @@ function toArray(stream) {
             else {
                 resolve(res);
             }
-        })
+        });
     });
 }
 
