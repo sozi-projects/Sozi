@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-09 01:32:+0000\n"
+"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
 "PO-Revision-Date: 2018-05-02 11:36+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/sozi/translations/"
@@ -19,54 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.0-dev\n"
 "X-Launchpad-Export-Date: 2017-11-25 11:20+0000\n"
-
-#: src/js/backend/Electron.js:48
-msgid "Open an SVG file from your computer"
-msgstr "Åben en SVG-fil fra din computer"
-
-#: src/js/backend/Electron.js:73
-msgid "Do you want to save the presentation before closing?"
-msgstr ""
-
-#: src/js/backend/Electron.js:74
-msgid "Yes"
-msgstr ""
-
-#: src/js/backend/Electron.js:74
-msgid "No"
-msgstr ""
-
-#: src/js/backend/Electron.js:103
-msgid "File not found: %s."
-msgstr "Fil ikke fundet: %s."
-
-#: src/js/backend/Electron.js:135
-msgid "Choose an SVG file"
-msgstr "Vælg en SVG-fil"
-
-#: src/js/backend/Electron.js:136
-msgid "SVG files"
-msgstr "SVG filer"
-
-#: src/js/backend/Electron.js:197
-msgid "This file will not be reloaded on change: %s."
-msgstr ""
-
-#: src/js/backend/Electron.js:213
-msgid "Could not read file %s."
-msgstr ""
-
-#: src/js/backend/FileReader.js:23
-msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
-"\"></i> read-only)"
-msgstr ""
-"Åben en SVG fil fra din computer (<i class=\"fas fa-exclamation-triangle\"></"
-"i> skrivebeskyttet)"
-
-#: src/js/backend/GoogleDrive.js:25
-msgid "Open an SVG file from Google Drive"
-msgstr "Åben en SVG fil fra Google Drev"
 
 #: src/js/Controller.js:217
 #, fuzzy
@@ -124,9 +76,53 @@ msgstr "Dokument blev importeret fra Sozi 13 eller tidligere."
 msgid "Saved %s."
 msgstr "Gemte %s"
 
-#: src/js/view/languages.js:17
-msgid "System language"
+#: src/js/backend/Electron.js:48
+msgid "Open an SVG file from your computer"
+msgstr "Åben en SVG-fil fra din computer"
+
+#: src/js/backend/Electron.js:73
+msgid "Do you want to save the presentation before closing?"
 msgstr ""
+
+#: src/js/backend/Electron.js:74
+msgid "Yes"
+msgstr ""
+
+#: src/js/backend/Electron.js:74
+msgid "No"
+msgstr ""
+
+#: src/js/backend/Electron.js:103
+msgid "File not found: %s."
+msgstr "Fil ikke fundet: %s."
+
+#: src/js/backend/Electron.js:135
+msgid "Choose an SVG file"
+msgstr "Vælg en SVG-fil"
+
+#: src/js/backend/Electron.js:136
+msgid "SVG files"
+msgstr "SVG filer"
+
+#: src/js/backend/Electron.js:197
+msgid "This file will not be reloaded on change: %s."
+msgstr ""
+
+#: src/js/backend/Electron.js:213
+msgid "Could not read file %s."
+msgstr ""
+
+#: src/js/backend/FileReader.js:23
+msgid ""
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
+msgstr ""
+"Åben en SVG fil fra din computer (<i class=\"fas fa-exclamation-triangle\"></"
+"i> skrivebeskyttet)"
+
+#: src/js/backend/GoogleDrive.js:25
+msgid "Open an SVG file from Google Drive"
+msgstr "Åben en SVG fil fra Google Drev"
 
 #: src/js/view/Properties.js:91
 #, fuzzy
@@ -744,6 +740,10 @@ msgstr "Indstillinger"
 #: src/js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Oplysninger"
+
+#: src/js/view/languages.js:17
+msgid "System language"
+msgstr ""
 
 #, fuzzy
 #~ msgid "Export the presentation to PDF"

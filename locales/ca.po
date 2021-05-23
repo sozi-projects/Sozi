@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-02-10 10:06:+0000\n"
+"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
 "PO-Revision-Date: 2021-05-14 13:32+0000\n"
 "Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/sozi/"
@@ -19,54 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.7-dev\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
-
-#: src/js/backend/Electron.js:48
-msgid "Open an SVG file from your computer"
-msgstr "Obriu un fitxer SVG del vostre ordinador"
-
-#: src/js/backend/Electron.js:73
-msgid "Do you want to save the presentation before closing?"
-msgstr "Voleu desar la presentació abans de tancar?"
-
-#: src/js/backend/Electron.js:74
-msgid "Yes"
-msgstr "Sí"
-
-#: src/js/backend/Electron.js:74
-msgid "No"
-msgstr "No"
-
-#: src/js/backend/Electron.js:103
-msgid "File not found: %s."
-msgstr "No s’ha trobat el fitxer: %s."
-
-#: src/js/backend/Electron.js:135
-msgid "Choose an SVG file"
-msgstr "Tria un fitxer SVG"
-
-#: src/js/backend/Electron.js:136
-msgid "SVG files"
-msgstr "Fitxers SVG"
-
-#: src/js/backend/Electron.js:197
-msgid "This file will not be reloaded on change: %s."
-msgstr ""
-
-#: src/js/backend/Electron.js:213
-msgid "Could not read file %s."
-msgstr ""
-
-#: src/js/backend/FileReader.js:23
-msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
-"\"></i> read-only)"
-msgstr ""
-"Obriu un fitxer SVG del vostre ordinador (<i class=\"fas fa-exclamation-"
-"triangle\"></i> read-only)"
-
-#: src/js/backend/GoogleDrive.js:25
-msgid "Open an SVG file from Google Drive"
-msgstr "Obre un fitxer SVG de Google Drive"
 
 #: src/js/Controller.js:217
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
@@ -120,9 +72,53 @@ msgstr "El document s'ha importat de Sozi 13 o anterior."
 msgid "Saved %s."
 msgstr "S'ha desat %s."
 
-#: src/js/view/languages.js:17
-msgid "System language"
+#: src/js/backend/Electron.js:48
+msgid "Open an SVG file from your computer"
+msgstr "Obriu un fitxer SVG del vostre ordinador"
+
+#: src/js/backend/Electron.js:73
+msgid "Do you want to save the presentation before closing?"
+msgstr "Voleu desar la presentació abans de tancar?"
+
+#: src/js/backend/Electron.js:74
+msgid "Yes"
+msgstr "Sí"
+
+#: src/js/backend/Electron.js:74
+msgid "No"
+msgstr "No"
+
+#: src/js/backend/Electron.js:103
+msgid "File not found: %s."
+msgstr "No s’ha trobat el fitxer: %s."
+
+#: src/js/backend/Electron.js:135
+msgid "Choose an SVG file"
+msgstr "Tria un fitxer SVG"
+
+#: src/js/backend/Electron.js:136
+msgid "SVG files"
+msgstr "Fitxers SVG"
+
+#: src/js/backend/Electron.js:197
+msgid "This file will not be reloaded on change: %s."
 msgstr ""
+
+#: src/js/backend/Electron.js:213
+msgid "Could not read file %s."
+msgstr ""
+
+#: src/js/backend/FileReader.js:23
+msgid ""
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
+msgstr ""
+"Obriu un fitxer SVG del vostre ordinador (<i class=\"fas fa-exclamation-"
+"triangle\"></i> read-only)"
+
+#: src/js/backend/GoogleDrive.js:25
+msgid "Open an SVG file from Google Drive"
+msgstr "Obre un fitxer SVG de Google Drive"
 
 #: src/js/view/Properties.js:91
 msgid "Autoselect outline element"
@@ -743,6 +739,10 @@ msgstr "Preferències"
 #: src/js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Informació"
+
+#: src/js/view/languages.js:17
+msgid "System language"
+msgstr ""
 
 #, fuzzy
 #~ msgid "Export the presentation to PDF"

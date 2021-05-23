@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-09 01:32:+0000\n"
+"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
 "PO-Revision-Date: 2018-11-07 16:08+0000\n"
 "Last-Translator: Csizmazia-Darab István <i.csizmazia@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/sozi/"
@@ -20,54 +20,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.9\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
-
-#: src/js/backend/Electron.js:48
-msgid "Open an SVG file from your computer"
-msgstr "Helyi SVG állomány megnyitása"
-
-#: src/js/backend/Electron.js:73
-msgid "Do you want to save the presentation before closing?"
-msgstr "El szeretnéd menteni a prezentációt bezárás előtt?"
-
-#: src/js/backend/Electron.js:74
-msgid "Yes"
-msgstr "Igen"
-
-#: src/js/backend/Electron.js:74
-msgid "No"
-msgstr "Nem"
-
-#: src/js/backend/Electron.js:103
-msgid "File not found: %s."
-msgstr "Hiányzó fájl: %s."
-
-#: src/js/backend/Electron.js:135
-msgid "Choose an SVG file"
-msgstr "Válassz ki egy SVG fájlt"
-
-#: src/js/backend/Electron.js:136
-msgid "SVG files"
-msgstr "SVG fájlok"
-
-#: src/js/backend/Electron.js:197
-msgid "This file will not be reloaded on change: %s."
-msgstr ""
-
-#: src/js/backend/Electron.js:213
-msgid "Could not read file %s."
-msgstr ""
-
-#: src/js/backend/FileReader.js:23
-msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
-"\"></i> read-only)"
-msgstr ""
-"Helyi SVG fájl megnyitása (<i class=\"fas fa-exclamation-triangle\">1</i>2 "
-"read-only)"
-
-#: src/js/backend/GoogleDrive.js:25
-msgid "Open an SVG file from Google Drive"
-msgstr "SVG fájl megnyitása Google Drive-ról"
 
 #: src/js/Controller.js:217
 #, fuzzy
@@ -124,9 +76,53 @@ msgstr "Az állomány Sozi 13 vagy korábbi verzióból lett importálva."
 msgid "Saved %s."
 msgstr "A %s elmentve ."
 
-#: src/js/view/languages.js:17
-msgid "System language"
+#: src/js/backend/Electron.js:48
+msgid "Open an SVG file from your computer"
+msgstr "Helyi SVG állomány megnyitása"
+
+#: src/js/backend/Electron.js:73
+msgid "Do you want to save the presentation before closing?"
+msgstr "El szeretnéd menteni a prezentációt bezárás előtt?"
+
+#: src/js/backend/Electron.js:74
+msgid "Yes"
+msgstr "Igen"
+
+#: src/js/backend/Electron.js:74
+msgid "No"
+msgstr "Nem"
+
+#: src/js/backend/Electron.js:103
+msgid "File not found: %s."
+msgstr "Hiányzó fájl: %s."
+
+#: src/js/backend/Electron.js:135
+msgid "Choose an SVG file"
+msgstr "Válassz ki egy SVG fájlt"
+
+#: src/js/backend/Electron.js:136
+msgid "SVG files"
+msgstr "SVG fájlok"
+
+#: src/js/backend/Electron.js:197
+msgid "This file will not be reloaded on change: %s."
 msgstr ""
+
+#: src/js/backend/Electron.js:213
+msgid "Could not read file %s."
+msgstr ""
+
+#: src/js/backend/FileReader.js:23
+msgid ""
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
+msgstr ""
+"Helyi SVG fájl megnyitása (<i class=\"fas fa-exclamation-triangle\">1</i>2 "
+"read-only)"
+
+#: src/js/backend/GoogleDrive.js:25
+msgid "Open an SVG file from Google Drive"
+msgstr "SVG fájl megnyitása Google Drive-ról"
 
 #: src/js/view/Properties.js:91
 #, fuzzy
@@ -748,6 +744,10 @@ msgstr "Beállítások"
 #: src/js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Információ"
+
+#: src/js/view/languages.js:17
+msgid "System language"
+msgstr ""
 
 #, fuzzy
 #~ msgid "Export the presentation to PDF"

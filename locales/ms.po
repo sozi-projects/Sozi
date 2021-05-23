@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-02-10 10:06:+0000\n"
+"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
 "PO-Revision-Date: 2021-05-14 13:32+0000\n"
 "Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
 "Language-Team: Malay <https://hosted.weblate.org/projects/sozi/translations/"
@@ -19,52 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.7-dev\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
-
-#: src/js/backend/Electron.js:48
-msgid "Open an SVG file from your computer"
-msgstr "Buka fail SVG dari komputer"
-
-#: src/js/backend/Electron.js:73
-msgid "Do you want to save the presentation before closing?"
-msgstr ""
-
-#: src/js/backend/Electron.js:74
-msgid "Yes"
-msgstr "Ya"
-
-#: src/js/backend/Electron.js:74
-msgid "No"
-msgstr "Tak"
-
-#: src/js/backend/Electron.js:103
-msgid "File not found: %s."
-msgstr "Fail tidak ditemui: %s"
-
-#: src/js/backend/Electron.js:135
-msgid "Choose an SVG file"
-msgstr "Pilih satu fail SVG"
-
-#: src/js/backend/Electron.js:136
-msgid "SVG files"
-msgstr "Fail SVG"
-
-#: src/js/backend/Electron.js:197
-msgid "This file will not be reloaded on change: %s."
-msgstr ""
-
-#: src/js/backend/Electron.js:213
-msgid "Could not read file %s."
-msgstr "Tidak dapat membaca fail %s."
-
-#: src/js/backend/FileReader.js:23
-msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
-"\"></i> read-only)"
-msgstr ""
-
-#: src/js/backend/GoogleDrive.js:25
-msgid "Open an SVG file from Google Drive"
-msgstr "Buka fail SVG melalui Google Drive"
 
 #: src/js/Controller.js:217
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
@@ -118,9 +72,51 @@ msgstr ""
 msgid "Saved %s."
 msgstr ""
 
-#: src/js/view/languages.js:17
-msgid "System language"
-msgstr "Bahasa sistem"
+#: src/js/backend/Electron.js:48
+msgid "Open an SVG file from your computer"
+msgstr "Buka fail SVG dari komputer"
+
+#: src/js/backend/Electron.js:73
+msgid "Do you want to save the presentation before closing?"
+msgstr ""
+
+#: src/js/backend/Electron.js:74
+msgid "Yes"
+msgstr "Ya"
+
+#: src/js/backend/Electron.js:74
+msgid "No"
+msgstr "Tak"
+
+#: src/js/backend/Electron.js:103
+msgid "File not found: %s."
+msgstr "Fail tidak ditemui: %s"
+
+#: src/js/backend/Electron.js:135
+msgid "Choose an SVG file"
+msgstr "Pilih satu fail SVG"
+
+#: src/js/backend/Electron.js:136
+msgid "SVG files"
+msgstr "Fail SVG"
+
+#: src/js/backend/Electron.js:197
+msgid "This file will not be reloaded on change: %s."
+msgstr ""
+
+#: src/js/backend/Electron.js:213
+msgid "Could not read file %s."
+msgstr "Tidak dapat membaca fail %s."
+
+#: src/js/backend/FileReader.js:23
+msgid ""
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
+msgstr ""
+
+#: src/js/backend/GoogleDrive.js:25
+msgid "Open an SVG file from Google Drive"
+msgstr "Buka fail SVG melalui Google Drive"
 
 #: src/js/view/Properties.js:91
 msgid "Autoselect outline element"
@@ -727,6 +723,10 @@ msgstr ""
 #: src/js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Maklumat"
+
+#: src/js/view/languages.js:17
+msgid "System language"
+msgstr "Bahasa sistem"
 
 #~ msgid "File %s could not be loaded."
 #~ msgstr "Fail %s tidak dapat dimuatkan."

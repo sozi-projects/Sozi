@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-02-10 10:06:+0000\n"
+"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
 "PO-Revision-Date: 2021-05-14 13:32+0000\n"
 "Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
 "Language-Team: Chinese (Pinyin) <https://hosted.weblate.org/projects/sozi/"
@@ -12,54 +12,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.7-dev\n"
-
-#: src/js/backend/Electron.js:48
-msgid "Open an SVG file from your computer"
-msgstr "Cóng diànnǎo dǎkāi SVG wénjiàn"
-
-#: src/js/backend/Electron.js:73
-msgid "Do you want to save the presentation before closing?"
-msgstr "Shìfǒu yào zài guānbì zhīqián bǎocún gāi yǎnshì wéngǎo?"
-
-#: src/js/backend/Electron.js:74
-msgid "Yes"
-msgstr "Shì"
-
-#: src/js/backend/Electron.js:74
-msgid "No"
-msgstr "Fǒu"
-
-#: src/js/backend/Electron.js:103
-msgid "File not found: %s."
-msgstr "Zhǎo bù dào wénjiàn: %S."
-
-#: src/js/backend/Electron.js:135
-msgid "Choose an SVG file"
-msgstr "Xuǎnzé SVG wénjiàn"
-
-#: src/js/backend/Electron.js:136
-msgid "SVG files"
-msgstr "SVG wénjiàn"
-
-#: src/js/backend/Electron.js:197
-msgid "This file will not be reloaded on change: %s."
-msgstr "更改后，将不会重新加载此文件：％s。"
-
-#: src/js/backend/Electron.js:213
-msgid "Could not read file %s."
-msgstr "Wúfǎ dúqǔ wénjiàn %s."
-
-#: src/js/backend/FileReader.js:23
-msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
-"\"></i> read-only)"
-msgstr ""
-"Cóng diànnǎo dǎkāi SVG wénjiàn (<i class=\"fas fa-exclamation-triangle\"></"
-"i> zhǐ dú)"
-
-#: src/js/backend/GoogleDrive.js:25
-msgid "Open an SVG file from Google Drive"
-msgstr "Cóng Google Drive shàng dǎkāi SVG wénjiàn"
 
 #: src/js/Controller.js:217
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
@@ -113,9 +65,53 @@ msgstr "Shūrù wéndàng wèi Sozi 13 huò gèng zǎoqí bǎnběn."
 msgid "Saved %s."
 msgstr "Bǎocún wánbì %s."
 
-#: src/js/view/languages.js:17
-msgid "System language"
-msgstr "系统语言"
+#: src/js/backend/Electron.js:48
+msgid "Open an SVG file from your computer"
+msgstr "Cóng diànnǎo dǎkāi SVG wénjiàn"
+
+#: src/js/backend/Electron.js:73
+msgid "Do you want to save the presentation before closing?"
+msgstr "Shìfǒu yào zài guānbì zhīqián bǎocún gāi yǎnshì wéngǎo?"
+
+#: src/js/backend/Electron.js:74
+msgid "Yes"
+msgstr "Shì"
+
+#: src/js/backend/Electron.js:74
+msgid "No"
+msgstr "Fǒu"
+
+#: src/js/backend/Electron.js:103
+msgid "File not found: %s."
+msgstr "Zhǎo bù dào wénjiàn: %S."
+
+#: src/js/backend/Electron.js:135
+msgid "Choose an SVG file"
+msgstr "Xuǎnzé SVG wénjiàn"
+
+#: src/js/backend/Electron.js:136
+msgid "SVG files"
+msgstr "SVG wénjiàn"
+
+#: src/js/backend/Electron.js:197
+msgid "This file will not be reloaded on change: %s."
+msgstr "更改后，将不会重新加载此文件：％s。"
+
+#: src/js/backend/Electron.js:213
+msgid "Could not read file %s."
+msgstr "Wúfǎ dúqǔ wénjiàn %s."
+
+#: src/js/backend/FileReader.js:23
+msgid ""
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
+msgstr ""
+"Cóng diànnǎo dǎkāi SVG wénjiàn (<i class=\"fas fa-exclamation-triangle\"></"
+"i> zhǐ dú)"
+
+#: src/js/backend/GoogleDrive.js:25
+msgid "Open an SVG file from Google Drive"
+msgstr "Cóng Google Drive shàng dǎkāi SVG wénjiàn"
 
 #: src/js/view/Properties.js:91
 msgid "Autoselect outline element"
@@ -723,6 +719,10 @@ msgstr ""
 #: src/js/view/Toolbar.js:158
 msgid "Information"
 msgstr ""
+
+#: src/js/view/languages.js:17
+msgid "System language"
+msgstr "系统语言"
 
 #, fuzzy
 #~ msgid "Export the presentation to PDF"

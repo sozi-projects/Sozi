@@ -80,14 +80,14 @@ class Controller extends EventEmitter {
         this.presentation = presentation;
 
         if (!editMode) {
-            this.viewport.on("click", btn => this.onClick(btn));
+            this.viewport.controller.on("click", btn => this.onClick(btn));
             window.addEventListener("keydown", evt => this.onKeyDown(evt), false);
 
             if (this.presentation.enableMouseTranslation) {
                 this.viewport.controller.on("dragStart", () => this.player.pause());
             }
 
-            this.viewport.on("userChangeState", () => player.pause());
+            this.viewport.controller.on("userChangeState", () => player.pause());
             window.addEventListener("keypress", evt => this.onKeyPress(evt), false);
         }
     }

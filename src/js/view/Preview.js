@@ -46,9 +46,9 @@ export class Preview {
 
         presentation.on("svgChange", () => this.onLoad());
         window.addEventListener("resize", () => this.repaint());
-        viewport.on("mouseDown", () => document.activeElement.blur());
-        viewport.on("click", (btn, evt) => this.onClick(btn, evt));
-        viewport.on("userChangeState", () => controller.updateCameraStates());
+        viewport.controller.on("mouseDown", () => document.activeElement.blur());
+        viewport.controller.on("click", (btn, evt) => this.onClick(btn, evt));
+        viewport.controller.on("userChangeState", () => controller.updateCameraStates());
         controller.on("repaint", () => this.repaint());
     }
 

@@ -69,11 +69,10 @@ class Controller extends EventEmitter{
     /** Initialize a new controller for the given viewport.
      *
      * @param {module:player/VIewport.Viewport} viewport - The associated viewport.
-     * @param {module:model/Presentation.Presentation} presentation - The displayed presentation.
      * @param {SVGSVGElement} svgRoot - the document's svg root element to listen to for user interaction.
      * @param {boolean} editMode - Is the presentation opened in an editor?
      */
-    constructor(viewport, presentation, svgRoot, editMode) {
+    constructor(viewport, editMode) {
         super();
 
         /** The associated viewport.
@@ -84,12 +83,12 @@ class Controller extends EventEmitter{
         /** The presentations to display.
          *
          * @type {module:model/Presentation.Presentation} */
-        this.presentation = presentation;
+        this.presentation = viewport.presentation;
 
         /** Is the presentation opened in an editor?
          *
          * @type {boolean} */
-        this.editMode = !!editMode;
+        this.editMode = editMode;
 
         /** The current X coordinate of the mous during a drag action.
          *
@@ -130,10 +129,13 @@ class Controller extends EventEmitter{
          * @listens mouseup
          */
         this.dragEndHandler = evt => this.onDragEnd(evt);
+    }
 
+    onLoad() {
+        const svgRoot = this.viewport.svgRoot;
 
-        svgRoot.addEventListener("mousedown", evt => this.onMouseDown(evt), false);
-        svgRoot.addEventListener("mousemove", evt => this.onMouseMove(evt), false);
+        svgRoot.addEventListener("mousedown",   evt => this.onMouseDown(evt),   false);
+        svgRoot.addEventListener("mousemove",   evt => this.onMouseMove(evt),   false);
         svgRoot.addEventListener("contextmenu", evt => this.onContextMenu(evt), false);
 
         const wheelEvent =
@@ -303,14 +305,14 @@ class Controller extends EventEmitter{
                 }
             }
             else {
-                this.viewport.emit("click", evt.button, evt);
+                this.emit("click", evt.button, evt);
             }
 
             document.documentElement.removeEventListener("mousemove", this.dragHandler, false);
             document.documentElement.removeEventListener("mouseup", this.dragEndHandler, false);
         }
         else {
-            this.viewport.emit("click", evt.button, evt);
+            this.emit("click", evt.button, evt);
         }
     }
 
@@ -420,9 +422,8 @@ class Controller extends EventEmitter{
     onContextMenu(evt) {
         evt.stopPropagation();
         evt.preventDefault();
-        this.viewport.emit("click", 2, evt);
+        this.emit("click", 2, evt);
     }
-
 }
 
 /** Signals a mouse click in a viewport.
@@ -450,11 +451,8 @@ class Controller extends EventEmitter{
  * @event module:player/Viewport.userChangeState
  */
 
-/** Viewing area for Sozi presentation.
- *
- * @extends EventEmitter
- */
-export class Viewport extends EventEmitter {
+/** Viewing area for Sozi presentation. */
+export class Viewport {
 
     /** Initialize a new viewport for the given presentation.
      *
@@ -462,17 +460,10 @@ export class Viewport extends EventEmitter {
      * @param {boolean} editMode - Is the presentation opened in an editor?
      */
     constructor(presentation, editMode) {
-        super();
-
         /** The presentations to display.
          *
          * @type {module:model/Presentation.Presentation} */
         this.presentation = presentation;
-
-        /** Is the presentation opened in an editor?
-         *
-         * @type {boolean} */
-        this.editMode = !!editMode;
 
         /** The cameras that operate in this viewport.
          *
@@ -508,6 +499,8 @@ export class Viewport extends EventEmitter {
          * @default
          * @type {boolean} */
         this.showHiddenElements = false;
+
+        this.controller = new Controller(this, !!editMode);
     }
 
     /** Create a unique SVG element ID.
@@ -535,8 +528,8 @@ export class Viewport extends EventEmitter {
      * This method registers event handlers and creates a camera for each layer.
      */
     onLoad() {
-        this.controller = new Controller(this, this.presentation, this.svgRoot, this.editMode);
         this.cameras = this.presentation.layers.map(layer => new Camera(this, layer));
+        this.controller.onLoad();
     }
 
     /** Is this viewport ready to for a repaint operation?

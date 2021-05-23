@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: Tim van Steenbergen <tim@sourcerers.nl>\n"
-"POT-Creation-Date: 2021-05-09 01:32:+0000\n"
+"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
 "PO-Revision-Date: 2020-10-12 11:26+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/sozi/translations/"
@@ -19,54 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.3-dev\n"
 "X-Launchpad-Export-Date: 2016-10-10 06:40+0000\n"
-
-#: src/js/backend/Electron.js:48
-msgid "Open an SVG file from your computer"
-msgstr "Open een svg-bestand van je computer"
-
-#: src/js/backend/Electron.js:73
-msgid "Do you want to save the presentation before closing?"
-msgstr "Wil je de presentatie opslaan voor je hem afsluit?"
-
-#: src/js/backend/Electron.js:74
-msgid "Yes"
-msgstr "Ja"
-
-#: src/js/backend/Electron.js:74
-msgid "No"
-msgstr "Nee"
-
-#: src/js/backend/Electron.js:103
-msgid "File not found: %s."
-msgstr "Bestand niet aangetroffen: %s."
-
-#: src/js/backend/Electron.js:135
-msgid "Choose an SVG file"
-msgstr "Kies een svg-bestand"
-
-#: src/js/backend/Electron.js:136
-msgid "SVG files"
-msgstr "SVG-bestanden"
-
-#: src/js/backend/Electron.js:197
-msgid "This file will not be reloaded on change: %s."
-msgstr "Het volgende bestand wordt na aanpassing niet herladen: %s."
-
-#: src/js/backend/Electron.js:213
-msgid "Could not read file %s."
-msgstr "Het bestand '%s' kan niet worden uitgelezen."
-
-#: src/js/backend/FileReader.js:23
-msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
-"\"></i> read-only)"
-msgstr ""
-"Open een svg-bestand van je computer (<i class=\"fas fa-exclamation-triangle"
-"\"></i> alleen-lezen)"
-
-#: src/js/backend/GoogleDrive.js:25
-msgid "Open an SVG file from Google Drive"
-msgstr "Open een svg-bestand van Google Drive"
 
 #: src/js/Controller.js:217
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
@@ -120,9 +72,53 @@ msgstr "Het bestand is geïmporteerd uit Sozi 13 of ouder."
 msgid "Saved %s."
 msgstr "'%s' is opgeslagen."
 
-#: src/js/view/languages.js:17
-msgid "System language"
-msgstr "Systeemtaal"
+#: src/js/backend/Electron.js:48
+msgid "Open an SVG file from your computer"
+msgstr "Open een svg-bestand van je computer"
+
+#: src/js/backend/Electron.js:73
+msgid "Do you want to save the presentation before closing?"
+msgstr "Wil je de presentatie opslaan voor je hem afsluit?"
+
+#: src/js/backend/Electron.js:74
+msgid "Yes"
+msgstr "Ja"
+
+#: src/js/backend/Electron.js:74
+msgid "No"
+msgstr "Nee"
+
+#: src/js/backend/Electron.js:103
+msgid "File not found: %s."
+msgstr "Bestand niet aangetroffen: %s."
+
+#: src/js/backend/Electron.js:135
+msgid "Choose an SVG file"
+msgstr "Kies een svg-bestand"
+
+#: src/js/backend/Electron.js:136
+msgid "SVG files"
+msgstr "SVG-bestanden"
+
+#: src/js/backend/Electron.js:197
+msgid "This file will not be reloaded on change: %s."
+msgstr "Het volgende bestand wordt na aanpassing niet herladen: %s."
+
+#: src/js/backend/Electron.js:213
+msgid "Could not read file %s."
+msgstr "Het bestand '%s' kan niet worden uitgelezen."
+
+#: src/js/backend/FileReader.js:23
+msgid ""
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
+msgstr ""
+"Open een svg-bestand van je computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> alleen-lezen)"
+
+#: src/js/backend/GoogleDrive.js:25
+msgid "Open an SVG file from Google Drive"
+msgstr "Open een svg-bestand van Google Drive"
 
 #: src/js/view/Properties.js:91
 msgid "Autoselect outline element"
@@ -743,6 +739,10 @@ msgstr "Instellingen"
 #: src/js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Informatie"
+
+#: src/js/view/languages.js:17
+msgid "System language"
+msgstr "Systeemtaal"
 
 #~ msgid "Ledger"
 #~ msgstr "Grootboek"

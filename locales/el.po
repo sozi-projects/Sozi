@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-05-09 01:32:+0000\n"
+"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
 "PO-Revision-Date: 2021-04-17 15:07+0000\n"
 "Last-Translator: Kleanthis Damianidis <kdamian.sxoleio@gmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/sozi/translations/"
@@ -12,54 +12,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.6-dev\n"
-
-#: src/js/backend/Electron.js:48
-msgid "Open an SVG file from your computer"
-msgstr "Ανοίξτε ένα αρχείο SVG από τον υπολογιστή σας"
-
-#: src/js/backend/Electron.js:73
-msgid "Do you want to save the presentation before closing?"
-msgstr "Θέλετε να αποθηκεύσετε την παρουσίαση πριν την έξοδο;"
-
-#: src/js/backend/Electron.js:74
-msgid "Yes"
-msgstr "Ναι"
-
-#: src/js/backend/Electron.js:74
-msgid "No"
-msgstr "Όχι"
-
-#: src/js/backend/Electron.js:103
-msgid "File not found: %s."
-msgstr "Το αρχείο δε βρέθηκε."
-
-#: src/js/backend/Electron.js:135
-msgid "Choose an SVG file"
-msgstr "Επιλέξτε ένα SVG αρχείο"
-
-#: src/js/backend/Electron.js:136
-msgid "SVG files"
-msgstr "Αρχεία SVG"
-
-#: src/js/backend/Electron.js:197
-msgid "This file will not be reloaded on change: %s."
-msgstr "Το αρχείο δεν θα ξαναφορτωθεί κατά την αλλαγή."
-
-#: src/js/backend/Electron.js:213
-msgid "Could not read file %s."
-msgstr "Το αρχείο δεν μπορεί να διαβαστεί."
-
-#: src/js/backend/FileReader.js:23
-msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
-"\"></i> read-only)"
-msgstr ""
-"Ανοίξτε ένα αρχείο SVG από τον υπολογιστή σας (<i class=\"fas fa-exclamation-"
-"triangle\"></i>read-only)"
-
-#: src/js/backend/GoogleDrive.js:25
-msgid "Open an SVG file from Google Drive"
-msgstr "Ανοίξτε ένα αρχείο SVG από το Google Drive"
 
 #: src/js/Controller.js:217
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
@@ -113,9 +65,53 @@ msgstr "Το έγγραφο εισήχθη από έκδοση Sozi 13 ή παλ
 msgid "Saved %s."
 msgstr "Αποθηκεύτηκε %s."
 
-#: src/js/view/languages.js:17
-msgid "System language"
-msgstr "Γλώσσα συστήματος"
+#: src/js/backend/Electron.js:48
+msgid "Open an SVG file from your computer"
+msgstr "Ανοίξτε ένα αρχείο SVG από τον υπολογιστή σας"
+
+#: src/js/backend/Electron.js:73
+msgid "Do you want to save the presentation before closing?"
+msgstr "Θέλετε να αποθηκεύσετε την παρουσίαση πριν την έξοδο;"
+
+#: src/js/backend/Electron.js:74
+msgid "Yes"
+msgstr "Ναι"
+
+#: src/js/backend/Electron.js:74
+msgid "No"
+msgstr "Όχι"
+
+#: src/js/backend/Electron.js:103
+msgid "File not found: %s."
+msgstr "Το αρχείο δε βρέθηκε."
+
+#: src/js/backend/Electron.js:135
+msgid "Choose an SVG file"
+msgstr "Επιλέξτε ένα SVG αρχείο"
+
+#: src/js/backend/Electron.js:136
+msgid "SVG files"
+msgstr "Αρχεία SVG"
+
+#: src/js/backend/Electron.js:197
+msgid "This file will not be reloaded on change: %s."
+msgstr "Το αρχείο δεν θα ξαναφορτωθεί κατά την αλλαγή."
+
+#: src/js/backend/Electron.js:213
+msgid "Could not read file %s."
+msgstr "Το αρχείο δεν μπορεί να διαβαστεί."
+
+#: src/js/backend/FileReader.js:23
+msgid ""
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
+msgstr ""
+"Ανοίξτε ένα αρχείο SVG από τον υπολογιστή σας (<i class=\"fas fa-exclamation-"
+"triangle\"></i>read-only)"
+
+#: src/js/backend/GoogleDrive.js:25
+msgid "Open an SVG file from Google Drive"
+msgstr "Ανοίξτε ένα αρχείο SVG από το Google Drive"
 
 #: src/js/view/Properties.js:91
 msgid "Autoselect outline element"
@@ -723,3 +719,7 @@ msgstr ""
 #: src/js/view/Toolbar.js:158
 msgid "Information"
 msgstr ""
+
+#: src/js/view/languages.js:17
+msgid "System language"
+msgstr "Γλώσσα συστήματος"

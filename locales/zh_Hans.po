@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-05-09 01:32:+0000\n"
+"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
 "PO-Revision-Date: 2021-01-09 05:32+0000\n"
 "Last-Translator: Eric <spice2wolf@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -12,53 +12,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.4.1-dev\n"
-
-#: src/js/backend/Electron.js:48
-msgid "Open an SVG file from your computer"
-msgstr "从电脑打开 SVG 文件"
-
-#: src/js/backend/Electron.js:73
-msgid "Do you want to save the presentation before closing?"
-msgstr "是否要在关闭之前保存该演示文稿？"
-
-#: src/js/backend/Electron.js:74
-msgid "Yes"
-msgstr "是"
-
-#: src/js/backend/Electron.js:74
-msgid "No"
-msgstr "否"
-
-#: src/js/backend/Electron.js:103
-msgid "File not found: %s."
-msgstr "找不到文件: %s."
-
-#: src/js/backend/Electron.js:135
-msgid "Choose an SVG file"
-msgstr "选择 SVG 文件"
-
-#: src/js/backend/Electron.js:136
-msgid "SVG files"
-msgstr "SVG 文件"
-
-#: src/js/backend/Electron.js:197
-msgid "This file will not be reloaded on change: %s."
-msgstr ""
-
-#: src/js/backend/Electron.js:213
-msgid "Could not read file %s."
-msgstr "无法读取文件 %s。"
-
-#: src/js/backend/FileReader.js:23
-msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
-"\"></i> read-only)"
-msgstr ""
-"从电脑打开 SVG 文件 (<i class=\"fas fa-exclamation-triangle\"></i> 只读)"
-
-#: src/js/backend/GoogleDrive.js:25
-msgid "Open an SVG file from Google Drive"
-msgstr "从 Google Drive 上打开 SVG 文件"
 
 #: src/js/Controller.js:217
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
@@ -112,9 +65,52 @@ msgstr "输入文档为 Sozi 13 或更早期版本。"
 msgid "Saved %s."
 msgstr "保存完毕 %s 。"
 
-#: src/js/view/languages.js:17
-msgid "System language"
+#: src/js/backend/Electron.js:48
+msgid "Open an SVG file from your computer"
+msgstr "从电脑打开 SVG 文件"
+
+#: src/js/backend/Electron.js:73
+msgid "Do you want to save the presentation before closing?"
+msgstr "是否要在关闭之前保存该演示文稿？"
+
+#: src/js/backend/Electron.js:74
+msgid "Yes"
+msgstr "是"
+
+#: src/js/backend/Electron.js:74
+msgid "No"
+msgstr "否"
+
+#: src/js/backend/Electron.js:103
+msgid "File not found: %s."
+msgstr "找不到文件: %s."
+
+#: src/js/backend/Electron.js:135
+msgid "Choose an SVG file"
+msgstr "选择 SVG 文件"
+
+#: src/js/backend/Electron.js:136
+msgid "SVG files"
+msgstr "SVG 文件"
+
+#: src/js/backend/Electron.js:197
+msgid "This file will not be reloaded on change: %s."
 msgstr ""
+
+#: src/js/backend/Electron.js:213
+msgid "Could not read file %s."
+msgstr "无法读取文件 %s。"
+
+#: src/js/backend/FileReader.js:23
+msgid ""
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
+msgstr ""
+"从电脑打开 SVG 文件 (<i class=\"fas fa-exclamation-triangle\"></i> 只读)"
+
+#: src/js/backend/GoogleDrive.js:25
+msgid "Open an SVG file from Google Drive"
+msgstr "从 Google Drive 上打开 SVG 文件"
 
 #: src/js/view/Properties.js:91
 msgid "Autoselect outline element"
@@ -722,6 +718,10 @@ msgstr "首选项"
 #: src/js/view/Toolbar.js:158
 msgid "Information"
 msgstr "信息提示"
+
+#: src/js/view/languages.js:17
+msgid "System language"
+msgstr ""
 
 #, fuzzy
 #~ msgid "Export the presentation to PDF"

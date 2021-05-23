@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-09 01:32:+0000\n"
+"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
 "PO-Revision-Date: 2019-07-23 15:08+0000\n"
 "Last-Translator: Tauras <tp@colideum.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/sozi/"
@@ -21,54 +21,6 @@ msgstr ""
 "1 : 2);\n"
 "X-Generator: Weblate 3.8-dev\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
-
-#: src/js/backend/Electron.js:48
-msgid "Open an SVG file from your computer"
-msgstr "Atidaryti Jūsų kompiuteryje esantį SVG failą"
-
-#: src/js/backend/Electron.js:73
-msgid "Do you want to save the presentation before closing?"
-msgstr "Ar norite prieš uždarant išsaugoti prezentaciją?"
-
-#: src/js/backend/Electron.js:74
-msgid "Yes"
-msgstr "Taip"
-
-#: src/js/backend/Electron.js:74
-msgid "No"
-msgstr "Ne"
-
-#: src/js/backend/Electron.js:103
-msgid "File not found: %s."
-msgstr "Failas nerastas: %s."
-
-#: src/js/backend/Electron.js:135
-msgid "Choose an SVG file"
-msgstr "Pasirinkite SVG failą"
-
-#: src/js/backend/Electron.js:136
-msgid "SVG files"
-msgstr "SVG failai"
-
-#: src/js/backend/Electron.js:197
-msgid "This file will not be reloaded on change: %s."
-msgstr ""
-
-#: src/js/backend/Electron.js:213
-msgid "Could not read file %s."
-msgstr ""
-
-#: src/js/backend/FileReader.js:23
-msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
-"\"></i> read-only)"
-msgstr ""
-"Atidaryti Jūsų kompiuteryje esantį SVG failą (<i class=\"fas fa-exclamation-"
-"triangle\">skaitymo režimu</i>)"
-
-#: src/js/backend/GoogleDrive.js:25
-msgid "Open an SVG file from Google Drive"
-msgstr "Atidaryti Google diske esantį SVG failą"
 
 #: src/js/Controller.js:217
 #, fuzzy
@@ -126,9 +78,53 @@ msgstr "Dokumentas importuotas iš Sozi 13 ar ankstesnės versijos."
 msgid "Saved %s."
 msgstr "Išsaugota %s."
 
-#: src/js/view/languages.js:17
-msgid "System language"
+#: src/js/backend/Electron.js:48
+msgid "Open an SVG file from your computer"
+msgstr "Atidaryti Jūsų kompiuteryje esantį SVG failą"
+
+#: src/js/backend/Electron.js:73
+msgid "Do you want to save the presentation before closing?"
+msgstr "Ar norite prieš uždarant išsaugoti prezentaciją?"
+
+#: src/js/backend/Electron.js:74
+msgid "Yes"
+msgstr "Taip"
+
+#: src/js/backend/Electron.js:74
+msgid "No"
+msgstr "Ne"
+
+#: src/js/backend/Electron.js:103
+msgid "File not found: %s."
+msgstr "Failas nerastas: %s."
+
+#: src/js/backend/Electron.js:135
+msgid "Choose an SVG file"
+msgstr "Pasirinkite SVG failą"
+
+#: src/js/backend/Electron.js:136
+msgid "SVG files"
+msgstr "SVG failai"
+
+#: src/js/backend/Electron.js:197
+msgid "This file will not be reloaded on change: %s."
 msgstr ""
+
+#: src/js/backend/Electron.js:213
+msgid "Could not read file %s."
+msgstr ""
+
+#: src/js/backend/FileReader.js:23
+msgid ""
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
+msgstr ""
+"Atidaryti Jūsų kompiuteryje esantį SVG failą (<i class=\"fas fa-exclamation-"
+"triangle\">skaitymo režimu</i>)"
+
+#: src/js/backend/GoogleDrive.js:25
+msgid "Open an SVG file from Google Drive"
+msgstr "Atidaryti Google diske esantį SVG failą"
 
 #: src/js/view/Properties.js:91
 #, fuzzy
@@ -751,6 +747,10 @@ msgstr ""
 #: src/js/view/Toolbar.js:158
 msgid "Information"
 msgstr "Informacija"
+
+#: src/js/view/languages.js:17
+msgid "System language"
+msgstr ""
 
 #, fuzzy
 #~ msgid "Export the presentation to PDF"

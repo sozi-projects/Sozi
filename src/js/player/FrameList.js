@@ -100,7 +100,7 @@ export function init(p) {
     animator.on("step", onAnimatorStep);
     window.addEventListener("keypress", onKeyPress, false);
     window.addEventListener("resize", () => setCurrentOffset(currentOffset));
-    player.viewport.on("mouseDown", onMouseDown);
+    player.viewport.controller.on("mouseDown", onMouseDown);
     player.viewport.svgRoot.addEventListener("touchstart", evt => onTouchStart);
     frameList.addEventListener("mouseout", onMouseOut, false);
     p.on("frameChange", onFrameChange);

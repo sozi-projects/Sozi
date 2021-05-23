@@ -201,7 +201,7 @@ function makeTranspileTask(target, opts) {
     const destPath = `build/${target}/src/js/`;
     return function transpileTask() {
         return src("src/js/**/*.js")
-            .pipe(newer(destPath))
+            // .pipe(newer(destPath))
             .pipe(babel({
                 presets: [["@babel/preset-env", opts]]
             }))

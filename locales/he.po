@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-05-09 01:32:+0000\n"
+"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
 "PO-Revision-Date: 2020-11-09 22:28+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/sozi/translations/"
@@ -13,54 +13,6 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
 "X-Generator: Weblate 4.4-dev\n"
-
-#: src/js/backend/Electron.js:48
-msgid "Open an SVG file from your computer"
-msgstr "פתיחת קובץ SVG מהמחשב שלך"
-
-#: src/js/backend/Electron.js:73
-msgid "Do you want to save the presentation before closing?"
-msgstr "לשמור את המצגת לפני הסגירה?"
-
-#: src/js/backend/Electron.js:74
-msgid "Yes"
-msgstr "כן"
-
-#: src/js/backend/Electron.js:74
-msgid "No"
-msgstr "לא"
-
-#: src/js/backend/Electron.js:103
-msgid "File not found: %s."
-msgstr "הקובץ לא נמצא: %s."
-
-#: src/js/backend/Electron.js:135
-msgid "Choose an SVG file"
-msgstr "נא לבחור קובץ SVG"
-
-#: src/js/backend/Electron.js:136
-msgid "SVG files"
-msgstr "קובצי SVG"
-
-#: src/js/backend/Electron.js:197
-msgid "This file will not be reloaded on change: %s."
-msgstr "הקובץ לא יתרענן בעת ביצוע שינוי: %s."
-
-#: src/js/backend/Electron.js:213
-msgid "Could not read file %s."
-msgstr "לא ניתן לקרוא את הקובץ %s."
-
-#: src/js/backend/FileReader.js:23
-msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
-"\"></i> read-only)"
-msgstr ""
-"פתיחת קובץ SVG מהמחשב שלך (<i class=\"fas fa-exclamation-triangle\"></i> "
-"קריאה בלבד)"
-
-#: src/js/backend/GoogleDrive.js:25
-msgid "Open an SVG file from Google Drive"
-msgstr "פתיחת קובץ SVG מ־Google Drive"
 
 #: src/js/Controller.js:217
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
@@ -114,9 +66,53 @@ msgstr "המסמך יובא מ־Sozi 13 ומטה."
 msgid "Saved %s."
 msgstr "%s נשמר."
 
-#: src/js/view/languages.js:17
-msgid "System language"
-msgstr "שפת המערכת"
+#: src/js/backend/Electron.js:48
+msgid "Open an SVG file from your computer"
+msgstr "פתיחת קובץ SVG מהמחשב שלך"
+
+#: src/js/backend/Electron.js:73
+msgid "Do you want to save the presentation before closing?"
+msgstr "לשמור את המצגת לפני הסגירה?"
+
+#: src/js/backend/Electron.js:74
+msgid "Yes"
+msgstr "כן"
+
+#: src/js/backend/Electron.js:74
+msgid "No"
+msgstr "לא"
+
+#: src/js/backend/Electron.js:103
+msgid "File not found: %s."
+msgstr "הקובץ לא נמצא: %s."
+
+#: src/js/backend/Electron.js:135
+msgid "Choose an SVG file"
+msgstr "נא לבחור קובץ SVG"
+
+#: src/js/backend/Electron.js:136
+msgid "SVG files"
+msgstr "קובצי SVG"
+
+#: src/js/backend/Electron.js:197
+msgid "This file will not be reloaded on change: %s."
+msgstr "הקובץ לא יתרענן בעת ביצוע שינוי: %s."
+
+#: src/js/backend/Electron.js:213
+msgid "Could not read file %s."
+msgstr "לא ניתן לקרוא את הקובץ %s."
+
+#: src/js/backend/FileReader.js:23
+msgid ""
+"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
+msgstr ""
+"פתיחת קובץ SVG מהמחשב שלך (<i class=\"fas fa-exclamation-triangle\"></i> "
+"קריאה בלבד)"
+
+#: src/js/backend/GoogleDrive.js:25
+msgid "Open an SVG file from Google Drive"
+msgstr "פתיחת קובץ SVG מ־Google Drive"
 
 #: src/js/view/Properties.js:91
 msgid "Autoselect outline element"
@@ -727,6 +723,10 @@ msgstr "העדפות"
 #: src/js/view/Toolbar.js:158
 msgid "Information"
 msgstr "מידע"
+
+#: src/js/view/languages.js:17
+msgid "System language"
+msgstr "שפת המערכת"
 
 #~ msgid "Ledger"
 #~ msgstr "לדג׳ר"
