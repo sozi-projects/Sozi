@@ -90,7 +90,7 @@ export function init(p) {
     for (let link of links) {
         link.addEventListener("click", evt => {
             if (evt.button === 0) {
-                player.previewFrame(link.hash.slice(1));
+                player.controller.previewFrame(link.hash.slice(1));
                 evt.preventDefault();
             }
         });
@@ -212,7 +212,7 @@ function onMouseDown(button) {
  *
  * @listens touchstart
  */
-function onTouchStart(evt){
+function onTouchStart(evt) {
     close();
 }
 

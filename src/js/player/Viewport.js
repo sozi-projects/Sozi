@@ -51,6 +51,380 @@ const WHEEL_TIMEOUT_MS = 200;
  * @type {number} */
 const CLIP_BORDER = 3;
 
+
+/** Signals that a user interaction triggered a change to the viewport's state.
+ *
+ * @event module:player/Player.localChange
+ */
+
+/** The viewport's event handling controller
+ *
+ * The controller implements keyboard and mouse handlers and performs according actions on the associated viewport.
+ * It also provides an interface to external ui event handlers:
+ * - TouchGestures
+ *
+ * @extends EventEmitter
+ */
+class Controller extends EventEmitter{
+    /** Initialize a new controller for the given viewport.
+     *
+     * @param {module:player/VIewport.Viewport} viewport - The associated viewport.
+     * @param {module:model/Presentation.Presentation} presentation - The displayed presentation.
+     * @param {SVGSVGElement} svgRoot - the document's svg root element to listen to for user interaction.
+     * @param {boolean} editMode - Is the presentation opened in an editor?
+     */
+    constructor(viewport, presentation, svgRoot, editMode) {
+        super();
+
+        /** The associated viewport.
+         *
+         * @type {module:model/Viewport.Viewport} */
+        this.viewport = viewport;
+
+        /** The presentations to display.
+         *
+         * @type {module:model/Presentation.Presentation} */
+        this.presentation = presentation;
+
+        /** Is the presentation opened in an editor?
+         *
+         * @type {boolean} */
+        this.editMode = !!editMode;
+
+        /** The current X coordinate of the mous during a drag action.
+         *
+         * @default
+         * @type {number} */
+        this.mouseDragX = 0;
+
+        /** The current Y coordinate of the mous during a drag action.
+         *
+         * @default
+         * @type {number} */
+        this.mouseDragY = 0;
+
+        /** A timeout ID to detect the end of a mouse wheel gesture.
+         *
+         * @default
+         * @type {?number} */
+        this.wheelTimeout = null;
+
+        /** The mouse drag event handler.
+         *
+         * This function is registered as an event listener after
+         * a mouse-down event.
+         *
+         * @param {MouseEvent} evt - A DOM event.
+         * @returns {void}
+         * @listens mousemove
+         */
+        this.dragHandler = evt => this.onDrag(evt);
+
+        /** The mouse drag end event handler.
+         *
+         * This function is registered as an event listener after
+         * a mouse-down event.
+         *
+         * @param {MouseEvent} evt - A DOM event.
+         * @returns {void}
+         * @listens mouseup
+         */
+        this.dragEndHandler = evt => this.onDragEnd(evt);
+
+
+        svgRoot.addEventListener("mousedown", evt => this.onMouseDown(evt), false);
+        svgRoot.addEventListener("mousemove", evt => this.onMouseMove(evt), false);
+        svgRoot.addEventListener("contextmenu", evt => this.onContextMenu(evt), false);
+
+        const wheelEvent =
+            "onwheel" in document.createElement("div") ? "wheel" :  // Modern browsers support "wheel"
+            document.onmousewheel !== undefined ? "mousewheel" :    // Webkit and IE support at least "mousewheel"
+            "DOMMouseScroll";                                       // Firefox < 17
+        svgRoot.addEventListener(wheelEvent, evt => this.onWheel(evt), false);
+    }
+
+    /** Process a mouse move event in this viewport.
+     *
+     * @param {MouseEvent} evt - A DOM event.
+     *
+     * @listens mousemove
+     */
+    onMouseMove(evt) {
+        this.viewport.updateClipCursor(evt.clientX,evt.clientY);
+    }
+
+    /** Process a mouse down event in this viewport.
+     *
+     * If the mouse button pressed is the left button,
+     * this method will setup event listeners for detecting a drag action.
+     *
+     * @param {MouseEvent} evt - A DOM event.
+     *
+     * @listens mousedown
+     * @fires module:player/Viewport.mouseDown
+     */
+    onMouseDown(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        if (evt.button === DRAG_BUTTON) {
+            this.mouseDragged = false;
+            this.mouseDragChangedState = false;
+            this.mouseDragX = this.mouseDragStartX = evt.clientX;
+            this.mouseDragY = this.mouseDragStartY = evt.clientY;
+
+            document.documentElement.addEventListener("mousemove", this.dragHandler, false);
+            document.documentElement.addEventListener("mouseup", this.dragEndHandler, false);
+
+            this.viewport.updateClipMode(evt.clientX,evt.clientY);
+        }
+
+        this.emit("mouseDown", evt.button);
+    }
+
+    /** Process a mouse drag event.
+     *
+     * This method is called when a mouse move event happens after a mouse down event.
+     *
+     * @param {MouseEvent} evt - A DOM event.
+     *
+     * @listens mousemove
+     * @fires module:player/Viewport.dragStart
+     */
+    onDrag(evt) {
+        evt.stopPropagation();
+        const xFromCenter = evt.clientX - this.viewport.x - this.viewport.width / 2;
+        const yFromCenter = evt.clientY - this.viewport.y - this.viewport.height / 2;
+        let angle = 180 * Math.atan2(yFromCenter, xFromCenter) / Math.PI;
+        let translateX = evt.clientX;
+        let translateY = evt.clientY;
+        const zoom = Math.sqrt(xFromCenter * xFromCenter + yFromCenter * yFromCenter);
+        const deltaX = evt.clientX - this.mouseDragX;
+        const deltaY = evt.clientY - this.mouseDragY;
+
+        // The drag action is confirmed when one of the mouse coordinates
+        // has moved past the threshold
+        if (!this.mouseDragged && (Math.abs(deltaX) > DRAG_THRESHOLD_PX ||
+                                   Math.abs(deltaY) > DRAG_THRESHOLD_PX)) {
+            this.mouseDragged = true;
+
+            this.rotateStart = this.rotatePrev = angle;
+            this.translateStartX = this.translateXPrev = translateX;
+            this.translateStartY = this.translateYPrev = translateY;
+            this.zoomPrev = zoom;
+
+            this.emit("dragStart");
+        }
+
+        if (this.mouseDragged) {
+            let mode = this.viewport.dragMode;
+            if (mode == "translate") {
+                if (evt.altKey) {
+                    mode = "scale";
+                }
+                else if (evt.shiftKey) {
+                    mode = "rotate";
+                }
+            }
+
+            switch (mode) {
+                case "scale":
+                    if (this.editMode || this.presentation.enableMouseZoom) {
+                        if (this.zoomPrev !== 0) {
+                            this.zoom(zoom / this.zoomPrev, this.viewport.width / 2, this.viewport.height / 2);
+                            this.mouseDragChangedState = true;
+                        }
+                        this.zoomPrev = zoom;
+                    }
+                    break;
+
+                case "rotate":
+                    if (this.editMode || this.presentation.enableMouseRotation) {
+                        if (evt.ctrlKey) {
+                            angle = 10 * Math.round((angle - this.rotateStart) / 10) + this.rotateStart;
+                        }
+                        this.rotate(this.rotatePrev - angle);
+                        this.mouseDragChangedState = true;
+                        this.rotatePrev = angle;
+                    }
+                    break;
+
+                case "clip":
+                    this.viewport.clipByMode(this.mouseDragStartX - this.viewport.x, this.mouseDragStartY - this.viewport.y,
+                                             this.mouseDragX      - this.viewport.x, this.mouseDragY      - this.viewport.y,
+                                             deltaX, deltaY);
+
+                    this.mouseDragChangedState = true;
+                    break;
+
+                default: // case "translate":
+                    if (this.editMode || this.presentation.enableMouseTranslation) {
+                        if (evt.ctrlKey) {
+                            if (Math.abs(translateX - this.translateStartX) >= Math.abs(translateY - this.translateStartY)) {
+                                translateY = this.translateStartY;
+                            }
+                            else {
+                                translateX = this.translateStartX;
+                            }
+                        }
+                        this.translate(translateX - this.translateXPrev, translateY - this.translateYPrev);
+                        this.mouseDragChangedState = true;
+                        this.translateXPrev = translateX;
+                        this.translateYPrev = translateY;
+                    }
+            }
+            this.mouseDragX = evt.clientX;
+            this.mouseDragY = evt.clientY;
+        }
+    }
+
+    /** Process a drag end event.
+     *
+     * This method is called when a mouse up event happens after a mouse down event.
+     * If the mouse has been moved past the drag threshold, this method
+     * will fire a `dragEnd` event. Otherwise, it will fire a `click` event.
+     *
+     * @param {MouseEvent} evt - A DOM event
+     *
+     * @listens mouseup
+     * @fires module:player/Viewport.userChangeState
+     * @fires module:player/Viewport.dragEnd
+     * @fires module:player/Viewport.click
+     */
+    onDragEnd(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        if (evt.button === DRAG_BUTTON) {
+            if (this.mouseDragged) {
+                this.emit("dragEnd");
+                if (this.mouseDragChangedState) {
+                    this.emit("userChangeState");
+                }
+            }
+            else {
+                this.viewport.emit("click", evt.button, evt);
+            }
+
+            document.documentElement.removeEventListener("mousemove", this.dragHandler, false);
+            document.documentElement.removeEventListener("mouseup", this.dragEndHandler, false);
+        }
+        else {
+            this.viewport.emit("click", evt.button, evt);
+        }
+    }
+
+    /** Process a mouse wheel event in this viewport.
+     *
+     * The effect of the mouse wheel depends on the state of the Shift key:
+     *    - released: zoom in and out,
+     *    - pressed: rotate clockwise or counter-clockwise
+     *
+     * @param {WheelEvent} evt - A DOM event.
+     *
+     * @fires module:player/Viewport.userChangeState
+     */
+    onWheel(evt) {
+        if (this.wheelTimeout !== null) {
+            window.clearTimeout(this.wheelTimeout);
+        }
+
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        let delta = 0;
+        if (evt.wheelDelta) {   // "mousewheel" event
+            delta = evt.wheelDelta;
+        }
+        else if (evt.detail) {  // "DOMMouseScroll" event
+            delta = -evt.detail;
+        }
+        else {                  // "wheel" event
+            delta = -evt.deltaY;
+        }
+
+        let changed = false;
+
+        if (delta !== 0) {
+            if (evt.shiftKey) {
+                // TODO rotate around mouse cursor
+                if (this.editMode || this.presentation.enableMouseRotation) {
+                    this.rotate(delta > 0 ? ROTATE_STEP : -ROTATE_STEP);
+                    changed = true;
+                }
+            }
+            else {
+                if (this.editMode || this.presentation.enableMouseZoom) {
+                    this.zoom(delta > 0 ? SCALE_FACTOR : 1/SCALE_FACTOR, evt.clientX - this.viewport.x, evt.clientY - this.viewport.y);
+                    changed = true;
+                }
+            }
+        }
+
+        if (changed) {
+            this.wheelTimeout = window.setTimeout(() => {
+                this.wheelTimeout = null;
+                this.emit("userChangeState");
+            }, WHEEL_TIMEOUT_MS);
+        }
+    }
+
+    /** helper for zoom.
+     *
+     * @param {number} factor - The zoom factor.
+     * @param {number} x - The x coordinate of the screenpoint to focus while zooming.
+     * @param {number} y - The y coordinate of the screenpoint to focus while zooming.
+     *
+     * @fires {module:player/Player.localChange}
+     *
+     */
+    zoom(factor, x, y) {
+        this.emit("localChange", {change: "interactive"});
+        this.viewport.zoom(factor, x, y);
+    }
+
+    /** helper for rotation.
+     *
+     * @param {number} angle - The rotation angle, in degrees.
+     *
+     * @fires {module:player/Player.localChange}
+     *
+     */
+    rotate(angle) {
+        this.emit("localChange", {change: "interactive"});
+        this.viewport.rotate(angle);
+    }
+
+    /** helper for translation by x and y offset.
+     *
+     * @param {number} deltaX - The horizontal displacement, in pixels.
+     * @param {number} deltaY - The vertical displacement, in pixels.
+     *
+     * @fires {module:player/Player.localChange}
+     */
+     translate(deltaX, deltaY) {
+        this.emit("localChange", {change: "interactive"});
+        this.viewport.translate(deltaX, deltaY);
+    }
+
+    /** Process a right-click in the associated viewport.
+     *
+     * This method forwards the `contextmenu` event as a
+     * viewport {@linkcode module:player/Viewport.click|click} event.
+     *
+     * @param {MouseEvent} evt - A DOM event.
+     *
+     * @listens contextmenu
+     * @fires module:player/Viewport.click
+     */
+    onContextMenu(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        this.viewport.emit("click", 2, evt);
+    }
+
+}
+
 /** Signals a mouse click in a viewport.
  *
  * @event module:player/Viewport.click
@@ -106,18 +480,6 @@ export class Viewport extends EventEmitter {
          * @type {module:player/Camera.Camera[]} */
         this.cameras = [];
 
-        /** The current X coordinate of the mous during a drag action.
-         *
-         * @default
-         * @type {number} */
-        this.mouseDragX = 0;
-
-        /** The current Y coordinate of the mous during a drag action.
-         *
-         * @default
-         * @type {number} */
-        this.mouseDragY = 0;
-
         /** The effect of dragging in this viewport.
          *
          * Acceptable values are: `"scale"`, `"translate"`, `"rotate"`, `"clip"`.
@@ -146,34 +508,6 @@ export class Viewport extends EventEmitter {
          * @default
          * @type {boolean} */
         this.showHiddenElements = false;
-
-        /** A timeout ID to detect the end of a mouse wheel gesture.
-         *
-         * @default
-         * @type {?number} */
-        this.wheelTimeout = null;
-
-        /** The mouse drag event handler.
-         *
-         * This function is registered as an event listener after
-         * a mouse-down event.
-         *
-         * @param {MouseEvent} evt - A DOM event.
-         * @returns {void}
-         * @listens mousemove
-         */
-        this.dragHandler = evt => this.onDrag(evt);
-
-        /** The mouse drag end event handler.
-         *
-         * This function is registered as an event listener after
-         * a mouse-down event.
-         *
-         * @param {MouseEvent} evt - A DOM event.
-         * @returns {void}
-         * @listens mouseup
-         */
-        this.dragEndHandler = evt => this.onDragEnd(evt);
     }
 
     /** Create a unique SVG element ID.
@@ -201,16 +535,7 @@ export class Viewport extends EventEmitter {
      * This method registers event handlers and creates a camera for each layer.
      */
     onLoad() {
-        this.svgRoot.addEventListener("mousedown", evt => this.onMouseDown(evt), false);
-        this.svgRoot.addEventListener("mousemove", evt => this.onMouseMove(evt), false);
-        this.svgRoot.addEventListener("contextmenu", evt => this.onContextMenu(evt), false);
-
-        const wheelEvent =
-            "onwheel" in document.createElement("div") ? "wheel" :  // Modern browsers support "wheel"
-            document.onmousewheel !== undefined ? "mousewheel" :    // Webkit and IE support at least "mousewheel"
-            "DOMMouseScroll";                                       // Firefox < 17
-        this.svgRoot.addEventListener(wheelEvent, evt => this.onWheel(evt), false);
-
+        this.controller = new Controller(this, this.presentation, this.svgRoot, this.editMode);
         this.cameras = this.presentation.layers.map(layer => new Camera(this, layer));
     }
 
@@ -241,33 +566,17 @@ export class Viewport extends EventEmitter {
         return this.layers.filter(layer => layer.nodeId === nodeId)[0];
     }
 
-    /** Process a right-click in this viewport.
+    /** Changes the mouse cursor shape depending on the current mode.
      *
-     * This method forwards the `contextmenu` event as a
-     * viewport {@linkcode module:player/Viewport.click|click} event.
-     *
-     * @param {MouseEvent} evt - A DOM event.
-     *
-     * @listens contextmenu
-     * @fires module:player/Viewport.click
+     * @param {number} clientX - the current mouse x coordinate.
+     * @param {number} clientY - the current mouse y coordinate.
      */
-    onContextMenu(evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        this.emit("click", 2, evt);
-    }
+    updateClipCursor(clientX, clientY) {
+        const x = clientX - this.x;
+        const y = clientY - this.y;
 
-    /** Process a mouse move event in this viewport.
-     *
-     * This method changes the mouse cursor shape depending on the current mode.
-     *
-     * @param {MouseEvent} evt - A DOM event.
-     *
-     * @listens mousemove
-     */
-    onMouseMove(evt) {
         if (this.dragMode === "clip") {
-            switch (this.getClipMode(evt).operation) {
+            switch (this.getClipMode(x,y).operation) {
                 case "select":
                     this.svgRoot.style.cursor = "crosshair";
                     break;
@@ -299,35 +608,15 @@ export class Viewport extends EventEmitter {
         }
     }
 
-    /** Process a mouse down event in this viewport.
+    /** Updates the clip mode according to the current dragMode.
      *
-     * If the mouse button pressed is the left button,
-     * this method will setup event listeners for detecting a drag action.
-     *
-     * @param {MouseEvent} evt - A DOM event.
-     *
-     * @listens mousedown
-     * @fires module:player/Viewport.mouseDown
+     * @param {number} clientX - the current mouse x coordinate.
+     * @param {number} clientY - the current mouse y coordinate.
      */
-    onMouseDown(evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-
-        if (evt.button === DRAG_BUTTON) {
-            this.mouseDragged = false;
-            this.mouseDragChangedState = false;
-            this.mouseDragX = this.mouseDragStartX = evt.clientX;
-            this.mouseDragY = this.mouseDragStartY = evt.clientY;
-
-            document.documentElement.addEventListener("mousemove", this.dragHandler, false);
-            document.documentElement.addEventListener("mouseup", this.dragEndHandler, false);
-
-            if (this.dragMode === "clip") {
-                this.clipMode = this.getClipMode(evt);
-            }
+    updateClipMode(clientX,clientY) {
+        if (this.dragMode === "clip") {
+            this.clipMode = this.getClipMode(clientX,clientY);
         }
-
-        this.emit("mouseDown", evt.button);
     }
 
     /** Detect the current clip mode depending on the current mouse location.
@@ -336,24 +625,22 @@ export class Viewport extends EventEmitter {
      * of the clipping rectangle of each camera, and decide which clipping
      * operation is in progress on which cameras.
      *
-     * @param {MouseEvent} evt - A DOM event containing the current mouse coordinates.
+     * @param {number} x - the current mouse x coordinate.
+     * @param {number} y - the current mouse y coordinate.
      * @returns {object} - A list of cameras and a clipping operation.
      *
      * @see {@linkcode module:player/Viewport.Viewport#clipMode|clipMode}
      */
-    getClipMode(evt) {
-        const x = evt.clientX - this.x;
-        const y = evt.clientY - this.y;
-
+    getClipMode(x,y) {
         const camerasByOperation = {
-            nw: [],
-            sw: [],
-            ne: [],
-            se: [],
-            w: [],
-            e: [],
-            n: [],
-            s: [],
+            nw:   [],
+            sw:   [],
+            ne:   [],
+            se:   [],
+            w:    [],
+            e:    [],
+            n:    [],
+            s:    [],
             move: []
         };
 
@@ -391,220 +678,50 @@ export class Viewport extends EventEmitter {
         };
     }
 
-    /** Process a mouse drag event.
+    /** Clips with respect to the current clipMode settings and within the bounds of a continiously modified rectangle.
      *
-     * This method is called when a mouse move event happens after a mouse down event.
+     * This is typically used during onscreen manipulation such as mouse drags.
      *
-     * @param {MouseEvent} evt - A DOM event.
+     * @param {number} startX - The x position of the rectangles origin in viewport coordinate pixels.
+     * @param {number} startY - The y position of the rectangles origin in viewport coordinate pixels.
+     * @param {number} currentX - The x position of the rectangles diagonal point in viewport coordinate pixels.
+     * @param {number} currentY - The y position of the rectangles diagonal point in viewport coordinate pixels.
+     * @param {number} deltaX - The horizontal displacement to the last diagonal x point in viewport coordinate pixels.
+     * @param {number} deltaY - The horizontal displacement to the last diagonal y point in viewport coordinate pixels.
      *
-     * @listens mousemove
-     * @fires module:player/Viewport.dragStart
      */
-    onDrag(evt) {
-        evt.stopPropagation();
-
-        const xFromCenter = evt.clientX - this.x - this.width / 2;
-        const yFromCenter = evt.clientY - this.y - this.height / 2;
-        let angle = 180 * Math.atan2(yFromCenter, xFromCenter) / Math.PI;
-        let translateX = evt.clientX;
-        let translateY = evt.clientY;
-        const zoom = Math.sqrt(xFromCenter * xFromCenter + yFromCenter * yFromCenter);
-        const deltaX = evt.clientX - this.mouseDragX;
-        const deltaY = evt.clientY - this.mouseDragY;
-
-        // The drag action is confirmed when one of the mouse coordinates
-        // has moved past the threshold
-        if (!this.mouseDragged && (Math.abs(deltaX) > DRAG_THRESHOLD_PX ||
-                                   Math.abs(deltaY) > DRAG_THRESHOLD_PX)) {
-            this.mouseDragged = true;
-
-            this.rotateStart = this.rotatePrev = angle;
-            this.translateStartX = this.translateXPrev = translateX;
-            this.translateStartY = this.translateYPrev = translateY;
-            this.zoomPrev = zoom;
-
-            this.emit("dragStart");
-        }
-
-        if (this.mouseDragged) {
-            let mode = this.dragMode;
-            if (mode == "translate") {
-                if (evt.altKey) {
-                    mode = "scale";
-                }
-                else if (evt.shiftKey) {
-                    mode = "rotate";
-                }
-            }
-
-            switch (mode) {
-                case "scale":
-                    if (this.editMode || this.presentation.enableMouseZoom) {
-                        if (this.zoomPrev !== 0) {
-                            this.zoom(zoom / this.zoomPrev, this.width / 2, this.height / 2);
-                            this.mouseDragChangedState = true;
-                        }
-                        this.zoomPrev = zoom;
-                    }
-                    break;
-
-                case "rotate":
-                    if (this.editMode || this.presentation.enableMouseRotation) {
-                        if (evt.ctrlKey) {
-                            angle = 10 * Math.round((angle - this.rotateStart) / 10) + this.rotateStart;
-                        }
-                        this.rotate(this.rotatePrev - angle);
-                        this.mouseDragChangedState = true;
-                        this.rotatePrev = angle;
-                    }
-                    break;
-
-                case "clip":
-                    switch (this.clipMode.operation) {
-                        case "select":
-                            this.clip(this.mouseDragStartX - this.x, this.mouseDragStartY - this.y,
-                                      this.mouseDragX      - this.x, this.mouseDragY      - this.y);
-                            break;
-                        case "move":
-                            this.clipRel(deltaX, deltaY, deltaX, deltaY);
-                            break;
-                        case "w":
-                            this.clipRel(deltaX, 0, 0, 0);
-                            break;
-                        case "e":
-                            this.clipRel(0, 0, deltaX, 0);
-                            break;
-                        case "n":
-                            this.clipRel(0, deltaY, 0, 0);
-                            break;
-                        case "s":
-                            this.clipRel(0, 0, 0, deltaY);
-                            break;
-                        case "nw":
-                            this.clipRel(deltaX, deltaY, 0, 0);
-                            break;
-                        case "ne":
-                            this.clipRel(0, deltaY, deltaX, 0);
-                            break;
-                        case "sw":
-                            this.clipRel(deltaX, 0, 0, deltaY);
-                            break;
-                        case "se":
-                            this.clipRel(0, 0, deltaX, deltaY);
-                            break;
-                    }
-                    this.mouseDragChangedState = true;
-                    break;
-
-                default: // case "translate":
-                    if (this.editMode || this.presentation.enableMouseTranslation) {
-                        if (evt.ctrlKey) {
-                            if (Math.abs(translateX - this.translateStartX) >= Math.abs(translateY - this.translateStartY)) {
-                                translateY = this.translateStartY;
-                            }
-                            else {
-                                translateX = this.translateStartX;
-                            }
-                        }
-                        this.translate(translateX - this.translateXPrev, translateY - this.translateYPrev);
-                        this.mouseDragChangedState = true;
-                        this.translateXPrev = translateX;
-                        this.translateYPrev = translateY;
-                    }
-            }
-            this.mouseDragX = evt.clientX;
-            this.mouseDragY = evt.clientY;
-        }
-    }
-
-    /** Process a drag end event.
-     *
-     * This method is called when a mouse up event happens after a mouse down event.
-     * If the mouse has been moved past the drag threshold, this method
-     * will fire a `dragEnd` event. Otherwise, it will fire a `click` event.
-     *
-     * @param {MouseEvent} evt - A DOM event
-     *
-     * @listens mouseup
-     * @fires module:player/Viewport.userChangeState
-     * @fires module:player/Viewport.dragEnd
-     * @fires module:player/Viewport.click
-     */
-    onDragEnd(evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-
-        if (evt.button === DRAG_BUTTON) {
-            if (this.mouseDragged) {
-                this.emit("dragEnd");
-                if (this.mouseDragChangedState) {
-                    this.emit("userChangeState");
-                }
-            }
-            else {
-                this.emit("click", evt.button, evt);
-            }
-
-            document.documentElement.removeEventListener("mousemove", this.dragHandler, false);
-            document.documentElement.removeEventListener("mouseup", this.dragEndHandler, false);
-        }
-        else {
-            this.emit("click", evt.button, evt);
-        }
-    }
-
-    /** Process a mouse wheel event in this viewport.
-     *
-     * The effect of the mouse wheel depends on the state of the Shift key:
-     *    - released: zoom in and out,
-     *    - pressed: rotate clockwise or counter-clockwise
-     *
-     * @param {WheelEvent} evt - A DOM event.
-     *
-     * @fires module:player/Viewport.userChangeState
-     */
-    onWheel(evt) {
-        if (this.wheelTimeout !== null) {
-            window.clearTimeout(this.wheelTimeout);
-        }
-
-        evt.stopPropagation();
-        evt.preventDefault();
-
-        let delta = 0;
-        if (evt.wheelDelta) {   // "mousewheel" event
-            delta = evt.wheelDelta;
-        }
-        else if (evt.detail) {  // "DOMMouseScroll" event
-            delta = -evt.detail;
-        }
-        else {                  // "wheel" event
-            delta = -evt.deltaY;
-        }
-
-        let changed = false;
-
-        if (delta !== 0) {
-            if (evt.shiftKey) {
-                // TODO rotate around mouse cursor
-                if (this.editMode || this.presentation.enableMouseRotation) {
-                    this.rotate(delta > 0 ? ROTATE_STEP : -ROTATE_STEP);
-                    changed = true;
-                }
-            }
-            else {
-                if (this.editMode || this.presentation.enableMouseZoom) {
-                    this.zoom(delta > 0 ? SCALE_FACTOR : 1/SCALE_FACTOR, evt.clientX - this.x, evt.clientY - this.y);
-                    changed = true;
-                }
-            }
-        }
-
-        if (changed) {
-            this.wheelTimeout = window.setTimeout(() => {
-                this.wheelTimeout = null;
-                this.emit("userChangeState");
-            }, WHEEL_TIMEOUT_MS);
+    clipByMode(startX, startY, currentX, currentY, deltaX, deltaY) {
+        switch (this.clipMode.operation) {
+            case "select":
+                this.clip(startX, startY, currentX, currentY);
+                break;
+            case "move":
+                this.clipRel(deltaX, deltaY, deltaX, deltaY);
+                break;
+            case "w":
+                this.clipRel(deltaX, 0, 0, 0);
+                break;
+            case "e":
+                this.clipRel(0, 0, deltaX, 0);
+                break;
+            case "n":
+                this.clipRel(0, deltaY, 0, 0);
+                break;
+            case "s":
+                this.clipRel(0, 0, 0, deltaY);
+                break;
+            case "nw":
+                this.clipRel(deltaX, deltaY, 0, 0);
+                break;
+            case "ne":
+                this.clipRel(0, deltaY, deltaX, 0);
+                break;
+            case "sw":
+                this.clipRel(deltaX, 0, 0, deltaY);
+                break;
+            case "se":
+                this.clipRel(0, 0, deltaX, deltaY);
+                break;
         }
     }
 

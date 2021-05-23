@@ -284,11 +284,11 @@ class SingleGesture extends Gesture {
         switch (direction) {
             case "down":
             case "left":
-                player.moveToNext();
+                player.controller.moveToNext();
                 break;
             case "up":
             case "right":
-                player.moveToPrevious();
+                player.controller.moveToPrevious();
                 break;
         }
     }
@@ -380,6 +380,11 @@ class DoubleGesture extends Gesture {
         // mark if rotation and zoom threshholds are reached at least once during gesture.
         this.rotateEnabled = false;
         this.zoomEnabled = false;
+        
+        // stop transitions
+        if (player.playing) {
+            player.pause();
+        }
     }
 
     /** Checks zoom threshhold and performs the actual zoom.
@@ -390,7 +395,7 @@ class DoubleGesture extends Gesture {
         if (this.zoomEnabled) {
             const zoom = (actLine.getSqrLength() / this.lastLine.getSqrLength());
             const mid = actLine.getMidpoint();
-            player.viewport.zoom(zoom, mid.x, mid.y);
+            player.viewport.controller.zoom(zoom, mid.x, mid.y);
         }
         else {
             // Check threshhold to enable zoom.
@@ -408,7 +413,7 @@ class DoubleGesture extends Gesture {
     rotate(actLine) {
         if (this.rotateEnabled) {
             const rotate = actLine.getAngle(this.lastLine);
-            player.viewport.rotate(rotate);
+            player.viewport.controller.rotate(rotate);
         }
         else {
             // Check threshhold to enable rotation.
@@ -425,7 +430,7 @@ class DoubleGesture extends Gesture {
     translate(actLine) {
         const panX = actLine.getXDist(this.lastLine);
         const panY = actLine.getYDist(this.lastLine);
-        player.viewport.translate(panX, panY);
+        player.viewport.controller.translate(panX, panY);
     }
 
 
