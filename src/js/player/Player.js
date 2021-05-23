@@ -584,7 +584,7 @@ export class Player extends EventEmitter {
 
     /** Finds the last preceding frame which will not automatically transit (i.e. has a timout > 0 ms).
      *
-     * @returns {module:model/Presentation.Frame} the idintified frame, or null, if none is found
+     * @returns {module:model/Presentation.Frame} The identified frame, or null, if none is found
      *
      */
     lastNonAutoTransitionFrame() {
