@@ -17,8 +17,9 @@ export class Preview {
      * @param {module:model/Selection.Selection} selection - The object that manages the frame and layer selection.
      * @param {module:player/Viewport.Viewport} viewport - The viewport where the presentation is displayed.
      * @param {module:Controller.Controller} controller - The controller that manages the current editor.
+     * @param {module:player/UIController.UIController} playerController - The controller that manages the player user interactions.
      */
-    constructor(container, presentation, selection, viewport, controller) {
+    constructor(container, presentation, selection, viewport, controller, playerController) {
         /** The HTML element that will contain this preview area.
          *
          * @type {HTMLElement} */
@@ -44,11 +45,16 @@ export class Preview {
          * @type {module:Controller.Controller} */
         this.controller = controller;
 
+        /** The controller that manages the player user interactions.
+         *
+         * @type {module:player/UIController.UIController} */
+        this.playerController = playerController;
+
         presentation.on("svgChange", () => this.onLoad());
         window.addEventListener("resize", () => this.repaint());
-        viewport.controller.on("mouseDown", () => document.activeElement.blur());
-        viewport.controller.on("click", (btn, evt) => this.onClick(btn, evt));
-        viewport.controller.on("userChangeState", () => controller.updateCameraStates());
+        playerController.on("mouseDown", () => document.activeElement.blur());
+        playerController.on("click", evt => this.onClick(evt));
+        playerController.on("localViewportChange", () => controller.updateCameraStates());
         controller.on("repaint", () => this.repaint());
     }
 
@@ -67,6 +73,7 @@ export class Preview {
         this.container.appendChild(this.presentation.document.root);
 
         this.viewport.onLoad();
+        this.playerController.onLoad();
         this.presentation.setInitialCameraState();
 
         this.container.addEventListener("mouseenter", () => this.onMouseEnter(), false);
@@ -115,8 +122,8 @@ export class Preview {
      *
      * @listens click
      */
-    onClick(button, evt) {
-        if (button === 0 && evt.altKey) {
+    onClick(evt) {
+        if (evt.button === 0 && evt.altKey) {
             const outlineElement = evt.target;
             if (outlineElement.hasAttribute("id") && outlineElement.getBBox) {
                 this.controller.setOutlineElement(outlineElement);

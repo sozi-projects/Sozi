@@ -72,6 +72,11 @@ const ZOOM_LOW_THRESHHOLD = 1/ZOOM_UP_THRESHHOLD;
  * @type {module:player/Player.Player} */
 let player;
 
+/** The current Sozi UI controller.
+ *
+ * @type {module:player/UIController.UIController} */
+let playerController;
+
 /** The current Sozi presentation.
  *
  * @type {module:model/Presentation.Presentation} */
@@ -284,11 +289,11 @@ class SingleGesture extends Gesture {
         switch (direction) {
             case "down":
             case "left":
-                player.controller.moveToNext();
+                playerController.moveToNext();
                 break;
             case "up":
             case "right":
-                player.controller.moveToPrevious();
+                playerController.moveToPrevious();
                 break;
         }
     }
@@ -380,7 +385,7 @@ class DoubleGesture extends Gesture {
         // mark if rotation and zoom threshholds are reached at least once during gesture.
         this.rotateEnabled = false;
         this.zoomEnabled = false;
-        
+
         // stop transitions
         if (player.playing) {
             player.pause();
@@ -395,7 +400,7 @@ class DoubleGesture extends Gesture {
         if (this.zoomEnabled) {
             const zoom = (actLine.getSqrLength() / this.lastLine.getSqrLength());
             const mid = actLine.getMidpoint();
-            player.viewport.controller.zoom(zoom, mid.x, mid.y);
+            playerController.zoom(zoom, mid.x, mid.y);
         }
         else {
             // Check threshhold to enable zoom.
@@ -413,7 +418,7 @@ class DoubleGesture extends Gesture {
     rotate(actLine) {
         if (this.rotateEnabled) {
             const rotate = actLine.getAngle(this.lastLine);
-            player.viewport.controller.rotate(rotate);
+            playerController.rotate(rotate);
         }
         else {
             // Check threshhold to enable rotation.
@@ -430,7 +435,7 @@ class DoubleGesture extends Gesture {
     translate(actLine) {
         const panX = actLine.getXDist(this.lastLine);
         const panY = actLine.getYDist(this.lastLine);
-        player.viewport.controller.translate(panX, panY);
+        playerController.translate(panX, panY);
     }
 
 
@@ -582,10 +587,12 @@ function onTouchEnd(evt) {
  *
  * @param {module:player/Player.Player} pl - The current Player.
  * @param {module:model/Presentation.Presentation} pr - The presentation to play.
+ * @param {module:player/UIController.UIController} pc - The current Player UI controller.
  */
-export function init(pl, pr) {
+export function init(pl, pr, pc) {
     player = pl;
     presentation = pr;
+    playerController = pc;
 
     interactionGestureEnabled = presentation.enableMouseRotation ||
         presentation.enableMouseZoom || presentation.enableMouseTranslation;

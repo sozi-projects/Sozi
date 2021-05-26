@@ -9,6 +9,7 @@ import {Selection} from "./model/Selection";
 import {Preferences} from "./model/Preferences";
 import {Viewport} from "./player/Viewport";
 import {Player} from "./player/Player";
+import {UIController} from "./player/UIController";
 import {Controller} from "./Controller";
 import {Preview} from "./view/Preview";
 import {Properties} from "./view/Properties";
@@ -20,14 +21,15 @@ import nunjucks from "nunjucks";
 window.addEventListener("load", () => {
     nunjucks.configure({watch: false});
 
-    const presentation = new Presentation();
-    const selection    = new Selection(presentation);
-    const viewport     = new Viewport(presentation, true);
-    const player       = new Player(viewport, presentation, true);
+    const presentation     = new Presentation();
+    const selection        = new Selection(presentation);
+    const viewport         = new Viewport(presentation, true);
+    const player           = new Player(viewport, presentation, true);
+    const playerController = new UIController(player);
 
     const preferences  = new Preferences();
     const controller   = new Controller(preferences, presentation, selection, viewport, player);
-    const preview      = new Preview(document.getElementById("sozi-editor-view-preview"), presentation, selection, viewport, controller);
+    const preview      = new Preview(document.getElementById("sozi-editor-view-preview"), presentation, selection, viewport, controller, playerController);
     const properties   = new Properties(document.getElementById("sozi-editor-view-properties"), selection, controller);
     const toolbar      = new Toolbar(document.getElementById("sozi-editor-view-toolbar"), properties, presentation, viewport, controller);
     const timeline     = new Timeline(document.getElementById("sozi-editor-view-timeline"), presentation, selection, controller);

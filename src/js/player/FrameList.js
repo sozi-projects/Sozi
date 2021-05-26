@@ -80,8 +80,9 @@ let currentOffset = startOffset;
  * It also registers mouse and keyboard events related to the frame list.
  *
  * @param {module:player/Player.Player} p - The current Sozi player.
+ * @param {module:player/UIController.UIController} c - The current Sozi player controller.
  */
-export function init(p) {
+export function init(p, controller) {
     player = p;
 
     frameList = document.querySelector(".sozi-frame-list");
@@ -90,7 +91,7 @@ export function init(p) {
     for (let link of links) {
         link.addEventListener("click", evt => {
             if (evt.button === 0) {
-                player.controller.previewFrame(link.hash.slice(1));
+                controller.previewFrame(link.hash.slice(1));
                 evt.preventDefault();
             }
         });
@@ -100,7 +101,7 @@ export function init(p) {
     animator.on("step", onAnimatorStep);
     window.addEventListener("keypress", onKeyPress, false);
     window.addEventListener("resize", () => setCurrentOffset(currentOffset));
-    player.viewport.controller.on("mouseDown", onMouseDown);
+    controller.on("mouseDown", onMouseDown);
     player.viewport.svgRoot.addEventListener("touchstart", evt => onTouchStart);
     frameList.addEventListener("mouseout", onMouseOut, false);
     p.on("frameChange", onFrameChange);
@@ -196,7 +197,7 @@ function onAnimatorStep(progress) {
  *
  * @param {number} button - The index of the button that was pressed.
  *
- * @listens module:player/Viewport.mouseDown
+ * @listens module:player/UIController.mouseDown
  */
 function onMouseDown(button) {
     if (player.presentation.enableMouseNavigation && button === 1) {

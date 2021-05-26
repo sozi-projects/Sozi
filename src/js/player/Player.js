@@ -31,406 +31,6 @@ const DEFAULT_RELATIVE_ZOOM = 0;
  * @type {string} */
 const DEFAULT_TIMING_FUNCTION = "ease";
 
-/** The zoom step factor for user zoom action (keyboard and mouse wheel)
- *
- * @readonly
- * @default
- * @type {number} */
-const SCALE_FACTOR = 1.05;
-
-/** The rotation step angle for user zoom action (keyboard and mouse wheel), in degrees.
- *
- * @readonly
- * @default
- * @type {number} */
-const ROTATE_STEP = 5;
-
-/** Signals that a user interaction triggered a change to the player's state.
- *
- * @event module:player/Player.localChange
- */
-
-/** The player's event handling controller.
- *
- * The controller implements keyboard and mouse handlers and performs according actions on the associated player.
- * It also provides an interface to external UI event handlers:
- * - TouchGestures
- * - presentation console
- *
- * @extends EventEmitter
- */
-class Controller extends EventEmitter {
-    /** Initialize a new Sozi player controller.
-     *
-     * If the presentation is opened in edit mode, the controller will disable
-     * these features on the corresponding player:
-     * - mouse and keyboard actions for navigating in the presentation,
-     * - automatic transitions after a timeout.
-     *
-     * @param {module:player/Player.Player} player - The player attached to this controller.
-     * @param {module:player/Viewport.Viewport} viewport - The viewport where the presentation is rendered.
-     * @param {module:model/Presentation.Presentation} presentation - The presentation to play.
-     * @param {boolean} [editMode=false] - Is the presentation opened in edit mode?
-     */
-    constructor(player, viewport, presentation, editMode) {
-        super();
-
-        this.player = player;
-        this.viewport = viewport;
-        this.presentation = presentation;
-
-        if (!editMode) {
-            this.viewport.controller.on("click", btn => this.onClick(btn));
-            window.addEventListener("keydown", evt => this.onKeyDown(evt), false);
-
-            if (this.presentation.enableMouseTranslation) {
-                this.viewport.controller.on("dragStart", () => this.player.pause());
-            }
-
-            this.viewport.controller.on("userChangeState", () => player.pause());
-            window.addEventListener("keypress", evt => this.onKeyPress(evt), false);
-        }
-    }
-
-    /** Move to the next or previous frame on each click event in the viewport.
-     *
-     * This method is registered as a {@linkcode module:player/Viewport.click|click}
-     * event handler of the current {@linkcode module:player/Viewport.Viewport|viewport}.
-     *
-     * @param {number} button - The index of the button that was pressed.
-     *
-     * @listens module:player/Viewport.click
-     */
-    onClick(button) {
-        if (this.presentation.enableMouseNavigation) {
-            switch (button) {
-                case 0: this.moveToNext(); break;
-                case 2: this.moveToPrevious(); break;
-            }
-        }
-    }
-
-    /** Process a keyboard event.
-     *
-     * This method handles the navigation keys if they are enabled in the
-     * current presentation:
-     * Arrows, Page-Up/Down, Home, End, Enter, and Space.
-     *
-     * @param {KeyboardEvent} evt - The DOM event to process.
-     *
-     * @listens keydown
-     */
-    onKeyDown(evt) {
-        // Keys with Alt/Ctrl/Meta modifiers are ignored
-        if (evt.altKey || evt.ctrlKey || evt.metaKey) {
-            return;
-        }
-
-        switch (evt.keyCode) {
-            case 36: // Home
-                if (this.presentation.enableKeyboardNavigation) {
-                    if (evt.shiftKey) {
-                        this.jumpToFirst();
-                    }
-                    else {
-                        this.moveToFirst();
-                    }
-                }
-                break;
-
-            case 35: // End
-                if (this.presentation.enableKeyboardNavigation) {
-                    if (evt.shiftKey) {
-                        this.jumpToLast();
-                    }
-                    else {
-                        this.moveToLast();
-                    }
-                }
-                break;
-
-            case 38: // Arrow up
-            case 33: // Page up
-            case 37: // Arrow left
-                if (this.presentation.enableKeyboardNavigation) {
-                    if (evt.shiftKey) {
-                        this.jumpToPrevious();
-                    }
-                    else {
-                        this.moveToPrevious();
-                    }
-                }
-                break;
-
-            case 40: // Arrow down
-            case 34: // Page down
-            case 39: // Arrow right
-            case 13: // Enter
-            case 32: // Space
-                if (this.presentation.enableKeyboardNavigation) {
-                    if (evt.shiftKey) {
-                        this.jumpToNext();
-                    }
-                    else {
-                        this.moveToNext();
-                    }
-                }
-                break;
-
-            default:
-                return;
-        }
-
-        evt.stopPropagation();
-        evt.preventDefault();
-    }
-
-    /** Process a keyboard event.
-     *
-     * This method handles character keys: "+", "-", "R", "P", ".".
-     *
-     * @param {KeyboardEvent} evt - The DOM event to process.
-     *
-     * @listens keypress
-     */
-    onKeyPress(evt) {
-        // Keys with modifiers are ignored
-        if (evt.altKey || evt.ctrlKey || evt.metaKey) {
-            return;
-        }
-
-        switch (evt.charCode || evt.which) {
-            case 43: // +
-                if (this.presentation.enableKeyboardZoom) {
-                    this.zoom(SCALE_FACTOR);
-                }
-                break;
-
-            case 45: // -
-                if (this.presentation.enableKeyboardZoom) {
-                    this.zoom(1 / SCALE_FACTOR);
-                }
-                break;
-
-            case 82: // R
-                if (this.presentation.enableKeyboardRotation) {
-                    this.rotate(-ROTATE_STEP);
-                }
-                break;
-
-            case 114: // r
-                if (this.presentation.enableKeyboardRotation) {
-                    this.viewport.rotate(ROTATE_STEP);
-                    this.pause();
-                }
-                break;
-
-            case 80: // P
-            case 112: //p
-                this.togglePause();
-                break;
-
-            case 46: // .
-                if (this.presentation.enableKeyboardNavigation) {
-                    this.toggleBlankScreen();
-                }
-                break;
-
-            default:
-                return;
-        }
-
-        evt.stopPropagation();
-        evt.preventDefault();
-    }
-
-    /** The index of the presentation's last frame
-     *
-     * @readonly
-     * @type {number}
-     */
-    get lastFrame() {
-        return this.player.presentation.frames.length - 1;
-    }
-
-    /** Jumps to the first frame of the presentation.
-     *
-     * @fires {module:player/Player.localChange}
-     * @fires {module:player/Player.frameChange}
-     */
-    jumpToFirst() {
-        this.jumpToFrame(0);
-    }
-
-    /** Jump to the last frame of the presentation.
-     *
-     * @fires {module:player/Player.localChange}
-     * @fires {module:player/Player.frameChange}
-     */
-    jumpToLast() {
-        this.jumpToFrame(this.lastFrame);
-    }
-
-    /** Jump to the previous frame.
-     *
-     * @fires {module:player/Player.localChange}
-     * @fires {module:player/Player.frameChange}
-     */
-    jumpToPrevious() {
-        this.jumpToFrame(this.player.previousFrame);
-    }
-
-    /** Jumps to the next frame.
-     *
-     * @fires {module:player/Player.localChange}
-     * @fires {module:player/Player.frameChange}
-     */
-    jumpToNext() {
-        this.jumpToFrame(this.player.nextFrame);
-    }
-
-    /** Move to the first frame of the presentation.
-     *
-     * @fires {module:player/Player.localChange}
-     * @fires {module:player/Player.frameChange}
-     * @fires {module:player/Player.stateChange}
-     */
-    moveToFirst() {
-        this.moveToFrame(0);
-    }
-
-
-    /** Move to the previous frame.
-     *
-     * This method skips previous frames with 0 ms timeout.
-     *
-     * @fires {module:player/Player.localChange}
-     * @fires {module:player/Player.frameChange}
-     * @fires {module:player/Player.stateChange}
-     */
-    moveToPrevious() {
-        const frame = this.player.lastNonAutoTransitionFrame();
-        if (frame != null ) this.moveToFrame(frame);
-    }
-
-    /** Move to the next frame.
-     *
-     * @fires {module:player/Player.localChange}
-     * @fires {module:player/Player.frameChange}
-     * @fires {module:player/Player.stateChange}
-     */
-    moveToNext() {
-        this.emit("localChange", {change:"moveToFrame", value:this.player.nextFrame});
-        this.player.moveToNext();
-    }
-
-    /** Move to the last frame of the presentation.
-     *
-     * @fires {module:player/Player.localChange}
-     * @fires {module:player/Player.frameChange}
-     * @fires {module:player/Player.stateChange}
-     */
-    moveToLast() {
-        this.moveToFrame(this.lastFrame);
-    }
-
-    /** Move to a frame in *preview* mode.
-     *
-     * @param {string|number|module:model/Presentation.Frame} frame - The frame to show.
-     *
-     * @fires {module:player/Player.localChange}
-     * @fires {module:player/Player.frameChange}
-     * @fires {module:player/Player.stateChange}
-     */
-    previewFrame(frame) {
-        let f = this.player.findFrame(frame);
-        this.emit("localChange", {change:"previewFrame", value:f});
-        this.player.previewFrame(f);
-    }
-
-    /** Jump to the given frame of the presentation and signal a local change.
-     *
-     * @param {string|number|module:model/Presentation.Frame} frame - The frame to show.
-     *
-     * @fires {module:player/Player.localChange}
-     * @fires {module:player/Player.frameChange}
-     * @fires {module:player/Player.stateChange}
-     */
-    jumpToFrame(frame) {
-        let f = this.player.findFrame(frame);
-        this.emit("localChange", {change:"jumpToFrame", value:f});
-        this.player.jumpToFrame(f);
-    }
-
-    /** Move to the given frame of the presentation and signal a local change.
-     *
-     * @param {string|number|module:model/Presentation.Frame} frame - The frame to show.
-     *
-     * @fires {module:player/Player.localChange}
-     * @fires {module:player/Player.frameChange}
-     * @fires {module:player/Player.stateChange}
-     */
-    moveToFrame(frame) {
-        let f = this.player.findFrame(frame);
-        this.emit("localChange", {change:"moveToFrame", value:f});
-        this.player.moveToFrame(f);
-    }
-
-    /** Helper for step rotation clockwise as well as counter-clockwise.
-     *
-     * @param {number} angle - The rotation angle, in degrees.
-     *
-     * @fires {module:player/Player.localChange}
-     *
-     */
-    rotate(angle) {
-        this.player.pause();
-        this.viewport.controller.rotate(angle);
-    }
-
-    /** helper for step zoom focusing a mid screen center coordinate
-     *
-     * @param {number} factor - The scaling factor, above 1 to zoom in, below 1 to zoom out.
-     *
-     * @fires {module:player/Player.localChange}
-     */
-    zoom(factor) {
-        this.player.pause();
-        this.viewport.controller.zoom(factor, this.viewport.width / 2, this.viewport.height / 2);
-    }
-
-    /** toggles the pause state of the associated player
-     *
-     * @fires {module:player/Player.localChange}
-     * @fires {module:player/Player.stateChange}
-     */
-    togglePause() {
-        if (this.player.playing) {
-            this.player.pause();
-        }
-        else {
-            this.player.playFromFrame(this.player.currentFrame);
-        }
-
-        this.emit("localChange", {change:"pause", value:this.player.playing});
-    }
-
-    /** Toggle the visibility of the elements that hides the viewport.
-     *
-     * @fires {module:player/Player.localChange}
-     */
-    toggleBlankScreen() {
-        if (this.player.blankScreenIsVisible) {
-            this.player.disableBlankScreen();
-        }
-        else {
-            this.player.enableBlankScreen();
-        }
-        this.emit("localChange", {change:"blankScreen", value:this.player.blankScreenIsVisible});
-    }
-}
-
-
 /** Signals that the player has moved to a new frame.
  *
  * @event module:player/Player.frameChange
@@ -524,8 +124,6 @@ export class Player extends EventEmitter {
          */
         this.transitions = [];
 
-        this.controller = new Controller(this, this.viewport, this.presentation, this.editMode);
-
         this.animator.on("step", p => this.onAnimatorStep(p));
         this.animator.on("stop", () => this.onAnimatorStop());
         this.animator.on("done", () => this.onAnimatorDone());
@@ -603,7 +201,7 @@ export class Player extends EventEmitter {
      * This method will set all cameras to the states in the current frame,
      * and update the viewport.
      *
-     * @fires {module:player/Player.frameChange}
+     * @fires module:player/Player.frameChange
      */
     showCurrentFrame() {
         this.viewport.setAtStates(this.currentFrame.cameraStates);
@@ -618,7 +216,7 @@ export class Player extends EventEmitter {
      *
      * @param {string|number|module:model/Presentation.Frame} frame - The first frame to show.
      *
-     * @fires {module:player/Player.stateChange}
+     * @fires module:player/Player.stateChange
      */
     playFromFrame(frame) {
         if (!this.playing) {
@@ -638,9 +236,7 @@ export class Player extends EventEmitter {
      * in the current frame, then it stops waiting.
      * The current animation is stopped in its current state.
      *
-     * @listens module:player/Viewport.userChangeState
-     * @listens module:player/Viewport.dragStart
-     * @fires {module:player/Player.stateChange}
+     * @fires module:player/Player.stateChange
      */
     pause() {
         this.animator.stop();
@@ -684,7 +280,7 @@ export class Player extends EventEmitter {
      *
      * @param {string|number|module:model/Presentation.Frame} frame - The frame to show.
      *
-     * @fires {module:player/Player.frameChange}
+     * @fires module:player/Player.frameChange
      */
     jumpToFrame(frame) {
         this.disableBlankScreen();
@@ -706,8 +302,8 @@ export class Player extends EventEmitter {
      *
      * @param {string|number|module:model/Presentation.Frame} frame - The first frame to show.
      *
-     * @fires {module:player/Player.frameChange}
-     * @fires {module:player/Player.stateChange}
+     * @fires module:player/Player.frameChange
+     * @fires module:player/Player.stateChange
      */
     moveToFrame(frame) {
         this.disableBlankScreen();
@@ -765,8 +361,8 @@ export class Player extends EventEmitter {
 
     /** Move to the next frame.
      *
-     * @fires {module:player/Player.frameChange}
-     * @fires {module:player/Player.stateChange}
+     * @fires module:player/Player.frameChange
+     * @fires module:player/Player.stateChange
      */
     moveToNext() {
         this.moveToFrame(this.nextFrame);
@@ -777,8 +373,8 @@ export class Player extends EventEmitter {
      * This method restores the viewport to fit the current frame,
      * e.g. after the viewport has been zoomed or dragged.
      *
-     * @fires {module:player/Player.frameChange}
-     * @fires {module:player/Player.stateChange}
+     * @fires module:player/Player.frameChange
+     * @fires module:player/Player.stateChange
      */
     moveToCurrent() {
         this.moveToFrame(this.currentFrame);
@@ -792,8 +388,8 @@ export class Player extends EventEmitter {
      *
      * @param {string|number|module:model/Presentation.Frame} frame - The first frame to show.
      *
-     * @fires {module:player/Player.frameChange}
-     * @fires {module:player/Player.stateChange}
+     * @fires module:player/Player.frameChange
+     * @fires module:player/Player.stateChange
      */
     previewFrame(frame) {
         this.targetFrame = this.findFrame(frame);
@@ -861,7 +457,7 @@ export class Player extends EventEmitter {
      * This method clears the {@linkcode module:player/Player.Player#transitions|list of transition descriptors}.
      *
      * @listens module:player/Animator.stop
-     * @fires {module:player/Player.frameChange}
+     * @fires module:player/Player.frameChange
      */
     onAnimatorStop() {
         this.transitions = [];
@@ -874,7 +470,7 @@ export class Player extends EventEmitter {
      * If the presentation is in playing state, wait for the current frame's timeout.
      *
      * @listens module:player/Animator.done
-     * @fires {module:player/Player.frameChange}
+     * @fires module:player/Player.frameChange
      */
     onAnimatorDone() {
         this.onAnimatorStop();
