@@ -131,7 +131,7 @@ function onMessage(evt) {
         default: {
             // Interpret a message as a method call to the current Sozi player.
             // The message must be of the form: {name: string, args: any[]}.
-            const receiver = isPresenterMode ? sozi.player : sozi.controller;
+            const receiver = isPresenterMode ? sozi.player : sozi.playerController;
             const method   = receiver[evt.data.name];
             const args     = evt.data.args || [];
             if (typeof method === "function") {
@@ -163,21 +163,28 @@ window.addEventListener("load", () => {
     }
 
     const player = new Player(viewport, presentation);
-    const controller = new UIController(player);
-    controller.onLoad();
+    const playerController = new UIController(player);
+    playerController.onLoad();
 
     Media.init(player);
-    FrameList.init(player, controller);
+    FrameList.init(player, playerController);
     FrameNumber.init(player);
     FrameURL.init(player);
-    TouchGestures.init(player, presentation, controller);
-
+    TouchGestures.init(player, presentation, playerController);
 
     window.sozi = {
-        presentation,
-        viewport,
-        player,
-        controller
+        get presentation() {
+            return presentation;
+        },
+        get viewport() {
+            return viewport;
+        },
+        get player() {
+            return player;
+        },
+        get playerController() {
+            return playerController
+        }
     };
 
     player.on("stateChange", () => {

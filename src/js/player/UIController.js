@@ -373,6 +373,7 @@ export class UIController extends EventEmitter{
      *
      * @param {WheelEvent} evt - A DOM event.
      *
+     * @listens wheel
      * @fires module:player/UIController.localViewportChange
      */
     onWheel(evt) {
@@ -427,7 +428,6 @@ export class UIController extends EventEmitter{
      * @param {number} y - The y coordinate of the screenpoint to focus while zooming.
      *
      * @fires module:player/UIController.localChange
-     *
      */
     zoom(factor, x, y) {
         this.emit("localChange", {change: "interactive"});
