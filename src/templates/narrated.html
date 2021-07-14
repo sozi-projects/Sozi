@@ -1,0 +1,47 @@
+{# This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/. #}
+
+{% raw %}
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{ pres.title }}</title>
+        <style>
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+            }
+            .presentation-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+            iframe {
+                border: none;
+            }
+            audio {
+                position: fixed;
+                right: 0;
+                bottom: 0;
+                width: 25%;
+            }
+        </style>
+    </head>
+    <body>
+        <iframe class="presentation-container" src="{{ soziHtml }}">
+            The Sozi presentation should play here.
+        </iframe>
+        <audio id="narrative" controls data-time-to-slide="0:1,1:3,2:6">
+             <source src="narrative.flac" type="audio/flac" preload="auto">
+             Audio HTML5 tag is not supported!
+        </audio>
+{% endraw %}
+        <script>{{'{% raw %}'}}{{ js|safe }}{{'{% endraw %}'}}</script>
+    </body>
+</html>
