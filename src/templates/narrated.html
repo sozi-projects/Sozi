@@ -37,8 +37,8 @@
         <iframe class="presentation-container" src="{{ soziHtml }}">
             The Sozi presentation should play here.
         </iframe>
-        <audio id="narrative" controls data-time-to-slide="0:1,1:3,2:6">
-             <source src="narrative.flac" type="audio/flac" preload="auto">
+        <audio id="narrative" controls data-time-to-slide="{{ pres.narrativeTimeToSlide }}">
+             <source src="{{ pres.narrativeFile }}" type="audio/{{ pres.narrativeType }}" preload="auto">
              Audio HTML5 tag is not supported!
         </audio>
 {% endraw %}

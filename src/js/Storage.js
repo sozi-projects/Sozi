@@ -328,6 +328,10 @@ export class Storage {
      * @param {string} htmlFileName - The name of the presentation HTML file.
      */
     async createNarratedHTMLFile(name, location, htmlFileName) {
+        const t = this.presentation.narrativeType;
+        if (!t || t === "none") {
+            return;
+        }
         try {
             const fileDescriptor = await this.backend.find(name, location);
             await this.backend.save(fileDescriptor, this.exportNarratedHTML(htmlFileName));
