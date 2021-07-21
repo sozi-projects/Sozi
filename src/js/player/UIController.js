@@ -552,7 +552,7 @@ export class UIController extends EventEmitter{
 
     /** Process a keyboard event.
      *
-     * This method handles character keys: "+", "-", "R", "P", ".".
+     * This method handles character keys: "+", "-", "R", "P", ".", "=".
      *
      * @param {KeyboardEvent} evt - The DOM event to process.
      *
@@ -600,6 +600,10 @@ export class UIController extends EventEmitter{
                 }
                 break;
 
+            case 61: // =
+                this.jumpToCurrent();
+                break;
+
             default:
                 return;
         }
@@ -642,6 +646,22 @@ export class UIController extends EventEmitter{
      */
     jumpToPrevious() {
         this.jumpToFrame(this.player.previousFrame);
+    }
+
+    /** Jump to the vanilla current frame.
+     *
+     * This method cancels manual rotation/zoom effects (if any).
+     *
+     * @fires module:player/UIController.localChange
+     * @fires module:player/Player.stateChange
+     */
+    jumpToCurrent() {
+        if (this.player.playing) {
+            return // if there was any rotation/zoom, player would be paused
+        }
+        this.emit("localChange", {change: "interactive"});
+        this.player.playFromFrame(this.player.currentFrame);
+        this.emit("localChange", {change:"pause", value:this.player.playing});
     }
 
     /** Jumps to the next frame.
