@@ -41,9 +41,11 @@ if __name__ == '__main__':
     input_file.close()
 
     # Use Inkscape to convert each text element to a path
-    command = ["inkscape", "--verb=FileVacuum"]
+    command = ["inkscape", "--batch-process"]
+    actions = ["FileVacuum"]
     for t in texts:
-        command += ["--verb=EditDeselect", "--select=" + t.get("id"), "--verb=ObjectToPath"]
-    command += ["--verb=FileSave", "--verb=FileQuit", output_file_name]
+        actions += ["EditDeselect", "select-by-id:" + t.get("id"), "ObjectToPath"]
+    actions += ["FileSave"]
+    command += ["--actions=" + ";".join(actions), output_file_name]
 
     subprocess.call(command)
