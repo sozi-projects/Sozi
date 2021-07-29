@@ -9,7 +9,7 @@ import {Selection} from "./model/Selection";
 import {Preferences} from "./model/Preferences";
 import {Viewport} from "./player/Viewport";
 import {Player} from "./player/Player";
-import {UIController} from "./player/UIController";
+import {PlayerController} from "./player/PlayerController";
 import {Controller} from "./Controller";
 import {Preview} from "./view/Preview";
 import {Properties} from "./view/Properties";
@@ -25,7 +25,7 @@ window.addEventListener("load", () => {
     const selection        = new Selection(presentation);
     const viewport         = new Viewport(presentation, true);
     const player           = new Player(viewport, presentation, true);
-    const playerController = new UIController(player);
+    const playerController = new PlayerController(player);
 
     const preferences  = new Preferences();
     const controller   = new Controller(preferences, presentation, selection, viewport, player);

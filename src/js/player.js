@@ -8,7 +8,7 @@ import {SVGDocumentWrapper} from "./svg/SVGDocumentWrapper";
 import {Presentation, Frame} from "./model/Presentation";
 import {Viewport} from "./player/Viewport";
 import {Player} from "./player/Player";
-import {UIController} from "./player/UIController";
+import {PlayerController} from "./player/PlayerController";
 import * as Media from "./player/Media";
 import * as FrameList from "./player/FrameList";
 import * as FrameNumber from "./player/FrameNumber";
@@ -163,7 +163,7 @@ window.addEventListener("load", () => {
     }
 
     const player = new Player(viewport, presentation);
-    const playerController = new UIController(player);
+    const playerController = new PlayerController(player);
     playerController.onLoad();
 
     Media.init(player);

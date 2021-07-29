@@ -80,7 +80,7 @@ let currentOffset = startOffset;
  * It also registers mouse and keyboard events related to the frame list.
  *
  * @param {module:player/Player.Player} p - The current Sozi player.
- * @param {module:player/UIController.UIController} c - The current Sozi player controller.
+ * @param {module:player/PlayerController.PlayerController} c - The current Sozi player controller.
  */
 export function init(p, controller) {
     player = p;
@@ -197,7 +197,7 @@ function onAnimatorStep(progress) {
  *
  * @param {number} button - The index of the button that was pressed.
  *
- * @listens module:player/UIController.mouseDown
+ * @listens module:player/PlayerController.mouseDown
  */
 function onMouseDown(button) {
     if (player.presentation.enableMouseNavigation && button === 1) {

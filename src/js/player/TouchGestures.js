@@ -74,7 +74,7 @@ let player;
 
 /** The current Sozi UI controller.
  *
- * @type {module:player/UIController.UIController} */
+ * @type {module:player/PlayerController.PlayerController} */
 let playerController;
 
 /** The current Sozi presentation.
@@ -587,7 +587,7 @@ function onTouchEnd(evt) {
  *
  * @param {module:player/Player.Player} pl - The current Player.
  * @param {module:model/Presentation.Presentation} pr - The presentation to play.
- * @param {module:player/UIController.UIController} pc - The current Player UI controller.
+ * @param {module:player/PlayerController.PlayerController} pc - The current Player UI controller.
  */
 export function init(pl, pr, pc) {
     player = pl;

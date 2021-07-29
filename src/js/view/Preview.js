@@ -17,7 +17,7 @@ export class Preview {
      * @param {module:model/Selection.Selection} selection - The object that manages the frame and layer selection.
      * @param {module:player/Viewport.Viewport} viewport - The viewport where the presentation is displayed.
      * @param {module:Controller.Controller} controller - The controller that manages the current editor.
-     * @param {module:player/UIController.UIController} playerController - The controller that manages the player user interactions.
+     * @param {module:player/PlayerController.PlayerController} playerController - The controller that manages the player user interactions.
      */
     constructor(container, presentation, selection, viewport, controller, playerController) {
         /** The HTML element that will contain this preview area.
@@ -47,7 +47,7 @@ export class Preview {
 
         /** The controller that manages the player user interactions.
          *
-         * @type {module:player/UIController.UIController} */
+         * @type {module:player/PlayerController.PlayerController} */
         this.playerController = playerController;
 
         presentation.on("svgChange", () => this.onLoad());

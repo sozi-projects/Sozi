@@ -45,32 +45,32 @@ const WHEEL_TIMEOUT_MS = 200;
 
 /** Signals that a user interaction triggered a change to the viewport's state.
  *
- * @event module:player/UIController.localChange
+ * @event module:player/PlayerController.localChange
  */
 
 /** Signals a mouse click in a viewport.
  *
- * @event module:player/UIController.click
+ * @event module:player/PlayerController.click
  */
 
 /** Signals a mouse button press in a viewport.
  *
- * @event module:player/UIController.mouseDown
+ * @event module:player/PlayerController.mouseDown
  */
 
 /** Signals the possible start of a drag gesture in a viewport.
  *
- * @event module:player/UIController.dragStart
+ * @event module:player/PlayerController.dragStart
  */
 
 /** Signals the end of a drag gesture in a viewport.
  *
- * @event module:player/UIController.dragEnd
+ * @event module:player/PlayerController.dragEnd
  */
 
 /** Signals a user-activated change in the camera states of a viewport.
  *
- * @event module:player/UIController.localViewportChange
+ * @event module:player/PlayerController.localViewportChange
  */
 
 /** The player's event handling controller
@@ -81,7 +81,7 @@ const WHEEL_TIMEOUT_MS = 200;
  *
  * @extends EventEmitter
  */
-export class UIController extends EventEmitter{
+export class PlayerController extends EventEmitter{
     /** Initialize a new Sozi player controller.
      *
      * If the presentation is opened in edit mode, the controller will disable
@@ -189,7 +189,7 @@ export class UIController extends EventEmitter{
      * @param {MouseEvent} evt - A DOM event.
      *
      * @listens mousedown
-     * @fires module:player/UIController.mouseDown
+     * @fires module:player/PlayerController.mouseDown
      */
     onMouseDown(evt) {
         evt.stopPropagation();
@@ -217,7 +217,7 @@ export class UIController extends EventEmitter{
      * @param {MouseEvent} evt - A DOM event.
      *
      * @listens mousemove
-     * @fires module:player/UIController.dragStart
+     * @fires module:player/PlayerController.dragStart
      */
     onDrag(evt) {
         evt.stopPropagation();
@@ -319,9 +319,9 @@ export class UIController extends EventEmitter{
      * @param {MouseEvent} evt - A DOM event
      *
      * @listens mouseup
-     * @fires module:player/UIController.localViewportChange
-     * @fires module:player/UIController.dragEnd
-     * @fires module:player/UIController.click
+     * @fires module:player/PlayerController.localViewportChange
+     * @fires module:player/PlayerController.dragEnd
+     * @fires module:player/PlayerController.click
      */
     onDragEnd(evt) {
         evt.stopPropagation();
@@ -353,7 +353,7 @@ export class UIController extends EventEmitter{
      *
      * @param {MouseEvent} evt - The mouse click event.
      *
-     * @fires module:player/UIController.click
+     * @fires module:player/PlayerController.click
      */
     onClick(evt) {
         if (this.presentation.enableMouseNavigation) {
@@ -374,7 +374,7 @@ export class UIController extends EventEmitter{
      * @param {WheelEvent} evt - A DOM event.
      *
      * @listens wheel
-     * @fires module:player/UIController.localViewportChange
+     * @fires module:player/PlayerController.localViewportChange
      */
     onWheel(evt) {
         if (this.wheelTimeout !== null) {
@@ -427,7 +427,7 @@ export class UIController extends EventEmitter{
      * @param {number} x - The x coordinate of the screenpoint to focus while zooming.
      * @param {number} y - The y coordinate of the screenpoint to focus while zooming.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      */
     zoom(factor, x, y) {
         this.emit("localChange", {change: "interactive"});
@@ -439,7 +439,7 @@ export class UIController extends EventEmitter{
      *
      * @param {number} angle - The rotation angle, in degrees.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      */
     rotate(angle) {
         this.emit("localChange", {change: "interactive"});
@@ -452,7 +452,7 @@ export class UIController extends EventEmitter{
      * @param {number} deltaX - The horizontal displacement, in pixels.
      * @param {number} deltaY - The vertical displacement, in pixels.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      */
      translate(deltaX, deltaY) {
         this.emit("localChange", {change: "interactive"});
@@ -467,7 +467,7 @@ export class UIController extends EventEmitter{
      * @param {MouseEvent} evt - A DOM event.
      *
      * @listens contextmenu
-     * @fires module:player/UIController.click
+     * @fires module:player/PlayerController.click
      */
     onContextMenu(evt) {
         evt.stopPropagation();
@@ -619,7 +619,7 @@ export class UIController extends EventEmitter{
 
     /** Jumps to the first frame of the presentation.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      * @fires module:player/Player.frameChange
      */
     jumpToFirst() {
@@ -628,7 +628,7 @@ export class UIController extends EventEmitter{
 
     /** Jump to the last frame of the presentation.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      * @fires module:player/Player.frameChange
      */
     jumpToLast() {
@@ -637,7 +637,7 @@ export class UIController extends EventEmitter{
 
     /** Jump to the previous frame.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      * @fires module:player/Player.frameChange
      */
     jumpToPrevious() {
@@ -646,7 +646,7 @@ export class UIController extends EventEmitter{
 
     /** Jumps to the next frame.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      * @fires module:player/Player.frameChange
      */
     jumpToNext() {
@@ -655,7 +655,7 @@ export class UIController extends EventEmitter{
 
     /** Move to the first frame of the presentation.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
@@ -667,7 +667,7 @@ export class UIController extends EventEmitter{
      *
      * This method skips previous frames with 0 ms timeout.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
@@ -678,7 +678,7 @@ export class UIController extends EventEmitter{
 
     /** Move to the next frame.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
@@ -689,7 +689,7 @@ export class UIController extends EventEmitter{
 
     /** Move to the last frame of the presentation.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
@@ -701,7 +701,7 @@ export class UIController extends EventEmitter{
      *
      * @param {string|number|module:model/Presentation.Frame} frame - The frame to show.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
@@ -715,7 +715,7 @@ export class UIController extends EventEmitter{
      *
      * @param {string|number|module:model/Presentation.Frame} frame - The frame to show.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
@@ -729,7 +729,7 @@ export class UIController extends EventEmitter{
      *
      * @param {string|number|module:model/Presentation.Frame} frame - The frame to show.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
@@ -741,7 +741,7 @@ export class UIController extends EventEmitter{
 
     /** toggles the pause state of the associated player
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      * @fires module:player/Player.stateChange
      */
     togglePause() {
@@ -757,7 +757,7 @@ export class UIController extends EventEmitter{
 
     /** Toggle the visibility of the elements that hides the viewport.
      *
-     * @fires module:player/UIController.localChange
+     * @fires module:player/PlayerController.localChange
      */
     toggleBlankScreen() {
         if (this.player.blankScreenIsVisible) {
