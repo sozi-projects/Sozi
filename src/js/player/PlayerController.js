@@ -43,9 +43,80 @@ const ROTATE_STEP = 5;
  * @type {number} */
 const WHEEL_TIMEOUT_MS = 200;
 
-/** Signals that a user interaction triggered a change to the viewport's state.
+/** Signals that a user action will make the presentation jump to another frame.
  *
- * @event module:player/PlayerController.localChange
+ * The event is emitted before the transition.
+ * Its argument is the target frame.
+ *
+ * @event module:player/PlayerController.jumpToFrame
+ * @type {module:model/Presentation.Frame}
+ */
+
+/** Signals that a user action will make the presentation move to another frame.
+ *
+ * The event is emitted before the transition.
+ * Its argument is the target frame.
+ *
+ * @event module:player/PlayerController.moveToFrame
+ * @type {module:model/Presentation.Frame}
+ */
+
+/** Signals that a user action will make the presentation move to another frame in *preview* mode.
+ *
+ * The event is emitted before the transition.
+ * Its argument is the target frame.
+ *
+ * @event module:player/PlayerController.previewFrame
+ * @type {module:model/Presentation.Frame}
+ */
+
+/** Signals that a user action has changed the paused status of the presentation.
+ *
+ * When emitted, the argument indicates the new playing status.
+ *
+ * @event module:player/PlayerController.togglePause
+ * @type {boolean}
+ */
+
+/** Signals that a user action has toggled the blank screen status.
+ *
+ * When emitted, the argument indicates the new blank screen status.
+ *
+ * @event module:player/PlayerController.toggleBlankScreen
+ * @type {boolean}
+ */
+
+/** Signals that a user action will change the zoom level.
+ *
+ * The event is emitted before applying the transformation.
+ *
+ * @event module:player/PlayerController.zoom
+ * @type {object}
+ * @property {number} factor - The zoom factor.
+ * @property {number} x      - The x coordinate of the screenpoint to focus while zooming.
+ * @property {number} y      - The y coordinate of the screenpoint to focus while zooming.
+ * @todo We should send the new absolute camera states instead of the current transformation.
+ */
+
+/** Signals that a user action will change the rotation angle.
+ *
+ * The event is emitted before applying the transformation.
+ * Its argument is the angle.
+ *
+ * @event module:player/PlayerController.rotate
+ * @type {number}
+ * @todo We should send the new absolute camera states instead of the current transformation.
+ */
+
+/** Signals that a user action will perform a translation.
+ *
+ * The event is emitted before applying the transformation.
+ *
+ * @event module:player/PlayerController.translate
+ * @type {object}
+ * @property {number} deltaX - The horizontal displacement, in pixels.
+ * @property {number} deltaY - The vertical displacement, in pixels.
+ * @todo We should send the new absolute camera states instead of the current transformation.
  */
 
 /** Signals a mouse click in a viewport.
@@ -424,13 +495,13 @@ export class PlayerController extends EventEmitter{
     /** Helper for zoom.
      *
      * @param {number} factor - The zoom factor.
-     * @param {number} x - The x coordinate of the screenpoint to focus while zooming.
-     * @param {number} y - The y coordinate of the screenpoint to focus while zooming.
+     * @param {number} x      - The x coordinate of the screenpoint to focus while zooming.
+     * @param {number} y      - The y coordinate of the screenpoint to focus while zooming.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.zoom
      */
     zoom(factor, x, y) {
-        this.emit("localChange", {change: "interactive"});
+        this.emit("zoom", {factor, x, y});
         this.player.pause();
         this.viewport.zoom(factor, x, y);
     }
@@ -439,10 +510,10 @@ export class PlayerController extends EventEmitter{
      *
      * @param {number} angle - The rotation angle, in degrees.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.rotate
      */
     rotate(angle) {
-        this.emit("localChange", {change: "interactive"});
+        this.emit("rotate", angle);
         this.player.pause();
         this.viewport.rotate(angle);
     }
@@ -452,10 +523,10 @@ export class PlayerController extends EventEmitter{
      * @param {number} deltaX - The horizontal displacement, in pixels.
      * @param {number} deltaY - The vertical displacement, in pixels.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.translate
      */
      translate(deltaX, deltaY) {
-        this.emit("localChange", {change: "interactive"});
+        this.emit("translate", {deltaX, deltaY});
         this.viewport.translate(deltaX, deltaY);
     }
 
@@ -619,7 +690,7 @@ export class PlayerController extends EventEmitter{
 
     /** Jumps to the first frame of the presentation.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.jumpToFrame
      * @fires module:player/Player.frameChange
      */
     jumpToFirst() {
@@ -628,7 +699,7 @@ export class PlayerController extends EventEmitter{
 
     /** Jump to the last frame of the presentation.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.jumpToFrame
      * @fires module:player/Player.frameChange
      */
     jumpToLast() {
@@ -637,7 +708,7 @@ export class PlayerController extends EventEmitter{
 
     /** Jump to the previous frame.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.jumpToFrame
      * @fires module:player/Player.frameChange
      */
     jumpToPrevious() {
@@ -646,7 +717,7 @@ export class PlayerController extends EventEmitter{
 
     /** Jumps to the next frame.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.jumpToFrame
      * @fires module:player/Player.frameChange
      */
     jumpToNext() {
@@ -655,7 +726,7 @@ export class PlayerController extends EventEmitter{
 
     /** Move to the first frame of the presentation.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.moveToFrame
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
@@ -667,7 +738,7 @@ export class PlayerController extends EventEmitter{
      *
      * This method skips previous frames with 0 ms timeout.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.moveToFrame
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
@@ -678,18 +749,18 @@ export class PlayerController extends EventEmitter{
 
     /** Move to the next frame.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.moveToFrame
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
     moveToNext() {
-        this.emit("localChange", {change:"moveToFrame", value:this.player.nextFrame});
+        this.emit("moveToFrame", this.player.nextFrame);
         this.player.moveToNext();
     }
 
     /** Move to the last frame of the presentation.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.moveToFrame
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
@@ -701,13 +772,13 @@ export class PlayerController extends EventEmitter{
      *
      * @param {string|number|module:model/Presentation.Frame} frame - The frame to show.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.previewFrame
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
     previewFrame(frame) {
         let f = this.player.findFrame(frame);
-        this.emit("localChange", {change:"previewFrame", value:f});
+        this.emit("previewFrame", f);
         this.player.previewFrame(f);
     }
 
@@ -715,13 +786,13 @@ export class PlayerController extends EventEmitter{
      *
      * @param {string|number|module:model/Presentation.Frame} frame - The frame to show.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.jumpToFrame
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
     jumpToFrame(frame) {
         let f = this.player.findFrame(frame);
-        this.emit("localChange", {change:"jumpToFrame", value:f});
+        this.emit("jumpToFrame", f);
         this.player.jumpToFrame(f);
     }
 
@@ -729,19 +800,19 @@ export class PlayerController extends EventEmitter{
      *
      * @param {string|number|module:model/Presentation.Frame} frame - The frame to show.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.moveToFrame
      * @fires module:player/Player.frameChange
      * @fires module:player/Player.stateChange
      */
     moveToFrame(frame) {
         let f = this.player.findFrame(frame);
-        this.emit("localChange", {change:"moveToFrame", value:f});
+        this.emit("moveToFrame", f);
         this.player.moveToFrame(f);
     }
 
-    /** toggles the pause state of the associated player
+    /** Toggles the pause state of the associated player
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.togglePause
      * @fires module:player/Player.stateChange
      */
     togglePause() {
@@ -752,12 +823,12 @@ export class PlayerController extends EventEmitter{
             this.player.playFromFrame(this.player.currentFrame);
         }
 
-        this.emit("localChange", {change:"pause", value:this.player.playing});
+        this.emit("togglePause", this.player.playing);
     }
 
     /** Toggle the visibility of the elements that hides the viewport.
      *
-     * @fires module:player/PlayerController.localChange
+     * @fires module:player/PlayerController.toggleBlankScreen
      */
     toggleBlankScreen() {
         if (this.player.blankScreenIsVisible) {
@@ -766,6 +837,6 @@ export class PlayerController extends EventEmitter{
         else {
             this.player.enableBlankScreen();
         }
-        this.emit("localChange", {change:"blankScreen", value:this.player.blankScreenIsVisible});
+        this.emit("toggleBlankScreen", this.player.blankScreenIsVisible);
     }
 }

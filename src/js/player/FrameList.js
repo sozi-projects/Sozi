@@ -80,7 +80,7 @@ let currentOffset = startOffset;
  * It also registers mouse and keyboard events related to the frame list.
  *
  * @param {module:player/Player.Player} p - The current Sozi player.
- * @param {module:player/PlayerController.PlayerController} c - The current Sozi player controller.
+ * @param {module:player/PlayerController.PlayerController} controller - The current Sozi player controller.
  */
 export function init(p, controller) {
     player = p;
