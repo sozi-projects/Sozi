@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: Tim van Steenbergen <tim@sourcerers.nl>\n"
-"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
-"PO-Revision-Date: 2020-10-12 11:26+0000\n"
-"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"POT-Creation-Date: 2021-05-09 01:32:+0000\n"
+"PO-Revision-Date: 2021-05-15 17:32+0000\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/sozi/translations/"
 "nl/>\n"
 "Language: nl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 "X-Launchpad-Export-Date: 2016-10-10 06:40+0000\n"
 
 #: src/js/Controller.js:217
@@ -163,9 +163,8 @@ msgid "Toggle the developer tools"
 msgstr "Ontwikkelaarshulpmiddelen tonen/verbergen"
 
 #: src/js/view/Properties.js:113 src/js/view/Properties.js:402
-#, fuzzy
 msgid "Back to presentation properties"
-msgstr "Presentatie opslaan"
+msgstr "Terug naar presentatie-eigenschappen"
 
 #: src/js/view/Properties.js:117
 msgid "User interface"
