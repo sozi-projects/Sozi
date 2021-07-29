@@ -368,18 +368,6 @@ export class Player extends EventEmitter {
         this.moveToFrame(this.nextFrame);
     }
 
-    /** Restore the current frame.
-     *
-     * This method restores the viewport to fit the current frame,
-     * e.g. after the viewport has been zoomed or dragged.
-     *
-     * @fires module:player/Player.frameChange
-     * @fires module:player/Player.stateChange
-     */
-    moveToCurrent() {
-        this.moveToFrame(this.currentFrame);
-    }
-
     /** Move to a frame in *preview* mode.
      *
      * This method animates the transition from the current

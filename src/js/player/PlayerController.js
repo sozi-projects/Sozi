@@ -70,12 +70,9 @@ const WHEEL_TIMEOUT_MS = 200;
  * @type {module:model/Presentation.Frame}
  */
 
-/** Signals that a user action has changed the paused status of the presentation.
+/** Signals that a user action has paused the presentation.
  *
- * When emitted, the argument indicates the new playing status.
- *
- * @event module:player/PlayerController.togglePause
- * @type {boolean}
+ * @event module:player/PlayerController.pause
  */
 
 /** Signals that a user action has toggled the blank screen status.
@@ -623,7 +620,7 @@ export class PlayerController extends EventEmitter{
 
     /** Process a keyboard event.
      *
-     * This method handles character keys: "+", "-", "R", "P", ".".
+     * This method handles character keys: "+", "-", "R", "P", ".", "=".
      *
      * @param {KeyboardEvent} evt - The DOM event to process.
      *
@@ -669,6 +666,10 @@ export class PlayerController extends EventEmitter{
                 if (this.presentation.enableKeyboardNavigation) {
                     this.toggleBlankScreen();
                 }
+                break;
+
+            case 61: // =
+                this.moveToCurrent();
                 break;
 
             default:
@@ -744,7 +745,9 @@ export class PlayerController extends EventEmitter{
      */
     moveToPrevious() {
         const frame = this.player.lastNonAutoTransitionFrame();
-        if (frame != null ) this.moveToFrame(frame);
+        if (frame) {
+            this.moveToFrame(frame);
+        }
     }
 
     /** Move to the next frame.
@@ -766,6 +769,18 @@ export class PlayerController extends EventEmitter{
      */
     moveToLast() {
         this.moveToFrame(this.lastFrame);
+    }
+
+    /** Restore the current frame and resume playing.
+     *
+     * @fires module:player/PlayerController.moveToFrame
+     * @fires module:player/Player.frameChange
+     * @fires module:player/Player.stateChange
+     */
+    moveToCurrent() {
+        if (!this.player.playing) {
+            this.moveToFrame(this.player.currentFrame);
+        }
     }
 
     /** Move to a frame in *preview* mode.
@@ -812,18 +827,18 @@ export class PlayerController extends EventEmitter{
 
     /** Toggles the pause state of the associated player
      *
-     * @fires module:player/PlayerController.togglePause
+     * @fires module:player/PlayerController.pause
+     * @fires module:player/PlayerController.moveToFrame
      * @fires module:player/Player.stateChange
      */
     togglePause() {
         if (this.player.playing) {
+            this.emit("pause");
             this.player.pause();
         }
         else {
-            this.player.playFromFrame(this.player.currentFrame);
+            this.moveToFrame(this.player.currentFrame);
         }
-
-        this.emit("togglePause", this.player.playing);
     }
 
     /** Toggle the visibility of the elements that hides the viewport.
