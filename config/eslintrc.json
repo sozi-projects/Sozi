@@ -23,13 +23,16 @@
     "rules": {
         "no-unused-vars": ["warn"],
         "no-prototype-builtins": ["warn"],
-        "jsdoc/require-jsdoc": ["warn", {
+        "jsdoc/require-jsdoc": ["error", {
             "publicOnly": true,
             "checkSetters": false,
             "require": {
                 "ClassDeclaration": true,
                 "MethodDefinition": true
             }
+        }],
+        "jsdoc/multiline-blocks": ["warn", {
+            "noZeroLineText": false
         }],
         "jsdoc/tag-lines": ["warn", "any"]
     }

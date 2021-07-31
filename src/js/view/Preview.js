@@ -123,7 +123,6 @@ export class Preview {
 
     /** Choose an outline element on an Alt+click event in this preview area.
      *
-     * @param {number} button - The mouse button number that was clicked.
      * @param {MouseEvent} evt - A DOM event.
      *
      * @listens click
