@@ -223,7 +223,7 @@ function makeBrowserifyTask(name) {
             .pipe(source(`${name}.js`))
             .pipe(buffer())
             .pipe(uglify({
-                mangle: true,
+                mangle:   true,
                 compress: true
             }))
             .pipe(dest("build/tmp/"));

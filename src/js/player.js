@@ -154,6 +154,7 @@ window.addEventListener("load", () => {
 
     const viewport = new Viewport(presentation, false);
     viewport.onLoad();
+    presentation.setInitialCameraState();
 
     presentation.fromStorable(window.soziPresentationData);
     if (!presentation.frames.length) {

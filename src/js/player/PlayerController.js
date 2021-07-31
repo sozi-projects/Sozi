@@ -70,6 +70,13 @@ const WHEEL_TIMEOUT_MS = 200;
  * @type {module:model/Presentation.Frame}
  */
 
+/** Signals that a user action will trigger the "view all" feature.
+ *
+ * The event is emitted before the transition.
+ *
+ * @event module:player/PlayerController.viewAll
+ */
+
 /** Signals that a user action has paused the presentation.
  *
  * @event module:player/PlayerController.pause
@@ -620,7 +627,7 @@ export class PlayerController extends EventEmitter{
 
     /** Process a keyboard event.
      *
-     * This method handles character keys: "+", "-", "R", "P", ".", "=".
+     * This method handles character keys: "+", "-", "R", "P", "A", ".", "=".
      *
      * @param {KeyboardEvent} evt - The DOM event to process.
      *
@@ -660,6 +667,11 @@ export class PlayerController extends EventEmitter{
             case 80: // P
             case 112: //p
                 this.togglePause();
+                break;
+
+            case 65: // A
+            case 97: // a
+                this.viewAll();
                 break;
 
             case 46: // .
@@ -795,6 +807,11 @@ export class PlayerController extends EventEmitter{
         let f = this.player.findFrame(frame);
         this.emit("previewFrame", f);
         this.player.previewFrame(f);
+    }
+
+    viewAll() {
+        this.emit("viewAll");
+        this.player.viewAll();
     }
 
     /** Jump to the given frame of the presentation and signal a local change.
