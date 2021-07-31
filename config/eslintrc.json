@@ -22,6 +22,7 @@
     },
     "rules": {
         "no-unused-vars": ["warn"],
+        "no-prototype-builtins": ["warn"],
         "jsdoc/require-jsdoc": ["warn", {
             "publicOnly": true,
             "checkSetters": false,
