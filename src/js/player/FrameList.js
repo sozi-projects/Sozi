@@ -15,33 +15,39 @@ import * as Timing from "./Timing";
 /** The duration of the open/close animation of the frame list.
  *
  * @readonly
- * @type {number} */
+ * @type {number}
+ */
 const DURATION_MS = 500;
 
 /** The HTML element that contains the frame list.
  *
- * @type {HTMLElement} */
+ * @type {HTMLElement}
+ */
 let frameList;
 
 /** The HTML links to each frame in the frame list.
  *
- * @type {HTMLAnchorElement[]} */
+ * @type {HTMLAnchorElement[]}
+ */
 let links;
 
 /** The current Sozi player.
  *
- * @type {module:player/Player.Player} */
+ * @type {module:player/Player.Player}
+ */
 let player;
 
 /** An animator to open/close the frame list.
  *
- * @type {module:player/Animator.Animator} */
+ * @type {module:player/Animator.Animator}
+ */
 let animator;
 
 /** The current open status of the frame list.
  *
  * @default
- * @type {boolean} */
+ * @type {boolean}
+ */
 let isOpen = false;
 
 /** The start location of the frame list with respect to the left border of the viewport.
@@ -49,7 +55,8 @@ let isOpen = false;
  * 1 represents the width of the frame list.
  *
  * @default
- * @type {number} */
+ * @type {number}
+ */
 let startOffset = -1;
 
 /** The start location of the frame list with respect to the left border of the viewport.
@@ -57,7 +64,8 @@ let startOffset = -1;
  * 1 represents the width of the frame list.
  *
  * @default
- * @type {number} */
+ * @type {number}
+ */
 let endOffset = -1;
 
 /** The current location of the frame list with respect to the left border of the viewport.
@@ -65,7 +73,8 @@ let endOffset = -1;
  * 1 represents the width of the frame list.
  *
  * @default
- * @type {number} */
+ * @type {number}
+ */
 let currentOffset = startOffset;
 
 /** Initialize the frame list management.

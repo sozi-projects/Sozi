@@ -12,24 +12,28 @@
 /** The SVG namespace URI.
  *
  * @readonly
- * @type {string} */
+ * @type {string}
+ */
 const svgNs = "http://www.w3.org/2000/svg";
 
 /** The Sozi namespace URI.
  *
  * @readonly
- * @type {string} */
+ * @type {string}
+ */
 const soziNs = "http://sozi.baierouge.fr";
 
 /** The XHTML namespace URI.
  *
  * @readonly
- * @type {string} */
+ * @type {string}
+ */
 const xhtmlNs = "http://www.w3.org/1999/xhtml";
 
 /** The current Sozi player.
  *
- * @type {module:player/Player.Player} */
+ * @type {module:player/Player.Player}
+ */
 let player;
 
 /** A default event handler that prevents the propagation of an event.
@@ -51,12 +55,14 @@ function defaultEventHandler(evt) {
 
 /** A dictionary of video and audio elements to start in each frame.
  *
- * @type {object} */
+ * @type {object}
+ */
 const mediaToStartByFrameId = {};
 
 /** A dictionary of video and audio elements to stop in each frame.
  *
- * @type {object} */
+ * @type {object}
+ */
 const mediaToStopByFrameId = {};
 
 /** Start or stop media on frame change.

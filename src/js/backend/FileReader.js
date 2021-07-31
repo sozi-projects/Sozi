@@ -26,7 +26,8 @@ export class FileReaderBackend extends AbstractBackend {
 
         /** A hidden HTML file input element to open a file chooser.
          *
-         * @type {HTMLInputElement} */
+         * @type {HTMLInputElement}
+         */
         this.fileInput = document.createElement("input");
         this.fileInput.style.display = "none";
         this.fileInput.setAttribute("type", "file");

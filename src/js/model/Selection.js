@@ -18,19 +18,22 @@ export class Selection {
     constructor(presentation) {
         /** The presentation where selections happen.
          *
-         * @type {module:model/Presentation.Presentation} */
+         * @type {module:model/Presentation.Presentation}
+         */
         this.presentation = presentation;
 
         /** The list of selected frames.
          *
          * @default
-         * @type {module:model/Presentation.Frame[]} */
+         * @type {module:model/Presentation.Frame[]}
+         */
         this.selectedFrames = [];
 
         /** The list of selected layers.
          *
          * @default
-         * @type {module:model/Presentation.Layer[]} */
+         * @type {module:model/Presentation.Layer[]}
+         */
         this.selectedLayers = [];
     }
 

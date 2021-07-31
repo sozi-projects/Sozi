@@ -46,7 +46,8 @@ export class CameraState {
 
             /** The root SVG element attached to this camera.
              *
-             * @type {SVGSVGElement} */
+             * @type {SVGSVGElement}
+             */
             this.svgRoot = obj;
 
             /** The opacity level of the layer attached to this camera.
@@ -54,37 +55,43 @@ export class CameraState {
              * A floating-point number between 0 and 1.
              *
              * @default
-             * @type {number} */
+             * @type {number}
+             */
             this.opacity = 1.0;
 
             /** Indicates that the content outside a specified rectangle must be clipped.
              *
              * @default
-             * @type {boolean} */
+             * @type {boolean}
+             */
             this.clipped = false;
 
             /** The horizontal offset of the clipping rectangle with respect to the current camera location.
              *
              * @default
-             * @type {number} */
+             * @type {number}
+             */
             this.clipXOffset = 0;
 
             /** The vertical offset of the clipping rectangle with respect to the current camera location.
              *
              * @default
-             * @type {number} */
+             * @type {number}
+             */
             this.clipYOffset = 0;
 
             /** The width of the clipping rectangle with respect to the width of the image seen by the camera.
              *
              * @default
-             * @type {number} */
+             * @type {number}
+             */
             this.clipWidthFactor = 1;
 
             /** The height of the clipping rectangle with respect to the height of the image seen by the camera.
              *
              * @default
-             * @type {number} */
+             * @type {number}
+             */
             this.clipHeightFactor = 1;
 
             /** The horizontal coordinate of the camera.
@@ -92,7 +99,8 @@ export class CameraState {
              * This is also the horizontal coordinate of the center of the image seen by the camera.
              *
              * @default The center of the bounding box of the SVG content.
-             * @type {number} */
+             * @type {number}
+             */
             this.cx = initialBBox.x + initialBBox.width / 2;
 
             /** The vertical coordinate of the camera.
@@ -100,7 +108,8 @@ export class CameraState {
              * This is also the vertical coordinate of the center of the image seen by the camera.
              *
              * @default The center of the bounding box of the SVG content.
-             * @type {number} */
+             * @type {number}
+             */
             this.cy = initialBBox.y + initialBBox.height / 2;
 
             // These are assigned through setters. See below.
@@ -149,7 +158,8 @@ export class CameraState {
      * Cannot be lower than 1.
      *
      * @default The height of the bounding box of the SVG content.
-     * @type {number} */
+     * @type {number}
+     */
     get height() {
         return this._height;
     }

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
+"POT-Creation-Date: 2021-07-31 04:56:+0000\n"
 "PO-Revision-Date: 2018-03-10 16:09+0100\n"
 "Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
@@ -18,95 +18,95 @@ msgstr ""
 "X-Launchpad-Export-Date: 2015-10-04 10:24+0000\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: src/js/Controller.js:217
+#: src/js/Controller.js:234
 #, fuzzy
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
 msgstr ""
 "Зареди локален файл (<i class=\"fas fa-exclamation-triangle\"></i> read-only)"
 
-#: src/js/Controller.js:218
+#: src/js/Controller.js:235
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
 msgstr ""
 
-#: src/js/Controller.js:342
+#: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
 msgstr "Документа е променен. Отваряне на ново."
 
-#: src/js/Controller.js:357
+#: src/js/Controller.js:374
 #, fuzzy
 msgid "Document was changed."
 msgstr "Документа е променен. Отваряне на ново."
 
-#: src/js/Controller.js:1724
+#: src/js/Controller.js:1741
 msgid "Presentation was exported to PDF."
 msgstr ""
 
-#: src/js/Controller.js:1727
+#: src/js/Controller.js:1744
 msgid "Failed to write PDF file."
 msgstr ""
 
-#: src/js/Controller.js:1740
+#: src/js/Controller.js:1757
 msgid "Presentation was exported to PPTX."
 msgstr ""
 
-#: src/js/Controller.js:1743
+#: src/js/Controller.js:1760
 msgid "Failed to write PPTX file."
 msgstr ""
 
-#: src/js/Controller.js:1756
+#: src/js/Controller.js:1773
 msgid "Presentation was exported to video."
 msgstr ""
 
-#: src/js/Controller.js:1759
+#: src/js/Controller.js:1776
 msgid "Failed to write video file."
 msgstr ""
 
-#: src/js/Storage.js:193
+#: src/js/Storage.js:203
 msgid "Document is not valid SVG."
 msgstr "Документа не е валиден SVG."
 
-#: src/js/Storage.js:251
+#: src/js/Storage.js:261
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Дикумета е импортиран от Sozi 13 или по-стара версия"
 
-#: src/js/Storage.js:341
+#: src/js/Storage.js:351
 msgid "Saved %s."
 msgstr "Запазен %s."
 
-#: src/js/backend/Electron.js:48
+#: src/js/backend/Electron.js:49
 #, fuzzy
 msgid "Open an SVG file from your computer"
 msgstr "Зареди от Google Диск"
 
-#: src/js/backend/Electron.js:73
+#: src/js/backend/Electron.js:74
 msgid "Do you want to save the presentation before closing?"
 msgstr ""
 
-#: src/js/backend/Electron.js:74
+#: src/js/backend/Electron.js:75
 msgid "Yes"
 msgstr ""
 
-#: src/js/backend/Electron.js:74
+#: src/js/backend/Electron.js:75
 msgid "No"
 msgstr ""
 
-#: src/js/backend/Electron.js:103
+#: src/js/backend/Electron.js:105
 msgid "File not found: %s."
 msgstr "Файла не е намерен: %s."
 
-#: src/js/backend/Electron.js:135
+#: src/js/backend/Electron.js:137
 msgid "Choose an SVG file"
 msgstr ""
 
-#: src/js/backend/Electron.js:136
+#: src/js/backend/Electron.js:138
 msgid "SVG files"
 msgstr ""
 
-#: src/js/backend/Electron.js:197
+#: src/js/backend/Electron.js:199
 msgid "This file will not be reloaded on change: %s."
 msgstr ""
 
-#: src/js/backend/Electron.js:213
+#: src/js/backend/Electron.js:215
 msgid "Could not read file %s."
 msgstr ""
 
@@ -123,595 +123,595 @@ msgstr ""
 msgid "Open an SVG file from Google Drive"
 msgstr "Зареди от Google Диск"
 
-#: src/js/view/Properties.js:91
+#: src/js/view/Properties.js:94
 #, fuzzy
 msgid "Autoselect outline element"
 msgstr "Автоматично избиране на елемент"
 
-#: src/js/view/Properties.js:92 src/js/view/Properties.js:219
+#: src/js/view/Properties.js:95 src/js/view/Properties.js:222
 msgid "Reset layer geometry"
 msgstr ""
 
-#: src/js/view/Properties.js:93 src/js/view/Timeline.js:191
+#: src/js/view/Properties.js:96 src/js/view/Timeline.js:193
 msgid "Create a new frame"
 msgstr "Създай нов фрейм"
 
-#: src/js/view/Properties.js:94 src/js/view/Properties.js:130
-#: src/js/view/Toolbar.js:136
+#: src/js/view/Properties.js:97 src/js/view/Properties.js:133
+#: src/js/view/Toolbar.js:139
 msgid "Save the presentation"
 msgstr "Запази презентацията"
 
-#: src/js/view/Properties.js:95 src/js/view/Toolbar.js:120
+#: src/js/view/Properties.js:98 src/js/view/Toolbar.js:123
 msgid "Redo"
 msgstr "Стъпка напред"
 
-#: src/js/view/Properties.js:96 src/js/view/Toolbar.js:115
+#: src/js/view/Properties.js:99 src/js/view/Toolbar.js:118
 msgid "Undo"
 msgstr "Стъпка напред"
 
-#: src/js/view/Properties.js:97
+#: src/js/view/Properties.js:100
 msgid "Focus the frame title"
 msgstr ""
 
-#: src/js/view/Properties.js:98 src/js/view/Properties.js:136
-#: src/js/view/Toolbar.js:141
+#: src/js/view/Properties.js:101 src/js/view/Properties.js:139
+#: src/js/view/Toolbar.js:144
 msgid "Reload the SVG document"
 msgstr "Презареди SVG документа"
 
-#: src/js/view/Properties.js:99
+#: src/js/view/Properties.js:102
 #, fuzzy
 msgid "Toggle full-screen mode"
 msgstr "Позволи режим на цял екран"
 
-#: src/js/view/Properties.js:100
+#: src/js/view/Properties.js:103
 msgid "Toggle the developer tools"
 msgstr ""
 
-#: src/js/view/Properties.js:113 src/js/view/Properties.js:402
+#: src/js/view/Properties.js:116 src/js/view/Properties.js:405
 #, fuzzy
 msgid "Back to presentation properties"
 msgstr "Запази презентацията"
 
-#: src/js/view/Properties.js:117
+#: src/js/view/Properties.js:120
 msgid "User interface"
 msgstr ""
 
-#: src/js/view/Properties.js:119
+#: src/js/view/Properties.js:122
 msgid "Language"
 msgstr ""
 
-#: src/js/view/Properties.js:122
+#: src/js/view/Properties.js:125
 msgid "Font size"
 msgstr ""
 
-#: src/js/view/Properties.js:126
+#: src/js/view/Properties.js:129
 msgid "Enable notifications on save and reload"
 msgstr ""
 
-#: src/js/view/Properties.js:127
+#: src/js/view/Properties.js:130
 msgid "Enable notifications"
 msgstr ""
 
-#: src/js/view/Properties.js:132
+#: src/js/view/Properties.js:135
 msgid "When Sozi loses the focus"
 msgstr ""
 
-#: src/js/view/Properties.js:133 src/js/view/Properties.js:140
+#: src/js/view/Properties.js:136 src/js/view/Properties.js:143
 msgid "Manually"
 msgstr ""
 
-#: src/js/view/Properties.js:138
+#: src/js/view/Properties.js:141
 msgid "Automatically"
 msgstr ""
 
-#: src/js/view/Properties.js:139
+#: src/js/view/Properties.js:142
 msgid "When Sozi gets the focus"
 msgstr ""
 
-#: src/js/view/Properties.js:143
+#: src/js/view/Properties.js:146
 msgid "Behavior"
 msgstr ""
 
-#: src/js/view/Properties.js:145
+#: src/js/view/Properties.js:148
 msgid "Preview transition animations"
 msgstr ""
 
-#: src/js/view/Properties.js:146
+#: src/js/view/Properties.js:149
 msgid "Enable animated transitions"
 msgstr ""
 
-#: src/js/view/Properties.js:149
+#: src/js/view/Properties.js:152
 msgid "Keyboard shortcuts"
 msgstr ""
 
-#: src/js/view/Properties.js:164
+#: src/js/view/Properties.js:167
 msgid "Basic formatting supported:"
 msgstr ""
 
-#: src/js/view/Properties.js:166
+#: src/js/view/Properties.js:169
 msgid "Ctrl+B: Bold"
 msgstr ""
 
-#: src/js/view/Properties.js:167
+#: src/js/view/Properties.js:170
 msgid "Ctrl+I: Italic"
 msgstr ""
 
-#: src/js/view/Properties.js:168
+#: src/js/view/Properties.js:171
 msgid "Ctrl+U: Underline"
 msgstr ""
 
-#: src/js/view/Properties.js:169
+#: src/js/view/Properties.js:172
 msgid "Ctrl+0: Paragraph"
 msgstr ""
 
-#: src/js/view/Properties.js:170
+#: src/js/view/Properties.js:173
 msgid "Ctrl+1: Big heading"
 msgstr ""
 
-#: src/js/view/Properties.js:171
+#: src/js/view/Properties.js:174
 msgid "Ctrl+2: Medium heading"
 msgstr ""
 
-#: src/js/view/Properties.js:172
+#: src/js/view/Properties.js:175
 msgid "Ctrl+3: Small heading"
 msgstr ""
 
-#: src/js/view/Properties.js:173
+#: src/js/view/Properties.js:176
 msgid "Ctrl+L: List"
 msgstr ""
 
-#: src/js/view/Properties.js:174
+#: src/js/view/Properties.js:177
 msgid "Ctrl+N: Numbered list"
 msgstr ""
 
-#: src/js/view/Properties.js:181
+#: src/js/view/Properties.js:184
 msgid "Select a layer to copy"
 msgstr ""
 
-#: src/js/view/Properties.js:184 src/js/view/Timeline.js:238
-#: src/js/view/Timeline.js:266
+#: src/js/view/Properties.js:187 src/js/view/Timeline.js:240
+#: src/js/view/Timeline.js:268
 msgid "Default"
 msgstr "По подразбиране"
 
-#: src/js/view/Properties.js:191
+#: src/js/view/Properties.js:194
 msgid "Frame"
 msgstr "Рамка"
 
-#: src/js/view/Properties.js:194
+#: src/js/view/Properties.js:197
 msgid "Show in frame list"
 msgstr "Покажи в слисъка с фреймове"
 
-#: src/js/view/Properties.js:195
+#: src/js/view/Properties.js:198
 msgid "Show frame number"
 msgstr "Покажи номер на фрейм"
 
-#: src/js/view/Properties.js:198
+#: src/js/view/Properties.js:201
 msgid "Title"
 msgstr "Заглавие"
 
-#: src/js/view/Properties.js:201
+#: src/js/view/Properties.js:204
 #, fuzzy
 msgid "Title level in frame list"
 msgstr "Покажи в слисъка с фреймове"
 
-#: src/js/view/Properties.js:204
+#: src/js/view/Properties.js:207
 msgid "Id"
 msgstr "Идентификатор"
 
-#: src/js/view/Properties.js:208
+#: src/js/view/Properties.js:211
 msgid "Timeout (seconds)"
 msgstr "Изчакване (секунди)"
 
-#: src/js/view/Properties.js:209
+#: src/js/view/Properties.js:212
 msgid "Timeout enable"
 msgstr "Разреши изчакване"
 
-#: src/js/view/Properties.js:213
+#: src/js/view/Properties.js:216
 msgid "Layer"
 msgstr ""
 
-#: src/js/view/Properties.js:216
+#: src/js/view/Properties.js:219
 msgid "Link to previous frame"
 msgstr "Връзка към предишен фрейм"
 
-#: src/js/view/Properties.js:217
+#: src/js/view/Properties.js:220
 msgid "Clip"
 msgstr "Клип"
 
-#: src/js/view/Properties.js:224
+#: src/js/view/Properties.js:227
 #, fuzzy
 msgid "Copy layer"
 msgstr "Добави слой"
 
-#: src/js/view/Properties.js:231
+#: src/js/view/Properties.js:234
 #, fuzzy
 msgid "Outline element Id"
 msgstr "Референтен идентификатор"
 
-#: src/js/view/Properties.js:234
+#: src/js/view/Properties.js:237
 msgid "Autoselect element"
 msgstr "Автоматично избиране на елемент"
 
-#: src/js/view/Properties.js:237
+#: src/js/view/Properties.js:240
 msgid "Hide element"
 msgstr "Скрий елемнет"
 
-#: src/js/view/Properties.js:239
+#: src/js/view/Properties.js:242
 msgid "Fit to element"
 msgstr "Напасни по елемента"
 
-#: src/js/view/Properties.js:246
+#: src/js/view/Properties.js:249
 msgid "Layer opacity"
 msgstr "Прозрачност на слоя"
 
-#: src/js/view/Properties.js:249
+#: src/js/view/Properties.js:252
 msgid "Transition"
 msgstr "Преход"
 
-#: src/js/view/Properties.js:249
+#: src/js/view/Properties.js:252
 msgid "Configure the animation when moving to the selected frames."
 msgstr ""
 
-#: src/js/view/Properties.js:251
+#: src/js/view/Properties.js:254
 msgid "Duration (seconds)"
 msgstr "Времетраене"
 
-#: src/js/view/Properties.js:254
+#: src/js/view/Properties.js:257
 msgid "Timing function"
 msgstr "Функция за тайминг"
 
-#: src/js/view/Properties.js:256
+#: src/js/view/Properties.js:259
 msgid "Linear"
 msgstr ""
 
-#: src/js/view/Properties.js:257
+#: src/js/view/Properties.js:260
 msgid "Ease"
 msgstr ""
 
-#: src/js/view/Properties.js:258
+#: src/js/view/Properties.js:261
 msgid "Ease in"
 msgstr ""
 
-#: src/js/view/Properties.js:259
+#: src/js/view/Properties.js:262
 msgid "Ease out"
 msgstr ""
 
-#: src/js/view/Properties.js:260
+#: src/js/view/Properties.js:263
 msgid "Ease in-out"
 msgstr ""
 
-#: src/js/view/Properties.js:261
+#: src/js/view/Properties.js:264
 msgid "Step start"
 msgstr ""
 
-#: src/js/view/Properties.js:262
+#: src/js/view/Properties.js:265
 msgid "Step end"
 msgstr ""
 
-#: src/js/view/Properties.js:263
+#: src/js/view/Properties.js:266
 msgid "Step middle"
 msgstr ""
 
-#: src/js/view/Properties.js:266
+#: src/js/view/Properties.js:269
 msgid "Relative zoom (%)"
 msgstr "Относително приближаване (%)"
 
-#: src/js/view/Properties.js:270
+#: src/js/view/Properties.js:273
 msgid "Path Id"
 msgstr "Идентификатор на пътя"
 
-#: src/js/view/Properties.js:271
+#: src/js/view/Properties.js:274
 msgid "Hide path"
 msgstr "Скрий пътя"
 
-#: src/js/view/Properties.js:275
+#: src/js/view/Properties.js:278
 msgid "Notes"
 msgstr ""
 
-#: src/js/view/Properties.js:275
+#: src/js/view/Properties.js:278
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 
-#: src/js/view/Properties.js:279
+#: src/js/view/Properties.js:282
 msgid "Custom stylesheets and scripts"
 msgstr ""
 
-#: src/js/view/Properties.js:292
+#: src/js/view/Properties.js:295
 msgid "CSS or JS file names"
 msgstr ""
 
-#: src/js/view/Properties.js:292
+#: src/js/view/Properties.js:295
 msgid "Add CSS or JS files"
 msgstr ""
 
-#: src/js/view/Properties.js:295
+#: src/js/view/Properties.js:298
 #, fuzzy
 msgid "Add a file"
 msgstr "Добави слой"
 
-#: src/js/view/Properties.js:308
+#: src/js/view/Properties.js:311
 #, fuzzy
 msgid "Remove this file"
 msgstr "Премахни този слой"
 
-#: src/js/view/Properties.js:316
+#: src/js/view/Properties.js:319
 #, fuzzy
 msgid "Player"
 msgstr "Добави слой"
 
-#: src/js/view/Properties.js:319
+#: src/js/view/Properties.js:322
 msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
 
-#: src/js/view/Properties.js:320
+#: src/js/view/Properties.js:323
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr ""
 
-#: src/js/view/Properties.js:324
+#: src/js/view/Properties.js:327
 msgid "Allow to control the presentation"
 msgstr ""
 
-#: src/js/view/Properties.js:326 src/js/view/Properties.js:333
-#: src/js/view/Properties.js:339 src/js/view/Properties.js:347
+#: src/js/view/Properties.js:329 src/js/view/Properties.js:336
+#: src/js/view/Properties.js:342 src/js/view/Properties.js:350
 msgid "using the mouse"
 msgstr ""
 
-#: src/js/view/Properties.js:327 src/js/view/Properties.js:340
-#: src/js/view/Properties.js:348
+#: src/js/view/Properties.js:330 src/js/view/Properties.js:343
+#: src/js/view/Properties.js:351
 msgid "using the keyboard"
 msgstr ""
 
-#: src/js/view/Properties.js:332
+#: src/js/view/Properties.js:335
 msgid "Allow to move the camera"
 msgstr ""
 
-#: src/js/view/Properties.js:337
+#: src/js/view/Properties.js:340
 msgid "Allow to rotate the camera"
 msgstr ""
 
-#: src/js/view/Properties.js:345
+#: src/js/view/Properties.js:348
 msgid "Allow to zoom"
 msgstr ""
 
-#: src/js/view/Properties.js:362
+#: src/js/view/Properties.js:365
 msgid "Examples of frame lists to include/exclude in export"
 msgstr ""
 
-#: src/js/view/Properties.js:364
+#: src/js/view/Properties.js:367
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
 msgstr ""
 
-#: src/js/view/Properties.js:365
+#: src/js/view/Properties.js:368
 msgid "Select frames 5 to 8: \"5:8\""
 msgstr ""
 
-#: src/js/view/Properties.js:366
+#: src/js/view/Properties.js:369
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
 msgstr ""
 
-#: src/js/view/Properties.js:367
+#: src/js/view/Properties.js:370
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
 msgstr ""
 
-#: src/js/view/Properties.js:406 src/js/view/Properties.js:422
+#: src/js/view/Properties.js:409 src/js/view/Properties.js:425
 msgid "Export"
 msgstr ""
 
-#: src/js/view/Properties.js:408
+#: src/js/view/Properties.js:411
 msgid "Document type"
 msgstr ""
 
-#: src/js/view/Properties.js:410
+#: src/js/view/Properties.js:413
 msgid "Portable Document Format (PDF)"
 msgstr ""
 
-#: src/js/view/Properties.js:411
+#: src/js/view/Properties.js:414
 msgid "Microsoft PowerPoint (PPTX)"
 msgstr ""
 
-#: src/js/view/Properties.js:412
+#: src/js/view/Properties.js:415
 msgid "Video"
 msgstr ""
 
-#: src/js/view/Properties.js:419 src/js/view/Toolbar.js:146
+#: src/js/view/Properties.js:422 src/js/view/Toolbar.js:149
 #, fuzzy
 msgid "Export the presentation"
 msgstr "Запази презентацията"
 
-#: src/js/view/Properties.js:436
+#: src/js/view/Properties.js:439
 msgid "Page size"
 msgstr ""
 
-#: src/js/view/Properties.js:438 src/js/view/Properties.js:477
+#: src/js/view/Properties.js:441 src/js/view/Properties.js:480
 msgid "A3"
 msgstr ""
 
-#: src/js/view/Properties.js:439 src/js/view/Properties.js:478
+#: src/js/view/Properties.js:442 src/js/view/Properties.js:481
 msgid "A4"
 msgstr ""
 
-#: src/js/view/Properties.js:440
+#: src/js/view/Properties.js:443
 msgid "A5"
 msgstr ""
 
-#: src/js/view/Properties.js:441
+#: src/js/view/Properties.js:444
 msgid "Legal"
 msgstr ""
 
-#: src/js/view/Properties.js:442 src/js/view/Properties.js:486
+#: src/js/view/Properties.js:445 src/js/view/Properties.js:489
 msgid "Letter"
 msgstr ""
 
-#: src/js/view/Properties.js:443 src/js/view/Properties.js:485
+#: src/js/view/Properties.js:446 src/js/view/Properties.js:488
 msgid "Tabloid"
 msgstr ""
 
-#: src/js/view/Properties.js:446
+#: src/js/view/Properties.js:449
 #, fuzzy
 msgid "Page orientation"
 msgstr "Запази презентацията"
 
-#: src/js/view/Properties.js:448
+#: src/js/view/Properties.js:451
 msgid "Landscape"
 msgstr ""
 
-#: src/js/view/Properties.js:449
+#: src/js/view/Properties.js:452
 msgid "Portrait"
 msgstr ""
 
-#: src/js/view/Properties.js:453 src/js/view/Properties.js:494
+#: src/js/view/Properties.js:456 src/js/view/Properties.js:497
 msgid "List of frames to include"
 msgstr ""
 
-#: src/js/view/Properties.js:454 src/js/view/Properties.js:460
-#: src/js/view/Properties.js:495 src/js/view/Properties.js:501
+#: src/js/view/Properties.js:457 src/js/view/Properties.js:463
+#: src/js/view/Properties.js:498 src/js/view/Properties.js:504
 msgid "Click here to see the syntax for this field"
 msgstr ""
 
-#: src/js/view/Properties.js:459 src/js/view/Properties.js:500
+#: src/js/view/Properties.js:462 src/js/view/Properties.js:503
 msgid "List of frames to exclude"
 msgstr ""
 
-#: src/js/view/Properties.js:474
+#: src/js/view/Properties.js:477
 msgid "Slide size"
 msgstr ""
 
-#: src/js/view/Properties.js:476
+#: src/js/view/Properties.js:479
 msgid "35 mm"
 msgstr ""
 
-#: src/js/view/Properties.js:479
+#: src/js/view/Properties.js:482
 msgid "B4 (ISO)"
 msgstr ""
 
-#: src/js/view/Properties.js:480
+#: src/js/view/Properties.js:483
 msgid "B4 (JIS)"
 msgstr ""
 
-#: src/js/view/Properties.js:481
+#: src/js/view/Properties.js:484
 msgid "B5 (ISO)"
 msgstr ""
 
-#: src/js/view/Properties.js:482
+#: src/js/view/Properties.js:485
 msgid "B5 (JIS)"
 msgstr ""
 
-#: src/js/view/Properties.js:483
+#: src/js/view/Properties.js:486
 msgid "Banner"
 msgstr ""
 
-#: src/js/view/Properties.js:484
+#: src/js/view/Properties.js:487
 msgid "Hagaki Card"
 msgstr ""
 
-#: src/js/view/Properties.js:487
+#: src/js/view/Properties.js:490
 msgid "Overhead"
 msgstr ""
 
-#: src/js/view/Properties.js:488
+#: src/js/view/Properties.js:491
 msgid "Screen 16:10"
 msgstr ""
 
-#: src/js/view/Properties.js:489
+#: src/js/view/Properties.js:492
 msgid "Screen 16:9"
 msgstr ""
 
-#: src/js/view/Properties.js:490
+#: src/js/view/Properties.js:493
 msgid "Screen 4:3"
 msgstr ""
 
-#: src/js/view/Properties.js:516
+#: src/js/view/Properties.js:519
 msgid "Format"
 msgstr ""
 
-#: src/js/view/Properties.js:518
+#: src/js/view/Properties.js:521
 msgid "MPEG-4 (.mp4)"
 msgstr ""
 
-#: src/js/view/Properties.js:519
+#: src/js/view/Properties.js:522
 msgid "Ogg Vorbis (.ogv)"
 msgstr ""
 
-#: src/js/view/Properties.js:520
+#: src/js/view/Properties.js:523
 msgid "WebM (.webm)"
 msgstr ""
 
-#: src/js/view/Properties.js:521
+#: src/js/view/Properties.js:524
 msgid "Windows Media Video (.wmv)"
 msgstr ""
 
-#: src/js/view/Properties.js:522
+#: src/js/view/Properties.js:525
 msgid "Image sequence (.png)"
 msgstr ""
 
-#: src/js/view/Properties.js:525
+#: src/js/view/Properties.js:528
 msgid "Width (pixels)"
 msgstr ""
 
-#: src/js/view/Properties.js:528
+#: src/js/view/Properties.js:531
 msgid "Height (pixels)"
 msgstr ""
 
-#: src/js/view/Properties.js:531
+#: src/js/view/Properties.js:534
 msgid "Frame rate (frames/sec)"
 msgstr ""
 
-#: src/js/view/Properties.js:534
+#: src/js/view/Properties.js:537
 msgid "Bit rate (kbits/sec)"
 msgstr ""
 
-#: src/js/view/Timeline.js:184
+#: src/js/view/Timeline.js:186
 msgid "Delete the selected frames"
 msgstr "Изтрий избраните фреймове"
 
-#: src/js/view/Timeline.js:210
+#: src/js/view/Timeline.js:212
 msgid "Add layer"
 msgstr "Добави слой"
 
-#: src/js/view/Timeline.js:211
+#: src/js/view/Timeline.js:213
 #, fuzzy
 msgid "Add all layers"
 msgstr "Добави слой"
 
-#: src/js/view/Timeline.js:226 src/js/view/Timeline.js:246
+#: src/js/view/Timeline.js:228 src/js/view/Timeline.js:248
 msgid "This layer is visible. Click to hide it."
 msgstr "Този слой е видим. Кликни за скриване."
 
-#: src/js/view/Timeline.js:230 src/js/view/Timeline.js:250
+#: src/js/view/Timeline.js:232 src/js/view/Timeline.js:252
 msgid "This layer is hidden. Click to show it."
 msgstr "Този слой е скрит. Кликини за показване."
 
-#: src/js/view/Timeline.js:254
+#: src/js/view/Timeline.js:256
 msgid "Remove this layer"
 msgstr "Премахни този слой"
 
-#: src/js/view/Timeline.js:279
+#: src/js/view/Timeline.js:281
 msgid "Insert selection before frame %d"
 msgstr "Вмъкни избраното преди фрейм %d"
 
-#: src/js/view/Timeline.js:286
+#: src/js/view/Timeline.js:288
 msgid "Insert selection after frame %d"
 msgstr "Вмъкни избраното след фрейм %d"
 
-#: src/js/view/Timeline.js:321 src/js/view/Timeline.js:333
+#: src/js/view/Timeline.js:323 src/js/view/Timeline.js:335
 msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
 msgstr ""
 
-#: src/js/view/Toolbar.js:60
+#: src/js/view/Toolbar.js:63
 msgid "Aspect ratio: "
 msgstr "Формат: "
 
-#: src/js/view/Toolbar.js:93
+#: src/js/view/Toolbar.js:96
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
 "Премести избраните слоеве (задръж Alt за приближаване, Shift за завъртане)"
 
-#: src/js/view/Toolbar.js:98
+#: src/js/view/Toolbar.js:101
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
@@ -719,29 +719,29 @@ msgstr ""
 "Приближи/отдалечи избрания слой (може също да задържиш бутона Alt в режим за "
 "местене)"
 
-#: src/js/view/Toolbar.js:103
+#: src/js/view/Toolbar.js:106
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 "Завърти избрания слой (може също да задържиш бутона Shift в режим за местене)"
 
-#: src/js/view/Toolbar.js:108
+#: src/js/view/Toolbar.js:111
 msgid "Edit the clipping area"
 msgstr ""
 
-#: src/js/view/Toolbar.js:127
+#: src/js/view/Toolbar.js:130
 msgid "Disable full-screen mode"
 msgstr "Изключи режим на цял екран"
 
-#: src/js/view/Toolbar.js:127
+#: src/js/view/Toolbar.js:130
 msgid "Enable full-screen mode"
 msgstr "Позволи режим на цял екран"
 
-#: src/js/view/Toolbar.js:153
+#: src/js/view/Toolbar.js:156
 msgid "Preferences"
 msgstr ""
 
-#: src/js/view/Toolbar.js:158
+#: src/js/view/Toolbar.js:161
 msgid "Information"
 msgstr "Информация"
 

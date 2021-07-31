@@ -38,12 +38,14 @@ export class Timeline extends VirtualDOMView {
 
         /** The current Sozi presentation.
          *
-         * @type {module:model/Presentation.Presentation} */
+         * @type {module:model/Presentation.Presentation}
+         */
         this.presentation = presentation;
 
         /** The object that manages the frame and layer selection.
          *
-         * @type {module:model/Selection.Selection} */
+         * @type {module:model/Selection.Selection}
+         */
         this.selection = selection;
     }
 

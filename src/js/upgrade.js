@@ -12,7 +12,8 @@ import {Frame} from "./model/Presentation";
 /** The Sozi namespace for custom XML elements.
  *
  * @readonly
- * @type {string} */
+ * @type {string}
+ */
 const SOZI_NS = "http://sozi.baierouge.fr";
 
 /** Convert a string to a boolean.

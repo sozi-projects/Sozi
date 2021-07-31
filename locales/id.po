@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
+"POT-Creation-Date: 2021-07-31 04:56:+0000\n"
 "PO-Revision-Date: 2021-03-12 01:02+0000\n"
 "Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/sozi/"
@@ -20,91 +20,91 @@ msgstr ""
 "X-Generator: Weblate 4.5.2-dev\n"
 "X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
 
-#: src/js/Controller.js:217
+#: src/js/Controller.js:234
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
 msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Galat"
 
-#: src/js/Controller.js:218
+#: src/js/Controller.js:235
 msgid "<i class=\"fas fa-info-circle\"></i> Information"
 msgstr "<i class=\"fas fa-info-circle\"></i> Informasi"
 
-#: src/js/Controller.js:342
+#: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
 msgstr "Dokumen diubah. Memuat kembali."
 
-#: src/js/Controller.js:357
+#: src/js/Controller.js:374
 msgid "Document was changed."
 msgstr "Dokumen telah diubah."
 
-#: src/js/Controller.js:1724
+#: src/js/Controller.js:1741
 msgid "Presentation was exported to PDF."
 msgstr "Presentasi diekspor ke PDF."
 
-#: src/js/Controller.js:1727
+#: src/js/Controller.js:1744
 msgid "Failed to write PDF file."
 msgstr "Gagal menulis berkas PDF."
 
-#: src/js/Controller.js:1740
+#: src/js/Controller.js:1757
 msgid "Presentation was exported to PPTX."
 msgstr "Presentasi diekspor ke PPTX."
 
-#: src/js/Controller.js:1743
+#: src/js/Controller.js:1760
 msgid "Failed to write PPTX file."
 msgstr "Gagal menulis berkas PPTX."
 
-#: src/js/Controller.js:1756
+#: src/js/Controller.js:1773
 msgid "Presentation was exported to video."
 msgstr "Presentasi diekspor ke video."
 
-#: src/js/Controller.js:1759
+#: src/js/Controller.js:1776
 msgid "Failed to write video file."
 msgstr "Gagal menulis berkas video."
 
-#: src/js/Storage.js:193
+#: src/js/Storage.js:203
 msgid "Document is not valid SVG."
 msgstr "Dokumen bukan SVG yang valid."
 
-#: src/js/Storage.js:251
+#: src/js/Storage.js:261
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Dokumen diimpor dari Sozi 13 atau sebelumnya."
 
-#: src/js/Storage.js:341
+#: src/js/Storage.js:351
 msgid "Saved %s."
 msgstr "%s tersimpan."
 
-#: src/js/backend/Electron.js:48
+#: src/js/backend/Electron.js:49
 msgid "Open an SVG file from your computer"
 msgstr "Buka berkas SVG dari komputer"
 
-#: src/js/backend/Electron.js:73
+#: src/js/backend/Electron.js:74
 msgid "Do you want to save the presentation before closing?"
 msgstr "Apakah Anda ingin menyimpan presentasi sebelum menutup?"
 
-#: src/js/backend/Electron.js:74
+#: src/js/backend/Electron.js:75
 msgid "Yes"
 msgstr "Ya"
 
-#: src/js/backend/Electron.js:74
+#: src/js/backend/Electron.js:75
 msgid "No"
 msgstr "Tidak"
 
-#: src/js/backend/Electron.js:103
+#: src/js/backend/Electron.js:105
 msgid "File not found: %s."
 msgstr "Berkas tidak ditemukan: '%s."
 
-#: src/js/backend/Electron.js:135
+#: src/js/backend/Electron.js:137
 msgid "Choose an SVG file"
 msgstr "Pilih berkas SVG"
 
-#: src/js/backend/Electron.js:136
+#: src/js/backend/Electron.js:138
 msgid "SVG files"
 msgstr "Berkas SVG"
 
-#: src/js/backend/Electron.js:197
+#: src/js/backend/Electron.js:199
 msgid "This file will not be reloaded on change: %s."
 msgstr "Berkas ini tidak akan dimuat ulang pada perubahan: %s."
 
-#: src/js/backend/Electron.js:213
+#: src/js/backend/Electron.js:215
 msgid "Could not read file %s."
 msgstr "Tidak bisa membaca berkas %s."
 
@@ -120,323 +120,323 @@ msgstr ""
 msgid "Open an SVG file from Google Drive"
 msgstr "Buka berkas SVG dari Google Drive"
 
-#: src/js/view/Properties.js:91
+#: src/js/view/Properties.js:94
 msgid "Autoselect outline element"
 msgstr "Pilih elemen outline otomatis"
 
-#: src/js/view/Properties.js:92 src/js/view/Properties.js:219
+#: src/js/view/Properties.js:95 src/js/view/Properties.js:222
 msgid "Reset layer geometry"
 msgstr "Setel ulang layer geometri"
 
-#: src/js/view/Properties.js:93 src/js/view/Timeline.js:191
+#: src/js/view/Properties.js:96 src/js/view/Timeline.js:193
 msgid "Create a new frame"
 msgstr "Buat frame baru"
 
-#: src/js/view/Properties.js:94 src/js/view/Properties.js:130
-#: src/js/view/Toolbar.js:136
+#: src/js/view/Properties.js:97 src/js/view/Properties.js:133
+#: src/js/view/Toolbar.js:139
 msgid "Save the presentation"
 msgstr "Simpan presentasi"
 
-#: src/js/view/Properties.js:95 src/js/view/Toolbar.js:120
+#: src/js/view/Properties.js:98 src/js/view/Toolbar.js:123
 msgid "Redo"
 msgstr "Ulangi"
 
-#: src/js/view/Properties.js:96 src/js/view/Toolbar.js:115
+#: src/js/view/Properties.js:99 src/js/view/Toolbar.js:118
 msgid "Undo"
 msgstr "Urungkan"
 
-#: src/js/view/Properties.js:97
+#: src/js/view/Properties.js:100
 msgid "Focus the frame title"
 msgstr "Fokuskan judul frame"
 
-#: src/js/view/Properties.js:98 src/js/view/Properties.js:136
-#: src/js/view/Toolbar.js:141
+#: src/js/view/Properties.js:101 src/js/view/Properties.js:139
+#: src/js/view/Toolbar.js:144
 msgid "Reload the SVG document"
 msgstr "Muat ulang dokumen SVG"
 
-#: src/js/view/Properties.js:99
+#: src/js/view/Properties.js:102
 msgid "Toggle full-screen mode"
 msgstr "Beralih ke mode layar penuh"
 
-#: src/js/view/Properties.js:100
+#: src/js/view/Properties.js:103
 msgid "Toggle the developer tools"
 msgstr "Beralih ke alat pengembang"
 
-#: src/js/view/Properties.js:113 src/js/view/Properties.js:402
+#: src/js/view/Properties.js:116 src/js/view/Properties.js:405
 #, fuzzy
 msgid "Back to presentation properties"
 msgstr "Simpan presentasi"
 
-#: src/js/view/Properties.js:117
+#: src/js/view/Properties.js:120
 msgid "User interface"
 msgstr "Antarmuka pengguna"
 
-#: src/js/view/Properties.js:119
+#: src/js/view/Properties.js:122
 msgid "Language"
 msgstr "Bahasa"
 
-#: src/js/view/Properties.js:122
+#: src/js/view/Properties.js:125
 msgid "Font size"
 msgstr "Ukuran huruf"
 
-#: src/js/view/Properties.js:126
+#: src/js/view/Properties.js:129
 msgid "Enable notifications on save and reload"
 msgstr "Aktifkan pemberitahuan saat menyimpan dan memuat ulang"
 
-#: src/js/view/Properties.js:127
+#: src/js/view/Properties.js:130
 msgid "Enable notifications"
 msgstr "Aktifkan pemberitahuan"
 
-#: src/js/view/Properties.js:132
+#: src/js/view/Properties.js:135
 msgid "When Sozi loses the focus"
 msgstr "Ketika Sozi kehilangan fokus"
 
-#: src/js/view/Properties.js:133 src/js/view/Properties.js:140
+#: src/js/view/Properties.js:136 src/js/view/Properties.js:143
 msgid "Manually"
 msgstr "Manual"
 
-#: src/js/view/Properties.js:138
+#: src/js/view/Properties.js:141
 msgid "Automatically"
 msgstr "Otomatis"
 
-#: src/js/view/Properties.js:139
+#: src/js/view/Properties.js:142
 msgid "When Sozi gets the focus"
 msgstr "Ketika Sozi mendapat fokus"
 
-#: src/js/view/Properties.js:143
+#: src/js/view/Properties.js:146
 msgid "Behavior"
 msgstr "Perilaku"
 
-#: src/js/view/Properties.js:145
+#: src/js/view/Properties.js:148
 msgid "Preview transition animations"
 msgstr "Pratinjau animasi transisi"
 
-#: src/js/view/Properties.js:146
+#: src/js/view/Properties.js:149
 msgid "Enable animated transitions"
 msgstr "Aktifkan animasi transisi"
 
-#: src/js/view/Properties.js:149
+#: src/js/view/Properties.js:152
 msgid "Keyboard shortcuts"
 msgstr "Pintasan papan ketik"
 
-#: src/js/view/Properties.js:164
+#: src/js/view/Properties.js:167
 msgid "Basic formatting supported:"
 msgstr "Pemformatan dasar yang didukung:"
 
-#: src/js/view/Properties.js:166
+#: src/js/view/Properties.js:169
 msgid "Ctrl+B: Bold"
 msgstr "Ctrl+B: Tebal"
 
-#: src/js/view/Properties.js:167
+#: src/js/view/Properties.js:170
 msgid "Ctrl+I: Italic"
 msgstr "Ctrl+I: Miring"
 
-#: src/js/view/Properties.js:168
+#: src/js/view/Properties.js:171
 msgid "Ctrl+U: Underline"
 msgstr "Ctrl+U: Garis Bawah"
 
-#: src/js/view/Properties.js:169
+#: src/js/view/Properties.js:172
 msgid "Ctrl+0: Paragraph"
 msgstr "Ctrl+0: Paragraf"
 
-#: src/js/view/Properties.js:170
+#: src/js/view/Properties.js:173
 msgid "Ctrl+1: Big heading"
 msgstr "Ctrl+1: Judul besar"
 
-#: src/js/view/Properties.js:171
+#: src/js/view/Properties.js:174
 msgid "Ctrl+2: Medium heading"
 msgstr "Ctrl+2: Judul sedang"
 
-#: src/js/view/Properties.js:172
+#: src/js/view/Properties.js:175
 msgid "Ctrl+3: Small heading"
 msgstr "Ctrl+3: Judul kecil"
 
-#: src/js/view/Properties.js:173
+#: src/js/view/Properties.js:176
 msgid "Ctrl+L: List"
 msgstr "Ctrl+L: Daftar"
 
-#: src/js/view/Properties.js:174
+#: src/js/view/Properties.js:177
 msgid "Ctrl+N: Numbered list"
 msgstr "Ctrl+N: Daftar bernomor"
 
-#: src/js/view/Properties.js:181
+#: src/js/view/Properties.js:184
 msgid "Select a layer to copy"
 msgstr "Pilih layer untuk disalin"
 
-#: src/js/view/Properties.js:184 src/js/view/Timeline.js:238
-#: src/js/view/Timeline.js:266
+#: src/js/view/Properties.js:187 src/js/view/Timeline.js:240
+#: src/js/view/Timeline.js:268
 msgid "Default"
 msgstr "Asal"
 
-#: src/js/view/Properties.js:191
+#: src/js/view/Properties.js:194
 msgid "Frame"
 msgstr "Frame"
 
-#: src/js/view/Properties.js:194
+#: src/js/view/Properties.js:197
 msgid "Show in frame list"
 msgstr "Perlihatkan di daftar frame"
 
-#: src/js/view/Properties.js:195
+#: src/js/view/Properties.js:198
 msgid "Show frame number"
 msgstr "Perlihatkan nomor frame"
 
-#: src/js/view/Properties.js:198
+#: src/js/view/Properties.js:201
 msgid "Title"
 msgstr "Judul"
 
-#: src/js/view/Properties.js:201
+#: src/js/view/Properties.js:204
 msgid "Title level in frame list"
 msgstr "Tingkat judul dalam daftar frame"
 
-#: src/js/view/Properties.js:204
+#: src/js/view/Properties.js:207
 msgid "Id"
 msgstr "ID"
 
-#: src/js/view/Properties.js:208
+#: src/js/view/Properties.js:211
 msgid "Timeout (seconds)"
 msgstr "Batas waktu (detik)"
 
-#: src/js/view/Properties.js:209
+#: src/js/view/Properties.js:212
 msgid "Timeout enable"
 msgstr "Aktifkan tengat waktu"
 
-#: src/js/view/Properties.js:213
+#: src/js/view/Properties.js:216
 msgid "Layer"
 msgstr "Layer"
 
-#: src/js/view/Properties.js:216
+#: src/js/view/Properties.js:219
 msgid "Link to previous frame"
 msgstr "Hubungkan dengan frame sebelumnya"
 
-#: src/js/view/Properties.js:217
+#: src/js/view/Properties.js:220
 msgid "Clip"
 msgstr "Klip"
 
-#: src/js/view/Properties.js:224
+#: src/js/view/Properties.js:227
 msgid "Copy layer"
 msgstr "Salin layer"
 
-#: src/js/view/Properties.js:231
+#: src/js/view/Properties.js:234
 msgid "Outline element Id"
 msgstr "Id elemen garis besar"
 
-#: src/js/view/Properties.js:234
+#: src/js/view/Properties.js:237
 msgid "Autoselect element"
 msgstr "Pilih otomatis elemen"
 
-#: src/js/view/Properties.js:237
+#: src/js/view/Properties.js:240
 msgid "Hide element"
 msgstr "Sembunyikan elemen"
 
-#: src/js/view/Properties.js:239
+#: src/js/view/Properties.js:242
 msgid "Fit to element"
 msgstr "Sesuaikan dengan elemen"
 
-#: src/js/view/Properties.js:246
+#: src/js/view/Properties.js:249
 msgid "Layer opacity"
 msgstr "Opasitas layer"
 
-#: src/js/view/Properties.js:249
+#: src/js/view/Properties.js:252
 msgid "Transition"
 msgstr "Transisi"
 
-#: src/js/view/Properties.js:249
+#: src/js/view/Properties.js:252
 msgid "Configure the animation when moving to the selected frames."
 msgstr "Atur animasi saat berpindah ke frame yang dipilih."
 
-#: src/js/view/Properties.js:251
+#: src/js/view/Properties.js:254
 msgid "Duration (seconds)"
 msgstr "Durasi (detik)"
 
-#: src/js/view/Properties.js:254
+#: src/js/view/Properties.js:257
 msgid "Timing function"
 msgstr "Fungsi pengaturan waktu"
 
-#: src/js/view/Properties.js:256
+#: src/js/view/Properties.js:259
 msgid "Linear"
 msgstr "Linear"
 
-#: src/js/view/Properties.js:257
+#: src/js/view/Properties.js:260
 msgid "Ease"
 msgstr "Ease"
 
-#: src/js/view/Properties.js:258
+#: src/js/view/Properties.js:261
 msgid "Ease in"
 msgstr "Ease in"
 
-#: src/js/view/Properties.js:259
+#: src/js/view/Properties.js:262
 msgid "Ease out"
 msgstr "Ease out"
 
-#: src/js/view/Properties.js:260
+#: src/js/view/Properties.js:263
 msgid "Ease in-out"
 msgstr "Ease in-out"
 
-#: src/js/view/Properties.js:261
+#: src/js/view/Properties.js:264
 msgid "Step start"
 msgstr "Langkah mulai"
 
-#: src/js/view/Properties.js:262
+#: src/js/view/Properties.js:265
 msgid "Step end"
 msgstr "Langkah akhir"
 
-#: src/js/view/Properties.js:263
+#: src/js/view/Properties.js:266
 msgid "Step middle"
 msgstr "Langkah tengah"
 
-#: src/js/view/Properties.js:266
+#: src/js/view/Properties.js:269
 msgid "Relative zoom (%)"
 msgstr "Zoom relatif (%)"
 
-#: src/js/view/Properties.js:270
+#: src/js/view/Properties.js:273
 msgid "Path Id"
 msgstr "ID Path"
 
-#: src/js/view/Properties.js:271
+#: src/js/view/Properties.js:274
 msgid "Hide path"
 msgstr "Sembunyikan path"
 
-#: src/js/view/Properties.js:275
+#: src/js/view/Properties.js:278
 msgid "Notes"
 msgstr "Catatan"
 
-#: src/js/view/Properties.js:275
+#: src/js/view/Properties.js:278
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 "Sunting catatan penyaji. Klik di sini untuk memperlihatkan daftar pintasan "
 "pemformatan."
 
-#: src/js/view/Properties.js:279
+#: src/js/view/Properties.js:282
 msgid "Custom stylesheets and scripts"
 msgstr "Stylesheet dan skrip kustom"
 
-#: src/js/view/Properties.js:292
+#: src/js/view/Properties.js:295
 msgid "CSS or JS file names"
 msgstr "Nama berkas CSS atau JS"
 
-#: src/js/view/Properties.js:292
+#: src/js/view/Properties.js:295
 msgid "Add CSS or JS files"
 msgstr "Tambah berkas CSS atau JS"
 
-#: src/js/view/Properties.js:295
+#: src/js/view/Properties.js:298
 msgid "Add a file"
 msgstr "Tambahkan berkas"
 
-#: src/js/view/Properties.js:308
+#: src/js/view/Properties.js:311
 msgid "Remove this file"
 msgstr "Hapus berkas ini"
 
-#: src/js/view/Properties.js:316
+#: src/js/view/Properties.js:319
 msgid "Player"
 msgstr "Pemutar"
 
-#: src/js/view/Properties.js:319
+#: src/js/view/Properties.js:322
 msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
 "Mendukung tombol \"Kembali\" browser untuk berpindah ke frame sebelumnya"
 
-#: src/js/view/Properties.js:320
+#: src/js/view/Properties.js:323
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
@@ -444,250 +444,250 @@ msgstr ""
 "Berpindah dari satu frame ke frame lainnya akan mengubah konten bilah lokasi "
 "secara otomatis."
 
-#: src/js/view/Properties.js:324
+#: src/js/view/Properties.js:327
 msgid "Allow to control the presentation"
 msgstr "Izinkan mengontrol presentasi"
 
-#: src/js/view/Properties.js:326 src/js/view/Properties.js:333
-#: src/js/view/Properties.js:339 src/js/view/Properties.js:347
+#: src/js/view/Properties.js:329 src/js/view/Properties.js:336
+#: src/js/view/Properties.js:342 src/js/view/Properties.js:350
 msgid "using the mouse"
 msgstr "Memakai mouse"
 
-#: src/js/view/Properties.js:327 src/js/view/Properties.js:340
-#: src/js/view/Properties.js:348
+#: src/js/view/Properties.js:330 src/js/view/Properties.js:343
+#: src/js/view/Properties.js:351
 msgid "using the keyboard"
 msgstr "Memakai papan ketik"
 
-#: src/js/view/Properties.js:332
+#: src/js/view/Properties.js:335
 msgid "Allow to move the camera"
 msgstr "Izinkan untuk memindah kamera"
 
-#: src/js/view/Properties.js:337
+#: src/js/view/Properties.js:340
 msgid "Allow to rotate the camera"
 msgstr "Izinkan memutar kamera"
 
-#: src/js/view/Properties.js:345
+#: src/js/view/Properties.js:348
 msgid "Allow to zoom"
 msgstr "Izinkan untuk memperbesar"
 
-#: src/js/view/Properties.js:362
+#: src/js/view/Properties.js:365
 msgid "Examples of frame lists to include/exclude in export"
 msgstr "Contoh daftar frame untuk disertakan/dikecualikan dalam ekspor"
 
-#: src/js/view/Properties.js:364
+#: src/js/view/Properties.js:367
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
 msgstr "Pilih frame 2,5 dan 12: \"2, 5, 12\""
 
-#: src/js/view/Properties.js:365
+#: src/js/view/Properties.js:368
 msgid "Select frames 5 to 8: \"5:8\""
 msgstr "Pilih frame 5 hingga 8: \"5:8\""
 
-#: src/js/view/Properties.js:366
+#: src/js/view/Properties.js:369
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
 msgstr "Pilih frame 5, 8, 11, 14, dan 17: \"5:8:17\""
 
-#: src/js/view/Properties.js:367
+#: src/js/view/Properties.js:370
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
 msgstr "Pilih frame 2, 5, dan 10 hingga 15: \"2, 5, 10:15\""
 
-#: src/js/view/Properties.js:406 src/js/view/Properties.js:422
+#: src/js/view/Properties.js:409 src/js/view/Properties.js:425
 msgid "Export"
 msgstr "Ekspor"
 
-#: src/js/view/Properties.js:408
+#: src/js/view/Properties.js:411
 msgid "Document type"
 msgstr "Tipe dokumen"
 
-#: src/js/view/Properties.js:410
+#: src/js/view/Properties.js:413
 msgid "Portable Document Format (PDF)"
 msgstr "Portable Document Format (PDF)"
 
-#: src/js/view/Properties.js:411
+#: src/js/view/Properties.js:414
 msgid "Microsoft PowerPoint (PPTX)"
 msgstr "Microsoft PowerPoint (PPTX)"
 
-#: src/js/view/Properties.js:412
+#: src/js/view/Properties.js:415
 msgid "Video"
 msgstr "Video"
 
-#: src/js/view/Properties.js:419 src/js/view/Toolbar.js:146
+#: src/js/view/Properties.js:422 src/js/view/Toolbar.js:149
 msgid "Export the presentation"
 msgstr "Ekspor presentasi"
 
-#: src/js/view/Properties.js:436
+#: src/js/view/Properties.js:439
 msgid "Page size"
 msgstr "Ukuran halaman"
 
-#: src/js/view/Properties.js:438 src/js/view/Properties.js:477
+#: src/js/view/Properties.js:441 src/js/view/Properties.js:480
 msgid "A3"
 msgstr "A3"
 
-#: src/js/view/Properties.js:439 src/js/view/Properties.js:478
+#: src/js/view/Properties.js:442 src/js/view/Properties.js:481
 msgid "A4"
 msgstr "A4"
 
-#: src/js/view/Properties.js:440
+#: src/js/view/Properties.js:443
 msgid "A5"
 msgstr "A5"
 
-#: src/js/view/Properties.js:441
+#: src/js/view/Properties.js:444
 msgid "Legal"
 msgstr "Legal"
 
-#: src/js/view/Properties.js:442 src/js/view/Properties.js:486
+#: src/js/view/Properties.js:445 src/js/view/Properties.js:489
 msgid "Letter"
 msgstr "Letter"
 
-#: src/js/view/Properties.js:443 src/js/view/Properties.js:485
+#: src/js/view/Properties.js:446 src/js/view/Properties.js:488
 msgid "Tabloid"
 msgstr "Tabloid"
 
-#: src/js/view/Properties.js:446
+#: src/js/view/Properties.js:449
 msgid "Page orientation"
 msgstr "Orientasi halaman"
 
-#: src/js/view/Properties.js:448
+#: src/js/view/Properties.js:451
 msgid "Landscape"
 msgstr "Lanskap"
 
-#: src/js/view/Properties.js:449
+#: src/js/view/Properties.js:452
 msgid "Portrait"
 msgstr "Potret"
 
-#: src/js/view/Properties.js:453 src/js/view/Properties.js:494
+#: src/js/view/Properties.js:456 src/js/view/Properties.js:497
 msgid "List of frames to include"
 msgstr "Daftar frame yang akan disertakan"
 
-#: src/js/view/Properties.js:454 src/js/view/Properties.js:460
-#: src/js/view/Properties.js:495 src/js/view/Properties.js:501
+#: src/js/view/Properties.js:457 src/js/view/Properties.js:463
+#: src/js/view/Properties.js:498 src/js/view/Properties.js:504
 msgid "Click here to see the syntax for this field"
 msgstr "Klik di sini untuk melihat sintaks dari bidang ini"
 
-#: src/js/view/Properties.js:459 src/js/view/Properties.js:500
+#: src/js/view/Properties.js:462 src/js/view/Properties.js:503
 msgid "List of frames to exclude"
 msgstr "Daftar frame yang dikecualikan"
 
-#: src/js/view/Properties.js:474
+#: src/js/view/Properties.js:477
 msgid "Slide size"
 msgstr "Ukuran slide"
 
-#: src/js/view/Properties.js:476
+#: src/js/view/Properties.js:479
 msgid "35 mm"
 msgstr "35 mm"
 
-#: src/js/view/Properties.js:479
+#: src/js/view/Properties.js:482
 msgid "B4 (ISO)"
 msgstr "B4 (ISO)"
 
-#: src/js/view/Properties.js:480
+#: src/js/view/Properties.js:483
 msgid "B4 (JIS)"
 msgstr "B4 (JIS)"
 
-#: src/js/view/Properties.js:481
+#: src/js/view/Properties.js:484
 msgid "B5 (ISO)"
 msgstr "B5 (ISO)"
 
-#: src/js/view/Properties.js:482
+#: src/js/view/Properties.js:485
 msgid "B5 (JIS)"
 msgstr "B5 (JIS)"
 
-#: src/js/view/Properties.js:483
+#: src/js/view/Properties.js:486
 msgid "Banner"
 msgstr "Banner"
 
-#: src/js/view/Properties.js:484
+#: src/js/view/Properties.js:487
 msgid "Hagaki Card"
 msgstr "Kartu Hagaki"
 
-#: src/js/view/Properties.js:487
+#: src/js/view/Properties.js:490
 msgid "Overhead"
 msgstr "Overhead"
 
-#: src/js/view/Properties.js:488
+#: src/js/view/Properties.js:491
 msgid "Screen 16:10"
 msgstr "Layar 16:10"
 
-#: src/js/view/Properties.js:489
+#: src/js/view/Properties.js:492
 msgid "Screen 16:9"
 msgstr "Layar 16:9"
 
-#: src/js/view/Properties.js:490
+#: src/js/view/Properties.js:493
 msgid "Screen 4:3"
 msgstr "Layar 4:3"
 
-#: src/js/view/Properties.js:516
+#: src/js/view/Properties.js:519
 msgid "Format"
 msgstr "Format"
 
-#: src/js/view/Properties.js:518
+#: src/js/view/Properties.js:521
 msgid "MPEG-4 (.mp4)"
 msgstr "MPEG-4 (.mp4)"
 
-#: src/js/view/Properties.js:519
+#: src/js/view/Properties.js:522
 msgid "Ogg Vorbis (.ogv)"
 msgstr "Ogg Vorbis (.ogv)"
 
-#: src/js/view/Properties.js:520
+#: src/js/view/Properties.js:523
 msgid "WebM (.webm)"
 msgstr "WebM (.webm)"
 
-#: src/js/view/Properties.js:521
+#: src/js/view/Properties.js:524
 msgid "Windows Media Video (.wmv)"
 msgstr "Windows Media Video (.wmv)"
 
-#: src/js/view/Properties.js:522
+#: src/js/view/Properties.js:525
 msgid "Image sequence (.png)"
 msgstr "Urutan gambar (.png)"
 
-#: src/js/view/Properties.js:525
+#: src/js/view/Properties.js:528
 msgid "Width (pixels)"
 msgstr "Lebar (piksel)"
 
-#: src/js/view/Properties.js:528
+#: src/js/view/Properties.js:531
 msgid "Height (pixels)"
 msgstr "Tinggi (piksel)"
 
-#: src/js/view/Properties.js:531
+#: src/js/view/Properties.js:534
 msgid "Frame rate (frames/sec)"
 msgstr "Kecepatan frame (frame/detik)"
 
-#: src/js/view/Properties.js:534
+#: src/js/view/Properties.js:537
 msgid "Bit rate (kbits/sec)"
 msgstr "Kecepatan bit (kbit / dtk)"
 
-#: src/js/view/Timeline.js:184
+#: src/js/view/Timeline.js:186
 msgid "Delete the selected frames"
 msgstr "Hapus frame terpilih"
 
-#: src/js/view/Timeline.js:210
+#: src/js/view/Timeline.js:212
 msgid "Add layer"
 msgstr "Tambah layer"
 
-#: src/js/view/Timeline.js:211
+#: src/js/view/Timeline.js:213
 msgid "Add all layers"
 msgstr "Tambahkan semua layer"
 
-#: src/js/view/Timeline.js:226 src/js/view/Timeline.js:246
+#: src/js/view/Timeline.js:228 src/js/view/Timeline.js:248
 msgid "This layer is visible. Click to hide it."
 msgstr "Layer ini tampak. Klik untuk menyembunyikan."
 
-#: src/js/view/Timeline.js:230 src/js/view/Timeline.js:250
+#: src/js/view/Timeline.js:232 src/js/view/Timeline.js:252
 msgid "This layer is hidden. Click to show it."
 msgstr "Layer ini tersembunyi. Klik untuk menampakkan."
 
-#: src/js/view/Timeline.js:254
+#: src/js/view/Timeline.js:256
 msgid "Remove this layer"
 msgstr "Hapus layer ini"
 
-#: src/js/view/Timeline.js:279
+#: src/js/view/Timeline.js:281
 msgid "Insert selection before frame %d"
 msgstr "Masukkan frame terpilih sebelum frame %d"
 
-#: src/js/view/Timeline.js:286
+#: src/js/view/Timeline.js:288
 msgid "Insert selection after frame %d"
 msgstr "Masukkan frame terpilih sesudah frame %d"
 
-#: src/js/view/Timeline.js:321 src/js/view/Timeline.js:333
+#: src/js/view/Timeline.js:323 src/js/view/Timeline.js:335
 msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
@@ -695,42 +695,42 @@ msgstr ""
 "Anda harus menambahkan elemen grafis di area saat ini untuk membantu Sozi "
 "melacak posisi layer tersebut."
 
-#: src/js/view/Toolbar.js:60
+#: src/js/view/Toolbar.js:63
 msgid "Aspect ratio: "
 msgstr "Rasio aspek: "
 
-#: src/js/view/Toolbar.js:93
+#: src/js/view/Toolbar.js:96
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr "Pindahkan layer terpilih (tahan Alt untuk zum, Shift untuk memutar)"
 
-#: src/js/view/Toolbar.js:98
+#: src/js/view/Toolbar.js:101
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr "Zum layer terpilih (anda dapat menahan tombol Alt di mode gerak)"
 
-#: src/js/view/Toolbar.js:103
+#: src/js/view/Toolbar.js:106
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr "Putar layer terpilih (anda dapat menahan tombol Shift di mode gerak)"
 
-#: src/js/view/Toolbar.js:108
+#: src/js/view/Toolbar.js:111
 msgid "Edit the clipping area"
 msgstr "Sunting area kliping"
 
-#: src/js/view/Toolbar.js:127
+#: src/js/view/Toolbar.js:130
 msgid "Disable full-screen mode"
 msgstr "Matikan mode layar penuh"
 
-#: src/js/view/Toolbar.js:127
+#: src/js/view/Toolbar.js:130
 msgid "Enable full-screen mode"
 msgstr "Aktifkan mode layar penuh"
 
-#: src/js/view/Toolbar.js:153
+#: src/js/view/Toolbar.js:156
 msgid "Preferences"
 msgstr "Preferensi"
 
-#: src/js/view/Toolbar.js:158
+#: src/js/view/Toolbar.js:161
 msgid "Information"
 msgstr "Informasi"
 

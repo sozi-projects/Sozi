@@ -22,32 +22,38 @@ export class Preview {
     constructor(container, presentation, selection, viewport, controller, playerController) {
         /** The HTML element that will contain this preview area.
          *
-         * @type {HTMLElement} */
+         * @type {HTMLElement}
+         */
         this.container = container;
 
         /** The current Sozi presentation.
          *
-         * @type {module:model/Presentation.Presentation} */
+         * @type {module:model/Presentation.Presentation}
+         */
         this.presentation = presentation;
 
         /** The object that manages the frame and layer selection.
          *
-         * @type {module:model/Selection.Selection} */
+         * @type {module:model/Selection.Selection}
+         */
         this.selection = selection;
 
         /** The viewport where the presentation is displayed.
          *
-         * @type {module:player/Viewport.Viewport} */
+         * @type {module:player/Viewport.Viewport}
+         */
         this.viewport = viewport;
 
         /** The controller that manages the current editor.
          *
-         * @type {module:Controller.Controller} */
+         * @type {module:Controller.Controller}
+         */
         this.controller = controller;
 
         /** The controller that manages the player user interactions.
          *
-         * @type {module:player/PlayerController.PlayerController} */
+         * @type {module:player/PlayerController.PlayerController}
+         */
         this.playerController = playerController;
 
         presentation.on("svgChange", () => this.onLoad());

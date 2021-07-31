@@ -12,35 +12,40 @@ import {EventEmitter} from "events";
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const DRAG_BUTTON = 0;
 
 /** The minimum distance to detect a drag action, in pixels.
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const DRAG_THRESHOLD_PX = 5;
 
 /** The zoom step factor for user zoom action (keyboard and mouse wheel).
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const SCALE_FACTOR = 1.05;
 
 /** The rotation step angle for user rotate action (keyboard and mouse wheel), in degrees.
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const ROTATE_STEP = 5;
 
 /** The delay after the last mouse wheel event to consider that the wheel action is terminated, in milliseconds.
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const WHEEL_TIMEOUT_MS = 200;
 
 /** Signals that a user action will make the presentation jump to another frame.
@@ -171,25 +176,29 @@ export class PlayerController extends EventEmitter{
 
         /** The associated player.
          *
-         * @type {module:model/Player.Player} */
+         * @type {module:model/Player.Player}
+         */
         this.player = player;
 
         /** The current X coordinate of the mous during a drag action.
          *
          * @default
-         * @type {number} */
+         * @type {number}
+         */
         this.mouseDragX = 0;
 
         /** The current Y coordinate of the mous during a drag action.
          *
          * @default
-         * @type {number} */
+         * @type {number}
+         */
         this.mouseDragY = 0;
 
         /** A timeout ID to detect the end of a mouse wheel gesture.
          *
          * @default
-         * @type {?number} */
+         * @type {?number}
+         */
         this.wheelTimeout = null;
 
         /** The mouse drag event handler.

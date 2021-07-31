@@ -139,19 +139,22 @@ export class Animator extends EventEmitter {
         /** The duration of the current animation, in milliseconds.
          *
          * @default
-         * @type {number} */
+         * @type {number}
+         */
         this.durationMs = 500;
 
         /** The start time of the current animation.
          *
          * @default
-         * @type {number} */
+         * @type {number}
+         */
         this.initialTime = 0;
 
         /** The current running state of this animator.
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.running = false;
 
         animatorList.push(this);

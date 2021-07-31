@@ -21,6 +21,7 @@
         }
     },
     "rules": {
+        "no-unused-vars": ["warn"],
         "jsdoc/require-jsdoc": ["warn", {
             "publicOnly": true,
             "checkSetters": false,
@@ -28,6 +29,7 @@
                 "ClassDeclaration": true,
                 "MethodDefinition": true
             }
-        }]
+        }],
+        "jsdoc/tag-lines": ["warn", "any"]
     }
 }

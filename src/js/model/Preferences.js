@@ -16,25 +16,29 @@ export class Preferences {
          * or `"auto"` to let the editor use the system default language.
          *
          * @default
-         * @type {string} */
+         * @type {string}
+         */
         this.language = "auto";
 
         /** The preferred font size, in points (pt).
          *
          * @default
-         * @type {number} */
+         * @type {number}
+         */
         this.fontSize = 11;
 
         /** Enable notifications on file save and reload.
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.enableNotifications = true;
 
         /** Animate the transitions when moving from one frame to another in the editor.
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.animateTransitions = true;
 
         /** When to save an edited presentation.
@@ -44,7 +48,8 @@ export class Preferences {
          * - `"manual"`: save only on user request.
          *
          * @default
-         * @type {string} */
+         * @type {string}
+         */
         this.saveMode = "onblur";
 
         /** When to reload an externally modified SVG document.
@@ -55,7 +60,8 @@ export class Preferences {
          * - `"manual"`: reload only on user request.
          *
          * @default
-         * @type {string} */
+         * @type {string}
+         */
         this.reloadMode = "auto";
 
         /** The supported keyboard shortcuts.

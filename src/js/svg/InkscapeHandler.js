@@ -10,14 +10,16 @@ import {addSVGHandler, DefaultSVGHandler} from "./SVGDocumentWrapper";
  *
  * @readonly
  * @default
- * @type {string} */
+ * @type {string}
+ */
 const INKSCAPE_NS = "http://www.inkscape.org/namespaces/inkscape";
 
 /** The XML namespace URI of Sodipodi.
  *
  * @readonly
  * @default
- * @type {string} */
+ * @type {string}
+ */
 const SODIPODI_NS = "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd";
 
 /** Inkscape SVG handler.

@@ -8,7 +8,8 @@ import {CameraState} from "../model/CameraState";
 
 /** Constant: the XML SVG namespace URI.
  *
- * @type {string} */
+ * @type {string}
+ */
 const SVG_NS = "http://www.w3.org/2000/svg";
 
 /** Check that an SVG element is usable as a reference element.
@@ -58,12 +59,14 @@ export class Camera extends CameraState {
 
         /** The viewport attached to this camera.
          *
-         * @type {module:player/Viewport.Viewport} */
+         * @type {module:player/Viewport.Viewport}
+         */
         this.viewport = viewport;
 
         /** The layer where this camera operates.
          *
-         * @type {module:model/Presentation.Layer} */
+         * @type {module:model/Presentation.Layer}
+         */
         this.layer = layer;
 
         /** Is the layer for this camera selected for manipulation by the user?
@@ -71,12 +74,14 @@ export class Camera extends CameraState {
          * When playing the presentation, all cameras are always selected.
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.selected = true;
 
         /** The clipping rectangle of this camera.
          *
-         * @type {SVGRectElement} */
+         * @type {SVGRectElement}
+         */
         this.svgClipRect = document.createElementNS(SVG_NS, "rect");
 
         let svgClipId;
@@ -85,7 +90,8 @@ export class Camera extends CameraState {
             /** In edit mode, the opacity of the mask outside the clipping rectangle.
              *
              * @default
-             * @type {number} */
+             * @type {number}
+             */
             this.maskValue = 0;
 
             const svgMask = document.createElementNS(SVG_NS, "mask");
@@ -95,7 +101,8 @@ export class Camera extends CameraState {
 
             /** In edit mode, a rectangle that will be combined to the clipping rectangle to create a mask.
              *
-             * @type {SVGRectElement} */
+             * @type {SVGRectElement}
+             */
             this.svgMaskRect = document.createElementNS(SVG_NS, "rect");
             svgMask.appendChild(this.svgMaskRect);
 
@@ -107,7 +114,8 @@ export class Camera extends CameraState {
              * This rectangle is painted below {@linkcode module:player/Camera.Camera#svgClipOutlineRect2|svgClipOutlineRect2}
              * to create an alternating black-and-white pattern.
              *
-             * @type {SVGRectElement} */
+             * @type {SVGRectElement}
+             */
             this.svgClipOutlineRect1 = document.createElementNS(SVG_NS, "rect");
             this.svgClipOutlineRect1.setAttribute("stroke", "black");
             this.svgClipOutlineRect1.setAttribute("fill", "none");
@@ -118,7 +126,8 @@ export class Camera extends CameraState {
              * This rectangle is painted over {@linkcode module:player/Camera.Camera#svgClipOutlineRect1|svgClipOutlineRect1}
              * to create an alternating black-and-white pattern.
              *
-             * @type {SVGRectElement} */
+             * @type {SVGRectElement}
+             */
             this.svgClipOutlineRect2 = document.createElementNS(SVG_NS, "rect");
             this.svgClipOutlineRect2.setAttribute("stroke", "white");
             this.svgClipOutlineRect2.setAttribute("fill", "none");
@@ -141,7 +150,8 @@ export class Camera extends CameraState {
          *
          * One SVG group is created for each group listed in each layer.
          *
-         * @type {SVGGElement[]} */
+         * @type {SVGGElement[]}
+         */
         this.svgTransformGroups = layer.svgNodes.map(svgNode => {
             // The group that will support the clipping operation
             const svgClippedGroup = document.createElementNS(SVG_NS, "g");

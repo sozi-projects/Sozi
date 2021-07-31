@@ -32,46 +32,54 @@ export class Storage {
     constructor(controller, presentation, selection) {
         /** The controller that manages the current editor.
          *
-         * @type {module:Controller.Controller} */
+         * @type {module:Controller.Controller}
+         */
         this.controller = controller;
 
         /** The current SVG document.
          *
          * @default
-         * @type {module:svg/SVGDocumentWrapper.SVGDocumentWrapper} */
+         * @type {module:svg/SVGDocumentWrapper.SVGDocumentWrapper}
+         */
         this.document = null;
 
         /** The Sozi presentation opened in the editor.
          *
-         * @type {module:model/Presentation.Presentation} */
+         * @type {module:model/Presentation.Presentation}
+         */
         this.presentation = presentation;
 
         /** The object that represents the selection in the timeline.
          *
-         * @type {module:model/Selection.Selection} */
+         * @type {module:model/Selection.Selection}
+         */
         this.selection = selection;
 
         /** The current execution platform backend.
          *
-         * @type {module:backend/AbstractBackend.AbstractBackend} */
+         * @type {module:backend/AbstractBackend.AbstractBackend}
+         */
         this.backend = null;
 
         /** The descriptor of the current SVG document file.
          *
          * @default
-         * @type {any} */
+         * @type {any}
+         */
         this.svgFileDescriptor  = null;
 
         /** The descriptor of the presentation HTML file.
          *
          * @default
-         * @type {any} */
+         * @type {any}
+         */
         this.htmlFileDescriptor = null;
 
         /** The descriptor of the presentation JSON file.
          *
          * @default
-         * @type {any} */
+         * @type {any}
+         */
         this.jsonFileDescriptor = null;
 
         /** Do we need to update the presentation JSON file?
@@ -80,7 +88,8 @@ export class Storage {
          * or the {@linkcode module:Controller.editorStateChange|editorStateChange} event is detected.
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.jsonNeedsSaving = false;
 
         /** Do we need to update the presentation HTML file?
@@ -88,7 +97,8 @@ export class Storage {
          * This property is true when the {@linkcode module:Controller.presentationChange|presentationChange} event is detected.
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.htmlNeedsSaving = false;
 
         // Adjust the template path depending on the target platform.

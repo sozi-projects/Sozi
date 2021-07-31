@@ -27,7 +27,8 @@ function asArray(v) {
 
 /** Signals that the mode of the properties view has changed.
  *
- * @event module:view/Properties.modeChange */
+ * @event module:view/Properties.modeChange
+ */
 
 /** Properties pane of the presentation editor.
  *
@@ -46,7 +47,8 @@ export class Properties extends VirtualDOMView {
 
         /** The object that manages the frame and layer selection.
          *
-         * @type {module:model/Selection.Selection} */
+         * @type {module:model/Selection.Selection}
+         */
         this.selection = selection;
 
         /** What the properties view shows.
@@ -54,8 +56,9 @@ export class Properties extends VirtualDOMView {
          * Acceptable values are: `"default"`, `"preferences"` and `"export"`.
          *
          * @default
-         * @type {string} */
-         this.mode = "default";
+         * @type {string}
+         */
+        this.mode = "default";
     }
 
     /** Toggle between presentation properties and preferences or export mode.

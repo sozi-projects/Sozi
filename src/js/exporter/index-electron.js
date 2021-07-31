@@ -128,7 +128,8 @@ function zeroPadded(value, digits) {
  * All formats are in landscape mode by default.
  *
  * @readonly
- * @type {object} */
+ * @type {object}
+ */
 const pdfPageGeometry = {
     A3     : {width: 1587, height: 1123},
     A4     : {width: 1123, height: 794},
@@ -146,7 +147,8 @@ const pdfPageGeometry = {
  * All formats are in landscape mode by default.
  *
  * @readonly
- * @type {object} */
+ * @type {object}
+ */
 const pptxSlideGeometry = {
     "35mm"     : {width: 11.25, height: 7.5}, // in
     A3         : {width: 420,   height: 297}, // mm
@@ -169,7 +171,8 @@ const pptxSlideGeometry = {
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const pptxSlideHeightPx = 1080;
 
 /** Export a presentation to a PDF document.

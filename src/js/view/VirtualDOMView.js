@@ -29,17 +29,20 @@ export class VirtualDOMView extends EventEmitter {
 
         /** The HTML element that will contain this preview area.
          *
-         * @type {HTMLElement} */
+         * @type {HTMLElement}
+         */
         this.container = container;
 
         /** The controller that manages the current editor.
          *
-         * @type {module:Controller.Controller} */
+         * @type {module:Controller.Controller}
+         */
         this.controller = controller;
 
         /** Form field values that need to be set after rendering.
          *
-         * @type {object} */
+         * @type {object}
+         */
         this.state = {};
 
         const repaintHandler = () => this.repaint();

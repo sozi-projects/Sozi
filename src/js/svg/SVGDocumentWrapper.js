@@ -8,7 +8,8 @@
  *
  * @readonly
  * @default
- * @type {string} */
+ * @type {string}
+ */
 const SVG_NS = "http://www.w3.org/2000/svg";
 
 /** The names of the SVG elements recognized as "drawable".
@@ -17,14 +18,16 @@ const SVG_NS = "http://www.w3.org/2000/svg";
  * automatically added to specific layers.
  *
  * @readonly
- * @type {string[]} */
+ * @type {string[]}
+ */
 const DRAWABLE_TAGS = [ "g", "image", "path", "rect", "circle",
     "ellipse", "line", "polyline", "polygon", "text", "clippath" ];
 
 /** A dictionary of SVG handlers.
  *
  * @default
- * @type {object} */
+ * @type {object}
+ */
 const handlers = {};
 
 /** Add an SVG handler to the dictionary of supported handlers.
@@ -100,17 +103,20 @@ export class SVGDocumentWrapper {
     constructor(svgRoot) {
         /** A serialized representation of the current SVG document.
          *
-         * @type {string} */
+         * @type {string}
+         */
         this.asText = "";
 
         /** The SVG handler class for the current SVG document.
          *
-         * @type {Function} */
+         * @type {Function}
+         */
         this.handler = DefaultSVGHandler;
 
         /** The current SVG root element.
          *
-         * @type {SVGSVGElement} */
+         * @type {SVGSVGElement}
+         */
         this.root = svgRoot;
 
         // Prevent event propagation on hyperlinks

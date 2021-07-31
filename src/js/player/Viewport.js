@@ -10,7 +10,8 @@ import {Camera} from "./Camera";
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const CLIP_BORDER = 3;
 
 /** Viewing area for Sozi presentation. */
@@ -23,13 +24,15 @@ export class Viewport {
     constructor(presentation) {
         /** The presentations to display.
          *
-         * @type {module:model/Presentation.Presentation} */
+         * @type {module:model/Presentation.Presentation}
+         */
         this.presentation = presentation;
 
         /** The cameras that operate in this viewport.
          *
          * @default
-         * @type {module:player/Camera.Camera[]} */
+         * @type {module:player/Camera.Camera[]}
+         */
         this.cameras = [];
 
         /** The effect of dragging in this viewport.
@@ -37,7 +40,8 @@ export class Viewport {
          * Acceptable values are: `"scale"`, `"translate"`, `"rotate"`, `"clip"`.
          *
          * @default
-         * @type {string} */
+         * @type {string}
+         */
         this.dragMode = "translate";
 
         /** A description of the current clipping modification.
@@ -58,7 +62,8 @@ export class Viewport {
         /** Should the viewport reveal the hidden SVG elements?
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.showHiddenElements = false;
     }
 

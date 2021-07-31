@@ -29,17 +29,20 @@ export class Toolbar extends VirtualDOMView {
 
         /** The properties view of the editor.
          *
-         * @type {module:view/Properties.Properties} */
+         * @type {module:view/Properties.Properties}
+         */
         this.properties = properties;
 
         /** The current Sozi presentation.
          *
-         * @type {module:model/Presentation.Presentation} */
+         * @type {module:model/Presentation.Presentation}
+         */
         this.presentation = presentation;
 
         /** The viewport where the presentation is displayed.
          *
-         * @type {module:player/Viewport.Viewport} */
+         * @type {module:player/Viewport.Viewport}
+         */
         this.viewport = viewport;
 
         screenfull.on("change",     () => this.repaint());

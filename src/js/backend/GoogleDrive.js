@@ -255,7 +255,8 @@ function toBase64(data) {
  * Override the value of this attribute in `GoogleDrive.config.js`.
  *
  * @static
- * @type {string} */
+ * @type {string}
+ */
 GoogleDrive.clientId = "Your OAuth client Id";
 
 /** The Google Drive API key.
@@ -263,7 +264,8 @@ GoogleDrive.clientId = "Your OAuth client Id";
  * Override the value of this attribute in `GoogleDrive.config.js`.
  *
  * @static
- * @type {string} */
+ * @type {string}
+ */
 GoogleDrive.apiKey = "Your developer API key";
 
 addBackend(GoogleDrive);

@@ -25,7 +25,8 @@ function copyIfSet(dest, src, prop) {
 
 /** Signals that a new SVG document has been attached to a presentation.
  *
- * @event module:model/Presentation.svgChange */
+ * @event module:model/Presentation.svgChange
+ */
 
 /** Layer properties for a frame in a Sozi presentation.
  *
@@ -53,43 +54,50 @@ export class LayerProperties {
         else {
             /** The frame that owns the current object.
              *
-             * @type {module:model/Presentation.Frame} */
+             * @type {module:model/Presentation.Frame}
+             */
             this.frame = obj;
 
             /** Does the current frame copy the geometry of the previous frame in the current layer?
              *
              * @default
-             * @type {boolean} */
+             * @type {boolean}
+             */
             this.link = false;
 
             /** The SVG ID of the reference element for the current frame in the current layer.
              *
              * @default
-             * @type {string} */
+             * @type {string}
+             */
             this.referenceElementId = "";
 
             /** The SVG ID of the outline element for the current frame in the current layer.
              *
              * @default
-             * @type {string} */
+             * @type {string}
+             */
             this.outlineElementId = "";
 
             /** The name of the timing function for the transition to the current frame in the current layer.
              *
              * @default
-             * @type {string} */
+             * @type {string}
+             */
             this.transitionTimingFunction = "linear";
 
             /** The relative zoom factor for the transition to the current frame in the current layer.
              *
              * @default
-             * @type {number} */
+             * @type {number}
+             */
             this.transitionRelativeZoom = 0;
 
             /** The SVG ID of a path to follow during the transition to the current frame in the current layer.
              *
              * @default
-             * @type {string} */
+             * @type {string}
+             */
             this.transitionPathId = "";
         }
     }
@@ -157,7 +165,8 @@ export class LayerProperties {
     /** The index of the current layer.
      *
      * @readonly
-     * @type {number} */
+     * @type {number}
+     */
     get index() {
         return this.frame.layerProperties.indexOf(this);
     }
@@ -165,7 +174,8 @@ export class LayerProperties {
     /** The reference SVG element of the current frame in the current layer.
      *
      * @readonly
-     * @type {?SVGElement} */
+     * @type {?SVGElement}
+     */
     get referenceElement() {
         const elt = this.frame.presentation.document.root.getElementById(this.referenceElementId);
         return elt && hasReliableBoundaries(elt) ? elt : null;
@@ -174,7 +184,8 @@ export class LayerProperties {
     /** The SVG element used to outline the current frame in the current layer.
      *
      * @readonly
-     * @type {?SVGElement} */
+     * @type {?SVGElement}
+     */
     get outlineElement() {
         return this.frame.presentation.document.root.getElementById(this.outlineElementId);
     }
@@ -182,7 +193,8 @@ export class LayerProperties {
     /** The SVG path to follow in transitions to the current frame in the current layer.
      *
      * @readonly
-     * @type {?SVGElement} */
+     * @type {?SVGElement}
+     */
     get transitionPath() {
         return this.frame.presentation.document.root.getElementById(this.transitionPathId);
     }
@@ -254,70 +266,82 @@ export class Frame {
         else {
             /** The presentation that contains this frame.
              *
-             * @type {module:model/Presentation.Presentation} */
+             * @type {module:model/Presentation.Presentation}
+             */
             this.presentation = obj;
 
             /** A unique identifier for this frame.
              *
-             * @type {string} */
+             * @type {string}
+             */
             this.frameId = obj.makeFrameId();
 
             /** The layer-specific properties of this frame.
              *
-             * @type {module:model/Presentation.LayerProperties[]} */
+             * @type {module:model/Presentation.LayerProperties[]}
+             */
             this.layerProperties = obj.layers.map(lp => new LayerProperties(this));
 
             /** The camera states of this frame for each layer.
              *
-             * @type {module:model/Presentation.CameraState[]} */
+             * @type {module:model/Presentation.CameraState[]}
+             */
             this.cameraStates = obj.layers.map(cs => new CameraState(obj.document.root));
 
             /** The title of this frame.
              *
              * @default
-             * @type {string} */
+             * @type {string}
+             */
             this.title = "New frame";
 
             /** The nesting level of the title of this frame in the frame list.
              *
              * @default
-             * @type {number} */
+             * @type {number}
+             */
             this.titleLevel = 0;
 
             /** The presenter's notes for this frame.
              *
              * @default
-             * @type {string} */
+             * @type {string}
+             */
             this.notes = "";
 
             /** The duration of this frame, in milliseconds.
              *
              * @default
-             * @type {number} */
+             * @type {number}
+             */
             this.timeoutMs = 0;
 
             /** Will the player move to the next frame automatically when the duration of this frame has elapsed?
              *
              * @default
-             * @type {boolean} */
+             * @type {boolean}
+             */
             this.timeoutEnable = false;
 
             /** The duration of the transition to this frame, in milliseconds.
              *
              * @default
-             * @type {number} */
+             * @type {number}
+             */
             this.transitionDurationMs = 1000;
 
             /** Will the player show the title of this frame in the table of contents?
              *
              * @default
-             * @type {boolean} */
+             * @type {boolean}
+             */
             this.showInFrameList = true;
 
             /** Will the player show the number of this frame?
              *
              * @default
-             * @type {boolean} */
+             * @type {boolean}
+             */
             this.showFrameNumber = true;
         }
     }
@@ -522,17 +546,20 @@ export class Layer {
     constructor(presentation, label, auto) {
         /** The current presentation.
          *
-         * @type {module:model/Presentation.Presentation} */
+         * @type {module:model/Presentation.Presentation}
+         */
         this.presentation = presentation;
 
         /** The display name of this layer.
          *
-         * @type {string} */
+         * @type {string}
+         */
         this.label = label;
 
         /** Was the layer created by Sozi to collect isolated elements?
          *
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.auto = auto;
 
         /** The SVG element(s) that constitute this layer.
@@ -541,7 +568,8 @@ export class Layer {
          * If `auto` is `true`, this array can contain several groups that are
          * managed as a single layer in Sozi.
          *
-         * @type {SVGElement[]} */
+         * @type {SVGElement[]}
+         */
         this.svgNodes = [];
     }
 
@@ -557,7 +585,8 @@ export class Layer {
 
     /** The index of this layer.
      *
-     * @type {number} */
+     * @type {number}
+     */
     get index() {
         return this.presentation.layers.indexOf(this);
     }
@@ -591,7 +620,8 @@ export class Layer {
 
 /** Constant: the SVG namespace
  *
- * @type {string} */
+ * @type {string}
+ */
 const SVG_NS = "http://www.w3.org/2000/svg";
 
 /** Type for SVG documents.
@@ -614,169 +644,197 @@ export class Presentation extends EventEmitter {
          * Set it with {@linkcode module:model/Presentation.Presentation#setSVGDocument}.
          *
          * @default
-         * @type {SVGDocument} */
+         * @type {SVGDocument}
+         */
         this.document = null;
 
         /** The sequence of frames in this presentation.
          *
          * @default
-         * @type {module:model/Presentation.Frame[]} */
+         * @type {module:model/Presentation.Frame[]}
+         */
         this.frames = [];
 
         /** A representation of the layers of the SVG document.
          *
          * @default
-         * @type {module:model/Presentation.Layer[]} */
+         * @type {module:model/Presentation.Layer[]}
+         */
         this.layers = [];
 
         /** The list of SVG elements to hide when playing the presentation.
          *
          * @default
-         * @type {SVGElement[]} */
+         * @type {SVGElement[]}
+         */
         this.elementsToHide = [];
 
         /** The custom CSS and JavaScript files to add to the generated HTML presentation.
          *
          * @default
-         * @type {string[]} */
+         * @type {string[]}
+         */
         this.customFiles = [];
 
         /** The width of the aspect ratio used in the editor for this presentation.
          *
          * @default
-         * @type {number} */
+         * @type {number}
+         */
         this.aspectWidth = 4;
 
         /** The height of the aspect ratio used in the editor for this presentation.
          *
          * @default
-         * @type {number} */
+         * @type {number}
+         */
         this.aspectHeight = 3;
 
         /** When playing the presentation, are the keyboard shortcuts for zoom-in and zoom-out enabled?
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.enableKeyboardZoom = true;
 
         /** When playing the presentation, are the keyboard shortcuts for rotation enabled?
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.enableKeyboardRotation = true;
 
         /** When playing the presentation, are the keyboard shortcuts for navigation enabled?
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.enableKeyboardNavigation = true;
 
         /** When playing the presentation, is the mouse gesture for translation enabled?
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.enableMouseTranslation = true;
 
         /** When playing the presentation, are the mouse gestures for zoom-in and zoom-out enabled?
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.enableMouseZoom = true;
 
         /** When playing the presentation, are the mouse gestures for rotation enabled?
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.enableMouseRotation = true;
 
         /** When playing the presentation, are the mouse gestures for navigation enabled?
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.enableMouseNavigation = true;
 
         /** When playing the presentation, does the URL change automatically on frame change?
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.updateURLOnFrameChange = true;
 
         /** The last export document type.
          *
          * @default
-         * @type {string} */
+         * @type {string}
+         */
         this.exportType = "pdf";
 
         /** The page size for PDF export.
          *
          * @default
-         * @type {string} */
+         * @type {string}
+         */
         this.exportToPDFPageSize = "A4";
 
         /** The page orientation for PDF export.
          *
          * @default
-         * @type {string} */
+         * @type {string}
+         */
         this.exportToPDFPageOrientation = "landscape";
 
         /** The list of frame numbers to include in the PDF export.
          *
          * @default
-         * @type {string} */
+         * @type {string}
+         */
         this.exportToPDFInclude = "";
 
         /** The list of frame numbers to exclude in the PDF export.
          *
          * @default
-         * @type {string} */
+         * @type {string}
+         */
         this.exportToPDFExclude = "";
 
         /** The slide size for PPTX export.
          *
          * @default
-         * @type {string} */
+         * @type {string}
+         */
         this.exportToPPTXSlideSize = "screen4x3";
 
         /** The list of frame numbers to include in the PPTX export.
          *
          * @default
-         * @type {string} */
+         * @type {string}
+         */
         this.exportToPPTXInclude = "";
 
         /** The list of frame numbers to exclude in the PPTX export.
          *
          * @default
-         * @type {string} */
+         * @type {string}
+         */
         this.exportToPPTXExclude = "";
 
         /** The file extension of the exported video.
          *
          * @default
-         * @type {string} */
+         * @type {string}
+         */
         this.exportToVideoFormat = "webm";
 
         /** The width of the exported video, in pixels.
          *
          * @default
-         * @type {number} */
+         * @type {number}
+         */
         this.exportToVideoWidth = 1280;
 
         /** The height of the exported video, in pixels.
          *
          * @default
-         * @type {number} */
+         * @type {number}
+         */
         this.exportToVideoHeight = 720;
 
         /** The number of images per second in the exported video.
          *
          * @default
-         * @type {number} */
+         * @type {number}
+         */
         this.exportToVideoFrameRate = 50;
 
         /** The number of bits per second in the exported video.
          *
          * @default
-         * @type {number} */
+         * @type {number}
+         */
         this.exportToVideoBitRate = 2000000;
     }
 
@@ -823,7 +881,8 @@ export class Presentation extends EventEmitter {
          *
          * This property is initialized after the document has been loaded and displayed.
          *
-         * @type {module:model/CameraState.CameraState} */
+         * @type {module:model/CameraState.CameraState}
+         */
         this.initialCameraState = new CameraState(this.document.root);
     }
 
@@ -937,7 +996,8 @@ export class Presentation extends EventEmitter {
      * Its default value is `"Untitled"`.
      *
      * @readonly
-     * @type {string} */
+     * @type {string}
+     */
     get title() {
         const svgTitles = this.document.root.getElementsByTagNameNS(SVG_NS, "title");
         return svgTitles.length ? svgTitles[0].firstChild.wholeText.trim() : "Untitled";

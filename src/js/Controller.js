@@ -21,23 +21,28 @@ const UNDO_STACK_LIMIT = 100;
 
 /** Signals that the presentation data has changed.
  *
- * @event module:Controller.presentationChange */
+ * @event module:Controller.presentationChange
+ */
 
 /** Signals that the editor state data has changed.
  *
- * @event module:Controller.editorStateChange */
+ * @event module:Controller.editorStateChange
+ */
 
 /** Signals that the editor UI needs to be repainted.
  *
- * @event module:Controller.repaint */
+ * @event module:Controller.repaint
+ */
 
 /** Signals that the current editor window has received the focus.
  *
- * @event module:Controller.focus */
+ * @event module:Controller.focus
+ */
 
 /** Signals that the current editor window has lost the focus.
  *
- * @event module:Controller.blur */
+ * @event module:Controller.blur
+ */
 
 /** Sozi editor UI controller.
  *
@@ -68,62 +73,74 @@ export class Controller extends EventEmitter {
 
         /** The object that holds the user settings of the editor.
          *
-         * @type {module:model/Preferences.Preferences} */
+         * @type {module:model/Preferences.Preferences}
+         */
         this.preferences = preferences;
 
         /** The Sozi presentation opened in the editor.
          *
-         * @type {module:model/Presentation.Presentation} */
+         * @type {module:model/Presentation.Presentation}
+         */
         this.presentation = presentation;
 
         /** The object that represents the selection in the timeline.
          *
-         * @type {module:model/Selection.Selection} */
+         * @type {module:model/Selection.Selection}
+         */
         this.selection = selection;
 
         /** The object that displays a preview of the presentation.
          *
-         * @type {module:player/Viewport.Viewport} */
+         * @type {module:player/Viewport.Viewport}
+         */
         this.viewport = viewport;
 
         /** The object that animates the presentation.
          *
-         * @type {module:player/Player.Player} */
+         * @type {module:player/Player.Player}
+         */
         this.player = player;
 
         /** The object that manages the file I/O.
          *
-         * @type {module:Storage.Storage} */
+         * @type {module:Storage.Storage}
+         */
         this.storage = new Storage(this, presentation, selection);
 
         /** The layers that have been added to the timeline.
          *
-         * @type {module:model/Presentation.Layer[]} */
+         * @type {module:model/Presentation.Layer[]}
+         */
         this.editableLayers = [];
 
         /** The layers that fall in the "default" row of the timeline.
          *
-         * @type {module:model/Presentation.Layer[]} */
+         * @type {module:model/Presentation.Layer[]}
+         */
         this.defaultLayers = [];
 
         /** The stack of operations that can be undone.
          *
-         * @type {Array} */
+         * @type {Array}
+         */
         this.undoStack = [];
 
         /** The stack of operations that can be redone.
          *
-         * @type {Array} */
+         * @type {Array}
+         */
         this.redoStack = [];
 
         /** The timeout ID of the current notification.
          *
-         * @type {?number} */
+         * @type {?number}
+         */
         this.notificationTimeout = null;
 
         /** True if the current window has the focus.
          *
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.hasFocus = false;
 
         /** True if an export operation is in progress.

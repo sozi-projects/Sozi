@@ -30,7 +30,8 @@ export class AbstractBackend {
     constructor(controller, container, buttonId, buttonLabel) {
         /** The controller for this backend.
          *
-         * @type {module:Controller.Controller} */
+         * @type {module:Controller.Controller}
+         */
         this.controller = controller;
 
         /** A list of files to save automatically.
@@ -38,7 +39,8 @@ export class AbstractBackend {
          * This is an array of file descriptors. The actual type of the
          * elements depends on the platform.
          *
-         * @type {Array} */
+         * @type {Array}
+         */
         this.autosavedFiles = [];
 
         container.innerHTML = `<button id="${buttonId}">${buttonLabel}</button>`;

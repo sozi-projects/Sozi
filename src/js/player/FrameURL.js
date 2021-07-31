@@ -11,7 +11,8 @@
 
 /** The current Sozi player.
  *
- * @type {module:player/Player.Player} */
+ * @type {module:player/Player.Player}
+ */
 let player;
 
 /** Initialize the location bar management.

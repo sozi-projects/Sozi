@@ -8,7 +8,8 @@
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const MAX_FLICK_TIME = 100;
 
 /** Min distance to accept a touch move as quick swipe gesture.
@@ -17,7 +18,8 @@ const MAX_FLICK_TIME = 100;
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const MIN_FLICK_TRAVEL = 20;
 
 /** Minimum distance to accept a touch move as slow swipe gesture in horizontal direction.
@@ -25,7 +27,8 @@ const MIN_FLICK_TRAVEL = 20;
  * Value depends on screen size and therefore is (re)calculated
  *
  * @default
- * @type {number} */
+ * @type {number}
+ */
 let MIN_SLOW_TRAVEL_X;
 
 /** Minimum distance to accept a touch move as slow swipe gesture in vertical direction.
@@ -33,7 +36,8 @@ let MIN_SLOW_TRAVEL_X;
  * Value depends on screen size and therefore is (re)calculated
  *
  * @default
- * @type {number} */
+ * @type {number}
+ */
 let MIN_SLOW_TRAVEL_Y;       // minimum distance to accept a touch move as slow swipe gesture in vertical direction
 
 
@@ -44,7 +48,8 @@ let MIN_SLOW_TRAVEL_Y;       // minimum distance to accept a touch move as slow 
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const ROTATE_THRESHHOLD = 10;
 
 /** Upper tolerance of slight zoom gesture movement assumed to be unintentional.
@@ -54,7 +59,8 @@ const ROTATE_THRESHHOLD = 10;
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const ZOOM_UP_THRESHHOLD = 1.5;
 
 /** Lower tolerance of slight zoom gesture movement assumed to be unintentional.
@@ -64,22 +70,26 @@ const ZOOM_UP_THRESHHOLD = 1.5;
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const ZOOM_LOW_THRESHHOLD = 1/ZOOM_UP_THRESHHOLD;
 
 /** The current Sozi player.
  *
- * @type {module:player/Player.Player} */
+ * @type {module:player/Player.Player}
+ */
 let player;
 
 /** The current Sozi UI controller.
  *
- * @type {module:player/PlayerController.PlayerController} */
+ * @type {module:player/PlayerController.PlayerController}
+ */
 let playerController;
 
 /** The current Sozi presentation.
  *
- * @type {module:model/Presentation.Presentation} */
+ * @type {module:model/Presentation.Presentation}
+ */
 let presentation;
 
 /** When playing the presentation, are touch gestures enabled?
@@ -90,14 +100,16 @@ let presentation;
  * or {@link module:model/Presentation.Presentation#enableMouseRotation|enableMouseRotation}
  * in the current presentation.
  *
- * @type {boolean} */
+ * @type {boolean}
+ */
 let interactionGestureEnabled;
 
 /** The currently active gesture handler depending on the amount of touchpoints.
  *
  * `null`, if no touches on the screen.
  *
- * @type {module:player/TouchGestures.Gesture} */
+ * @type {module:player/TouchGestures.Gesture}
+ */
 let currentGesture;
 
 /** Helper class defining a line for geometric calculations.

@@ -14,21 +14,24 @@ import {EventEmitter} from "events";
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const DEFAULT_TRANSITION_DURATION_MS = 500;
 
 /** The relative zoom of out-of-sequence transitions.
  *
  * @readonly
  * @default
- * @type {number} */
+ * @type {number}
+ */
 const DEFAULT_RELATIVE_ZOOM = 0;
 
 /** The timing function name of out-of-sequence transitions.
  *
  * @readonly
  * @default
- * @type {string} */
+ * @type {string}
+ */
 const DEFAULT_TIMING_FUNCTION = "ease";
 
 /** Signals that the player has moved to a new frame.
@@ -64,56 +67,66 @@ export class Player extends EventEmitter {
         /** Is the presentation opened in edit mode?
          *
          * @default false
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.editMode = !!editMode;
 
         /** Enable embedded video and audio?
          *
          * @default true
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.mediaEnable = true;
 
         /** The viewport where the presentation is rendered.
          *
-         * @type {module:player/Viewport.Viewport} */
+         * @type {module:player/Viewport.Viewport}
+         */
         this.viewport = viewport;
 
         /** The presentation to play.
          *
-         * @type {module:model/Presentation.Presentation} */
+         * @type {module:model/Presentation.Presentation}
+         */
         this.presentation = presentation;
 
         /** An animator to control the transitions.
          *
-         * @type {module:player/Animator.Animator} */
+         * @type {module:player/Animator.Animator}
+         */
         this.animator = new Animator();
 
         /** The playing/paused state of this player.
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.playing = false;
 
         /** Is the player waiting for a frame timeout to complete?
          *
          * @default
-         * @type {boolean} */
+         * @type {boolean}
+         */
         this.waitingTimeout = false;
 
         /** The current frame of the presentation.
          *
-         * @type {module:model/Presentation.Frame} */
+         * @type {module:model/Presentation.Frame}
+         */
         this.currentFrame = presentation.frames[0];
 
         /** The target frame of the current transition.
          *
-         * @type {module:model/Presentation.Frame} */
+         * @type {module:model/Presentation.Frame}
+         */
         this.targetFrame = presentation.frames[0];
 
         /** The result of `setTimeout` when starting waiting for a frame timeout.
          *
          * @default
-         * @type {?number} */
+         * @type {?number}
+         */
         this.timeoutHandle = null;
 
         /** An array of tansition descriptors for each camera.

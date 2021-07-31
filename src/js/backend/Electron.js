@@ -19,7 +19,8 @@ import {remote} from "electron";
 
 /** The main browser window of the Sozi editor.
  *
- * @type {BrowserWindow} */
+ * @type {BrowserWindow}
+ */
 const browserWindow = remote.getCurrentWindow();
 
 /** The current working directory.
@@ -86,7 +87,8 @@ export class Electron extends AbstractBackend {
          *
          * Populated by the {@linkcode module:backend/Electron.Electron#load|load} method.
          *
-         * @type {object.<string, fs.FSWatcher>} */
+         * @type {object.<string, fs.FSWatcher>}
+         */
         this.watchers = {};
 
         // If a file name was provided on the command line,
