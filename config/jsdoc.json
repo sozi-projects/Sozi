@@ -26,7 +26,7 @@
         "plugins/markdown"
     ],
     "opts": {
-        "destination": "dist/api",
+        "destination": "build/api",
         "readme": "README.jsdoc.md"
     }
 }
