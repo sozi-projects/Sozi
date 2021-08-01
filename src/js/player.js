@@ -152,7 +152,7 @@ window.addEventListener("load", () => {
     const presentation = new Presentation();
     presentation.setSVGDocument(new SVGDocumentWrapper(svgRoot));
 
-    const viewport = new Viewport(presentation, false);
+    const viewport = new Viewport(presentation);
     viewport.onLoad();
     presentation.setInitialCameraState();
 
