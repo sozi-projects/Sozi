@@ -59,17 +59,9 @@ export class Player extends EventEmitter {
      *
      * @param {module:player/Viewport.Viewport} viewport - The viewport where the presentation is rendered.
      * @param {module:model/Presentation.Presentation} presentation - The presentation to play.
-     * @param {boolean} [editMode=false] - Is the presentation opened in edit mode?
      */
-    constructor(viewport, presentation, editMode = false) {
+    constructor(viewport, presentation) {
         super();
-
-        /** Is the presentation opened in edit mode?
-         *
-         * @default false
-         * @type {boolean}
-         */
-        this.editMode = !!editMode;
 
         /** Enable embedded video and audio?
          *
@@ -347,7 +339,7 @@ export class Player extends EventEmitter {
             }
         }
 
-        if (!this.editMode && !this.playing) {
+        if (!this.viewport.editMode && !this.playing) {
             this.playing = true;
             this.emit("stateChange");
         }

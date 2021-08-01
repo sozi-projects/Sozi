@@ -238,7 +238,7 @@ export class PlayerController extends EventEmitter{
     }
 
     get editMode() {
-        return this.player.editMode;
+        return this.player.viewport.editMode;
     }
 
     onLoad() {

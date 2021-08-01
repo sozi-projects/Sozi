@@ -24,7 +24,7 @@ window.addEventListener("load", () => {
     const presentation     = new Presentation();
     const selection        = new Selection(presentation);
     const viewport         = new Viewport(presentation, true);
-    const player           = new Player(viewport, presentation, true);
+    const player           = new Player(viewport, presentation);
     const playerController = new PlayerController(player);
 
     const preferences  = new Preferences();
