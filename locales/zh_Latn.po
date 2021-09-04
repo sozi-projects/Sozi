@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2021-05-23 09:08:+0000\n"
-"PO-Revision-Date: 2021-05-14 13:32+0000\n"
-"Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
+"PO-Revision-Date: 2021-09-04 10:08+0000\n"
+"Last-Translator: Liu Tao <lyuutau@outlook.com>\n"
 "Language-Team: Chinese (Pinyin) <https://hosted.weblate.org/projects/sozi/"
 "translations/zh_Latn/>\n"
 "Language: zh_Latn\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.8.1-dev\n"
 
 #: src/js/Controller.js:217
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
@@ -30,26 +30,32 @@ msgid "Document was changed."
 msgstr "Wéndàng yǐ xiūgǎi."
 
 #: src/js/Controller.js:1724
+#, fuzzy
 msgid "Presentation was exported to PDF."
 msgstr "演示文稿已导出为PDF。"
 
 #: src/js/Controller.js:1727
+#, fuzzy
 msgid "Failed to write PDF file."
 msgstr "无法写入PDF文件。"
 
 #: src/js/Controller.js:1740
+#, fuzzy
 msgid "Presentation was exported to PPTX."
 msgstr "演示文稿已导出为PDF。"
 
 #: src/js/Controller.js:1743
+#, fuzzy
 msgid "Failed to write PPTX file."
 msgstr "无法写入PPTX文件。"
 
 #: src/js/Controller.js:1756
+#, fuzzy
 msgid "Presentation was exported to video."
 msgstr "演示文稿已导出到视频。"
 
 #: src/js/Controller.js:1759
+#, fuzzy
 msgid "Failed to write video file."
 msgstr "无法写入视频文件。"
 
