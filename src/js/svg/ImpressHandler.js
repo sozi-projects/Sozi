@@ -24,8 +24,15 @@ export class ImpressHandler extends DefaultSVGHandler {
     /** @inheritdoc */
     static transform(svgRoot) {
         const ds = svgRoot.querySelector("g.DummySlide");
-        ds.parentNode.removeChild(ds);
-        
+        if (ds) {
+            ds.parentNode.removeChild(ds);
+        }
+
+        const ms = svgRoot.querySelector("g.Master_Slide");
+        if (ms) {
+            ms.parentNode.removeChild(ms);
+        }
+
         const sg = svgRoot.querySelector("g.SlideGroup");
         const g = sg.querySelector("g.Slide");
         sg.parentNode.replaceChild(g, sg);
