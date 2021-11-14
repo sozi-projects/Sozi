@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-07-31 04:56:+0000\n"
-"PO-Revision-Date: 2020-08-19 03:33+0000\n"
-"Last-Translator: Eduardo Addad de Oliveira <duduaddad@gmail.com>\n"
+"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
+"PO-Revision-Date: 2021-09-30 15:35+0000\n"
+"Last-Translator: SC <lalocas@protonmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/sozi/"
 "translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 "X-Launchpad-Export-Date: 2018-04-06 19:08+0000\n"
 
 #: src/js/Controller.js:234
@@ -38,27 +38,27 @@ msgstr "Arquivo alterado."
 
 #: src/js/Controller.js:1741
 msgid "Presentation was exported to PDF."
-msgstr ""
+msgstr "A apresentação foi exportada para PDF."
 
 #: src/js/Controller.js:1744
 msgid "Failed to write PDF file."
-msgstr ""
+msgstr "Falha ao gravar o arquivo PDF."
 
 #: src/js/Controller.js:1757
 msgid "Presentation was exported to PPTX."
-msgstr ""
+msgstr "A apresentação foi exportada para PPTX."
 
 #: src/js/Controller.js:1760
 msgid "Failed to write PPTX file."
-msgstr ""
+msgstr "Falha ao gravar o arquivo PPTX."
 
 #: src/js/Controller.js:1773
 msgid "Presentation was exported to video."
-msgstr ""
+msgstr "A apresentação foi exportada para vídeo."
 
 #: src/js/Controller.js:1776
 msgid "Failed to write video file."
-msgstr ""
+msgstr "Falha ao gravar o arquivo de vídeo."
 
 #: src/js/Storage.js:203
 msgid "Document is not valid SVG."
@@ -102,7 +102,7 @@ msgstr "Arquivos SVG"
 
 #: src/js/backend/Electron.js:199
 msgid "This file will not be reloaded on change: %s."
-msgstr ""
+msgstr "Este arquivo não será recarregado na mudança: %s."
 
 #: src/js/backend/Electron.js:215
 msgid "Could not read file %s."
@@ -162,10 +162,9 @@ msgstr "Alternar modo de tela cheia"
 msgid "Toggle the developer tools"
 msgstr "Alternar modo de desenvolvedor"
 
-#: src/js/view/Properties.js:116 src/js/view/Properties.js:405
-#, fuzzy
+#: src/js/view/Properties.js:113 src/js/view/Properties.js:402
 msgid "Back to presentation properties"
-msgstr "Salve a presentação"
+msgstr "Voltar às propriedades da apresentação"
 
 #: src/js/view/Properties.js:120
 msgid "User interface"
@@ -173,7 +172,7 @@ msgstr "Interface do usuário"
 
 #: src/js/view/Properties.js:122
 msgid "Language"
-msgstr ""
+msgstr "Idioma"
 
 #: src/js/view/Properties.js:125
 msgid "Font size"
@@ -472,190 +471,188 @@ msgstr "Permitir zoom"
 
 #: src/js/view/Properties.js:365
 msgid "Examples of frame lists to include/exclude in export"
-msgstr ""
+msgstr "Exemplos de listas de quadros para incluir / excluir na exportação"
 
 #: src/js/view/Properties.js:367
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
-msgstr ""
+msgstr "Selecione os quadros 2, 5 e 12: \"2, 5, 12\""
 
 #: src/js/view/Properties.js:368
 msgid "Select frames 5 to 8: \"5:8\""
-msgstr ""
+msgstr "Selecione os quadros 5 a 8: \"5:8\""
 
 #: src/js/view/Properties.js:369
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
-msgstr ""
+msgstr "Selecione os quadros 5, 8, 11, 14 e 17: \"5:8:17\""
 
 #: src/js/view/Properties.js:370
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
-msgstr ""
+msgstr "Selecione os quadros 2, 5 e 10 a 15: \"2, 5, 10:15\""
 
 #: src/js/view/Properties.js:409 src/js/view/Properties.js:425
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #: src/js/view/Properties.js:411
 msgid "Document type"
-msgstr ""
+msgstr "Tido de documento"
 
 #: src/js/view/Properties.js:413
 msgid "Portable Document Format (PDF)"
-msgstr ""
+msgstr "Portable Document Format (PDF)"
 
 #: src/js/view/Properties.js:414
 msgid "Microsoft PowerPoint (PPTX)"
-msgstr ""
+msgstr "Microsoft PowerPoint (PPTX)"
 
 #: src/js/view/Properties.js:415
 msgid "Video"
-msgstr ""
+msgstr "Vídeo"
 
-#: src/js/view/Properties.js:422 src/js/view/Toolbar.js:149
-#, fuzzy
+#: src/js/view/Properties.js:419 src/js/view/Toolbar.js:146
 msgid "Export the presentation"
-msgstr "Salve a presentação"
+msgstr "Exportar a apresentação"
 
 #: src/js/view/Properties.js:439
 msgid "Page size"
-msgstr ""
+msgstr "Tamanho da página"
 
 #: src/js/view/Properties.js:441 src/js/view/Properties.js:480
 msgid "A3"
-msgstr ""
+msgstr "A3"
 
 #: src/js/view/Properties.js:442 src/js/view/Properties.js:481
 msgid "A4"
-msgstr ""
+msgstr "A4"
 
 #: src/js/view/Properties.js:443
 msgid "A5"
-msgstr ""
+msgstr "A5"
 
 #: src/js/view/Properties.js:444
 msgid "Legal"
-msgstr ""
+msgstr "Legal"
 
 #: src/js/view/Properties.js:445 src/js/view/Properties.js:489
 msgid "Letter"
-msgstr ""
+msgstr "Letter"
 
 #: src/js/view/Properties.js:446 src/js/view/Properties.js:488
 msgid "Tabloid"
-msgstr ""
+msgstr "Tablóide"
 
-#: src/js/view/Properties.js:449
-#, fuzzy
+#: src/js/view/Properties.js:446
 msgid "Page orientation"
-msgstr "Salve a presentação"
+msgstr "Orientação da página"
 
 #: src/js/view/Properties.js:451
 msgid "Landscape"
-msgstr ""
+msgstr "Paisagem"
 
 #: src/js/view/Properties.js:452
 msgid "Portrait"
-msgstr ""
+msgstr "Retrato"
 
 #: src/js/view/Properties.js:456 src/js/view/Properties.js:497
 msgid "List of frames to include"
-msgstr ""
+msgstr "Lista de quadros a incluir"
 
 #: src/js/view/Properties.js:457 src/js/view/Properties.js:463
 #: src/js/view/Properties.js:498 src/js/view/Properties.js:504
 msgid "Click here to see the syntax for this field"
-msgstr ""
+msgstr "Clique aqui para ver a sintaxe deste campo"
 
 #: src/js/view/Properties.js:462 src/js/view/Properties.js:503
 msgid "List of frames to exclude"
-msgstr ""
+msgstr "Lista de quadros a serem excluídos"
 
 #: src/js/view/Properties.js:477
 msgid "Slide size"
-msgstr ""
+msgstr "Tamanho do slide"
 
 #: src/js/view/Properties.js:479
 msgid "35 mm"
-msgstr ""
+msgstr "35 mm"
 
 #: src/js/view/Properties.js:482
 msgid "B4 (ISO)"
-msgstr ""
+msgstr "B4 (ISO)"
 
 #: src/js/view/Properties.js:483
 msgid "B4 (JIS)"
-msgstr ""
+msgstr "B4 (JIS)"
 
 #: src/js/view/Properties.js:484
 msgid "B5 (ISO)"
-msgstr ""
+msgstr "B5 (ISO)"
 
 #: src/js/view/Properties.js:485
 msgid "B5 (JIS)"
-msgstr ""
+msgstr "B5 (JIS)"
 
 #: src/js/view/Properties.js:486
 msgid "Banner"
-msgstr ""
+msgstr "Banner"
 
 #: src/js/view/Properties.js:487
 msgid "Hagaki Card"
-msgstr ""
+msgstr "Postal japonês (hagaki)"
 
 #: src/js/view/Properties.js:490
 msgid "Overhead"
-msgstr ""
+msgstr "Overhead"
 
 #: src/js/view/Properties.js:491
 msgid "Screen 16:10"
-msgstr ""
+msgstr "Tela 16:10"
 
 #: src/js/view/Properties.js:492
 msgid "Screen 16:9"
-msgstr ""
+msgstr "Tela 16:9"
 
 #: src/js/view/Properties.js:493
 msgid "Screen 4:3"
-msgstr ""
+msgstr "Tela 4:3"
 
 #: src/js/view/Properties.js:519
 msgid "Format"
-msgstr ""
+msgstr "Formato"
 
 #: src/js/view/Properties.js:521
 msgid "MPEG-4 (.mp4)"
-msgstr ""
+msgstr "MPEG-4 (.mp4)"
 
 #: src/js/view/Properties.js:522
 msgid "Ogg Vorbis (.ogv)"
-msgstr ""
+msgstr "Ogg Vorbis (.ogv)"
 
 #: src/js/view/Properties.js:523
 msgid "WebM (.webm)"
-msgstr ""
+msgstr "WebM (.webm)"
 
 #: src/js/view/Properties.js:524
 msgid "Windows Media Video (.wmv)"
-msgstr ""
+msgstr "Windows Media Video (.wmv)"
 
 #: src/js/view/Properties.js:525
 msgid "Image sequence (.png)"
-msgstr ""
+msgstr "Sequência de imagens (.png)"
 
 #: src/js/view/Properties.js:528
 msgid "Width (pixels)"
-msgstr ""
+msgstr "Largura (pixels)"
 
 #: src/js/view/Properties.js:531
 msgid "Height (pixels)"
-msgstr ""
+msgstr "Altura (pixels)"
 
 #: src/js/view/Properties.js:534
 msgid "Frame rate (frames/sec)"
-msgstr ""
+msgstr "Taxa de quadros (quadros/seg)"
 
 #: src/js/view/Properties.js:537
 msgid "Bit rate (kbits/sec)"
-msgstr ""
+msgstr "Taxa de bits (kbits/seg)"
 
 #: src/js/view/Timeline.js:186
 msgid "Delete the selected frames"
@@ -743,7 +740,7 @@ msgstr "Informação"
 
 #: src/js/view/languages.js:17
 msgid "System language"
-msgstr ""
+msgstr "Idioma do sistema"
 
 #, fuzzy
 #~ msgid "Export the presentation to PDF"

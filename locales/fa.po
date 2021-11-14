@@ -7,16 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-07-31 04:56:+0000\n"
-"PO-Revision-Date: 2017-02-19 18:08+0000\n"
-"Last-Translator: Ehsan <Unknown>\n"
-"Language-Team: Persian <fa@li.org>\n"
+"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
+"PO-Revision-Date: 2021-08-25 22:33+0000\n"
+"Last-Translator: عبدالرئوف عابدی <abdolraoofabedi@gmail.com>\n"
+"Language-Team: Persian <https://hosted.weblate.org/projects/sozi/"
+"translations/fa/>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.8.1-dev\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
-"X-Generator: Launchpad (build 18599)\n"
 
 #: src/js/Controller.js:234
 #, fuzzy
@@ -91,7 +93,7 @@ msgstr ""
 
 #: src/js/backend/Electron.js:105
 msgid "File not found: %s."
-msgstr "فایل پیدا نشد: %s"
+msgstr "فایل یافت نشد:٪ s."
 
 #: src/js/backend/Electron.js:137
 msgid "Choose an SVG file"

@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-07-31 04:56:+0000\n"
-"PO-Revision-Date: 2021-05-14 13:32+0000\n"
-"Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
+"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
+"PO-Revision-Date: 2021-11-03 03:36+0000\n"
+"Last-Translator: fengzhao <fengzhao1124@hotmail.com>\n"
 "Language-Team: Chinese (Pinyin) <https://hosted.weblate.org/projects/sozi/"
 "translations/zh_Latn/>\n"
 "Language: zh_Latn\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: src/js/Controller.js:234
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
@@ -39,11 +39,11 @@ msgstr "无法写入PDF文件。"
 
 #: src/js/Controller.js:1757
 msgid "Presentation was exported to PPTX."
-msgstr "演示文稿已导出为PDF。"
+msgstr "演示文稿已导出为 PPTX。"
 
 #: src/js/Controller.js:1760
 msgid "Failed to write PPTX file."
-msgstr "无法写入PPTX文件。"
+msgstr "无法写入 PPTX 文件。"
 
 #: src/js/Controller.js:1773
 msgid "Presentation was exported to video."
