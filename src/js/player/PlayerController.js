@@ -440,7 +440,7 @@ export class PlayerController extends EventEmitter{
      * @fires module:player/PlayerController.click
      */
     onClick(evt) {
-        if (this.presentation.enableMouseNavigation) {
+        if (!this.editMode && this.presentation.enableMouseNavigation) {
             switch (evt.button) {
                 case 0: this.moveToNext(); break;
                 case 2: this.moveToPrevious(); break;
