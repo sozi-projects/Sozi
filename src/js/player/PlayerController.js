@@ -288,7 +288,7 @@ export class PlayerController extends EventEmitter{
             document.documentElement.addEventListener("mousemove", this.dragHandler, false);
             document.documentElement.addEventListener("mouseup", this.dragEndHandler, false);
 
-            this.viewport.updateClipMode(evt.clientX,evt.clientY);
+            this.viewport.updateClipMode(evt.clientX, evt.clientY);
         }
 
         this.emit("mouseDown", evt.button);

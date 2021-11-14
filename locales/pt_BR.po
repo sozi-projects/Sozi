@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
+"POT-Creation-Date: 2021-11-14 12:16:+0000\n"
 "PO-Revision-Date: 2021-09-30 15:35+0000\n"
 "Last-Translator: SC <lalocas@protonmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/sozi/"
@@ -162,7 +162,7 @@ msgstr "Alternar modo de tela cheia"
 msgid "Toggle the developer tools"
 msgstr "Alternar modo de desenvolvedor"
 
-#: src/js/view/Properties.js:113 src/js/view/Properties.js:402
+#: src/js/view/Properties.js:116 src/js/view/Properties.js:405
 msgid "Back to presentation properties"
 msgstr "Voltar às propriedades da apresentação"
 
@@ -509,7 +509,7 @@ msgstr "Microsoft PowerPoint (PPTX)"
 msgid "Video"
 msgstr "Vídeo"
 
-#: src/js/view/Properties.js:419 src/js/view/Toolbar.js:146
+#: src/js/view/Properties.js:422 src/js/view/Toolbar.js:149
 msgid "Export the presentation"
 msgstr "Exportar a apresentação"
 
@@ -541,7 +541,7 @@ msgstr "Letter"
 msgid "Tabloid"
 msgstr "Tablóide"
 
-#: src/js/view/Properties.js:446
+#: src/js/view/Properties.js:449
 msgid "Page orientation"
 msgstr "Orientação da página"
 

@@ -179,7 +179,7 @@ export class Viewport {
      */
     updateClipMode(clientX,clientY) {
         if (this.dragMode === "clip") {
-            this.clipMode = this.getClipMode(clientX,clientY);
+            this.clipMode = this.getClipMode(clientX - this.x,clientY - this.y);
         }
     }
 
