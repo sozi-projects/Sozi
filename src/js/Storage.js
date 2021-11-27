@@ -272,11 +272,14 @@ export class Storage {
 
         this.controller.onLoad();
 
-        const svgName           = this.backend.getName(this.svgFileDescriptor);
-        const htmlFileName      = replaceFileExtWith(svgName, ".sozi.html");
-        const presenterFileName = replaceFileExtWith(svgName, "-presenter.sozi.html");
-        this.createHTMLFile(htmlFileName, location);
-        this.createPresenterHTMLFile(presenterFileName, location, htmlFileName);
+        if (this.controller.preferences.saveMode !== "manual") {
+            const svgName           = this.backend.getName(this.svgFileDescriptor);
+            const htmlFileName      = replaceFileExtWith(svgName, ".sozi.html");
+            const presenterFileName = replaceFileExtWith(svgName, "-presenter.sozi.html");
+            // TODO Save only if SVG is more recent than HTML.
+            this.createHTMLFile(htmlFileName, location);
+            this.createPresenterHTMLFile(presenterFileName, location, htmlFileName);
+        }
     }
 
     /** Create the presentation HTML file if it does not exist.
