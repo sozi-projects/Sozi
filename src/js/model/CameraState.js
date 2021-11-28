@@ -259,14 +259,7 @@ export class CameraState {
      */
     setAtElement(svgElement, deltaX = 0, deltaY = 0, widthFactor = 1, heightFactor = 1, deltaAngle = 0) {
         // Read the raw bounding box of the given SVG element.
-        // Fix the width or height if it is zero.
         const bbox = svgElement.getBBox();
-        if (bbox.width === 0) {
-            bbox.width = 1;
-        }
-        if (bbox.height === 0) {
-            bbox.height = 1;
-        }
 
         // Compute the raw coordinates of the center
         // of the given SVG element
@@ -293,8 +286,8 @@ export class CameraState {
         // given SVG element after its current transformation
         this.cx     = bboxCenter.x + deltaX;
         this.cy     = bboxCenter.y + deltaY;
-        this.width  = bbox.width  * scale * widthFactor;
-        this.height = bbox.height * scale * heightFactor;
+        this.width  = (bbox.width  > 0 ? bbox.width  * scale : 1) * widthFactor;
+        this.height = (bbox.height > 0 ? bbox.height * scale : 1) * heightFactor;
         this.angle  = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI + deltaAngle;
     }
 
