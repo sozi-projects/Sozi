@@ -85,6 +85,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     width: 8rem;
+    min-width: 3rem;
     max-width: 8rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
