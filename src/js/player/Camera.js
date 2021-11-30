@@ -33,14 +33,23 @@ export function hasReliableBoundaries(elt) {
  * @returns {SVGElement[]} - A list of graphics elements.
  */
 function getGraphicsElements(elt) {
-    switch (true) {
-        case elt instanceof SVGGElement:
-            return Array.from(elt.childNodes).map(getGraphicsElements).flat();
-        case elt instanceof SVGGraphicsElement:
-            return [elt];
-        default:
-            return [];
+    // Skip <defs> elements. We need to handle this case because
+    // SVGDefsElement inherits from SVGGraphicsElement.
+    if (elt instanceof SVGDefsElement) {
+        return [];
     }
+
+    // Collect graphics elements inside groups.
+    if (elt instanceof SVGGElement) {
+        return Array.from(elt.childNodes).map(getGraphicsElements).flat();
+    }
+
+    // Return a graphics element that has and ID and consistent positioning information.
+    if (elt instanceof SVGGraphicsElement) {
+        return [elt];
+    }
+
+    return [];
 }
 
 /** Camera.
@@ -339,7 +348,7 @@ export class Camera extends CameraState {
         let score   = null;
 
         for (let elt of intersectionList) {
-            if (elt.hasAttribute("id") && hasReliableBoundaries(elt)) {
+            if (elt.hasAttribute("id") && hasReliableBoundaries(elt) && !elt.closest("defs")) {
                 // FIXME getBoundingClientRect returns bounding box of bounding box
                 const eltRect = elt.getBoundingClientRect();
 
@@ -426,7 +435,12 @@ export class Camera extends CameraState {
                 "rotate(" + (-this.angle) + ',' + this.cx + "," + this.cy + ")"
             );
             svgGroup.setAttribute("opacity", this.opacity);
-            svgGroup.style.display = this.opacity === 0 ? "none" : "initial";
+            // Do not render the layer if it is completely transparent.
+            // This does not apply in edit mode, where getCandidateReferenceElement
+            // needs the layer to be rendered even if invisible.
+            if (!this.viewport.editMode) {
+                svgGroup.style.display = this.opacity === 0 ? "none" : "initial";
+            }
         }
     }
 
