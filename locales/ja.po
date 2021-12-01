@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-07-31 04:56:+0000\n"
+"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
 "PO-Revision-Date: 2021-05-14 13:32+0000\n"
 "Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/sozi/"
@@ -64,7 +64,7 @@ msgstr "ドキュメントは有効なSVGではありません。"
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "ドキュメントは Sozi 13 以前からインポートされました。"
 
-#: src/js/Storage.js:351
+#: src/js/Storage.js:354
 #, fuzzy
 msgid "Saved %s."
 msgstr "%s を保存しました。"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-07-31 04:56:+0000\n"
+"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
 "PO-Revision-Date: 2018-11-07 16:08+0000\n"
 "Last-Translator: Csizmazia-Darab István <i.csizmazia@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/sozi/"
@@ -72,7 +72,7 @@ msgstr "Érvénytelen SVG állomány."
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Az állomány Sozi 13 vagy korábbi verzióból lett importálva."
 
-#: src/js/Storage.js:351
+#: src/js/Storage.js:354
 msgid "Saved %s."
 msgstr "A %s elmentve ."
 

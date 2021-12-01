@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-07-31 04:56:+0000\n"
+"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
 "PO-Revision-Date: 2020-04-11 22:09+0000\n"
 "Last-Translator: Rivo Zängov <rivozangov@gmail.com>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/sozi/"
@@ -61,7 +61,7 @@ msgstr "Dokument pole korrektne SVG."
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Dokument imporditi Sozi 13 või vanemast versioonist."
 
-#: src/js/Storage.js:351
+#: src/js/Storage.js:354
 msgid "Saved %s."
 msgstr "%s salvestati."
 

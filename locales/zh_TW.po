@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-07-31 04:56:+0000\n"
+"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
 "PO-Revision-Date: 2021-05-14 13:32+0000\n"
 "Last-Translator: 麋悟BigELK176 <bigelk176@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -68,7 +68,7 @@ msgstr "此文件不是有效的 SVG 檔案。"
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "文件匯入 Sozi 13 或更舊的版本。"
 
-#: src/js/Storage.js:351
+#: src/js/Storage.js:354
 msgid "Saved %s."
 msgstr "完成儲存 %s 。"
 

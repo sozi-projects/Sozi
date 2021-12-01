@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-07-31 04:56:+0000\n"
+"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
 "PO-Revision-Date: 2018-03-10 16:09+0100\n"
 "Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
@@ -69,7 +69,7 @@ msgstr "Документа не е валиден SVG."
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Дикумета е импортиран от Sozi 13 или по-стара версия"
 
-#: src/js/Storage.js:351
+#: src/js/Storage.js:354
 msgid "Saved %s."
 msgstr "Запазен %s."
 

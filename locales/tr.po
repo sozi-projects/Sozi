@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-07-31 04:56:+0000\n"
+"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
 "PO-Revision-Date: 2021-05-15 17:32+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/sozi/"
@@ -61,7 +61,7 @@ msgstr "Belge geçerli bir SVG değil."
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Belge, Sozi 13 ya da daha öncesi bir sürümden içeri aktarıldı."
 
-#: src/js/Storage.js:351
+#: src/js/Storage.js:354
 msgid "Saved %s."
 msgstr "%s kaydedildi."
 

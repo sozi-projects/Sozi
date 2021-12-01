@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-05-23 09:08:+0000\n"
+"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
 "PO-Revision-Date: 2021-08-25 22:33+0000\n"
 "Last-Translator: عبدالرئوف عابدی <abdolraoofabedi@gmail.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/sozi/"
@@ -71,7 +71,7 @@ msgstr "پرونده، یک اس‌وی‌جی معتبر نیست."
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr ""
 
-#: src/js/Storage.js:351
+#: src/js/Storage.js:354
 msgid "Saved %s."
 msgstr ""
 

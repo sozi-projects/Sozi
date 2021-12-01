@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-31 04:56:+0000\n"
+"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
 "PO-Revision-Date: 2021-03-17 00:02+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/sozi/"
@@ -70,7 +70,7 @@ msgstr "Il documento non è conforme allo standard SVG."
 msgid "Document was imported from Sozi 13 or earlier."
 msgstr "Il documento è stato importato da Sozi 13 o precedente."
 
-#: src/js/Storage.js:351
+#: src/js/Storage.js:354
 msgid "Saved %s."
 msgstr "File %s salvato."
 
