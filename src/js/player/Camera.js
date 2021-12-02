@@ -517,7 +517,7 @@ export class Camera extends CameraState {
         }
 
         // Interpolate clip rectangle
-        this.clipped = true;
+        this.clipped = initialState.clipped || finalState.clipped;
         const scale = this.scale;
         const clipDefaults = {
             clipXOffset: 0,
