@@ -272,14 +272,12 @@ export class Storage {
 
         this.controller.onLoad();
 
-        if (this.controller.preferences.saveMode !== "manual") {
-            const svgName           = this.backend.getName(this.svgFileDescriptor);
-            const htmlFileName      = replaceFileExtWith(svgName, ".sozi.html");
-            const presenterFileName = replaceFileExtWith(svgName, "-presenter.sozi.html");
-            // TODO Save only if SVG is more recent than HTML.
-            this.createHTMLFile(htmlFileName, location);
-            this.createPresenterHTMLFile(presenterFileName, location, htmlFileName);
-        }
+        const svgName           = this.backend.getName(this.svgFileDescriptor);
+        const htmlFileName      = replaceFileExtWith(svgName, ".sozi.html");
+        const presenterFileName = replaceFileExtWith(svgName, "-presenter.sozi.html");
+        // TODO Save only if SVG is more recent than HTML.
+        this.createHTMLFile(htmlFileName, location);
+        this.createPresenterHTMLFile(presenterFileName, location, htmlFileName);
     }
 
     /** Create the presentation HTML file if it does not exist.
@@ -291,7 +289,9 @@ export class Storage {
         let fileDescriptor;
         try {
             fileDescriptor = await this.backend.find(name, location);
-            this.backend.save(fileDescriptor, this.exportHTML());
+            if (this.controller.preferences.saveMode !== "manual") {
+                this.backend.save(fileDescriptor, this.exportHTML());
+            }
         }
         catch (err) {
             fileDescriptor = await this.backend.create(name, location, "text/html", this.exportHTML());
