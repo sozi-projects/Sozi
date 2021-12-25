@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
+"POT-Creation-Date: 2021-12-25 02:21:+0000\n"
 "PO-Revision-Date: 2021-05-14 13:32+0000\n"
 "Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/sozi/"
@@ -21,11 +21,13 @@ msgstr ""
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 
 #: src/js/Controller.js:234
-msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
+#, fuzzy
+msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
 msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Error"
 
 #: src/js/Controller.js:235
-msgid "<i class=\"fas fa-info-circle\"></i> Information"
+#, fuzzy
+msgid "<i class=\"fa fa-info-circle\"></i> Information"
 msgstr "<i class=\"fas fa-info-circle\"></i> Informació"
 
 #: src/js/Controller.js:359
@@ -109,8 +111,9 @@ msgid "Could not read file %s."
 msgstr ""
 
 #: src/js/backend/FileReader.js:23
+#, fuzzy
 msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
 "Obriu un fitxer SVG del vostre ordinador (<i class=\"fas fa-exclamation-"

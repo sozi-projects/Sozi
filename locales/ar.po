@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
+"POT-Creation-Date: 2021-12-25 02:21:+0000\n"
 "PO-Revision-Date: 2021-05-14 13:32+0000\n"
 "Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/sozi/translations/"
@@ -23,12 +23,13 @@ msgstr ""
 
 #: src/js/Controller.js:234
 #, fuzzy
-msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
+msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
 msgstr "افتح ملف SVG من الحاسوب (الملف للقراءة فقط)"
 
 #: src/js/Controller.js:235
-msgid "<i class=\"fas fa-info-circle\"></i> Information"
-msgstr ""
+#, fuzzy
+msgid "<i class=\"fa fa-info-circle\"></i> Information"
+msgstr "افتح ملف SVG من الحاسوب (الملف للقراءة فقط)"
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
@@ -112,8 +113,9 @@ msgid "Could not read file %s."
 msgstr ""
 
 #: src/js/backend/FileReader.js:23
+#, fuzzy
 msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr "افتح ملف SVG من الحاسوب (الملف للقراءة فقط)"
 

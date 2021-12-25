@@ -231,8 +231,8 @@ export class Controller extends EventEmitter {
         }
 
         msg.querySelector(".title").innerHTML =
-            severity === "error" ? _('<i class="fas fa-exclamation-triangle"></i> Error')
-                                 : _('<i class="fas fa-info-circle"></i> Information');
+            severity === "error" ? _('<i class="fa fa-exclamation-triangle"></i> Error')
+                                 : _('<i class="fa fa-info-circle"></i> Information');
 
         msg.querySelector(".body").innerHTML  += `<div>${body}</div>`;
         msg.classList.add("visible", severity);

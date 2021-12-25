@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
+"POT-Creation-Date: 2021-12-25 02:21:+0000\n"
 "PO-Revision-Date: 2018-03-10 16:13+0100\n"
 "Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
 "Language-Team: Galician <gl@li.org>\n"
@@ -20,14 +20,17 @@ msgstr ""
 
 #: src/js/Controller.js:234
 #, fuzzy
-msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
+msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
 msgstr ""
 "Cargar un ficheiro local (<i class=\"fas fa-exclamation-triangle\"></i> só "
 "para lectura)"
 
 #: src/js/Controller.js:235
-msgid "<i class=\"fas fa-info-circle\"></i> Information"
+#, fuzzy
+msgid "<i class=\"fa fa-info-circle\"></i> Information"
 msgstr ""
+"Cargar un ficheiro local (<i class=\"fas fa-exclamation-triangle\"></i> só "
+"para lectura)"
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
@@ -114,7 +117,7 @@ msgstr ""
 #: src/js/backend/FileReader.js:23
 #, fuzzy
 msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
 "Cargar un ficheiro local (<i class=\"fas fa-exclamation-triangle\"></i> só "

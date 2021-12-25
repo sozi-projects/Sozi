@@ -186,13 +186,13 @@ export class Timeline extends VirtualDOMView {
                                 title: _("Delete the selected frames"),
                                 disabled: this.selection.selectedFrames.length ? undefined : "disabled",
                                 onclick() { controller.deleteFrames(); }
-                            }, h("i.fas.fa-trash"))
+                            }, h("i.fa.fa-trash"))
                         ]),
                         h("th", [
                             h("button", {
                                 title: _("Create a new frame"),
                                 onclick() { controller.addFrame(); }
-                            }, h("i.fas.fa-plus"))
+                            }, h("i.fa.fa-plus"))
                         ]),
                     ]),
                     h("tr", [
@@ -224,15 +224,15 @@ export class Timeline extends VirtualDOMView {
                     controller.hasDefaultLayer ? h("tr", [
                         h("th.layer-icons", [
                             defaultLayersAreVisible ?
-                                h("i.visibility.far.fa-eye", {
+                                h("i.visibility.fa.fa-eye", {
                                     title: _("This layer is visible. Click to hide it."),
                                     onclick: evt => this.toggleLayerVisibility(-1, evt)
                                 }) :
-                                h("i.visibility.far.fa-eye-slash", {
+                                h("i.visibility.fa.fa-eye-slash", {
                                     title: _("This layer is hidden. Click to show it."),
                                     onclick: evt => this.toggleLayerVisibility(-1, evt)
                                 }),
-                            h("i.remove.fas.fa-times", {style: {visibility: "hidden"}})
+                            h("i.remove.fa.fa-times", {style: {visibility: "hidden"}})
                         ]),
                         h("th", {
                             className: "layer-label" + (controller.defaultLayersAreSelected ? " selected" : ""),
@@ -244,15 +244,15 @@ export class Timeline extends VirtualDOMView {
                         .map(layer => h("tr", [
                                 h("th.layer-icons", [
                                     layer.isVisible ?
-                                        h("i.visibility.far.fa-eye", {
+                                        h("i.visibility.fa.fa-eye", {
                                             title: _("This layer is visible. Click to hide it."),
                                             onclick: evt => this.toggleLayerVisibility(layer.index, evt)
                                         }) :
-                                        h("i.visibility.far.fa-eye-slash", {
+                                        h("i.visibility.fa.fa-eye-slash", {
                                             title: _("This layer is hidden. Click to show it."),
                                             onclick: evt => this.toggleLayerVisibility(layer.index, evt)
                                         }),
-                                    h("i.remove.fas.fa-times", {
+                                    h("i.remove.fa.fa-times", {
                                         title: _("Remove this layer"),
                                         onclick: () => controller.removeLayer(layer.index)
                                     })
@@ -277,14 +277,14 @@ export class Timeline extends VirtualDOMView {
                                 (frame === this.selection.currentFrame ? " current" : ""),
                             onclick: evt => this.updateFrameSelection(frameIndex, evt)
                         }, [
-                            h("i.insert-before.fas.fa-arrow-circle-down", {
+                            h("i.insert-before.fa.fa-arrow-circle-down", {
                                 title: Jed.sprintf(_("Insert selection before frame %d"), frameIndex + 1),
                                 onclick(evt) {
                                     controller.moveFrames(frameIndex);
                                     evt.stopPropagation();
                                 }
                             }),
-                            h("i.insert-after.fas.fa-arrow-circle-down", {
+                            h("i.insert-after.fa.fa-arrow-circle-down", {
                                 title: Jed.sprintf(_("Insert selection after frame %d"), frameIndex + 1),
                                 onclick(evt) {
                                     controller.moveFrames(frameIndex + 1);
@@ -320,7 +320,7 @@ export class Timeline extends VirtualDOMView {
                                 (isLinked(frame, controller.defaultLayers[0]) ? " link" : "") +
                                 (updateEven(frame, controller.defaultLayers[0]) ? " even" : " odd"),
                             onclick: evt => this.updateLayerAndFrameSelection(-1, frameIndex, evt)
-                        }, hasNoReferenceElement(frame, controller.defaultLayers[0]) ? h("i.fas.fa-exclamation-triangle", {title: _("You should add graphic elements in the current area to help Sozi keep track of this layer's position.")}) : null))
+                        }, hasNoReferenceElement(frame, controller.defaultLayers[0]) ? h("i.fa.fa-exclamation-triangle", {title: _("You should add graphic elements in the current area to help Sozi keep track of this layer's position.")}) : null))
                     ) : null,
                     this.presentation.layers.slice().reverse()
                         .filter(layer => controller.editableLayers.indexOf(layer) >= 0)
@@ -332,7 +332,7 @@ export class Timeline extends VirtualDOMView {
                                     (isLinked(frame, layer) ? " link" : "") +
                                     (updateEven(frame, layer) ? " even" : " odd"),
                                 onclick: evt => this.updateLayerAndFrameSelection(layer.index, frameIndex, evt)
-                            }, hasNoReferenceElement(frame, layer) ? h("i.fas.fa-exclamation-triangle", {title: _("You should add graphic elements in the current area to help Sozi keep track of this layer's position.")}) : null)
+                            }, hasNoReferenceElement(frame, layer) ? h("i.fa.fa-exclamation-triangle", {title: _("You should add graphic elements in the current area to help Sozi keep track of this layer's position.")}) : null)
                         ))),
                     h("tr.collapse",
                         this.presentation.frames.map(frame => h("td", frame.title))

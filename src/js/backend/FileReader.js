@@ -20,7 +20,7 @@ export class FileReaderBackend extends AbstractBackend {
     constructor(controller, container) {
         const _ = controller.gettext;
 
-        super(controller, container, "sozi-editor-backend-FileReader-input", _('Open an SVG file from your computer (<i class="fas fa-exclamation-triangle"></i> read-only)'));
+        super(controller, container, "sozi-editor-backend-FileReader-input", _('Open an SVG file from your computer (<i class="fa fa-exclamation-triangle"></i> read-only)'));
 
         document.getElementById("sozi-editor-backend-FileReader-input").addEventListener("click", () => this.openFileChooser());
 

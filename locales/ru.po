@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
+"POT-Creation-Date: 2021-12-25 02:21:+0000\n"
 "PO-Revision-Date: 2019-08-01 05:13+0000\n"
 "Last-Translator: Schwonder Reismus <schw0reismus@protonmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/sozi/"
@@ -23,14 +23,17 @@ msgstr ""
 
 #: src/js/Controller.js:234
 #, fuzzy
-msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
+msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
 msgstr ""
 "Откройте SVG файл на Вашем компьютере (<i class=\"fas fa-exclamation-triangle"
 "\"></i> read-only)"
 
 #: src/js/Controller.js:235
-msgid "<i class=\"fas fa-info-circle\"></i> Information"
+#, fuzzy
+msgid "<i class=\"fa fa-info-circle\"></i> Information"
 msgstr ""
+"Откройте SVG файл на Вашем компьютере (<i class=\"fas fa-exclamation-triangle"
+"\"></i> read-only)"
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
@@ -114,8 +117,9 @@ msgid "Could not read file %s."
 msgstr ""
 
 #: src/js/backend/FileReader.js:23
+#, fuzzy
 msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
 "Откройте SVG файл на Вашем компьютере (<i class=\"fas fa-exclamation-triangle"

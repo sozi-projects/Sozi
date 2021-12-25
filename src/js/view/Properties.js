@@ -115,7 +115,7 @@ export class Properties extends VirtualDOMView {
             h("div.back", {
                 title: _("Back to presentation properties"),
                 onClick() { toDefaultMode(); }
-            }, h("i.fas.fa-arrow-left", )),
+            }, h("i.fa.fa-arrow-left", )),
 
             h("h1", _("User interface")),
 
@@ -127,7 +127,7 @@ export class Properties extends VirtualDOMView {
 
             h("label.side-by-side", {for: "field-enableNotifications"}, [
                 _("Enable notifications on save and reload"),
-                this.renderToggleField(h("i.far.fa-check-square"), _("Enable notifications"), "enableNotifications", controller.getPreference, controller.setPreference)
+                this.renderToggleField(h("i.fa.fa-info"), _("Enable notifications"), "enableNotifications", controller.getPreference, controller.setPreference)
             ]),
 
             h("label", {for: "field-saveMode"}, _("Save the presentation")),
@@ -146,7 +146,7 @@ export class Properties extends VirtualDOMView {
             h("h1", _("Behavior")),
             h("label.side-by-side", {for: "field-animateTransitions"}, [
                 _("Preview transition animations"),
-                this.renderToggleField(h("i.far.fa-check-square"), _("Enable animated transitions"), "animateTransitions", controller.getPreference, controller.setPreference)
+                this.renderToggleField(h("i.fa.fa-film"), _("Enable animated transitions"), "animateTransitions", controller.getPreference, controller.setPreference)
             ]),
 
             h("h1", _("Keyboard shortcuts")),
@@ -194,8 +194,8 @@ export class Properties extends VirtualDOMView {
             h("h1", _("Frame")),
 
             h("div.btn-group", [
-                    this.renderToggleField(h("i.fas.fa-list"), _("Show in frame list"), "showInFrameList", controller.getFrameProperty, controller.setFrameProperty),
-                    this.renderToggleField(h("i.fas.fa-hashtag"), _("Show frame number"), "showFrameNumber", controller.getFrameProperty, controller.setFrameProperty)
+                    this.renderToggleField(h("i.fa.fa-list"), _("Show in frame list"), "showInFrameList", controller.getFrameProperty, controller.setFrameProperty),
+                    this.renderToggleField(h("i.fa.fa-hashtag"), _("Show frame number"), "showFrameNumber", controller.getFrameProperty, controller.setFrameProperty)
             ]),
 
             h("label", {for: "field-title"}, _("Title")),
@@ -209,19 +209,19 @@ export class Properties extends VirtualDOMView {
 
             h("label.side-by-side", {for: "field-timeoutMs"}, [
                 _("Timeout (seconds)"),
-                this.renderToggleField(h("i.far.fa-clock"), _("Timeout enable"), "timeoutEnable", controller.getFrameProperty, controller.setFrameProperty)
+                this.renderToggleField(h("i.fa.fa-clock-o"), _("Timeout enable"), "timeoutEnable", controller.getFrameProperty, controller.setFrameProperty)
             ]),
             this.renderNumberField("timeoutMs", timeoutMsDisabled, controller.getFrameProperty, controller.setFrameProperty, false, 0.1, 1000),
 
             h("h1", _("Layer")),
 
             h("div.btn-group", [
-                this.renderToggleField(h("i.fas.fa-link"), _("Link to previous frame"), "link", controller.getLayerProperty, controller.setLayerProperty),
-                this.renderToggleField(h("i.fas.fa-crop"), _("Clip"), "clipped", controller.getCameraProperty, controller.setCameraProperty),
+                this.renderToggleField(h("i.fa.fa-link"), _("Link to previous frame"), "link", controller.getLayerProperty, controller.setLayerProperty),
+                this.renderToggleField(h("i.fa.fa-crop"), _("Clip"), "clipped", controller.getCameraProperty, controller.setCameraProperty),
                 h("button", {
                     title: _("Reset layer geometry"),
                     onclick() { controller.resetLayer(); }
-                }, h("i.fas.fa-eraser"))
+                }, h("i.fa.fa-eraser"))
             ]),
 
             h("label", {for: "field-layerToCopy"}, _("Copy layer")),
@@ -236,12 +236,12 @@ export class Properties extends VirtualDOMView {
                     h("button", {
                         title: _("Autoselect element"),
                         onclick() { controller.autoselectOutlineElement(); }
-                    }, h("i.fas.fa-magic")),
-                    this.renderToggleField(h("i.far.fa-eye-slash"), _("Hide element"), "outlineElementHide", controller.getLayerProperty, controller.setLayerProperty),
+                    }, h("i.fa.fa-magic")),
+                    this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide element"), "outlineElementHide", controller.getLayerProperty, controller.setLayerProperty),
                     h("button", {
                         title: _("Fit to element"),
                         onclick() { controller.fitElement(); }
-                    }, h("i.fas.fa-arrows-alt")),
+                    }, h("i.fa.fa-arrows-alt")),
                 ])
             ]),
             this.renderTextField("outlineElementId", false, controller.getLayerProperty, controller.setLayerProperty, true),
@@ -271,7 +271,7 @@ export class Properties extends VirtualDOMView {
 
             h("label.side-by-side", {for: "field-transitionPathId"}, [
                 _("Path Id"),
-                this.renderToggleField(h("i.far.fa-eye-slash"), _("Hide path"), "transitionPathHide", controller.getLayerProperty, controller.setLayerProperty)
+                this.renderToggleField(h("i.fa.fa-eye-slash"), _("Hide path"), "transitionPathHide", controller.getLayerProperty, controller.setLayerProperty)
             ]),
             this.renderTextField("transitionPathId", false, controller.getLayerProperty, controller.setLayerProperty, true),
 
@@ -300,7 +300,7 @@ export class Properties extends VirtualDOMView {
                                 // Open the file chooser.
                                 document.querySelector(".properties input.custom-css-js").dispatchEvent(new MouseEvent("click"));
                             }
-                        }, h("i.fas.fa-plus"))
+                        }, h("i.fa.fa-plus"))
                     ])
                 ]),
                 controller.getCustomFiles().map((name, index) =>
@@ -310,7 +310,7 @@ export class Properties extends VirtualDOMView {
                             h("button", {
                                 title: _("Remove this file"),
                                 onClick() { controller.removeCustomFile(index); }
-                            }, h("i.fas.fa-trash"))
+                            }, h("i.fa.fa-trash"))
                         ])
                     ])
                 )
@@ -320,35 +320,35 @@ export class Properties extends VirtualDOMView {
 
             h("div.side-by-side", [
                 _("Support the browser's \"Back\" button to move to the previous frame"),
-                this.renderToggleField(h("i.fas.fa-arrow-circle-left"), _("Moving from one frame to another will change the content of the location bar automatically."), "updateURLOnFrameChange", controller.getPresentationProperty, controller.setPresentationProperty)
+                this.renderToggleField(h("i.fa.fa-arrow-circle-left"), _("Moving from one frame to another will change the content of the location bar automatically."), "updateURLOnFrameChange", controller.getPresentationProperty, controller.setPresentationProperty)
             ]),
 
             h("div.side-by-side", [
                 _("Allow to control the presentation"),
                 h("span.btn-group", [
-                    this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseNavigation", controller.getPresentationProperty, controller.setPresentationProperty),
-                    this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardNavigation", controller.getPresentationProperty, controller.setPresentationProperty)
+                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseNavigation", controller.getPresentationProperty, controller.setPresentationProperty),
+                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardNavigation", controller.getPresentationProperty, controller.setPresentationProperty)
                 ])
             ]),
 
             h("div.side-by-side", [
                 _("Allow to move the camera"),
-                this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseTranslation", controller.getPresentationProperty, controller.setPresentationProperty)
+                this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseTranslation", controller.getPresentationProperty, controller.setPresentationProperty)
             ]),
 
             h("div.side-by-side", [
                 _("Allow to rotate the camera"),
                 h("span.btn-group", [
-                    this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseRotation", controller.getPresentationProperty, controller.setPresentationProperty),
-                    this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardRotation", controller.getPresentationProperty, controller.setPresentationProperty)
+                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseRotation", controller.getPresentationProperty, controller.setPresentationProperty),
+                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardRotation", controller.getPresentationProperty, controller.setPresentationProperty)
                 ])
             ]),
 
             h("div.side-by-side", [
                 _("Allow to zoom"),
                 h("span.btn-group", [
-                    this.renderToggleField(h("i.fas.fa-mouse-pointer"), _("using the mouse"), "enableMouseZoom", controller.getPresentationProperty, controller.setPresentationProperty),
-                    this.renderToggleField(h("i.fas.fa-keyboard"), _("using the keyboard"), "enableKeyboardZoom", controller.getPresentationProperty, controller.setPresentationProperty)
+                    this.renderToggleField(h("i.fa.fa-mouse-pointer"), _("using the mouse"), "enableMouseZoom", controller.getPresentationProperty, controller.setPresentationProperty),
+                    this.renderToggleField(h("i.fa.fa-keyboard-o"), _("using the keyboard"), "enableKeyboardZoom", controller.getPresentationProperty, controller.setPresentationProperty)
                 ])
             ])
         ]);
@@ -404,7 +404,7 @@ export class Properties extends VirtualDOMView {
             h("div.back", {
                 title: _("Back to presentation properties"),
                 onClick() { toDefaultMode(); }
-            }, h("i.fas.fa-arrow-left", )),
+            }, h("i.fa.fa-arrow-left", )),
 
             h("h1", _("Export")),
 
@@ -546,7 +546,7 @@ export class Properties extends VirtualDOMView {
      * @returns {VNode} - A virtual DOM tree.
      */
     renderHelp(text, onclick) {
-        return h("span.help", {title: text, onclick}, h("i.fas.fa-question-circle"));
+        return h("span.help", {title: text, onclick}, h("i.fa.fa-question-circle"));
     }
 
     /** Create a text input field.

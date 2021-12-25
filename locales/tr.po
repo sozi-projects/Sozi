@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
+"POT-Creation-Date: 2021-12-25 02:21:+0000\n"
 "PO-Revision-Date: 2021-05-15 17:32+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/sozi/"
@@ -14,11 +14,13 @@ msgstr ""
 "X-Generator: Weblate 4.7-dev\n"
 
 #: src/js/Controller.js:234
-msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
+#, fuzzy
+msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
 msgstr "Hata: <i class=\"fas fa-exclamation-triangle\"></i>"
 
 #: src/js/Controller.js:235
-msgid "<i class=\"fas fa-info-circle\"></i> Information"
+#, fuzzy
+msgid "<i class=\"fa fa-info-circle\"></i> Information"
 msgstr "Bilgi: <i class=\"fas fa-info-circle\"></i>"
 
 #: src/js/Controller.js:359
@@ -102,8 +104,9 @@ msgid "Could not read file %s."
 msgstr "%s dosyası okunamadı."
 
 #: src/js/backend/FileReader.js:23
+#, fuzzy
 msgid ""
-"Open an SVG file from your computer (<i class=\"fas fa-exclamation-triangle"
+"Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
 "Bilgisayarınız üzerinden bir SVG dosyası açın (<i class=\"fas fa-exclamation-"
