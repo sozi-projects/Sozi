@@ -514,9 +514,9 @@ export class PlayerController extends EventEmitter{
      * @fires module:player/PlayerController.zoom
      */
     zoom(factor, x, y) {
-        this.emit("zoom", {factor, x, y});
         this.player.pause();
         this.viewport.zoom(factor, x, y);
+        this.emit("zoom", {factor, x, y});
     }
 
     /** Helper for rotation.
@@ -526,9 +526,9 @@ export class PlayerController extends EventEmitter{
      * @fires module:player/PlayerController.rotate
      */
     rotate(angle) {
-        this.emit("rotate", angle);
         this.player.pause();
         this.viewport.rotate(angle);
+        this.emit("rotate", angle);
     }
 
     /** helper for translation by x and y offset.
@@ -539,8 +539,8 @@ export class PlayerController extends EventEmitter{
      * @fires module:player/PlayerController.translate
      */
      translate(deltaX, deltaY) {
-        this.emit("translate", {deltaX, deltaY});
         this.viewport.translate(deltaX, deltaY);
+        this.emit("translate", {deltaX, deltaY});
     }
 
     /** Process a right-click in the associated viewport.
