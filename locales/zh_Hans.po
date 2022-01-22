@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2021-11-28 09:05:+0000\n"
-"PO-Revision-Date: 2021-01-09 05:32+0000\n"
-"Last-Translator: Eric <spice2wolf@gmail.com>\n"
+"PO-Revision-Date: 2022-01-23 17:53+0000\n"
+"Last-Translator: poi <erbaotao@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "sozi/translations/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.11-dev\n"
 
 #: src/js/Controller.js:234
 msgid "<i class=\"fas fa-exclamation-triangle\"></i> Error"
@@ -31,27 +31,27 @@ msgstr "文档已修改。"
 
 #: src/js/Controller.js:1741
 msgid "Presentation was exported to PDF."
-msgstr ""
+msgstr "演示文稿已导出为 PDF。"
 
 #: src/js/Controller.js:1744
 msgid "Failed to write PDF file."
-msgstr ""
+msgstr "无法写入 PDF 文件。"
 
 #: src/js/Controller.js:1757
 msgid "Presentation was exported to PPTX."
-msgstr ""
+msgstr "演示文稿已导出为 PPTX。"
 
 #: src/js/Controller.js:1760
 msgid "Failed to write PPTX file."
-msgstr ""
+msgstr "无法写入 PPTX 文件。"
 
 #: src/js/Controller.js:1773
 msgid "Presentation was exported to video."
-msgstr ""
+msgstr "演示文稿已导出成视频。"
 
 #: src/js/Controller.js:1776
 msgid "Failed to write video file."
-msgstr ""
+msgstr "无法写入视频文件。"
 
 #: src/js/Storage.js:203
 msgid "Document is not valid SVG."
@@ -95,7 +95,7 @@ msgstr "SVG 文件"
 
 #: src/js/backend/Electron.js:199
 msgid "This file will not be reloaded on change: %s."
-msgstr ""
+msgstr "更改后，将不会重新加载此文件：％s。"
 
 #: src/js/backend/Electron.js:215
 msgid "Could not read file %s."
@@ -165,7 +165,7 @@ msgstr "用户界面"
 
 #: src/js/view/Properties.js:122
 msgid "Language"
-msgstr ""
+msgstr "语言"
 
 #: src/js/view/Properties.js:125
 msgid "Font size"
@@ -495,7 +495,7 @@ msgstr ""
 
 #: src/js/view/Properties.js:415
 msgid "Video"
-msgstr ""
+msgstr "视频"
 
 #: src/js/view/Properties.js:422 src/js/view/Toolbar.js:149
 msgid "Export the presentation"
@@ -503,31 +503,31 @@ msgstr "导出演示文稿"
 
 #: src/js/view/Properties.js:439
 msgid "Page size"
-msgstr ""
+msgstr "页面大小"
 
 #: src/js/view/Properties.js:441 src/js/view/Properties.js:480
 msgid "A3"
-msgstr ""
+msgstr "A3"
 
 #: src/js/view/Properties.js:442 src/js/view/Properties.js:481
 msgid "A4"
-msgstr ""
+msgstr "A4"
 
 #: src/js/view/Properties.js:443
 msgid "A5"
-msgstr ""
+msgstr "A5"
 
 #: src/js/view/Properties.js:444
 msgid "Legal"
-msgstr ""
+msgstr "Legal （216 mm × 356 mm）"
 
 #: src/js/view/Properties.js:445 src/js/view/Properties.js:489
 msgid "Letter"
-msgstr ""
+msgstr "Letter（216 mm × 279 mm）"
 
 #: src/js/view/Properties.js:446 src/js/view/Properties.js:488
 msgid "Tabloid"
-msgstr ""
+msgstr "Tabloid（279 mm × 432 mm）"
 
 #: src/js/view/Properties.js:449
 msgid "Page orientation"
@@ -535,11 +535,11 @@ msgstr "页面方向"
 
 #: src/js/view/Properties.js:451
 msgid "Landscape"
-msgstr ""
+msgstr "横向"
 
 #: src/js/view/Properties.js:452
 msgid "Portrait"
-msgstr ""
+msgstr "竖向"
 
 #: src/js/view/Properties.js:456 src/js/view/Properties.js:497
 msgid "List of frames to include"
@@ -548,7 +548,7 @@ msgstr ""
 #: src/js/view/Properties.js:457 src/js/view/Properties.js:463
 #: src/js/view/Properties.js:498 src/js/view/Properties.js:504
 msgid "Click here to see the syntax for this field"
-msgstr ""
+msgstr "点击此处，查看此栏语法"
 
 #: src/js/view/Properties.js:462 src/js/view/Properties.js:503
 msgid "List of frames to exclude"
@@ -556,35 +556,36 @@ msgstr ""
 
 #: src/js/view/Properties.js:477
 msgid "Slide size"
-msgstr ""
+msgstr "幻灯片大小"
 
 #: src/js/view/Properties.js:479
 msgid "35 mm"
-msgstr ""
+msgstr "35 mm"
 
 #: src/js/view/Properties.js:482
 msgid "B4 (ISO)"
-msgstr ""
+msgstr "B4 （ISO）"
 
 #: src/js/view/Properties.js:483
 msgid "B4 (JIS)"
-msgstr ""
+msgstr "B4（JIS）"
 
 #: src/js/view/Properties.js:484
 msgid "B5 (ISO)"
-msgstr ""
+msgstr "B5（ISO）"
 
 #: src/js/view/Properties.js:485
 msgid "B5 (JIS)"
-msgstr ""
+msgstr "B5（JIS）"
 
 #: src/js/view/Properties.js:486
 msgid "Banner"
-msgstr ""
+msgstr "横幅"
 
 #: src/js/view/Properties.js:487
+#, fuzzy
 msgid "Hagaki Card"
-msgstr ""
+msgstr "Hagaki Card（100 mm x 148 mm）"
 
 #: src/js/view/Properties.js:490
 msgid "Overhead"
@@ -592,55 +593,55 @@ msgstr ""
 
 #: src/js/view/Properties.js:491
 msgid "Screen 16:10"
-msgstr ""
+msgstr "16 : 10 屏幕"
 
 #: src/js/view/Properties.js:492
 msgid "Screen 16:9"
-msgstr ""
+msgstr "16 : 9 屏幕"
 
 #: src/js/view/Properties.js:493
 msgid "Screen 4:3"
-msgstr ""
+msgstr "4 : 3 屏幕"
 
 #: src/js/view/Properties.js:519
 msgid "Format"
-msgstr ""
+msgstr "格式"
 
 #: src/js/view/Properties.js:521
 msgid "MPEG-4 (.mp4)"
-msgstr ""
+msgstr "MPEG-4（.mp4）"
 
 #: src/js/view/Properties.js:522
 msgid "Ogg Vorbis (.ogv)"
-msgstr ""
+msgstr "Ogg Vorbis（.ogv）"
 
 #: src/js/view/Properties.js:523
 msgid "WebM (.webm)"
-msgstr ""
+msgstr "WebM（.webm）"
 
 #: src/js/view/Properties.js:524
 msgid "Windows Media Video (.wmv)"
-msgstr ""
+msgstr "Windows Media Video（.wmv）"
 
 #: src/js/view/Properties.js:525
 msgid "Image sequence (.png)"
-msgstr ""
+msgstr "Image sequence（.png）"
 
 #: src/js/view/Properties.js:528
 msgid "Width (pixels)"
-msgstr ""
+msgstr "宽度（像素）"
 
 #: src/js/view/Properties.js:531
 msgid "Height (pixels)"
-msgstr ""
+msgstr "高度（像素）"
 
 #: src/js/view/Properties.js:534
 msgid "Frame rate (frames/sec)"
-msgstr ""
+msgstr "帧率（帧 / 秒）"
 
 #: src/js/view/Properties.js:537
 msgid "Bit rate (kbits/sec)"
-msgstr ""
+msgstr "比特率（kbits / 秒）"
 
 #: src/js/view/Timeline.js:186
 msgid "Delete the selected frames"
@@ -721,7 +722,7 @@ msgstr "信息提示"
 
 #: src/js/view/languages.js:17
 msgid "System language"
-msgstr ""
+msgstr "系统语言"
 
 #, fuzzy
 #~ msgid "Export the presentation to PDF"
