@@ -348,7 +348,7 @@ msgstr "Durée (secondes)"
 
 #: src/js/view/Properties.js:257
 msgid "Timing function"
-msgstr "Fonction de progression du temps"
+msgstr "Fonction de progression"
 
 #: src/js/view/Properties.js:259
 msgid "Linear"
