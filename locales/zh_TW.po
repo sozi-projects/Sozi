@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2021-05-14 13:32+0000\n"
+"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
+"PO-Revision-Date: 2022-01-24 10:55+0000\n"
 "Last-Translator: 麋悟BigELK176 <bigelk176@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "sozi/translations/zh_Hant/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.11-dev\n"
 "X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
 
 #: src/js/Controller.js:234
@@ -165,9 +165,8 @@ msgid "Toggle the developer tools"
 msgstr "切換開發者模式"
 
 #: src/js/view/Properties.js:116 src/js/view/Properties.js:405
-#, fuzzy
 msgid "Back to presentation properties"
-msgstr "儲存簡報"
+msgstr "返回簡報屬性"
 
 #: src/js/view/Properties.js:120
 msgid "User interface"

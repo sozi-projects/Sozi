@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2020-05-25 15:41+0000\n"
+"POT-Creation-Date: 2021-11-28 09:05:+0000\n"
+"PO-Revision-Date: 2022-01-23 17:53+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/sozi/"
 "translations/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.11-dev\n"
 "X-Launchpad-Export-Date: 2018-04-06 19:08+0000\n"
 
 #: src/js/Controller.js:234
@@ -40,27 +40,27 @@ msgstr "Se ha modificado el documento."
 
 #: src/js/Controller.js:1741
 msgid "Presentation was exported to PDF."
-msgstr "La presentación ha sido exportada a PDF."
+msgstr "Se ha exportado la presentación a PDF."
 
 #: src/js/Controller.js:1744
 msgid "Failed to write PDF file."
-msgstr "La escritura del archivo PDF ha fallado."
+msgstr "No se ha podido escribir el archivo PDF."
 
 #: src/js/Controller.js:1757
 msgid "Presentation was exported to PPTX."
-msgstr "La presentación ha sido exportada en formato PPTX."
+msgstr "Se ha exportado la presentación a PPTX."
 
 #: src/js/Controller.js:1760
 msgid "Failed to write PPTX file."
-msgstr "La escritura del archivo PPTX ha falldo."
+msgstr "No se ha podido escribir el archivo PPTX."
 
 #: src/js/Controller.js:1773
 msgid "Presentation was exported to video."
-msgstr "La presentación ha sido exportada como vídeo."
+msgstr "Se ha exportado la presentación como vídeo."
 
 #: src/js/Controller.js:1776
 msgid "Failed to write video file."
-msgstr "La escritura del archivo de vídeo ha fallado."
+msgstr "No se ha podido escribir el archivo de vídeo."
 
 #: src/js/Storage.js:203
 msgid "Document is not valid SVG."
@@ -72,15 +72,15 @@ msgstr "El documento se importó desde Sozi 13 o una versión anterior."
 
 #: src/js/Storage.js:354
 msgid "Saved %s."
-msgstr "%s guardado."
+msgstr "Se ha guardado %s."
 
 #: src/js/backend/Electron.js:49
 msgid "Open an SVG file from your computer"
-msgstr "Abrir archivo SVG desde tu computadora"
+msgstr "Abrir un archivo SVG en el equipo"
 
 #: src/js/backend/Electron.js:74
 msgid "Do you want to save the presentation before closing?"
-msgstr "¿Desea guardar la presentación antes de cerrar?"
+msgstr "¿Quiere guardar la presentación antes de cerrar?"
 
 #: src/js/backend/Electron.js:75
 msgid "Yes"
@@ -104,7 +104,7 @@ msgstr "Archivos SVG"
 
 #: src/js/backend/Electron.js:199
 msgid "This file will not be reloaded on change: %s."
-msgstr "Este archivo no se recargará después de haber sido modificado: %s."
+msgstr "Este archivo no se recargará después de haberse modificado: %s."
 
 #: src/js/backend/Electron.js:215
 msgid "Could not read file %s."
@@ -211,11 +211,11 @@ msgstr "Comportamiento"
 
 #: src/js/view/Properties.js:148
 msgid "Preview transition animations"
-msgstr "Vista previa de animaciones en transiciones"
+msgstr "Previsualización de animaciones en transiciones"
 
 #: src/js/view/Properties.js:149
 msgid "Enable animated transitions"
-msgstr "Habilitar transiciones animadas"
+msgstr "Activar transiciones animadas"
 
 #: src/js/view/Properties.js:152
 msgid "Keyboard shortcuts"
@@ -243,15 +243,15 @@ msgstr "Ctrl + 0: párrafo"
 
 #: src/js/view/Properties.js:173
 msgid "Ctrl+1: Big heading"
-msgstr "Control+1: Encabezado grande"
+msgstr "Ctrl + 1: título grande"
 
 #: src/js/view/Properties.js:174
 msgid "Ctrl+2: Medium heading"
-msgstr "Control+2: Encabezado mediano"
+msgstr "Ctrl + 2: título mediano"
 
 #: src/js/view/Properties.js:175
 msgid "Ctrl+3: Small heading"
-msgstr "Control+3: Encabezado pequeño"
+msgstr "Ctrl + 3: título pequeño"
 
 #: src/js/view/Properties.js:176
 msgid "Ctrl+L: List"
@@ -389,7 +389,7 @@ msgstr "Paso intermedio"
 
 #: src/js/view/Properties.js:269
 msgid "Relative zoom (%)"
-msgstr "Zoom relativo (%)"
+msgstr "Escala relativa (%)"
 
 #: src/js/view/Properties.js:273
 msgid "Path Id"
@@ -412,7 +412,7 @@ msgstr ""
 
 #: src/js/view/Properties.js:282
 msgid "Custom stylesheets and scripts"
-msgstr "Hojas de estilo y scripts personalizados"
+msgstr "Hojas de estilo y secuencias personalizadas"
 
 #: src/js/view/Properties.js:295
 msgid "CSS or JS file names"
@@ -467,7 +467,7 @@ msgstr "Permitir mover la cámara"
 
 #: src/js/view/Properties.js:340
 msgid "Allow to rotate the camera"
-msgstr "Permitir rotar la cámara"
+msgstr "Permitir girar la cámara"
 
 #: src/js/view/Properties.js:348
 msgid "Allow to zoom"
@@ -503,7 +503,7 @@ msgstr "Tipo de documento"
 
 #: src/js/view/Properties.js:413
 msgid "Portable Document Format (PDF)"
-msgstr "Portable Document Format (PDF)"
+msgstr "Formato de documento portátil (PDF)"
 
 #: src/js/view/Properties.js:414
 msgid "Microsoft PowerPoint (PPTX)"
@@ -551,24 +551,24 @@ msgstr "Orientación de la página"
 
 #: src/js/view/Properties.js:451
 msgid "Landscape"
-msgstr "Paisaje"
+msgstr "Horizontal"
 
 #: src/js/view/Properties.js:452
 msgid "Portrait"
-msgstr "Retrato"
+msgstr "Vertical"
 
 #: src/js/view/Properties.js:456 src/js/view/Properties.js:497
 msgid "List of frames to include"
-msgstr "Lista de fotogramas a incluir"
+msgstr "Lista de fotogramas que incluir"
 
 #: src/js/view/Properties.js:457 src/js/view/Properties.js:463
 #: src/js/view/Properties.js:498 src/js/view/Properties.js:504
 msgid "Click here to see the syntax for this field"
-msgstr "Hacer click aquí para ver la sintaxis de este campo"
+msgstr "Pulse aquí para ver la sintaxis de este campo"
 
 #: src/js/view/Properties.js:462 src/js/view/Properties.js:503
 msgid "List of frames to exclude"
-msgstr "Lista de fotogramas a excluir"
+msgstr "Lista de fotogramas que excluir"
 
 #: src/js/view/Properties.js:477
 msgid "Slide size"
@@ -608,59 +608,59 @@ msgstr ""
 
 #: src/js/view/Properties.js:491
 msgid "Screen 16:10"
-msgstr ""
+msgstr "Pantalla 16∶10"
 
 #: src/js/view/Properties.js:492
 msgid "Screen 16:9"
-msgstr ""
+msgstr "Pantalla 16∶9"
 
 #: src/js/view/Properties.js:493
 msgid "Screen 4:3"
-msgstr ""
+msgstr "Pantalla 4∶3"
 
 #: src/js/view/Properties.js:519
 msgid "Format"
-msgstr ""
+msgstr "Formato"
 
 #: src/js/view/Properties.js:521
 msgid "MPEG-4 (.mp4)"
-msgstr ""
+msgstr "MPEG-4 (.mp4)"
 
 #: src/js/view/Properties.js:522
 msgid "Ogg Vorbis (.ogv)"
-msgstr ""
+msgstr "Ogg Vorbis (.ogv)"
 
 #: src/js/view/Properties.js:523
 msgid "WebM (.webm)"
-msgstr ""
+msgstr "WebM (.webm)"
 
 #: src/js/view/Properties.js:524
 msgid "Windows Media Video (.wmv)"
-msgstr ""
+msgstr "Vídeo de Windows Media (.wmv)"
 
 #: src/js/view/Properties.js:525
 msgid "Image sequence (.png)"
-msgstr ""
+msgstr "Secuencia de imágenes (.png)"
 
 #: src/js/view/Properties.js:528
 msgid "Width (pixels)"
-msgstr ""
+msgstr "Anchura (píxeles)"
 
 #: src/js/view/Properties.js:531
 msgid "Height (pixels)"
-msgstr "Altura (pixels)"
+msgstr "Altura (píxeles)"
 
 #: src/js/view/Properties.js:534
 msgid "Frame rate (frames/sec)"
-msgstr ""
+msgstr "Tasa de fotogramas (fotogramas/s)"
 
 #: src/js/view/Properties.js:537
 msgid "Bit rate (kbits/sec)"
-msgstr ""
+msgstr "Tasa de bits (kb/s)"
 
 #: src/js/view/Timeline.js:186
 msgid "Delete the selected frames"
-msgstr "Borrar los fotogramas seleccionados"
+msgstr "Eliminar los fotogramas seleccionados"
 
 #: src/js/view/Timeline.js:212
 msgid "Add layer"
@@ -700,27 +700,26 @@ msgstr ""
 
 #: src/js/view/Toolbar.js:63
 msgid "Aspect ratio: "
-msgstr "Proporción de tamaño: "
+msgstr "Proporción de aspecto: "
 
 #: src/js/view/Toolbar.js:96
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
-"Mover las capas seleccionadas (presione ALT para ampliar, MAYUS para rotar)"
+"Mover las capas seleccionadas (sostenga Alt para ampliar, Mayús para girar)"
 
 #: src/js/view/Toolbar.js:101
 msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
-"Acercar/alejar las capas seleccionadas (también puede presionar ALT en "
-"\"Modo mover\")"
+"Acercar/alejar las capas seleccionadas (también puede sostener Alt en modo "
+"Mover)"
 
 #: src/js/view/Toolbar.js:106
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
-"Rotar las capas seleccionadas (también puede presionar MAYÚS en \"Modo mover"
-"\")"
+"Girar las capas seleccionadas (también puede sostener Mayús en modo Mover)"
 
 #: src/js/view/Toolbar.js:111
 msgid "Edit the clipping area"
@@ -744,7 +743,7 @@ msgstr "Información"
 
 #: src/js/view/languages.js:17
 msgid "System language"
-msgstr ""
+msgstr "Idioma del sistema"
 
 #, fuzzy
 #~ msgid "Export the presentation to PDF"
