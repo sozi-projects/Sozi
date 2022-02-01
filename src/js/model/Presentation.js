@@ -648,6 +648,16 @@ export class Presentation extends EventEmitter {
          */
         this.document = null;
 
+        /** The title of this presentation.
+         *
+         * It is extracted automatically from the SVG document's <title> element
+         * if it exists.
+         *
+         * @default
+         * @type {string}
+         */
+        this.title = "Untitled";
+
         /** The sequence of frames in this presentation.
          *
          * @default
@@ -872,6 +882,11 @@ export class Presentation extends EventEmitter {
 
         this.layers.push(autoLayer);
 
+        // Extract the title of the document and remove the <title> element.
+        const svgTitle = this.document.root.querySelector("svg > title");
+        this.title = svgTitle ? svgTitle.firstChild.wholeText.trim() : "Untitled";
+        svgTitle.parentNode.removeChild(svgTitle);
+
         this.emit("svgChange");
     }
 
@@ -988,19 +1003,6 @@ export class Presentation extends EventEmitter {
         if (storable.customFiles) {
             this.customFiles = storable.customFiles.slice();
         }
-    }
-
-    /** The title of this presentation.
-     *
-     * This property is extracted from the `<title>` element of the SVG document.
-     * Its default value is `"Untitled"`.
-     *
-     * @readonly
-     * @type {string}
-     */
-    get title() {
-        const svgTitles = this.document.root.getElementsByTagNameNS(SVG_NS, "title");
-        return svgTitles.length ? svgTitles[0].firstChild.wholeText.trim() : "Untitled";
     }
 
     /** Create a new unique identifier for a frame in this presentation.
