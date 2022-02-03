@@ -885,7 +885,9 @@ export class Presentation extends EventEmitter {
         // Extract the title of the document and remove the <title> element.
         const svgTitle = this.document.root.querySelector("svg > title");
         this.title = svgTitle ? svgTitle.firstChild.wholeText.trim() : "Untitled";
-        svgTitle.parentNode.removeChild(svgTitle);
+        if (svgTitle) {
+            svgTitle.parentNode.removeChild(svgTitle);
+        }
 
         this.emit("svgChange");
     }
