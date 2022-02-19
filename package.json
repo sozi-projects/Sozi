@@ -34,7 +34,7 @@
     "browserify": "^17.0.0",
     "csslint": "^1.0.5",
     "electron": "^9.4.4",
-    "electron-packager": "^15.3.0",
+    "electron-builder": "^22.14.13",
     "envify": "^4.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-jsdoc": "^36.0.6",
@@ -53,9 +53,5 @@
     "po2json": "github:mikeedwards/po2json#1.0.0-beta-3",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
-  },
-  "optionalDependencies": {
-    "electron-installer-debian": "^3.1.0",
-    "electron-installer-redhat": "^3.3.0"
   }
 }

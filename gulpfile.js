@@ -336,13 +336,36 @@ exports.default       = electronBuildTask;
  * Package the desktop application.
  * -------------------------------------------------------------------------- */
 
-const packager = require("electron-packager");
+const distDir = "build/dist";
 
+const builder = require("electron-builder");
+const builderOpts = {
+    directories: {
+        app: "build/electron",
+        output: distDir
+    },
+    files: ["**/*"],
+    linux: {
+        desktop: {
+            StartupNotify: "false",
+            Encoding: "UTF-8",
+            MimeType: "image/svg+xml"
+        },
+        target: ["AppImage", "rpm", "deb"]
+    }
+};
+
+async function electronPackageTask() {
+    return builder.build({
+        targets: builder.Platform.LINUX.createTarget(),
+        config: builderOpts
+    });
+}
+/*
 const soziConfigName = "SOZI_CONFIG" in process.env ? process.env.SOZI_CONFIG : "sozi-default";
 const soziConfig = require(`./config/${soziConfigName}.json`);
 
 const packagingDir = "build/packaging";
-const distDir      = "build/dist";
 
 const platformRename = {
     linux: "linux",
@@ -481,6 +504,7 @@ const redhat = electronLinuxBuild && require("electron-installer-redhat");
 
 const redhatPackageOpts = {
     platform: "linux",
+    define: "_build_id_links none",
     ...linuxPackageOpts
 };
 
@@ -501,21 +525,21 @@ function makeElectronRedhatTasks() {
         })
     ) : dummyTask;
 }
-
+*/
 const electronDistTask = series(
     electronBuildTask,
-    electronPackageTask,
-    makeElectronPackageRenameTasks(),
-    parallel(
-        makeElectronFfmpegTasks(),
-        makeElectronFixLicenseTasks(),
-        makeElectronInstallScriptsTasks()
-    ),
-    parallel(
-        makeElectronDebianTasks(),
-        makeElectronRedhatTasks(),
-        makeElectronCompressTasks()
-    )
+    electronPackageTask//,
+    // makeElectronPackageRenameTasks(),
+    // parallel(
+    //     makeElectronFfmpegTasks(),
+    //     makeElectronFixLicenseTasks(),
+    //     makeElectronInstallScriptsTasks()
+    // ),
+    // parallel(
+    //     makeElectronDebianTasks(),
+    //     makeElectronRedhatTasks(),
+    //     makeElectronCompressTasks()
+    // )
 );
 
 exports.package = electronDistTask;

@@ -23,7 +23,7 @@ Clone the repository:
 Install the build tools and dependencies
 ----------------------------------------
 
-Install [Node.js](http://nodejs.org/) and the [Grunt](http://gruntjs.com/) CLI.
+Install [Node.js](http://nodejs.org/).
 The build script for Sozi is known to work with Node.js 11 from [Nodesource](https://github.com/nodesource/distributions).
 If you plan to build a Windows executable from Linux or OS X, also install *wine*.
 In Debian/Ubuntu and their derivatives, you can type the following commands.
