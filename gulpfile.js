@@ -339,6 +339,7 @@ exports.default       = electronBuildTask;
 const distDir = "build/dist";
 
 const builder = require("electron-builder");
+
 const builderOpts = {
     appId: "fr.baierouge.sozi",
     productName: "Sozi",
@@ -372,18 +373,30 @@ const builderOpts = {
         icon: "resources/icons/sozi.icns",
         category: "public.app-category.graphics-design"
     },
-    afterPack: async context => {
-        // In linux targets, electron-builder sets icon size to 0.
-        // See issue https://github.com/electron-userland/electron-builder/issues/5294
-        // Fix based on https://github.com/alephium/alephium-wallet/pull/41
-        for (const target of context.targets) {
-            if (target.packager.platform.name !== "linux") return;
-            target.helper.iconPromise.value = target.helper.iconPromise.value.then(
-                icons => icons.map(
-                    icon => ({...icon, size: icon.size === 0 ? 256 : icon.size})
-                )
-            );
-        }
+    afterPack(context) {
+        return Promise.all(context.targets.map(target => {
+            const platform = context.electronPlatformName;
+
+            // In linux targets, electron-builder sets icon size to 0.
+            // See issue https://github.com/electron-userland/electron-builder/issues/5294
+            // Fix based on https://github.com/alephium/alephium-wallet/pull/41
+            if (platform === "linux") {
+                target.helper.iconPromise.value = target.helper.iconPromise.value.then(
+                    icons => icons.map(
+                        icon => ({...icon, size: icon.size === 0 ? 256 : icon.size})
+                    )
+                );
+            }
+
+            // Copy FFMPEG to the current packaged application.
+            const arch       = builder.Arch[context.arch];
+            const ffmpegBin  = platform === "win32" ? "ffmpeg.exe" : "ffmpeg";
+            const ffmpegSrc  = `resources/ffmpeg/${platform}-${arch}/${ffmpegBin}`;
+            const ffmpegDest = platform === "darwin" ?
+                `${context.appOutDir}/Sozi.app/Contents/Resources/${ffmpegBin}` :
+                `${context.appOutDir}/resources/${ffmpegBin}`;
+            return fs.existsSync(ffmpegSrc) ? copyFile(ffmpegSrc, ffmpegDest) : false;
+        }));
     }
 };
 
@@ -408,171 +421,6 @@ function electronMacOSPackageTask() {
     });
 }
 
-/*
-const soziConfigName = "SOZI_CONFIG" in process.env ? process.env.SOZI_CONFIG : "sozi-default";
-const soziConfig = require(`./config/${soziConfigName}.json`);
-
-const packagingDir = "build/packaging";
-
-const platformRename = {
-    linux: "linux",
-    darwin: "osx",
-    win32: "windows"
-};
-
-const electronTargets = soziConfig.electronPackager.platform.map(platform =>
-    soziConfig.electronPackager.arch.map(arch => ({
-        platform,
-        arch,
-        epkgDir: `${packagingDir}/sozi-${platform}-${arch}`,
-        dir: `${packagingDir}/sozi-${soziVersion}-${platformRename[platform]}-${arch}`
-    }))).flat();
-
-const packagerOpts = {
-    dir: "build/electron",
-    out: packagingDir,
-    overwrite: true,
-    ...soziConfig.electronPackager
-};
-
-function electronPackageTask() {
-    return packager(packagerOpts);
-}
-
-function makeElectronPackageRenameTasks() {
-    return parallel(...electronTargets
-        .map(({epkgDir, dir}) => async function electronPackageRename() {
-            // We don't use makeRenameTask here because we want to
-            // rename each folder in place.
-            if (fs.existsSync(dir)) {
-                await rmdir(dir);
-            }
-            if (fs.existsSync(epkgDir)) {
-                await renameFile(epkgDir, dir);
-            }
-        })
-    );
-}
-
-function makeElectronFixLicenseTasks() {
-    return parallel(...electronTargets
-        .map(({dir}) => series(
-            makeRenameTask(`${dir}/LICENSE`, `${dir}/LICENSE.electron`),
-            makeCopyTask("LICENSE", dir)
-        ))
-    );
-}
-
-function makeElectronFfmpegTasks() {
-    return parallel(...electronTargets
-        .map(({platform, arch, dir}) => makeCopyTask(
-            `resources/ffmpeg/${platform}-${arch}/ffmpeg*`,
-            platform === "darwin" ?
-                `${dir}/sozi.app/Contents/Resources` :
-                `${dir}/resources`
-        ))
-    );
-}
-
-function makeElectronInstallScriptsTasks() {
-    return parallel(...electronTargets
-        .map(({platform, dir}) => makeCopyTask(
-            `resources/install/${platform}/*`,
-            `${dir}/install/`
-        ))
-    );
-}
-
-const zipFormat = {
-    linux: "tar.xz",
-    darwin: "tar.xz",
-    win32: "zip"
-};
-
-function makeElectronCompressTasks() {
-    const opts = {
-        cwd: packagingDir,
-        stdio: "ignore"
-    };
-    return parallel(...electronTargets
-        .map(({platform, arch, dir}) => async function electronCompressTask() {
-            if (fs.existsSync(dir)) {
-                const ext  = zipFormat[platform];
-                const src  = path.relative(opts.cwd, dir);
-                const dest = path.relative(opts.cwd, `${distDir}/${src}.${ext}`);
-                await mkdir(distDir)
-                switch (ext) {
-                    case "tar.xz": await exec(`tar cJf ${dest} ${src}`, opts); break;
-                    case "zip":    await exec(`zip -ry ${dest} ${src}`, opts); break;
-                }
-            }
-        })
-    );
-}
-
-const linuxPackageOpts = {
-    dest: distDir,
-    icon: "resources/icons/icon-256x256.png",
-    mimeType: ["image/svg+xml"],
-}
-
-const electronLinuxBuild = electronTargets.some(({platform}) => platform === "linux");
-
-const debian = electronLinuxBuild && require("electron-installer-debian");
-
-const debianPackageOpts = {
-    maintainer: "Guillaume Savaton <guillaume@baierouge.fr>",
-    section: "graphics",
-    categories: ["Office", "Graphics"],
-    recommends: ["ffmpeg"],
-    suggests: ["inkscape"],
-    ...linuxPackageOpts
-};
-
-const debianArch = {
-    ia32: "i386",
-    x64: "amd64"
-};
-
-function makeElectronDebianTasks() {
-    return electronLinuxBuild ? parallel(...electronTargets
-        .filter(t => t.platform === "linux")
-        .map(({arch, dir}) => function electronDebianTask () {
-            return debian({
-                src: dir,
-                arch: debianArch[arch],
-                ...debianPackageOpts
-            });
-        })
-    ) : dummyTask;
-}
-
-const redhat = electronLinuxBuild && require("electron-installer-redhat");
-
-const redhatPackageOpts = {
-    platform: "linux",
-    define: "_build_id_links none",
-    ...linuxPackageOpts
-};
-
-const redhatArch = {
-    ia32: "i386",
-    x64: "x86_64"
-};
-
-function makeElectronRedhatTasks() {
-    return electronLinuxBuild ? parallel(...electronTargets
-        .filter(t => t.platform === "linux")
-        .map(({arch, dir}) => function electronRedhatTask () {
-            return redhat({
-                src: dir,
-                arch: redhatArch[arch],
-                ...redhatPackageOpts
-            });
-        })
-    ) : dummyTask;
-}
-*/
 const electronDistTask = series(
     electronBuildTask,
     parallel(
@@ -580,17 +428,6 @@ const electronDistTask = series(
         electronWindowsPackageTask,
         electronMacOSPackageTask
     )
-    // makeElectronPackageRenameTasks(),
-    // parallel(
-    //     makeElectronFfmpegTasks(),
-    //     makeElectronFixLicenseTasks(),
-    //     makeElectronInstallScriptsTasks()
-    // ),
-    // parallel(
-    //     makeElectronDebianTasks(),
-    //     makeElectronRedhatTasks(),
-    //     makeElectronCompressTasks()
-    // )
 );
 
 exports.package = electronDistTask;
