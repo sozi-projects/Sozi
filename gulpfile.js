@@ -340,27 +340,74 @@ const distDir = "build/dist";
 
 const builder = require("electron-builder");
 const builderOpts = {
+    appId: "fr.baierouge.sozi",
+    productName: "Sozi",
     directories: {
         app: "build/electron",
         output: distDir
     },
     files: ["**/*"],
     linux: {
-        desktop: {
-            StartupNotify: "false",
-            Encoding: "UTF-8",
-            MimeType: "image/svg+xml"
-        },
-        target: ["AppImage", "rpm", "deb"]
+        target: ["AppImage", "rpm", "deb"],
+        icon: "resources/icons/256x256.png",
+        category: "Graphics;Office",
+        mimeTypes: ["image/svg+xml"]
+    },
+    deb: {
+        fpm: ["--deb-recommends=ffmpeg", "--deb-suggests=inkscape"]
+    },
+    rpm: {
+        fpm: ["--rpm-rpmbuild-define=_build_id_links none"]
+    },
+    win: {
+        target: "nsis",
+        icon: "resources/icons/sozi.ico"
+    },
+    nsis: {
+        oneClick: false,
+        allowToChangeInstallationDirectory: true
+    },
+    mac: {
+        target: "tar.xz",
+        icon: "resources/icons/sozi.icns",
+        category: "public.app-category.graphics-design"
+    },
+    afterPack: async context => {
+        // In linux targets, electron-builder sets icon size to 0.
+        // See issue https://github.com/electron-userland/electron-builder/issues/5294
+        // Fix based on https://github.com/alephium/alephium-wallet/pull/41
+        for (const target of context.targets) {
+            if (target.packager.platform.name !== "linux") return;
+            target.helper.iconPromise.value = target.helper.iconPromise.value.then(
+                icons => icons.map(
+                    icon => ({...icon, size: icon.size === 0 ? 256 : icon.size})
+                )
+            );
+        }
     }
 };
 
-async function electronPackageTask() {
+function electronLinuxPackageTask() {
     return builder.build({
         targets: builder.Platform.LINUX.createTarget(),
         config: builderOpts
     });
 }
+
+function electronWindowsPackageTask() {
+    return builder.build({
+        targets: builder.Platform.WINDOWS.createTarget(),
+        config: builderOpts
+    });
+}
+
+function electronMacOSPackageTask() {
+    return builder.build({
+        targets: builder.Platform.MAC.createTarget(),
+        config: builderOpts
+    });
+}
+
 /*
 const soziConfigName = "SOZI_CONFIG" in process.env ? process.env.SOZI_CONFIG : "sozi-default";
 const soziConfig = require(`./config/${soziConfigName}.json`);
@@ -465,7 +512,7 @@ function makeElectronCompressTasks() {
 
 const linuxPackageOpts = {
     dest: distDir,
-    icon: "resources/icons/icon-256.png",
+    icon: "resources/icons/icon-256x256.png",
     mimeType: ["image/svg+xml"],
 }
 
@@ -528,7 +575,11 @@ function makeElectronRedhatTasks() {
 */
 const electronDistTask = series(
     electronBuildTask,
-    electronPackageTask//,
+    parallel(
+        electronLinuxPackageTask,
+        electronWindowsPackageTask,
+        electronMacOSPackageTask
+    )
     // makeElectronPackageRenameTasks(),
     // parallel(
     //     makeElectronFfmpegTasks(),
