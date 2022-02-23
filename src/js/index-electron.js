@@ -40,6 +40,10 @@ function createWindow () {
     });
 }
 
+// Workaround for launching error "GPU process isn't usable. Goodbye."
+// See issue https://github.com/sozi-projects/Sozi/issues/603
+app.commandLine.appendSwitch("disable-gpu-sandbox");
+
 // Prevent Electron from altering colors in the SVG.
 if (process.env.SOZI_DISABLE_COLOR_CORRECT_RENDERING) {
     app.commandLine.appendSwitch("disable-color-correct-rendering");
