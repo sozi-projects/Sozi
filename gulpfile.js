@@ -349,7 +349,7 @@ const builderOpts = {
     },
     files: ["**/*"],
     linux: {
-        target: ["AppImage", "rpm", "deb"],
+        target: ["AppImage", "rpm", "deb", "pacman"],
         icon: "resources/icons/256x256.png",
         category: "Graphics;Office",
         mimeTypes: ["image/svg+xml"]
