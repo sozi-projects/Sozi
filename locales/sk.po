@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2018-05-02 11:42+0000\n"
+"PO-Revision-Date: 2022-03-25 21:41+0100\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/sozi/translations/"
 "sk/>\n"
@@ -17,21 +17,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Launchpad-Export-Date: 2015-06-30 18:56+0000\n"
 
 #: src/js/Controller.js:234
 #, fuzzy
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
 msgstr ""
-"Načítať lokálny súbor  (<i class=\"fas fa-exclamation-triangle\"></i>len na "
+"Načítať lokálny súbor  (<i class=\"fa fa-exclamation-triangle\"></i>len na "
 "čítanie)"
 
 #: src/js/Controller.js:235
 #, fuzzy
 msgid "<i class=\"fa fa-info-circle\"></i> Information"
 msgstr ""
-"Načítať lokálny súbor  (<i class=\"fas fa-exclamation-triangle\"></i>len na "
+"Načítať lokálny súbor  (<i class=\"fa fa-exclamation-triangle\"></i>len na "
 "čítanie)"
 
 #: src/js/Controller.js:359
@@ -117,12 +117,11 @@ msgid "Could not read file %s."
 msgstr ""
 
 #: src/js/backend/FileReader.js:23
-#, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Načítať lokálny súbor  (<i class=\"fas fa-exclamation-triangle\"></i>len na "
+"Načítať lokálny súbor  (<i class=\"fa fa-exclamation-triangle\"></i>len na "
 "čítanie)"
 
 #: src/js/backend/GoogleDrive.js:25

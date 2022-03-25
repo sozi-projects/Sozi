@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sozi 15.04\n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2021-05-14 15:51+0200\n"
+"PO-Revision-Date: 2022-03-25 21:37+0100\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/sozi/translations/"
 "fr/>\n"
@@ -11,19 +11,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Launchpad-Export-Date: 2016-06-25 07:48+0000\n"
 
 #: src/js/Controller.js:234
-#, fuzzy
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
-msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Erreur"
+msgstr "<i class=\"fa fa-exclamation-triangle\"></i> Erreur"
 
 #: src/js/Controller.js:235
-#, fuzzy
 msgid "<i class=\"fa fa-info-circle\"></i> Information"
-msgstr "<i class=\"fas fa-info-circle\"></i> Informations"
+msgstr "<i class=\"fa fa-info-circle\"></i> Information"
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
@@ -106,13 +104,12 @@ msgid "Could not read file %s."
 msgstr "Impossible de lire le fichier %s."
 
 #: src/js/backend/FileReader.js:23
-#, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Ouvrir un document SVG depuis votre ordinateur (<i class=\"fas fa-"
-"exclamation-triangle\"></i> en lecture seule)"
+"Ouvrir un document SVG depuis votre ordinateur (<i class=\"fa fa-exclamation-"
+"triangle\"></i> en lecture seule)"
 
 #: src/js/backend/GoogleDrive.js:25
 msgid "Open an SVG file from Google Drive"

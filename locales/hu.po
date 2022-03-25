@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2018-11-07 16:08+0000\n"
+"PO-Revision-Date: 2022-03-25 21:51+0100\n"
 "Last-Translator: Csizmazia-Darab István <i.csizmazia@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/sozi/"
 "translations/hu/>\n"
@@ -18,21 +18,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
 
 #: src/js/Controller.js:234
 #, fuzzy
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
 msgstr ""
-"Helyi SVG fájl megnyitása (<i class=\"fas fa-exclamation-triangle\">1</i>2 "
+"Helyi SVG fájl megnyitása (<i class=\"fa fa-exclamation-triangle\">1</i>2 "
 "read-only)"
 
 #: src/js/Controller.js:235
 #, fuzzy
 msgid "<i class=\"fa fa-info-circle\"></i> Information"
 msgstr ""
-"Helyi SVG fájl megnyitása (<i class=\"fas fa-exclamation-triangle\">1</i>2 "
+"Helyi SVG fájl megnyitása (<i class=\"fa fa-exclamation-triangle\">1</i>2 "
 "read-only)"
 
 #: src/js/Controller.js:359
@@ -116,13 +116,12 @@ msgid "Could not read file %s."
 msgstr ""
 
 #: src/js/backend/FileReader.js:23
-#, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Helyi SVG fájl megnyitása (<i class=\"fas fa-exclamation-triangle\">1</i>2 "
-"read-only)"
+"Helyi SVG fájl megnyitása (<i class=\"fa fa-exclamation-triangle\"></i> read-"
+"only)"
 
 #: src/js/backend/GoogleDrive.js:25
 msgid "Open an SVG file from Google Drive"

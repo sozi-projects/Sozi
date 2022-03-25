@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2019-08-01 05:13+0000\n"
+"PO-Revision-Date: 2022-03-25 21:41+0100\n"
 "Last-Translator: Schwonder Reismus <schw0reismus@protonmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/sozi/"
 "translations/ru/>\n"
@@ -18,21 +18,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.8-dev\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Launchpad-Export-Date: 2016-10-10 06:40+0000\n"
 
 #: src/js/Controller.js:234
 #, fuzzy
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
 msgstr ""
-"Откройте SVG файл на Вашем компьютере (<i class=\"fas fa-exclamation-triangle"
+"Откройте SVG файл на Вашем компьютере (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 
 #: src/js/Controller.js:235
 #, fuzzy
 msgid "<i class=\"fa fa-info-circle\"></i> Information"
 msgstr ""
-"Откройте SVG файл на Вашем компьютере (<i class=\"fas fa-exclamation-triangle"
+"Откройте SVG файл на Вашем компьютере (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 
 #: src/js/Controller.js:359
@@ -117,12 +117,11 @@ msgid "Could not read file %s."
 msgstr ""
 
 #: src/js/backend/FileReader.js:23
-#, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Откройте SVG файл на Вашем компьютере (<i class=\"fas fa-exclamation-triangle"
+"Откройте SVG файл на Вашем компьютере (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 
 #: src/js/backend/GoogleDrive.js:25

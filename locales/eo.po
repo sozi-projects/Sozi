@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2021-05-15 17:32+0000\n"
+"PO-Revision-Date: 2022-03-25 21:34+0100\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/sozi/"
 "translations/eo/>\n"
@@ -17,18 +17,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Launchpad-Export-Date: 2015-11-12 19:04+0000\n"
 
 #: src/js/Controller.js:234
-#, fuzzy
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
-msgstr "<i class=\"fas fa-exclamation-triangle\"></i> Eraro"
+msgstr "<i class=\"fa fa-exclamation-triangle\"></i> Eraro"
 
 #: src/js/Controller.js:235
-#, fuzzy
 msgid "<i class=\"fa fa-info-circle\"></i> Information"
-msgstr "<i class=\"fas fa-info-circle\"></i> Informo"
+msgstr "<i class=\"fa fa-info-circle\"></i> Informo"
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
@@ -111,13 +109,12 @@ msgid "Could not read file %s."
 msgstr "Malsukcesis legi la dosieron %s."
 
 #: src/js/backend/FileReader.js:23
-#, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Malfermi SVG-dosieron el via komputilo (<i class=\"fas fa-exclamation-"
-"triangle\"></i> nurlege)"
+"Malfermi SVG-dosieron el via komputilo (<i class=\"fa fa-exclamation-triangle"
+"\"></i> nurlege)"
 
 #: src/js/backend/GoogleDrive.js:25
 msgid "Open an SVG file from Google Drive"
@@ -415,7 +412,7 @@ msgstr "Propraj CSS- kaj JavaScript-dosieroj"
 
 #: src/js/view/Properties.js:295
 msgid "CSS or JS file names"
-msgstr "nomoj de CSS- aŭ JavaScript-dosieroj"
+msgstr "Nomoj de CSS- aŭ JavaScript-dosieroj"
 
 #: src/js/view/Properties.js:295
 msgid "Add CSS or JS files"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2019-07-23 15:08+0000\n"
+"PO-Revision-Date: 2022-03-25 21:39+0100\n"
 "Last-Translator: Tauras <tp@colideum.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/sozi/"
 "translations/lt/>\n"
@@ -19,21 +19,21 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > "
 "19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? "
 "1 : 2);\n"
-"X-Generator: Weblate 3.8-dev\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
 
 #: src/js/Controller.js:234
 #, fuzzy
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
 msgstr ""
-"Atidaryti Jūsų kompiuteryje esantį SVG failą (<i class=\"fas fa-exclamation-"
+"Atidaryti Jūsų kompiuteryje esantį SVG failą (<i class=\"fa fa-exclamation-"
 "triangle\">skaitymo režimu</i>)"
 
 #: src/js/Controller.js:235
 #, fuzzy
 msgid "<i class=\"fa fa-info-circle\"></i> Information"
 msgstr ""
-"Atidaryti Jūsų kompiuteryje esantį SVG failą (<i class=\"fas fa-exclamation-"
+"Atidaryti Jūsų kompiuteryje esantį SVG failą (<i class=\"fa fa-exclamation-"
 "triangle\">skaitymo režimu</i>)"
 
 #: src/js/Controller.js:359
@@ -118,12 +118,11 @@ msgid "Could not read file %s."
 msgstr ""
 
 #: src/js/backend/FileReader.js:23
-#, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Atidaryti Jūsų kompiuteryje esantį SVG failą (<i class=\"fas fa-exclamation-"
+"Atidaryti Jūsų kompiuteryje esantį SVG failą (<i class=\"fa fa-exclamation-"
 "triangle\">skaitymo režimu</i>)"
 
 #: src/js/backend/GoogleDrive.js:25

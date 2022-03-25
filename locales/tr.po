@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2021-05-15 17:32+0000\n"
+"PO-Revision-Date: 2022-03-25 21:41+0100\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/sozi/"
 "translations/tr/>\n"
@@ -11,17 +11,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: src/js/Controller.js:234
-#, fuzzy
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
-msgstr "Hata: <i class=\"fas fa-exclamation-triangle\"></i>"
+msgstr "Hata: <i class=\"fa fa-exclamation-triangle\"></i>"
 
 #: src/js/Controller.js:235
-#, fuzzy
 msgid "<i class=\"fa fa-info-circle\"></i> Information"
-msgstr "Bilgi: <i class=\"fas fa-info-circle\"></i>"
+msgstr "Bilgi: <i class=\"fa fa-info-circle\"></i>"
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
@@ -104,12 +102,11 @@ msgid "Could not read file %s."
 msgstr "%s dosyası okunamadı."
 
 #: src/js/backend/FileReader.js:23
-#, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Bilgisayarınız üzerinden bir SVG dosyası açın (<i class=\"fas fa-exclamation-"
+"Bilgisayarınız üzerinden bir SVG dosyası açın (<i class=\"fa fa-exclamation-"
 "triangle\"> </i> salt okunur)"
 
 #: src/js/backend/GoogleDrive.js:25

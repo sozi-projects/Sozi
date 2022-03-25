@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2018-03-10 16:09+0100\n"
+"PO-Revision-Date: 2022-03-25 21:32+0100\n"
 "Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "Language: bg\n"
@@ -16,19 +16,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2015-10-04 10:24+0000\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: src/js/Controller.js:234
 #, fuzzy
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
 msgstr ""
-"Зареди локален файл (<i class=\"fas fa-exclamation-triangle\"></i> read-only)"
+"Зареди локален файл (<i class=\"fa fa-exclamation-triangle\"></i> read-only)"
 
 #: src/js/Controller.js:235
 #, fuzzy
 msgid "<i class=\"fa fa-info-circle\"></i> Information"
 msgstr ""
-"Зареди локален файл (<i class=\"fas fa-exclamation-triangle\"></i> read-only)"
+"Зареди локален файл (<i class=\"fa fa-exclamation-triangle\"></i> read-only)"
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
@@ -113,12 +113,11 @@ msgid "Could not read file %s."
 msgstr ""
 
 #: src/js/backend/FileReader.js:23
-#, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Зареди локален файл (<i class=\"fas fa-exclamation-triangle\"></i> read-only)"
+"Зареди локален файл (<i class=\"fa fa-exclamation-triangle\"></i> read-only)"
 
 #: src/js/backend/GoogleDrive.js:25
 #, fuzzy

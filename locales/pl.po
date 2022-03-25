@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2020-12-29 16:29+0000\n"
+"PO-Revision-Date: 2022-03-25 21:40+0100\n"
 "Last-Translator: WaldiS <sto@tutanota.de>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/sozi/translations/"
 "pl/>\n"
@@ -18,18 +18,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
 
 #: src/js/Controller.js:234
-#, fuzzy
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
-msgstr "Błąd <i class=\"fas fa-exclamation-triangle\"></i>"
+msgstr "Błąd <i class=\"fa fa-exclamation-triangle\"></i>"
 
 #: src/js/Controller.js:235
-#, fuzzy
 msgid "<i class=\"fa fa-info-circle\"></i> Information"
-msgstr "Informacje <i class=\"fas fa-info-circle\"></i>"
+msgstr "Informacje <i class=\"fa fa-info-circle\"></i>"
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
@@ -112,12 +110,11 @@ msgid "Could not read file %s."
 msgstr "Nie można odczytać pliku %s."
 
 #: src/js/backend/FileReader.js:23
-#, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"Otwórz plik SVG z komputera (<i class=\"fas fa-exclamation-triangle\"></i> "
+"Otwórz plik SVG z komputera (<i class=\"fa fa-exclamation-triangle\"></i> "
 "read-only)"
 
 #: src/js/backend/GoogleDrive.js:25

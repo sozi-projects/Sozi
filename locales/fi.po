@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2015-11-27 10:57+0000\n"
+"PO-Revision-Date: 2022-03-25 21:36+0100\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "Language: fi\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2018-04-09 19:20+0000\n"
-"X-Generator: Launchpad (build 18599)\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: src/js/Controller.js:234
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
@@ -89,7 +89,7 @@ msgstr ""
 
 #: src/js/backend/Electron.js:105
 msgid "File not found: %s."
-msgstr "Tiedostoa ei löydy: %s"
+msgstr "Tiedostoa ei löydy: %s."
 
 #: src/js/backend/Electron.js:137
 msgid "Choose an SVG file"

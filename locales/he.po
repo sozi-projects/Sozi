@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2021-05-23 09:32+0000\n"
+"PO-Revision-Date: 2022-03-25 21:37+0100\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/sozi/translations/"
 "he/>\n"
@@ -12,17 +12,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: src/js/Controller.js:234
-#, fuzzy
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
-msgstr "<i class=\"fas fa-exclamation-triangle\"></i> שגיאה"
+msgstr "<i class=\"fa fa-exclamation-triangle\"></i> שגיאה"
 
 #: src/js/Controller.js:235
-#, fuzzy
 msgid "<i class=\"fa fa-info-circle\"></i> Information"
-msgstr "<i class=\"fas fa-info-circle\"></i> מידע"
+msgstr "<i class=\"fa fa-info-circle\"></i> מידע"
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
@@ -105,12 +103,11 @@ msgid "Could not read file %s."
 msgstr "לא ניתן לקרוא את הקובץ %s."
 
 #: src/js/backend/FileReader.js:23
-#, fuzzy
 msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
 "\"></i> read-only)"
 msgstr ""
-"פתיחת קובץ SVG מהמחשב שלך (<i class=\"fas fa-exclamation-triangle\"></i> "
+"פתיחת קובץ SVG מהמחשב שלך (<i class=\"fa fa-exclamation-triangle\"></i> "
 "קריאה בלבד)"
 
 #: src/js/backend/GoogleDrive.js:25
