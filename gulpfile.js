@@ -369,7 +369,12 @@ const builderOpts = {
         allowToChangeInstallationDirectory: true
     },
     mac: {
-        target: "tar.xz",
+        // Compression to tar.xz is performed in task electronMacOSCompressTask:
+        // * DMG and pkg targets are not available when building in Linux.
+        // * tar.xz target does not preserve symbolic links.
+        // * zip target is fast but very inefficient.
+        // * dir target does not execute afterPack hook.
+        target: "zip",
         icon: "resources/icons/sozi.icns",
         category: "public.app-category.graphics-design"
     },
@@ -421,16 +426,20 @@ function electronMacOSPackageTask() {
     });
 }
 
+function electronMacOSCompressTask() {
+    return exec(`tar cJf ../Sozi-${soziVersion}-mac.tar.xz Sozi.app`, {cwd: `${distDir}/mac`, stdio: "ignore"});
+}
+
 const electronDistTask = series(
     electronBuildTask,
     parallel(
         electronLinuxPackageTask,
         electronWindowsPackageTask,
-        electronMacOSPackageTask
+        series(electronMacOSPackageTask, electronMacOSCompressTask)
     )
 );
 
-exports.package = electronDistTask;
+exports.package = series(electronMacOSPackageTask, electronMacOSCompressTask); //electronDistTask;
 
 /* -------------------------------------------------------------------------- *
  * Package the desktop application.
