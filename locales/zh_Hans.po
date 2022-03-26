@@ -2,16 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2021-11-28 09:05:+0000\n"
-"PO-Revision-Date: 2022-03-25 21:42+0100\n"
-"Last-Translator: poi <erbaotao@outlook.com>\n"
+"PO-Revision-Date: 2022-03-27 04:11+0000\n"
+"Last-Translator: Eric <alchemillatruth@purelymail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "sozi/translations/zh_Hans/>\n"
-"Language: zh\n"
+"Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Weblate 4.12-dev\n"
 
 #: src/js/Controller.js:234
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
@@ -155,9 +155,8 @@ msgid "Toggle the developer tools"
 msgstr "切换开发人员工具"
 
 #: src/js/view/Properties.js:116 src/js/view/Properties.js:405
-#, fuzzy
 msgid "Back to presentation properties"
-msgstr "保存演示文稿"
+msgstr "返回演示文稿属性"
 
 #: src/js/view/Properties.js:120
 msgid "User interface"
@@ -583,9 +582,8 @@ msgid "Banner"
 msgstr "横幅"
 
 #: src/js/view/Properties.js:487
-#, fuzzy
 msgid "Hagaki Card"
-msgstr "Hagaki Card（100 mm x 148 mm）"
+msgstr "Hagaki Card"
 
 #: src/js/view/Properties.js:490
 msgid "Overhead"
