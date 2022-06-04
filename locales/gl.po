@@ -8,50 +8,45 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2022-03-25 21:37+0100\n"
-"Last-Translator: Guillaume Savaton <guillaume@baierouge.fr>\n"
-"Language-Team: Galician <gl@li.org>\n"
+"PO-Revision-Date: 2022-06-05 14:21+0000\n"
+"Last-Translator: Xosé Calvo <xosecalvo@gmail.com>\n"
+"Language-Team: Galician <https://hosted.weblate.org/projects/sozi/"
+"translations/gl/>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13-dev\n"
 "X-Launchpad-Export-Date: 2015-07-04 20:32+0000\n"
-"X-Generator: Poedit 3.0.1\n"
 
 #: src/js/Controller.js:234
-#, fuzzy
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
-msgstr ""
-"Cargar un ficheiro local (<i class=\"fa fa-exclamation-triangle\"></i> só "
-"para lectura)"
+msgstr "<i class=\"fa fa-exclamation-triangle\"></i> Erro"
 
 #: src/js/Controller.js:235
-#, fuzzy
 msgid "<i class=\"fa fa-info-circle\"></i> Information"
-msgstr ""
-"Cargar un ficheiro local (<i class=\"fa fa-exclamation-triangle\"></i> só "
-"para lectura)"
+msgstr "<i class=\"fa fa-info-circle\"></i> Información"
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
 msgstr "O documento foi cambiado. Cargándoo de novo."
 
 #: src/js/Controller.js:374
-#, fuzzy
 msgid "Document was changed."
-msgstr "O documento foi cambiado. Cargándoo de novo."
+msgstr "O documento foi cambiado."
 
 #: src/js/Controller.js:1741
 msgid "Presentation was exported to PDF."
-msgstr ""
+msgstr "A presentación foi exportada a PDF."
 
 #: src/js/Controller.js:1744
 msgid "Failed to write PDF file."
-msgstr ""
+msgstr "Produciuse un fallo ao escribir o ficheiro PDF."
 
 #: src/js/Controller.js:1757
 msgid "Presentation was exported to PPTX."
-msgstr ""
+msgstr "A presentación foi exportada a PPTX."
 
 #: src/js/Controller.js:1760
 msgid "Failed to write PPTX file."
@@ -59,11 +54,11 @@ msgstr ""
 
 #: src/js/Controller.js:1773
 msgid "Presentation was exported to video."
-msgstr ""
+msgstr "A presentación foi exportada a vídeo."
 
 #: src/js/Controller.js:1776
 msgid "Failed to write video file."
-msgstr ""
+msgstr "Produciuse un erro ao escribir o ficheiro de vídeo."
 
 #: src/js/Storage.js:203
 msgid "Document is not valid SVG."
@@ -78,21 +73,20 @@ msgid "Saved %s."
 msgstr "%s gardado."
 
 #: src/js/backend/Electron.js:49
-#, fuzzy
 msgid "Open an SVG file from your computer"
-msgstr "Importar do Google Drive"
+msgstr "Abrir un ficheiro SVG desde o seu ordenador"
 
 #: src/js/backend/Electron.js:74
 msgid "Do you want to save the presentation before closing?"
-msgstr ""
+msgstr "Desexa gravar a presentación antes de pechar?"
 
 #: src/js/backend/Electron.js:75
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 #: src/js/backend/Electron.js:75
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 #: src/js/backend/Electron.js:105
 msgid "File not found: %s."
@@ -100,19 +94,19 @@ msgstr "Non se atopou o ficheiro: %s."
 
 #: src/js/backend/Electron.js:137
 msgid "Choose an SVG file"
-msgstr ""
+msgstr "Escolla un ficheiro SVG"
 
 #: src/js/backend/Electron.js:138
 msgid "SVG files"
-msgstr ""
+msgstr "Ficheiros SVG"
 
 #: src/js/backend/Electron.js:199
 msgid "This file will not be reloaded on change: %s."
-msgstr ""
+msgstr "Este ficheiro non se recargará ao cambiar: %s."
 
 #: src/js/backend/Electron.js:215
 msgid "Could not read file %s."
-msgstr ""
+msgstr "Non foi posíbel ler o ficheiro %s."
 
 #: src/js/backend/FileReader.js:23
 msgid ""
@@ -123,18 +117,16 @@ msgstr ""
 "para lectura)"
 
 #: src/js/backend/GoogleDrive.js:25
-#, fuzzy
 msgid "Open an SVG file from Google Drive"
-msgstr "Importar do Google Drive"
+msgstr "Abrir un ficheiro SVG do Google Drive"
 
 #: src/js/view/Properties.js:94
-#, fuzzy
 msgid "Autoselect outline element"
-msgstr "Seleccionar automaticamente o elemento"
+msgstr "Seleccionar automaticamente elemento de contorno"
 
 #: src/js/view/Properties.js:95 src/js/view/Properties.js:222
 msgid "Reset layer geometry"
-msgstr ""
+msgstr "Restaurar xeometría da capa"
 
 #: src/js/view/Properties.js:96 src/js/view/Timeline.js:193
 msgid "Create a new frame"
@@ -155,7 +147,7 @@ msgstr "Desfacer"
 
 #: src/js/view/Properties.js:100
 msgid "Focus the frame title"
-msgstr ""
+msgstr "Centrar o título do marco"
 
 #: src/js/view/Properties.js:101 src/js/view/Properties.js:139
 #: src/js/view/Toolbar.js:144
@@ -163,114 +155,112 @@ msgid "Reload the SVG document"
 msgstr "Volver cargar o documento SVG"
 
 #: src/js/view/Properties.js:102
-#, fuzzy
 msgid "Toggle full-screen mode"
 msgstr "Activar o modo de pantalla completa"
 
 #: src/js/view/Properties.js:103
 msgid "Toggle the developer tools"
-msgstr ""
+msgstr "Alternar as ferramentas de desenvolvemento"
 
 #: src/js/view/Properties.js:116 src/js/view/Properties.js:405
-#, fuzzy
 msgid "Back to presentation properties"
-msgstr "Gardar a presentación"
+msgstr "Volver ás propiedades da presentación"
 
 #: src/js/view/Properties.js:120
 msgid "User interface"
-msgstr ""
+msgstr "Interface de usuario"
 
 #: src/js/view/Properties.js:122
 msgid "Language"
-msgstr ""
+msgstr "Idioma"
 
 #: src/js/view/Properties.js:125
 msgid "Font size"
-msgstr ""
+msgstr "Tamaño da letra"
 
 #: src/js/view/Properties.js:129
 msgid "Enable notifications on save and reload"
-msgstr ""
+msgstr "Activar as notificacións ao gardar e recargar"
 
 #: src/js/view/Properties.js:130
 msgid "Enable notifications"
-msgstr ""
+msgstr "Activar notificacións"
 
 #: src/js/view/Properties.js:135
 msgid "When Sozi loses the focus"
-msgstr ""
+msgstr "Cando Sozi perde o foco"
 
 #: src/js/view/Properties.js:136 src/js/view/Properties.js:143
 msgid "Manually"
-msgstr ""
+msgstr "Manualmente"
 
 #: src/js/view/Properties.js:141
 msgid "Automatically"
-msgstr ""
+msgstr "Automaticamente"
 
 #: src/js/view/Properties.js:142
 msgid "When Sozi gets the focus"
-msgstr ""
+msgstr "Cando Sozi recibe o foco"
 
 #: src/js/view/Properties.js:146
 msgid "Behavior"
-msgstr ""
+msgstr "Comportamento"
 
 #: src/js/view/Properties.js:148
 msgid "Preview transition animations"
-msgstr ""
+msgstr "Vista previa de animacións de transición"
 
 #: src/js/view/Properties.js:149
 msgid "Enable animated transitions"
-msgstr ""
+msgstr "Activar transicións animadas"
 
 #: src/js/view/Properties.js:152
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Atallos de teclado"
 
 #: src/js/view/Properties.js:167
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "Formato básico admitido:"
 
 #: src/js/view/Properties.js:169
 msgid "Ctrl+B: Bold"
-msgstr ""
+msgstr "Ctrl+B: Grosa"
 
 #: src/js/view/Properties.js:170
 msgid "Ctrl+I: Italic"
-msgstr ""
+msgstr "Ctrl+I: Cursiva"
 
 #: src/js/view/Properties.js:171
 msgid "Ctrl+U: Underline"
-msgstr ""
+msgstr "Ctrl+U: Subliñado"
 
 #: src/js/view/Properties.js:172
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0: Parágrafo"
 
 #: src/js/view/Properties.js:173
 msgid "Ctrl+1: Big heading"
-msgstr ""
+msgstr "Ctrl+1: Título grande"
 
 #: src/js/view/Properties.js:174
 msgid "Ctrl+2: Medium heading"
-msgstr ""
+msgstr "Ctrl+2: Título mediano"
 
 #: src/js/view/Properties.js:175
 msgid "Ctrl+3: Small heading"
-msgstr ""
+msgstr "Ctrl+3: Título pequeno"
 
 #: src/js/view/Properties.js:176
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl+L: Lista"
 
 #: src/js/view/Properties.js:177
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl+N: Lista numerada"
 
 #: src/js/view/Properties.js:184
 msgid "Select a layer to copy"
-msgstr ""
+msgstr "Seleccione unha capa para copiar"
 
 #: src/js/view/Properties.js:187 src/js/view/Timeline.js:240
 #: src/js/view/Timeline.js:268
@@ -294,9 +284,8 @@ msgid "Title"
 msgstr "Título"
 
 #: src/js/view/Properties.js:204
-#, fuzzy
 msgid "Title level in frame list"
-msgstr "Amosar na lista de cadros"
+msgstr "Nivel de título na lista de marcos"
 
 #: src/js/view/Properties.js:207
 msgid "Id"
@@ -312,7 +301,7 @@ msgstr "Activar o tempo de espera"
 
 #: src/js/view/Properties.js:216
 msgid "Layer"
-msgstr ""
+msgstr "Capa"
 
 #: src/js/view/Properties.js:219
 msgid "Link to previous frame"
@@ -323,14 +312,12 @@ msgid "Clip"
 msgstr "Recorte"
 
 #: src/js/view/Properties.js:227
-#, fuzzy
 msgid "Copy layer"
-msgstr "Engadir unha capa"
+msgstr "Copiar capa"
 
 #: src/js/view/Properties.js:234
-#, fuzzy
 msgid "Outline element Id"
-msgstr "ID do elemento referencial"
+msgstr "Identificador do elemento de esquema"
 
 #: src/js/view/Properties.js:237
 msgid "Autoselect element"
@@ -354,7 +341,7 @@ msgstr "Transición"
 
 #: src/js/view/Properties.js:252
 msgid "Configure the animation when moving to the selected frames."
-msgstr ""
+msgstr "Configurar a animación ao mover os marcos seleccionados."
 
 #: src/js/view/Properties.js:254
 msgid "Duration (seconds)"
@@ -366,35 +353,35 @@ msgstr "Función de temporización"
 
 #: src/js/view/Properties.js:259
 msgid "Linear"
-msgstr ""
+msgstr "Linear"
 
 #: src/js/view/Properties.js:260
 msgid "Ease"
-msgstr ""
+msgstr "Suave"
 
 #: src/js/view/Properties.js:261
 msgid "Ease in"
-msgstr ""
+msgstr "Suave ao entrar"
 
 #: src/js/view/Properties.js:262
 msgid "Ease out"
-msgstr ""
+msgstr "Suave ao terminar"
 
 #: src/js/view/Properties.js:263
 msgid "Ease in-out"
-msgstr ""
+msgstr "Suave ao iniciar e ao terminar"
 
 #: src/js/view/Properties.js:264
 msgid "Step start"
-msgstr ""
+msgstr "Inicio de paso"
 
 #: src/js/view/Properties.js:265
 msgid "Step end"
-msgstr ""
+msgstr "Fin de paso"
 
 #: src/js/view/Properties.js:266
 msgid "Step middle"
-msgstr ""
+msgstr "Paso intermedio"
 
 #: src/js/view/Properties.js:269
 msgid "Relative zoom (%)"
@@ -410,7 +397,7 @@ msgstr "Agochar o camiño"
 
 #: src/js/view/Properties.js:278
 msgid "Notes"
-msgstr ""
+msgstr "Notas"
 
 #: src/js/view/Properties.js:278
 msgid ""
