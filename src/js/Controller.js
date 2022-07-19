@@ -1282,33 +1282,35 @@ export class Controller extends EventEmitter {
      * @returns {Array} The values of the property in the selected layers.
      */
     getFrameDuration() {
-        const values = [];
         const currentFrame = this.selection.currentFrame;
         if (!currentFrame) {
-            return;
+          return [];
         }
 
         let duration = 0;
-        for (let i = 0; i <= currentFrame.index ; i ++) {
-            const frame = this.presentation.frames[i];
-            duration += frame['timeoutMs'] + frame['transitionDurationMs'];
-        }
-        if (values.indexOf(duration) < 0) {
-            const minutes = Math.floor(duration / 60000);
-            const seconds = ((duration % 60000) / 1000).toFixed(0);
-            let millis = (duration % 60000) / 1000;
-            if (millis > +seconds) {
-                millis = (duration % 60000) - (seconds * 1000);
-            } else {
-                millis = '000';
-            }
-            const inMinutesAndSeconds = seconds == 60 ?
-              (minutes+1) + ":00" :
-              minutes + ":" + (seconds < 10 ? "0" : "") + seconds + ":" + millis
-            values.push('' + inMinutesAndSeconds);
-        }
+        if (currentFrame.index > 0) {
 
-        return values;
+            for (let i = 0; i <= currentFrame.index - 1; i++) {
+              const frame = this.presentation.frames[i];
+              duration += frame['timeoutMs'] + frame['transitionDurationMs'];
+            }
+            const minutes = Math.floor(duration / 60000);
+            const secondsString = ((duration % 60000) / 1000).toFixed(0);
+            const seconds = +secondsString;
+            let millis = (duration % 60000) / 1000;
+            if (millis > seconds) {
+              millis = (duration % 60000) - (seconds * 1000);
+            } else {
+              millis = '000';
+            }
+            const padding = seconds < 10 ? '0' : '';
+            const inMinutesAndSeconds = seconds === 60 ?
+              (minutes + 1) + ':00' :
+              minutes + ':' + padding + seconds + ':' + millis;
+            return [ '' + inMinutesAndSeconds ];
+        } else {
+            return [ '0:00:000' ];
+        }
     }
 
     /** Get a property of the selected layers in the selected frames.
