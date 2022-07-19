@@ -1273,6 +1273,44 @@ export class Controller extends EventEmitter {
         );
     }
 
+    /**
+     * Get frame timeoutMS + transitionDuration from the first frame to the current frame.
+     *
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} to calculate and show in the
+     * HTML fields the actual time duration for the selected frame.
+     *
+     * @returns {Array} The values of the property in the selected layers.
+     */
+    getFrameDuration() {
+        const values = [];
+        const currentFrame = this.selection.currentFrame;
+        if (!currentFrame) {
+            return;
+        }
+
+        let duration = 0;
+        for (let i = 0; i <= currentFrame.index ; i ++) {
+            const frame = this.presentation.frames[i];
+            duration += frame['timeoutMs'] + frame['transitionDurationMs'];
+        }
+        if (values.indexOf(duration) < 0) {
+            const minutes = Math.floor(duration / 60000);
+            const seconds = ((duration % 60000) / 1000).toFixed(0);
+            let millis = (duration % 60000) / 1000;
+            if (millis > +seconds) {
+                millis = (duration % 60000) - (seconds * 1000);
+            } else {
+                millis = '000';
+            }
+            const inMinutesAndSeconds = seconds == 60 ?
+              (minutes+1) + ":00" :
+              minutes + ":" + (seconds < 10 ? "0" : "") + seconds + ":" + millis
+            values.push('' + inMinutesAndSeconds);
+        }
+
+        return values;
+    }
+
     /** Get a property of the selected layers in the selected frames.
      *
      * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign getters
