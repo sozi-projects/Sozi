@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2022-06-05 14:21+0000\n"
+"PO-Revision-Date: 2022-08-20 17:21+0000\n"
 "Last-Translator: Xosé Calvo <xosecalvo@gmail.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/sozi/"
 "translations/gl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 "X-Launchpad-Export-Date: 2015-07-04 20:32+0000\n"
 
 #: src/js/Controller.js:234
@@ -50,7 +50,7 @@ msgstr "A presentación foi exportada a PPTX."
 
 #: src/js/Controller.js:1760
 msgid "Failed to write PPTX file."
-msgstr ""
+msgstr "Produciuse un erro ao escribir o ficheiro PPTX."
 
 #: src/js/Controller.js:1773
 msgid "Presentation was exported to video."
@@ -403,200 +403,199 @@ msgstr "Notas"
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
+"Editar notas do presentador. Prema aquí para mostrar a lista de atallos de "
+"formato."
 
 #: src/js/view/Properties.js:282
 msgid "Custom stylesheets and scripts"
-msgstr ""
+msgstr "Follas de estilo e scripts personalizados"
 
 #: src/js/view/Properties.js:295
 msgid "CSS or JS file names"
-msgstr ""
+msgstr "Nomes de ficheiros JS ou CS"
 
 #: src/js/view/Properties.js:295
 msgid "Add CSS or JS files"
-msgstr ""
+msgstr "Engadir ficheiros CSS ou JS"
 
 #: src/js/view/Properties.js:298
-#, fuzzy
 msgid "Add a file"
-msgstr "Engadir unha capa"
+msgstr "Engadir un ficheiro"
 
 #: src/js/view/Properties.js:311
-#, fuzzy
 msgid "Remove this file"
-msgstr "Retirar esta capa"
+msgstr "Retirar este ficheiro"
 
 #: src/js/view/Properties.js:319
-#, fuzzy
 msgid "Player"
-msgstr "Engadir unha capa"
+msgstr "Reprodutor"
 
 #: src/js/view/Properties.js:322
 msgid "Support the browser's \"Back\" button to move to the previous frame"
-msgstr ""
+msgstr "Admitir o botón «Atrás» do navegador para moverse ao marco anterior"
 
 #: src/js/view/Properties.js:323
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr ""
+"Moverse dun marco a outro cambiará o contido da barra de localización "
+"automaticamente."
 
 #: src/js/view/Properties.js:327
 msgid "Allow to control the presentation"
-msgstr ""
+msgstr "Permitir controlar a presentación"
 
 #: src/js/view/Properties.js:329 src/js/view/Properties.js:336
 #: src/js/view/Properties.js:342 src/js/view/Properties.js:350
 msgid "using the mouse"
-msgstr ""
+msgstr "empregando o rato"
 
 #: src/js/view/Properties.js:330 src/js/view/Properties.js:343
 #: src/js/view/Properties.js:351
 msgid "using the keyboard"
-msgstr ""
+msgstr "empregando o teclado"
 
 #: src/js/view/Properties.js:335
 msgid "Allow to move the camera"
-msgstr ""
+msgstr "Permitir mover a cámara"
 
 #: src/js/view/Properties.js:340
 msgid "Allow to rotate the camera"
-msgstr ""
+msgstr "Permitir xirar a cámara"
 
 #: src/js/view/Properties.js:348
 msgid "Allow to zoom"
-msgstr ""
+msgstr "Permitir ampliar"
 
 #: src/js/view/Properties.js:365
 msgid "Examples of frame lists to include/exclude in export"
-msgstr ""
+msgstr "Exemplos de listas de marcos para incluír/excluír na exportación"
 
 #: src/js/view/Properties.js:367
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
-msgstr ""
+msgstr "Seleccionar os marcos 2, 5 e 12: «2, 5, 12»"
 
 #: src/js/view/Properties.js:368
 msgid "Select frames 5 to 8: \"5:8\""
-msgstr ""
+msgstr "Seleccionar os marcos 5 a 8: «5:8»"
 
 #: src/js/view/Properties.js:369
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
-msgstr ""
+msgstr "Seleccionar os marcos 5, 8, 11, 14 e 17: «5:8:17»"
 
 #: src/js/view/Properties.js:370
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
-msgstr ""
+msgstr "Seleccionar os marcos 2, 5 e 10 a 15: «2, 5, 10:15»"
 
 #: src/js/view/Properties.js:409 src/js/view/Properties.js:425
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #: src/js/view/Properties.js:411
 msgid "Document type"
-msgstr ""
+msgstr "Tipo de documento"
 
 #: src/js/view/Properties.js:413
 msgid "Portable Document Format (PDF)"
-msgstr ""
+msgstr "Formato de documento portátil (PDF)"
 
 #: src/js/view/Properties.js:414
 msgid "Microsoft PowerPoint (PPTX)"
-msgstr ""
+msgstr "PowerPoint da Microsoft (PPTX)"
 
 #: src/js/view/Properties.js:415
 msgid "Video"
-msgstr ""
+msgstr "Vídeo"
 
 #: src/js/view/Properties.js:422 src/js/view/Toolbar.js:149
-#, fuzzy
 msgid "Export the presentation"
-msgstr "Gardar a presentación"
+msgstr "Exportar a presentación"
 
 #: src/js/view/Properties.js:439
 msgid "Page size"
-msgstr ""
+msgstr "Tamaño da páxina"
 
 #: src/js/view/Properties.js:441 src/js/view/Properties.js:480
 msgid "A3"
-msgstr ""
+msgstr "A3"
 
 #: src/js/view/Properties.js:442 src/js/view/Properties.js:481
 msgid "A4"
-msgstr ""
+msgstr "A4"
 
 #: src/js/view/Properties.js:443
 msgid "A5"
-msgstr ""
+msgstr "A5"
 
 #: src/js/view/Properties.js:444
 msgid "Legal"
-msgstr ""
+msgstr "Legal"
 
 #: src/js/view/Properties.js:445 src/js/view/Properties.js:489
 msgid "Letter"
-msgstr ""
+msgstr "Carta"
 
 #: src/js/view/Properties.js:446 src/js/view/Properties.js:488
 msgid "Tabloid"
-msgstr ""
+msgstr "Tabloide"
 
 #: src/js/view/Properties.js:449
-#, fuzzy
 msgid "Page orientation"
-msgstr "Gardar a presentación"
+msgstr "Orientación da páxina"
 
 #: src/js/view/Properties.js:451
 msgid "Landscape"
-msgstr ""
+msgstr "Paisaxe"
 
 #: src/js/view/Properties.js:452
 msgid "Portrait"
-msgstr ""
+msgstr "Retrato"
 
 #: src/js/view/Properties.js:456 src/js/view/Properties.js:497
 msgid "List of frames to include"
-msgstr ""
+msgstr "Lista de marcos para incluír"
 
 #: src/js/view/Properties.js:457 src/js/view/Properties.js:463
 #: src/js/view/Properties.js:498 src/js/view/Properties.js:504
 msgid "Click here to see the syntax for this field"
-msgstr ""
+msgstr "Prema aquí para ver a sintaxe deste campo"
 
 #: src/js/view/Properties.js:462 src/js/view/Properties.js:503
 msgid "List of frames to exclude"
-msgstr ""
+msgstr "Lista de marcos para excluír"
 
 #: src/js/view/Properties.js:477
 msgid "Slide size"
-msgstr ""
+msgstr "Tamaño da diapositiva"
 
 #: src/js/view/Properties.js:479
 msgid "35 mm"
-msgstr ""
+msgstr "35 mm"
 
 #: src/js/view/Properties.js:482
 msgid "B4 (ISO)"
-msgstr ""
+msgstr "B4 (ISO)"
 
 #: src/js/view/Properties.js:483
 msgid "B4 (JIS)"
-msgstr ""
+msgstr "B4 (JIS)"
 
 #: src/js/view/Properties.js:484
 msgid "B5 (ISO)"
-msgstr ""
+msgstr "B5 (ISO)"
 
 #: src/js/view/Properties.js:485
 msgid "B5 (JIS)"
-msgstr ""
+msgstr "B5 (JIS)"
 
 #: src/js/view/Properties.js:486
 msgid "Banner"
-msgstr ""
+msgstr "Pancarta"
 
 #: src/js/view/Properties.js:487
 msgid "Hagaki Card"
-msgstr ""
+msgstr "Tarxeta xaponesa (hagaki)"
 
 #: src/js/view/Properties.js:490
 msgid "Overhead"
@@ -604,55 +603,55 @@ msgstr ""
 
 #: src/js/view/Properties.js:491
 msgid "Screen 16:10"
-msgstr ""
+msgstr "Pantalla 16:10"
 
 #: src/js/view/Properties.js:492
 msgid "Screen 16:9"
-msgstr ""
+msgstr "Pantalla 16:9"
 
 #: src/js/view/Properties.js:493
 msgid "Screen 4:3"
-msgstr ""
+msgstr "Pantalla 4:3"
 
 #: src/js/view/Properties.js:519
 msgid "Format"
-msgstr ""
+msgstr "Formato"
 
 #: src/js/view/Properties.js:521
 msgid "MPEG-4 (.mp4)"
-msgstr ""
+msgstr "MPEG-4 (.mp4)"
 
 #: src/js/view/Properties.js:522
 msgid "Ogg Vorbis (.ogv)"
-msgstr ""
+msgstr "Ogg Vorbis (.ogv)"
 
 #: src/js/view/Properties.js:523
 msgid "WebM (.webm)"
-msgstr ""
+msgstr "WebM (.webm)"
 
 #: src/js/view/Properties.js:524
 msgid "Windows Media Video (.wmv)"
-msgstr ""
+msgstr "Vídeo multimedia de Windows (.wmv)"
 
 #: src/js/view/Properties.js:525
 msgid "Image sequence (.png)"
-msgstr ""
+msgstr "Secuencia de imaxes (.png)"
 
 #: src/js/view/Properties.js:528
 msgid "Width (pixels)"
-msgstr ""
+msgstr "Largura (píxeles)"
 
 #: src/js/view/Properties.js:531
 msgid "Height (pixels)"
-msgstr ""
+msgstr "Altura (píxeles)"
 
 #: src/js/view/Properties.js:534
 msgid "Frame rate (frames/sec)"
-msgstr ""
+msgstr "Velocidade de fotogramas (fotogramas/s)"
 
 #: src/js/view/Properties.js:537
 msgid "Bit rate (kbits/sec)"
-msgstr ""
+msgstr "Taxa de bits (kbits/sec)"
 
 #: src/js/view/Timeline.js:186
 msgid "Delete the selected frames"
@@ -663,9 +662,8 @@ msgid "Add layer"
 msgstr "Engadir unha capa"
 
 #: src/js/view/Timeline.js:213
-#, fuzzy
 msgid "Add all layers"
-msgstr "Engadir unha capa"
+msgstr "Engadir todas as capas"
 
 #: src/js/view/Timeline.js:228 src/js/view/Timeline.js:248
 msgid "This layer is visible. Click to hide it."
@@ -692,6 +690,8 @@ msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
 msgstr ""
+"Debería engadir elementos gráficos na área actual para axudar a Sozi a facer "
+"un seguimento da posición desta capa."
 
 #: src/js/view/Toolbar.js:63
 msgid "Aspect ratio: "
@@ -716,7 +716,7 @@ msgstr "Xirar as capas seleccionadas (pode premer MAIÚS no modo «mover»)"
 
 #: src/js/view/Toolbar.js:111
 msgid "Edit the clipping area"
-msgstr ""
+msgstr "Editar a área de recorte"
 
 #: src/js/view/Toolbar.js:130
 msgid "Disable full-screen mode"
@@ -728,7 +728,7 @@ msgstr "Activar o modo de pantalla completa"
 
 #: src/js/view/Toolbar.js:156
 msgid "Preferences"
-msgstr ""
+msgstr "Preferencias"
 
 #: src/js/view/Toolbar.js:161
 msgid "Information"
@@ -736,7 +736,7 @@ msgstr "Información"
 
 #: src/js/view/languages.js:17
 msgid "System language"
-msgstr ""
+msgstr "Idioma do sistema"
 
 #, fuzzy
 #~ msgid "Export the presentation to PDF"
