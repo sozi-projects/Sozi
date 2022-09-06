@@ -276,7 +276,7 @@ export class CameraState {
 
         // Compute the coordinates of the center of the given SVG element
         // after its current transformation
-        const matrix = layerGroup.getCTM().inverse().multiply(svgElement.getCTM());
+        const matrix = layerGroup.getScreenCTM().inverse().multiply(svgElement.getScreenCTM());
         bboxCenter = bboxCenter.matrixTransform(matrix);
 
         // Compute the scaling factor applied to the given SVG element
