@@ -102,14 +102,12 @@ function notifyOnFrameChange(presenterWindow) {
 }
 
 // Process messages from a presenter console.
-window.addEventListener("message", onMessage, false);
-
-/** Process messages from or to presenter console windows.
- *
- * @param {MessageEvent} evt - The DOM event to process.
- */
-function onMessage(evt) {
+window.addEventListener("message", evt => {
     switch (evt.data.name) {
+        case "loaded":
+            // This message is received if the presentation is played directly
+            // in a browser window. Ignore it.
+            break;
         case "notifyOnFrameChange":
             // Install an event handler to forward the frame change event
             // to the presenter console.
@@ -142,7 +140,7 @@ function onMessage(evt) {
             }
         }
     }
-}
+});
 
 // Initialize the Sozi player when the document is loaded.
 window.addEventListener("load", () => {
