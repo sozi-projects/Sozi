@@ -74,27 +74,6 @@ gulp all
 After a successful build, you will get a `build/dist` folder that contains the
 generated application archives for each platform.
 
-You can customize the build by creating a configuration file in the `config` folder.
-See `config/sozi-default.json` and `config/sozi-linux-x64.json` for examples.
-For instance, if you want to build 64-bit executables for OS X and Linux,
-the configuration file (`config/sozi-linux-darwin-x64.json`) will look like this:
-
-```json
-{
-    "electronPackager": {
-        "platform": ["darwin", "linux"],
-        "arch": ["x64"],
-        "electronVersion": "9.2.1"
-    }
-}
-```
-
-Then run Gulp with the `SOZI_CONFIG` environment variable:
-
-```
-SOZI_CONFIG=sozi-linux-darwin-x64 gulp all
-```
-
 Install
 -------
 
