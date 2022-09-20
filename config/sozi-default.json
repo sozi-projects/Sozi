@@ -1,7 +1,0 @@
-{
-    "electronPackager": {
-        "platform": ["darwin", "linux", "win32"],
-        "arch": ["x64", "ia32"],
-        "electronVersion": "9.4.4"
-    }
-}
