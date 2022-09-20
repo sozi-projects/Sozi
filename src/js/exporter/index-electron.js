@@ -213,40 +213,51 @@ export async function exportToPDF(presentation, htmlFileName) {
     return new Promise((resolve, reject) => {
         // On each jumpToFrame event in the player, save the current web contents.
         ipcRenderer.on("jumpToFrame.done", async (evt, index) => {
-            // Convert the current web contents to PDF.
-            const pdfData = await w.webContents.printToPDF({
-                pageSize:  presentation.exportToPDFPageSize,
-                landscape: presentation.exportToPDFPageOrientation === "landscape",
-                marginsType: 2, // No margin
-            });
+            try {
+                // Convert the current web contents to PDF.
+                const pdfData = await w.webContents.printToPDF({
+                    pageSize:  presentation.exportToPDFPageSize,
+                    landscape: presentation.exportToPDFPageOrientation === "landscape",
+                    marginsType: 2, // No margin
+                });
 
-            // Add the current PDF page to the document.
-            const pdfDocForFrame = await PDFDocument.load(pdfData);
-            const [pdfPage]      = await pdfDoc.copyPages(pdfDocForFrame, [0]);
-            pdfDoc.addPage(pdfPage);
+                // Add the current PDF page to the document.
+                console.log(`Adding frame ${index} to PDF`);
+                const pdfDocForFrame = await PDFDocument.load(pdfData);
+                const [pdfPage]      = await pdfDoc.copyPages(pdfDocForFrame, [0]);
+                pdfDoc.addPage(pdfPage);
 
-            // Jump to the next frame.
-            const frameIndex = nextFrameIndex(frameSelection, index);
-            if (frameIndex >= 0) {
-                // If there are frames remaining, move to the next frame.
-                w.webContents.send("jumpToFrame", {callerId, frameIndex});
+                console.log(`Done with frame ${index}`);
+
+                // Jump to the next frame.
+                const frameIndex = nextFrameIndex(frameSelection, index);
+                if (frameIndex >= 0) {
+                    // If there are frames remaining, move to the next frame.
+                    w.webContents.send("jumpToFrame", {callerId, frameIndex});
+                }
+                else {
+                    // If this is the last frame, close the presentation window
+                    // and write the PDF document to a file.
+                    ipcRenderer.removeAllListeners("jumpToFrame.done");
+                    w.close();
+
+                    const pdfFileName = htmlFileName.replace(/html$/, "pdf");
+                    const pdfBytes    = await pdfDoc.save();
+                    fs.writeFile(pdfFileName, pdfBytes, err => {
+                        if (err) {
+                            reject();
+                        }
+                        else {
+                            resolve();
+                        }
+                    });
+                }
             }
-            else {
-                // If this is the last frame, close the presentation window
-                // and write the PDF document to a file.
+            catch (err) {
+                console.log(`PDF export failed with error ${err}`);
                 ipcRenderer.removeAllListeners("jumpToFrame.done");
                 w.close();
-
-                const pdfFileName = htmlFileName.replace(/html$/, "pdf");
-                const pdfBytes    = await pdfDoc.save();
-                fs.writeFile(pdfFileName, pdfBytes, err => {
-                    if (err) {
-                        reject();
-                    }
-                    else {
-                        resolve();
-                    }
-                });
+                reject();
             }
         });
 
