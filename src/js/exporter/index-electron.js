@@ -218,7 +218,7 @@ export async function exportToPDF(presentation, htmlFileName) {
                 const pdfData = await w.webContents.printToPDF({
                     pageSize:  presentation.exportToPDFPageSize,
                     landscape: presentation.exportToPDFPageOrientation === "landscape",
-                    marginsType: 2, // No margin
+                    marginsType: 1 // No margin
                 });
 
                 // Add the current PDF page to the document.
