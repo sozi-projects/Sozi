@@ -1,5 +1,8 @@
 
 import {app, BrowserWindow} from "electron";
+import * as remoteMain from "@electron/remote/main";
+
+remoteMain.initialize();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -14,10 +17,13 @@ function createWindow () {
         height: 600,
         webPreferences: {
             nodeIntegration: true,
-            enableRemoteModule: true,
+            contextIsolation: false,
+            sandbox: false,
             spellcheck: false
         }
     });
+
+    remoteMain.enable(mainWindow.webContents);
 
     mainWindow.setMenuBarVisibility(false);
 

@@ -3,7 +3,7 @@
   "description": "A zooming presentation editor",
   "author": "Guillaume Savaton <guillaume@baierouge.fr>",
   "homepage": "http://sozi.baierouge.fr",
-  "version": "22.02.20",
+  "version": "22.09.20",
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
@@ -16,6 +16,7 @@
     "start": "./node_modules/.bin/electron build/electron"
   },
   "dependencies": {
+    "@electron/remote": "^2.0.8",
     "@fontsource/inter": "^4.5.0",
     "core-js": "^3.16.0",
     "fork-awesome": "^1.2.0",
@@ -33,7 +34,7 @@
     "@babel/preset-env": "^7.14.8",
     "browserify": "^17.0.0",
     "csslint": "^1.0.5",
-    "electron": "^9.4.4",
+    "electron": "^20.1.4",
     "electron-builder": "^23.3.3",
     "envify": "^4.1.0",
     "eslint": "^8.23.1",

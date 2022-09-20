@@ -10,7 +10,7 @@ import path from "path";
 import process from "process";
 import Jed from "jed";
 import screenfull from "screenfull";
-import {remote} from "electron";
+import * as remote from "@electron/remote";
 
 /** Type for Electron browser windows.
  *

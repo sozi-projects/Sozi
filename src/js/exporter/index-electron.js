@@ -4,7 +4,8 @@
 
 /** @module */
 
-import {remote, ipcRenderer} from "electron";
+import {ipcRenderer} from "electron";
+import * as remote from "@electron/remote";
 import path from "path";
 import process from "process";
 import * as tmp from "tmp";
@@ -200,7 +201,8 @@ export async function exportToPDF(presentation, htmlFileName) {
         frame : false,
         show  : true,
         webPreferences: {
-            preload: path.join(__dirname, "exporter-preload.js")
+            preload: path.join(__dirname, "exporter-preload.js"),
+            contextIsolation: false
         }
     });
     await w.loadURL(`file://${htmlFileName}`);
@@ -222,12 +224,9 @@ export async function exportToPDF(presentation, htmlFileName) {
                 });
 
                 // Add the current PDF page to the document.
-                console.log(`Adding frame ${index} to PDF`);
                 const pdfDocForFrame = await PDFDocument.load(pdfData);
                 const [pdfPage]      = await pdfDoc.copyPages(pdfDocForFrame, [0]);
                 pdfDoc.addPage(pdfPage);
-
-                console.log(`Done with frame ${index}`);
 
                 // Jump to the next frame.
                 const frameIndex = nextFrameIndex(frameSelection, index);
@@ -292,7 +291,8 @@ export async function exportToPPTX(presentation, htmlFileName) {
         frame : false,
         show  : true,
         webPreferences: {
-            preload: path.join(__dirname, "exporter-preload.js")
+            preload: path.join(__dirname, "exporter-preload.js"),
+            contextIsolation: false
         }
     });
     await w.loadURL(`file://${htmlFileName}`);
@@ -392,7 +392,8 @@ export async function exportToVideo(presentation, htmlFileName) {
         frame : false,
         show  : true,
         webPreferences: {
-            preload: path.join(__dirname, "exporter-preload.js")
+            preload: path.join(__dirname, "exporter-preload.js"),
+            contextIsolation: false
         }
     });
     await w.loadURL(`file://${htmlFileName}`);
