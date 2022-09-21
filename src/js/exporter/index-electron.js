@@ -298,6 +298,7 @@ export async function exportToPPTX(presentation, htmlFileName) {
     await w.loadURL(`file://${htmlFileName}`);
 
     // Create a PPTX document object.
+    //officegen.setVerboseMode(true);
     const pptxDoc = officegen("pptx");
     pptxDoc.setSlideSize(g.width, g.height, presentation.exportToPPTXSlideSize);
 
@@ -320,28 +321,6 @@ export async function exportToPPTX(presentation, htmlFileName) {
     const callerId = remote.getCurrentWindow().webContents.id;
 
     return new Promise((resolve, reject) => {
-        pptxDoc.on("finalize", () => {
-            // Remove the temporary image folder, ignoring exceptions on failure.
-            try {
-                destDir.removeCallback();
-            }
-            catch (e) {
-                console.log(e);
-            }
-            resolve();
-        });
-
-        pptxDoc.on("error", () => {
-            // Remove the temporary image folder, ignoring exceptions on failure.
-            try {
-                destDir.removeCallback();
-            }
-            catch (e) {
-                console.log(e);
-            }
-            reject();
-        });
-
         // On each jumpToFrame event in the player, save the current web contents.
         ipcRenderer.on("jumpToFrame.done", async (evt, index) => {
             // Capture the current web contents into a PNG image file.
@@ -363,9 +342,28 @@ export async function exportToPPTX(presentation, htmlFileName) {
                 ipcRenderer.removeAllListeners("jumpToFrame.done");
                 w.close();
 
+                function terminate() {
+                    // Remove the temporary image folder, ignoring exceptions on failure.
+                    try {
+                        destDir.removeCallback();
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                }
+
                 const pptxFileName = htmlFileName.replace(/html$/, "pptx");
                 const pptxFile = fs.createWriteStream(pptxFileName);
-                pptxDoc.generate(pptxFile);
+                pptxFile.on("close", () => {
+                    terminate();
+                    resolve();
+                });
+                pptxDoc.generate(pptxFile, {
+                    error() {
+                        terminate();
+                        reject();
+                    }
+                });
             }
         });
 
