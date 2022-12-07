@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-11-28 09:05:+0000\n"
-"PO-Revision-Date: 2022-09-29 21:23+0000\n"
-"Last-Translator: Eduardo Malaspina <vaio0@swismail.com>\n"
+"PO-Revision-Date: 2022-12-08 18:51+0000\n"
+"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/sozi/"
 "translations/es/>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.15-dev\n"
 "X-Launchpad-Export-Date: 2018-04-06 19:08+0000\n"
 
 #: src/js/Controller.js:234
@@ -38,7 +38,7 @@ msgstr "Se ha modificado el documento."
 
 #: src/js/Controller.js:1741
 msgid "Presentation was exported to PDF."
-msgstr "Se ha exportado la presentación a PDF."
+msgstr "La presentación se exportó a PDF."
 
 #: src/js/Controller.js:1744
 msgid "Failed to write PDF file."
@@ -592,7 +592,6 @@ msgid "B5 (JIS)"
 msgstr "B5 (JIS)"
 
 #: src/js/view/Properties.js:486
-#, fuzzy
 msgid "Banner"
 msgstr "Banner"
 
@@ -601,9 +600,8 @@ msgid "Hagaki Card"
 msgstr "Tarjeta Hagaki"
 
 #: src/js/view/Properties.js:490
-#, fuzzy
 msgid "Overhead"
-msgstr "Sobrecarga"
+msgstr "Gastos generales"
 
 #: src/js/view/Properties.js:491
 msgid "Screen 16:10"
@@ -651,7 +649,7 @@ msgstr "Altura (píxeles)"
 
 #: src/js/view/Properties.js:534
 msgid "Frame rate (frames/sec)"
-msgstr "Tasa de fotogramas (fotogramas/s)"
+msgstr "Velocidad de los fotogramas (fotogramas por segundo)"
 
 #: src/js/view/Properties.js:537
 msgid "Bit rate (kbits/sec)"
