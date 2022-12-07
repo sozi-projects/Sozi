@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2022-08-20 17:21+0000\n"
-"Last-Translator: Xosé Calvo <xosecalvo@gmail.com>\n"
+"PO-Revision-Date: 2022-12-08 18:51+0000\n"
+"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/sozi/"
 "translations/gl/>\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.15-dev\n"
 "X-Launchpad-Export-Date: 2015-07-04 20:32+0000\n"
 
 #: src/js/Controller.js:234
@@ -599,7 +599,7 @@ msgstr "Tarxeta xaponesa (hagaki)"
 
 #: src/js/view/Properties.js:490
 msgid "Overhead"
-msgstr ""
+msgstr "Gastos xerais"
 
 #: src/js/view/Properties.js:491
 msgid "Screen 16:10"
