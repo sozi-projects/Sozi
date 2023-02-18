@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-11-28 09:05:+0000\n"
-"PO-Revision-Date: 2022-12-08 18:51+0000\n"
+"PO-Revision-Date: 2023-02-19 12:36+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/sozi/"
 "translations/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 "X-Launchpad-Export-Date: 2018-04-06 19:08+0000\n"
 
 #: src/js/Controller.js:234
@@ -504,7 +504,7 @@ msgstr "Formato de documento portátil (PDF)"
 
 #: src/js/view/Properties.js:414
 msgid "Microsoft PowerPoint (PPTX)"
-msgstr "Microsoft PowerPoint (PPTX)"
+msgstr "Microsoft PowerPoint (.PPTX)"
 
 #: src/js/view/Properties.js:415
 msgid "Video"
@@ -621,15 +621,15 @@ msgstr "Formato"
 
 #: src/js/view/Properties.js:521
 msgid "MPEG-4 (.mp4)"
-msgstr "MPEG-4 (.mp4)"
+msgstr "Formato MPEG-4 (.mp4)"
 
 #: src/js/view/Properties.js:522
 msgid "Ogg Vorbis (.ogv)"
-msgstr "Ogg Vorbis (.ogv)"
+msgstr "Formato Ogg Vorbis (.ogv)"
 
 #: src/js/view/Properties.js:523
 msgid "WebM (.webm)"
-msgstr "WebM (.webm)"
+msgstr "Formato WebM (.webm)"
 
 #: src/js/view/Properties.js:524
 msgid "Windows Media Video (.wmv)"
@@ -649,7 +649,7 @@ msgstr "Altura (píxeles)"
 
 #: src/js/view/Properties.js:534
 msgid "Frame rate (frames/sec)"
-msgstr "Velocidad de los fotogramas (fotogramas por segundo)"
+msgstr "Fotogramas por segundo"
 
 #: src/js/view/Properties.js:537
 msgid "Bit rate (kbits/sec)"
