@@ -362,7 +362,8 @@ const builderOpts = {
     },
     win: {
         target: "nsis",
-        icon: "resources/icons/sozi.ico"
+        icon: "resources/icons/sozi.ico",
+        signAndEditExecutable: false
     },
     nsis: {
         oneClick: false,
