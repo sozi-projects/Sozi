@@ -34,7 +34,7 @@
     "@babel/preset-env": "^7.14.8",
     "browserify": "^17.0.0",
     "csslint": "^1.0.5",
-    "electron": "^20.1.4",
+    "electron": "^24.1.2",
     "electron-builder": "^24.2.1",
     "envify": "^4.1.0",
     "eslint": "^8.23.1",
