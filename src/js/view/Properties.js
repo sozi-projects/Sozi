@@ -213,6 +213,9 @@ export class Properties extends VirtualDOMView {
             ]),
             this.renderNumberField("timeoutMs", timeoutMsDisabled, controller.getFrameProperty, controller.setFrameProperty, false, 0.1, 1000),
 
+            h("label", { for: "field-elapsedMs"}, _("Elapsed time")),
+            this.renderTextField("elapsedMs", true, controller.getFrameDuration, function () {}, false),
+
             h("h1", _("Layer")),
 
             h("div.btn-group", [

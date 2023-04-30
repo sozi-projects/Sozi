@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-25 02:21:+0000\n"
+"POT-Creation-Date: 2022-07-19 11:05:+0000\n"
 "PO-Revision-Date: 2022-05-28 13:18+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/sozi/"
@@ -36,27 +36,27 @@ msgstr "Il documento è stato modificato. Ricaricamento."
 msgid "Document was changed."
 msgstr "Il documento è stato modificato."
 
-#: src/js/Controller.js:1741
+#: src/js/Controller.js:1779
 msgid "Presentation was exported to PDF."
 msgstr "La presentazione è stata esportata in PDF."
 
-#: src/js/Controller.js:1744
+#: src/js/Controller.js:1782
 msgid "Failed to write PDF file."
 msgstr "Errore nel generare il PDF."
 
-#: src/js/Controller.js:1757
+#: src/js/Controller.js:1795
 msgid "Presentation was exported to PPTX."
 msgstr "La presentazione è stata esportata in PPTX."
 
-#: src/js/Controller.js:1760
+#: src/js/Controller.js:1798
 msgid "Failed to write PPTX file."
 msgstr "Errore nel generare il PPTX."
 
-#: src/js/Controller.js:1773
+#: src/js/Controller.js:1811
 msgid "Presentation was exported to video."
 msgstr "La presentazione è stata esportata come video."
 
-#: src/js/Controller.js:1776
+#: src/js/Controller.js:1814
 msgid "Failed to write video file."
 msgstr "Errore nel generare il file video."
 
@@ -124,7 +124,7 @@ msgstr "Apri un file SVG da Google Drive"
 msgid "Autoselect outline element"
 msgstr "Seleziona automaticamente l'elemento del contorno"
 
-#: src/js/view/Properties.js:95 src/js/view/Properties.js:222
+#: src/js/view/Properties.js:95 src/js/view/Properties.js:225
 msgid "Reset layer geometry"
 msgstr "Ripristina la geometria del layer"
 
@@ -162,7 +162,7 @@ msgstr "Attiva/disattiva la modalità a schermo intero"
 msgid "Toggle the developer tools"
 msgstr "Attiva/disattiva gli strumenti di sviluppo"
 
-#: src/js/view/Properties.js:116 src/js/view/Properties.js:405
+#: src/js/view/Properties.js:116 src/js/view/Properties.js:408
 msgid "Back to presentation properties"
 msgstr "Torna alle proprietà della presentazione"
 
@@ -300,143 +300,147 @@ msgid "Timeout enable"
 msgstr "Abilita timeout"
 
 #: src/js/view/Properties.js:216
+msgid "Elapsed time"
+msgstr "Tempo trascorso"
+
+#: src/js/view/Properties.js:219
 msgid "Layer"
 msgstr "Livello"
 
-#: src/js/view/Properties.js:219
+#: src/js/view/Properties.js:222
 msgid "Link to previous frame"
 msgstr "Link al fotogramma precedente"
 
-#: src/js/view/Properties.js:220
+#: src/js/view/Properties.js:223
 msgid "Clip"
 msgstr "Taglia"
 
-#: src/js/view/Properties.js:227
+#: src/js/view/Properties.js:230
 msgid "Copy layer"
 msgstr "Copia layer"
 
-#: src/js/view/Properties.js:234
+#: src/js/view/Properties.js:237
 msgid "Outline element Id"
 msgstr "ID dell'elemento da utilizzare come contorno"
 
-#: src/js/view/Properties.js:237
+#: src/js/view/Properties.js:240
 msgid "Autoselect element"
 msgstr "Auto-seleziona elemento"
 
-#: src/js/view/Properties.js:240
+#: src/js/view/Properties.js:243
 msgid "Hide element"
 msgstr "Nascondi elemento"
 
-#: src/js/view/Properties.js:242
+#: src/js/view/Properties.js:245
 msgid "Fit to element"
 msgstr "Adatta all'elemento"
 
-#: src/js/view/Properties.js:249
+#: src/js/view/Properties.js:252
 msgid "Layer opacity"
 msgstr "Opacità layer"
 
-#: src/js/view/Properties.js:252
+#: src/js/view/Properties.js:255
 msgid "Transition"
 msgstr "Transizione"
 
-#: src/js/view/Properties.js:252
+#: src/js/view/Properties.js:255
 msgid "Configure the animation when moving to the selected frames."
 msgstr "Configurare l'animazione quando ci si sposta nei frame selezionati."
 
-#: src/js/view/Properties.js:254
+#: src/js/view/Properties.js:257
 msgid "Duration (seconds)"
 msgstr "Durata (secondi)"
 
-#: src/js/view/Properties.js:257
+#: src/js/view/Properties.js:260
 msgid "Timing function"
 msgstr "Funzione di temporizzazione"
 
-#: src/js/view/Properties.js:259
+#: src/js/view/Properties.js:262
 msgid "Linear"
 msgstr "LIneare"
 
-#: src/js/view/Properties.js:260
+#: src/js/view/Properties.js:263
 msgid "Ease"
 msgstr "Facile"
 
-#: src/js/view/Properties.js:261
+#: src/js/view/Properties.js:264
 msgid "Ease in"
 msgstr "Inserisci"
 
-#: src/js/view/Properties.js:262
+#: src/js/view/Properties.js:265
 msgid "Ease out"
 msgstr "Elimina"
 
-#: src/js/view/Properties.js:263
+#: src/js/view/Properties.js:266
 msgid "Ease in-out"
 msgstr "Facile dentro-fuori"
 
-#: src/js/view/Properties.js:264
+#: src/js/view/Properties.js:267
 msgid "Step start"
 msgstr "Inizio passo"
 
-#: src/js/view/Properties.js:265
+#: src/js/view/Properties.js:268
 msgid "Step end"
 msgstr "Fine passo"
 
-#: src/js/view/Properties.js:266
+#: src/js/view/Properties.js:269
 msgid "Step middle"
 msgstr "Passo centrale"
 
-#: src/js/view/Properties.js:269
+#: src/js/view/Properties.js:272
 msgid "Relative zoom (%)"
 msgstr "Zoom relativo (%)"
 
-#: src/js/view/Properties.js:273
+#: src/js/view/Properties.js:276
 msgid "Path Id"
 msgstr "ID percorso"
 
-#: src/js/view/Properties.js:274
+#: src/js/view/Properties.js:277
 msgid "Hide path"
 msgstr "Nascondi percorso"
 
-#: src/js/view/Properties.js:278
+#: src/js/view/Properties.js:281
 msgid "Notes"
 msgstr "Note"
 
-#: src/js/view/Properties.js:278
+#: src/js/view/Properties.js:281
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 "Modifica note del presentatore. Fai clic qui per mostrare l'elenco delle "
 "scorciatoie di formattazione."
 
-#: src/js/view/Properties.js:282
+#: src/js/view/Properties.js:285
 msgid "Custom stylesheets and scripts"
 msgstr "Fogli di stile e script personalizzati"
 
-#: src/js/view/Properties.js:295
+#: src/js/view/Properties.js:298
 msgid "CSS or JS file names"
 msgstr "File CSS o JS"
 
-#: src/js/view/Properties.js:295
+#: src/js/view/Properties.js:298
 msgid "Add CSS or JS files"
 msgstr "Aggiungi file CSS o JS"
 
-#: src/js/view/Properties.js:298
+#: src/js/view/Properties.js:301
 msgid "Add a file"
 msgstr "Aggiungi un file"
 
-#: src/js/view/Properties.js:311
+#: src/js/view/Properties.js:314
 msgid "Remove this file"
 msgstr "Rimuovi questo file"
 
-#: src/js/view/Properties.js:319
+#: src/js/view/Properties.js:322
 msgid "Player"
 msgstr "Visualizzazione"
 
-#: src/js/view/Properties.js:322
+#: src/js/view/Properties.js:325
 msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
 "Supporta il pulsante \"Indietro \" del browser per passare al fotogramma "
 "precedente"
 
-#: src/js/view/Properties.js:323
+#: src/js/view/Properties.js:326
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
@@ -444,215 +448,215 @@ msgstr ""
 "Passare da un fotogramma all'altro cambierà il contenuto della barra degli "
 "indirizzi automaticamente."
 
-#: src/js/view/Properties.js:327
+#: src/js/view/Properties.js:330
 msgid "Allow to control the presentation"
 msgstr "Permetti il controllo della presentazione"
 
-#: src/js/view/Properties.js:329 src/js/view/Properties.js:336
-#: src/js/view/Properties.js:342 src/js/view/Properties.js:350
+#: src/js/view/Properties.js:332 src/js/view/Properties.js:339
+#: src/js/view/Properties.js:345 src/js/view/Properties.js:353
 msgid "using the mouse"
 msgstr "usando il mouse"
 
-#: src/js/view/Properties.js:330 src/js/view/Properties.js:343
-#: src/js/view/Properties.js:351
+#: src/js/view/Properties.js:333 src/js/view/Properties.js:346
+#: src/js/view/Properties.js:354
 msgid "using the keyboard"
 msgstr "usando la tastiera"
 
-#: src/js/view/Properties.js:335
+#: src/js/view/Properties.js:338
 msgid "Allow to move the camera"
 msgstr "Permetti di spostare lo scenario"
 
-#: src/js/view/Properties.js:340
+#: src/js/view/Properties.js:343
 msgid "Allow to rotate the camera"
 msgstr "Permetti di ruotare lo scenario"
 
-#: src/js/view/Properties.js:348
+#: src/js/view/Properties.js:351
 msgid "Allow to zoom"
 msgstr "Permetti di zoomare"
 
-#: src/js/view/Properties.js:365
+#: src/js/view/Properties.js:368
 msgid "Examples of frame lists to include/exclude in export"
 msgstr ""
 "Esempi di gruppi di fotogrammi da includere/escludere dall'esportazione"
 
-#: src/js/view/Properties.js:367
+#: src/js/view/Properties.js:370
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
 msgstr "Selezionare i fotogrammi 2, 5 e 12: \"2, 5, 12\""
 
-#: src/js/view/Properties.js:368
+#: src/js/view/Properties.js:371
 msgid "Select frames 5 to 8: \"5:8\""
 msgstr "Selezionare i fotogrammi da 5 a 8: \"5:8\""
 
-#: src/js/view/Properties.js:369
+#: src/js/view/Properties.js:372
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
 msgstr "Seleziona i fotogrammi 5, 8, 11, 14 e 17: \"5:8:17\""
 
-#: src/js/view/Properties.js:370
+#: src/js/view/Properties.js:373
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
 msgstr "Selezionare i fotogrammi 2, 5 e da 10 a 15: \"2, 5, 10:15\""
 
-#: src/js/view/Properties.js:409 src/js/view/Properties.js:425
+#: src/js/view/Properties.js:412 src/js/view/Properties.js:428
 msgid "Export"
 msgstr "Esportazione"
 
-#: src/js/view/Properties.js:411
+#: src/js/view/Properties.js:414
 msgid "Document type"
 msgstr "Tipo di documento"
 
-#: src/js/view/Properties.js:413
+#: src/js/view/Properties.js:416
 msgid "Portable Document Format (PDF)"
 msgstr "Portable Document Format (PDF)"
 
-#: src/js/view/Properties.js:414
+#: src/js/view/Properties.js:417
 msgid "Microsoft PowerPoint (PPTX)"
 msgstr "Microsoft PowerPoint (PPTX)"
 
-#: src/js/view/Properties.js:415
+#: src/js/view/Properties.js:418
 msgid "Video"
 msgstr "Video"
 
-#: src/js/view/Properties.js:422 src/js/view/Toolbar.js:149
+#: src/js/view/Properties.js:425 src/js/view/Toolbar.js:149
 msgid "Export the presentation"
 msgstr "Esporta la presentazione"
 
-#: src/js/view/Properties.js:439
+#: src/js/view/Properties.js:442
 msgid "Page size"
 msgstr "Dimensione della pagina"
 
-#: src/js/view/Properties.js:441 src/js/view/Properties.js:480
+#: src/js/view/Properties.js:444 src/js/view/Properties.js:483
 msgid "A3"
 msgstr "A3"
 
-#: src/js/view/Properties.js:442 src/js/view/Properties.js:481
+#: src/js/view/Properties.js:445 src/js/view/Properties.js:484
 msgid "A4"
 msgstr "A4"
 
-#: src/js/view/Properties.js:443
+#: src/js/view/Properties.js:446
 msgid "A5"
 msgstr "A5"
 
-#: src/js/view/Properties.js:444
+#: src/js/view/Properties.js:447
 msgid "Legal"
 msgstr "Legal"
 
-#: src/js/view/Properties.js:445 src/js/view/Properties.js:489
+#: src/js/view/Properties.js:448 src/js/view/Properties.js:492
 msgid "Letter"
 msgstr "Letter"
 
-#: src/js/view/Properties.js:446 src/js/view/Properties.js:488
+#: src/js/view/Properties.js:449 src/js/view/Properties.js:491
 msgid "Tabloid"
 msgstr "Tabloid"
 
-#: src/js/view/Properties.js:449
+#: src/js/view/Properties.js:452
 msgid "Page orientation"
 msgstr "Orientamento della pagina"
 
-#: src/js/view/Properties.js:451
+#: src/js/view/Properties.js:454
 msgid "Landscape"
 msgstr "Paesaggio"
 
-#: src/js/view/Properties.js:452
+#: src/js/view/Properties.js:455
 msgid "Portrait"
 msgstr "Ritratto"
 
-#: src/js/view/Properties.js:456 src/js/view/Properties.js:497
+#: src/js/view/Properties.js:459 src/js/view/Properties.js:500
 msgid "List of frames to include"
 msgstr "Elenco di fotogrammi da includere"
 
-#: src/js/view/Properties.js:457 src/js/view/Properties.js:463
-#: src/js/view/Properties.js:498 src/js/view/Properties.js:504
+#: src/js/view/Properties.js:460 src/js/view/Properties.js:466
+#: src/js/view/Properties.js:501 src/js/view/Properties.js:507
 msgid "Click here to see the syntax for this field"
 msgstr "Clicca qui per vedere la sintassi di questo campo"
 
-#: src/js/view/Properties.js:462 src/js/view/Properties.js:503
+#: src/js/view/Properties.js:465 src/js/view/Properties.js:506
 msgid "List of frames to exclude"
 msgstr "Elenco di fotogrammi da escludere"
 
-#: src/js/view/Properties.js:477
+#: src/js/view/Properties.js:480
 msgid "Slide size"
 msgstr "Dimensione della diapositiva"
 
-#: src/js/view/Properties.js:479
+#: src/js/view/Properties.js:482
 msgid "35 mm"
 msgstr "35 mm"
 
-#: src/js/view/Properties.js:482
+#: src/js/view/Properties.js:485
 msgid "B4 (ISO)"
 msgstr "B4 (ISO)"
 
-#: src/js/view/Properties.js:483
+#: src/js/view/Properties.js:486
 msgid "B4 (JIS)"
 msgstr "B4 (JIS)"
 
-#: src/js/view/Properties.js:484
+#: src/js/view/Properties.js:487
 msgid "B5 (ISO)"
 msgstr "B5 (ISO)"
 
-#: src/js/view/Properties.js:485
+#: src/js/view/Properties.js:488
 msgid "B5 (JIS)"
 msgstr "B5 (JIS)"
 
-#: src/js/view/Properties.js:486
+#: src/js/view/Properties.js:489
 msgid "Banner"
 msgstr "Banner"
 
-#: src/js/view/Properties.js:487
+#: src/js/view/Properties.js:490
 msgid "Hagaki Card"
 msgstr "Cartolina Hagaki"
 
-#: src/js/view/Properties.js:490
+#: src/js/view/Properties.js:493
 msgid "Overhead"
 msgstr "Lucido"
 
-#: src/js/view/Properties.js:491
+#: src/js/view/Properties.js:494
 msgid "Screen 16:10"
 msgstr "Schermo 16:10"
 
-#: src/js/view/Properties.js:492
+#: src/js/view/Properties.js:495
 msgid "Screen 16:9"
 msgstr "Schermo 16:9"
 
-#: src/js/view/Properties.js:493
+#: src/js/view/Properties.js:496
 msgid "Screen 4:3"
 msgstr "Schermo 4:3"
 
-#: src/js/view/Properties.js:519
+#: src/js/view/Properties.js:522
 msgid "Format"
 msgstr "Formato"
 
-#: src/js/view/Properties.js:521
+#: src/js/view/Properties.js:524
 msgid "MPEG-4 (.mp4)"
 msgstr "MPEG-4 (.mp4)"
 
-#: src/js/view/Properties.js:522
+#: src/js/view/Properties.js:525
 msgid "Ogg Vorbis (.ogv)"
 msgstr "Ogg Vorbis (.ogv)"
 
-#: src/js/view/Properties.js:523
+#: src/js/view/Properties.js:526
 msgid "WebM (.webm)"
 msgstr "WebM (.webm)"
 
-#: src/js/view/Properties.js:524
+#: src/js/view/Properties.js:527
 msgid "Windows Media Video (.wmv)"
 msgstr "Windows Media Video (.wmv)"
 
-#: src/js/view/Properties.js:525
+#: src/js/view/Properties.js:528
 msgid "Image sequence (.png)"
 msgstr "Sequenza di immagini (.png)"
 
-#: src/js/view/Properties.js:528
+#: src/js/view/Properties.js:531
 msgid "Width (pixels)"
 msgstr "Larghezza (pixel)"
 
-#: src/js/view/Properties.js:531
+#: src/js/view/Properties.js:534
 msgid "Height (pixels)"
 msgstr "Altezza (pixel)"
 
-#: src/js/view/Properties.js:534
+#: src/js/view/Properties.js:537
 msgid "Frame rate (frames/sec)"
 msgstr "Numero di immagini al secondo"
 
-#: src/js/view/Properties.js:537
+#: src/js/view/Properties.js:540
 msgid "Bit rate (kbits/sec)"
 msgstr "Velocità dei dati (kbit/sec)"
 
