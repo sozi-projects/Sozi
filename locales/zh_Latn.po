@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2022-03-25 21:42+0100\n"
-"Last-Translator: fengzhao <fengzhao1124@hotmail.com>\n"
+"PO-Revision-Date: 2023-05-21 01:48+0000\n"
+"Last-Translator: Newson Parker <2434843612@qq.com>\n"
 "Language-Team: Chinese (Pinyin) <https://hosted.weblate.org/projects/sozi/"
 "translations/zh_Latn/>\n"
 "Language: zh_Latn\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: src/js/Controller.js:234
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
@@ -39,19 +39,19 @@ msgstr "无法写入PDF文件。"
 
 #: src/js/Controller.js:1757
 msgid "Presentation was exported to PPTX."
-msgstr "演示文稿已导出为 PPTX。"
+msgstr "Yǎnshì wéngǎo yǐ dǎochū wéi PPTX。"
 
 #: src/js/Controller.js:1760
 msgid "Failed to write PPTX file."
-msgstr "无法写入 PPTX 文件。"
+msgstr "Wúfá xiěrù PPTX 文件。"
 
 #: src/js/Controller.js:1773
 msgid "Presentation was exported to video."
-msgstr "演示文稿已导出到视频。"
+msgstr "Yǎnshì wéngǎo yǐ dǎochū chéng shìpín。"
 
 #: src/js/Controller.js:1776
 msgid "Failed to write video file."
-msgstr "无法写入视频文件。"
+msgstr "Wúfǎ xiěrù shìpín wénjiàn。"
 
 #: src/js/Storage.js:203
 msgid "Document is not valid SVG."
@@ -95,7 +95,7 @@ msgstr "SVG wénjiàn"
 
 #: src/js/backend/Electron.js:199
 msgid "This file will not be reloaded on change: %s."
-msgstr "更改后，将不会重新加载此文件：％s。"
+msgstr "Gēng gǎi hòu，jiāng búhùi chóngxīn jīazǎi cǐ wénjiàn：％s。"
 
 #: src/js/backend/Electron.js:215
 msgid "Could not read file %s."
@@ -156,9 +156,8 @@ msgid "Toggle the developer tools"
 msgstr "切换开发人员工具"
 
 #: src/js/view/Properties.js:116 src/js/view/Properties.js:405
-#, fuzzy
 msgid "Back to presentation properties"
-msgstr "Bǎocún yǎnshì wéngǎo"
+msgstr "Fǎnhuí yǎnshì wéngǎo shǔxìng"
 
 #: src/js/view/Properties.js:120
 msgid "User interface"
@@ -178,19 +177,19 @@ msgstr "在保存和重新加载时启用通知"
 
 #: src/js/view/Properties.js:130
 msgid "Enable notifications"
-msgstr "启用通知"
+msgstr "Qǐynòg tōngzhī"
 
 #: src/js/view/Properties.js:135
 msgid "When Sozi loses the focus"
-msgstr "当Sozi失去焦点时"
+msgstr "Dāng Sozi shīqù jiāodiǎn shí"
 
 #: src/js/view/Properties.js:136 src/js/view/Properties.js:143
 msgid "Manually"
-msgstr "手动地"
+msgstr "Shǒudòng"
 
 #: src/js/view/Properties.js:141
 msgid "Automatically"
-msgstr "自动地"
+msgstr "Zìdòng"
 
 #: src/js/view/Properties.js:142
 msgid "When Sozi gets the focus"
@@ -206,15 +205,15 @@ msgstr "预览过渡动画"
 
 #: src/js/view/Properties.js:149
 msgid "Enable animated transitions"
-msgstr ""
+msgstr "Qǐyòng dònghuà guòdù"
 
 #: src/js/view/Properties.js:152
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Jiànpán kuàijié jiàn"
 
 #: src/js/view/Properties.js:167
 msgid "Basic formatting supported:"
-msgstr ""
+msgstr "Zhīchí de jīběn géshì："
 
 #: src/js/view/Properties.js:169
 msgid "Ctrl+B: Bold"
@@ -230,40 +229,40 @@ msgstr "Ctrl + U：下划线"
 
 #: src/js/view/Properties.js:172
 msgid "Ctrl+0: Paragraph"
-msgstr ""
+msgstr "Ctrl+0: Duànluò"
 
 #: src/js/view/Properties.js:173
 msgid "Ctrl+1: Big heading"
-msgstr ""
+msgstr "Ctrl + 1：Dà biāotí"
 
 #: src/js/view/Properties.js:174
 msgid "Ctrl+2: Medium heading"
-msgstr ""
+msgstr "Ctrl + 2：Zhōngjí biāotí"
 
 #: src/js/view/Properties.js:175
 msgid "Ctrl+3: Small heading"
-msgstr ""
+msgstr "Ctrl + 3：Xiǎo biāotí"
 
 #: src/js/view/Properties.js:176
 msgid "Ctrl+L: List"
-msgstr ""
+msgstr "Ctrl + L：Liè biǎo"
 
 #: src/js/view/Properties.js:177
 msgid "Ctrl+N: Numbered list"
-msgstr ""
+msgstr "Ctrl + N：Biānhào lièbiǎo"
 
 #: src/js/view/Properties.js:184
 msgid "Select a layer to copy"
-msgstr ""
+msgstr "Xuǎnzé yào fùzhì de túcéng"
 
 #: src/js/view/Properties.js:187 src/js/view/Timeline.js:240
 #: src/js/view/Timeline.js:268
 msgid "Default"
-msgstr ""
+msgstr "Mò rèn"
 
 #: src/js/view/Properties.js:194
 msgid "Frame"
-msgstr ""
+msgstr "Zhēn"
 
 #: src/js/view/Properties.js:197
 msgid "Show in frame list"
@@ -609,7 +608,7 @@ msgstr ""
 
 #: src/js/view/Properties.js:521
 msgid "MPEG-4 (.mp4)"
-msgstr "MPEG-4 (.mp4)"
+msgstr "MPEG-4 (.mp4) Shì Pín"
 
 #: src/js/view/Properties.js:522
 msgid "Ogg Vorbis (.ogv)"
