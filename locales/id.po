@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2022-03-25 21:38+0100\n"
+"PO-Revision-Date: 2023-05-24 00:50+0000\n"
 "Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/sozi/"
 "translations/id/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Weblate 4.18-dev\n"
 "X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
 
 #: src/js/Controller.js:234
@@ -163,9 +163,8 @@ msgid "Toggle the developer tools"
 msgstr "Beralih ke alat pengembang"
 
 #: src/js/view/Properties.js:116 src/js/view/Properties.js:405
-#, fuzzy
 msgid "Back to presentation properties"
-msgstr "Simpan presentasi"
+msgstr "Kembali ke properti presentasi"
 
 #: src/js/view/Properties.js:120
 msgid "User interface"
