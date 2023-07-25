@@ -23,14 +23,24 @@ Clone the repository:
 Install the build tools and dependencies
 ----------------------------------------
 
-Install [Node.js](http://nodejs.org/).
+The following instructions work successfully in Ubuntu 22.04.
+
+Install [Node.js](http://nodejs.org/) and Gulp.
 The build script for Sozi is known to work with Node.js 14 from [Nodesource](https://github.com/nodesource/distributions).
-If you plan to build a Windows executable from Linux or OS X, also install *wine*.
-In Debian/Ubuntu and their derivatives, you can type the following commands.
 
     sudo apt install nodejs
-    sudo apt install wine # To build Windows executables
     sudo npm install --global gulp-cli
+
+From the root of the source tree, run:
+
+    npm install
+
+If you plan to build a Windows executable, also install *wine*.
+In Debian/Ubuntu and their derivatives, you can type the following commands.
+
+    dpkg --add-architecture i386
+    sudo apt update
+    sudo apt install wine wine32
 
 If you plan to build Debian packages, install the following additional packages:
 
@@ -40,18 +50,22 @@ If you plan to build Redhat packages, install the following additional packages:
 
     sudo apt install rpm
 
-From the root of the source tree:
+If you plan to build Archlinux packages, install the following additional packages:
 
-    npm install
+    sudo apt install libarchive-tools
+
+The `zip` compression tool must also be installed:
+
+    sudo apt install zip
 
 Get the binaries for ffmpeg (optional, but video export will not work without them).
 Download and unzip the FFMPEG executables to the following folders:
 
-* Linux 32-bit: `vendor/ffmpeg/linux-ia32`
-* Linux 64-bit: `vendor/ffmpeg/linux-x64`
-* Windows 32-bit: `vendor/ffmpeg/win32-ia32`
-* Windows 64-bit: `vendor/ffmpeg/win32-x64`
-* MacOS X 64-bit: `vendor/ffmpeg/darwin-x64`
+* Linux 32-bit: `resources/ffmpeg/linux-ia32`
+* Linux 64-bit: `resources/ffmpeg/linux-x64`
+* Windows 32-bit: `resources/ffmpeg/win32-ia32`
+* Windows 64-bit: `resources/ffmpeg/win32-x64`
+* MacOS X 64-bit: `resources/ffmpeg/darwin-x64`
 
 Build
 -----
@@ -73,42 +87,6 @@ gulp all
 
 After a successful build, you will get a `build/dist` folder that contains the
 generated application archives for each platform.
-
-Install
--------
-
-A Debian package is available for users of Debian or Ubuntu-based distributions.
-
-```
-sudo dpkg -i sozi_[...].deb
-```
-
-You can convert it to the RPM format with [Alien](https://joeyh.name/code/alien/):
-
-```
-sudo alien --to-rpm sozi_[...].deb
-```
-
-For other platforms, Sozi is released as a zip/tar.xz archive that you can extract wherever you like.
-
-* OS X users can drag the `sozi.app` subfolder into their `Applications` folder.
-* Windows and Linux users can run the `sozi` executable directly from the extracted folder.
-
-If installation on your specific platform is supported by Sozi,
-there will be an *install* folder in the extracted archive containing installation scripts.
-To install Sozi system-wide:
-
-```
-cd sozi-[...]/install
-sudo ./install.sh
-```
-
-To install Sozi in your home folder:
-
-```
-cd sozi-[...]/install
-./install-local.sh
-```
 
 Helping debug Sozi
 ==================
