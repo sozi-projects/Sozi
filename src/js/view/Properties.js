@@ -144,6 +144,7 @@ export class Properties extends VirtualDOMView {
             }),
 
             h("h1", _("Behavior")),
+
             h("label.side-by-side", {for: "field-animateTransitions"}, [
                 _("Preview transition animations"),
                 this.renderToggleField(h("i.fa.fa-film"), _("Enable animated transitions"), "animateTransitions", controller.getPreference, controller.setPreference)
@@ -151,7 +152,20 @@ export class Properties extends VirtualDOMView {
 
             h("h1", _("Keyboard shortcuts")),
 
-            shortcuts
+            shortcuts,
+
+            h("h1", _("Rendering")),
+
+            h("label.side-by-side", {for: "field-enableHardwareAcceleration"}, [
+                _("Hardware acceleration"),
+                this.renderToggleField(h("i.fa.fa-microchip"), _("Enable hardware acceleration (effective after restarting the application)"), "enableHardwareAcceleration", controller.getAppSetting, controller.setAppSetting)
+            ]),
+
+            h("label.side-by-side", {for: "field-enableColorCorrectRendering"}, [
+                _("Color correct rendering"),
+                this.renderToggleField(h("i.fa.fa-paint-brush"), _("Enable color correct rendering (effective after restarting the application)"), "enableColorCorrectRendering", controller.getAppSetting, controller.setAppSetting)
+            ]),
+
         ]);
     }
 

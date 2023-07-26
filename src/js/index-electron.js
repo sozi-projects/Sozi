@@ -1,6 +1,7 @@
 
 import {app, BrowserWindow} from "electron";
 import * as remoteMain from "@electron/remote/main";
+import settings from "electron-app-settings";
 
 remoteMain.initialize();
 
@@ -50,12 +51,21 @@ function createWindow () {
 // See issue https://github.com/sozi-projects/Sozi/issues/603
 app.commandLine.appendSwitch("disable-gpu-sandbox");
 
-// Prevent Electron from altering colors in the SVG.
-if (process.env.SOZI_DISABLE_COLOR_CORRECT_RENDERING) {
+// Color correct rendering (on by default).
+if (!settings.has("enableColorCorrectRendering")) {
+    settings.set("enableColorCorrectRendering", true);
+}
+
+if (!settings.get("enableColorCorrectRendering")) {
     app.commandLine.appendSwitch("disable-color-correct-rendering");
 }
 
-if (process.env.SOZI_DISABLE_HW_ACCELERATION) {
+// Hardware acceleration (on by default).
+if (!settings.has("enableHardwareAcceleration")) {
+    settings.set("enableHardwareAcceleration", true);
+}
+
+if (!settings.get("enableHardwareAcceleration")) {
     app.disableHardwareAcceleration();
 }
 

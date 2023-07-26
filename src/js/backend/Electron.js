@@ -11,6 +11,7 @@ import process from "process";
 import Jed from "jed";
 import screenfull from "screenfull";
 import * as remote from "@electron/remote";
+import settings from "electron-app-settings";
 
 /** Type for Electron browser windows.
  *
@@ -280,6 +281,16 @@ export class Electron extends AbstractBackend {
     /** @inheritdoc */
     toggleDevTools() {
         browserWindow.toggleDevTools();
+    }
+
+    /** @inheritdoc */
+    getAppSetting(key) {
+        return settings.get(key);
+    }
+
+    /** @inheritdoc */
+    setAppSetting(key, newValue) {
+        settings.set(key, newValue);
     }
 }
 

@@ -195,4 +195,30 @@ export class AbstractBackend {
     toggleDevTools() {
         // Not implemented
     }
+
+    /** Get an application setting.
+     *
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign getters
+     * to HTML fields that represent preferences.
+     *
+     * @param {string} key - The name of the property to get.
+     * @returns {any} - The value of the property in the application settings.
+     */
+    getAppSetting(key) {
+        // Not implemented
+    }
+
+    /** Set a property of the application settings.
+     *
+     * This method is used in the {@linkcode module:view/Properties.Properties|Properties} view to assign setters
+     * to HTML fields that represent preferences.
+     *
+     * This operation cannot be undone.
+     *
+     * @param {string} key - The name of the property to set.
+     * @param {any} newValue - The new value of the property.
+     */
+    setAppSetting(key, newValue) {
+        // Not implemented
+    }
 }

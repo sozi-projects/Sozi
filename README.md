@@ -109,5 +109,4 @@ first column of this table:
 |:---------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------|
 | `ELECTRON_ENABLE_LOGGING`              | Display JavaScript console messages in the current terminal window.                                                                      |
 | `SOZI_DEVTOOLS`                        | Open the developer tools immediately. This can be useful if `F12` has no effect or when you want to debug events that happen at startup. |
-| `SOZI_DISABLE_HW_ACCELERATION`         | Disable hardware acceleration in the rendering engine.                                                                                   |
-| `SOZI_DISABLE_COLOR_CORRECT_RENDERING` | Disable color profile correction.                                                                                                        |
+
