@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2023-07-26 09:05:+0000\n"
-"PO-Revision-Date: 2022-03-25 21:41+0100\n"
+"PO-Revision-Date: 2023-07-27 16:05+0000\n"
 "Last-Translator: SC <lalocas@protonmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/sozi/"
 "translations/pt/>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: src/js/Controller.js:234
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
@@ -213,25 +213,26 @@ msgstr "Teclas de atalho"
 
 #: src/js/view/Properties.js:157
 msgid "Rendering"
-msgstr ""
+msgstr "Renderização"
 
 #: src/js/view/Properties.js:160
 msgid "Hardware acceleration"
-msgstr ""
+msgstr "Aceleração de hardware"
 
 #: src/js/view/Properties.js:161
 msgid ""
 "Enable hardware acceleration (effective after restarting the application)"
-msgstr ""
+msgstr "Ativar a aceleração de hardware (efetiva após reiniciar a aplicação)"
 
 #: src/js/view/Properties.js:165
 msgid "Color correct rendering"
-msgstr ""
+msgstr "Renderização correta da cor"
 
 #: src/js/view/Properties.js:166
 msgid ""
 "Enable color correct rendering (effective after restarting the application)"
 msgstr ""
+"Ativar a reprodução de cores corretas (efetiva após reiniciar a aplicação)"
 
 #: src/js/view/Properties.js:181
 msgid "Basic formatting supported:"
