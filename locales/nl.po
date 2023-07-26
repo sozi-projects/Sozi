@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: Tim van Steenbergen <tim@sourcerers.nl>\n"
 "POT-Creation-Date: 2023-07-26 09:05:+0000\n"
-"PO-Revision-Date: 2022-03-25 21:40+0100\n"
+"PO-Revision-Date: 2023-07-27 16:05+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/sozi/translations/"
 "nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Weblate 5.0-dev\n"
 "X-Launchpad-Export-Date: 2016-10-10 06:40+0000\n"
 
 #: src/js/Controller.js:234
@@ -42,7 +42,7 @@ msgstr "De presentatie is geëxporteerd naar een pdf-bestand."
 
 #: src/js/Controller.js:1773
 msgid "Failed to write PDF file."
-msgstr "Kan pdf-bestand niet wegschrijven."
+msgstr "Kan pdf-bestand niet wegschrĳven."
 
 #: src/js/Controller.js:1786
 msgid "Presentation was exported to PPTX."
@@ -50,7 +50,7 @@ msgstr "De presentatie is geëxporteerd naar een pptx-bestand."
 
 #: src/js/Controller.js:1789
 msgid "Failed to write PPTX file."
-msgstr "Kan pptx-bestand niet wegschrijven."
+msgstr "Kan pptx-bestand niet wegschrĳven."
 
 #: src/js/Controller.js:1802
 msgid "Presentation was exported to video."
@@ -58,7 +58,7 @@ msgstr "De presentatie is geëxporteerd naar een videobestand."
 
 #: src/js/Controller.js:1805
 msgid "Failed to write video file."
-msgstr "Kan videobestand niet wegschrijven."
+msgstr "Kan videobestand niet wegschrĳven."
 
 #: src/js/Storage.js:203
 msgid "Document is not valid SVG."
@@ -180,7 +180,7 @@ msgstr "Lettergrootte"
 
 #: src/js/view/Properties.js:129
 msgid "Enable notifications on save and reload"
-msgstr "Meldingen tonen bij opslaan en herladen"
+msgstr "Meldingen tonen bĳ opslaan en herladen"
 
 #: src/js/view/Properties.js:130
 msgid "Enable notifications"
@@ -220,25 +220,25 @@ msgstr "Sneltoetsen"
 
 #: src/js/view/Properties.js:157
 msgid "Rendering"
-msgstr ""
+msgstr "Renderen"
 
 #: src/js/view/Properties.js:160
 msgid "Hardware acceleration"
-msgstr ""
+msgstr "Hardwareversnelling"
 
 #: src/js/view/Properties.js:161
 msgid ""
 "Enable hardware acceleration (effective after restarting the application)"
-msgstr ""
+msgstr "Hardwareversnelling gebruiken (herstart de app om toe te passen)"
 
 #: src/js/view/Properties.js:165
 msgid "Color correct rendering"
-msgstr ""
+msgstr "Echte kleuren renderen"
 
 #: src/js/view/Properties.js:166
 msgid ""
 "Enable color correct rendering (effective after restarting the application)"
-msgstr ""
+msgstr "Echte kleuren renderen (herstart de app om toe te passen)"
 
 #: src/js/view/Properties.js:181
 msgid "Basic formatting supported:"
@@ -274,11 +274,11 @@ msgstr "Ctrl+3: kleine kop"
 
 #: src/js/view/Properties.js:190
 msgid "Ctrl+L: List"
-msgstr "CTRL + L: lijst"
+msgstr "CTRL + L: lĳst"
 
 #: src/js/view/Properties.js:191
 msgid "Ctrl+N: Numbered list"
-msgstr "CTRL + N: genummerde lijst"
+msgstr "CTRL + N: genummerde lĳst"
 
 #: src/js/view/Properties.js:198
 msgid "Select a layer to copy"
@@ -295,7 +295,7 @@ msgstr "Frame"
 
 #: src/js/view/Properties.js:211
 msgid "Show in frame list"
-msgstr "Tonen op framelijst"
+msgstr "Tonen op framelĳst"
 
 #: src/js/view/Properties.js:212
 msgid "Show frame number"
@@ -307,7 +307,7 @@ msgstr "Titel"
 
 #: src/js/view/Properties.js:218
 msgid "Title level in frame list"
-msgstr "Titelniveau op framelijst"
+msgstr "Titelniveau op framelĳst"
 
 #: src/js/view/Properties.js:221
 msgid "Id"
@@ -425,20 +425,20 @@ msgstr "Aantekeningen"
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
-"Bewerk de presentatoraantekeningen. Klik hier om de lijst met "
+"Bewerk de presentatie-aantekeningen. Klik hier om de lĳst met "
 "opmaaksnelkoppelingen te tonen."
 
 #: src/js/view/Properties.js:296
 msgid "Custom stylesheets and scripts"
-msgstr "Aangepaste stijlbladen en scripts"
+msgstr "Eigen stĳlbladen en scripts"
 
 #: src/js/view/Properties.js:309
 msgid "CSS or JS file names"
-msgstr "CSS- of JS-bestandsnamen"
+msgstr "Css- of js-bestandsnamen"
 
 #: src/js/view/Properties.js:309
 msgid "Add CSS or JS files"
-msgstr "CSS- of JS-bestanden toevoegen"
+msgstr "Css- of js-bestanden toevoegen"
 
 #: src/js/view/Properties.js:312
 msgid "Add a file"
@@ -446,7 +446,7 @@ msgstr "Bestand toevoegen"
 
 #: src/js/view/Properties.js:325
 msgid "Remove this file"
-msgstr "Bestand verwijderen"
+msgstr "Bestand verwĳderen"
 
 #: src/js/view/Properties.js:333
 msgid "Player"
@@ -493,7 +493,7 @@ msgstr "Toestaan om te zoomen"
 
 #: src/js/view/Properties.js:379
 msgid "Examples of frame lists to include/exclude in export"
-msgstr "Voorbeelden van op te nemen/uit te sluiten framelijsten bij exporteren"
+msgstr "Voorbeelden van op te nemen/uit te sluiten framelĳsten bij exporteren"
 
 #: src/js/view/Properties.js:381
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
@@ -577,16 +577,16 @@ msgstr "Verticaal"
 
 #: src/js/view/Properties.js:470 src/js/view/Properties.js:511
 msgid "List of frames to include"
-msgstr "Lijst met op te nemen frames"
+msgstr "Lĳst met op te nemen frames"
 
 #: src/js/view/Properties.js:471 src/js/view/Properties.js:477
 #: src/js/view/Properties.js:512 src/js/view/Properties.js:518
 msgid "Click here to see the syntax for this field"
-msgstr "Klik hier om de syntax van dit veld te bekijken"
+msgstr "Klik hier om de syntaxis van dit veld te bekĳken"
 
 #: src/js/view/Properties.js:476 src/js/view/Properties.js:517
 msgid "List of frames to exclude"
-msgstr "Lijst met uit te sluiten frames"
+msgstr "Lĳst met uit te sluiten frames"
 
 #: src/js/view/Properties.js:491
 msgid "Slide size"
@@ -678,7 +678,7 @@ msgstr "Bitsnelheid (in kbits/sec)"
 
 #: src/js/view/Timeline.js:186
 msgid "Delete the selected frames"
-msgstr "Geselecteerde frames verwijderen"
+msgstr "Geselecteerde frames verwĳderen"
 
 #: src/js/view/Timeline.js:212
 msgid "Add layer"
@@ -698,7 +698,7 @@ msgstr "Deze laag is verborgen - klik om zichtbaar te maken."
 
 #: src/js/view/Timeline.js:256
 msgid "Remove this layer"
-msgstr "Geselecteerde laag verwijderen"
+msgstr "Geselecteerde laag verwĳderen"
 
 #: src/js/view/Timeline.js:281
 msgid "Insert selection before frame %d"
@@ -714,7 +714,7 @@ msgid ""
 "of this layer's position."
 msgstr ""
 "Voeg grafische elementen toe aan het huidige vak om Sozi te helpen de "
-"laagpositie bij te houden."
+"laagpositie bĳ te houden."
 
 #: src/js/view/Toolbar.js:63
 msgid "Aspect ratio: "
@@ -723,7 +723,7 @@ msgstr "Beeldverhouding: "
 #: src/js/view/Toolbar.js:96
 msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
 msgstr ""
-"Geselecteerde lagen verplaatsen (houdt Alt ingedrukt om te zoomen en Shift "
+"Geselecteerde lagen verplaatsen (houdt alt ingedrukt om te zoomen en shift "
 "om te draaien)"
 
 #: src/js/view/Toolbar.js:101
@@ -731,14 +731,14 @@ msgid ""
 "Zoom in/out on the selected layers (you can also hold the Alt key in Move "
 "mode)"
 msgstr ""
-"In- of uitzoomen op de geselecteerde lagen (of houdt de Alt-toets ingedrukt "
-"tijdens het verslepen)"
+"In- of uitzoomen op de geselecteerde lagen (of houdt de alttoets ingedrukt "
+"tĳdens het verslepen)"
 
 #: src/js/view/Toolbar.js:106
 msgid ""
 "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
-"Geselecteerde laag draaien (of houdt de Shift-toets ingedrukt tijdens het "
+"Geselecteerde laag draaien (of houdt de shifttoets ingedrukt tĳdens het "
 "verslepen)"
 
 #: src/js/view/Toolbar.js:111
