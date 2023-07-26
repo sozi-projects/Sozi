@@ -1,268 +1,259 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: 2021-12-25 02:21:+0000\n"
-"PO-Revision-Date: 2023-05-21 01:48+0000\n"
-"Last-Translator: Newson Parker <2434843612@qq.com>\n"
-"Language-Team: Chinese (Pinyin) <https://hosted.weblate.org/projects/sozi/"
-"translations/zh_Latn/>\n"
-"Language: zh_Latn\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2022-09-12 08:00:+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language-Team: none\n"
+"Language: lzh\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
 
 #: src/js/Controller.js:234
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
-msgstr "<i class=\"fa fa-exclamation-triangle\"></i> Cuòwù"
+msgstr ""
 
 #: src/js/Controller.js:235
 msgid "<i class=\"fa fa-info-circle\"></i> Information"
-msgstr "<i class=\"fa fa-info-circle\"></i> Tíshì"
+msgstr ""
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
-msgstr "Wéndàng yǐ xiūgǎi. Chóngxīn jiāzài zhōng."
+msgstr ""
 
 #: src/js/Controller.js:374
 msgid "Document was changed."
-msgstr "Wéndàng yǐ xiūgǎi."
+msgstr ""
 
 #: src/js/Controller.js:1741
 msgid "Presentation was exported to PDF."
-msgstr "演示文稿已导出为PDF。"
+msgstr ""
 
 #: src/js/Controller.js:1744
 msgid "Failed to write PDF file."
-msgstr "无法写入PDF文件。"
+msgstr ""
 
 #: src/js/Controller.js:1757
 msgid "Presentation was exported to PPTX."
-msgstr "Yǎnshì wéngǎo yǐ dǎochū wéi PPTX。"
+msgstr ""
 
 #: src/js/Controller.js:1760
 msgid "Failed to write PPTX file."
-msgstr "Wúfá xiěrù PPTX 文件。"
+msgstr ""
 
 #: src/js/Controller.js:1773
 msgid "Presentation was exported to video."
-msgstr "Yǎnshì wéngǎo yǐ dǎochū chéng shìpín。"
+msgstr ""
 
 #: src/js/Controller.js:1776
 msgid "Failed to write video file."
-msgstr "Wúfǎ xiěrù shìpín wénjiàn。"
+msgstr ""
 
 #: src/js/Storage.js:203
 msgid "Document is not valid SVG."
-msgstr "Cǐ wénjiàn bùshì yǒuxiào de SVG wénjiàn."
+msgstr ""
 
 #: src/js/Storage.js:261
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr "Shūrù wéndàng wèi Sozi 13 huò gèng zǎoqí bǎnběn."
+msgstr ""
 
 #: src/js/Storage.js:354
 msgid "Saved %s."
-msgstr "Bǎocún wánbì %s."
+msgstr ""
 
 #: src/js/backend/Electron.js:49
 msgid "Open an SVG file from your computer"
-msgstr "Cóng diànnǎo dǎkāi SVG wénjiàn"
+msgstr ""
 
 #: src/js/backend/Electron.js:74
 msgid "Do you want to save the presentation before closing?"
-msgstr "Shìfǒu yào zài guānbì zhīqián bǎocún gāi yǎnshì wéngǎo?"
+msgstr ""
 
 #: src/js/backend/Electron.js:75
 msgid "Yes"
-msgstr "Shì"
+msgstr ""
 
 #: src/js/backend/Electron.js:75
 msgid "No"
-msgstr "Fǒu"
+msgstr ""
 
 #: src/js/backend/Electron.js:105
 msgid "File not found: %s."
-msgstr "Zhǎo bù dào wénjiàn: %S."
+msgstr ""
 
 #: src/js/backend/Electron.js:137
 msgid "Choose an SVG file"
-msgstr "Xuǎnzé SVG wénjiàn"
+msgstr ""
 
 #: src/js/backend/Electron.js:138
 msgid "SVG files"
-msgstr "SVG wénjiàn"
+msgstr ""
 
 #: src/js/backend/Electron.js:199
 msgid "This file will not be reloaded on change: %s."
-msgstr "Gēng gǎi hòu，jiāng búhùi chóngxīn jīazǎi cǐ wénjiàn：％s。"
+msgstr ""
 
 #: src/js/backend/Electron.js:215
 msgid "Could not read file %s."
-msgstr "Wúfǎ dúqǔ wénjiàn %s."
+msgstr ""
 
 #: src/js/backend/FileReader.js:23
 msgid ""
-"Open an SVG file from your computer (<i class=\"fa fa-exclamation-triangle"
-"\"></i> read-only)"
+"Open an SVG file from your computer (<i class=\"fa "
+"fa-exclamation-triangle\"></i> read-only)"
 msgstr ""
-"Cóng diànnǎo dǎkāi SVG wénjiàn (<i class=\"fa fa-exclamation-triangle\"></i> "
-"zhǐ dú)"
 
 #: src/js/backend/GoogleDrive.js:25
 msgid "Open an SVG file from Google Drive"
-msgstr "Cóng Google Drive shàng dǎkāi SVG wénjiàn"
+msgstr ""
 
 #: src/js/view/Properties.js:94
 msgid "Autoselect outline element"
-msgstr "Zìdòng xuǎnzé dàgāng yuánsù"
+msgstr ""
 
 #: src/js/view/Properties.js:95 src/js/view/Properties.js:222
 msgid "Reset layer geometry"
-msgstr "Chóng zhì céng jǐhé xíngzhuàng"
+msgstr ""
 
 #: src/js/view/Properties.js:96 src/js/view/Timeline.js:193
 msgid "Create a new frame"
-msgstr "Chuàngjiàn dònghuà zhèng"
+msgstr ""
 
-#: src/js/view/Properties.js:97 src/js/view/Properties.js:133
-#: src/js/view/Toolbar.js:139
+#: src/js/view/Properties.js:97 src/js/view/Properties.js:133 src/js/view/Toolbar.js:139
 msgid "Save the presentation"
-msgstr "Bǎocún yǎnshì wéngǎo"
+msgstr ""
 
 #: src/js/view/Properties.js:98 src/js/view/Toolbar.js:123
 msgid "Redo"
-msgstr "Chóngzuò"
+msgstr ""
 
 #: src/js/view/Properties.js:99 src/js/view/Toolbar.js:118
 msgid "Undo"
-msgstr "Chèxiāo"
+msgstr ""
 
 #: src/js/view/Properties.js:100
 msgid "Focus the frame title"
-msgstr "Qiánwǎng zhèng biāotí"
+msgstr ""
 
-#: src/js/view/Properties.js:101 src/js/view/Properties.js:139
-#: src/js/view/Toolbar.js:144
+#: src/js/view/Properties.js:101 src/js/view/Properties.js:139 src/js/view/Toolbar.js:144
 msgid "Reload the SVG document"
-msgstr "重新加载SVG文档"
+msgstr ""
 
 #: src/js/view/Properties.js:102
 msgid "Toggle full-screen mode"
-msgstr "切换全屏模式"
+msgstr ""
 
 #: src/js/view/Properties.js:103
 msgid "Toggle the developer tools"
-msgstr "切换开发人员工具"
+msgstr ""
 
 #: src/js/view/Properties.js:116 src/js/view/Properties.js:405
 msgid "Back to presentation properties"
-msgstr "Fǎnhuí yǎnshì wéngǎo shǔxìng"
+msgstr ""
 
 #: src/js/view/Properties.js:120
 msgid "User interface"
-msgstr "用户界面"
+msgstr ""
 
 #: src/js/view/Properties.js:122
 msgid "Language"
-msgstr "语言"
+msgstr ""
 
 #: src/js/view/Properties.js:125
 msgid "Font size"
-msgstr "字体大小"
+msgstr ""
 
 #: src/js/view/Properties.js:129
 msgid "Enable notifications on save and reload"
-msgstr "在保存和重新加载时启用通知"
+msgstr ""
 
 #: src/js/view/Properties.js:130
 msgid "Enable notifications"
-msgstr "Qǐynòg tōngzhī"
+msgstr ""
 
 #: src/js/view/Properties.js:135
 msgid "When Sozi loses the focus"
-msgstr "Dāng Sozi shīqù jiāodiǎn shí"
+msgstr ""
 
 #: src/js/view/Properties.js:136 src/js/view/Properties.js:143
 msgid "Manually"
-msgstr "Shǒudòng"
+msgstr ""
 
 #: src/js/view/Properties.js:141
 msgid "Automatically"
-msgstr "Zìdòng"
+msgstr ""
 
 #: src/js/view/Properties.js:142
 msgid "When Sozi gets the focus"
-msgstr "当Sozi成为焦点时"
+msgstr ""
 
 #: src/js/view/Properties.js:146
 msgid "Behavior"
-msgstr "行为"
+msgstr ""
 
 #: src/js/view/Properties.js:148
 msgid "Preview transition animations"
-msgstr "预览过渡动画"
+msgstr ""
 
 #: src/js/view/Properties.js:149
 msgid "Enable animated transitions"
-msgstr "Qǐyòng dònghuà guòdù"
+msgstr ""
 
 #: src/js/view/Properties.js:152
 msgid "Keyboard shortcuts"
-msgstr "Jiànpán kuàijié jiàn"
+msgstr ""
 
 #: src/js/view/Properties.js:167
 msgid "Basic formatting supported:"
-msgstr "Zhīchí de jīběn géshì："
+msgstr ""
 
 #: src/js/view/Properties.js:169
 msgid "Ctrl+B: Bold"
-msgstr "Ctrl + B：粗体"
+msgstr ""
 
 #: src/js/view/Properties.js:170
 msgid "Ctrl+I: Italic"
-msgstr "Ctrl + I：斜体"
+msgstr ""
 
 #: src/js/view/Properties.js:171
 msgid "Ctrl+U: Underline"
-msgstr "Ctrl + U：下划线"
+msgstr ""
 
 #: src/js/view/Properties.js:172
 msgid "Ctrl+0: Paragraph"
-msgstr "Ctrl+0: Duànluò"
+msgstr ""
 
 #: src/js/view/Properties.js:173
 msgid "Ctrl+1: Big heading"
-msgstr "Ctrl + 1：Dà biāotí"
+msgstr ""
 
 #: src/js/view/Properties.js:174
 msgid "Ctrl+2: Medium heading"
-msgstr "Ctrl + 2：Zhōngjí biāotí"
+msgstr ""
 
 #: src/js/view/Properties.js:175
 msgid "Ctrl+3: Small heading"
-msgstr "Ctrl + 3：Xiǎo biāotí"
+msgstr ""
 
 #: src/js/view/Properties.js:176
 msgid "Ctrl+L: List"
-msgstr "Ctrl + L：Liè biǎo"
+msgstr ""
 
 #: src/js/view/Properties.js:177
 msgid "Ctrl+N: Numbered list"
-msgstr "Ctrl + N：Biānhào lièbiǎo"
+msgstr ""
 
 #: src/js/view/Properties.js:184
 msgid "Select a layer to copy"
-msgstr "Xuǎnzé yào fùzhì de túcéng"
+msgstr ""
 
-#: src/js/view/Properties.js:187 src/js/view/Timeline.js:240
-#: src/js/view/Timeline.js:268
+#: src/js/view/Properties.js:187 src/js/view/Timeline.js:240 src/js/view/Timeline.js:268
 msgid "Default"
-msgstr "Mò rèn"
+msgstr ""
 
 #: src/js/view/Properties.js:194
 msgid "Frame"
-msgstr "Zhēn"
+msgstr ""
 
 #: src/js/view/Properties.js:197
 msgid "Show in frame list"
@@ -393,8 +384,7 @@ msgid "Notes"
 msgstr ""
 
 #: src/js/view/Properties.js:278
-msgid ""
-"Edit presenter notes. Click here to show the list of formatting shortcuts."
+msgid "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 
 #: src/js/view/Properties.js:282
@@ -427,21 +417,19 @@ msgstr ""
 
 #: src/js/view/Properties.js:323
 msgid ""
-"Moving from one frame to another will change the content of the location bar "
-"automatically."
+"Moving from one frame to another will change the content of the location "
+"bar automatically."
 msgstr ""
 
 #: src/js/view/Properties.js:327
 msgid "Allow to control the presentation"
 msgstr ""
 
-#: src/js/view/Properties.js:329 src/js/view/Properties.js:336
-#: src/js/view/Properties.js:342 src/js/view/Properties.js:350
+#: src/js/view/Properties.js:329 src/js/view/Properties.js:336 src/js/view/Properties.js:342 src/js/view/Properties.js:350
 msgid "using the mouse"
 msgstr ""
 
-#: src/js/view/Properties.js:330 src/js/view/Properties.js:343
-#: src/js/view/Properties.js:351
+#: src/js/view/Properties.js:330 src/js/view/Properties.js:343 src/js/view/Properties.js:351
 msgid "using the keyboard"
 msgstr ""
 
@@ -545,8 +533,7 @@ msgstr ""
 msgid "List of frames to include"
 msgstr ""
 
-#: src/js/view/Properties.js:457 src/js/view/Properties.js:463
-#: src/js/view/Properties.js:498 src/js/view/Properties.js:504
+#: src/js/view/Properties.js:457 src/js/view/Properties.js:463 src/js/view/Properties.js:498 src/js/view/Properties.js:504
 msgid "Click here to see the syntax for this field"
 msgstr ""
 
@@ -564,19 +551,19 @@ msgstr ""
 
 #: src/js/view/Properties.js:482
 msgid "B4 (ISO)"
-msgstr "B4 (ISO)"
+msgstr ""
 
 #: src/js/view/Properties.js:483
 msgid "B4 (JIS)"
-msgstr "B4 (JIS)"
+msgstr ""
 
 #: src/js/view/Properties.js:484
 msgid "B5 (ISO)"
-msgstr "B5 (ISO)"
+msgstr ""
 
 #: src/js/view/Properties.js:485
 msgid "B5 (JIS)"
-msgstr "B5 (JIS)"
+msgstr ""
 
 #: src/js/view/Properties.js:486
 msgid "Banner"
@@ -608,7 +595,7 @@ msgstr ""
 
 #: src/js/view/Properties.js:521
 msgid "MPEG-4 (.mp4)"
-msgstr "MPEG-4 (.mp4) Shì Pín"
+msgstr ""
 
 #: src/js/view/Properties.js:522
 msgid "Ogg Vorbis (.ogv)"
@@ -695,8 +682,7 @@ msgid ""
 msgstr ""
 
 #: src/js/view/Toolbar.js:106
-msgid ""
-"Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgid "Rotate the selected layers (you can also hold the Shift key in Move mode)"
 msgstr ""
 
 #: src/js/view/Toolbar.js:111
@@ -721,11 +707,4 @@ msgstr ""
 
 #: src/js/view/languages.js:17
 msgid "System language"
-msgstr "系统语言"
-
-#, fuzzy
-#~ msgid "Export the presentation to PDF"
-#~ msgstr "Bǎocún yǎnshì wéngǎo"
-
-#~ msgid "File %s could not be loaded."
-#~ msgstr "Wúfǎ jiāzài wénjiàn %s."
+msgstr ""

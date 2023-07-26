@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2021-11-28 09:05:+0000\n"
-"PO-Revision-Date: 2022-03-27 04:11+0000\n"
-"Last-Translator: Eric <alchemillatruth@purelymail.com>\n"
+"PO-Revision-Date: 2023-05-21 01:47+0000\n"
+"Last-Translator: Newson Parker <2434843612@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "sozi/translations/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: src/js/Controller.js:234
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
@@ -458,39 +458,39 @@ msgstr "允许缩放"
 
 #: src/js/view/Properties.js:365
 msgid "Examples of frame lists to include/exclude in export"
-msgstr ""
+msgstr "在导出时包含/不包含帧的样例"
 
 #: src/js/view/Properties.js:367
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
-msgstr ""
+msgstr "选择帧 2,5 以及12: \"2,5,12\""
 
 #: src/js/view/Properties.js:368
 msgid "Select frames 5 to 8: \"5:8\""
-msgstr ""
+msgstr "选择帧 5 到 8: \"5:8\""
 
 #: src/js/view/Properties.js:369
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
-msgstr ""
+msgstr "选择帧 5, 8, 11, 14 以及 17: \"5:8:17\""
 
 #: src/js/view/Properties.js:370
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
-msgstr ""
+msgstr "选择帧 2, 5 以及 10 到15: \"2, 5, 10:15\""
 
 #: src/js/view/Properties.js:409 src/js/view/Properties.js:425
 msgid "Export"
-msgstr ""
+msgstr "导出"
 
 #: src/js/view/Properties.js:411
 msgid "Document type"
-msgstr ""
+msgstr "文件类型"
 
 #: src/js/view/Properties.js:413
 msgid "Portable Document Format (PDF)"
-msgstr ""
+msgstr "便携式文件格式(PDF)"
 
 #: src/js/view/Properties.js:414
 msgid "Microsoft PowerPoint (PPTX)"
-msgstr ""
+msgstr "微软 PowerPoint (PPTX)"
 
 #: src/js/view/Properties.js:415
 msgid "Video"
@@ -542,7 +542,7 @@ msgstr "竖向"
 
 #: src/js/view/Properties.js:456 src/js/view/Properties.js:497
 msgid "List of frames to include"
-msgstr ""
+msgstr "列出包含的帧"
 
 #: src/js/view/Properties.js:457 src/js/view/Properties.js:463
 #: src/js/view/Properties.js:498 src/js/view/Properties.js:504
@@ -551,7 +551,7 @@ msgstr "点击此处，查看此栏语法"
 
 #: src/js/view/Properties.js:462 src/js/view/Properties.js:503
 msgid "List of frames to exclude"
-msgstr ""
+msgstr "列出不包含的帧"
 
 #: src/js/view/Properties.js:477
 msgid "Slide size"
@@ -583,11 +583,11 @@ msgstr "横幅"
 
 #: src/js/view/Properties.js:487
 msgid "Hagaki Card"
-msgstr "Hagaki Card"
+msgstr "Hagaki 卡片"
 
 #: src/js/view/Properties.js:490
 msgid "Overhead"
-msgstr ""
+msgstr "重叠对象"
 
 #: src/js/view/Properties.js:491
 msgid "Screen 16:10"
@@ -607,7 +607,7 @@ msgstr "格式"
 
 #: src/js/view/Properties.js:521
 msgid "MPEG-4 (.mp4)"
-msgstr "MPEG-4（.mp4）"
+msgstr "MPEG-4（.mp4）视频"
 
 #: src/js/view/Properties.js:522
 msgid "Ogg Vorbis (.ogv)"
