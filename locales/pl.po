@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2023-07-26 09:05:+0000\n"
-"PO-Revision-Date: 2022-03-25 21:40+0100\n"
+"PO-Revision-Date: 2023-08-05 14:47+0000\n"
 "Last-Translator: WaldiS <sto@tutanota.de>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/sozi/translations/"
 "pl/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Weblate 5.0-dev\n"
 "X-Launchpad-Export-Date: 2017-11-19 10:24+0000\n"
 
 #: src/js/Controller.js:234
@@ -31,11 +31,11 @@ msgstr "Informacje <i class=\"fa fa-info-circle\"></i>"
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
-msgstr "Dokument uległ zmianie. Trwa odświeżanie."
+msgstr "Dokument został zmieniony. Trwa odświeżanie."
 
 #: src/js/Controller.js:374
 msgid "Document was changed."
-msgstr "Dokument uległ zmianie."
+msgstr "Dokument został zmieniony."
 
 #: src/js/Controller.js:1770
 msgid "Presentation was exported to PDF."
@@ -103,7 +103,7 @@ msgstr "Pliki SVG"
 
 #: src/js/backend/Electron.js:200
 msgid "This file will not be reloaded on change: %s."
-msgstr "Ten plik nie zostanie ponownie załadowany przy zmianie: %s."
+msgstr "Ten plik nie zostanie ponownie załadowany po zmianie: %s."
 
 #: src/js/backend/Electron.js:216
 msgid "Could not read file %s."
@@ -114,24 +114,24 @@ msgid ""
 "Open an SVG file from your computer (<i class=\"fa fa-exclamation-"
 "triangle\"></i> read-only)"
 msgstr ""
-"Otwórz plik SVG z komputera (<i class=\"fa fa-exclamation-triangle\"></i> "
-"read-only)"
+"Otwórz plik SVG z komputera (<i class=\"fa-exclamation-triangle\"></i> tylko "
+"do odczytu)"
 
 #: src/js/backend/GoogleDrive.js:25
 msgid "Open an SVG file from Google Drive"
-msgstr "Otwórz plik SVG z Google Drive"
+msgstr "Otwórz plik SVG z dysku Google Drive"
 
 #: src/js/view/Properties.js:94
 msgid "Autoselect outline element"
-msgstr "Automatycznie wybierz element konspektu"
+msgstr "Automatycznie wybierz obrys elementu"
 
 #: src/js/view/Properties.js:95 src/js/view/Properties.js:236
 msgid "Reset layer geometry"
-msgstr "Zresetuj geometrię warstwę"
+msgstr "Resetuj geometrię warstwy"
 
 #: src/js/view/Properties.js:96 src/js/view/Timeline.js:193
 msgid "Create a new frame"
-msgstr "Stwórz nową ramkę"
+msgstr "Utwórz nową ramkę"
 
 #: src/js/view/Properties.js:97 src/js/view/Properties.js:133
 #: src/js/view/Toolbar.js:139
@@ -148,25 +148,24 @@ msgstr "Cofnij"
 
 #: src/js/view/Properties.js:100
 msgid "Focus the frame title"
-msgstr "Ustaw tytuł ramki"
+msgstr "Zaznacz tytuł ramki"
 
 #: src/js/view/Properties.js:101 src/js/view/Properties.js:139
 #: src/js/view/Toolbar.js:144
 msgid "Reload the SVG document"
-msgstr "Otwórz plik SVG ponownie"
+msgstr "Przeładuj dokument SVG"
 
 #: src/js/view/Properties.js:102
 msgid "Toggle full-screen mode"
-msgstr "Włącz tryb pełnoekranowy"
+msgstr "Przełącz tryb pełnoekranowy"
 
 #: src/js/view/Properties.js:103
 msgid "Toggle the developer tools"
 msgstr "Przełącz narzędzia programistyczne"
 
 #: src/js/view/Properties.js:116 src/js/view/Properties.js:419
-#, fuzzy
 msgid "Back to presentation properties"
-msgstr "Zapisz prezentację"
+msgstr "Powrót do właściwości prezentacji"
 
 #: src/js/view/Properties.js:120
 msgid "User interface"
@@ -190,7 +189,7 @@ msgstr "Włącz powiadomienia"
 
 #: src/js/view/Properties.js:135
 msgid "When Sozi loses the focus"
-msgstr "Kiedy Sozi traci ostrość"
+msgstr "Kiedy Sozi traci koncentrację"
 
 #: src/js/view/Properties.js:136 src/js/view/Properties.js:143
 msgid "Manually"
@@ -202,7 +201,7 @@ msgstr "Automatycznie"
 
 #: src/js/view/Properties.js:142
 msgid "When Sozi gets the focus"
-msgstr "Kiedy Sozi dostaje ostrość"
+msgstr "Kiedy Sozi skupia na sobie uwagę"
 
 #: src/js/view/Properties.js:146
 msgid "Behavior"
@@ -210,7 +209,7 @@ msgstr "Zachowanie"
 
 #: src/js/view/Properties.js:149
 msgid "Preview transition animations"
-msgstr "Podgląd animacji przejścia"
+msgstr "Podgląd animacji przejść"
 
 #: src/js/view/Properties.js:150
 msgid "Enable animated transitions"
@@ -222,25 +221,27 @@ msgstr "Skróty klawiszowe"
 
 #: src/js/view/Properties.js:157
 msgid "Rendering"
-msgstr ""
+msgstr "Renderowanie"
 
 #: src/js/view/Properties.js:160
 msgid "Hardware acceleration"
-msgstr ""
+msgstr "Przyspieszenie sprzętowe"
 
 #: src/js/view/Properties.js:161
 msgid ""
 "Enable hardware acceleration (effective after restarting the application)"
-msgstr ""
+msgstr "Włącz przyspieszenie sprzętowe (działa po restarcie aplikacji)"
 
 #: src/js/view/Properties.js:165
 msgid "Color correct rendering"
-msgstr ""
+msgstr "Poprawne odwzorowanie kolorów"
 
 #: src/js/view/Properties.js:166
 msgid ""
 "Enable color correct rendering (effective after restarting the application)"
 msgstr ""
+"Włącz renderowanie z korekcją kolorów (działa po ponownym uruchomieniu "
+"aplikacji)"
 
 #: src/js/view/Properties.js:181
 msgid "Basic formatting supported:"
@@ -289,7 +290,7 @@ msgstr "Wybierz warstwę do skopiowania"
 #: src/js/view/Properties.js:201 src/js/view/Timeline.js:240
 #: src/js/view/Timeline.js:268
 msgid "Default"
-msgstr "Domyślny"
+msgstr "Domyślnie"
 
 #: src/js/view/Properties.js:208
 msgid "Frame"
@@ -297,7 +298,7 @@ msgstr "Ramka"
 
 #: src/js/view/Properties.js:211
 msgid "Show in frame list"
-msgstr "Pokaż w spisie"
+msgstr "Pokaż na liście ramek"
 
 #: src/js/view/Properties.js:212
 msgid "Show frame number"
@@ -365,7 +366,7 @@ msgstr "Przejście"
 
 #: src/js/view/Properties.js:266
 msgid "Configure the animation when moving to the selected frames."
-msgstr "Ustaw animację, po przejściu na wybrane zdjęcia."
+msgstr "Ustaw animację podczas przechodzenia do wybranych ramek."
 
 #: src/js/view/Properties.js:268
 msgid "Duration (seconds)"
@@ -377,31 +378,31 @@ msgstr "Funkcja czasu"
 
 #: src/js/view/Properties.js:273
 msgid "Linear"
-msgstr "Liniowy"
+msgstr "Liniowa"
 
 #: src/js/view/Properties.js:274
 msgid "Ease"
-msgstr "Łatwy"
+msgstr "Spokojne"
 
 #: src/js/view/Properties.js:275
 msgid "Ease in"
-msgstr "Łatwy w"
+msgstr "Spokojne wejście"
 
 #: src/js/view/Properties.js:276
 msgid "Ease out"
-msgstr "Łatwy na zewnątrz"
+msgstr "Spokojne wyjście"
 
 #: src/js/view/Properties.js:277
 msgid "Ease in-out"
-msgstr "Łatwe wprowadzanie"
+msgstr "Spokojne wejście-wyjście"
 
 #: src/js/view/Properties.js:278
 msgid "Step start"
-msgstr "Rozpoczęcie kroku"
+msgstr "Krok początkowy"
 
 #: src/js/view/Properties.js:279
 msgid "Step end"
-msgstr "Koniec kroku"
+msgstr "Krok końcowy"
 
 #: src/js/view/Properties.js:280
 msgid "Step middle"
@@ -448,23 +449,24 @@ msgstr "Dodaj plik"
 
 #: src/js/view/Properties.js:325
 msgid "Remove this file"
-msgstr "Usuń ten plik"
+msgstr "Usuń plik"
 
 #: src/js/view/Properties.js:333
 msgid "Player"
-msgstr "Odtwarzaj"
+msgstr "Odtwarzanie"
 
 #: src/js/view/Properties.js:336
 msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
-"Obsługa przycisku przeglądarki \"wstecz\", aby przejść do poprzedniej klatki"
+"Obsługa przycisku \"Wstecz\" przeglądarki w celu przejścia do poprzedniej "
+"klatki"
 
 #: src/js/view/Properties.js:337
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr ""
-"Przejście z jednej klatki na drugą spowoduje automatyczną zmianę zawartości "
+"Przejście z jednej ramki do drugiej spowoduje automatyczną zmianę zawartości "
 "paska lokalizacji."
 
 #: src/js/view/Properties.js:341
@@ -487,7 +489,7 @@ msgstr "Pozwól przesuwać kamerę"
 
 #: src/js/view/Properties.js:354
 msgid "Allow to rotate the camera"
-msgstr "Pozwól, aby obrócić kamerę"
+msgstr "Pozwól na obrót kamery"
 
 #: src/js/view/Properties.js:362
 msgid "Allow to zoom"
@@ -515,7 +517,7 @@ msgstr "Wybierz klatki 2, 5 i 10 do 15: \"2, 5, 10:15\""
 
 #: src/js/view/Properties.js:423 src/js/view/Properties.js:439
 msgid "Export"
-msgstr "Exportuj"
+msgstr "Eksportuj"
 
 #: src/js/view/Properties.js:425
 msgid "Document type"
@@ -527,7 +529,7 @@ msgstr "Portable Document Format (PDF)"
 
 #: src/js/view/Properties.js:428
 msgid "Microsoft PowerPoint (PPTX)"
-msgstr "Microsoft PowerPoint (PPTX)"
+msgstr "Microsoft Power Point (PPTX)"
 
 #: src/js/view/Properties.js:429
 msgid "Video"
@@ -579,16 +581,16 @@ msgstr "Portret"
 
 #: src/js/view/Properties.js:470 src/js/view/Properties.js:511
 msgid "List of frames to include"
-msgstr "Lista ramek do umieszczenia"
+msgstr "Lista ramek do uwzględnienia"
 
 #: src/js/view/Properties.js:471 src/js/view/Properties.js:477
 #: src/js/view/Properties.js:512 src/js/view/Properties.js:518
 msgid "Click here to see the syntax for this field"
-msgstr "Kliknij tutaj, aby zobaczyć składnię dla tego pola"
+msgstr "Kliknij tutaj, aby wyświetlić składnię tego pola"
 
 #: src/js/view/Properties.js:476 src/js/view/Properties.js:517
 msgid "List of frames to exclude"
-msgstr "Lista ramek do wyłączenia"
+msgstr "Lista ramek do wykluczenia"
 
 #: src/js/view/Properties.js:491
 msgid "Slide size"
@@ -660,7 +662,7 @@ msgstr "Windows Media Video (.wmv)"
 
 #: src/js/view/Properties.js:539
 msgid "Image sequence (.png)"
-msgstr "Sekwencja obrazów (png)"
+msgstr "Sekwencja obrazów (.png)"
 
 #: src/js/view/Properties.js:542
 msgid "Width (pixels)"
