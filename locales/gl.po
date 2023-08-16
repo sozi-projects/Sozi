@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2023-07-26 09:05:+0000\n"
-"PO-Revision-Date: 2022-12-08 18:51+0000\n"
-"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"PO-Revision-Date: 2023-08-17 21:52+0000\n"
+"Last-Translator: Xosé Calvo <xosecalvo@gmail.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/sozi/"
 "translations/gl/>\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 "X-Launchpad-Export-Date: 2015-07-04 20:32+0000\n"
 
 #: src/js/Controller.js:234
@@ -224,12 +224,13 @@ msgstr ""
 
 #: src/js/view/Properties.js:160
 msgid "Hardware acceleration"
-msgstr ""
+msgstr "Aceleración de hardware"
 
 #: src/js/view/Properties.js:161
 msgid ""
 "Enable hardware acceleration (effective after restarting the application)"
 msgstr ""
+"Activar a aceleración de hardware (efectiva após reiniciar a aplicación)"
 
 #: src/js/view/Properties.js:165
 msgid "Color correct rendering"
