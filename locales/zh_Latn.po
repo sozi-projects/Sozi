@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2023-07-26 09:05:+0000\n"
-"PO-Revision-Date: 2023-05-21 01:48+0000\n"
-"Last-Translator: Newson Parker <2434843612@qq.com>\n"
+"PO-Revision-Date: 2023-12-13 16:06+0000\n"
+"Last-Translator: 欧阳淇淇 <1512383570@qq.com>\n"
 "Language-Team: Chinese (Pinyin) <https://hosted.weblate.org/projects/sozi/"
 "translations/zh_Latn/>\n"
 "Language: zh_Latn\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.3-rc\n"
 
 #: src/js/Controller.js:234
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
@@ -145,15 +145,15 @@ msgstr "Qiánwǎng zhèng biāotí"
 #: src/js/view/Properties.js:101 src/js/view/Properties.js:139
 #: src/js/view/Toolbar.js:144
 msgid "Reload the SVG document"
-msgstr "重新加载SVG文档"
+msgstr "Chóng Xīn Jiā Zài SVG Wén Dàng"
 
 #: src/js/view/Properties.js:102
 msgid "Toggle full-screen mode"
-msgstr "切换全屏模式"
+msgstr "Qiē Huàn Quán Píng Mó Shì"
 
 #: src/js/view/Properties.js:103
 msgid "Toggle the developer tools"
-msgstr "切换开发人员工具"
+msgstr "Qiē Huàn Kāi Fā Rén Yuán Gōng Jù"
 
 #: src/js/view/Properties.js:116 src/js/view/Properties.js:419
 msgid "Back to presentation properties"
@@ -161,19 +161,19 @@ msgstr "Fǎnhuí yǎnshì wéngǎo shǔxìng"
 
 #: src/js/view/Properties.js:120
 msgid "User interface"
-msgstr "用户界面"
+msgstr "Yòng Hù Jiè Miàn"
 
 #: src/js/view/Properties.js:122
 msgid "Language"
-msgstr "语言"
+msgstr "Yǔ Yán"
 
 #: src/js/view/Properties.js:125
 msgid "Font size"
-msgstr "字体大小"
+msgstr "Zì Tǐ Dà Xiǎo"
 
 #: src/js/view/Properties.js:129
 msgid "Enable notifications on save and reload"
-msgstr "在保存和重新加载时启用通知"
+msgstr "Zài Bǎo Cún Hé Chóng Xīn Jiā Zài Shí Qǐ Yòng Tōng Zhī"
 
 #: src/js/view/Properties.js:130
 msgid "Enable notifications"
@@ -193,15 +193,15 @@ msgstr "Zìdòng"
 
 #: src/js/view/Properties.js:142
 msgid "When Sozi gets the focus"
-msgstr "当Sozi成为焦点时"
+msgstr "Dāng Sozi Chéng Wéi Jiāo Diǎn Shí"
 
 #: src/js/view/Properties.js:146
 msgid "Behavior"
-msgstr "行为"
+msgstr "Xíng Wéi"
 
 #: src/js/view/Properties.js:149
 msgid "Preview transition animations"
-msgstr "预览过渡动画"
+msgstr "Yù Lǎn Guò Dù Dòng Huà"
 
 #: src/js/view/Properties.js:150
 msgid "Enable animated transitions"
@@ -239,15 +239,15 @@ msgstr "Zhīchí de jīběn géshì："
 
 #: src/js/view/Properties.js:183
 msgid "Ctrl+B: Bold"
-msgstr "Ctrl + B：粗体"
+msgstr "Ctrl + B：Cū Tǐ"
 
 #: src/js/view/Properties.js:184
 msgid "Ctrl+I: Italic"
-msgstr "Ctrl + I：斜体"
+msgstr "Ctrl + I：Xié Tǐ"
 
 #: src/js/view/Properties.js:185
 msgid "Ctrl+U: Underline"
-msgstr "Ctrl + U：下划线"
+msgstr "Ctrl + U：Xià Huà Xiàn"
 
 #: src/js/view/Properties.js:186
 msgid "Ctrl+0: Paragraph"
