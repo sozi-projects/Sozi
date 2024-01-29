@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2023-07-26 09:05:+0000\n"
-"PO-Revision-Date: 2022-03-25 21:42+0100\n"
+"PO-Revision-Date: 2024-01-30 14:01+0000\n"
 "Last-Translator: 麋悟BigELK176 <bigelk176@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "sozi/translations/zh_Hant/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Weblate 5.4-dev\n"
 "X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
 
 #: src/js/Controller.js:234
@@ -219,25 +219,25 @@ msgstr "鍵盤操作快捷鍵"
 
 #: src/js/view/Properties.js:157
 msgid "Rendering"
-msgstr ""
+msgstr "渲染"
 
 #: src/js/view/Properties.js:160
 msgid "Hardware acceleration"
-msgstr ""
+msgstr "硬體加速"
 
 #: src/js/view/Properties.js:161
 msgid ""
 "Enable hardware acceleration (effective after restarting the application)"
-msgstr ""
+msgstr "啟用硬體加速（重新啟動即可生效）"
 
 #: src/js/view/Properties.js:165
 msgid "Color correct rendering"
-msgstr ""
+msgstr "顏色正確渲染"
 
 #: src/js/view/Properties.js:166
 msgid ""
 "Enable color correct rendering (effective after restarting the application)"
-msgstr ""
+msgstr "啟用顏色正確渲染（重新啟動即可生效）"
 
 #: src/js/view/Properties.js:181
 msgid "Basic formatting supported:"
