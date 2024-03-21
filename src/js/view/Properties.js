@@ -188,7 +188,9 @@ export class Properties extends VirtualDOMView {
             _("Ctrl+2: Medium heading"),
             _("Ctrl+3: Small heading"),
             _("Ctrl+L: List"),
-            _("Ctrl+N: Numbered list")
+            _("Ctrl+N: Numbered list"),
+            _("Ctrl+>: Indent list entry"),
+            _("Ctrl+<: Outdent list entry"),
         ].join("<br>");
 
         const timeoutMsDisabled = controller.getFrameProperty("timeoutEnable").every(value => !value);
@@ -645,6 +647,12 @@ export class Properties extends VirtualDOMView {
                             break;
                         case 78: // Ctrl+N
                             document.execCommand("insertOrderedList", false, null);
+                            break;
+                        case 188: // Ctrl+<
+                            document.execCommand("outdent", false, null);
+                            break;
+                        case 190: // Ctrl+>
+                            document.execCommand("indent", false, null);
                             break;
                         default:
                             return;
