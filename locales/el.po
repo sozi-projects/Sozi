@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-07-26 09:05:+0000\n"
+"POT-Creation-Date: 2024-04-14 10:17:+0000\n"
 "PO-Revision-Date: 2022-03-25 21:34+0100\n"
 "Last-Translator: Αυγέρης Τσιρώνης <avgeristsironis@gmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/sozi/translations/"
@@ -117,7 +117,7 @@ msgstr "Ανοίξτε ένα αρχείο SVG από το Google Drive"
 msgid "Autoselect outline element"
 msgstr "Αυτόματη επιλογή στοιχείου διάρθρωσης"
 
-#: src/js/view/Properties.js:95 src/js/view/Properties.js:236
+#: src/js/view/Properties.js:95 src/js/view/Properties.js:238
 msgid "Reset layer geometry"
 msgstr "Επαναφορά γεωμετρίας στρώσης"
 
@@ -155,7 +155,7 @@ msgstr "Εναλλαγή σε κατάσταση πλήρους οθόνης"
 msgid "Toggle the developer tools"
 msgstr "Εναλλαγή εργαλείων προγραμματιστή"
 
-#: src/js/view/Properties.js:116 src/js/view/Properties.js:419
+#: src/js/view/Properties.js:116 src/js/view/Properties.js:421
 msgid "Back to presentation properties"
 msgstr "Επιστροφή στις ιδιότητες παρουσίασης"
 
@@ -273,185 +273,194 @@ msgstr "Ctrl+L: Λίστα"
 msgid "Ctrl+N: Numbered list"
 msgstr "Ctrl+N: Αριθμημένη λίστα"
 
-#: src/js/view/Properties.js:198
+#: src/js/view/Properties.js:192
+#, fuzzy
+msgid "Ctrl+>: Indent list entry"
+msgstr "Ctrl+U: Υπογράμμιση"
+
+#: src/js/view/Properties.js:193
+msgid "Ctrl+<: Outdent list entry"
+msgstr ""
+
+#: src/js/view/Properties.js:200
 msgid "Select a layer to copy"
 msgstr "Επιλέξτε μία στρώση για αντιγραφή"
 
-#: src/js/view/Properties.js:201 src/js/view/Timeline.js:240
+#: src/js/view/Properties.js:203 src/js/view/Timeline.js:240
 #: src/js/view/Timeline.js:268
 msgid "Default"
 msgstr "Προεπιλογή"
 
-#: src/js/view/Properties.js:208
+#: src/js/view/Properties.js:210
 msgid "Frame"
 msgstr "Καρέ"
 
-#: src/js/view/Properties.js:211
+#: src/js/view/Properties.js:213
 msgid "Show in frame list"
 msgstr "Εμφάνιση στη λίστα καρέ"
 
-#: src/js/view/Properties.js:212
+#: src/js/view/Properties.js:214
 msgid "Show frame number"
 msgstr "Εμφάνιση αριθμού καρέ"
 
-#: src/js/view/Properties.js:215
+#: src/js/view/Properties.js:217
 msgid "Title"
 msgstr "Τίτλος"
 
-#: src/js/view/Properties.js:218
+#: src/js/view/Properties.js:220
 msgid "Title level in frame list"
 msgstr "Επίπεδο τίτλου στη λίστα καρέ"
 
-#: src/js/view/Properties.js:221
+#: src/js/view/Properties.js:223
 msgid "Id"
 msgstr "Id"
 
-#: src/js/view/Properties.js:225
+#: src/js/view/Properties.js:227
 msgid "Timeout (seconds)"
 msgstr "Χρονικό όριο (δευτερόλεπτα)"
 
-#: src/js/view/Properties.js:226
+#: src/js/view/Properties.js:228
 msgid "Timeout enable"
 msgstr "Ενεργοποίηση χρονικού ορίου"
 
-#: src/js/view/Properties.js:230
+#: src/js/view/Properties.js:232
 msgid "Layer"
 msgstr "Στρώση"
 
-#: src/js/view/Properties.js:233
+#: src/js/view/Properties.js:235
 msgid "Link to previous frame"
 msgstr "Σύνδεση στο προηγούμενο καρέ"
 
-#: src/js/view/Properties.js:234
+#: src/js/view/Properties.js:236
 msgid "Clip"
 msgstr "Ψαλίδισμα"
 
-#: src/js/view/Properties.js:241
+#: src/js/view/Properties.js:243
 msgid "Copy layer"
 msgstr "Αντιγραφή στρώσης"
 
-#: src/js/view/Properties.js:248
+#: src/js/view/Properties.js:250
 msgid "Outline element Id"
 msgstr "Id στοιχείου περιγράμματος"
 
-#: src/js/view/Properties.js:251
+#: src/js/view/Properties.js:253
 msgid "Autoselect element"
 msgstr "Αυτόματη επιλογή στοιχείου"
 
-#: src/js/view/Properties.js:254
+#: src/js/view/Properties.js:256
 msgid "Hide element"
 msgstr "Απόκρυψη στοιχείου"
 
-#: src/js/view/Properties.js:256
+#: src/js/view/Properties.js:258
 msgid "Fit to element"
 msgstr "Προσαρμογή στο στοιχείο"
 
-#: src/js/view/Properties.js:263
+#: src/js/view/Properties.js:265
 msgid "Layer opacity"
 msgstr "Αδιαφάνεια στρώσης"
 
-#: src/js/view/Properties.js:266
+#: src/js/view/Properties.js:268
 msgid "Transition"
 msgstr "Μετάβαση"
 
-#: src/js/view/Properties.js:266
+#: src/js/view/Properties.js:268
 msgid "Configure the animation when moving to the selected frames."
 msgstr "Διαμορφώστε την κίνηση κατά τη μετακίνηση στα επιλεγμένα καρέ."
 
-#: src/js/view/Properties.js:268
+#: src/js/view/Properties.js:270
 msgid "Duration (seconds)"
 msgstr "Διάρκεια (δευτερόλεπτα)"
 
-#: src/js/view/Properties.js:271
+#: src/js/view/Properties.js:273
 msgid "Timing function"
 msgstr "Συνάρτηση χρονισμού"
 
-#: src/js/view/Properties.js:273
+#: src/js/view/Properties.js:275
 msgid "Linear"
 msgstr "Γραμμική"
 
-#: src/js/view/Properties.js:274
+#: src/js/view/Properties.js:276
 msgid "Ease"
 msgstr "Ήρεμη"
 
-#: src/js/view/Properties.js:275
+#: src/js/view/Properties.js:277
 msgid "Ease in"
 msgstr "Ήρεμη είσοδος"
 
-#: src/js/view/Properties.js:276
+#: src/js/view/Properties.js:278
 msgid "Ease out"
 msgstr "Ήρεμη έξοδος"
 
-#: src/js/view/Properties.js:277
+#: src/js/view/Properties.js:279
 msgid "Ease in-out"
 msgstr "Ήρεμη είσοδος - έξοδος"
 
-#: src/js/view/Properties.js:278
+#: src/js/view/Properties.js:280
 msgid "Step start"
 msgstr "Αρχή βήματος"
 
-#: src/js/view/Properties.js:279
+#: src/js/view/Properties.js:281
 msgid "Step end"
 msgstr "Τέλος βήματος"
 
-#: src/js/view/Properties.js:280
+#: src/js/view/Properties.js:282
 msgid "Step middle"
 msgstr "Βήμα στη μέση"
 
-#: src/js/view/Properties.js:283
+#: src/js/view/Properties.js:285
 msgid "Relative zoom (%)"
 msgstr "Σχετικό ζουμ(%)"
 
-#: src/js/view/Properties.js:287
+#: src/js/view/Properties.js:289
 msgid "Path Id"
 msgstr "Id διαδρομής"
 
-#: src/js/view/Properties.js:288
+#: src/js/view/Properties.js:290
 msgid "Hide path"
 msgstr "Απόκρυψη διαδρομής"
 
-#: src/js/view/Properties.js:292
+#: src/js/view/Properties.js:294
 msgid "Notes"
 msgstr "Σημειώσεις"
 
-#: src/js/view/Properties.js:292
+#: src/js/view/Properties.js:294
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 "Επεξεργασία σημειώσεων παρουσιαστή. Κάντε κλικ εδώ για να εμφανιστεί η λίστα "
 "των συντομεύσεων μορφοποίησης."
 
-#: src/js/view/Properties.js:296
+#: src/js/view/Properties.js:298
 msgid "Custom stylesheets and scripts"
 msgstr "Προσαρμοσμένα φύλλα στυλ και σενάρια"
 
-#: src/js/view/Properties.js:309
+#: src/js/view/Properties.js:311
 msgid "CSS or JS file names"
 msgstr "Ονόματα αρχείων CSS ή JS"
 
-#: src/js/view/Properties.js:309
+#: src/js/view/Properties.js:311
 msgid "Add CSS or JS files"
 msgstr "Προσθήκη αρχείων CSS ή JS"
 
-#: src/js/view/Properties.js:312
+#: src/js/view/Properties.js:314
 msgid "Add a file"
 msgstr "Προσθήκη αρχείου"
 
-#: src/js/view/Properties.js:325
+#: src/js/view/Properties.js:327
 msgid "Remove this file"
 msgstr "Κατάργηση αυτού του αρχείου"
 
-#: src/js/view/Properties.js:333
+#: src/js/view/Properties.js:335
 msgid "Player"
 msgstr "Πρόγραμμα αναπαραγωγής"
 
-#: src/js/view/Properties.js:336
+#: src/js/view/Properties.js:338
 msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
 "Υποστήριξη ώστε το κουμπί \"Πίσω\" του φυλλομετρητή να μεταβαίνει στο "
 "προηγούμενο καρέ"
 
-#: src/js/view/Properties.js:337
+#: src/js/view/Properties.js:339
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
@@ -459,214 +468,214 @@ msgstr ""
 "Η μετακίνηση από το ένα καρέ στο άλλο θα αλλάξει αυτόματα το περιεχόμενο της "
 "γραμμής τοποθεσίας."
 
-#: src/js/view/Properties.js:341
+#: src/js/view/Properties.js:343
 msgid "Allow to control the presentation"
 msgstr "Επιτρέπεται ο έλεγχος της παρουσίασης"
 
-#: src/js/view/Properties.js:343 src/js/view/Properties.js:350
-#: src/js/view/Properties.js:356 src/js/view/Properties.js:364
+#: src/js/view/Properties.js:345 src/js/view/Properties.js:352
+#: src/js/view/Properties.js:358 src/js/view/Properties.js:366
 msgid "using the mouse"
 msgstr "με χρήση ποντικιού"
 
-#: src/js/view/Properties.js:344 src/js/view/Properties.js:357
-#: src/js/view/Properties.js:365
+#: src/js/view/Properties.js:346 src/js/view/Properties.js:359
+#: src/js/view/Properties.js:367
 msgid "using the keyboard"
 msgstr "με χρήση πληκτρολογίου"
 
-#: src/js/view/Properties.js:349
+#: src/js/view/Properties.js:351
 msgid "Allow to move the camera"
 msgstr "Επιτρέπεται η μετακίνηση της κάμερας"
 
-#: src/js/view/Properties.js:354
+#: src/js/view/Properties.js:356
 msgid "Allow to rotate the camera"
 msgstr "Επιτρέπεται η περιστροφή της κάμερας"
 
-#: src/js/view/Properties.js:362
+#: src/js/view/Properties.js:364
 msgid "Allow to zoom"
 msgstr "Επιτρέπεται το ζουμ"
 
-#: src/js/view/Properties.js:379
+#: src/js/view/Properties.js:381
 msgid "Examples of frame lists to include/exclude in export"
 msgstr "Παραδείγματα λιστών καρέ για συμπερίληψη/εξαίρεση κατά την εξαγωγή"
 
-#: src/js/view/Properties.js:381
+#: src/js/view/Properties.js:383
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
 msgstr "Επιλογή καρέ 2, 5, και 12: \"2, 5, 12\""
 
-#: src/js/view/Properties.js:382
+#: src/js/view/Properties.js:384
 msgid "Select frames 5 to 8: \"5:8\""
 msgstr "Επιλογή καρέ 5 έως 8: \"5:8\""
 
-#: src/js/view/Properties.js:383
+#: src/js/view/Properties.js:385
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
 msgstr "Επιλογή καρέ 5, 8, 11, 14, και 17: \"5:8:17\""
 
-#: src/js/view/Properties.js:384
+#: src/js/view/Properties.js:386
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
 msgstr "Επιλογή καρέ 2, 5, και 10 έως 15: \"2, 5, 10:15\""
 
-#: src/js/view/Properties.js:423 src/js/view/Properties.js:439
+#: src/js/view/Properties.js:425 src/js/view/Properties.js:441
 msgid "Export"
 msgstr "Εξαγωγή"
 
-#: src/js/view/Properties.js:425
+#: src/js/view/Properties.js:427
 msgid "Document type"
 msgstr "Τύπος εγγράφου"
 
-#: src/js/view/Properties.js:427
+#: src/js/view/Properties.js:429
 msgid "Portable Document Format (PDF)"
 msgstr "Portable Document Format (PDF)"
 
-#: src/js/view/Properties.js:428
+#: src/js/view/Properties.js:430
 msgid "Microsoft PowerPoint (PPTX)"
 msgstr "Μicrosoft PowerPoint (PPTX)"
 
-#: src/js/view/Properties.js:429
+#: src/js/view/Properties.js:431
 msgid "Video"
 msgstr "Βίντεο"
 
-#: src/js/view/Properties.js:436 src/js/view/Toolbar.js:149
+#: src/js/view/Properties.js:438 src/js/view/Toolbar.js:149
 msgid "Export the presentation"
 msgstr "Εξαγωγή παρουσίασης"
 
-#: src/js/view/Properties.js:453
+#: src/js/view/Properties.js:455
 msgid "Page size"
 msgstr "Μέγεθος σελίδας"
 
-#: src/js/view/Properties.js:455 src/js/view/Properties.js:494
+#: src/js/view/Properties.js:457 src/js/view/Properties.js:496
 msgid "A3"
 msgstr "Α3"
 
-#: src/js/view/Properties.js:456 src/js/view/Properties.js:495
+#: src/js/view/Properties.js:458 src/js/view/Properties.js:497
 msgid "A4"
 msgstr "Α4"
 
-#: src/js/view/Properties.js:457
+#: src/js/view/Properties.js:459
 msgid "A5"
 msgstr "Α5"
 
-#: src/js/view/Properties.js:458
+#: src/js/view/Properties.js:460
 msgid "Legal"
 msgstr "Νομικό"
 
-#: src/js/view/Properties.js:459 src/js/view/Properties.js:503
+#: src/js/view/Properties.js:461 src/js/view/Properties.js:505
 msgid "Letter"
 msgstr "Γράμμα"
 
-#: src/js/view/Properties.js:460 src/js/view/Properties.js:502
+#: src/js/view/Properties.js:462 src/js/view/Properties.js:504
 msgid "Tabloid"
 msgstr "Πινακίς"
 
-#: src/js/view/Properties.js:463
+#: src/js/view/Properties.js:465
 msgid "Page orientation"
 msgstr "Προσανατολισμός σελίδας"
 
-#: src/js/view/Properties.js:465
+#: src/js/view/Properties.js:467
 msgid "Landscape"
 msgstr "Τοπίο"
 
-#: src/js/view/Properties.js:466
+#: src/js/view/Properties.js:468
 msgid "Portrait"
 msgstr "Πορτρέτο"
 
-#: src/js/view/Properties.js:470 src/js/view/Properties.js:511
+#: src/js/view/Properties.js:472 src/js/view/Properties.js:513
 msgid "List of frames to include"
 msgstr "Λίστα καρέ για συμπερίληψη"
 
-#: src/js/view/Properties.js:471 src/js/view/Properties.js:477
-#: src/js/view/Properties.js:512 src/js/view/Properties.js:518
+#: src/js/view/Properties.js:473 src/js/view/Properties.js:479
+#: src/js/view/Properties.js:514 src/js/view/Properties.js:520
 msgid "Click here to see the syntax for this field"
 msgstr "Κάντε κλικ εδώ για να δείτε τη σύνταξη για αυτό το πεδίο"
 
-#: src/js/view/Properties.js:476 src/js/view/Properties.js:517
+#: src/js/view/Properties.js:478 src/js/view/Properties.js:519
 msgid "List of frames to exclude"
 msgstr "Λίστα καρέ για εξαίρεση"
 
-#: src/js/view/Properties.js:491
+#: src/js/view/Properties.js:493
 msgid "Slide size"
 msgstr "Μέγεθος διαφανειών"
 
-#: src/js/view/Properties.js:493
+#: src/js/view/Properties.js:495
 msgid "35 mm"
 msgstr "35 mm"
 
-#: src/js/view/Properties.js:496
+#: src/js/view/Properties.js:498
 msgid "B4 (ISO)"
 msgstr "Β4 (ISO)"
 
-#: src/js/view/Properties.js:497
+#: src/js/view/Properties.js:499
 msgid "B4 (JIS)"
 msgstr "B4 (JIS)"
 
-#: src/js/view/Properties.js:498
+#: src/js/view/Properties.js:500
 msgid "B5 (ISO)"
 msgstr "Β5 (ISO)"
 
-#: src/js/view/Properties.js:499
+#: src/js/view/Properties.js:501
 msgid "B5 (JIS)"
 msgstr "Β5 (JIS)"
 
-#: src/js/view/Properties.js:500
+#: src/js/view/Properties.js:502
 msgid "Banner"
 msgstr "Πανό"
 
-#: src/js/view/Properties.js:501
+#: src/js/view/Properties.js:503
 msgid "Hagaki Card"
 msgstr "Κάρτα Hagaki"
 
-#: src/js/view/Properties.js:504
+#: src/js/view/Properties.js:506
 msgid "Overhead"
 msgstr "Από πάνω"
 
-#: src/js/view/Properties.js:505
+#: src/js/view/Properties.js:507
 msgid "Screen 16:10"
 msgstr "Οθόνη 16:10"
 
-#: src/js/view/Properties.js:506
+#: src/js/view/Properties.js:508
 msgid "Screen 16:9"
 msgstr "Οθόνη 16:9"
 
-#: src/js/view/Properties.js:507
+#: src/js/view/Properties.js:509
 msgid "Screen 4:3"
 msgstr "Οθόνη 4:3"
 
-#: src/js/view/Properties.js:533
+#: src/js/view/Properties.js:535
 msgid "Format"
 msgstr "Μορφή"
 
-#: src/js/view/Properties.js:535
+#: src/js/view/Properties.js:537
 msgid "MPEG-4 (.mp4)"
 msgstr "ΜPEG-4 (.mp4)"
 
-#: src/js/view/Properties.js:536
+#: src/js/view/Properties.js:538
 msgid "Ogg Vorbis (.ogv)"
 msgstr "Οgg Vorbis (.ogv)"
 
-#: src/js/view/Properties.js:537
+#: src/js/view/Properties.js:539
 msgid "WebM (.webm)"
 msgstr "WebΜ (.webm)"
 
-#: src/js/view/Properties.js:538
+#: src/js/view/Properties.js:540
 msgid "Windows Media Video (.wmv)"
 msgstr "Windows Μedia Video (.wmv)"
 
-#: src/js/view/Properties.js:539
+#: src/js/view/Properties.js:541
 msgid "Image sequence (.png)"
 msgstr "Ιmage sequence (.png)"
 
-#: src/js/view/Properties.js:542
+#: src/js/view/Properties.js:544
 msgid "Width (pixels)"
 msgstr "Πλάτος (εικονοστοιχεία)"
 
-#: src/js/view/Properties.js:545
+#: src/js/view/Properties.js:547
 msgid "Height (pixels)"
 msgstr "Ύψος (εικονοστοιχεία)"
 
-#: src/js/view/Properties.js:548
+#: src/js/view/Properties.js:550
 msgid "Frame rate (frames/sec)"
 msgstr "Ρυθμός καρέ (καρε/δευτ.)"
 
-#: src/js/view/Properties.js:551
+#: src/js/view/Properties.js:553
 msgid "Bit rate (kbits/sec)"
 msgstr "Ρυθμός bit (kbits/δευτ.)"
 

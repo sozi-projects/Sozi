@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2023-07-26 09:05:+0000\n"
+"POT-Creation-Date: 2024-04-14 10:17:+0000\n"
 "PO-Revision-Date: 2022-03-25 21:42+0100\n"
 "Last-Translator: 麋悟BigELK176 <bigelk176@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -123,7 +123,7 @@ msgstr "開啟 Google 雲端硬碟中的 SVG 檔案"
 msgid "Autoselect outline element"
 msgstr "自動選擇大綱元件"
 
-#: src/js/view/Properties.js:95 src/js/view/Properties.js:236
+#: src/js/view/Properties.js:95 src/js/view/Properties.js:238
 msgid "Reset layer geometry"
 msgstr "重設圖層"
 
@@ -161,7 +161,7 @@ msgstr "切換全螢幕模式"
 msgid "Toggle the developer tools"
 msgstr "切換開發者模式"
 
-#: src/js/view/Properties.js:116 src/js/view/Properties.js:419
+#: src/js/view/Properties.js:116 src/js/view/Properties.js:421
 msgid "Back to presentation properties"
 msgstr "返回簡報屬性"
 
@@ -279,394 +279,403 @@ msgstr "Ctrl+L: 列表"
 msgid "Ctrl+N: Numbered list"
 msgstr "Ctrl+N: 編號列表"
 
-#: src/js/view/Properties.js:198
+#: src/js/view/Properties.js:192
+#, fuzzy
+msgid "Ctrl+>: Indent list entry"
+msgstr "Ctrl+U: 底線"
+
+#: src/js/view/Properties.js:193
+msgid "Ctrl+<: Outdent list entry"
+msgstr ""
+
+#: src/js/view/Properties.js:200
 msgid "Select a layer to copy"
 msgstr "選擇圖層進行複製"
 
-#: src/js/view/Properties.js:201 src/js/view/Timeline.js:240
+#: src/js/view/Properties.js:203 src/js/view/Timeline.js:240
 #: src/js/view/Timeline.js:268
 msgid "Default"
 msgstr "預設"
 
-#: src/js/view/Properties.js:208
+#: src/js/view/Properties.js:210
 msgid "Frame"
 msgstr "框格"
 
-#: src/js/view/Properties.js:211
+#: src/js/view/Properties.js:213
 msgid "Show in frame list"
 msgstr "顯示於框格列表"
 
-#: src/js/view/Properties.js:212
+#: src/js/view/Properties.js:214
 msgid "Show frame number"
 msgstr "顯示框格編號"
 
-#: src/js/view/Properties.js:215
+#: src/js/view/Properties.js:217
 msgid "Title"
 msgstr "標題名稱"
 
-#: src/js/view/Properties.js:218
+#: src/js/view/Properties.js:220
 msgid "Title level in frame list"
 msgstr "框格列表的標題等級"
 
-#: src/js/view/Properties.js:221
+#: src/js/view/Properties.js:223
 msgid "Id"
 msgstr "ID (識別編號)"
 
-#: src/js/view/Properties.js:225
+#: src/js/view/Properties.js:227
 msgid "Timeout (seconds)"
 msgstr "停格計時 (秒)"
 
-#: src/js/view/Properties.js:226
+#: src/js/view/Properties.js:228
 msgid "Timeout enable"
 msgstr "啟用停格計時功能"
 
-#: src/js/view/Properties.js:230
+#: src/js/view/Properties.js:232
 msgid "Layer"
 msgstr "圖層"
 
-#: src/js/view/Properties.js:233
+#: src/js/view/Properties.js:235
 msgid "Link to previous frame"
 msgstr "連結到前一個框格"
 
-#: src/js/view/Properties.js:234
+#: src/js/view/Properties.js:236
 msgid "Clip"
 msgstr "裁剪畫面"
 
-#: src/js/view/Properties.js:241
+#: src/js/view/Properties.js:243
 msgid "Copy layer"
 msgstr "複製圖層"
 
-#: src/js/view/Properties.js:248
+#: src/js/view/Properties.js:250
 msgid "Outline element Id"
 msgstr "大綱元件 ID"
 
-#: src/js/view/Properties.js:251
+#: src/js/view/Properties.js:253
 msgid "Autoselect element"
 msgstr "自動選擇元件"
 
-#: src/js/view/Properties.js:254
+#: src/js/view/Properties.js:256
 msgid "Hide element"
 msgstr "隱藏元件"
 
-#: src/js/view/Properties.js:256
+#: src/js/view/Properties.js:258
 msgid "Fit to element"
 msgstr "符合元件大小"
 
-#: src/js/view/Properties.js:263
+#: src/js/view/Properties.js:265
 msgid "Layer opacity"
 msgstr "圖層透明度"
 
-#: src/js/view/Properties.js:266
+#: src/js/view/Properties.js:268
 msgid "Transition"
 msgstr "轉場"
 
-#: src/js/view/Properties.js:266
+#: src/js/view/Properties.js:268
 msgid "Configure the animation when moving to the selected frames."
 msgstr "當要移動到選定框格時設定動畫效果。"
 
-#: src/js/view/Properties.js:268
+#: src/js/view/Properties.js:270
 msgid "Duration (seconds)"
 msgstr "動態時間 (秒)"
 
-#: src/js/view/Properties.js:271
+#: src/js/view/Properties.js:273
 msgid "Timing function"
 msgstr "動態變速"
 
-#: src/js/view/Properties.js:273
+#: src/js/view/Properties.js:275
 msgid "Linear"
 msgstr "線性轉動 (Linear 平速)"
 
-#: src/js/view/Properties.js:274
+#: src/js/view/Properties.js:276
 msgid "Ease"
 msgstr "緩和轉動 (Ease 稍慢-快-慢)"
 
-#: src/js/view/Properties.js:275
+#: src/js/view/Properties.js:277
 msgid "Ease in"
 msgstr "緩入轉動 (Ease in 慢-快)"
 
-#: src/js/view/Properties.js:276
+#: src/js/view/Properties.js:278
 msgid "Ease out"
 msgstr "緩出轉動 (Ease out 快-慢)"
 
-#: src/js/view/Properties.js:277
+#: src/js/view/Properties.js:279
 msgid "Ease in-out"
 msgstr "緩入緩出轉動 (Ease in-out 慢-快-慢)"
 
-#: src/js/view/Properties.js:278
+#: src/js/view/Properties.js:280
 msgid "Step start"
 msgstr "開端的步驟 (Step start)"
 
-#: src/js/view/Properties.js:279
+#: src/js/view/Properties.js:281
 msgid "Step end"
 msgstr "結尾的步驟 (Step end)"
 
-#: src/js/view/Properties.js:280
+#: src/js/view/Properties.js:282
 msgid "Step middle"
 msgstr "中間的步驟 (Step middle)"
 
-#: src/js/view/Properties.js:283
+#: src/js/view/Properties.js:285
 msgid "Relative zoom (%)"
 msgstr "相對縮放 (％)"
 
-#: src/js/view/Properties.js:287
+#: src/js/view/Properties.js:289
 msgid "Path Id"
 msgstr "路徑 ID"
 
-#: src/js/view/Properties.js:288
+#: src/js/view/Properties.js:290
 msgid "Hide path"
 msgstr "隱藏路徑"
 
-#: src/js/view/Properties.js:292
+#: src/js/view/Properties.js:294
 msgid "Notes"
 msgstr "備記"
 
-#: src/js/view/Properties.js:292
+#: src/js/view/Properties.js:294
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr "編輯簡報者備註。點擊此處顯示格式快捷方式清單。"
 
-#: src/js/view/Properties.js:296
+#: src/js/view/Properties.js:298
 msgid "Custom stylesheets and scripts"
 msgstr "自定義腳本和層疊樣式表"
 
-#: src/js/view/Properties.js:309
+#: src/js/view/Properties.js:311
 msgid "CSS or JS file names"
 msgstr "CSS 或 JS 文件名"
 
-#: src/js/view/Properties.js:309
+#: src/js/view/Properties.js:311
 msgid "Add CSS or JS files"
 msgstr "添加 CSS 或 JS 文件"
 
-#: src/js/view/Properties.js:312
+#: src/js/view/Properties.js:314
 msgid "Add a file"
 msgstr "添加文件"
 
-#: src/js/view/Properties.js:325
+#: src/js/view/Properties.js:327
 msgid "Remove this file"
 msgstr "刪除此文件"
 
-#: src/js/view/Properties.js:333
+#: src/js/view/Properties.js:335
 msgid "Player"
 msgstr "播放操控"
 
-#: src/js/view/Properties.js:336
+#: src/js/view/Properties.js:338
 msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr "支援瀏覽器〔上一頁〕(⬅) 按鍵，回到上一個框格"
 
-#: src/js/view/Properties.js:337
+#: src/js/view/Properties.js:339
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr "從一個框格移到另一個框格，將會自動改變位置欄的內容。"
 
-#: src/js/view/Properties.js:341
+#: src/js/view/Properties.js:343
 msgid "Allow to control the presentation"
 msgstr "允許控制簡報"
 
-#: src/js/view/Properties.js:343 src/js/view/Properties.js:350
-#: src/js/view/Properties.js:356 src/js/view/Properties.js:364
+#: src/js/view/Properties.js:345 src/js/view/Properties.js:352
+#: src/js/view/Properties.js:358 src/js/view/Properties.js:366
 msgid "using the mouse"
 msgstr "使用滑鼠"
 
-#: src/js/view/Properties.js:344 src/js/view/Properties.js:357
-#: src/js/view/Properties.js:365
+#: src/js/view/Properties.js:346 src/js/view/Properties.js:359
+#: src/js/view/Properties.js:367
 msgid "using the keyboard"
 msgstr "使用鍵盤"
 
-#: src/js/view/Properties.js:349
+#: src/js/view/Properties.js:351
 msgid "Allow to move the camera"
 msgstr "允許移動鏡頭"
 
-#: src/js/view/Properties.js:354
+#: src/js/view/Properties.js:356
 msgid "Allow to rotate the camera"
 msgstr "允許旋轉鏡頭"
 
-#: src/js/view/Properties.js:362
+#: src/js/view/Properties.js:364
 msgid "Allow to zoom"
 msgstr "允許放大"
 
-#: src/js/view/Properties.js:379
+#: src/js/view/Properties.js:381
 msgid "Examples of frame lists to include/exclude in export"
 msgstr "在匯出時包含/不包含框格的範例"
 
-#: src/js/view/Properties.js:381
+#: src/js/view/Properties.js:383
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
 msgstr "選擇框格 2, 5 及12: \"2, 5, 12\""
 
-#: src/js/view/Properties.js:382
+#: src/js/view/Properties.js:384
 msgid "Select frames 5 to 8: \"5:8\""
 msgstr "選擇框格 5 至 8: \"5:8\""
 
-#: src/js/view/Properties.js:383
+#: src/js/view/Properties.js:385
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
 msgstr "選擇框格 5, 8, 11, 14 及 17: \"5:8:17\""
 
-#: src/js/view/Properties.js:384
+#: src/js/view/Properties.js:386
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
 msgstr "選擇框格 2, 5 及 10 至15: \"2, 5, 10:15\""
 
-#: src/js/view/Properties.js:423 src/js/view/Properties.js:439
+#: src/js/view/Properties.js:425 src/js/view/Properties.js:441
 msgid "Export"
 msgstr "匯出"
 
-#: src/js/view/Properties.js:425
+#: src/js/view/Properties.js:427
 msgid "Document type"
 msgstr "文件類型"
 
-#: src/js/view/Properties.js:427
+#: src/js/view/Properties.js:429
 msgid "Portable Document Format (PDF)"
 msgstr "可攜式文件格式(PDF)"
 
-#: src/js/view/Properties.js:428
+#: src/js/view/Properties.js:430
 msgid "Microsoft PowerPoint (PPTX)"
 msgstr "微軟 PowerPoint (PPTX)"
 
-#: src/js/view/Properties.js:429
+#: src/js/view/Properties.js:431
 msgid "Video"
 msgstr "影片"
 
-#: src/js/view/Properties.js:436 src/js/view/Toolbar.js:149
+#: src/js/view/Properties.js:438 src/js/view/Toolbar.js:149
 msgid "Export the presentation"
 msgstr "匯出簡報"
 
-#: src/js/view/Properties.js:453
+#: src/js/view/Properties.js:455
 msgid "Page size"
 msgstr "頁面大小"
 
-#: src/js/view/Properties.js:455 src/js/view/Properties.js:494
+#: src/js/view/Properties.js:457 src/js/view/Properties.js:496
 msgid "A3"
 msgstr "A3"
 
-#: src/js/view/Properties.js:456 src/js/view/Properties.js:495
+#: src/js/view/Properties.js:458 src/js/view/Properties.js:497
 msgid "A4"
 msgstr "A4"
 
-#: src/js/view/Properties.js:457
+#: src/js/view/Properties.js:459
 msgid "A5"
 msgstr "A5"
 
-#: src/js/view/Properties.js:458
+#: src/js/view/Properties.js:460
 msgid "Legal"
 msgstr "Legal (216 × 356 mm)"
 
-#: src/js/view/Properties.js:459 src/js/view/Properties.js:503
+#: src/js/view/Properties.js:461 src/js/view/Properties.js:505
 msgid "Letter"
 msgstr "Letter (216 × 279 mm)"
 
-#: src/js/view/Properties.js:460 src/js/view/Properties.js:502
+#: src/js/view/Properties.js:462 src/js/view/Properties.js:504
 msgid "Tabloid"
 msgstr "Tabloid (279 × 432 mm)"
 
-#: src/js/view/Properties.js:463
+#: src/js/view/Properties.js:465
 msgid "Page orientation"
 msgstr "頁面方向"
 
-#: src/js/view/Properties.js:465
+#: src/js/view/Properties.js:467
 msgid "Landscape"
 msgstr "橫向"
 
-#: src/js/view/Properties.js:466
+#: src/js/view/Properties.js:468
 msgid "Portrait"
 msgstr "直向"
 
-#: src/js/view/Properties.js:470 src/js/view/Properties.js:511
+#: src/js/view/Properties.js:472 src/js/view/Properties.js:513
 msgid "List of frames to include"
 msgstr "列出包含的框格"
 
-#: src/js/view/Properties.js:471 src/js/view/Properties.js:477
-#: src/js/view/Properties.js:512 src/js/view/Properties.js:518
+#: src/js/view/Properties.js:473 src/js/view/Properties.js:479
+#: src/js/view/Properties.js:514 src/js/view/Properties.js:520
 msgid "Click here to see the syntax for this field"
 msgstr "在此點按以查看此欄位語法"
 
-#: src/js/view/Properties.js:476 src/js/view/Properties.js:517
+#: src/js/view/Properties.js:478 src/js/view/Properties.js:519
 msgid "List of frames to exclude"
 msgstr "列出不包含的框格"
 
-#: src/js/view/Properties.js:491
+#: src/js/view/Properties.js:493
 msgid "Slide size"
 msgstr "投影片大小"
 
-#: src/js/view/Properties.js:493
+#: src/js/view/Properties.js:495
 msgid "35 mm"
 msgstr "35 mm"
 
-#: src/js/view/Properties.js:496
+#: src/js/view/Properties.js:498
 msgid "B4 (ISO)"
 msgstr "B4 (ISO)"
 
-#: src/js/view/Properties.js:497
+#: src/js/view/Properties.js:499
 msgid "B4 (JIS)"
 msgstr "B4 (JIS)"
 
-#: src/js/view/Properties.js:498
+#: src/js/view/Properties.js:500
 msgid "B5 (ISO)"
 msgstr "B5 (ISO)"
 
-#: src/js/view/Properties.js:499
+#: src/js/view/Properties.js:501
 msgid "B5 (JIS)"
 msgstr "B5 (JIS)"
 
-#: src/js/view/Properties.js:500
+#: src/js/view/Properties.js:502
 msgid "Banner"
 msgstr "橫幅"
 
-#: src/js/view/Properties.js:501
+#: src/js/view/Properties.js:503
 msgid "Hagaki Card"
 msgstr "Hagaki Card (100x148mm)"
 
-#: src/js/view/Properties.js:504
+#: src/js/view/Properties.js:506
 msgid "Overhead"
 msgstr "透明片"
 
-#: src/js/view/Properties.js:505
+#: src/js/view/Properties.js:507
 msgid "Screen 16:10"
 msgstr "螢幕 16:10"
 
-#: src/js/view/Properties.js:506
+#: src/js/view/Properties.js:508
 msgid "Screen 16:9"
 msgstr "螢幕 16:9"
 
-#: src/js/view/Properties.js:507
+#: src/js/view/Properties.js:509
 msgid "Screen 4:3"
 msgstr "螢幕 4:3"
 
-#: src/js/view/Properties.js:533
+#: src/js/view/Properties.js:535
 msgid "Format"
 msgstr "格式"
 
-#: src/js/view/Properties.js:535
+#: src/js/view/Properties.js:537
 msgid "MPEG-4 (.mp4)"
 msgstr "MPEG-4 (.mp4) 影片"
 
-#: src/js/view/Properties.js:536
+#: src/js/view/Properties.js:538
 msgid "Ogg Vorbis (.ogv)"
 msgstr "Ogg Vorbis (.ogv) 聲音"
 
-#: src/js/view/Properties.js:537
+#: src/js/view/Properties.js:539
 msgid "WebM (.webm)"
 msgstr "WebM (.webm) 圖片"
 
-#: src/js/view/Properties.js:538
+#: src/js/view/Properties.js:540
 msgid "Windows Media Video (.wmv)"
 msgstr "Windows Media Video (.wmv) 聲音"
 
-#: src/js/view/Properties.js:539
+#: src/js/view/Properties.js:541
 msgid "Image sequence (.png)"
 msgstr "Image sequence (.png) 圖片"
 
-#: src/js/view/Properties.js:542
+#: src/js/view/Properties.js:544
 msgid "Width (pixels)"
 msgstr "寬度 (pixels)"
 
-#: src/js/view/Properties.js:545
+#: src/js/view/Properties.js:547
 msgid "Height (pixels)"
 msgstr "高度 (pixels)"
 
-#: src/js/view/Properties.js:548
+#: src/js/view/Properties.js:550
 msgid "Frame rate (frames/sec)"
 msgstr "影格率 (frames/sec)"
 
-#: src/js/view/Properties.js:551
+#: src/js/view/Properties.js:553
 msgid "Bit rate (kbits/sec)"
 msgstr "Bit rate (kbits/sec) 位元速率"
 

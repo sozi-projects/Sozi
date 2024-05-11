@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2023-07-26 09:05:+0000\n"
+"POT-Creation-Date: 2024-04-14 10:17:+0000\n"
 "PO-Revision-Date: 2022-03-25 21:34+0100\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/sozi/"
@@ -124,7 +124,7 @@ msgstr "Malfermi SVG-dosieron el Google Drive"
 msgid "Autoselect outline element"
 msgstr "Aŭtomate elekti la elementon uzotan kiel konturon"
 
-#: src/js/view/Properties.js:95 src/js/view/Properties.js:236
+#: src/js/view/Properties.js:95 src/js/view/Properties.js:238
 msgid "Reset layer geometry"
 msgstr "Repravalorizi la geometrion de la tavolo"
 
@@ -162,7 +162,7 @@ msgstr "Baskuli la tutekranan reĝimon"
 msgid "Toggle the developer tools"
 msgstr "Baskuli la programadilojn"
 
-#: src/js/view/Properties.js:116 src/js/view/Properties.js:419
+#: src/js/view/Properties.js:116 src/js/view/Properties.js:421
 msgid "Back to presentation properties"
 msgstr "Reen al atributoj de la prezentaĵo"
 
@@ -280,398 +280,407 @@ msgstr "Stir+L: Listo"
 msgid "Ctrl+N: Numbered list"
 msgstr "Stir+N: Numerita listo"
 
-#: src/js/view/Properties.js:198
+#: src/js/view/Properties.js:192
+#, fuzzy
+msgid "Ctrl+>: Indent list entry"
+msgstr "Stir+U: Substreko"
+
+#: src/js/view/Properties.js:193
+msgid "Ctrl+<: Outdent list entry"
+msgstr ""
+
+#: src/js/view/Properties.js:200
 msgid "Select a layer to copy"
 msgstr "Elekti kopiotan tavolon"
 
-#: src/js/view/Properties.js:201 src/js/view/Timeline.js:240
+#: src/js/view/Properties.js:203 src/js/view/Timeline.js:240
 #: src/js/view/Timeline.js:268
 msgid "Default"
 msgstr "Defaŭlta"
 
-#: src/js/view/Properties.js:208
+#: src/js/view/Properties.js:210
 msgid "Frame"
 msgstr "Kadro"
 
-#: src/js/view/Properties.js:211
+#: src/js/view/Properties.js:213
 msgid "Show in frame list"
 msgstr "Montri en la listo de kadroj"
 
-#: src/js/view/Properties.js:212
+#: src/js/view/Properties.js:214
 msgid "Show frame number"
 msgstr "Montri la numeron de la kadro"
 
-#: src/js/view/Properties.js:215
+#: src/js/view/Properties.js:217
 msgid "Title"
 msgstr "Titolo"
 
-#: src/js/view/Properties.js:218
+#: src/js/view/Properties.js:220
 msgid "Title level in frame list"
 msgstr "Titolnivelo en listo de kadroj"
 
-#: src/js/view/Properties.js:221
+#: src/js/view/Properties.js:223
 msgid "Id"
 msgstr "Identigilo"
 
-#: src/js/view/Properties.js:225
+#: src/js/view/Properties.js:227
 msgid "Timeout (seconds)"
 msgstr "Tempolimo (sekundoj)"
 
-#: src/js/view/Properties.js:226
+#: src/js/view/Properties.js:228
 msgid "Timeout enable"
 msgstr "Ebligi la tempolimon"
 
-#: src/js/view/Properties.js:230
+#: src/js/view/Properties.js:232
 msgid "Layer"
 msgstr "Tavolo"
 
-#: src/js/view/Properties.js:233
+#: src/js/view/Properties.js:235
 msgid "Link to previous frame"
 msgstr "Ligi al la antaŭa kadro"
 
-#: src/js/view/Properties.js:234
+#: src/js/view/Properties.js:236
 msgid "Clip"
 msgstr "Eltondi"
 
-#: src/js/view/Properties.js:241
+#: src/js/view/Properties.js:243
 msgid "Copy layer"
 msgstr "Kopii tavolon"
 
-#: src/js/view/Properties.js:248
+#: src/js/view/Properties.js:250
 msgid "Outline element Id"
 msgstr "Identigilo de la elemento uzota kiel konturo"
 
-#: src/js/view/Properties.js:251
+#: src/js/view/Properties.js:253
 msgid "Autoselect element"
 msgstr "Aŭtomate elekti la elementon"
 
-#: src/js/view/Properties.js:254
+#: src/js/view/Properties.js:256
 msgid "Hide element"
 msgstr "Kaŝi la elementon"
 
-#: src/js/view/Properties.js:256
+#: src/js/view/Properties.js:258
 msgid "Fit to element"
 msgstr "Adapti al la elemento"
 
-#: src/js/view/Properties.js:263
+#: src/js/view/Properties.js:265
 msgid "Layer opacity"
 msgstr "Opakeco de la tavolo"
 
-#: src/js/view/Properties.js:266
+#: src/js/view/Properties.js:268
 msgid "Transition"
 msgstr "Transpaso"
 
-#: src/js/view/Properties.js:266
+#: src/js/view/Properties.js:268
 msgid "Configure the animation when moving to the selected frames."
 msgstr "Agordi la moviĝon dum irado al la elektitaj kadroj."
 
-#: src/js/view/Properties.js:268
+#: src/js/view/Properties.js:270
 msgid "Duration (seconds)"
 msgstr "Daŭro (sekundoj)"
 
-#: src/js/view/Properties.js:271
+#: src/js/view/Properties.js:273
 msgid "Timing function"
 msgstr "Tempofunkcio"
 
-#: src/js/view/Properties.js:273
+#: src/js/view/Properties.js:275
 msgid "Linear"
 msgstr "Lineare"
 
-#: src/js/view/Properties.js:274
+#: src/js/view/Properties.js:276
 msgid "Ease"
 msgstr "Glate"
 
-#: src/js/view/Properties.js:275
+#: src/js/view/Properties.js:277
 msgid "Ease in"
 msgstr "Malrapide-rapide"
 
-#: src/js/view/Properties.js:276
+#: src/js/view/Properties.js:278
 msgid "Ease out"
 msgstr "Rapide-malrapide"
 
-#: src/js/view/Properties.js:277
+#: src/js/view/Properties.js:279
 msgid "Ease in-out"
 msgstr "Malrapide-rapide-malrapide"
 
-#: src/js/view/Properties.js:278
+#: src/js/view/Properties.js:280
 msgid "Step start"
 msgstr "Ĉe komenco"
 
-#: src/js/view/Properties.js:279
+#: src/js/view/Properties.js:281
 msgid "Step end"
 msgstr "Ĉe fino"
 
-#: src/js/view/Properties.js:280
+#: src/js/view/Properties.js:282
 msgid "Step middle"
 msgstr "Ĉe mezo"
 
-#: src/js/view/Properties.js:283
+#: src/js/view/Properties.js:285
 msgid "Relative zoom (%)"
 msgstr "Zomfaktoro (%)"
 
-#: src/js/view/Properties.js:287
+#: src/js/view/Properties.js:289
 msgid "Path Id"
 msgstr "ID de la vojo"
 
-#: src/js/view/Properties.js:288
+#: src/js/view/Properties.js:290
 msgid "Hide path"
 msgstr "Kaŝi la vojon"
 
-#: src/js/view/Properties.js:292
+#: src/js/view/Properties.js:294
 msgid "Notes"
 msgstr "Notoj"
 
-#: src/js/view/Properties.js:292
+#: src/js/view/Properties.js:294
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr ""
 "Redakti notojn pri prezentado. Alklaku ĉi tie por montri la liston de "
 "tekstaranĝaj fulmoklavoj."
 
-#: src/js/view/Properties.js:296
+#: src/js/view/Properties.js:298
 msgid "Custom stylesheets and scripts"
 msgstr "Propraj CSS- kaj JavaScript-dosieroj"
 
-#: src/js/view/Properties.js:309
+#: src/js/view/Properties.js:311
 msgid "CSS or JS file names"
 msgstr "Nomoj de CSS- aŭ JavaScript-dosieroj"
 
-#: src/js/view/Properties.js:309
+#: src/js/view/Properties.js:311
 msgid "Add CSS or JS files"
 msgstr "Aldoni CSS- aŭ JavaScript-dosierojn"
 
-#: src/js/view/Properties.js:312
+#: src/js/view/Properties.js:314
 msgid "Add a file"
 msgstr "Aldoni dosieron"
 
-#: src/js/view/Properties.js:325
+#: src/js/view/Properties.js:327
 msgid "Remove this file"
 msgstr "Forigi tiun dosieron"
 
-#: src/js/view/Properties.js:333
+#: src/js/view/Properties.js:335
 msgid "Player"
 msgstr "Spektilo"
 
-#: src/js/view/Properties.js:336
+#: src/js/view/Properties.js:338
 msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr ""
 "Subteni la butonon \"Reen\" de la TTT-legilo por iri al la antaŭa kadro"
 
-#: src/js/view/Properties.js:337
+#: src/js/view/Properties.js:339
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr "Iro de unu kadro al alia ŝanĝos aŭtomate la enhavon de la lokobreto."
 
-#: src/js/view/Properties.js:341
+#: src/js/view/Properties.js:343
 msgid "Allow to control the presentation"
 msgstr "Permesi agojn je la prezentado"
 
-#: src/js/view/Properties.js:343 src/js/view/Properties.js:350
-#: src/js/view/Properties.js:356 src/js/view/Properties.js:364
+#: src/js/view/Properties.js:345 src/js/view/Properties.js:352
+#: src/js/view/Properties.js:358 src/js/view/Properties.js:366
 msgid "using the mouse"
 msgstr "per la muso"
 
-#: src/js/view/Properties.js:344 src/js/view/Properties.js:357
-#: src/js/view/Properties.js:365
+#: src/js/view/Properties.js:346 src/js/view/Properties.js:359
+#: src/js/view/Properties.js:367
 msgid "using the keyboard"
 msgstr "per la klavaro"
 
-#: src/js/view/Properties.js:349
+#: src/js/view/Properties.js:351
 msgid "Allow to move the camera"
 msgstr "Permesi movi la observadopunkton"
 
-#: src/js/view/Properties.js:354
+#: src/js/view/Properties.js:356
 msgid "Allow to rotate the camera"
 msgstr "Permesi turni la observadopunkton"
 
-#: src/js/view/Properties.js:362
+#: src/js/view/Properties.js:364
 msgid "Allow to zoom"
 msgstr "Permesi zomi"
 
-#: src/js/view/Properties.js:379
+#: src/js/view/Properties.js:381
 msgid "Examples of frame lists to include/exclude in export"
 msgstr ""
 "Ekzemploj de listoj de kadroj inkluzivotaj/ekskluzivotaj dum eksportado"
 
-#: src/js/view/Properties.js:381
+#: src/js/view/Properties.js:383
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
 msgstr "Elekti kadrojn 2, 5, kaj 12: \"2, 5, 12\""
 
-#: src/js/view/Properties.js:382
+#: src/js/view/Properties.js:384
 msgid "Select frames 5 to 8: \"5:8\""
 msgstr "Elekti kadrojn 5 ĝis 8: \"5:8\""
 
-#: src/js/view/Properties.js:383
+#: src/js/view/Properties.js:385
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
 msgstr "Elekti kadrojn 5, 8, 11, 14, kaj 17: \"5:8:17\""
 
-#: src/js/view/Properties.js:384
+#: src/js/view/Properties.js:386
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
 msgstr "Elekti kadrojn 2, 5, kaj 10 ĝis 15: \"2, 5, 10:15\""
 
-#: src/js/view/Properties.js:423 src/js/view/Properties.js:439
+#: src/js/view/Properties.js:425 src/js/view/Properties.js:441
 msgid "Export"
 msgstr "Eksporti"
 
-#: src/js/view/Properties.js:425
+#: src/js/view/Properties.js:427
 msgid "Document type"
 msgstr "Dosierformo"
 
-#: src/js/view/Properties.js:427
+#: src/js/view/Properties.js:429
 msgid "Portable Document Format (PDF)"
 msgstr "Portebla Dokumenta Formo (PDF)"
 
-#: src/js/view/Properties.js:428
+#: src/js/view/Properties.js:430
 msgid "Microsoft PowerPoint (PPTX)"
 msgstr "Microsoft PowerPoint (PPTX)"
 
-#: src/js/view/Properties.js:429
+#: src/js/view/Properties.js:431
 msgid "Video"
 msgstr "Filmo"
 
-#: src/js/view/Properties.js:436 src/js/view/Toolbar.js:149
+#: src/js/view/Properties.js:438 src/js/view/Toolbar.js:149
 msgid "Export the presentation"
 msgstr "Eksporti la prezentaĵon"
 
-#: src/js/view/Properties.js:453
+#: src/js/view/Properties.js:455
 msgid "Page size"
 msgstr "Formato"
 
-#: src/js/view/Properties.js:455 src/js/view/Properties.js:494
+#: src/js/view/Properties.js:457 src/js/view/Properties.js:496
 msgid "A3"
 msgstr "A3"
 
-#: src/js/view/Properties.js:456 src/js/view/Properties.js:495
+#: src/js/view/Properties.js:458 src/js/view/Properties.js:497
 msgid "A4"
 msgstr "A4"
 
-#: src/js/view/Properties.js:457
+#: src/js/view/Properties.js:459
 msgid "A5"
 msgstr "A5"
 
-#: src/js/view/Properties.js:458
+#: src/js/view/Properties.js:460
 msgid "Legal"
 msgstr "Jura"
 
-#: src/js/view/Properties.js:459 src/js/view/Properties.js:503
+#: src/js/view/Properties.js:461 src/js/view/Properties.js:505
 msgid "Letter"
 msgstr "Letera"
 
-#: src/js/view/Properties.js:460 src/js/view/Properties.js:502
+#: src/js/view/Properties.js:462 src/js/view/Properties.js:504
 msgid "Tabloid"
 msgstr "Ĉiutaga gazeto"
 
-#: src/js/view/Properties.js:463
+#: src/js/view/Properties.js:465
 msgid "Page orientation"
 msgstr "Paĝorientiĝo"
 
-#: src/js/view/Properties.js:465
+#: src/js/view/Properties.js:467
 msgid "Landscape"
 msgstr "Horizontala"
 
-#: src/js/view/Properties.js:466
+#: src/js/view/Properties.js:468
 msgid "Portrait"
 msgstr "Vertikala"
 
-#: src/js/view/Properties.js:470 src/js/view/Properties.js:511
+#: src/js/view/Properties.js:472 src/js/view/Properties.js:513
 msgid "List of frames to include"
 msgstr "Listo de inkluzivotaj kadroj"
 
-#: src/js/view/Properties.js:471 src/js/view/Properties.js:477
-#: src/js/view/Properties.js:512 src/js/view/Properties.js:518
+#: src/js/view/Properties.js:473 src/js/view/Properties.js:479
+#: src/js/view/Properties.js:514 src/js/view/Properties.js:520
 msgid "Click here to see the syntax for this field"
 msgstr "Alklaku ĉi tie por vidi la sintakson por ĉi tiu kampo"
 
-#: src/js/view/Properties.js:476 src/js/view/Properties.js:517
+#: src/js/view/Properties.js:478 src/js/view/Properties.js:519
 msgid "List of frames to exclude"
 msgstr "Listo de ekskluzivotaj kadroj"
 
-#: src/js/view/Properties.js:491
+#: src/js/view/Properties.js:493
 msgid "Slide size"
 msgstr "Grando de lumbildo"
 
-#: src/js/view/Properties.js:493
+#: src/js/view/Properties.js:495
 msgid "35 mm"
 msgstr "35 mm"
 
-#: src/js/view/Properties.js:496
+#: src/js/view/Properties.js:498
 msgid "B4 (ISO)"
 msgstr "B4 (ISO)"
 
-#: src/js/view/Properties.js:497
+#: src/js/view/Properties.js:499
 msgid "B4 (JIS)"
 msgstr "B4 (JIS)"
 
-#: src/js/view/Properties.js:498
+#: src/js/view/Properties.js:500
 msgid "B5 (ISO)"
 msgstr "B5 (ISO)"
 
-#: src/js/view/Properties.js:499
+#: src/js/view/Properties.js:501
 msgid "B5 (JIS)"
 msgstr "B5 (JIS)"
 
-#: src/js/view/Properties.js:500
+#: src/js/view/Properties.js:502
 msgid "Banner"
 msgstr "Rubando"
 
-#: src/js/view/Properties.js:501
+#: src/js/view/Properties.js:503
 msgid "Hagaki Card"
 msgstr "Japana poŝtkarto"
 
-#: src/js/view/Properties.js:504
+#: src/js/view/Properties.js:506
 msgid "Overhead"
 msgstr "Projekcio"
 
-#: src/js/view/Properties.js:505
+#: src/js/view/Properties.js:507
 msgid "Screen 16:10"
 msgstr "16:10-formato"
 
-#: src/js/view/Properties.js:506
+#: src/js/view/Properties.js:508
 msgid "Screen 16:9"
 msgstr "16:9-formato"
 
-#: src/js/view/Properties.js:507
+#: src/js/view/Properties.js:509
 msgid "Screen 4:3"
 msgstr "4:3-formato"
 
-#: src/js/view/Properties.js:533
+#: src/js/view/Properties.js:535
 msgid "Format"
 msgstr "Filma dosierformo"
 
-#: src/js/view/Properties.js:535
+#: src/js/view/Properties.js:537
 msgid "MPEG-4 (.mp4)"
 msgstr "MPEG-4 (.mp4)"
 
-#: src/js/view/Properties.js:536
+#: src/js/view/Properties.js:538
 msgid "Ogg Vorbis (.ogv)"
 msgstr "Ogg Vorbis (.ogv)"
 
-#: src/js/view/Properties.js:537
+#: src/js/view/Properties.js:539
 msgid "WebM (.webm)"
 msgstr "WebM (.webm)"
 
-#: src/js/view/Properties.js:538
+#: src/js/view/Properties.js:540
 msgid "Windows Media Video (.wmv)"
 msgstr "Windows Media Video (.wmv)"
 
-#: src/js/view/Properties.js:539
+#: src/js/view/Properties.js:541
 msgid "Image sequence (.png)"
 msgstr "Bildosinsekvo (.png)"
 
-#: src/js/view/Properties.js:542
+#: src/js/view/Properties.js:544
 msgid "Width (pixels)"
 msgstr "Larĝo (bilderoj)"
 
-#: src/js/view/Properties.js:545
+#: src/js/view/Properties.js:547
 msgid "Height (pixels)"
 msgstr "Alto (bilderoj)"
 
-#: src/js/view/Properties.js:548
+#: src/js/view/Properties.js:550
 msgid "Frame rate (frames/sec)"
 msgstr "Kadrofrekvenco (kadroj/sekundo)"
 
-#: src/js/view/Properties.js:551
+#: src/js/view/Properties.js:553
 msgid "Bit rate (kbits/sec)"
 msgstr "Bitrapido (kilobitoj/sekundo)"
 
