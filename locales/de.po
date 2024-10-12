@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2023-07-26 09:05:+0000\n"
-"PO-Revision-Date: 2022-03-25 21:48+0100\n"
-"Last-Translator: Jacque Fresco <aidter@use.startmail.com>\n"
+"PO-Revision-Date: 2024-10-13 14:16+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/sozi/translations/"
 "de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Weblate 5.8-dev\n"
 "X-Launchpad-Export-Date: 2016-10-10 06:40+0000\n"
 
 #: src/js/Controller.js:234
@@ -163,9 +163,8 @@ msgid "Toggle the developer tools"
 msgstr "Werkzeuge öffnen"
 
 #: src/js/view/Properties.js:116 src/js/view/Properties.js:419
-#, fuzzy
 msgid "Back to presentation properties"
-msgstr "Präsentation speichern"
+msgstr "Zurück zu den Präsentationseigenschaften"
 
 #: src/js/view/Properties.js:120
 msgid "User interface"
@@ -221,25 +220,26 @@ msgstr "Tastenkombinationen"
 
 #: src/js/view/Properties.js:157
 msgid "Rendering"
-msgstr ""
+msgstr "Rendering"
 
 #: src/js/view/Properties.js:160
 msgid "Hardware acceleration"
-msgstr ""
+msgstr "Hardware-Beschleunigung"
 
 #: src/js/view/Properties.js:161
 msgid ""
 "Enable hardware acceleration (effective after restarting the application)"
 msgstr ""
+"Hardware-Beschleunigung aktivieren (wirksam nach Neustart der Anwendung)"
 
 #: src/js/view/Properties.js:165
 msgid "Color correct rendering"
-msgstr ""
+msgstr "Farbgetreues Rendering"
 
 #: src/js/view/Properties.js:166
 msgid ""
 "Enable color correct rendering (effective after restarting the application)"
-msgstr ""
+msgstr "Farbgetreues Rendering aktivieren (wirksam nach Neustart der Anwendung)"
 
 #: src/js/view/Properties.js:181
 msgid "Basic formatting supported:"
