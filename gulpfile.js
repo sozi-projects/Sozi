@@ -209,7 +209,7 @@ function makeTranspileTask(target, opts) {
     };
 }
 
-const electronTranspileTask = makeTranspileTask("electron", {targets: {node: "12"}});
+const electronTranspileTask = makeTranspileTask("electron", {targets: {node: "20"}});
 const browserTranspileTask  = makeTranspileTask("browser",  {useBuiltIns: "usage", corejs: 3});
 
 function makeBrowserifyTask(name) {
@@ -349,7 +349,12 @@ const builderOpts = {
     },
     files: ["**/*"],
     linux: {
-        target: ["AppImage", "rpm", "deb", "pacman"],
+        target: [
+            "AppImage",
+            // "rpm",
+            // "deb",
+            // "pacman"
+        ],
         icon: "resources/icons/256x256.png",
         category: "Graphics;Office",
         mimeTypes: ["image/svg+xml"]
@@ -440,7 +445,7 @@ const electronDistTask = series(
     )
 );
 
-exports.package = series(electronMacOSPackageTask, electronMacOSCompressTask); //electronDistTask;
+exports.package = electronDistTask;
 
 /* -------------------------------------------------------------------------- *
  * Package the desktop application.
