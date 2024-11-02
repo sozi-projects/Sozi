@@ -10,10 +10,10 @@
     "url": "http://github.com/sozi-projects/Sozi.git"
   },
   "scripts": {
-    "eslint": "./node_modules/.bin/eslint --config config/eslintrc.json src/js/",
-    "csslint": "./node_modules/.bin/csslint --config=config/csslintrc.json src/css/",
+    "eslint": "eslint --config config/eslintrc.mjs src/js/",
+    "csslint": "csslint --config=config/csslintrc.json src/css/",
     "build": "gulp",
-    "start": "./node_modules/.bin/electron build/electron"
+    "start": "electron build/electron"
   },
   "dependencies": {
     "@electron/remote": "^2.0.8",
@@ -38,10 +38,11 @@
     "electron": "^33.0.2",
     "electron-builder": "^25.1.8",
     "envify": "^4.1.0",
-    "eslint": "^8.23.1",
-    "eslint-plugin-jsdoc": "^39.3.6",
+    "eslint": "^9.14.0",
+    "eslint-plugin-jsdoc": "^50.4.3",
     "fancy-log": "^2.0.0",
-    "gulp": "^4.0.2",
+    "globals": "^15.11.0",
+    "gulp": "^5.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-exec": "^5.0.0",
     "gulp-jsdoc3": "^3.0.0",
