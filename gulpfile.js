@@ -289,16 +289,17 @@ const browserFaviconCopyTask = makeCopyTask("resources/icons/favicon.ico", "buil
 
 const electronBuildTask =
     parallel(
-        electronTranslationsTask,
-        electronNodePackageTask,
         electronCssCopyTask,
         electronIndexRenameTask,
         series(
+            electronNodePackageTask,
+            electronTranslationsTask,
             electronTranspileTask,
             electronBackendIndexRenameTask,
             electronExporterRenameTask
         ),
         series(
+            browserTranslationsTask,
             browserTranspileTask,
             playerBrowserifyTask,
             electronTemplatesTask
@@ -307,12 +308,12 @@ const electronBuildTask =
 
 const browserBuildTask =
     parallel(
-        browserTranslationsTask,
-        browserNodePackageTask,
         browserCssCopyTask,
         browserFaviconCopyTask,
         browserIndexRenameTask,
         series(
+            browserNodePackageTask,
+            browserTranslationsTask,
             browserTranspileTask,
             parallel(
                 series(
@@ -329,7 +330,7 @@ const browserBuildTask =
     );
 
 exports.browserBuild  = browserBuildTask;
-exports.electronBuild = browserBuildTask;
+exports.electronBuild = electronBuildTask;
 exports.default       = electronBuildTask;
 
 /* -------------------------------------------------------------------------- *
