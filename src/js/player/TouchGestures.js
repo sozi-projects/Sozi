@@ -10,7 +10,7 @@
  * @default
  * @type {number}
  */
-const MAX_FLICK_TIME = 100;
+const MAX_FLICK_TIME = 200;
 
 /** Min distance to accept a touch move as quick swipe gesture.
  *
@@ -50,7 +50,7 @@ let MIN_SLOW_TRAVEL_Y;       // minimum distance to accept a touch move as slow 
  * @default
  * @type {number}
  */
-const ROTATE_THRESHHOLD = 10;
+const ROTATE_THRESHOLD = 10;
 
 /** Upper tolerance of slight zoom gesture movement assumed to be unintentional.
  *
@@ -61,7 +61,7 @@ const ROTATE_THRESHHOLD = 10;
  * @default
  * @type {number}
  */
-const ZOOM_UP_THRESHHOLD = 1.5;
+const ZOOM_UP_THRESHOLD = 1.5;
 
 /** Lower tolerance of slight zoom gesture movement assumed to be unintentional.
  *
@@ -72,7 +72,7 @@ const ZOOM_UP_THRESHHOLD = 1.5;
  * @default
  * @type {number}
  */
-const ZOOM_LOW_THRESHHOLD = 1/ZOOM_UP_THRESHHOLD;
+const ZOOM_LOW_THRESHOLD = 1/ZOOM_UP_THRESHOLD;
 
 /** The current Sozi player.
  *
@@ -343,7 +343,7 @@ class SingleGesture extends Gesture {
         return this.swipeDone || touches.length != 1;
     }
 
-    /** Check quick swipe when the touchpint is released from the screen.
+    /** Check quick swipe when the touchpoint is released from the screen.
      *
      * A quick swipe happend, when the last movement before release was a quick flick in one direction.
      * The touchpoint has to be moved for a certain distance within a short timeframe right before release.
@@ -353,24 +353,31 @@ class SingleGesture extends Gesture {
     finish() {
         // Do not swipe again, if long swipe already fired.
         // this prevents double swipe glitches for long AND fast swipe gestures.
-        if (!this.swipeDone) {
-            const travelTime = Date.now() - this.flickTime;
-            if (travelTime < MAX_FLICK_TIME) {
-                this.checkSwipe(this.lastTouch.x - this.prevTouch.x,
-                                this.lastTouch.y - this.prevTouch.y,
-                                MIN_FLICK_TRAVEL,
-                                MIN_FLICK_TRAVEL);
-            }
+        if (this.swipeDone) {
+            return;
+        }
+
+        // Reject long touch.
+        const travelTime = Date.now() - this.flickTime;
+        if (travelTime > MAX_FLICK_TIME) {
+            return;
+        }
+
+        // Execute swipe or tap action.
+        if (!this.checkSwipe(this.lastTouch.x - this.prevTouch.x,
+                             this.lastTouch.y - this.prevTouch.y,
+                             MIN_FLICK_TRAVEL,
+                             MIN_FLICK_TRAVEL)) {
+            playerController.moveToNext();
         }
     }
-
 }
 
 /** Handles double touch gestures.
  *
  * Double touch gestures control screen interactions like zoom, rotate and panning (translate).
  * To interpret changes the handler uses line objects which
- * virtuallyvirtually connect two touchpoints.
+ * virtually connect two touchpoints.
  *
  * @extends Gesture
  */
@@ -417,7 +424,7 @@ class DoubleGesture extends Gesture {
         else {
             // Check threshhold to enable zoom.
             const zoom = Math.abs(actLine.getSqrLength() / this.startLine.getSqrLength());
-            if (zoom > ZOOM_UP_THRESHHOLD || zoom < ZOOM_LOW_THRESHHOLD) {
+            if (zoom > ZOOM_UP_THRESHOLD || zoom < ZOOM_LOW_THRESHOLD) {
                 this.zoomEnabled = true;
             }
         }
@@ -434,7 +441,7 @@ class DoubleGesture extends Gesture {
         }
         else {
             // Check threshhold to enable rotation.
-            if (Math.abs(actLine.getAngle(this.startLine)) >= ROTATE_THRESHHOLD) {
+            if (Math.abs(actLine.getAngle(this.startLine)) >= ROTATE_THRESHOLD) {
                 this.rotateEnabled = true;
             }
         }
