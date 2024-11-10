@@ -119,6 +119,7 @@ msgid "Autoselect outline element"
 msgstr "בחירת רכיב מתאר אוטומטית"
 
 #: src/js/view/Properties.js:95 src/js/view/Properties.js:238
+#: src/js/view/Properties.js:236
 msgid "Reset layer geometry"
 msgstr "איפוס צורת השכבה"
 
@@ -157,6 +158,7 @@ msgid "Toggle the developer tools"
 msgstr "החלפת מצב כלי הפיתוח"
 
 #: src/js/view/Properties.js:116 src/js/view/Properties.js:421
+#: src/js/view/Properties.js:419
 msgid "Back to presentation properties"
 msgstr "חזרה למאפייני המצגת"
 
@@ -214,25 +216,25 @@ msgstr "קיצורי מקלדת"
 
 #: src/js/view/Properties.js:157
 msgid "Rendering"
-msgstr ""
+msgstr "עיבוד"
 
 #: src/js/view/Properties.js:160
 msgid "Hardware acceleration"
-msgstr ""
+msgstr "האצת חומרה"
 
 #: src/js/view/Properties.js:161
 msgid ""
 "Enable hardware acceleration (effective after restarting the application)"
-msgstr ""
+msgstr "הפעלת האצת חומרה (יתבצע לאחר הפעלת היישום מחדש)"
 
 #: src/js/view/Properties.js:165
 msgid "Color correct rendering"
-msgstr ""
+msgstr "עיבוד נכון של צבע"
 
 #: src/js/view/Properties.js:166
 msgid ""
 "Enable color correct rendering (effective after restarting the application)"
-msgstr ""
+msgstr "הפעלת עיבוד נכון של צבע (יתבצע לאחר הפעלת היישום מחדש)"
 
 #: src/js/view/Properties.js:181
 msgid "Basic formatting supported:"
@@ -283,394 +285,407 @@ msgstr "Ctrl+U: קו תחתי"
 msgid "Ctrl+<: Outdent list entry"
 msgstr ""
 
-#: src/js/view/Properties.js:200
+#: src/js/view/Properties.js:200 src/js/view/Properties.js:198
 msgid "Select a layer to copy"
 msgstr "נא לבחור שכבה להעתקה"
 
 #: src/js/view/Properties.js:203 src/js/view/Timeline.js:240
-#: src/js/view/Timeline.js:268
+#: src/js/view/Timeline.js:268 src/js/view/Properties.js:201
 msgid "Default"
 msgstr "בררת מחדל"
 
-#: src/js/view/Properties.js:210
+#: src/js/view/Properties.js:210 src/js/view/Properties.js:208
 msgid "Frame"
 msgstr "תמונית"
 
-#: src/js/view/Properties.js:213
+#: src/js/view/Properties.js:213 src/js/view/Properties.js:211
 msgid "Show in frame list"
 msgstr "הצגה ברשימת התמוניות"
 
-#: src/js/view/Properties.js:214
+#: src/js/view/Properties.js:214 src/js/view/Properties.js:212
 msgid "Show frame number"
 msgstr "הצגת מספר תמונית"
 
-#: src/js/view/Properties.js:217
+#: src/js/view/Properties.js:217 src/js/view/Properties.js:215
 msgid "Title"
 msgstr "כותרת ראשית"
 
-#: src/js/view/Properties.js:220
+#: src/js/view/Properties.js:220 src/js/view/Properties.js:218
 msgid "Title level in frame list"
 msgstr "רמת הכותרת הראשית ברשימת התמוניות"
 
-#: src/js/view/Properties.js:223
+#: src/js/view/Properties.js:223 src/js/view/Properties.js:221
 msgid "Id"
 msgstr "מזהה"
 
-#: src/js/view/Properties.js:227
+#: src/js/view/Properties.js:227 src/js/view/Properties.js:225
 msgid "Timeout (seconds)"
 msgstr "תום המתנה (שניות)"
 
-#: src/js/view/Properties.js:228
+#: src/js/view/Properties.js:228 src/js/view/Properties.js:226
 msgid "Timeout enable"
 msgstr "הפעלת תום המתנה"
 
-#: src/js/view/Properties.js:232
+#: src/js/view/Properties.js:232 src/js/view/Properties.js:230
 msgid "Layer"
 msgstr "שכבה"
 
-#: src/js/view/Properties.js:235
+#: src/js/view/Properties.js:235 src/js/view/Properties.js:233
 msgid "Link to previous frame"
 msgstr "קישור לתמונית קודמת"
 
-#: src/js/view/Properties.js:236
+#: src/js/view/Properties.js:236 src/js/view/Properties.js:234
 msgid "Clip"
 msgstr "חיתוך"
 
-#: src/js/view/Properties.js:243
+#: src/js/view/Properties.js:243 src/js/view/Properties.js:241
 msgid "Copy layer"
 msgstr "העתקת שכבה"
 
-#: src/js/view/Properties.js:250
+#: src/js/view/Properties.js:250 src/js/view/Properties.js:248
 msgid "Outline element Id"
 msgstr "מזהה רכיב מתאר"
 
-#: src/js/view/Properties.js:253
+#: src/js/view/Properties.js:253 src/js/view/Properties.js:251
 msgid "Autoselect element"
 msgstr "בחירת רכיב אוטומטית"
 
-#: src/js/view/Properties.js:256
+#: src/js/view/Properties.js:256 src/js/view/Properties.js:254
 msgid "Hide element"
 msgstr "הסתרת רכיב"
 
-#: src/js/view/Properties.js:258
+#: src/js/view/Properties.js:258 src/js/view/Properties.js:256
 msgid "Fit to element"
 msgstr "התאמה לרכיב"
 
-#: src/js/view/Properties.js:265
+#: src/js/view/Properties.js:265 src/js/view/Properties.js:263
 msgid "Layer opacity"
 msgstr "שקיפות שכבה"
 
-#: src/js/view/Properties.js:268
+#: src/js/view/Properties.js:268 src/js/view/Properties.js:266
 msgid "Transition"
 msgstr "מעברון"
 
-#: src/js/view/Properties.js:268
+#: src/js/view/Properties.js:268 src/js/view/Properties.js:266
 msgid "Configure the animation when moving to the selected frames."
 msgstr "הגדרת ההנפשה בעת מעבר לתמוניות הנבחרות."
 
-#: src/js/view/Properties.js:270
+#: src/js/view/Properties.js:270 src/js/view/Properties.js:268
 msgid "Duration (seconds)"
 msgstr "משך (שניות)"
 
-#: src/js/view/Properties.js:273
+#: src/js/view/Properties.js:273 src/js/view/Properties.js:271
 msgid "Timing function"
 msgstr "פונקציית תזמון"
 
-#: src/js/view/Properties.js:275
+#: src/js/view/Properties.js:275 src/js/view/Properties.js:273
 msgid "Linear"
 msgstr "קווית"
 
-#: src/js/view/Properties.js:276
+#: src/js/view/Properties.js:276 src/js/view/Properties.js:274
 msgid "Ease"
 msgstr "הקלה"
 
-#: src/js/view/Properties.js:277
+#: src/js/view/Properties.js:277 src/js/view/Properties.js:275
 msgid "Ease in"
 msgstr "הקלה פנימה"
 
-#: src/js/view/Properties.js:278
+#: src/js/view/Properties.js:278 src/js/view/Properties.js:276
 msgid "Ease out"
 msgstr "הקלה החוצה"
 
-#: src/js/view/Properties.js:279
+#: src/js/view/Properties.js:279 src/js/view/Properties.js:277
 msgid "Ease in-out"
 msgstr "הקלה פנימה והחוצה"
 
-#: src/js/view/Properties.js:280
+#: src/js/view/Properties.js:280 src/js/view/Properties.js:278
 msgid "Step start"
 msgstr "התחלת צעד"
 
-#: src/js/view/Properties.js:281
+#: src/js/view/Properties.js:281 src/js/view/Properties.js:279
 msgid "Step end"
 msgstr "סיום צעד"
 
-#: src/js/view/Properties.js:282
+#: src/js/view/Properties.js:282 src/js/view/Properties.js:280
 msgid "Step middle"
 msgstr "אמצע צעד"
 
-#: src/js/view/Properties.js:285
+#: src/js/view/Properties.js:285 src/js/view/Properties.js:283
 msgid "Relative zoom (%)"
 msgstr "תקריב יחסי (%)"
 
-#: src/js/view/Properties.js:289
+#: src/js/view/Properties.js:289 src/js/view/Properties.js:287
 msgid "Path Id"
 msgstr "מזהה נתיב"
 
-#: src/js/view/Properties.js:290
+#: src/js/view/Properties.js:290 src/js/view/Properties.js:288
 msgid "Hide path"
 msgstr "הסתרת נתיב"
 
-#: src/js/view/Properties.js:294
+#: src/js/view/Properties.js:294 src/js/view/Properties.js:292
 msgid "Notes"
 msgstr "הערות"
 
-#: src/js/view/Properties.js:294
+#: src/js/view/Properties.js:294 src/js/view/Properties.js:292
 msgid ""
 "Edit presenter notes. Click here to show the list of formatting shortcuts."
 msgstr "עריכת הערות המציג. לחיצה כאן תציג את רשימת קיצורי העיצוב."
 
-#: src/js/view/Properties.js:298
+#: src/js/view/Properties.js:298 src/js/view/Properties.js:296
 msgid "Custom stylesheets and scripts"
 msgstr "גיליונות סגנון וסקריפטים בהתאמה אישית"
 
-#: src/js/view/Properties.js:311
+#: src/js/view/Properties.js:311 src/js/view/Properties.js:309
 msgid "CSS or JS file names"
 msgstr "שמות קובצי CSS או JS"
 
-#: src/js/view/Properties.js:311
+#: src/js/view/Properties.js:311 src/js/view/Properties.js:309
 msgid "Add CSS or JS files"
 msgstr "הוספת קובצי CSS או JS"
 
-#: src/js/view/Properties.js:314
+#: src/js/view/Properties.js:314 src/js/view/Properties.js:312
 msgid "Add a file"
 msgstr "הוספת קובץ"
 
-#: src/js/view/Properties.js:327
+#: src/js/view/Properties.js:327 src/js/view/Properties.js:325
 msgid "Remove this file"
 msgstr "הסרת הקובץ הזה"
 
-#: src/js/view/Properties.js:335
+#: src/js/view/Properties.js:335 src/js/view/Properties.js:333
 msgid "Player"
 msgstr "נגן"
 
-#: src/js/view/Properties.js:338
+#: src/js/view/Properties.js:338 src/js/view/Properties.js:336
 msgid "Support the browser's \"Back\" button to move to the previous frame"
 msgstr "תמיכה בכפתור „אחורה” (⮕) של הדפדפן כדי לעבור לתמונית הקודמת"
 
-#: src/js/view/Properties.js:339
+#: src/js/view/Properties.js:339 src/js/view/Properties.js:337
 msgid ""
 "Moving from one frame to another will change the content of the location bar "
 "automatically."
 msgstr "מעבר מתמונית אחת לאחרת תחליף את תוכן סרגל הכתובת אוטומטית."
 
-#: src/js/view/Properties.js:343
+#: src/js/view/Properties.js:343 src/js/view/Properties.js:341
 msgid "Allow to control the presentation"
 msgstr "לאפשר שליטה במצגת"
 
 #: src/js/view/Properties.js:345 src/js/view/Properties.js:352
 #: src/js/view/Properties.js:358 src/js/view/Properties.js:366
+#: src/js/view/Properties.js:343 src/js/view/Properties.js:350
+#: src/js/view/Properties.js:356 src/js/view/Properties.js:364
 msgid "using the mouse"
 msgstr "באמצעות העכבר"
 
 #: src/js/view/Properties.js:346 src/js/view/Properties.js:359
-#: src/js/view/Properties.js:367
+#: src/js/view/Properties.js:367 src/js/view/Properties.js:344
+#: src/js/view/Properties.js:357 src/js/view/Properties.js:365
 msgid "using the keyboard"
 msgstr "באמצעות המקלדת"
 
-#: src/js/view/Properties.js:351
+#: src/js/view/Properties.js:351 src/js/view/Properties.js:349
 msgid "Allow to move the camera"
 msgstr "לאפשר להזיז את המצלמה"
 
-#: src/js/view/Properties.js:356
+#: src/js/view/Properties.js:356 src/js/view/Properties.js:354
 msgid "Allow to rotate the camera"
 msgstr "לאפשר להטות את המצלמה"
 
-#: src/js/view/Properties.js:364
+#: src/js/view/Properties.js:364 src/js/view/Properties.js:362
 msgid "Allow to zoom"
 msgstr "לאפשר להתקרב"
 
-#: src/js/view/Properties.js:381
+#: src/js/view/Properties.js:381 src/js/view/Properties.js:379
 msgid "Examples of frame lists to include/exclude in export"
 msgstr "דוגמאות של רשימות תמוניות להכליל/להחריג בייצוא"
 
-#: src/js/view/Properties.js:383
+#: src/js/view/Properties.js:383 src/js/view/Properties.js:381
 msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
 msgstr "לבחור את תמוניות 2, 5 ו־12: „2, 5, 12”"
 
-#: src/js/view/Properties.js:384
+#: src/js/view/Properties.js:384 src/js/view/Properties.js:382
 msgid "Select frames 5 to 8: \"5:8\""
 msgstr "לבחור את תמוניות 5 עד 8: „5:8”"
 
-#: src/js/view/Properties.js:385
+#: src/js/view/Properties.js:385 src/js/view/Properties.js:383
 msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
 msgstr "לבחור את תמוניות 5, 8, 11, 14, ו־17: „5:8:17”"
 
-#: src/js/view/Properties.js:386
+#: src/js/view/Properties.js:386 src/js/view/Properties.js:384
 msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
 msgstr "לבחור את תמוניות 2, 5 ו־10 עד 15: „2, 5, 10:15”"
 
 #: src/js/view/Properties.js:425 src/js/view/Properties.js:441
+#: src/js/view/Properties.js:423 src/js/view/Properties.js:439
 msgid "Export"
 msgstr "ייצוא"
 
-#: src/js/view/Properties.js:427
+#: src/js/view/Properties.js:427 src/js/view/Properties.js:425
 msgid "Document type"
 msgstr "סוג המסמך"
 
-#: src/js/view/Properties.js:429
+#: src/js/view/Properties.js:429 src/js/view/Properties.js:427
 msgid "Portable Document Format (PDF)"
 msgstr "תצורת מסמך ניידת (PDF)"
 
-#: src/js/view/Properties.js:430
+#: src/js/view/Properties.js:430 src/js/view/Properties.js:428
 msgid "Microsoft PowerPoint (PPTX)"
 msgstr "Microsoft PowerPoint (PPTX)"
 
-#: src/js/view/Properties.js:431
+#: src/js/view/Properties.js:431 src/js/view/Properties.js:429
 msgid "Video"
 msgstr "סרטון"
 
 #: src/js/view/Properties.js:438 src/js/view/Toolbar.js:149
+#: src/js/view/Properties.js:436
 msgid "Export the presentation"
 msgstr "ייצוא המצגת"
 
-#: src/js/view/Properties.js:455
+#: src/js/view/Properties.js:455 src/js/view/Properties.js:453
 msgid "Page size"
 msgstr "גודל הדף"
 
 #: src/js/view/Properties.js:457 src/js/view/Properties.js:496
+#: src/js/view/Properties.js:455 src/js/view/Properties.js:494
 msgid "A3"
 msgstr "A3"
 
 #: src/js/view/Properties.js:458 src/js/view/Properties.js:497
+#: src/js/view/Properties.js:456 src/js/view/Properties.js:495
 msgid "A4"
 msgstr "A4"
 
-#: src/js/view/Properties.js:459
+#: src/js/view/Properties.js:459 src/js/view/Properties.js:457
 msgid "A5"
 msgstr "A5"
 
-#: src/js/view/Properties.js:460
+#: src/js/view/Properties.js:460 src/js/view/Properties.js:458
 msgid "Legal"
 msgstr "משפטי"
 
 #: src/js/view/Properties.js:461 src/js/view/Properties.js:505
+#: src/js/view/Properties.js:459 src/js/view/Properties.js:503
 msgid "Letter"
 msgstr "מכתב"
 
 #: src/js/view/Properties.js:462 src/js/view/Properties.js:504
+#: src/js/view/Properties.js:460 src/js/view/Properties.js:502
 msgid "Tabloid"
 msgstr "צהובון"
 
-#: src/js/view/Properties.js:465
+#: src/js/view/Properties.js:465 src/js/view/Properties.js:463
 msgid "Page orientation"
 msgstr "כיוון הדף"
 
-#: src/js/view/Properties.js:467
+#: src/js/view/Properties.js:467 src/js/view/Properties.js:465
 msgid "Landscape"
 msgstr "לרוחב"
 
-#: src/js/view/Properties.js:468
+#: src/js/view/Properties.js:468 src/js/view/Properties.js:466
 msgid "Portrait"
 msgstr "לאורך"
 
 #: src/js/view/Properties.js:472 src/js/view/Properties.js:513
+#: src/js/view/Properties.js:470 src/js/view/Properties.js:511
 msgid "List of frames to include"
 msgstr "רשימת תמוניות לכלול"
 
 #: src/js/view/Properties.js:473 src/js/view/Properties.js:479
 #: src/js/view/Properties.js:514 src/js/view/Properties.js:520
+#: src/js/view/Properties.js:471 src/js/view/Properties.js:477
+#: src/js/view/Properties.js:512 src/js/view/Properties.js:518
 msgid "Click here to see the syntax for this field"
 msgstr "יש ללחוץ כאן כדי לראות את התחביר של השדה הזה"
 
 #: src/js/view/Properties.js:478 src/js/view/Properties.js:519
+#: src/js/view/Properties.js:476 src/js/view/Properties.js:517
 msgid "List of frames to exclude"
 msgstr "רשימת תמוניות להחריג"
 
-#: src/js/view/Properties.js:493
+#: src/js/view/Properties.js:493 src/js/view/Properties.js:491
 msgid "Slide size"
 msgstr "גודל שקופית"
 
-#: src/js/view/Properties.js:495
+#: src/js/view/Properties.js:495 src/js/view/Properties.js:493
 msgid "35 mm"
 msgstr "35 מ״מ"
 
-#: src/js/view/Properties.js:498
+#: src/js/view/Properties.js:498 src/js/view/Properties.js:496
 msgid "B4 (ISO)"
 msgstr "B4 (ISO)"
 
-#: src/js/view/Properties.js:499
+#: src/js/view/Properties.js:499 src/js/view/Properties.js:497
 msgid "B4 (JIS)"
 msgstr "B4 (JIS)"
 
-#: src/js/view/Properties.js:500
+#: src/js/view/Properties.js:500 src/js/view/Properties.js:498
 msgid "B5 (ISO)"
 msgstr "B5 (ISO)"
 
-#: src/js/view/Properties.js:501
+#: src/js/view/Properties.js:501 src/js/view/Properties.js:499
 msgid "B5 (JIS)"
 msgstr "B5 (JIS)"
 
-#: src/js/view/Properties.js:502
+#: src/js/view/Properties.js:502 src/js/view/Properties.js:500
 msgid "Banner"
 msgstr "כרזה"
 
-#: src/js/view/Properties.js:503
+#: src/js/view/Properties.js:503 src/js/view/Properties.js:501
 msgid "Hagaki Card"
 msgstr "כרטיס הגאקי"
 
-#: src/js/view/Properties.js:506
+#: src/js/view/Properties.js:506 src/js/view/Properties.js:504
 msgid "Overhead"
 msgstr "עליון"
 
-#: src/js/view/Properties.js:507
+#: src/js/view/Properties.js:507 src/js/view/Properties.js:505
 msgid "Screen 16:10"
 msgstr "מסך 16:10"
 
-#: src/js/view/Properties.js:508
+#: src/js/view/Properties.js:508 src/js/view/Properties.js:506
 msgid "Screen 16:9"
 msgstr "מסך 16:9"
 
-#: src/js/view/Properties.js:509
+#: src/js/view/Properties.js:509 src/js/view/Properties.js:507
 msgid "Screen 4:3"
 msgstr "מסך 4:3"
 
-#: src/js/view/Properties.js:535
+#: src/js/view/Properties.js:535 src/js/view/Properties.js:533
 msgid "Format"
 msgstr "תצורה"
 
-#: src/js/view/Properties.js:537
+#: src/js/view/Properties.js:537 src/js/view/Properties.js:535
 msgid "MPEG-4 (.mp4)"
 msgstr "MPEG-4 (.mp4)"
 
-#: src/js/view/Properties.js:538
+#: src/js/view/Properties.js:538 src/js/view/Properties.js:536
 msgid "Ogg Vorbis (.ogv)"
 msgstr "Ogg Vorbis (.ogv)"
 
-#: src/js/view/Properties.js:539
+#: src/js/view/Properties.js:539 src/js/view/Properties.js:537
 msgid "WebM (.webm)"
 msgstr "WebM (.webm)"
 
-#: src/js/view/Properties.js:540
+#: src/js/view/Properties.js:540 src/js/view/Properties.js:538
 msgid "Windows Media Video (.wmv)"
 msgstr "Windows Media Video (.wmv)"
 
-#: src/js/view/Properties.js:541
+#: src/js/view/Properties.js:541 src/js/view/Properties.js:539
 msgid "Image sequence (.png)"
 msgstr "רצף תמונות (‎.png)"
 
-#: src/js/view/Properties.js:544
+#: src/js/view/Properties.js:544 src/js/view/Properties.js:542
 msgid "Width (pixels)"
 msgstr "רוחב (פיקסלים)"
 
-#: src/js/view/Properties.js:547
+#: src/js/view/Properties.js:547 src/js/view/Properties.js:545
 msgid "Height (pixels)"
 msgstr "גובה (פיקסלים)"
 
-#: src/js/view/Properties.js:550
+#: src/js/view/Properties.js:550 src/js/view/Properties.js:548
 msgid "Frame rate (frames/sec)"
 msgstr "קצב תמוניות (תמוניות לשנייה)"
 
-#: src/js/view/Properties.js:553
+#: src/js/view/Properties.js:553 src/js/view/Properties.js:551
 msgid "Bit rate (kbits/sec)"
 msgstr "קצב סיביות (קילו סיביות לשנייה)"
 
