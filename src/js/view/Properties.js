@@ -291,7 +291,7 @@ export class Properties extends VirtualDOMView {
             ]),
             this.renderTextField("transitionPathId", false, controller.getLayerProperty, controller.setLayerProperty, true),
 
-            h("h1", [_("Notes"), this.renderHelp(_("Edit presenter notes. Click here to show the list of formatting shortcuts."), () => controller.info(NOTES_HELP, true))]),
+            h("h1", [_("Notes"), this.renderHelp(_("Edit presenter notes. Click here to show the list of formatting shortcuts."), NOTES_HELP)]),
 
             this.renderRichTextField("notes", false, controller.getFrameProperty, controller.setFrameProperty, true),
 
@@ -470,13 +470,13 @@ export class Properties extends VirtualDOMView {
 
             h("label.side-by-side", {for: "field-exportToPDFInclude"}, [
                 _("List of frames to include"),
-                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(this.exportListHelp, true))
+                this.renderHelp(_("Click here to see the syntax for this field"), this.exportListHelp)
             ]),
             this.renderTextField("exportToPDFInclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true),
 
             h("label.side-by-side", {for: "field-exportToPDFExclude"}, [
                 _("List of frames to exclude"),
-                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(this.exportListHelp, true))
+                this.renderHelp(_("Click here to see the syntax for this field"), this.exportListHelp)
             ]),
             this.renderTextField("exportToPDFExclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true)
         ];
@@ -511,13 +511,13 @@ export class Properties extends VirtualDOMView {
 
             h("label.side-by-side", {for: "field-exportToPPTXInclude"}, [
                 _("List of frames to include"),
-                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(this.exportListHelp, true))
+                this.renderHelp(_("Click here to see the syntax for this field"), this.exportListHelp)
             ]),
             this.renderTextField("exportToPPTXInclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true),
 
             h("label.side-by-side", {for: "field-exportToPPTXExclude"}, [
                 _("List of frames to exclude"),
-                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(this.exportListHelp, true))
+                this.renderHelp(_("Click here to see the syntax for this field"), this.exportListHelp)
             ]),
             this.renderTextField("exportToPPTXExclude", false, controller.getPresentationProperty, controller.setPresentationProperty, true)
         ];
@@ -558,10 +558,14 @@ export class Properties extends VirtualDOMView {
     /** Create a help widget.
      *
      * @param {string} text - The tooltip text to show.
-     * @param {Function} onclick - An event handler for click events.
+     * @param {string} info - The info notification to show when clicking the help widget.
      * @returns {VNode} - A virtual DOM tree.
      */
-    renderHelp(text, onclick) {
+    renderHelp(text, info) {
+        const onclick = info && (() => {
+            this.controller.hideNotification();
+            this.controller.info(info, true)
+        });
         return h("span.help", {title: text, onclick}, h("i.fa.fa-question-circle"));
     }
 

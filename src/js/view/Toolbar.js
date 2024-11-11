@@ -159,7 +159,10 @@ export class Toolbar extends VirtualDOMView {
                 }, h("i.fa.fa-sliders")),
                 h("button", {
                     title: _("Information"),
-                    onclick() { controller.info(`Sozi ${pkg.version}`, true); }
+                    onclick() {
+                        controller.hideNotification();
+                        controller.info(`Sozi ${pkg.version}`, true);
+                    }
                 }, h("i.fa.fa-info"))
             ])
         ]);
