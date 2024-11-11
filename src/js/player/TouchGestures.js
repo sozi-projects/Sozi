@@ -22,6 +22,8 @@ const MAX_FLICK_TIME = 200;
  */
 const MIN_FLICK_TRAVEL = 20;
 
+const MAX_TAP_DISTANCE = 10;
+
 /** Minimum distance to accept a touch move as slow swipe gesture in horizontal direction.
  *
  * Value depends on screen size and therefore is (re)calculated
@@ -219,7 +221,7 @@ class Gesture {
      *
      * Specific behaviour to be implemented by derived classes
      */
-    finish() {
+    finish(evt) {
         // Not implemented
     }
 
@@ -350,7 +352,7 @@ class SingleGesture extends Gesture {
      *
      * @override
      */
-    finish() {
+    finish(evt) {
         // Do not swipe again, if long swipe already fired.
         // this prevents double swipe glitches for long AND fast swipe gestures.
         if (this.swipeDone) {
@@ -364,12 +366,21 @@ class SingleGesture extends Gesture {
         }
 
         // Execute swipe or tap action.
-        if (!this.checkSwipe(this.lastTouch.x - this.prevTouch.x,
-                             this.lastTouch.y - this.prevTouch.y,
-                             MIN_FLICK_TRAVEL,
-                             MIN_FLICK_TRAVEL)) {
-            playerController.moveToNext();
+        if (this.checkSwipe(this.lastTouch.x - this.prevTouch.x,
+                            this.lastTouch.y - this.prevTouch.y,
+                            MIN_FLICK_TRAVEL,
+                            MIN_FLICK_TRAVEL)) {
+            return;
         }
+
+        if (Math.abs(this.lastTouch.x - this.firstTouch.x) > MAX_TAP_DISTANCE ||
+            Math.abs(this.lastTouch.y - this.firstTouch.y) > MAX_TAP_DISTANCE)  {
+            return;
+        }
+
+        evt.target.dispatchEvent(new MouseEvent("mousedown", {button: 0, bubbles: true}));
+        evt.target.dispatchEvent(new MouseEvent("mouseup",   {button: 0, bubbles: true}));
+        evt.target.dispatchEvent(new MouseEvent("click",     {button: 0, bubbles: true}));
     }
 }
 
