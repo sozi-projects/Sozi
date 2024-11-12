@@ -420,10 +420,10 @@ export class Player extends EventEmitter {
      * A new descriptor is added to the {@linkcode module:player/Player.Player#transitions|list of transition descriptors}.
      *
      * @param {module:player/Camera.Camera} camera - The camera that will perform the transition.
-     * @param {string} [timingFunction=DEFAULT_TIMING_FUNCTION] - The name of a function that maps the progress indicator to the relative distance already completed between the initial and final states (between 0 and 1).
-     * @param {number} [relativeZoom=DEFAULT_RELATIVE_ZOOM] - An additional zooming factor to apply during the transition.
-     * @param {SVGPathElement} [svgPath=null] - An SVG path to follow during the transition.
-     * @param {boolean} [backwards=false] - If `true`, apply the reverse timing function and follow the transition path in the opposite direction.
+     * @param {string} timingFunction - The name of a function that maps the progress indicator to the relative distance already completed between the initial and final states (between 0 and 1).
+     * @param {number} relativeZoom - An additional zooming factor to apply during the transition.
+     * @param {SVGPathElement} svgPath - An SVG path to follow during the transition.
+     * @param {boolean} backwards - If `true`, apply the reverse timing function and follow the transition path in the opposite direction.
      */
     setupTransition(camera, timingFunction=DEFAULT_TIMING_FUNCTION, relativeZoom=DEFAULT_RELATIVE_ZOOM, svgPath=null, backwards=false) {
         if (this.animator.running) {

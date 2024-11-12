@@ -1737,7 +1737,7 @@ export class Controller extends EventEmitter {
 
     /** Update the user interface after modifying the preferences.
      *
-     * @param {string|object} [changed="all"] - A dictionay that maps changed property names to a boolean `true`.
+     * @param {string|object} changed - A dictionay that maps changed property names to a boolean `true`.
      *
      * @fires module:Controller.repaint
      */
@@ -1814,8 +1814,8 @@ export class Controller extends EventEmitter {
      * {@link module:Controller.Controller#undoStack|undo stack}, and clears the
      * {@link module:Controller.Controller#undoStack|redo stack}.
      *
-     * @param {function()} onDo - The function that performs the operation.
-     * @param {function()} onUndo - The function that undoes the operation.
+     * @param {function():void} onDo - The function that performs the operation.
+     * @param {function():void} onUndo - The function that undoes the operation.
      * @param {boolean} updateSelection - If `true`, restore the selection when undoing.
      * @param {string[]} events - Emit the given events when performing of undoing the operation.
      */

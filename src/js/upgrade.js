@@ -70,7 +70,7 @@ function convertTimingFunction(str) {
  * @param {string} propName - The name of the property to write in `obj`.
  * @param {Element[]} elts - An array of candidate XML elements where to look up.
  * @param {string} attrName - The name of the attribute to read.
- * @param {Function} [fn=x=>x] - A conversion function to apply to the attribute.
+ * @param {Function} fn - A conversion function to apply to the attribute.
  */
 function importAttribute(obj, propName, elts, attrName, fn=x => x) {
     for (let e of elts) {
@@ -91,7 +91,7 @@ function importAttribute(obj, propName, elts, attrName, fn=x => x) {
  * @param {Element[]} elts - An array of candidate XML elements where to look up.
  * @param {string} nsUri - The XML namespace URI of the attribute.
  * @param {string} attrName - The name of the attribute to read.
- * @param {Function} [fn=x=>x] - A conversion function to apply to the attribute.
+ * @param {Function} fn - A conversion function to apply to the attribute.
  */
 function importAttributeNS(obj, propName, elts, nsUri, attrName, fn=x=>x) {
     for (let e of elts) {

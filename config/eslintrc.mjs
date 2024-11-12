@@ -50,6 +50,6 @@ export default [...compat.extends("eslint:recommended", "plugin:jsdoc/recommende
             noZeroLineText: false,
         }],
 
-        "jsdoc/tag-lines": ["warn", "any"],
+        "jsdoc/tag-lines": ["off"],
     },
 }];

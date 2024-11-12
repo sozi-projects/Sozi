@@ -22,6 +22,14 @@ const MAX_FLICK_TIME = 200;
  */
 const MIN_FLICK_TRAVEL = 20;
 
+/** Max distance to accept a tap gesture.
+ *
+ * Threshhold to prevent any touch to be interpreted as tap.
+ *
+ * @readonly
+ * @default
+ * @type {number}
+ */
 const MAX_TAP_DISTANCE = 10;
 
 /** Minimum distance to accept a touch move as slow swipe gesture in horizontal direction.
@@ -209,7 +217,7 @@ class Gesture {
      * Must be implemented by derived classes.
      *
      * @param {object[]} touches - Array of touchpoints from the touch event.
-     * @returns {boolean} - `true`, if touches are rejected, `false` if accepted
+     * @returns {boolean} - `true`, if touches are rejected, `false` if accepted.
      *
      */
     rejects(touches) {
@@ -220,6 +228,8 @@ class Gesture {
     /** Gesture has been completed successfully.
      *
      * Specific behaviour to be implemented by derived classes
+     *
+     * @param {Event} evt - The touch event that triggered this method call.
      */
     finish(evt) {
         // Not implemented

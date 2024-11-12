@@ -140,9 +140,9 @@ export class CameraState {
 
     /** The width of the image seen by the camera.
      *
+     * Defaults to the width of the bounding box of the SVG content.
      * Cannot be lower than 1.
      *
-     * @default The width of the bounding box of the SVG content.
      * @type {number}
      */
     get width() {
@@ -155,9 +155,9 @@ export class CameraState {
 
     /** The height of the image seen by the camera.
      *
+     * Defaults to the height of the bounding box of the SVG content.
      * Cannot be lower than 1.
      *
-     * @default The height of the bounding box of the SVG content.
      * @type {number}
      */
     get height() {
@@ -170,9 +170,9 @@ export class CameraState {
 
     /** The rotation angle applied to the camera, in degrees.
      *
+     * Defaults to 0.
      * The angle is automatically normalized in the interval [-180 ; 180].
      *
-     * @default 0
      * @type {number}
      */
     get angle() {
@@ -248,11 +248,11 @@ export class CameraState {
      * Translation, scaling and rotation may be applied.
      *
      * @param {SVGElement} svgElement - The target SVG element.
-     * @param {number} [deltaX=0] - An horizontal offset from the center of the SVG element.
-     * @param {number} [deltaY=0] - A vertical offset from the center of the SVG element.
-     * @param {number} [widthFactor=1] - A scaling factor applied to the width of the SVG element.
-     * @param {number} [heightFactor=1] - A scaling factor applied to the height of the SVG element.
-     * @param {number} [deltaAngle=0] - A relative angle from the orientation of the SVG element.
+     * @param {number} deltaX - An horizontal offset from the center of the SVG element.
+     * @param {number} deltaY - A vertical offset from the center of the SVG element.
+     * @param {number} widthFactor - A scaling factor applied to the width of the SVG element.
+     * @param {number} heightFactor - A scaling factor applied to the height of the SVG element.
+     * @param {number} deltaAngle - A relative angle from the orientation of the SVG element.
      *
      * @see {@linkcode module:model/CameraState.CameraState#offsetFromElement|offsetFromElement}
      * @see {@linkcode module:model/CameraState.CameraState#applyOffset|applyOffset}

@@ -20,7 +20,7 @@ export class Viewport {
     /** Initialize a new viewport for the given presentation.
      *
      * @param {module:model/Presentation.Presentation} presentation - The presentations to display.
-     * @param {boolean} [editMode=false] - Does this viewport support editing features?
+     * @param {boolean} editMode - Does this viewport support editing features?
      */
     constructor(presentation, editMode=false) {
         /** The presentations to display.

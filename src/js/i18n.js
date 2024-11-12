@@ -24,7 +24,7 @@ function normalize(tag) {
  * In autodection mode, this function will query the web browser for the
  * current language.
  *
- * @param {string} [lang="auto"] - A language tag to use, or `"auto"`.
+ * @param {string} lang - A language tag to use, or `"auto"`.
  * @returns {Jed} - An instance of `Jed` that provides the `gettext` function.
  */
 export function init(lang="auto") {

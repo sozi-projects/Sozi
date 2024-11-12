@@ -263,7 +263,7 @@ export class SVGDocumentWrapper {
      * Hyperlinks are disabled in the editor only.
      * This operation does not affect the saved presentation.
      *
-     * @param {boolean} [styled=false] - If `true`, disable the hand-shaped mouse cursor over links.
+     * @param {boolean} styled - If `true`, disable the hand-shaped mouse cursor over links.
      */
     disableHyperlinks(styled=false) {
         for (let link of this.root.getElementsByTagName("a")) {
