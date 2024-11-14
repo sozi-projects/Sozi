@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2024-11-10 08:22:+0000\n"
-"PO-Revision-Date: 2022-03-25 21:42+0100\n"
-"Last-Translator: 麋悟BigELK176 <bigelk176@gmail.com>\n"
-"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
-"sozi/translations/zh_Hant/>\n"
+"PO-Revision-Date: 2024-11-15 02:00+0000\n"
+"Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
+"Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
+"projects/sozi/translations/zh_Hant/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Weblate 5.9-dev\n"
 "X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
 
 #: src/js/Controller.js:234
@@ -280,13 +280,12 @@ msgid "Ctrl+N: Numbered list"
 msgstr "Ctrl+N: 編號列表"
 
 #: src/js/view/Properties.js:192
-#, fuzzy
 msgid "Ctrl+>: Indent list entry"
-msgstr "Ctrl+U: 底線"
+msgstr "Ctrl+>: 縮排清單"
 
 #: src/js/view/Properties.js:193
 msgid "Ctrl+<: Outdent list entry"
-msgstr ""
+msgstr "Ctrl+<: 凸排清單"
 
 #: src/js/view/Properties.js:200
 msgid "Select a layer to copy"
