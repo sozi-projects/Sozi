@@ -3,7 +3,7 @@
   "description": "A zooming presentation editor",
   "author": "Guillaume Savaton <guillaume@baierouge.fr>",
   "homepage": "http://sozi.baierouge.fr",
-  "version": "24.11.10",
+  "version": "24.11.17",
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
