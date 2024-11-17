@@ -63,6 +63,13 @@ window.addEventListener("load", () => {
         p.window = iframes[i].contentWindow;
     });
 
+    // Prevent the notes pane to change size when its content is updated.
+    const preview = document.querySelector(".sozi-frame-preview");
+    const notes = document.querySelector(".sozi-notes");
+    new ResizeObserver(() => {
+        notes.style.width = `calc(100vw - ${preview.offsetWidth}px`;
+    }).observe(preview);
+
     // Open a new window for the main presentation view.
     presWindow = window.open(iframes[0].src, "sozi-presentation", "width=600, height=400, scrollbars=yes, toolbar=yes");
     try {
