@@ -1,0 +1,738 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2024-11-10 09:18:+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language-Team: none\n"
+"Language: ta\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/js/Controller.js:234
+msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
+msgstr ""
+
+#: src/js/Controller.js:235
+msgid "<i class=\"fa fa-info-circle\"></i> Information"
+msgstr ""
+
+#: src/js/Controller.js:359
+msgid "Document was changed. Reloading."
+msgstr ""
+
+#: src/js/Controller.js:374
+msgid "Document was changed."
+msgstr ""
+
+#: src/js/Controller.js:1770
+msgid "Presentation was exported to PDF."
+msgstr ""
+
+#: src/js/Controller.js:1773
+msgid "Failed to write PDF file."
+msgstr ""
+
+#: src/js/Controller.js:1786
+msgid "Presentation was exported to PPTX."
+msgstr ""
+
+#: src/js/Controller.js:1789
+msgid "Failed to write PPTX file."
+msgstr ""
+
+#: src/js/Controller.js:1802
+msgid "Presentation was exported to video."
+msgstr ""
+
+#: src/js/Controller.js:1805
+msgid "Failed to write video file."
+msgstr ""
+
+#: src/js/Storage.js:203
+msgid "Document is not valid SVG."
+msgstr ""
+
+#: src/js/Storage.js:261
+msgid "Document was imported from Sozi 13 or earlier."
+msgstr ""
+
+#: src/js/Storage.js:354
+msgid "Saved %s."
+msgstr ""
+
+#: src/js/backend/Electron.js:50
+msgid "Open an SVG file from your computer"
+msgstr ""
+
+#: src/js/backend/Electron.js:75
+msgid "Do you want to save the presentation before closing?"
+msgstr ""
+
+#: src/js/backend/Electron.js:76
+msgid "Yes"
+msgstr ""
+
+#: src/js/backend/Electron.js:76
+msgid "No"
+msgstr ""
+
+#: src/js/backend/Electron.js:106
+msgid "File not found: %s."
+msgstr ""
+
+#: src/js/backend/Electron.js:138
+msgid "Choose an SVG file"
+msgstr ""
+
+#: src/js/backend/Electron.js:139
+msgid "SVG files"
+msgstr ""
+
+#: src/js/backend/Electron.js:200
+msgid "This file will not be reloaded on change: %s."
+msgstr ""
+
+#: src/js/backend/Electron.js:216
+msgid "Could not read file %s."
+msgstr ""
+
+#: src/js/backend/FileReader.js:23
+msgid ""
+"Open an SVG file from your computer (<i class=\"fa "
+"fa-exclamation-triangle\"></i> read-only)"
+msgstr ""
+
+#: src/js/backend/GoogleDrive.js:25
+msgid "Open an SVG file from Google Drive"
+msgstr ""
+
+#: src/js/view/Properties.js:94
+msgid "Autoselect outline element"
+msgstr ""
+
+#: src/js/view/Properties.js:95 src/js/view/Properties.js:238
+msgid "Reset layer geometry"
+msgstr ""
+
+#: src/js/view/Properties.js:96 src/js/view/Timeline.js:193
+msgid "Create a new frame"
+msgstr ""
+
+#: src/js/view/Properties.js:97 src/js/view/Properties.js:133 src/js/view/Toolbar.js:139
+msgid "Save the presentation"
+msgstr ""
+
+#: src/js/view/Properties.js:98 src/js/view/Toolbar.js:123
+msgid "Redo"
+msgstr ""
+
+#: src/js/view/Properties.js:99 src/js/view/Toolbar.js:118
+msgid "Undo"
+msgstr ""
+
+#: src/js/view/Properties.js:100
+msgid "Focus the frame title"
+msgstr ""
+
+#: src/js/view/Properties.js:101 src/js/view/Properties.js:139 src/js/view/Toolbar.js:144
+msgid "Reload the SVG document"
+msgstr ""
+
+#: src/js/view/Properties.js:102
+msgid "Toggle full-screen mode"
+msgstr ""
+
+#: src/js/view/Properties.js:103
+msgid "Toggle the developer tools"
+msgstr ""
+
+#: src/js/view/Properties.js:116 src/js/view/Properties.js:421
+msgid "Back to presentation properties"
+msgstr ""
+
+#: src/js/view/Properties.js:120
+msgid "User interface"
+msgstr ""
+
+#: src/js/view/Properties.js:122
+msgid "Language"
+msgstr ""
+
+#: src/js/view/Properties.js:125
+msgid "Font size"
+msgstr ""
+
+#: src/js/view/Properties.js:129
+msgid "Enable notifications on save and reload"
+msgstr ""
+
+#: src/js/view/Properties.js:130
+msgid "Enable notifications"
+msgstr ""
+
+#: src/js/view/Properties.js:135
+msgid "When Sozi loses the focus"
+msgstr ""
+
+#: src/js/view/Properties.js:136 src/js/view/Properties.js:143
+msgid "Manually"
+msgstr ""
+
+#: src/js/view/Properties.js:141
+msgid "Automatically"
+msgstr ""
+
+#: src/js/view/Properties.js:142
+msgid "When Sozi gets the focus"
+msgstr ""
+
+#: src/js/view/Properties.js:146
+msgid "Behavior"
+msgstr ""
+
+#: src/js/view/Properties.js:149
+msgid "Preview transition animations"
+msgstr ""
+
+#: src/js/view/Properties.js:150
+msgid "Enable animated transitions"
+msgstr ""
+
+#: src/js/view/Properties.js:153
+msgid "Keyboard shortcuts"
+msgstr ""
+
+#: src/js/view/Properties.js:157
+msgid "Rendering"
+msgstr ""
+
+#: src/js/view/Properties.js:160
+msgid "Hardware acceleration"
+msgstr ""
+
+#: src/js/view/Properties.js:161
+msgid "Enable hardware acceleration (effective after restarting the application)"
+msgstr ""
+
+#: src/js/view/Properties.js:165
+msgid "Color correct rendering"
+msgstr ""
+
+#: src/js/view/Properties.js:166
+msgid "Enable color correct rendering (effective after restarting the application)"
+msgstr ""
+
+#: src/js/view/Properties.js:181
+msgid "Basic formatting supported:"
+msgstr ""
+
+#: src/js/view/Properties.js:183
+msgid "Ctrl+B: Bold"
+msgstr ""
+
+#: src/js/view/Properties.js:184
+msgid "Ctrl+I: Italic"
+msgstr ""
+
+#: src/js/view/Properties.js:185
+msgid "Ctrl+U: Underline"
+msgstr ""
+
+#: src/js/view/Properties.js:186
+msgid "Ctrl+0: Paragraph"
+msgstr ""
+
+#: src/js/view/Properties.js:187
+msgid "Ctrl+1: Big heading"
+msgstr ""
+
+#: src/js/view/Properties.js:188
+msgid "Ctrl+2: Medium heading"
+msgstr ""
+
+#: src/js/view/Properties.js:189
+msgid "Ctrl+3: Small heading"
+msgstr ""
+
+#: src/js/view/Properties.js:190
+msgid "Ctrl+L: List"
+msgstr ""
+
+#: src/js/view/Properties.js:191
+msgid "Ctrl+N: Numbered list"
+msgstr ""
+
+#: src/js/view/Properties.js:192
+msgid "Ctrl+>: Indent list entry"
+msgstr ""
+
+#: src/js/view/Properties.js:193
+msgid "Ctrl+<: Outdent list entry"
+msgstr ""
+
+#: src/js/view/Properties.js:200
+msgid "Select a layer to copy"
+msgstr ""
+
+#: src/js/view/Properties.js:203 src/js/view/Timeline.js:240 src/js/view/Timeline.js:268
+msgid "Default"
+msgstr ""
+
+#: src/js/view/Properties.js:210
+msgid "Frame"
+msgstr ""
+
+#: src/js/view/Properties.js:213
+msgid "Show in frame list"
+msgstr ""
+
+#: src/js/view/Properties.js:214
+msgid "Show frame number"
+msgstr ""
+
+#: src/js/view/Properties.js:217
+msgid "Title"
+msgstr ""
+
+#: src/js/view/Properties.js:220
+msgid "Title level in frame list"
+msgstr ""
+
+#: src/js/view/Properties.js:223
+msgid "Id"
+msgstr ""
+
+#: src/js/view/Properties.js:227
+msgid "Timeout (seconds)"
+msgstr ""
+
+#: src/js/view/Properties.js:228
+msgid "Timeout enable"
+msgstr ""
+
+#: src/js/view/Properties.js:232
+msgid "Layer"
+msgstr ""
+
+#: src/js/view/Properties.js:235
+msgid "Link to previous frame"
+msgstr ""
+
+#: src/js/view/Properties.js:236
+msgid "Clip"
+msgstr ""
+
+#: src/js/view/Properties.js:243
+msgid "Copy layer"
+msgstr ""
+
+#: src/js/view/Properties.js:250
+msgid "Outline element Id"
+msgstr ""
+
+#: src/js/view/Properties.js:253
+msgid "Autoselect element"
+msgstr ""
+
+#: src/js/view/Properties.js:256
+msgid "Hide element"
+msgstr ""
+
+#: src/js/view/Properties.js:258
+msgid "Fit to element"
+msgstr ""
+
+#: src/js/view/Properties.js:265
+msgid "Layer opacity"
+msgstr ""
+
+#: src/js/view/Properties.js:268
+msgid "Transition"
+msgstr ""
+
+#: src/js/view/Properties.js:268
+msgid "Configure the animation when moving to the selected frames."
+msgstr ""
+
+#: src/js/view/Properties.js:270
+msgid "Duration (seconds)"
+msgstr ""
+
+#: src/js/view/Properties.js:273
+msgid "Timing function"
+msgstr ""
+
+#: src/js/view/Properties.js:275
+msgid "Linear"
+msgstr ""
+
+#: src/js/view/Properties.js:276
+msgid "Ease"
+msgstr ""
+
+#: src/js/view/Properties.js:277
+msgid "Ease in"
+msgstr ""
+
+#: src/js/view/Properties.js:278
+msgid "Ease out"
+msgstr ""
+
+#: src/js/view/Properties.js:279
+msgid "Ease in-out"
+msgstr ""
+
+#: src/js/view/Properties.js:280
+msgid "Step start"
+msgstr ""
+
+#: src/js/view/Properties.js:281
+msgid "Step end"
+msgstr ""
+
+#: src/js/view/Properties.js:282
+msgid "Step middle"
+msgstr ""
+
+#: src/js/view/Properties.js:285
+msgid "Relative zoom (%)"
+msgstr ""
+
+#: src/js/view/Properties.js:289
+msgid "Path Id"
+msgstr ""
+
+#: src/js/view/Properties.js:290
+msgid "Hide path"
+msgstr ""
+
+#: src/js/view/Properties.js:294
+msgid "Notes"
+msgstr ""
+
+#: src/js/view/Properties.js:294
+msgid "Edit presenter notes. Click here to show the list of formatting shortcuts."
+msgstr ""
+
+#: src/js/view/Properties.js:298
+msgid "Custom stylesheets and scripts"
+msgstr ""
+
+#: src/js/view/Properties.js:311
+msgid "CSS or JS file names"
+msgstr ""
+
+#: src/js/view/Properties.js:311
+msgid "Add CSS or JS files"
+msgstr ""
+
+#: src/js/view/Properties.js:314
+msgid "Add a file"
+msgstr ""
+
+#: src/js/view/Properties.js:327
+msgid "Remove this file"
+msgstr ""
+
+#: src/js/view/Properties.js:335
+msgid "Player"
+msgstr ""
+
+#: src/js/view/Properties.js:338
+msgid "Support the browser's \"Back\" button to move to the previous frame"
+msgstr ""
+
+#: src/js/view/Properties.js:339
+msgid ""
+"Moving from one frame to another will change the content of the location "
+"bar automatically."
+msgstr ""
+
+#: src/js/view/Properties.js:343
+msgid "Allow to control the presentation"
+msgstr ""
+
+#: src/js/view/Properties.js:345 src/js/view/Properties.js:352 src/js/view/Properties.js:358 src/js/view/Properties.js:366
+msgid "using the mouse"
+msgstr ""
+
+#: src/js/view/Properties.js:346 src/js/view/Properties.js:359 src/js/view/Properties.js:367
+msgid "using the keyboard"
+msgstr ""
+
+#: src/js/view/Properties.js:351
+msgid "Allow to move the camera"
+msgstr ""
+
+#: src/js/view/Properties.js:356
+msgid "Allow to rotate the camera"
+msgstr ""
+
+#: src/js/view/Properties.js:364
+msgid "Allow to zoom"
+msgstr ""
+
+#: src/js/view/Properties.js:381
+msgid "Examples of frame lists to include/exclude in export"
+msgstr ""
+
+#: src/js/view/Properties.js:383
+msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
+msgstr ""
+
+#: src/js/view/Properties.js:384
+msgid "Select frames 5 to 8: \"5:8\""
+msgstr ""
+
+#: src/js/view/Properties.js:385
+msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
+msgstr ""
+
+#: src/js/view/Properties.js:386
+msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
+msgstr ""
+
+#: src/js/view/Properties.js:425 src/js/view/Properties.js:441
+msgid "Export"
+msgstr ""
+
+#: src/js/view/Properties.js:427
+msgid "Document type"
+msgstr ""
+
+#: src/js/view/Properties.js:429
+msgid "Portable Document Format (PDF)"
+msgstr ""
+
+#: src/js/view/Properties.js:430
+msgid "Microsoft PowerPoint (PPTX)"
+msgstr ""
+
+#: src/js/view/Properties.js:431
+msgid "Video"
+msgstr ""
+
+#: src/js/view/Properties.js:438 src/js/view/Toolbar.js:149
+msgid "Export the presentation"
+msgstr ""
+
+#: src/js/view/Properties.js:455
+msgid "Page size"
+msgstr ""
+
+#: src/js/view/Properties.js:457 src/js/view/Properties.js:496
+msgid "A3"
+msgstr ""
+
+#: src/js/view/Properties.js:458 src/js/view/Properties.js:497
+msgid "A4"
+msgstr ""
+
+#: src/js/view/Properties.js:459
+msgid "A5"
+msgstr ""
+
+#: src/js/view/Properties.js:460
+msgid "Legal"
+msgstr ""
+
+#: src/js/view/Properties.js:461 src/js/view/Properties.js:505
+msgid "Letter"
+msgstr ""
+
+#: src/js/view/Properties.js:462 src/js/view/Properties.js:504
+msgid "Tabloid"
+msgstr ""
+
+#: src/js/view/Properties.js:465
+msgid "Page orientation"
+msgstr ""
+
+#: src/js/view/Properties.js:467
+msgid "Landscape"
+msgstr ""
+
+#: src/js/view/Properties.js:468
+msgid "Portrait"
+msgstr ""
+
+#: src/js/view/Properties.js:472 src/js/view/Properties.js:513
+msgid "List of frames to include"
+msgstr ""
+
+#: src/js/view/Properties.js:473 src/js/view/Properties.js:479 src/js/view/Properties.js:514 src/js/view/Properties.js:520
+msgid "Click here to see the syntax for this field"
+msgstr ""
+
+#: src/js/view/Properties.js:478 src/js/view/Properties.js:519
+msgid "List of frames to exclude"
+msgstr ""
+
+#: src/js/view/Properties.js:493
+msgid "Slide size"
+msgstr ""
+
+#: src/js/view/Properties.js:495
+msgid "35 mm"
+msgstr ""
+
+#: src/js/view/Properties.js:498
+msgid "B4 (ISO)"
+msgstr ""
+
+#: src/js/view/Properties.js:499
+msgid "B4 (JIS)"
+msgstr ""
+
+#: src/js/view/Properties.js:500
+msgid "B5 (ISO)"
+msgstr ""
+
+#: src/js/view/Properties.js:501
+msgid "B5 (JIS)"
+msgstr ""
+
+#: src/js/view/Properties.js:502
+msgid "Banner"
+msgstr ""
+
+#: src/js/view/Properties.js:503
+msgid "Hagaki Card"
+msgstr ""
+
+#: src/js/view/Properties.js:506
+msgid "Overhead"
+msgstr ""
+
+#: src/js/view/Properties.js:507
+msgid "Screen 16:10"
+msgstr ""
+
+#: src/js/view/Properties.js:508
+msgid "Screen 16:9"
+msgstr ""
+
+#: src/js/view/Properties.js:509
+msgid "Screen 4:3"
+msgstr ""
+
+#: src/js/view/Properties.js:535
+msgid "Format"
+msgstr ""
+
+#: src/js/view/Properties.js:537
+msgid "MPEG-4 (.mp4)"
+msgstr ""
+
+#: src/js/view/Properties.js:538
+msgid "Ogg Vorbis (.ogv)"
+msgstr ""
+
+#: src/js/view/Properties.js:539
+msgid "WebM (.webm)"
+msgstr ""
+
+#: src/js/view/Properties.js:540
+msgid "Windows Media Video (.wmv)"
+msgstr ""
+
+#: src/js/view/Properties.js:541
+msgid "Image sequence (.png)"
+msgstr ""
+
+#: src/js/view/Properties.js:544
+msgid "Width (pixels)"
+msgstr ""
+
+#: src/js/view/Properties.js:547
+msgid "Height (pixels)"
+msgstr ""
+
+#: src/js/view/Properties.js:550
+msgid "Frame rate (frames/sec)"
+msgstr ""
+
+#: src/js/view/Properties.js:553
+msgid "Bit rate (kbits/sec)"
+msgstr ""
+
+#: src/js/view/Timeline.js:186
+msgid "Delete the selected frames"
+msgstr ""
+
+#: src/js/view/Timeline.js:212
+msgid "Add layer"
+msgstr ""
+
+#: src/js/view/Timeline.js:213
+msgid "Add all layers"
+msgstr ""
+
+#: src/js/view/Timeline.js:228 src/js/view/Timeline.js:248
+msgid "This layer is visible. Click to hide it."
+msgstr ""
+
+#: src/js/view/Timeline.js:232 src/js/view/Timeline.js:252
+msgid "This layer is hidden. Click to show it."
+msgstr ""
+
+#: src/js/view/Timeline.js:256
+msgid "Remove this layer"
+msgstr ""
+
+#: src/js/view/Timeline.js:281
+msgid "Insert selection before frame %d"
+msgstr ""
+
+#: src/js/view/Timeline.js:288
+msgid "Insert selection after frame %d"
+msgstr ""
+
+#: src/js/view/Timeline.js:323 src/js/view/Timeline.js:335
+msgid ""
+"You should add graphic elements in the current area to help Sozi keep track "
+"of this layer's position."
+msgstr ""
+
+#: src/js/view/Toolbar.js:63
+msgid "Aspect ratio: "
+msgstr ""
+
+#: src/js/view/Toolbar.js:96
+msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
+msgstr ""
+
+#: src/js/view/Toolbar.js:101
+msgid ""
+"Zoom in/out on the selected layers (you can also hold the Alt key in Move "
+"mode)"
+msgstr ""
+
+#: src/js/view/Toolbar.js:106
+msgid "Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgstr ""
+
+#: src/js/view/Toolbar.js:111
+msgid "Edit the clipping area"
+msgstr ""
+
+#: src/js/view/Toolbar.js:130
+msgid "Disable full-screen mode"
+msgstr ""
+
+#: src/js/view/Toolbar.js:130
+msgid "Enable full-screen mode"
+msgstr ""
+
+#: src/js/view/Toolbar.js:156
+msgid "Preferences"
+msgstr ""
+
+#: src/js/view/Toolbar.js:161
+msgid "Information"
+msgstr ""
+
+#: src/js/view/languages.js:17
+msgid "System language"
+msgstr ""
