@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2024-11-10 08:22:+0000\n"
-"PO-Revision-Date: 2025-03-10 08:03+0000\n"
+"PO-Revision-Date: 2025-03-10 10:00+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/sozi/translations/zh_Hant/>\n"
@@ -30,15 +30,15 @@ msgstr "<i class=\"fa fa-info-circle\"></i> 資訊"
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
-msgstr "文件已變更。重新載入中。"
+msgstr "文件已經變更。重新載入中。"
 
 #: src/js/Controller.js:374
 msgid "Document was changed."
-msgstr "文件已變更。"
+msgstr "文件已經變更。"
 
 #: src/js/Controller.js:1770
 msgid "Presentation was exported to PDF."
-msgstr "簡報業已匯出成 PDF 檔案。"
+msgstr "簡報已經匯出成 PDF 檔案。"
 
 #: src/js/Controller.js:1773
 msgid "Failed to write PDF file."
@@ -46,7 +46,7 @@ msgstr "寫入 PDF 檔案失敗。"
 
 #: src/js/Controller.js:1786
 msgid "Presentation was exported to PPTX."
-msgstr "簡報業已匯出成 PPTX 檔案。"
+msgstr "簡報已經匯出成 PPTX 檔案。"
 
 #: src/js/Controller.js:1789
 msgid "Failed to write PPTX file."
@@ -54,7 +54,7 @@ msgstr "寫入 PPTX 檔案失敗。"
 
 #: src/js/Controller.js:1802
 msgid "Presentation was exported to video."
-msgstr "簡報業已匯出成影片檔案。"
+msgstr "簡報已經匯出成影片檔案。"
 
 #: src/js/Controller.js:1805
 msgid "Failed to write video file."
@@ -66,7 +66,7 @@ msgstr "此文件不是有效的 SVG 檔案。"
 
 #: src/js/Storage.js:261
 msgid "Document was imported from Sozi 13 or earlier."
-msgstr "文件匯入 Sozi 13 或更舊的版本。"
+msgstr "文件已經匯入自 Sozi 13 或更早期的版本。"
 
 #: src/js/Storage.js:354
 msgid "Saved %s."
@@ -439,19 +439,19 @@ msgstr "自定義腳本和層疊樣式表"
 
 #: src/js/view/Properties.js:311
 msgid "CSS or JS file names"
-msgstr "CSS 或 JS 文件名"
+msgstr "CSS 或 JS 檔案名稱"
 
 #: src/js/view/Properties.js:311
 msgid "Add CSS or JS files"
-msgstr "添加 CSS 或 JS 文件"
+msgstr "增加 CSS 或 JS 檔案"
 
 #: src/js/view/Properties.js:314
 msgid "Add a file"
-msgstr "添加文件"
+msgstr "增加檔案"
 
 #: src/js/view/Properties.js:327
 msgid "Remove this file"
-msgstr "刪除此文件"
+msgstr "刪除此檔案"
 
 #: src/js/view/Properties.js:335
 msgid "Player"
@@ -714,7 +714,7 @@ msgstr "在框格 %d 之後插入所選項目"
 msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."
-msgstr "您應該在當前區域中添加圖形元件，以幫助 Sozi 追蹤此圖層的位置。"
+msgstr "您應該在目前區域中增加圖形元件，以幫助 Sozi 追蹤此圖層的位置。"
 
 #: src/js/view/Toolbar.js:63
 msgid "Aspect ratio: "
