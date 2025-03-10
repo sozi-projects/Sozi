@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2024-11-10 08:22:+0000\n"
-"PO-Revision-Date: 2024-11-15 02:00+0000\n"
+"PO-Revision-Date: 2025-03-10 08:03+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/sozi/translations/zh_Hant/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.10.3-dev\n"
 "X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
 
 #: src/js/Controller.js:234
@@ -30,11 +30,11 @@ msgstr "<i class=\"fa fa-info-circle\"></i> 資訊"
 
 #: src/js/Controller.js:359
 msgid "Document was changed. Reloading."
-msgstr "文件已更改。重新載入中。"
+msgstr "文件已變更。重新載入中。"
 
 #: src/js/Controller.js:374
 msgid "Document was changed."
-msgstr "文件已更改。"
+msgstr "文件已變更。"
 
 #: src/js/Controller.js:1770
 msgid "Presentation was exported to PDF."
