@@ -232,6 +232,7 @@ function makeBrowserifyTask(name) {
 
 const playerBrowserifyTask = parallel(
     makeBrowserifyTask("player"),
+    makeBrowserifyTask("narrated"),
     makeBrowserifyTask("presenter")
 );
 
@@ -266,11 +267,13 @@ function makeTemplateTask(target, tpl) {
 
 const electronTemplatesTask = parallel(
     makeTemplateTask("electron", "player"),
+    makeTemplateTask("electron", "narrated"),
     makeTemplateTask("electron", "presenter")
 );
 
 const browserTemplatesTask = parallel(
     makeTemplateTask("browser", "player"),
+    makeTemplateTask("browser", "narrated"),
     makeTemplateTask("browser", "presenter")
 );
 
