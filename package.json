@@ -36,7 +36,7 @@
     "browserify": "^17.0.0",
     "csslint": "^1.0.5",
     "electron": "^33.0.2",
-    "electron-builder": "^25.1.8",
+    "electron-builder": "^26.6.0",
     "envify": "^4.1.0",
     "eslint": "^9.14.0",
     "eslint-plugin-jsdoc": "^50.4.3",
