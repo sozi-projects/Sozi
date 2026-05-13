@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2024-11-17 08:29:+0000\n"
+"POT-Creation-Date: 2026-05-13 09:55:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -9,43 +9,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 
-#: src/js/Controller.js:234
+#: src/js/Controller.js:248
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
 msgstr ""
 
-#: src/js/Controller.js:235
+#: src/js/Controller.js:249
 msgid "<i class=\"fa fa-info-circle\"></i> Information"
 msgstr ""
 
-#: src/js/Controller.js:359
+#: src/js/Controller.js:377
 msgid "Document was changed. Reloading."
 msgstr ""
 
-#: src/js/Controller.js:374
+#: src/js/Controller.js:392
 msgid "Document was changed."
 msgstr ""
 
-#: src/js/Controller.js:1770
+#: src/js/Controller.js:1801
 msgid "Presentation was exported to PDF."
 msgstr ""
 
-#: src/js/Controller.js:1773
+#: src/js/Controller.js:1804
 msgid "Failed to write PDF file."
 msgstr ""
 
-#: src/js/Controller.js:1786
+#: src/js/Controller.js:1817
 msgid "Presentation was exported to PPTX."
 msgstr ""
 
-#: src/js/Controller.js:1789
+#: src/js/Controller.js:1820
 msgid "Failed to write PPTX file."
 msgstr ""
 
-#: src/js/Controller.js:1802
+#: src/js/Controller.js:1833
 msgid "Presentation was exported to video."
 msgstr ""
 
-#: src/js/Controller.js:1805
+#: src/js/Controller.js:1836
 msgid "Failed to write video file."
 msgstr ""
 
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Reset layer geometry"
 msgstr ""
 
-#: src/js/view/Properties.js:96 src/js/view/Timeline.js:193
+#: src/js/view/Properties.js:96 src/js/view/Timeline.js:197
 msgid "Create a new frame"
 msgstr ""
 
@@ -275,7 +275,7 @@ msgstr ""
 msgid "Select a layer to copy"
 msgstr ""
 
-#: src/js/view/Properties.js:203 src/js/view/Timeline.js:240 src/js/view/Timeline.js:268
+#: src/js/view/Properties.js:203 src/js/view/Timeline.js:244 src/js/view/Timeline.js:272
 msgid "Default"
 msgstr ""
 
@@ -657,39 +657,39 @@ msgstr ""
 msgid "Bit rate (kbits/sec)"
 msgstr ""
 
-#: src/js/view/Timeline.js:186
+#: src/js/view/Timeline.js:190
 msgid "Delete the selected frames"
 msgstr ""
 
-#: src/js/view/Timeline.js:212
+#: src/js/view/Timeline.js:216
 msgid "Add layer"
 msgstr ""
 
-#: src/js/view/Timeline.js:213
+#: src/js/view/Timeline.js:217
 msgid "Add all layers"
 msgstr ""
 
-#: src/js/view/Timeline.js:228 src/js/view/Timeline.js:248
+#: src/js/view/Timeline.js:232 src/js/view/Timeline.js:252
 msgid "This layer is visible. Click to hide it."
 msgstr ""
 
-#: src/js/view/Timeline.js:232 src/js/view/Timeline.js:252
+#: src/js/view/Timeline.js:236 src/js/view/Timeline.js:256
 msgid "This layer is hidden. Click to show it."
 msgstr ""
 
-#: src/js/view/Timeline.js:256
+#: src/js/view/Timeline.js:260
 msgid "Remove this layer"
 msgstr ""
 
-#: src/js/view/Timeline.js:281
+#: src/js/view/Timeline.js:286
 msgid "Insert selection before frame %d"
 msgstr ""
 
-#: src/js/view/Timeline.js:288
+#: src/js/view/Timeline.js:293
 msgid "Insert selection after frame %d"
 msgstr ""
 
-#: src/js/view/Timeline.js:323 src/js/view/Timeline.js:335
+#: src/js/view/Timeline.js:331 src/js/view/Timeline.js:344
 msgid ""
 "You should add graphic elements in the current area to help Sozi keep track "
 "of this layer's position."

@@ -27,14 +27,46 @@ export class Selection {
          * @default
          * @type {module:model/Presentation.Frame[]}
          */
-        this.selectedFrames = [];
+        this._selectedFrames = [];
 
         /** The list of selected layers.
          *
          * @default
          * @type {module:model/Presentation.Layer[]}
          */
-        this.selectedLayers = [];
+        this._selectedLayers = [];
+
+        /** Set for O(1) frame lookup.
+         *
+         * @type {Set<module:model/Presentation.Frame>}
+         */
+        this._selectedFrameSet = new Set();
+
+        /** Set for O(1) layer lookup.
+         *
+         * @type {Set<module:model/Presentation.Layer>}
+         */
+        this._selectedLayerSet = new Set();
+    }
+
+    /** @type {module:model/Presentation.Frame[]} */
+    get selectedFrames() {
+        return this._selectedFrames;
+    }
+
+    set selectedFrames(arr) {
+        this._selectedFrames = arr;
+        this._selectedFrameSet = new Set(arr);
+    }
+
+    /** @type {module:model/Presentation.Layer[]} */
+    get selectedLayers() {
+        return this._selectedLayers;
+    }
+
+    set selectedLayers(arr) {
+        this._selectedLayers = arr;
+        this._selectedLayerSet = new Set(arr);
     }
 
     /** Convert this instance to a plain object that can be stored as JSON.
@@ -46,8 +78,8 @@ export class Selection {
      */
     toStorable() {
         return {
-            selectedFrames: this.selectedFrames.map(frame => frame.frameId),
-            selectedLayers: this.selectedLayers.map(layer => layer.groupId)
+            selectedFrames: this._selectedFrames.map(frame => frame.frameId),
+            selectedLayers: this._selectedLayers.map(layer => layer.groupId)
         };
     }
 
@@ -57,21 +89,25 @@ export class Selection {
      */
     fromStorable(storable) {
         if ("selectedFrames" in storable) {
-            this.selectedFrames = [];
+            this._selectedFrames = [];
+            this._selectedFrameSet = new Set();
             for (let frameId of storable.selectedFrames) {
                 const frame = this.presentation.getFrameWithId(frameId);
                 if (frame) {
-                    this.selectedFrames.push(frame);
+                    this._selectedFrames.push(frame);
+                    this._selectedFrameSet.add(frame);
                 }
             }
         }
 
         if ("selectedLayers" in storable) {
-            this.selectedLayers = [];
+            this._selectedLayers = [];
+            this._selectedLayerSet = new Set();
             for (let groupId of storable.selectedLayers) {
                 const layer = this.presentation.getLayerWithId(groupId);
                 if (layer) {
-                    this.selectedLayers.push(layer);
+                    this._selectedLayers.push(layer);
+                    this._selectedLayerSet.add(layer);
                 }
             }
         }
@@ -82,8 +118,8 @@ export class Selection {
      * @type {module:model/Presentation.Frame}
      */
     get currentFrame() {
-        return this.selectedFrames.length ?
-            this.selectedFrames[this.selectedFrames.length - 1] :
+        return this._selectedFrames.length ?
+            this._selectedFrames[this._selectedFrames.length - 1] :
             null;
     }
 
@@ -93,7 +129,16 @@ export class Selection {
      * @returns {boolean} - `true` if all the given frames are selected.
      */
     hasFrames(frames) {
-        return frames.every(frame => this.selectedFrames.indexOf(frame) >= 0);
+        return frames.every(frame => this._selectedFrameSet.has(frame));
+    }
+
+    /** Check if a single frame is selected.
+     *
+     * @param {module:model/Presentation.Frame} frame - The frame to check.
+     * @returns {boolean} - `true` if the given frame is selected.
+     */
+    hasFrame(frame) {
+        return this._selectedFrameSet.has(frame);
     }
 
     /** Add a frame to this selection.
@@ -101,8 +146,9 @@ export class Selection {
      * @param {module:model/Presentation.Frame} frame - The frame to add.
      */
     addFrame(frame) {
-        if (this.selectedFrames.indexOf(frame) < 0) {
-            this.selectedFrames.push(frame);
+        if (!this._selectedFrameSet.has(frame)) {
+            this._selectedFrames.push(frame);
+            this._selectedFrameSet.add(frame);
         }
     }
 
@@ -111,9 +157,11 @@ export class Selection {
      * @param {module:model/Presentation.Frame} frame - The frame to remove.
      */
     removeFrame(frame) {
-        const index = this.selectedFrames.indexOf(frame);
-        if (index >= 0) {
-            this.selectedFrames.splice(index, 1);
+        if (this._selectedFrameSet.delete(frame)) {
+            const index = this._selectedFrames.indexOf(frame);
+            if (index >= 0) {
+                this._selectedFrames.splice(index, 1);
+            }
         }
     }
 
@@ -125,12 +173,16 @@ export class Selection {
      * @param {module:model/Presentation.Frame} frame - The frame to add or remove.
      */
     toggleFrameSelection(frame) {
-        const index = this.selectedFrames.indexOf(frame);
-        if (index >= 0) {
-            this.selectedFrames.splice(index, 1);
+        if (this._selectedFrameSet.has(frame)) {
+            this._selectedFrameSet.delete(frame);
+            const index = this._selectedFrames.indexOf(frame);
+            if (index >= 0) {
+                this._selectedFrames.splice(index, 1);
+            }
         }
         else {
-            this.selectedFrames.push(frame);
+            this._selectedFrames.push(frame);
+            this._selectedFrameSet.add(frame);
         }
     }
 
@@ -140,7 +192,16 @@ export class Selection {
      * @returns {boolean} - `true` if all the given layers are selected.
      */
     hasLayers(layers) {
-        return layers.every(layer => this.selectedLayers.indexOf(layer) >= 0);
+        return layers.every(layer => this._selectedLayerSet.has(layer));
+    }
+
+    /** Check if a single layer is selected.
+     *
+     * @param {module:model/Presentation.Layer} layer - The layer to check.
+     * @returns {boolean} - `true` if the given layer is selected.
+     */
+    hasLayer(layer) {
+        return this._selectedLayerSet.has(layer);
     }
 
     /** Add a layer to this selection.
@@ -148,8 +209,9 @@ export class Selection {
      * @param {module:model/Presentation.Layer} layer - The layer to add.
      */
     addLayer(layer) {
-        if (this.selectedLayers.indexOf(layer) < 0) {
-            this.selectedLayers.push(layer);
+        if (!this._selectedLayerSet.has(layer)) {
+            this._selectedLayers.push(layer);
+            this._selectedLayerSet.add(layer);
         }
     }
 
@@ -158,9 +220,11 @@ export class Selection {
      * @param {module:model/Presentation.Layer} layer - The layer to remove.
      */
     removeLayer(layer) {
-        const index = this.selectedLayers.indexOf(layer);
-        if (index >= 0) {
-            this.selectedLayers.splice(index, 1);
+        if (this._selectedLayerSet.delete(layer)) {
+            const index = this._selectedLayers.indexOf(layer);
+            if (index >= 0) {
+                this._selectedLayers.splice(index, 1);
+            }
         }
     }
 
@@ -172,12 +236,16 @@ export class Selection {
      * @param {module:model/Presentation.Layer} layer - The layer to add or remove.
      */
     toggleLayerSelection(layer) {
-        const index = this.selectedLayers.indexOf(layer);
-        if (index >= 0) {
-            this.selectedLayers.splice(index, 1);
+        if (this._selectedLayerSet.has(layer)) {
+            this._selectedLayerSet.delete(layer);
+            const index = this._selectedLayers.indexOf(layer);
+            if (index >= 0) {
+                this._selectedLayers.splice(index, 1);
+            }
         }
         else {
-            this.selectedLayers.push(layer);
+            this._selectedLayers.push(layer);
+            this._selectedLayerSet.add(layer);
         }
     }
 }

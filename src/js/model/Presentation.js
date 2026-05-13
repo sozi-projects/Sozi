@@ -1055,10 +1055,19 @@ export class Presentation extends EventEmitter {
      * This method must be called to propagate the changes in some frames to
      * the frames that are linked to them.
      */
-    updateLinkedLayers() {
+    updateLinkedLayers(layerIndices) {
         if (!this.frames.length) {
             return;
         }
+
+        // If specific layer indices are given, only update those layers.
+        // Otherwise, update all layers.
+        const layersToUpdate = layerIndices ||
+            this.layers.map((l, i) => i).filter(layerIndex =>
+                this.frames.some(frame => frame.layerProperties[layerIndex].link)
+            );
+
+        if (!layersToUpdate.length) return;
 
         const firstCameraStates      = this.frames[0].cameraStates;
         const defaultCameraState     = firstCameraStates[firstCameraStates.length - 1];
@@ -1066,7 +1075,7 @@ export class Presentation extends EventEmitter {
         const firstLayerProperties   = this.frames[0].layerProperties;
         const defaultLayerProperties = firstLayerProperties[firstLayerProperties.length - 1];
 
-        this.layers.forEach((layer, layerIndex) => {
+        for (let layerIndex of layersToUpdate) {
             let cameraState     = defaultCameraState;
             let layerProperties = defaultLayerProperties;
 
@@ -1081,7 +1090,7 @@ export class Presentation extends EventEmitter {
                     layerProperties = frame.layerProperties[layerIndex];
                 }
             }
-        });
+        }
     }
 
     /** Get the custom files with the given extension.

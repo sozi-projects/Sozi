@@ -113,11 +113,23 @@ export class Controller extends EventEmitter {
          */
         this.editableLayers = [];
 
+        /** Set for O(1) editable layer lookup.
+         *
+         * @type {Set<module:model/Presentation.Layer>}
+         */
+        this._editableLayerSet = new Set();
+
         /** The layers that fall in the "default" row of the timeline.
          *
          * @type {module:model/Presentation.Layer[]}
          */
         this.defaultLayers = [];
+
+        /** Set for O(1) default layer lookup.
+         *
+         * @type {Set<module:model/Presentation.Layer>}
+         */
+        this._defaultLayerSet = new Set();
 
         /** The stack of operations that can be undone.
          *
@@ -197,12 +209,14 @@ export class Controller extends EventEmitter {
      */
     fromStorable(storable) {
         this.editableLayers = [];
+        this._editableLayerSet = new Set();
 
         if ("editableLayers" in storable) {
             for (let groupId of storable.editableLayers) {
                 const layer = this.presentation.getLayerWithId(groupId);
-                if (layer && this.editableLayers.indexOf(layer) < 0) {
+                if (layer && !this._editableLayerSet.has(layer)) {
                     this.editableLayers.push(layer);
+                    this._editableLayerSet.add(layer);
                 }
             }
         }
@@ -291,11 +305,13 @@ export class Controller extends EventEmitter {
      * @listens module:player/Player.frameChange
      */
     onFrameChange() {
+        const currentFrame = this.selection.currentFrame;
+        if (!currentFrame) return;
+
         let changed = false;
         for (let layer of this.presentation.layers) {
-            const layerProperties = this.selection.currentFrame.layerProperties[layer.index];
+            const layerProperties = currentFrame.layerProperties[layer.index];
             if (layer.isVisible) {
-                // Update the reference SVG element if applicable.
                 const {element} = this.viewport.cameras[layer.index].getCandidateReferenceElement();
                 if (element && element !== layerProperties.referenceElement) {
                     layerProperties.referenceElementId = element.getAttribute("id");
@@ -337,9 +353,11 @@ export class Controller extends EventEmitter {
         // Collect all layers that are not in the editable set
         // into the "default" layer set.
         this.defaultLayers = [];
+        this._defaultLayerSet = new Set();
         for (let layer of this.presentation.layers) {
-            if (this.editableLayers.indexOf(layer) < 0) {
+            if (!this._editableLayerSet.has(layer)) {
                 this.defaultLayers.push(layer);
+                this._defaultLayerSet.add(layer);
             }
         }
 
@@ -564,7 +582,7 @@ export class Controller extends EventEmitter {
 
         // Create a new frame list by removing the selected frames
         // and inserting them at the target frame index.
-        const reorderedFrames = this.presentation.frames.filter(frame => !this.selection.hasFrames([frame]));
+        const reorderedFrames = this.presentation.frames.filter(frame => !this.selection.hasFrame(frame));
         Array.prototype.splice.apply(reorderedFrames, [toFrameIndex, 0].concat(framesByIndex));
 
         // Identify the frames and layers that must be unlinked after the move operation.
@@ -603,7 +621,7 @@ export class Controller extends EventEmitter {
      */
     updateCameraSelection() {
         for (let camera of this.viewport.cameras) {
-            camera.selected = this.selection.hasLayers([camera.layer]);
+            camera.selected = this.selection.hasLayer(camera.layer);
         }
     }
 
@@ -622,13 +640,16 @@ export class Controller extends EventEmitter {
      */
     addLayer(layerIndex) {
         const layer = this.presentation.layers[layerIndex];
-        if (this.editableLayers.indexOf(layer) < 0) {
+        if (!this._editableLayerSet.has(layer)) {
             this.editableLayers.push(layer);
+            this._editableLayerSet.add(layer);
         }
 
-        const layerIndexInDefaults = this.defaultLayers.indexOf(layer);
-        if (layerIndexInDefaults >= 0) {
-            this.defaultLayers.splice(layerIndexInDefaults, 1);
+        if (this._defaultLayerSet.delete(layer)) {
+            const layerIndexInDefaults = this.defaultLayers.indexOf(layer);
+            if (layerIndexInDefaults >= 0) {
+                this.defaultLayers.splice(layerIndexInDefaults, 1);
+            }
         }
 
         this.addLayerToSelection(layer);
@@ -657,9 +678,14 @@ export class Controller extends EventEmitter {
             }
 
             this.editableLayers.push(layer);
+            this._editableLayerSet.add(layer);
 
-            const layerIndexInDefaults = this.defaultLayers.indexOf(layer);
-            this.defaultLayers.splice(layerIndexInDefaults, 1);
+            if (this._defaultLayerSet.delete(layer)) {
+                const layerIndexInDefaults = this.defaultLayers.indexOf(layer);
+                if (layerIndexInDefaults >= 0) {
+                    this.defaultLayers.splice(layerIndexInDefaults, 1);
+                }
+            }
 
             this.addLayerToSelection(layer);
         }
@@ -686,8 +712,12 @@ export class Controller extends EventEmitter {
     removeLayer(layerIndex) {
         const layer = this.presentation.layers[layerIndex];
 
-        const layerIndexInEditable = this.editableLayers.indexOf(layer);
-        this.editableLayers.splice(layerIndexInEditable, 1);
+        if (this._editableLayerSet.delete(layer)) {
+            const layerIndexInEditable = this.editableLayers.indexOf(layer);
+            if (layerIndexInEditable >= 0) {
+                this.editableLayers.splice(layerIndexInEditable, 1);
+            }
+        }
 
         if (this.defaultLayersAreSelected) {
             this.addLayerToSelection(layer);
@@ -700,6 +730,7 @@ export class Controller extends EventEmitter {
         }
 
         this.defaultLayers.push(layer);
+        this._defaultLayerSet.add(layer);
 
         // Force a repaint even if the controller
         // did not modify the selection
@@ -727,7 +758,7 @@ export class Controller extends EventEmitter {
      * @type {boolean}
      */
     get defaultLayersAreSelected() {
-        return this.defaultLayers.every(layer => this.selection.selectedLayers.indexOf(layer) >= 0);
+        return this.defaultLayers.every(layer => this.selection.hasLayer(layer));
     }
 
     /** `true` if there is at least one layer in the "default" set.
@@ -768,7 +799,7 @@ export class Controller extends EventEmitter {
      * @fires module:Controller.repaint
      */
     addLayerToSelection(layer) {
-        if (!this.selection.hasLayers([layer])) {
+        if (!this.selection.hasLayer(layer)) {
             this.selection.addLayer(layer);
             this.updateCameraSelection();
             this.emit("editorStateChange");
@@ -786,7 +817,7 @@ export class Controller extends EventEmitter {
      * @fires module:Controller.repaint
      */
     removeLayerFromSelection(layer) {
-        if (this.selection.hasLayers([layer])) {
+        if (this.selection.hasLayer(layer)) {
             this.selection.removeLayer(layer);
             this.updateCameraSelection();
             this.emit("editorStateChange");
@@ -938,7 +969,7 @@ export class Controller extends EventEmitter {
     updateLayerAndFrameSelection(single, sequence, layers, frameIndex) {
         const frame = this.presentation.frames[frameIndex];
         if (single) {
-            if (this.selection.hasLayers(layers) && this.selection.hasFrames([frame])) {
+            if (this.selection.hasLayers(layers) && this.selection.hasFrame(frame)) {
                 for (let layer of layers) {
                     this.selection.removeLayer(layer);
                 }
@@ -1102,7 +1133,7 @@ export class Controller extends EventEmitter {
                         if (layer != layerToCopy) {
                             frame.layerProperties[layer.index].copy(frame.layerProperties[layerToCopy.index]);
                             frame.cameraStates[layer.index].copy(frame.cameraStates[layerToCopy.index]);
-                            if (frame.index === 0 || !this.selection.hasFrames([this.presentation.frames[frame.index - 1]])) {
+                            if (frame.index === 0 || !this.selection.hasFrame(this.presentation.frames[frame.index - 1])) {
                                 frame.layerProperties[layer.index].link = false;
                             }
                         }

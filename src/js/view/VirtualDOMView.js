@@ -57,21 +57,37 @@ export class VirtualDOMView extends EventEmitter {
     /** Repaint this view.
      *
      * This will render the current view using the result of {@linkcode module:view/VirtualDOMView.VirtualDOMView#render|render}.
+     * Multiple repaint requests within the same animation frame are coalesced.
      *
      * @listens resize
      * @listens module:Controller.repaint
      */
     repaint() {
-        render(this.render(), this.container, () => {
-            for (let prop in this.state) {
-                const elt = document.getElementById("field-" + prop);
-                if (elt) {
-                    for (let attr in this.state[prop]) {
-                        elt[attr] = this.state[prop][attr];
+        if (this._repaintRafId) {
+            cancelAnimationFrame(this._repaintRafId);
+        }
+        this._repaintRafId = requestAnimationFrame(() => {
+            this._repaintRafId = null;
+            render(this.render(), this.container, () => {
+                for (let prop in this.state) {
+                    const elt = document.getElementById("field-" + prop);
+                    if (elt) {
+                        for (let attr in this.state[prop]) {
+                            elt[attr] = this.state[prop][attr];
+                        }
                     }
                 }
-            }
+            });
+            this.afterRender();
         });
+    }
+
+    /** Perform additional DOM manipulations after rendering.
+     *
+     * Subclasses can override this method to adjust layout
+     * or query DOM elements created by the render pass.
+     */
+    afterRender() {
     }
 
     /** Render this view as a virtual DOM tree.

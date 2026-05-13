@@ -78,6 +78,18 @@ export class Camera extends CameraState {
          */
         this.layer = layer;
 
+        /** Monotonically increasing version to track state changes.
+         *
+         * @type {number}
+         */
+        this._stateVersion = 0;
+
+        /** The version that was last flushed to the DOM.
+         *
+         * @type {number}
+         */
+        this._lastUpdatedVersion = -1;
+
         /** Is the layer for this camera selected for manipulation by the user?
          *
          * When playing the presentation, all cameras are always selected.
@@ -227,6 +239,7 @@ export class Camera extends CameraState {
     rotate(angle) {
         this.restoreAspectRatio();
         this.angle += angle;
+        this._stateVersion++;
         this.update();
     }
 
@@ -244,6 +257,7 @@ export class Camera extends CameraState {
         this.width /= factor;
         this.height /= factor;
         this.restoreAspectRatio();
+        this._stateVersion++;
         this.translate(
             (1 - factor) * (x - this.viewport.width  / 2),
             (1 - factor) * (y - this.viewport.height / 2)
@@ -270,6 +284,7 @@ export class Camera extends CameraState {
         this.cx -= (deltaX * co - deltaY * si) / scale;
         this.cy -= (deltaX * si + deltaY * co) / scale;
         this.restoreAspectRatio();
+        this._stateVersion++;
         this.update();
     }
 
@@ -292,6 +307,7 @@ export class Camera extends CameraState {
         this.clipYOffset = (Math.min(y0, y1) - (this.viewport.height - clipHeight) / 2) * this.height / clipHeight;
         this.clipWidthFactor  = clipWidth  / this.width  / scale;
         this.clipHeightFactor = clipHeight / this.height / scale;
+        this._stateVersion++;
         this.update();
     }
 
@@ -392,12 +408,25 @@ export class Camera extends CameraState {
         return {width, height, x, y};
     }
 
+    /** Copy state from another camera or camera state.
+     *
+     * @param {module:model/CameraState.CameraState} state - The state to copy.
+     */
+    copy(state) {
+        super.copy(state);
+        this._stateVersion++;
+    }
+
     /** Update the current layer of the SVG document to reflect the properties of this camera.
      *
      * This method applies geometrical transformations to the current layer,
      * and updates the clipping rectangles and mask.
+     * If the camera state has not changed since the last update, this is a no-op.
      */
     update() {
+        if (this._stateVersion === this._lastUpdatedVersion) return;
+        this._lastUpdatedVersion = this._stateVersion;
+
         // Adjust the location and size of the clipping rectangle
         const rect = this.clipRect;
         this.svgClipRect.setAttribute("x", rect.x);
@@ -530,5 +559,7 @@ export class Camera extends CameraState {
         for (let clipProp in clipDefaults) {
             this[clipProp] = linear(initialClipping[clipProp], finalClipping[clipProp]);
         }
+
+        this._stateVersion++;
     }
 }
