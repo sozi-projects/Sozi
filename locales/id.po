@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2024-11-10 08:22:+0000\n"
-"PO-Revision-Date: 2023-05-24 00:50+0000\n"
+"PO-Revision-Date: 2025-01-19 11:13+0000\n"
 "Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/sozi/"
 "translations/id/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "X-Launchpad-Export-Date: 2018-03-25 08:12+0000\n"
 
 #: src/js/Controller.js:234
@@ -284,13 +284,12 @@ msgid "Ctrl+N: Numbered list"
 msgstr "Ctrl+N: Daftar bernomor"
 
 #: src/js/view/Properties.js:192
-#, fuzzy
 msgid "Ctrl+>: Indent list entry"
-msgstr "Ctrl+U: Garis Bawah"
+msgstr "Ctrl+>t: Entri daftar indentasi"
 
 #: src/js/view/Properties.js:193
 msgid "Ctrl+<: Outdent list entry"
-msgstr ""
+msgstr "Ctrl+<: Entri daftar Outdent"
 
 #: src/js/view/Properties.js:200
 msgid "Select a layer to copy"
