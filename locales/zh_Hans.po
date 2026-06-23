@@ -2,8 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2024-04-14 10:17:+0000\n"
-"PO-Revision-Date: 2026-06-17 02:01+0000\n"
-"Last-Translator: reducedradius <feixiang512@outlook.com>\n"
+"PO-Revision-Date: 2026-06-24 11:01+0000\n"
+"Last-Translator: reducedradius "
+"<flytothehighest@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/sozi/translations/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -221,16 +222,16 @@ msgstr "硬件加速"
 #: src/js/view/Properties.js:161
 msgid ""
 "Enable hardware acceleration (effective after restarting the application)"
-msgstr ""
+msgstr "打开硬件加速（重启程序生效）"
 
 #: src/js/view/Properties.js:165
 msgid "Color correct rendering"
-msgstr ""
+msgstr "色彩校正还原"
 
 #: src/js/view/Properties.js:166
 msgid ""
 "Enable color correct rendering (effective after restarting the application)"
-msgstr ""
+msgstr "启用色彩校正还原（重启程序生效）"
 
 #: src/js/view/Properties.js:181
 msgid "Basic formatting supported:"
