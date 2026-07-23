@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2024-11-10 08:22:+0000\n"
-"PO-Revision-Date: 2022-03-25 21:41+0100\n"
-"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
+"PO-Revision-Date: 2026-07-24 18:01+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/sozi/"
 "translations/tr/>\n"
 "Language: tr\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: src/js/Controller.js:234
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
@@ -278,13 +278,12 @@ msgid "Ctrl+N: Numbered list"
 msgstr "Ctrl+N: Numaralandırılmış liste"
 
 #: src/js/view/Properties.js:192
-#, fuzzy
 msgid "Ctrl+>: Indent list entry"
-msgstr "Ctrl+U: Altı Çizili"
+msgstr "Ctrl+>: Liste ögesinin girintisini arttır"
 
 #: src/js/view/Properties.js:193
 msgid "Ctrl+<: Outdent list entry"
-msgstr ""
+msgstr "Ctrl+<: Liste ögesinin girintisini azalt"
 
 #: src/js/view/Properties.js:200
 msgid "Select a layer to copy"
