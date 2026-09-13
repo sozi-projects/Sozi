@@ -756,6 +756,25 @@ export class Presentation extends EventEmitter {
          */
         this.updateURLOnFrameChange = true;
 
+        /** The narrative file type or "none" if narration is disabled.
+         *
+         * @default
+         * @type {string} */
+        this.narrativeType = "none";
+
+        /** The narrative file name or relative path.
+         *
+         * @default
+         * @type {string} */
+        this.narrativeFile = "narrative.flac";
+
+        /** The narrative time-to-slide data mapping the time
+         * moments (in seconds) to their corresponding frame number (one-based).
+         *
+         * @default
+         * @type {string} */
+        this.narrativeTimeToSlide = "0";
+
         /** The last export document type.
          *
          * @default
@@ -922,6 +941,9 @@ export class Presentation extends EventEmitter {
             enableMouseRotation       : this.enableMouseRotation,
             enableMouseNavigation     : this.enableMouseNavigation,
             updateURLOnFrameChange    : this.updateURLOnFrameChange,
+            narrativeType             : this.narrativeType,
+            narrativeFile             : this.narrativeFile,
+            narrativeTimeToSlide      : this.narrativeTimeToSlide,
             exportType                : this.exportType,
             exportToPDFPageSize       : this.exportToPDFPageSize,
             exportToPDFPageOrientation: this.exportToPDFPageOrientation,
@@ -978,6 +1000,9 @@ export class Presentation extends EventEmitter {
         copyIfSet(this, storable, "enableMouseRotation");
         copyIfSet(this, storable, "enableMouseNavigation");
         copyIfSet(this, storable, "updateURLOnFrameChange");
+        copyIfSet(this, storable, "narrativeType");
+        copyIfSet(this, storable, "narrativeFile");
+        copyIfSet(this, storable, "narrativeTimeToSlide");
         copyIfSet(this, storable, "exportType");
         copyIfSet(this, storable, "exportToPDFPageSize");
         copyIfSet(this, storable, "exportToPDFPageOrientation");
