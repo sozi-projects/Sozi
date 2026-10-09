@@ -26,12 +26,12 @@ const browserWindow = remote.getCurrentWindow();
 
 /** The current working directory.
  *
- * We use the `PWD` environment variable directly because
- * `process.cwd()` returns the installation path of Sozi.
+ * We use the `PWD` environment variable because `process.cwd()` returns the installation
+ * path of Sozi. On Windows, `PWD` is usually not set: use the cwd of the main process.
  *
  * @type {string}
  */
-const cwd = process.env.PWD;
+const cwd = process.env.PWD || remote.process.cwd();
 
 /** A Sozi editor backend based on Electron.
  *
