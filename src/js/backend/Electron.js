@@ -69,6 +69,13 @@ export class Electron extends AbstractBackend {
          */
         this.reloading = false;
 
+        /** Set to `true` while a request to open another SVG document is in progress.
+         *
+         * @default
+         * @type {boolean}
+         */
+        this.openingAnotherFile = false;
+
         window.addEventListener("beforeunload", async evt => {
             // When opening another file, the presentation has already been saved
             // and the window must reload instead of closing.
@@ -197,6 +204,25 @@ export class Electron extends AbstractBackend {
 
     /** @inheritdoc */
     async openAnotherFile() {
+        // Ignore the request while a previous one is still in progress.
+        if (this.openingAnotherFile) {
+            return;
+        }
+
+        this.openingAnotherFile = true;
+        try {
+            await this.chooseAndOpenAnotherFile();
+        }
+        finally {
+            this.openingAnotherFile = false;
+        }
+    }
+
+    /** Let the user choose another SVG document, save the current presentation and reload the editor.
+     *
+     * If the current presentation cannot be saved, the editor is not reloaded.
+     */
+    async chooseAndOpenAnotherFile() {
         const _ = this.controller.gettext;
 
         const files = remote.dialog.showOpenDialogSync(browserWindow, {
@@ -210,10 +236,8 @@ export class Electron extends AbstractBackend {
 
         // Save the current presentation, or ask the user if autosave is disabled.
         if (this.hasOutdatedFiles) {
-            if (this.controller.getPreference("saveMode") === "onblur") {
-                await this.saveOutdatedFiles();
-            }
-            else {
+            let save = true;
+            if (this.controller.getPreference("saveMode") !== "onblur") {
                 const res = await remote.dialog.showMessageBox(browserWindow, {
                     type: "question",
                     message: _("Do you want to save the presentation before opening another file?"),
@@ -224,8 +248,17 @@ export class Electron extends AbstractBackend {
                 if (res.response === 2) {
                     return;
                 }
-                if (res.response === 0) {
+                save = res.response === 0;
+            }
+
+            if (save) {
+                // Keep the current presentation open if it could not be saved.
+                try {
                     await this.saveOutdatedFiles();
+                }
+                catch (err) { // eslint-disable-line no-unused-vars
+                    this.controller.error(_("Could not save the presentation. The other file was not opened."));
+                    return;
                 }
             }
         }
