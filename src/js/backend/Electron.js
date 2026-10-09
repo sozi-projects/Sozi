@@ -12,6 +12,7 @@ import Jed from "jed";
 import screenfull from "screenfull";
 import * as remote from "@electron/remote";
 import settings from "electron-app-settings";
+import {isOdgFile, convertOdg} from "./OdgImport";
 
 /** Type for Electron browser windows.
  *
@@ -185,7 +186,11 @@ export class Electron extends AbstractBackend {
 
         const files = remote.dialog.showOpenDialogSync({
             title: _("Choose an SVG file"),
-            filters: [{name: _("SVG files"), extensions: ["svg"]}],
+            filters: [
+                {name: _("SVG and LibreOffice Draw files"), extensions: ["svg", "odg"]},
+                {name: _("SVG files"), extensions: ["svg"]},
+                {name: _("LibreOffice Draw files"), extensions: ["odg"]}
+            ],
             properties: ["openFile"]
         });
         this.controller.hideNotification();
@@ -239,7 +244,11 @@ export class Electron extends AbstractBackend {
 
         const files = remote.dialog.showOpenDialogSync(browserWindow, {
             title: _("Choose an SVG file"),
-            filters: [{name: _("SVG files"), extensions: ["svg"]}],
+            filters: [
+                {name: _("SVG and LibreOffice Draw files"), extensions: ["svg", "odg"]},
+                {name: _("SVG files"), extensions: ["svg"]},
+                {name: _("LibreOffice Draw files"), extensions: ["odg"]}
+            ],
             properties: ["openFile"]
         });
         if (!files) {
@@ -317,38 +326,78 @@ export class Electron extends AbstractBackend {
 
     /** @inheritdoc */
     load(fileDescriptor) {
+        if (isOdgFile(fileDescriptor)) {
+            return this.loadOdg(fileDescriptor);
+        }
         return new Promise((resolve, reject) => {
             fs.readFile(fileDescriptor, { encoding: "utf8" }, (err, data) => {
                 if (err) {
                     reject(err);
                 }
                 else {
-                    // Watch for changes in the loaded file.
-                    // This includes a debouncing mechanism to ensure the file is in a stable
-                    // state when the storage is notified.
-                    if (!(fileDescriptor in this.watchers)) {
-                        try {
-                            const watcher = this.watchers[fileDescriptor] = fs.watch(fileDescriptor);
-                            let timer;
-                            watcher.on("change", () => {
-                                if (timer) {
-                                    clearTimeout(timer);
-                                }
-                                timer = setTimeout(() => {
-                                    timer = 0;
-                                    this.controller.onFileChange(fileDescriptor);
-                                }, 100);
-                            });
-                        }
-                        catch (err) {
-                            const _ = this.controller.gettext;
-                            this.controller.error(Jed.sprintf(_("This file will not be reloaded on change: %s."), fileDescriptor));
-                        }
-                    }
+                    this.watch(fileDescriptor, 100);
                     resolve(data);
                 }
             });
         });
+    }
+
+    /** Watch for changes in a loaded file.
+     *
+     * This includes a debouncing mechanism to ensure the file is in a stable
+     * state when the storage is notified.
+     *
+     * @param {string} fileDescriptor - The name of the file to watch.
+     * @param {number} delay - The debouncing delay, in milliseconds.
+     */
+    watch(fileDescriptor, delay) {
+        if (fileDescriptor in this.watchers) {
+            return;
+        }
+        try {
+            const watcher = this.watchers[fileDescriptor] = fs.watch(fileDescriptor);
+            let timer;
+            watcher.on("change", () => {
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                timer = setTimeout(() => {
+                    timer = 0;
+                    this.controller.onFileChange(fileDescriptor);
+                }, delay);
+            });
+        }
+        catch (err) {
+            const _ = this.controller.gettext;
+            this.controller.error(Jed.sprintf(_("This file will not be reloaded on change: %s."), escapeHTML(fileDescriptor)));
+        }
+    }
+
+    /** Load a LibreOffice Draw document as an SVG document with layers.
+     *
+     * The drawing is converted with LibreOffice each time it is loaded.
+     *
+     * @param {string} fileDescriptor - The name of the .odg file.
+     * @returns {Promise<string>} - A promise that resolves to the SVG source.
+     */
+    async loadOdg(fileDescriptor) {
+        const _ = this.controller.gettext;
+        this.controller.info(Jed.sprintf(_("Converting %s with LibreOffice..."), escapeHTML(path.basename(fileDescriptor))), true);
+        try {
+            const {svg, messages} = await convertOdg(fileDescriptor);
+            this.controller.hideNotification();
+            if (messages.length) {
+                this.controller.info(messages.map(escapeHTML).join("<br>"), true);
+            }
+            // LibreOffice can write the file in several steps: wait longer before reloading.
+            this.watch(fileDescriptor, 1000);
+            return svg;
+        }
+        catch (err) {
+            const msg = err && err.message ? err.message : String(err);
+            this.controller.error(Jed.sprintf(_("Could not convert %s: %s"), escapeHTML(path.basename(fileDescriptor)), escapeHTML(msg)));
+            throw err;
+        }
     }
 
     /** @inheritdoc */

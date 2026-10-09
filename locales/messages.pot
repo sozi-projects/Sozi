@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2026-10-09 05:58:+0000\n"
+"POT-Creation-Date: 2026-10-09 07:35:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -61,55 +61,71 @@ msgstr ""
 msgid "Saved %s."
 msgstr ""
 
-#: src/js/backend/Electron.js:68
+#: src/js/backend/Electron.js:69
 msgid "Open an SVG file from your computer"
 msgstr ""
 
-#: src/js/backend/Electron.js:113
+#: src/js/backend/Electron.js:114
 msgid "Do you want to save the presentation before closing?"
 msgstr ""
 
-#: src/js/backend/Electron.js:114 src/js/backend/Electron.js:256
+#: src/js/backend/Electron.js:115 src/js/backend/Electron.js:265
 msgid "Yes"
 msgstr ""
 
-#: src/js/backend/Electron.js:114 src/js/backend/Electron.js:256
+#: src/js/backend/Electron.js:115 src/js/backend/Electron.js:265
 msgid "No"
 msgstr ""
 
-#: src/js/backend/Electron.js:144 src/js/backend/Electron.js:155
+#: src/js/backend/Electron.js:145 src/js/backend/Electron.js:156
 msgid "File not found: %s."
 msgstr ""
 
-#: src/js/backend/Electron.js:187 src/js/backend/Electron.js:241
+#: src/js/backend/Electron.js:188 src/js/backend/Electron.js:246
 msgid "Choose an SVG file"
 msgstr ""
 
-#: src/js/backend/Electron.js:188 src/js/backend/Electron.js:242
+#: src/js/backend/Electron.js:190 src/js/backend/Electron.js:248
+msgid "SVG and LibreOffice Draw files"
+msgstr ""
+
+#: src/js/backend/Electron.js:191 src/js/backend/Electron.js:249
 msgid "SVG files"
 msgstr ""
 
-#: src/js/backend/Electron.js:255
+#: src/js/backend/Electron.js:192 src/js/backend/Electron.js:250
+msgid "LibreOffice Draw files"
+msgstr ""
+
+#: src/js/backend/Electron.js:264
 msgid "Do you want to save the presentation before opening another file?"
 msgstr ""
 
-#: src/js/backend/Electron.js:256
+#: src/js/backend/Electron.js:265
 msgid "Cancel"
 msgstr ""
 
-#: src/js/backend/Electron.js:272
+#: src/js/backend/Electron.js:281
 msgid "Could not save the presentation. The other file was not opened."
 msgstr ""
 
-#: src/js/backend/Electron.js:286
+#: src/js/backend/Electron.js:295
 msgid "Could not open another file."
 msgstr ""
 
-#: src/js/backend/Electron.js:345
+#: src/js/backend/Electron.js:372
 msgid "This file will not be reloaded on change: %s."
 msgstr ""
 
-#: src/js/backend/Electron.js:361
+#: src/js/backend/Electron.js:385
+msgid "Converting %s with LibreOffice..."
+msgstr ""
+
+#: src/js/backend/Electron.js:398
+msgid "Could not convert %s: %s"
+msgstr ""
+
+#: src/js/backend/Electron.js:410
 msgid "Could not read file %s."
 msgstr ""
 
