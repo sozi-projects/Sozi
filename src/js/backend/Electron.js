@@ -39,6 +39,18 @@ const cwd = process.env.PWD;
  */
 const PENDING_FILE_KEY = "sozi-pending-svg-file";
 
+/** Escape a string for insertion into an HTML notification.
+ *
+ * File names can contain characters such as `<` and `&` on some platforms.
+ *
+ * @param {string} str - A string to escape.
+ * @returns {string} - The escaped string.
+ */
+function escapeHTML(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
 /** A Sozi editor backend based on Electron.
  *
  * @extends module:backend/AbstractBackend.AbstractBackend
@@ -129,7 +141,7 @@ export class Electron extends AbstractBackend {
                 this.controller.storage.setSVGFile(pendingFile, this);
             }
             else {
-                this.controller.error(Jed.sprintf(_("File not found: %s."), pendingFile));
+                this.controller.error(Jed.sprintf(_("File not found: %s."), escapeHTML(pendingFile)));
                 setTimeout(() => this.openFileChooser(), 100);
             }
         }
@@ -140,7 +152,7 @@ export class Electron extends AbstractBackend {
                 this.controller.storage.setSVGFile(fileName, this);
             }
             else {
-                this.controller.error(Jed.sprintf(_("File not found: %s."), fileName));
+                this.controller.error(Jed.sprintf(_("File not found: %s."), escapeHTML(fileName)));
                 // Force the error notification to appear before the file chooser.
                 setTimeout(() => this.openFileChooser(), 100);
             }

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2026-10-09 04:52:+0000\n"
+"POT-Creation-Date: 2026-10-09 05:58:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -61,55 +61,55 @@ msgstr ""
 msgid "Saved %s."
 msgstr ""
 
-#: src/js/backend/Electron.js:56
+#: src/js/backend/Electron.js:68
 msgid "Open an SVG file from your computer"
 msgstr ""
 
-#: src/js/backend/Electron.js:101
+#: src/js/backend/Electron.js:113
 msgid "Do you want to save the presentation before closing?"
 msgstr ""
 
-#: src/js/backend/Electron.js:102 src/js/backend/Electron.js:244
+#: src/js/backend/Electron.js:114 src/js/backend/Electron.js:256
 msgid "Yes"
 msgstr ""
 
-#: src/js/backend/Electron.js:102 src/js/backend/Electron.js:244
+#: src/js/backend/Electron.js:114 src/js/backend/Electron.js:256
 msgid "No"
 msgstr ""
 
-#: src/js/backend/Electron.js:132 src/js/backend/Electron.js:143
+#: src/js/backend/Electron.js:144 src/js/backend/Electron.js:155
 msgid "File not found: %s."
 msgstr ""
 
-#: src/js/backend/Electron.js:175 src/js/backend/Electron.js:229
+#: src/js/backend/Electron.js:187 src/js/backend/Electron.js:241
 msgid "Choose an SVG file"
 msgstr ""
 
-#: src/js/backend/Electron.js:176 src/js/backend/Electron.js:230
+#: src/js/backend/Electron.js:188 src/js/backend/Electron.js:242
 msgid "SVG files"
 msgstr ""
 
-#: src/js/backend/Electron.js:243
+#: src/js/backend/Electron.js:255
 msgid "Do you want to save the presentation before opening another file?"
 msgstr ""
 
-#: src/js/backend/Electron.js:244
+#: src/js/backend/Electron.js:256
 msgid "Cancel"
 msgstr ""
 
-#: src/js/backend/Electron.js:260
+#: src/js/backend/Electron.js:272
 msgid "Could not save the presentation. The other file was not opened."
 msgstr ""
 
-#: src/js/backend/Electron.js:274
+#: src/js/backend/Electron.js:286
 msgid "Could not open another file."
 msgstr ""
 
-#: src/js/backend/Electron.js:333
+#: src/js/backend/Electron.js:345
 msgid "This file will not be reloaded on change: %s."
 msgstr ""
 
-#: src/js/backend/Electron.js:349
+#: src/js/backend/Electron.js:361
 msgid "Could not read file %s."
 msgstr ""
 
