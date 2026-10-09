@@ -33,6 +33,12 @@ const browserWindow = remote.getCurrentWindow();
  */
 const cwd = process.env.PWD;
 
+/** The key used to pass the name of the next SVG file across an editor reload.
+ *
+ * @type {string}
+ */
+const PENDING_FILE_KEY = "sozi-pending-svg-file";
+
 /** A Sozi editor backend based on Electron.
  *
  * @extends module:backend/AbstractBackend.AbstractBackend
@@ -56,7 +62,20 @@ export class Electron extends AbstractBackend {
         // Save files when closing the window
         let closing = false;
 
+        /** Set to `true` when the editor reloads to open another SVG document.
+         *
+         * @default
+         * @type {boolean}
+         */
+        this.reloading = false;
+
         window.addEventListener("beforeunload", async evt => {
+            // When opening another file, the presentation has already been saved
+            // and the window must reload instead of closing.
+            if (this.reloading) {
+                return;
+            }
+
             // Workaround for a bug in Electron where the window closes after a few
             // seconds even when calling dialog.showMessageBox() synchronously.
             if (closing) {
@@ -92,11 +111,22 @@ export class Electron extends AbstractBackend {
          */
         this.watchers = {};
 
-        // If a file name was provided on the command line,
+        // If another file was chosen before the editor was reloaded, load it.
+        // Else, if a file name was provided on the command line,
         // check that the file exists and load it.
         // Open a file chooser if no file name was provided or
         // the file does not exist.
-        if (remote.process.argv.length > 1) {
+        const pendingFile = this.takePendingFile();
+        if (pendingFile) {
+            if (fs.existsSync(pendingFile) && fs.statSync(pendingFile).isFile()) {
+                this.controller.storage.setSVGFile(pendingFile, this);
+            }
+            else {
+                this.controller.error(Jed.sprintf(_("File not found: %s."), pendingFile));
+                setTimeout(() => this.openFileChooser(), 100);
+            }
+        }
+        else if (remote.process.argv.length > 1) {
             const arg = remote.process.argv[remote.process.argv.length - 1];
             const fileName = path.resolve(cwd, arg);
             if (fs.existsSync(fileName) && fs.statSync(fileName).isFile()) {
@@ -143,6 +173,76 @@ export class Electron extends AbstractBackend {
         if (files) {
             this.controller.storage.setSVGFile(files[0], this);
         }
+    }
+
+    /** Read and forget the name of the file chosen before the last editor reload.
+     *
+     * @returns {?string} - A file name, or `null` if no file was chosen.
+     */
+    takePendingFile() {
+        try {
+            const fileName = sessionStorage.getItem(PENDING_FILE_KEY);
+            sessionStorage.removeItem(PENDING_FILE_KEY);
+            return fileName;
+        }
+        catch (err) { // eslint-disable-line no-unused-vars
+            return null;
+        }
+    }
+
+    /** @inheritdoc */
+    get canOpenAnotherFile() {
+        return true;
+    }
+
+    /** @inheritdoc */
+    async openAnotherFile() {
+        const _ = this.controller.gettext;
+
+        const files = remote.dialog.showOpenDialogSync(browserWindow, {
+            title: _("Choose an SVG file"),
+            filters: [{name: _("SVG files"), extensions: ["svg"]}],
+            properties: ["openFile"]
+        });
+        if (!files) {
+            return;
+        }
+
+        // Save the current presentation, or ask the user if autosave is disabled.
+        if (this.hasOutdatedFiles) {
+            if (this.controller.getPreference("saveMode") === "onblur") {
+                await this.saveOutdatedFiles();
+            }
+            else {
+                const res = await remote.dialog.showMessageBox(browserWindow, {
+                    type: "question",
+                    message: _("Do you want to save the presentation before opening another file?"),
+                    buttons: [_("Yes"), _("No"), _("Cancel")],
+                    defaultId: 0,
+                    cancelId: 2
+                });
+                if (res.response === 2) {
+                    return;
+                }
+                if (res.response === 0) {
+                    await this.saveOutdatedFiles();
+                }
+            }
+        }
+
+        this.saveConfiguration();
+        this.controller.preferences.save();
+
+        // Reload the editor with a clean state and load the chosen file on startup.
+        try {
+            sessionStorage.setItem(PENDING_FILE_KEY, files[0]);
+        }
+        catch (err) { // eslint-disable-line no-unused-vars
+            this.controller.error(_("Could not open another file."));
+            return;
+        }
+        this.reloading = true;
+        window.location.reload();
     }
 
     /** @inheritdoc */

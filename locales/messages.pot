@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2024-11-17 08:29:+0000\n"
+"POT-Creation-Date: 2026-10-09 04:00:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -25,27 +25,27 @@ msgstr ""
 msgid "Document was changed."
 msgstr ""
 
-#: src/js/Controller.js:1770
+#: src/js/Controller.js:1781
 msgid "Presentation was exported to PDF."
 msgstr ""
 
-#: src/js/Controller.js:1773
+#: src/js/Controller.js:1784
 msgid "Failed to write PDF file."
 msgstr ""
 
-#: src/js/Controller.js:1786
+#: src/js/Controller.js:1797
 msgid "Presentation was exported to PPTX."
 msgstr ""
 
-#: src/js/Controller.js:1789
+#: src/js/Controller.js:1800
 msgid "Failed to write PPTX file."
 msgstr ""
 
-#: src/js/Controller.js:1802
+#: src/js/Controller.js:1813
 msgid "Presentation was exported to video."
 msgstr ""
 
-#: src/js/Controller.js:1805
+#: src/js/Controller.js:1816
 msgid "Failed to write video file."
 msgstr ""
 
@@ -61,39 +61,51 @@ msgstr ""
 msgid "Saved %s."
 msgstr ""
 
-#: src/js/backend/Electron.js:50
+#: src/js/backend/Electron.js:56
 msgid "Open an SVG file from your computer"
 msgstr ""
 
-#: src/js/backend/Electron.js:75
+#: src/js/backend/Electron.js:94
 msgid "Do you want to save the presentation before closing?"
 msgstr ""
 
-#: src/js/backend/Electron.js:76
+#: src/js/backend/Electron.js:95 src/js/backend/Electron.js:220
 msgid "Yes"
 msgstr ""
 
-#: src/js/backend/Electron.js:76
+#: src/js/backend/Electron.js:95 src/js/backend/Electron.js:220
 msgid "No"
 msgstr ""
 
-#: src/js/backend/Electron.js:106
+#: src/js/backend/Electron.js:125 src/js/backend/Electron.js:136
 msgid "File not found: %s."
 msgstr ""
 
-#: src/js/backend/Electron.js:138
+#: src/js/backend/Electron.js:168 src/js/backend/Electron.js:203
 msgid "Choose an SVG file"
 msgstr ""
 
-#: src/js/backend/Electron.js:139
+#: src/js/backend/Electron.js:169 src/js/backend/Electron.js:204
 msgid "SVG files"
 msgstr ""
 
-#: src/js/backend/Electron.js:200
+#: src/js/backend/Electron.js:219
+msgid "Do you want to save the presentation before opening another file?"
+msgstr ""
+
+#: src/js/backend/Electron.js:220
+msgid "Cancel"
+msgstr ""
+
+#: src/js/backend/Electron.js:241
+msgid "Could not open another file."
+msgstr ""
+
+#: src/js/backend/Electron.js:300
 msgid "This file will not be reloaded on change: %s."
 msgstr ""
 
-#: src/js/backend/Electron.js:216
+#: src/js/backend/Electron.js:316
 msgid "Could not read file %s."
 msgstr ""
 
@@ -119,7 +131,7 @@ msgstr ""
 msgid "Create a new frame"
 msgstr ""
 
-#: src/js/view/Properties.js:97 src/js/view/Properties.js:133 src/js/view/Toolbar.js:139
+#: src/js/view/Properties.js:97 src/js/view/Properties.js:133 src/js/view/Toolbar.js:144
 msgid "Save the presentation"
 msgstr ""
 
@@ -135,7 +147,7 @@ msgstr ""
 msgid "Focus the frame title"
 msgstr ""
 
-#: src/js/view/Properties.js:101 src/js/view/Properties.js:139 src/js/view/Toolbar.js:144
+#: src/js/view/Properties.js:101 src/js/view/Properties.js:139 src/js/view/Toolbar.js:149
 msgid "Reload the SVG document"
 msgstr ""
 
@@ -513,7 +525,7 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: src/js/view/Properties.js:438 src/js/view/Toolbar.js:149
+#: src/js/view/Properties.js:438 src/js/view/Toolbar.js:154
 msgid "Export the presentation"
 msgstr ""
 
@@ -725,11 +737,15 @@ msgstr ""
 msgid "Enable full-screen mode"
 msgstr ""
 
-#: src/js/view/Toolbar.js:156
-msgid "Preferences"
+#: src/js/view/Toolbar.js:139
+msgid "Open another SVG file"
 msgstr ""
 
 #: src/js/view/Toolbar.js:161
+msgid "Preferences"
+msgstr ""
+
+#: src/js/view/Toolbar.js:166
 msgid "Information"
 msgstr ""
 
