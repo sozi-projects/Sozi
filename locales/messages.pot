@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2026-10-09 07:35:+0000\n"
+"POT-Creation-Date: 2026-10-10 07:25:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -137,6 +137,94 @@ msgstr ""
 
 #: src/js/backend/GoogleDrive.js:25
 msgid "Open an SVG file from Google Drive"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:116
+msgid ""
+"LibreOffice was not found. Install LibreOffice or set the environment "
+"variable SOZI_SOFFICE."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:144
+msgid "The LibreOffice export did not finish in time."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:145
+msgid "The LibreOffice export failed: %s"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:149
+msgid "LibreOffice did not create an SVG file."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:152
+msgid "The SVG export is too large."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:176
+msgid "%s is not valid XML."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:190
+msgid "%s is missing. Is this a LibreOffice Draw document?"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:194 src/js/backend/OdgImport.js:198
+msgid "%s is too large."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:256
+msgid "The drawing has %d pages. Only drawings with one page are supported."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:354
+msgid ""
+"Group \"%s\" has a different number of shapes in the drawing and in the SVG "
+"export: the names of its shapes are not used."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:354
+msgid "without name"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:377
+msgid "Name \"%s\" is not a valid id and was not used."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:382
+msgid "Name \"%s\" is used %d times and was not used."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:392
+msgid "Name \"%s\" is already used as id and was not used."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:435
+msgid "The export is not an SVG document."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:440
+msgid "The SVG export contains %d pages instead of one."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:447
+msgid "The drawing contains %d objects, the SVG export %d."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:521
+msgid "Master page"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:524
+msgid "Groups"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:537
+msgid "Empty layers (omitted): %s"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:555
+msgid "The drawing is too large."
 msgstr ""
 
 #: src/js/view/Properties.js:94

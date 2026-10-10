@@ -12,7 +12,7 @@
  * (https://github.com/tebbiworld/draw2sozi):
  *
  * - Layers are stacked in the order of the layer list of the drawing.
- * - Groups containing shapes from several layers go to a layer "Gruppen".
+ * - Groups containing shapes from several layers go to a layer "Groups".
  * - Shapes and groups named in Draw get their name as id, so that frames
  *   anchored to them survive edits in Draw.
  * - The file name is used as title if the export has none.
@@ -26,6 +26,7 @@ import process from "process";
 import {execFile} from "child_process";
 import * as tmp from "tmp";
 import JSZip from "jszip";
+import Jed from "jed";
 
 const NS_SVG      = "http://www.w3.org/2000/svg";
 const NS_DRAW     = "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0";
@@ -44,11 +45,20 @@ const MAX_XML_BYTES = 64 * 1024 * 1024;
  */
 const EXPORT_TIMEOUT_MS = 300000;
 
-/** The id and label of the layer for groups that contain shapes from several layers.
+/** The key of the layer for groups that contain shapes from several layers.
+ *
+ * It cannot collide with a layer name of the drawing.
  *
  * @type {string}
  */
-const GROUPS_LAYER = "Gruppen";
+const GROUPS_LAYER = "\u0000groups";
+
+/** The translation function, set by {@linkcode module:backend/OdgImport.convertOdg|convertOdg}.
+ *
+ * @param {string} s - A message.
+ * @returns {string} - The translated message.
+ */
+let _ = s => s;
 
 /** Internal layers of LibreOffice that are not reported as empty.
  *
@@ -103,7 +113,7 @@ export function findSoffice() {
             return candidate;
         }
     }
-    throw new OdgImportError("LibreOffice was not found. Install LibreOffice or set the environment variable SOZI_SOFFICE.");
+    throw new OdgImportError(_("LibreOffice was not found. Install LibreOffice or set the environment variable SOZI_SOFFICE."));
 }
 
 /** Export a drawing as SVG with LibreOffice.
@@ -131,15 +141,15 @@ function exportSVG(odgFileName) {
             try {
                 if (err) {
                     throw new OdgImportError(err.killed ?
-                        "The LibreOffice export did not finish in time." :
-                        `The LibreOffice export failed: ${err.message}`);
+                        _("The LibreOffice export did not finish in time.") :
+                        Jed.sprintf(_("The LibreOffice export failed: %s"), err.message));
                 }
                 const svgFileName = path.join(outDir.name, path.basename(odgFileName).replace(/\.odg$/i, ".svg"));
                 if (!fs.existsSync(svgFileName)) {
-                    throw new OdgImportError("LibreOffice did not create an SVG file.");
+                    throw new OdgImportError(_("LibreOffice did not create an SVG file."));
                 }
                 if (fs.statSync(svgFileName).size > MAX_XML_BYTES) {
-                    throw new OdgImportError("The SVG export is too large.");
+                    throw new OdgImportError(_("The SVG export is too large."));
                 }
                 resolve(fs.readFileSync(svgFileName, {encoding: "utf8"}));
             }
@@ -163,7 +173,7 @@ function exportSVG(odgFileName) {
 function parseXML(source, what) {
     const doc = new DOMParser().parseFromString(source, "application/xml");
     if (doc.getElementsByTagName("parsererror").length) {
-        throw new OdgImportError(`${what} is not valid XML.`);
+        throw new OdgImportError(Jed.sprintf(_("%s is not valid XML."), what));
     }
     return doc;
 }
@@ -177,15 +187,15 @@ function parseXML(source, what) {
 async function readPart(zip, name) {
     const file = zip.file(name);
     if (!file) {
-        throw new OdgImportError(`${name} is missing. Is this a LibreOffice Draw document?`);
+        throw new OdgImportError(Jed.sprintf(_("%s is missing. Is this a LibreOffice Draw document?"), name));
     }
     // Check the size announced in the archive before decompressing.
     if (file._data && file._data.uncompressedSize > MAX_XML_BYTES) {
-        throw new OdgImportError(`${name} is too large.`);
+        throw new OdgImportError(Jed.sprintf(_("%s is too large."), name));
     }
     const source = await file.async("string");
     if (source.length > MAX_XML_BYTES) {
-        throw new OdgImportError(`${name} is too large.`);
+        throw new OdgImportError(Jed.sprintf(_("%s is too large."), name));
     }
     return parseXML(source, name);
 }
@@ -243,7 +253,7 @@ async function readOdg(odgData) {
 
     const pages = content.getElementsByTagNameNS(NS_DRAW, "page");
     if (pages.length !== 1) {
-        throw new OdgImportError(`The drawing has ${pages.length} pages. Only drawings with one page are supported.`);
+        throw new OdgImportError(Jed.sprintf(_("The drawing has %d pages. Only drawings with one page are supported."), pages.length));
     }
 
     const items = childrenNS(pages[0], NS_DRAW).filter(el => el.localName !== "layer-set");
@@ -278,7 +288,7 @@ function groupsWithClass(doc, cls) {
 function xmlId(name, used) {
     let base = name.replace(/[^A-Za-z0-9_.-]/g, "_");
     if (!/^[A-Za-z_]/.test(base)) {
-        base = "ebene_" + base;
+        base = "layer_" + base;
     }
     let candidate = base;
     for (let i = 2; used.has(candidate); i ++) {
@@ -341,7 +351,7 @@ function collectNames(odgEl, svgEl, out, messages) {
         const odgKids = childrenNS(odgEl, NS_DRAW);
         const svgKids = svgGroups(svgEl);
         if (odgKids.length !== svgKids.length) {
-            messages.push(`Group "${name || "without name"}" has a different number of shapes in the drawing and in the SVG export: the names of its shapes are not used.`);
+            messages.push(Jed.sprintf(_("Group \"%s\" has a different number of shapes in the drawing and in the SVG export: the names of its shapes are not used."), name || _("without name")));
             return;
         }
         odgKids.forEach((o, i) => collectNames(o, svgKids[i], out, messages));
@@ -364,12 +374,12 @@ function applyNames(root, pairs, reserved, messages) {
     const reported = new Set();
     for (const [name, el] of pairs) {
         if (!isValidId(name)) {
-            messages.push(`Name "${name}" is not a valid id and was not used.`);
+            messages.push(Jed.sprintf(_("Name \"%s\" is not a valid id and was not used."), name));
             continue;
         }
         if (count[name] > 1) {
             if (!reported.has(name)) {
-                messages.push(`Name "${name}" is used ${count[name]} times and was not used.`);
+                messages.push(Jed.sprintf(_("Name \"%s\" is used %d times and was not used."), name, count[name]));
                 reported.add(name);
             }
             continue;
@@ -379,7 +389,7 @@ function applyNames(root, pairs, reserved, messages) {
             continue;
         }
         if (reserved.has(name)) {
-            messages.push(`Name "${name}" is already used as id and was not used.`);
+            messages.push(Jed.sprintf(_("Name \"%s\" is already used as id and was not used."), name));
             continue;
         }
         el.setAttribute("id", name);
@@ -422,19 +432,19 @@ export async function buildLayeredSVG(odgData, svgSource, title) {
     const doc  = parseXML(svgSource, "The SVG export");
     const root = doc.documentElement;
     if (root.namespaceURI !== NS_SVG || root.localName !== "svg") {
-        throw new OdgImportError("The export is not an SVG document.");
+        throw new OdgImportError(_("The export is not an SVG document."));
     }
 
     const pages = groupsWithClass(doc, "Page");
     if (pages.length !== 1) {
-        throw new OdgImportError(`The SVG export contains ${pages.length} pages instead of one.`);
+        throw new OdgImportError(Jed.sprintf(_("The SVG export contains %d pages instead of one."), pages.length));
     }
     const slide  = groupsWithClass(doc, "Slide")[0];
     const master = groupsWithClass(doc, "Master_Slide")[0];
     const shapes = svgGroups(pages[0]);
 
     if (items.length !== shapes.length) {
-        throw new OdgImportError(`The drawing contains ${items.length} objects, the SVG export ${shapes.length}.`);
+        throw new OdgImportError(Jed.sprintf(_("The drawing contains %d objects, the SVG export %d."), items.length, shapes.length));
     }
 
     const messages = [];
@@ -459,10 +469,10 @@ export async function buildLayeredSVG(odgData, svgSource, title) {
     // Fix the ids of the layers, then use the names of shapes as ids.
     const usedIds = new Set(Array.from(root.getElementsByTagName("*")).map(e => e.getAttribute("id")).filter(id => id));
     const hasMaster = master && Array.from(master.children).some(c => c.getAttribute("class") === "BackgroundObjects" && c.children.length);
-    const masterId  = hasMaster ? xmlId("Masterseite", usedIds) : null;
+    const masterId  = hasMaster ? xmlId("master-page", usedIds) : null;
     const layerIds  = {};
     for (const l of usedLayers) {
-        layerIds[l] = xmlId(l, usedIds);
+        layerIds[l] = xmlId(l === GROUPS_LAYER ? "groups" : l, usedIds);
     }
     const names = [];
     items.forEach((it, i) => collectNames(it, shapes[i], names, messages));
@@ -508,10 +518,10 @@ export async function buildLayeredSVG(odgData, svgSource, title) {
     }
 
     if (hasMaster) {
-        addLayer(masterId, "Masterseite").appendChild(out.importNode(master, true));
+        addLayer(masterId, _("Master page")).appendChild(out.importNode(master, true));
     }
     for (const l of usedLayers) {
-        const g = addLayer(layerIds[l], l);
+        const g = addLayer(layerIds[l], l === GROUPS_LAYER ? _("Groups") : l);
         if (clip) {
             g.setAttribute("clip-path", clip);
         }
@@ -524,7 +534,7 @@ export async function buildLayeredSVG(odgData, svgSource, title) {
 
     const empty = layerOrder.filter(l => usedLayers.indexOf(l) < 0 && INTERNAL_LAYERS.indexOf(l) < 0);
     if (empty.length) {
-        messages.push(`Empty layers (omitted): ${empty.join(", ")}`);
+        messages.push(Jed.sprintf(_("Empty layers (omitted): %s"), empty.join(", ")));
     }
 
     return {svg: new XMLSerializer().serializeToString(out), messages};
@@ -533,12 +543,16 @@ export async function buildLayeredSVG(odgData, svgSource, title) {
 /** Convert a LibreOffice Draw document into an SVG document with layers.
  *
  * @param {string} odgFileName - The absolute path of the drawing.
+ * @param {function(string):string} gettext - The translation function for messages.
  * @returns {Promise<{svg: string, messages: string[]}>} - The SVG source and messages for the user.
  */
-export async function convertOdg(odgFileName) {
+export async function convertOdg(odgFileName, gettext) {
+    if (gettext) {
+        _ = gettext;
+    }
     const stat = fs.statSync(odgFileName);
     if (stat.size > MAX_XML_BYTES) {
-        throw new OdgImportError("The drawing is too large.");
+        throw new OdgImportError(_("The drawing is too large."));
     }
     const odgData   = fs.readFileSync(odgFileName);
     const svgSource = await exportSVG(odgFileName);

@@ -384,7 +384,7 @@ export class Electron extends AbstractBackend {
         const _ = this.controller.gettext;
         this.controller.info(Jed.sprintf(_("Converting %s with LibreOffice..."), escapeHTML(path.basename(fileDescriptor))), true);
         try {
-            const {svg, messages} = await convertOdg(fileDescriptor);
+            const {svg, messages} = await convertOdg(fileDescriptor, _);
             this.controller.hideNotification();
             if (messages.length) {
                 this.controller.info(messages.map(escapeHTML).join("<br>"), true);
