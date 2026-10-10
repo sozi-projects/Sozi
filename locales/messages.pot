@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2024-11-17 08:29:+0000\n"
+"POT-Creation-Date: 2026-10-10 07:25:+0000\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -25,27 +25,27 @@ msgstr ""
 msgid "Document was changed."
 msgstr ""
 
-#: src/js/Controller.js:1770
+#: src/js/Controller.js:1781
 msgid "Presentation was exported to PDF."
 msgstr ""
 
-#: src/js/Controller.js:1773
+#: src/js/Controller.js:1784
 msgid "Failed to write PDF file."
 msgstr ""
 
-#: src/js/Controller.js:1786
+#: src/js/Controller.js:1797
 msgid "Presentation was exported to PPTX."
 msgstr ""
 
-#: src/js/Controller.js:1789
+#: src/js/Controller.js:1800
 msgid "Failed to write PPTX file."
 msgstr ""
 
-#: src/js/Controller.js:1802
+#: src/js/Controller.js:1813
 msgid "Presentation was exported to video."
 msgstr ""
 
-#: src/js/Controller.js:1805
+#: src/js/Controller.js:1816
 msgid "Failed to write video file."
 msgstr ""
 
@@ -61,39 +61,71 @@ msgstr ""
 msgid "Saved %s."
 msgstr ""
 
-#: src/js/backend/Electron.js:50
+#: src/js/backend/Electron.js:69
 msgid "Open an SVG file from your computer"
 msgstr ""
 
-#: src/js/backend/Electron.js:75
+#: src/js/backend/Electron.js:114
 msgid "Do you want to save the presentation before closing?"
 msgstr ""
 
-#: src/js/backend/Electron.js:76
+#: src/js/backend/Electron.js:115 src/js/backend/Electron.js:265
 msgid "Yes"
 msgstr ""
 
-#: src/js/backend/Electron.js:76
+#: src/js/backend/Electron.js:115 src/js/backend/Electron.js:265
 msgid "No"
 msgstr ""
 
-#: src/js/backend/Electron.js:106
+#: src/js/backend/Electron.js:145 src/js/backend/Electron.js:156
 msgid "File not found: %s."
 msgstr ""
 
-#: src/js/backend/Electron.js:138
+#: src/js/backend/Electron.js:188 src/js/backend/Electron.js:246
 msgid "Choose an SVG file"
 msgstr ""
 
-#: src/js/backend/Electron.js:139
+#: src/js/backend/Electron.js:190 src/js/backend/Electron.js:248
+msgid "SVG and LibreOffice Draw files"
+msgstr ""
+
+#: src/js/backend/Electron.js:191 src/js/backend/Electron.js:249
 msgid "SVG files"
 msgstr ""
 
-#: src/js/backend/Electron.js:200
+#: src/js/backend/Electron.js:192 src/js/backend/Electron.js:250
+msgid "LibreOffice Draw files"
+msgstr ""
+
+#: src/js/backend/Electron.js:264
+msgid "Do you want to save the presentation before opening another file?"
+msgstr ""
+
+#: src/js/backend/Electron.js:265
+msgid "Cancel"
+msgstr ""
+
+#: src/js/backend/Electron.js:281
+msgid "Could not save the presentation. The other file was not opened."
+msgstr ""
+
+#: src/js/backend/Electron.js:295
+msgid "Could not open another file."
+msgstr ""
+
+#: src/js/backend/Electron.js:372
 msgid "This file will not be reloaded on change: %s."
 msgstr ""
 
-#: src/js/backend/Electron.js:216
+#: src/js/backend/Electron.js:385
+msgid "Converting %s with LibreOffice..."
+msgstr ""
+
+#: src/js/backend/Electron.js:398
+msgid "Could not convert %s: %s"
+msgstr ""
+
+#: src/js/backend/Electron.js:410
 msgid "Could not read file %s."
 msgstr ""
 
@@ -105,6 +137,94 @@ msgstr ""
 
 #: src/js/backend/GoogleDrive.js:25
 msgid "Open an SVG file from Google Drive"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:116
+msgid ""
+"LibreOffice was not found. Install LibreOffice or set the environment "
+"variable SOZI_SOFFICE."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:144
+msgid "The LibreOffice export did not finish in time."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:145
+msgid "The LibreOffice export failed: %s"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:149
+msgid "LibreOffice did not create an SVG file."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:152
+msgid "The SVG export is too large."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:176
+msgid "%s is not valid XML."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:190
+msgid "%s is missing. Is this a LibreOffice Draw document?"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:194 src/js/backend/OdgImport.js:198
+msgid "%s is too large."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:256
+msgid "The drawing has %d pages. Only drawings with one page are supported."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:354
+msgid ""
+"Group \"%s\" has a different number of shapes in the drawing and in the SVG "
+"export: the names of its shapes are not used."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:354
+msgid "without name"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:377
+msgid "Name \"%s\" is not a valid id and was not used."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:382
+msgid "Name \"%s\" is used %d times and was not used."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:392
+msgid "Name \"%s\" is already used as id and was not used."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:435
+msgid "The export is not an SVG document."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:440
+msgid "The SVG export contains %d pages instead of one."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:447
+msgid "The drawing contains %d objects, the SVG export %d."
+msgstr ""
+
+#: src/js/backend/OdgImport.js:521
+msgid "Master page"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:524
+msgid "Groups"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:537
+msgid "Empty layers (omitted): %s"
+msgstr ""
+
+#: src/js/backend/OdgImport.js:555
+msgid "The drawing is too large."
 msgstr ""
 
 #: src/js/view/Properties.js:94
@@ -119,7 +239,7 @@ msgstr ""
 msgid "Create a new frame"
 msgstr ""
 
-#: src/js/view/Properties.js:97 src/js/view/Properties.js:133 src/js/view/Toolbar.js:139
+#: src/js/view/Properties.js:97 src/js/view/Properties.js:133 src/js/view/Toolbar.js:144
 msgid "Save the presentation"
 msgstr ""
 
@@ -135,7 +255,7 @@ msgstr ""
 msgid "Focus the frame title"
 msgstr ""
 
-#: src/js/view/Properties.js:101 src/js/view/Properties.js:139 src/js/view/Toolbar.js:144
+#: src/js/view/Properties.js:101 src/js/view/Properties.js:139 src/js/view/Toolbar.js:149
 msgid "Reload the SVG document"
 msgstr ""
 
@@ -513,7 +633,7 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: src/js/view/Properties.js:438 src/js/view/Toolbar.js:149
+#: src/js/view/Properties.js:438 src/js/view/Toolbar.js:154
 msgid "Export the presentation"
 msgstr ""
 
@@ -725,11 +845,15 @@ msgstr ""
 msgid "Enable full-screen mode"
 msgstr ""
 
-#: src/js/view/Toolbar.js:156
-msgid "Preferences"
+#: src/js/view/Toolbar.js:139
+msgid "Open another SVG file"
 msgstr ""
 
 #: src/js/view/Toolbar.js:161
+msgid "Preferences"
+msgstr ""
+
+#: src/js/view/Toolbar.js:166
 msgid "Information"
 msgstr ""
 

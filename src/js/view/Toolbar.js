@@ -136,6 +136,11 @@ export class Toolbar extends VirtualDOMView {
             ]),
             h("span.group.btn-group", [
                 h("button", {
+                    title: _("Open another SVG file"),
+                    disabled: controller.storage && controller.storage.backend && controller.storage.backend.canOpenAnotherFile ? undefined : "disabled",
+                    onclick() { controller.openAnotherFile(); }
+                }, h("i.fa.fa-folder-open")),
+                h("button", {
                     title: _("Save the presentation"),
                     disabled: controller.storage && controller.storage.htmlNeedsSaving ? undefined : "disabled",
                     onclick() { controller.save(); }
