@@ -5,8 +5,8 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 from optparse import OptionParser
-from defusedxml.lxml import parse as parse_xml
-import subprocess, shutil, sys, os, re, shlex
+from lxml import etree
+import subprocess, shutil, sys, os, re
 
 if __name__ == '__main__':
     option_parser = OptionParser()
@@ -32,18 +32,18 @@ if __name__ == '__main__':
         output_file_name = os.path.basename(input_file_name)
         output_file_name = os.path.splitext(output_file_name)[0] + "-texts2paths.svg"
 
-    if not re.match(r'^[A-Za-z0-9_./:-]+$', output_file_name):
-        raise ValueError("Invalid or unsafe output file name: {!r}".format(output_file_name))
-
     shutil.copy(input_file_name, output_file_name)
 
-    # Get text elements from the original document (defusedxml disables entity resolution / DTDs)
+    # Get text elements from the original document
     input_file = open(input_file_name)
-    tree = parse_xml(input_file)
+    tree = etree.parse(input_file)
     texts = tree.getroot().xpath("//*[local-name() = $name]", name="text")
     input_file.close()
 
-    # Use Inkscape to convert each text element to a path
+    # Use Inkscape to convert each text element to a path.
+    # Element ids are attacker-controlled (untrusted SVG input) and are
+    # concatenated into Inkscape's --actions= list, which uses ';' as an
+    # action delimiter, so ids must be restricted to exclude it.
     command = ["inkscape", "--batch-process"]
     actions = ["FileVacuum"]
     for t in texts:
@@ -52,6 +52,6 @@ if __name__ == '__main__':
             raise ValueError("Invalid or unsafe element id: {!r}".format(text_id))
         actions += ["EditDeselect", "select-by-id:" + text_id, "ObjectToPath"]
     actions += ["FileSave"]
-    command += ["--actions=" + ";".join(actions), shlex.quote(output_file_name)]
+    command += ["--actions=" + ";".join(actions), output_file_name]
 
-    subprocess.call(command, shell=False)  # nosec B603 - shell disabled, args validated/quoted above
+    subprocess.run(command, check=True)
