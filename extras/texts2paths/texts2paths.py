@@ -6,7 +6,7 @@
 
 from optparse import OptionParser
 from lxml import etree
-import subprocess, shutil, sys, os
+import subprocess, shutil, sys, os, re
 
 if __name__ == '__main__':
     option_parser = OptionParser()
@@ -40,12 +40,18 @@ if __name__ == '__main__':
     texts = tree.getroot().xpath("//*[local-name() = $name]", name="text")
     input_file.close()
 
-    # Use Inkscape to convert each text element to a path
+    # Use Inkscape to convert each text element to a path.
+    # Element ids are attacker-controlled (untrusted SVG input) and are
+    # concatenated into Inkscape's --actions= list, which uses ';' as an
+    # action delimiter, so ids must be restricted to exclude it.
     command = ["inkscape", "--batch-process"]
     actions = ["FileVacuum"]
     for t in texts:
-        actions += ["EditDeselect", "select-by-id:" + t.get("id"), "ObjectToPath"]
+        text_id = t.get("id")
+        if not text_id or not re.match(r'^[A-Za-z0-9_.:-]+$', text_id):
+            raise ValueError("Invalid or unsafe element id: {!r}".format(text_id))
+        actions += ["EditDeselect", "select-by-id:" + text_id, "ObjectToPath"]
     actions += ["FileSave"]
     command += ["--actions=" + ";".join(actions), output_file_name]
 
-    subprocess.call(command)
+    subprocess.run(command, check=True)
