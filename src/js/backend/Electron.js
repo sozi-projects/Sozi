@@ -12,6 +12,7 @@ import Jed from "jed";
 import screenfull from "screenfull";
 import * as remote from "@electron/remote";
 import settings from "electron-app-settings";
+import {isOdgFile, convertOdg} from "./OdgImport";
 
 /** Type for Electron browser windows.
  *
@@ -32,6 +33,24 @@ const browserWindow = remote.getCurrentWindow();
  * @type {string}
  */
 const cwd = process.env.PWD;
+
+/** The key used to pass the name of the next SVG file across an editor reload.
+ *
+ * @type {string}
+ */
+const PENDING_FILE_KEY = "sozi-pending-svg-file";
+
+/** Escape a string for insertion into an HTML notification.
+ *
+ * File names can contain characters such as `<` and `&` on some platforms.
+ *
+ * @param {string} str - A string to escape.
+ * @returns {string} - The escaped string.
+ */
+function escapeHTML(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
 
 /** A Sozi editor backend based on Electron.
  *
@@ -56,7 +75,27 @@ export class Electron extends AbstractBackend {
         // Save files when closing the window
         let closing = false;
 
+        /** Set to `true` when the editor reloads to open another SVG document.
+         *
+         * @default
+         * @type {boolean}
+         */
+        this.reloading = false;
+
+        /** Set to `true` while a request to open another SVG document is in progress.
+         *
+         * @default
+         * @type {boolean}
+         */
+        this.openingAnotherFile = false;
+
         window.addEventListener("beforeunload", async evt => {
+            // When opening another file, the presentation has already been saved
+            // and the window must reload instead of closing.
+            if (this.reloading) {
+                return;
+            }
+
             // Workaround for a bug in Electron where the window closes after a few
             // seconds even when calling dialog.showMessageBox() synchronously.
             if (closing) {
@@ -92,18 +131,29 @@ export class Electron extends AbstractBackend {
          */
         this.watchers = {};
 
-        // If a file name was provided on the command line,
+        // If another file was chosen before the editor was reloaded, load it.
+        // Else, if a file name was provided on the command line,
         // check that the file exists and load it.
         // Open a file chooser if no file name was provided or
         // the file does not exist.
-        if (remote.process.argv.length > 1) {
+        const pendingFile = this.takePendingFile();
+        if (pendingFile) {
+            if (fs.existsSync(pendingFile) && fs.statSync(pendingFile).isFile()) {
+                this.controller.storage.setSVGFile(pendingFile, this);
+            }
+            else {
+                this.controller.error(Jed.sprintf(_("File not found: %s."), escapeHTML(pendingFile)));
+                setTimeout(() => this.openFileChooser(), 100);
+            }
+        }
+        else if (remote.process.argv.length > 1) {
             const arg = remote.process.argv[remote.process.argv.length - 1];
             const fileName = path.resolve(cwd, arg);
             if (fs.existsSync(fileName) && fs.statSync(fileName).isFile()) {
                 this.controller.storage.setSVGFile(fileName, this);
             }
             else {
-                this.controller.error(Jed.sprintf(_("File not found: %s."), fileName));
+                this.controller.error(Jed.sprintf(_("File not found: %s."), escapeHTML(fileName)));
                 // Force the error notification to appear before the file chooser.
                 setTimeout(() => this.openFileChooser(), 100);
             }
@@ -136,13 +186,117 @@ export class Electron extends AbstractBackend {
 
         const files = remote.dialog.showOpenDialogSync({
             title: _("Choose an SVG file"),
-            filters: [{name: _("SVG files"), extensions: ["svg"]}],
+            filters: [
+                {name: _("SVG and LibreOffice Draw files"), extensions: ["svg", "odg"]},
+                {name: _("SVG files"), extensions: ["svg"]},
+                {name: _("LibreOffice Draw files"), extensions: ["odg"]}
+            ],
             properties: ["openFile"]
         });
         this.controller.hideNotification();
         if (files) {
             this.controller.storage.setSVGFile(files[0], this);
         }
+    }
+
+    /** Read and forget the name of the file chosen before the last editor reload.
+     *
+     * @returns {?string} - A file name, or `null` if no file was chosen.
+     */
+    takePendingFile() {
+        try {
+            const fileName = sessionStorage.getItem(PENDING_FILE_KEY);
+            sessionStorage.removeItem(PENDING_FILE_KEY);
+            return fileName;
+        }
+        catch (err) { // eslint-disable-line no-unused-vars
+            return null;
+        }
+    }
+
+    /** @inheritdoc */
+    get canOpenAnotherFile() {
+        return true;
+    }
+
+    /** @inheritdoc */
+    async openAnotherFile() {
+        // Ignore the request while a previous one is still in progress.
+        if (this.openingAnotherFile) {
+            return;
+        }
+
+        this.openingAnotherFile = true;
+        try {
+            await this.chooseAndOpenAnotherFile();
+        }
+        finally {
+            this.openingAnotherFile = false;
+        }
+    }
+
+    /** Let the user choose another SVG document, save the current presentation and reload the editor.
+     *
+     * If the current presentation cannot be saved, the editor is not reloaded.
+     */
+    async chooseAndOpenAnotherFile() {
+        const _ = this.controller.gettext;
+
+        const files = remote.dialog.showOpenDialogSync(browserWindow, {
+            title: _("Choose an SVG file"),
+            filters: [
+                {name: _("SVG and LibreOffice Draw files"), extensions: ["svg", "odg"]},
+                {name: _("SVG files"), extensions: ["svg"]},
+                {name: _("LibreOffice Draw files"), extensions: ["odg"]}
+            ],
+            properties: ["openFile"]
+        });
+        if (!files) {
+            return;
+        }
+
+        // Save the current presentation, or ask the user if autosave is disabled.
+        if (this.hasOutdatedFiles) {
+            let save = true;
+            if (this.controller.getPreference("saveMode") !== "onblur") {
+                const res = await remote.dialog.showMessageBox(browserWindow, {
+                    type: "question",
+                    message: _("Do you want to save the presentation before opening another file?"),
+                    buttons: [_("Yes"), _("No"), _("Cancel")],
+                    defaultId: 0,
+                    cancelId: 2
+                });
+                if (res.response === 2) {
+                    return;
+                }
+                save = res.response === 0;
+            }
+
+            if (save) {
+                // Keep the current presentation open if it could not be saved.
+                try {
+                    await this.saveOutdatedFiles();
+                }
+                catch (err) { // eslint-disable-line no-unused-vars
+                    this.controller.error(_("Could not save the presentation. The other file was not opened."));
+                    return;
+                }
+            }
+        }
+
+        this.saveConfiguration();
+        this.controller.preferences.save();
+
+        // Reload the editor with a clean state and load the chosen file on startup.
+        try {
+            sessionStorage.setItem(PENDING_FILE_KEY, files[0]);
+        }
+        catch (err) { // eslint-disable-line no-unused-vars
+            this.controller.error(_("Could not open another file."));
+            return;
+        }
+        this.reloading = true;
+        window.location.reload();
     }
 
     /** @inheritdoc */
@@ -172,38 +326,78 @@ export class Electron extends AbstractBackend {
 
     /** @inheritdoc */
     load(fileDescriptor) {
+        if (isOdgFile(fileDescriptor)) {
+            return this.loadOdg(fileDescriptor);
+        }
         return new Promise((resolve, reject) => {
             fs.readFile(fileDescriptor, { encoding: "utf8" }, (err, data) => {
                 if (err) {
                     reject(err);
                 }
                 else {
-                    // Watch for changes in the loaded file.
-                    // This includes a debouncing mechanism to ensure the file is in a stable
-                    // state when the storage is notified.
-                    if (!(fileDescriptor in this.watchers)) {
-                        try {
-                            const watcher = this.watchers[fileDescriptor] = fs.watch(fileDescriptor);
-                            let timer;
-                            watcher.on("change", () => {
-                                if (timer) {
-                                    clearTimeout(timer);
-                                }
-                                timer = setTimeout(() => {
-                                    timer = 0;
-                                    this.controller.onFileChange(fileDescriptor);
-                                }, 100);
-                            });
-                        }
-                        catch (err) {
-                            const _ = this.controller.gettext;
-                            this.controller.error(Jed.sprintf(_("This file will not be reloaded on change: %s."), fileDescriptor));
-                        }
-                    }
+                    this.watch(fileDescriptor, 100);
                     resolve(data);
                 }
             });
         });
+    }
+
+    /** Watch for changes in a loaded file.
+     *
+     * This includes a debouncing mechanism to ensure the file is in a stable
+     * state when the storage is notified.
+     *
+     * @param {string} fileDescriptor - The name of the file to watch.
+     * @param {number} delay - The debouncing delay, in milliseconds.
+     */
+    watch(fileDescriptor, delay) {
+        if (fileDescriptor in this.watchers) {
+            return;
+        }
+        try {
+            const watcher = this.watchers[fileDescriptor] = fs.watch(fileDescriptor);
+            let timer;
+            watcher.on("change", () => {
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                timer = setTimeout(() => {
+                    timer = 0;
+                    this.controller.onFileChange(fileDescriptor);
+                }, delay);
+            });
+        }
+        catch (err) {
+            const _ = this.controller.gettext;
+            this.controller.error(Jed.sprintf(_("This file will not be reloaded on change: %s."), escapeHTML(fileDescriptor)));
+        }
+    }
+
+    /** Load a LibreOffice Draw document as an SVG document with layers.
+     *
+     * The drawing is converted with LibreOffice each time it is loaded.
+     *
+     * @param {string} fileDescriptor - The name of the .odg file.
+     * @returns {Promise<string>} - A promise that resolves to the SVG source.
+     */
+    async loadOdg(fileDescriptor) {
+        const _ = this.controller.gettext;
+        this.controller.info(Jed.sprintf(_("Converting %s with LibreOffice..."), escapeHTML(path.basename(fileDescriptor))), true);
+        try {
+            const {svg, messages} = await convertOdg(fileDescriptor, _);
+            this.controller.hideNotification();
+            if (messages.length) {
+                this.controller.info(messages.map(escapeHTML).join("<br>"), true);
+            }
+            // LibreOffice can write the file in several steps: wait longer before reloading.
+            this.watch(fileDescriptor, 1000);
+            return svg;
+        }
+        catch (err) {
+            const msg = err && err.message ? err.message : String(err);
+            this.controller.error(Jed.sprintf(_("Could not convert %s: %s"), escapeHTML(path.basename(fileDescriptor)), escapeHTML(msg)));
+            throw err;
+        }
     }
 
     /** @inheritdoc */
