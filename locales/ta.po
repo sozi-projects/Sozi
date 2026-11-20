@@ -1,0 +1,759 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2024-11-10 09:18:+0000\n"
+"PO-Revision-Date: 2025-04-20 16:57+0000\n"
+"Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/sozi/translations/"
+"ta/>\n"
+"Language: ta\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.1-dev\n"
+
+#: src/js/Controller.js:234
+msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
+msgstr "<i class=\"fa fa-exclamation-triangle\"></i> பிழை"
+
+#: src/js/Controller.js:235
+msgid "<i class=\"fa fa-info-circle\"></i> Information"
+msgstr "<i class=\"fa fa-info-circle\"></i> செய்தி"
+
+#: src/js/Controller.js:359
+msgid "Document was changed. Reloading."
+msgstr "ஆவணம் மாற்றப்பட்டது. மீண்டும் ஏற்றுதல்."
+
+#: src/js/Controller.js:374
+msgid "Document was changed."
+msgstr "ஆவணம் மாற்றப்பட்டது."
+
+#: src/js/Controller.js:1770
+msgid "Presentation was exported to PDF."
+msgstr "விளக்கக்காட்சி PDF க்கு ஏற்றுமதி செய்யப்பட்டது."
+
+#: src/js/Controller.js:1773
+msgid "Failed to write PDF file."
+msgstr "PDF கோப்பை எழுதுவதில் தோல்வி."
+
+#: src/js/Controller.js:1786
+msgid "Presentation was exported to PPTX."
+msgstr "விளக்கக்காட்சி PPTX க்கு ஏற்றுமதி செய்யப்பட்டது."
+
+#: src/js/Controller.js:1789
+msgid "Failed to write PPTX file."
+msgstr "PPTX கோப்பை எழுதுவதில் தோல்வி."
+
+#: src/js/Controller.js:1802
+msgid "Presentation was exported to video."
+msgstr "விளக்கக்காட்சி வீடியோவுக்கு ஏற்றுமதி செய்யப்பட்டது."
+
+#: src/js/Controller.js:1805
+msgid "Failed to write video file."
+msgstr "வீடியோ கோப்பை எழுதுவதில் தோல்வி."
+
+#: src/js/Storage.js:203
+msgid "Document is not valid SVG."
+msgstr "ஆவணம் செல்லுபடியாகும் எச்.வி.சி அல்ல."
+
+#: src/js/Storage.js:261
+msgid "Document was imported from Sozi 13 or earlier."
+msgstr ""
+"சோசி 13 அல்லது அதற்கு முந்தையவர்களிடமிருந்து ஆவணம் இறக்குமதி செய்யப்பட்டது."
+
+#: src/js/Storage.js:354
+msgid "Saved %s."
+msgstr "சேமிக்கப்பட்டது %s."
+
+#: src/js/backend/Electron.js:50
+msgid "Open an SVG file from your computer"
+msgstr "உங்கள் கணினியிலிருந்து ஒரு எச்.வி.சி கோப்பைத் திறக்கவும்"
+
+#: src/js/backend/Electron.js:75
+msgid "Do you want to save the presentation before closing?"
+msgstr "மூடுவதற்கு முன் விளக்கக்காட்சியை சேமிக்க விரும்புகிறீர்களா?"
+
+#: src/js/backend/Electron.js:76
+msgid "Yes"
+msgstr "ஆம்"
+
+#: src/js/backend/Electron.js:76
+msgid "No"
+msgstr "இல்லை"
+
+#: src/js/backend/Electron.js:106
+msgid "File not found: %s."
+msgstr "கோப்பு கிடைக்கவில்லை: %s."
+
+#: src/js/backend/Electron.js:138
+msgid "Choose an SVG file"
+msgstr "எச்.வி.சி கோப்பைத் தேர்வுசெய்க"
+
+#: src/js/backend/Electron.js:139
+msgid "SVG files"
+msgstr "எச்.வி.சி கோப்புகள்"
+
+#: src/js/backend/Electron.js:200
+msgid "This file will not be reloaded on change: %s."
+msgstr "இந்த கோப்பு மாற்றத்தில் மீண்டும் ஏற்றப்படாது: %s."
+
+#: src/js/backend/Electron.js:216
+msgid "Could not read file %s."
+msgstr "%s கோப்பு படிக்க முடியவில்லை."
+
+#: src/js/backend/FileReader.js:23
+msgid ""
+"Open an SVG file from your computer (<i class=\"fa "
+"fa-exclamation-triangle\"></i> read-only)"
+msgstr ""
+"உங்கள் கணினியிலிருந்து ஒரு எச்.வி.சி கோப்பைத் திறக்கவும் (<i class="
+"\"fa fa-exclamation-triangle\"></i> படிக்க மட்டும்)"
+
+#: src/js/backend/GoogleDrive.js:25
+msgid "Open an SVG file from Google Drive"
+msgstr "Google இயக்ககத்திலிருந்து ஒரு SVG கோப்பைத் திறக்கவும்"
+
+#: src/js/view/Properties.js:94
+msgid "Autoselect outline element"
+msgstr "தன்னியக்க அவுட்லைன் உறுப்பு"
+
+#: src/js/view/Properties.js:95 src/js/view/Properties.js:238
+msgid "Reset layer geometry"
+msgstr "அடுக்கு வடிவவியலை மீட்டமைக்கவும்"
+
+#: src/js/view/Properties.js:96 src/js/view/Timeline.js:193
+msgid "Create a new frame"
+msgstr "புதிய சட்டகத்தை உருவாக்கவும்"
+
+#: src/js/view/Properties.js:97 src/js/view/Properties.js:133 src/js/view/Toolbar.js:139
+msgid "Save the presentation"
+msgstr "விளக்கக்காட்சியைச் சேமிக்கவும்"
+
+#: src/js/view/Properties.js:98 src/js/view/Toolbar.js:123
+msgid "Redo"
+msgstr "மீண்டும்செய்"
+
+#: src/js/view/Properties.js:99 src/js/view/Toolbar.js:118
+msgid "Undo"
+msgstr "செயல்தவிர்"
+
+#: src/js/view/Properties.js:100
+msgid "Focus the frame title"
+msgstr "பிரேம் தலைப்பில் கவனம் செலுத்துங்கள்"
+
+#: src/js/view/Properties.js:101 src/js/view/Properties.js:139 src/js/view/Toolbar.js:144
+msgid "Reload the SVG document"
+msgstr "எச்.வி.சி ஆவணத்தை மீண்டும் ஏற்றவும்"
+
+#: src/js/view/Properties.js:102
+msgid "Toggle full-screen mode"
+msgstr "முழு திரை பயன்முறையை மாற்றவும்"
+
+#: src/js/view/Properties.js:103
+msgid "Toggle the developer tools"
+msgstr "உருவாக்குபவர் கருவிகளை மாற்றவும்"
+
+#: src/js/view/Properties.js:116 src/js/view/Properties.js:421
+msgid "Back to presentation properties"
+msgstr "விளக்கக்காட்சி பண்புகளுக்குத் திரும்பு"
+
+#: src/js/view/Properties.js:120
+msgid "User interface"
+msgstr "பயனர் இடைமுகம்"
+
+#: src/js/view/Properties.js:122
+msgid "Language"
+msgstr "மொழி"
+
+#: src/js/view/Properties.js:125
+msgid "Font size"
+msgstr "எழுத்துரு அளவு"
+
+#: src/js/view/Properties.js:129
+msgid "Enable notifications on save and reload"
+msgstr "சேமித்து மீண்டும் ஏற்றுவது குறித்த அறிவிப்புகளை இயக்கவும்"
+
+#: src/js/view/Properties.js:130
+msgid "Enable notifications"
+msgstr "அறிவிப்புகளை இயக்கவும்"
+
+#: src/js/view/Properties.js:135
+msgid "When Sozi loses the focus"
+msgstr "சோசி கவனத்தை இழக்கும்போது"
+
+#: src/js/view/Properties.js:136 src/js/view/Properties.js:143
+msgid "Manually"
+msgstr "கைமுறையாக"
+
+#: src/js/view/Properties.js:141
+msgid "Automatically"
+msgstr "தானாக"
+
+#: src/js/view/Properties.js:142
+msgid "When Sozi gets the focus"
+msgstr "சோசி கவனம் செலுத்தும்போது"
+
+#: src/js/view/Properties.js:146
+msgid "Behavior"
+msgstr "நடத்தை"
+
+#: src/js/view/Properties.js:149
+msgid "Preview transition animations"
+msgstr "முன்னோட்ட மாற்றம் அனிமேசன்கள்"
+
+#: src/js/view/Properties.js:150
+msgid "Enable animated transitions"
+msgstr "அனிமேசன் மாற்றங்களை இயக்கவும்"
+
+#: src/js/view/Properties.js:153
+msgid "Keyboard shortcuts"
+msgstr "விசைப்பலகை குறுக்குவழிகள்"
+
+#: src/js/view/Properties.js:157
+msgid "Rendering"
+msgstr "வழங்குதல்"
+
+#: src/js/view/Properties.js:160
+msgid "Hardware acceleration"
+msgstr "வன்பொருள் முடுக்கம்"
+
+#: src/js/view/Properties.js:161
+msgid "Enable hardware acceleration (effective after restarting the application)"
+msgstr ""
+"வன்பொருள் முடுக்கம் இயக்கவும் (பயன்பாட்டை மறுதொடக்கம் செய்த பிறகு பயனுள்ளதாக இருக்கும்)"
+
+#: src/js/view/Properties.js:165
+msgid "Color correct rendering"
+msgstr "வண்ண சரியான வழங்குதல்"
+
+#: src/js/view/Properties.js:166
+msgid "Enable color correct rendering (effective after restarting the application)"
+msgstr ""
+"வண்ண சரியான வழங்குதல் (பயன்பாட்டை மறுதொடக்கம் செய்த பிறகு பயனுள்ளதாக இருக்கும்)"
+
+#: src/js/view/Properties.js:181
+msgid "Basic formatting supported:"
+msgstr "அடிப்படை வடிவமைப்பு ஆதரவு:"
+
+#: src/js/view/Properties.js:183
+msgid "Ctrl+B: Bold"
+msgstr "Ctrl+B: தைரியமான"
+
+#: src/js/view/Properties.js:184
+msgid "Ctrl+I: Italic"
+msgstr "Ctrl+I: சாய்வு"
+
+#: src/js/view/Properties.js:185
+msgid "Ctrl+U: Underline"
+msgstr "Ctrl+U: அடிக்கோடிட்டுக் காட்டுங்கள்"
+
+#: src/js/view/Properties.js:186
+msgid "Ctrl+0: Paragraph"
+msgstr "Ctrl+0: பத்தி"
+
+#: src/js/view/Properties.js:187
+msgid "Ctrl+1: Big heading"
+msgstr "Ctrl+1: பெரிய தலைப்பு"
+
+#: src/js/view/Properties.js:188
+msgid "Ctrl+2: Medium heading"
+msgstr "Ctrl+2: நடுத்தர தலைப்பு"
+
+#: src/js/view/Properties.js:189
+msgid "Ctrl+3: Small heading"
+msgstr "Ctrl+3: சிறிய தலைப்பு"
+
+#: src/js/view/Properties.js:190
+msgid "Ctrl+L: List"
+msgstr "Ctrl+L: பட்டியல்"
+
+#: src/js/view/Properties.js:191
+msgid "Ctrl+N: Numbered list"
+msgstr "Ctrl+N: எண்ணற்ற பட்டியல்"
+
+#: src/js/view/Properties.js:192
+msgid "Ctrl+>: Indent list entry"
+msgstr "Ctrl+>: உள்தள்ளல் பட்டியல் நுழைவு"
+
+#: src/js/view/Properties.js:193
+msgid "Ctrl+<: Outdent list entry"
+msgstr "Ctrl+<: வெளிப்புற பட்டியல் நுழைவு"
+
+#: src/js/view/Properties.js:200
+msgid "Select a layer to copy"
+msgstr "நகலெடுக்க ஒரு அடுக்கைத் தேர்ந்தெடுக்கவும்"
+
+#: src/js/view/Properties.js:203 src/js/view/Timeline.js:240 src/js/view/Timeline.js:268
+msgid "Default"
+msgstr "இயல்புநிலை"
+
+#: src/js/view/Properties.js:210
+msgid "Frame"
+msgstr "சட்டகம்"
+
+#: src/js/view/Properties.js:213
+msgid "Show in frame list"
+msgstr "பிரேம் பட்டியலில் காண்பி"
+
+#: src/js/view/Properties.js:214
+msgid "Show frame number"
+msgstr "பிரேம் எண்ணைக் காட்டு"
+
+#: src/js/view/Properties.js:217
+msgid "Title"
+msgstr "தலைப்பு"
+
+#: src/js/view/Properties.js:220
+msgid "Title level in frame list"
+msgstr "பிரேம் பட்டியலில் தலைப்பு நிலை"
+
+#: src/js/view/Properties.js:223
+msgid "Id"
+msgstr "ஐடி"
+
+#: src/js/view/Properties.js:227
+msgid "Timeout (seconds)"
+msgstr "நேரம் முடிந்தது (விநாடிகள்)"
+
+#: src/js/view/Properties.js:228
+msgid "Timeout enable"
+msgstr "நேரம் முடிந்தது"
+
+#: src/js/view/Properties.js:232
+msgid "Layer"
+msgstr "அடுக்கு"
+
+#: src/js/view/Properties.js:235
+msgid "Link to previous frame"
+msgstr "முந்தைய சட்டத்திற்கான இணைப்பு"
+
+#: src/js/view/Properties.js:236
+msgid "Clip"
+msgstr "கிளிப்"
+
+#: src/js/view/Properties.js:243
+msgid "Copy layer"
+msgstr "நகல் அடுக்கு"
+
+#: src/js/view/Properties.js:250
+msgid "Outline element Id"
+msgstr "அவுட்லைன் உறுப்பு ஐடி"
+
+#: src/js/view/Properties.js:253
+msgid "Autoselect element"
+msgstr "தன்னியக்க உறுப்பு"
+
+#: src/js/view/Properties.js:256
+msgid "Hide element"
+msgstr "உறுப்பு மறை"
+
+#: src/js/view/Properties.js:258
+msgid "Fit to element"
+msgstr "உறுப்புக்கு பொருந்தும்"
+
+#: src/js/view/Properties.js:265
+msgid "Layer opacity"
+msgstr "அடுக்கு ஒளிபுகாநிலை"
+
+#: src/js/view/Properties.js:268
+msgid "Transition"
+msgstr "மாற்றம்"
+
+#: src/js/view/Properties.js:268
+msgid "Configure the animation when moving to the selected frames."
+msgstr "தேர்ந்தெடுக்கப்பட்ட பிரேம்களுக்கு செல்லும்போது அனிமேசனை உள்ளமைக்கவும்."
+
+#: src/js/view/Properties.js:270
+msgid "Duration (seconds)"
+msgstr "காலம் (விநாடிகள்)"
+
+#: src/js/view/Properties.js:273
+msgid "Timing function"
+msgstr "நேர செயல்பாடு"
+
+#: src/js/view/Properties.js:275
+msgid "Linear"
+msgstr "நேரியல்"
+
+#: src/js/view/Properties.js:276
+msgid "Ease"
+msgstr "எளிதானது"
+
+#: src/js/view/Properties.js:277
+msgid "Ease in"
+msgstr "எளிதாக உள்"
+
+#: src/js/view/Properties.js:278
+msgid "Ease out"
+msgstr "எளிதாக்குங்கள்"
+
+#: src/js/view/Properties.js:279
+msgid "Ease in-out"
+msgstr "எளிதாக உள்-வெளி"
+
+#: src/js/view/Properties.js:280
+msgid "Step start"
+msgstr "படி தொடக்க"
+
+#: src/js/view/Properties.js:281
+msgid "Step end"
+msgstr "படி முடிவு"
+
+#: src/js/view/Properties.js:282
+msgid "Step middle"
+msgstr "படி நடுத்தர"
+
+#: src/js/view/Properties.js:285
+msgid "Relative zoom (%)"
+msgstr "உறவினர் சூம் (%)"
+
+#: src/js/view/Properties.js:289
+msgid "Path Id"
+msgstr "பாதை ஐடி"
+
+#: src/js/view/Properties.js:290
+msgid "Hide path"
+msgstr "பாதையை மறைக்கவும்"
+
+#: src/js/view/Properties.js:294
+msgid "Notes"
+msgstr "குறிப்புகள்"
+
+#: src/js/view/Properties.js:294
+msgid "Edit presenter notes. Click here to show the list of formatting shortcuts."
+msgstr ""
+"தொகுப்பாளர் குறிப்புகளைத் திருத்தவும். வடிவமைத்தல் குறுக்குவழிகளின் பட்டியலைக் காட்ட இங்கே "
+"சொடுக்கு செய்க."
+
+#: src/js/view/Properties.js:298
+msgid "Custom stylesheets and scripts"
+msgstr "தனிப்பயன் நடைதாள் மற்றும் ச்கிரிப்ட்கள்"
+
+#: src/js/view/Properties.js:311
+msgid "CSS or JS file names"
+msgstr "சிஎச்எச் அல்லது JS கோப்பு பெயர்கள்"
+
+#: src/js/view/Properties.js:311
+msgid "Add CSS or JS files"
+msgstr "சிஎச்எச் அல்லது JS கோப்புகளைச் சேர்க்கவும்"
+
+#: src/js/view/Properties.js:314
+msgid "Add a file"
+msgstr "ஒரு கோப்பைச் சேர்க்கவும்"
+
+#: src/js/view/Properties.js:327
+msgid "Remove this file"
+msgstr "இந்த கோப்பை அகற்று"
+
+#: src/js/view/Properties.js:335
+msgid "Player"
+msgstr "வீரர்"
+
+#: src/js/view/Properties.js:338
+msgid "Support the browser's \"Back\" button to move to the previous frame"
+msgstr "முந்தைய சட்டத்திற்கு செல்ல உலாவியின் \"பின்\" பொத்தானை ஆதரிக்கவும்"
+
+#: src/js/view/Properties.js:339
+msgid ""
+"Moving from one frame to another will change the content of the location "
+"bar automatically."
+msgstr ""
+"ஒரு சட்டத்திலிருந்து இன்னொரு சட்டத்திற்கு நகர்த்துவது இருப்பிடப் பட்டியின் உள்ளடக்கத்தை தானா"
+"க மாற்றும்."
+
+#: src/js/view/Properties.js:343
+msgid "Allow to control the presentation"
+msgstr "விளக்கக்காட்சியைக் கட்டுப்படுத்த அனுமதிக்கவும்"
+
+#: src/js/view/Properties.js:345 src/js/view/Properties.js:352 src/js/view/Properties.js:358 src/js/view/Properties.js:366
+msgid "using the mouse"
+msgstr "சுட்டியைப் பயன்படுத்துதல்"
+
+#: src/js/view/Properties.js:346 src/js/view/Properties.js:359 src/js/view/Properties.js:367
+msgid "using the keyboard"
+msgstr "விசைப்பலகை பயன்படுத்துதல்"
+
+#: src/js/view/Properties.js:351
+msgid "Allow to move the camera"
+msgstr "கேமராவை நகர்த்த அனுமதிக்கவும்"
+
+#: src/js/view/Properties.js:356
+msgid "Allow to rotate the camera"
+msgstr "கேமராவை சுழற்ற அனுமதிக்கவும்"
+
+#: src/js/view/Properties.js:364
+msgid "Allow to zoom"
+msgstr "பெரிதாக்க அனுமதிக்கவும்"
+
+#: src/js/view/Properties.js:381
+msgid "Examples of frame lists to include/exclude in export"
+msgstr "ஏற்றுமதியில் சேர்க்க/விலக்க பிரேம் பட்டியல்களின் எடுத்துக்காட்டுகள்"
+
+#: src/js/view/Properties.js:383
+msgid "Select frames 2, 5, and 12: \"2, 5, 12\""
+msgstr "பிரேம்கள் 2, 5, மற்றும் 12: \"2, 5, 12\" என்பதைத் தேர்ந்தெடுக்கவும்"
+
+#: src/js/view/Properties.js:384
+msgid "Select frames 5 to 8: \"5:8\""
+msgstr "5 முதல் 8 வரை பிரேம்களைத் தேர்ந்தெடுக்கவும்: \"5: 8\""
+
+#: src/js/view/Properties.js:385
+msgid "Select frames 5, 8, 11, 14, and 17: \"5:8:17\""
+msgstr "5, 8, 11, 14, மற்றும் 17: \"5: 8: 17\" ஐத் தேர்ந்தெடுக்கவும்"
+
+#: src/js/view/Properties.js:386
+msgid "Select frames 2, 5, and 10 to 15: \"2, 5, 10:15\""
+msgstr ""
+"2, 5, மற்றும் 10 முதல் 15 வரை பிரேம்களைத் தேர்ந்தெடுக்கவும்: \"2, 5, 10:15\""
+
+#: src/js/view/Properties.js:425 src/js/view/Properties.js:441
+msgid "Export"
+msgstr "ஏற்றுமதி"
+
+#: src/js/view/Properties.js:427
+msgid "Document type"
+msgstr "ஆவண வகை"
+
+#: src/js/view/Properties.js:429
+msgid "Portable Document Format (PDF)"
+msgstr "சிறிய ஆவண வடிவமைப்பு (PDF)"
+
+#: src/js/view/Properties.js:430
+msgid "Microsoft PowerPoint (PPTX)"
+msgstr "நுண்மென் பவர்பாயிண்ட் (பிபிடிஎக்ச்)"
+
+#: src/js/view/Properties.js:431
+msgid "Video"
+msgstr "ஒளிதோற்றம்"
+
+#: src/js/view/Properties.js:438 src/js/view/Toolbar.js:149
+msgid "Export the presentation"
+msgstr "விளக்கக்காட்சியை ஏற்றுமதி செய்யுங்கள்"
+
+#: src/js/view/Properties.js:455
+msgid "Page size"
+msgstr "பக்க அளவு"
+
+#: src/js/view/Properties.js:457 src/js/view/Properties.js:496
+msgid "A3"
+msgstr "இருங்கள்"
+
+#: src/js/view/Properties.js:458 src/js/view/Properties.js:497
+msgid "A4"
+msgstr "ரிவெட்"
+
+#: src/js/view/Properties.js:459
+msgid "A5"
+msgstr "சகோதரர்"
+
+#: src/js/view/Properties.js:460
+msgid "Legal"
+msgstr "சட்டரீதியான"
+
+#: src/js/view/Properties.js:461 src/js/view/Properties.js:505
+msgid "Letter"
+msgstr "கடிதம்"
+
+#: src/js/view/Properties.js:462 src/js/view/Properties.js:504
+msgid "Tabloid"
+msgstr "செய்திக்கும்"
+
+#: src/js/view/Properties.js:465
+msgid "Page orientation"
+msgstr "பக்க நோக்குநிலை"
+
+#: src/js/view/Properties.js:467
+msgid "Landscape"
+msgstr "நிலப்பரப்பு"
+
+#: src/js/view/Properties.js:468
+msgid "Portrait"
+msgstr "உருவப்படம்"
+
+#: src/js/view/Properties.js:472 src/js/view/Properties.js:513
+msgid "List of frames to include"
+msgstr "சேர்க்க வேண்டிய பிரேம்களின் பட்டியல்"
+
+#: src/js/view/Properties.js:473 src/js/view/Properties.js:479 src/js/view/Properties.js:514 src/js/view/Properties.js:520
+msgid "Click here to see the syntax for this field"
+msgstr "இந்த புலத்திற்கான தொடரியல் பார்க்க இங்கே சொடுக்கு செய்க"
+
+#: src/js/view/Properties.js:478 src/js/view/Properties.js:519
+msgid "List of frames to exclude"
+msgstr "விலக்குவதற்கு பிரேம்களின் பட்டியல்"
+
+#: src/js/view/Properties.js:493
+msgid "Slide size"
+msgstr "ச்லைடு அளவு"
+
+#: src/js/view/Properties.js:495
+msgid "35 mm"
+msgstr "35 மிமீ"
+
+#: src/js/view/Properties.js:498
+msgid "B4 (ISO)"
+msgstr "கிமு (ஐஎச்ஓ)"
+
+#: src/js/view/Properties.js:499
+msgid "B4 (JIS)"
+msgstr "பி 4 (சே.ஐ.எச்)"
+
+#: src/js/view/Properties.js:500
+msgid "B5 (ISO)"
+msgstr "பி 5 (பெரியது)"
+
+#: src/js/view/Properties.js:501
+msgid "B5 (JIS)"
+msgstr "பி 5 (அவர்)"
+
+#: src/js/view/Properties.js:502
+msgid "Banner"
+msgstr "பேனர்"
+
+#: src/js/view/Properties.js:503
+msgid "Hagaki Card"
+msgstr "ஆகாக்கி அட்டை"
+
+#: src/js/view/Properties.js:506
+msgid "Overhead"
+msgstr "மேற்செலவு"
+
+#: src/js/view/Properties.js:507
+msgid "Screen 16:10"
+msgstr "திரை 16:10"
+
+#: src/js/view/Properties.js:508
+msgid "Screen 16:9"
+msgstr "திரை 16: 9"
+
+#: src/js/view/Properties.js:509
+msgid "Screen 4:3"
+msgstr "திரை 4: 3"
+
+#: src/js/view/Properties.js:535
+msgid "Format"
+msgstr "வடிவம்"
+
+#: src/js/view/Properties.js:537
+msgid "MPEG-4 (.mp4)"
+msgstr "ஊபஅகு-4 (.mp4)"
+
+#: src/js/view/Properties.js:538
+msgid "Ogg Vorbis (.ogv)"
+msgstr "மற்றும் வோர்பிச் (.ogv)"
+
+#: src/js/view/Properties.js:539
+msgid "WebM (.webm)"
+msgstr "வெப்எம் (.webm)"
+
+#: src/js/view/Properties.js:540
+msgid "Windows Media Video (.wmv)"
+msgstr "சாளரங்கள் மீடியா வீடியோ (.wmv)"
+
+#: src/js/view/Properties.js:541
+msgid "Image sequence (.png)"
+msgstr "பட வரிசை (.png)"
+
+#: src/js/view/Properties.js:544
+msgid "Width (pixels)"
+msgstr "அகலம் (பிக்சல்கள்)"
+
+#: src/js/view/Properties.js:547
+msgid "Height (pixels)"
+msgstr "உயரம் (பிக்சல்கள்)"
+
+#: src/js/view/Properties.js:550
+msgid "Frame rate (frames/sec)"
+msgstr "பிரேம் வீதம் (பிரேம்கள்/நொடி)"
+
+#: src/js/view/Properties.js:553
+msgid "Bit rate (kbits/sec)"
+msgstr "பிட் வீதம் (kbits/நொடி)"
+
+#: src/js/view/Timeline.js:186
+msgid "Delete the selected frames"
+msgstr "தேர்ந்தெடுக்கப்பட்ட பிரேம்களை நீக்கவும்"
+
+#: src/js/view/Timeline.js:212
+msgid "Add layer"
+msgstr "அடுக்கு சேர்க்கவும்"
+
+#: src/js/view/Timeline.js:213
+msgid "Add all layers"
+msgstr "அனைத்து அடுக்குகளையும் சேர்க்கவும்"
+
+#: src/js/view/Timeline.js:228 src/js/view/Timeline.js:248
+msgid "This layer is visible. Click to hide it."
+msgstr "இந்த அடுக்கு தெரியும். அதை மறைக்க சொடுக்கு செய்க."
+
+#: src/js/view/Timeline.js:232 src/js/view/Timeline.js:252
+msgid "This layer is hidden. Click to show it."
+msgstr "இந்த அடுக்கு மறைக்கப்பட்டுள்ளது. அதைக் காட்ட சொடுக்கு செய்க."
+
+#: src/js/view/Timeline.js:256
+msgid "Remove this layer"
+msgstr "இந்த அடுக்கை அகற்று"
+
+#: src/js/view/Timeline.js:281
+msgid "Insert selection before frame %d"
+msgstr "பிரேம் %d க்கு முன் தேர்வைச் செருகவும்"
+
+#: src/js/view/Timeline.js:288
+msgid "Insert selection after frame %d"
+msgstr "பிரேம் %d க்குப் பிறகு தேர்வைச் செருகவும்"
+
+#: src/js/view/Timeline.js:323 src/js/view/Timeline.js:335
+msgid ""
+"You should add graphic elements in the current area to help Sozi keep track "
+"of this layer's position."
+msgstr ""
+"இந்த அடுக்கின் நிலையை சோசி கண்காணிக்க உதவ தற்போதைய பகுதியில் நீங்கள் கிராஃபிக் கூறுகளைச் "
+"சேர்க்க வேண்டும்."
+
+#: src/js/view/Toolbar.js:63
+msgid "Aspect ratio: "
+msgstr "அம்ச விகிதம்: "
+
+#: src/js/view/Toolbar.js:96
+msgid "Move the selected layers (hold Alt to zoom, Shift to rotate)"
+msgstr ""
+"தேர்ந்தெடுக்கப்பட்ட அடுக்குகளை நகர்த்தவும் (பெரிதாக்க அல்ட் பிடி, சுழற்ற மாற்றவும்)"
+
+#: src/js/view/Toolbar.js:101
+msgid ""
+"Zoom in/out on the selected layers (you can also hold the Alt key in Move "
+"mode)"
+msgstr ""
+"தேர்ந்தெடுக்கப்பட்ட அடுக்குகளில் பெரிதாக்க/வெளியே (நீங்கள் ஆல்ட் விசையை நகரும் பயன்முறையில் "
+"வைத்திருக்கலாம்)"
+
+#: src/js/view/Toolbar.js:106
+msgid "Rotate the selected layers (you can also hold the Shift key in Move mode)"
+msgstr ""
+"தேர்ந்தெடுக்கப்பட்ட அடுக்குகளை சுழற்றுங்கள் (நீங்கள் சிப்ட் விசையை நகரும் பயன்முறையில் "
+"வைத்திருக்கலாம்)"
+
+#: src/js/view/Toolbar.js:111
+msgid "Edit the clipping area"
+msgstr "கிளிப்பிங் பகுதியைத் திருத்தவும்"
+
+#: src/js/view/Toolbar.js:130
+msgid "Disable full-screen mode"
+msgstr "முழு திரை பயன்முறையை முடக்கு"
+
+#: src/js/view/Toolbar.js:130
+msgid "Enable full-screen mode"
+msgstr "முழு திரை பயன்முறையை இயக்கவும்"
+
+#: src/js/view/Toolbar.js:156
+msgid "Preferences"
+msgstr "விருப்பத்தேர்வுகள்"
+
+#: src/js/view/Toolbar.js:161
+msgid "Information"
+msgstr "தகவல்"
+
+#: src/js/view/languages.js:17
+msgid "System language"
+msgstr "கணினி மொழி"

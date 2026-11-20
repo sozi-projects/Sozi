@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sozi\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2024-11-10 08:22:+0000\n"
-"PO-Revision-Date: 2023-02-19 12:36+0000\n"
+"PO-Revision-Date: 2024-11-11 23:00+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/sozi/"
 "translations/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 5.8.2\n"
 "X-Launchpad-Export-Date: 2018-04-06 19:08+0000\n"
 
 #: src/js/Controller.js:234
@@ -283,13 +283,12 @@ msgid "Ctrl+N: Numbered list"
 msgstr "Ctrl + N: lista numerada"
 
 #: src/js/view/Properties.js:192
-#, fuzzy
 msgid "Ctrl+>: Indent list entry"
-msgstr "Ctrl + U: subrayado"
+msgstr "Ctrl+>: Sangria entrada de lista"
 
 #: src/js/view/Properties.js:193
 msgid "Ctrl+<: Outdent list entry"
-msgstr ""
+msgstr "Ctrl+<: anular sangría de la entrada de la lista"
 
 #: src/js/view/Properties.js:200
 msgid "Select a layer to copy"

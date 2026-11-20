@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2024-04-14 10:17:+0000\n"
-"PO-Revision-Date: 2022-03-25 21:38+0100\n"
-"Last-Translator: Kahina Messaoudi <messaoudikahina02@gmail.com>\n"
+"PO-Revision-Date: 2026-01-30 11:01+0000\n"
+"Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/sozi/translations/"
 "kab/>\n"
 "Language: kab\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: src/js/Controller.js:234
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
@@ -132,11 +132,11 @@ msgstr "Sekles tanekda"
 
 #: src/js/view/Properties.js:98 src/js/view/Toolbar.js:123
 msgid "Redo"
-msgstr "Redo"
+msgstr "Err-d"
 
 #: src/js/view/Properties.js:99 src/js/view/Toolbar.js:118
 msgid "Undo"
-msgstr "Sefsex"
+msgstr "Semmet"
 
 #: src/js/view/Properties.js:100
 msgid "Focus the frame title"
@@ -166,11 +166,11 @@ msgstr "Agrudem n useqdac"
 
 #: src/js/view/Properties.js:122
 msgid "Language"
-msgstr ""
+msgstr "Tutlayt"
 
 #: src/js/view/Properties.js:125
 msgid "Font size"
-msgstr ""
+msgstr "Tiddi n tsefsit"
 
 #: src/js/view/Properties.js:129
 msgid "Enable notifications on save and reload"
@@ -422,7 +422,7 @@ msgstr ""
 
 #: src/js/view/Properties.js:294
 msgid "Notes"
-msgstr ""
+msgstr "Tizmilin"
 
 #: src/js/view/Properties.js:294
 msgid ""
@@ -451,7 +451,7 @@ msgstr ""
 
 #: src/js/view/Properties.js:335
 msgid "Player"
-msgstr ""
+msgstr "Ameɣri"
 
 #: src/js/view/Properties.js:338
 msgid "Support the browser's \"Back\" button to move to the previous frame"
@@ -511,7 +511,7 @@ msgstr ""
 
 #: src/js/view/Properties.js:425 src/js/view/Properties.js:441
 msgid "Export"
-msgstr ""
+msgstr "Sifeḍ"
 
 #: src/js/view/Properties.js:427
 msgid "Document type"
@@ -527,7 +527,7 @@ msgstr ""
 
 #: src/js/view/Properties.js:431
 msgid "Video"
-msgstr ""
+msgstr "Tavidyut"
 
 #: src/js/view/Properties.js:438 src/js/view/Toolbar.js:149
 #, fuzzy
@@ -540,15 +540,15 @@ msgstr ""
 
 #: src/js/view/Properties.js:457 src/js/view/Properties.js:496
 msgid "A3"
-msgstr ""
+msgstr "A3"
 
 #: src/js/view/Properties.js:458 src/js/view/Properties.js:497
 msgid "A4"
-msgstr ""
+msgstr "A4"
 
 #: src/js/view/Properties.js:459
 msgid "A5"
-msgstr ""
+msgstr "A5"
 
 #: src/js/view/Properties.js:460
 msgid "Legal"
@@ -638,7 +638,7 @@ msgstr ""
 
 #: src/js/view/Properties.js:535
 msgid "Format"
-msgstr ""
+msgstr "Amasal"
 
 #: src/js/view/Properties.js:537
 msgid "MPEG-4 (.mp4)"
@@ -747,11 +747,11 @@ msgstr ""
 
 #: src/js/view/Toolbar.js:156
 msgid "Preferences"
-msgstr ""
+msgstr "Imenyafen"
 
 #: src/js/view/Toolbar.js:161
 msgid "Information"
-msgstr ""
+msgstr "Talɣut"
 
 #: src/js/view/languages.js:17
 msgid "System language"

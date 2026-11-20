@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2024-11-10 08:22:+0000\n"
-"PO-Revision-Date: 2022-03-25 21:37+0100\n"
+"PO-Revision-Date: 2024-11-11 23:00+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/sozi/translations/"
 "he/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #: src/js/Controller.js:234
 msgid "<i class=\"fa fa-exclamation-triangle\"></i> Error"
@@ -275,13 +275,12 @@ msgid "Ctrl+N: Numbered list"
 msgstr "Ctrl+N: רשימה ממוספרת"
 
 #: src/js/view/Properties.js:192
-#, fuzzy
 msgid "Ctrl+>: Indent list entry"
-msgstr "Ctrl+U: קו תחתי"
+msgstr "Ctrl+>: הגדלת כניסת רשומה ברשימה"
 
 #: src/js/view/Properties.js:193
 msgid "Ctrl+<: Outdent list entry"
-msgstr ""
+msgstr "Ctrl+>: הקטנת כניסת רשומה ברשימה"
 
 #: src/js/view/Properties.js:200
 msgid "Select a layer to copy"
