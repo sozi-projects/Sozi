@@ -54,6 +54,23 @@ export class AbstractBackend {
         // Not implemented
     }
 
+    /** Does this backend support opening another SVG document while a presentation is open?
+     *
+     * @readonly
+     * @type {boolean}
+     */
+    get canOpenAnotherFile() {
+        return false;
+    }
+
+    /** Open another SVG document, replacing the current presentation in the editor.
+     *
+     * The current presentation is saved before the new document is loaded.
+     */
+    openAnotherFile() {
+        // Not implemented
+    }
+
     /** Return the base name of a file.
      *
      * @param {any} fileDescriptor - A file descriptor (backend-dependent).

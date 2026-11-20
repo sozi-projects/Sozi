@@ -398,6 +398,17 @@ export class Controller extends EventEmitter {
         this.storage.reload();
     }
 
+    /** Open another SVG document.
+     *
+     * This method delegates the operation to the current backend, if it supports it.
+     */
+    openAnotherFile() {
+        const backend = this.storage && this.storage.backend;
+        if (backend && backend.canOpenAnotherFile) {
+            backend.openAnotherFile();
+        }
+    }
+
     /** Add a custom stylesheet or script to the current presentation.
      *
      * This action supports undo and redo.
