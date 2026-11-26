@@ -275,9 +275,11 @@ export class Storage {
         const svgName           = this.backend.getName(this.svgFileDescriptor);
         const htmlFileName      = replaceFileExtWith(svgName, ".sozi.html");
         const presenterFileName = replaceFileExtWith(svgName, "-presenter.sozi.html");
+        const narratedFileName  = replaceFileExtWith(svgName, ".narrated.sozi.html");
         // TODO Save only if SVG is more recent than HTML.
         this.createHTMLFile(htmlFileName, location);
         this.createPresenterHTMLFile(presenterFileName, location, htmlFileName);
+        this.createNarratedHTMLFile(narratedFileName, location, htmlFileName);
     }
 
     /** Create the presentation HTML file if it does not exist.
@@ -312,10 +314,30 @@ export class Storage {
     async createPresenterHTMLFile(name, location, htmlFileName) {
         try {
             const fileDescriptor = await this.backend.find(name, location);
-            this.backend.save(fileDescriptor, this.exportPresenterHTML(htmlFileName));
+            await this.backend.save(fileDescriptor, this.exportPresenterHTML(htmlFileName));
         }
         catch (err) {
-            this.backend.create(name, location, "text/html", this.exportPresenterHTML(htmlFileName));
+            await this.backend.create(name, location, "text/html", this.exportPresenterHTML(htmlFileName));
+        }
+    }
+
+    /** Create the narrated HTML file if it does not exist.
+     *
+     * @param {string} name - The name of the HTML file to create.
+     * @param {any} location - The location of the file (backend-dependent).
+     * @param {string} htmlFileName - The name of the presentation HTML file.
+     */
+    async createNarratedHTMLFile(name, location, htmlFileName) {
+        const t = this.presentation.narrativeType;
+        if (!t || t === "none") {
+            return;
+        }
+        try {
+            const fileDescriptor = await this.backend.find(name, location);
+            await this.backend.save(fileDescriptor, this.exportNarratedHTML(htmlFileName));
+        }
+        catch (err) {
+            await this.backend.create(name, location, "text/html", this.exportNarratedHTML(htmlFileName));
         }
     }
 
@@ -398,6 +420,20 @@ export class Storage {
      */
     exportPresenterHTML(htmlFileName) {
         return nunjucks.render("presenter.html", {
+            pres: this.presentation,
+            soziHtml: htmlFileName
+        });
+    }
+
+    /** Generate the content of the narrated HTML file.
+     *
+     * The result is derived from the `narrated.html` template.
+     *
+     * @param {string} htmlFileName - The name of the presentation HTML file to play.
+     * @returns {string} - An HTML document content, as text.
+     */
+    exportNarratedHTML(htmlFileName) {
+        return nunjucks.render("narrated.html", {
             pres: this.presentation,
             soziHtml: htmlFileName
         });

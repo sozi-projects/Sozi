@@ -77,6 +77,7 @@ export class Properties extends VirtualDOMView {
     render() {
         switch (this.mode) {
             case "preferences": return this.renderPreferences();
+            case "narration":   return this.renderNarrationProperties();
             case "export":      return this.renderExportTool();
             default:            return this.renderPresentationProperties();
         }
@@ -368,6 +369,86 @@ export class Properties extends VirtualDOMView {
                 ])
             ])
         ]);
+    }
+
+    /** Render the properties view for a presentation-wide narrative.
+     *
+     * Three properties will be configured:
+     *   1. narrativeType: the audio tag type; this field is a hint to
+     *      guide user in selection of an appropriate format, although
+     *      the browser can automatically detect the correct type by
+     *      itself. If this value is set to "none", narration will be
+     *      disabled. If it is set to flac or ogg, the corresponding
+     *      mimetype will be set for the <audio> type:
+     *        audio/flac or audio/ogg
+     *   2. narrativeFile: the name (or relative path) of the narrative
+     *      file which must be available in side of the HTML file.
+     *   3. narrativeTimeToSlide: the time-to-slide data value
+     *      Check the {narrativeTimeToSlideHelp} for details.
+     *
+     * @returns {VNode} - A virtual DOM tree.
+     */
+    renderNarrationProperties() {
+        const controller = this.controller;
+        const _ = controller.gettext;
+        const disabled = controller.presentation.narrativeType === "none";
+        const toDefaultMode = () => this.toggleMode("default");
+
+        return h("div.properties", [
+            h("div.back", {
+                title: _("Back to presentation properties"),
+                onClick() { toDefaultMode(); }
+            }, h("i.fa.fa-arrow-left", )),
+
+            h("h1", _("Narration")),
+
+            h("label", {for: "field-narrativeType"}, _("Narrative file type")),
+            this.renderSelectField("narrativeType", controller.getPresentationProperty, controller.setPresentationProperty, {
+                none: _("None (disable narration)"),
+                flac: _("Free Lossless Audio Codec (FLAC)"),
+                ogg:  _("Ogg (a container for Vorbis or Opus)"),
+            }),
+
+            h("label.side-by-side", {for: "field-narrativeFile"}, [
+                _("Narrative file name"),
+                this.renderHelp(_("Name or path of the narrative file"),
+                  () => controller.info(
+                    _("Name or path of the narrative file (relative to the HTML file location)"),
+                    true
+                  )
+                )
+            ]),
+            this.renderTextField("narrativeFile", disabled, controller.getPresentationProperty, controller.setPresentationProperty, false),
+
+            h("label.side-by-side", {for: "field-narrativeTimeToSlide"}, [
+                _("Time to frame number mapping"),
+                this.renderHelp(_("Click here to see the syntax for this field"), () => controller.info(this.narrativeTimeToSlideHelp, true))
+            ]),
+            this.renderTextField("narrativeTimeToSlide", disabled, controller.getPresentationProperty, controller.setPresentationProperty, false)
+        ]);
+    }
+
+    /** The HTML of the help message for time-to-slide data.
+     *
+     * @readonly
+     * @type {string}
+     */
+    get narrativeTimeToSlideHelp() {
+        const _ = this.controller.gettext;
+        return [
+            _("Format of the narrative time-to-slide data:"),
+            "<ul><li>" + [
+                _("A string of comma-separated descriptors"),
+                _("Each descriptor specifies the time instant (in seconds) which should trigger a slide transition"),
+                _("Descriptor can specify the target slide number (counting from one); for this purpose the time and slide index must be separated by a colon"),
+            ].join("<li>") + "</ul>",
+            _("Examples:"),
+            "<ul><li>" + [
+                _("\"0\": Switch to the first slide when narrative is at zero second without any other slide transition"),
+                _("\"0,5,7\": Switch to the 1st, 2nd, and 3rd slides at 0, 5, and 7 seconds of narrative"),
+                _("\"0,5,7:1,10:4\": At time 7s, return to the 1st slide and at 10s resume to the 4th slide"),
+            ].join("<li>") + "</ul>",
+        ].join("<br>");
     }
 
     /** The HTML of the help message for include/exclude lists in export.

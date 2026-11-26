@@ -144,6 +144,11 @@ export class Toolbar extends VirtualDOMView {
                     title: _("Reload the SVG document"),
                     onclick() { controller.reload(); }
                 }, h("i.fa.fa-refresh")),
+                h("button", {
+                    title: _("Narrate the presentation"),
+                    className: properties.mode === "narration" ? "active" : undefined,
+                    onclick() { properties.toggleMode("narration"); }
+                }, h("i.fa.fa-microphone")), // alternatives are file-audio-o and volume-up
                 // TODO disable the Export button if the feature is not available
                 h("button", {
                     title: _("Export the presentation"),
